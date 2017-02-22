@@ -87,10 +87,10 @@ Then install the python packages from pypi in the virtualenv::
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
  $ python setup.py develop
  $ wger create_settings \
-        --settings-path /home/wger/wger/settings.py \
-        --database-path /home/wger/wger/database.sqlite
+        --settings-path /path/to/current/folder/settings.py \
+        --database-path /path/to/current/folder/database.sqlite
  $ wger bootstrap \
-        --settings-path /home/wger/wger/settings.py \
+        --settings-path /path/to/current/folder/settings.py \
         --no-start-server
  $ python manage.py runserver
 
@@ -116,16 +116,13 @@ Stable version (from PyPI)
 
 2) Start the application. This will download the required JS and CSS libraries
    and create a SQlite database and populate it with data on the first run.
-
+   Then, log in as: **admin**, password **admin**
 ::
 
  $ wger bootstrap
 
 
-3) Log in as: **admin**, password **admin**
-
-
-4) To start the installation again, just call wger start::
+3) To start the installation again, just call wger start::
 
   $ wger start
 

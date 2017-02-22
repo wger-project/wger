@@ -29,8 +29,8 @@ Javascript
 * Functions called from Django templates need to start with ``wger``
 
 
-Check Coding Style
-==================
+Automatic coding style checks
+-----------------------------
 
 The coding style is automatically check by Travis-CI. To manually check your
 files you can run the following commands:

@@ -1,13 +1,15 @@
-.. _install:
+.. _getting_started:
 
-Installation
-============
+Getting started
+===============
 
-This file gives a broad description of the necessary steps to install wger
-on a debian based linux distribution. If your setup differs (e.g. in Red Hat
-based distros the package names are slightly different) you will need to
-change the steps but in the end, this is a regular django application so it
-should run wherever django runs.
+You can get a local instance of wger installed in a couple of minutes.
+
+It is recommended to install a development instance or start a docker
+image if you just want to try the application on your server or PC. All
+the following steps are performed on a debian based linux distribution.
+If your setup differs (e.g. in Red Hat based distros the package names are
+slightly different) you will need to change the steps as appropriate.
 
 The application is compatible and regularly tested with
 
@@ -23,10 +25,6 @@ contact page.
     downloading external JS dependencies mentioned in the :ref:`tips` section
     in the development page apply to all the installation options.
 
-
-
-Base
-----
 
 These are the necessary packages for both development and production
 (node and npm are only used to download JS and CSS libraries)::
@@ -48,20 +46,10 @@ On fedora 23::
     the appropriate packages (e.g. python-dev instead of python3-dev, etc.)!
 
 
-Development
------------
+.. toctree::
+   :maxdepth: 2
 
-For development consult the :doc:`development` section.
+   development
+   docker
+   production
 
-
-Production
-----------
-
-For a more production-like setting with apache and mod-wsgi consult the
-:doc:`production` chapter.
-
-
-Docker
-------
-
-There are also docker images available, see the :doc:`docker` chapter.
