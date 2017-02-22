@@ -78,19 +78,6 @@ class Muscle(models.Model):
         '''
         return False
 
-    def delete(self, *args, **kwargs):
-        '''
-        Clear template cache and delete a muscle
-        '''
-        exercises = Exercise.objects.filter(Q(muscles=self) | Q(muscles_secondary=self)).all()
-
-        for exercise in exercises:
-            for language in Language.objects.all():
-                delete_template_fragment_cache('exercise-detail-muscles',
-                                               exercise.id, language.id)
-
-        super(Muscle, self).delete(*args, **kwargs)
-
 
 @python_2_unicode_compatible
 class Equipment(models.Model):

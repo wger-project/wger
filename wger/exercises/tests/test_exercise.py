@@ -475,7 +475,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         else:
             self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
 
-    def test_muscles_cache_update(self):
+    def test_muscles_cache_update_on_delete(self):
         '''
         Test that the template cache for the overview is correctly reset when
         performing certain operations
@@ -486,6 +486,20 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
 
         muscle = Muscle.objects.get(pk=2)
         muscle.delete()
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+
+    def test_muscles_cache_update_on_update(self):
+        '''
+        Test that the template cache for the overview is correctly reset when
+        performing certain operations
+        '''
+        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
+        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+
+        muscle = Muscle.objects.get(pk=2)
+        muscle.name = 'foo'
+        muscle.save()
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
 
