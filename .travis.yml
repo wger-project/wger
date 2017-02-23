@@ -22,10 +22,10 @@ python:
 # Manually define here the combinations environment variables to test
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
-  - TEST_MOBILE=True  DB=postgresql TRAVIS_NODE_VERSION="4"
-  - TEST_MOBILE=True  DB=sqlite     TRAVIS_NODE_VERSION="4"
-  - TEST_MOBILE=False DB=postgresql TRAVIS_NODE_VERSION="4"
-  - TEST_MOBILE=False DB=sqlite     TRAVIS_NODE_VERSION="4"
+  - TEST_MOBILE=True  DB=postgresql TRAVIS_NODE_VERSION="6"
+  - TEST_MOBILE=True  DB=sqlite     TRAVIS_NODE_VERSION="6"
+  - TEST_MOBILE=False DB=postgresql TRAVIS_NODE_VERSION="6"
+  - TEST_MOBILE=False DB=sqlite     TRAVIS_NODE_VERSION="6"
 
 # Install the application
 install:
