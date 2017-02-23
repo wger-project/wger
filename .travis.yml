@@ -33,7 +33,7 @@ install:
   # We update nvm using the script method instead of git, which is selected
   # automatically, as git won't work because the $HOME/.nvm is not a git
   # repository and the directory is not empty.
-  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | METHOD=script bash
+  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | METHOD=script bash
   - . $HOME/.nvm/nvm.sh
   - nvm install $TRAVIS_NODE_VERSION
   - nvm use $TRAVIS_NODE_VERSION
