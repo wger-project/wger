@@ -52,9 +52,9 @@ RUN chmod o+w -R ~/db/ \
     && . /home/wger/venv/bin/activate \
     && mkdir ~/static \
     && mkdir ~/media \
-    && chmod o+w ~/media \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && python manage.py download-exercise-images \
+    && chmod -R o+w ~/media \
     && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py \
     && python manage.py collectstatic --noinput
 
