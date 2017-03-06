@@ -225,6 +225,7 @@ LANGUAGES = (
             ('cs', 'Czech'),
             ('sv', 'Swedish'),
             ('no', 'Norwegian'),
+	    ('it', 'italian'),
 )
 
 # Default language code for this installation.
