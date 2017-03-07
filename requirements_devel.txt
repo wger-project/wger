@@ -9,3 +9,4 @@
 pep8
 django-debug-toolbar
 coverage
+transifex-client
