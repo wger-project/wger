@@ -1,0 +1,1 @@
+http://capside.com/labs/deploying-full-django-stack-with-docker-compose/
