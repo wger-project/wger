@@ -65,6 +65,9 @@ class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
     Form used when adding a user to a gym
     '''
 
+    birthdate = forms.DateField(required=False,
+                                help_text=_("yyyy/mm/dd"))
+
     class Meta:
         model = User
         widgets = {'role': BootstrapSelectMultiple()}
