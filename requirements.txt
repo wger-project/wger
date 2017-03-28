@@ -2,6 +2,7 @@
 # Requirements for wger for production
 #
 
+setuptools>=18.5
 bleach
 django-bootstrap-breadcrumbs
 django-bower
