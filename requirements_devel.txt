@@ -6,7 +6,8 @@
 -r requirements.txt
 
 # Development packages
-flake8-putty
-django-debug-toolbar
 coverage
+django-debug-toolbar
+flake8-putty
+tblib
 transifex-client
