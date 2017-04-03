@@ -68,7 +68,7 @@ class Command(BaseCommand):
             raise CommandError('Please enter a valid URL')
 
         #Adding 'status=2' at the end of the exercise_api url will filter the json data for only accepted exercises 
-        exercise_api = "{0}/api/v2/exercise/?limit=999;status=2"
+        exercise_api = "{0}/api/v2/exercise/?limit=999&status=2"
         image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
         thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
         
