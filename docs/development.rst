@@ -31,20 +31,11 @@ To install the Python requirements::
   $ pip install -r requirements_devel.txt
   $ python setup.py develop
 
-Install NodeJS and npm::
-Follow the instructions on the `NPM website <https://docs.npmjs
-.com/getting-started/installing-node>`_ and make sure to use Node LTS (4
-.x).
+Install application
+~~~~~~~~~~~~~~~~~~~
 
-Install the npm modules::
-
-  $ npm install
-
-
-Install site
-~~~~~~~~~~~~
-
-To install the server::
+To install the development server, init the databasse and create a settings
+file::
 
   $ wger create_settings \
            --settings-path /home/wger/wger/settings.py \
