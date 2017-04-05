@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.8 - IN DEVELOPMENT
+
+1.9 - IN DEVELOPMENT
 --------------------
+**2017-xx-xx**
+
+
+1.8
+---
 **2017-04-05**
 
 .. warning ::
