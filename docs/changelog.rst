@@ -30,6 +30,7 @@ Upgrade steps from 1.7:
 New languages:
 
 * Norwegian (many thanks to Kjetil Elde `@w00p`_ `#304`_)
+* French (many thanks to all translators)
 
 New features:
 
