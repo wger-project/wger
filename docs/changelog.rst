@@ -3,7 +3,7 @@ Changelog
 
 1.8 - IN DEVELOPMENT
 --------------------
-**2016-XX-XX**
+**2017-04-05**
 
 .. warning ::
    There have been some changes to the installation procedure. Calling 'invoke'
