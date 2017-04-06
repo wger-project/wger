@@ -17,14 +17,15 @@ python:
   - "2.7"
   - "3.4"
   - "3.5"
+  - "3.6"
 
 # Manually define here the combinations environment variables to test
 # https://github.com/travis-ci/travis-ci/issues/1519
 env:
-  - TEST_MOBILE=True  DB=postgresql TRAVIS_NODE_VERSION="4"
-  - TEST_MOBILE=True  DB=sqlite     TRAVIS_NODE_VERSION="4"
-  - TEST_MOBILE=False DB=postgresql TRAVIS_NODE_VERSION="4"
-  - TEST_MOBILE=False DB=sqlite     TRAVIS_NODE_VERSION="4"
+  - TEST_MOBILE=True  DB=postgresql TRAVIS_NODE_VERSION="6"
+  - TEST_MOBILE=True  DB=sqlite     TRAVIS_NODE_VERSION="6"
+  - TEST_MOBILE=False DB=postgresql TRAVIS_NODE_VERSION="6"
+  - TEST_MOBILE=False DB=sqlite     TRAVIS_NODE_VERSION="6"
 
 # Install the application
 install:
@@ -32,7 +33,7 @@ install:
   # We update nvm using the script method instead of git, which is selected
   # automatically, as git won't work because the $HOME/.nvm is not a git
   # repository and the directory is not empty.
-  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | METHOD=script bash
+  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | METHOD=script bash
   - . $HOME/.nvm/nvm.sh
   - nvm install $TRAVIS_NODE_VERSION
   - nvm use $TRAVIS_NODE_VERSION
@@ -40,8 +41,8 @@ install:
   # Install requirements
   - pip install -r requirements_devel.txt
   - python setup.py develop
-  - cd wger
   - npm install
+  - cd wger
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi
 
   # Setup application
