@@ -8,7 +8,7 @@ Changelog
 
 Other improvements and bugfixes: `#336`_,
 
-.. _#336: https://github.com/wger-project/wger/issues/25
+.. _#336: https://github.com/wger-project/wger/issues/336
 
 
 
