@@ -323,7 +323,7 @@ $(document).ready(function() {
                 <div class="col-xs-6">
                      <select name="repetition_unit" id="id-repetition-unit-{{step.current_step}}" class="form-control">
                          {% for unit in repetition_units %}
-                             <option value="{{ unit.pk }}" {% if unit.pk = step.rep_unit.pk %}selected="selected"{% endif %}>
+                             <option value="{{ unit.pk }}" {% if unit.pk == step.rep_unit.pk %}selected="selected"{% endif %}>
                                 {% trans unit.name %}
                              </option>
                          {% endfor %}
@@ -332,7 +332,7 @@ $(document).ready(function() {
                 <div class="col-xs-6">
                     <select name="weight_unit" id="id-weight-unit-{{step.current_step}}" class="form-control">
                          {% for unit in weight_units %}
-                             <option value="{{ unit.pk }}" {% if unit.pk = step.weight_unit.pk %}selected="selected"{% endif %}>
+                             <option value="{{ unit.pk }}" {% if unit.pk == step.weight_unit.pk %}selected="selected"{% endif %}>
                                 {% trans unit.name %}
                              </option>
                          {% endfor %}

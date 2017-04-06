@@ -168,6 +168,11 @@ TEMPLATES = [
     },
 ]
 
+# TODO: Temporary fix for django 1.10 and the django-mobile app. If issue #72
+#       is closed, this can be removed.
+#       https://github.com/gregmuellegger/django-mobile/issues/72
+TEMPLATE_LOADERS = TEMPLATES[0]['OPTIONS']['loaders']
+
 # Store the user messages in the session
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
