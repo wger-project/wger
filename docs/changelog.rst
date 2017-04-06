@@ -6,9 +6,10 @@ Changelog
 --------------------
 **2017-xx-xx**
 
-Other improvements and bugfixes: `#336`_,
+Other improvements and bugfixes: `#336`_, `#359`_,
 
 .. _#336: https://github.com/wger-project/wger/issues/336
+.. _#359: https://github.com/wger-project/wger/issues/359
 
 
 
