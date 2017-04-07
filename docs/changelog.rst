@@ -1,9 +1,20 @@
 Changelog
 =========
 
-1.8 - IN DEVELOPMENT
+
+1.9 - IN DEVELOPMENT
 --------------------
-**2016-XX-XX**
+**2017-xx-xx**
+
+Other improvements and bugfixes: `#336`_,
+
+.. _#336: https://github.com/wger-project/wger/issues/25
+
+
+
+1.8
+---
+**2017-04-05**
 
 .. warning ::
    There have been some changes to the installation procedure. Calling 'invoke'
@@ -30,6 +41,7 @@ Upgrade steps from 1.7:
 New languages:
 
 * Norwegian (many thanks to Kjetil Elde `@w00p`_ `#304`_)
+* French (many thanks to all translators)
 
 New features:
 

@@ -5,10 +5,10 @@
 bleach
 django-bootstrap-breadcrumbs
 django-bower
-django-formtools>=1.0,<1.1
+django-formtools>=2.0,<3.0
 django-recaptcha
 django-sortedm2m
-Django>=1.9,<1.10
+Django>=1.10,<1.11
 django_compressor
 django_mobile
 easy-thumbnails
@@ -18,13 +18,14 @@ pillow
 python-mimeparse
 reportlab>=3.3,<3.4
 requests
+setuptools>=18.5
 sphinx
 
 # REST API
 django-cors-headers
 django-filter
 django-tastypie>=0.13,<0.14
-djangorestframework>=3.2,<3.3
+djangorestframework>=3.4,<3.5
 
 # Python3 compatibility
 six
