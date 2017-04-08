@@ -270,7 +270,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         '''
         Return a more human-readable representation
         '''
-        return '%s %s' % (self.name)
+        return self.name
 
     #
     # Own methods
