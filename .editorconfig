@@ -15,14 +15,64 @@ trim_trailing_whitespace = true
 [*.py]
 max_line_length = 100
 
+#
+# PHP Styles
+#
+[*.php]
+indent_style = space
+indent_size = 4
+
+[*.twig]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+#
+# Javascript
+#
 [*.js]
 indent_size = 2
 
-[.eslintignore]
+[{.eslintrc,.eslintignore}]
+indent_style = space
 indent_size = 2
 
+#
+# Python
+#
+[*.py]
+indent_style = space
+indent_size = 4
+
+#
+# JSON File
+#
 [*.json]
 indent_size = 2
 
+#
+# YAML File
+#
 [*.yml]
 indent_size = 2
+
+#
+# Structured text
+#
+[*.md]
+trim_trailing_whitespace = false
+
+[*.rst]
+indent_style = space
+indent_size = 8
+
+[CHANGES.md]
+indent_style = space
+indent_size = 2
+
+#
+# Makefiles
+#
+[{Makefile, makefile, GNUmakefile}]
+indent_style = tab
+indent_size = 4
+

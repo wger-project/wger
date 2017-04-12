@@ -6,7 +6,7 @@
 -r requirements.txt
 
 # Development packages
-pep8
+flake8-putty
 django-debug-toolbar
 coverage
 transifex-client
