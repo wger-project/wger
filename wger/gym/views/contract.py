@@ -13,6 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 import logging
 
 from django.core.urlresolvers import reverse
@@ -30,7 +31,7 @@ from django.views.generic import (
 )
 
 from wger.utils.generic_views import WgerFormMixin
-from wger.gym.models import Contract, Gym
+from wger.gym.models import Contract
 
 logger = logging.getLogger(__name__)
 

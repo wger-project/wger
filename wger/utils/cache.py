@@ -115,4 +115,5 @@ class CacheKeyMapper(object):
         '''
         return self.WORKOUT_LOG_LIST.format(hash_value)
 
+
 cache_mapper = CacheKeyMapper()

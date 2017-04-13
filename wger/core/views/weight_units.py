@@ -17,7 +17,7 @@
 import logging
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.http import HttpResponseForbidden
@@ -33,7 +33,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin
 )
 
-from wger.core.models import License, WeightUnit
+from wger.core.models import WeightUnit
 
 logger = logging.getLogger(__name__)
 

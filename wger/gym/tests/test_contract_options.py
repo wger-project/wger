@@ -89,6 +89,7 @@ class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
                  'member4',
                  'member5')
 
+
 delete_testcase_add_methods(DeleteContractOptionTestCase)
 
 

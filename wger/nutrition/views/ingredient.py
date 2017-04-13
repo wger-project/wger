@@ -17,7 +17,6 @@ import logging
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.cache import cache
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin

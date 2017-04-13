@@ -22,7 +22,6 @@ from django.core.cache import cache
 
 from wger.core.models import Language
 from wger.manager.models import Workout, WorkoutLog
-from wger.exercises.models import Exercise
 from wger.utils.cache import (
     reset_workout_canonical_form,
     reset_workout_log,
