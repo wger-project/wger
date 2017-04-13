@@ -18,7 +18,6 @@ import requests
 import os
 
 from wger import get_version
-from optparse import make_option
 from requests.utils import default_user_agent
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand, CommandError

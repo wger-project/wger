@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from optparse import make_option
-
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 from django.core.cache import cache

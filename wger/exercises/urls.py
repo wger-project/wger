@@ -28,7 +28,6 @@ from wger.exercises.views import (
 )
 
 
-
 # sub patterns for muscles
 patterns_muscle = [
     url(r'^overview/$',
