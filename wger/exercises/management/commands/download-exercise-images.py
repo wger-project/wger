@@ -40,20 +40,19 @@ class Command(BaseCommand):
     Otherwise, the exercise is simply skipped
     '''
 
-    option_list = BaseCommand.option_list + (
-        make_option('--remote-url',
-                    action='store',
-                    dest='remote_url',
-                    default='https://wger.de',
-                    help='Remote URL to fetch the exercises from (default: https://wger.de)'),
-    )
-
     help = ('Download exercise images from wger.de and update the local database\n'
             '\n'
             'ATTENTION: The script will download the images from the server and add them\n'
             '           to your local exercises. The exercises are identified by\n'
             '           their UUID field, if you manually edited or changed it\n'
             '           the script will not be able to match them.')
+
+    def add_arguments(self, parser):
+        parser.add_argument('--remote-url',
+                            action='store',
+                            dest='remote_url',
+                            default='https://wger.de',
+                            help='Remote URL to fetch the exercises from (default: https://wger.de)')
 
     def handle(self, **options):
 

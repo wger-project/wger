@@ -34,28 +34,28 @@ class Command(BaseCommand):
     Clears caches (HTML, etc.)
     '''
 
-    option_list = BaseCommand.option_list + (
-        make_option('--clear-template',
-                    action='store_true',
-                    dest='clear_template',
-                    default=False,
-                    help='Clear only template caches'),
-
-        make_option('--clear-workout-cache',
-                    action='store_true',
-                    dest='clear_workout',
-                    default=False,
-                    help='Clear only the workout canonical view'),
-
-        make_option('--clear-all',
-                    action='store_true',
-                    dest='clear_all',
-                    default=False,
-                    help='Clear ALL cached entries'),
-    )
-
     help = 'Clears the application cache. You *must* pass an option selecting ' \
            'what exactly you want to clear. See available options.'
+
+    def add_arguments(self, parser):
+
+        parser.add_argument('--clear-template',
+                            action='store_true',
+                            dest='clear_template',
+                            default=False,
+                            help='Clear only template caches')
+
+        parser.add_argument('--clear-workout-cache',
+                            action='store_true',
+                            dest='clear_workout',
+                            default=False,
+                            help='Clear only the workout canonical view')
+
+        parser.add_argument('--clear-all',
+                            action='store_true',
+                            dest='clear_all',
+                            default=False,
+                            help='Clear ALL cached entries')
 
     def handle(self, **options):
         '''
