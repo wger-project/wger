@@ -23,7 +23,7 @@ Other improvements and bugfixes: `#336`_, `#359`_,
    accepts the same options). Also some of these commands have been renamed:
 
    * ``start_wger`` to ``wger``
-   * ``bootstrap_wger`` ``bootstrap``
+   * ``bootstrap_wger`` to ``bootstrap``
 
 Upgrade steps from 1.7:
 
