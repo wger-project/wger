@@ -6,6 +6,19 @@ Changelog
 --------------------
 **2017-xx-xx**
 
+Upgrade steps from 1.8:
+
+* Django update to 1.10: ``pip install -r requirements.txt``
+* Database upgrade: ``python manage.py migrate``
+
+New features:
+
+* ...
+
+Improvements:
+
+* Added password validation rules for more security
+
 Other improvements and bugfixes: `#336`_, `#359`_,
 
 .. _#336: https://github.com/wger-project/wger/issues/336
