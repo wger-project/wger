@@ -67,12 +67,12 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        #Adding 'status=2' at the end of the exercise_api url will filter the json data for only accepted exercises 
+         
         exercise_api = "{0}/api/v2/exercise/?limit=999&status=2"
         image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
         thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
         
-        #exercise_counter = 0  Uncomment this in order print in the console application the number of exercises being downloaded.
+        
 
         headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
 
@@ -90,10 +90,10 @@ class Command(BaseCommand):
 
             try:
                 exercise = Exercise.objects.get(uuid=exercise_uuid)
-                #exercise_counter += 1 Uncomment this in order print in the console application the number of exercises being downloaded.
+               
             except Exercise.DoesNotExist:
                 self.stdout.write('    Remote exercise not found in local DB, skipping...')
-                #exercise_counter += 1 Uncomment this in order print in the console application the number of exercises being downloaded.
+                
                 continue
 
             # Get all images
@@ -136,4 +136,4 @@ class Command(BaseCommand):
 
             else:
                 self.stdout.write('    No images for this exercise, nothing to do')
-                #self.stdout.write(str(exercise_counter)) Uncomment this in order print in the console application the number of exercises being downloaded.
+                
