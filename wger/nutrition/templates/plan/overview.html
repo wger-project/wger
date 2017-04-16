@@ -28,10 +28,11 @@
 
 
 
-{% block sidebar%}
-<p>
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
     <a href="{% url 'nutrition:plan:add' %}" class="btn btn-success btn-sm">
         {% trans "Add nutrition plan" %}
     </a>
-</p>
 {% endblock %}

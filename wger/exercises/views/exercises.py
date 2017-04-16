@@ -158,7 +158,7 @@ class ExercisesEditAddView(WgerFormMixin):
     model = Exercise
     sidebar = 'exercise/form.html'
     title = ugettext_lazy('Add exercise')
-    custom_js = 'init_tinymce();'
+    custom_js = 'wgerInitTinymce();'
     clean_html = ('description', )
 
     def get_form_class(self):
@@ -180,7 +180,7 @@ class ExercisesEditAddView(WgerFormMixin):
             class Meta:
                 model = Exercise
                 widgets = {'equipment': TranslatedSelectMultiple()}
-                fields = ['name',
+                fields = ['name_original',
                           'category',
                           'description',
                           'muscles',
@@ -293,7 +293,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
     model = Exercise
     fields = ('category',
               'description',
-              'name',
+              'name_original',
               'muscles',
               'muscles_secondary',
               'equipment')

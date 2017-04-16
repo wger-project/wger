@@ -1,5 +1,5 @@
-Docker
-======
+Docker images
+=============
 
 There are docker files available to quickly get a version of wger up and
 running. They are all located under ``extras/docker`` if you want to build

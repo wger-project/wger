@@ -12,6 +12,14 @@ FROM wger/base
 MAINTAINER Roland Geider <roland@geider.net>
 EXPOSE 80
 
+# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
+# when using the invoke/wger commands and bower
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+
 # Install dependencies
 RUN apt-get install -y apache2 libapache2-mod-wsgi-py3
 
@@ -29,10 +37,11 @@ RUN virtualenv --python python3 /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements.txt \
-    && invoke create_settings \
+    && python setup.py develop \
+    && wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \
-    && invoke bootstrap_wger \
+    && wger bootstrap \
         --settings-path /home/wger/src/settings.py \
         --no-start-server
 
@@ -43,8 +52,9 @@ RUN chmod o+w -R ~/db/ \
     && . /home/wger/venv/bin/activate \
     && mkdir ~/static \
     && mkdir ~/media \
-    && chmod o+w ~/media \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
+    && python manage.py download-exercise-images \
+    && chmod -R o+w ~/media \
     && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py \
     && python manage.py collectstatic --noinput
 

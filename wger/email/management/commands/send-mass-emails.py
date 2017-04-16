@@ -26,7 +26,7 @@ class Command(BaseCommand):
     Sends the prepared mass emails
     '''
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         '''
         Send some mails and remove them from the list
         '''

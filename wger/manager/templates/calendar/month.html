@@ -58,7 +58,11 @@ $(document).ready(function() {
             {% for exercise, logs in value.logs.items %}
                 <div class="col-sm-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="min-height: 4em;">{{ exercise }}</div>
+                    <div class="panel-heading" style="min-height: 4em;">
+                        <a href="{{ exercise.get_absolute_url }}">
+                            {{ exercise }}
+                        </a>
+                    </div>
                     <ul class="list-group" style="min-height: 10em;">
                     {% for log in logs %}
                         <li class="list-group-item">
@@ -106,15 +110,6 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-{% if is_owner %}
-<p>
-    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
-        {% trans "Add new log" %}
-    </a>
-</p>
-{% endif %}
-
-
 <div class="modal fade" id="ecalendar-day-select-popup">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -186,4 +181,13 @@ you can click on them to see the details.{% endblocktrans %}</p>
         </div>
     {% endfor %}
     </div>
+{% endblock %}
+
+
+{% block options %}
+{% if is_owner %}
+    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
+        {% trans "Add new log" %}
+    </a>
+{% endif %}
 {% endblock %}

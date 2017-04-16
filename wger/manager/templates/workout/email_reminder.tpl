@@ -12,7 +12,7 @@ never produce reminders.{% endblocktrans %}
 {% blocktrans %}If you don't want to ever receive email reminders, deactivate the
 option in your settings.{% endblocktrans %}
 
-{% trans "the wger.de team" %}
+— {% blocktrans %}The {{ site }} team{% endblocktrans %}
 
 
 * https://{{site}}{{workout.get_absolute_url}}

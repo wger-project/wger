@@ -41,7 +41,6 @@ from django.views.generic import (
 
 from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
 from wger.gym.helpers import (
-    get_user_last_activity,
     is_any_gym_admin,
     get_permission_list
 )

@@ -24,10 +24,12 @@ Installation and development
 .. toctree::
    :maxdepth: 2
 
-   install
+   getting_started
+   settings
    commands
+   tips_and_tricks
+   codingstyle
    i18n
-
 
 
 Administration guide
@@ -35,7 +37,6 @@ Administration guide
 .. toctree::
    :maxdepth: 2
 
-   settings
    gym
 
 

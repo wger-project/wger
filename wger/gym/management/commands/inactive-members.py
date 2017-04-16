@@ -24,7 +24,6 @@ from django.template.loader import render_to_string
 from django.conf import settings
 
 from wger.gym.helpers import is_any_gym_admin
-from wger.gym.helpers import get_user_last_activity
 from wger.gym.models import Gym
 
 
@@ -34,7 +33,7 @@ class Command(BaseCommand):
     '''
     help = 'Send out emails to trainers with users that have not shown recent activity'
 
-    def handle(self, *args, **options):
+    def handle(self, **options):
         '''
         Process gyms and send emails
         '''

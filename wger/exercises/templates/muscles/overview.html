@@ -14,18 +14,18 @@
 $(document).ready(function() {
     //Prefetch the background images
     {% for muscle in muscle_list|first %}
-        prefetch_images(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
+        wgerPrefetchImages(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
     {% endfor %}
-    prefetch_images(['/static/images/muscles/muscular_system_back.svg']);
+    wgerPrefetchImages(['/static/images/muscles/muscular_system_back.svg']);
 
 
     // Hightlight the first element
-    highlight_muscle($('.muscle').first());
+    wgerHighlightMuscle($('.muscle').first());
 
     // Highlight on hover
     $('.muscle').hover(function(e) {
         e.preventDefault();
-        highlight_muscle(this);
+        wgerHighlightMuscle(this);
     });
 
     // Highlight on click

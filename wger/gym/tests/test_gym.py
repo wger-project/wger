@@ -108,6 +108,7 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
                  'manager1',
                  'manager3')
 
+
 delete_testcase_add_methods(DeleteGymTestCase)
 
 

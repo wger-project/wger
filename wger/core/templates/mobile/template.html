@@ -81,16 +81,16 @@
             $('.row-offcanvas').toggleClass('active')
         });
 
-        if (typeof custom_page_init != "undefined")
+        if (typeof wgerCustomPageInit != "undefined")
         {
-            custom_page_init();
+            wgerCustomPageInit();
         }
 
         // Init the modal dialog for editing forms
-        form_modal_dialog();
+        wgerFormModalDialog();
 
         // Check for RO-access before allowing sharing
-        toggle_ro_access();
+        wgerToggleReadOnlyAccess();
     });
     </script>
 
@@ -105,7 +105,12 @@
             <span class="glyphicon  glyphicon-th-list"></span>
         </button>
         <span class="center-block application-name">
-            wger
+            {# Show application's name or user's gym #}
+            {% if custom_header %}
+                {{ custom_header }}
+            {% else %}
+                wger
+            {% endif %}
         </span>
     </div>
 

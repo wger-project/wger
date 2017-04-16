@@ -18,7 +18,7 @@ import logging
 import uuid
 import datetime
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -173,10 +173,11 @@ def add(request, pk):
                 instance.instance = session
             instance.save()
 
-            # Log entries
-            instances = formset.save(commit=False)
+            # Log entries (only the ones with actual content)
+            instances = [i for i in formset.save(commit=False) if i.reps]
             for instance in instances:
-
+                if not instance.weight:
+                    instance.weight = 0
                 instance.user = request.user
                 instance.workout = day.training
                 instance.date = log_date

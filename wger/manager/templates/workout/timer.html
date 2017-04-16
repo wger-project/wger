@@ -233,12 +233,12 @@ $(document).ready(function() {
         e.preventDefault();
         $.post( $('#session-form').attr('action'),
                 $('#session-form').serialize(),
-                
+
                 // After clicking on the save button once, disable it
                 function( data ) {
                     var today = new Date();
                     var date = '/' + today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
-                    window.location = '/' + get_current_language() + '/workout/calendar/' + get_username() + date;
+                    window.location = '/' + getCurrentLanguage() + '/workout/calendar/' + wgerGetUsername() + date;
                     $('#save_button_form').unbind("click");
                     $('#save_button_form').addClass('disabled');
                     $('#save_button_form').bind("click", function(e) {
@@ -323,7 +323,7 @@ $(document).ready(function() {
                 <div class="col-xs-6">
                      <select name="repetition_unit" id="id-repetition-unit-{{step.current_step}}" class="form-control">
                          {% for unit in repetition_units %}
-                             <option value="{{ unit.pk }}" {% if unit.pk = step.rep_unit.pk %}selected="selected"{% endif %}>
+                             <option value="{{ unit.pk }}" {% if unit.pk == step.rep_unit.pk %}selected="selected"{% endif %}>
                                 {% trans unit.name %}
                              </option>
                          {% endfor %}
@@ -332,7 +332,7 @@ $(document).ready(function() {
                 <div class="col-xs-6">
                     <select name="weight_unit" id="id-weight-unit-{{step.current_step}}" class="form-control">
                          {% for unit in weight_units %}
-                             <option value="{{ unit.pk }}" {% if unit.pk = step.weight_unit.pk %}selected="selected"{% endif %}>
+                             <option value="{{ unit.pk }}" {% if unit.pk == step.weight_unit.pk %}selected="selected"{% endif %}>
                                 {% trans unit.name %}
                              </option>
                          {% endfor %}

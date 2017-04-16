@@ -17,6 +17,7 @@ from django.conf import settings
 from django.templatetags.static import static
 
 from wger import get_version
+from wger.config.models import GymConfig
 from wger.utils import constants
 from wger.utils.language import load_language
 
@@ -51,7 +52,6 @@ def processor(request):
         'request_absolute_path': request.build_absolute_uri(),
         'image_absolute_path': request.build_absolute_uri(static_path),
 
-
         # Translation links
         'i18n_path': i18n_path,
 
@@ -66,6 +66,9 @@ def processor(request):
 
         # Used for logged in trainers
         'trainer_identity': request.session.get('trainer.identity'),
+
+        # current gym, if available
+        'custom_header': get_custom_header(request),
     }
 
     # Pseudo-intelligent navigation here
@@ -91,3 +94,26 @@ def processor(request):
         context['active_tab'] = constants.USER_TAB
 
     return context
+
+
+def get_custom_header(request):
+    '''
+    Loads the custom header for the application, if available
+
+    Currently the header can only be overwritten to use the user's current gym
+    '''
+
+    # Current gym
+    current_gym = None
+    if request.user.is_authenticated() and request.user.userprofile.gym:
+        current_gym = request.user.userprofile.gym
+    else:
+        global_gymconfig = GymConfig.objects.get(pk=1)
+        if global_gymconfig.default_gym:
+            current_gym = global_gymconfig.default_gym
+
+    # Put the custom header together
+    custom_header = None
+    if current_gym and current_gym.config.show_name:
+        custom_header = current_gym.name
+    return custom_header

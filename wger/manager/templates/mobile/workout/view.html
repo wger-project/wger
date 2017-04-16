@@ -24,10 +24,10 @@
 {#        #}
 {% block header %}
 <script>
-function custom_modal_init()
+function wgerCustomModalInit()
 {
     // Set up the edit set functions on modal dialogs
-    init_edit_set();
+    wgerInitEditSet();
 }
 
 
@@ -40,7 +40,7 @@ $(document).ready(function() {
     {% else %}
         $(".exercise-comments").hide();
     {% endif %}
-    toggle_comments();
+    wgerToggleComments();
 
 });
 </script>
@@ -77,7 +77,7 @@ $(document).ready(function() {
     <a href="{% url 'manager:day:add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
         {% trans "Add training day" %}
     </a>
-    
+
     <a id="exercise-comments-toggle"
        href="{% url 'core:user:preferences' %}"
        {% auto_link_css flavour %}>

@@ -8,14 +8,20 @@
 # (in docker) python manage.py runserver 0.0.0.0:8000
 #
 #
-FROM fedora:23
+FROM fedora:25
 MAINTAINER Roland Geider <roland@geider.net>
 
 # Install dependencies
 RUN dnf update;\
     dnf install -y python3-devel python-virtualenv \
     nodejs npm libjpeg-turbo-devel zlib-devel git \
-    tmux sudo
+    tmux sudo redhat-rpm-config gcc python-imaging
+
+# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
+# when using the invoke/wger commands and bower
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Add wger user
 RUN adduser wger
@@ -32,12 +38,29 @@ RUN virtualenv --python python3 /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements_devel.txt \
-    && invoke create_settings \
+    && python setup.py develop \
+    && wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \
-    && invoke bootstrap_wger \
+    && wger bootstrap \
         --settings-path /home/wger/src/settings.py \
         --no-start-server
+
+# Install node modules for JS linting and download the exercise images
+#
+# Note: it seems there are problems with node and docker, so it's necessary
+#       to delete the node_modules folder and install everything again
+#       -> https://github.com/npm/npm/issues/9863
+#       -> https://github.com/npm/npm/issues/13306
+RUN cd wger \
+    && rm -r node_modules \
+    && npm install bower \
+    && npm install \
+    && cd .. \
+    && mkdir ~/media \
+    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
+    && . /home/wger/venv/bin/activate \
+    && python manage.py download-exercise-images
 
 
 CMD ["/bin/bash"]

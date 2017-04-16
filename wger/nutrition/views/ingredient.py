@@ -17,7 +17,6 @@ import logging
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core import mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.cache import cache
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
@@ -66,7 +65,7 @@ class IngredientListView(ListView):
         '''
         languages = load_ingredient_languages(self.request)
         return (Ingredient.objects.filter(language__in=languages)
-                                  .filter(status__in=Ingredient.INGREDIENT_STATUS_OK)
+                                  .filter(status=Ingredient.STATUS_ACCEPTED)
                                   .only('id', 'name'))
 
     def get_context_data(self, **kwargs):
@@ -176,19 +175,8 @@ class IngredientCreateView(IngredientMixin, CreateView):
 
     def form_valid(self, form):
 
-        # set the submitter, if admin, set approrpiate status
-        form.instance.user = self.request.user
-        if self.request.user.has_perm('nutrition.add_ingredient'):
-            form.instance.status = Ingredient.INGREDIENT_STATUS_ADMIN
-        else:
-            subject = _('New user submitted ingredient')
-            message = _(u'''The user {0} submitted a new ingredient "{1}".'''.format(
-                        self.request.user.username, form.instance.name))
-            mail.mail_admins(subject,
-                             message,
-                             fail_silently=True)
-
         form.instance.language = load_language()
+        form.instance.set_author(self.request)
         return super(IngredientCreateView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -214,7 +202,7 @@ class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, Lis
         '''
         Only show ingredients pending review
         '''
-        return Ingredient.objects.filter(status=Ingredient.INGREDIENT_STATUS_PENDING) \
+        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING) \
             .order_by('-creation_date')
 
 
@@ -224,7 +212,7 @@ def accept(request, pk):
     Accepts a pending user submitted ingredient
     '''
     ingredient = get_object_or_404(Ingredient, pk=pk)
-    ingredient.status = Ingredient.INGREDIENT_STATUS_ACCEPTED
+    ingredient.status = Ingredient.STATUS_ACCEPTED
     ingredient.save()
     ingredient.send_email(request)
     messages.success(request, _('Ingredient was successfully added to the general database'))
@@ -238,7 +226,7 @@ def decline(request, pk):
     Declines and deletes a pending user submitted ingredient
     '''
     ingredient = get_object_or_404(Ingredient, pk=pk)
-    ingredient.status = Ingredient.INGREDIENT_STATUS_DECLINED
+    ingredient.status = Ingredient.STATUS_DECLINED
     ingredient.save()
     messages.success(request, _('Ingredient was successfully marked as rejected'))
     return HttpResponseRedirect(ingredient.get_absolute_url())

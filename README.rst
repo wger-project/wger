@@ -31,60 +31,6 @@ Useful to just try it out::
 
 Then just open http://localhost:8000 and log in as: **admin**, password **admin**
 
-
-Development version (from git)
-------------------------------
-
-**Note:** You can safely install from master, it is almost always in a usable
-and stable state.
-
-
-1) Install the necessary packages
-
-::
-
- $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
-
-
-On fedora 23
-
-::
-
- $ sudo dnf install python3-devel python-virtualenv nodejs npm libjpeg-turbo-devel zlib-devel git
-
-Then install the python packages from pypi in the virtualenv::
-
- $ virtualenv --python python3 venv-django
- $ source venv-django/bin/activate
-
-
-2) Start the application. This will download the required JS and CSS libraries
-   and create a SQlite database and populate it with data on the first run.
-
-::
-
- $ git clone https://github.com/wger-project/wger.git
- $ cd wger
- $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ invoke create_settings \
-          --settings-path /home/wger/wger/settings.py \
-          --database-path /home/wger/wger/database.sqlite
- $ invoke bootstrap_wger \
-          --settings-path /home/wger/wger/settings.py \
-          --no-start-server
- $ python manage.py runserver
-
-3) Log in as: **admin**, password **admin**
-
-After the first run you can just use django's development server. You will
-probably want to move the settings and sqlite files to your git folder, see
-the comments in the documentation (development chapter) about this::
-
- $ python manage.py runserver
-
-Docker images
-~~~~~~~~~~~~~
-
 Alternatively, there are docker images for development as well, ``wger/devel``
 and ``wger/devel-fedora``. Both images contain an instance of the application
 running with django's development server using a sqlite database and  can be
@@ -111,6 +57,49 @@ and start the development server
 Then just open http://localhost:8000 and log in as: **admin**, password **admin**
 
 
+Development version (from git)
+------------------------------
+
+**Note:** You can safely install from master, it is almost always in a usable
+and stable state.
+
+
+1) Install the necessary packages
+
+::
+
+ $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
+
+
+Then install the python packages from pypi in the virtualenv::
+
+ $ virtualenv --python python3 venv-django
+ $ source venv-django/bin/activate
+
+
+2) Start the application. This will download the required JS and CSS libraries
+   and create a SQlite database and populate it with data on the first run.
+
+::
+
+ $ git clone https://github.com/wger-project/wger.git
+ $ cd wger
+ $ pip install -r requirements.txt  # or requirements_devel.txt to develop
+ $ python setup.py develop
+ $ wger create_settings \
+        --settings-path /path/to/current/folder/settings.py \
+        --database-path /path/to/current/folder/database.sqlite
+ $ wger bootstrap \
+        --settings-path /path/to/current/folder/settings.py \
+        --no-start-server
+ $ python manage.py runserver
+
+3) Log in as: **admin**, password **admin**
+
+After the first run you can just use django's development server::
+
+ $ python manage.py runserver
+
 
 Stable version (from PyPI)
 --------------------------
@@ -127,30 +116,33 @@ Stable version (from PyPI)
 
 2) Start the application. This will download the required JS and CSS libraries
    and create a SQlite database and populate it with data on the first run.
-
+   Then, log in as: **admin**, password **admin**
 ::
 
- $ wger bootstrap_wger
+ $ wger bootstrap
 
 
-3) Log in as: **admin**, password **admin**
+3) To start the installation again, just call wger start::
+
+  $ wger start
 
 
 Command line options
 --------------------
+You can get a list of all available commands by calling ``wger`` without any
+arguments::
 
-The available options for the ``wger`` command (if installed from PyPI) or
-``invoke`` (if installed from source) are the following (use e.g. ``wger
-<command>``::
+    Available tasks:
 
+    bootstrap               Performs all steps necessary to bootstrap the application
+    config_location         Returns the default location for the settings file and the data folder
+    create_or_reset_admin   Creates an admin user or resets the password for an existing one
+    create_settings         Creates a local settings file
+    load_fixtures           Loads all fixtures
+    migrate_db              Run all database migrations
+    start                   Start the application using django's built in webserver
 
-  bootstrap_wger          Performs all steps necessary to bootstrap the application
-  config_location         Returns the default location for the settings file and the data folder
-  create_or_reset_admin   Creates an admin user or resets the password for an existing one
-  create_settings         Creates a local settings file
-  load_fixtures           Loads all fixtures
-  migrate_db              Run all database migrations
-  start_wger              Start the application using django's built in webserver
+You can also get help on a specific command with ``wger --help <command>``.
 
 Contact
 =======
@@ -175,6 +167,15 @@ All the code and the content is freely available:
 * **Main repository:** https://github.com/wger-project/wger
 * **Mirror:** https://bitbucket.org/rolandgeider/wger
 
+
+Donations
+=========
+wger is free software and will always remain that way, however if you want to
+help and support the project you are more than welcome to donate an amount of
+your choice.
+
+.. image:: https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif
+   :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UPMWQJY85JC5N
 
 Licence
 =======

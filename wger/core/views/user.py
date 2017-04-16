@@ -72,8 +72,7 @@ def login(request):
     Small wrapper around the django login view
     '''
 
-    context = {'hide_persona': check_request_amazon(request) or check_request_android(request),
-               'active_tab': USER_TAB}
+    context = {'active_tab': USER_TAB}
     if request.GET.get('next'):
         context['next'] = request.GET.get('next')
 

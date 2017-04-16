@@ -19,14 +19,13 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.urlresolvers import reverse
 
-from wger.core.demo import create_demo_entries
-from wger.core.demo import create_temporary_user
+from wger.core.demo import create_demo_entries, create_temporary_user
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.manager.models import Day
-from wger.manager.models import Schedule
-from wger.manager.models import ScheduleStep
-from wger.manager.models import Workout
-from wger.manager.models import WorkoutLog
+from wger.manager.models import (Day,
+                                 Schedule,
+                                 ScheduleStep,
+                                 Workout,
+                                 WorkoutLog)
 from wger.nutrition.models import Meal
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
@@ -44,7 +43,23 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         '''
         return User.objects.filter(userprofile__is_temporary=1).count()
 
-    def test_demo_data(self):
+    def test_demo_data_no_guest_account(self):
+        '''
+        Tests that the helper function creates demo data (workout, etc.)
+        for the demo users
+        '''
+        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True,
+                                          'REMOVE_WHITESPACE': False,
+                                          'ALLOW_REGISTRATION': True,
+                                          'ALLOW_GUEST_USERS': False,
+                                          'TWITTER': False}):
+            self.assertEqual(self.count_temp_users(), 1)
+            self.client.get(reverse('core:dashboard'))
+            self.assertEqual(self.count_temp_users(), 1)
+            self.client.get(reverse('core:user:demo-entries'))
+            self.assertEqual(self.count_temp_users(), 1)
+
+    def test_demo_data_guest_account(self):
         '''
         Tests that the helper function creates demo data (workout, etc.)
         for the demo users
@@ -55,7 +70,7 @@ class DemoUserTestCase(WorkoutManagerTestCase):
         self.assertEqual(user.userprofile.is_temporary, True)
         self.assertEqual(Workout.objects.filter(user=user).count(), 0)
 
-        create_demo_entries(user)
+        self.client.get(reverse('core:user:demo-entries'))
         # Workout
         self.assertEqual(Workout.objects.filter(user=user).count(), 4)
         self.assertEqual(Day.objects.filter(training__user=user).count(), 2)

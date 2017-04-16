@@ -6,4 +6,4 @@ added to nutrition plans. You can access it on this address:{% endblocktrans %}
 {{url}}
 
 {% blocktrans %}Thank you for contributing and making this site better!{% endblocktrans %}
-   — {% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+— {% blocktrans %}The {{ site }} team{% endblocktrans %}

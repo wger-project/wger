@@ -95,4 +95,5 @@ class DeleteDocumentTestCase(WorkoutManagerDeleteTestCase):
                  'manager3',
                  'general_manager1')
 
+
 delete_testcase_add_methods(DeleteDocumentTestCase)

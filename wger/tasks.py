@@ -16,6 +16,17 @@
 
 
 import sys
+
+#
+# This is an ugly and terrible hack, please don't do this!
+#
+# The reason we do this is that during django's setup later in this script, it
+# tries to load the standard library's "mail" module which collides with our
+# (perhaps unluckily named) app with the same name. Since this script is only
+# used for installation and does not depend on anything from wger proper, it
+# is kind of OK to change the system path.
+sys.path = sys.path[1:]
+
 import time
 import logging
 import threading
@@ -40,7 +51,7 @@ logger = logging.getLogger(__name__)
             'browser': 'Whether to open the application in a browser window. Default: false',
             'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
             'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none'})
-def start_wger(context, address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
+def start(context, address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
     '''
     Start the application using django's built in webserver
     '''
@@ -64,13 +75,13 @@ def start_wger(context, address='localhost', port=8000, browser=False, settings_
             'port': 'Port to use. Default: 8000',
             'browser': 'Whether to open the application in a browser window. Default: false',
             'start-server': 'Whether to start the development server. Default: true'})
-def bootstrap_wger(context,
-                   settings_path=None,
-                   database_path=None,
-                   address='localhost',
-                   port=8000,
-                   browser=False,
-                   start_server=True):
+def bootstrap(context,
+              settings_path=None,
+              database_path=None,
+              address='localhost',
+              port=8000,
+              browser=False,
+              start_server=True):
     '''
     Performs all steps necessary to bootstrap the application
     '''
@@ -99,15 +110,14 @@ def bootstrap_wger(context,
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
-    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger'))
-    context.run('npm install bower')
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    context.run('npm install bower')
     call_command('bower', 'install')
 
     # Start the webserver
     if start_server:
         print('*** Bootstraping complete, starting application')
-        start_wger(address=address, port=port, browser=browser, settings_path=settings_path)
+        start(context, address=address, port=port, browser=browser, settings_path=settings_path)
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
@@ -135,7 +145,7 @@ def create_settings(context, settings_path=None, database_path=None, url=None, d
         url = 'http://localhost:8000'
 
     # Fill in the config file template
-    settings_template = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wger', 'settings.tpl')
+    settings_template = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings.tpl')
     with open(settings_template, 'r') as settings_file:
         settings_content = settings_file.read()
 
@@ -198,11 +208,9 @@ def create_or_reset_admin(context, settings_path=None):
     except User.DoesNotExist:
         print("*** Created default admin user")
 
-    # os.chdir(os.path.dirname(inspect.stack()[0][1]))
-    # current_dir = os.path.join(os.getcwd(), 'wger')
     current_dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(current_dir, 'core', 'fixtures/')
 
-    path = os.path.join(current_dir, 'wger', 'core', 'fixtures/')
     call_command("loaddata", path + "users.json")
 
 
@@ -228,16 +236,14 @@ def load_fixtures(context, settings_path=None):
     setup_django_environment(settings_path)
 
 
-    # os.chdir(os.path.dirname(inspect.stack()[0][1]))
-    # current_dir = os.path.join(os.getcwd(), 'wger')
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Gym
-    path = os.path.join(current_dir, 'wger', 'gym', 'fixtures/')
+    path = os.path.join(current_dir, 'gym', 'fixtures/')
     call_command("loaddata", path + "gym.json")
 
     # Core
-    path = os.path.join(current_dir, 'wger', 'core', 'fixtures/')
+    path = os.path.join(current_dir, 'core', 'fixtures/')
     call_command("loaddata", path + "languages.json")
     call_command("loaddata", path + "groups.json")
     call_command("loaddata", path + "users.json")
@@ -247,7 +253,7 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", path + "setting_weight_units.json")
 
     # Config
-    path = os.path.join(current_dir, 'wger', 'config', 'fixtures/')
+    path = os.path.join(current_dir, 'config', 'fixtures/')
     call_command("loaddata", path + "language_config.json")
     call_command("loaddata", path + "gym_config.json")
 
@@ -255,20 +261,20 @@ def load_fixtures(context, settings_path=None):
     # path = os.path.join(current_dir, 'manager', 'fixtures/')
 
     # Exercises
-    path = os.path.join(current_dir, 'wger', 'exercises', 'fixtures/')
+    path = os.path.join(current_dir, 'exercises', 'fixtures/')
     call_command("loaddata", path + "equipment.json")
     call_command("loaddata", path + "muscles.json")
     call_command("loaddata", path + "categories.json")
     call_command("loaddata", path + "exercises.json")
 
     # Nutrition
-    path = os.path.join(current_dir, 'wger', 'nutrition', 'fixtures/')
+    path = os.path.join(current_dir, 'nutrition', 'fixtures/')
     call_command("loaddata", path + "ingredients.json")
     call_command("loaddata", path + "weight_units.json")
     call_command("loaddata", path + "ingredient_units.json")
 
     # Gym
-    path = os.path.join(current_dir, 'wger', 'gym', 'fixtures/')
+    path = os.path.join(current_dir, 'gym', 'fixtures/')
     call_command("loaddata", path + "gym.json")
     call_command("loaddata", path + "gym-config.json")
     call_command("loaddata", path + "gym-adminconfig.json")
