@@ -87,7 +87,7 @@ patterns_workout = [
         name='ical'),
     url(r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_log,
-        name='pdf-log'), #JS!
+        name='pdf-log'),  # JS!
     url(r'^(?P<id>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_log,
         name='pdf-log'),
@@ -99,7 +99,7 @@ patterns_workout = [
         name='pdf-log'),
     url(r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_view,
-        name='pdf-table'), #JS!
+        name='pdf-table'),  # JS!
     url(r'^(?P<id>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_view,
         name='pdf-table'),
@@ -235,13 +235,12 @@ patterns_step = [
 ]
 
 
-
 urlpatterns = [
-   url(r'^', include(patterns_workout, namespace="workout")),
-   url(r'^log/', include(patterns_log, namespace="log")),
-   url(r'^day/', include(patterns_day, namespace="day")),
-   url(r'^set/', include(patterns_set, namespace="set")),
-   url(r'^session/', include(patterns_session, namespace="session")),
-   url(r'^schedule/', include(patterns_schedule, namespace="schedule")),
-   url(r'^schedule/step/', include(patterns_step, namespace="step")),
+    url(r'^', include(patterns_workout, namespace="workout")),
+    url(r'^log/', include(patterns_log, namespace="log")),
+    url(r'^day/', include(patterns_day, namespace="day")),
+    url(r'^set/', include(patterns_set, namespace="set")),
+    url(r'^session/', include(patterns_session, namespace="session")),
+    url(r'^schedule/', include(patterns_schedule, namespace="schedule")),
+    url(r'^schedule/step/', include(patterns_step, namespace="step")),
 ]

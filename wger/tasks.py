@@ -203,7 +203,7 @@ def create_or_reset_admin(context, settings_path=None):
     # the settings module during import
     from wger.manager.models import User
     try:
-        admin = User.objects.get(username="admin")
+        User.objects.get(username="admin")
         print("*** Password for user admin was reset to 'admin'")
     except User.DoesNotExist:
         print("*** Created default admin user")
@@ -234,7 +234,6 @@ def load_fixtures(context, settings_path=None):
 
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
-
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
 

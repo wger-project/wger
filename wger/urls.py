@@ -42,11 +42,16 @@ from wger.exercises.api import views as exercises_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.weight.api import views as weight_api_views
 
+
+from django.contrib import admin
+admin.autodiscover()
+
+
 #
 # REST API
 #
 
-### /api/v1 - tastypie - deprecated
+# /api/v1 - tastypie - deprecated
 v1_api = Api(api_name='v1')
 
 v1_api.register(exercises_api.ExerciseCategoryResource())
@@ -80,7 +85,7 @@ v1_api.register(core_api.UserProfileResource())
 v1_api.register(core_api.LicenseResource())
 
 
-### /api/v2 - django rest framework
+# /api/v2 - django rest framework
 router = routers.DefaultRouter()
 
 # Manager app
@@ -121,10 +126,6 @@ router.register(r'mealitem', nutrition_api_views.MealItemViewSet, base_name='mea
 
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, base_name='weightentry')
-
-
-from django.contrib import admin
-admin.autodiscover()
 
 #
 # Sitemaps
