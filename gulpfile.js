@@ -33,7 +33,8 @@ gulp.task('lint-python', function () {
     .pipe(flake8.failOnError());
 });
 
-gulp.task('lint', ['lint-js', 'lint-python']);
+gulp.task('lint', ['lint-js']);
+// gulp.task('lint', ['lint-js', 'lint-python']);
 
 gulp.task('default', ['lint'], function () {
   // This will only run if the lint task is successful...
