@@ -18,6 +18,7 @@ New features:
 Improvements:
 
 * Added password validation rules for more security
+* Exercise image downloader checks only accepted exercises (thanks `@gmmoraes`_)  `#363`_
 * Use a native data type for the exercises' UUID (thanks `@gmmoraes`_)  `#364`_
 
 Other improvements and bugfixes: `#336`_, `#359`_,
@@ -25,6 +26,7 @@ Other improvements and bugfixes: `#336`_, `#359`_,
 .. _#@gmmoraes: https://github.com/gmmoraes
 
 .. _#364: https://github.com/wger-project/wger/issues/364
+.. _#363: https://github.com/wger-project/wger/issues/363
 .. _#336: https://github.com/wger-project/wger/issues/336
 .. _#359: https://github.com/wger-project/wger/issues/359
 
