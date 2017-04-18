@@ -58,8 +58,8 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
         # Fill in the registration form
         registration_data = {'username': 'myusername',
-                             'password1': 'secret',
-                             'password2': 'secret',
+                             'password1': 'quai8fai7Zae',
+                             'password2': 'quai8fai7Zae',
                              'email': 'not an email',
                              'g-recaptcha-response': 'PASSED', }
         count_before = User.objects.count()
@@ -108,8 +108,8 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
             # Fill in the registration form
             registration_data = {'username': 'myusername',
-                                 'password1': 'secret',
-                                 'password2': 'secret',
+                                 'password1': 'Xee4fuev1ohj',
+                                 'password2': 'Xee4fuev1ohj',
                                  'email': 'my.email@example.com',
                                  'g-recaptcha-response': 'PASSED', }
             count_before = User.objects.count()
