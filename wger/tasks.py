@@ -27,18 +27,18 @@ import sys
 # is kind of OK to change the system path.
 sys.path = sys.path[1:]
 
-import time
-import logging
-import threading
-import webbrowser
-import os
-import ctypes
-import socket
-from invoke import task
+import time  # noqa  E402
+import logging  # noqa  E402
+import threading  # noqa  E402
+import webbrowser  # noqa  E402
+import os  # noqa  E402
+import ctypes  # noqa  E402
+import socket  # noqa  E402
+from invoke import task  # noqa  E402
 
-import django
-from django.utils.crypto import get_random_string
-from django.core.management import (
+import django  # noqa  E402
+from django.utils.crypto import get_random_string  # noqa  E402
+from django.core.management import (  # noqa  E402
     call_command,
     execute_from_command_line
 )
