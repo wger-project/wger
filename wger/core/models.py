@@ -223,7 +223,6 @@ by the US Department of Agriculture. It is extremely complete, with around
     '''The user's age'''
 
     birthdate = models.DateField(verbose_name=('Date of Birth'),
-                                 help_text=_('Please use the format: mm/dd/yyyy'),
                                  blank=False,
                                  null=True,
                                  validators=[birthdate_validator])

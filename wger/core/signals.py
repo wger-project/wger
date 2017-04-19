@@ -53,7 +53,7 @@ def set_user_age(sender, instance, **kwargs):
         today = datetime.date.today()
         birthday = instance.birthdate
         instance.age = (today.year - birthday.year
-                        - ((today.month, today.day) < (birthday.month, birthday.year)))
+                        - ((today.month, today.day) < (birthday.month, birthday.day)))
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(create_user_cache, sender=User)

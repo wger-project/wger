@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='birthdate',
-            field=models.DateField(help_text='Please use the format: mm/dd/yyyy', null=True, validators=[wger.core.models.birthdate_validator], verbose_name='Date of Birth'),
+            field=models.DateField(null=True, validators=[wger.core.models.birthdate_validator], verbose_name='Date of Birth'),
         ),
         migrations.AlterField(
             model_name='license',
