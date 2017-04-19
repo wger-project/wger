@@ -204,9 +204,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'))
     '''The exercise's language'''
-    
+
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
-    
+
     '''
     Globally unique ID, to identify the exercise across installations
     '''
