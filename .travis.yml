@@ -41,8 +41,8 @@ install:
   # Install requirements
   - pip install -r requirements_devel.txt
   - python setup.py develop
-  - npm install
   - cd wger
+  - npm install
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi
 
   # Setup application
