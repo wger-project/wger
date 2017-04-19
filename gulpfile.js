@@ -19,7 +19,7 @@ gulp.task('lint-js', function () {
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint-python', function () {
+gulp.task('lint-flake8', function () {
   return gulp.src(['**/*py',
     '!**/extras/**',
     '!**/build/**',
@@ -33,7 +33,7 @@ gulp.task('lint-python', function () {
     .pipe(flake8.failOnError());
 });
 
-gulp.task('lint', ['lint-js']);
+gulp.task('lint', ['lint-js', 'lint-flake8']);
 // gulp.task('lint', ['lint-js', 'lint-python']);
 
 gulp.task('default', ['lint'], function () {
