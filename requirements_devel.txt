@@ -11,3 +11,4 @@ django-debug-toolbar
 flake8-putty
 tblib
 transifex-client
+isort
