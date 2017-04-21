@@ -12,18 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import logging
 import math
 from decimal import Decimal
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.exercises.models import Exercise
-from wger.manager.models import Workout
-from wger.manager.models import WorkoutSession
+from wger.manager.models import (
+    Workout,
+    WorkoutSession
+)
+
 
 logger = logging.getLogger(__name__)
 

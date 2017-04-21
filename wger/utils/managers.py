@@ -13,8 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.db import models
 from django.db.models.query import QuerySet
+
+# wger
 from wger.utils.models import AbstractSubmissionModel
 
 

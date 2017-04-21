@@ -9,55 +9,77 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
+
+
+# Standard Library
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
+import logging
+import uuid
+
+# Third Party
 #
 # You should have received a copy of the GNU Affero General Public License
 import six
-import logging
-import uuid
+from django.contrib import messages
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 from django.core import mail
-
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.core.cache import cache
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
 from django.forms import (
-    ModelForm,
     ModelChoiceField,
+    ModelForm,
     ModelMultipleChoiceField
 )
-from django.core.cache import cache
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.contrib.auth.decorators import permission_required
-from django.contrib import messages
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    ListView,
-    DeleteView,
     CreateView,
+    DeleteView,
+    ListView,
     UpdateView
 )
 
-from wger.manager.models import WorkoutLog
+# wger
+from wger.config.models import LanguageConfig
 from wger.exercises.models import (
     Exercise,
-    Muscle,
-    ExerciseCategory
+    ExerciseCategory,
+    Muscle
 )
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
-)
-from wger.utils.language import load_language, load_item_languages
+from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
-from wger.utils.widgets import (
-    TranslatedSelect,
-    TranslatedSelectMultiple,
-    TranslatedOriginalSelectMultiple
+from wger.utils.generic_views import (
+    WgerDeleteMixin,
+    WgerFormMixin
 )
-from wger.config.models import LanguageConfig
+from wger.utils.language import (
+    load_item_languages,
+    load_language
+)
+from wger.utils.widgets import (
+    TranslatedOriginalSelectMultiple,
+    TranslatedSelect,
+    TranslatedSelectMultiple
+)
 from wger.weight.helpers import process_log_entries
 
 

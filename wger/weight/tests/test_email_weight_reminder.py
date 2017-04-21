@@ -12,12 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from datetime import timedelta, datetime
+# Standard Library
+from datetime import (
+    datetime,
+    timedelta
+)
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.management import call_command
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.weight.models import WeightEntry
 

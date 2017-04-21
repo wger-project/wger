@@ -13,19 +13,31 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+# Third Party
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy
+from django.views.generic import (
+    CreateView,
+    UpdateView
+)
 
-from django.views.generic import CreateView, UpdateView
-
+# wger
 from wger.exercises.forms import CommentForm
-from wger.exercises.models import Exercise, ExerciseComment
+from wger.exercises.models import (
+    Exercise,
+    ExerciseComment
+)
 from wger.utils.generic_views import WgerFormMixin
 
 

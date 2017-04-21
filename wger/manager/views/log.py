@@ -14,43 +14,60 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import uuid
-import datetime
 
+# Third Party
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
 from django.forms.models import modelformset_factory
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.template.context_processors import csrf
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    UpdateView,
+    DeleteView,
     DetailView,
-    DeleteView
+    UpdateView
 )
 
-from wger.manager.helpers import WorkoutCalendar
-from wger.manager.models import (
-    Workout,
-    WorkoutSession,
-    Day,
-    WorkoutLog,
-    Schedule
-)
+# wger
 from wger.manager.forms import (
     HelperDateForm,
     HelperWorkoutSessionForm,
     WorkoutLogForm
 )
+from wger.manager.helpers import WorkoutCalendar
+from wger.manager.models import (
+    Day,
+    Schedule,
+    Workout,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 from wger.utils.helpers import check_access
-from wger.weight.helpers import process_log_entries, group_log_entries
+from wger.weight.helpers import (
+    group_log_entries,
+    process_log_entries
+)
 
 
 logger = logging.getLogger(__name__)

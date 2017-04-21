@@ -15,10 +15,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.core.urlresolvers import reverse
 
-from wger.gym.models import Gym
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.gym.models import Gym
 
 
 class GymNameHeaderTestCase(WorkoutManagerTestCase):

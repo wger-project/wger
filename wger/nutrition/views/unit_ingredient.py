@@ -13,29 +13,39 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+# Third Party
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 from django.core.urlresolvers import reverse
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import (
+    ModelChoiceField,
+    ModelForm
+)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy
-
-from wger.utils.language import load_language
 from django.views.generic import (
-    DeleteView,
     CreateView,
+    DeleteView,
     UpdateView
 )
+
+# wger
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     WeightUnit
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
+from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)

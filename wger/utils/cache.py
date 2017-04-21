@@ -12,9 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import hashlib
+import logging
 
+# Third Party
 from django.core.cache import cache
 from django.utils.encoding import force_bytes
 

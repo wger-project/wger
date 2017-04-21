@@ -14,21 +14,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
-import six
+# Standard Library
+import csv
 import datetime
 import decimal
-import csv
 import json
+import logging
 from collections import OrderedDict
 
+# Third Party
+import six
 from django.core.cache import cache
 
-from wger.utils.helpers import DecimalJsonEncoder
+# wger
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.cache import cache_mapper
+from wger.utils.helpers import DecimalJsonEncoder
 from wger.weight.models import WeightEntry
-from wger.manager.models import WorkoutSession
-from wger.manager.models import WorkoutLog
+
 
 logger = logging.getLogger(__name__)
 

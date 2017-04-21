@@ -15,35 +15,41 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
-from rest_framework.decorators import detail_route, api_view
-
+# Third Party
+from django.utils.translation import ugettext as _
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
+from rest_framework import viewsets
+from rest_framework.decorators import (
+    api_view,
+    detail_route
+)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
-from django.utils.translation import ugettext as _
-
+# wger
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
-    MuscleSerializer,
-    ExerciseSerializer,
-    ExerciseImageSerializer,
-    ExerciseCategorySerializer,
-    ExerciseInfoSerializer,
     EquipmentSerializer,
-    ExerciseCommentSerializer
+    ExerciseCategorySerializer,
+    ExerciseCommentSerializer,
+    ExerciseImageSerializer,
+    ExerciseInfoSerializer,
+    ExerciseSerializer,
+    MuscleSerializer
 )
 from wger.exercises.models import (
-    Exercise,
     Equipment,
+    Exercise,
     ExerciseCategory,
-    ExerciseImage,
     ExerciseComment,
+    ExerciseImage,
     Muscle
 )
-from wger.utils.language import load_item_languages, load_language
+from wger.utils.language import (
+    load_item_languages,
+    load_language
+)
 from wger.utils.permissions import CreateOnlyPermission
 
 

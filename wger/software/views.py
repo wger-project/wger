@@ -14,11 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.conf import settings
-
 from django.shortcuts import render
+
 
 logger = logging.getLogger(__name__)
 

@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.conf import settings
 from django.templatetags.static import static
 
+# wger
 from wger import get_version
 from wger.config.models import GymConfig
 from wger.utils import constants

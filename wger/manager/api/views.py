@@ -15,30 +15,33 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import datetime
 
+# Third Party
 from rest_framework import viewsets
-from rest_framework.response import Response
 from rest_framework.decorators import detail_route
+from rest_framework.response import Response
 
+# wger
 from wger.manager.api.serializers import (
-    WorkoutSerializer,
-    ScheduleStepSerializer,
-    WorkoutCanonicalFormSerializer,
     DaySerializer,
-    SettingSerializer,
-    SetSerializer,
     ScheduleSerializer,
+    ScheduleStepSerializer,
+    SetSerializer,
+    SettingSerializer,
+    WorkoutCanonicalFormSerializer,
     WorkoutLogSerializer,
+    WorkoutSerializer,
     WorkoutSessionSerializer
 )
 from wger.manager.models import (
-    Workout,
-    Set,
-    ScheduleStep,
-    Schedule,
     Day,
+    Schedule,
+    ScheduleStep,
+    Set,
     Setting,
+    Workout,
     WorkoutLog,
     WorkoutSession
 )

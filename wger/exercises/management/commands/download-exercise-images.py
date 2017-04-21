@@ -14,20 +14,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import requests
+# Standard Library
 import os
 
-from wger import get_version
-from requests.utils import default_user_agent
-from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand, CommandError
+# Third Party
+import requests
+from django.conf import settings
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    ValidationError
+)
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.core.management.base import (
+    BaseCommand,
+    CommandError
+)
 from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
-from django.conf import settings
+from requests.utils import default_user_agent
 
-from wger.exercises.models import Exercise, ExerciseImage
+# wger
+from wger import get_version
+from wger.exercises.models import (
+    Exercise,
+    ExerciseImage
+)
 
 
 class Command(BaseCommand):

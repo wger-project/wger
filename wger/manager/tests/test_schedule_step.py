@@ -11,15 +11,21 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import datetime
 
+# Third Party
 from django.core.urlresolvers import reverse_lazy
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import (
+    WorkoutManagerAddTestCase,
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase
+)
 from wger.manager.models import ScheduleStep
 
 

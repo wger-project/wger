@@ -14,8 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
 import re
 import sys
+
 
 '''
 This file contains the global settings that don't usually need to be changed.
@@ -23,8 +27,6 @@ For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 '''
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 

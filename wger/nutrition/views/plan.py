@@ -14,41 +14,64 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import logging
+# Standard Library
 import datetime
+import logging
 
-from django.shortcuts import render, get_object_or_404
+# Third Party
+import six
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
     HttpResponseRedirect
 )
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.views.generic import DeleteView, UpdateView
-
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    DeleteView,
+    UpdateView
+)
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4, cm
+from reportlab.lib.pagesizes import (
+    A4,
+    cm
+)
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
-    Table,
-    Spacer
+    Spacer,
+    Table
 )
 
-from wger.nutrition.models import (
-    NutritionPlan,
-    MEALITEM_WEIGHT_GRAM,
-    MEALITEM_WEIGHT_UNIT
-)
+# wger
 from wger import get_version
-from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin
-from wger.utils.helpers import check_token, make_token
-from wger.utils.pdf import styleSheet
+from wger.nutrition.models import (
+    MEALITEM_WEIGHT_GRAM,
+    MEALITEM_WEIGHT_UNIT,
+    NutritionPlan
+)
+from wger.utils.generic_views import (
+    WgerDeleteMixin,
+    WgerFormMixin
+)
+from wger.utils.helpers import (
+    check_token,
+    make_token
+)
 from wger.utils.language import load_language
+from wger.utils.pdf import styleSheet
 
 
 logger = logging.getLogger(__name__)

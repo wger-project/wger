@@ -15,35 +15,48 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from tastypie.api import Api
-from rest_framework import routers
-
+# Third Party
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import (
+    include,
+    url
+)
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
-from django.contrib.sitemaps.views import sitemap
-
-from wger.nutrition.sitemap import NutritionSitemap
-from wger.exercises.sitemap import ExercisesSitemap
-
-from wger.utils.generic_views import TextTemplateView
-from wger.utils.generic_views import WebappManifestView
-
-from wger.exercises.api import resources as exercises_api
-from wger.nutrition.api import resources as nutrition_api
-from wger.manager.api import resources as manager_api
-from wger.core.api import resources as core_api
-from wger.weight.api import resources as weight_api
-
-from wger.manager.api import views as manager_api_views
-from wger.core.api import views as core_api_views
-from wger.exercises.api import views as exercises_api_views
-from wger.nutrition.api import views as nutrition_api_views
-from wger.weight.api import views as weight_api_views
-
-
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
+from rest_framework import routers
+from tastypie.api import Api
+
+# wger
+from wger.core.api import (
+    resources as core_api,
+    views as core_api_views
+)
+from wger.exercises.api import (
+    resources as exercises_api,
+    views as exercises_api_views
+)
+from wger.exercises.sitemap import ExercisesSitemap
+from wger.manager.api import (
+    resources as manager_api,
+    views as manager_api_views
+)
+from wger.nutrition.api import (
+    resources as nutrition_api,
+    views as nutrition_api_views
+)
+from wger.nutrition.sitemap import NutritionSitemap
+from wger.utils.generic_views import (
+    TextTemplateView,
+    WebappManifestView
+)
+from wger.weight.api import (
+    resources as weight_api,
+    views as weight_api_views
+)
+
+
 admin.autodiscover()
 
 

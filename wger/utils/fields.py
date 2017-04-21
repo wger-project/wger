@@ -12,11 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.db import models
 
-from wger.utils.widgets import Html5FormDateField, Html5FormTimeField
+# wger
+from wger.utils.widgets import (
+    Html5FormDateField,
+    Html5FormTimeField
+)
+
 
 logger = logging.getLogger(__name__)
 

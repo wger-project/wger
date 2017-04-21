@@ -14,17 +14,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.constants import ALL
 from tastypie.resources import ModelResource
 
-from wger.utils.resources import UserObjectsOnlyAuthorization
+# wger
 from wger.core.models import (
-    UserProfile,
-    Language,
     DaysOfWeek,
-    License
+    Language,
+    License,
+    UserProfile
 )
+from wger.utils.resources import UserObjectsOnlyAuthorization
 
 
 class UserProfileResource(ModelResource):

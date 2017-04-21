@@ -14,9 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.contrib.auth.models import User
 from django.db import models
 
+# wger
 from wger.gym.models import Gym
 
 

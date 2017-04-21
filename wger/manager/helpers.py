@@ -15,24 +15,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import datetime
 from calendar import HTMLCalendar
 
+# Third Party
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    Paragraph,
-    Table,
+    Image,
     KeepTogether,
     ListFlowable,
     ListItem,
-    Image
+    Paragraph,
+    Table
 )
 
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+# wger
 from wger.utils.helpers import normalize_decimal
-
 from wger.utils.pdf import styleSheet
 
 

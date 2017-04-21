@@ -15,11 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
-from wger.weight.forms import WeightCsvImportForm
+# wger
 from wger.weight import views
+from wger.weight.forms import WeightCsvImportForm
 
 
 urlpatterns = [

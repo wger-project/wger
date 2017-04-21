@@ -14,18 +14,25 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
+# Third Party
 from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import mail
 from django.core.urlresolvers import reverse
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
 from django.shortcuts import get_object_or_404
 from django.views import generic
-
 from formtools.preview import FormPreview
 
+# wger
+from wger.email.models import (
+    CronEntry,
+    Log
+)
 from wger.gym.models import Gym
-from wger.email.models import CronEntry, Log
 
 
 class EmailLogListView(PermissionRequiredMixin, generic.ListView):

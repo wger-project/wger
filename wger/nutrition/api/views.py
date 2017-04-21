@@ -15,29 +15,36 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
-from rest_framework.decorators import api_view
+from rest_framework.decorators import (
+    api_view,
+    detail_route
+)
 from rest_framework.response import Response
 
+# wger
 from wger.nutrition.api.serializers import (
-    NutritionPlanSerializer,
+    IngredientSerializer,
     IngredientWeightUnitSerializer,
-    WeightUnitSerializer,
     MealItemSerializer,
     MealSerializer,
-    IngredientSerializer
+    NutritionPlanSerializer,
+    WeightUnitSerializer
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
     Ingredient,
+    IngredientWeightUnit,
     Meal,
     MealItem,
-    WeightUnit,
-    IngredientWeightUnit,
-    NutritionPlan
+    NutritionPlan,
+    WeightUnit
 )
-from wger.utils.language import load_ingredient_languages, load_language
+from wger.utils.language import (
+    load_ingredient_languages,
+    load_language
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 

@@ -9,51 +9,71 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+
+
+# Standard Library
 #
 # You should have received a copy of the GNU Affero General Public License
 import csv
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 import datetime
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+# Third Party
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 from django.contrib.auth.models import (
     Group,
     User
 )
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
 from django.http.response import (
-    HttpResponseForbidden,
     HttpResponse,
+    HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import render, get_object_or_404
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    ListView,
-    DeleteView,
     CreateView,
+    DeleteView,
+    ListView,
     UpdateView
 )
 
-from wger.gym.forms import GymUserAddForm, GymUserPermisssionForm
+# wger
+from wger.config.models import GymConfig as GlobalGymConfig
+from wger.gym.forms import (
+    GymUserAddForm,
+    GymUserPermisssionForm
+)
 from wger.gym.helpers import (
-    is_any_gym_admin,
-    get_permission_list
+    get_permission_list,
+    is_any_gym_admin
 )
 from wger.gym.models import (
     Gym,
     GymAdminConfig,
     GymUserConfig
 )
-from wger.config.models import GymConfig as GlobalGymConfig
 from wger.utils.generic_views import (
-    WgerFormMixin,
     WgerDeleteMixin,
-    WgerMultiplePermissionRequiredMixin)
+    WgerFormMixin,
+    WgerMultiplePermissionRequiredMixin
+)
 from wger.utils.helpers import password_generator
 
 

@@ -14,21 +14,28 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from tastypie import fields
-from tastypie.resources import ModelResource
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
+# Third Party
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
+from tastypie import fields
+from tastypie.constants import (
+    ALL,
+    ALL_WITH_RELATIONS
+)
+from tastypie.resources import ModelResource
 
-from wger.core.api.resources import LanguageResource, LicenseResource
-
+# wger
+from wger.core.api.resources import (
+    LanguageResource,
+    LicenseResource
+)
 from wger.exercises.models import (
+    Equipment,
     Exercise,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
-    Muscle,
-    Equipment
+    Muscle
 )
 
 

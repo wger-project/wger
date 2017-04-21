@@ -12,9 +12,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from tastypie.authorization import ReadOnlyAuthorization
+
 
 logger = logging.getLogger(__name__)
 

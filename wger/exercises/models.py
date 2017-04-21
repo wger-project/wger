@@ -15,33 +15,39 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import six
-import uuid
+# Standard Library
 import logging
-import bleach
+import uuid
 
-from django.db import models
-from django.template.loader import render_to_string
-from django.utils.text import slugify
+# Third Party
+import bleach
+import six
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils import translation
-from django.core.urlresolvers import reverse
 from django.core import mail
 from django.core.cache import cache
+from django.core.urlresolvers import reverse
 from django.core.validators import MinLengthValidator
-from django.conf import settings
+from django.db import models
+from django.template.loader import render_to_string
+from django.utils import translation
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
 
+# wger
 from wger.core.models import Language
+from wger.utils.cache import (
+    cache_mapper,
+    delete_template_fragment_cache,
+    reset_workout_canonical_form
+)
 from wger.utils.helpers import smart_capitalize
 from wger.utils.managers import SubmissionManager
-from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
-from wger.utils.cache import (
-    delete_template_fragment_cache,
-    reset_workout_canonical_form,
-    cache_mapper
+from wger.utils.models import (
+    AbstractLicenseModel,
+    AbstractSubmissionModel
 )
 
 

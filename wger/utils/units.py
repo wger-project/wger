@@ -12,9 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 from decimal import Decimal
 
+# wger
 from wger.utils.constants import FOURPLACES
 
 

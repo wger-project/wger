@@ -14,12 +14,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 
+# wger
 from wger.gym.models import GymAdminConfig
 from wger.utils.generic_views import WgerFormMixin
 

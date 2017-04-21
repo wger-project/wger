@@ -12,18 +12,23 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 from os.path import join as path_join
 
+# Third Party
 from django.conf import settings
-from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
-
-from reportlab.lib.styles import ParagraphStyle, StyleSheet1
-from reportlab.pdfbase.ttfonts import TTFont
+from django.utils import translation
+from reportlab.lib.styles import (
+    ParagraphStyle,
+    StyleSheet1
+)
 from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph
 
+# wger
 from wger import get_version
 from wger.core.models import Language
 

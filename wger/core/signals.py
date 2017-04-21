@@ -15,10 +15,15 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Third Party
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-from wger.core.models import UserProfile, UserCache
+# wger
+from wger.core.models import (
+    UserCache,
+    UserProfile
+)
 from wger.utils.helpers import disable_for_loaddata
 
 
