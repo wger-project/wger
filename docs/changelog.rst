@@ -22,7 +22,7 @@ Improvements:
 * Use a native data type for the exercises' UUID (thanks `@gmmoraes`_)  `#364`_
 * Increase speed of testsuite by performing the tests in parallel (thanks `@Mbarak-Mbigo`_) `wger_vulcan/#6`_
 
-Other improvements and bugfixes: `#336`_, `#359`_,
+Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
 
 .. _@gmmoraes: https://github.com/gmmoraes
 .. _@Mbarak-Mbigo: https://github.com/Mbarak-Mbigo
@@ -33,7 +33,7 @@ Other improvements and bugfixes: `#336`_, `#359`_,
 .. _#363: https://github.com/wger-project/wger/issues/363
 .. _#336: https://github.com/wger-project/wger/issues/336
 .. _#359: https://github.com/wger-project/wger/issues/359
-
+.. _#386: https://github.com/wger-project/wger/issues/386
 
 
 1.8

@@ -54,7 +54,7 @@ install:
 
 # Create test databases
 before_script:
-  - if [[ "$DB" = "postgresq" ]]; then psql -c 'DROP DATABASE IF EXISTS test_wger;' -U postgres; fi
+  - if [[ "$DB" = "postgresql" ]]; then psql -c 'DROP DATABASE IF EXISTS test_wger;' -U postgres; fi
   - if [[ "$DB" = "postgresql" ]]; then psql -c 'CREATE DATABASE test_wger;' -U postgres; fi
 
 # Do the tests
