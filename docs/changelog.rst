@@ -10,6 +10,7 @@ Upgrade steps from 1.8:
 
 * Django update to 1.10: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
+* Update static files (only production): ``python manage.py collectstatic``
 
 New features:
 
@@ -17,9 +18,10 @@ New features:
 
 Improvements:
 
+* Improve look of weight graph (thanks `@alokhan`_) `#381`_
 * Added password validation rules for more security
-* Exercise image downloader checks only accepted exercises (thanks `@gmmoraes`_)  `#363`_
-* Use a native data type for the exercises' UUID (thanks `@gmmoraes`_)  `#364`_
+* Exercise image downloader checks only accepted exercises (thanks `@gmmoraes`_) `#363`_
+* Use a native data type for the exercises' UUID (thanks `@gmmoraes`_) `#364`_
 * Increase speed of testsuite by performing the tests in parallel (thanks `@Mbarak-Mbigo`_) `wger_vulcan/#6`_
 
 Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
@@ -33,6 +35,7 @@ Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
 .. _#363: https://github.com/wger-project/wger/issues/363
 .. _#336: https://github.com/wger-project/wger/issues/336
 .. _#359: https://github.com/wger-project/wger/issues/359
+.. _#381: https://github.com/wger-project/wger/issues/381
 .. _#386: https://github.com/wger-project/wger/issues/386
 
 
