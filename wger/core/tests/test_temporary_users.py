@@ -12,22 +12,32 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import random
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.urlresolvers import reverse
 
-from wger.core.demo import create_demo_entries, create_temporary_user
+# wger
+from wger.core.demo import (
+    create_demo_entries,
+    create_temporary_user
+)
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.manager.models import (Day,
-                                 Schedule,
-                                 ScheduleStep,
-                                 Workout,
-                                 WorkoutLog)
-from wger.nutrition.models import Meal
-from wger.nutrition.models import NutritionPlan
+from wger.manager.models import (
+    Day,
+    Schedule,
+    ScheduleStep,
+    Workout,
+    WorkoutLog
+)
+from wger.nutrition.models import (
+    Meal,
+    NutritionPlan
+)
 from wger.weight.models import WeightEntry
 
 

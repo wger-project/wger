@@ -13,17 +13,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
+    WorkoutManagerAddTestCase,
     WorkoutManagerDeleteTestCase,
     WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase
+    WorkoutManagerTestCase
 )
-from wger.exercises.models import Equipment, Exercise
+from wger.exercises.models import (
+    Equipment,
+    Exercise
+)
 from wger.utils.cache import get_template_cache_name
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 

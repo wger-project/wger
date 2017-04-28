@@ -12,16 +12,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.core.files import File
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase
 )
-from wger.exercises.models import Exercise, ExerciseImage
+from wger.exercises.models import (
+    Exercise,
+    ExerciseImage
+)
 
 
 class MainImageTestCase(WorkoutManagerTestCase):

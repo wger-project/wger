@@ -14,22 +14,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
+import decimal
+import json
+import logging
 import os
 import random
 import string
-import logging
-import decimal
-import json
-import datetime
-
 from functools import wraps
 
-from django.http import Http404
+# Third Party
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import (
+    urlsafe_base64_decode,
+    urlsafe_base64_encode
+)
+
 
 logger = logging.getLogger(__name__)
 

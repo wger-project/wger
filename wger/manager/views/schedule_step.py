@@ -14,27 +14,36 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy, ugettext as _
 from django.db import models
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import (
+    ModelChoiceField,
+    ModelForm
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
     CreateView,
     DeleteView,
     UpdateView
 )
 
+# wger
 from wger.manager.models import (
     Schedule,
     ScheduleStep,
     Workout
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 
 

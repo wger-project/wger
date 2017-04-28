@@ -14,22 +14,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
-import bleach
 
-from django.utils.translation import ugettext_lazy
+# Third Party
+import bleach
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
 from django.template.context_processors import csrf
-from django.views.generic.edit import ModelFormMixin
+from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.views.generic.edit import ModelFormMixin
 
+# wger
 from wger.utils.constants import (
-    HTML_TAG_WHITELIST,
     HTML_ATTRIBUTES_WHITELIST,
-    HTML_STYLES_WHITELIST
+    HTML_STYLES_WHITELIST,
+    HTML_TAG_WHITELIST
 )
 
 

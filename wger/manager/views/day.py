@@ -14,22 +14,34 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy
-from django.utils.translation import ugettext as _
+# Third Party
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    CreateView,
+    UpdateView
+)
 
+# wger
 from wger.core.models import DaysOfWeek
-from wger.manager.models import Workout, Day
 from wger.manager.forms import DayForm
+from wger.manager.models import (
+    Day,
+    Workout
+)
 from wger.utils.generic_views import WgerFormMixin
 
 

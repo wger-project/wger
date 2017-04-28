@@ -15,22 +15,24 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Third Party
 from django.conf.urls import (
-    url,
-    include
+    include,
+    url
 )
 
+# wger
 from wger.gym.views import (
-    gym,
-    config,
     admin_config,
-    user_config,
     admin_notes,
-    document,
+    config,
     contract,
-    contract_type,
     contract_option,
-    export
+    contract_type,
+    document,
+    export,
+    gym,
+    user_config
 )
 
 

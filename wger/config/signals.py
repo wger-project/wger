@@ -15,9 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Third Party
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+# wger
 from wger.config.models import LanguageConfig
 from wger.core.models import Language
 

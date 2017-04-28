@@ -14,16 +14,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import uuid
+# Standard Library
 import datetime
+import uuid
 
-from django.db import models as m
+# Third Party
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.db import models as m
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import (
+    ugettext,
+    ugettext_lazy as _
+)
 
+# wger
 from wger.gym.managers import GymManager
 
 

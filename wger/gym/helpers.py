@@ -14,7 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from wger.manager.models import WorkoutLog, WorkoutSession
+# wger
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession
+)
 
 
 def get_user_last_activity(user):

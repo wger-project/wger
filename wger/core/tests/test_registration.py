@@ -12,14 +12,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-from wger.core.forms import RegistrationForm
-from wger.core.forms import RegistrationFormNoCaptcha
+# wger
+from wger.core.forms import (
+    RegistrationForm,
+    RegistrationFormNoCaptcha
+)
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
+
 
 logger = logging.getLogger(__name__)
 

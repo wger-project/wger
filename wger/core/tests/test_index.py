@@ -13,8 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Third Party
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan

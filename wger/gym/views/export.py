@@ -14,19 +14,23 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import csv
 import datetime
 import logging
 
+# Third Party
 from django.contrib.auth.decorators import login_required
 from django.http.response import (
-    HttpResponseForbidden,
-    HttpResponse
+    HttpResponse,
+    HttpResponseForbidden
 )
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 
+# wger
 from wger.gym.models import Gym
+
 
 logger = logging.getLogger(__name__)
 

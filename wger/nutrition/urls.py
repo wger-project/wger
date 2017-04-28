@@ -15,22 +15,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.contrib.auth.decorators import login_required
+# Third Party
 from django.conf.urls import (
-    url,
-    include
+    include,
+    url
 )
+from django.contrib.auth.decorators import login_required
 
+# wger
 from wger.nutrition.views import (
-    ingredient,
     bmi,
     calculator,
-    plan,
+    ingredient,
     meal,
     meal_item,
+    plan,
     unit,
     unit_ingredient
 )
+
 
 # sub patterns for nutritional plans
 patterns_plan = [

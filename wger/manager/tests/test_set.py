@@ -12,20 +12,29 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import STATUS_CODES_FAIL
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import (
+    STATUS_CODES_FAIL,
+    WorkoutManagerAddTestCase,
+    WorkoutManagerTestCase
+)
 from wger.exercises.models import Exercise
-from wger.manager.models import Day
-from wger.manager.models import Set
-from wger.manager.models import Setting
+from wger.manager.models import (
+    Day,
+    Set,
+    Setting
+)
 from wger.utils.cache import cache_mapper
 
 

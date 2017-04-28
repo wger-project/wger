@@ -9,29 +9,35 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
+
+
+# Standard Library
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
+import logging
 #
 # You should have received a copy of the GNU Affero General Public License
 import uuid
-import logging
 from itertools import chain
 
+# Third Party
+from django.forms import fields
 from django.forms.widgets import (
+    CheckboxChoiceInput,
     CheckboxSelectMultiple,
+    ChoiceFieldRenderer,
     DateInput,
     Select,
     SelectMultiple,
-    TextInput,
-    ChoiceFieldRenderer,
-    CheckboxChoiceInput)
-
-from django.forms import fields
-
-from django.utils.translation import ugettext as _
+    TextInput
+)
 from django.utils.encoding import force_text
-from django.utils.html import escape, conditional_escape
+from django.utils.html import (
+    conditional_escape,
+    escape
+)
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 
 
 logger = logging.getLogger(__name__)

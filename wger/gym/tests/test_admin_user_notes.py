@@ -12,13 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.core.urlresolvers import reverse_lazy
 
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import delete_testcase_add_methods
+# wger
+from wger.core.tests.base_testcase import (
+    WorkoutManagerAccessTestCase,
+    WorkoutManagerAddTestCase,
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import AdminUserNote
 
 

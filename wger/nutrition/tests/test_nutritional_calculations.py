@@ -13,12 +13,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import logging
 from decimal import Decimal
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.nutrition import models
 from wger.utils.constants import TWOPLACES
+
 
 logger = logging.getLogger(__name__)
 

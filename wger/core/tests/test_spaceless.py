@@ -12,11 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.template import Template, Context
+# Third Party
+from django.template import (
+    Context,
+    Template
+)
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
+
 
 logger = logging.getLogger(__name__)
 

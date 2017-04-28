@@ -14,38 +14,56 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import uuid
-import datetime
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import LoginRequiredMixin
+# Third Party
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.template.context_processors import csrf
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    DeleteView,
+    UpdateView
+)
 
+# wger
 from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
-from wger.manager.models import (
-    Workout,
-    WorkoutSession,
-    WorkoutLog,
-    Schedule,
-    Day
-)
 from wger.manager.forms import (
+    WorkoutCopyForm,
     WorkoutForm,
-    WorkoutSessionHiddenFieldsForm,
-    WorkoutCopyForm
+    WorkoutSessionHiddenFieldsForm
+)
+from wger.manager.models import (
+    Day,
+    Schedule,
+    Workout,
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 from wger.utils.helpers import make_token
 

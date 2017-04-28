@@ -15,22 +15,25 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Third Party
 from django.conf.urls import (
-    url,
-    include
+    include,
+    url
 )
-from django.views.generic import TemplateView
 from django.contrib.auth import views
 from django.core.urlresolvers import reverse_lazy
+from django.views.generic import TemplateView
 
+# wger
 from wger.core.views import (
-    user,
-    misc,
-    license,
     languages,
+    license,
+    misc,
     repetition_units,
+    user,
     weight_units
 )
+
 
 # sub patterns for languages
 patterns_language = [

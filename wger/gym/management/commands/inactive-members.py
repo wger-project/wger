@@ -14,15 +14,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Third Party
+from django.conf import settings
 from django.core import mail
-from django.utils import translation
-from django.utils.translation import ugettext as _
 from django.core.management.base import BaseCommand
 from django.template.loader import render_to_string
-from django.conf import settings
+from django.utils import translation
+from django.utils.translation import ugettext as _
 
+# wger
 from wger.gym.helpers import is_any_gym_admin
 from wger.gym.models import Gym
 

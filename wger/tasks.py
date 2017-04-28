@@ -14,8 +14,25 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
+# Standard Library
+import ctypes  # noqa  E402
+import logging  # noqa  E402
+import os  # noqa  E402
+import socket  # noqa  E402
 import sys
+import threading  # noqa  E402
+import time  # noqa  E402
+import webbrowser  # noqa  E402
+
+# Third Party
+import django  # noqa  E402
+from django.core.management import (  # noqa  E402
+    call_command,
+    execute_from_command_line
+)
+from django.utils.crypto import get_random_string  # noqa  E402
+from invoke import task  # noqa  E402
+
 
 #
 # This is an ugly and terrible hack, please don't do this!
@@ -27,21 +44,6 @@ import sys
 # is kind of OK to change the system path.
 sys.path = sys.path[1:]
 
-import time
-import logging
-import threading
-import webbrowser
-import os
-import ctypes
-import socket
-from invoke import task
-
-import django
-from django.utils.crypto import get_random_string
-from django.core.management import (
-    call_command,
-    execute_from_command_line
-)
 
 logger = logging.getLogger(__name__)
 
@@ -49,9 +51,12 @@ logger = logging.getLogger(__name__)
 @task(help={'address': 'Address to bind to. Default: localhost',
             'port': 'Port to use. Default: 8000',
             'browser': 'Whether to open the application in a browser window. Default: false',
-            'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
-            'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: "--arg1 --arg2=value". Default: none'})
-def start(context, address='localhost', port=8000, browser=False, settings_path=None, extra_args=''):
+            'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
+                             'default',
+            'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: '
+                          '"--arg1 --arg2=value". Default: none'})
+def start(context, address='localhost', port=8000, browser=False, settings_path=None,
+          extra_args=''):
     '''
     Start the application using django's built in webserver
     '''
@@ -69,8 +74,10 @@ def start(context, address='localhost', port=8000, browser=False, settings_path=
     execute_from_command_line(argv)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
-            'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
+                             'default',
+            'database-path': 'Path to sqlite database (absolute path recommended). Leave empty '
+                             'for default',
             'address': 'Address to use. Default: localhost',
             'port': 'Port to use. Default: 8000',
             'browser': 'Whether to open the application in a browser window. Default: false',
@@ -120,11 +127,15 @@ def bootstrap(context,
         start(context, address=address, port=port, browser=browser, settings_path=settings_path)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default',
-            'database-path': 'Path to sqlite database (absolute path recommended). Leave empty for default',
-            'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
+                             'default',
+            'database-path': 'Path to sqlite database (absolute path recommended). Leave empty '
+                             'for default',
+            'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: '
+                             'sqlite3',
             'key-length': 'Lenght of the generated secret key. Default: 50'})
-def create_settings(context, settings_path=None, database_path=None, url=None, database_type='sqlite3', key_length=50):
+def create_settings(context, settings_path=None, database_path=None, url=None,
+                    database_type='sqlite3', key_length=50):
     '''
     Creates a local settings file
     '''
@@ -190,7 +201,8 @@ def create_settings(context, settings_path=None, database_path=None, url=None, d
         settings_file.write(settings_content)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
+                             'default'})
 def create_or_reset_admin(context, settings_path=None):
     '''
     Creates an admin user or resets the password for an existing one
@@ -214,7 +226,8 @@ def create_or_reset_admin(context, settings_path=None):
     call_command("loaddata", path + "users.json")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
+                             'default'})
 def migrate_db(context, settings_path=None):
     '''
     Run all database migrations
@@ -226,7 +239,8 @@ def migrate_db(context, settings_path=None):
     call_command("migrate")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for default'})
+@task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
+                             'default'})
 def load_fixtures(context, settings_path=None):
     '''
     Loads all fixtures

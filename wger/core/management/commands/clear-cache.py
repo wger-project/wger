@@ -14,16 +14,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.contrib.auth.models import User
-from django.core.management.base import BaseCommand, CommandError
 from django.core.cache import cache
+from django.core.management.base import (
+    BaseCommand,
+    CommandError
+)
 
+# wger
 from wger.core.models import Language
-from wger.manager.models import Workout, WorkoutLog
+from wger.manager.models import (
+    Workout,
+    WorkoutLog
+)
 from wger.utils.cache import (
+    delete_template_fragment_cache,
     reset_workout_canonical_form,
-    reset_workout_log,
-    delete_template_fragment_cache
+    reset_workout_log
 )
 
 

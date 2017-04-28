@@ -14,55 +14,80 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _, ugettext_lazy
-from django.utils import translation
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as django_login
-from django.contrib.auth import logout as django_logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User as Django_User, User
-from django.contrib.auth.views import login as django_loginview
-from django.contrib import messages
-from django.views.generic import (
-    RedirectView,
-    UpdateView,
-    DetailView,
-    ListView
-)
+# Third Party
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import (
+    authenticate,
+    login as django_login,
+    logout as django_logout
+)
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.contrib.auth.models import User
+from django.contrib.auth.views import login as django_loginview
+from django.core.urlresolvers import reverse
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.template.context_processors import csrf
+from django.utils import translation
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    DetailView,
+    ListView,
+    RedirectView,
+    UpdateView
+)
 from rest_framework.authtoken.models import Token
 
-from wger.utils.constants import USER_TAB
-from wger.utils.generic_views import WgerFormMixin, WgerMultiplePermissionRequiredMixin
-from wger.utils.user_agents import check_request_amazon, check_request_android
+# wger
+from wger.config.models import GymConfig
 from wger.core.forms import (
-    UserPreferencesForm,
-    UserPersonalInformationForm,
     PasswordConfirmationForm,
     RegistrationForm,
     RegistrationFormNoCaptcha,
-    UserLoginForm)
-from wger.core.models import Language
-from wger.manager.models import (
-    WorkoutLog,
-    WorkoutSession,
-    Workout
+    UserLoginForm,
+    UserPersonalInformationForm,
+    UserPreferencesForm
 )
-from wger.nutrition.models import NutritionPlan
-from wger.config.models import GymConfig
-from wger.weight.models import WeightEntry
+from wger.core.models import Language
 from wger.gym.models import (
     AdminUserNote,
-    GymUserConfig,
-    Contract
+    Contract,
+    GymUserConfig
 )
+from wger.manager.models import (
+    Workout,
+    WorkoutLog,
+    WorkoutSession
+)
+from wger.nutrition.models import NutritionPlan
+from wger.utils.constants import USER_TAB
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerMultiplePermissionRequiredMixin
+)
+from wger.utils.user_agents import (
+    check_request_amazon,
+    check_request_android
+)
+from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 
@@ -224,9 +249,9 @@ def registration(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             email = form.cleaned_data['email']
-            user = Django_User.objects.create_user(username,
-                                                   email,
-                                                   password)
+            user = User.objects.create_user(username,
+                                            email,
+                                            password)
             user.save()
 
             # Pre-set some values of the user's profile

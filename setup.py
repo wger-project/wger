@@ -7,10 +7,13 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
+# Third Party
 from setuptools import (
-    setup,
-    find_packages
+    find_packages,
+    setup
 )
+
+# wger
 from wger import get_version
 
 

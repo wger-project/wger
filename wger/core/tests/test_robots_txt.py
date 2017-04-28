@@ -12,9 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 import six
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.models import Language
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 

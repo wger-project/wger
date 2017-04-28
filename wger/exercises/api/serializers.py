@@ -14,14 +14,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from rest_framework import serializers
+
+# wger
 from wger.exercises.models import (
-    Muscle,
-    Exercise,
-    ExerciseImage,
-    ExerciseCategory,
     Equipment,
-    ExerciseComment
+    Exercise,
+    ExerciseCategory,
+    ExerciseComment,
+    ExerciseImage,
+    Muscle
 )
 
 

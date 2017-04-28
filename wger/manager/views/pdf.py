@@ -14,24 +14,33 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.http import HttpResponse
-from django.http import HttpResponseForbidden
+# Third Party
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden
+)
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
-
-from wger.manager.models import Workout
-from wger.manager.helpers import render_workout_day
-from wger.utils.helpers import check_token
-from wger.utils.pdf import styleSheet
-from wger.utils.pdf import render_footer
-
-from reportlab.lib.pagesizes import A4, cm
+from reportlab.lib.pagesizes import (
+    A4,
+    cm
+)
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
     Spacer
+)
+
+# wger
+from wger.manager.helpers import render_workout_day
+from wger.manager.models import Workout
+from wger.utils.helpers import check_token
+from wger.utils.pdf import (
+    render_footer,
+    styleSheet
 )
 
 

@@ -20,6 +20,7 @@
   "homepage": "https://github.com/wger-project/wger",
   "devDependencies": {
     "@petervanderdoes/gulp-flake8": "^1.1.0",
+    "@petervanderdoes/gulp-isort": "^1.1.0",
     "eslint": "^3.3.1",
     "eslint-config-airbnb-base": "^5.0.2",
     "eslint-plugin-import": "^1.13.0",

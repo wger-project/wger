@@ -14,29 +14,42 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.forms.models import modelformset_factory, inlineformset_factory
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
-from django.db import models
+# Third Party
 from django.contrib.auth.decorators import login_required
-
-from wger.manager.models import (
-    Day,
-    Set,
-    Setting
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.forms.models import (
+    inlineformset_factory,
+    modelformset_factory
 )
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+
+# wger
+from wger.config.models import LanguageConfig
 from wger.exercises.models import Exercise
 from wger.manager.forms import (
     SetForm,
     SetFormMobile,
     SettingForm
 )
+from wger.manager.models import (
+    Day,
+    Set,
+    Setting
+)
 from wger.utils.language import load_item_languages
-from wger.config.models import LanguageConfig
+
 
 logger = logging.getLogger(__name__)
 

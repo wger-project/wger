@@ -12,10 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.core import mail
 from django.core.urlresolvers import reverse
 
-from wger.core.tests.base_testcase import STATUS_CODES_FAIL, WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import (
+    STATUS_CODES_FAIL,
+    WorkoutManagerTestCase
+)
 from wger.exercises.models import Exercise
 
 

@@ -12,9 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.core import mail
 from django.core.management import call_command
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
