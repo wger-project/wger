@@ -63,7 +63,7 @@ Activate the settings and disable apache's default::
     sudo service apache2 reload
 
 Database
----------
+--------
 
 postgreSQL
 ~~~~~~~~~~
