@@ -14,28 +14,40 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import datetime
+import logging
 
+# Third Party
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden, HttpResponseBadRequest
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseForbidden
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    UpdateView,
+    CreateView,
     DeleteView,
-    CreateView
+    UpdateView
 )
 
+# wger
 from wger.manager.forms import WorkoutSessionForm
 from wger.manager.models import (
     Workout,
-    WorkoutSession,
-    WorkoutLog
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 
 

@@ -14,30 +14,41 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.conf import settings
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.core import mail
-from django.utils.translation import ugettext as _
-from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login
+from django.contrib.auth.decorators import login_required
+from django.core import mail
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext as _
+from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
 
-
-from wger.core.forms import FeedbackRegisteredForm, FeedbackAnonymousForm
-from wger.core.demo import create_demo_entries, create_temporary_user
+# wger
+from wger.core.demo import (
+    create_demo_entries,
+    create_temporary_user
+)
+from wger.core.forms import (
+    FeedbackAnonymousForm,
+    FeedbackRegisteredForm
+)
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
-from wger.weight.models import WeightEntry
 from wger.weight.helpers import get_last_entries
+from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)

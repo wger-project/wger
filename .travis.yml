@@ -41,6 +41,7 @@ install:
   # Install requirements
   - pip install -r requirements_devel.txt
   - python setup.py develop
+  - npm install gulp gulp-cli
   - npm install
   - cd wger
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi

@@ -14,12 +14,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 
+# wger
 from wger.gym.helpers import is_any_gym_admin
-from wger.gym.models import GymUserConfig, GymAdminConfig
+from wger.gym.models import (
+    GymAdminConfig,
+    GymUserConfig
+)
 
 
 class Command(BaseCommand):

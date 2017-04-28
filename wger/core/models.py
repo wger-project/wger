@@ -14,22 +14,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import decimal
 
+# Third Party
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
 from django.db import models
 from django.db.models import IntegerField
-from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from wger.gym.models import Gym
 
+# wger
+from wger.gym.models import Gym
 from wger.utils.constants import TWOPLACES
 from wger.utils.units import AbstractWeight
-
 from wger.weight.models import WeightEntry
 
 

@@ -15,23 +15,34 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import datetime
 import logging
-from django.utils.encoding import python_2_unicode_compatible
 
+# Third Party
 import six
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import ValidationError
 from django.core.cache import cache
-from django.core.validators import MinValueValidator
+from django.core.exceptions import (
+    ObjectDoesNotExist,
+    ValidationError
+)
+from django.core.urlresolvers import reverse
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
 from sortedm2m.fields import SortedManyToManyField
 
-from wger.core.models import DaysOfWeek, RepetitionUnit, WeightUnit
+# wger
+from wger.core.models import (
+    DaysOfWeek,
+    RepetitionUnit,
+    WeightUnit
+)
 from wger.exercises.models import Exercise
 from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import (

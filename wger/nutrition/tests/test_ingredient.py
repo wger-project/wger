@@ -13,23 +13,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import datetime
 import json
 from decimal import Decimal
 
+# Third Party
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.models import Language
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
+    WorkoutManagerAddTestCase,
     WorkoutManagerDeleteTestCase,
     WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase
+    WorkoutManagerTestCase
 )
-from wger.nutrition.models import Ingredient
-from wger.nutrition.models import Meal
+from wger.nutrition.models import (
+    Ingredient,
+    Meal
+)
 from wger.utils.constants import NUTRITION_TAB
 
 

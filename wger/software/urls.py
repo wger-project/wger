@@ -14,10 +14,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.conf.urls import url
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import (
+    RedirectView,
+    TemplateView
+)
 
+# wger
 from wger.software import views
+
 
 urlpatterns = [
 

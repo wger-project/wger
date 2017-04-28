@@ -14,21 +14,29 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
+from tastypie.constants import (
+    ALL,
+    ALL_WITH_RELATIONS
+)
 from tastypie.resources import ModelResource
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
+# wger
+from wger.core.api.resources import (
+    LanguageResource,
+    LicenseResource
+)
 from wger.nutrition.models import (
     Ingredient,
-    WeightUnit,
     IngredientWeightUnit,
-    NutritionPlan,
     Meal,
-    MealItem
+    MealItem,
+    NutritionPlan,
+    WeightUnit
 )
 from wger.utils.resources import UserObjectsOnlyAuthorization
-from wger.core.api.resources import LicenseResource, LanguageResource
 
 
 class IngredientResource(ModelResource):

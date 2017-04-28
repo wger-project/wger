@@ -12,13 +12,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.utils.helpers import next_weekday, make_token
+from wger.utils.helpers import (
+    make_token,
+    next_weekday
+)
 
 
 # TODO: parse the generated calendar files with the icalendar library

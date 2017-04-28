@@ -14,8 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.conf.urls import url, include
+# Third Party
+from django.conf.urls import (
+    include,
+    url
+)
 
+# wger
 from wger.email.forms import EmailListForm
 from wger.email.views import gym
 

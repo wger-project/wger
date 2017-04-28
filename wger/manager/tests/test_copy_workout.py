@@ -12,13 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import Workout
+
 
 logger = logging.getLogger(__name__)
 

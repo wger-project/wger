@@ -11,21 +11,6 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Docstrings and comments use max_line_length = 79
-[*.py]
-max_line_length = 100
-
-#
-# PHP Styles
-#
-[*.php]
-indent_style = space
-indent_size = 4
-
-[*.twig]
-trim_trailing_whitespace = false
-insert_final_newline = false
-
 #
 # Javascript
 #
@@ -42,6 +27,7 @@ indent_size = 2
 [*.py]
 indent_style = space
 indent_size = 4
+max_line_length = 100
 
 #
 # JSON File

@@ -15,12 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.utils.translation import pgettext
+# Third Party
 from django.forms import (
-    Form,
     CharField,
+    Form,
     Textarea
 )
+from django.utils.translation import pgettext
 
 
 class EmailListForm(Form):

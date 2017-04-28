@@ -10,36 +10,47 @@
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
+
+
+# Standard Library
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 import logging
+# GNU General Public License for more details.
+#
 from decimal import Decimal
 
-from django.db import models
-
-from django.template.loader import render_to_string
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
-from django.core import mail
-from django.core.cache import cache
+# Third Party
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.core import mail
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
+from django.db import models
+from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
+from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django.utils import translation
-from django.conf import settings
 
+# wger
 from wger.core.models import Language
-from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
+from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
-from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
+from wger.utils.models import (
+    AbstractLicenseModel,
+    AbstractSubmissionModel
+)
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
+
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'

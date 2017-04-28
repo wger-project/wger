@@ -15,18 +15,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import logging
 
+# Third Party
+from django.core.cache import cache
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from django.core.cache import cache
-from wger.core.models import Language, UserProfile
-from wger.gym.helpers import is_any_gym_admin
-from wger.gym.models import Gym, GymUserConfig
 
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.cache import cache_mapper
+# wger
+from wger.core.models import (
+    Language,
+    UserProfile
+)
+from wger.gym.helpers import is_any_gym_admin
+from wger.gym.models import (
+    Gym,
+    GymUserConfig
+)
+from wger.utils.cache import (
+    cache_mapper,
+    delete_template_fragment_cache
+)
 
 
 logger = logging.getLogger(__name__)

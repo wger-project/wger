@@ -12,18 +12,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
-from wger.manager.models import Workout, WorkoutSession, WorkoutLog
+from wger.core.tests.base_testcase import (
+    WorkoutManagerAddTestCase,
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase
+)
+from wger.manager.models import (
+    Workout,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.cache import cache_mapper
 
 

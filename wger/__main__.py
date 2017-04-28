@@ -14,9 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import os
 import sys
+
+# Third Party
 from invoke import run
+
 
 '''
 This simple wrapper script is used as a console entry point in the packaged

@@ -12,10 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 from decimal import Decimal
 
+# Third Party
 from django.core.cache import cache
 
+# wger
 from wger.core.models import (
     DaysOfWeek,
     RepetitionUnit,
@@ -24,10 +27,10 @@ from wger.core.models import (
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.exercises.models import Exercise
 from wger.manager.models import (
-    Workout,
     Day,
     Set,
-    Setting
+    Setting,
+    Workout
 )
 from wger.utils.cache import cache_mapper
 

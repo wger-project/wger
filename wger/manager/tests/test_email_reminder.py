@@ -12,16 +12,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Third Party
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.management import call_command
 
+# wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.manager.models import Schedule
-from wger.manager.models import Workout
+from wger.manager.models import (
+    Schedule,
+    Workout
+)
 
 
 class EmailReminderTestCase(WorkoutManagerTestCase):

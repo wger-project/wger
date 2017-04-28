@@ -14,41 +14,58 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import datetime
+import logging
 
-from django.shortcuts import render, get_object_or_404
-from django.http import (
-    HttpResponseRedirect,
-    HttpResponseForbidden,
-    HttpResponse
-)
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import PermissionRequiredMixin
+# Third Party
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
     CreateView,
     DeleteView,
     UpdateView
 )
-
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    SimpleDocTemplate,
     Paragraph,
+    SimpleDocTemplate,
     Spacer
 )
 
-from wger.manager.models import Schedule
+# wger
 from wger.manager.helpers import render_workout_day
+from wger.manager.models import Schedule
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
-from wger.utils.helpers import make_token, check_token
-from wger.utils.pdf import styleSheet, render_footer
+from wger.utils.helpers import (
+    check_token,
+    make_token
+)
+from wger.utils.pdf import (
+    render_footer,
+    styleSheet
+)
 
 
 logger = logging.getLogger(__name__)

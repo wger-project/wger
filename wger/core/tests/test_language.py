@@ -15,14 +15,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.core.urlresolvers import reverse_lazy
 
+# wger
 from wger.core.models import Language
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import (
+    WorkoutManagerAccessTestCase,
+    WorkoutManagerAddTestCase,
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase
+)
 
 
 class LanguageRepresentationTestCase(WorkoutManagerTestCase):

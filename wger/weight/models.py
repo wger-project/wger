@@ -15,10 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
-
+# Third Party
 from django.contrib.auth.models import User
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
+from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 

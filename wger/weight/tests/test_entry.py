@@ -12,14 +12,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import decimal
 
+# Third Party
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase, WorkoutManagerTestCase
+from wger.core.tests.base_testcase import (
+    WorkoutManagerAddTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase
+)
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 

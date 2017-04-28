@@ -14,10 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core import mail
+# Third Party
 from django.conf import settings
-
+from django.core import mail
 from django.core.management.base import BaseCommand
+
+# wger
 from wger.email.models import CronEntry
 
 

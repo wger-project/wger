@@ -15,14 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import serializers
+
+# wger
 from wger.nutrition.models import (
-    NutritionPlan,
+    Ingredient,
     IngredientWeightUnit,
-    WeightUnit,
-    MealItem,
     Meal,
-    Ingredient
+    MealItem,
+    NutritionPlan,
+    WeightUnit
 )
 
 

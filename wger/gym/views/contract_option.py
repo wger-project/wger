@@ -14,24 +14,38 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+# Third Party
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext_lazy, ugettext as _
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
     CreateView,
-    UpdateView,
     DeleteView,
-    ListView)
-
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    ListView,
+    UpdateView
 )
-from wger.gym.models import ContractOption, Gym
+
+# wger
+from wger.gym.models import (
+    ContractOption,
+    Gym
+)
+from wger.utils.generic_views import (
+    WgerDeleteMixin,
+    WgerFormMixin
+)
+
 
 logger = logging.getLogger(__name__)
 

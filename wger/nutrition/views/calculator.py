@@ -15,17 +15,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+# Standard Library
 import json
+import logging
 
+# Third Party
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
+# wger
 from wger.nutrition.forms import (
     BmrForm,
-    PhysicalActivitiesForm,
-    DailyCaloriesForm
+    DailyCaloriesForm,
+    PhysicalActivitiesForm
 )
 
 

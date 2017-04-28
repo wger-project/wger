@@ -14,10 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.contrib.auth.models import User
+# Third Party
 from django import forms
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
+# wger
 from wger.core.forms import UserPersonalInformationForm
 from wger.utils.widgets import BootstrapSelectMultiple
 

@@ -12,17 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.contrib.auth.models import Permission
-from django.contrib.auth.models import User
+# Third Party
+from django.contrib.auth.models import (
+    Permission,
+    User
+)
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.gym.models import Gym
-from wger.gym.models import GymAdminConfig
+from wger.gym.models import (
+    Gym,
+    GymAdminConfig
+)
 
 
 class GymAddUserTestCase(WorkoutManagerTestCase):

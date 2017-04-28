@@ -15,20 +15,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import url, include
+# Third Party
+from django.conf.urls import (
+    include,
+    url
+)
 from django.contrib.auth.decorators import login_required
 
+# wger
 from wger.manager.views import (
+    day,
+    ical,
+    log,
     pdf,
     schedule,
     schedule_step,
-    ical,
-    workout,
-    log,
     set,
-    day,
+    workout,
     workout_session
 )
+
 
 # sub patterns for workout logs
 patterns_log = [

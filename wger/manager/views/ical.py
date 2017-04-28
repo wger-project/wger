@@ -14,21 +14,34 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import logging
+# Standard Library
 import datetime
+import logging
 
-from icalendar import Calendar
-from icalendar import Event
+# Third Party
+import six
+from django.contrib.sites.models import Site
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden
+)
+from django.shortcuts import get_object_or_404
+from icalendar import (
+    Calendar,
+    Event
+)
 from icalendar.tools import UIDGenerator
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseForbidden
-from django.contrib.sites.models import Site
-
+# wger
 from wger import get_version
-from wger.manager.models import Workout, Schedule
-from wger.utils.helpers import next_weekday, check_token
+from wger.manager.models import (
+    Schedule,
+    Workout
+)
+from wger.utils.helpers import (
+    check_token,
+    next_weekday
+)
 
 
 logger = logging.getLogger(__name__)

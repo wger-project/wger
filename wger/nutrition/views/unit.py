@@ -13,26 +13,39 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-
+# Third Party
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.core.urlresolvers import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    DeleteView,
     CreateView,
-    UpdateView,
-    ListView
+    DeleteView,
+    ListView,
+    UpdateView
 )
 
+# wger
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
-from wger.utils.language import load_language
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
+from wger.utils.language import load_language
+
 
 logger = logging.getLogger(__name__)
 # ************************

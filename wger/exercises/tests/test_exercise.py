@@ -12,23 +12,29 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import json
 
+# Third Party
 from django.core import mail
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
-    WorkoutManagerTestCase,
-    WorkoutManagerDeleteTestCase
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerTestCase
 )
 from wger.exercises.models import (
     Exercise,
-    Muscle,
     ExerciseCategory,
+    Muscle
 )
-from wger.utils.cache import get_template_cache_name, cache_mapper
+from wger.utils.cache import (
+    cache_mapper,
+    get_template_cache_name
+)
 
 
 class ExerciseRepresentationTestCase(WorkoutManagerTestCase):

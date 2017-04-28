@@ -14,20 +14,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import requests
+# Standard Library
 import os
 
-from wger import get_version
-from requests.utils import default_user_agent
-from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand, CommandError
+# Third Party
+import requests
+from django.conf import settings
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    ValidationError
+)
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.core.management.base import (
+    BaseCommand,
+    CommandError
+)
 from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
-from django.conf import settings
+from requests.utils import default_user_agent
 
-from wger.exercises.models import Exercise, ExerciseImage
+# wger
+from wger import get_version
+from wger.exercises.models import (
+    Exercise,
+    ExerciseImage
+)
 
 
 class Command(BaseCommand):
@@ -66,12 +77,9 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-         
         exercise_api = "{0}/api/v2/exercise/?limit=999&status=2"
         image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
         thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
-        
-        
 
         headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
 
@@ -89,10 +97,10 @@ class Command(BaseCommand):
 
             try:
                 exercise = Exercise.objects.get(uuid=exercise_uuid)
-               
+
             except Exercise.DoesNotExist:
                 self.stdout.write('    Remote exercise not found in local DB, skipping...')
-                
+
                 continue
 
             # Get all images
@@ -135,4 +143,3 @@ class Command(BaseCommand):
 
             else:
                 self.stdout.write('    No images for this exercise, nothing to do')
-                

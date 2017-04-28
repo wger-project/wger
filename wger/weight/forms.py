@@ -14,10 +14,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django import forms
-from django.forms import Form, CharField, Textarea, ModelForm, DateField, widgets
+from django.forms import (
+    CharField,
+    DateField,
+    Form,
+    ModelForm,
+    Textarea,
+    widgets
+)
 from django.utils.translation import ugettext as _
 
+# wger
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
 from wger.weight.models import WeightEntry

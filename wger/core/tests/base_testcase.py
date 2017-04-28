@@ -12,18 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import os
+# Standard Library
 import decimal
 import logging
-import tempfile
+import os
 import shutil
+import tempfile
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import NoReverseMatch
-from django.core.cache import cache
+# Third Party
+import six
 from django.conf import settings
+from django.core.cache import cache
+from django.core.urlresolvers import (
+    NoReverseMatch,
+    reverse
+)
 from django.test import TestCase
+
+# wger
 from wger.utils.constants import TWOPLACES
 
 

@@ -13,18 +13,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import datetime
 
+# Third Party
 from django.core.urlresolvers import reverse
 
+# wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
+    WorkoutManagerAddTestCase,
     WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase
+    WorkoutManagerTestCase
 )
-from wger.nutrition.models import Meal
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import (
+    Meal,
+    NutritionPlan
+)
 
 
 class MealRepresentationTestCase(WorkoutManagerTestCase):
