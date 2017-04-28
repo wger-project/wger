@@ -117,7 +117,6 @@ def bootstrap(context,
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     context.run('npm install bower')
     call_command('bower', 'install')
 
