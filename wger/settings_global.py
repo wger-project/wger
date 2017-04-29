@@ -333,7 +333,7 @@ COMPRESS_ROOT = STATIC_ROOT
 if sys.platform.startswith('win32'):
     BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'bower.cmd'))
 else:
-    BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'bower'))
+    BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', 'bin', 'bower'))
 
 #
 # Django Rest Framework
