@@ -14,6 +14,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# flake8: noqa
+
 import os
 import sys
 import csv
@@ -26,8 +28,12 @@ import argparse
 from django.db import IntegrityError
 from django.utils.text import slugify
 
+from wger.tasks import (
+    get_user_config_path,
+    setup_django_environment
+)
 sys.path.insert(0, os.path.join('..', '..'))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+setup_django_environment(get_user_config_path('wger', 'settings.py'))
 django.setup()
 
 # Must happen after calling django.setup()
@@ -452,7 +458,7 @@ if hasattr(args, 'number_nutrition_plans'):
 
     # Total meals per plan
     total_meals = 4
-    
+
     for user in userlist:
         print('   - generating for {0}'.format(user.username))
 
