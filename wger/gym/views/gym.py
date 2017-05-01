@@ -58,7 +58,7 @@ from django.views.generic import (
 from wger.config.models import GymConfig as GlobalGymConfig
 from wger.gym.forms import (
     GymUserAddForm,
-    GymUserPermisssionForm
+    GymUserPermissionForm
 )
 from wger.gym.helpers import (
     get_permission_list,
@@ -266,8 +266,8 @@ def gym_permissions_user_edit(request, user_pk):
     form_group_permission = get_permission_list(user)
 
     if request.method == 'POST':
-        form = GymUserPermisssionForm(available_roles=form_group_permission,
-                                      data=request.POST)
+        form = GymUserPermissionForm(available_roles=form_group_permission,
+                                     data=request.POST)
 
         if form.is_valid():
 
@@ -303,8 +303,8 @@ def gym_permissions_user_edit(request, user_pk):
         if member.groups.filter(name='general_gym_manager').exists():
             initial_data['manager'] = True
 
-        form = GymUserPermisssionForm(initial={'role': initial_data},
-                                      available_roles=form_group_permission)
+        form = GymUserPermissionForm(initial={'role': initial_data},
+                                     available_roles=form_group_permission)
 
     context = {}
     context['title'] = member.get_full_name()
