@@ -43,12 +43,14 @@ class GymUserPermisssionForm(forms.ModelForm):
     role = forms.MultipleChoiceField(choices=ROLES,
                                      initial=USER)
 
-    def __init__(self, available_roles=[], *args, **kwargs):
+    def __init__(self, available_roles=None, *args, **kwargs):
         '''
         Custom logic to reduce the available permissions
         '''
         super(GymUserPermisssionForm, self).__init__(*args, **kwargs)
 
+        if available_roles is None:
+            available_roles = []
         field_choices = [(self.USER, _('User'))]
         if 'trainer' in available_roles:
             field_choices.append((self.TRAINER, _('Trainer')))
