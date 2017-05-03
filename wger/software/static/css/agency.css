@@ -27,7 +27,7 @@
 body {
   overflow-x: hidden;
   /*font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  font-family: font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
 }
 .text-muted {
   color: #777777;
