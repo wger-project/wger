@@ -58,7 +58,9 @@ class UserPreferencesForm(forms.ModelForm):
                   'timer_active',
                   'timer_pause',
                   'ro_access',
-                  'num_days_weight_reminder')
+                  'num_days_weight_reminder',
+                  'birthdate'
+                  )
 
 
 class UserEmailForm(forms.ModelForm):

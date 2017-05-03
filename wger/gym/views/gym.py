@@ -379,6 +379,7 @@ class GymAddUserView(WgerFormMixin,
 
         # Update profile
         user.userprofile.gym = gym
+        user.userprofile.birthdate = form.cleaned_data['birthdate']
         user.userprofile.save()
 
         # Set appropriate permission groups

@@ -83,6 +83,21 @@ class Language(models.Model):
         return False
 
 
+def birthdate_validator(birthdate):
+    '''
+    Checks to see if entered birthdate (datetime.date object) is
+    between 10 and 100 years of age.
+    '''
+    max_year = birthdate.replace(year=(birthdate.year + 100))
+    min_year = birthdate.replace(year=(birthdate.year + 10))
+    today = datetime.date.today()
+    if today > max_year or today < min_year:
+        raise ValidationError(
+            _('%(birthdate)s is not a valid birthdate'),
+            params={'birthdate': birthdate},
+        )
+
+
 @python_2_unicode_compatible
 class UserProfile(models.Model):
     GENDER_MALE = '1'
@@ -211,6 +226,13 @@ by the US Department of Agriculture. It is extremely complete, with around
                        null=True,
                        validators=[MinValueValidator(10), MaxValueValidator(100)])
     '''The user's age'''
+
+    birthdate = models.DateField(verbose_name=('Date of Birth'),
+                                 blank=False,
+                                 null=True,
+                                 validators=[birthdate_validator])
+
+    '''The user's date of birth'''
 
     height = IntegerField(verbose_name=_('Height (cm)'),
                           blank=False,
