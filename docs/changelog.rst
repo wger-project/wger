@@ -14,7 +14,7 @@ Upgrade steps from 1.8:
 
 New features:
 
-* ...
+* Allow users to enter their birthdate instead of just the age (thanks `@dtopal`_) `#332`_
 
 Improvements:
 
@@ -28,11 +28,13 @@ Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
 
 .. _@gmmoraes: https://github.com/gmmoraes
 .. _@Mbarak-Mbigo: https://github.com/Mbarak-Mbigo
+.. _@dtopal: https://github.com/dtopal
 
 .. _wger_vulcan/#6: https://github.com/andela/wger_vulcan/pull/6
 
-.. _#364: https://github.com/wger-project/wger/issues/364
+.. _#332: https://github.com/wger-project/wger/issues/332
 .. _#363: https://github.com/wger-project/wger/issues/363
+.. _#336: https://github.com/wger-project/wger/issues/336
 .. _#336: https://github.com/wger-project/wger/issues/336
 .. _#359: https://github.com/wger-project/wger/issues/359
 .. _#381: https://github.com/wger-project/wger/issues/381
