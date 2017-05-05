@@ -20,10 +20,11 @@ $(document).ready(function() {
 
 
     // Hightlight the first element
-    wgerHighlightMuscle($('.muscle').first());
+    var $muscle = $('.muscle');
+    wgerHighlightMuscle($muscle.first());
 
     // Highlight on hover
-    $('.muscle').hover(function(e) {
+    $muscle.hover(function(e) {
         e.preventDefault();
         wgerHighlightMuscle(this);
     });
