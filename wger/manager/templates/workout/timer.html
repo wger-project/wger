@@ -57,7 +57,7 @@ var counter = {
     }
 
     // Update the HTML element with the current remaining time once per second
-    if (this.seconds != Math.ceil(this.milliseconds / 1000)) {
+    if (this.seconds !== Math.ceil(this.milliseconds / 1000)) {
       $('#counter-' + this.step_id).html(this.end - this.seconds);
     }
 
