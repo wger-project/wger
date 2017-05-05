@@ -251,7 +251,7 @@
     $(document).ready(function() {
         $('#confirmation-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var url = button.data('url')
+            var url = button.data('url');
             var modal = $(this);
 
             modal.find('button.btn-success').click(function() {

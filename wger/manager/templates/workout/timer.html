@@ -96,7 +96,7 @@ var counter = {
         this.radius = Math.min(this.canvas_size[0], this.canvas_size[1]) / 2;
         this.center = [this.canvas_size[0]/2, this.canvas_size[1]/2];
     }
-}
+};
 
 
 function start_countdown(step_id, seconds)
@@ -191,7 +191,7 @@ $(document).ready(function() {
         clearInterval(counter.interval);
 
         // Paginate to next step
-        paginate_to(step_nr + 1)
+        paginate_to(step_nr + 1);
 
         // Start the countdown for the next step slightly after the previous
         // pagination animation is finished
