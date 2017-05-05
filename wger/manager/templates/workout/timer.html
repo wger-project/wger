@@ -135,7 +135,7 @@ $(document).ready(function() {
     $('.timer-step').height(div_height);
 
     //wrap into mother div
-    $('#timer-container ul').wrap('<div id="mother" />');
+    $('#timer-container').find('ul').wrap('<div id="mother" />');
 
     //assign height width and overflow hidden to mother
     $('#mother').css({
@@ -151,7 +151,7 @@ $(document).ready(function() {
 
     //get total of image sizes and set as width for ul
     var totalWidth = $('.timer-step').length * div_width;
-    $('#timer-container ul').css({
+    $('#timer-container').find('ul').css({
         width: function() {
             return totalWidth;
         }
@@ -181,7 +181,7 @@ $(document).ready(function() {
     });
 
     // Bind the pagination buttons
-    $('#timer-container ul li.timer-step a.next').bind("click", function(e) {
+    $('#timer-container').find('ul li.timer-step a.next').bind("click", function(e) {
         e.preventDefault();
         var step_id = $(this).parents('li').data('step');
         var step_time = $(this).parents('li').data('time');
