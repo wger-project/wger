@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     # Apps from wger proper
+    'wger.body_measurements',
     'wger.config',
     'wger.core',
     'wger.email',

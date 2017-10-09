@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load wger_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Preview imported CSV entries" %}{% endblock %}
+
+
+
+{% block content %}
+<h4>{% trans "Successfully converted values" %}</h4>
+<div class="alert alert-success">{% trans "The following values could be converted." %}</div>
+<table class="table">
+<tr>
+    <th>{% trans "Date" %}</th>
+    <th>{% trans "Weight" %}</th>
+</tr>
+{% for entry in weight_list %}
+    <tr>
+        <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
+        <td>{{ entry.weight }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+
+
+<h4>{% trans "Errors" %}</h4>
+
+{% if error_list %}
+    <div class="alert alert-danger">{% trans "The following values could not be converted." %}</div>
+
+    <p>{% blocktrans %}These values could not be converted to a weight log entry.
+    The reasons for this could be anything from an unrecognised date or number
+    format, a problem with the encoding or something else. Please check that
+    there are no obvious errors in the list (and correct them if there are!)
+    and try to import the list again.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}Remember that the expected structure is <strong>date</strong>
+    on the first columns and <strong>weight</strong> on the second.{% endblocktrans %}</p>
+
+    <table class="table">
+    <tr>
+        <th>{% trans "Date" %}</th>
+        <th>{% trans "Weight" %}</th>
+    </tr>
+    {% for entry in error_list %}
+        <tr>
+            <td>{{ entry.0 }}</td>
+            <td>{{ entry.1 }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+    <p>{% blocktrans %}There were no errors, all entries could be converted!{% endblocktrans %}</p>
+{% endif %}
+
+
+<h2>{% trans "Import all successfully converted entries" %}</h2>
+<p>{% blocktrans %}Continue here if you want to import into your weight log all
+entries that were successfully converted. All entries that produced an error
+will simply be ignored. It's up to you to decide whether they are useful
+(unrecognised entries) or not (e.g. headers, comments, etc.).{% endblocktrans %}</p>
+
+<form action="{{form_action}}"
+      method="post"
+      class="form-horizontal">
+
+    <input type="hidden" name="{{ stage_field }}" value="2" />
+    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+    {% trans 'Import' as submit_text %}
+    {% render_form_fields form submit_text %}
+</form>
+
+
+
+<h2>{% trans "Or try it again" %}</h2>
+
+<p>{% blocktrans %}You can correct the list here and re-submit it as often as
+you want.{% endblocktrans %}</p>
+
+<form action="{{form_action}}"
+      method="post"
+      class="form">
+
+    <input type="hidden" name="{{ stage_field }}" value="1" />
+    {% trans 'Re-Submit' as submit_text %}
+    {% render_form_fields form submit_text %}
+</form>
+
+{% endblock %}

@@ -68,6 +68,10 @@ from wger.weight.helpers import (
     group_log_entries,
     process_log_entries
 )
+from wger.body_measurements.helpers import (
+    group_log_entries as body_group_log_entries,
+    process_log_entries as body_process_log_entries
+)
 
 
 logger = logging.getLogger(__name__)

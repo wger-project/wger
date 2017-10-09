@@ -1,0 +1,65 @@
+[
+    {
+        "pk": 1,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 77,
+            "date": "2012-10-01"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 77.2,
+            "date": "2012-10-10"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 80.6,
+            "date": "2012-11-01"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 80,
+            "date": "2013-01-01"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 81,
+            "date": "2013-01-10"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 82,
+            "date": "2013-01-20"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 2,
+            "weight": 83,
+            "date": "2013-01-30"
+        }
+    }
+]

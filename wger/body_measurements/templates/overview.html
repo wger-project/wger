@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n staticfiles wger_extras %}
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% trans "Body Measurements overview" %}{% endblock %}
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+<script src="{% static 'js/body_measurements.js' %}"></script>
+{% endblock %}
+
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+<div id="current-username" data-current-username="{{ owner_user.username }}"></div>
+
+
+{% if not min_date %}
+<p>
+    {% trans "There is no chart here because there are no body measurement entries." %}
+    {% trans "Use link to add one." %}
+</p>
+{% endif %}
+
+<div id="body_measurements_diagram"></div>
+
+
+<div class="btn-group modify-time-period-controls pull-right" role="group" aria-label="..." style="padding-bottom: 1em;">
+    <button type="button" class="btn btn-default" data-time_period="90">{% trans "Last 3 months" %}</button>
+    <button type="button" class="btn btn-default" data-time_period="365">{% trans "Last 12 months" %}</button>
+    <button type="button" class="btn btn-default active" data-time_period="all">{% trans "No filter" %}</button>
+</div>
+
+
+{% if is_owner %}
+{% if last_five_body_measurement_entries_details %}
+<table class="table">
+    <tr>
+        <th>{% trans 'Date' %}</th>
+        <th>{% trans 'Weight' %}</th>
+        <th>{% trans 'Change' context "Noun, not verb" %}</th>
+        <th>{% trans 'Days' %}</th>
+    </tr>
+    {% for entry_detail in last_five_body_measurement_entries_details %}
+        <tr>
+            <td>{{ entry_detail.0.date }}</td>
+            <td>{{ entry_detail.0.weight }}</td>
+            <!-- weight diff and day diff below -->
+            <td>
+                {% if entry_detail.1 > 0 %}
+                    +
+                {% endif %}
+                {% if entry_detail.1 %}
+                    {{ entry_detail.1 }}
+                {% else %}
+                    -/-
+                {% endif %}
+            </td>
+            <td>
+                {% if entry_detail.2 %}
+                    {{ entry_detail.2 }}
+                {% else %}
+                    -/-
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+
+{#          #}
+{# Side bar #}
+{#          #}
+{% block sidebar %}
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% if is_owner %}
+<div class="btn-group">
+    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="{% fa_class 'cog' %}"></span>
+        {% trans "Options" %}
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="{% url 'body_measurements:export-csv' %}" target="_blank">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Export as CSV" %}
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'body_measurements:import-csv' %}" {% auto_link_css flavour %}>
+                <span class="{% fa_class 'upload' %}"></span>
+                {% trans "Import from spreadsheet" %}
+            </a>
+        </li>
+    </ul>
+</div>
+<a href="{% url 'body_measurements:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+    {% trans "Add" %}
+</a>
+{% endif %}
+{% endblock %}

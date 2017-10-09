@@ -55,10 +55,12 @@ from wger.weight.api import (
     resources as weight_api,
     views as weight_api_views
 )
-
+from wger.body_measurements.api import (
+    resources as body_measurements_api, 
+    views as body_measurements_api_views
+)
 
 admin.autodiscover()
-
 
 #
 # REST API
@@ -140,6 +142,9 @@ router.register(r'mealitem', nutrition_api_views.MealItemViewSet, base_name='mea
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, base_name='weightentry')
 
+# Body Measurements app
+router.register(r'bodymeasurementsentry', body_measurements_api_views.BodyMeasurementsEntryViewSet, base_name='basemeasurementsentry')
+
 #
 # Sitemaps
 #
@@ -155,6 +160,7 @@ urlpatterns = i18n_patterns(
     url(r'workout/', include('wger.manager.urls', namespace='manager')),
     url(r'exercise/', include('wger.exercises.urls', namespace='exercise')),
     url(r'weight/', include('wger.weight.urls', namespace='weight')),
+    url(r'body_measurements/', include('wger.body_measurements.urls', namespace='body_measurements')),
     url(r'nutrition/', include('wger.nutrition.urls', namespace='nutrition')),
     url(r'software/', include('wger.software.urls', namespace='software', app_name='software')),
     url(r'config/', include('wger.config.urls', namespace='config', app_name='config')),
