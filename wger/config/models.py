@@ -19,6 +19,7 @@
 import logging
 
 # Third Party
+from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -159,3 +160,26 @@ class GymConfig(models.Model):
                         logger.debug('Creating GymUserConfig for user {0}'.format(user.username))
 
         return super(GymConfig, self).save(*args, **kwargs)
+
+@python_2_unicode_compatible
+class UserCanCreate(models.Model):
+    user = models.OneToOneField(User,
+                                editable=False)
+    '''
+    The user
+    '''
+    DENY = 'DENY'
+    REVIEW = 'REVIEW'
+    ACCEPT = 'ACCEPT'
+    USER_PERMISSION_CHOICES = (
+        (DENY, 'DENY - user cannot create new items'),
+        (REVIEW, 'REVIEW - user may submit item for approval'),
+        (ACCEPT, 'ACCCEPT - user can create items without approval'),
+    )
+
+    ingredient_perm = models.CharField(max_length=6,
+                                       verbose_name=_('Allow user to submit new ingredient'),
+                                       help_text=_('Allow user to submit new ingredient'),
+                                       choices=USER_PERMISSION_CHOICES,
+                                       default=REVIEW,
+                                       )

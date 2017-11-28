@@ -33,6 +33,7 @@ from wger.core.views import (
     user,
     weight_units
 )
+from wger.config.views import config
 
 
 # sub patterns for languages
@@ -98,6 +99,10 @@ patterns_user = [
     url(r'^list',
         user.UserListView.as_view(),
         name='list'),
+    url(r'^(?P<pk>\d+)/create-item-perm',
+        config.UserItemPermView.as_view(),
+        name='create-item-perm'),
+        
 
     # Password reset is implemented by Django, no need to cook our own soup here
     # (besides the templates)

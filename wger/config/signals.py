@@ -16,12 +16,15 @@
 
 
 # Third Party
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # wger
 from wger.config.models import LanguageConfig
 from wger.core.models import Language
+from wger.config.models import UserCanCreate
+from wger.utils.helpers import disable_for_loaddata
 
 
 @receiver(post_save, sender=Language)
@@ -46,3 +49,14 @@ def init_language_config(sender, instance, created, **kwargs):
                     else:
                         config.show = False
                     config.save()
+
+@disable_for_loaddata
+def create_user_item_perm(sender, instance, created, **kwargs):
+    '''
+    Every new user gets a set of permissions for submitting new
+    items such as ingredients and exercises
+    '''
+    if created:
+        UserCanCreate.objects.create(user=instance)
+
+post_save.connect(create_user_item_perm, sender=User)
