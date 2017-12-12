@@ -507,9 +507,15 @@
 <h4>{% trans "Permissions" %}</h4>
 <table class="table">
     <tr>
-        <td>{% trans 'Can create new ingredients' %}</td>
+        <td>{% trans 'Can create ingredients' %}</td>
         <td style="text-align: right;">
-            {{ current_user.usercancreate.ingredient_permission }}
+            {% if current_user.usercancreate.ingredient_create_perm and not current_user.usercancreate.ingredient_needs_review %}
+				{% trans "Accept" %}
+			{% elif current_user.usercancreate.ingredient_create_perm and current_user.usercancreate.ingredient_needs_review %}
+				{% trans "Review" %}
+			{% else %}
+				{% trans "Denied" %}
+			{% endif %}
         </td>
     </tr>
 </table>

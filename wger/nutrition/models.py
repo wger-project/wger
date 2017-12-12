@@ -428,6 +428,18 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             self.status = Ingredient.STATUS_ACCEPTED
             if not self.license_author:
                 self.license_author = request.get_host().split(':')[0]
+        elif not request.user.usercancreate.ingredient_needs_review():
+            self.status = Ingredient.STATUS_ACCEPTED
+            if not self.license_author:
+                self.license_author = request.user.username
+                
+            # Send email to administrator
+            subject = _('New user submitted ingredient - no action needed')
+            message = _(u'''The {0} submitted a new ingredient "{1}".  No action needed.'''.format(
+                request.user.username, self.name))
+            mail.mail_admins(subject,
+                             message,
+                             fail_silently=True)
         else:
             if not self.license_author:
                 self.license_author = request.user.username

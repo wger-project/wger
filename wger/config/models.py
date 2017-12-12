@@ -183,3 +183,17 @@ class UserCanCreate(models.Model):
                                        choices=USER_PERMISSION_CHOICES,
                                        default=REVIEW,
                                        )
+
+    def ingredient_create_perm(self):
+        if is_any_gym_admin(self.user):
+            return True
+        elif self.ingredient_perm == 'REVIEW' or self.ingredient_perm == 'ACCEPT':
+            return True
+        else:
+            return False
+
+    def ingredient_needs_review(self):
+        if self.ingredient_perm =="ACCEPT":
+            return False
+        else:
+            return True

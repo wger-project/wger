@@ -203,9 +203,11 @@ class IngredientCreateView(IngredientMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Demo users can't submit ingredients
+        Demo users and users without permission can't submit ingredients
         '''
         if request.user.userprofile.is_temporary:
+            return HttpResponseForbidden()
+        if not request.user.usercancreate.ingredient_create_perm():
             return HttpResponseForbidden()
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 

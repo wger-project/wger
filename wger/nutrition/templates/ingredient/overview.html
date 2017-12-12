@@ -77,10 +77,17 @@
 {# Options #}
 {#         #}
 {% block options %}
-    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    {% if user.is_authenticated and user.usercancreate.ingredient_create_perm and not user.userprofile.is_temporary %}
         <a href="{% url 'nutrition:ingredient:add' %}"
            class="btn btn-success btn-sm">
             {% trans "Add ingredient" %}
+        </a>
+	{% elif user.is_authenticated and not usercancreate.ingredient_create_perm and not user.userprofile.is_temporary %}
+		<a href="#" class="btn btn-success btn-sm disabled">
+            {% trans "Add ingredient" %}<br>
+            <small>
+                {% trans "You do not have permission to do this" %}
+            </small>
         </a>
     {% else %}
         <a href="#" class="btn btn-success btn-sm disabled">
