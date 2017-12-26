@@ -251,9 +251,9 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         '''
-        Demo users can't submit exercises
+        Demo users and users without permission can't submit exercises
         '''
-        if request.user.userprofile.is_temporary:
+        if request.user.userprofile.is_temporary or not request.user.usercancreate.create_exercise():
             return HttpResponseForbidden()
 
         return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)

@@ -1413,192 +1413,217 @@
         "pk": 1,
         "model": "config.usercancreate",
         "fields": {
-             "user": 1,
-             "ingredient_perm": "ACCEPT"
+            "user": 1,
+           	"ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
+
         }
     },
 	{
         "pk": 2,
         "model": "config.usercancreate",
         "fields": {
-             "user": 2,
-             "ingredient_perm": "REVIEW"
+            "user": 2,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 3,
         "model": "config.usercancreate",
         "fields": {
-             "user": 3,
-             "ingredient_perm": "REVIEW"
+            "user": 3,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 4,
         "model": "config.usercancreate",
         "fields": {
-             "user": 4,
-             "ingredient_perm": "ACCEPT"
+            "user": 4,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 5,
         "model": "config.usercancreate",
         "fields": {
-             "user": 5,
-             "ingredient_perm": "ACCEPT"
+            "user": 5,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 6,
         "model": "config.usercancreate",
         "fields": {
-             "user": 6,
-             "ingredient_perm": "ACCEPT"
+            "user": 6,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 7,
         "model": "config.usercancreate",
         "fields": {
-             "user": 7,
-             "ingredient_perm": "ACCEPT"
+            "user": 7,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 8,
         "model": "config.usercancreate",
         "fields": {
-             "user": 8,
-             "ingredient_perm": "ACCEPT"
+            "user": 8,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 9,
         "model": "config.usercancreate",
         "fields": {
-             "user": 9,
-             "ingredient_perm": "ACCEPT"
+            "user": 9,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 10,
         "model": "config.usercancreate",
         "fields": {
-             "user": 10,
-             "ingredient_perm": "ACCEPT"
+            "user": 10,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 11,
         "model": "config.usercancreate",
         "fields": {
-             "user": 11,
-             "ingredient_perm": "ACCEPT"
+            "user": 11,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 12,
         "model": "config.usercancreate",
         "fields": {
-             "user": 12,
-             "ingredient_perm": "ACCEPT"
+            "user": 12,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 13,
         "model": "config.usercancreate",
         "fields": {
-             "user": 13,
-             "ingredient_perm": "ACCEPT"
+            "user": 13,
+            "ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     },
 	{
         "pk": 14,
         "model": "config.usercancreate",
         "fields": {
-             "user": 14,
-             "ingredient_perm": "REVIEW"
+            "user": 14,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 15,
         "model": "config.usercancreate",
         "fields": {
-             "user": 15,
-             "ingredient_perm": "REVIEW"
+            "user": 15,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 16,
         "model": "config.usercancreate",
         "fields": {
-             "user": 16,
-             "ingredient_perm": "REVIEW"
+            "user": 16,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 17,
         "model": "config.usercancreate",
         "fields": {
-             "user": 17,
-             "ingredient_perm": "REVIEW"
+            "user": 17,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 18,
         "model": "config.usercancreate",
         "fields": {
-             "user": 18,
-             "ingredient_perm": "REVIEW"
+            "user": 18,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 19,
         "model": "config.usercancreate",
         "fields": {
-             "user": 19,
-             "ingredient_perm": "REVIEW"
+            "user": 19,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 20,
         "model": "config.usercancreate",
         "fields": {
-             "user": 20,
-             "ingredient_perm": "REVIEW"
+            "user": 20,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 21,
         "model": "config.usercancreate",
         "fields": {
-             "user": 21,
-             "ingredient_perm": "REVIEW"
+			"user": 21,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 22,
         "model": "config.usercancreate",
         "fields": {
-             "user": 22,
-             "ingredient_perm": "REVIEW"
+            "user": 22,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 23,
         "model": "config.usercancreate",
         "fields": {
-             "user": 23,
-             "ingredient_perm": "REVIEW"
+            "user": 23,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     },
 	{
         "pk": 24,
         "model": "config.usercancreate",
         "fields": {
-             "user": 24,
-             "ingredient_perm": "REVIEW"
+            "user": 24,
+            "ingredient_perm": "REVIEW",
+			"exercise_perm": "REVIEW"
         }
     }
 ]

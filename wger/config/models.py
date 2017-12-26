@@ -184,6 +184,13 @@ class UserCanCreate(models.Model):
                                        default=REVIEW,
                                        )
 
+    exercise_perm = models.CharField(max_length=6,
+                                     verbose_name=_('Allow user to submit new exercise'),
+                                     help_text=_('Allow user to submit new exercise'),
+                                     choices=USER_PERMISSION_CHOICES,
+                                     default=REVIEW,
+                                     )
+
     def ingredient_create_perm(self):
         if is_any_gym_admin(self.user):
             return True
@@ -193,7 +200,21 @@ class UserCanCreate(models.Model):
             return False
 
     def ingredient_needs_review(self):
-        if self.ingredient_perm =="ACCEPT":
+        if self.ingredient_perm == 'ACCEPT':
+            return False
+        else:
+            return True
+
+    def create_exercise(self):
+        if is_any_gym_admin(self.user):
+            return True
+        elif self.exercise_perm == 'REVIEW' or self.exercise_perm == 'ACCEPT':
+            return True
+        else:
+            return False
+
+    def exercise_needs_review(self):
+        if self.exercise_perm == 'ACCEPT':
             return False
         else:
             return True

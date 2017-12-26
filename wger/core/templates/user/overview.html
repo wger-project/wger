@@ -518,6 +518,17 @@
 			{% endif %}
         </td>
     </tr>
+	<tr>
+		<td>{% trans 'Can create exercises' %}</td>
+		<td style="text-align: right;">
+		{% if current_user.usercancreate.create_exercise and not current_user.usercancreate.exercise_needs_review %}
+			{% trans "Accept" %}
+		{% elif current_user.usercancreate.create_exercise and current_user.usercancreate.exercise_needs_review %}
+			{% trans "Review" %}
+		{% else %}
+			{% trans "Denied" %}
+		{% endif %}
+	</tr>
 </table>
 
 {% endblock %}

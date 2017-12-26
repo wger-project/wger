@@ -56,8 +56,9 @@
         "pk": 1,
         "model": "config.usercancreate",
         "fields": {
-             "user": 1,
-             "ingredient_perm": "ACCEPT"
+			"user": 1,
+			"ingredient_perm": "ACCEPT",
+			"exercise_perm": "ACCEPT"
         }
     }
 ]

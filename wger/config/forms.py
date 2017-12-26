@@ -28,4 +28,5 @@ class UserCreateItemPermForm(forms.ModelForm):
     class Meta:
         model = UserCanCreate
         fields = ('ingredient_perm',
+                  'exercise_perm',
                   )
