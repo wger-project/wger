@@ -5,8 +5,12 @@
 <p><strong>{% blocktrans %}Thank you for submitting an exercise. This is much
 appreciated!{% endblocktrans %}</strong></p>
 
+{% if request.user.usercancreate.exercise_needs_review %}
 <p>{% blocktrans %}After you submit the form, the administrators will be notified.
 Once it is reviewed, it will be added to the database. Till this happens,
 it will not be visible in the overview or the search. In case you added your email
 when you registered, you will get notified when the process is completed successfully.{% endblocktrans %}</p>
+{% elif not request.user.usercancreate.exercise_needs_review %}
+<p>{% blocktrans %}After you submit the form, it will be added to the database. The administrators will be notified that a new exercise has been submitted, but a review is not required before it is visible.{% endblocktrans %}</p>
+{% endif %}
 {% endif %}

@@ -174,7 +174,7 @@ class UserCanCreate(models.Model):
     USER_PERMISSION_CHOICES = (
         (DENY, 'DENY - user cannot create new items'),
         (REVIEW, 'REVIEW - user may submit item for approval'),
-        (ACCEPT, 'ACCCEPT - user can create items without approval'),
+        (ACCEPT, 'ACCEPT - user can create items without approval'),
     )
 
     ingredient_perm = models.CharField(max_length=6,
