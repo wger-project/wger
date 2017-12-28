@@ -435,7 +435,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
             # Send email to administrator
             subject = _('New user submitted ingredient - no action needed')
-            message = _(u'''The {0} submitted a new ingredient "{1}".  No action needed.'''.format(
+            message = _(u'''The user {0} submitted a new ingredient "{1}".  No action needed.'''.format(
                 request.user.username, self.name))
             mail.mail_admins(subject,
                              message,

@@ -342,7 +342,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_authro = request.get_host().split(':')[0]
 
             subject = _('New user submitted exercise')
-            message = _(u'The user {0} submitted a new exercise "{1}".').format(
+            message = _(u'The user {0} submitted a new exercise "{1}".  Review not required.').format(
                 request.user.username, self.name)
             mail.mail_admins(six.text_type(subject),
                              six.text_type(message),
@@ -352,7 +352,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_author = request.user.username
 
             subject = _('New user submitted exercise - approval pending')
-            message = _(u'The user {0} submitted a new exercise "{1}".').format(
+            message = _(u'The user {0} submitted a new exercise "{1}" and requires review.').format(
                 request.user.username, self.name)
             mail.mail_admins(six.text_type(subject),
                              six.text_type(message),
