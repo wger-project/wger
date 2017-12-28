@@ -117,10 +117,17 @@ $(document).ready(function() {
 
 
 {% block options %}
-    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    {% if user.is_authenticated and user.usercancreate.create_exercise and not user.userprofile.is_temporary %}
         <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
             {% trans "Add new exercise" %}
         </a>
+	{% elif user.is_authenticated and not usercancreate.create_exercise and not user.userprofile.is_temporary %}
+		<a href="#" class="btn btn-success btn-sm disabled">
+			{% trans "Add new exercise" %}<br>
+			<small>
+			{% trans "You do not have permission to do this" %}
+			</small>
+		</a>
     {% else %}
         <a href="#" class="btn btn-success btn-sm disabled">
             {% trans "Add new exercise" %}<br>
