@@ -161,6 +161,7 @@ class GymConfig(models.Model):
 
         return super(GymConfig, self).save(*args, **kwargs)
 
+
 @python_2_unicode_compatible
 class UserCanCreate(models.Model):
     user = models.OneToOneField(User,

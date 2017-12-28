@@ -50,6 +50,7 @@ def init_language_config(sender, instance, created, **kwargs):
                         config.show = False
                     config.save()
 
+
 @disable_for_loaddata
 def create_user_item_perm(sender, instance, created, **kwargs):
     '''

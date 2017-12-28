@@ -21,8 +21,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 
-#wger
+# wger
 from wger.config.models import UserCanCreate
+
 
 class UserCreateItemPermForm(forms.ModelForm):
     class Meta:

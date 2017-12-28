@@ -432,7 +432,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             self.status = Ingredient.STATUS_ACCEPTED
             if not self.license_author:
                 self.license_author = request.user.username
-                
+
             # Send email to administrator
             subject = _('New user submitted ingredient - no action needed')
             message = _(u'''The {0} submitted a new ingredient "{1}".  No action needed.'''.format(

@@ -43,6 +43,7 @@ from wger.utils.generic_views import (
 
 logger = logging.getLogger(__name__)
 
+
 class UserItemPermView(WgerFormMixin,
                        LoginRequiredMixin,
                        WgerMultiplePermissionRequiredMixin,
@@ -65,8 +66,8 @@ class UserItemPermView(WgerFormMixin,
             return HttpResponseForbidden()
 
         if user.has_perm('gym.manage_gym') \
-               and not user.has_perm('gym.manage_gyms') \
-               and user.userprofile.gym != self.get_object().userprofile.gym:
+            and not user.has_perm('gym.manage_gyms') \
+                and user.userprofile.gym != self.get_object().userprofile.gym:
             return HttpResponseForbidden()
 
         return super(UserItemPermView, self).dispatch(request, *args, **kwargs)
