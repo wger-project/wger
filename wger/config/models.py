@@ -219,3 +219,9 @@ class UserCanCreate(models.Model):
             return False
         else:
             return True
+
+    def __str__(self):
+        '''
+        Return a more human-readable respresentation
+        '''
+        return u"Item creation settings for user {0}".format(self.user)
