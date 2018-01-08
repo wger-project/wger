@@ -18,18 +18,10 @@
 import logging
 
 # Third Party
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
-    PermissionRequiredMixin
-)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden, HttpResponseRedirect
-from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
-)
+from django.http import HttpResponseForbidden
+from django.utils.translation import ugettext_lazy
 from django.views.generic import UpdateView
 
 # wger
