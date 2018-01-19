@@ -12,7 +12,7 @@ For more details and a live system, refer to the project's site: https://wger.de
 Installation
 ============
 
-These are the basic steps to install and run the application locally on a linux
+These are the basic steps to install and run the application locally on a Linux
 system. There are more detailed instructions, other deployment options as well
 as an administration guide available at https://wger.readthedocs.io or locally
 in your code repository in the docs folder (``make html`` to compile, then open
@@ -32,8 +32,8 @@ Useful to just try it out::
 Then just open http://localhost:8000 and log in as: **admin**, password **admin**
 
 Alternatively, there are docker images for development as well, ``wger/devel``
-and ``wger/devel-fedora``. Both images contain an instance of the application
-running with django's development server using a sqlite database and  can be
+and ``wger/devel-fedora``. Each image contains an instance of the application
+running with django's development server using a sqlite database and can be
 used to quickly setup a development instance (vim and tmux are already
 installed). The only difference is that devel has an ubuntu base image while
 devel-fedora uses fedora.
@@ -170,24 +170,24 @@ All the code and the content is freely available:
 
 Donations
 =========
-wger is free software and will always remain that way, however if you want to
+wger is free software and will always remain that way. However, if you want to
 help and support the project you are more than welcome to donate an amount of
 your choice.
 
 .. image:: https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif
    :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UPMWQJY85JC5N
 
-Licence
+License
 =======
 
-The application is licenced under the Affero GNU General Public License 3 or
+The application is licensed under the Affero GNU General Public License 3 or
 later (AGPL 3+).
 
 The initial exercise and ingredient data is licensed additionally under one of
 the Creative Commons licenses, see the individual exercises for more details.
 
-The documentation is released under a CC-BY-SA either version 4 of the License,
+The documentation is released under a CC-BY-SA: either version 4 of the License,
 or (at your option) any later version.
 
-Some images where taken from Wikipedia, see the SOURCES file in their respective
+Some images were taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.
