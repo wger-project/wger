@@ -1,4 +1,4 @@
-Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
+﻿Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
 application that manages your exercises and personal workouts, weight and diet
 plans. It can also be used as a simple gym management utility, providing different
 administrative roles (trainer, manager, etc.). It offers a REST API as well, for
@@ -152,7 +152,7 @@ didn't behave as you expected. We can't fix what we don't know about, so please
 report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
-* **slack:** https://wger.slack.com/
+* **gitter:** https://gitter.im/wger-project/wger
 * **issue tracker:** https://github.com/wger-project/wger/issues
 * **twitter:** https://twitter.com/wger_de
 * **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
