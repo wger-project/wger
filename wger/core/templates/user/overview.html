@@ -486,6 +486,51 @@
         </td>
     </tr>
 </table>
+
+{#            #}
+{# Permission #}
+{#            #}
+{% if perms.gym.manage_gyms or perms.gym.manage_gym %}
+<div class="btn-group pull-right">
+    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        {% trans "Actions" %} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+
+        <li>
+            <a href="{% url 'core:user:create-item-perm' current_user.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<h4>{% trans "Permissions" %}</h4>
+<table class="table">
+    <tr>
+        <td>{% trans 'Can create ingredients' %}</td>
+        <td style="text-align: right;">
+            {% if current_user.usercancreate.ingredient_create_perm and not current_user.usercancreate.ingredient_needs_review %}
+				{% trans "Accept" %}
+			{% elif current_user.usercancreate.ingredient_create_perm and current_user.usercancreate.ingredient_needs_review %}
+				{% trans "Review" %}
+			{% else %}
+				{% trans "Denied" %}
+			{% endif %}
+        </td>
+    </tr>
+	<tr>
+		<td>{% trans 'Can create exercises' %}</td>
+		<td style="text-align: right;">
+		{% if current_user.usercancreate.create_exercise and not current_user.usercancreate.exercise_needs_review %}
+			{% trans "Accept" %}
+		{% elif current_user.usercancreate.create_exercise and current_user.usercancreate.exercise_needs_review %}
+			{% trans "Review" %}
+		{% else %}
+			{% trans "Denied" %}
+		{% endif %}
+	</tr>
+</table>
+
 {% endblock %}
 
 

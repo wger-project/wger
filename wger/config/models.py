@@ -19,6 +19,7 @@
 import logging
 
 # Third Party
+from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -159,3 +160,68 @@ class GymConfig(models.Model):
                         logger.debug('Creating GymUserConfig for user {0}'.format(user.username))
 
         return super(GymConfig, self).save(*args, **kwargs)
+
+
+@python_2_unicode_compatible
+class UserCanCreate(models.Model):
+    user = models.OneToOneField(User,
+                                editable=False)
+    '''
+    The user
+    '''
+    DENY = 'DENY'
+    REVIEW = 'REVIEW'
+    ACCEPT = 'ACCEPT'
+    USER_PERMISSION_CHOICES = (
+        (DENY, 'DENY - user cannot create new items'),
+        (REVIEW, 'REVIEW - user may submit item for approval'),
+        (ACCEPT, 'ACCEPT - user can create items without approval'),
+    )
+
+    ingredient_perm = models.CharField(max_length=6,
+                                       verbose_name=_('Allow user to submit new ingredient'),
+                                       help_text=_('Allow user to submit new ingredient'),
+                                       choices=USER_PERMISSION_CHOICES,
+                                       default=REVIEW,
+                                       )
+
+    exercise_perm = models.CharField(max_length=6,
+                                     verbose_name=_('Allow user to submit new exercise'),
+                                     help_text=_('Allow user to submit new exercise'),
+                                     choices=USER_PERMISSION_CHOICES,
+                                     default=REVIEW,
+                                     )
+
+    def ingredient_create_perm(self):
+        if is_any_gym_admin(self.user):
+            return True
+        elif self.ingredient_perm == 'REVIEW' or self.ingredient_perm == 'ACCEPT':
+            return True
+        else:
+            return False
+
+    def ingredient_needs_review(self):
+        if self.ingredient_perm == 'ACCEPT':
+            return False
+        else:
+            return True
+
+    def create_exercise(self):
+        if is_any_gym_admin(self.user):
+            return True
+        elif self.exercise_perm == 'REVIEW' or self.exercise_perm == 'ACCEPT':
+            return True
+        else:
+            return False
+
+    def exercise_needs_review(self):
+        if self.exercise_perm == 'ACCEPT':
+            return False
+        else:
+            return True
+
+    def __str__(self):
+        '''
+        Return a more human-readable respresentation
+        '''
+        return u"Item creation settings for user {0}".format(self.user)
