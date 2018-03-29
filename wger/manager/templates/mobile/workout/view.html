@@ -212,7 +212,44 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="export-json-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Export Workout" %}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div id="export-json-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
+                    <div class="form-group">
+                        <div>
+                            <label for="id_comments" class="col-md-3 control-label">
+                                {% trans "with comments" %}
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
+                        </div>
+                    </div>
+                </form>
+
+                <p>
+                <a href="" class="btn btn-block btn-default" id="export-json-button">
+                   {% trans "Export" %}
+                </a>
+                </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
 
 {#         #}
 {# Options #}
@@ -228,6 +265,12 @@ an appointment for each training day with the appropriate exercises.{% endblockt
             <a data-toggle="modal" data-target="#download-pdf-popup">
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Download as PDF" %}
+            </a>
+        </li>
+        <li>
+            <a data-toggle="modal" data-target="#download-json-popup">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Export Workout" %}
             </a>
         </li>
         <li>
