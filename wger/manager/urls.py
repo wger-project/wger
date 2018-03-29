@@ -107,7 +107,7 @@ patterns_workout = [
 
     # FIXME
     url(r'^(?P<id>\d+)/json/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
-        json.workout_log,
+        json.workout_json,
         name='json-workout'),
     # END FIXME
 

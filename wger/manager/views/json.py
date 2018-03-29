@@ -30,22 +30,18 @@ from django.utils.translation import ugettext as _
 from wger.manager.helpers import render_workout_day
 from wger.manager.models import Workout
 from wger.utils.helpers import check_token
-from wger.utils.json import (
-    render_header,
-    render_JSON
-)
+from wger.utils.json import render_JSON
 
 
 logger = logging.getLogger(__name__)
 
 
-def workout_log(request, id, comments=False, uidb64=None, token=None):
-    print("in json.workout_log...")
+def workout_json(request, id, comments=False, uidb64=None, token=None):
+    print("in json.workout_json...")
     '''
     Generates a JSON with the contents of the given workout
+    and allows user to download in browser
     '''
-
-    comments = bool(int(comments))
 
     # Load the workout
     if uidb64 is not None and token is not None:
@@ -58,47 +54,12 @@ def workout_log(request, id, comments=False, uidb64=None, token=None):
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=id, user=request.user)
 
-    # Create the HttpResponse object with the appropriate JSON headers.
-    response = HttpResponse(content_type='application/json')
-
-    # Create the JSON object, using the response object as its "file."
-    # FIXME: make JSON
-    json_obj = render_JSON(comments=comments,
+    # Create the JSON object
+    json_obj = render_JSON(workout=workout,
+                           comments=bool(int(comments)),
                            uidb64=uidb64,
                            token=token)
-    print("json_obj =", json_obj)
-    # doc = SimpleDocTemplate(response,
-    #                         pagesize=A4,
-    #                         # pagesize = landscape(A4),
-    #                         leftMargin=cm,
-    #                         rightMargin=cm,
-    #                         topMargin=0.5 * cm,
-    #                         bottomMargin=0.5 * cm,
-    #                         title=_('Workout'),
-    #                         author='wger Workout Manager',
-    #                         subject=_('Workout for %s') % request.user.username)
-
-    # container for the 'Flowable' objects
-    # elements = []
-
-    # # Set the title
-    # # p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
-    # #               {'description': workout},
-    # #               styleSheet["HeaderBold"])
-    # # elements.append(p)
-    # elements.append(Spacer(10 * cm, 0.5 * cm))
-
-    # # Iterate through the Workout and render the training days
-    # for day in workout.canonical_representation['day_list']:
-    #     elements.append(render_workout_day(day, images=images, comments=comments))
-    #     elements.append(Spacer(10 * cm, 0.5 * cm))
-
-    # # Footer, date and info
-    # elements.append(Spacer(10 * cm, 0.5 * cm))
-    # elements.append(render_footer(request.build_absolute_uri(workout.get_absolute_url())))
-
-    # # write the document and send the response to the browser
-    # doc.build(elements) 
+    # json.dumps(json_obj, indent=4, sort_keys=True)
 
     # Create the HttpResponse object with the appropriate JSON headers.
     response = HttpResponse(json_obj, content_type='application/json')
