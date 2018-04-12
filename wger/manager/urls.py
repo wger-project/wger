@@ -104,13 +104,9 @@ patterns_workout = [
     url(r'^(?P<id>\d+)/pdf/log$',
         pdf.workout_log,
         name='pdf-log'),
-
-    # FIXME
     url(r'^(?P<id>\d+)/json/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         json.workout_json,
         name='json-workout'),
-    # END FIXME
-
     url(r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
         pdf.workout_view,
         name='pdf-table'),  # JS!

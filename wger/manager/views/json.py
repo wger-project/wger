@@ -15,12 +15,15 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import json
 import logging
 
 # Third Party
+from django.core import serializers
 from django.http import (
     HttpResponse,
-    HttpResponseForbidden
+    HttpResponseForbidden,
+    JsonResponse
 )
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
@@ -30,7 +33,6 @@ from django.utils.translation import ugettext as _
 from wger.manager.helpers import render_workout_day
 from wger.manager.models import Workout
 from wger.utils.helpers import check_token
-from wger.utils.json import render_JSON
 
 
 logger = logging.getLogger(__name__)
@@ -54,15 +56,8 @@ def workout_json(request, id, comments=False, uidb64=None, token=None):
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=id, user=request.user)
 
-    # Create the JSON object
-    json_obj = render_JSON(workout=workout,
-                           comments=bool(int(comments)),
-                           uidb64=uidb64,
-                           token=token)
-    # json.dumps(json_obj, indent=4, sort_keys=True)
-
-    # Create the HttpResponse object with the appropriate JSON headers.
-    response = HttpResponse(json_obj, content_type='application/json')
+    # package response and download file in browser
+    response = HttpResponse(str(workout.canonical_representation), content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename=Workout-{0}.json'.format(id)
     response['Content-Length'] = len(response.content)
     return response
