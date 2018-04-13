@@ -217,18 +217,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div id="export-json-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_comments" class="col-md-3 control-label">
-                                {% trans "with comments" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
-                        </div>
-                    </div>
                 </form>
-
                 <p>
                 <a href="" class="btn btn-block btn-default" id="export-json-button">
                    {% trans "Export" %}

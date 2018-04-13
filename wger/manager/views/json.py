@@ -39,7 +39,6 @@ logger = logging.getLogger(__name__)
 
 
 def workout_json(request, id, comments=False, uidb64=None, token=None):
-    print("in json.workout_json...")
     '''
     Generates a JSON with the contents of the given workout
     and allows user to download in browser
