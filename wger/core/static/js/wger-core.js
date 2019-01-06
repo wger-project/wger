@@ -112,7 +112,7 @@ function setProfileField(field, newValue) {
   }).done(function (userprofile) {
     console.log('Updating profile field "' + field + '" to value: ' + newValue);
     $.ajax({
-      url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
+      url: '/api/v2/userprofile/' + userprofile[0].id + '/',
       type: 'PATCH',
       data: dataDict
     });
@@ -131,7 +131,7 @@ function getProfileField(field) {
     type: 'GET',
     async: false,
     success: function (userprofile) {
-      result = userprofile.results[0][field];
+      result = userprofile[0][field];
     }
   });
   return result;
