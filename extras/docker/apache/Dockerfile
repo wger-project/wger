@@ -21,7 +21,10 @@ ENV LC_ALL en_US.UTF-8
 
 
 # Install dependencies
-RUN apt-get install -y apache2 libapache2-mod-wsgi-py3
+RUN apt-get update && \
+    apt-get install -y \
+        apache2 \
+        libapache2-mod-wsgi-py3
 
 # Configure apache
 RUN a2dissite 000-default.conf
@@ -59,6 +62,9 @@ RUN chmod o+w -R ~/db/ \
     && python manage.py collectstatic --noinput
 
 USER root
+
+RUN echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqdn.conf && \
+    sudo a2enconf fqdn
 
 ENTRYPOINT ["/usr/sbin/apache2ctl"]
 CMD ["-D", "FOREGROUND"]
