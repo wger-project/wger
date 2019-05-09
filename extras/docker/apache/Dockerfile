@@ -22,12 +22,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install dependencies
 RUN apt-get update \
-  && apt-get install --no-install-recommends -y \
-    apache2 \
-    cron \
-    libapache2-mod-wsgi-py3 \
-    libpq-dev \
-  && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y apache2 libapache2-mod-wsgi-py3 libpq-dev
 
 # Configure apache
 ADD wger.conf /etc/apache2/sites-available/
