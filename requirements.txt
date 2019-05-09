@@ -2,19 +2,19 @@
 # Requirements for wger for production
 #
 
-bleach
-django-bootstrap-breadcrumbs
-django-bower
+bleach==2.0.0
+django-bootstrap-breadcrumbs==0.8.2
+django-bower==5.2.0
 django-formtools>=2.0,<3.0
-django-recaptcha
-django-sortedm2m
+django-recaptcha==1.2.1
+django-sortedm2m==1.3.3
 Django>=1.10,<1.11
-django_compressor
-django_mobile
-easy-thumbnails
-icalendar
+django_compressor==2.1.1
+django_mobile==0.7.0
+easy-thumbnails==2.4.1
+icalendar==3.11.3
 invoke>=0.14,<0.15
-pillow
+pillow==4.1.0
 python-mimeparse
 reportlab>=3.3,<3.4
 requests
@@ -22,8 +22,8 @@ setuptools>=18.5
 sphinx
 
 # REST API
-django-cors-headers
-django-filter
+django-cors-headers==2.0.2
+django-filter<2.0
 django-tastypie>=0.13,<0.14
 djangorestframework>=3.4,<3.5
 
