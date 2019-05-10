@@ -21,7 +21,8 @@ ENV LC_ALL en_US.UTF-8
 
 
 # Install dependencies
-RUN apt-get install -y apache2 libapache2-mod-wsgi-py3
+RUN apt-get update \
+  && apt-get install -y apache2 libapache2-mod-wsgi-py3
 
 # Configure apache
 RUN a2dissite 000-default.conf
