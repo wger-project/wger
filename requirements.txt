@@ -20,7 +20,10 @@ reportlab>=3.3,<3.4
 requests
 setuptools>=18.5
 sphinx
+
+# Production
 psycopg2
+python-memcached
 
 # REST API
 django-cors-headers==2.0.2
