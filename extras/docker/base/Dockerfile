@@ -18,6 +18,7 @@ RUN apt-get update \
       build-essential \
       git \
       libjpeg8-dev \
+      libpq-dev \
       libwebp-dev \
       locales \
       nodejs \

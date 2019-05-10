@@ -25,7 +25,6 @@ RUN apt-get update \
   && apt-get install --no-install-recommends -y \
     apache2 \
     libapache2-mod-wsgi-py3 \
-    libpq-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
