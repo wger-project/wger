@@ -44,6 +44,7 @@ RUN chmod 0644 /etc/cron.d/wger \
   && touch /var/log/cron.log
 
 # Set up the application
+RUN ln -s /home/wger/static/CACHE /var/www
 USER wger
 ARG GIT_BRANCH=master
 RUN git clone -b ${GIT_BRANCH} https://github.com/wger-project/wger.git /home/wger/src
@@ -66,8 +67,7 @@ RUN . /home/wger/venv/bin/activate \
 # can access them.
 RUN chmod o+w -R ~/db/ \
     && . /home/wger/venv/bin/activate \
-    && mkdir ~/static \
-    && mkdir ~/media \
+    && mkdir -p ~/static/CACHE ~/media \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && python manage.py download-exercise-images \
     && chmod -R o+w ~/media \
