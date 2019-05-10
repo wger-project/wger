@@ -29,9 +29,11 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
-RUN a2dissite 000-default.conf
 ADD wger.conf /etc/apache2/sites-available/
-RUN a2ensite wger
+RUN a2dissite 000-default.conf \
+  && a2ensite wger \
+  && echo "ServerName localhost" >> /etc/apache2/conf-available/fqdn.conf \
+  && a2enconf fqdn
 
 # Set up the application
 USER wger
@@ -64,9 +66,6 @@ RUN chmod o+w -R ~/db/ \
     && python manage.py collectstatic --noinput
 
 USER root
-
-RUN echo "ServerName localhost" >> /etc/apache2/conf-available/fqdn.conf \
-    && a2enconf fqdn
 
 ENTRYPOINT ["/usr/sbin/apache2ctl"]
 CMD ["-D", "FOREGROUND"]
