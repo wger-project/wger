@@ -9,7 +9,7 @@
 
 FROM wger/base
 
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 EXPOSE 80
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.

@@ -10,7 +10,7 @@
 
 FROM ubuntu:16.04
 
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 
 # Install dependencies
 RUN apt-get update \
