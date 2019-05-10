@@ -15,19 +15,15 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 # Install dependencies
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
-      build-essential \
       git \
       libjpeg8-dev \
-      libpq-dev \
       libwebp-dev \
-      locales \
       nodejs \
+      nodejs-legacy \
       npm \
       python-virtualenv \
       python3-dev \
-      python3-venv \
       sudo \
-      virtualenv \
       zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
