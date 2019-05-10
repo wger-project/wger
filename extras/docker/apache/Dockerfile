@@ -60,5 +60,8 @@ RUN chmod o+w -R ~/db/ \
 
 USER root
 
+RUN echo "ServerName localhost" >> /etc/apache2/conf-available/fqdn.conf \
+    && a2enconf fqdn
+
 ENTRYPOINT ["/usr/sbin/apache2ctl"]
 CMD ["-D", "FOREGROUND"]
