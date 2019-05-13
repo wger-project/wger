@@ -24,6 +24,7 @@ ENV LC_ALL en_US.UTF-8
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
     apache2 \
+    cron \
     libapache2-mod-wsgi-py3 \
   && rm -rf /var/lib/apt/lists/*
 
