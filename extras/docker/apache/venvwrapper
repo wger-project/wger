@@ -1,0 +1,4 @@
+#!/bin/sh
+. /home/wger/venv/bin/activate
+
+/home/wger/src/manage.py "$@"
