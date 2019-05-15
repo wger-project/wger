@@ -13,7 +13,7 @@ django_compressor==2.1.1
 django_mobile==0.7.0
 easy-thumbnails==2.4.1
 icalendar==3.11.3
-invoke>=0.14,<0.15
+invoke==0.17
 pillow==4.1.0
 python-mimeparse
 reportlab>=3.3,<3.4
