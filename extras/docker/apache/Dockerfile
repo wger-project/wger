@@ -44,7 +44,8 @@ RUN chmod 0644 /etc/cron.d/wger \
   && touch /var/log/cron.log
 
 # Set up the application
-RUN ln -s /home/wger/static/CACHE /var/www
+RUN ln -s /home/wger/static/CACHE /var/www \
+  && ln -s /home/wger/static/CACHE /home/wger/src
 USER wger
 ARG GIT_BRANCH=master
 RUN git clone -b ${GIT_BRANCH} https://github.com/wger-project/wger.git /home/wger/src
