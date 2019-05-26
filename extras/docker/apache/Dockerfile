@@ -33,7 +33,8 @@ ADD wger.conf /etc/apache2/sites-available/
 RUN a2dissite 000-default.conf \
   && a2ensite wger \
   && echo "ServerName localhost" >> /etc/apache2/conf-available/fqdn.conf \
-  && a2enconf fqdn
+  && a2enconf fqdn \
+  && usermod -G wger www-data
 
 # Configure cron
 ADD crontab /etc/cron.d/wger
@@ -69,6 +70,7 @@ RUN chmod o+w -R ~/db/ \
     && . /home/wger/venv/bin/activate \
     && mkdir -p ~/static/CACHE ~/media \
     && ln -s /home/wger/static/CACHE /home/wger/src/CACHE \
+    && chmod g+w /home/wger/static/CACHE \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && python manage.py download-exercise-images \
     && chmod -R o+w ~/media \
