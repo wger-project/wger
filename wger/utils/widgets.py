@@ -151,7 +151,7 @@ class ExerciseAjaxSelect(SelectMultiple):
 
 class CheckboxChoiceInputTranslated(CheckboxInput):
     '''
-    Overwritten CheckboxChoiceInput
+    Overwritten CheckboxInput
 
     This only translated the text for the select widgets
     '''
@@ -165,7 +165,7 @@ class CheckboxChoiceInputTranslated(CheckboxInput):
 
 class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
     '''
-    Overwritten CheckboxChoiceInput
+    Overwritten CheckboxInput
 
     This only translated the text for the select widgets, showing the original
     string as well.
@@ -185,23 +185,12 @@ class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
                                                                     index)
 
 
-#class CheckboxFieldRendererTranslated(ChoiceFieldRenderer):
-    #choice_input_class = CheckboxChoiceInputTranslated
+class CheckboxFieldRendererTranslated(CheckboxSelectMultiple):
+    choice_input_class = CheckboxChoiceInputTranslated
 
 
-#class CheckboxFieldRendererTranslatedOriginal(ChoiceFieldRenderer):
-#    choice_input_class = CheckboxChoiceInputTranslatedOriginal
-
-
-#class CheckboxBootstrapRenderer(CheckboxFieldRendererTranslated):
-#    outer_html = u'<div{id_attr}>{content}</div>'
-#    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
-
-
-#class CheckboxBootstrapRendererTranslatedOriginal(CheckboxFieldRendererTranslatedOriginal):
-#    outer_html = u'<div{id_attr}>{content}</div>'
-#    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
-
+class CheckboxFieldRendererTranslatedOriginal(CheckboxSelectMultiple):
+    choice_input_class = CheckboxChoiceInputTranslatedOriginal
 
 class BootstrapSelectMultiple(CheckboxSelectMultiple):
     pass
