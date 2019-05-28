@@ -37,7 +37,8 @@ class WeightEntry(models.Model):
                                  decimal_places=2,
                                  validators=[MinValueValidator(30), MaxValueValidator(600)])
     user = models.ForeignKey(User,
-                             verbose_name=_('User'))
+                             verbose_name=_('User'),
+                             on_delete=models.CASCADE)
     '''
     The user the weight entry belongs to.
 

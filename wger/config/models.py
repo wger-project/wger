@@ -59,10 +59,12 @@ class LanguageConfig(models.Model):
 
     language = models.ForeignKey(Language,
                                  related_name='language_source',
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     language_target = models.ForeignKey(Language,
                                         related_name='language_target',
-                                        editable=False)
+                                        editable=False,
+                                        on_delete=models.CASCADE)
     item = models.CharField(max_length=2,
                             choices=SHOW_ITEM_LIST,
                             editable=False)
@@ -125,7 +127,8 @@ class GymConfig(models.Model):
                                                 'gym and update all existing users without a '
                                                 'gym.'),
                                     null=True,
-                                    blank=True)
+                                    blank=True,
+                                    on_delete=models.CASCADE)
     '''
     Default gym for the wger installation
     '''
