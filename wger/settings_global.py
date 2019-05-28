@@ -79,6 +79,7 @@ INSTALLED_APPS = (
     'tastypie',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
@@ -347,7 +348,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.OrderingFilter',)
 }
 
