@@ -29,7 +29,7 @@ from django.contrib.auth.mixins import (
 )
 from django.core import mail
 from django.core.cache import cache
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )

@@ -21,7 +21,7 @@ import logging
 
 # Third Party
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )

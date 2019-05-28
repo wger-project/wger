@@ -17,7 +17,7 @@ import datetime
 import decimal
 
 # Third Party
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.tests import api_base_test

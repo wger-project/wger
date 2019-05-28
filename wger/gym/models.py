@@ -20,7 +20,7 @@ import uuid
 
 # Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models as m
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import (

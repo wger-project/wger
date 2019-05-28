@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.forms import (
     ModelChoiceField,
     ModelForm

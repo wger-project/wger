@@ -19,7 +19,7 @@ from decimal import Decimal
 
 # Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.models import UserProfile

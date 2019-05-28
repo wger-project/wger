@@ -23,7 +23,7 @@ import tempfile
 import six
 from django.conf import settings
 from django.core.cache import cache
-from django.core.urlresolvers import (
+from django.urls import (
     NoReverseMatch,
     reverse
 )

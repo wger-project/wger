@@ -32,7 +32,7 @@ from django.contrib.auth.mixins import (
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login as django_loginview
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect

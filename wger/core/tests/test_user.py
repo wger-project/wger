@@ -14,7 +14,7 @@
 
 # Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )

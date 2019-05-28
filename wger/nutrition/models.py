@@ -27,7 +27,7 @@ from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator

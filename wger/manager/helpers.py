@@ -20,7 +20,7 @@ import datetime
 from calendar import HTMLCalendar
 
 # Third Party
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from reportlab.lib import colors
 from reportlab.lib.units import cm

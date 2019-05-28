@@ -23,7 +23,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.translation import (

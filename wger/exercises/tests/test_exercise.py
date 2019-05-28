@@ -18,7 +18,7 @@ import json
 # Third Party
 from django.core import mail
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import (
