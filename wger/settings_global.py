@@ -217,7 +217,7 @@ USE_L10N = True
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Europe/Berlin'
+TIME_ZONE = 'UTC'
 
 # Restrict the available languages
 LANGUAGES = (
