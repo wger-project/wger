@@ -18,7 +18,7 @@
 # Third Party
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
@@ -66,7 +66,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         '''
         return [(User, 'user')]
 
-    @detail_route()
+    @action(detail=True)
     def username(self, request, pk):
         '''
         Return the username

@@ -20,7 +20,7 @@ import datetime
 
 # Third Party
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
@@ -70,7 +70,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         '''
         serializer.save(user=self.request.user)
 
-    @detail_route()
+    @action(detail=True)
     def canonical_representation(self, request, pk):
         '''
         Output the canonical representation of a workout

@@ -18,8 +18,8 @@
 # Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import (
-    api_view,
-    detail_route
+    action,
+    api_view
 )
 from rest_framework.response import Response
 
@@ -71,7 +71,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
                      'license',
                      'license_author')
 
-    @detail_route()
+    @action(detail=True)
     def get_values(self, request, pk):
         '''
         Calculates the nutritional values for current ingredient and
@@ -198,7 +198,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         '''
         serializer.save(user=self.request.user, language=load_language())
 
-    @detail_route()
+    @action(detail=True)
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
@@ -235,7 +235,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         '''
         return [(NutritionPlan, 'plan')]
 
-    @detail_route()
+    @action(detail=True)
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
@@ -274,7 +274,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         '''
         return [(Meal, 'meal')]
 
-    @detail_route()
+    @action(detail=True)
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
