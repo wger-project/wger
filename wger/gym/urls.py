@@ -183,14 +183,14 @@ patterns_export = [
 # All patterns for this app
 #
 urlpatterns = [
-    url(r'^', include(patterns_gym, namespace="gym")),
-    url(r'^config/', include(patterns_gymconfig, namespace="config")),
-    url(r'^admin-config/', include(patterns_adminconfig, namespace="admin_config")),
-    url(r'^user-config/', include(patterns_userconfig, namespace="user_config")),
-    url(r'^notes/', include(patterns_admin_notes, namespace="admin_note")),
-    url(r'^document/', include(patterns_documents, namespace="document")),
-    url(r'^contract/', include(patterns_contracts, namespace="contract")),
-    url(r'^contract-type/', include(patterns_contract_types, namespace="contract_type")),
-    url(r'^contract-option/', include(patterns_contract_options, namespace="contract-option")),
-    url(r'^export/', include(patterns_export, namespace="export")),
+    url(r'^', include((patterns_gym, 'gym'), namespace="gym")),
+    url(r'^config/', include((patterns_gymconfig, 'config'), namespace="config")),
+    url(r'^admin-config/', include((patterns_adminconfig, 'admin_config'), namespace="admin_config")),
+    url(r'^user-config/', include((patterns_userconfig, 'user_config'), namespace="user_config")),
+    url(r'^notes/', include((patterns_admin_notes, 'admin_note'), namespace="admin_note")),
+    url(r'^document/', include((patterns_documents, 'document'), namespace="document")),
+    url(r'^contract/', include((patterns_contracts, 'contract'), namespace="contract")),
+    url(r'^contract-type/', include((patterns_contract_types, 'contract_type'), namespace="contract_type")),
+    url(r'^contract-option/', include((patterns_contract_options, 'contract-option'), namespace="contract-option")),
+    url(r'^export/', include((patterns_export, 'export'), namespace="export")),
 ]

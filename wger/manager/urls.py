@@ -242,11 +242,11 @@ patterns_step = [
 
 
 urlpatterns = [
-    url(r'^', include(patterns_workout, namespace="workout")),
-    url(r'^log/', include(patterns_log, namespace="log")),
-    url(r'^day/', include(patterns_day, namespace="day")),
-    url(r'^set/', include(patterns_set, namespace="set")),
-    url(r'^session/', include(patterns_session, namespace="session")),
-    url(r'^schedule/', include(patterns_schedule, namespace="schedule")),
-    url(r'^schedule/step/', include(patterns_step, namespace="step")),
+    url(r'^', include((patterns_workout, 'workout'), namespace="workout")),
+    url(r'^log/', include((patterns_log, 'log'), namespace="log")),
+    url(r'^day/', include((patterns_day, 'day'), namespace="day")),
+    url(r'^set/', include((patterns_set, 'set'), namespace="set")),
+    url(r'^session/', include((patterns_session, 'session'), namespace="session")),
+    url(r'^schedule/', include((patterns_schedule, 'schedule'), namespace="schedule")),
+    url(r'^schedule/step/', include((patterns_step, 'step'), namespace="step")),
 ]
