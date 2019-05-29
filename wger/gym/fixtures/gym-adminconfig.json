@@ -1,10 +1,10 @@
 [
     {
-        "pk": 1, 
-        "model": "gym.gymadminconfig", 
+        "pk": 1,
+        "model": "gym.gymadminconfig",
         "fields": {
-            "gym": 1, 
-            "user": 1, 
+            "gym": 1,
+            "user": 1,
             "overview_inactive": true
         }
     }
