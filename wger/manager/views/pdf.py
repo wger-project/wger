@@ -24,10 +24,8 @@ from django.http import (
 )
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
-from reportlab.lib.pagesizes import (
-    A4,
-    cm
-)
+from reportlab.lib.units import cm
+from reportlab.lib.pagesizes import A4
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
