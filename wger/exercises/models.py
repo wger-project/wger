@@ -169,6 +169,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     objects = SubmissionManager()
     '''Custom manager'''
 
+    class Meta:
+        base_manager_name = 'objects'
+
+
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'),
                                  on_delete=models.CASCADE)
@@ -364,6 +368,9 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
 
     objects = SubmissionManager()
     '''Custom manager'''
+
+    class Meta:
+        base_manager_name = 'objects'
 
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
