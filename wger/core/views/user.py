@@ -31,7 +31,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.contrib.auth.views import login as django_loginview
+from django.contrib.auth import login as django_loginview
 from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
