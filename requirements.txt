@@ -11,6 +11,7 @@ django-sortedm2m==1.5.0
 Django==2.2.1
 django_compressor==2.2
 django_mobile==0.7.0
+django_extensions>=2.1
 easy-thumbnails==2.6
 icalendar==4.0.3
 invoke==0.17
