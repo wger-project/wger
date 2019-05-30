@@ -7,10 +7,8 @@ django-bootstrap-breadcrumbs==0.9.1
 django-bower==5.2.0
 django-formtools>=2.0,<3.0
 django-recaptcha==2.0.4
-django-sortedm2m==1.5.0
-Django>=2.0,<2.2
+Django>=1.11,<2.0
 django_compressor==2.2
-django_mobile==0.7.0
 django_extensions>=2.1
 easy-thumbnails==2.6
 icalendar==4.0.3
@@ -23,6 +21,18 @@ requests
 setuptools>=18.5
 sphinx
 psycopg2
+
+#######################
+# Forked Modules
+# These modules have open PRs for compat changes
+#######################
+
+# django-sortedm2m
+-e git+git://github.com/peopledoc/django-sortedm2m.git@fix-compat-dj22#egg=django-sortedm2m
+
+# django-mobile
+-e git+git://github.com/visualspace/django-mobile.git@django111#egg=django-mobile
+
 
 # Production
 psycopg2
