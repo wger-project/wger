@@ -71,6 +71,7 @@ class ScheduleStepSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ScheduleStep
+        fields = '__all__'
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -89,6 +90,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
+        fields = '__all__'
 
 
 class SetSerializer(serializers.ModelSerializer):
@@ -98,6 +100,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
+        fields = '__all__'
 
 
 class SettingSerializer(serializers.ModelSerializer):
@@ -106,6 +109,7 @@ class SettingSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Setting
+        fields = '__all__'
 
 
 #
