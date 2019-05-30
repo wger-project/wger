@@ -103,7 +103,7 @@ class ExerciseAjaxSelect(SelectMultiple):
     This is basically a modified MultipleSelect widget
     '''
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, choices=(), renderer=None):
         if value is None:
             value = []
 
