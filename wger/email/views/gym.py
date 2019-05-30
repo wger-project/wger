@@ -57,7 +57,7 @@ class EmailLogListView(PermissionRequiredMixin, generic.ListView):
         '''
         Can only view email list for own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if request.user.userprofile.gym_id != int(self.kwargs['gym_pk']):
@@ -93,7 +93,7 @@ class EmailListFormPreview(FormPreview):
         Also, check for permissions here. While it is ugly and doesn't really
         belong here, it seems it's the best way to do it in a FormPreview
         '''
-        if not request.user.is_authenticated() or\
+        if not request.user.is_authenticated or\
                 request.user.userprofile.gym_id != self.gym.id or \
                 not request.user.has_perms('core.change_emailcron'):
             return HttpResponseForbidden()

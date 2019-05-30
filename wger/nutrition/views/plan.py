@@ -233,7 +233,7 @@ def export_pdf(request, id, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
 

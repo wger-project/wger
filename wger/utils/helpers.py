@@ -188,7 +188,7 @@ def check_access(request_user, username=None):
 
     # If there is no user_pk, just show the user his own data
     else:
-        if not request_user.is_authenticated():
+        if not request_user.is_authenticated:
             raise Http404('You are not allowed to access this page.')
         user = request_user
 

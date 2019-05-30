@@ -68,7 +68,7 @@ def get_user(request):
         # Django didn't find a user, so create one now
         if settings.WGER_SETTINGS['ALLOW_GUEST_USERS'] and \
                 request.method == 'GET' and \
-                create_user and not user.is_authenticated():
+                create_user and not user.is_authenticated:
 
             logger.debug('creating a new guest user now')
             user = create_temporary_user()

@@ -49,7 +49,7 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Only managers for this gym can edit the user settings
         '''
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         config = self.get_object()

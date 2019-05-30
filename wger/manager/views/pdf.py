@@ -63,7 +63,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=id, user=request.user)
 
@@ -131,7 +131,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=id, user=request.user)
 

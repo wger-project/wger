@@ -85,7 +85,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         '''
         Can only add documents to users in own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         user = get_object_or_404(User, pk=self.kwargs['user_pk'])
@@ -125,7 +125,7 @@ class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
         '''
         Can only see contracts for own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         contract = self.get_object()
@@ -149,7 +149,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         Only trainers for this gym can edit user notes
         '''
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         contract = self.get_object()
@@ -185,7 +185,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         '''
         Can only list contract types in own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         self.member = get_object_or_404(User, id=self.kwargs['user_pk'])

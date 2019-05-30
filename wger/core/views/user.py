@@ -212,7 +212,7 @@ def logout(request):
     '''
     user = request.user
     django_logout(request)
-    if user.is_authenticated() and user.userprofile.is_temporary:
+    if user.is_authenticated and user.userprofile.is_temporary:
         user.delete()
     return HttpResponseRedirect(reverse('core:user:login'))
 
@@ -238,7 +238,7 @@ def registration(request):
         FormClass = RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
-    if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
+    if request.user.is_authenticated and not request.user.userprofile.is_temporary:
         return HttpResponseRedirect(reverse('core:dashboard'))
 
     if request.method == 'POST':
@@ -348,7 +348,7 @@ class UserDeactivateView(LoginRequiredMixin,
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
@@ -381,7 +381,7 @@ class UserActivateView(LoginRequiredMixin,
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
@@ -419,7 +419,7 @@ class UserEditView(WgerFormMixin,
         - General managers can edit every member
         '''
         user = request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return HttpResponseForbidden()
 
         if user.has_perm('gym.manage_gym') \
@@ -487,7 +487,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         '''
         user = request.user
 
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return HttpResponseForbidden()
 
         if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \

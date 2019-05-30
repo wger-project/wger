@@ -131,7 +131,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 
@@ -196,7 +196,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 
