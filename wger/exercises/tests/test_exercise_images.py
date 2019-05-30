@@ -38,17 +38,18 @@ class MainImageTestCase(WorkoutManagerTestCase):
         '''
         Helper function to save an image to an exercise
         '''
-        if not db_filename:
-            db_filename = filename
-        image = ExerciseImage()
-        image.exercise = exercise
-        image.status = ExerciseImage.STATUS_ACCEPTED
-        image.image.save(
-            filename,
-            File(open('wger/exercises/tests/{0}'.format(filename), 'rb'))
-        )
-        image.save()
-        return(image.pk)
+        with open('wger/exercises/tests/{0}'.format(filename), 'rb') as inFile:
+            if not db_filename:
+                db_filename = filename
+            image = ExerciseImage()
+            image.exercise = exercise
+            image.status = ExerciseImage.STATUS_ACCEPTED
+            image.image.save(
+                filename,
+                File(inFile)
+            )
+            image.save()
+            return(image.pk)
 
     def test_auto_main_image(self):
         '''
