@@ -83,7 +83,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
-    filter_fields = ('full_name',
+    filterset_fields = ('full_name',
                      'short_name')
 
 
@@ -94,7 +94,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filter_fields = ('day_of_week', )
+    filterset_fields = ('day_of_week', )
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -104,7 +104,7 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = License.objects.all()
     serializer_class = LicenseSerializer
     ordering_fields = '__all__'
-    filter_fields = ('full_name',
+    filterset_fields = ('full_name',
                      'short_name',
                      'url')
 
@@ -116,7 +116,7 @@ class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = RepetitionUnit.objects.all()
     serializer_class = RepetitionUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name', )
+    filterset_fields = ('name', )
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -126,4 +126,4 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WeightUnit.objects.all()
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name', )
+    filterset_fields = ('name', )

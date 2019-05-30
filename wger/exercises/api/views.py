@@ -61,7 +61,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('category',
+    filterset_fields = ('category',
                      'creation_date',
                      'description',
                      'language',
@@ -138,7 +138,7 @@ class ExerciseInfoViewset(viewsets.ModelViewSet):
     serializer_class = ExerciseInfoSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('category',
+    filterset_fields = ('category',
                      'creation_date',
                      'description',
                      'language',
@@ -158,7 +158,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name',)
+    filterset_fields = ('name',)
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -168,7 +168,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseCategory.objects.all()
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
-    filter_fields = ('name',)
+    filterset_fields = ('name',)
 
 
 class ExerciseImageViewSet(viewsets.ModelViewSet):
@@ -179,7 +179,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseImageSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('is_main',
+    filterset_fields = ('is_main',
                      'status',
                      'exercise',
                      'license',
@@ -222,7 +222,7 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseComment.objects.all()
     serializer_class = ExerciseCommentSerializer
     ordering_fields = '__all__'
-    filter_fields = ('comment',
+    filterset_fields = ('comment',
                      'exercise')
 
 
@@ -233,5 +233,5 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name',
+    filterset_fields = ('name',
                      'is_front')

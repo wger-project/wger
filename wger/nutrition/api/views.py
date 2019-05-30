@@ -55,7 +55,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
-    filter_fields = ('carbohydrates',
+    filterset_fields = ('carbohydrates',
                      'carbohydrates_sugar',
                      'creation_date',
                      'energy',
@@ -157,7 +157,7 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WeightUnit.objects.all()
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('language',
+    filterset_fields = ('language',
                      'name')
 
 
@@ -168,7 +168,7 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = IngredientWeightUnit.objects.all()
     serializer_class = IngredientWeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('amount',
+    filterset_fields = ('amount',
                      'gram',
                      'ingredient',
                      'unit')
@@ -181,7 +181,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     serializer_class = NutritionPlanSerializer
     is_private = True
     ordering_fields = '__all__'
-    filter_fields = ('creation_date',
+    filterset_fields = ('creation_date',
                      'language',
                      'description',
                      'has_goal_calories')
@@ -213,7 +213,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = MealSerializer
     is_private = True
     ordering_fields = '__all__'
-    filter_fields = ('order',
+    filterset_fields = ('order',
                      'plan',
                      'time')
 
@@ -250,7 +250,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = MealItemSerializer
     is_private = True
     ordering_fields = '__all__'
-    filter_fields = ('amount',
+    filterset_fields = ('amount',
                      'ingredient',
                      'meal',
                      'order',
