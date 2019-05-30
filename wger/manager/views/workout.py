@@ -191,7 +191,7 @@ def copy_workout(request, pk):
                     current_set_copy.save()
 
                     # Exercises has Many2Many relationship
-                    current_set_copy.exercises = exercises
+                    current_set_copy.exercises.set(exercises)
 
                     # Go through the exercises
                     for exercise in exercises:
