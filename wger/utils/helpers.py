@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 class EmailAuthBackend(object):
 
-    def authenticate(self, username=None, password=None):
+    def authenticate(self, request, username=None, password=None):
         try:
             user = User.objects.get(email=username)
             if user.check_password(password):
