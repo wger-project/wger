@@ -73,7 +73,7 @@ RUN chmod o+w -R ~/db/ \
     && chmod g+w /home/wger/static/CACHE \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && python manage.py download-exercise-images \
-    && chmod -R o+w ~/media \
+    && chmod -R g+w ~/media \
     && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py \
     && python manage.py collectstatic --noinput
 
