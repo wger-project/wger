@@ -22,21 +22,6 @@ setuptools>=18.5
 sphinx
 psycopg2
 
-#######################
-# Forked Modules
-# These modules have open PRs for compat changes
-#######################
-
-# django-sortedm2m
--e git+git://github.com/peopledoc/django-sortedm2m.git@fix-compat-dj22#egg=django-sortedm2m
-
-# django-mobile
--e git+git://github.com/visualspace/django-mobile.git@django111#egg=django-mobile
-
-# django-user_agents
--e git+git://github.com/joehybird/django-user_agents.git@django_2.2#egg=django-user_agents
-
-
 # Production
 psycopg2
 python-memcached
