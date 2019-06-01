@@ -31,6 +31,7 @@ RUN apt-get update \
 # Configure apache
 ADD wger.conf /etc/apache2/sites-available/
 RUN a2dissite 000-default.conf \
+  && a2enmod headers \
   && a2ensite wger \
   && echo "ServerName localhost" >> /etc/apache2/conf-available/fqdn.conf \
   && a2enconf fqdn \
