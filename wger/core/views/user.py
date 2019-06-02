@@ -31,7 +31,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.contrib.auth import login as django_loginview
+from django.contrib.auth.views import LoginView
 from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
@@ -101,10 +101,9 @@ def login(request):
     if request.GET.get('next'):
         context['next'] = request.GET.get('next')
 
-    return django_loginview(request,
-                            template_name='user/login.html',
-                            authentication_form=UserLoginForm,
-                            extra_context=context)
+    return LoginView.as_view(template_name='user/login.html',
+                             authentication_form=UserLoginForm,
+                             extra_context=context)
 
 
 @login_required()
