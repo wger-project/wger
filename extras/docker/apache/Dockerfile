@@ -56,6 +56,7 @@ RUN virtualenv --python python3 /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install -r requirements.txt \
+    && pip install -r requirements_forked.txt \
     && python setup.py develop \
     && wger create_settings \
         --settings-path /home/wger/src/settings.py \

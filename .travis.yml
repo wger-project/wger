@@ -33,6 +33,7 @@ env:
 install:
   # Install requirements
   - pip install -r requirements_devel.txt
+  - pip install -r requirements_forked.txt
   - python setup.py develop
   - npm install -g gulp gulp-cli
   - npm install

@@ -23,12 +23,6 @@ with open('README.rst') as readme:
 with open('requirements.txt') as requirements_production:
     install_requires = requirements_production.readlines()
 
-install_requires = install_requires + [
-    'django-sortedm2m @ https://github.com/peopledoc/django-sortedm2m/tarball/fix-compat-dj22#egg=django-sortedm2m-1.5.1.dev1',
-    'django-mobile @ https://github.com/visualspace/django-mobile/tarball/django111#egg=django-mobile-0.7.0.dev1',
-    'django-user_agents @ https://github.com/joehybird/django-user_agents/tarball/django_2.2#egg=django-user_agents-0.3.1',
-]
-
 setup(
     name='wger',
     description='FLOSS workout, fitness and weight manager/tracker written with Django',
