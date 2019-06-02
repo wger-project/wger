@@ -31,7 +31,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('date',
-                     'weight')
+                        'weight')
 
     def get_queryset(self):
         '''

@@ -62,16 +62,16 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filterset_fields = ('category',
-                     'creation_date',
-                     'description',
-                     'language',
-                     'muscles',
-                     'muscles_secondary',
-                     'status',
-                     'name',
-                     'equipment',
-                     'license',
-                     'license_author')
+                        'creation_date',
+                        'description',
+                        'language',
+                        'muscles',
+                        'muscles_secondary',
+                        'status',
+                        'name',
+                        'equipment',
+                        'license',
+                        'license_author')
 
     def perform_create(self, serializer):
         '''
@@ -139,16 +139,16 @@ class ExerciseInfoViewset(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filterset_fields = ('category',
-                     'creation_date',
-                     'description',
-                     'language',
-                     'muscles',
-                     'muscles_secondary',
-                     'status',
-                     'name',
-                     'equipment',
-                     'license',
-                     'license_author')
+                        'creation_date',
+                        'description',
+                        'language',
+                        'muscles',
+                        'muscles_secondary',
+                        'status',
+                        'name',
+                        'equipment',
+                        'license',
+                        'license_author')
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -180,10 +180,10 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filterset_fields = ('is_main',
-                     'status',
-                     'exercise',
-                     'license',
-                     'license_author')
+                        'status',
+                        'exercise',
+                        'license',
+                        'license_author')
 
     @action(detail=True)
     def thumbnails(self, request, pk):
@@ -223,7 +223,7 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseCommentSerializer
     ordering_fields = '__all__'
     filterset_fields = ('comment',
-                     'exercise')
+                        'exercise')
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
@@ -234,4 +234,4 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name',
-                     'is_front')
+                        'is_front')

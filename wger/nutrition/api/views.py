@@ -56,20 +56,20 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = ('carbohydrates',
-                     'carbohydrates_sugar',
-                     'creation_date',
-                     'energy',
-                     'fat',
-                     'fat_saturated',
-                     'fibres',
-                     'name',
-                     'protein',
-                     'sodium',
-                     'status',
-                     'update_date',
-                     'language',
-                     'license',
-                     'license_author')
+                        'carbohydrates_sugar',
+                        'creation_date',
+                        'energy',
+                        'fat',
+                        'fat_saturated',
+                        'fibres',
+                        'name',
+                        'protein',
+                        'sodium',
+                        'status',
+                        'update_date',
+                        'language',
+                        'license',
+                        'license_author')
 
     @action(detail=True)
     def get_values(self, request, pk):
@@ -158,7 +158,7 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
     filterset_fields = ('language',
-                     'name')
+                        'name')
 
 
 class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -169,9 +169,9 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientWeightUnitSerializer
     ordering_fields = '__all__'
     filterset_fields = ('amount',
-                     'gram',
-                     'ingredient',
-                     'unit')
+                        'gram',
+                        'ingredient',
+                        'unit')
 
 
 class NutritionPlanViewSet(viewsets.ModelViewSet):
@@ -182,9 +182,9 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('creation_date',
-                     'language',
-                     'description',
-                     'has_goal_calories')
+                        'language',
+                        'description',
+                        'has_goal_calories')
 
     def get_queryset(self):
         '''
@@ -214,8 +214,8 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('order',
-                     'plan',
-                     'time')
+                        'plan',
+                        'time')
 
     def get_queryset(self):
         '''
@@ -251,10 +251,10 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('amount',
-                     'ingredient',
-                     'meal',
-                     'order',
-                     'weight_unit')
+                        'ingredient',
+                        'meal',
+                        'order',
+                        'weight_unit')
 
     def get_queryset(self):
         '''

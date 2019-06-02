@@ -84,7 +84,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('full_name',
-                     'short_name')
+                        'short_name')
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
@@ -105,8 +105,8 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = LicenseSerializer
     ordering_fields = '__all__'
     filterset_fields = ('full_name',
-                     'short_name',
-                     'url')
+                        'short_name',
+                        'url')
 
 
 class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):

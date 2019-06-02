@@ -56,7 +56,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('comment',
-                     'creation_date')
+                        'creation_date')
 
     def get_queryset(self):
         '''
@@ -90,11 +90,11 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('date',
-                     'workout',
-                     'notes',
-                     'impression',
-                     'time_start',
-                     'time_end')
+                        'workout',
+                        'notes',
+                        'impression',
+                        'time_start',
+                        'time_end')
 
     def get_queryset(self):
         '''
@@ -124,9 +124,9 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('schedule',
-                     'workout',
-                     'duration',
-                     'order')
+                        'workout',
+                        'duration',
+                        'order')
 
     def get_queryset(self):
         '''
@@ -150,9 +150,9 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('is_active',
-                     'is_loop',
-                     'start_date',
-                     'name')
+                        'is_loop',
+                        'start_date',
+                        'name')
 
     def get_queryset(self):
         '''
@@ -175,8 +175,8 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('description',
-                     'training',
-                     'day')
+                        'training',
+                        'day')
 
     def get_queryset(self):
         '''
@@ -199,9 +199,9 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('exerciseday',
-                     'order',
-                     'sets',
-                     'exercises')
+                        'order',
+                        'sets',
+                        'exercises')
 
     def get_queryset(self):
         '''
@@ -224,11 +224,11 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('exercise',
-                     'order',
-                     'reps',
-                     'weight',
-                     'set',
-                     'order')
+                        'order',
+                        'reps',
+                        'weight',
+                        'set',
+                        'order')
 
     def get_queryset(self):
         '''
@@ -257,10 +257,10 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = ('date',
-                     'exercise',
-                     'reps',
-                     'weight',
-                     'workout')
+                        'exercise',
+                        'reps',
+                        'weight',
+                        'workout')
 
     def get_queryset(self):
         '''
