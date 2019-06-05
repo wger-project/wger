@@ -192,20 +192,20 @@
 <div class="btn-group btn-group-justified" style="margin-top: 1em;">
     {% if user.is_authenticated %}
     <div class="btn-group">
-        <a href="{% url 'core:index' %}" {% auto_link_css flavour %}>{% trans "Dashboard" %}</a>
+        <a href="{% url 'core:index' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Dashboard" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'manager:workout:overview' %}" {% auto_link_css flavour %}>{% trans "Workouts" %}</a>
+        <a href="{% url 'manager:workout:overview' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Workouts" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'nutrition:plan:overview' %}" {% auto_link_css flavour %}>{% trans "Nutrition" %}</a>
+        <a href="{% url 'nutrition:plan:overview' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Nutrition" %}</a>
     </div>
     {% else %}
     <div class="btn-group">
-        <a href="{% url 'core:user:login' %}" {% auto_link_css flavour %}>{% trans "Login" %}</a>
+        <a href="{% url 'core:user:login' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Login" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'software:features' %}" {% auto_link_css flavour %}>{% trans "Features" %}</a>
+        <a href="{% url 'software:features' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Features" %}</a>
     </div>
     {% endif %}
 </div>

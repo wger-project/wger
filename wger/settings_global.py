@@ -67,8 +67,7 @@ INSTALLED_APPS = (
     # The sitemaps app
     'django.contrib.sitemaps',
 
-    # Django mobile
-    'django_mobile',
+    'django_user_agents',
 
     # thumbnails
     'easy_thumbnails',
@@ -120,6 +119,8 @@ MIDDLEWARE = (
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
 
+    'django_user_agents.middleware.UserAgentMiddleware',
+
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
 
@@ -129,10 +130,6 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-
-    # Django mobile
-    'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -157,16 +154,10 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
 
-                # Django mobile
-                'django_mobile.context_processors.flavour',
-
                 # Breadcrumbs
                 'django.template.context_processors.request'
             ],
             'loaders': [
-                # Django mobile
-                'django_mobile.loader.Loader',
-
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
@@ -382,6 +373,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+USER_AGENTS_CACHE = 'default'
 
 #
 # Application specific configuration options

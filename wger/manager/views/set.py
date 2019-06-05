@@ -34,6 +34,7 @@ from django.shortcuts import (
     get_object_or_404,
     render
 )
+from django_user_agents.utils import get_user_agent
 
 # wger
 from wger.config.models import LanguageConfig
@@ -77,11 +78,12 @@ def create(request, day_pk):
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
 
-    # Select the correct form depending on the flavour of the request.
+    # Select the correct form depending on the user-agent.
     # The difference is that the mobile form doesn't use the autocompleter for
     # exercises, but 2 dropdowns, one to filter by category and one to select
     # the exercises themselves.
-    if request.flavour == 'mobile':
+    user_agent = get_user_agent(request)
+    if user_agent.is_mobile:
         form_class = SetFormMobile
     else:
         form_class = SetForm
@@ -92,7 +94,7 @@ def create(request, day_pk):
 
     # For the mobile dropdown list we need to manually filter the exercises
     # by language and status
-    if request.flavour == 'mobile':
+    if user_agent.is_mobile:
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
                                                         .filter(language__in=languages)
