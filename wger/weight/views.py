@@ -124,7 +124,7 @@ def export_csv(request):
     writer = csv.writer(response)
 
     weights = WeightEntry.objects.filter(user=request.user)
-    writer.writerow([_('Weight').encode('utf8'), _('Date').encode('utf8')])
+    writer.writerow([_('Weight'), _('Date')])
 
     for entry in weights:
         writer.writerow([entry.weight, entry.date])
