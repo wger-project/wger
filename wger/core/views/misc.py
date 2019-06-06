@@ -29,7 +29,6 @@ from django.urls import (
     reverse_lazy
 )
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -49,6 +48,7 @@ from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.helpers import get_last_entries
 from wger.weight.models import WeightEntry
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -147,7 +147,7 @@ def dashboard(request):
         # Load the nutritional info
         template_data['nutritional_info'] = plan.get_nutritional_values()
 
-    return render(request, 'index.html', template_data)
+    return ua_aware_render(request, 'index.html', template_data)
 
 
 class ContactClassView(TemplateView):

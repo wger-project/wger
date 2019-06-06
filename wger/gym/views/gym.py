@@ -39,10 +39,7 @@ from django.http.response import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -74,7 +71,10 @@ from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
 )
-from wger.utils.helpers import password_generator
+from wger.utils.helpers import (
+    password_generator,
+    ua_aware_render
+)
 
 logger = logging.getLogger(__name__)
 
@@ -178,7 +178,7 @@ def gym_new_user_info(request):
 
     context = {'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
                'password': request.session['gym.user']['password']}
-    return render(request, 'gym/new_user.html', context)
+    return ua_aware_render(request, 'gym/new_user.html', context)
 
 
 @login_required
@@ -243,7 +243,7 @@ def reset_user_password(request, user_pk):
 
     context = {'mod_user': user,
                'password': password}
-    return render(request, 'gym/reset_user_password.html', context)
+    return ua_aware_render(request, 'gym/reset_user_password.html', context)
 
 
 def gym_permissions_user_edit(request, user_pk):
@@ -313,7 +313,7 @@ def gym_permissions_user_edit(request, user_pk):
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     context['submit_text'] = 'Save'
 
-    return render(request, 'form.html', context)
+    return ua_aware_render(request, 'form.html', context)
 
 
 class GymAddUserView(WgerFormMixin,

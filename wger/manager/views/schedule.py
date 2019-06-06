@@ -30,10 +30,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -60,7 +57,8 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import (
     check_token,
-    make_token
+    make_token,
+    ua_aware_render
 )
 from wger.utils.pdf import (
     render_footer,
@@ -81,7 +79,7 @@ def overview(request):
     template_data['schedules'] = (Schedule.objects
                                   .filter(user=request.user)
                                   .order_by('-is_active', '-start_date'))
-    return render(request, 'schedule/overview.html', template_data)
+    return ua_aware_render(request, 'schedule/overview.html', template_data)
 
 
 def view(request, pk):
@@ -112,7 +110,7 @@ def view(request, pk):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'schedule/view.html', template_data)
+    return ua_aware_render(request, 'schedule/view.html', template_data)
 
 
 def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):

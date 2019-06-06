@@ -30,10 +30,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django_user_agents.utils import get_user_agent
 
 # wger
@@ -50,6 +47,7 @@ from wger.manager.models import (
     Setting
 )
 from wger.utils.language import load_item_languages
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -141,7 +139,7 @@ def create(request, day_pk):
     context['formsets'] = formsets
     context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
-    return render(request, 'set/add.html', context)
+    return ua_aware_render(request, 'set/add.html', context)
 
 
 @login_required
@@ -158,7 +156,7 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
 
-    return render(request,
+    return ua_aware_render(request,
                   "set/formset.html",
                   {'formset': formset,
                    'exercise': exercise})
@@ -238,4 +236,4 @@ def edit(request, pk):
     context = {}
     context['formsets'] = formsets
     context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
-    return render(request, 'set/edit.html', context)
+    return ua_aware_render(request, 'set/edit.html', context)

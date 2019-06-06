@@ -30,10 +30,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
 from django.utils.translation import (
     ugettext as _,
@@ -66,7 +63,8 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import (
     check_token,
-    make_token
+    make_token,
+    ua_aware_render
 )
 from wger.utils.language import load_language
 from wger.utils.pdf import styleSheet
@@ -88,7 +86,7 @@ def overview(request):
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
 
-    return render(request, 'plan/overview.html', template_data)
+    return ua_aware_render(request, 'plan/overview.html', template_data)
 
 
 @login_required
@@ -179,7 +177,7 @@ def view(request, id):
     template_data['is_owner'] = is_owner
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'plan/view.html', template_data)
+    return ua_aware_render(request, 'plan/view.html', template_data)
 
 
 @login_required

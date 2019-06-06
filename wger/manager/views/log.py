@@ -30,10 +30,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
 from django.utils.translation import (
     ugettext as _,
@@ -52,6 +49,7 @@ from wger.manager.forms import (
     WorkoutLogForm
 )
 from wger.manager.helpers import WorkoutCalendar
+from wger.utils.helpers import ua_aware_render
 from wger.manager.models import (
     Day,
     Schedule,
@@ -234,7 +232,7 @@ def add(request, pk):
     template_data['session_form'] = session_form
     template_data['form_action'] = reverse('manager:day:log', kwargs={'pk': pk})
 
-    return render(request, 'day/log.html', template_data)
+    return ua_aware_render(request, 'day/log.html', template_data)
 
 
 class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
@@ -332,7 +330,7 @@ def calendar(request, username=None, year=None, month=None):
     context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     context['show_shariff'] = is_owner and user.userprofile.ro_access
-    return render(request, 'calendar/month.html', context)
+    return ua_aware_render(request, 'calendar/month.html', context)
 
 
 def day(request, username, year, month, day):
@@ -353,4 +351,4 @@ def day(request, username, year, month, day):
     context['is_owner'] = is_owner
     context['show_shariff'] = is_owner and user.userprofile.ro_access
 
-    return render(request, 'calendar/day.html', context)
+    return ua_aware_render(request, 'calendar/day.html', context)

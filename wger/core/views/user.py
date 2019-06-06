@@ -37,10 +37,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
 from django.utils import translation
 from django.utils.translation import (
@@ -87,6 +84,7 @@ from wger.utils.user_agents import (
     check_request_android
 )
 from wger.weight.models import WeightEntry
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -152,7 +150,7 @@ def delete(request, user_pk=None):
                'user_delete': user,
                'form_action': form_action}
 
-    return render(request, 'user/delete_account.html', context)
+    return ua_aware_render(request, 'user/delete_account.html', context)
 
 
 @login_required()
@@ -284,7 +282,7 @@ def registration(request):
     template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
-    return render(request, 'form.html', template_data)
+    return ua_aware_render(request, 'form.html', template_data)
 
 
 @login_required
@@ -328,7 +326,7 @@ def preferences(request):
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
-        return render(request, 'user/preferences.html', template_data)
+        return ua_aware_render(request, 'user/preferences.html', template_data)
 
 
 class UserDeactivateView(LoginRequiredMixin,
@@ -465,7 +463,7 @@ def api_key(request):
 
     context['token'] = token
 
-    return render(request, 'user/api_key.html', context)
+    return ua_aware_render(request, 'user/api_key.html', context)
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):

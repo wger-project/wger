@@ -33,10 +33,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -61,6 +58,7 @@ from wger.utils.language import (
     load_ingredient_languages,
     load_language
 )
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -112,7 +110,7 @@ def view(request, id, slug=None):
                                                   'unit': None})
     template_data['show_shariff'] = True
 
-    return render(request, 'ingredient/view.html', template_data)
+    return ua_aware_render(request, 'ingredient/view.html', template_data)
 
 
 class IngredientDeleteView(WgerDeleteMixin,
