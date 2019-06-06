@@ -334,9 +334,10 @@ class TextTemplateView(TemplateView):
     '''
     A regular templateView that sets the mime type as text/plain
     '''
-    def render_to_response(self, context, **response_kwargs):
-        response_kwargs['content_type'] = 'text/plain'
-        return super(TextTemplateView, self).render_to_response(context, **response_kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        resp = super().dispatch(request, args, kwargs)
+        resp['Content-Type'] = 'text/plain'
+        return resp
 
 
 class WebappManifestView(TemplateView):
@@ -347,6 +348,7 @@ class WebappManifestView(TemplateView):
     '''
     template_name = 'manifest.webapp'
 
-    def render_to_response(self, context, **response_kwargs):
-        response_kwargs['content_type'] = 'application/x-web-app-manifest+json'
-        return super(WebappManifestView, self).render_to_response(context, **response_kwargs)
+    def dispatch(request, *args, **kwargs):
+        resp = super().dispatch(request, args, kwargs)
+        resp['Content-Type'] = 'application/x-web-app-manifest+json'
+        return resp
