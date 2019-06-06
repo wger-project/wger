@@ -35,6 +35,9 @@ from django.utils.http import (
     urlsafe_base64_encode
 )
 
+from django.shortcuts import render
+from django_user_agents.utils import get_user_agent
+from django.template.exceptions import TemplateDoesNotExist
 
 logger = logging.getLogger(__name__)
 
@@ -235,3 +238,15 @@ def smart_capitalize(input):
         else:
             out.append(word)
     return ' '.join(out)
+
+
+def ua_aware_render(request, template, context):
+    user_agent = get_user_agent(request)
+    try_template = template
+    if user_agent.is_mobile:
+        try_template = 'mobile/' + template
+
+    try:
+        return render(request, try_template, context)
+    except TemplateDoesNotExist:
+        return render(request, template, context)
