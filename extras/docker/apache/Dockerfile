@@ -48,8 +48,8 @@ RUN chmod 0644 /etc/cron.d/wger \
 # Set up the application
 RUN ln -s /home/wger/static/CACHE /var/www
 USER wger
-ARG GIT_BRANCH=master
-RUN git clone -b ${GIT_BRANCH} https://github.com/wger-project/wger.git /home/wger/src
+RUN git clone -b ${SOURCE_BRANCH:-master} https://github.com/wger-project/wger.git /home/wger/src \
+  && git -C /home/wger/src rev-parse HEAD
 
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv
