@@ -66,7 +66,8 @@ from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin,
 )
 from wger.utils.language import (
     load_item_languages,
@@ -79,13 +80,11 @@ from wger.utils.widgets import (
 )
 from wger.weight.helpers import process_log_entries
 from wger.utils.helpers import ua_aware_render
-from django_user_agents.utils import get_user_agent
-
 
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(ListView):
+class ExerciseListView(UAAwareViewMixin, ListView):
     '''
     Generic view to list all exercises
     '''
@@ -335,7 +334,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
         return context
 
 
-class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Generic view to list all weight units
     '''

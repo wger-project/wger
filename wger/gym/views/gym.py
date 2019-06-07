@@ -69,7 +69,8 @@ from wger.gym.models import (
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
+    WgerMultiplePermissionRequiredMixin,
+    UAAwareViewMixin
 )
 from wger.utils.helpers import (
     password_generator,
@@ -79,7 +80,7 @@ from wger.utils.helpers import (
 logger = logging.getLogger(__name__)
 
 
-class GymListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class GymListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available gyms
     '''
@@ -96,7 +97,7 @@ class GymListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return context
 
 
-class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, ListView):
+class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all users for a specific gym
     '''

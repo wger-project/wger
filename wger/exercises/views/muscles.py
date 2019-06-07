@@ -42,7 +42,8 @@ from wger.config.models import LanguageConfig
 from wger.exercises.models import Muscle
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 from wger.utils.language import load_item_languages
 
@@ -50,7 +51,7 @@ from wger.utils.language import load_item_languages
 logger = logging.getLogger(__name__)
 
 
-class MuscleListView(ListView):
+class MuscleListView(UAAwareViewMixin, ListView):
     '''
     Overview of all muscles and their exercises
     '''

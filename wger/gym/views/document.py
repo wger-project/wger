@@ -40,14 +40,15 @@ from django.views.generic import (
 from wger.gym.models import UserDocument
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 
 
 logger = logging.getLogger(__name__)
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available admin notes
     '''

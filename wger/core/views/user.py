@@ -77,7 +77,8 @@ from wger.nutrition.models import NutritionPlan
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
+    WgerMultiplePermissionRequiredMixin,
+    UAAwareViewMixin
 )
 from wger.utils.user_agents import (
     check_request_amazon,
@@ -517,7 +518,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         return context
 
 
-class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all users in the instance
     '''

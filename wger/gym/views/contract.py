@@ -39,7 +39,10 @@ from django.views.generic import (
 
 # wger
 from wger.gym.models import Contract
-from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    UAAwareViewMixin
+)
 
 
 logger = logging.getLogger(__name__)
@@ -166,7 +169,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         return context
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available admin notes
     '''

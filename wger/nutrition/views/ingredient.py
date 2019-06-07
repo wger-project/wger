@@ -52,7 +52,8 @@ from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 from wger.utils.language import (
     load_ingredient_languages,
@@ -67,7 +68,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
-class IngredientListView(ListView):
+class IngredientListView(UAAwareViewMixin, ListView):
     '''
     Show an overview of all ingredients
     '''
@@ -208,7 +209,7 @@ class IngredientCreateView(IngredientMixin, CreateView):
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 
 
-class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     List all ingredients pending review
     '''
