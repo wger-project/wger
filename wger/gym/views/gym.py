@@ -97,7 +97,8 @@ class GymListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin,
         return context
 
 
-class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, UAAwareViewMixin, ListView):
+class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
+                      UAAwareViewMixin, ListView):
     '''
     Overview of all users for a specific gym
     '''

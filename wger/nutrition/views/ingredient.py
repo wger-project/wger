@@ -209,7 +209,8 @@ class IngredientCreateView(IngredientMixin, CreateView):
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 
 
-class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin,
+                                UAAwareViewMixin, ListView):
     '''
     List all ingredients pending review
     '''

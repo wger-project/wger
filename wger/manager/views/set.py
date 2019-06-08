@@ -128,7 +128,7 @@ def create(request, day_pk):
                     instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'pk': day.get_owner_object().id}))
+                                                kwargs={'pk': day.get_owner_object().id}))
         else:
             logger.debug(form.errors)
 
@@ -157,9 +157,9 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
                              prefix='exercise{0}'.format(exercise_pk))
 
     return ua_aware_render(request,
-                  "set/formset.html",
-                  {'formset': formset,
-                   'exercise': exercise})
+                           "set/formset.html",
+                           {'formset': formset,
+                            'exercise': exercise})
 
 
 @login_required
@@ -230,7 +230,7 @@ def edit(request, pk):
                         instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'pk': set_obj.get_owner_object().id}))
+                                                kwargs={'pk': set_obj.get_owner_object().id}))
 
     # Other context we need
     context = {}

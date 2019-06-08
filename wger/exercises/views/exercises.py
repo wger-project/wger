@@ -334,7 +334,8 @@ class ExerciseDeleteView(WgerDeleteMixin,
         return context
 
 
-class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin,
+                              UAAwareViewMixin, ListView):
     '''
     Generic view to list all weight units
     '''

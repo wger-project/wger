@@ -50,7 +50,8 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin,
+                               UAAwareViewMixin, ListView):
     '''
     Overview of all categories, for administration purposes
     '''
