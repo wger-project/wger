@@ -11,6 +11,7 @@ Django>=1.11,<2.0
 django_compressor==2.2
 django_extensions>=2.1
 django-sorted-m2m>=2.0
+django-storages>=1.7
 easy-thumbnails==2.6
 icalendar==4.0.3
 invoke==0.17
@@ -22,6 +23,7 @@ requests
 setuptools>=18.5
 sphinx
 psycopg2
+boto3
 
 # Production
 psycopg2

@@ -43,9 +43,10 @@ RUN a2dissite 000-default.conf \
 # Configure cron
 COPY ${DOCKER_DIR}/crontab /etc/cron.d/wger
 COPY ${DOCKER_DIR}/venvwrapper /home/wger/venvwrapper
+COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
 
 RUN chmod 0644 /etc/cron.d/wger \
-  && chmod +x /home/wger/venvwrapper \
+  && chmod +x /home/wger/venvwrapper /home/wger/entrypoint.sh \
   && touch /var/log/cron.log
 
 COPY --chown=wger:www-data . /home/wger/src
@@ -84,5 +85,4 @@ RUN chmod o+w -R ~/db/ \
 
 USER root
 
-ENTRYPOINT ["/usr/sbin/apache2ctl"]
-CMD ["-D", "FOREGROUND"]
+ENTRYPOINT ["/home/wger/entrypoint.sh"]
