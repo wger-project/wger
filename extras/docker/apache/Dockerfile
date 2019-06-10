@@ -19,6 +19,9 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+# Path to where misc docker files live, relative to the project root
+ARG DOCKER_DIR=./extras/docker/apache
+
 
 # Install dependencies
 RUN apt-get update \
@@ -29,7 +32,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
-ADD wger.conf /etc/apache2/sites-available/
+COPY ${DOCKER_DIR}/wger.conf /etc/apache2/sites-available/
 RUN a2dissite 000-default.conf \
   && a2enmod headers \
   && a2ensite wger \
@@ -38,18 +41,18 @@ RUN a2dissite 000-default.conf \
   && usermod -G wger www-data
 
 # Configure cron
-ADD crontab /etc/cron.d/wger
-ADD venvwrapper /home/wger/venvwrapper
+COPY ${DOCKER_DIR}/crontab /etc/cron.d/wger
+COPY ${DOCKER_DIR}/venvwrapper /home/wger/venvwrapper
 
 RUN chmod 0644 /etc/cron.d/wger \
   && chmod +x /home/wger/venvwrapper \
   && touch /var/log/cron.log
 
+COPY --chown=wger:www-data . /home/wger/src
+
 # Set up the application
 RUN ln -s /home/wger/static/CACHE /var/www
 USER wger
-RUN git clone -b ${SOURCE_BRANCH:-master} https://github.com/wger-project/wger.git /home/wger/src \
-  && git -C /home/wger/src rev-parse HEAD
 
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv
