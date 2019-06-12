@@ -27,6 +27,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
+from django.conf import settings
 from django.core import mail
 from django.core.cache import cache
 from django.urls import (
@@ -210,7 +211,7 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = ('/static/bower_components/tinymce/tinymce.min.js',)
+                js = (settings.STATIC_URL + 'bower_components/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 
