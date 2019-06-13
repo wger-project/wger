@@ -338,6 +338,10 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.rCSSMinFilter'
 )
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+    'compressor.filters.template.TemplateFilter',
+]
 COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER binary
