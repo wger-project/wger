@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ "${USE_S3}" = "TRUE" ]; then
-  python manage.py collectstatic --no-input
-  python manage.py compress
+  /home/wger/venvwrapper collectstatic --no-input
+  /home/wger/venvwrapper compress
 fi
 
 /usr/sbin/apache2ctl -D FOREGROUND
