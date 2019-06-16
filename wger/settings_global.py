@@ -94,7 +94,7 @@ INSTALLED_APPS = (
 
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
-    'bootstrap#3.3.x',
+    'bootstrap#3.x',
     'components-font-awesome#4.7.x',
     'd3',
     'DataTables',
