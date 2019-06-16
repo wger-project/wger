@@ -99,7 +99,7 @@ BOWER_INSTALLED_APPS = (
     'd3',
     'DataTables',
     'devbridge-autocomplete#1.2.x',
-    'jquery#2.1.x',
+    'jquery#2.x',
     'metrics-graphics',
     'shariff#1.24.1',
     'sortablejs#1.4.x',
