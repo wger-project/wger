@@ -324,6 +324,10 @@ if USE_S3:
     COMPRESS_URL = STATIC_URL
     COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     COMPRESS_OFFLINE = True
+    COMPRESS_OFFLINE_CONTEXT = [
+        {'request': {'user_agent': {'is_mobile': True}}, 'STATIC_URL': STATIC_URL},
+        {'request': {'user_agent': {'is_mobile': False}}, 'STATIC_URL': STATIC_URL}
+    ]
 else:
     STATIC_URL = '/static/'
 
