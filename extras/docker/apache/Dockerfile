@@ -82,4 +82,7 @@ RUN chmod o+w -R ~/db/ \
 
 USER root
 
+RUN apt-get remove build-essential -y \
+    && apt autoremove -y
+
 ENTRYPOINT ["/home/wger/entrypoint.sh"]
