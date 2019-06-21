@@ -47,6 +47,7 @@ from reportlab.platypus import (
     SimpleDocTemplate,
     Spacer
 )
+from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.manager.helpers import render_workout_day
@@ -82,6 +83,7 @@ def overview(request):
     return ua_aware_render(request, 'schedule/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
     '''
     Show the workout schedule

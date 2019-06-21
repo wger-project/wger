@@ -33,6 +33,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.core.demo import (
@@ -93,6 +94,7 @@ def demo_entries(request):
 
 
 @login_required
+@vary_on_headers('User-Agent')
 def dashboard(request):
     '''
     Show the index page, in our case, the last workout and nutritional plan

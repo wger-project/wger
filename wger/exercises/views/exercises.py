@@ -55,6 +55,7 @@ from django.views.generic import (
     ListView,
     UpdateView
 )
+from django.utils.cache import patch_vary_headers
 
 # wger
 from wger.config.models import LanguageConfig
@@ -93,6 +94,11 @@ class ExerciseListView(UAAwareViewMixin, ListView):
     model = Exercise
     template_name = 'exercise/overview.html'
     context_object_name = 'exercises'
+
+    def get(self, request, *args, **kwargs):
+        response = super(ListView, self).get(request, *args, **kwargs)
+        patch_vary_headers(response, ['User-Agent'])
+        return response
 
     def get_queryset(self):
         '''

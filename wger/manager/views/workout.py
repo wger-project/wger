@@ -40,6 +40,7 @@ from django.views.generic import (
     DeleteView,
     UpdateView
 )
+from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.core.models import (
@@ -90,6 +91,7 @@ def overview(request):
     return ua_aware_render(request, 'workout/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
     '''
     Show the workout with the given ID
