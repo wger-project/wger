@@ -68,12 +68,12 @@ and stable state.
 
 ::
 
- $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev git
+ $ sudo apt-get install python3-dev python-virtualenv nodejs npm libjpeg8-dev zlib1g-dev git
 
 
 Then install the python packages from pypi in the virtualenv::
 
- $ virtualenv --python python3 venv-django
+ $ python3 -m venv venv-django
  $ source venv-django/bin/activate
 
 
@@ -108,7 +108,7 @@ Stable version (from PyPI)
 
 ::
 
- $ sudo apt-get install python3-dev python-virtualenv nodejs nodejs-legacy npm libjpeg8-dev zlib1g-dev
+ $ sudo apt-get install python3-dev python-virtualenv nodejs npm libjpeg8-dev zlib1g-dev
  $ virtualenv venv-django
  $ source venv-django/bin/activate
  $ pip install wger

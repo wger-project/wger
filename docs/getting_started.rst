@@ -29,7 +29,7 @@ contact page.
 These are the necessary packages for both development and production
 (node and npm are only used to download JS and CSS libraries)::
 
-    sudo apt-get install nodejs nodejs-legacy npm git \
+    sudo apt-get install nodejs npm git \
                          python-virtualenv python3-dev \
                          libjpeg8-dev zlib1g-dev libwebp-dev
 

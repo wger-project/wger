@@ -14,7 +14,7 @@ MAINTAINER Roland Geider <roland@geider.net>
 
 # Install dependencies
 RUN apt-get update\
-    && apt-get install -y nodejs nodejs-legacy npm git \
+    && apt-get install -y nodejs npm git \
          python-virtualenv python3-dev \
          libjpeg8-dev zlib1g-dev libwebp-dev \
          sudo
