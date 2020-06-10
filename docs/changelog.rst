@@ -25,7 +25,7 @@ Improvements:
 * Increase speed of testsuite by performing the tests in parallel (thanks `@Mbarak-Mbigo`_) `wger_vulcan/#6`_
 * Update screen when adding an exercise to the workout while using set slider (thanks `@gmmoraes`_) `#374`_
 
-Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
+Other improvements and bugfixes: `#336`_, `#359`_,`#386`_, `#443`_
 
 .. _@gmmoraes: https://github.com/gmmoraes
 .. _@Mbarak-Mbigo: https://github.com/Mbarak-Mbigo
@@ -34,8 +34,6 @@ Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
 .. _wger_vulcan/#6: https://github.com/andela/wger_vulcan/pull/6
 
 .. _#332: https://github.com/wger-project/wger/issues/332
-.. _#363: https://github.com/wger-project/wger/issues/363
-.. _#336: https://github.com/wger-project/wger/issues/336
 .. _#336: https://github.com/wger-project/wger/issues/336
 .. _#359: https://github.com/wger-project/wger/issues/359
 .. _#363: https://github.com/wger-project/wger/issues/363
@@ -43,6 +41,7 @@ Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
 .. _#374: https://github.com/wger-project/wger/issues/374
 .. _#381: https://github.com/wger-project/wger/issues/381
 .. _#386: https://github.com/wger-project/wger/issues/386
+.. _#443: https://github.com/wger-project/wger/issues/443
 
 
 1.8
