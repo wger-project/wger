@@ -24,6 +24,9 @@ DATABASES = {{
     }}
 }}
 
+# Timezone for this installation. Consult settings_global.py for more information
+TIME_ZONE = 'Europe/Berlin'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '{default_key}'
 

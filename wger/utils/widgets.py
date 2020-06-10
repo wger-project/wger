@@ -23,9 +23,8 @@ from itertools import chain
 # Third Party
 from django.forms import fields
 from django.forms.widgets import (
-    CheckboxChoiceInput,
+    CheckboxInput,
     CheckboxSelectMultiple,
-    ChoiceFieldRenderer,
     DateInput,
     Select,
     SelectMultiple,
@@ -150,7 +149,7 @@ class ExerciseAjaxSelect(SelectMultiple):
             return ''
 
 
-class CheckboxChoiceInputTranslated(CheckboxChoiceInput):
+class CheckboxChoiceInputTranslated(CheckboxInput):
     '''
     Overwritten CheckboxChoiceInput
 
@@ -164,7 +163,7 @@ class CheckboxChoiceInputTranslated(CheckboxChoiceInput):
         super(CheckboxChoiceInputTranslated, self).__init__(name, value, attrs, choice, index)
 
 
-class CheckboxChoiceInputTranslatedOriginal(CheckboxChoiceInput):
+class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
     '''
     Overwritten CheckboxChoiceInput
 
@@ -186,30 +185,32 @@ class CheckboxChoiceInputTranslatedOriginal(CheckboxChoiceInput):
                                                                     index)
 
 
-class CheckboxFieldRendererTranslated(ChoiceFieldRenderer):
-    choice_input_class = CheckboxChoiceInputTranslated
+#class CheckboxFieldRendererTranslated(ChoiceFieldRenderer):
+    #choice_input_class = CheckboxChoiceInputTranslated
 
 
-class CheckboxFieldRendererTranslatedOriginal(ChoiceFieldRenderer):
-    choice_input_class = CheckboxChoiceInputTranslatedOriginal
+#class CheckboxFieldRendererTranslatedOriginal(ChoiceFieldRenderer):
+#    choice_input_class = CheckboxChoiceInputTranslatedOriginal
 
 
-class CheckboxBootstrapRenderer(CheckboxFieldRendererTranslated):
-    outer_html = u'<div{id_attr}>{content}</div>'
-    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
+#class CheckboxBootstrapRenderer(CheckboxFieldRendererTranslated):
+#    outer_html = u'<div{id_attr}>{content}</div>'
+#    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
 
 
-class CheckboxBootstrapRendererTranslatedOriginal(CheckboxFieldRendererTranslatedOriginal):
-    outer_html = u'<div{id_attr}>{content}</div>'
-    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
+#class CheckboxBootstrapRendererTranslatedOriginal(CheckboxFieldRendererTranslatedOriginal):
+#    outer_html = u'<div{id_attr}>{content}</div>'
+#    inner_html = u'<div class="checkbox">{choice_value}{sub_widgets}</div>'
 
 
 class BootstrapSelectMultiple(CheckboxSelectMultiple):
-    renderer = CheckboxBootstrapRenderer
+    pass
+    #renderer = CheckboxBootstrapRenderer
 
 
 class BootstrapSelectMultipleTranslatedOriginal(CheckboxSelectMultiple):
-    renderer = CheckboxBootstrapRendererTranslatedOriginal
+    pass
+    #renderer = CheckboxBootstrapRendererTranslatedOriginal
 
 
 class TranslatedSelectMultiple(BootstrapSelectMultiple):

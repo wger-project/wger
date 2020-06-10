@@ -140,7 +140,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
     # randomly one of the application languages. This also appears to happen
     # only on wger.de, perhaps because there the application is behind a reverse
     # proxy. See  #281.
-    captcha = ReCaptchaField(attrs={'theme': 'clean', 'lang': 'en'},
+    captcha = ReCaptchaField(#attrs={'theme': 'clean', 'lang': 'en'},
                              label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'))
 
@@ -178,6 +178,6 @@ class FeedbackAnonymousForm(FeedbackRegisteredForm):
     '''
     Feedback form used for anonymous users (has additionally a reCaptcha field)
     '''
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
+    captcha = ReCaptchaField(#attrs={'theme': 'clean'},
                              label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
