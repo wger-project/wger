@@ -9,7 +9,7 @@
 
 FROM wger/base
 
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 EXPOSE 80
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
@@ -21,16 +21,33 @@ ENV LC_ALL en_US.UTF-8
 
 
 # Install dependencies
-RUN apt-get install -y apache2 libapache2-mod-wsgi-py3
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+    apache2 \
+    cron \
+    libapache2-mod-wsgi-py3 \
+    libpq-dev \
+  && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
-RUN a2dissite 000-default.conf
 ADD wger.conf /etc/apache2/sites-available/
-RUN a2ensite wger
+RUN a2dissite 000-default.conf \
+  && a2ensite wger \
+  && echo "ServerName localhost" >> /etc/apache2/conf-available/fqdn.conf \
+  && a2enconf fqdn
+
+# Configure cron
+ADD crontab /etc/cron.d/wger
+ADD venvwrapper /home/wger/venvwrapper
+
+RUN chmod 0644 /etc/cron.d/wger \
+  && chmod +x /home/wger/venvwrapper \
+  && touch /var/log/cron.log
 
 # Set up the application
 USER wger
-RUN git clone https://github.com/wger-project/wger.git /home/wger/src
+ARG GIT_BRANCH=master
+RUN git clone -b ${GIT_BRANCH} https://github.com/wger-project/wger.git /home/wger/src
 
 WORKDIR /home/wger/src
 RUN virtualenv --python python3 /home/wger/venv

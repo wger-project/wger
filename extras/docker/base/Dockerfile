@@ -8,16 +8,29 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:16.04
+FROM ubuntu:18.10
 
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 
 # Install dependencies
-RUN apt-get update\
-    && apt-get install -y nodejs npm git \
-         python-virtualenv python3-dev \
-         libjpeg8-dev zlib1g-dev libwebp-dev \
-         sudo
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+      build-essential \
+      git \
+      libjpeg8-dev \
+      libpq-dev \
+      libwebp-dev \
+      locales \
+      nodejs \
+      npm \
+      python-virtualenv \
+      python3-dev \
+      python3-venv \
+      sudo \
+      virtualenv \
+      zlib1g-dev \
+  && rm -rf /var/lib/apt/lists/*
+
 
 # Add wger user
 RUN adduser wger --disabled-password --gecos ""

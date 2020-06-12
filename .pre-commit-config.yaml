@@ -1,0 +1,15 @@
+---
+- repo: git://github.com/pre-commit/pre-commit-hooks
+  sha: v1.4.0
+  hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: autopep8-wrapper
+    - id: check-yaml
+    - id: check-merge-conflict
+    - id: debug-statements
+    - id: flake8
+- repo: git://github.com/detailyang/pre-commit-shell
+  sha: 1.0.2
+  hooks:
+    - id: shell-lint
