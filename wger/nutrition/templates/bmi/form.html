@@ -63,7 +63,7 @@ $(document).ready(function () {
     {% render_form_fields form submit_text %}
 </form>
 
-<div id="bmi-result-container" style="display:hidden;">
+<div id="bmi-result-container" style="display:none;">
     <h3>{% trans 'Results' %}</h3>
     <p>{% trans 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:1}}</span></strong></p>
 </div>

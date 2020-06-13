@@ -58,7 +58,7 @@ from django.views.generic import (
 from wger.config.models import GymConfig as GlobalGymConfig
 from wger.gym.forms import (
     GymUserAddForm,
-    GymUserPermisssionForm
+    GymUserPermissionForm
 )
 from wger.gym.helpers import (
     get_permission_list,
@@ -75,7 +75,6 @@ from wger.utils.generic_views import (
     WgerMultiplePermissionRequiredMixin
 )
 from wger.utils.helpers import password_generator
-
 
 logger = logging.getLogger(__name__)
 
@@ -111,7 +110,7 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         '''
         if request.user.has_perm('gym.manage_gyms') \
             or ((request.user.has_perm('gym.manage_gym')
-                or request.user.has_perm('gym.gym_trainer'))
+                 or request.user.has_perm('gym.gym_trainer'))
                 and request.user.userprofile.gym_id == int(self.kwargs['pk'])):
             return super(GymUserListView, self).dispatch(request, *args, **kwargs)
         return HttpResponseForbidden()
@@ -267,8 +266,8 @@ def gym_permissions_user_edit(request, user_pk):
     form_group_permission = get_permission_list(user)
 
     if request.method == 'POST':
-        form = GymUserPermisssionForm(request.POST,
-                                      available_roles=form_group_permission)
+        form = GymUserPermissionForm(available_roles=form_group_permission,
+                                     data=request.POST)
 
         if form.is_valid():
 
@@ -304,8 +303,8 @@ def gym_permissions_user_edit(request, user_pk):
         if member.groups.filter(name='general_gym_manager').exists():
             initial_data['manager'] = True
 
-        form = GymUserPermisssionForm(initial={'role': initial_data},
-                                      available_roles=form_group_permission)
+        form = GymUserPermissionForm(initial={'role': initial_data},
+                                     available_roles=form_group_permission)
 
     context = {}
     context['title'] = member.get_full_name()
@@ -434,7 +433,7 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
-        if request.user.has_perm('gym.manage_gym')\
+        if request.user.has_perm('gym.manage_gym') \
                 and not request.user.has_perm('gym.manage_gyms'):
             if request.user.userprofile.gym_id != int(self.kwargs['pk']):
                 return HttpResponseForbidden()

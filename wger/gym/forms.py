@@ -24,7 +24,7 @@ from wger.core.forms import UserPersonalInformationForm
 from wger.utils.widgets import BootstrapSelectMultiple
 
 
-class GymUserPermisssionForm(forms.ModelForm):
+class GymUserPermissionForm(forms.ModelForm):
     '''
     Form used to set the permission group of a gym member
     '''
@@ -43,12 +43,14 @@ class GymUserPermisssionForm(forms.ModelForm):
     role = forms.MultipleChoiceField(choices=ROLES,
                                      initial=USER)
 
-    def __init__(self, available_roles=[], *args, **kwargs):
+    def __init__(self, available_roles=None, *args, **kwargs):
         '''
         Custom logic to reduce the available permissions
         '''
-        super(GymUserPermisssionForm, self).__init__(*args, **kwargs)
+        super(GymUserPermissionForm, self).__init__(*args, **kwargs)
 
+        if available_roles is None:
+            available_roles = []
         field_choices = [(self.USER, _('User'))]
         if 'trainer' in available_roles:
             field_choices.append((self.TRAINER, _('Trainer')))
@@ -62,7 +64,7 @@ class GymUserPermisssionForm(forms.ModelForm):
                                                         widget=BootstrapSelectMultiple())
 
 
-class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
+class GymUserAddForm(GymUserPermissionForm, UserPersonalInformationForm):
     '''
     Form used when adding a user to a gym
     '''
