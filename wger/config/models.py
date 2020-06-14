@@ -21,7 +21,6 @@ import logging
 # Third Party
 from django.core.cache import cache
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 # wger
@@ -43,7 +42,6 @@ from wger.utils.cache import (
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class LanguageConfig(models.Model):
     '''
     Configuration for languages
@@ -111,7 +109,6 @@ class LanguageConfig(models.Model):
         super(LanguageConfig, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class GymConfig(models.Model):
     '''
     System wide configuration for gyms

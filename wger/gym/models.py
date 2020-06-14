@@ -22,7 +22,6 @@ import uuid
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db import models as m
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import (
     ugettext,
     ugettext_lazy as _
@@ -32,7 +31,6 @@ from django.utils.translation import (
 from wger.gym.managers import GymManager
 
 
-@python_2_unicode_compatible
 class Gym(m.Model):
     '''
     Model for a gym
@@ -120,7 +118,6 @@ class Gym(m.Model):
         return None
 
 
-@python_2_unicode_compatible
 class GymConfig(m.Model):
     '''
     Configuration options for a gym
@@ -296,7 +293,6 @@ def gym_document_upload_dir(instance, filename):
                                               uuid.uuid4())
 
 
-@python_2_unicode_compatible
 class UserDocument(m.Model):
     '''
     Model for a document
@@ -378,7 +374,6 @@ class UserDocument(m.Model):
         return None
 
 
-@python_2_unicode_compatible
 class ContractType(m.Model):
     '''
     Model for a contract's type
@@ -426,7 +421,6 @@ class ContractType(m.Model):
         return None
 
 
-@python_2_unicode_compatible
 class ContractOption(m.Model):
     '''
     Model for a contract Option
@@ -476,7 +470,6 @@ class ContractOption(m.Model):
         return None
 
 
-@python_2_unicode_compatible
 class Contract(m.Model):
     '''
     Model for a member's contract in a gym

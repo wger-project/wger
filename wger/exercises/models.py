@@ -32,7 +32,6 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils import translation
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
@@ -54,7 +53,6 @@ from wger.utils.models import (
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class Muscle(models.Model):
     '''
     Muscle an exercise works out
@@ -84,7 +82,6 @@ class Muscle(models.Model):
         return False
 
 
-@python_2_unicode_compatible
 class Equipment(models.Model):
     '''
     Equipment used or needed by an exercise
@@ -112,7 +109,6 @@ class Equipment(models.Model):
         return False
 
 
-@python_2_unicode_compatible
 class ExerciseCategory(models.Model):
     '''
     Model for an exercise category
@@ -160,7 +156,6 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     Model for an exercise
@@ -473,7 +468,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                              fail_silently=True)
 
 
-@python_2_unicode_compatible
 class ExerciseComment(models.Model):
     '''
     Model for an exercise comment

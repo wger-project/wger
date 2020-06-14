@@ -36,7 +36,6 @@ from django.db import models
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.template.loader import render_to_string
 from django.utils import translation
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 # wger
@@ -69,7 +68,6 @@ Simple approximation of energy (kcal) provided per gram or ounce
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class NutritionPlan(models.Model):
     '''
     A nutrition plan
@@ -213,7 +211,6 @@ class NutritionPlan(models.Model):
             return 4
 
 
-@python_2_unicode_compatible
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     An ingredient, with some approximate nutrition values
@@ -450,7 +447,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return False
 
 
-@python_2_unicode_compatible
 class WeightUnit(models.Model):
     '''
     A more human usable weight unit (spoon, table, slice...)
@@ -480,7 +476,6 @@ class WeightUnit(models.Model):
         return None
 
 
-@python_2_unicode_compatible
 class IngredientWeightUnit(models.Model):
     '''
     A specific human usable weight unit for an ingredient
@@ -515,7 +510,6 @@ class IngredientWeightUnit(models.Model):
                                        self.gram)
 
 
-@python_2_unicode_compatible
 class Meal(models.Model):
     '''
     A meal
@@ -577,7 +571,6 @@ class Meal(models.Model):
         return nutritional_info
 
 
-@python_2_unicode_compatible
 class MealItem(models.Model):
     '''
     An item (component) of a meal

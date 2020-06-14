@@ -28,7 +28,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.db.models import IntegerField
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 # wger
@@ -38,7 +37,6 @@ from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
 
 
-@python_2_unicode_compatible
 class Language(models.Model):
     '''
     Language of an item (exercise, workout, etc.)
@@ -98,7 +96,6 @@ def birthdate_validator(birthdate):
         )
 
 
-@python_2_unicode_compatible
 class UserProfile(models.Model):
     GENDER_MALE = '1'
     GENDER_FEMALE = '2'
@@ -503,7 +500,6 @@ by the US Department of Agriculture. It is extremely complete, with around
         return self
 
 
-@python_2_unicode_compatible
 class UserCache(models.Model):
     '''
     A table used to cache expensive queries or similar
@@ -529,7 +525,6 @@ class UserCache(models.Model):
         return u"Cache for user {0}".format(self.user)
 
 
-@python_2_unicode_compatible
 class DaysOfWeek(models.Model):
     '''
     Model for the days of the week
@@ -553,7 +548,6 @@ class DaysOfWeek(models.Model):
         return self.day_of_week
 
 
-@python_2_unicode_compatible
 class License(models.Model):
     '''
     License for an item (exercise, ingredient, etc.)
@@ -601,7 +595,6 @@ class License(models.Model):
         return None
 
 
-@python_2_unicode_compatible
 class RepetitionUnit(models.Model):
     '''
     Setting unit, used in combination with an amount such as '10 reps', '5 km'
@@ -640,7 +633,6 @@ class RepetitionUnit(models.Model):
         return self.id == 1
 
 
-@python_2_unicode_compatible
 class WeightUnit(models.Model):
     '''
     Weight unit, used in combination with an amount such as '10 kg', '5 plates'

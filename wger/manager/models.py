@@ -33,7 +33,6 @@ from django.core.validators import (
     MinValueValidator
 )
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from sortedm2m.fields import SortedManyToManyField
 
@@ -59,7 +58,6 @@ logger = logging.getLogger(__name__)
 #
 # Classes
 #
-@python_2_unicode_compatible
 class Workout(models.Model):
     '''
     Model for a training schedule
@@ -207,7 +205,6 @@ class ScheduleManager(models.Manager):
         return (active_workout, schedule)
 
 
-@python_2_unicode_compatible
 class Schedule(models.Model):
     '''
     Model for a workout schedule.
@@ -313,7 +310,6 @@ class Schedule(models.Model):
         return end_date
 
 
-@python_2_unicode_compatible
 class ScheduleStep(models.Model):
     '''
     Model for a step in a workout schedule.
@@ -378,7 +374,6 @@ class ScheduleStep(models.Model):
                 return start_date, end_date
 
 
-@python_2_unicode_compatible
 class Day(models.Model):
     '''
     Model for a training day
@@ -554,7 +549,6 @@ class Day(models.Model):
                 'set_list': canonical_repr}
 
 
-@python_2_unicode_compatible
 class Set(models.Model):
     '''
     Model for a set of exercises
@@ -607,7 +601,6 @@ class Set(models.Model):
         super(Set, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class Setting(models.Model):
     '''
     Settings for an exercise (weight, reps, etc.)
@@ -693,7 +686,6 @@ class Setting(models.Model):
         return self.set.exerciseday.training
 
 
-@python_2_unicode_compatible
 class WorkoutLog(models.Model):
     '''
     A log entry for an exercise
@@ -794,7 +786,6 @@ class WorkoutLog(models.Model):
         super(WorkoutLog, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class WorkoutSession(models.Model):
     '''
     Model for a workout session
