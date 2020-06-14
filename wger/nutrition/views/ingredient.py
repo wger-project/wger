@@ -25,7 +25,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.core.cache import cache
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -33,10 +33,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -55,12 +52,14 @@ from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 from wger.utils.language import (
     load_ingredient_languages,
     load_language
 )
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -69,7 +68,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
-class IngredientListView(ListView):
+class IngredientListView(UAAwareViewMixin, ListView):
     '''
     Show an overview of all ingredients
     '''
@@ -112,7 +111,7 @@ def view(request, id, slug=None):
                                                   'unit': None})
     template_data['show_shariff'] = True
 
-    return render(request, 'ingredient/view.html', template_data)
+    return ua_aware_render(request, 'ingredient/view.html', template_data)
 
 
 class IngredientDeleteView(WgerDeleteMixin,
@@ -210,7 +209,8 @@ class IngredientCreateView(IngredientMixin, CreateView):
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 
 
-class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin,
+                                UAAwareViewMixin, ListView):
     '''
     List all ingredients pending review
     '''

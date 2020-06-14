@@ -20,12 +20,9 @@ import logging
 # Third Party
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -43,6 +40,7 @@ from wger.manager.models import (
     Workout
 )
 from wger.utils.generic_views import WgerFormMixin
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -150,4 +148,4 @@ def view(request, id):
 
     template_data['day'] = day
 
-    return render(request, 'day/view.html', template_data)
+    return ua_aware_render(request, 'day/view.html', template_data)

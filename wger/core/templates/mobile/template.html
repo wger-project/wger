@@ -16,12 +16,11 @@
     along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-
 {% load i18n staticfiles wger_extras compress django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
 {% endblock %}
-<html>
+<html lang="{{language.short_name}}">
 {% spaceless_config %}
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -46,9 +45,6 @@
     {% endif %}
     {% endblock %}
 
-    <title>{% block title %}{% endblock %}</title>
-
-    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
@@ -61,22 +57,27 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
     {% endcompress %}
 
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
     {% compress js %}
     <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
     <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bower_components/Sortable/Sortable.min.js' %}"></script>
     <script src="{% static 'bower_components/d3/d3.js' %}"></script>
     <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
     <script src="{% static 'bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
     <script src="{% static 'js/wger-core.js' %}"></script>
-    <script src="{% static 'js/wger-core-mobile.js' %}"></script>
     <script src="{% static 'js/exercises.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
     {% endcompress %}
 
+    {% compress js %}
+    <script src="{% static 'js/wger-core-mobile.js' %}"></script>
+    {% endcompress %}
     {% block header %}{% endblock %}
 
     <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('[data-toggle=offcanvas]').click(function () {
             $('.row-offcanvas').toggleClass('active')
         });
@@ -94,6 +95,8 @@
     });
     </script>
 
+
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <header>
@@ -192,20 +195,20 @@
 <div class="btn-group btn-group-justified" style="margin-top: 1em;">
     {% if user.is_authenticated %}
     <div class="btn-group">
-        <a href="{% url 'core:index' %}" {% auto_link_css flavour %}>{% trans "Dashboard" %}</a>
+        <a href="{% url 'core:index' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Dashboard" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'manager:workout:overview' %}" {% auto_link_css flavour %}>{% trans "Workouts" %}</a>
+        <a href="{% url 'manager:workout:overview' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Workouts" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'nutrition:plan:overview' %}" {% auto_link_css flavour %}>{% trans "Nutrition" %}</a>
+        <a href="{% url 'nutrition:plan:overview' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Nutrition" %}</a>
     </div>
     {% else %}
     <div class="btn-group">
-        <a href="{% url 'core:user:login' %}" {% auto_link_css flavour %}>{% trans "Login" %}</a>
+        <a href="{% url 'core:user:login' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Login" %}</a>
     </div>
     <div class="btn-group">
-        <a href="{% url 'software:features' %}" {% auto_link_css flavour %}>{% trans "Features" %}</a>
+        <a href="{% url 'software:features' %}" {% auto_link_css request.user_agent.is_mobile %}>{% trans "Features" %}</a>
     </div>
     {% endif %}
 </div>

@@ -43,8 +43,8 @@ function wgerHighlightMuscle(element) {
 
   // Set the corresponding background
   $('#muscle-system').css('background-image',
-    'url(/static/images/muscles/main/muscle-' + muscleId + '.svg),' +
-    'url(/static/images/muscles/muscular_system_' + isFront + '.svg)');
+    'url({{ STATIC_URL | escapejs }}images/muscles/main/muscle-' + muscleId + '.svg),' +
+    'url({{ STATIC_URL | escapejs }}images/muscles/muscular_system_' + isFront + '.svg)');
 
   // Show the corresponding exercises
   $('.exercise-list').hide();

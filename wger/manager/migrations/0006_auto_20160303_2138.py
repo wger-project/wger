@@ -25,11 +25,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='setting',
             name='weight_unit',
-            field=models.ForeignKey(verbose_name='Unit', to='core.WeightUnit', default=1),
+            field=models.ForeignKey(verbose_name='Unit', to='core.WeightUnit', default=1, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='workoutlog',
             name='weight_unit',
-            field=models.ForeignKey(verbose_name='Unit', to='core.WeightUnit', default=1),
+            field=models.ForeignKey(verbose_name='Unit', to='core.WeightUnit', default=1, on_delete=models.CASCADE),
         ),
     ]

@@ -13,27 +13,27 @@
                 <a href="{% url 'manager:day:log' day.obj.id %}"
                    title="{% trans 'Add weight log to this day' %}"
                    class="btn btn-default btn-block"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css request.user_agent.is_mobile %}>
                             {% trans 'Add weight log to this day' %}
                 </a>
                 {% if day.set_list|length > 0 %}
                 <a href="{% url 'manager:workout:timer' day.obj.id %}"
                    title="{% trans 'Start gym mode' %}"
                    class="btn btn-default btn-block"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css request.user_agent.is_mobile %}>
                             {% trans "Start gym mode" %}
                 </a>
                 {% endif %}
                 <a href="{% url 'manager:day:edit' day.obj.id %}"
                     title="{% trans 'Edit' %}"
                     class="btn btn-default btn-block"
-                    {% auto_link_css flavour "wger-modal-dialog" %}>
+                    {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>
                             {% trans 'Edit' %}
                 </a>
                 <a href="{% url 'manager:day:delete' day.obj.id %}"
                    title="{% trans 'Delete' %}"
                    class="btn btn-default btn-block"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css request.user_agent.is_mobile %}>
                              {% trans "Delete" %}
                 </a>
             </div>
@@ -62,13 +62,13 @@
                 <a href="{% url 'manager:set:edit' set.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="btn btn-default btn-block"
-                   {% auto_link_css flavour "wger-modal-dialog" %}>
+                   {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>
                         {% trans "Edit" %}
                 </a>
                 <a href="{% url 'manager:set:delete' set.obj.id %}"
                    title="{% trans 'Delete' %}"
                    class="btn btn-default btn-block"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css request.user_agent.is_mobile %}>
                         {% trans "Delete" %}
                 </a>
 
@@ -77,7 +77,7 @@
                     <a href="{{ exercise.obj.get_absolute_url }}"
                        title="{{ exercise.obj.name }}"
                        class="btn btn-default btn-block"
-                       {% auto_link_css flavour %}>
+                       {% auto_link_css request.user_agent.is_mobile %}>
                         {{ exercise.obj.name }}
                     </a>
                 {% endfor %}

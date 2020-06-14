@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
@@ -49,7 +49,7 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Only managers for this gym can edit the user settings
         '''
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         config = self.get_object()

@@ -126,7 +126,7 @@ def export(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=pk, user=request.user)
 
@@ -157,7 +157,7 @@ def export_schedule(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
 

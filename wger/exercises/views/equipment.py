@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -43,7 +43,8 @@ from wger.exercises.models import Equipment
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 from wger.utils.language import load_item_languages
 
@@ -55,7 +56,7 @@ Exercise equipment
 '''
 
 
-class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Generic view to list all equipments
     '''
@@ -134,7 +135,7 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
         return context
 
 
-class EquipmentOverviewView(ListView):
+class EquipmentOverviewView(UAAwareViewMixin, ListView):
     '''
     Overview with all exercises, group by equipment
     '''

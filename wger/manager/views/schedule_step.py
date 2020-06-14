@@ -19,7 +19,7 @@ import logging
 
 # Third Party
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.forms import (
     ModelChoiceField,

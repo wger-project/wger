@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('last_activity', models.DateField(null=True)),
-                ('user', models.OneToOneField(editable=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(editable=False, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AlterField(

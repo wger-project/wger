@@ -14,7 +14,7 @@
 
 # Third Party
 import six
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.models import Language

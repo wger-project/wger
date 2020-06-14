@@ -20,7 +20,7 @@ import uuid
 
 # Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models as m
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import (
@@ -128,7 +128,8 @@ class GymConfig(m.Model):
 
     gym = m.OneToOneField(Gym,
                           related_name='config',
-                          editable=False)
+                          editable=False,
+                          on_delete=m.CASCADE)
     '''
     Gym this configuration belongs to
     '''
@@ -170,13 +171,15 @@ class AbstractGymUserConfigModel(m.Model):
         abstract = True
 
     gym = m.ForeignKey(Gym,
-                       editable=False)
+                       editable=False,
+                       on_delete=m.CASCADE)
     '''
     Gym this configuration belongs to
     '''
 
     user = m.OneToOneField(User,
-                           editable=False)
+                           editable=False,
+                           on_delete=m.CASCADE)
     '''
     User this configuration belongs to
     '''
@@ -247,14 +250,16 @@ class AdminUserNote(m.Model):
 
     user = m.ForeignKey(User,
                         editable=False,
-                        related_name='adminusernote_user')
+                        related_name='adminusernote_user',
+                        on_delete=m.CASCADE)
     '''
     User this note belongs to
     '''
 
     member = m.ForeignKey(User,
                           editable=False,
-                          related_name='adminusernote_member')
+                          related_name='adminusernote_member',
+                          on_delete=m.CASCADE)
     '''
     Gym member this note refers to
     '''
@@ -305,14 +310,16 @@ class UserDocument(m.Model):
 
     user = m.ForeignKey(User,
                         editable=False,
-                        related_name='userdocument_user')
+                        related_name='userdocument_user',
+                        on_delete=m.CASCADE)
     '''
     User this note belongs to
     '''
 
     member = m.ForeignKey(User,
                           editable=False,
-                          related_name='userdocument_member')
+                          related_name='userdocument_member',
+                          on_delete=m.CASCADE)
     '''
     Gym member this note refers to
     '''
@@ -387,7 +394,8 @@ class ContractType(m.Model):
         ordering = ["name", ]
 
     gym = m.ForeignKey(Gym,
-                       editable=False)
+                       editable=False,
+                       on_delete=m.CASCADE)
     '''
     The gym this contract type belongs to
     '''
@@ -436,7 +444,8 @@ class ContractOption(m.Model):
         ordering = ["name", ]
 
     gym = m.ForeignKey(Gym,
-                       editable=False)
+                       editable=False,
+                       on_delete=m.CASCADE)
     '''
     The gym this contract option belongs to
     '''
@@ -497,14 +506,16 @@ class Contract(m.Model):
 
     user = m.ForeignKey(User,
                         editable=False,
-                        related_name='contract_user')
+                        related_name='contract_user',
+                        on_delete=m.CASCADE)
     '''
     User that originally created the contract
     '''
 
     member = m.ForeignKey(User,
                           editable=False,
-                          related_name='contract_member')
+                          related_name='contract_member',
+                          on_delete=m.CASCADE)
     '''
     Gym member this contract refers to
     '''
@@ -522,7 +533,8 @@ class Contract(m.Model):
     contract_type = m.ForeignKey(ContractType,
                                  blank=True,
                                  null=True,
-                                 verbose_name=_('Contract type'))
+                                 verbose_name=_('Contract type'),
+                                 on_delete=m.CASCADE)
     '''
     Optional type of contract
     '''

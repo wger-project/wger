@@ -18,7 +18,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
@@ -33,9 +33,10 @@ from wger.email.models import (
     Log
 )
 from wger.gym.models import Gym
+from wger.utils.generic_views import UAAwareViewMixin
 
 
-class EmailLogListView(PermissionRequiredMixin, generic.ListView):
+class EmailLogListView(PermissionRequiredMixin, UAAwareViewMixin, generic.ListView):
     '''
     Shows a list with all sent emails
     '''
@@ -57,7 +58,7 @@ class EmailLogListView(PermissionRequiredMixin, generic.ListView):
         '''
         Can only view email list for own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if request.user.userprofile.gym_id != int(self.kwargs['gym_pk']):
@@ -93,7 +94,7 @@ class EmailListFormPreview(FormPreview):
         Also, check for permissions here. While it is ugly and doesn't really
         belong here, it seems it's the best way to do it in a FormPreview
         '''
-        if not request.user.is_authenticated() or\
+        if not request.user.is_authenticated or\
                 request.user.userprofile.gym_id != self.gym.id or \
                 not request.user.has_perms('core.change_emailcron'):
             return HttpResponseForbidden()

@@ -89,7 +89,7 @@
 
         // Check for RO-access before allowing sharing
         wgerToggleReadOnlyAccess();
-     });
+    });
     </script>
 
 
@@ -117,13 +117,15 @@
                 {#                                         #}
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
-                        <img src="/static/images/icons/flag-{{language.short_name}}.svg"
+                      {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                      <img src="{% static flagname %}"
                              width="18"
                              height="11"
                              alt="{% trans language.full_name %}"
                              title="{% trans language.full_name %}"
                              style="border: 1px solid #151515;">
                         {{language.full_name}} <span class="caret"></span>
+                      {% endwith %}
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         {% for language in languages %}

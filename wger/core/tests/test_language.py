@@ -16,7 +16,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 # wger
 from wger.core.models import Language

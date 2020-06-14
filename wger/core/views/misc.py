@@ -24,16 +24,16 @@ from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
 from django.core import mail
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.core.demo import (
@@ -49,6 +49,7 @@ from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.helpers import get_last_entries
 from wger.weight.models import WeightEntry
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -61,7 +62,7 @@ def index(request):
     '''
     Index page
     '''
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('core:dashboard'))
     else:
         return HttpResponseRedirect(reverse('software:features'))
@@ -74,11 +75,11 @@ def demo_entries(request):
     if not settings.WGER_SETTINGS['ALLOW_GUEST_USERS']:
         return HttpResponseRedirect(reverse('software:features'))
 
-    if (((not request.user.is_authenticated() or request.user.userprofile.is_temporary)
+    if (((not request.user.is_authenticated or request.user.userprofile.is_temporary)
          and not request.session['has_demo_data'])):
         # If we reach this from a page that has no user created by the
         # middleware, do that now
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             user = create_temporary_user()
             django_login(request, user)
 
@@ -93,6 +94,7 @@ def demo_entries(request):
 
 
 @login_required
+@vary_on_headers('User-Agent')
 def dashboard(request):
     '''
     Show the index page, in our case, the last workout and nutritional plan
@@ -147,7 +149,7 @@ def dashboard(request):
         # Load the nutritional info
         template_data['nutritional_info'] = plan.get_nutritional_values()
 
-    return render(request, 'index.html', template_data)
+    return ua_aware_render(request, 'index.html', template_data)
 
 
 class ContactClassView(TemplateView):
@@ -167,7 +169,7 @@ class FeedbackClass(FormView):
         '''
         Fill in the contact, if available
         '''
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return {'contact': self.request.user.email}
         return {}
 
@@ -190,7 +192,7 @@ class FeedbackClass(FormView):
         Load the correct feedback form depending on the user
         (either with reCaptcha field or not)
         '''
-        if self.request.user.is_anonymous() or self.request.user.userprofile.is_temporary:
+        if self.request.user.is_anonymous or self.request.user.userprofile.is_temporary:
             return FeedbackAnonymousForm
         else:
             return FeedbackRegisteredForm

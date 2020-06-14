@@ -102,7 +102,7 @@ def load_ingredient_languages(request):
     languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
 
     # Only registered users have a profile
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         profile = request.user.userprofile
         show_english = profile.show_english_ingredients
 

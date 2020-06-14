@@ -1,4 +1,6 @@
-{% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
+{% extends request.user_agent.is_mobile|yesno:"mobile/template.html,template.html" %}
+{% load i18n wger_extras django_bootstrap_breadcrumbs %}
+
 {% block template %}
 {% if show_shariff %}
     {% include 'misc/fragments/shariff_modal.html' %}

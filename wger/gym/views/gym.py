@@ -30,7 +30,7 @@ from django.contrib.auth.models import (
     Group,
     User
 )
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -39,10 +39,7 @@ from django.http.response import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -72,14 +69,18 @@ from wger.gym.models import (
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
+    WgerMultiplePermissionRequiredMixin,
+    UAAwareViewMixin
 )
-from wger.utils.helpers import password_generator
+from wger.utils.helpers import (
+    password_generator,
+    ua_aware_render
+)
 
 logger = logging.getLogger(__name__)
 
 
-class GymListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class GymListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available gyms
     '''
@@ -96,7 +97,8 @@ class GymListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return context
 
 
-class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, ListView):
+class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
+                      UAAwareViewMixin, ListView):
     '''
     Overview of all users for a specific gym
     '''
@@ -166,7 +168,7 @@ def gym_new_user_info(request):
     '''
     Shows info about a newly created user
     '''
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
     if not request.session.get('gym.user'):
@@ -178,7 +180,7 @@ def gym_new_user_info(request):
 
     context = {'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
                'password': request.session['gym.user']['password']}
-    return render(request, 'gym/new_user.html', context)
+    return ua_aware_render(request, 'gym/new_user.html', context)
 
 
 @login_required
@@ -186,7 +188,7 @@ def gym_new_user_info_export(request):
     '''
     Exports the info of newly created user
     '''
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
     if not request.session.get('gym.user'):
@@ -226,7 +228,7 @@ def reset_user_password(request, user_pk):
 
     user = get_object_or_404(User, pk=user_pk)
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
     if not request.user.has_perm('gym.manage_gyms') \
@@ -243,7 +245,7 @@ def reset_user_password(request, user_pk):
 
     context = {'mod_user': user,
                'password': password}
-    return render(request, 'gym/reset_user_password.html', context)
+    return ua_aware_render(request, 'gym/reset_user_password.html', context)
 
 
 def gym_permissions_user_edit(request, user_pk):
@@ -253,7 +255,7 @@ def gym_permissions_user_edit(request, user_pk):
     member = get_object_or_404(User, pk=user_pk)
     user = request.user
 
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         return HttpResponseForbidden()
 
     if not user.has_perm('gym.manage_gyms') and not user.has_perm('gym.manage_gym'):
@@ -313,7 +315,7 @@ def gym_permissions_user_edit(request, user_pk):
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     context['submit_text'] = 'Save'
 
-    return render(request, 'form.html', context)
+    return ua_aware_render(request, 'form.html', context)
 
 
 class GymAddUserView(WgerFormMixin,
@@ -340,7 +342,7 @@ class GymAddUserView(WgerFormMixin,
         '''
         Only managers for this gym can add new members
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if not request.user.has_perm('gym.manage_gyms') \
@@ -430,7 +432,7 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
         '''
         Only managers for this gym and general managers can edit the gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if request.user.has_perm('gym.manage_gym') \

@@ -36,15 +36,16 @@ class Log(models.Model):
     '''
 
     user = models.ForeignKey(User,
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     '''
     The user that created the email
     '''
 
     gym = models.ForeignKey(Gym,
                             editable=False,
-                            related_name='email_log'
-                            )
+                            related_name='email_log',
+                            on_delete=models.CASCADE)
     '''
     Gym this log belongs to
     '''
@@ -72,7 +73,8 @@ class CronEntry(models.Model):
     '''
 
     log = models.ForeignKey(Log,
-                            editable=False)
+                            editable=False,
+                            on_delete=models.CASCADE)
     '''
     Foreign key to email log with subject and body
     '''

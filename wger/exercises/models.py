@@ -27,7 +27,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
@@ -170,7 +170,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''Custom manager'''
 
     category = models.ForeignKey(ExerciseCategory,
-                                 verbose_name=_('Category'))
+                                 verbose_name=_('Category'),
+                                 on_delete=models.CASCADE)
     description = models.TextField(max_length=2000,
                                    verbose_name=_('Description'),
                                    validators=[MinLengthValidator(40)])
@@ -208,7 +209,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''The submission date'''
 
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'))
+                                 verbose_name=_('Language'),
+                                 on_delete=models.CASCADE)
     '''The exercise's language'''
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
@@ -221,6 +223,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     # Django methods
     #
     class Meta:
+        base_manager_name = 'objects'
         ordering = ["name", ]
 
     def get_absolute_url(self):
@@ -364,7 +367,8 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     '''Custom manager'''
 
     exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'))
+                                 verbose_name=_('Exercise'),
+                                 on_delete=models.CASCADE)
     '''The exercise the image belongs to'''
 
     image = models.ImageField(verbose_name=_('Image'),
@@ -385,6 +389,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         Set default ordering
         '''
         ordering = ['-is_main', 'id']
+        base_manager_name = 'objects'
 
     def save(self, *args, **kwargs):
         '''
@@ -475,7 +480,8 @@ class ExerciseComment(models.Model):
     '''
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     comment = models.CharField(max_length=200,
                                verbose_name=_('Comment'),
                                help_text=_('A comment about how to correctly do this exercise.'))

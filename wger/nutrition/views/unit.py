@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -42,7 +42,8 @@ from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 from wger.utils.language import load_language
 
@@ -53,7 +54,7 @@ logger = logging.getLogger(__name__)
 # ************************
 
 
-class WeightUnitListView(PermissionRequiredMixin, ListView):
+class WeightUnitListView(PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Generic view to list all weight units
     '''

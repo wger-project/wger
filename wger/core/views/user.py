@@ -31,16 +31,13 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.contrib.auth.views import login as django_loginview
-from django.core.urlresolvers import reverse
+from django.contrib.auth.views import LoginView
+from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
 from django.utils import translation
 from django.utils.translation import (
@@ -80,13 +77,15 @@ from wger.nutrition.models import NutritionPlan
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
+    WgerMultiplePermissionRequiredMixin,
+    UAAwareViewMixin
 )
 from wger.utils.user_agents import (
     check_request_amazon,
     check_request_android
 )
 from wger.weight.models import WeightEntry
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -101,10 +100,9 @@ def login(request):
     if request.GET.get('next'):
         context['next'] = request.GET.get('next')
 
-    return django_loginview(request,
-                            template_name='user/login.html',
-                            authentication_form=UserLoginForm,
-                            extra_context=context)
+    return LoginView.as_view(template_name='user/login.html',
+                             authentication_form=UserLoginForm,
+                             extra_context=context)
 
 
 @login_required()
@@ -153,7 +151,7 @@ def delete(request, user_pk=None):
                'user_delete': user,
                'form_action': form_action}
 
-    return render(request, 'user/delete_account.html', context)
+    return ua_aware_render(request, 'user/delete_account.html', context)
 
 
 @login_required()
@@ -212,7 +210,7 @@ def logout(request):
     '''
     user = request.user
     django_logout(request)
-    if user.is_authenticated() and user.userprofile.is_temporary:
+    if user.is_authenticated and user.userprofile.is_temporary:
         user.delete()
     return HttpResponseRedirect(reverse('core:user:login'))
 
@@ -238,7 +236,7 @@ def registration(request):
         FormClass = RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
-    if request.user.is_authenticated() and not request.user.userprofile.is_temporary:
+    if request.user.is_authenticated and not request.user.userprofile.is_temporary:
         return HttpResponseRedirect(reverse('core:dashboard'))
 
     if request.method == 'POST':
@@ -285,7 +283,7 @@ def registration(request):
     template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
-    return render(request, 'form.html', template_data)
+    return ua_aware_render(request, 'form.html', template_data)
 
 
 @login_required
@@ -329,7 +327,7 @@ def preferences(request):
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
-        return render(request, 'user/preferences.html', template_data)
+        return ua_aware_render(request, 'user/preferences.html', template_data)
 
 
 class UserDeactivateView(LoginRequiredMixin,
@@ -348,7 +346,7 @@ class UserDeactivateView(LoginRequiredMixin,
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
@@ -381,7 +379,7 @@ class UserActivateView(LoginRequiredMixin,
         '''
         edit_user = get_object_or_404(User, pk=self.kwargs['pk'])
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
@@ -419,7 +417,7 @@ class UserEditView(WgerFormMixin,
         - General managers can edit every member
         '''
         user = request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return HttpResponseForbidden()
 
         if user.has_perm('gym.manage_gym') \
@@ -466,7 +464,7 @@ def api_key(request):
 
     context['token'] = token
 
-    return render(request, 'user/api_key.html', context)
+    return ua_aware_render(request, 'user/api_key.html', context)
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):
@@ -487,7 +485,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         '''
         user = request.user
 
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return HttpResponseForbidden()
 
         if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
@@ -520,7 +518,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         return context
 
 
-class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all users in the instance
     '''

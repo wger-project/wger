@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'storages',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -66,8 +68,7 @@ INSTALLED_APPS = (
     # The sitemaps app
     'django.contrib.sitemaps',
 
-    # Django mobile
-    'django_mobile',
+    'django_user_agents',
 
     # thumbnails
     'easy_thumbnails',
@@ -79,6 +80,7 @@ INSTALLED_APPS = (
     'tastypie',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
@@ -92,12 +94,12 @@ INSTALLED_APPS = (
 
 # added list of external libraries to be installed by bower
 BOWER_INSTALLED_APPS = (
-    'bootstrap#3.3.x',
+    'bootstrap#3.x',
     'components-font-awesome#4.7.x',
     'd3',
     'DataTables',
     'devbridge-autocomplete#1.2.x',
-    'jquery#2.1.x',
+    'jquery#2.x',
     'metrics-graphics',
     'shariff#1.24.1',
     'sortablejs#1.4.x',
@@ -106,14 +108,19 @@ BOWER_INSTALLED_APPS = (
 )
 
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
+    # Django Admin
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
+
+    'django_user_agents.middleware.UserAgentMiddleware',
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
@@ -124,10 +131,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-
-    # Django mobile
-    'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -152,16 +155,10 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
 
-                # Django mobile
-                'django_mobile.context_processors.flavour',
-
                 # Breadcrumbs
                 'django.template.context_processors.request'
             ],
             'loaders': [
-                # Django mobile
-                'django_mobile.loader.Loader',
-
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
@@ -169,11 +166,6 @@ TEMPLATES = [
         },
     },
 ]
-
-# TODO: Temporary fix for django 1.10 and the django-mobile app. If issue #72
-#       is closed, this can be removed.
-#       https://github.com/gregmuellegger/django-mobile/issues/72
-TEMPLATE_LOADERS = TEMPLATES[0]['OPTIONS']['loaders']
 
 # Store the user messages in the session
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
@@ -217,7 +209,7 @@ USE_L10N = True
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Europe/Berlin'
+TIME_ZONE = 'UTC'
 
 # Restrict the available languages
 LANGUAGES = (
@@ -314,12 +306,35 @@ THUMBNAIL_ALIASES = {
     },
 }
 
+STATIC_ROOT = ''
+USE_S3 = os.getenv('USE_S3') == 'TRUE'
+
+if USE_S3:
+    # aws settings
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_CUSTOM_DOMAIN = os.getenv('WGER_CDN_DOMAIN')
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=31557600'}
+    # s3 static settings
+    AWS_LOCATION = 'static'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_URL = STATIC_URL
+    COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_OFFLINE = True
+    COMPRESS_OFFLINE_CONTEXT = [
+        {'request': {'user_agent': {'is_mobile': True}}, 'STATIC_URL': STATIC_URL},
+        {'request': {'user_agent': {'is_mobile': False}}, 'STATIC_URL': STATIC_URL}
+    ]
+else:
+    STATIC_URL = '/static/'
+
 
 #
 # Django compressor
 #
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
 
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
@@ -327,6 +342,10 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.rCSSMinFilter'
 )
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+    'compressor.filters.template.TemplateFilter',
+]
 COMPRESS_ROOT = STATIC_ROOT
 
 # BOWER binary
@@ -347,7 +366,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.OrderingFilter',)
 }
 
@@ -382,6 +401,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+USER_AGENTS_CACHE = 'default'
 
 #
 # Application specific configuration options

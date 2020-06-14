@@ -74,13 +74,13 @@ $(document).ready(function() {
 
 <p style="margin-top:2em;">
     {% if is_owner %}
-    <a href="{% url 'manager:day:add' workout.id %}" {% auto_link_css flavour "wger-modal-dialog" %}>
+    <a href="{% url 'manager:day:add' workout.id %}" {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>
         {% trans "Add training day" %}
     </a>
 
     <a id="exercise-comments-toggle"
        href="{% url 'core:user:preferences' %}"
-       {% auto_link_css flavour %}>
+       {% auto_link_css request.user_agent.is_mobile %}>
         {% trans "Show/Hide exercise comments" %}
     </a>
     {% endif %}
@@ -138,7 +138,7 @@ $(document).ready(function() {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:workout:ical' workout.id uid token %}" {% auto_link_css flavour %}>
+                <a href="{% url 'manager:workout:ical' workout.id uid token %}" {% auto_link_css request.user_agent.is_mobile %}>
                    {% trans "Export calendar file" %}
                 </a>
                 </p>

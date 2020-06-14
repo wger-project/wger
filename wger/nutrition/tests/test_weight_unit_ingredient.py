@@ -14,7 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Third Party
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
