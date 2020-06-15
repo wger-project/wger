@@ -19,7 +19,6 @@ import datetime
 import logging
 
 # Third Party
-import six
 from django.contrib.auth.decorators import login_required
 from django.urls import (
     reverse,
@@ -341,32 +340,32 @@ def export_pdf(request, id, uidb64=None, token=None):
                  Paragraph(_('Percent of energy'), styleSheet["Normal"]),
                  Paragraph(_('g per body kg'), styleSheet["Normal"])])
     data.append([Paragraph(_('Energy'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['energy']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['energy']), styleSheet["Normal"])])
     data.append([Paragraph(_('Protein'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['protein']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['protein']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['protein']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['protein']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['percent']['protein']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['per_kg']['protein']), styleSheet["Normal"])])
     data.append([Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['carbohydrates']),
+                 Paragraph(str(plan_data['total']['carbohydrates']),
                            styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['carbohydrates']),
+                 Paragraph(str(plan_data['percent']['carbohydrates']),
                            styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['carbohydrates']),
+                 Paragraph(str(plan_data['per_kg']['carbohydrates']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Sugar content in carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['carbohydrates_sugar']),
+                 Paragraph(str(plan_data['total']['carbohydrates_sugar']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fat'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fat']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['fat']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['fat']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['fat']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['percent']['fat']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['per_kg']['fat']), styleSheet["Normal"])])
     data.append([Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fat_saturated']),
+                 Paragraph(str(plan_data['total']['fat_saturated']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fibres'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fibres']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['fibres']), styleSheet["Normal"])])
     data.append([Paragraph(_('Sodium'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['sodium']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['sodium']), styleSheet["Normal"])])
 
     table_style = []
     table_style.append(('BOX', (0, 0), (-1, -1), 1.25, colors.black))

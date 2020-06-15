@@ -21,7 +21,6 @@ import uuid
 
 # Third Party
 import bleach
-import six
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
@@ -341,8 +340,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             subject = _('New user submitted exercise')
             message = _(u'The user {0} submitted a new exercise "{1}".').format(
                 request.user.username, self.name)
-            mail.mail_admins(six.text_type(subject),
-                             six.text_type(message),
+            mail.mail_admins(str(subject),
+                             str(message),
                              fail_silently=True)
 
 
@@ -463,8 +462,8 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                 request.user.username,
                 self.name,
                 self.exercise)
-            mail.mail_admins(six.text_type(subject),
-                             six.text_type(message),
+            mail.mail_admins(str(subject),
+                             str(message),
                              fail_silently=True)
 
 

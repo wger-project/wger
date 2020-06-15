@@ -20,7 +20,6 @@ import shutil
 import tempfile
 
 # Third Party
-import six
 from django.conf import settings
 from django.core.cache import cache
 from django.urls import (
@@ -47,7 +46,7 @@ def get_reverse(url, kwargs={}):
         # everything was already done in the individual test case
         url = url
 
-    return six.text_type(url)
+    return str(url)
 
 
 def get_user_list(users):

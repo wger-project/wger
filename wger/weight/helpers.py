@@ -20,10 +20,10 @@ import datetime
 import decimal
 import json
 import logging
+import io
 from collections import OrderedDict
 
 # Third Party
-import six
 from django.core.cache import cache
 
 # wger
@@ -47,7 +47,7 @@ def parse_weight_csv(request, cleaned_data):
         dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
-    parsed_csv = csv.reader(six.StringIO(cleaned_data['csv_input']),
+    parsed_csv = csv.reader(io.StringIO(cleaned_data['csv_input']),
                             dialect)
     distinct_weight_entries = []
     entry_dates = set()

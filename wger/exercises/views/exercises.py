@@ -9,18 +9,15 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-
-
-# Standard Library
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
+# You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 import uuid
 
 # Third Party
-#
-# You should have received a copy of the GNU Affero General Public License
-import six
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
@@ -300,8 +297,8 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
             'user': self.request.user
         }
         message = render_to_string('exercise/email_correction.tpl', context)
-        mail.mail_admins(six.text_type(subject),
-                         six.text_type(message),
+        mail.mail_admins(str(subject),
+                         str(message),
                          fail_silently=True)
 
         messages.success(self.request, self.messages)
