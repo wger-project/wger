@@ -27,7 +27,7 @@
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.2",
     "gulp": "^3.9.1",
-    "gulp-eslint": "^3.0.1"
+    "gulp-eslint": "^4.18.3"
   },
   "dependencies": {
     "bower": "^1.8.8"
