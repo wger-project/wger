@@ -2,7 +2,7 @@
 # Requirements for wger for production
 #
 
-bleach==3.1.4
+bleach>=3.1,<3.2
 django-bootstrap-breadcrumbs==0.9.1
 django-bower==5.2.0
 django-formtools>=2.0,<3.0
@@ -23,6 +23,8 @@ requests
 setuptools>=18.5
 sphinx
 psycopg2
+
+# AWS
 boto3
 
 # Production
@@ -34,3 +36,12 @@ django-cors-headers>=3.0
 django-filter==2.1.0
 django-tastypie>=0.14,<.0.15
 djangorestframework>=3.11,<3.12
+
+
+# Explicitly set versions as a workaround for CI/Devel.
+# This is just intended to make life easier, has no deeper meaning and
+# can be removed if needed.
+docutils<0.16,>=0.10  # for botocore
+six>=1.12.0  # for django-compressor
+
+
