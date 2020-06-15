@@ -379,6 +379,18 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             equal = False
         return equal
 
+    def __hash__(self):
+        """
+        Define a hash function
+
+        This is rather unnecessary, but it seems that newer versions of django
+        have a problem when the __eq__ function is implemented, but not the
+        __hash__ one. Returning hash(pk) is also django's default.
+
+        :return: hash(pk)
+        """
+        return hash(self.pk)
+
     #
     # Own methods
     #
