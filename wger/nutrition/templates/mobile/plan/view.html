@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 
 {#           #}
@@ -63,17 +63,17 @@ $(document).ready(function() {
             <div class="modal-body">
                 <a href="{% url 'nutrition:meal:delete' meal.id %}"
                    title="{% trans 'Delete' %}"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css request.user_agent.is_mobile %}>
                         {% trans "Delete meal" %}
                 </a>
                 <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
-                   {% auto_link_css flavour "wger-modal-dialog" %}>
+                   {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>
                          {% trans "Edit meal" %}
                 </a>
                 <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
-                   {% auto_link_css flavour %}>
+                   {% auto_link_css request.user_agent.is_mobile %}>
                          {% trans "Add item to meal" %}
                </a>
             </div>
@@ -135,12 +135,12 @@ $(document).ready(function() {
 
                     <a href="{% url 'nutrition:meal_item:delete' item.id %}"
                        title="{% trans 'Delete' %}"
-                       {% auto_link_css flavour %}>
+                       {% auto_link_css request.user_agent.is_mobile %}>
                             {% trans "Delete" %}
                     </a>
                     <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                        title="{% trans 'Edit' %}"
-                       {% auto_link_css flavour %}>
+                       {% auto_link_css request.user_agent.is_mobile %}>
                              {% trans "Edit" %}
                     </a>
                 </div>
@@ -202,7 +202,7 @@ $(document).ready(function() {
 {% empty %}
     {% if is_owner %}
     <a href="{% url 'nutrition:meal:add' plan.id %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}>
+       {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>
             {% trans "No meals for this plan." %}<br>
             {% trans "Add one now." %}
     </a>
@@ -212,7 +212,7 @@ $(document).ready(function() {
 {% if is_owner %}
 <p style="margin-top:2em;">
     <a href="{% url 'nutrition:meal:add' plan.id %}"
-       {% auto_link_css flavour "wger-modal-dialog" %}>{% trans "Add a new meal" %}</a>
+       {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>{% trans "Add a new meal" %}</a>
 </p>
 {% endif %}
 

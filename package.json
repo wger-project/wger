@@ -1,6 +1,6 @@
 {
   "name": "wger",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "directories": {
     "doc": "docs"
@@ -21,15 +21,15 @@
   "devDependencies": {
     "@petervanderdoes/gulp-flake8": "^1.1.0",
     "@petervanderdoes/gulp-isort": "^1.1.0",
-    "eslint": "^3.3.1",
-    "eslint-config-airbnb-base": "^5.0.2",
-    "eslint-plugin-import": "^1.13.0",
-    "eslint-plugin-jsx-a11y": "^2.1.0",
-    "eslint-plugin-react": "^6.1.2",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^3.0.1"
+    "eslint": "^6.0.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0"
   },
   "dependencies": {
-    "bower": "^1.8.0"
+    "bower": "^1.8.8"
   }
 }

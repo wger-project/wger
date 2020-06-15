@@ -16,7 +16,7 @@
 import datetime
 
 # Third Party
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 # wger
 from wger.core.tests import api_base_test

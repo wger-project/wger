@@ -18,7 +18,7 @@
 import logging
 
 # Third Party
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 

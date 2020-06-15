@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 {% block header %}
@@ -26,14 +26,14 @@ div.bmi-legend {
 <script>
 $(document).ready(function () {
 
-    wgerRenderBodyMassIndex({% if flavour == 'mobile'%}$('#content').width() * 0.95{% endif %});
+    wgerRenderBodyMassIndex({% if request.user_agent.is_mobile %}$('#content').width() * 0.95{% endif %});
 
     /*
      * Process the form
      */
     $("#bmi-form").click(function(e){
         e.preventDefault();
-        wgerRenderBodyMassIndex({% if flavour == 'mobile'%}$('#content').width() * 0.95{% endif %});
+        wgerRenderBodyMassIndex({% if request.user_agent.is_mobile %}$('#content').width() * 0.95{% endif %});
     });
 
 });
@@ -63,7 +63,7 @@ $(document).ready(function () {
     {% render_form_fields form submit_text %}
 </form>
 
-<div id="bmi-result-container" style="display:hidden;">
+<div id="bmi-result-container" style="display:none;">
     <h3>{% trans 'Results' %}</h3>
     <p>{% trans 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:1}}</span></strong></p>
 </div>

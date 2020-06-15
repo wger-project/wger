@@ -21,7 +21,7 @@ import logging
 # Third Party
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -30,10 +30,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -50,6 +47,7 @@ from reportlab.platypus import (
     SimpleDocTemplate,
     Spacer
 )
+from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.manager.helpers import render_workout_day
@@ -60,7 +58,8 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import (
     check_token,
-    make_token
+    make_token,
+    ua_aware_render
 )
 from wger.utils.pdf import (
     render_footer,
@@ -81,9 +80,10 @@ def overview(request):
     template_data['schedules'] = (Schedule.objects
                                   .filter(user=request.user)
                                   .order_by('-is_active', '-start_date'))
-    return render(request, 'schedule/overview.html', template_data)
+    return ua_aware_render(request, 'schedule/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
     '''
     Show the workout schedule
@@ -112,7 +112,7 @@ def view(request, pk):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'schedule/view.html', template_data)
+    return ua_aware_render(request, 'schedule/view.html', template_data)
 
 
 def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):
@@ -131,7 +131,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 
@@ -196,7 +196,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 

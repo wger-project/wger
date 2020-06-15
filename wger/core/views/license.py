@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -41,14 +41,15 @@ from django.views.generic import (
 from wger.core.models import License
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 
 
 logger = logging.getLogger(__name__)
 
 
-class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available licenses
     '''

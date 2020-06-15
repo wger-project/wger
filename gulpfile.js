@@ -43,9 +43,9 @@ gulp.task('lint-isort', function () {
     .pipe(isort.failAfterError());
 });
 
-gulp.task('lint', ['lint-js', 'lint-flake8']);
+gulp.task('lint', gulp.series('lint-js', 'lint-flake8'));
 // gulp.task('lint', ['lint-js', 'lint-python']);
 
-gulp.task('default', ['lint'], function () {
+gulp.task('default', gulp.series('lint', function () {
   // This will only run if the lint task is successful...
-});
+}));

@@ -20,10 +20,9 @@ import shutil
 import tempfile
 
 # Third Party
-import six
 from django.conf import settings
 from django.core.cache import cache
-from django.core.urlresolvers import (
+from django.urls import (
     NoReverseMatch,
     reverse
 )
@@ -47,7 +46,7 @@ def get_reverse(url, kwargs={}):
         # everything was already done in the individual test case
         url = url
 
-    return six.text_type(url)
+    return str(url)
 
 
 def get_user_list(users):
@@ -134,6 +133,9 @@ class BaseTestCase(object):
         if os.environ.get('TEST_MOBILE') == 'True':
             settings.FLAVOURS = ('mobile',)
             self.is_mobile = True
+            self.client.defaults.update({'HTTP_USER_AGENT': 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3'
+                                         ' like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) '
+                                         'Version/9.0 Mobile/13E198 Safari/601.1'})
 
         # Set logging level
         logging.disable(logging.INFO)

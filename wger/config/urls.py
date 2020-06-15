@@ -48,6 +48,6 @@ patterns_gym_config = [
 # Actual patterns
 #
 urlpatterns = [
-    url(r'^language-config/', include(patterns_language_config, namespace="language_config")),
-    url(r'^gym-config/', include(patterns_gym_config, namespace="gym_config")),
+    url(r'^language-config/', include((patterns_language_config, 'language_config'), namespace="language_config")),
+    url(r'^gym-config/', include((patterns_gym_config, 'gym_config'), namespace="gym_config")),
 ]

@@ -86,7 +86,7 @@ class Command(BaseCommand):
         # Get all exercises
         result = requests.get(exercise_api.format(remote_url), headers=headers).json()
         for exercise_json in result['results']:
-            exercise_name = exercise_json['name'].encode('utf-8')
+            exercise_name = exercise_json['name']
             exercise_uuid = exercise_json['uuid']
             exercise_id = exercise_json['id']
 

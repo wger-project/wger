@@ -1,7 +1,7 @@
 {% load i18n cache wger_extras %}
 <nav id="nav">
     <div>
-        <div class="navbar {% if flavour == 'full' %}navbar-inverse{% else %}navbar-default{% endif %}">
+        <div class="navbar {% if request.user_agent.is_pc %}navbar-inverse{% else %}navbar-default{% endif %}">
             <div class="container">
                 <div class="navbar-header" >
                     <a class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#main-navbar-navigation">
@@ -10,7 +10,7 @@
                         <span class="icon-bar"></span>
                     </a>
                 </div>
-                <div class="navbar-collapse {% if flavour == 'full' %}collapse{% endif %}" id="main-navbar-navigation">
+                <div class="navbar-collapse {% if request.user_agent.is_pc %}collapse{% endif %}" id="main-navbar-navigation">
                     <ul class="nav navbar-nav">
                         {#          #}
                         {# User tab #}

@@ -19,7 +19,7 @@ import logging
 
 # Third Party
 from django.conf import settings
-from django.shortcuts import render
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -32,4 +32,4 @@ def features(request):
 
     context = {'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
                'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']}
-    return render(request, 'features.html', context)
+    return ua_aware_render(request, 'features.html', context)

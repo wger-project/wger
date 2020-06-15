@@ -20,7 +20,7 @@ import logging
 # Third Party
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.forms.models import (
     inlineformset_factory,
@@ -30,10 +30,8 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
+from django_user_agents.utils import get_user_agent
 
 # wger
 from wger.config.models import LanguageConfig
@@ -49,6 +47,7 @@ from wger.manager.models import (
     Setting
 )
 from wger.utils.language import load_item_languages
+from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -77,11 +76,12 @@ def create(request, day_pk):
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
 
-    # Select the correct form depending on the flavour of the request.
+    # Select the correct form depending on the user-agent.
     # The difference is that the mobile form doesn't use the autocompleter for
     # exercises, but 2 dropdowns, one to filter by category and one to select
     # the exercises themselves.
-    if request.flavour == 'mobile':
+    user_agent = get_user_agent(request)
+    if user_agent.is_mobile:
         form_class = SetFormMobile
     else:
         form_class = SetForm
@@ -92,7 +92,7 @@ def create(request, day_pk):
 
     # For the mobile dropdown list we need to manually filter the exercises
     # by language and status
-    if request.flavour == 'mobile':
+    if user_agent.is_mobile:
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
                                                         .filter(language__in=languages)
@@ -128,7 +128,7 @@ def create(request, day_pk):
                     instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'pk': day.get_owner_object().id}))
+                                                kwargs={'pk': day.get_owner_object().id}))
         else:
             logger.debug(form.errors)
 
@@ -139,7 +139,7 @@ def create(request, day_pk):
     context['formsets'] = formsets
     context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
-    return render(request, 'set/add.html', context)
+    return ua_aware_render(request, 'set/add.html', context)
 
 
 @login_required
@@ -156,10 +156,10 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
 
-    return render(request,
-                  "set/formset.html",
-                  {'formset': formset,
-                   'exercise': exercise})
+    return ua_aware_render(request,
+                           "set/formset.html",
+                           {'formset': formset,
+                            'exercise': exercise})
 
 
 @login_required
@@ -230,10 +230,10 @@ def edit(request, pk):
                         instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'pk': set_obj.get_owner_object().id}))
+                                                kwargs={'pk': set_obj.get_owner_object().id}))
 
     # Other context we need
     context = {}
     context['formsets'] = formsets
     context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
-    return render(request, 'set/edit.html', context)
+    return ua_aware_render(request, 'set/edit.html', context)

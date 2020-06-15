@@ -13,8 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Third Party
-import six
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.models import Language
@@ -31,4 +30,4 @@ class RobotsTxtTestCase(WorkoutManagerTestCase):
         response = self.client.get(reverse('robots'))
         for lang in Language.objects.all():
             self.assertTrue('wger.de/{0}/sitemap.xml'.format(lang.short_name)
-                            in six.text_type(response.content))
+                            in str(response.content))

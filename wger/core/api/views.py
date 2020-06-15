@@ -18,7 +18,7 @@
 # Third Party
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
@@ -66,7 +66,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         '''
         return [(User, 'user')]
 
-    @detail_route()
+    @action(detail=True)
     def username(self, request, pk):
         '''
         Return the username
@@ -83,8 +83,8 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
-    filter_fields = ('full_name',
-                     'short_name')
+    filterset_fields = ('full_name',
+                        'short_name')
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
@@ -94,7 +94,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filter_fields = ('day_of_week', )
+    filterset_fields = ('day_of_week', )
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -104,9 +104,9 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = License.objects.all()
     serializer_class = LicenseSerializer
     ordering_fields = '__all__'
-    filter_fields = ('full_name',
-                     'short_name',
-                     'url')
+    filterset_fields = ('full_name',
+                        'short_name',
+                        'url')
 
 
 class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -116,7 +116,7 @@ class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = RepetitionUnit.objects.all()
     serializer_class = RepetitionUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name', )
+    filterset_fields = ('name', )
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -126,4 +126,4 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WeightUnit.objects.all()
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name', )
+    filterset_fields = ('name', )

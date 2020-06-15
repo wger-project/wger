@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -41,7 +41,8 @@ from django.views.generic import (
 from wger.exercises.models import ExerciseCategory
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 from wger.utils.language import load_language
 
@@ -49,7 +50,8 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin,
+                               UAAwareViewMixin, ListView):
     '''
     Overview of all categories, for administration purposes
     '''

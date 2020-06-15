@@ -19,7 +19,7 @@ import random
 # Third Party
 from django.contrib.auth.models import User
 from django.core.management import call_command
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.demo import (

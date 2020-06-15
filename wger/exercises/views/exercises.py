@@ -9,27 +9,25 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-
-
-# Standard Library
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
+# You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 import uuid
 
 # Third Party
-#
-# You should have received a copy of the GNU Affero General Public License
-import six
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
+from django.conf import settings
 from django.core import mail
 from django.core.cache import cache
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -42,10 +40,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import (
     ugettext as _,
@@ -57,6 +52,7 @@ from django.views.generic import (
     ListView,
     UpdateView
 )
+from django.utils.cache import patch_vary_headers
 
 # wger
 from wger.config.models import LanguageConfig
@@ -69,7 +65,8 @@ from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin,
 )
 from wger.utils.language import (
     load_item_languages,
@@ -81,12 +78,12 @@ from wger.utils.widgets import (
     TranslatedSelectMultiple
 )
 from wger.weight.helpers import process_log_entries
-
+from wger.utils.helpers import ua_aware_render
 
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(ListView):
+class ExerciseListView(UAAwareViewMixin, ListView):
     '''
     Generic view to list all exercises
     '''
@@ -94,6 +91,11 @@ class ExerciseListView(ListView):
     model = Exercise
     template_name = 'exercise/overview.html'
     context_object_name = 'exercises'
+
+    def get(self, request, *args, **kwargs):
+        response = super(ListView, self).get(request, *args, **kwargs)
+        patch_vary_headers(response, ['User-Agent'])
+        return response
 
     def get_queryset(self):
         '''
@@ -161,7 +163,7 @@ def view(request, id, slug=None):
     # rendering in the D3 chart
     entry_log = []
     chart_data = []
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
         entry_log, chart_data = process_log_entries(logs)
 
@@ -169,7 +171,7 @@ def view(request, id, slug=None):
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
 
-    return render(request, 'exercise/view.html', template_data)
+    return ua_aware_render(request, 'exercise/view.html', template_data)
 
 
 class ExercisesEditAddView(WgerFormMixin):
@@ -212,7 +214,7 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = ('/static/bower_components/tinymce/tinymce.min.js',)
+                js = (settings.STATIC_URL + 'bower_components/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 
@@ -270,7 +272,7 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
         '''
         Only registered users can correct exercises
         '''
-        if not request.user.is_authenticated() or request.user.userprofile.is_temporary:
+        if not request.user.is_authenticated or request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
 
         return super(ExerciseCorrectView, self).dispatch(request, *args, **kwargs)
@@ -295,8 +297,8 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
             'user': self.request.user
         }
         message = render_to_string('exercise/email_correction.tpl', context)
-        mail.mail_admins(six.text_type(subject),
-                         six.text_type(message),
+        mail.mail_admins(str(subject),
+                         str(message),
                          fail_silently=True)
 
         messages.success(self.request, self.messages)
@@ -336,7 +338,8 @@ class ExerciseDeleteView(WgerDeleteMixin,
         return context
 
 
-class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin,
+                              UAAwareViewMixin, ListView):
     '''
     Generic view to list all weight units
     '''

@@ -24,6 +24,7 @@ Developers
 * Peter van der Does: https://github.com/petervanderdoes
 * Malcolm Jones: https://github.com/DevloperMal
 * Boniface Mwenda: https://github.com/andela-bmwenda
+* Scott Peshak: https://github.com/speshak
 
 Translators
 -----------

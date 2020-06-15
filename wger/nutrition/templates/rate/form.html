@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 {% block header %}
@@ -38,7 +38,7 @@ additional physical activity.{% endblocktrans %}</p>
     {% endfor %}
 </form>
 
-<div id="bmr-result-container" style="display:hidden;">
+<div id="bmr-result-container" style="display:none;">
     <p>{% trans 'Your basic metabolic rate is: ' %}
     <strong>
         <span id="bmr-result-value">{{user.userprofile.calculate_basal_metabolic_rate|floatformat:2}}</span>
@@ -75,7 +75,7 @@ required per day.{% endblocktrans %}</p>
     </div>
 </form>
 
-<div id="activities-result-container" style="display:hidden;">
+<div id="activities-result-container" style="display:none;">
     <p>{% trans 'Factor for daily activities: ' %} <strong><span id="activities-result-value">{{user.userprofile.calculate_activities|floatformat:2}}</span></strong></p>
 </div>
 

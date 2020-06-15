@@ -19,9 +19,8 @@ import datetime
 import logging
 
 # Third Party
-import six
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import (
+from django.urls import (
     reverse,
     reverse_lazy
 )
@@ -30,10 +29,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
+from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
 from django.utils.translation import (
     ugettext as _,
@@ -44,10 +40,8 @@ from django.views.generic import (
     UpdateView
 )
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import (
-    A4,
-    cm
-)
+from reportlab.lib.units import cm
+from reportlab.lib.pagesizes import A4
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
@@ -68,7 +62,8 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import (
     check_token,
-    make_token
+    make_token,
+    ua_aware_render
 )
 from wger.utils.language import load_language
 from wger.utils.pdf import styleSheet
@@ -90,7 +85,7 @@ def overview(request):
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
 
-    return render(request, 'plan/overview.html', template_data)
+    return ua_aware_render(request, 'plan/overview.html', template_data)
 
 
 @login_required
@@ -181,7 +176,7 @@ def view(request, id):
     template_data['is_owner'] = is_owner
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'plan/view.html', template_data)
+    return ua_aware_render(request, 'plan/view.html', template_data)
 
 
 @login_required
@@ -235,7 +230,7 @@ def export_pdf(request, id, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
 
@@ -345,32 +340,32 @@ def export_pdf(request, id, uidb64=None, token=None):
                  Paragraph(_('Percent of energy'), styleSheet["Normal"]),
                  Paragraph(_('g per body kg'), styleSheet["Normal"])])
     data.append([Paragraph(_('Energy'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['energy']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['energy']), styleSheet["Normal"])])
     data.append([Paragraph(_('Protein'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['protein']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['protein']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['protein']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['protein']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['percent']['protein']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['per_kg']['protein']), styleSheet["Normal"])])
     data.append([Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['carbohydrates']),
+                 Paragraph(str(plan_data['total']['carbohydrates']),
                            styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['carbohydrates']),
+                 Paragraph(str(plan_data['percent']['carbohydrates']),
                            styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['carbohydrates']),
+                 Paragraph(str(plan_data['per_kg']['carbohydrates']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Sugar content in carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['carbohydrates_sugar']),
+                 Paragraph(str(plan_data['total']['carbohydrates_sugar']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fat'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fat']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['fat']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['fat']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['fat']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['percent']['fat']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['per_kg']['fat']), styleSheet["Normal"])])
     data.append([Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fat_saturated']),
+                 Paragraph(str(plan_data['total']['fat_saturated']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fibres'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fibres']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['fibres']), styleSheet["Normal"])])
     data.append([Paragraph(_('Sodium'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['sodium']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['sodium']), styleSheet["Normal"])])
 
     table_style = []
     table_style.append(('BOX', (0, 0), (-1, -1), 1.25, colors.black))

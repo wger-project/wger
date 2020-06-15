@@ -75,9 +75,9 @@ class Migration(migrations.Migration):
                 ('freetime_intensity', models.CharField(default=b'1', choices=[(b'1', 'Low'), (b'2', 'Medium'), (b'3', 'High')], max_length=1, help_text='Approximately', null=True, verbose_name='Physical intensity')),
                 ('calories', models.IntegerField(default=2500, help_text='Total caloric intake, including e.g. any surplus', null=True, verbose_name='Total daily calories', validators=[django.core.validators.MinValueValidator(1500), django.core.validators.MaxValueValidator(5000)])),
                 ('weight_unit', models.CharField(default=b'kg', max_length=2, verbose_name='Weight unit', choices=[(b'kg', 'Metric (kilogram)'), (b'lb', 'Imperial (pound)')])),
-                ('gym', models.ForeignKey(blank=True, editable=False, to='gym.Gym', null=True)),
-                ('notification_language', models.ForeignKey(default=2, verbose_name='Notification language', to='core.Language', help_text='Language to use when sending you email notifications, e.g. email reminders for workouts. This does not affect the language used on the website.')),
-                ('user', models.OneToOneField(editable=False, to=settings.AUTH_USER_MODEL)),
+                ('gym', models.ForeignKey(blank=True, editable=False, to='gym.Gym', null=True, on_delete=models.CASCADE)),
+                ('notification_language', models.ForeignKey(default=2, verbose_name='Notification language', to='core.Language', help_text='Language to use when sending you email notifications, e.g. email reminders for workouts. This does not affect the language used on the website.', on_delete=models.CASCADE)),
+                ('user', models.OneToOneField(editable=False, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },

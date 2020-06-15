@@ -20,7 +20,7 @@ from decimal import Decimal
 
 # Third Party
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.models import Language

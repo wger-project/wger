@@ -18,7 +18,7 @@ import logging
 
 # Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.tests import api_base_test

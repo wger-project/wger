@@ -1,5 +1,5 @@
 {% extends "base_wide.html" %}
-{% load i18n staticfiles cache wger_extras %}
+{% load i18n static cache wger_extras compress %}
 
 <!--
         Title
@@ -8,22 +8,31 @@
 
 
 {% block header %}
+{% compress js %}
 <script src="{% static 'js/exercises.js' %}"></script>
+{% endcompress %}
 
 <script>
 $(document).ready(function() {
     //Prefetch the background images
+    wgerPrefetchImages([
+      '{% static 'images/muscles/muscular_system_back.svg' %}',
     {% for muscle in muscle_list|first %}
-        wgerPrefetchImages(['/static/images/muscles/main/muscle-' + {{muscle.id}} + '.svg']);
+      {% with muscle_id=muscle.id|stringformat:"s" %}
+      {% with muscle_img='images/muscles/main/muscle-'|add:muscle_id|add:'.svg' %}
+        '{% static muscle_img %}',
+      {% endwith %}
+      {% endwith %}
     {% endfor %}
-    wgerPrefetchImages(['/static/images/muscles/muscular_system_back.svg']);
+    ]);
 
 
     // Hightlight the first element
-    wgerHighlightMuscle($('.muscle').first());
+    var $muscle = $('.muscle');
+    wgerHighlightMuscle($muscle.first());
 
     // Highlight on hover
-    $('.muscle').hover(function(e) {
+    $muscle.hover(function(e) {
         e.preventDefault();
         wgerHighlightMuscle(this);
     });
@@ -47,7 +56,7 @@ $(document).ready(function() {
         <h4 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h4>
         <div id="muscle-system"
              class="muscle-background"
-             style="background-image: url('/static/images/muscles/muscular_system_front.svg');">
+             style="background-image: url('{% static "images/muscles/muscular_system_front.svg" %}');">
         </div>
     </div>
     <div class="col-sm-4 col-xs-6">

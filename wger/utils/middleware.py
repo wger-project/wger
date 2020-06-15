@@ -24,6 +24,7 @@ from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth import login as django_login
 from django.utils.functional import SimpleLazyObject
+from django.utils.deprecation import MiddlewareMixin
 
 # wger
 from wger.core.demo import create_temporary_user
@@ -67,7 +68,7 @@ def get_user(request):
         # Django didn't find a user, so create one now
         if settings.WGER_SETTINGS['ALLOW_GUEST_USERS'] and \
                 request.method == 'GET' and \
-                create_user and not user.is_authenticated():
+                create_user and not user.is_authenticated:
 
             logger.debug('creating a new guest user now')
             user = create_temporary_user()
@@ -77,7 +78,7 @@ def get_user(request):
     return request._cached_user
 
 
-class WgerAuthenticationMiddleware(object):
+class WgerAuthenticationMiddleware(MiddlewareMixin):
     '''
     Small wrapper around django's own AuthenticationMiddleware. Simply creates
     a new user with a temporary flag if the user hits certain URLs that need
@@ -91,7 +92,7 @@ class WgerAuthenticationMiddleware(object):
         request.user = SimpleLazyObject(lambda: get_user(request))
 
 
-class RobotsExclusionMiddleware(object):
+class RobotsExclusionMiddleware(MiddlewareMixin):
     '''
     Simple middleware that sends the "X-Robots-Tag" tag for the URLs used in
     our WgerAuthenticationMiddleware so that those pages are not indexed.
@@ -103,7 +104,7 @@ class RobotsExclusionMiddleware(object):
         return response
 
 
-class JavascriptAJAXRedirectionMiddleware(object):
+class JavascriptAJAXRedirectionMiddleware(MiddlewareMixin):
     '''
     Middleware that sends helper headers when working with AJAX.
 

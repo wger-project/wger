@@ -20,20 +20,18 @@ import datetime
 import logging
 
 # Third Party
-import six
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.exceptions import (
     ObjectDoesNotExist,
     ValidationError
 )
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator
 )
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from sortedm2m.fields import SortedManyToManyField
 
@@ -59,7 +57,6 @@ logger = logging.getLogger(__name__)
 #
 # Classes
 #
-@python_2_unicode_compatible
 class Workout(models.Model):
     '''
     Model for a training schedule
@@ -77,7 +74,7 @@ class Workout(models.Model):
                                blank=True,
                                help_text=_("A short description or goal of the workout. For "
                                            "example 'Focus on back' or 'Week 1 of program xy'."))
-    user = models.ForeignKey(User, verbose_name=_('User'))
+    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         '''
@@ -207,7 +204,6 @@ class ScheduleManager(models.Manager):
         return (active_workout, schedule)
 
 
-@python_2_unicode_compatible
 class Schedule(models.Model):
     '''
     Model for a workout schedule.
@@ -221,7 +217,8 @@ class Schedule(models.Model):
 
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     '''
     The user this schedule belongs to. This could be accessed through a step
     that points to a workout, that points to a user, but this is more straight
@@ -312,7 +309,6 @@ class Schedule(models.Model):
         return end_date
 
 
-@python_2_unicode_compatible
 class ScheduleStep(models.Model):
     '''
     Model for a step in a workout schedule.
@@ -328,10 +324,11 @@ class ScheduleStep(models.Model):
         ordering = ["order", ]
 
     schedule = models.ForeignKey(Schedule,
-                                 verbose_name=_('schedule'))
+                                 verbose_name=_('schedule'),
+                                 on_delete=models.CASCADE)
     '''The schedule is step belongs to'''
 
-    workout = models.ForeignKey(Workout)
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
     '''The workout this step manages'''
 
     duration = models.IntegerField(verbose_name=_('Duration'),
@@ -376,14 +373,13 @@ class ScheduleStep(models.Model):
                 return start_date, end_date
 
 
-@python_2_unicode_compatible
 class Day(models.Model):
     '''
     Model for a training day
     '''
 
     training = models.ForeignKey(Workout,
-                                 verbose_name=_('Workout'))
+                                 verbose_name=_('Workout'), on_delete=models.CASCADE)
     description = models.CharField(max_length=100,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of what is done on this day (e.g. '
@@ -540,7 +536,7 @@ class Day(models.Model):
 
         return {'obj': self,
                 'days_of_week': {
-                    'text': u', '.join([six.text_type(_(i.day_of_week))
+                    'text': u', '.join([str(_(i.day_of_week))
                                        for i in tmp_days_of_week]),
                     'day_list': tmp_days_of_week},
                 'muscles': {
@@ -552,7 +548,6 @@ class Day(models.Model):
                 'set_list': canonical_repr}
 
 
-@python_2_unicode_compatible
 class Set(models.Model):
     '''
     Model for a set of exercises
@@ -561,7 +556,8 @@ class Set(models.Model):
     MAX_SETS = 10
 
     exerciseday = models.ForeignKey(Day,
-                                    verbose_name=_('Exercise day'))
+                                    verbose_name=_('Exercise day'),
+                                    on_delete=models.CASCADE)
     exercises = SortedManyToManyField(Exercise,
                                       verbose_name=_('Exercises'))
     order = models.IntegerField(blank=True,
@@ -604,18 +600,19 @@ class Set(models.Model):
         super(Set, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class Setting(models.Model):
     '''
     Settings for an exercise (weight, reps, etc.)
     '''
 
-    set = models.ForeignKey(Set, verbose_name=_('Sets'))
+    set = models.ForeignKey(Set, verbose_name=_('Sets'), on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercises'))
+                                 verbose_name=_('Exercises'),
+                                 on_delete=models.CASCADE)
     repetition_unit = models.ForeignKey(RepetitionUnit,
                                         verbose_name=_('Unit'),
-                                        default=1)
+                                        default=1,
+                                        on_delete=models.CASCADE)
     '''
     The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
     '''
@@ -639,7 +636,8 @@ class Setting(models.Model):
 
     weight_unit = models.ForeignKey(WeightUnit,
                                     verbose_name=_('Unit'),
-                                    default=1)
+                                    default=1,
+                                    on_delete=models.CASCADE)
     '''
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     '''
@@ -687,7 +685,6 @@ class Setting(models.Model):
         return self.set.exerciseday.training
 
 
-@python_2_unicode_compatible
 class WorkoutLog(models.Model):
     '''
     A log entry for an exercise
@@ -695,15 +692,19 @@ class WorkoutLog(models.Model):
 
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'))
+                                 verbose_name=_('Exercise'),
+                                 on_delete=models.CASCADE)
     workout = models.ForeignKey(Workout,
-                                verbose_name=_('Workout'))
+                                verbose_name=_('Workout'),
+                                on_delete=models.CASCADE)
 
     repetition_unit = models.ForeignKey(RepetitionUnit,
                                         verbose_name=_('Unit'),
-                                        default=1)
+                                        default=1,
+                                        on_delete=models.CASCADE)
     '''
     The unit of the log. This can be e.g. a repetition, a minute, etc.
     '''
@@ -724,7 +725,8 @@ class WorkoutLog(models.Model):
 
     weight_unit = models.ForeignKey(WeightUnit,
                                     verbose_name=_('Unit'),
-                                    default=1)
+                                    default=1,
+                                    on_delete=models.CASCADE)
     '''
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
     '''
@@ -783,7 +785,6 @@ class WorkoutLog(models.Model):
         super(WorkoutLog, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class WorkoutSession(models.Model):
     '''
     Model for a workout session
@@ -801,7 +802,8 @@ class WorkoutSession(models.Model):
     )
 
     user = models.ForeignKey(User,
-                             verbose_name=_('User'))
+                             verbose_name=_('User'),
+                             on_delete=models.CASCADE)
     '''
     The user the workout session belongs to
 
@@ -809,7 +811,8 @@ class WorkoutSession(models.Model):
     '''
 
     workout = models.ForeignKey(Workout,
-                                verbose_name=_('Workout'))
+                                verbose_name=_('Workout'),
+                                on_delete=models.CASCADE)
     '''
     The workout the session belongs to
     '''

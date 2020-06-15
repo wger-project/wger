@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Third Party
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase

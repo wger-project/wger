@@ -22,7 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
 from django.utils.translation import (
     ugettext as _,
@@ -39,14 +39,15 @@ from django.views.generic import (
 from wger.core.models import WeightUnit
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
+    UAAwareViewMixin
 )
 
 
 logger = logging.getLogger(__name__)
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available weight units
     '''

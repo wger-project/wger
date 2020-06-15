@@ -17,7 +17,10 @@
 
 # Third Party
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+
+import datetime
 
 # wger
 from wger.core.models import (
@@ -44,6 +47,18 @@ def create_user_cache(sender, instance, created, **kwargs):
     if created:
         UserCache.objects.create(user=instance)
 
+
+@receiver(pre_save, sender=UserProfile)
+def set_user_age(sender, instance, **kwargs):
+    '''
+    Inputting or changing a user's birthdate will auto-update the
+    user's age as well if user's age has not been set
+    '''
+    if instance.age is None and instance.birthdate is not None:
+        today = datetime.date.today()
+        birthday = instance.birthdate
+        instance.age = (today.year - birthday.year
+                        - ((today.month, today.day) < (birthday.month, birthday.day)))
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(create_user_cache, sender=User)

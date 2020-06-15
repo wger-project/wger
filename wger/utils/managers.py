@@ -38,8 +38,6 @@ class SubmissionQuerySet(QuerySet):
 
 
 class SubmissionManager(models.Manager):
-    use_for_related_fields = True
-
     def get_queryset(self):
         return SubmissionQuerySet(self.model, using=self._db)
 

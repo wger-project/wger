@@ -1,20 +1,25 @@
 Changelog
 =========
 
-
 1.9 - IN DEVELOPMENT
 --------------------
 **2017-xx-xx**
 
 Upgrade steps from 1.8:
 
-* Django update to 1.10: ``pip install -r requirements.txt``
+* Django update to 1.11: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
 * Update static files (only production): ``python manage.py collectstatic``
 
 New features:
 
-* ...
+* Allow users to enter their birthdate instead of just the age (thanks `@dtopal`_) `#332`_
+* Work to ensure that mobile templates are used when appropriate
+* Added optional S3 static asset hosting.
+* Drop Python 2 support.
+* Replaced django-mobile with django-user_agent (and some custom code)
+  This isn't as slick as django-mobile was, but it unblocks possible Django 2.x support.
+* Update many dependencies to current versions.
 
 Improvements:
 
@@ -23,20 +28,31 @@ Improvements:
 * Exercise image downloader checks only accepted exercises (thanks `@gmmoraes`_) `#363`_
 * Use a native data type for the exercises' UUID (thanks `@gmmoraes`_) `#364`_
 * Increase speed of testsuite by performing the tests in parallel (thanks `@Mbarak-Mbigo`_) `wger_vulcan/#6`_
+* Update screen when adding an exercise to the workout while using set slider (thanks `@gmmoraes`_) `#374`_
+* Work to slim docker image
+  * Download images at startup - If `DOWNLOAD_IMGS` environmental variable is set to `TRUE`
+  * Uninstall dev packages
+* Update Ubuntu version used in docker container.
+* Fixed a handful of hard coded static path references to use `static` taglib
+* Updated tinymce theme for v5.
 
-Other improvements and bugfixes: `#336`_, `#359`_,`#386`_
+Other improvements and bugfixes: `#336`_, `#359`_,`#386`_, `#443`_
 
 .. _@gmmoraes: https://github.com/gmmoraes
 .. _@Mbarak-Mbigo: https://github.com/Mbarak-Mbigo
+.. _@dtopal: https://github.com/dtopal
 
 .. _wger_vulcan/#6: https://github.com/andela/wger_vulcan/pull/6
 
-.. _#364: https://github.com/wger-project/wger/issues/364
-.. _#363: https://github.com/wger-project/wger/issues/363
+.. _#332: https://github.com/wger-project/wger/issues/332
 .. _#336: https://github.com/wger-project/wger/issues/336
 .. _#359: https://github.com/wger-project/wger/issues/359
+.. _#363: https://github.com/wger-project/wger/issues/363
+.. _#364: https://github.com/wger-project/wger/issues/364
+.. _#374: https://github.com/wger-project/wger/issues/374
 .. _#381: https://github.com/wger-project/wger/issues/381
 .. _#386: https://github.com/wger-project/wger/issues/386
+.. _#443: https://github.com/wger-project/wger/issues/443
 
 
 1.8

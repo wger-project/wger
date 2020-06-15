@@ -60,8 +60,7 @@ from wger.utils.widgets import (
 
 
 class DemoUserForm(Form):
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
-                             label=_('Confirmation text'),
+    captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
 
 

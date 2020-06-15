@@ -19,7 +19,6 @@ import datetime
 import logging
 
 # Third Party
-import six
 from django.contrib.sites.models import Site
 from django.http import (
     HttpResponse,
@@ -97,7 +96,7 @@ def get_events_workout(calendar, workout, duration, start_date=None):
         description_list = []
         for set in day['set_list']:
             for exercise in set['exercise_list']:
-                description_list.append(six.text_type(exercise['obj']))
+                description_list.append(str(exercise['obj']))
         description = ', '.join(description_list) if description_list else day['obj'].description
 
         # Make an event for each weekday
@@ -126,7 +125,7 @@ def export(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=pk, user=request.user)
 
@@ -157,7 +156,7 @@ def export_schedule(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
 

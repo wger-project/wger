@@ -1,28 +1,28 @@
 [
     {
-        "pk": 1, 
+        "pk": 1,
         "model": "authtoken.token",
         "fields": {
-            "user": 1, 
-            "key": "apikey-admin", 
+            "user": 1,
+            "key": "apikey-admin",
             "created": "2013-08-28 19:47:06+01:00"
         }
-    }, 
+    },
     {
-        "pk": 2, 
+        "pk": 2,
         "model": "authtoken.token",
         "fields": {
-            "user": 2, 
-            "key": "apikey-test", 
+            "user": 2,
+            "key": "apikey-test",
             "created": "2013-08-28 19:47:06+01:00"
         }
-    }, 
+    },
     {
-        "pk": 3, 
+        "pk": 3,
         "model": "authtoken.token",
         "fields": {
-            "user": 3, 
-            "key": "apikey-demo", 
+            "user": 3,
+            "key": "apikey-demo",
             "created": "2013-08-28 19:47:06+01:00"
         }
     }

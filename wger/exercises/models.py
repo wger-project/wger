@@ -21,18 +21,16 @@ import uuid
 
 # Third Party
 import bleach
-import six
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils import translation
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
@@ -54,7 +52,6 @@ from wger.utils.models import (
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class Muscle(models.Model):
     '''
     Muscle an exercise works out
@@ -84,7 +81,6 @@ class Muscle(models.Model):
         return False
 
 
-@python_2_unicode_compatible
 class Equipment(models.Model):
     '''
     Equipment used or needed by an exercise
@@ -112,7 +108,6 @@ class Equipment(models.Model):
         return False
 
 
-@python_2_unicode_compatible
 class ExerciseCategory(models.Model):
     '''
     Model for an exercise category
@@ -160,7 +155,6 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     Model for an exercise
@@ -170,7 +164,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''Custom manager'''
 
     category = models.ForeignKey(ExerciseCategory,
-                                 verbose_name=_('Category'))
+                                 verbose_name=_('Category'),
+                                 on_delete=models.CASCADE)
     description = models.TextField(max_length=2000,
                                    verbose_name=_('Description'),
                                    validators=[MinLengthValidator(40)])
@@ -208,7 +203,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''The submission date'''
 
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'))
+                                 verbose_name=_('Language'),
+                                 on_delete=models.CASCADE)
     '''The exercise's language'''
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
@@ -221,6 +217,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     # Django methods
     #
     class Meta:
+        base_manager_name = 'objects'
         ordering = ["name", ]
 
     def get_absolute_url(self):
@@ -343,8 +340,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             subject = _('New user submitted exercise')
             message = _(u'The user {0} submitted a new exercise "{1}".').format(
                 request.user.username, self.name)
-            mail.mail_admins(six.text_type(subject),
-                             six.text_type(message),
+            mail.mail_admins(str(subject),
+                             str(message),
                              fail_silently=True)
 
 
@@ -364,7 +361,8 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     '''Custom manager'''
 
     exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'))
+                                 verbose_name=_('Exercise'),
+                                 on_delete=models.CASCADE)
     '''The exercise the image belongs to'''
 
     image = models.ImageField(verbose_name=_('Image'),
@@ -385,6 +383,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         Set default ordering
         '''
         ordering = ['-is_main', 'id']
+        base_manager_name = 'objects'
 
     def save(self, *args, **kwargs):
         '''
@@ -463,19 +462,19 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                 request.user.username,
                 self.name,
                 self.exercise)
-            mail.mail_admins(six.text_type(subject),
-                             six.text_type(message),
+            mail.mail_admins(str(subject),
+                             str(message),
                              fail_silently=True)
 
 
-@python_2_unicode_compatible
 class ExerciseComment(models.Model):
     '''
     Model for an exercise comment
     '''
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     comment = models.CharField(max_length=200,
                                verbose_name=_('Comment'),
                                help_text=_('A comment about how to correctly do this exercise.'))
