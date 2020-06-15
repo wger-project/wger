@@ -34,6 +34,3 @@ django-cors-headers>=3.0
 django-filter==2.1.0
 django-tastypie>=0.14,<.0.15
 djangorestframework>=3.11,<3.12
-
-# Python3 compatibility
-six
