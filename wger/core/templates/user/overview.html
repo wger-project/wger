@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{current_user|format_username}}{% endblock %}
 
@@ -251,7 +251,7 @@
     $(document).ready(function() {
         $('#confirmation-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var url = button.data('url')
+            var url = button.data('url');
             var modal = $(this);
 
             modal.find('button.btn-success').click(function() {

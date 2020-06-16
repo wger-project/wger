@@ -1,10 +1,10 @@
 [
     {
-        "pk": 1, 
-        "model": "gym.gymuserconfig", 
+        "pk": 1,
+        "model": "gym.gymuserconfig",
         "fields": {
-            "gym": 1, 
-            "include_inactive": true, 
+            "gym": 1,
+            "include_inactive": true,
             "user": 2
         }
     },
@@ -28,46 +28,46 @@
     },
     {
         "pk": 4,
-        "model": "gym.gymuserconfig", 
+        "model": "gym.gymuserconfig",
         "fields": {
-            "gym": 1, 
-            "include_inactive": true, 
+            "gym": 1,
+            "include_inactive": true,
             "user": 15
         }
-    }, 
+    },
     {
         "pk": 5,
-        "model": "gym.gymuserconfig", 
+        "model": "gym.gymuserconfig",
         "fields": {
-            "gym": 1, 
-            "include_inactive": true, 
+            "gym": 1,
+            "include_inactive": true,
             "user": 16
         }
-    }, 
+    },
     {
         "pk": 6,
-        "model": "gym.gymuserconfig", 
+        "model": "gym.gymuserconfig",
         "fields": {
-            "gym": 1, 
-            "include_inactive": true, 
+            "gym": 1,
+            "include_inactive": true,
             "user": 17
         }
-    }, 
+    },
     {
         "pk": 7,
-        "model": "gym.gymuserconfig", 
+        "model": "gym.gymuserconfig",
         "fields": {
-            "gym": 1, 
-            "include_inactive": true, 
+            "gym": 1,
+            "include_inactive": true,
             "user": 18
         }
-    }, 
+    },
     {
         "pk": 8,
-        "model": "gym.gymuserconfig", 
+        "model": "gym.gymuserconfig",
         "fields": {
             "gym": 2,
-            "include_inactive": true, 
+            "include_inactive": true,
             "user": 19
         }
     },

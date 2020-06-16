@@ -14,11 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.conf import settings
+from wger.utils.helpers import ua_aware_render
 
-from django.shortcuts import render
 
 logger = logging.getLogger(__name__)
 
@@ -30,4 +32,4 @@ def features(request):
 
     context = {'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
                'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']}
-    return render(request, 'features.html', context)
+    return ua_aware_render(request, 'features.html', context)

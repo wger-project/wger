@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.conf import settings
 from django.templatetags.static import static
 
+# wger
 from wger import get_version
 from wger.config.models import GymConfig
 from wger.utils import constants
@@ -105,7 +107,7 @@ def get_custom_header(request):
 
     # Current gym
     current_gym = None
-    if request.user.is_authenticated() and request.user.userprofile.gym:
+    if request.user.is_authenticated and request.user.userprofile.gym:
         current_gym = request.user.userprofile.gym
     else:
         global_gymconfig = GymConfig.objects.get(pk=1)

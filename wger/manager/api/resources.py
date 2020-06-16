@@ -14,28 +14,33 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from tastypie import fields
 from tastypie.authentication import (
     ApiKeyAuthentication,
     MultiAuthentication,
     SessionAuthentication
 )
+from tastypie.constants import (
+    ALL,
+    ALL_WITH_RELATIONS
+)
 from tastypie.resources import ModelResource
-from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
+# wger
 from wger.core.api.resources import DaysOfWeekResource
 from wger.exercises.api.resources import ExerciseResource
-from wger.utils.resources import UserObjectsOnlyAuthorization
 from wger.manager.models import (
-    WorkoutSession,
-    Workout,
+    Day,
     Schedule,
     ScheduleStep,
-    Day,
     Set,
     Setting,
-    WorkoutLog
+    Workout,
+    WorkoutLog,
+    WorkoutSession
 )
+from wger.utils.resources import UserObjectsOnlyAuthorization
 
 
 class WorkoutResource(ModelResource):

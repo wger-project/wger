@@ -14,10 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.contrib.sitemaps import Sitemap
+
+# wger
+from wger.config.models import LanguageConfig
 from wger.exercises.models import Exercise
 from wger.utils.language import load_item_languages
-from wger.config.models import LanguageConfig
 
 
 class ExercisesSitemap(Sitemap):

@@ -15,29 +15,36 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
-from rest_framework.decorators import api_view
+from rest_framework.decorators import (
+    action,
+    api_view
+)
 from rest_framework.response import Response
 
+# wger
 from wger.nutrition.api.serializers import (
-    NutritionPlanSerializer,
+    IngredientSerializer,
     IngredientWeightUnitSerializer,
-    WeightUnitSerializer,
     MealItemSerializer,
     MealSerializer,
-    IngredientSerializer
+    NutritionPlanSerializer,
+    WeightUnitSerializer
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
     Ingredient,
+    IngredientWeightUnit,
     Meal,
     MealItem,
-    WeightUnit,
-    IngredientWeightUnit,
-    NutritionPlan
+    NutritionPlan,
+    WeightUnit
 )
-from wger.utils.language import load_ingredient_languages, load_language
+from wger.utils.language import (
+    load_ingredient_languages,
+    load_language
+)
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -48,23 +55,23 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
-    filter_fields = ('carbohydrates',
-                     'carbohydrates_sugar',
-                     'creation_date',
-                     'energy',
-                     'fat',
-                     'fat_saturated',
-                     'fibres',
-                     'name',
-                     'protein',
-                     'sodium',
-                     'status',
-                     'update_date',
-                     'language',
-                     'license',
-                     'license_author')
+    filterset_fields = ('carbohydrates',
+                        'carbohydrates_sugar',
+                        'creation_date',
+                        'energy',
+                        'fat',
+                        'fat_saturated',
+                        'fibres',
+                        'name',
+                        'protein',
+                        'sodium',
+                        'status',
+                        'update_date',
+                        'language',
+                        'license',
+                        'license_author')
 
-    @detail_route()
+    @action(detail=True)
     def get_values(self, request, pk):
         '''
         Calculates the nutritional values for current ingredient and
@@ -150,8 +157,8 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WeightUnit.objects.all()
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('language',
-                     'name')
+    filterset_fields = ('language',
+                        'name')
 
 
 class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -161,10 +168,10 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = IngredientWeightUnit.objects.all()
     serializer_class = IngredientWeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('amount',
-                     'gram',
-                     'ingredient',
-                     'unit')
+    filterset_fields = ('amount',
+                        'gram',
+                        'ingredient',
+                        'unit')
 
 
 class NutritionPlanViewSet(viewsets.ModelViewSet):
@@ -174,10 +181,10 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     serializer_class = NutritionPlanSerializer
     is_private = True
     ordering_fields = '__all__'
-    filter_fields = ('creation_date',
-                     'language',
-                     'description',
-                     'has_goal_calories')
+    filterset_fields = ('creation_date',
+                        'language',
+                        'description',
+                        'has_goal_calories')
 
     def get_queryset(self):
         '''
@@ -191,7 +198,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         '''
         serializer.save(user=self.request.user, language=load_language())
 
-    @detail_route()
+    @action(detail=True)
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
@@ -206,9 +213,9 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = MealSerializer
     is_private = True
     ordering_fields = '__all__'
-    filter_fields = ('order',
-                     'plan',
-                     'time')
+    filterset_fields = ('order',
+                        'plan',
+                        'time')
 
     def get_queryset(self):
         '''
@@ -228,7 +235,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         '''
         return [(NutritionPlan, 'plan')]
 
-    @detail_route()
+    @action(detail=True)
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values
@@ -243,11 +250,11 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = MealItemSerializer
     is_private = True
     ordering_fields = '__all__'
-    filter_fields = ('amount',
-                     'ingredient',
-                     'meal',
-                     'order',
-                     'weight_unit')
+    filterset_fields = ('amount',
+                        'ingredient',
+                        'meal',
+                        'order',
+                        'weight_unit')
 
     def get_queryset(self):
         '''
@@ -267,7 +274,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         '''
         return [(Meal, 'meal')]
 
-    @detail_route()
+    @action(detail=True)
     def nutritional_values(self, request, pk):
         '''
         Return an overview of the nutritional plan's values

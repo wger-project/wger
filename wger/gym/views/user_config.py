@@ -13,14 +13,21 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.core.urlresolvers import reverse
+# Third Party
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.urls import reverse
 from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 
+# wger
 from wger.gym.models import GymUserConfig
 from wger.utils.generic_views import WgerFormMixin
 
@@ -42,7 +49,7 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Only managers for this gym can edit the user settings
         '''
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         config = self.get_object()

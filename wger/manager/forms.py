@@ -18,21 +18,22 @@
 This file contains forms used in the application
 '''
 
+# Third Party
 from captcha.fields import ReCaptchaField
-
-from django.utils.translation import ugettext as _
 from django.forms import (
-    Form,
-    MultipleHiddenInput,
-    ModelForm,
-    DateField,
-    IntegerField,
-    DecimalField,
     CharField,
-    widgets,
-    ModelChoiceField
+    DateField,
+    DecimalField,
+    Form,
+    IntegerField,
+    ModelChoiceField,
+    ModelForm,
+    MultipleHiddenInput,
+    widgets
 )
+from django.utils.translation import ugettext as _
 
+# wger
 from wger.core.models import (
     RepetitionUnit,
     WeightUnit
@@ -42,25 +43,24 @@ from wger.exercises.models import (
     ExerciseCategory
 )
 from wger.manager.models import (
-    WorkoutSession,
-    Workout,
     Day,
     Set,
     Setting,
-    WorkoutLog
-)
-from wger.utils.widgets import (
-    TranslatedSelectMultiple,
-    TranslatedSelect,
-    ExerciseAjaxSelect
+    Workout,
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.constants import DATE_FORMATS
-from wger.utils.widgets import Html5DateInput
+from wger.utils.widgets import (
+    ExerciseAjaxSelect,
+    Html5DateInput,
+    TranslatedSelect,
+    TranslatedSelectMultiple
+)
 
 
 class DemoUserForm(Form):
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
-                             label=_('Confirmation text'),
+    captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
 
 

@@ -14,34 +14,46 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import csv
 import datetime
+import logging
 
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+# Third Party
 from django.contrib.auth.decorators import login_required
-from django.utils import formats
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-from django.db.models import Min
-from django.db.models import Max
-from django.views.generic import CreateView
-from django.views.generic import UpdateView
-
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.db.models import (
+    Max,
+    Min
+)
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    CreateView,
+    UpdateView
+)
 from formtools.preview import FormPreview
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
+# wger
+from wger.utils.generic_views import WgerFormMixin
+from wger.utils.helpers import (
+    check_access,
+    ua_aware_render
+)
+from wger.weight import helpers
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
-from wger.weight import helpers
-from wger.utils.helpers import check_access
-from wger.utils.generic_views import WgerFormMixin
 
 
 logger = logging.getLogger(__name__)
@@ -114,7 +126,7 @@ def export_csv(request):
     writer = csv.writer(response)
 
     weights = WeightEntry.objects.filter(user=request.user)
-    writer.writerow([_('Weight').encode('utf8'), _('Date').encode('utf8')])
+    writer.writerow([_('Weight'), _('Date')])
 
     for entry in weights:
         writer.writerow([entry.weight, entry.date])
@@ -158,7 +170,7 @@ def overview(request, username=None):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
     template_data['last_five_weight_entries_details'] = last_weight_entries
-    return render(request, 'overview.html', template_data)
+    return ua_aware_render(request, 'overview.html', template_data)
 
 
 @api_view(['GET'])

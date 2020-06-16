@@ -13,24 +13,37 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.core.urlresolvers import reverse
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+# Third Party
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
+    CreateView,
     DetailView,
     ListView,
-    CreateView,
     UpdateView
 )
 
-from wger.utils.generic_views import WgerFormMixin
-from wger.gym.models import Contract, Gym
+# wger
+from wger.gym.models import Contract
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    UAAwareViewMixin
+)
+
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +88,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         '''
         Can only add documents to users in own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         user = get_object_or_404(User, pk=self.kwargs['user_pk'])
@@ -115,7 +128,7 @@ class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
         '''
         Can only see contracts for own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         contract = self.get_object()
@@ -139,7 +152,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         Only trainers for this gym can edit user notes
         '''
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         contract = self.get_object()
@@ -156,7 +169,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         return context
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
     '''
     Overview of all available admin notes
     '''
@@ -175,7 +188,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         '''
         Can only list contract types in own gym
         '''
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         self.member = get_object_or_404(User, id=self.kwargs['user_pk'])

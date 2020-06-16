@@ -14,13 +14,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.db.models import Q
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import (
+    post_save,
+    pre_delete
+)
 
+# wger
 from wger.core.models import Language
-from wger.exercises.models import Exercise, Muscle
+from wger.exercises.models import (
+    Exercise,
+    Muscle
+)
 from wger.gym.helpers import get_user_last_activity
-from wger.manager.models import WorkoutLog, WorkoutSession
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.cache import delete_template_fragment_cache
 
 
@@ -51,6 +62,7 @@ def reset_muscle_cache(sender, instance, **kwargs):
         for language in languages:
             delete_template_fragment_cache('exercise-detail-muscles',
                                            exercise.id, language.id)
+
 
 post_save.connect(reset_muscle_cache, sender=Muscle)
 pre_delete.connect(reset_muscle_cache, sender=Muscle)

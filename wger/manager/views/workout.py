@@ -14,40 +14,59 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import uuid
-import datetime
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+# Third Party
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import get_object_or_404
+from django.template.context_processors import csrf
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    DeleteView,
+    UpdateView
+)
+from django.views.decorators.vary import vary_on_headers
 
+# wger
 from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
-from wger.manager.models import (
-    Workout,
-    WorkoutSession,
-    WorkoutLog,
-    Schedule,
-    Day
-)
 from wger.manager.forms import (
+    WorkoutCopyForm,
     WorkoutForm,
-    WorkoutSessionHiddenFieldsForm,
-    WorkoutCopyForm
+    WorkoutSessionHiddenFieldsForm
+)
+from wger.manager.models import (
+    Day,
+    Schedule,
+    Workout,
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
-from wger.utils.helpers import make_token
+from wger.utils.helpers import (
+    make_token,
+    ua_aware_render
+)
 
 
 logger = logging.getLogger(__name__)
@@ -69,9 +88,10 @@ def overview(request):
     template_data['workouts'] = workouts
     template_data['current_workout'] = current_workout
 
-    return render(request, 'workout/overview.html', template_data)
+    return ua_aware_render(request, 'workout/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
     '''
     Show the workout with the given ID
@@ -118,7 +138,7 @@ def view(request, pk):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'workout/view.html', template_data)
+    return ua_aware_render(request, 'workout/view.html', template_data)
 
 
 @login_required
@@ -173,7 +193,7 @@ def copy_workout(request, pk):
                     current_set_copy.save()
 
                     # Exercises has Many2Many relationship
-                    current_set_copy.exercises = exercises
+                    current_set_copy.exercises.set(exercises)
 
                     # Go through the exercises
                     for exercise in exercises:
@@ -200,7 +220,7 @@ def copy_workout(request, pk):
         template_data['submit_text'] = _('Copy')
         template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
 
-        return render(request, 'form.html', template_data)
+        return ua_aware_render(request, 'form.html', template_data)
 
 
 @login_required
@@ -387,4 +407,4 @@ def timer(request, day_pk):
     context['form_action'] = url
     context['weight_units'] = WeightUnit.objects.all()
     context['repetition_units'] = RepetitionUnit.objects.all()
-    return render(request, 'workout/timer.html', context)
+    return ua_aware_render(request, 'workout/timer.html', context)

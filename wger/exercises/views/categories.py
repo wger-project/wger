@@ -13,24 +13,36 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-
+# Third Party
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    DeleteView,
     CreateView,
-    UpdateView,
-    ListView)
+    DeleteView,
+    ListView,
+    UpdateView
+)
 
+# wger
 from wger.exercises.models import ExerciseCategory
-
 from wger.utils.generic_views import (
+    WgerDeleteMixin,
     WgerFormMixin,
-    WgerDeleteMixin
+    UAAwareViewMixin
 )
 from wger.utils.language import load_language
 
@@ -38,7 +50,8 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin,
+                               UAAwareViewMixin, ListView):
     '''
     Overview of all categories, for administration purposes
     '''

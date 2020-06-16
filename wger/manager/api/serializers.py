@@ -15,22 +15,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import serializers
 
+# wger
 from wger.core.api.serializers import (
     DaysOfWeekSerializer,
     RepetitionUnitSerializer,
     WeightUnitSerializer
 )
 from wger.exercises.api.serializers import ExerciseSerializer
-
 from wger.manager.models import (
-    Workout,
-    ScheduleStep,
     Day,
-    Setting,
-    Set,
     Schedule,
+    ScheduleStep,
+    Set,
+    Setting,
+    Workout,
     WorkoutLog,
     WorkoutSession
 )
@@ -70,6 +71,7 @@ class ScheduleStepSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ScheduleStep
+        fields = '__all__'
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -88,6 +90,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
+        fields = '__all__'
 
 
 class SetSerializer(serializers.ModelSerializer):
@@ -97,6 +100,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
+        fields = '__all__'
 
 
 class SettingSerializer(serializers.ModelSerializer):
@@ -105,6 +109,7 @@ class SettingSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Setting
+        fields = '__all__'
 
 
 #

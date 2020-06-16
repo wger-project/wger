@@ -12,16 +12,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import decimal
 import logging
 
+# Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +61,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_active': False,
                                      'timer_pause': 100,
                                      'num_days_weight_reminder': 10,
-                                     'weight_unit': 'kg'})
+                                     'weight_unit': 'kg',
+                                     'birthdate': '02/25/1987'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
@@ -80,7 +85,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_active': True,
                                      'timer_pause': 40,
                                      'num_days_weight_reminder': 10,
-                                     'weight_unit': 'lb'})
+                                     'weight_unit': 'lb',
+                                     'birthdate': '02/25/1987'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))

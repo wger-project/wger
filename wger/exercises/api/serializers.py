@@ -14,14 +14,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from rest_framework import serializers
+
+# wger
 from wger.exercises.models import (
-    Muscle,
-    Exercise,
-    ExerciseImage,
-    ExerciseCategory,
     Equipment,
-    ExerciseComment
+    Exercise,
+    ExerciseCategory,
+    ExerciseComment,
+    ExerciseImage,
+    Muscle
 )
 
 
@@ -31,6 +34,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Exercise
+        fields = '__all__'
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
@@ -39,6 +43,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Equipment
+        fields = '__all__'
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):
@@ -57,6 +62,7 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExerciseCategory
+        fields = '__all__'
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
@@ -65,6 +71,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExerciseImage
+        fields = '__all__'
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
@@ -73,6 +80,7 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExerciseComment
+        fields = '__all__'
 
 
 class MuscleSerializer(serializers.ModelSerializer):
@@ -81,3 +89,4 @@ class MuscleSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Muscle
+        fields = '__all__'

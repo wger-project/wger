@@ -10,36 +10,46 @@
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
+
+
+# Standard Library
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 import logging
+# GNU General Public License for more details.
+#
 from decimal import Decimal
 
-from django.db import models
-
-from django.template.loader import render_to_string
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
-from django.core import mail
-from django.core.cache import cache
+# Third Party
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.core import mail
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.urls import reverse
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
+from django.db import models
+from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
+from django.template.loader import render_to_string
 from django.utils import translation
-from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
+# wger
 from wger.core.models import Language
-from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
+from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
-from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
+from wger.utils.models import (
+    AbstractLicenseModel,
+    AbstractSubmissionModel
+)
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
+
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -58,7 +68,6 @@ Simple approximation of energy (kcal) provided per gram or ounce
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class NutritionPlan(models.Model):
     '''
     A nutrition plan
@@ -72,10 +81,12 @@ class NutritionPlan(models.Model):
 
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
     description = models.TextField(max_length=2000,
                                    blank=True,
@@ -200,7 +211,6 @@ class NutritionPlan(models.Model):
             return 4
 
 
-@python_2_unicode_compatible
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     '''
     An ingredient, with some approximate nutrition values
@@ -218,7 +228,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
 
     creation_date = models.DateField(_('Date'), auto_now_add=True)
     update_date = models.DateField(_('Date'),
@@ -436,7 +447,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return False
 
 
-@python_2_unicode_compatible
 class WeightUnit(models.Model):
     '''
     A more human usable weight unit (spoon, table, slice...)
@@ -444,7 +454,8 @@ class WeightUnit(models.Model):
 
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),)
 
@@ -465,7 +476,6 @@ class WeightUnit(models.Model):
         return None
 
 
-@python_2_unicode_compatible
 class IngredientWeightUnit(models.Model):
     '''
     A specific human usable weight unit for an ingredient
@@ -473,8 +483,9 @@ class IngredientWeightUnit(models.Model):
 
     ingredient = models.ForeignKey(Ingredient,
                                    verbose_name=_('Ingredient'),
-                                   editable=False)
-    unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
+                                   editable=False,
+                                   on_delete=models.CASCADE)
+    unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'), on_delete=models.CASCADE)
 
     gram = models.IntegerField(verbose_name=_('Amount in grams'))
     amount = models.DecimalField(decimal_places=2,
@@ -499,7 +510,6 @@ class IngredientWeightUnit(models.Model):
                                        self.gram)
 
 
-@python_2_unicode_compatible
 class Meal(models.Model):
     '''
     A meal
@@ -511,7 +521,8 @@ class Meal(models.Model):
 
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     order = models.IntegerField(verbose_name=_('Order'),
                                 blank=True,
                                 editable=False)
@@ -560,7 +571,6 @@ class Meal(models.Model):
         return nutritional_info
 
 
-@python_2_unicode_compatible
 class MealItem(models.Model):
     '''
     An item (component) of a meal
@@ -568,13 +578,16 @@ class MealItem(models.Model):
 
     meal = models.ForeignKey(Meal,
                              verbose_name=_('Nutrition plan'),
-                             editable=False)
-    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+                             editable=False,
+                             on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   on_delete=models.CASCADE)
     weight_unit = models.ForeignKey(IngredientWeightUnit,
                                     verbose_name=_('Weight unit'),
                                     null=True,
                                     blank=True,
-                                    )
+                                    on_delete=models.CASCADE)
 
     order = models.IntegerField(verbose_name=_('Order'),
                                 blank=True,

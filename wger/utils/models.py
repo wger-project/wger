@@ -14,9 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+# wger
 from wger.core.models import License
 
 
@@ -35,7 +37,8 @@ class AbstractLicenseModel(models.Model):
 
     license = models.ForeignKey(License,
                                 verbose_name=_('License'),
-                                default=2)
+                                default=2,
+                                on_delete=models.CASCADE)
     '''The item's license'''
 
     license_author = models.CharField(verbose_name=_('Author'),

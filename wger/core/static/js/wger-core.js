@@ -112,7 +112,7 @@ function setProfileField(field, newValue) {
   }).done(function (userprofile) {
     console.log('Updating profile field "' + field + '" to value: ' + newValue);
     $.ajax({
-      url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
+      url: '/api/v2/userprofile/' + userprofile[0].id + '/',
       type: 'PATCH',
       data: dataDict
     });
@@ -131,7 +131,7 @@ function getProfileField(field) {
     type: 'GET',
     async: false,
     success: function (userprofile) {
-      result = userprofile.results[0][field];
+      result = userprofile[0][field];
     }
   });
   return result;
@@ -211,7 +211,7 @@ function wgerInitTinymce() {
     tinyMCE.init({
       // General options
       mode: 'textareas',
-      theme: 'modern',
+      theme: 'silver',
       width: '100%',
       height: '200',
       entity_encoding: 'raw',
@@ -520,7 +520,7 @@ function wgerInitEditSet() {
   initRemoveExerciseFormset();
 
   // Slider to set the number of sets
-  $('#id_sets').on('change', function () {
+  $('#id_sets').on('input', function () {
     updateAllExerciseFormset();
     $('#id_sets_value').html($('#id_sets').val());
   });

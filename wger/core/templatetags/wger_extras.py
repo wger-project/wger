@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django import template
 from django.conf import settings
 from django.forms.widgets import (
@@ -22,18 +23,20 @@ from django.forms.widgets import (
 )
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
-    ugettext_lazy as _,
-    pgettext
+    pgettext,
+    ugettext_lazy as _
 )
 
+# wger
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT
 )
 from wger.utils.widgets import (
-    BootstrapSelectMultipleTranslatedOriginal,
-    BootstrapSelectMultiple
+    BootstrapSelectMultiple,
+    BootstrapSelectMultipleTranslatedOriginal
 )
+
 
 register = template.Library()
 
@@ -133,15 +136,15 @@ def get_item(dictionary, key):
 
 
 @register.simple_tag
-def auto_link_css(flavour='full', css=''):
+def auto_link_css(mobile=False, css=''):
     '''
     Adds the appropriate classes to a sidebar link depending on the site version
 
-    :param flavour: flavour of the site: 'mobile' or 'full'
+    :param mobile: true if mobile version of site
     :param css: the CSS class, if any, of the link
     :return: the complete CSS classes, wrapped in class="foo"
     '''
-    css = css + ' btn btn-default btn-block' if flavour == 'mobile' else css
+    css = css + ' btn btn-default btn-block' if mobile else css
     return mark_safe('class="{0}"'.format(css))
 
 

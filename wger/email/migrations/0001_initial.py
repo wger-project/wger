@@ -27,13 +27,13 @@ class Migration(migrations.Migration):
                 ('date', models.DateField(auto_now=True)),
                 ('subject', models.CharField(max_length=100)),
                 ('body', models.TextField()),
-                ('gym', models.ForeignKey(editable=False, to='gym.Gym')),
-                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL)),
+                ('gym', models.ForeignKey(editable=False, to='gym.Gym', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
             model_name='cronentry',
             name='log',
-            field=models.ForeignKey(editable=False, to='email.Log'),
+            field=models.ForeignKey(editable=False, to='email.Log', on_delete=models.CASCADE),
         ),
     ]

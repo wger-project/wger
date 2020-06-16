@@ -15,15 +15,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import serializers
 
+# wger
 from wger.core.models import (
-    UserProfile,
-    Language,
     DaysOfWeek,
+    Language,
     License,
     RepetitionUnit,
-    WeightUnit)
+    UserProfile,
+    WeightUnit
+)
 
 
 class UserprofileSerializer(serializers.ModelSerializer):
@@ -32,6 +35,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = UserProfile
+        fields = '__all__'
 
 
 class UsernameSerializer(serializers.Serializer):
@@ -47,6 +51,7 @@ class LanguageSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = Language
+        fields = '__all__'
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):
@@ -55,6 +60,7 @@ class DaysOfWeekSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = DaysOfWeek
+        fields = '__all__'
 
 
 class LicenseSerializer(serializers.ModelSerializer):
@@ -63,6 +69,7 @@ class LicenseSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = License
+        fields = '__all__'
 
 
 class RepetitionUnitSerializer(serializers.ModelSerializer):
@@ -71,6 +78,7 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = RepetitionUnit
+        fields = '__all__'
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
@@ -79,3 +87,4 @@ class WeightUnitSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = WeightUnit
+        fields = '__all__'

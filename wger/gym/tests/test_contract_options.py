@@ -12,14 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
+# Third Party
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerEditTestCase,
+    WorkoutManagerAccessTestCase,
     WorkoutManagerAddTestCase,
     WorkoutManagerDeleteTestCase,
-    WorkoutManagerAccessTestCase,
-    delete_testcase_add_methods)
+    WorkoutManagerEditTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import ContractOption
 
 
@@ -88,6 +91,7 @@ class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
                  'member3',
                  'member4',
                  'member5')
+
 
 delete_testcase_add_methods(DeleteContractOptionTestCase)
 

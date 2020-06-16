@@ -1,24 +1,21 @@
+# Files in root folder
 include README.rst
 include AUTHORS.txt
 include AGPL.txt
 include CC-BY-SA.txt
 include requirements.txt
-include tasks.py
+include requirements_devel.txt
 
+# Application folder as well as extras
+recursive-include extras *.*
 recursive-include wger *.*
 recursive-exclude wger *.pyc
 recursive-exclude wger *.swp
 recursive-exclude wger *~
+include extras/docker/*/Dockerfile
 
-# added by check_manifest.py
-include *.rst
-include *.txt
+# Documentation
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs Makefile
-recursive-include extras *.README
-recursive-include extras *.conf
-recursive-include extras *.csv
-recursive-include extras *.py
-recursive-include extras *.txt

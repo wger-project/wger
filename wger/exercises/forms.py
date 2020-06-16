@@ -14,9 +14,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django import forms
 
-from wger.exercises.models import ExerciseImage, ExerciseComment
+# wger
+from wger.exercises.models import (
+    ExerciseComment,
+    ExerciseImage
+)
 
 
 class ExerciseImageForm(forms.ModelForm):

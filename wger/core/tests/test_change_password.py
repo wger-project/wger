@@ -12,12 +12,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
+
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +43,8 @@ class ChangePasswordTestCase(WorkoutManagerTestCase):
 
         # Fill in the change password form
         form_data = {'old_password': 'testtest',
-                     'new_password1': 'secret',
-                     'new_password2': 'secret'}
+                     'new_password1': 'shuZoh2oGu7i',
+                     'new_password2': 'shuZoh2oGu7i'}
 
         response = self.client.post(reverse('core:user:change-password'), form_data)
         self.assertEqual(response.status_code, 302)
@@ -50,7 +54,7 @@ class ChangePasswordTestCase(WorkoutManagerTestCase):
         if fail:
             self.assertTrue(user.check_password('testtest'))
         else:
-            self.assertTrue(user.check_password('secret'))
+            self.assertTrue(user.check_password('shuZoh2oGu7i'))
 
     def test_change_password_anonymous(self):
         '''

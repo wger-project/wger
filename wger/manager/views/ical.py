@@ -14,21 +14,33 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import logging
+# Standard Library
 import datetime
+import logging
 
-from icalendar import Calendar
-from icalendar import Event
+# Third Party
+from django.contrib.sites.models import Site
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden
+)
+from django.shortcuts import get_object_or_404
+from icalendar import (
+    Calendar,
+    Event
+)
 from icalendar.tools import UIDGenerator
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseForbidden
-from django.contrib.sites.models import Site
-
+# wger
 from wger import get_version
-from wger.manager.models import Workout, Schedule
-from wger.utils.helpers import next_weekday, check_token
+from wger.manager.models import (
+    Schedule,
+    Workout
+)
+from wger.utils.helpers import (
+    check_token,
+    next_weekday
+)
 
 
 logger = logging.getLogger(__name__)
@@ -84,7 +96,7 @@ def get_events_workout(calendar, workout, duration, start_date=None):
         description_list = []
         for set in day['set_list']:
             for exercise in set['exercise_list']:
-                description_list.append(six.text_type(exercise['obj']))
+                description_list.append(str(exercise['obj']))
         description = ', '.join(description_list) if description_list else day['obj'].description
 
         # Make an event for each weekday
@@ -113,7 +125,7 @@ def export(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=pk, user=request.user)
 
@@ -144,7 +156,7 @@ def export_schedule(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
 

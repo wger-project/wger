@@ -12,15 +12,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-from django.core.urlresolvers import reverse_lazy
 
+# Third Party
+from django.urls import reverse_lazy
+
+# wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.core.tests.base_testcase import delete_testcase_add_methods
+from wger.core.tests.base_testcase import (
+    WorkoutManagerAccessTestCase,
+    WorkoutManagerAddTestCase,
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import Gym
 
 
@@ -107,6 +112,7 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
                  'trainer4',
                  'manager1',
                  'manager3')
+
 
 delete_testcase_add_methods(DeleteGymTestCase)
 

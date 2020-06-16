@@ -15,15 +15,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
-
+# Third Party
 from django.contrib.auth.models import User
-from django.utils.encoding import python_2_unicode_compatible
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-@python_2_unicode_compatible
 class WeightEntry(models.Model):
     '''
     Model for a weight point
@@ -34,7 +35,8 @@ class WeightEntry(models.Model):
                                  decimal_places=2,
                                  validators=[MinValueValidator(30), MaxValueValidator(600)])
     user = models.ForeignKey(User,
-                             verbose_name=_('User'))
+                             verbose_name=_('User'),
+                             on_delete=models.CASCADE)
     '''
     The user the weight entry belongs to.
 

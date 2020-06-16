@@ -14,21 +14,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
-import six
+# Standard Library
+import csv
 import datetime
 import decimal
-import csv
 import json
+import logging
+import io
 from collections import OrderedDict
 
+# Third Party
 from django.core.cache import cache
 
-from wger.utils.helpers import DecimalJsonEncoder
+# wger
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.cache import cache_mapper
+from wger.utils.helpers import DecimalJsonEncoder
 from wger.weight.models import WeightEntry
-from wger.manager.models import WorkoutSession
-from wger.manager.models import WorkoutLog
+
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +47,7 @@ def parse_weight_csv(request, cleaned_data):
         dialect = 'excel'
 
     # csv.reader expects a file-like object, so use StringIO
-    parsed_csv = csv.reader(six.StringIO(cleaned_data['csv_input']),
+    parsed_csv = csv.reader(io.StringIO(cleaned_data['csv_input']),
                             dialect)
     distinct_weight_entries = []
     entry_dates = set()

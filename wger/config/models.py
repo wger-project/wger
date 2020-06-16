@@ -15,24 +15,33 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import logging
 
-from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+# Third Party
 from django.core.cache import cache
-from wger.core.models import Language, UserProfile
-from wger.gym.helpers import is_any_gym_admin
-from wger.gym.models import Gym, GymUserConfig
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.cache import cache_mapper
+# wger
+from wger.core.models import (
+    Language,
+    UserProfile
+)
+from wger.gym.helpers import is_any_gym_admin
+from wger.gym.models import (
+    Gym,
+    GymUserConfig
+)
+from wger.utils.cache import (
+    cache_mapper,
+    delete_template_fragment_cache
+)
 
 
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class LanguageConfig(models.Model):
     '''
     Configuration for languages
@@ -48,10 +57,12 @@ class LanguageConfig(models.Model):
 
     language = models.ForeignKey(Language,
                                  related_name='language_source',
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     language_target = models.ForeignKey(Language,
                                         related_name='language_target',
-                                        editable=False)
+                                        editable=False,
+                                        on_delete=models.CASCADE)
     item = models.CharField(max_length=2,
                             choices=SHOW_ITEM_LIST,
                             editable=False)
@@ -98,7 +109,6 @@ class LanguageConfig(models.Model):
         super(LanguageConfig, self).delete(*args, **kwargs)
 
 
-@python_2_unicode_compatible
 class GymConfig(models.Model):
     '''
     System wide configuration for gyms
@@ -114,7 +124,8 @@ class GymConfig(models.Model):
                                                 'gym and update all existing users without a '
                                                 'gym.'),
                                     null=True,
-                                    blank=True)
+                                    blank=True,
+                                    on_delete=models.CASCADE)
     '''
     Default gym for the wger installation
     '''

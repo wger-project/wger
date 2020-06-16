@@ -12,12 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
+# Third Party
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
     WorkoutManagerAccessTestCase,
-    WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
+    WorkoutManagerEditTestCase
 )
 from wger.gym.models import Contract
 

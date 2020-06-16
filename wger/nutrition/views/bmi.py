@@ -15,15 +15,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+# Standard Library
 import json
+import logging
 
+# Third Party
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
 
+# wger
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
+
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +45,7 @@ def view(request):
     form_data = {'height': request.user.userprofile.height,
                  'weight': request.user.userprofile.weight}
     context['form'] = BmiForm(initial=form_data)
-    return render(request, 'bmi/form.html', context)
+    return helpers.ua_aware_render(request, 'bmi/form.html', context)
 
 
 @login_required

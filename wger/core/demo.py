@@ -14,36 +14,39 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import random
-import datetime
 import uuid
 
-from django.contrib.auth.models import User
+# Third Party
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from wger.weight.models import WeightEntry
-from wger.exercises.models import Exercise
+# wger
 from wger.core.models import DaysOfWeek
+from wger.exercises.models import Exercise
 from wger.manager.models import (
-    Workout,
     Day,
+    Schedule,
+    ScheduleStep,
     Set,
     Setting,
-    WorkoutLog,
-    Schedule,
-    ScheduleStep
+    Workout,
+    WorkoutLog
 )
 from wger.nutrition.models import (
-    NutritionPlan,
+    Ingredient,
+    IngredientWeightUnit,
     Meal,
     MealItem,
-    Ingredient,
-    IngredientWeightUnit
+    NutritionPlan
 )
-
 from wger.utils.language import load_language
+from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 

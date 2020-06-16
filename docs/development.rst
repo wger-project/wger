@@ -3,6 +3,14 @@
 Development
 ===========
 
+Assumptions
+-----------
+
+For clarity purposes regarding these instructions we are assuming the following
+
+* You will be installing the program in ``/home/wger/wger``
+
+
 Requirements
 ------------
 
@@ -16,7 +24,7 @@ The code is available on Github::
 Create a virtual environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-It's a best practise to create a Python virtual environment::
+It's a best practice to create a Python virtual environment::
 
   $ virtualenv --python python3 venv-wger
   $ source venv-wger/bin/activate
@@ -31,20 +39,11 @@ To install the Python requirements::
   $ pip install -r requirements_devel.txt
   $ python setup.py develop
 
-Install NodeJS and npm::
-Follow the instructions on the `NPM website <https://docs.npmjs
-.com/getting-started/installing-node>`_ and make sure to use Node LTS (4
-.x).
+Install application
+~~~~~~~~~~~~~~~~~~~
 
-Install the npm modules::
-
-  $ npm install
-
-
-Install site
-~~~~~~~~~~~~
-
-To install the server::
+To install the development server, init the database and create a settings
+file::
 
   $ wger create_settings \
            --settings-path /home/wger/wger/settings.py \
@@ -60,10 +59,10 @@ To start the server::
 
   $ python manage.py runserver
 
-That's it. You can log in with the default administator user:
+That's it. You can log in with the default administrator user:
 
 * **username**: admin
-* **passsword**: admin
+* **password**: admin
 
 You can start the application again with the django server with
 ``python manage.py runserver``.

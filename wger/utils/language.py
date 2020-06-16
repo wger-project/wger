@@ -12,14 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.utils import translation
-from django.core.exceptions import ObjectDoesNotExist
+# Third Party
 from django.core.cache import cache
-from wger.core.models import Language
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils import translation
 
+# wger
 from wger.config.models import LanguageConfig
+from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 
 
@@ -99,7 +102,7 @@ def load_ingredient_languages(request):
     languages = load_item_languages(LanguageConfig.SHOW_ITEM_INGREDIENTS)
 
     # Only registered users have a profile
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         profile = request.user.userprofile
         show_english = profile.show_english_ingredients
 

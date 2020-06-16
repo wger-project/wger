@@ -29,7 +29,7 @@
                 <p>{% trans error %}</p>
             {% endfor %}
 
-            {% if field.help_text %}{% trans field.help_text %}{% endif %}
+            {% if field.help_text %}{% trans field.help_text|safe %}{% endif %}
             </span>
         </div>
 

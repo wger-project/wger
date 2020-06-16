@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-
 from wger.utils import user_agents
 
 

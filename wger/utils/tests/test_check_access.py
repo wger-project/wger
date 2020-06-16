@@ -12,9 +12,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.contrib.auth.models import User, AnonymousUser
+# Third Party
+from django.contrib.auth.models import (
+    AnonymousUser,
+    User
+)
 from django.http import Http404
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.utils.helpers import check_access
 

@@ -15,28 +15,34 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from django.contrib.auth.models import User
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.decorators import detail_route
 
-from wger.core.models import (
-    UserProfile,
-    Language,
-    DaysOfWeek,
-    License,
-    RepetitionUnit,
-    WeightUnit)
+# wger
 from wger.core.api.serializers import (
-    UsernameSerializer,
-    LanguageSerializer,
     DaysOfWeekSerializer,
+    LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
+    UsernameSerializer,
+    UserprofileSerializer,
     WeightUnitSerializer
 )
-from wger.core.api.serializers import UserprofileSerializer
-from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
+from wger.core.models import (
+    DaysOfWeek,
+    Language,
+    License,
+    RepetitionUnit,
+    UserProfile,
+    WeightUnit
+)
+from wger.utils.permissions import (
+    UpdateOnlyPermission,
+    WgerPermission
+)
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -60,7 +66,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         '''
         return [(User, 'user')]
 
-    @detail_route()
+    @action(detail=True)
     def username(self, request, pk):
         '''
         Return the username
@@ -77,8 +83,8 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
-    filter_fields = ('full_name',
-                     'short_name')
+    filterset_fields = ('full_name',
+                        'short_name')
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
@@ -88,7 +94,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filter_fields = ('day_of_week', )
+    filterset_fields = ('day_of_week', )
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -98,9 +104,9 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = License.objects.all()
     serializer_class = LicenseSerializer
     ordering_fields = '__all__'
-    filter_fields = ('full_name',
-                     'short_name',
-                     'url')
+    filterset_fields = ('full_name',
+                        'short_name',
+                        'url')
 
 
 class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -110,7 +116,7 @@ class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = RepetitionUnit.objects.all()
     serializer_class = RepetitionUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name', )
+    filterset_fields = ('name', )
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
@@ -120,4 +126,4 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WeightUnit.objects.all()
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name', )
+    filterset_fields = ('name', )

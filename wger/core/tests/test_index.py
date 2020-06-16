@@ -13,8 +13,10 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.core.urlresolvers import reverse
+# Third Party
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan
@@ -94,3 +96,16 @@ class DashboardTestCase(WorkoutManagerTestCase):
 
         self.user_login('admin')
         self.dashboard()
+
+    def test_mobile_dashboard(self):
+        '''
+        Test that a mobile request gets the mobile view
+        '''
+        response = self.client.get(reverse('core:dashboard'))
+
+        self.assertEqual(response.status_code, 200)
+
+        if self.is_mobile:
+            self.assertContains(response, 'css/workout-manager-mobile.css', html=False)
+        else:
+            self.assertContains(response, 'css/workout-manager.css', html=False)

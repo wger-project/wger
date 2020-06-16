@@ -14,16 +14,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.template import loader
-from django.core.management.base import BaseCommand
-from django.core import mail
-from django.utils.translation import ugettext_lazy as _
-from django.utils import translation
+# Third Party
 from django.conf import settings
-
 from django.contrib.sites.models import Site
+from django.core import mail
+from django.core.management.base import BaseCommand
+from django.template import loader
+from django.utils import translation
+from django.utils.translation import ugettext_lazy as _
+
+# wger
 from wger.core.models import UserProfile
 from wger.weight.models import WeightEntry
 

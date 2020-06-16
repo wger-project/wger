@@ -14,12 +14,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.db import models
-from django.db.models import Q
+# Third Party
 from django.contrib.auth.models import (
     Permission,
     User
 )
+from django.db import models
+from django.db.models import Q
 
 
 class GymManager(models.Manager):

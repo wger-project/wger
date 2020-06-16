@@ -14,29 +14,37 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
+import decimal
+import json
+import logging
 import os
 import random
 import string
-import logging
-import decimal
-import json
-import datetime
-
 from functools import wraps
 
-from django.http import Http404
+# Third Party
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import (
+    urlsafe_base64_decode,
+    urlsafe_base64_encode
+)
+
+from django.shortcuts import render
+from django_user_agents.utils import get_user_agent
+from django.template.exceptions import TemplateDoesNotExist
 
 logger = logging.getLogger(__name__)
 
 
 class EmailAuthBackend(object):
 
-    def authenticate(self, username=None, password=None):
+    def authenticate(self, request, username=None, password=None):
         try:
             user = User.objects.get(email=username)
             if user.check_password(password):
@@ -183,7 +191,7 @@ def check_access(request_user, username=None):
 
     # If there is no user_pk, just show the user his own data
     else:
-        if not request_user.is_authenticated():
+        if not request_user.is_authenticated:
             raise Http404('You are not allowed to access this page.')
         user = request_user
 
@@ -230,3 +238,15 @@ def smart_capitalize(input):
         else:
             out.append(word)
     return ' '.join(out)
+
+
+def ua_aware_render(request, template, context):
+    user_agent = get_user_agent(request)
+    try_template = template
+    if user_agent.is_mobile:
+        try_template = 'mobile/' + template
+
+    try:
+        return render(request, try_template, context)
+    except TemplateDoesNotExist:
+        return render(request, template, context)

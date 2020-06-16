@@ -14,43 +14,58 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import uuid
-import datetime
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
+# Third Party
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.forms.models import modelformset_factory
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import get_object_or_404
+from django.template.context_processors import csrf
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    UpdateView,
+    DeleteView,
     DetailView,
-    DeleteView
+    UpdateView
 )
 
-from wger.manager.helpers import WorkoutCalendar
-from wger.manager.models import (
-    Workout,
-    WorkoutSession,
-    Day,
-    WorkoutLog,
-    Schedule
-)
+# wger
 from wger.manager.forms import (
     HelperDateForm,
     HelperWorkoutSessionForm,
     WorkoutLogForm
 )
+from wger.manager.helpers import WorkoutCalendar
+from wger.utils.helpers import ua_aware_render
+from wger.manager.models import (
+    Day,
+    Schedule,
+    Workout,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 from wger.utils.helpers import check_access
-from wger.weight.helpers import process_log_entries, group_log_entries
+from wger.weight.helpers import (
+    group_log_entries,
+    process_log_entries
+)
 
 
 logger = logging.getLogger(__name__)
@@ -217,7 +232,7 @@ def add(request, pk):
     template_data['session_form'] = session_form
     template_data['form_action'] = reverse('manager:day:log', kwargs={'pk': pk})
 
-    return render(request, 'day/log.html', template_data)
+    return ua_aware_render(request, 'day/log.html', template_data)
 
 
 class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
@@ -315,7 +330,7 @@ def calendar(request, username=None, year=None, month=None):
     context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
     context['show_shariff'] = is_owner and user.userprofile.ro_access
-    return render(request, 'calendar/month.html', context)
+    return ua_aware_render(request, 'calendar/month.html', context)
 
 
 def day(request, username, year, month, day):
@@ -336,4 +351,4 @@ def day(request, username, year, month, day):
     context['is_owner'] = is_owner
     context['show_shariff'] = is_owner and user.userprofile.ro_access
 
-    return render(request, 'calendar/day.html', context)
+    return ua_aware_render(request, 'calendar/day.html', context)

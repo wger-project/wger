@@ -13,10 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Third Party
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+# wger
 from wger.core.tests.base_testcase import BaseTestCase
 
 

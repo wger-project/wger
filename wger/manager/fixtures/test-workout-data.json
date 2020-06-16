@@ -1,83 +1,83 @@
 [
     {
-        "pk": 1, 
-        "model": "manager.workout", 
+        "pk": 1,
+        "model": "manager.workout",
         "fields": {
-            "comment": "A test workout", 
-            "user": 1, 
+            "comment": "A test workout",
+            "user": 1,
             "creation_date": "2012-11-01"
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "manager.workout", 
+        "pk": 2,
+        "model": "manager.workout",
         "fields": {
-            "comment": "Another test workout", 
-            "user": 1, 
+            "comment": "Another test workout",
+            "user": 1,
             "creation_date": "2012-11-10"
         }
     },
     {
-        "pk": 3, 
-        "model": "manager.workout", 
+        "pk": 3,
+        "model": "manager.workout",
         "fields": {
-            "comment": "My test workout", 
-            "user": 2, 
+            "comment": "My test workout",
+            "user": 2,
             "creation_date": "2012-11-20"
         }
     },
-    
-    
+
+
     {
-        "pk": 1, 
-        "model": "manager.day", 
+        "pk": 1,
+        "model": "manager.day",
         "fields": {
-            "training": 1, 
-            "description": "A day", 
+            "training": 1,
+            "description": "A day",
             "day": [
                 2
             ]
         }
-    }, 
+    },
     {
-        "pk": 2, 
-        "model": "manager.day", 
+        "pk": 2,
+        "model": "manager.day",
         "fields": {
-            "training": 1, 
-            "description": "Another day", 
+            "training": 1,
+            "description": "Another day",
             "day": [
                 4
             ]
         }
     },
     {
-        "pk": 3, 
-        "model": "manager.day", 
+        "pk": 3,
+        "model": "manager.day",
         "fields": {
-            "training": 2, 
-            "description": "Test day 1", 
+            "training": 2,
+            "description": "Test day 1",
             "day": [
                 1
             ]
         }
-    }, 
+    },
     {
-        "pk": 4, 
-        "model": "manager.day", 
+        "pk": 4,
+        "model": "manager.day",
         "fields": {
-            "training": 1, 
-            "description": "Test day 2", 
+            "training": 1,
+            "description": "Test day 2",
             "day": [
                 5
             ]
         }
     },
     {
-        "pk": 5, 
-        "model": "manager.day", 
+        "pk": 5,
+        "model": "manager.day",
         "fields": {
-            "training": 3, 
-            "description": "A cool day", 
+            "training": 3,
+            "description": "A cool day",
             "day": [
                 5,
                 3
@@ -87,142 +87,142 @@
 
 
     {
-        "pk": 1, 
-        "model": "manager.set", 
+        "pk": 1,
+        "model": "manager.set",
         "fields": {
             "exercises": [
                 1
-            ], 
-            "exerciseday": 1, 
-            "order": 1, 
+            ],
+            "exerciseday": 1,
+            "order": 1,
             "sets": "2"
         }
     },
     {
         "pk": 2,
-        "model": "manager.set", 
+        "model": "manager.set",
         "fields": {
             "exercises": [
                 2
-            ], 
-            "exerciseday": 2, 
-            "order": 1, 
+            ],
+            "exerciseday": 2,
+            "order": 1,
             "sets": "4"
         }
     },
     {
         "pk": 3,
-        "model": "manager.set", 
+        "model": "manager.set",
         "fields": {
             "exercises": [
                 2
-            ], 
-            "exerciseday": 5, 
-            "order": 1, 
+            ],
+            "exerciseday": 5,
+            "order": 1,
             "sets": "4"
         }
     },
 
     {
-        "pk": 1, 
-        "model": "manager.setting", 
+        "pk": 1,
+        "model": "manager.setting",
         "fields": {
-            "comment": "", 
+            "comment": "",
             "set": 1,
             "reps": 8,
             "repetition_unit_id": 1,
             "weight_unit_id": 1,
             "weight": null,
-            "order": 1, 
+            "order": 1,
             "exercise": 1
         }
     },
     {
-        "pk": 2, 
-        "model": "manager.setting", 
+        "pk": 2,
+        "model": "manager.setting",
         "fields": {
-            "comment": "", 
-            "set": 2, 
+            "comment": "",
+            "set": 2,
             "reps": 10,
             "repetition_unit_id": 1,
             "weight_unit_id": 1,
             "weight": 15,
-            "order": 1, 
+            "order": 1,
             "exercise": 2
         }
     },
     {
-        "pk": 3, 
-        "model": "manager.setting", 
+        "pk": 3,
+        "model": "manager.setting",
         "fields": {
-            "comment": "", 
-            "set": 3, 
+            "comment": "",
+            "set": 3,
             "reps": 10,
             "repetition_unit_id": 1,
             "weight_unit_id": 1,
             "weight": null,
-            "order": 1, 
+            "order": 1,
             "exercise": 2
         }
     },
 
     {
-        "pk": 1, 
-        "model": "manager.workoutlog", 
+        "pk": 1,
+        "model": "manager.workoutlog",
         "fields": {
-            "weight": 30, 
-            "workout": 1, 
-            "reps": 8, 
-            "user": 1, 
-            "date": "2012-10-01", 
+            "weight": 30,
+            "workout": 1,
+            "reps": 8,
+            "user": 1,
+            "date": "2012-10-01",
             "exercise": 1
         }
     },
     {
-        "pk": 2, 
-        "model": "manager.workoutlog", 
+        "pk": 2,
+        "model": "manager.workoutlog",
         "fields": {
             "weight": 32,
-            "workout": 1, 
-            "reps": 8, 
-            "user": 1, 
-            "date": "2012-10-10", 
+            "workout": 1,
+            "reps": 8,
+            "user": 1,
+            "date": "2012-10-10",
             "exercise": 1
         }
     },
     {
-        "pk": 3, 
-        "model": "manager.workoutlog", 
+        "pk": 3,
+        "model": "manager.workoutlog",
         "fields": {
-            "weight": 38, 
-            "workout": 1, 
-            "reps": 8, 
-            "user": 1, 
+            "weight": 38,
+            "workout": 1,
+            "reps": 8,
+            "user": 1,
             "date": "2013-10-30",
             "exercise": 1
         }
     },
     {
-        "pk": 4, 
-        "model": "manager.workoutlog", 
+        "pk": 4,
+        "model": "manager.workoutlog",
         "fields": {
-            "weight": 30, 
-            "workout": 1, 
-            "reps": 8, 
-            "user": 1, 
-            "date": "2012-11-01", 
+            "weight": 30,
+            "workout": 1,
+            "reps": 8,
+            "user": 1,
+            "date": "2012-11-01",
             "exercise": 1
         }
     },
     {
-        "pk": 5, 
-        "model": "manager.workoutlog", 
+        "pk": 5,
+        "model": "manager.workoutlog",
         "fields": {
-            "weight": 30, 
-            "workout": 3, 
-            "reps": 8, 
-            "user": 2, 
-            "date": "2012-11-01", 
+            "weight": 30,
+            "workout": 3,
+            "reps": 8,
+            "user": 2,
+            "date": "2012-11-01",
             "exercise": 2
         }
     }

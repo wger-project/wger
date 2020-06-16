@@ -15,35 +15,41 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
-from rest_framework.decorators import detail_route, api_view
-
+# Third Party
+from django.utils.translation import ugettext as _
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
+from rest_framework import viewsets
+from rest_framework.decorators import (
+    action,
+    api_view
+)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
-from django.utils.translation import ugettext as _
-
+# wger
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
-    MuscleSerializer,
-    ExerciseSerializer,
-    ExerciseImageSerializer,
-    ExerciseCategorySerializer,
-    ExerciseInfoSerializer,
     EquipmentSerializer,
-    ExerciseCommentSerializer
+    ExerciseCategorySerializer,
+    ExerciseCommentSerializer,
+    ExerciseImageSerializer,
+    ExerciseInfoSerializer,
+    ExerciseSerializer,
+    MuscleSerializer
 )
 from wger.exercises.models import (
-    Exercise,
     Equipment,
+    Exercise,
     ExerciseCategory,
-    ExerciseImage,
     ExerciseComment,
+    ExerciseImage,
     Muscle
 )
-from wger.utils.language import load_item_languages, load_language
+from wger.utils.language import (
+    load_item_languages,
+    load_language
+)
 from wger.utils.permissions import CreateOnlyPermission
 
 
@@ -55,17 +61,17 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('category',
-                     'creation_date',
-                     'description',
-                     'language',
-                     'muscles',
-                     'muscles_secondary',
-                     'status',
-                     'name',
-                     'equipment',
-                     'license',
-                     'license_author')
+    filterset_fields = ('category',
+                        'creation_date',
+                        'description',
+                        'language',
+                        'muscles',
+                        'muscles_secondary',
+                        'status',
+                        'name',
+                        'equipment',
+                        'license',
+                        'license_author')
 
     def perform_create(self, serializer):
         '''
@@ -132,17 +138,17 @@ class ExerciseInfoViewset(viewsets.ModelViewSet):
     serializer_class = ExerciseInfoSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('category',
-                     'creation_date',
-                     'description',
-                     'language',
-                     'muscles',
-                     'muscles_secondary',
-                     'status',
-                     'name',
-                     'equipment',
-                     'license',
-                     'license_author')
+    filterset_fields = ('category',
+                        'creation_date',
+                        'description',
+                        'language',
+                        'muscles',
+                        'muscles_secondary',
+                        'status',
+                        'name',
+                        'equipment',
+                        'license',
+                        'license_author')
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
@@ -152,7 +158,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name',)
+    filterset_fields = ('name',)
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -162,7 +168,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseCategory.objects.all()
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
-    filter_fields = ('name',)
+    filterset_fields = ('name',)
 
 
 class ExerciseImageViewSet(viewsets.ModelViewSet):
@@ -173,13 +179,13 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseImageSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filter_fields = ('is_main',
-                     'status',
-                     'exercise',
-                     'license',
-                     'license_author')
+    filterset_fields = ('is_main',
+                        'status',
+                        'exercise',
+                        'license',
+                        'license_author')
 
-    @detail_route()
+    @action(detail=True)
     def thumbnails(self, request, pk):
         '''
         Return a list of the image's thumbnails
@@ -216,8 +222,8 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseComment.objects.all()
     serializer_class = ExerciseCommentSerializer
     ordering_fields = '__all__'
-    filter_fields = ('comment',
-                     'exercise')
+    filterset_fields = ('comment',
+                        'exercise')
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
@@ -227,5 +233,5 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
-    filter_fields = ('name',
-                     'is_front')
+    filterset_fields = ('name',
+                        'is_front')

@@ -12,16 +12,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from django.core.files import File
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerEditTestCase,
     WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerEditTestCase,
+    WorkoutManagerTestCase
 )
-from wger.exercises.models import Exercise, ExerciseImage
+from wger.exercises.models import (
+    Exercise,
+    ExerciseImage
+)
 
 
 class MainImageTestCase(WorkoutManagerTestCase):
@@ -33,17 +38,18 @@ class MainImageTestCase(WorkoutManagerTestCase):
         '''
         Helper function to save an image to an exercise
         '''
-        if not db_filename:
-            db_filename = filename
-        image = ExerciseImage()
-        image.exercise = exercise
-        image.status = ExerciseImage.STATUS_ACCEPTED
-        image.image.save(
-            filename,
-            File(open('wger/exercises/tests/{0}'.format(filename), 'rb'))
-        )
-        image.save()
-        return(image.pk)
+        with open('wger/exercises/tests/{0}'.format(filename), 'rb') as inFile:
+            if not db_filename:
+                db_filename = filename
+            image = ExerciseImage()
+            image.exercise = exercise
+            image.status = ExerciseImage.STATUS_ACCEPTED
+            image.image.save(
+                filename,
+                File(inFile)
+            )
+            image.save()
+            return(image.pk)
 
     def test_auto_main_image(self):
         '''

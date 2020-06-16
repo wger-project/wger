@@ -14,12 +14,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from tastypie.authentication import ApiKeyAuthentication
-from tastypie.resources import ModelResource
 from tastypie.constants import ALL
+from tastypie.resources import ModelResource
 
-from wger.weight.models import WeightEntry
+# wger
 from wger.utils.resources import UserObjectsOnlyAuthorization
+from wger.weight.models import WeightEntry
 
 
 class WeightEntryResource(ModelResource):

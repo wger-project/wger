@@ -14,19 +14,25 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
 from captcha.fields import ReCaptchaField
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django import forms
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    UserCreationForm
+)
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django import forms
 from django.forms import (
+    CharField,
     EmailField,
     Form,
-    CharField,
-    widgets,
-    PasswordInput
+    PasswordInput,
+    widgets
 )
 from django.utils.translation import ugettext as _
+
+# wger
 from wger.core.models import UserProfile
 
 
@@ -52,7 +58,9 @@ class UserPreferencesForm(forms.ModelForm):
                   'timer_active',
                   'timer_pause',
                   'ro_access',
-                  'num_days_weight_reminder')
+                  'num_days_weight_reminder',
+                  'birthdate'
+                  )
 
 
 class UserEmailForm(forms.ModelForm):
@@ -132,8 +140,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
     # randomly one of the application languages. This also appears to happen
     # only on wger.de, perhaps because there the application is behind a reverse
     # proxy. See  #281.
-    captcha = ReCaptchaField(attrs={'theme': 'clean', 'lang': 'en'},
-                             label=_('Confirmation text'),
+    captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'))
 
 
@@ -170,6 +177,5 @@ class FeedbackAnonymousForm(FeedbackRegisteredForm):
     '''
     Feedback form used for anonymous users (has additionally a reCaptcha field)
     '''
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
-                             label=_('Confirmation text'),
+    captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)

@@ -14,24 +14,35 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
-import bleach
 
-from django.utils.translation import ugettext_lazy
+# Third Party
+import bleach
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
 from django.template.context_processors import csrf
-from django.views.generic.edit import ModelFormMixin
+from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.views.generic.base import View
+from django.views.generic.edit import ModelFormMixin
 
+# wger
 from wger.utils.constants import (
-    HTML_TAG_WHITELIST,
     HTML_ATTRIBUTES_WHITELIST,
-    HTML_STYLES_WHITELIST
+    HTML_STYLES_WHITELIST,
+    HTML_TAG_WHITELIST
 )
 
+from django_user_agents.utils import get_user_agent
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +87,7 @@ class WgerPermissionMixin(object):
         '''
 
         if self.login_required or self.permission_required:
-            if not request.user.is_authenticated():
+            if not request.user.is_authenticated:
                 return HttpResponseRedirect(reverse_lazy('core:user:login')
                                             + '?next={0}'.format(request.path))
 
@@ -325,9 +336,10 @@ class TextTemplateView(TemplateView):
     '''
     A regular templateView that sets the mime type as text/plain
     '''
-    def render_to_response(self, context, **response_kwargs):
-        response_kwargs['content_type'] = 'text/plain'
-        return super(TextTemplateView, self).render_to_response(context, **response_kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        resp = super().dispatch(request, args, kwargs)
+        resp['Content-Type'] = 'text/plain'
+        return resp
 
 
 class WebappManifestView(TemplateView):
@@ -338,6 +350,18 @@ class WebappManifestView(TemplateView):
     '''
     template_name = 'manifest.webapp'
 
-    def render_to_response(self, context, **response_kwargs):
-        response_kwargs['content_type'] = 'application/x-web-app-manifest+json'
-        return super(WebappManifestView, self).render_to_response(context, **response_kwargs)
+    def dispatch(request, *args, **kwargs):
+        resp = super().dispatch(request, args, kwargs)
+        resp['Content-Type'] = 'application/x-web-app-manifest+json'
+        return resp
+
+
+class UAAwareViewMixin(View):
+    def get_template_names(self):
+        templates = [self.template_name]
+
+        user_agent = get_user_agent(self.request)
+        if user_agent.is_mobile:
+            templates.insert(0, 'mobile/' + self.template_name)
+
+        return templates

@@ -15,14 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import serializers
+
+# wger
 from wger.nutrition.models import (
-    NutritionPlan,
+    Ingredient,
     IngredientWeightUnit,
-    WeightUnit,
-    MealItem,
     Meal,
-    Ingredient
+    MealItem,
+    NutritionPlan,
+    WeightUnit
 )
 
 
@@ -43,6 +46,7 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientWeightUnit
+        fields = '__all__'
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
@@ -52,6 +56,7 @@ class WeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightUnit
+        fields = '__all__'
 
 
 class MealItemSerializer(serializers.ModelSerializer):
@@ -63,6 +68,7 @@ class MealItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealItem
+        fields = '__all__'
 
 
 class MealSerializer(serializers.ModelSerializer):
@@ -74,6 +80,7 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
+        fields = '__all__'
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -83,3 +90,4 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
+        fields = '__all__'

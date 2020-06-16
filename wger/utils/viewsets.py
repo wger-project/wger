@@ -15,7 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework import exceptions, viewsets
+# Third Party
+from rest_framework import (
+    exceptions,
+    viewsets
+)
 
 
 class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):

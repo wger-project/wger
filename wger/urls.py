@@ -15,38 +15,56 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from tastypie.api import Api
-from rest_framework import routers
-
+# Third Party
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import (
+    include,
+    url
+)
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
+from rest_framework import routers
+from tastypie.api import Api
 
-from wger.nutrition.sitemap import NutritionSitemap
+# wger
+from wger.core.api import (
+    resources as core_api,
+    views as core_api_views
+)
+from wger.exercises.api import (
+    resources as exercises_api,
+    views as exercises_api_views
+)
 from wger.exercises.sitemap import ExercisesSitemap
+from wger.manager.api import (
+    resources as manager_api,
+    views as manager_api_views
+)
+from wger.nutrition.api import (
+    resources as nutrition_api,
+    views as nutrition_api_views
+)
+from wger.nutrition.sitemap import NutritionSitemap
+from wger.utils.generic_views import (
+    TextTemplateView,
+    WebappManifestView
+)
+from wger.weight.api import (
+    resources as weight_api,
+    views as weight_api_views
+)
 
-from wger.utils.generic_views import TextTemplateView
-from wger.utils.generic_views import WebappManifestView
 
-from wger.exercises.api import resources as exercises_api
-from wger.nutrition.api import resources as nutrition_api
-from wger.manager.api import resources as manager_api
-from wger.core.api import resources as core_api
-from wger.weight.api import resources as weight_api
+admin.autodiscover()
 
-from wger.manager.api import views as manager_api_views
-from wger.core.api import views as core_api_views
-from wger.exercises.api import views as exercises_api_views
-from wger.nutrition.api import views as nutrition_api_views
-from wger.weight.api import views as weight_api_views
 
 #
 # REST API
 #
 
-### /api/v1 - tastypie - deprecated
+# /api/v1 - tastypie - deprecated
 v1_api = Api(api_name='v1')
 
 v1_api.register(exercises_api.ExerciseCategoryResource())
@@ -80,51 +98,47 @@ v1_api.register(core_api.UserProfileResource())
 v1_api.register(core_api.LicenseResource())
 
 
-### /api/v2 - django rest framework
+# /api/v2 - django rest framework
 router = routers.DefaultRouter()
 
 # Manager app
-router.register(r'workout', manager_api_views.WorkoutViewSet, base_name='workout')
-router.register(r'workoutsession', manager_api_views.WorkoutSessionViewSet, base_name='workoutsession')
-router.register(r'schedulestep', manager_api_views.ScheduleStepViewSet, base_name='schedulestep')
-router.register(r'schedule', manager_api_views.ScheduleViewSet, base_name='schedule')
-router.register(r'day', manager_api_views.DayViewSet, base_name='day')
-router.register(r'set', manager_api_views.SetViewSet, base_name='Set')
-router.register(r'setting', manager_api_views.SettingViewSet, base_name='Setting')
-router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, base_name='workoutlog')
+router.register(r'workout', manager_api_views.WorkoutViewSet, basename='workout')
+router.register(r'workoutsession', manager_api_views.WorkoutSessionViewSet, basename='workoutsession')
+router.register(r'schedulestep', manager_api_views.ScheduleStepViewSet, basename='schedulestep')
+router.register(r'schedule', manager_api_views.ScheduleViewSet, basename='schedule')
+router.register(r'day', manager_api_views.DayViewSet, basename='day')
+router.register(r'set', manager_api_views.SetViewSet, basename='Set')
+router.register(r'setting', manager_api_views.SettingViewSet, basename='Setting')
+router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='workoutlog')
 
 # Core app
-router.register(r'userprofile', core_api_views.UserProfileViewSet, base_name='userprofile')
-router.register(r'language', core_api_views.LanguageViewSet, base_name='language')
-router.register(r'daysofweek', core_api_views.DaysOfWeekViewSet, base_name='daysofweek')
-router.register(r'license', core_api_views.LicenseViewSet, base_name='license')
-router.register(r'setting-repetitionunit', core_api_views.RepetitionUnitViewSet, base_name='setting-repetition-unit')
-router.register(r'setting-weightunit', core_api_views.WeightUnitViewSet, base_name='setting-weight-unit')
+router.register(r'userprofile', core_api_views.UserProfileViewSet, basename='userprofile')
+router.register(r'language', core_api_views.LanguageViewSet, basename='language')
+router.register(r'daysofweek', core_api_views.DaysOfWeekViewSet, basename='daysofweek')
+router.register(r'license', core_api_views.LicenseViewSet, basename='license')
+router.register(r'setting-repetitionunit', core_api_views.RepetitionUnitViewSet, basename='setting-repetition-unit')
+router.register(r'setting-weightunit', core_api_views.WeightUnitViewSet, basename='setting-weight-unit')
 
 # Exercises app
 # Add router for viewing exercise info
-router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, base_name='exerciseinfo')
-router.register(r'exercise', exercises_api_views.ExerciseViewSet, base_name='exercise')
-router.register(r'equipment', exercises_api_views.EquipmentViewSet, base_name='api')
-router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, base_name='exercisecategory')
-router.register(r'exerciseimage', exercises_api_views.ExerciseImageViewSet, base_name='exerciseimage')
-router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, base_name='exercisecomment')
-router.register(r'muscle', exercises_api_views.MuscleViewSet, base_name='muscle')
+router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, basename='exerciseinfo')
+router.register(r'exercise', exercises_api_views.ExerciseViewSet, basename='exercise')
+router.register(r'equipment', exercises_api_views.EquipmentViewSet, basename='api')
+router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, basename='exercisecategory')
+router.register(r'exerciseimage', exercises_api_views.ExerciseImageViewSet, basename='exerciseimage')
+router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, basename='exercisecomment')
+router.register(r'muscle', exercises_api_views.MuscleViewSet, basename='muscle')
 
 # Nutrition app
-router.register(r'ingredient', nutrition_api_views.IngredientViewSet, base_name='api-ingredient')
-router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, base_name='weightunit')
-router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet, base_name='ingredientweightunit')
-router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, base_name='nutritionplan')
-router.register(r'meal', nutrition_api_views.MealViewSet, base_name='meal')
-router.register(r'mealitem', nutrition_api_views.MealItemViewSet, base_name='mealitem')
+router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='api-ingredient')
+router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, basename='weightunit')
+router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet, basename='ingredientweightunit')
+router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, basename='nutritionplan')
+router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
+router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='mealitem')
 
 # Weight app
-router.register(r'weightentry', weight_api_views.WeightEntryViewSet, base_name='weightentry')
-
-
-from django.contrib import admin
-admin.autodiscover()
+router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
 
 #
 # Sitemaps
@@ -136,16 +150,16 @@ sitemaps = {'exercises': ExercisesSitemap,
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('wger.core.urls', namespace='core', app_name='core')),
-    url(r'workout/', include('wger.manager.urls', namespace='manager')),
-    url(r'exercise/', include('wger.exercises.urls', namespace='exercise')),
-    url(r'weight/', include('wger.weight.urls', namespace='weight')),
-    url(r'nutrition/', include('wger.nutrition.urls', namespace='nutrition')),
-    url(r'software/', include('wger.software.urls', namespace='software', app_name='software')),
-    url(r'config/', include('wger.config.urls', namespace='config', app_name='config')),
-    url(r'gym/', include('wger.gym.urls', namespace='gym', app_name='gym')),
-    url(r'email/', include('wger.email.urls', namespace='email')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include(('wger.core.urls', 'core'), namespace='core')),
+    url(r'workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
+    url(r'exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
+    url(r'weight/', include(('wger.weight.urls', 'weight'), namespace='weight')),
+    url(r'nutrition/', include(('wger.nutrition.urls', 'nutrition'), namespace='nutrition')),
+    url(r'software/', include(('wger.software.urls', 'software'), namespace='software')),
+    url(r'config/', include(('wger.config.urls', 'config'), namespace='config')),
+    url(r'gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
+    url(r'email/', include(('wger.email.urls', 'email'), namespace='email')),
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},

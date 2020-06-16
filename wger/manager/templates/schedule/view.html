@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles wger_extras %}
+{% load static wger_extras %}
 
 {#           #}
 {# Opengraph #}
@@ -17,7 +17,7 @@
 <script type="text/javascript">
     function init_sortable()
     {
-        $("#schedule-table tbody").off();
+        $("#schedule-table").find("tbody").off();
         var elements = document.getElementsByTagName('tbody');
         $.each(elements, function(index, element) {
             Sortable.create(element, {

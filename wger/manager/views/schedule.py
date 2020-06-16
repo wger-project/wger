@@ -14,41 +14,57 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import datetime
+import logging
 
-from django.shortcuts import render, get_object_or_404
-from django.http import (
-    HttpResponseRedirect,
-    HttpResponseForbidden,
-    HttpResponse
-)
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import PermissionRequiredMixin
+# Third Party
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import get_object_or_404
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
     CreateView,
     DeleteView,
     UpdateView
 )
-
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    SimpleDocTemplate,
     Paragraph,
+    SimpleDocTemplate,
     Spacer
 )
+from django.views.decorators.vary import vary_on_headers
 
-from wger.manager.models import Schedule
+# wger
 from wger.manager.helpers import render_workout_day
+from wger.manager.models import Schedule
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
-from wger.utils.helpers import make_token, check_token
-from wger.utils.pdf import styleSheet, render_footer
+from wger.utils.helpers import (
+    check_token,
+    make_token,
+    ua_aware_render
+)
+from wger.utils.pdf import (
+    render_footer,
+    styleSheet
+)
 
 
 logger = logging.getLogger(__name__)
@@ -64,9 +80,10 @@ def overview(request):
     template_data['schedules'] = (Schedule.objects
                                   .filter(user=request.user)
                                   .order_by('-is_active', '-start_date'))
-    return render(request, 'schedule/overview.html', template_data)
+    return ua_aware_render(request, 'schedule/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
     '''
     Show the workout schedule
@@ -95,7 +112,7 @@ def view(request, pk):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'schedule/view.html', template_data)
+    return ua_aware_render(request, 'schedule/view.html', template_data)
 
 
 def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):
@@ -114,7 +131,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 
@@ -179,7 +196,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 

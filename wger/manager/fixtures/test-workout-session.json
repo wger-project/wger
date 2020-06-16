@@ -1,13 +1,13 @@
 [
     {
-        "pk": 1, 
-        "model": "manager.workoutsession", 
+        "pk": 1,
+        "model": "manager.workoutsession",
         "fields": {
-            "impression": "2", 
-            "time_start": "17:00:00", 
+            "impression": "2",
+            "time_start": "17:00:00",
             "workout": 1,
-            "time_end": "18:30:00", 
-            "user": 1, 
+            "time_end": "18:30:00",
+            "user": 1,
             "date": "2012-10-01",
             "notes": "Notes come here"
         }

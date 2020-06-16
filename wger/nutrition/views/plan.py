@@ -14,41 +14,59 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import logging
+# Standard Library
 import datetime
+import logging
 
-from django.shortcuts import render, get_object_or_404
+# Third Party
+from django.contrib.auth.decorators import login_required
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
     HttpResponseRedirect
 )
+from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth.decorators import login_required
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.views.generic import DeleteView, UpdateView
-
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    DeleteView,
+    UpdateView
+)
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4, cm
+from reportlab.lib.units import cm
+from reportlab.lib.pagesizes import A4
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
-    Table,
-    Spacer
+    Spacer,
+    Table
 )
 
-from wger.nutrition.models import (
-    NutritionPlan,
-    MEALITEM_WEIGHT_GRAM,
-    MEALITEM_WEIGHT_UNIT
-)
+# wger
 from wger import get_version
-from wger.utils.generic_views import WgerFormMixin, WgerDeleteMixin
-from wger.utils.helpers import check_token, make_token
-from wger.utils.pdf import styleSheet
+from wger.nutrition.models import (
+    MEALITEM_WEIGHT_GRAM,
+    MEALITEM_WEIGHT_UNIT,
+    NutritionPlan
+)
+from wger.utils.generic_views import (
+    WgerDeleteMixin,
+    WgerFormMixin
+)
+from wger.utils.helpers import (
+    check_token,
+    make_token,
+    ua_aware_render
+)
 from wger.utils.language import load_language
+from wger.utils.pdf import styleSheet
 
 
 logger = logging.getLogger(__name__)
@@ -67,7 +85,7 @@ def overview(request):
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
 
-    return render(request, 'plan/overview.html', template_data)
+    return ua_aware_render(request, 'plan/overview.html', template_data)
 
 
 @login_required
@@ -158,7 +176,7 @@ def view(request, id):
     template_data['is_owner'] = is_owner
     template_data['show_shariff'] = is_owner
 
-    return render(request, 'plan/view.html', template_data)
+    return ua_aware_render(request, 'plan/view.html', template_data)
 
 
 @login_required
@@ -212,7 +230,7 @@ def export_pdf(request, id, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
 
@@ -322,32 +340,32 @@ def export_pdf(request, id, uidb64=None, token=None):
                  Paragraph(_('Percent of energy'), styleSheet["Normal"]),
                  Paragraph(_('g per body kg'), styleSheet["Normal"])])
     data.append([Paragraph(_('Energy'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['energy']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['energy']), styleSheet["Normal"])])
     data.append([Paragraph(_('Protein'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['protein']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['protein']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['protein']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['protein']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['percent']['protein']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['per_kg']['protein']), styleSheet["Normal"])])
     data.append([Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['carbohydrates']),
+                 Paragraph(str(plan_data['total']['carbohydrates']),
                            styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['carbohydrates']),
+                 Paragraph(str(plan_data['percent']['carbohydrates']),
                            styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['carbohydrates']),
+                 Paragraph(str(plan_data['per_kg']['carbohydrates']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Sugar content in carbohydrates'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['carbohydrates_sugar']),
+                 Paragraph(str(plan_data['total']['carbohydrates_sugar']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fat'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fat']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['percent']['fat']), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['per_kg']['fat']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['fat']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['percent']['fat']), styleSheet["Normal"]),
+                 Paragraph(str(plan_data['per_kg']['fat']), styleSheet["Normal"])])
     data.append([Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fat_saturated']),
+                 Paragraph(str(plan_data['total']['fat_saturated']),
                            styleSheet["Normal"])])
     data.append([Paragraph(_('Fibres'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['fibres']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['fibres']), styleSheet["Normal"])])
     data.append([Paragraph(_('Sodium'), styleSheet["Normal"]),
-                 Paragraph(six.text_type(plan_data['total']['sodium']), styleSheet["Normal"])])
+                 Paragraph(str(plan_data['total']['sodium']), styleSheet["Normal"])])
 
     table_style = []
     table_style.append(('BOX', (0, 0), (-1, -1), 1.25, colors.black))

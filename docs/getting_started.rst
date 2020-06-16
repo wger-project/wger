@@ -14,7 +14,7 @@ slightly different) you will need to change the steps as appropriate.
 The application is compatible and regularly tested with
 
 * sqlite, postgres
-* python 2.7, 3.4 and 3.5
+* python 2.7, 3.4, 3.5 and 3.6
 
 You might also want to take a look at the :ref:`other-changes` section for other
 changes you might want to do to your local instance such as Terms of Service or
@@ -29,7 +29,7 @@ contact page.
 These are the necessary packages for both development and production
 (node and npm are only used to download JS and CSS libraries)::
 
-    sudo apt-get install nodejs nodejs-legacy npm git \
+    sudo apt-get install nodejs npm git \
                          python-virtualenv python3-dev \
                          libjpeg8-dev zlib1g-dev libwebp-dev
 

@@ -12,14 +12,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Third Party
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-from wger.core.forms import RegistrationForm
-from wger.core.forms import RegistrationFormNoCaptcha
+# wger
+from wger.core.forms import (
+    RegistrationForm,
+    RegistrationFormNoCaptcha
+)
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
+
 
 logger = logging.getLogger(__name__)
 
@@ -58,8 +64,8 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
         # Fill in the registration form
         registration_data = {'username': 'myusername',
-                             'password1': 'secret',
-                             'password2': 'secret',
+                             'password1': 'quai8fai7Zae',
+                             'password2': 'quai8fai7Zae',
                              'email': 'not an email',
                              'g-recaptcha-response': 'PASSED', }
         count_before = User.objects.count()
@@ -108,8 +114,8 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
             # Fill in the registration form
             registration_data = {'username': 'myusername',
-                                 'password1': 'secret',
-                                 'password2': 'secret',
+                                 'password1': 'Xee4fuev1ohj',
+                                 'password2': 'Xee4fuev1ohj',
                                  'email': 'my.email@example.com',
                                  'g-recaptcha-response': 'PASSED', }
             count_before = User.objects.count()

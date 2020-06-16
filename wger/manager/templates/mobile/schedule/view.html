@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 {% block title %}{{schedule.name}}{% endblock %}
 
@@ -173,7 +173,7 @@ than once.{% endblocktrans %}</small></p>
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" {% auto_link_css flavour %}>
+                <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" {% auto_link_css request.user_agent.is_mobile %}>
                    {% trans "Export calendar file" %}
                 </a>
                 </p>

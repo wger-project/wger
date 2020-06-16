@@ -14,10 +14,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.utils.timezone import now
+# Third Party
 from django.core.management.base import BaseCommand
+from django.utils.timezone import now
+
+# wger
 from wger.core.models import UserProfile
 
 

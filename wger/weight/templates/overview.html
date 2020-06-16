@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 {#       #}
 {# Title #}
@@ -105,7 +105,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'weight:import-csv' %}" {% auto_link_css flavour %}>
+            <a href="{% url 'weight:import-csv' %}" {% auto_link_css request.user_agent.is_mobile %}>
                 <span class="{% fa_class 'upload' %}"></span>
                 {% trans "Import from spreadsheet" %}
             </a>
