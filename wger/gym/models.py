@@ -94,17 +94,6 @@ class Gym(m.Model):
         '''
         return self.name
 
-    def delete(self, using=None):
-        '''
-        Make sure that there are no users with this gym in their profiles
-        '''
-
-        # Not accessing the profile directly to avoid cyclic import problems
-        for user in User.objects.filter(userprofile__gym=self).all():
-            user.userprofile.gym = None
-            user.userprofile.save()
-        super(Gym, self).delete(using)
-
     def get_absolute_url(self):
         '''
         Return the URL for this object

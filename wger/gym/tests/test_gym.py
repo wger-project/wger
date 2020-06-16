@@ -151,4 +151,4 @@ class GymTestCase(WorkoutManagerTestCase):
         self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 17)
 
         gym.delete()
-        self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 0)
+        self.assertEqual(UserProfile.objects.filter(gym_id=1).count(), 0)

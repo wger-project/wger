@@ -131,7 +131,7 @@ class UserProfile(models.Model):
                             editable=False,
                             null=True,
                             blank=True,
-                            on_delete=models.CASCADE)
+                            on_delete=models.SET_NULL)
     '''
     The gym this user belongs to, if any
     '''
