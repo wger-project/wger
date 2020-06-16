@@ -149,18 +149,18 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
         '''
         Delete the workout session and, if wished, all associated weight logs as well
         '''
-        if self.kwargs['logs'] == 'logs':
+        if self.kwargs.get('logs') == 'logs':
             WorkoutLog.objects.filter(user=self.request.user, date=self.get_object().date).delete()
 
         return super(WorkoutSessionDeleteView, self).delete(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
 
-        logs = '' if not self.kwargs['logs'] else self.kwargs['logs']
+        logs = '' if not self.kwargs.get('logs') else self.kwargs['logs']
         context = super(WorkoutSessionDeleteView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('manager:session:delete', kwargs={'pk': self.object.id,
                                                                            'logs': logs})
         context['title'] = _(u'Delete {0}?').format(self.object)
-        if self.kwargs['logs'] == 'logs':
+        if logs == 'logs':
             context['delete_message'] = _('This will delete all weight logs for this day as well.')
         return context

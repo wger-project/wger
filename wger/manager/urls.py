@@ -129,7 +129,7 @@ patterns_session = [
     url(r'^(?P<pk>\d+)/edit$',
         workout_session.WorkoutSessionUpdateView.as_view(),
         name='edit'),
-    url(r'^(?P<pk>\d+)/delete/(?P<logs>(session|logs))?$',
+    url(r'^(?P<pk>\d+)/delete/(?P<logs>session|logs)?$',
         workout_session.WorkoutSessionDeleteView.as_view(),
         name='delete'),
 ]
