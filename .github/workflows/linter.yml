@@ -47,3 +47,5 @@ jobs:
       ################################
       - name: Lint Code Base
         uses: docker://github/super-linter:v2.1.1
+        env:
+          VALIDATE_PYTHON: false
