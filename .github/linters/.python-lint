@@ -1,0 +1,9 @@
+[MASTER]
+ignore=tests,migrations
+
+[MESSAGES CONTROL]
+
+# Disable the 'unable to import'-error. Due to the way pylinter is run via
+# docker, it can't import django and some wger modules. This is ok though,
+# since we have the tests and would catch this.
+disable=E0401,R0801
