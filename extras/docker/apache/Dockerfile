@@ -1,13 +1,21 @@
 #
 # A wger installation under apache with WSGI
 #
+# Note: you MUST build this image from the projec's root!
+# docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
+#
 # Please consult the documentation for usage
 # docker build --tag wger/apache .
 # docker run -ti --name wger.apache --publish 8000:80 wger/apache
 #
+# To stop the container:
+# sudo docker container stop wger.apache
+#
+# To start developing again
+# sudo docker container start --attach wger.apache
 #
 
-FROM wger/base
+FROM wger/base:1.9
 
 LABEL maintainer="Roland Geider <roland@geider.net>"
 EXPOSE 80
@@ -56,12 +64,15 @@ RUN ln -s /home/wger/static/CACHE /var/www
 USER wger
 
 WORKDIR /home/wger/src
-RUN virtualenv --python python3 /home/wger/venv
+RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
+    && pip install wheel \
     && pip install -r requirements.txt \
     && pip install -r requirements_forked.txt \
     && python setup.py develop \
+    && npm install \
+    && npm install bower \
     && wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \
@@ -72,17 +83,15 @@ RUN . /home/wger/venv/bin/activate \
 
 # Change permissions of some files and folders so the apache process
 # can access them.
-RUN chmod o+w -R ~/db/ \
-    && . /home/wger/venv/bin/activate \
-    && mkdir -p ~/static/CACHE ~/media \
+RUN mkdir -p ~/static/CACHE ~/media \
     && ln -s /home/wger/static/CACHE /home/wger/src/CACHE \
     && chmod g+w /home/wger/static/CACHE \
     && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
     && echo STATIC_ROOT=\'/home/wger/static\' >> settings.py
 
 USER root
-
 RUN apt-get remove build-essential -y \
-    && apt autoremove -y
+    && apt autoremove -y \
+    && chown www-data:www-data -R /home/wger/db
 
 ENTRYPOINT ["/home/wger/entrypoint.sh"]

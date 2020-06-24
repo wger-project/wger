@@ -165,7 +165,6 @@ Sources
 All the code and the content is freely available:
 
 * **Main repository:** https://github.com/wger-project/wger
-* **Mirror:** https://bitbucket.org/rolandgeider/wger
 
 
 Donations
