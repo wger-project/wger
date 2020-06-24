@@ -1,5 +1,5 @@
 language: python
-dist: xenial
+dist: bionic
 
 services:
   - postgresql
@@ -13,7 +13,6 @@ cache:
     - wger/node_modules
 
 # Use container infrastructure
-# http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/
 sudo: false
 
 # Python versions to test
