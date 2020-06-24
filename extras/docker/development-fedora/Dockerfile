@@ -9,7 +9,7 @@
 #
 #
 FROM fedora:25
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 
 # Install dependencies
 RUN dnf update;\

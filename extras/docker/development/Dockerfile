@@ -12,7 +12,7 @@
 
 FROM wger/base
 
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 EXPOSE 8000
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
@@ -24,7 +24,7 @@ ENV LC_ALL en_US.UTF-8
 
 
 # Install dependencies
-RUN apt-get install -y vim tmux sqlite3
+RUN apt-get install --no-install-recommends -y vim tmux sqlite3
 
 # Set up the application
 USER wger
