@@ -43,7 +43,7 @@ Building
 --------
 
 If you build this yourself, keep in mind that you **must** build from the
-project root! 
+project root!
 
 ```docker build -f extras/docker/development/Dockerfile --tag wger/devel .```
 
