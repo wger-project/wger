@@ -26,7 +26,7 @@ Create a virtual environment
 
 It's a best practice to create a Python virtual environment::
 
-  $ virtualenv --python python3 venv-wger
+  $ python3 -m venv venv-wger
   $ source venv-wger/bin/activate
   $ cd wger
 
@@ -37,6 +37,9 @@ Install Requirements
 To install the Python requirements::
 
   $ pip install -r requirements_devel.txt
+  $ pip install -r requirements_forked.txt
+  $ npm install
+  $ npm install bower
   $ python setup.py develop
 
 Install application

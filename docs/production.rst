@@ -94,7 +94,7 @@ Application
 
 Make a virtualenv for python and activate it::
 
-  virtualenv --python python3 /home/wger/venv
+  python3 -m venv /home/wger/venv
   source /home/wger/venv/bin/activate
 
 Create folders to collect all static resources and save uploaded files. The

@@ -33,7 +33,8 @@ RUN apt-get update \
       build-essential \
       python3-dev \
       python3-pip \
-      git
+      git \
+  && rm -rf /var/lib/apt/lists/*
 
 # Set up the application
 COPY . .

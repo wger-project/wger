@@ -3,11 +3,11 @@ Changelog
 
 1.9 - IN DEVELOPMENT
 --------------------
-**2017-xx-xx**
+**2020-xx-xx**
 
 Upgrade steps from 1.8:
 
-* Django update to 1.11: ``pip install -r requirements.txt``
+* Django update to 3.x: ``pip install -r requirements.txt``
 * Database upgrade: ``python manage.py migrate``
 * Update static files (only production): ``python manage.py collectstatic``
 

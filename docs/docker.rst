@@ -5,6 +5,8 @@ There are docker files available to quickly get a version of wger up and
 running. They are all located under ``extras/docker`` if you want to build
 them yourself.
 
+Note that you need to build from the project's source folder!
+
 
 Development
 -----------
@@ -15,7 +17,7 @@ and serves it with django's development server.
 
 First build the image::
 
-    docker build -t wger/devel .
+    docker build -f extras/docker/development/Dockerfile -t wger/devel .
 
 Run a container and start the application::
 
@@ -49,7 +51,7 @@ This image runs the application using WSGI and apache.
 
 First build the image::
 
-    docker build --tag wger/apache .
+    docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
 
 Run a container and start the application::
 

@@ -6,16 +6,7 @@ Coding Style Guide
 Python
 ------
 
-* Code according to PEP8
-
-  Check that the code is structured as per pep8 but with a maximum line
-  length of 100.
-
-* Code for Python 3
-
-  While the application should remain compatible with python2, use django's
-  suggestion to mantain sanity: code for py3 and treat py2 as a backwards
-  compatibility requirement. If you need, you can use six.
+Code according to PEP8, but with but with a maximum line length of 100.
 
 
 Javascript
@@ -32,9 +23,5 @@ Javascript
 Automatic coding style checks
 -----------------------------
 
-The coding style is automatically check by Travis-CI. To manually check your
-files you can run the following commands:
-
-* Python: ``pep8 wger``
-* Javascript: ``./node_modules/.bin/gulp lint-js`` (or just ``gulp lint-js`` if
-  you installed the node libraries globally on your system)
+The coding style is automatically checked by GitHub actions after sending a
+pull request.

@@ -86,11 +86,3 @@ folders for more details.
 .. include the authors file from the root folder
 .. include:: ../AUTHORS.rst
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
-* :ref:`modindex`
-
