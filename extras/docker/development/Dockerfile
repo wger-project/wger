@@ -23,9 +23,31 @@
 # sudo docker container start --attach wger.devel
 #
 
-FROM wger/base:1.9
+##########
+# Builder
+##########
+FROM ubuntu:20.04 as builder
 
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+      build-essential \
+      python3-dev \
+      python3-pip \
+      git
+
+# Set up the application
+COPY . .
+RUN pip3 install wheel \
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt \
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_forked.txt
+
+
+########
+# Final
+########
+FROM wger/base:1.9
 LABEL maintainer="Roland Geider <roland@geider.net>"
+ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
@@ -35,12 +57,11 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Path to where misc docker files live, relative to the project root
-ARG DOCKER_DIR=./extras/docker/development
 
 # Set up the application
 USER wger
 COPY --chown=wger:wger . /home/wger/src
+COPY --from=builder /usr/src/app/wheels /wheels
 #RUN git clone https://github.com/wger-project/wger.git /home/wger/src
 
 WORKDIR /home/wger/src
@@ -48,8 +69,7 @@ RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install wheel \
-    && pip install -r requirements_devel.txt \
-    && pip install -r requirements_forked.txt \
+    && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && npm install \
     && npm install bower \
@@ -62,15 +82,6 @@ RUN . /home/wger/venv/bin/activate \
 
 # Download the exercise images
 RUN mkdir ~/media \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
-    && . /home/wger/venv/bin/activate
+    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py
 
-
-USER root
-RUN apt-get remove -y \
-        build-essential  \
-        python-dev \
-    && apt autoremove -y
-
-USER wger
 CMD ["/bin/bash"]

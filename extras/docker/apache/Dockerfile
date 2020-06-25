@@ -15,9 +15,32 @@
 # sudo docker container start --attach wger.apache
 #
 
+##########
+# Builder
+##########
+FROM ubuntu:20.04 as builder
+
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+      build-essential \
+      python3-dev \
+      python3-pip \
+      git
+
+# Set up the application
+COPY . .
+RUN pip3 install wheel \
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt \
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_forked.txt
+
+
+########
+# Final
+########
 FROM wger/base:1.9
 
 LABEL maintainer="Roland Geider <roland@geider.net>"
+ARG DOCKER_DIR=./extras/docker/apache
 EXPOSE 80
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
@@ -26,9 +49,6 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-
-# Path to where misc docker files live, relative to the project root
-ARG DOCKER_DIR=./extras/docker/apache
 
 
 # Install dependencies
@@ -58,6 +78,7 @@ RUN chmod 0644 /etc/cron.d/wger \
   && touch /var/log/cron.log
 
 COPY --chown=wger:www-data . /home/wger/src
+COPY --from=builder /usr/src/app/wheels /wheels
 
 # Set up the application
 RUN ln -s /home/wger/static/CACHE /var/www
@@ -68,8 +89,7 @@ RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install wheel \
-    && pip install -r requirements.txt \
-    && pip install -r requirements_forked.txt \
+    && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && npm install \
     && npm install bower \

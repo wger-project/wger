@@ -16,12 +16,10 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
-      build-essential \
       git \
       locales \
       nodejs \
       npm \
-      python3-dev \
       python3-venv \
       vim \
       tmux \
