@@ -33,6 +33,6 @@ def get_version(version=None, release=None):
     else:
         sub = ''
     if not release:
-        sub += '-dev'
+        sub += '.dev0'
 
     return main + sub
