@@ -39,8 +39,7 @@ RUN apt-get update \
 # Set up the application
 COPY . .
 RUN pip3 install wheel \
-    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt \
-    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_forked.txt
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
 
 
 ########
@@ -69,7 +68,6 @@ WORKDIR /home/wger/src
 RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
-    && pip install wheel \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && npm install \

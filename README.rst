@@ -61,8 +61,6 @@ Then install the python packages from pypi in the virtualenv::
  $ git clone https://github.com/wger-project/wger.git
  $ cd wger
  $ pip install --upgrade pip
- $ pip install wheel
- $ pip install -r requirements_forked.txt
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
  $ npm install
  $ npm install bower

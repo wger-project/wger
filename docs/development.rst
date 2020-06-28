@@ -37,7 +37,6 @@ Install Requirements
 To install the Python requirements::
 
   $ pip install -r requirements_devel.txt
-  $ pip install -r requirements_forked.txt
   $ npm install
   $ npm install bower
   $ python setup.py develop
