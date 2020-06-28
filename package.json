@@ -18,17 +18,6 @@
     "url": "https://github.com/wger-project/wger/issues"
   },
   "homepage": "https://github.com/wger-project/wger",
-  "devDependencies": {
-    "@petervanderdoes/gulp-flake8": "^1.1.0",
-    "@petervanderdoes/gulp-isort": "^1.1.0",
-    "eslint": "^6.0.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.20.0",
-    "gulp": "^4.0.2",
-    "gulp-eslint": "^6.0.0"
-  },
   "dependencies": {
     "bower": "^1.8.8"
   }
