@@ -14,7 +14,8 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 
 # Install dependencies
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get install --no-install-recommends -y \
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
       git \
       locales \
       nodejs \
