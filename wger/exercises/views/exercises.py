@@ -17,20 +17,16 @@
 import logging
 import uuid
 
-# Third Party
+# Django
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.conf import settings
 from django.core import mail
 from django.core.cache import cache
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.forms import (
     ModelChoiceField,
     ModelForm,
@@ -42,6 +38,11 @@ from django.http import (
 )
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.cache import patch_vary_headers
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -52,7 +53,6 @@ from django.views.generic import (
     ListView,
     UpdateView
 )
-from django.utils.cache import patch_vary_headers
 
 # wger
 from wger.config.models import LanguageConfig
@@ -64,10 +64,11 @@ from wger.exercises.models import (
 from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import (
-    WgerDeleteMixin,
-    WgerFormMixin,
     UAAwareViewMixin,
+    WgerDeleteMixin,
+    WgerFormMixin
 )
+from wger.utils.helpers import ua_aware_render
 from wger.utils.language import (
     load_item_languages,
     load_language
@@ -78,7 +79,7 @@ from wger.utils.widgets import (
     TranslatedSelectMultiple
 )
 from wger.weight.helpers import process_log_entries
-from wger.utils.helpers import ua_aware_render
+
 
 logger = logging.getLogger(__name__)
 

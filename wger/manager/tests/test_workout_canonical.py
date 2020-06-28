@@ -15,7 +15,7 @@
 # Standard Library
 from decimal import Decimal
 
-# Third Party
+# Django
 from django.core.cache import cache
 
 # wger

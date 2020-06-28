@@ -16,7 +16,7 @@
 import hashlib
 import logging
 
-# Third Party
+# Django
 from django.core.cache import cache
 from django.utils.encoding import force_bytes
 

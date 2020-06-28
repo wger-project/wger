@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.urls import (
     reverse,

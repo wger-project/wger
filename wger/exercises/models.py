@@ -19,20 +19,22 @@
 import logging
 import uuid
 
-# Third Party
-import bleach
+# Django
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
-from django.urls import reverse
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+
+# Third Party
+import bleach
 
 # wger
 from wger.core.models import Language

@@ -17,14 +17,14 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.urls import reverse
 from django.db import models
 from django.forms import (
     ModelChoiceField,
     ModelForm
 )
+from django.urls import reverse
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy

@@ -19,12 +19,12 @@ Custom middleware
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth import login as django_login
-from django.utils.functional import SimpleLazyObject
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.functional import SimpleLazyObject
 
 # wger
 from wger.core.demo import create_temporary_user

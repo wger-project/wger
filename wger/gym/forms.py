@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Django
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _

@@ -17,7 +17,7 @@
 # Standard Library
 import datetime
 
-# Third Party
+# Django
 from django.core.management.base import BaseCommand
 from django.utils.timezone import now
 

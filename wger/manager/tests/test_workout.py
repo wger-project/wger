@@ -15,7 +15,7 @@
 # Standard Library
 import datetime
 
-# Third Party
+# Django
 from django.urls import reverse
 
 # wger

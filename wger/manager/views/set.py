@@ -17,10 +17,9 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.urls import reverse
 from django.db import models
 from django.forms.models import (
     inlineformset_factory,
@@ -31,6 +30,9 @@ from django.http import (
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
+
+# Third Party
 from django_user_agents.utils import get_user_agent
 
 # wger
@@ -46,8 +48,8 @@ from wger.manager.models import (
     Set,
     Setting
 )
-from wger.utils.language import load_item_languages
 from wger.utils.helpers import ua_aware_render
+from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger(__name__)

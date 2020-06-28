@@ -16,7 +16,7 @@
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.urls import (

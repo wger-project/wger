@@ -18,13 +18,15 @@
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.sites.models import Site
 from django.http import (
     HttpResponse,
     HttpResponseForbidden
 )
 from django.shortcuts import get_object_or_404
+
+# Third Party
 from icalendar import (
     Calendar,
     Event

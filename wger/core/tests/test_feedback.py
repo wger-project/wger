@@ -12,13 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Standard Library
+from unittest import skip
+
+# Django
 from django.core import mail
 from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from unittest import skip
 
 
 class FeedbackTestCase(WorkoutManagerTestCase):

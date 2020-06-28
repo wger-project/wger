@@ -18,12 +18,12 @@
 import csv
 import datetime
 import decimal
+import io
 import json
 import logging
-import io
 from collections import OrderedDict
 
-# Third Party
+# Django
 from django.core.cache import cache
 
 # wger

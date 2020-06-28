@@ -19,14 +19,14 @@ import os
 import shutil
 import tempfile
 
-# Third Party
+# Django
 from django.conf import settings
 from django.core.cache import cache
+from django.test import TestCase
 from django.urls import (
     NoReverseMatch,
     reverse
 )
-from django.test import TestCase
 
 # wger
 from wger.utils.constants import TWOPLACES

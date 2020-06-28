@@ -16,10 +16,12 @@
 import datetime
 from os.path import join as path_join
 
-# Third Party
+# Django
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import translation
+
+# Third Party
 from reportlab.lib.styles import (
     ParagraphStyle,
     StyleSheet1

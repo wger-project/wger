@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Django
 from django.core import mail
 from django.urls import reverse
 

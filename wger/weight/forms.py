@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Django
 from django import forms
 from django.forms import (
     CharField,

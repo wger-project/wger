@@ -17,7 +17,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.urls import (
     reverse,
     reverse_lazy

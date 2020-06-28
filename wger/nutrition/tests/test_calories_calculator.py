@@ -17,7 +17,7 @@ import datetime
 import decimal
 import json
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.urls import reverse
 

@@ -15,12 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-# Third Party
+# Django
 from django.db.models.signals import (
     post_delete,
     pre_save
 )
 from django.dispatch import receiver
+
+# Third Party
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.signal_handlers import generate_aliases
 from easy_thumbnails.signals import saved_file

@@ -17,7 +17,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin

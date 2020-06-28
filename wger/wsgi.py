@@ -16,7 +16,7 @@ framework.
 # Standard Library
 import os
 
-# Third Party
+# Django
 from django.core.wsgi import get_wsgi_application
 
 

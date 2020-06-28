@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-# Third Party
+# Django
 from django.conf.urls import (
     include,
     url
@@ -25,6 +25,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
 # wger
+from wger.core.forms import UserLoginForm
 from wger.core.views import (
     languages,
     license,
@@ -34,7 +35,6 @@ from wger.core.views import (
     weight_units
 )
 
-from wger.core.forms import UserLoginForm
 
 # sub patterns for languages
 patterns_language = [

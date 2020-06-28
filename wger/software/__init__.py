@@ -16,6 +16,8 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
+# wger
 from wger import get_version
+
 
 VERSION = get_version()

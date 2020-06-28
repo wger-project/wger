@@ -17,12 +17,12 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy

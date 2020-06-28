@@ -16,7 +16,7 @@
 import datetime
 import random
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.urls import reverse

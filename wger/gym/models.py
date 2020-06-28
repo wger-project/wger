@@ -18,10 +18,10 @@
 import datetime
 import uuid
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.db import models as m
+from django.urls import reverse
 from django.utils.translation import (
     ugettext,
     ugettext_lazy as _

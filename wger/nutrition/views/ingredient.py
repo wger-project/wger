@@ -17,7 +17,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
@@ -25,15 +25,15 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.core.cache import cache
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -51,15 +51,15 @@ from wger.nutrition.models import Ingredient
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
+    UAAwareViewMixin,
     WgerDeleteMixin,
-    WgerFormMixin,
-    UAAwareViewMixin
+    WgerFormMixin
 )
+from wger.utils.helpers import ua_aware_render
 from wger.utils.language import (
     load_ingredient_languages,
     load_language
 )
-from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)

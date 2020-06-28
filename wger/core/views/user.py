@@ -17,7 +17,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
@@ -32,13 +32,13 @@ from django.contrib.auth.mixins import (
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
+from django.urls import reverse
 from django.utils import translation
 from django.utils.translation import (
     ugettext as _,
@@ -50,6 +50,8 @@ from django.views.generic import (
     RedirectView,
     UpdateView
 )
+
+# Third Party
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -76,16 +78,16 @@ from wger.manager.models import (
 from wger.nutrition.models import NutritionPlan
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import (
+    UAAwareViewMixin,
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin,
-    UAAwareViewMixin
+    WgerMultiplePermissionRequiredMixin
 )
+from wger.utils.helpers import ua_aware_render
 from wger.utils.user_agents import (
     check_request_amazon,
     check_request_android
 )
 from wger.weight.models import WeightEntry
-from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)

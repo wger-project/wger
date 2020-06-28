@@ -15,7 +15,7 @@
 # Standard Library
 import datetime
 
-# Third Party
+# Django
 from django.contrib.auth.models import (
     Permission,
     User

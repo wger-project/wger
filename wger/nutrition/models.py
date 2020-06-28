@@ -20,14 +20,13 @@ import logging
 #
 from decimal import Decimal
 
-# Third Party
+# Django
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.urls import reverse
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator
@@ -35,6 +34,7 @@ from django.core.validators import (
 from django.db import models
 from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 

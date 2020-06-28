@@ -17,7 +17,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
@@ -41,9 +41,9 @@ from django.views.generic import (
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
+    UAAwareViewMixin,
     WgerDeleteMixin,
-    WgerFormMixin,
-    UAAwareViewMixin
+    WgerFormMixin
 )
 from wger.utils.language import load_language
 

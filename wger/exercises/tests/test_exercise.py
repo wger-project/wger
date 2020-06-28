@@ -15,7 +15,7 @@
 # Standard Library
 import json
 
-# Third Party
+# Django
 from django.core import mail
 from django.core.cache import cache
 from django.urls import reverse

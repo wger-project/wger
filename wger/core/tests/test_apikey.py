@@ -15,9 +15,11 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.urls import reverse
+
+# Third Party
 from rest_framework.authtoken.models import Token
 
 # wger

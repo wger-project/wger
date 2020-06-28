@@ -24,20 +24,24 @@ import random
 import string
 from functools import wraps
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.template.exceptions import TemplateDoesNotExist
 from django.utils.encoding import force_bytes
 from django.utils.http import (
     urlsafe_base64_decode,
     urlsafe_base64_encode
 )
 
-from django.shortcuts import render
+# Third Party
 from django_user_agents.utils import get_user_agent
-from django.template.exceptions import TemplateDoesNotExist
+
 
 logger = logging.getLogger(__name__)
 

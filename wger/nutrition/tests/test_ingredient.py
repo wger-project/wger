@@ -18,7 +18,7 @@ import datetime
 import json
 from decimal import Decimal
 
-# Third Party
+# Django
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 

@@ -15,7 +15,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.db import models
 
 # wger

@@ -17,23 +17,26 @@
 # Standard Library
 import logging
 
-# Third Party
-import bleach
+# Django
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.template.context_processors import csrf
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.base import View
 from django.views.generic.edit import ModelFormMixin
+
+# Third Party
+import bleach
+from django_user_agents.utils import get_user_agent
 
 # wger
 from wger.utils.constants import (
@@ -42,7 +45,6 @@ from wger.utils.constants import (
     HTML_TAG_WHITELIST
 )
 
-from django_user_agents.utils import get_user_agent
 
 logger = logging.getLogger(__name__)
 

@@ -17,7 +17,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django import forms
 from django.utils.translation import ugettext as _
 

@@ -20,7 +20,7 @@ import csv
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -30,16 +30,16 @@ from django.contrib.auth.models import (
     Group,
     User
 )
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.http.response import (
     HttpResponse,
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -67,15 +67,16 @@ from wger.gym.models import (
     GymUserConfig
 )
 from wger.utils.generic_views import (
+    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin,
-    UAAwareViewMixin
+    WgerMultiplePermissionRequiredMixin
 )
 from wger.utils.helpers import (
     password_generator,
     ua_aware_render
 )
+
 
 logger = logging.getLogger(__name__)
 
