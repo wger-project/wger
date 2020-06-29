@@ -194,7 +194,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         This is a complete representation of a workout, including all objects
         like workout days, exercises, etc. This form used by the django application
         to render workouts or perform other operations. The data is cached so,
@@ -207,7 +207,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/exerciseimage/&lt;id&gt;/thumbnails/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         Returns a list of available thumbnails for this image. The 'settings' key
         refers to the settings used by the thumbnailing application to generate
         that image. The special key 'original' is simply a downloadable link to
@@ -220,7 +220,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/exerciseiinfo/&lt;id&gt;/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         A convenience function that returns all the information about an exercise,
         including, muscles, equipment, etc. This can be used to avoid having to call
         the other endpoints individually.
@@ -233,7 +233,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/mealitem/&lt;id&gt;/nutritional_values/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         Returns the total nutritional values for a nutritional plan, a meal or
         an individual meal item. The nutritional plan lists this under the
         'total' key, the other two return a flat list.

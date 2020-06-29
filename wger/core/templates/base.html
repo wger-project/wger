@@ -1,4 +1,4 @@
-{% extends request.user_agent.is_mobile|yesno:"mobile/template.html,template.html" %}
+{% extends "template.html" %}
 {% load i18n wger_extras django_bootstrap_breadcrumbs %}
 
 {% block template %}

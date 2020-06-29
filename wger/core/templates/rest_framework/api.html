@@ -130,7 +130,7 @@
                         {% render_form_field field %}
                     {% endfor %}
                     <div class="form-group">
-                        <div class="col-md-offset-3 col-md-9">
+                        <div class="offset-md-3 col-md-9">
                             {% if raw_data_put_form %}
                             <button class="btn btn-default btn-block js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PUT" title="Make a PUT request on the {{ name }} resource">PUT</button>
                             {% endif %}
