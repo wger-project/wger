@@ -1,9 +1,26 @@
 Changelog
 =========
 
-1.9 - IN DEVELOPMENT
+2.0 - IN DEVELOPMENT
 --------------------
-**2020-xx-xx**
+**2020-XX-XX**
+
+Upgrade steps from 1.9:
+
+* Update static files (only production): ``python manage.py collectstatic``
+
+New features:
+
+* TBA
+
+Improvements:
+
+* TBA
+
+
+1.9
+---
+**2020-06-29**
 
 Upgrade steps from 1.8:
 
