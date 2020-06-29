@@ -42,7 +42,6 @@ from wger.gym.models import (
     Gym
 )
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -173,7 +172,7 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
         return context
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available contract options
     '''

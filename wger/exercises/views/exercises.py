@@ -36,7 +36,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.loader import render_to_string
 from django.urls import (
     reverse,
@@ -64,11 +67,9 @@ from wger.exercises.models import (
 from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
-from wger.utils.helpers import ua_aware_render
 from wger.utils.language import (
     load_item_languages,
     load_language
@@ -84,7 +85,7 @@ from wger.weight.helpers import process_log_entries
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(UAAwareViewMixin, ListView):
+class ExerciseListView(ListView):
     '''
     Generic view to list all exercises
     '''
@@ -172,7 +173,7 @@ def view(request, id, slug=None):
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
 
-    return ua_aware_render(request, 'exercise/view.html', template_data)
+    return render(request, 'exercise/view.html', template_data)
 
 
 class ExercisesEditAddView(WgerFormMixin):
@@ -339,8 +340,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
         return context
 
 
-class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin,
-                              UAAwareViewMixin, ListView):
+class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Generic view to list all weight units
     '''

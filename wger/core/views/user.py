@@ -36,7 +36,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.context_processors import csrf
 from django.urls import reverse
 from django.utils import translation
@@ -78,11 +81,9 @@ from wger.manager.models import (
 from wger.nutrition.models import NutritionPlan
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
 )
-from wger.utils.helpers import ua_aware_render
 from wger.utils.user_agents import (
     check_request_amazon,
     check_request_android
@@ -153,7 +154,7 @@ def delete(request, user_pk=None):
                'user_delete': user,
                'form_action': form_action}
 
-    return ua_aware_render(request, 'user/delete_account.html', context)
+    return render(request, 'user/delete_account.html', context)
 
 
 @login_required()
@@ -285,7 +286,7 @@ def registration(request):
     template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
-    return ua_aware_render(request, 'form.html', template_data)
+    return render(request, 'form.html', template_data)
 
 
 @login_required
@@ -329,7 +330,7 @@ def preferences(request):
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
-        return ua_aware_render(request, 'user/preferences.html', template_data)
+        return render(request, 'user/preferences.html', template_data)
 
 
 class UserDeactivateView(LoginRequiredMixin,
@@ -466,7 +467,7 @@ def api_key(request):
 
     context['token'] = token
 
-    return ua_aware_render(request, 'user/api_key.html', context)
+    return render(request, 'user/api_key.html', context)
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):
@@ -520,7 +521,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         return context
 
 
-class UserListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all users in the instance
     '''

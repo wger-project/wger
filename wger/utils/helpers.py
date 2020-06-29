@@ -28,19 +28,12 @@ from functools import wraps
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.http import Http404
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
-from django.template.exceptions import TemplateDoesNotExist
+from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
 from django.utils.http import (
     urlsafe_base64_decode,
     urlsafe_base64_encode
 )
-
-# Third Party
-from django_user_agents.utils import get_user_agent
 
 
 logger = logging.getLogger(__name__)
@@ -242,15 +235,3 @@ def smart_capitalize(input):
         else:
             out.append(word)
     return ' '.join(out)
-
-
-def ua_aware_render(request, template, context):
-    user_agent = get_user_agent(request)
-    try_template = template
-    if user_agent.is_mobile:
-        try_template = 'mobile/' + template
-
-    try:
-        return render(request, try_template, context)
-    except TemplateDoesNotExist:
-        return render(request, template, context)

@@ -40,7 +40,6 @@ from django.views.generic import (
 # wger
 from wger.core.models import License
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -49,7 +48,7 @@ from wger.utils.generic_views import (
 logger = logging.getLogger(__name__)
 
 
-class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available licenses
     '''

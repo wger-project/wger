@@ -26,7 +26,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.context_processors import csrf
 from django.urls import (
     reverse,
@@ -63,10 +66,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
-from wger.utils.helpers import (
-    make_token,
-    ua_aware_render
-)
+from wger.utils.helpers import make_token
 
 
 logger = logging.getLogger(__name__)
@@ -88,7 +88,7 @@ def overview(request):
     template_data['workouts'] = workouts
     template_data['current_workout'] = current_workout
 
-    return ua_aware_render(request, 'workout/overview.html', template_data)
+    return render(request, 'workout/overview.html', template_data)
 
 
 @vary_on_headers('User-Agent')
@@ -138,7 +138,7 @@ def view(request, pk):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
 
-    return ua_aware_render(request, 'workout/view.html', template_data)
+    return render(request, 'workout/view.html', template_data)
 
 
 @login_required
@@ -220,7 +220,7 @@ def copy_workout(request, pk):
         template_data['submit_text'] = _('Copy')
         template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
 
-        return ua_aware_render(request, 'form.html', template_data)
+        return render(request, 'form.html', template_data)
 
 
 @login_required
@@ -407,4 +407,4 @@ def timer(request, day_pk):
     context['form_action'] = url
     context['weight_units'] = WeightUnit.objects.all()
     context['repetition_units'] = RepetitionUnit.objects.all()
-    return ua_aware_render(request, 'workout/timer.html', context)
+    return render(request, 'workout/timer.html', context)

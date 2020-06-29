@@ -121,6 +121,7 @@ def bootstrap(context,
     # Download JS libraries with bower
     context.run('npm install bower')
     context.run('npm install')
+    call_command("bower", "install")
 
     # Start the webserver
     if start_server:

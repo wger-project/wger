@@ -25,6 +25,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import mail
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import (
     reverse,
@@ -47,7 +48,6 @@ from wger.core.forms import (
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
-from wger.utils.helpers import ua_aware_render
 from wger.weight.helpers import get_last_entries
 from wger.weight.models import WeightEntry
 
@@ -149,7 +149,7 @@ def dashboard(request):
         # Load the nutritional info
         template_data['nutritional_info'] = plan.get_nutritional_values()
 
-    return ua_aware_render(request, 'index.html', template_data)
+    return render(request, 'index.html', template_data)
 
 
 class ContactClassView(TemplateView):

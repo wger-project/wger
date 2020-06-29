@@ -23,11 +23,11 @@ import tempfile
 from django.conf import settings
 from django.core.cache import cache
 from django.test import TestCase
-from django.utils.translation import activate
 from django.urls import (
     NoReverseMatch,
     reverse
 )
+from django.utils.translation import activate
 
 # wger
 from wger.utils.constants import TWOPLACES

@@ -68,8 +68,6 @@ INSTALLED_APPS = (
     # The sitemaps app
     'django.contrib.sitemaps',
 
-    'django_user_agents',
-
     # thumbnails
     'easy_thumbnails',
 
@@ -119,8 +117,6 @@ MIDDLEWARE = (
 
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
-
-    'django_user_agents.middleware.UserAgentMiddleware',
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',

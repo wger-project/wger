@@ -35,10 +35,9 @@ from wger.email.models import (
     Log
 )
 from wger.gym.models import Gym
-from wger.utils.generic_views import UAAwareViewMixin
 
 
-class EmailLogListView(PermissionRequiredMixin, UAAwareViewMixin, generic.ListView):
+class EmailLogListView(PermissionRequiredMixin, generic.ListView):
     '''
     Shows a list with all sent emails
     '''

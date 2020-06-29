@@ -29,7 +29,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.urls import reverse
 
 # Third Party
@@ -48,7 +51,6 @@ from wger.manager.models import (
     Set,
     Setting
 )
-from wger.utils.helpers import ua_aware_render
 from wger.utils.language import load_item_languages
 
 
@@ -141,7 +143,7 @@ def create(request, day_pk):
     context['formsets'] = formsets
     context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
-    return ua_aware_render(request, 'set/add.html', context)
+    return render(request, 'set/add.html', context)
 
 
 @login_required
@@ -158,10 +160,10 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
 
-    return ua_aware_render(request,
-                           "set/formset.html",
-                           {'formset': formset,
-                            'exercise': exercise})
+    return render(request,
+                  "set/formset.html",
+                  {'formset': formset,
+                   'exercise': exercise})
 
 
 @login_required
@@ -238,4 +240,4 @@ def edit(request, pk):
     context = {}
     context['formsets'] = formsets
     context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
-    return ua_aware_render(request, 'set/edit.html', context)
+    return render(request, 'set/edit.html', context)

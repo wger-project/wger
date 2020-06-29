@@ -31,12 +31,10 @@ from django.urls import (
 )
 from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
-from django.views.generic.base import View
 from django.views.generic.edit import ModelFormMixin
 
 # Third Party
 import bleach
-from django_user_agents.utils import get_user_agent
 
 # wger
 from wger.utils.constants import (
@@ -356,14 +354,3 @@ class WebappManifestView(TemplateView):
         resp = super().dispatch(request, args, kwargs)
         resp['Content-Type'] = 'application/x-web-app-manifest+json'
         return resp
-
-
-class UAAwareViewMixin(View):
-    def get_template_names(self):
-        templates = [self.template_name]
-
-        user_agent = get_user_agent(self.request)
-        if user_agent.is_mobile:
-            templates.insert(0, 'mobile/' + self.template_name)
-
-        return templates

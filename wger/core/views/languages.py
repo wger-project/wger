@@ -41,7 +41,6 @@ from django.views.generic import (
 # wger
 from wger.core.models import Language
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -50,7 +49,7 @@ from wger.utils.generic_views import (
 logger = logging.getLogger(__name__)
 
 
-class LanguageListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class LanguageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Show an overview of all languages
     '''

@@ -42,7 +42,6 @@ from wger.config.models import LanguageConfig
 from wger.exercises.models import Equipment
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -56,7 +55,7 @@ Exercise equipment
 '''
 
 
-class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Generic view to list all equipments
     '''
@@ -135,7 +134,7 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
         return context
 
 
-class EquipmentOverviewView(UAAwareViewMixin, ListView):
+class EquipmentOverviewView(ListView):
     '''
     Overview with all exercises, group by equipment
     '''

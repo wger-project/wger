@@ -40,7 +40,6 @@ from django.views.generic import (
 # wger
 from wger.exercises.models import ExerciseCategory
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -50,8 +49,7 @@ from wger.utils.language import load_language
 logger = logging.getLogger(__name__)
 
 
-class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin,
-                               UAAwareViewMixin, ListView):
+class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all categories, for administration purposes
     '''

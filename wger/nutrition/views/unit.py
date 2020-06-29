@@ -41,7 +41,6 @@ from django.views.generic import (
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -54,7 +53,7 @@ logger = logging.getLogger(__name__)
 # ************************
 
 
-class WeightUnitListView(PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class WeightUnitListView(PermissionRequiredMixin, ListView):
     '''
     Generic view to list all weight units
     '''

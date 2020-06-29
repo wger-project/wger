@@ -38,7 +38,6 @@ from django.views.generic import (
 # wger
 from wger.core.models import RepetitionUnit
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -47,7 +46,7 @@ from wger.utils.generic_views import (
 logger = logging.getLogger(__name__)
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     '''
     Overview of all available setting units
     '''

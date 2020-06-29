@@ -22,6 +22,7 @@ import logging
 # Django
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import render
 
 # wger
 from wger.nutrition.forms import (
@@ -29,7 +30,6 @@ from wger.nutrition.forms import (
     DailyCaloriesForm,
     PhysicalActivitiesForm
 )
-from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)
@@ -55,7 +55,7 @@ def view(request):
     context['form_activities'] = PhysicalActivitiesForm(instance=request.user.userprofile)
     context['form_calories'] = DailyCaloriesForm(instance=request.user.userprofile)
 
-    return ua_aware_render(request, 'rate/form.html', context)
+    return render(request, 'rate/form.html', context)
 
 
 @login_required
