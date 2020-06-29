@@ -133,14 +133,6 @@ class BaseTestCase(object):
         # Explicitly set the locale to en, otherwise the CI might make problems
         activate('en')
 
-        # Test the mobile templates
-        if os.environ.get('TEST_MOBILE') == 'True':
-            settings.FLAVOURS = ('mobile',)
-            self.is_mobile = True
-            self.client.defaults.update({'HTTP_USER_AGENT': 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3'
-                                         ' like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) '
-                                         'Version/9.0 Mobile/13E198 Safari/601.1'})
-
         # Set logging level
         logging.disable(logging.INFO)
 

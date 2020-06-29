@@ -12,22 +12,17 @@ cache:
     - node_modules
     - wger/node_modules
 
-# Use container infrastructure
-sudo: false
-
 # Python versions to test
 python:
   - "3.6"
   - "3.7"
   - "3.8"
 
-# Manually define here the combinations environment variables to test
-# https://github.com/travis-ci/travis-ci/issues/1519
+node_js: 10
+
 env:
-  - TEST_MOBILE=True  DB=postgresql TRAVIS_NODE_VERSION="6"
-  - TEST_MOBILE=True  DB=sqlite     TRAVIS_NODE_VERSION="6"
-  - TEST_MOBILE=False DB=postgresql TRAVIS_NODE_VERSION="6"
-  - TEST_MOBILE=False DB=sqlite     TRAVIS_NODE_VERSION="6"
+  - DB=postgresql
+  - DB=sqlite
 
 # Install the application
 install:
