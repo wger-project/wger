@@ -118,36 +118,30 @@ $(function() {
 {#         #}
 {% block options %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'core:user:logout' %}">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'core:user:logout' %}" class="dropdown-item">
                 <span class="{% fa_class 'sign-out' %}"></span>
                 {% trans "Logout" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'core:user:change-password' %}" class="wger-modal-dialog">
+            <a href="{% url 'core:user:change-password' %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'key' %}"></span>
                 {% trans "Change password" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'core:user:api-key' %}">
+            <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
                 <span class="{% fa_class 'globe' %}"></span>
                 {% trans "API key" %}
             </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog">
+            <div role="separator" class="dropdown-divider"></div>
+            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete account" %}
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}

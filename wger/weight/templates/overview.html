@@ -93,24 +93,23 @@
 {% block options %}
 {% if is_owner %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'weight:export-csv' %}" target="_blank">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+
+        <div class="dropdown-menu">
+            <a href="{% url 'weight:export-csv' %}" target="_blank" class="dropdown-item">
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Export as CSV" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'weight:import-csv' %}" {% auto_link_css request.user_agent.is_mobile %}>
+            <a href="{% url 'weight:import-csv' %}" class="dropdown-item">
                 <span class="{% fa_class 'upload' %}"></span>
                 {% trans "Import from spreadsheet" %}
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
 <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
     {% trans "Add" %}

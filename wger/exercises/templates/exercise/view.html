@@ -357,24 +357,24 @@ $(document).ready(function() {
 {% block options %}
 {% if perms.exercises.change_exercise %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'exercise:exercise:edit' exercise.id %}">
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'exercise:exercise:edit' exercise.id %}" class="dropdown-item">
                 <span class="{% fa_class 'pencil-square-o' %}"></span>
                 {% trans "Edit" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog">
+            <div role="separator" class="dropdown-divider"></div>
+            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete" %}
             </a>
-        </li>
-    </ul>
+            </li>
+        </div>
+    </div>
 </div>
 {% endif %}
 {% endblock %}
