@@ -133,22 +133,30 @@
             </div>
         </div>
     </div>
-
-
 </header>
+
+{#            #}
+{# Navigation #}
+{#            #}
 {% include 'navigation.html' %}
+
+
+{#              #}
+{# Main content #}
+{#              #}
 <div id="main">
     <div class="container" style="padding-bottom: 1em;">
         <div class="modal fade" id="wger-ajax-info" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
                         <button type="button"
                                 class="close"
                                 data-dismiss="modal"
                                 aria-hidden="true"
                                 style="padding-left: 0.5em;">&times;</button>
-                        <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
+
                     </div>
                     <div class="modal-body" id="ajax-info-content">
                     </div>
