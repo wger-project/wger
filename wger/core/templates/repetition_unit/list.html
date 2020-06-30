@@ -14,12 +14,8 @@
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="{% url 'core:repetition-unit:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                </li>
-                <li>
-                    <a href="{% url 'core:repetition-unit:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                </li>
+                <a href="{% url 'core:repetition-unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
+                <a href="{% url 'core:repetition-unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
             </ul>
         </div>
         {% endif %}

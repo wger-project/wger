@@ -6,31 +6,27 @@
 
     {% if is_owner %}
         {% if value.session %}
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {% trans "Workout session" %}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog">
+            <div class="btn-group"">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% trans "Workout session" %}
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'pencil-square-o' %}"></span>
                             {% trans "Edit" %}
                         </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog">
+                        <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'trash' %}"></span>
                             {% trans "Delete" %}
                         </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog">
+                        <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'trash' %}"></span>
                             {% trans "Delete with logs" %}
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         {% else %}
             <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>

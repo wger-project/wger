@@ -288,34 +288,26 @@ function wgerCustomModalInit()
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}" target="_blank">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
-        </li>
+    <div class="dropdown-menu">
+        <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}" target="_blank" class="dropdown-item">
+            <span class="{% fa_class 'download' %}"></span>
+            {% trans "Download as PDF" %}
+        </a>
         {% if is_owner %}
-        <li>
-            <a href="{% url 'nutrition:plan:edit' plan.id %}" class="wger-modal-dialog">
+            <a href="{% url 'nutrition:plan:edit' plan.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'pencil-square-o' %}"></span>
                 {% trans "Edit nutrition plan" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'nutrition:plan:copy' plan.id %}">
+            <a href="{% url 'nutrition:plan:copy' plan.id %}" class="dropdown-item">
                 <span class="{% fa_class 'clone' %}"></span>
                 {% trans "Make a copy of this nutrition plan" %}
             </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'nutrition:plan:delete' plan.id %}" class="wger-modal-dialog">
+            <div role="separator" class="divider"></div>
+            <a href="{% url 'nutrition:plan:delete' plan.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete nutrition plan" %}
             </a>
-        </li>
         {% endif %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

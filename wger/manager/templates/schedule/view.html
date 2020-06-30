@@ -317,38 +317,32 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {#         #}
 {% block options %}
     <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="#" data-toggle="modal" data-target="#export-ical-popup">
-                <span class="{% fa_class 'calendar' %}"></span>
-                {% trans "Export calendar file" %}
-            </a>
-        </li>
-        <li>
-            <a data-toggle="modal" data-target="#download-pdf-popup">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
-        </li>
-        {% if is_owner %}
-        <li>
-            <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog">
-                <span class="{% fa_class 'pencil-square-o' %}"></span>
-                {% trans "Edit schedule" %}
-            </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog">
-                <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete schedule" %}
-            </a>
-        </li>
-        {% endif %}
-    </ul>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="{% fa_class 'cog' %}"></span>
+                {% trans "Options" %}
+            </button>
+            <div class="dropdown-menu">
+                <a href="#" data-toggle="modal" data-target="#export-ical-popup" class="dropdown-item">
+                    <span class="{% fa_class 'calendar' %}"></span>
+                    {% trans "Export calendar file" %}
+                </a>
+                <a data-toggle="modal" data-target="#download-pdf-popup" class="dropdown-item">
+                    <span class="{% fa_class 'download' %}"></span>
+                    {% trans "Download as PDF" %}
+                </a>
+                {% if is_owner %}
+                    <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog dropdown-item">
+                        <span class="{% fa_class 'pencil-square-o' %}"></span>
+                        {% trans "Edit schedule" %}
+                    </a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog dropdown-item">
+                        <span class="{% fa_class 'trash' %}"></span>
+                        {% trans "Delete schedule" %}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}
