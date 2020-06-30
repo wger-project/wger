@@ -58,6 +58,12 @@ body {
   margin-top: 10px;
 }
 
+.navbar-brand {
+  font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+
 /**************************************************************
  * Alerts
  **************************************************************/
