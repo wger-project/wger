@@ -38,9 +38,6 @@ body {
   }
 }
 
-.navbar {
-  margin-bottom: 0;
-}
 
 .close {
   float: right;
@@ -59,17 +56,6 @@ body {
 
 .page-header {
   margin-top: 10px;
-}
-
-.application-name {
-  text-shadow: 2px 3px 3px #292929;
-  font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 180%;
-  color: #fff;
-  width: 50%;
-  text-align: center;
-  margin-top: 0.2em;
 }
 
 /**************************************************************
