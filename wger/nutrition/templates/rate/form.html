@@ -28,7 +28,7 @@ at rest. This is the minimum energy needed for the body to function, without any
 additional physical activity.{% endblocktrans %}</p>
 <form action="{% url 'nutrition:calories:bmr' %}"
       method="post"
-      class="calories-autoform form-horizontal"
+      class="calories-autoform wger-form"
       id="bmr-form">
     {% csrf_token %}
     {% render_form_errors form %}
@@ -55,7 +55,7 @@ the additional physical activity and is used to calculate the total energy
 required per day.{% endblocktrans %}</p>
 <form action="{% url 'nutrition:calories:activities' %}"
       method="post"
-      class="form-horizontal calories-autoform"
+      class="wger-form calories-autoform"
       id="activities-form">
     {% csrf_token %}
     {% render_form_errors form_activities %}
@@ -88,7 +88,7 @@ required per day.{% endblocktrans %}</p>
 needs based on your level of physical activity.{% endblocktrans %}</p>
 <form action=""
       method="post"
-      class="form-horizontal calories-autoform"
+      class="wger-form calories-autoform"
       id="base-calories-form">
     {% csrf_token %}
     <table class="table">
@@ -112,7 +112,7 @@ you might just enter yourself the amount of calories if you know the value.{% en
 
 <form action=""
       method="post"
-      class="form-horizontal"
+      class="wger-form"
       id="total-calories-form">
     {% csrf_token %}
 

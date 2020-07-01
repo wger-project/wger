@@ -326,7 +326,7 @@ function wgerFormModalDialog() {
     $('#ajax-info-title').html('Loading...');
     $('#wger-ajax-info').modal('show');
 
-    $ajaxInfoContent.load(targetUrl + ' .form-horizontal',
+    $ajaxInfoContent.load(targetUrl + ' .wger-form',
       function (responseText, textStatus, XMLHttpRequest) {
         var $ajaxInfoTitle;
         var modalTitle;
@@ -362,7 +362,7 @@ function wgerFormModalDialog() {
         // If there isn't assume all was saved correctly and load that result into the
         // page's main DIV (#main-content). All this must be done like this because there
         // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
-        if ($(responseText).find('.form-horizontal').length > 0) {
+        if ($(responseText).find('.wger-form').length > 0) {
           modalDialogFormEdit();
         }
       });

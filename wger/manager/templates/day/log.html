@@ -36,7 +36,7 @@ $(document).ready(function () {
 {# Content #}
 {#         #}
 {% block content %}
-<form action="{{form_action}}" method="POST" class="form-horizontal">
+<form action="{{form_action}}" method="POST" class="wger-form">
     {% csrf_token %}
     {{formset.management_form}}
 

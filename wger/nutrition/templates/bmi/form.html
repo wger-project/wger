@@ -57,7 +57,7 @@ $(document).ready(function () {
 
 <form action="{% url 'nutrition:bmi:calculate' %}"
       method="post"
-      class="form-horizontal"
+      class="wger-form"
       id="bmi-form">
     {% trans 'Calculate' as submit_text %}
     {% render_form_fields form submit_text %}

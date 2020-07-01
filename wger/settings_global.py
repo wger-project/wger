@@ -74,6 +74,9 @@ INSTALLED_APPS = (
     # CSS/JS compressor
     'compressor',
 
+    # Form renderer helper
+    'crispy_forms',
+
     # REST-API
     'tastypie',
     'rest_framework',
@@ -231,7 +234,6 @@ LOCALE_PATHS = (
     os.path.join(SITE_ROOT, 'locale'),
 )
 
-FLAVOURS_STORAGE_BACKEND = 'session'
 
 
 #
@@ -279,6 +281,10 @@ CACHES = {
     }
 }
 
+#
+# Django Crispy Templates
+#
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #
 # Easy thumbnails

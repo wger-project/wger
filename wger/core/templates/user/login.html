@@ -10,7 +10,7 @@
 {% block content %}
 <form action="{% url 'core:user:login' %}{% if next %}?next={{next}}{% endif %}"
       method="post"
-      class="form-horizontal">
+      class="wger-form">
     {% trans 'Login' as submit_text %}
     {% render_form_fields form submit_text %}
 </form>

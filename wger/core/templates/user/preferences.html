@@ -18,7 +18,7 @@ $(function() {
 {% block content %}
 <form action="{% url 'core:user:preferences' %}"
       method="post"
-      class="form-horizontal">
+      class="wger-form">
     {% csrf_token %}
     {{ form.non_field_errors }}
 

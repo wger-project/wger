@@ -18,6 +18,8 @@
 import logging
 
 # Django
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import (
@@ -146,41 +148,20 @@ class WgerFormMixin(ModelFormMixin):
 
     messages = ''
     '''
-    A message to display on sucess
+    A message to display on success
     '''
 
     def get_context_data(self, **kwargs):
         '''
-        Set necessary template data to correctly render the form
+        Set context data
         '''
 
-        # Call the base implementation first to get a context
         context = super(WgerFormMixin, self).get_context_data(**kwargs)
-
-        # CSRF token
-        context.update(csrf(self.request))
-
         context['sidebar'] = self.sidebar
-        # TODO: change template so it iterates through form and not formfields
-        context['form_fields'] = context['form']
+        context['title'] = self.title
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
-
-        # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the POST request
-        # reaches the correct controller
-        if self.form_action_urlname:
-            context['form_action'] = reverse(self.form_action_urlname,
-                                             kwargs={'pk': self.object.id})
-        elif self.form_action:
-            context['form_action'] = self.form_action
-
-        # Set the title
-        context['title'] = self.title
-
-        # Text used in the submit button
-        context['submit_text'] = self.submit_text
 
         # Template to extend. For AJAX requests we don't need the rest of the
         # template, only the form
@@ -225,6 +206,28 @@ class WgerFormMixin(ModelFormMixin):
         name of the object.
         '''
         return self.messages
+
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+        form = super(WgerFormMixin, self).get_form(form_class)
+        if not hasattr(form, "helper"):
+            form.helper = FormHelper()
+
+        form.helper.form_id = 'id-personal-data-form'
+        form.helper.form_method = 'post'
+
+        # When viewing the page on it's own, this is not necessary, but when
+        # opening it on a modal dialog, we need to make sure the POST request
+        # reaches the correct controller
+        if self.form_action_urlname:
+            form.helper.form_action = reverse(self.form_action_urlname,
+                                              kwargs={'pk': self.object.id})
+        elif self.form_action:
+            form.helper.form_action = self.form_action
+
+        form.helper.add_input(Submit('submit', self.submit_text, css_class='btn-success btn-block'))
+        form.helper.form_class = 'wger-form'
+        return form
 
     def form_invalid(self, form):
         '''
