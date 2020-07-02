@@ -119,7 +119,6 @@ def delete(request, user_pk=None):
 
     if user_pk:
         user = get_object_or_404(User, pk=user_pk)
-        form_action = reverse('core:user:delete', kwargs={'user_pk': user_pk})
 
         # Forbidden if the user has not enough rights, doesn't belong to the
         # gym or is an admin as well. General admins can delete all users.
@@ -132,7 +131,6 @@ def delete(request, user_pk=None):
             return HttpResponseForbidden()
     else:
         user = request.user
-        form_action = reverse('core:user:delete')
 
     form = PasswordConfirmationForm(user=request.user)
 
@@ -151,8 +149,7 @@ def delete(request, user_pk=None):
                 gym_pk = request.user.userprofile.gym_id
                 return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
     context = {'form': form,
-               'user_delete': user,
-               'form_action': form_action}
+               'user_delete': user}
 
     return render(request, 'user/delete_account.html', context)
 
@@ -282,7 +279,6 @@ def registration(request):
     template_data['form'] = form
     template_data['title'] = _('Register')
     template_data['form_fields'] = [i for i in form]
-    template_data['form_action'] = reverse('core:user:registration')
     template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
@@ -438,7 +434,6 @@ class UserEditView(WgerFormMixin,
         Send some additional data to the template
         '''
         context = super(UserEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:user:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit {0}'.format(self.object))
         return context
 

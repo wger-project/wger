@@ -82,9 +82,6 @@ class EquipmentEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
     def get_context_data(self, **kwargs):
         context = super(EquipmentEditView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object)
-        context['form_action'] = reverse('exercise:equipment:edit',
-                                         kwargs={'pk': self.object.id})
-
         return context
 
 
@@ -99,15 +96,6 @@ class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(EquipmentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:equipment:add')
-
-        return context
-
 
 class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     '''
@@ -117,21 +105,9 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
     model = Equipment
     fields = ('name',)
     messages = ugettext_lazy('Successfully deleted')
+    title = ugettext_lazy('Delete equipment?')
     permission_required = 'exercises.delete_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
-
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        pk = self.kwargs['pk']
-        context = super(EquipmentDeleteView, self).get_context_data(**kwargs)
-
-        context['title'] = _('Delete equipment?')
-        context['form_action'] = reverse('exercise:equipment:delete',
-                                         kwargs={'pk': pk})
-
-        return context
 
 
 class EquipmentOverviewView(ListView):

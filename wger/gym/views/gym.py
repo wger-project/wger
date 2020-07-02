@@ -158,7 +158,6 @@ class GymAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Cre
     model = Gym
     fields = '__all__'
     title = ugettext_lazy('Add new gym')
-    form_action = reverse_lazy('gym:gym:add')
     permission_required = 'gym.add_gym'
 
 
@@ -310,7 +309,6 @@ def gym_permissions_user_edit(request, user_pk):
     context = {}
     context['title'] = member.get_full_name()
     context['form'] = form
-    context['form_action'] = reverse('gym:gym:edit-user-permission', kwargs={'user_pk': member.pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     context['submit_text'] = 'Save'
 
@@ -407,15 +405,6 @@ class GymAddUserView(WgerFormMixin,
 
         return super(GymAddUserView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(GymAddUserView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:gym:add-user',
-                                         kwargs={'gym_pk': self.kwargs['gym_pk']})
-        return context
-
 
 class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     '''
@@ -445,7 +434,6 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
         Send some additional data to the template
         '''
         context = super(GymUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:gym:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
@@ -472,5 +460,4 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin
         '''
         context = super(GymDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('gym:gym:delete', kwargs={'pk': self.kwargs['pk']})
         return context

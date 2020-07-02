@@ -68,9 +68,6 @@ class MealCreateView(WgerFormMixin, CreateView):
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(MealCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition:meal:add',
-                                         kwargs={'plan_pk': self.kwargs['plan_pk']})
-
         return context
 
 
@@ -82,7 +79,6 @@ class MealEditView(WgerFormMixin, UpdateView):
     model = Meal
     fields = '__all__'
     title = ugettext_lazy('Edit meal')
-    form_action_urlname = 'nutrition:meal:edit'
 
     def get_success_url(self):
         return self.object.plan.get_absolute_url()

@@ -18,8 +18,6 @@
 import logging
 
 # Django
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import (
@@ -37,6 +35,8 @@ from django.views.generic.edit import ModelFormMixin
 
 # Third Party
 import bleach
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # wger
 from wger.utils.constants import (
@@ -120,6 +120,7 @@ class WgerFormMixin(ModelFormMixin):
 
     form_action = ''
     form_action_urlname = ''
+
     sidebar = ''
     '''
     Name of a template that will be included in the sidebar
@@ -212,21 +213,12 @@ class WgerFormMixin(ModelFormMixin):
         form = super(WgerFormMixin, self).get_form(form_class)
         if not hasattr(form, "helper"):
             form.helper = FormHelper()
-
         form.helper.form_id = 'id-personal-data-form'
         form.helper.form_method = 'post'
-
-        # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the POST request
-        # reaches the correct controller
-        if self.form_action_urlname:
-            form.helper.form_action = reverse(self.form_action_urlname,
-                                              kwargs={'pk': self.object.id})
-        elif self.form_action:
-            form.helper.form_action = self.form_action
-
+        form.helper.form_action = self.request.path
         form.helper.add_input(Submit('submit', self.submit_text, css_class='btn-success btn-block'))
         form.helper.form_class = 'wger-form'
+        self.object
         return form
 
     def form_invalid(self, form):

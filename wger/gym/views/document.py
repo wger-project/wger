@@ -80,8 +80,6 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         Send some additional data to the template
         '''
         context = super(ListView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:document:add',
-                                         kwargs={'user_pk': self.kwargs['user_pk']})
         context['member'] = self.member
         return context
 
@@ -133,8 +131,6 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         '''
         context = super(AddView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['form_action'] = reverse('gym:document:add',
-                                         kwargs={'user_pk': self.kwargs['user_pk']})
         return context
 
 
@@ -172,7 +168,6 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         Send some additional data to the template
         '''
         context = super(UpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:document:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
@@ -210,5 +205,4 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
         '''
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('gym:document:delete', kwargs={'pk': self.kwargs['pk']})
         return context

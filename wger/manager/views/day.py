@@ -94,8 +94,6 @@ class DayEditView(DayView, UpdateView):
     Generic view to update an existing exercise day
     '''
 
-    form_action_urlname = 'manager:day:edit'
-
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(DayEditView, self).get_context_data(**kwargs)
@@ -117,14 +115,6 @@ class DayCreateView(DayView, CreateView):
         '''
         form.instance.training = Workout.objects.get(pk=self.kwargs['workout_pk'])
         return super(DayCreateView, self).form_valid(form)
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(DayCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:day:add',
-                                         kwargs={'workout_pk': self.kwargs['workout_pk']})
-        return context
-
 
 @login_required
 def delete(request, pk):

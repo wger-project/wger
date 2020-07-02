@@ -70,7 +70,6 @@ class ExerciseCategoryAddView(WgerFormMixin,
     fields = '__all__'
     success_url = reverse_lazy('exercise:category:list')
     title = ugettext_lazy('Add category')
-    form_action = reverse_lazy('exercise:category:add')
     permission_required = 'exercises.add_exercisecategory'
 
     def form_valid(self, form):
@@ -94,7 +93,6 @@ class ExerciseCategoryUpdateView(WgerFormMixin,
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:category:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
@@ -123,8 +121,5 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin,
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
-
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('exercise:category:delete', kwargs={'pk': self.object.id})
-
         return context

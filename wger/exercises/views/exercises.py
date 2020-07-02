@@ -232,7 +232,6 @@ class ExerciseUpdateView(ExercisesEditAddView,
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
@@ -242,8 +241,6 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
     '''
     Generic view to add a new exercise
     '''
-
-    form_action = reverse_lazy('exercise:exercise:add')
 
     def form_valid(self, form):
         '''
@@ -281,7 +278,6 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:correct', kwargs={'pk': self.object.id})
         context['title'] = _(u'Correct {0}').format(self.object.name)
         return context
 
@@ -334,9 +330,6 @@ class ExerciseDeleteView(WgerDeleteMixin,
         '''
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('exercise:exercise:delete',
-                                         kwargs={'pk': self.kwargs['pk']})
-
         return context
 
 

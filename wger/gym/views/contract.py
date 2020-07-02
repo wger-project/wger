@@ -102,15 +102,6 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         form.instance.user = self.request.user
         return super(AddView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(AddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:contract:add',
-                                         kwargs={'user_pk': self.kwargs['user_pk']})
-        return context
-
 
 class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     '''
@@ -142,7 +133,6 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     model = Contract
     fields = '__all__'
     permission_required = 'gym.change_contract'
-    form_action_urlname = 'gym:contract:edit'
 
     def dispatch(self, request, *args, **kwargs):
         '''

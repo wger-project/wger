@@ -275,7 +275,6 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     fields = '__all__'
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
-    form_action = reverse_lazy('manager:schedule:add')
 
     def form_valid(self, form):
         '''set the submitter'''
@@ -294,7 +293,6 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     model = Schedule
     fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
-    form_action_urlname = 'manager:schedule:delete'
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
@@ -313,7 +311,6 @@ class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
 
     model = Schedule
     fields = '__all__'
-    form_action_urlname = 'manager:schedule:edit'
 
     def get_context_data(self, **kwargs):
         '''

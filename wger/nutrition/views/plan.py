@@ -114,7 +114,6 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
     success_url = reverse_lazy('nutrition:plan:overview')
-    form_action_urlname = 'nutrition:plan:delete'
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
@@ -133,7 +132,6 @@ class PlanEditView(WgerFormMixin, UpdateView):
 
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
-    form_action_urlname = 'nutrition:plan:edit'
 
     def get_context_data(self, **kwargs):
         '''

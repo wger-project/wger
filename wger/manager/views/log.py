@@ -86,9 +86,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:log:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit log entry for %s') % self.object.exercise.name
-
         return context
 
 
@@ -106,7 +104,6 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
               'weight_unit')
     success_url = reverse_lazy('manager:workout:calendar')
     title = ugettext_lazy('Delete workout log')
-    form_action_urlname = 'manager:log:delete'
 
 
 def add(request, pk):
@@ -232,7 +229,6 @@ def add(request, pk):
     template_data['formset'] = formset
     template_data['dateform'] = dateform
     template_data['session_form'] = session_form
-    template_data['form_action'] = reverse('manager:day:log', kwargs={'pk': pk})
 
     return render(request, 'day/log.html', template_data)
 

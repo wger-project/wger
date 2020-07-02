@@ -141,7 +141,6 @@ def create(request, day_pk):
     context['day'] = day
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
-    context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     return render(request, 'set/add.html', context)
 
@@ -239,5 +238,4 @@ def edit(request, pk):
     # Other context we need
     context = {}
     context['formsets'] = formsets
-    context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
     return render(request, 'set/edit.html', context)

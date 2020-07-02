@@ -22,10 +22,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
+from django.urls import reverse_lazy
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -66,7 +63,6 @@ class LicenseAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin,
     fields = ['full_name', 'short_name', 'url']
     success_url = reverse_lazy('core:license:list')
     title = ugettext_lazy('Add')
-    form_action = reverse_lazy('core:license:add')
     permission_required = 'core.add_license'
 
 
@@ -85,7 +81,6 @@ class LicenseUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
         Send some additional data to the template
         '''
         context = super(LicenseUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:license:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
@@ -106,5 +101,4 @@ class LicenseDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredM
         '''
         context = super(LicenseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('core:license:delete', kwargs={'pk': self.kwargs['pk']})
         return context
