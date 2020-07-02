@@ -24,11 +24,8 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.template.context_processors import csrf
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
+from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import ModelFormMixin
@@ -36,7 +33,11 @@ from django.views.generic.edit import ModelFormMixin
 # Third Party
 import bleach
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import (
+    ButtonHolder,
+    Layout,
+    Submit
+)
 
 # wger
 from wger.utils.constants import (
@@ -213,12 +214,11 @@ class WgerFormMixin(ModelFormMixin):
         form = super(WgerFormMixin, self).get_form(form_class)
         if not hasattr(form, "helper"):
             form.helper = FormHelper()
-        form.helper.form_id = 'id-personal-data-form'
+        form.helper.form_id = slugify(self.request.path)
         form.helper.form_method = 'post'
         form.helper.form_action = self.request.path
         form.helper.add_input(Submit('submit', self.submit_text, css_class='btn-success btn-block'))
         form.helper.form_class = 'wger-form'
-        self.object
         return form
 
     def form_invalid(self, form):
@@ -254,7 +254,8 @@ class WgerDeleteMixin(ModelFormMixin):
     form_action = ''
     form_action_urlname = ''
     title = ''
-    delete_message = ''
+    delete_message_extra = ''
+    delete_message = ugettext_lazy('Yes, delete')
     template_name = 'delete.html'
     messages = ''
 
@@ -266,29 +267,32 @@ class WgerDeleteMixin(ModelFormMixin):
         # Call the base implementation first to get a context
         context = super(WgerDeleteMixin, self).get_context_data(**kwargs)
 
-        # CSRF token
-        context.update(csrf(self.request))
-
-        # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the POST request
-        # reaches the correct controller
-        if self.form_action_urlname:
-            context['form_action'] = reverse(self.form_action_urlname,
-                                             kwargs={'pk': self.object.id})
-        elif self.form_action:
-            context['form_action'] = self.form_action
-
         # Set the title
         context['title'] = self.title
 
         # Additional delete message
-        context['delete_message'] = self.delete_message
+        context['delete_message'] = self.delete_message_extra
 
         # Template to extend. For AJAX requests we don't need the rest of the
         # template, only the form
         context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
 
         return context
+
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+        form = super(WgerDeleteMixin, self).get_form(form_class)
+        if not hasattr(form, "helper"):
+            form.helper = FormHelper()
+        form.helper.form_id = slugify(self.request.path)
+        form.helper.form_method = 'post'
+        form.helper.form_action = self.request.path
+        form.helper.layout = Layout(
+            ButtonHolder(
+                Submit('submit', self.delete_message, css_class='btn-warning btn-block')
+            )
+        )
+        return form
 
     def dispatch(self, request, *args, **kwargs):
         '''
