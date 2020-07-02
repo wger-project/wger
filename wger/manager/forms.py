@@ -21,7 +21,6 @@ This file contains forms used in the application
 # Django
 from django.forms import (
     CharField,
-    DateField,
     DecimalField,
     Form,
     IntegerField,
@@ -34,6 +33,12 @@ from django.utils.translation import ugettext as _
 
 # Third Party
 from captcha.fields import ReCaptchaField
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row
+)
 
 # wger
 from wger.core.models import (
@@ -52,10 +57,8 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession
 )
-from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import (
     ExerciseAjaxSelect,
-    Html5DateInput,
     TranslatedSelect,
     TranslatedSelectMultiple
 )
@@ -130,14 +133,6 @@ class SettingForm(ModelForm):
         model = Setting
         exclude = ('set', 'exercise', 'order', 'comment')
 
-
-class HelperDateForm(Form):
-    '''
-    A helper form used in the workout log view
-    '''
-    date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
-
-
 class WorkoutLogForm(ModelForm):
     '''
     Helper form for a WorkoutLog.
@@ -164,13 +159,50 @@ class WorkoutLogForm(ModelForm):
         exclude = ('workout', )
 
 
+class WorkoutLogFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form_method = 'post'
+        self.layout = Layout(
+            Row(
+                Column('reps', css_class='form-group col-md-2 col-3 mb-0'),
+                Column('repetition_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                Column('weight', css_class='form-group col-md-2 col-3 mb-0'),
+                Column('weight_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        self.form_show_labels = False
+        self.form_tag = False
+        self.disable_csrf = True
+        self.render_required_fields = True
+
+
 class HelperWorkoutSessionForm(ModelForm):
     '''
     A helper form used in the workout log view
     '''
     class Meta:
         model = WorkoutSession
-        exclude = ('user', 'workout', 'date')
+        exclude = ('user', 'workout')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='form-group col-6 mb-0'),
+                Column('impression', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'notes',
+            Row(
+                Column('time_start', css_class='form-group col-6 mb-0'),
+                Column('time_end', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        self.helper.form_tag = False
 
 
 class WorkoutSessionForm(ModelForm):

@@ -47,9 +47,9 @@ from django.views.generic import (
 
 # wger
 from wger.manager.forms import (
-    HelperDateForm,
     HelperWorkoutSessionForm,
-    WorkoutLogForm
+    WorkoutLogForm,
+    WorkoutLogFormHelper
 )
 from wger.manager.helpers import WorkoutCalendar
 from wger.manager.models import (
@@ -111,8 +111,9 @@ def add(request, pk):
     Add a new workout log
     '''
 
-    template_data = {}
-    template_data.update(csrf(request))
+    # NOTE: This function is waaaay too complex and convoluted. While updating
+    #       to crispy forms, the template logic could be reduced a lot, but
+    #       there is still a lot optimisations that could happen here.
 
     # Load the day and check ownership
     day = get_object_or_404(Day, pk=pk)
@@ -165,12 +166,11 @@ def add(request, pk):
 
         # Pass the new data to the forms
         formset = WorkoutLogFormSet(data=post_copy)
-        dateform = HelperDateForm(data=post_copy)
         session_form = HelperWorkoutSessionForm(data=post_copy)
 
         # If all the data is valid, save and redirect to log overview page
-        if dateform.is_valid() and session_form.is_valid() and formset.is_valid():
-            log_date = dateform.cleaned_data['date']
+        if session_form.is_valid() and formset.is_valid():
+            log_date = session_form.cleaned_data['date']
 
             if WorkoutSession.objects.filter(user=request.user, date=log_date).exists():
                 session = WorkoutSession.objects.get(user=request.user, date=log_date)
@@ -206,8 +206,6 @@ def add(request, pk):
                                     initial=[{'weight_unit': user_weight_unit,
                                               'repetition_unit': 1} for x in range(0, total_sets)])
 
-        dateform = HelperDateForm(initial={'date': datetime.date.today()})
-
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)
         if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
@@ -223,14 +221,17 @@ def add(request, pk):
         form_id_to = max(exercise_list[exercise]['form_ids'])
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
 
-    template_data['day'] = day
-    template_data['exercises'] = exercise_list
-    template_data['exercise_list'] = exercise_list
-    template_data['formset'] = formset
-    template_data['dateform'] = dateform
-    template_data['session_form'] = session_form
+    context = {}
+    context['day'] = day
+    context['exercises'] = exercise_list
+    context['formset'] = formset
+    context['helper'] = WorkoutLogFormHelper()
+    context['session_form'] = session_form
+    context['form'] = session_form
+    context['extend_template'] = 'base.html'
+    context['form_action'] = request.path
 
-    return render(request, 'day/log.html', template_data)
+    return render(request, 'log/add.html', context)
 
 
 class WorkoutLogDetailView(DetailView, LoginRequiredMixin):

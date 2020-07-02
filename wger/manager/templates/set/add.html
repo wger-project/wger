@@ -63,13 +63,13 @@ automatically becomes "4 x 10".{% endblocktrans %}</span>
         </div>
     </div>
     <div class="form-group">
-    <div class="col-md-12">
-        <div id="formsets">
-        {% for formset in formsets %}
-                {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
-        {% endfor %}
+        <div class="col-md-12">
+            <div id="formsets">
+            {% for formset in formsets %}
+                    {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
+            {% endfor %}
+            </div>
         </div>
-    </div>
     </div>
 
 
