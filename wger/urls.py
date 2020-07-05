@@ -59,7 +59,7 @@ from wger.weight.api import (
 )
 
 
-admin.autodiscover()
+#admin.autodiscover()
 
 
 #
@@ -152,7 +152,7 @@ sitemaps = {'exercises': ExercisesSitemap,
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    url(r'^admin/', admin.site.urls),
+    #url(r'^admin/', admin.site.urls),
     url(r'^', include(('wger.core.urls', 'core'), namespace='core')),
     url(r'workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     url(r'exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),

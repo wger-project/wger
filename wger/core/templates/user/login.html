@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras %}
+{% load i18n static wger_extras crispy_forms_tags %}
 
 {% block title %}{% trans "Login" %}{% endblock %}
 
@@ -8,12 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'core:user:login' %}{% if next %}?next={{next}}{% endif %}"
-      method="post"
-      class="wger-form">
-    {% trans 'Login' as submit_text %}
-    {% render_form_fields form submit_text %}
-</form>
+    {% crispy form %}
 {% endblock %}
 
 

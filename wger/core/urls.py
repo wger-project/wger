@@ -104,9 +104,7 @@ patterns_user = [
     # Password reset is implemented by Django, no need to cook our own soup here
     # (besides the templates)
     url(r'^password/change$',
-        views.PasswordChangeView.as_view(success_url=reverse_lazy('core:user:preferences')),
-        {'template_name': 'user/change_password.html',
-         'post_change_redirect': reverse_lazy('core:user:preferences')},
+        user.WgerPasswordChangeView.as_view(),
         name='change-password'),
     url(r'^password/reset/$',
         views.PasswordResetView.as_view(),

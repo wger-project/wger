@@ -31,7 +31,10 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import (
+    LoginView,
+    PasswordChangeView
+)
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
@@ -41,7 +44,10 @@ from django.shortcuts import (
     render
 )
 from django.template.context_processors import csrf
-from django.urls import reverse
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils import translation
 from django.utils.translation import (
     ugettext as _,
@@ -55,6 +61,14 @@ from django.views.generic import (
 )
 
 # Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Column,
+    Layout,
+    Row,
+    Submit
+)
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -100,11 +114,13 @@ def login(request):
     '''
 
     context = {'active_tab': USER_TAB}
-    if request.GET.get('next'):
-        context['next'] = request.GET.get('next')
+    next_url = "?next=" + request.GET.get('next') if request.GET.get('next') else ''
+
+    form = UserLoginForm
+    form.helper.form_action = reverse('core:user:login') + next_url
 
     return LoginView.as_view(template_name='user/login.html',
-                             authentication_form=UserLoginForm,
+                             authentication_form=form,
                              extra_context=context)
 
 
@@ -549,4 +565,30 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
                                           _('Last activity'),
                                           _('Gym')],
                                  'users': context['object_list']['members']}
+        return context
+
+
+class WgerPasswordChangeView(PasswordChangeView):
+    template_name = 'form.html'
+    success_url = reverse_lazy('core:user:preferences')
+    title = ugettext_lazy("Change password")
+
+    def get_form(self, form_class=None):
+        form = super(WgerPasswordChangeView, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_class = 'wger-form'
+        form.helper.layout = Layout(
+            'old_password',
+            Row(
+                Column('new_password1', css_class='form-group col-6 mb-0'),
+                Column('new_password2', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        )
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super(WgerPasswordChangeView, self).get_context_data(**kwargs)
+        context['extend_template'] = 'base.html'
         return context
