@@ -216,12 +216,22 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     '''
     Registration form without captcha field
-
-    This is used when registering through an app, in that case there is not
-    such a spam danger and simplifies the registration process on a mobile
-    device.
     '''
-    pass
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationFormNoCaptcha, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            'username',
+            'email',
+            Row(
+                Column('password1', css_class='form-group col-6 mb-0'),
+                Column('password2', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+        )
 
 
 class FeedbackRegisteredForm(forms.Form):

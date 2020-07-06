@@ -33,7 +33,9 @@ from django.contrib.auth.mixins import (
 from django.contrib.auth.models import User
 from django.contrib.auth.views import (
     LoginView,
-    PasswordChangeView
+    PasswordChangeView,
+    PasswordResetConfirmView,
+    PasswordResetView
 )
 from django.http import (
     HttpResponseForbidden,
@@ -294,8 +296,6 @@ def registration(request):
 
     template_data['form'] = form
     template_data['title'] = _('Register')
-    template_data['form_fields'] = [i for i in form]
-    template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
     return render(request, 'form.html', template_data)
@@ -590,5 +590,39 @@ class WgerPasswordChangeView(PasswordChangeView):
 
     def get_context_data(self, **kwargs):
         context = super(WgerPasswordChangeView, self).get_context_data(**kwargs)
+        context['extend_template'] = 'base.html'
+        return context
+
+
+class WgerPasswordResetView(PasswordResetView):
+    template_name = 'form.html'
+    email_template_name = 'registration/password_reset_email.html'
+    success_url = reverse_lazy('core:user:password_reset_done')
+
+    def get_form(self, form_class=None):
+        form = super(WgerPasswordResetView, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_class = 'wger-form'
+        form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super(WgerPasswordResetView, self).get_context_data(**kwargs)
+        context['extend_template'] = 'base.html'
+        return context
+
+
+class WgerPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'form.html'
+
+    def get_form(self, form_class=None):
+        form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_class = 'wger-form'
+        form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super(WgerPasswordResetConfirmView, self).get_context_data(**kwargs)
         context['extend_template'] = 'base.html'
         return context
