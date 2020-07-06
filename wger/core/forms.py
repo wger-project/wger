@@ -189,6 +189,11 @@ class PasswordConfirmationForm(Form):
     def __init__(self, user, data=None):
         self.user = user
         super(PasswordConfirmationForm, self).__init__(data=data)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'password',
+            ButtonHolder(Submit('submit', _("Delete"), css_class='btn-danger btn-block'))
+        )
 
     def clean_password(self):
         '''
@@ -198,6 +203,7 @@ class PasswordConfirmationForm(Form):
         if not self.user.check_password(password):
             raise ValidationError(_('Invalid password'))
         return self.cleaned_data.get("password")
+
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):

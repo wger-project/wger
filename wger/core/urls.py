@@ -21,7 +21,6 @@ from django.conf.urls import (
     url
 )
 from django.contrib.auth import views
-from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
 # wger
