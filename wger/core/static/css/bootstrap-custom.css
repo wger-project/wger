@@ -89,51 +89,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.btn-default {
-  color: #333;
-  background-color: #eeeeec;
-  border-color: #ccc;
-}
 
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default.active,
-.open .dropdown-toggle.btn-default {
-  color: black;
-  background-color: #babdb6;
-  border-color: #888a85;
-}
-
-.btn-default:active,
-.btn-default.active,
-.open .dropdown-toggle.btn-default {
-  background-image: none;
-}
-
-.btn-default.disabled,
-.btn-default[disabled],
-fieldset[disabled] .btn-default,
-.btn-default.disabled:hover,
-.btn-default[disabled]:hover,
-fieldset[disabled] .btn-default:hover,
-.btn-default.disabled:focus,
-.btn-default[disabled]:focus,
-fieldset[disabled] .btn-default:focus,
-.btn-default.disabled:active,
-.btn-default[disabled]:active,
-fieldset[disabled] .btn-default:active,
-.btn-default.disabled.active,
-.btn-default[disabled].active,
-fieldset[disabled] .btn-default.active {
-  background-color: #babdb6;
-  border-color: #ccc;
-}
-
-.btn-default .badge {
-  color: #fff;
-  background-color: #babdb6;
-}
 
 /**************************************************************
  * Headers in sidebar

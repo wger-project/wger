@@ -13,11 +13,11 @@ anything). You must pass this information in the header in the format shown belo
 {% endwith %}
 
 <p>{% blocktrans %}For security reasons, you should only access the API via HTTPS.{% endblocktrans %}</p>
-<div class="panel {% if token %}panel-success{% else %}panel-default{% endif %}">
-    <div class="panel-heading">
-        <h3 class="panel-title">{% trans "Your API key" %}</h3>
+<div class="card mb-4 {% if token %}text-white bg-success{% else %}bg-light{% endif %}" >
+    <div class="card-header">
+        {% trans "Your API key" %}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         {% if token %}
             <strong>{{token.key}}</strong>
         {% else %}
@@ -25,12 +25,14 @@ anything). You must pass this information in the header in the format shown belo
         {% endif %}
     </div>
 </div>
+
+<h5>In the request header</h5>
 <pre>
-# In the request header
 Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% endif %}
+</pre>
 
-
-# Example with curl
+<h5>Example with curl</h5>
+<pre>
 curl -X GET https://wger.de/api/v2/workout/ \
      -H 'Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% endif %}'
 </pre>
