@@ -679,7 +679,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     downloadInfo = $('#pdf-download-info');
-    downloadType = $('input[name="pdf_type"]:checked').val();
+    downloadType = $('select[name="pdf_type"]').val();
     downloadImages = $('#id_images').is(':checked') ? 1 : 0;
     downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
 

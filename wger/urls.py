@@ -30,27 +30,17 @@ from django.contrib.sitemaps.views import sitemap
 from rest_framework import routers
 
 # wger
-from wger.core.api import (
-    views as core_api_views
-)
-from wger.exercises.api import (
-    views as exercises_api_views
-)
+from wger.core.api import views as core_api_views
+from wger.exercises.api import views as exercises_api_views
 from wger.exercises.sitemap import ExercisesSitemap
-from wger.manager.api import (
-    views as manager_api_views
-)
-from wger.nutrition.api import (
-    views as nutrition_api_views
-)
+from wger.manager.api import views as manager_api_views
+from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import (
     TextTemplateView,
     WebappManifestView
 )
-from wger.weight.api import (
-    views as weight_api_views
-)
+from wger.weight.api import views as weight_api_views
 
 
 #admin.autodiscover()

@@ -20,7 +20,9 @@ This file contains forms used in the application
 
 # Django
 from django.forms import (
+    BooleanField,
     CharField,
+    ChoiceField,
     DecimalField,
     Form,
     IntegerField,
@@ -29,7 +31,10 @@ from django.forms import (
     MultipleHiddenInput,
     widgets
 )
-from django.utils.translation import ugettext as _
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 
 # Third Party
 from captcha.fields import ReCaptchaField
@@ -37,7 +42,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Column,
     Layout,
-    Row
+    Row,
+    Submit
 )
 
 # wger
@@ -212,6 +218,43 @@ class WorkoutSessionForm(ModelForm):
     class Meta:
         model = WorkoutSession
         exclude = ('user', 'workout', 'date')
+
+    def __init__(self, *args, **kwargs):
+        super(WorkoutSessionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'impression',
+            'notes',
+            Row(
+                Column('time_start', css_class='form-group col-6 mb-0'),
+                Column('time_end', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+
+
+class WorkoutScheduleDownloadForm(Form):
+    """
+    Form for the workout schedule download
+    """
+    pdf_type = ChoiceField(
+        label = ugettext_lazy(u"Type"),
+        choices=(("log", ugettext_lazy("Log")),
+                 ("table", ugettext_lazy("Table"))
+        ),
+    )
+    images = BooleanField(label = ugettext_lazy("with images"),
+                          required=False)
+    comments = BooleanField(label = ugettext_lazy("with comments"),
+                            required=False)
+
+    def __init__(self):
+        super(WorkoutScheduleDownloadForm, self).__init__()
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.add_input(Submit('submit', _("Download"),
+                                     css_class='btn-success btn-block',
+                                     css_id="download-pdf-button-schedule"))
 
 
 class WorkoutSessionHiddenFieldsForm(ModelForm):
