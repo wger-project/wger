@@ -108,7 +108,7 @@
                 {#                                         #}
                 <div class="btn-group" role="group">
                     <div class="btn-group" role="group">
-                        <button id="btnGroupLanguages" type="button" class="btn btn-primary dropdown-toggle  dropdown-toggle btn-xs" data-toggle="dropdown">
+                        <button id="btnGroupLanguages" type="button" class="btn btn-primary dropdown-toggle  dropdown-toggle btn-sm" data-toggle="dropdown">
                           {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
                           <img src="{% static flagname %}"
                                  width="18"
@@ -179,12 +179,12 @@
             <div class="alert alert-warning" role="alert" style="padding:0.6em; margin-top: 1em; text-align:center; font-size:95%;">
                 {% trans "You are using a guest account, data entered will be deleted after a week." %}
                 {% if not has_demo_data %}
-                <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">
+                <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-success btn-sm">
                     {% trans "Create some demo entries" %}
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
                 {% else %}
-                    <a href="{% url 'core:user:registration' %}" class="btn btn-success btn-xs">
+                    <a href="{% url 'core:user:registration' %}" class="btn btn-success btn-sm">
                         {% trans "Register" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>

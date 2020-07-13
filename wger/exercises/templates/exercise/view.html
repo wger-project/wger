@@ -124,7 +124,7 @@ $(document).ready(function() {
     <div class="col-xs-3">
         {% if perms.exercises.change_exerciseimage %}
         <p>
-            <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-xs">
+            <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-sm">
                 {% trans "Add new image" %}
             </a>
         </p>
@@ -240,7 +240,7 @@ $(document).ready(function() {
 
 {% if perms.exercises.change_exercisecomment %}
 <p>
-    <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-xs wger-modal-dialog">
+    <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add new comment" %}
     </a>
 </p>

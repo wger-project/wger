@@ -198,7 +198,7 @@
 {% block sidebar %}
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
 <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -319,7 +319,7 @@
 {#          #}
 {% if perms.gym.add_contract %}
 <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -358,7 +358,7 @@
 {#             #}
 {% if perms.gym.add_adminusernote %}
 <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -394,7 +394,7 @@
 {#           #}
 {% if perms.gym.add_userdocument %}
 <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -409,7 +409,7 @@
     <tr>
         <td>
             <a href="{{ document.document.url }}"
-               class="btn btn-default btn-xs"
+               class="btn btn-default btn-sm"
                title="{% trans 'Download' %}"
                download="{{ document.original_name }}">
                 <span class="glyphicon glyphicon-download"></span>
@@ -439,7 +439,7 @@
 {#                   #}
 {% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
 <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">

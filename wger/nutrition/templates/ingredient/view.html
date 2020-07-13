@@ -184,7 +184,7 @@ the search.{% endblocktrans %}
 {% if perms.nutrition.delete_ingredient %}
 <h4>{% trans "Weight units" %}</h4>
 <p>
-    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-xs wger-modal-dialog">
+    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add new weight unit" %}
     </a>
 </p>
@@ -202,7 +202,7 @@ the search.{% endblocktrans %}
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
                 <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
