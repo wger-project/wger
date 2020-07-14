@@ -11,7 +11,7 @@
 <ul class="list-group">
     {% for gym in gym_list %}
     <li class="list-group-item ">
-        <div class="btn-group pull-right">
+        <div class="btn-group float-right">
             <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
@@ -35,7 +35,7 @@
 
 {% block sidebar %}
 {% if perms.config.change_gymconfig %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>

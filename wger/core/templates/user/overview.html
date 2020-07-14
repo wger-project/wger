@@ -197,7 +197,7 @@
 
 {% block sidebar %}
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -318,7 +318,7 @@
 {# Contract #}
 {#          #}
 {% if perms.gym.add_contract %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -357,7 +357,7 @@
 {# Admin notes #}
 {#             #}
 {% if perms.gym.add_adminusernote %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -393,7 +393,7 @@
 {# Documents #}
 {#           #}
 {% if perms.gym.add_userdocument %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -438,7 +438,7 @@
 {# Gym configuration #}
 {#                   #}
 {% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>

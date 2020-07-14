@@ -79,7 +79,7 @@
 {# Gym details #}
 {#             #}
 {% if perms.gym.change_gym %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -136,7 +136,7 @@
 {# Gym configuration #}
 {#                   #}
 {% if perms.gym.change_gymconfig %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -173,7 +173,7 @@
 {# Admin configuration #}
 {#                     #}
 {% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -208,7 +208,7 @@
     <h4>{% trans "Contracts" %}</h4>
 {% endif %}
 {% if perms.gym.change_contracttype %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -245,7 +245,7 @@
 
 
 {% if perms.gym.change_contractoption %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
@@ -286,7 +286,7 @@
 {# Email lists #}
 {#             #}
 {% if perms.email.change_log %}
-<div class="btn-group pull-right">
+<div class="btn-group float-right">
     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
