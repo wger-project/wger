@@ -96,7 +96,7 @@ INSTALLED_APPS = (
 BOWER_INSTALLED_APPS = (
     'bootstrap#4.x',
     'components-font-awesome#5.13.x',
-    'd3',
+    'd3#5.16.x',
     'DataTables',
     'devbridge-autocomplete#1.2.x',
     'jquery#2.x',
