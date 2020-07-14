@@ -17,14 +17,14 @@ EXPOSE 8000
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
 # when using the invoke/wger commands and bower
-RUN locale-gen en_US.UTF-8
+RUN sed --in-place '/en_US.UTF-8/s/^# //' /etc/locale.gen && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 
 # Install dependencies
-RUN apt-get install -y vim tmux sqlite3 python3-pip #python3-setuptools
+RUN apt-get update && apt-get install -y vim tmux sqlite3 python3-pip postgresql-common libpq-dev #python3-setuptools
 
 # Set up the application
 RUN git clone https://github.com/wger-project/wger.git /home/wger/src
@@ -51,7 +51,7 @@ RUN wger create_settings \
 #       -> https://github.com/npm/npm/issues/9863
 #       -> https://github.com/npm/npm/issues/13306
 RUN cd wger \
-    && rm -r node_modules \
+#    && rm -r node_modules \
     && npm install bower \
     && npm install \
     && cd .. \
