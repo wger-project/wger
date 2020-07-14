@@ -3,61 +3,56 @@
 Development
 ===========
 
-Assumptions
------------
+You can safely install from master, it is almost always in a usable
+and stable state.
 
-For clarity purposes regarding these instructions we are assuming the following
+Virtual environment
+~~~~~~~~~~~~~~~~~~~
 
-* You will be installing the program in ``/home/wger/wger``
-
-
-Requirements
-------------
-
-Get the code
-~~~~~~~~~~~~
-
-The code is available on Github::
-
-  $ git clone https://github.com/wger-project/wger.git
-
-Create a virtual environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-It's a best practice to create a Python virtual environment::
+::
 
   $ python3 -m venv venv-wger
   $ source venv-wger/bin/activate
-  $ cd wger
 
+
+Get the code
+~~~~~~~~~~~~
+::
+
+  $ git clone https://github.com/wger-project/wger.git src
+  $ cd src
+  $ WGER_PATH=$(pwd)
 
 Install Requirements
 ~~~~~~~~~~~~~~~~~~~~
-
-To install the Python requirements::
+::
 
   $ pip install -r requirements_devel.txt
-  $ npm install
   $ npm install bower
   $ python setup.py develop
 
 Install application
 ~~~~~~~~~~~~~~~~~~~
 
-To install the development server, init the database and create a settings
-file::
+This will download the required JS and CSS libraries and create a SQlite
+database and populate it with data on the first run::
+
 
   $ wger create_settings \
-           --settings-path /home/wger/wger/settings.py \
-           --database-path /home/wger/wger/database.sqlite
+           --settings-path  $WGER_PATH/settings.py \
+           --database-path  $WGER_PATH/database.sqlite
   $ wger bootstrap \
-           --settings-path /home/wger/wger/settings.py \
+           --settings-path  $WGER_PATH/settings.py \
            --no-start-server
+
+You can of course also use other databases such as postgres or mariaDB. Create
+a database and user and edit the DATABASES settings before calling bootstrap.
+Take a look at the :ref:`prod_postgres` on apache on how that could look like.
 
 Start the server
 ----------------
 
-To start the server::
+After the first run you can just use django's development server::
 
   $ python manage.py runserver
 

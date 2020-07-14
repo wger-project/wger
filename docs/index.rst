@@ -19,14 +19,17 @@ https://github.com/wger-project/wger
 This documentation is intended for developers and administrators of the software.
 
 
-Installation and development
-----------------------------
+Installation and administration
+-------------------------------
 .. toctree::
-   :maxdepth: 2
 
-   getting_started
-   settings
-   commands
+   installation
+
+
+Development
+-------------------------------
+.. toctree::
+
    tips_and_tricks
    codingstyle
    i18n
@@ -35,8 +38,9 @@ Installation and development
 Administration guide
 --------------------
 .. toctree::
-   :maxdepth: 2
 
+   commands
+   settings
    gym
 
 
