@@ -18,6 +18,7 @@
 import ctypes  # noqa  E402
 import logging  # noqa  E402
 import os  # noqa  E402
+import pathlib  # noqa  E402
 import socket  # noqa  E402
 import sys
 import threading  # noqa  E402
@@ -43,9 +44,17 @@ from invoke import task  # noqa  E402
 # tries to load the standard library's "mail" module which collides with our
 # (perhaps unluckily named) app with the same name. Since this script is only
 # used for installation and does not depend on anything from wger proper, it
-# is kind of OK to change the system path.
-sys.path = sys.path[1:]
+# is kind of OK to change the system path. Also, some of the errors only
+# occur in travisCI
 
+# Remove all falsy values from path (such as "", the current folder)
+sys.path =  list(filter(None, sys.path))
+
+# Remove the wger source folder
+try:
+    sys.path.remove(pathlib.Path(__file__).parent.absolute())
+except ValueError:
+    pass
 
 logger = logging.getLogger(__name__)
 
