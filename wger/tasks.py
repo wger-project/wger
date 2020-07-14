@@ -25,14 +25,6 @@ import threading  # noqa  E402
 import time  # noqa  E402
 import webbrowser  # noqa  E402
 
-# Django
-import django  # noqa  E402
-from django.core.management import (  # noqa  E402
-    call_command,
-    execute_from_command_line
-)
-from django.utils.crypto import get_random_string  # noqa  E402
-
 # Third Party
 from invoke import task  # noqa  E402
 
@@ -55,6 +47,15 @@ try:
     sys.path.remove(pathlib.Path(__file__).parent.absolute())
 except ValueError:
     pass
+
+# Django
+import django  # noqa  E402
+from django.core.management import (  # noqa  E402
+    call_command,
+    execute_from_command_line
+)
+from django.utils.crypto import get_random_string  # noqa  E402
+
 
 logger = logging.getLogger(__name__)
 
