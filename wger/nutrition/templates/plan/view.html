@@ -81,7 +81,7 @@ function wgerCustomModalInit()
                 <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                    <span class="{% fa_class 'edit' %}"></span></a>
                 <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
                    class="wger-modal-dialog edit-meal">
@@ -106,7 +106,7 @@ function wgerCustomModalInit()
                 <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog edit-meal edit-mealitem">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                    <span class="{% fa_class 'edit' %}"></span></a>
             </span>
             {% endif %}
             </td>
@@ -295,7 +295,7 @@ function wgerCustomModalInit()
         </a>
         {% if is_owner %}
             <a href="{% url 'nutrition:plan:edit' plan.id %}" class="wger-modal-dialog dropdown-item">
-                <span class="{% fa_class 'pencil-square-o' %}"></span>
+                <span class="{% fa_class 'edit' %}"></span>
                 {% trans "Edit nutrition plan" %}
             </a>
             <a href="{% url 'nutrition:plan:copy' plan.id %}" class="dropdown-item">

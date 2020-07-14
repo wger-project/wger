@@ -120,7 +120,7 @@
                  <a href="{% url 'manager:step:edit' step.id %}"
                     title="{% trans 'Edit' %}"
                     class="wger-modal-dialog">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                    <span class="{% fa_class 'edit' %}"></span></a>
                 <a href="{% url 'manager:step:delete' step.id %}"
                    title="{% trans 'Delete' %}"
                    class="wger-modal-dialog">
@@ -291,7 +291,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 </a>
                 {% if is_owner %}
                     <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog dropdown-item">
-                        <span class="{% fa_class 'pencil-square-o' %}"></span>
+                        <span class="{% fa_class 'edit' %}"></span>
                         {% trans "Edit schedule" %}
                     </a>
                     <div role="separator" class="dropdown-divider"></div>

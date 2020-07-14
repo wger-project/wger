@@ -149,12 +149,11 @@ def auto_link_css(mobile=False, css=''):
 
 
 @register.simple_tag
-def fa_class(class_name='', size='', fixed_width=True):
+def fa_class(class_name='', icon_type='fas', fixed_width=True):
     '''
     Helper function to help add font awesome classes to elements
 
     :param class_name: the CSS class name, without the "fa-" prefix
-    :param size: the size of the icon
     :param fixed_width: toggle for fixed icon width
     :return: the complete CSS classes
     '''
@@ -162,9 +161,7 @@ def fa_class(class_name='', size='', fixed_width=True):
     if not class_name:
         return css
 
-    css += 'fa fa-{}'.format(class_name)
-    if size:
-        css += ' fa-{}'.format(size)
+    css += '{} fa-{}'.format(icon_type, class_name)
 
     if fixed_width:
         css += ' fa-fw'

@@ -7,7 +7,10 @@ Changelog
 
 Upgrade steps from 1.9:
 
+* Update python libraries ``pip install -r requirements.txt``
+* Update CSS and JS libraries ``python manage.py bower install``
 * Update static files (only production): ``python manage.py collectstatic``
+
 
 New features:
 
@@ -15,7 +18,7 @@ New features:
 
 Improvements:
 
-* TBA
+* Updated many libraries to last version (bootstrap, font awesome, etc.)
 
 
 1.9

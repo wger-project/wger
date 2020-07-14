@@ -27,10 +27,10 @@ $(document).ready(function() {
                 <a href="{% url 'manager:day:edit' day.obj.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                    <span class="{% fa_class 'edit' %}"></span></a>
                 <a href="{% url 'manager:day:log' day.obj.id %}"
                    title="{% trans 'Add weight log to this day' %}">
-                    <span class="{% fa_class 'line-chart' %}"></span></a>
+                    <span class="{% fa_class 'chart-line' %}"></span></a>
             </span>
             {% endif %}
         </th>
@@ -51,7 +51,7 @@ $(document).ready(function() {
                     <a href="{% url 'manager:set:edit' set.obj.id %}"
                        title="{% trans 'Edit' %}"
                        class="wger-modal-dialog">
-                           <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                           <span class="{% fa_class 'edit' %}"></span></a>
                         <br>
                     <a href="{% url 'manager:set:delete' set.obj.id %}"
                        title="{% trans 'Delete' %}">

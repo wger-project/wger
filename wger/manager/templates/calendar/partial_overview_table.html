@@ -14,7 +14,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog dropdown-item">
-                            <span class="{% fa_class 'pencil-square-o' %}"></span>
+                            <span class="{% fa_class 'edit-o' %}"></span>
                             {% trans "Edit" %}
                         </a>
                         <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog dropdown-item">
