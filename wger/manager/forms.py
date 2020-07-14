@@ -109,31 +109,6 @@ class SetForm(ModelForm):
                                                'they will be grouped together for a superset.')
 
 
-class SetFormMobile(ModelForm):
-    '''
-    Don't use the auto completer when accessing the mobile version
-    '''
-    class Meta:
-        model = Set
-        exclude = ('order', 'exerciseday')
-        widgets = {'exercises': MultipleHiddenInput(), }
-
-    categories_list = ModelChoiceField(ExerciseCategory.objects.all(),
-                                       empty_label=_('All categories'),
-                                       label=_('Categories'),
-                                       widget=TranslatedSelect(),
-                                       required=False)
-    exercise_list = ModelChoiceField(Exercise.objects)
-
-    # We need to overwrite the init method here because otherwise Django
-    # will output a default help text, regardless of the widget used
-    # https://code.djangoproject.com/ticket/9321
-    def __init__(self, *args, **kwargs):
-        super(SetFormMobile, self).__init__(*args, **kwargs)
-        self.fields['exercise_list'].help_text = _('You can search for more than one exercise, '
-                                                   'they will be grouped together for a superset.')
-
-
 class SettingForm(ModelForm):
     class Meta:
         model = Setting
