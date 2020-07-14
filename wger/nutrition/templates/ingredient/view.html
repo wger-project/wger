@@ -201,18 +201,14 @@ the search.{% endblocktrans %}
         <tr>
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
-                <div class="btn-group pull-right">
+                <div class="dropdown float-right">
                     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
+                        <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                    </div>
                 </div>
             </td>
         </tr>
