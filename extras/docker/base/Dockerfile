@@ -7,7 +7,7 @@
 #
 # docker build --tag wger/base .
 #
-
+LABEL maintainer="Roland Geider <roland@geider.net>"
 FROM debian:buster-slim
 
 # Install dependencies
@@ -23,9 +23,6 @@ RUN apt-get update \
       tmux \
       sqlite3 \
   && rm -rf /var/lib/apt/lists/*
-
-
-
 
 # Add wger user
 RUN adduser wger --disabled-password --gecos ""
