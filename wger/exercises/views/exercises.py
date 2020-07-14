@@ -28,9 +28,11 @@ from django.contrib.auth.mixins import (
 from django.core import mail
 from django.core.cache import cache
 from django.forms import (
+    CheckboxSelectMultiple,
     ModelChoiceField,
     ModelForm,
-    ModelMultipleChoiceField
+    ModelMultipleChoiceField,
+    Select
 )
 from django.http import (
     HttpResponseForbidden,
@@ -57,6 +59,13 @@ from django.views.generic import (
     UpdateView
 )
 
+# Third Party
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row
+)
+
 # wger
 from wger.config.models import LanguageConfig
 from wger.exercises.models import (
@@ -74,11 +83,7 @@ from wger.utils.language import (
     load_item_languages,
     load_language
 )
-from wger.utils.widgets import (
-    TranslatedOriginalSelectMultiple,
-    TranslatedSelect,
-    TranslatedSelectMultiple
-)
+from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
 
 
@@ -189,18 +194,16 @@ class ExercisesEditAddView(WgerFormMixin):
 
     def get_form_class(self):
 
-        # Define the exercise form here because only at this point during the request
-        # have we access to the currently used language. In other places Django defaults
-        # to 'en-us'.
         class ExerciseForm(ModelForm):
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=TranslatedSelect())
+                                        widget=Select()
+                                        )
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=TranslatedOriginalSelectMultiple(),
+                                               widget=CheckboxSelectMultiple(),
                                                required=False)
 
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=TranslatedOriginalSelectMultiple(),
+                                                         widget=CheckboxSelectMultiple(),
                                                          required=False)
 
             class Meta:
@@ -220,6 +223,25 @@ class ExercisesEditAddView(WgerFormMixin):
 
         return ExerciseForm
 
+    def get_form(self, form_class=None):
+        form = super(ExercisesEditAddView, self).get_form(form_class)
+        form.helper.layout = Layout(
+            "name_original",
+            "description",
+            "category",
+            "equipment",
+            Row(
+                Column('muscles', css_class='form-group col-6 mb-0'),
+                Column('muscles_secondary', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('license', css_class='form-group col-6 mb-0'),
+                Column('license_author', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        return form
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,

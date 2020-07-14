@@ -213,9 +213,10 @@ function wgerInitTinymce() {
       mode: 'textareas',
       theme: 'silver',
       width: '100%',
-      height: '200',
+
       entity_encoding: 'raw',
-      menu: {},
+      plugins: "lists",
+      menubar: false,
       toolbar: 'undo redo | bold italic | bullist numlist '
     });
   }
