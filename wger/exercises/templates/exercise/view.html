@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 
 <div class="row mt-4">
-    <div class="col-3">
+    <div class="col-md-3">
         <strong>{% trans "Category" %}:</strong>
     </div>
     <div class="col-9">
@@ -81,7 +81,7 @@ $(document).ready(function() {
 
 {% if exercise.equipment.all %}
 <div class="row mt-4">
-    <div class="col-3">
+    <div class="col-md-3">
         <strong>{% trans "Equipment" %}:</strong>
     </div>
     <div class="col-9">
@@ -95,10 +95,10 @@ $(document).ready(function() {
 
 
 <div class="row mt-4">
-    <div class="col-3">
+    <div class="col-md-3">
         <strong>{% trans "Description" %}:</strong>
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
         {{ exercise.description|safe }}
     </div>
 </div>
@@ -109,17 +109,10 @@ $(document).ready(function() {
 {% with images=exercise.exerciseimage_set.accepted %}
 {% if images or perms.exercises.change_exerciseimage  %}
 <div class="row mt-4">
-    <div class="col-3">
-        {% if perms.exercises.change_exerciseimage %}
-        <p>
-            <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-sm">
-                {% trans "Add new image" %}
-            </a>
-        </p>
-        {% endif %}
-{#        <strong>{% trans "Images" %}:</strong>#}
+    <div class="col-md-3">
+        <strong>{% trans "Images" %}:</strong>
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
         <div class="card-deck">
         {% with other_images=images %}
         {% for image in other_images %}
@@ -156,6 +149,14 @@ $(document).ready(function() {
         {% endfor %}
         {% endwith %}
         </div>
+
+        {% if perms.exercises.change_exerciseimage %}
+            <p>
+                <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-sm">
+                    {% trans "Add new image" %}
+                </a>
+            </p>
+        {% endif %}
     </div>
 </div>
 {% endif %}
@@ -187,10 +188,10 @@ $(document).ready(function() {
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments or perms.exercises.change_exercisecomment %}
 <div class="row mt-4">
-    <div class="col-3">
+    <div class="col-md-3">
         <strong>{% trans "Comments for this exercise" %}:</strong>
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
         <ul>
         {% for comment in comments %}
             <li>
@@ -209,18 +210,19 @@ $(document).ready(function() {
             </li>
         {% endfor %}
         </ul>
+        {% if perms.exercises.change_exercisecomment %}
+            <p>
+                <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-sm wger-modal-dialog">
+                    {% trans "Add new comment" %}
+                </a>
+            </p>
+        {% endif %}
     </div>
 </div>
 {% endif %}
 {% endwith %}
 
-{% if perms.exercises.change_exercisecomment %}
-<p>
-    <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add new comment" %}
-    </a>
-</p>
-{% endif %}
+
 
 
 
@@ -230,25 +232,26 @@ $(document).ready(function() {
 
 {% if muscles %}
 <div class="row mt-4">
-    <div class="col-3">
+    <div class="col-md-3">
         <strong>{% trans "Muscles" %}:</strong>
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
         <p>
             {% trans "The diagram shows the most used muscles on this exercise" %}
         </p>
-        <div>
-            <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
-            {% trans "Main muscles" %}
-        </div>
-
-        <div>
-            <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
-            {% trans "Secondary muscles" %}
-        </div>
         <div class="row">
-            <div class="col">
-                <div id="muscle-front" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            <div class="col-md">
+                <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
+                {% trans "Main muscles" %}
+            </div>
+            <div class="col-md">
+                <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
+                {% trans "Secondary muscles" %}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md ">
+                <div id="muscle-front" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
                 </div>
                 <ul>
                     {% for muscle in muscles %}
@@ -264,8 +267,8 @@ $(document).ready(function() {
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col">
-                <div id="muscle-back" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            <div class="col-md">
+                <div id="muscle-back" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
                 </div>
                 <ul>
                     {% for muscle in muscles %}
