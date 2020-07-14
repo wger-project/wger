@@ -21,3 +21,13 @@ from wger import get_version
 
 VERSION = get_version()
 default_app_config = 'wger.email.apps.Config'
+
+
+def message_from_file(fp, *args, **kws):
+    """
+    Dummy method. Needed because this email app clashes with python's own
+    "email" package and bad things happen sometimes. See the note in tasks.py.
+
+    https://travis-ci.org/github/wger-project/wger/jobs/708008236
+    """
+    return ":("
