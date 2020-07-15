@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Django
 from django.core.management.base import BaseCommand
 
 # wger

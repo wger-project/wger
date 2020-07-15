@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-# Third Party
+# Django
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 

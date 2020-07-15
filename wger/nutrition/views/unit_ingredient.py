@@ -17,17 +17,17 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.urls import reverse
 from django.forms import (
     ModelChoiceField,
     ModelForm
 )
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy
 from django.views.generic import (
     CreateView,

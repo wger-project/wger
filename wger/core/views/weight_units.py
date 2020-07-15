@@ -17,13 +17,13 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -38,9 +38,9 @@ from django.views.generic import (
 # wger
 from wger.core.models import WeightUnit
 from wger.utils.generic_views import (
+    UAAwareViewMixin,
     WgerDeleteMixin,
-    WgerFormMixin,
-    UAAwareViewMixin
+    WgerFormMixin
 )
 
 

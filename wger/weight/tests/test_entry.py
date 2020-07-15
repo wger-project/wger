@@ -16,7 +16,7 @@
 import datetime
 import decimal
 
-# Third Party
+# Django
 from django.urls import reverse
 
 # wger

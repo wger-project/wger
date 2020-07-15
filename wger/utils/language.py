@@ -15,7 +15,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import translation

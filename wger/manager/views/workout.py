@@ -19,28 +19,28 @@ import datetime
 import logging
 import uuid
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
 )
+from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     DeleteView,
     UpdateView
 )
-from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.core.models import (

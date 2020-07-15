@@ -21,60 +21,56 @@
  *
  **************************************************************/
 
-
 html {
   font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
-
 body {
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-    background-color: #204A87;
+  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
+  background-color: #204a87;
 }
 
 @media (min-width: 992px) {
-    #main-content{
-        min-height: 40em;
-    }
+  #main-content {
+    min-height: 40em;
+  }
 }
 
 .navbar {
-    margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
-.close{
-    float:right;
-    opacity: 0.2;
-    font-weight: bold;
+.close {
+  float: right;
+  opacity: 0.2;
+  font-weight: bold;
 }
 
-
-.carousel a:hover, .carousel a:focus {
-    background-color: transparent;
+.carousel a:hover,
+.carousel a:focus {
+  background-color: transparent;
 }
 
 .wger-list-group-item {
-    background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .page-header {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-
 
 .application-name {
-    text-shadow: 2px 3px 3px #292929;
-    font-family: "Open Sans Bold",Arial,Helvetica,sans-serif;
-    font-weight: 300;
-    font-size: 180%;
-    color: #FFF;
-    width: 50%;
-    text-align: center;
-    margin-top: 0.2em;
+  text-shadow: 2px 3px 3px #292929;
+  font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 180%;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  margin-top: 0.2em;
 }
-
 
 /**************************************************************
  * Off Canvas menu
@@ -83,94 +79,91 @@ body {
  **************************************************************/
 html,
 body {
-    overflow-x: hidden; /* Prevent scroll on narrow devices */
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 
 #main-template {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .sidebar-offcanvas #main-navbar-navigation {
-    border-color: transparent;
-    margin-left: -27px;
+  border-color: transparent;
+  margin-left: -27px;
 }
 
 .row-offcanvas #nav {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: absolute;
-    background-color: #E7E7E7;
-    padding-left: 1em;
-    margin-left: -15px;
-    border-right: 1px solid #888a85;
-    border-bottom: 1px solid #888a85;
-    width: 100%;
-    z-index: 99;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  background-color: #e7e7e7;
+  padding-left: 1em;
+  margin-left: -15px;
+  border-right: 1px solid #888a85;
+  border-bottom: 1px solid #888a85;
+  width: 100%;
+  z-index: 99;
 }
 
 @media screen and (max-width: 767px) {
-    .row-offcanvas {
-        position: relative;
-        -webkit-transition: all .25s ease-out;
-           -moz-transition: all .25s ease-out;
-                transition: all .25s ease-out;
-    }
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
 
-    .row-offcanvas-right {
-        right: 0;
-    }
+  .row-offcanvas-right {
+    right: 0;
+  }
 
-    .row-offcanvas-left {
-        left: 0;
-    }
+  .row-offcanvas-left {
+    left: 0;
+  }
 
-    .row-offcanvas-right
-    .sidebar-offcanvas {
-        right: -70%;
-    }
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 70%;
+  }
 
-    .row-offcanvas-left
-    .sidebar-offcanvas {
-        left: -70%;
-    }
+  .row-offcanvas-right .sidebar-offcanvas {
+    right: -70%;
+  }
 
-    .row-offcanvas-right.active {
-        right: 70%;
-    }
+  .row-offcanvas-left .sidebar-offcanvas {
+    left: -70%;
+  }
 
-    .row-offcanvas-left.active {
-        left: 70%;
-    }
+  .row-offcanvas-right.active {
+    right: 70%;
+  }
 
-    .sidebar-offcanvas {
-        position: absolute;
-        top: 0;
-        width: 70%;
-    }
+  .row-offcanvas-left.active {
+    left: 70%;
+  }
 
-    /* Increase left padding */
-    .navbar-nav .open .dropdown-menu .dropdown-header,
-    .navbar-nav .open .dropdown-menu > li > a {
-        padding: 5px 15px 5px 35px;
-    }
+  /* Increase left padding */
+  .navbar-nav .open .dropdown-menu .dropdown-header,
+  .navbar-nav .open .dropdown-menu > li > a {
+    padding: 5px 15px 5px 35px;
+  }
 }
-
 
 /**************************************************************
  * Alerts
  **************************************************************/
 
-.label, .badge {
-    font-weight: normal;
+.label,
+.badge {
+  font-weight: normal;
 }
-
 
 /*
  * Make the 'close' button on alerts more prominent
  */
 .alert .close {
-    opacity: 0.8;
-    text-decoration: none;
+  opacity: 0.8;
+  text-decoration: none;
 }
 
 /**************************************************************
@@ -180,11 +173,13 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .btn-default {
   color: #333;
   background-color: #eeeeec;
   border-color: #ccc;
 }
+
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
@@ -194,11 +189,13 @@ body {
   background-color: #babdb6;
   border-color: #888a85;
 }
+
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
   background-image: none;
 }
+
 .btn-default.disabled,
 .btn-default[disabled],
 fieldset[disabled] .btn-default,
@@ -217,6 +214,7 @@ fieldset[disabled] .btn-default.active {
   background-color: #babdb6;
   border-color: #ccc;
 }
+
 .btn-default .badge {
   color: #fff;
   background-color: #babdb6;
@@ -225,24 +223,26 @@ fieldset[disabled] .btn-default.active {
 /**************************************************************
  * Headers in sidebar
  **************************************************************/
- #main-sidebar h4, #main-sidebar .h4,
- #main-sidebar h5, #main-sidebar .h5,
- #main-sidebar h6, #main-sidebar .h6 {
-    margin-top: 0px;
+#main-sidebar h4,
+#main-sidebar .h4,
+#main-sidebar h5,
+#main-sidebar .h5,
+#main-sidebar h6,
+#main-sidebar .h6 {
+  margin-top: 0;
 }
 
-
- /**************************************************************
+/**************************************************************
  * Fix issue with body shifting
  *
  * Opening modal dialogs shifted the whole body by 15px to the left.
  * While this appears to be https://github.com/twbs/bootstrap/issues/9855
  * it doesn't seem to be fixed here. When it does, these fixes can be removed
  **************************************************************/
- body.modal-open {
-    padding-right: 0 !important;
-
+body.modal-open {
+  padding-right: 0 !important;
 }
+
 /*
 body.modal {
     overflow-y: hidden;

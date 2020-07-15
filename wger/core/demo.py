@@ -20,7 +20,7 @@ import logging
 import random
 import uuid
 
-# Third Party
+# Django
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _

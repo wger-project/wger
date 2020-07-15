@@ -17,7 +17,7 @@
 # Standard Library
 import datetime
 
-# Third Party
+# Django
 from django.conf import settings
 from django.core import mail
 from django.core.management.base import BaseCommand

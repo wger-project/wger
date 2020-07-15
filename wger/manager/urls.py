@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Third Party
+# Django
 from django.conf.urls import (
     include,
     url
@@ -129,7 +129,7 @@ patterns_session = [
     url(r'^(?P<pk>\d+)/edit$',
         workout_session.WorkoutSessionUpdateView.as_view(),
         name='edit'),
-    url(r'^(?P<pk>\d+)/delete/(?P<logs>(session|logs))?$',
+    url(r'^(?P<pk>\d+)/delete/(?P<logs>session|logs)?$',
         workout_session.WorkoutSessionDeleteView.as_view(),
         name='delete'),
 ]

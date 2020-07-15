@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Third Party
+# Django
 from django.conf import settings
 from django.conf.urls import (
     include,
@@ -25,6 +25,8 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
+
+# Third Party
 from rest_framework import routers
 from tastypie.api import Api
 

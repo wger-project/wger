@@ -18,12 +18,8 @@
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
@@ -31,6 +27,10 @@ from django.http import (
 )
 from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -39,9 +39,11 @@ from django.views.generic import (
     DeleteView,
     UpdateView
 )
+
+# Third Party
 from reportlab.lib import colors
-from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,

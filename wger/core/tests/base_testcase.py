@@ -19,14 +19,15 @@ import os
 import shutil
 import tempfile
 
-# Third Party
+# Django
 from django.conf import settings
 from django.core.cache import cache
+from django.test import TestCase
+from django.utils.translation import activate
 from django.urls import (
     NoReverseMatch,
     reverse
 )
-from django.test import TestCase
 
 # wger
 from wger.utils.constants import TWOPLACES
@@ -128,6 +129,9 @@ class BaseTestCase(object):
 
         # Don't check reCaptcha's entries
         os.environ['RECAPTCHA_TESTING'] = 'True'
+
+        # Explicitly set the locale to en, otherwise the CI might make problems
+        activate('en')
 
         # Test the mobile templates
         if os.environ.get('TEST_MOBILE') == 'True':

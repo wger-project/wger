@@ -19,7 +19,7 @@ import csv
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
 from django.http.response import (
     HttpResponse,

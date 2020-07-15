@@ -1,7 +1,0 @@
-#######################
-# Forked Modules
-# These modules have open PRs for compat changes
-#######################
-
-# django-user_agents
--e git+git://github.com/joehybird/django-user_agents.git@django_2.2#egg=django-user_agents

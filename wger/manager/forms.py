@@ -18,8 +18,7 @@
 This file contains forms used in the application
 '''
 
-# Third Party
-from captcha.fields import ReCaptchaField
+# Django
 from django.forms import (
     CharField,
     DateField,
@@ -32,6 +31,9 @@ from django.forms import (
     widgets
 )
 from django.utils.translation import ugettext as _
+
+# Third Party
+from captcha.fields import ReCaptchaField
 
 # wger
 from wger.core.models import (

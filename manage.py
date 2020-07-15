@@ -3,7 +3,7 @@
 # Standard Library
 import sys
 
-# Third Party
+# Django
 from django.core.management import execute_from_command_line
 
 # wger

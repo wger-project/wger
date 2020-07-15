@@ -15,8 +15,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
+
+# Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response

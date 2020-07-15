@@ -19,12 +19,8 @@ import csv
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.db.models import (
     Max,
     Min
@@ -32,6 +28,10 @@ from django.db.models import (
 from django.http import (
     HttpResponse,
     HttpResponseRedirect
+)
+from django.urls import (
+    reverse,
+    reverse_lazy
 )
 from django.utils.translation import (
     ugettext as _,
@@ -41,6 +41,8 @@ from django.views.generic import (
     CreateView,
     UpdateView
 )
+
+# Third Party
 from formtools.preview import FormPreview
 from rest_framework.decorators import api_view
 from rest_framework.response import Response

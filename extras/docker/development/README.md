@@ -17,7 +17,7 @@ development instance (vim and tmux are already installed):
 
 ```docker run -ti --name wger.devel --publish 8000:8000 wger/devel```
 
-Then, *within the docker image*, activate the virtualenv
+Then, within the docker image, activate the virtualenv
 
 ```source ~/venv/bin/activate```
 
@@ -25,7 +25,27 @@ and start the development server
 
 ```python manage.py runserver 0.0.0.0:8000```
 
-Then just open http://localhost:8000 and log in as: **admin**, password **admin**
+Then just open <http://localhost:8000> and log in as: **admin**, password **admin**
+
+To stop the container:
+
+```sudo docker container stop wger.devel```
+
+To start developing again:
+
+```sudo docker container start --attach wger.devel```
+
+You can also keep the code outside and just bind it into the container:
+
+```docker run -ti -v /path/to/local/project/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/devel```
+
+Building
+--------
+
+If you build this yourself, keep in mind that you **must** build from the
+project root!
+
+```docker build -f extras/docker/development/Dockerfile --tag wger/devel .```
 
 Contact
 -------
@@ -35,18 +55,17 @@ didn't behave as you expected. We can't fix what we don't know about, so please
 report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
-* twitter: https://twitter.com/wger_de
-* mailing list: https://groups.google.com/group/wger / wger@googlegroups.com, no registration needed
-* IRC: channel #wger on freenode.net, webchat: http://webchat.freenode.net/?channels=wger
-* issue tracker: https://github.com/wger-project/wger/issues
+* gitter: <https://gitter.im/wger-project/wger>
+* issue tracker: <https://github.com/wger-project/wger/issues>
+* twitter: <https://twitter.com/wger_de>
+* mailing list: <https://groups.google.com/group/wger> / wger@googlegroups.com, no registration needed
 
 Sources
 -------
 
 All the code and the content is freely available:
 
-* Main repository: https://github.com/wger-project/wger
-* Mirror: https://bitbucket.org/rolandgeider/wger
+* Main repository: <https://github.com/wger-project/wger>
 
 Licence
 -------

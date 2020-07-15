@@ -18,7 +18,7 @@ from datetime import (
     timedelta
 )
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.management import call_command

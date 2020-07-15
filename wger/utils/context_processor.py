@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Third Party
+# Django
 from django.conf import settings
 from django.templatetags.static import static
 

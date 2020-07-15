@@ -19,9 +19,11 @@
 import datetime
 from calendar import HTMLCalendar
 
-# Third Party
+# Django
 from django.urls import reverse
 from django.utils.translation import ugettext as _
+
+# Third Party
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.platypus import (

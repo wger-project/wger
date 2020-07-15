@@ -18,28 +18,31 @@
 import datetime
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
 )
+from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     CreateView,
     DeleteView,
     UpdateView
 )
+
+# Third Party
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import (
@@ -47,7 +50,6 @@ from reportlab.platypus import (
     SimpleDocTemplate,
     Spacer
 )
-from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.manager.helpers import render_workout_day

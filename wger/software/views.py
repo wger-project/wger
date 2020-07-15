@@ -17,8 +17,10 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.conf import settings
+
+# wger
 from wger.utils.helpers import ua_aware_render
 
 

@@ -14,17 +14,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
+# Django
 from django.conf import settings
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import mail
-from django.urls import reverse
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views import generic
+
+# Third Party
 from formtools.preview import FormPreview
 
 # wger

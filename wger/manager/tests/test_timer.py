@@ -18,7 +18,7 @@ import logging
 import math
 from decimal import Decimal
 
-# Third Party
+# Django
 from django.contrib.auth.models import User
 from django.urls import reverse
 

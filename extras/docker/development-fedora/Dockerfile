@@ -9,13 +9,13 @@
 #
 #
 FROM fedora:25
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 
 # Install dependencies
 RUN dnf update;\
     dnf install -y python3-devel python-virtualenv \
     nodejs npm libjpeg-turbo-devel zlib-devel git \
-    tmux sudo redhat-rpm-config gcc python-imaging
+    tmux redhat-rpm-config gcc python-imaging
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
 # when using the invoke/wger commands and bower

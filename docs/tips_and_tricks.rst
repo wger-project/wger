@@ -45,7 +45,16 @@ Clearing the cache
 
 Sometimes there are changes to the internal changes of the cached structures.
 It is recommended that you just clear all the existing caches
-``python manage.py clear-cache --clear-all``
+``python manage.py clear-cache --clear-all`` or just set the timeout to something
+like one second (in settings.py::
+
+    CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'wger-cache',
+        'TIMEOUT': 1
+        }
+    }
 
 Miscellaneous settings
 ~~~~~~~~~~~~~~~~~~~~~~

@@ -20,7 +20,7 @@ import logging
 import uuid
 from itertools import chain
 
-# Third Party
+# Django
 from django.forms import fields
 from django.forms.widgets import (
     CheckboxInput,

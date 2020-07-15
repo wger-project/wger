@@ -17,23 +17,23 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
 from django.core import mail
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
+from django.template.loader import render_to_string
 from django.urls import (
     reverse,
     reverse_lazy
 )
-from django.http import HttpResponseRedirect
-from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
+from django.views.decorators.vary import vary_on_headers
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-from django.views.decorators.vary import vary_on_headers
 
 # wger
 from wger.core.demo import (
@@ -47,9 +47,9 @@ from wger.core.forms import (
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
+from wger.utils.helpers import ua_aware_render
 from wger.weight.helpers import get_last_entries
 from wger.weight.models import WeightEntry
-from wger.utils.helpers import ua_aware_render
 
 
 logger = logging.getLogger(__name__)

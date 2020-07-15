@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-# Third Party
+# Django
 from django.conf.urls import (
     include,
     url

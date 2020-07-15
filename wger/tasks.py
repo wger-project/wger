@@ -24,13 +24,15 @@ import threading  # noqa  E402
 import time  # noqa  E402
 import webbrowser  # noqa  E402
 
-# Third Party
+# Django
 import django  # noqa  E402
 from django.core.management import (  # noqa  E402
     call_command,
     execute_from_command_line
 )
 from django.utils.crypto import get_random_string  # noqa  E402
+
+# Third Party
 from invoke import task  # noqa  E402
 
 
@@ -117,7 +119,8 @@ def bootstrap(context,
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
-    call_command('bower', 'install')
+    context.run('npm install bower')
+    context.run('npm install')
 
     # Start the webserver
     if start_server:

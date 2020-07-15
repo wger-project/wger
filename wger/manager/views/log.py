@@ -19,12 +19,8 @@ import datetime
 import logging
 import uuid
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
 from django.forms.models import modelformset_factory
 from django.http import (
     HttpResponseForbidden,
@@ -32,6 +28,10 @@ from django.http import (
 )
 from django.shortcuts import get_object_or_404
 from django.template.context_processors import csrf
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -49,7 +49,6 @@ from wger.manager.forms import (
     WorkoutLogForm
 )
 from wger.manager.helpers import WorkoutCalendar
-from wger.utils.helpers import ua_aware_render
 from wger.manager.models import (
     Day,
     Schedule,
@@ -61,7 +60,10 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
-from wger.utils.helpers import check_access
+from wger.utils.helpers import (
+    check_access,
+    ua_aware_render
+)
 from wger.weight.helpers import (
     group_log_entries,
     process_log_entries

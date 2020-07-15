@@ -17,13 +17,13 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.urls import reverse
 from django.http import HttpResponseForbidden
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.generic import UpdateView
 

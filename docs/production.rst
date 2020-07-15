@@ -65,12 +65,13 @@ Activate the settings and disable apache's default::
 Database
 --------
 
+.. _prod_postgres:
 postgreSQL
 ~~~~~~~~~~
 
 Install the postgres server and create a database and a user::
 
-    sudo apt-get install postgresql postgresql-server-dev-9.3 # or appropriate version
+    sudo apt-get install postgresql postgresql-server-dev-12 # or appropriate version
     su - postgres
     createdb wger
     psql wger -c "CREATE USER wger WITH PASSWORD 'wger'";
@@ -94,7 +95,7 @@ Application
 
 Make a virtualenv for python and activate it::
 
-  virtualenv --python python3 /home/wger/venv
+  python3 -m venv /home/wger/venv
   source /home/wger/venv/bin/activate
 
 Create folders to collect all static resources and save uploaded files. The

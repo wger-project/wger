@@ -14,8 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
-from captcha.fields import ReCaptchaField
+# Django
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
@@ -31,6 +30,9 @@ from django.forms import (
     widgets
 )
 from django.utils.translation import ugettext as _
+
+# Third Party
+from captcha.fields import ReCaptchaField
 
 # wger
 from wger.core.models import UserProfile

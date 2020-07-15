@@ -17,8 +17,7 @@
 # Standard Library
 import os
 
-# Third Party
-import requests
+# Django
 from django.conf import settings
 from django.core.exceptions import (
     ImproperlyConfigured,
@@ -31,6 +30,9 @@ from django.core.management.base import (
     CommandError
 )
 from django.core.validators import URLValidator
+
+# Third Party
+import requests
 from requests.utils import default_user_agent
 
 # wger

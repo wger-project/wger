@@ -1,7 +1,7 @@
-.. _getting_started:
+.. _installation:
 
-Getting started
-===============
+Installation
+============
 
 You can get a local instance of wger installed in a couple of minutes.
 
@@ -14,9 +14,9 @@ slightly different) you will need to change the steps as appropriate.
 The application is compatible and regularly tested with
 
 * sqlite, postgres
-* python 2.7, 3.4, 3.5 and 3.6
+* python 3.6, 3.7 and 3.8
 
-You might also want to take a look at the :ref:`other-changes` section for other
+After installation you might also want to take a look at the :ref:`other-changes` section for other
 changes you might want to do to your local instance such as Terms of Service or
 contact page.
 
@@ -26,28 +26,12 @@ contact page.
     in the development page apply to all the installation options.
 
 
-These are the necessary packages for both development and production
-(node and npm are only used to download JS and CSS libraries)::
+These are the necessary packages for both development and production::
 
-    sudo apt-get install nodejs npm git \
-                         python-virtualenv python3-dev \
-                         libjpeg8-dev zlib1g-dev libwebp-dev
-
-On fedora 23::
-
-    sudo dnf install nodejs npm git \
-                     python-virtualenv python3-devel \
-                     libjpeg-turbo-devel zlib-devel
-
-
-.. note::
-    The application is developed with python 3, which these installation
-    instructions also use. If you want to use python 2.7, make sure you install
-    the appropriate packages (e.g. python-dev instead of python3-dev, etc.)!
+    sudo apt-get install nodejs npm git python3-dev python3-venv
 
 
 .. toctree::
-   :maxdepth: 2
 
    development
    docker

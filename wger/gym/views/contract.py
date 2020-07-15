@@ -17,15 +17,15 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.urls import reverse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -40,8 +40,8 @@ from django.views.generic import (
 # wger
 from wger.gym.models import Contract
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    UAAwareViewMixin
+    UAAwareViewMixin,
+    WgerFormMixin
 )
 
 

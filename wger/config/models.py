@@ -18,7 +18,7 @@
 # Standard Library
 import logging
 
-# Third Party
+# Django
 from django.core.cache import cache
 from django.db import models
 from django.utils.translation import ugettext_lazy as _

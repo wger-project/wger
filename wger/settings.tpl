@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# wger
 from wger.settings_global import *
+
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
