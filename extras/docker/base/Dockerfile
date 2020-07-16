@@ -21,6 +21,7 @@ RUN apt-get update \
       nodejs \
       npm \
       python3-venv \
+      python3-pip \
       vim \
       tmux \
       sqlite3 \

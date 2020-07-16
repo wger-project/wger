@@ -3,7 +3,7 @@ Development image for wger - Base image
 This is the base image for some of the other wger images and offers no
 functionality, it's only use is to provide some common dependencies.
 
-If you want to develop, try either ``wger/devel`` oder ``wger/devel-fedora``.
+If you want to develop, try ``wger/devel``.
 
 
 Contact

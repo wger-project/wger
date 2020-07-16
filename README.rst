@@ -1,4 +1,4 @@
-﻿docker run -ti -v /path/to/this/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/develThank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
+﻿Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
 application that manages your exercises and personal workouts, weight and diet
 plans. It can also be used as a simple gym management utility, providing different
 administrative roles (trainer, manager, etc.). It offers a REST API as well, for
@@ -25,8 +25,8 @@ parameters.
 Docker
 ------
 
-Useful to just try it out. Check the documentatio on how to use docker for
-development::
+Useful to just try it out. Check the documentation on how to use the wger/devel
+docker image for development::
 
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 

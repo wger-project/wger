@@ -1,5 +1,9 @@
 #
-# Docker image for wger development
+# Docker image for wger development:
+#
+# This image uses a virtual environment, which is not necessary in a docker
+# image and is more or less intented to check that the installation instructions
+# for a local develoment are up-to-date
 #
 # Please consult the documentation for usage
 #
@@ -7,10 +11,14 @@
 # docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
 # Run the container:
+# docker run -ti --publish 8000:8000 --name wger.devel  wger/devel
+# (in docker) source ~/venv/bin/activate
+# (in docker) python manage.py download-exercise-images (optional, may take some time)
+# (in docker) python manage.py runserver 0.0.0.0:8000
+#
+# Alternatively, you can bind the local checkout into the container:
 # docker run -ti -v /path/to/this/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/devel
 #
-# (in docker) python3 manage.py download-exercise-images (optional, may take some time)
-# (in docker) python3 manage.py runserver 0.0.0.0:8000
 #
 # To stop the container:
 # sudo docker container stop wger.devel
@@ -29,14 +37,13 @@ RUN apt-get update \
       build-essential \
       python3-dev \
       python3-pip \
-      python3-wheel \
       git \
   && rm -rf /var/lib/apt/lists/*
 
-# Build the necessary python wheels
-COPY requirements* ./
-RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
-
+# Set up the application
+COPY . .
+RUN pip3 install wheel \
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
 
 
 ########
@@ -44,6 +51,7 @@ RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_de
 ########
 FROM wger/base:2.0-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
+ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
 # Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
@@ -55,17 +63,20 @@ ENV LC_ALL en_US.UTF-8
 
 
 # Set up the application
+USER wger
 COPY --chown=wger:wger . /home/wger/src
 COPY --from=builder /usr/src/app/wheels /wheels
-WORKDIR /home/wger/src
-RUN pip3 install --no-cache /wheels/* \
-    && python3 setup.py develop \
-    && npm install \
-    && npm install bower
+#RUN git clone https://github.com/wger-project/wger.git /home/wger/src
 
-USER wger
 WORKDIR /home/wger/src
-RUN wger create_settings \
+RUN python3 -m venv /home/wger/venv
+RUN . /home/wger/venv/bin/activate \
+    && pip install --upgrade pip \
+    && pip install --no-cache /wheels/* \
+    && python setup.py develop \
+    && npm install \
+    && npm install bower \
+    && wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \
     && wger bootstrap \

@@ -13,17 +13,21 @@ Installation
 
 This docker image contains an instance of the application running with django's
 development server using a sqlite database. It can be used to quickly setup a
-development instance (vim and tmux are already installed):
+development instance (vim and tmux are already installed)::
 
-```docker run -ti --name wger.devel --publish 8000:8000 wger/devel```
+    docker run -ti  \
+       -v /path/to/your/wger/checkout:/home/wger/src \
+       --name wger.devel \
+       --publish 8000:8000 wger/devel \
 
-Then, within the docker image, activate the virtualenv
+On the first run you might want to download the exercise images (might take
+some time):
 
-```source ~/venv/bin/activate```
+```python3 manage.py download-exercise-images```
 
-and start the development server
+To start the development server
 
-```python manage.py runserver 0.0.0.0:8000```
+```python3 manage.py runserver 0.0.0.0:8000```
 
 Then just open <http://localhost:8000> and log in as: **admin**, password **admin**
 
@@ -34,10 +38,6 @@ To stop the container:
 To start developing again:
 
 ```sudo docker container start --attach wger.devel```
-
-You can also keep the code outside and just bind it into the container:
-
-```docker run -ti -v /path/to/local/project/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/devel```
 
 Building
 --------
