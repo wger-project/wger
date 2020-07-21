@@ -25,6 +25,7 @@ RUN apt-get update \
       vim \
       tmux \
       sqlite3 \
+      netcat-openbsd \
   && rm -rf /var/lib/apt/lists/*
 
 
