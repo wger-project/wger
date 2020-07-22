@@ -178,7 +178,6 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'This schedule is a loop')
 
-
     # Commented out since travis was seemingly randomly failing this. See #468
     #
     # def test_schedule_detail_page_owner(self):

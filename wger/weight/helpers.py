@@ -207,30 +207,30 @@ def process_log_entries(logs):
 
 
 def get_last_entries(user, amount=5):
-        """
-        Get the last weight entries as well as the difference to the last
+    """
+    Get the last weight entries as well as the difference to the last
 
-        This can be used e.g. to present a list where the last entries and
-        their changes are presented.
-         """
+    This can be used e.g. to present a list where the last entries and
+    their changes are presented.
+    """
 
-        last_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
-        last_entries_details = []
+    last_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
+    last_entries_details = []
 
-        for index, entry in enumerate(last_entries):
-            curr_entry = entry
-            prev_entry_index = index + 1
+    for index, entry in enumerate(last_entries):
+        curr_entry = entry
+        prev_entry_index = index + 1
 
-            if prev_entry_index < len(last_entries):
-                prev_entry = last_entries[prev_entry_index]
-            else:
-                prev_entry = None
+        if prev_entry_index < len(last_entries):
+            prev_entry = last_entries[prev_entry_index]
+        else:
+            prev_entry = None
 
-            if prev_entry and curr_entry:
-                weight_diff = curr_entry.weight - prev_entry.weight
-                day_diff = (curr_entry.date - prev_entry.date).days
-            else:
-                weight_diff = day_diff = None
-            last_entries_details.append((curr_entry, weight_diff, day_diff))
+        if prev_entry and curr_entry:
+            weight_diff = curr_entry.weight - prev_entry.weight
+            day_diff = (curr_entry.date - prev_entry.date).days
+        else:
+            weight_diff = day_diff = None
+        last_entries_details.append((curr_entry, weight_diff, day_diff))
 
-        return last_entries_details
+    return last_entries_details

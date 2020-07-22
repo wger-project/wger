@@ -192,14 +192,15 @@ class CheckboxFieldRendererTranslated(CheckboxSelectMultiple):
 class CheckboxFieldRendererTranslatedOriginal(CheckboxSelectMultiple):
     choice_input_class = CheckboxChoiceInputTranslatedOriginal
 
+
 class BootstrapSelectMultiple(CheckboxSelectMultiple):
     pass
-    #renderer = CheckboxBootstrapRenderer
+    # renderer = CheckboxBootstrapRenderer
 
 
 class BootstrapSelectMultipleTranslatedOriginal(CheckboxSelectMultiple):
     pass
-    #renderer = CheckboxBootstrapRendererTranslatedOriginal
+    # renderer = CheckboxBootstrapRendererTranslatedOriginal
 
 
 class TranslatedSelectMultiple(BootstrapSelectMultiple):

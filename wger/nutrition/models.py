@@ -50,7 +50,6 @@ from wger.utils.models import (
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
 
-
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
 
@@ -63,7 +62,6 @@ ENERGY_FACTOR = {'protein': {'kg': 4,
 """
 Simple approximation of energy (kcal) provided per gram or ounce
 """
-
 
 logger = logging.getLogger(__name__)
 
@@ -238,7 +236,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    editable=False)
 
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'),)
+                            verbose_name=_('Name'), )
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
@@ -372,9 +370,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         equal = True
         if isinstance(other, self.__class__):
             for i in self._meta.fields:
-                if (hasattr(self, i.name) and hasattr(other, i.name) and
-                   (getattr(self, i.name, None) != getattr(other, i.name, None))):
-                        equal = False
+                if (hasattr(self, i.name)
+                   and hasattr(other, i.name)
+                   and (getattr(self, i.name, None) != getattr(other, i.name, None))):
+                    equal = False
         else:
             equal = False
         return equal
@@ -469,7 +468,7 @@ class WeightUnit(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'),)
+                            verbose_name=_('Name'), )
 
     # Metaclass to set some other properties
     class Meta:
@@ -652,17 +651,17 @@ class MealItem(models.Model):
         if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
             item_weight = self.amount
         else:
-            item_weight = (self.amount *
-                           self.weight_unit.amount *
-                           self.weight_unit.gram)
+            item_weight = (self.amount
+                           * self.weight_unit.amount
+                           * self.weight_unit.gram)
 
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
         nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
-            nutritional_info['carbohydrates_sugar'] += self.ingredient.carbohydrates_sugar \
-                * item_weight / 100
+            nutritional_info['carbohydrates_sugar'] += \
+                self.ingredient.carbohydrates_sugar * item_weight / 100
 
         nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 

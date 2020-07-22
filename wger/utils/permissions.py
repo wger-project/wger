@@ -67,10 +67,10 @@ class CreateOnlyPermission(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        return (request.method in ['GET', 'HEAD', 'OPTIONS'] or
-                (request.user and
-                 request.user.is_authenticated and
-                 request.method == 'POST'))
+        return (request.method in ['GET', 'HEAD', 'OPTIONS']
+                or (request.user
+                    and request.user.is_authenticated
+                    and request.method == 'POST'))
 
 
 class UpdateOnlyPermission(permissions.BasePermission):
@@ -80,6 +80,6 @@ class UpdateOnlyPermission(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        return (request.user and
-                request.user.is_authenticated and
-                request.method in ['GET', 'HEAD', 'OPTIONS', 'PATCH'])
+        return (request.user
+                and request.user.is_authenticated
+                and request.method in ['GET', 'HEAD', 'OPTIONS', 'PATCH'])

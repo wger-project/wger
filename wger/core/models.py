@@ -375,8 +375,8 @@ by the US Department of Agriculture. It is extremely complete, with around
         Make sure the total amount of hours is 24
         """
         if ((self.sleep_hours and self.freetime_hours and self.work_hours)
-           and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
-                raise ValidationError(_('The sum of all hours has to be 24'))
+                and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
+            raise ValidationError(_('The sum of all hours has to be 24'))
 
     def __str__(self):
         """
@@ -407,8 +407,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             return 0
 
         weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
-        return weight / (self.height / decimal.Decimal(100) *
-                         self.height / decimal.Decimal(100.0))
+        return weight / pow(self.height / decimal.Decimal(100), 2)
 
     def calculate_basal_metabolic_rate(self, formula=1):
         """
@@ -599,6 +598,7 @@ class RepetitionUnit(models.Model):
     """
     Setting unit, used in combination with an amount such as '10 reps', '5 km'
     """
+
     class Meta:
         """
         Set Meta options
@@ -637,6 +637,7 @@ class WeightUnit(models.Model):
     """
     Weight unit, used in combination with an amount such as '10 kg', '5 plates'
     """
+
     class Meta:
         """
         Set Meta options
