@@ -13,7 +13,7 @@ Installation
 
 This docker image contains an instance of the application running with django's
 development server using a sqlite database. It can be used to quickly setup a
-development instance (vim and tmux are already installed)::
+development instance::
 
     docker run -ti  \
        -v /path/to/your/wger/checkout:/home/wger/src \

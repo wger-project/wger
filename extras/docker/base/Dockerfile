@@ -22,8 +22,6 @@ RUN apt-get update \
       npm \
       python3-venv \
       python3-pip \
-      vim \
-      tmux \
       sqlite3 \
       netcat-openbsd \
   && rm -rf /var/lib/apt/lists/*
