@@ -70,10 +70,10 @@ SettingFormset = modelformset_factory(Setting,
 
 @login_required
 def create(request, day_pk):
-    '''
+    """
     Creates a new set. This view handles both the set form and the corresponding
     settings formsets
-    '''
+    """
     day = get_object_or_404(Day, pk=day_pk)
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
@@ -146,9 +146,9 @@ def create(request, day_pk):
 
 @login_required
 def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
-    '''
+    """
     Returns a formset. This is then rendered inside the new set template
-    '''
+    """
     exercise = Exercise.objects.get(pk=exercise_pk)
     SettingFormSet = inlineformset_factory(Set,
                                            Setting,
@@ -166,9 +166,9 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
 
 @login_required
 def delete(request, pk):
-    '''
+    """
     Deletes the given set
-    '''
+    """
 
     # Load the set
     set_obj = get_object_or_404(Set, pk=pk)
@@ -184,9 +184,9 @@ def delete(request, pk):
 
 @login_required
 def edit(request, pk):
-    '''
+    """
     Edit a set (its settings actually)
-    '''
+    """
     set_obj = get_object_or_404(Set, pk=pk)
     if set_obj.get_owner_object().user != request.user:
         return HttpResponseForbidden()

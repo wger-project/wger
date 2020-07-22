@@ -23,9 +23,9 @@ logger = logging.getLogger(__name__)
 
 
 class UserObjectsOnlyAuthorization(ReadOnlyAuthorization):
-    '''
+    """
     Custom authorization class to limit the user's access to his own objects
-    '''
+    """
 
     def read_detail(self, object_list, bundle):
 

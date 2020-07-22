@@ -25,9 +25,9 @@ from wger.utils.widgets import BootstrapSelectMultiple
 
 
 class GymUserPermissionForm(forms.ModelForm):
-    '''
+    """
     Form used to set the permission group of a gym member
-    '''
+    """
     USER = 'user'
     GYM_ADMIN = 'admin'
     TRAINER = 'trainer'
@@ -44,9 +44,9 @@ class GymUserPermissionForm(forms.ModelForm):
                                      initial=USER)
 
     def __init__(self, available_roles=None, *args, **kwargs):
-        '''
+        """
         Custom logic to reduce the available permissions
-        '''
+        """
         super(GymUserPermissionForm, self).__init__(*args, **kwargs)
 
         if available_roles is None:
@@ -65,9 +65,9 @@ class GymUserPermissionForm(forms.ModelForm):
 
 
 class GymUserAddForm(GymUserPermissionForm, UserPersonalInformationForm):
-    '''
+    """
     Form used when adding a user to a gym
-    '''
+    """
 
     birthdate = forms.DateField(required=False)
 
@@ -86,10 +86,10 @@ class GymUserAddForm(GymUserPermissionForm, UserPersonalInformationForm):
                                              "@/.//-/_ characters.")})
 
     def clean_username(self):
-        '''
+        """
         Since User.username is unique, this check is redundant,
         but it sets a nicer error message than the ORM. See #13147.
-        '''
+        """
         username = self.cleaned_data["username"]
         try:
             User._default_manager.get(username=username)

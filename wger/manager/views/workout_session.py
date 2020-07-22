@@ -53,15 +53,15 @@ from wger.utils.generic_views import (
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 Workout session
-'''
+"""
 
 
 class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to edit an existing workout session entry
-    '''
+    """
     model = WorkoutSession
     form_class = WorkoutSessionForm
 
@@ -77,17 +77,17 @@ class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
 
 class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
-    '''
+    """
     Generic view to add a new workout session entry
-    '''
+    """
     model = WorkoutSession
     form_class = WorkoutSessionForm
 
     def get_date(self):
-        '''
+        """
         Returns a date object from the URL parameters or None if no date
         could be created
-        '''
+        """
         try:
             date = datetime.date(int(self.kwargs['year']),
                                  int(self.kwargs['month']),
@@ -98,9 +98,9 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
         return date
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Check for ownership
-        '''
+        """
         workout = Workout.objects.get(pk=kwargs['workout_pk'])
         if workout.get_owner_object().user != request.user:
             return HttpResponseForbidden()
@@ -124,9 +124,9 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
         return reverse('manager:workout:calendar')
 
     def form_valid(self, form):
-        '''
+        """
         Set the workout and the user
-        '''
+        """
 
         workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
         form.instance.workout = workout
@@ -136,9 +136,9 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
 
 
 class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
-    '''
+    """
     Generic view to delete a workout routine
-    '''
+    """
 
     model = WorkoutSession
     fields = ('date', 'notes', 'impression', 'time_start', 'time_end')
@@ -146,9 +146,9 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     messages = ugettext_lazy('Successfully deleted')
 
     def delete(self, request, *args, **kwargs):
-        '''
+        """
         Delete the workout session and, if wished, all associated weight logs as well
-        '''
+        """
         if self.kwargs.get('logs') == 'logs':
             WorkoutLog.objects.filter(user=self.request.user, date=self.get_object().date).delete()
 

@@ -30,14 +30,14 @@ logger = logging.getLogger(__name__)
 
 
 class ApiKeyTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the API key page
-    '''
+    """
 
     def test_api_key_page(self):
-        '''
+        """
         Tests the API key generation page
-        '''
+        """
 
         self.user_login('test')
         user = User.objects.get(username='test')
@@ -56,9 +56,9 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
         self.assertRaises(Token.DoesNotExist, Token.objects.get, user=user)
 
     def test_api_key_page_generation(self):
-        '''
+        """
         User generates a new key
-        '''
+        """
 
         self.user_login('test')
         user = User.objects.get(username='test')

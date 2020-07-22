@@ -20,9 +20,9 @@ from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class SitemapTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the generated sitemap
-    '''
+    """
 
     def test_sitemap(self):
 

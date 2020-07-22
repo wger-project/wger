@@ -65,13 +65,13 @@ class EmailAuthBackend(object):
 
 
 class DecimalJsonEncoder(json.JSONEncoder):
-    '''
+    """
     Custom JSON encoder.
 
     This class is needed because we store some data as a decimal (e.g. the
     individual weight entries in the workout log) and they need to be
     processed, json.dumps() doesn't work on them
-    '''
+    """
     def default(self, obj):
         if isinstance(obj, decimal.Decimal):
             return str(obj)
@@ -81,11 +81,11 @@ class DecimalJsonEncoder(json.JSONEncoder):
 
 
 def disable_for_loaddata(signal_handler):
-    '''
+    """
     Decorator to prevent clashes when loading data with loaddata and
     post_connect signals. See also:
     http://stackoverflow.com/questions/3499791/how-do-i-prevent-fixtures-from-conflicting
-    '''
+    """
     @wraps(signal_handler)
     def wrapper(*args, **kwargs):
         if kwargs['raw']:
@@ -96,7 +96,7 @@ def disable_for_loaddata(signal_handler):
 
 
 def next_weekday(date, weekday):
-    '''
+    """
     Helper function to find the next weekday after a given date,
     e.g. the first Monday after the 2013-12-05
 
@@ -108,7 +108,7 @@ def next_weekday(date, weekday):
     :type date: datetime.date
     :type weekday int
     :return: datetime.date
-    '''
+    """
     days_ahead = weekday - date.weekday()
     if days_ahead <= 0:
         days_ahead += 7
@@ -116,20 +116,20 @@ def next_weekday(date, weekday):
 
 
 def make_uid(input):
-    '''
+    """
     Small wrapper to generate a UID, usually used in URLs to allow for
     anonymous access
-    '''
+    """
     return urlsafe_base64_encode(force_bytes(input))
 
 
 def make_token(user):
-    '''
+    """
     Convenience function that generates the UID and token for a user
 
     :param user: a user object
     :return: the uid and the token
-    '''
+    """
     uid = make_uid(user.pk)
     token = default_token_generator.make_token(user)
 
@@ -137,13 +137,13 @@ def make_token(user):
 
 
 def check_token(uidb64, token):
-    '''
+    """
     Checks that the user token is correct.
 
     :param uidb:
     :param token:
     :return: True on success, False in all other situations
-    '''
+    """
     if uidb64 is not None and token is not None:
         try:
             uid = int(urlsafe_base64_decode(uidb64))
@@ -159,13 +159,13 @@ def check_token(uidb64, token):
 
 
 def password_generator(length=15):
-    '''
+    """
     A simple password generator
 
     Also removes some 'problematic' characters like O and 0
     :param length: the length of the password
     :return: the generated password
-    '''
+    """
     chars = string.ascii_letters + string.digits
     random.seed = (os.urandom(1024))
     for char in ('I', '1', 'l', 'O', '0', 'o'):
@@ -175,7 +175,7 @@ def password_generator(length=15):
 
 
 def check_access(request_user, username=None):
-    '''
+    """
     Small helper function to check that the current (possibly unauthenticated)
     user can access a URL that the owner user shared the link.
 
@@ -184,7 +184,7 @@ def check_access(request_user, username=None):
     :param request_user: the user in the current request
     :param username: the username
     :return: a tuple: (is_owner, user)
-    '''
+    """
 
     if username:
         user = get_object_or_404(User, username=username)
@@ -204,7 +204,7 @@ def check_access(request_user, username=None):
 
 
 def normalize_decimal(d):
-    '''
+    """
     Normalizes a decimal input
 
     This simply performs a more "human" normalization, since python's decimal
@@ -213,7 +213,7 @@ def normalize_decimal(d):
 
     :param d: decimal to convert
     :return: normalized decimal
-    '''
+    """
     normalized = d.normalize()
     sign, digits, exponent = normalized.as_tuple()
     if exponent > 0:
@@ -223,7 +223,7 @@ def normalize_decimal(d):
 
 
 def smart_capitalize(input):
-    '''
+    """
     A "smart" capitalizer
 
     This is used to capitalize e.g. exercise names. This is different than python's
@@ -234,7 +234,7 @@ def smart_capitalize(input):
 
     :param input: the input string
     :return: the capitalized string
-    '''
+    """
     out = []
     for word in input.split(' '):
         if len(word) > 2 and word[0] != u'ß':

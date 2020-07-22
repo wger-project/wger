@@ -48,13 +48,13 @@ logger = logging.getLogger(__name__)
 
 
 def workout_log(request, id, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Generates a PDF with the contents of the given workout
 
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    '''
+    """
     comments = bool(int(comments))
     images = bool(int(images))
 
@@ -113,16 +113,16 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
 
 
 def workout_view(request, id, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Generates a PDF with the contents of the workout, without table for logs
-    '''
+    """
 
-    '''
+    """
     Generates a PDF with the contents of the given workout
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    '''
+    """
     comments = bool(int(comments))
     images = bool(int(images))
 

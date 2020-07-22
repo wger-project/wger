@@ -21,9 +21,9 @@ from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 
 
 class EditLanguageConfigTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a language config
-    '''
+    """
 
     object_class = LanguageConfig
     url = 'config:language_config:edit'

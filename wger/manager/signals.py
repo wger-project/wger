@@ -36,9 +36,9 @@ from wger.utils.cache import delete_template_fragment_cache
 
 
 def update_activity_cache(sender, instance, **kwargs):
-    '''
+    """
     Update the user's cached last activity date
-    '''
+    """
 
     user = instance.user
     user.usercache.last_activity = get_user_last_activity(user)

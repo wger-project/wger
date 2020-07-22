@@ -48,18 +48,18 @@ logger = logging.getLogger(__name__)
 
 
 class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
-    '''
+    """
     Overview of all available setting units
-    '''
+    """
     model = RepetitionUnit
     permission_required = 'core.add_repetitionunit'
     template_name = 'repetition_unit/list.html'
 
 
 class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     View to add a new setting unit
-    '''
+    """
 
     model = RepetitionUnit
     fields = ['name']
@@ -70,9 +70,9 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
 
 class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     View to update an existing setting unit
-    '''
+    """
 
     model = RepetitionUnit
     fields = ['name']
@@ -81,18 +81,18 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     permission_required = 'core.change_repetitionunit'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
 
 class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    '''
+    """
     View to delete an existing license
-    '''
+    """
 
     model = RepetitionUnit
     success_url = reverse_lazy('core:repetition-unit:list')
@@ -100,20 +100,20 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     form_action_urlname = 'core:repetition-unit:delete'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Deleting the unit with ID 1 (repetitions) is not allowed
 
         This is the default and is hard coded in a couple of places
-        '''
+        """
         if self.kwargs['pk'] == '1':
             return HttpResponseForbidden()
 
         return super(DeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context

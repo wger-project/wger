@@ -20,14 +20,14 @@ from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the robots exclusion middleware
-    '''
+    """
 
     def test_middleware_manager(self):
-        '''
+        """
         Test the middleware on URLs from manager app
-        '''
+        """
 
         response = self.client.get(reverse('core:dashboard'))
         self.assertTrue(response.get('X-Robots-Tag'))
@@ -48,18 +48,18 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_software(self):
-        '''
+        """
         Test the middleware on URLs from software app
-        '''
+        """
 
         for i in ('features', 'issues', 'license', 'code', 'contribute'):
             response = self.client.get(reverse('software:{0}'.format(i)))
             self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_nutrition(self):
-        '''
+        """
         Test the middleware on URLs from nutrition app
-        '''
+        """
 
         response = self.client.get(reverse('nutrition:ingredient:list'))
         self.assertFalse(response.get('X-Robots-Tag'))
@@ -71,9 +71,9 @@ class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_exercises(self):
-        '''
+        """
         Test the middleware on URLs from exercises app
-        '''
+        """
 
         response = self.client.get(reverse('exercise:exercise:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))

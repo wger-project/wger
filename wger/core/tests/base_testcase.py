@@ -37,9 +37,9 @@ STATUS_CODES_FAIL = (302, 403, 404)
 
 
 def get_reverse(url, kwargs={}):
-    '''
+    """
     Helper function to get the reverse URL
-    '''
+    """
     try:
         url = reverse(url, kwargs=kwargs)
     except NoReverseMatch:
@@ -51,9 +51,9 @@ def get_reverse(url, kwargs={}):
 
 
 def get_user_list(users):
-    '''
+    """
     Helper function that returns a list with users to test
-    '''
+    """
     if isinstance(users, tuple):
         return users
     else:
@@ -61,7 +61,7 @@ def get_user_list(users):
 
 
 def delete_testcase_add_methods(cls):
-    '''
+    """
     Helper function that dynamically adds test methods.
 
     This is a bit of a hack, but it's the easiest way of making sure that
@@ -69,7 +69,7 @@ def delete_testcase_add_methods(cls):
     most importantly for us, that the database is reseted every time).
 
     This must be called if the testcase has more than one success user
-    '''
+    """
 
     for user in get_user_list(cls.user_fail):
         def test_unauthorized(self):
@@ -85,12 +85,12 @@ def delete_testcase_add_methods(cls):
 
 
 class BaseTestCase(object):
-    '''
+    """
     Base test case.
 
     Generic base testcase that is used for both the regular tests and the
     REST API tests
-    '''
+    """
 
     fixtures = ('days_of_week',
                 'gym_config',
@@ -123,9 +123,9 @@ class BaseTestCase(object):
     is_mobile = False
 
     def setUp(self):
-        '''
+        """
         Overwrite some of Django's settings here
-        '''
+        """
 
         # Don't check reCaptcha's entries
         os.environ['RECAPTCHA_TESTING'] = 'True'
@@ -149,9 +149,9 @@ class BaseTestCase(object):
         settings.MEDIA_ROOT = self.media_root
 
     def tearDown(self):
-        '''
+        """
         Reset settings
-        '''
+        """
         del os.environ['RECAPTCHA_TESTING']
         cache.clear()
 
@@ -160,35 +160,35 @@ class BaseTestCase(object):
 
 
 class WorkoutManagerTestCase(BaseTestCase, TestCase):
-    '''
+    """
     Testcase to use with the regular website
-    '''
+    """
 
     user_success = 'admin'
-    '''
+    """
     A list of users to test for success. For convenience, a string can be used
     as well if there is only one user.
-    '''
+    """
 
     user_fail = 'test'
-    '''
+    """
     A list of users to test for failure. For convenience, a string can be used
     as well if there is only one user.
-    '''
+    """
 
     def user_login(self, user='admin'):
-        '''
+        """
         Login the user, by default as 'admin'
-        '''
+        """
         password = '{0}{0}'.format(user)
         self.client.login(username=user, password=password)
         self.current_user = user
         self.current_password = password
 
     def user_logout(self):
-        '''
+        """
         Visit the logout page
-        '''
+        """
         self.client.logout()
         self.current_user = 'anonymous'
 
@@ -222,28 +222,28 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
             self.assertEqual(field.id, value)
 
     def post_test_hook(self):
-        '''
+        """
         Hook to add some more specific tests after the basic add or delete
         operations are finished
-        '''
+        """
         pass
 
 
 class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests deleting an object an authorized user, a different one and a logged out
     one. This assumes the delete action is only triggered with a POST request and
     GET will only show a confirmation dialog.
-    '''
+    """
 
     pk = None
     url = ''
     object_class = ''
 
     def delete_object(self, fail=False):
-        '''
+        """
         Helper function to test deleting a workout
-        '''
+        """
 
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WorkoutManagerDeleteTestCase':
@@ -283,23 +283,23 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         self.post_test_hook()
 
     def test_delete_object_anonymous(self):
-        '''
+        """
         Tests deleting the object as an anonymous user
-        '''
+        """
         self.delete_object(fail=True)
 
     def test_delete_object_authorized(self):
-        '''
+        """
         Tests deleting the object as the authorized user
-        '''
+        """
         if not isinstance(self.user_success, tuple):
             self.user_login(self.user_success)
             self.delete_object(fail=False)
 
     def test_delete_object_other(self):
-        '''
+        """
         Tests deleting the object as the unauthorized, logged in users
-        '''
+        """
         if self.user_fail and not isinstance(self.user_success, tuple):
             for user in get_user_list(self.user_fail):
                 self.user_login(user)
@@ -307,10 +307,10 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
 
 
 class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests editing an object as an authorized user, a different one and a logged out
     one.
-    '''
+    """
 
     object_class = ''
     url = ''
@@ -318,17 +318,17 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
     data = {}
     data_ignore = ()
     fileupload = None
-    '''
+    """
     If the form requires a file upload, specify the field name and the file path
     here in a list or tuple:
 
     ['fielname', 'path']
-    '''
+    """
 
     def edit_object(self, fail=False):
-        '''
+        """
         Helper function to test editing an object
-        '''
+        """
 
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WorkoutManagerEditTestCase':
@@ -381,23 +381,23 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         self.post_test_hook()
 
     def test_edit_object_anonymous(self):
-        '''
+        """
         Tests editing the object as an anonymous user
-        '''
+        """
         self.edit_object(fail=True)
 
     def test_edit_object_authorized(self):
-        '''
+        """
         Tests editing the object as the authorized users
-        '''
+        """
         for user in get_user_list(self.user_success):
             self.user_login(user)
             self.edit_object(fail=False)
 
     def test_edit_object_other(self):
-        '''
+        """
         Tests editing the object as the unauthorized, logged in users
-        '''
+        """
         if self.user_fail:
             for user in get_user_list(self.user_fail):
                 self.user_login(user)
@@ -405,10 +405,10 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
 
 
 class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests adding an object as an authorized user, a different one and a logged out
     one.
-    '''
+    """
 
     object_class = ''
     url = ''
@@ -418,17 +418,17 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
     data = {}
     data_ignore = ()
     fileupload = None
-    '''
+    """
     If the form requires a file upload, specify the field name and the file path
     here in a list or tuple:
 
     ['fielname', 'path']
-    '''
+    """
 
     def add_object(self, fail=False):
-        '''
+        """
         Helper function to test adding an object
-        '''
+        """
 
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WorkoutManagerAddTestCase':
@@ -484,26 +484,26 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         self.post_test_hook()
 
     def test_add_object_anonymous(self):
-        '''
+        """
         Tests adding the object as an anonymous user
-        '''
+        """
 
         if self.user_fail:
             self.add_object(fail=self.anonymous_fail)
 
     def test_add_object_authorized(self):
-        '''
+        """
         Tests adding the object as the authorized users
-        '''
+        """
 
         for user in get_user_list(self.user_success):
             self.user_login(user)
             self.add_object(fail=False)
 
     def test_add_object_other(self):
-        '''
+        """
         Tests adding the object as the unauthorized, logged in users
-        '''
+        """
 
         if self.user_fail:
             for user in get_user_list(self.user_fail):
@@ -512,10 +512,10 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
 
 
 class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests accessing a URL per GET as an authorized user, an unauthorized one and
     a logged out one.
-    '''
+    """
 
     url = ''
     anonymous_fail = True
@@ -541,26 +541,26 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
     def test_access_anonymous(self):
-        '''
+        """
         Tests accessing the URL as an anonymous user
-        '''
+        """
 
         self.user_logout()
         self.access(fail=self.anonymous_fail)
 
     def test_access_authorized(self):
-        '''
+        """
         Tests accessing the URL as the authorized users
-        '''
+        """
 
         for user in get_user_list(self.user_success):
             self.user_login(user)
             self.access(fail=False)
 
     def test_access_other(self):
-        '''
+        """
         Tests accessing the URL as the unauthorized, logged in users
-        '''
+        """
 
         if self.user_fail:
             for user in get_user_list(self.user_fail):

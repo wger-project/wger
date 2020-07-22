@@ -28,14 +28,14 @@ logger = logging.getLogger(__name__)
 
 
 class CopyWorkoutTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests copying a workout
-    '''
+    """
 
     def copy_workout(self, owner=False):
-        '''
+        """
         Helper function to test copying workouts
-        '''
+        """
 
         # Open the copy workout form
         response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
@@ -94,17 +94,17 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
                         self.assertEqual(exercises_original[k], exercises_copy[k])
 
     def test_copy_workout_owner(self):
-        '''
+        """
         Test copying a workout as the owner user
-        '''
+        """
 
         self.user_login('test')
         self.copy_workout(owner=True)
 
     def test_copy_shared_not_allowed(self):
-        '''
+        """
         Test copying a workout from another shared user where user does not share workouts
-        '''
+        """
         profile = UserProfile.objects.get(user__username='test')
         profile.ro_access = False
         profile.save()
@@ -114,9 +114,9 @@ class CopyWorkoutTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_copy_shared_allowed(self):
-        '''
+        """
         Test copying a workout from another shared user where user does share workouts
-        '''
+        """
         profile = UserProfile.objects.get(user__username='test')
         profile.ro_access = True
         profile.save()

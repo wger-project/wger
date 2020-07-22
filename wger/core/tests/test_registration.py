@@ -31,15 +31,15 @@ logger = logging.getLogger(__name__)
 
 
 class RegistrationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests registering a new user
-    '''
+    """
 
     def test_registration_captcha(self):
-        '''
+        """
         Tests that the correct form is used depending on global
         configuration settings
-        '''
+        """
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True,
                                           'REMOVE_WHITESPACE': False,
                                           'ALLOW_REGISTRATION': True,
@@ -99,9 +99,9 @@ class RegistrationTestCase(WorkoutManagerTestCase):
         self.assertEqual(count_before + 1, count_after)
 
     def test_registration_deactivated(self):
-        '''
+        """
         Test that with deactivated registration no users can register
-        '''
+        """
 
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False,
                                           'REMOVE_WHITESPACE': False,

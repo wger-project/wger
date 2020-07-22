@@ -21,14 +21,14 @@ from wger.nutrition.models import NutritionPlan
 
 
 class CopyPlanTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests copying a nutritional plan
-    '''
+    """
 
     def copy_plan(self, fail=False):
-        '''
+        """
         Helper function to test copying nutrition plans
-        '''
+        """
 
         # Open the copy nutritional plan form
         response = self.client.get(reverse('nutrition:plan:copy', kwargs={'pk': 4}))
@@ -58,24 +58,24 @@ class CopyPlanTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.status_code, 200)
 
     def test_copy_plan_anonymous(self):
-        '''
+        """
         Test copying a nutritional plan as an anonymous user
-        '''
+        """
 
         self.copy_plan(fail=True)
 
     def test_copy_plan_owner(self):
-        '''
+        """
         Test copying a nutritional plan as the owner user
-        '''
+        """
 
         self.user_login('test')
         self.copy_plan(fail=False)
 
     def test_copy_plan_other(self):
-        '''
+        """
         Test copying a nutritional plan as a logged in user not owning the plan
-        '''
+        """
 
         self.user_login('admin')
         self.copy_plan(fail=True)

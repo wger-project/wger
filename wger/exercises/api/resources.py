@@ -101,9 +101,9 @@ class ExerciseImageResource(ModelResource):
                      "license_author": ALL}
 
     def dehydrate(self, bundle):
-        '''
+        """
         Also send the URLs for the thumbnailed pictures
-        '''
+        """
         thumbnails = {}
         for alias in aliases.all():
             t = get_thumbnailer(bundle.obj.image)

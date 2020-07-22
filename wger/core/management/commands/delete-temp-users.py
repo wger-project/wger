@@ -26,9 +26,9 @@ from wger.core.models import UserProfile
 
 
 class Command(BaseCommand):
-    '''
+    """
     Helper admin command to clean up demo users, to be called e.g. by cron
-    '''
+    """
 
     help = 'Deletes all temporary users older than 1 week'
 

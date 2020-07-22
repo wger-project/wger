@@ -50,10 +50,10 @@ logger = logging.getLogger(__name__)
 
 
 class WgerMultiplePermissionRequiredMixin(PermissionRequiredMixin):
-    '''
+    """
     A PermissionRequiredMixin that checks that the user has at least one permission
     instead of all of them.
-    '''
+    """
 
     def has_permission(self):
         for permission in self.get_permission_required():
@@ -63,30 +63,30 @@ class WgerMultiplePermissionRequiredMixin(PermissionRequiredMixin):
 
 
 class WgerPermissionMixin(object):
-    '''
+    """
     Custom permission mixim
 
     This simply checks that the user has the given permissions to access a
     resource and makes writing customized generic views easier.
-    '''
+    """
 
     permission_required = False
-    '''
+    """
     The name of the permission required to access this class.
 
     This can be a string or a tuple, in the latter case having any of the permissions
     listed is enough to access the resource
-    '''
+    """
 
     login_required = False
-    '''
+    """
     Set to True to restrict view to logged in users
-    '''
+    """
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Check permissions and dispatch
-        '''
+        """
 
         if self.login_required or self.permission_required:
             if not request.user.is_authenticated:
@@ -114,47 +114,47 @@ class WgerFormMixin(ModelFormMixin):
     template_name = 'form.html'
 
     custom_js = ''
-    '''
+    """
     Custom javascript to be executed.
-    '''
+    """
 
     form_action = ''
     form_action_urlname = ''
     sidebar = ''
-    '''
+    """
     Name of a template that will be included in the sidebar
-    '''
+    """
 
     title = ''
-    '''
+    """
     Title used in the form
-    '''
+    """
 
     owner_object = False
-    '''
+    """
     The object that holds the owner information. This only needs to be set if
     the model doesn't provide a get_owner_object() method
-    '''
+    """
 
     submit_text = ugettext_lazy('Save')
-    '''
+    """
     Text used in the submit button, default _('save')
-    '''
+    """
 
     clean_html = ()
-    '''
+    """
     List of form fields that should be passed to bleach to clean the html
-    '''
+    """
 
     messages = ''
-    '''
+    """
     A message to display on sucess
-    '''
+    """
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Set necessary template data to correctly render the form
-        '''
+        """
 
         # Call the base implementation first to get a context
         context = super(WgerFormMixin, self).get_context_data(**kwargs)
@@ -191,13 +191,13 @@ class WgerFormMixin(ModelFormMixin):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Custom dispatch method.
 
         This basically only checks for ownerships of editable/deletable
         objects and return a HttpResponseForbidden response if the user
         is not the owner.
-        '''
+        """
 
         # These seem to be necessary for calling get_object
         self.kwargs = kwargs
@@ -222,27 +222,27 @@ class WgerFormMixin(ModelFormMixin):
         return super(WgerFormMixin, self).dispatch(request, *args, **kwargs)
 
     def get_messages(self):
-        '''
+        """
         Getter for success message. Can be overwritten to e.g. to provide the
         name of the object.
-        '''
+        """
         return self.messages
 
     def form_invalid(self, form):
-        '''
+        """
         Log form errors to the console
-        '''
+        """
         logger.debug(form.errors)
         return super(WgerFormMixin, self).form_invalid(form)
 
     def form_valid(self, form):
-        '''
+        """
         Pre-process the form, cleaning up the HTML code found in the fields
         given in clean_html. All HTML tags, attributes and styles not in the
         whitelists are stripped from the output, leaving only the text content:
 
         <table><tr><td>foo</td></tr></table> simply becomes 'foo'
-        '''
+        """
 
         for field in self.clean_html:
             setattr(form.instance, field, bleach.clean(getattr(form.instance, field),
@@ -266,9 +266,9 @@ class WgerDeleteMixin(ModelFormMixin):
     messages = ''
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Set necessary template data to correctly render the form
-        '''
+        """
 
         # Call the base implementation first to get a context
         context = super(WgerDeleteMixin, self).get_context_data(**kwargs)
@@ -298,13 +298,13 @@ class WgerDeleteMixin(ModelFormMixin):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Custom dispatch method.
 
         This basically only checks for ownerships of editable/deletable
         objects and return a HttpResponseForbidden response if the user
         is not the owner.
-        '''
+        """
 
         # These seem to be necessary if for calling get_object
         self.kwargs = kwargs
@@ -319,25 +319,25 @@ class WgerDeleteMixin(ModelFormMixin):
         return super(WgerDeleteMixin, self).dispatch(request, *args, **kwargs)
 
     def get_messages(self):
-        '''
+        """
         Getter for success message. Can be overwritten to e.g. to provide the
         name of the object.
-        '''
+        """
         return self.messages
 
     def delete(self, request, *args, **kwargs):
-        '''
+        """
         Show a message on successful delete
-        '''
+        """
         if self.get_messages():
             messages.success(request, self.get_messages())
         return super(WgerDeleteMixin, self).delete(request, *args, **kwargs)
 
 
 class TextTemplateView(TemplateView):
-    '''
+    """
     A regular templateView that sets the mime type as text/plain
-    '''
+    """
     def dispatch(self, request, *args, **kwargs):
         resp = super().dispatch(request, args, kwargs)
         resp['Content-Type'] = 'text/plain'
@@ -345,11 +345,11 @@ class TextTemplateView(TemplateView):
 
 
 class WebappManifestView(TemplateView):
-    '''
+    """
     A regular templateView that sets the mime type as application/x-web-app-manifest+json
 
     This is used in the mozilla market place
-    '''
+    """
     template_name = 'manifest.webapp'
 
     def dispatch(request, *args, **kwargs):

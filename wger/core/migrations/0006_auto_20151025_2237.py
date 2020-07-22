@@ -5,9 +5,9 @@ from django.db import migrations, models
 
 
 def create_usercache(apps, schema_editor):
-    '''
+    """
     Creates a usercache table for all users
-    '''
+    """
     User = apps.get_model("auth", "User")
     Usercache = apps.get_model("core", "Usercache")
     WorkoutLog = apps.get_model("manager", "WorkoutLog")
@@ -44,9 +44,9 @@ def create_usercache(apps, schema_editor):
 
 
 def delete_usercache(apps, schema_editor):
-    '''
+    """
     Deletes the usercache table for all users
-    '''
+    """
     Usercache = apps.get_model("core", "Usercache")
     for cache in Usercache.objects.all():
         cache.delete()

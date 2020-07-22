@@ -25,14 +25,14 @@ from wger.weight.models import WeightEntry
 
 
 class WeightEntryResource(ModelResource):
-    '''
+    """
     Resource for weight entries
-    '''
+    """
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(user=bundle.request.user)
 
     class Meta:

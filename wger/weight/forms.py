@@ -41,9 +41,9 @@ CSV_DATE_FORMAT = (('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
 
 
 class WeightCsvImportForm(Form):
-    '''
+    """
     A helper form with only a textarea
-    '''
+    """
     csv_input = CharField(widget=Textarea, label=_('Input'))
     date_format = forms.ChoiceField(choices=CSV_DATE_FORMAT, label=_('Date format'))
 

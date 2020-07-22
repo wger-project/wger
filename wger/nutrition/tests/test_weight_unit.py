@@ -29,21 +29,21 @@ from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
 class WeightUnitRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'Scheibe')
 
 
 class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests adding a new weight unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'nutrition:weight_unit:add'
@@ -51,9 +51,9 @@ class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
 
 
 class DeleteWeightUnitTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a weight unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'nutrition:weight_unit:delete'
@@ -61,9 +61,9 @@ class DeleteWeightUnitTestCase(WorkoutManagerDeleteTestCase):
 
 
 class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a weight unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'nutrition:weight_unit:edit'
@@ -72,9 +72,9 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
 
 
 class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the ingredient unit overview page
-    '''
+    """
 
     def test_overview(self):
 
@@ -112,9 +112,9 @@ class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
 
 
 class WeightUnitApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the weight unit overview resource
-    '''
+    """
     pk = 1
     resource = WeightUnit
     private_resource = False

@@ -99,11 +99,11 @@ def processor(request):
 
 
 def get_custom_header(request):
-    '''
+    """
     Loads the custom header for the application, if available
 
     Currently the header can only be overwritten to use the user's current gym
-    '''
+    """
 
     # Current gym
     current_gym = None

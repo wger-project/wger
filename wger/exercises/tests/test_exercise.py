@@ -38,21 +38,21 @@ from wger.utils.cache import (
 
 
 class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Exercise.objects.get(pk=1)), 'An exercise')
 
 
 class ExerciseShareButtonTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test that the share button is correctly displayed and hidden
-    '''
+    """
 
     def test_share_button(self):
         exercise = Exercise.objects.get(pk=1)
@@ -73,9 +73,9 @@ class ExerciseShareButtonTestCase(WorkoutManagerTestCase):
 class ExerciseIndexTestCase(WorkoutManagerTestCase):
 
     def exercise_index(self, logged_in=True, demo=False, admin=False):
-        '''
+        """
         Tests the exercise overview page
-        '''
+        """
 
         response = self.client.get(reverse('exercise:exercise:overview'))
 
@@ -117,40 +117,40 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
             self.assertContains(response, 'Only registered users can do this')
 
     def test_exercise_index_editor(self):
-        '''
+        """
         Tests the exercise overview page as a logged in user with editor rights
-        '''
+        """
 
         self.user_login('admin')
         self.exercise_index(admin=True)
 
     def test_exercise_index_non_editor(self):
-        '''
+        """
         Tests the exercise overview page as a logged in user without editor rights
-        '''
+        """
 
         self.user_login('test')
         self.exercise_index()
 
     def test_exercise_index_demo_user(self):
-        '''
+        """
         Tests the exercise overview page as a logged in demo user
-        '''
+        """
 
         self.user_login('demo')
         self.exercise_index(demo=True)
 
     def test_exercise_index_logged_out(self):
-        '''
+        """
         Tests the exercise overview page as an anonymous (logged out) user
-        '''
+        """
 
         self.exercise_index(logged_in=False)
 
     def test_empty_exercise_index(self):
-        '''
+        """
         Test the index when there are no categories
-        '''
+        """
         self.user_login('admin')
         ExerciseCategory.objects.all().delete()
         response = self.client.get(reverse('exercise:exercise:overview'))
@@ -159,14 +159,14 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
 
 
 class ExerciseDetailTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the exercise details page
-    '''
+    """
 
     def exercise_detail(self, editor=False):
-        '''
+        """
         Tests the exercise details page
-        '''
+        """
 
         response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
         self.assertEqual(response.status_code, 200)
@@ -202,38 +202,38 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_exercise_detail_editor(self):
-        '''
+        """
         Tests the exercise details page as a logged in user with editor rights
-        '''
+        """
 
         self.user_login('admin')
         self.exercise_detail(editor=True)
 
     def test_exercise_detail_non_editor(self):
-        '''
+        """
         Tests the exercise details page as a logged in user without editor rights
-        '''
+        """
 
         self.user_login('test')
         self.exercise_detail(editor=False)
 
     def test_exercise_detail_logged_out(self):
-        '''
+        """
         Tests the exercise details page as an anonymous (logged out) user
-        '''
+        """
 
         self.exercise_detail(editor=False)
 
 
 class ExercisesTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Exercise test case
-    '''
+    """
 
     def add_exercise_user_fail(self):
-        '''
+        """
         Helper function to test adding exercises by users that aren't authorized
-        '''
+        """
 
         # Add an exercise
         count_before = Exercise.objects.count()
@@ -249,26 +249,26 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(count_before, count_after)
 
     def test_add_exercise_temp_user(self):
-        '''
+        """
         Tests adding an exercise with a logged in demo user
-        '''
+        """
 
         self.user_login('demo')
         self.add_exercise_user_fail()
 
     def test_add_exercise_no_user(self):
-        '''
+        """
         Tests adding an exercise with a logged out (anonymous) user
-        '''
+        """
 
         self.user_logout()
         self.add_exercise_user_fail()
         self.user_logout()
 
     def add_exercise_success(self, admin=False):
-        '''
+        """
         Tests adding/editing an exercise with a user with enough rights to do this
-        '''
+        """
 
         # Add an exercise
         count_before = Exercise.objects.count()
@@ -344,24 +344,24 @@ class ExercisesTestCase(WorkoutManagerTestCase):
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
     def test_add_exercise_success(self):
-        '''
+        """
         Tests adding/editing an exercise with a user with enough rights to do this
-        '''
+        """
         self.user_login('admin')
         self.add_exercise_success(admin=True)
 
     def test_add_exercise_user_no_rights(self):
-        '''
+        """
         Tests adding an exercise with a user without enough rights to do this
-        '''
+        """
         self.user_login('test')
         self.add_exercise_success(admin=False)
         self.assertEqual(len(mail.outbox), 1)
 
     def search_exercise(self, fail=True):
-        '''
+        """
         Helper function to test searching for exercises
-        '''
+        """
 
         # 1 hit, "Very cool exercise"
         response = self.client.get(reverse('exercise-search'),
@@ -383,25 +383,25 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(result['suggestions']), 0)
 
     def test_search_exercise_anonymous(self):
-        '''
+        """
         Test deleting an exercise by an anonymous user
-        '''
+        """
 
         self.search_exercise()
 
     def test_search_exercise_logged_in(self):
-        '''
+        """
         Test deleting an exercise by a logged in user
-        '''
+        """
 
         self.user_login('test')
         self.search_exercise()
 
 
 class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Exercise test case
-    '''
+    """
 
     object_class = Exercise
     url = 'exercise:exercise:delete'
@@ -411,14 +411,14 @@ class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
 
 
 class ExercisesCacheTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Exercise cache test case
-    '''
+    """
 
     def test_exercise_overview(self):
-        '''
+        """
         Test the exercise overview cache is correctly generated on visit
-        '''
+        """
         if self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
             self.client.get(reverse('exercise:exercise:overview'))
@@ -429,15 +429,15 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
             self.assertTrue(cache.get(get_template_cache_name('exercise-overview', 2)))
 
     def test_exercise_detail(self):
-        '''
+        """
         Test that the exercise detail cache is correctly generated on visit
-        '''
+        """
 
     def test_overview_cache_update(self):
-        '''
+        """
         Test that the template cache for the overview is correctly reseted when
         performing certain operations
-        '''
+        """
         self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
         self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
         self.assertFalse(cache.get(get_template_cache_name('muscle-overview-mobile', 2)))
@@ -482,10 +482,10 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
             self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
 
     def test_muscles_cache_update_on_delete(self):
-        '''
+        """
         Test that the template cache for the overview is correctly reset when
         performing certain operations
-        '''
+        """
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
         self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
@@ -495,10 +495,10 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
 
     def test_muscles_cache_update_on_update(self):
-        '''
+        """
         Test that the template cache for the overview is correctly reset when
         performing certain operations
-        '''
+        """
         self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
         self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
@@ -510,14 +510,14 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
 
 
 class WorkoutCacheTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Workout cache test case
-    '''
+    """
 
     def test_canonical_form_cache_save(self):
-        '''
+        """
         Tests the workout cache when saving
-        '''
+        """
         exercise = Exercise.objects.get(pk=2)
         for set in exercise.set_set.all():
             set.exerciseday.training.canonical_representation
@@ -528,9 +528,9 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
             self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
     def test_canonical_form_cache_delete(self):
-        '''
+        """
         Tests the workout cache when deleting
-        '''
+        """
         exercise = Exercise.objects.get(pk=2)
 
         workout_ids = []
@@ -547,9 +547,9 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
 
 # TODO: fix test, all registered users can upload exercises
 # class ExerciseApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     '''
+#     """
 #     Tests the exercise overview resource
-#     '''
+#     """
 #     pk = 1
 #     resource = Exercise
 #     private_resource = False

@@ -5,9 +5,9 @@ from django.db import migrations, models
 
 
 def convert_logs(apps, schema_editor):
-    '''
+    """
     Adds a unit to users who have imperial units in the profile
-    '''
+    """
 
     WorkoutLog = apps.get_model('manager', 'WorkoutLog')
     UserProfile = apps.get_model('core', 'UserProfile')
@@ -17,9 +17,9 @@ def convert_logs(apps, schema_editor):
 
 
 def convert_settings(apps, schema_editor):
-    '''
+    """
     Adds a unit to workout settings that have 99 for 'until failure'
-    '''
+    """
 
     Setting = apps.get_model('manager', 'Setting')
     Setting.objects.filter(reps=99).update(reps=1, repetition_unit=2)

@@ -26,30 +26,30 @@ from wger.core.tests.base_testcase import (
 
 
 class RepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'kg')
 
 
 class OverviewTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests the weight unit overview page
-    '''
+    """
 
     url = 'core:weight-unit:list'
     anonymous_fail = True
 
 
 class AddTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests adding a new unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'core:weight-unit:add'
@@ -66,9 +66,9 @@ class AddTestCase(WorkoutManagerAddTestCase):
 
 
 class DeleteTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a unit
-    '''
+    """
 
     pk = 1
     object_class = WeightUnit
@@ -85,9 +85,9 @@ class DeleteTestCase(WorkoutManagerDeleteTestCase):
 
 
 class EditTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a unit
-    '''
+    """
 
     pk = 1
     object_class = WeightUnit
@@ -105,9 +105,9 @@ class EditTestCase(WorkoutManagerEditTestCase):
 
 
 class ApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the unit resource
-    '''
+    """
     pk = 1
     resource = WeightUnit
     private_resource = False

@@ -27,9 +27,9 @@ logger = logging.getLogger(__name__)
 
 
 class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the nutritional values calculators in the different models
-    '''
+    """
 
     def test_calculations(self):
         plan = models.NutritionPlan(user_id=1, language_id=1)
@@ -130,10 +130,10 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_meal, result_plan['total'])
 
     def test_calculations_user(self):
-        '''
+        """
         Tests the calculations
         :return:
-        '''
+        """
         self.user_login('test')
         plan = models.NutritionPlan.objects.get(pk=4)
         values = plan.get_nutritional_values()

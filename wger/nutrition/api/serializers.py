@@ -30,9 +30,9 @@ from wger.nutrition.models import (
 
 
 class NutritionPlanSerializer(serializers.ModelSerializer):
-    '''
+    """
     Nutritional plan serializer
-    '''
+    """
 
     class Meta:
         model = NutritionPlan
@@ -40,9 +40,9 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
 
 
 class IngredientWeightUnitSerializer(serializers.ModelSerializer):
-    '''
+    """
     IngredientWeightUnit serializer
-    '''
+    """
 
     class Meta:
         model = IngredientWeightUnit
@@ -50,9 +50,9 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
-    '''
+    """
     WeightUnit serializer
-    '''
+    """
 
     class Meta:
         model = WeightUnit
@@ -60,9 +60,9 @@ class WeightUnitSerializer(serializers.ModelSerializer):
 
 
 class MealItemSerializer(serializers.ModelSerializer):
-    '''
+    """
     MealItem serializer
-    '''
+    """
     meal = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
                                               queryset=Meal.objects.all())
 
@@ -72,9 +72,9 @@ class MealItemSerializer(serializers.ModelSerializer):
 
 
 class MealSerializer(serializers.ModelSerializer):
-    '''
+    """
     Meal serializer
-    '''
+    """
     plan = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
                                               queryset=NutritionPlan.objects.all())
 
@@ -84,9 +84,9 @@ class MealSerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    '''
+    """
     Ingredient serializer
-    '''
+    """
 
     class Meta:
         model = Ingredient

@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 
 def copy_username(apps, schema_editor):
-    '''
+    """
     Copies the exercise name to the original name field
-    '''
+    """
     Ingredient = apps.get_model("nutrition", "Ingredient")
     for ingredient in Ingredient.objects.all():
         if ingredient.user:
@@ -17,9 +17,9 @@ def copy_username(apps, schema_editor):
         ingredient.save()
 
 def update_status(apps, schema_editor):
-    '''
+    """
     Updates the status of the ingredients
-    '''
+    """
     Ingredient = apps.get_model("nutrition", "Ingredient")
     Ingredient.objects.filter(status__in=('5', '4')).update(status=2)
 

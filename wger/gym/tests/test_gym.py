@@ -30,21 +30,21 @@ from wger.gym.models import Gym
 
 
 class GymRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Gym.objects.get(pk=1)), 'Test 123')
 
 
 class GymOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests accessing the gym overview page
-    '''
+    """
     url = 'gym:gym:list'
     anonymous_fail = True
     user_success = ('admin',
@@ -59,9 +59,9 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
 
 
 class GymUserOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests accessing the gym user overview page
-    '''
+    """
     url = reverse_lazy('gym:gym:user-list', kwargs={'pk': 1})
     anonymous_fail = True
     user_success = ('admin',
@@ -77,9 +77,9 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
 
 
 class AddGymTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests adding a new gym
-    '''
+    """
     object_class = Gym
     url = 'gym:gym:add'
     data = {'name': 'The name here'}
@@ -95,9 +95,9 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
 
 
 class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a gym
-    '''
+    """
 
     pk = 2
     object_class = Gym
@@ -118,9 +118,9 @@ delete_testcase_add_methods(DeleteGymTestCase)
 
 
 class EditGymTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a gym
-    '''
+    """
 
     object_class = Gym
     url = 'gym:gym:edit'
@@ -139,14 +139,14 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
 
 
 class GymTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests other gym methods
-    '''
+    """
 
     def test_delete_gym(self):
-        '''
+        """
         Tests that deleting a gym also removes it from all user profiles
-        '''
+        """
         gym = Gym.objects.get(pk=1)
         self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 17)
 

@@ -24,13 +24,13 @@ from django.db.models import Q
 
 
 class GymManager(models.Manager):
-    '''
+    """
     Custom query manager for Gyms
-    '''
+    """
     def get_members(self, gym_pk):
-        '''
+        """
         Returns all members for this gym (i.e non-admin ones)
-        '''
+        """
         perm_gym = Permission.objects.get(codename='manage_gym')
         perm_gyms = Permission.objects.get(codename='manage_gyms')
         perm_trainer = Permission.objects.get(codename='gym_trainer')
@@ -41,9 +41,9 @@ class GymManager(models.Manager):
                              Q(groups__permissions=perm_trainer)).distinct()
 
     def get_admins(self, gym_pk):
-        '''
+        """
         Returns all admins for this gym (i.e trainers, managers, etc.)
-        '''
+        """
         perm_gym = Permission.objects.get(codename='manage_gym')
         perm_gyms = Permission.objects.get(codename='manage_gyms')
         perm_trainer = Permission.objects.get(codename='gym_trainer')

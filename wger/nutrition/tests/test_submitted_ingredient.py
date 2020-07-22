@@ -22,14 +22,14 @@ from wger.nutrition.models import Ingredient
 
 
 class IngredientsPendingTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the pending ingredients overview page
-    '''
+    """
 
     def pending_overview(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         response = self.client.get(reverse('nutrition:ingredient:pending'))
         if not fail:
             self.assertEqual(response.status_code, 200)
@@ -38,38 +38,38 @@ class IngredientsPendingTestCase(WorkoutManagerTestCase):
             self.assertIn(response.status_code, (302, 403))
 
     def test_pending_overview_admin(self):
-        '''
+        """
         Tests the pending exercises overview page as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.pending_overview()
 
     def test_pending_overview_user(self):
-        '''
+        """
         Tests the pending exercises overview page as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.pending_overview(fail=True)
 
     def test_pending_overview_logged_out(self):
-        '''
+        """
         Tests the pending exercises overview page as a logged out user
-        '''
+        """
 
         self.pending_overview(fail=True)
 
 
 class IngredientsPendingDetailTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the detail page of a pending ingredient
-    '''
+    """
 
     def pending_view(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 7}))
         self.assertContains(response, 'pending review')
 
@@ -84,38 +84,38 @@ class IngredientsPendingDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Decline')
 
     def test_pending_view_admin(self):
-        '''
+        """
         Tests the detail page of a pending exercise as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.pending_view()
 
     def test_pending_view_user(self):
-        '''
+        """
         Tests the detail page of a pending exercise as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.pending_view(fail=True)
 
     def test_pending_view_logged_out(self):
-        '''
+        """
         Tests the detail page of a pending exercise as a logged out user
-        '''
+        """
 
         self.pending_view(fail=True)
 
 
 class IngredientAcceptTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests accepting a user submitted ingredient
-    '''
+    """
 
     def accept(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         ingredient = Ingredient.objects.get(pk=7)
         self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
         response = self.client.get(reverse('nutrition:ingredient:accept', kwargs={'pk': 7}))
@@ -132,38 +132,38 @@ class IngredientAcceptTestCase(WorkoutManagerTestCase):
             self.assertEqual(len(mail.outbox), 0)
 
     def test_accept_admin(self):
-        '''
+        """
         Tests accepting a user submitted ingredient as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.accept(fail=False)
 
     def test_accept_user(self):
-        '''
+        """
         Tests accepting a user submitted ingredient as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.accept(fail=True)
 
     def test_accept_logged_out(self):
-        '''
+        """
         Tests accepting a user submitted ingredient as a logged out user
-        '''
+        """
 
         self.accept(fail=True)
 
 
 class IngredientRejectTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests rejecting a user submitted ingredient
-    '''
+    """
 
     def reject(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         ingredient = Ingredient.objects.get(pk=7)
         self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
         response = self.client.get(reverse('nutrition:ingredient:decline', kwargs={'pk': 7}))
@@ -179,24 +179,24 @@ class IngredientRejectTestCase(WorkoutManagerTestCase):
             self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
     def test_reject_admin(self):
-        '''
+        """
         Tests rejecting a user submitted ingredient as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.reject()
 
     def test_reject_user(self):
-        '''
+        """
         Tests rejecting a user submitted ingredient as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.reject(fail=True)
 
     def test_reject_logged_out(self):
-        '''
+        """
         Tests rejecting a user submitted ingredient as a logged out user
-        '''
+        """
 
         self.reject(fail=True)

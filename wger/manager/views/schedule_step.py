@@ -51,21 +51,21 @@ logger = logging.getLogger(__name__)
 
 
 class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
-    '''
+    """
     Creates a new workout schedule
-    '''
+    """
 
     model = ScheduleStep
     fields = '__all__'
     title = ugettext_lazy('Add workout')
 
     def get_form_class(self):
-        '''
+        """
         The form can only show the workouts belonging to the user.
 
         This is defined here because only at this point during the request
         have we access to the current user
-        '''
+        """
 
         class StepForm(ModelForm):
             workout = ModelChoiceField(queryset=Workout.objects.filter(user=self.request.user))
@@ -86,7 +86,7 @@ class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
         return reverse('manager:schedule:view', kwargs={'pk': self.kwargs['schedule_pk']})
 
     def form_valid(self, form):
-        '''Set the schedule and the order'''
+        """Set the schedule and the order"""
 
         schedule = Schedule.objects.get(pk=self.kwargs['schedule_pk'])
 
@@ -97,21 +97,21 @@ class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
 
 
 class StepEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
-    '''
+    """
     Generic view to update an existing schedule step
-    '''
+    """
 
     model = ScheduleStep
     title = ugettext_lazy('Edit workout')
     form_action_urlname = 'manager:step:edit'
 
     def get_form_class(self):
-        '''
+        """
         The form can only show the workouts belonging to the user.
 
         This is defined here because only at this point during the request
         have we access to the current user
-        '''
+        """
 
         class StepForm(ModelForm):
             workout = ModelChoiceField(queryset=Workout.objects.filter(user=self.request.user))
@@ -127,9 +127,9 @@ class StepEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
 
 
 class StepDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
-    '''
+    """
     Generic view to delete a schedule step
-    '''
+    """
 
     model = ScheduleStep
     fields = ('workout', 'duration', 'order')
@@ -140,9 +140,9 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
         return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule.id})
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(StepDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('core:license:delete', kwargs={'pk': self.kwargs['pk']})

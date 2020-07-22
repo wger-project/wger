@@ -29,14 +29,14 @@ logger = logging.getLogger(__name__)
 
 
 class SpacelessTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the custom spaceless template tag
-    '''
+    """
 
     def test_spaceless(self):
-        '''
+        """
         Tests the custom spaceless template tag
-        '''
+        """
         t = Template('{% load wger_extras %}'
                      '{% spaceless_config %}<p>A text</p>   <p>more</p>{% endspaceless_config %}')
         context = Context()

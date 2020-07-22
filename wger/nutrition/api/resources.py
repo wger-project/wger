@@ -86,22 +86,22 @@ class IngredientToWeightUnit(ModelResource):
 
 
 class NutritionPlanResource(ModelResource):
-    '''
+    """
     Resource for nutritional plans
-    '''
+    """
 
     meals = fields.ToManyField('wger.nutrition.api.resources.MealResource', 'meal_set')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(user=bundle.request.user)
 
     def dehydrate(self, bundle):
-        '''
+        """
         Also send the nutritional values
-        '''
+        """
         bundle.data['nutritional_values'] = bundle.obj.get_nutritional_values()
         return bundle
 
@@ -116,23 +116,23 @@ class NutritionPlanResource(ModelResource):
 
 
 class MealResource(ModelResource):
-    '''
+    """
     Resource for meals
-    '''
+    """
 
     plan = fields.ToOneField(NutritionPlanResource, 'plan')
     meal_items = fields.ToManyField('wger.nutrition.api.resources.MealItemResource', 'mealitem_set')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(plan__user=bundle.request.user)
 
     def dehydrate(self, bundle):
-        '''
+        """
         Also send the nutritional values
-        '''
+        """
         bundle.data['nutritional_values'] = bundle.obj.get_nutritional_values()
         return bundle
 
@@ -147,24 +147,24 @@ class MealResource(ModelResource):
 
 
 class MealItemResource(ModelResource):
-    '''
+    """
     Resource for meal items
-    '''
+    """
 
     meal = fields.ToOneField(MealResource, 'meal')
     ingredient = fields.ToOneField(IngredientResource, 'ingredient')
     weight_unit = fields.ToOneField(WeightUnitResource, 'weight_unit', null=True)
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(meal__plan__user=bundle.request.user)
 
     def dehydrate(self, bundle):
-        '''
+        """
         Also send the nutritional values
-        '''
+        """
         bundle.data['nutritional_values'] = bundle.obj.get_nutritional_values()
         return bundle
 

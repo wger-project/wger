@@ -52,9 +52,9 @@ logger = logging.getLogger(__name__)
 
 class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin,
                                UAAwareViewMixin, ListView):
-    '''
+    """
     Overview of all categories, for administration purposes
-    '''
+    """
     model = ExerciseCategory
     permission_required = 'exercises.change_exercisecategory'
     template_name = 'categories/admin-overview.html'
@@ -64,9 +64,9 @@ class ExerciseCategoryAddView(WgerFormMixin,
                               LoginRequiredMixin,
                               PermissionRequiredMixin,
                               CreateView):
-    '''
+    """
     Generic view to add a new exercise category
-    '''
+    """
 
     model = ExerciseCategory
     fields = '__all__'
@@ -84,9 +84,9 @@ class ExerciseCategoryUpdateView(WgerFormMixin,
                                  LoginRequiredMixin,
                                  PermissionRequiredMixin,
                                  UpdateView):
-    '''
+    """
     Generic view to update an existing exercise category
-    '''
+    """
 
     model = ExerciseCategory
     fields = '__all__'
@@ -111,9 +111,9 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin,
                                  LoginRequiredMixin,
                                  PermissionRequiredMixin,
                                  DeleteView):
-    '''
+    """
     Generic view to delete an existing exercise category
-    '''
+    """
 
     model = ExerciseCategory
     fields = ('name',)

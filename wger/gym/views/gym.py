@@ -82,17 +82,17 @@ logger = logging.getLogger(__name__)
 
 
 class GymListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
-    '''
+    """
     Overview of all available gyms
-    '''
+    """
     model = Gym
     permission_required = 'gym.manage_gyms'
     template_name = 'gym/list.html'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Pass other info to the template
-        '''
+        """
         context = super(GymListView, self).get_context_data(**kwargs)
         context['global_gym_config'] = GlobalGymConfig.objects.all().first()
         return context
@@ -100,17 +100,17 @@ class GymListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin,
 
 class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
                       UAAwareViewMixin, ListView):
-    '''
+    """
     Overview of all users for a specific gym
-    '''
+    """
     model = User
     permission_required = ('gym.manage_gym', 'gym.gym_trainer', 'gym.manage_gyms')
     template_name = 'gym/member_list.html'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only managers and trainers for this gym can access the members
-        '''
+        """
         if request.user.has_perm('gym.manage_gyms') \
             or ((request.user.has_perm('gym.manage_gym')
                  or request.user.has_perm('gym.gym_trainer'))
@@ -119,9 +119,9 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         return HttpResponseForbidden()
 
     def get_queryset(self):
-        '''
+        """
         Return a list with the users, not really a queryset.
-        '''
+        """
         out = {'admins': [],
                'members': []}
 
@@ -140,9 +140,9 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
         return out
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Pass other info to the template
-        '''
+        """
         context = super(GymUserListView, self).get_context_data(**kwargs)
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
@@ -153,9 +153,9 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin,
 
 
 class GymAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     View to add a new gym
-    '''
+    """
 
     model = Gym
     fields = '__all__'
@@ -166,9 +166,9 @@ class GymAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Cre
 
 @login_required
 def gym_new_user_info(request):
-    '''
+    """
     Shows info about a newly created user
-    '''
+    """
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
@@ -186,9 +186,9 @@ def gym_new_user_info(request):
 
 @login_required
 def gym_new_user_info_export(request):
-    '''
+    """
     Exports the info of newly created user
-    '''
+    """
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
 
@@ -223,9 +223,9 @@ def gym_new_user_info_export(request):
 
 
 def reset_user_password(request, user_pk):
-    '''
+    """
     Resets the password of the selected user to random password
-    '''
+    """
 
     user = get_object_or_404(User, pk=user_pk)
 
@@ -250,9 +250,9 @@ def reset_user_password(request, user_pk):
 
 
 def gym_permissions_user_edit(request, user_pk):
-    '''
+    """
     Edits the permissions of a gym member
-    '''
+    """
     member = get_object_or_404(User, pk=user_pk)
     user = request.user
 
@@ -323,9 +323,9 @@ class GymAddUserView(WgerFormMixin,
                      LoginRequiredMixin,
                      WgerMultiplePermissionRequiredMixin,
                      CreateView):
-    '''
+    """
     View to add a user to a new gym
-    '''
+    """
 
     model = User
     title = ugettext_lazy('Add user to gym')
@@ -334,15 +334,15 @@ class GymAddUserView(WgerFormMixin,
     form_class = GymUserAddForm
 
     def get_initial(self):
-        '''
+        """
         Pre-select the 'user' role
-        '''
+        """
         return {'role': ['user']}
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only managers for this gym can add new members
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -360,16 +360,16 @@ class GymAddUserView(WgerFormMixin,
         return super(GymAddUserView, self).dispatch(request, *args, **kwargs)
 
     def get_form(self):
-        '''
+        """
         Set available user permissions
-        '''
+        """
         return self.form_class(available_roles=get_permission_list(self.request.user),
                                **self.get_form_kwargs())
 
     def form_valid(self, form):
-        '''
+        """
         Create the user, set the user permissions and gym
-        '''
+        """
         gym = Gym.objects.get(pk=self.kwargs['gym_pk'])
         password = password_generator()
         user = User.objects.create_user(form.cleaned_data['username'],
@@ -410,9 +410,9 @@ class GymAddUserView(WgerFormMixin,
         return super(GymAddUserView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(GymAddUserView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:gym:add-user',
                                          kwargs={'gym_pk': self.kwargs['gym_pk']})
@@ -420,9 +420,9 @@ class GymAddUserView(WgerFormMixin,
 
 
 class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     View to update an existing gym
-    '''
+    """
 
     model = Gym
     fields = '__all__'
@@ -430,9 +430,9 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
     permission_required = 'gym.change_gym'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only managers for this gym and general managers can edit the gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -443,9 +443,9 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
         return super(GymUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(GymUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:gym:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
@@ -453,9 +453,9 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
 
 
 class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    '''
+    """
     View to delete an existing gym
-    '''
+    """
 
     model = Gym
     fields = ('name',
@@ -469,9 +469,9 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin
     permission_required = 'gym.delete_gym'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(GymDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('gym:gym:delete', kwargs={'pk': self.kwargs['pk']})

@@ -31,21 +31,21 @@ from wger.utils.cache import get_template_cache_name
 
 
 class MuscleRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
 
 class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests the admin muscle overview page
-    '''
+    """
     url = 'exercise:muscle:admin-list'
     anonymous_fail = True
     user_success = 'admin'
@@ -63,9 +63,9 @@ class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
 
 
 class MusclesShareButtonTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test that the share button is correctly displayed and hidden
-    '''
+    """
 
     def test_share_button(self):
         url = reverse('exercise:muscle:overview')
@@ -83,9 +83,9 @@ class MusclesShareButtonTestCase(WorkoutManagerTestCase):
 
 
 class AddMuscleTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests adding a muscle
-    '''
+    """
 
     object_class = Muscle
     url = 'exercise:muscle:add'
@@ -94,9 +94,9 @@ class AddMuscleTestCase(WorkoutManagerAddTestCase):
 
 
 class EditMuscleTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a muscle
-    '''
+    """
 
     object_class = Muscle
     url = 'exercise:muscle:edit'
@@ -106,9 +106,9 @@ class EditMuscleTestCase(WorkoutManagerEditTestCase):
 
 
 class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a muscle
-    '''
+    """
 
     object_class = Muscle
     url = 'exercise:muscle:delete'
@@ -116,14 +116,14 @@ class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
 
 
 class MuscleCacheTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Muscle cache test case
-    '''
+    """
 
     def test_overview(self):
-        '''
+        """
         Test the muscle overview cache is correctly generated on visit
-        '''
+        """
 
         if not self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
@@ -132,18 +132,18 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
 
 
 class MuscleOverviewTestCase(WorkoutManagerAccessTestCase):
-    '''
+    """
     Test that only admins see the edit links
-    '''
+    """
     url = 'exercise:muscle:overview'
     anonymous_fail = False
     user_fail = []
 
 
 class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the muscle overview resource
-    '''
+    """
     pk = 1
     resource = Muscle
     private_resource = False

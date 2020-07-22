@@ -44,16 +44,16 @@ from wger.utils.resources import UserObjectsOnlyAuthorization
 
 
 class WorkoutResource(ModelResource):
-    '''
+    """
     Resource for workouts
-    '''
+    """
 
     days = fields.ToManyField('wger.manager.api.resources.DayResource', 'day_set')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(user=bundle.request.user)
 
     class Meta:
@@ -66,16 +66,16 @@ class WorkoutResource(ModelResource):
 
 
 class WorkoutSessionResource(ModelResource):
-    '''
+    """
     Resource for workout sessions
-    '''
+    """
 
     workout = fields.ToOneField('wger.manager.api.resources.WorkoutResource', 'workout')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(user=bundle.request.user)
 
     class Meta:
@@ -89,17 +89,17 @@ class WorkoutSessionResource(ModelResource):
 
 
 class ScheduleStepResource(ModelResource):
-    '''
+    """
     Resource for schedule steps
-    '''
+    """
 
     workout = fields.ToOneField(WorkoutResource, 'workout')
     schedule = fields.ToOneField('wger.manager.api.resources.ScheduleResource', 'schedule')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(schedule__user=bundle.request.user)
 
     class Meta:
@@ -112,16 +112,16 @@ class ScheduleStepResource(ModelResource):
 
 
 class ScheduleResource(ModelResource):
-    '''
+    """
     Resource for schedules
-    '''
+    """
 
     steps = fields.ToManyField(ScheduleStepResource, 'schedulestep_set')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(user=bundle.request.user)
 
     class Meta:
@@ -135,17 +135,17 @@ class ScheduleResource(ModelResource):
 
 
 class DayResource(ModelResource):
-    '''
+    """
     Resource for training days
-    '''
+    """
 
     workout = fields.ToOneField(WorkoutResource, 'training')
     days_of_week = fields.ToManyField(DaysOfWeekResource, 'day')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(training__user=bundle.request.user)
 
     class Meta:
@@ -158,17 +158,17 @@ class DayResource(ModelResource):
 
 
 class SetResource(ModelResource):
-    '''
+    """
     Resource for training sets
-    '''
+    """
 
     day = fields.ToOneField(DayResource, 'exerciseday')
     exercises = fields.ToManyField(ExerciseResource, 'exercises')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(exerciseday__training__user=bundle.request.user)
 
     class Meta:
@@ -182,17 +182,17 @@ class SetResource(ModelResource):
 
 
 class SettingResource(ModelResource):
-    '''
+    """
     Resource for training settings
-    '''
+    """
 
     set = fields.ToOneField(SetResource, 'set')
     exercise = fields.ToOneField(ExerciseResource, 'exercise')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(set__exerciseday__training__user=bundle.request.user)
 
     class Meta:
@@ -207,17 +207,17 @@ class SettingResource(ModelResource):
 
 
 class WorkoutLogResource(ModelResource):
-    '''
+    """
     Resource for a workout log
-    '''
+    """
 
     exercise = fields.ToOneField(ExerciseResource, 'exercise')
     workout = fields.ToOneField(WorkoutResource, 'workout')
 
     def authorized_read_list(self, object_list, bundle):
-        '''
+        """
         Filter to own objects
-        '''
+        """
         return object_list.filter(user=bundle.request.user)
 
     class Meta:

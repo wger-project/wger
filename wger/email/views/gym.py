@@ -39,9 +39,9 @@ from wger.utils.generic_views import UAAwareViewMixin
 
 
 class EmailLogListView(PermissionRequiredMixin, UAAwareViewMixin, generic.ListView):
-    '''
+    """
     Shows a list with all sent emails
-    '''
+    """
 
     model = Log
     context_object_name = "email_list"
@@ -50,16 +50,16 @@ class EmailLogListView(PermissionRequiredMixin, UAAwareViewMixin, generic.ListVi
     gym = None
 
     def get_queryset(self):
-        '''
+        """
         Can only view emails for own gym
-        '''
+        """
         self.gym = get_object_or_404(Gym, pk=self.kwargs['gym_pk'])
         return Log.objects.filter(gym=self.gym)
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Can only view email list for own gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -69,9 +69,9 @@ class EmailLogListView(PermissionRequiredMixin, UAAwareViewMixin, generic.ListVi
         return super(EmailLogListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Pass additional data to the template
-        '''
+        """
         context = super(EmailLogListView, self).get_context_data(**kwargs)
         context['gym'] = self.gym
         return context
@@ -84,18 +84,18 @@ class EmailListFormPreview(FormPreview):
     gym = None
 
     def parse_params(self, *args, **kwargs):
-        '''
+        """
         Save the current recipient type
-        '''
+        """
         self.gym = get_object_or_404(Gym, pk=int(kwargs['gym_pk']))
 
     def get_context(self, request, form):
-        '''
+        """
         Context for template rendering
 
         Also, check for permissions here. While it is ugly and doesn't really
         belong here, it seems it's the best way to do it in a FormPreview
-        '''
+        """
         if not request.user.is_authenticated or\
                 request.user.userprofile.gym_id != self.gym.id or \
                 not request.user.has_perms('core.change_emailcron'):
@@ -109,9 +109,9 @@ class EmailListFormPreview(FormPreview):
         return context
 
     def process_preview(self, request, form, context):
-        '''
+        """
         Send an email to the managers with the current content
-        '''
+        """
         for admin in Gym.objects.get_admins(self.gym.pk):
             if admin.email:
                 mail.send_mail(form.cleaned_data['subject'],
@@ -122,9 +122,9 @@ class EmailListFormPreview(FormPreview):
         return context
 
     def done(self, request, cleaned_data):
-        '''
+        """
         Collect appropriate emails and save to database to send for later
-        '''
+        """
         emails = []
 
         # Select all users in the gym

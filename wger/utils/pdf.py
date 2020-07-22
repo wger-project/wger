@@ -41,9 +41,9 @@ from wger.core.models import Language
 
 
 def load_language():
-    '''
+    """
     Returns the currently used language, e.g. to load appropriate exercises
-    '''
+    """
     # TODO: perhaps store a language preference in the user's profile?
 
     # Read the first part of a composite language, e.g. 'de-at'
@@ -60,7 +60,7 @@ def load_language():
 
 
 def load_ingredient_languages(request):
-    '''
+    """
     Filter the ingredients the user will see by its language.
 
     Additionally, if the user has selected on his preference page that he wishes
@@ -69,7 +69,7 @@ def load_ingredient_languages(request):
 
     This only makes sense if the user's language isn't English, as he will be
     presented those in that case anyway, so also do a check for this.
-    '''
+    """
 
     language = load_language()
     languages = (language.id,)
@@ -87,18 +87,18 @@ def load_ingredient_languages(request):
 
 
 def render_footer(url, date=None):
-    '''
+    """
     Renders the footer used in the different PDFs
     :return: a Paragraph object
-    '''
+    """
     if not date:
         date = datetime.date.today().strftime("%d.%m.%Y")
-        p = Paragraph('''<para>
+        p = Paragraph("""<para>
                             {date} -
                             <a href="{url}">{url}</a> -
                             wger Workout Manager
                             {version}
-                        </para>'''.format(date=date,
+                        </para>""".format(date=date,
                                           url=url,
                                           version=get_version()),
                       styleSheet["Normal"])

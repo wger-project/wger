@@ -91,7 +91,7 @@ def parse_weight_csv(request, cleaned_data):
 
 
 def group_log_entries(user, year, month, day=None):
-    '''
+    """
     Processes and regroups a list of log entries so they can be more easily
     used in the different calendar pages
 
@@ -101,7 +101,7 @@ def group_log_entries(user, year, month, day=None):
     :param day: optional, day
 
     :return: a dictionary with grouped logs by date and exercise
-    '''
+    """
     if day:
         log_hash = hash((user.pk, year, month, day))
     else:
@@ -156,10 +156,10 @@ def group_log_entries(user, year, month, day=None):
 
 
 def process_log_entries(logs):
-    '''
+    """
     Processes and regroups a list of log entries so they can be rendered
     and passed to the D3 library to render a chart
-    '''
+    """
 
     entry_log = OrderedDict()
     entry_list = {}
@@ -207,12 +207,12 @@ def process_log_entries(logs):
 
 
 def get_last_entries(user, amount=5):
-        '''
+        """
         Get the last weight entries as well as the difference to the last
 
         This can be used e.g. to present a list where the last entries and
         their changes are presented.
-         '''
+         """
 
         last_entries = WeightEntry.objects.filter(user=user).order_by('-date')[:5]
         last_entries_details = []

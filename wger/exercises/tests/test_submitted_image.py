@@ -22,14 +22,14 @@ from wger.exercises.models import ExerciseImage
 
 
 class ImagePendingDetailTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the detail page of an exercise with a pending image
-    '''
+    """
 
     def pending_view(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
         self.assertEqual(response.status_code, 200)
 
@@ -43,38 +43,38 @@ class ImagePendingDetailTestCase(WorkoutManagerTestCase):
             self.assertNotContains(response, 'Decline')
 
     def test_pending_view_admin(self):
-        '''
+        """
         Tests the detail page of an exercise with a pending image as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.pending_view()
 
     def test_pending_view_user(self):
-        '''
+        """
         Tests the detail page of an exercise with a pending image as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.pending_view(fail=True)
 
     def test_pending_view_logged_out(self):
-        '''
+        """
         Tests the detail page of an exercise with a pending image as a logged out user
-        '''
+        """
 
         self.pending_view(fail=True)
 
 
 class ImageAcceptTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests accepting a user submitted exercise image
-    '''
+    """
 
     def accept(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         image = ExerciseImage.objects.get(pk=3)
         self.assertEqual(image.status, ExerciseImage.STATUS_PENDING)
         response = self.client.get(reverse('exercise:image:accept', kwargs={'pk': 3}))
@@ -91,38 +91,38 @@ class ImageAcceptTestCase(WorkoutManagerTestCase):
             self.assertEqual(len(mail.outbox), 0)
 
     def test_accept_admin(self):
-        '''
+        """
         Tests accepting a user submitted exercise image as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.accept()
 
     def test_accept_user(self):
-        '''
+        """
         Tests accepting a user submitted exercise image as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.accept(fail=True)
 
     def test_accept_logged_out(self):
-        '''
+        """
         Tests accepting a user submitted exercise as a logged out user
-        '''
+        """
 
         self.accept(fail=True)
 
 
 class ImageRejectTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests rejecting a user submitted exercise image
-    '''
+    """
 
     def reject(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
         image = ExerciseImage.objects.get(pk=3)
         self.assertEqual(image.status, ExerciseImage.STATUS_PENDING)
         response = self.client.get(reverse('exercise:image:decline', kwargs={'pk': 3}))
@@ -138,24 +138,24 @@ class ImageRejectTestCase(WorkoutManagerTestCase):
             self.assertEqual(image.status, ExerciseImage.STATUS_PENDING)
 
     def test_reject_admin(self):
-        '''
+        """
         Tests rejecting a user submitted exercise image as an admin user
-        '''
+        """
 
         self.user_login('admin')
         self.reject()
 
     def test_reject_user(self):
-        '''
+        """
         Tests rejecting a user submitted exercise image as a regular user
-        '''
+        """
 
         self.user_login('test')
         self.reject(fail=True)
 
     def test_reject_logged_out(self):
-        '''
+        """
         Tests rejecting a user submitted exercise image as a logged out user
-        '''
+        """
 
         self.reject(fail=True)

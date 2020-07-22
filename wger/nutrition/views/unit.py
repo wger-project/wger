@@ -55,9 +55,9 @@ logger = logging.getLogger(__name__)
 
 
 class WeightUnitListView(PermissionRequiredMixin, UAAwareViewMixin, ListView):
-    '''
+    """
     Generic view to list all weight units
-    '''
+    """
 
     model = WeightUnit
     template_name = 'units/list.html'
@@ -66,9 +66,9 @@ class WeightUnitListView(PermissionRequiredMixin, UAAwareViewMixin, ListView):
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_queryset(self):
-        '''
+        """
         Only show ingredient units in the current user's language
-        '''
+        """
         return WeightUnit.objects.filter(language=load_language())
 
 
@@ -76,9 +76,9 @@ class WeightUnitCreateView(WgerFormMixin,
                            LoginRequiredMixin,
                            PermissionRequiredMixin,
                            CreateView):
-    '''
+    """
     Generic view to add a new weight unit for ingredients
-    '''
+    """
 
     model = WeightUnit
     fields = ['name']
@@ -98,9 +98,9 @@ class WeightUnitDeleteView(WgerDeleteMixin,
                            LoginRequiredMixin,
                            PermissionRequiredMixin,
                            DeleteView):
-    '''
+    """
     Generic view to delete a weight unit
-    '''
+    """
 
     model = WeightUnit
     fields = ['name']
@@ -110,9 +110,9 @@ class WeightUnitDeleteView(WgerDeleteMixin,
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(WeightUnitDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context
@@ -122,9 +122,9 @@ class WeightUnitUpdateView(WgerFormMixin,
                            LoginRequiredMixin,
                            PermissionRequiredMixin,
                            UpdateView):
-    '''
+    """
     Generic view to update an weight unit
-    '''
+    """
 
     model = WeightUnit
     fields = ['name']
@@ -135,9 +135,9 @@ class WeightUnitUpdateView(WgerFormMixin,
         return reverse('nutrition:weight_unit:list')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(WeightUnitUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context

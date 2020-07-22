@@ -77,9 +77,9 @@ logger = logging.getLogger(__name__)
 # Log functions
 # ************************
 class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
-    '''
+    """
     Generic view to edit an existing workout log weight entry
-    '''
+    """
     model = WorkoutLog
     form_class = WorkoutLogForm
     success_url = reverse_lazy('manager:workout:calendar')
@@ -93,9 +93,9 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
-    '''
+    """
     Delete a workout log
-    '''
+    """
 
     model = WorkoutLog
     fields = ('exercise',
@@ -110,9 +110,9 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
 
 
 def add(request, pk):
-    '''
+    """
     Add a new workout log
-    '''
+    """
 
     template_data = {}
     template_data.update(csrf(request))
@@ -238,9 +238,9 @@ def add(request, pk):
 
 
 class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
-    '''
+    """
     An overview of the workout's log
-    '''
+    """
 
     model = Workout
     template_name = 'workout/log.html'
@@ -295,9 +295,9 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Check for ownership
-        '''
+        """
 
         workout = get_object_or_404(Workout, pk=kwargs['pk'])
         self.owner_user = workout.user
@@ -311,9 +311,9 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
 
 
 def calendar(request, username=None, year=None, month=None):
-    '''
+    """
     Show a calendar with all the workout logs
-    '''
+    """
     context = {}
     is_owner, user = check_access(request.user, username)
     year = int(year) if year else datetime.date.today().year
@@ -336,9 +336,9 @@ def calendar(request, username=None, year=None, month=None):
 
 
 def day(request, username, year, month, day):
-    '''
+    """
     Show the logs for a single day
-    '''
+    """
     context = {}
     is_owner, user = check_access(request.user, username)
 

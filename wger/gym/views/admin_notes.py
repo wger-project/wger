@@ -49,24 +49,24 @@ logger = logging.getLogger(__name__)
 
 
 class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
-    '''
+    """
     Overview of all available admin notes
-    '''
+    """
     model = AdminUserNote
     permission_required = 'gym.add_adminusernote'
     template_name = 'admin_notes/list.html'
     member = None
 
     def get_queryset(self):
-        '''
+        """
         Only notes for current user
-        '''
+        """
         return AdminUserNote.objects.filter(member_id=self.kwargs['user_pk'])
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Can only add notes to users in own gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -77,9 +77,9 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, Li
         return super(ListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ListView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:admin_note:add',
                                          kwargs={'user_pk': self.kwargs['user_pk']})
@@ -88,9 +88,9 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, Li
 
 
 class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     View to add a new admin note
-    '''
+    """
 
     model = AdminUserNote
     fields = '__all__'
@@ -99,15 +99,15 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     member = None
 
     def get_success_url(self):
-        '''
+        """
         Redirect back to user page
-        '''
+        """
         return reverse('gym:admin_note:list', kwargs={'user_pk': self.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Can only add notes to users in own gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -119,17 +119,17 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         return super(AddView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        '''
+        """
         Set user instances
-        '''
+        """
         form.instance.member = self.member
         form.instance.user = self.request.user
         return super(AddView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(AddView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:admin_note:add',
                                          kwargs={'user_pk': self.kwargs['user_pk']})
@@ -137,25 +137,25 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
 
 class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     View to update an existing admin note
-    '''
+    """
 
     model = AdminUserNote
     fields = '__all__'
     permission_required = 'gym.change_adminusernote'
 
     def get_success_url(self):
-        '''
+        """
         Redirect back to user page
-        '''
+        """
         return reverse('gym:admin_note:list', kwargs={'user_pk':
                                                       self.object.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only trainers for this gym can edit user notes
-        '''
+        """
 
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
@@ -166,9 +166,9 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         return super(UpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:admin_note:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
@@ -176,24 +176,24 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
 
 
 class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    '''
+    """
     View to delete an existing admin note
-    '''
+    """
 
     model = AdminUserNote
     fields = ('note', )
     permission_required = 'gym.delete_adminusernote'
 
     def get_success_url(self):
-        '''
+        """
         Redirect back to user page
-        '''
+        """
         return reverse('gym:admin_note:list', kwargs={'user_pk': self.object.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only trainers for this gym can delete user notes
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -203,9 +203,9 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
         return super(DeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         context['form_action'] = reverse('gym:admin_note:delete', kwargs={'pk': self.kwargs['pk']})

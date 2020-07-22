@@ -21,11 +21,11 @@ import re
 import sys
 
 
-'''
+"""
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
-'''
+"""
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))

@@ -33,21 +33,21 @@ from wger.nutrition.models import (
 
 
 class MealRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Meal.objects.get(pk=1)), '1 Meal')
 
 
 class EditMealTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a meal
-    '''
+    """
 
     object_class = Meal
     url = 'nutrition:meal:edit'
@@ -56,9 +56,9 @@ class EditMealTestCase(WorkoutManagerEditTestCase):
 
 
 class AddMealTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests adding a Meal
-    '''
+    """
 
     object_class = Meal
     url = reverse('nutrition:meal:add', kwargs={'plan_pk': 4})
@@ -68,14 +68,14 @@ class AddMealTestCase(WorkoutManagerAddTestCase):
 
 
 class PlanOverviewTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the nutrition plan overview
-    '''
+    """
 
     def get_plan_overview(self):
-        '''
+        """
         Helper function to test the nutrition plan overview
-        '''
+        """
 
         response = self.client.get(reverse('nutrition:plan:overview'))
 
@@ -84,22 +84,22 @@ class PlanOverviewTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(response.context['plans']), 3)
 
     def test_dashboard_logged_in(self):
-        '''
+        """
         Test the nutrition plan as a logged in user
-        '''
+        """
         self.user_login()
         self.get_plan_overview()
 
 
 class PlanDetailTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the nutrition plan detail view
-    '''
+    """
 
     def get_plan_detail_page(self, fail=False):
-        '''
+        """
         Helper function to test the plan detail view
-        '''
+        """
 
         response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
 
@@ -112,24 +112,24 @@ class PlanDetailTestCase(WorkoutManagerTestCase):
             self.assertEqual(response.context['plan'], plan)
 
     def test_dashboard_owner(self):
-        '''
+        """
         Test the nutrition plan as the owner user
-        '''
+        """
         self.user_login('test')
         self.get_plan_detail_page(fail=False)
 
     def test_dashboard_other(self):
-        '''
+        """
         Test the nutrition plan as a differnt user
-        '''
+        """
         self.user_login('admin')
         self.get_plan_detail_page(fail=True)
 
 
 class MealApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the meal overview resource
-    '''
+    """
     pk = 2
     resource = Meal
     private_resource = True

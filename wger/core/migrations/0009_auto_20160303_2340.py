@@ -5,12 +5,12 @@ from django.db import migrations, models
 
 
 def insert_data(apps, schema_editor):
-    '''
+    """
     Inserts initial data for repetition and weight units
 
     Needed so that the migrations can go through without having to load any
     fixtures or perform any intermediate steps.
-    '''
+    """
     WeightUnit = apps.get_model('core', 'WeightUnit')
     WeightUnit(name='kg', pk=1).save()
     WeightUnit(name='lb', pk=2).save()
