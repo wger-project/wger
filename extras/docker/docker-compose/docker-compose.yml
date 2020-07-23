@@ -22,7 +22,7 @@ services:
     image: postgres:12.0-alpine
     volumes:
       - type: bind
-        source: ./wger-postgres-data
+        source: /tmp/wger-postgres-data
         target: /var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=wger

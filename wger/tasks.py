@@ -119,8 +119,7 @@ def bootstrap(context,
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
-    context.run('npm install bower')
-    context.run('npm install')
+    call_command("bower", "install")
 
     # Start the webserver
     if start_server:

@@ -1,23 +1,14 @@
 #
 # Docker image for wger development
 #
-# Please consult the documentation for usage
+# Please consult the README for usage
 #
 # Note: you MUST build this image from the projec's root!
 # docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
 # Run the container:
 # docker run -ti -v /path/to/this/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/devel
-#
-# (in docker) python3 manage.py download-exercise-images (optional, may take some time)
-# (in docker) python3 manage.py runserver 0.0.0.0:8000
-#
-# To stop the container:
-# sudo docker container stop wger.devel
-#
-# To start developing again
-# sudo docker container start --attach wger.devel
-#
+
 
 ##########
 # Builder
@@ -47,8 +38,7 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
-# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
-# when using the invoke/wger commands and bower
+# Set locale to UTF8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -63,18 +53,18 @@ WORKDIR /home/wger/src
 COPY --chown=wger:wger . /home/wger/src
 COPY --from=builder /wheels /wheels
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
+COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
 RUN chmod +x /home/wger/entrypoint.sh
 RUN pip3 install --no-cache /wheels/* \
     && pip3 install psycopg2-binary \
     && pip3 install python-memcached \
     && python3 setup.py develop \
-    && npm install \
-    && npm install bower
-
+    && npm install
 RUN chown -R wger:wger .
+
 USER wger
-RUN mkdir ~/media
-RUN mkdir ~/db/
+RUN mkdir ~/media \
+    && mkdir ~/db/
 
 CMD ["/home/wger/entrypoint.sh"]
