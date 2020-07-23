@@ -39,7 +39,8 @@ from django.urls import reverse
 from wger.exercises.models import Exercise
 from wger.manager.forms import (
     SetForm,
-    SettingForm
+    SettingForm,
+    WorkoutLogFormHelper
 )
 from wger.manager.models import (
     Day,
@@ -118,6 +119,7 @@ def create(request, day_pk):
     context['day'] = day
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
+    context['helper'] = WorkoutLogFormHelper()
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     return render(request, 'set/add.html', context)
 
@@ -135,11 +137,13 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
                                            fields=SETTING_FORMSET_FIELDS)
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
+    context = {'formset': formset,
+               'helper': WorkoutLogFormHelper(),
+               'exercise': exercise}
 
     return render(request,
                   "set/formset.html",
-                  {'formset': formset,
-                   'exercise': exercise})
+                  context)
 
 
 @login_required
@@ -215,4 +219,5 @@ def edit(request, pk):
     # Other context we need
     context = {}
     context['formsets'] = formsets
+    context['helper'] = WorkoutLogFormHelper()
     return render(request, 'set/edit.html', context)
