@@ -38,15 +38,6 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
-# Set locale to UTF8
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
 
 # Set up the application
 WORKDIR /home/wger/src
@@ -60,7 +51,8 @@ RUN pip3 install --no-cache /wheels/* \
     && pip3 install psycopg2-binary \
     && pip3 install python-memcached \
     && python3 setup.py develop \
-    && npm install
+    && npm install -g bower
+
 RUN chown -R wger:wger .
 
 USER wger

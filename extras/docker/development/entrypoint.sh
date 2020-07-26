@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Copy a settings file if not fould
-if [ test ! -f /home/wger/src ]
-    cp /tmp/settings.py /home/wger/src
+# Copy a settings file if nothing's found (e.g. when mounting a fresh checkout)
+if [ ! -f /home/wger/src/settings.py ]; then
+   cp /tmp/settings.py /home/wger/src
 fi
 
 # If using docker compose, wait for postgres

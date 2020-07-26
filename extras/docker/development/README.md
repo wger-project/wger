@@ -1,4 +1,4 @@
-# Development image for wger - Ubuntu based
+# Development image for wger
 
 Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open
 source web application that manages your exercises and personal workouts, weight

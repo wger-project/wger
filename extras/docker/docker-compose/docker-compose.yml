@@ -2,15 +2,11 @@ version: '3.7'
 
 services:
   web:
-    image: wger/devel-tmp
-    #build:
-    #  context: ../../../
-    #  dockerfile: ./extras/docker/development/Dockerfile
-    #command: python3 manage.py runserver 0.0.0.0:8000
-    #volumes:
-    #  - type: bind
-    #    source: ../../../
-    #    target: /home/wger/src/
+    image: wger/devel:2.0-dev
+    volumes:
+      - type: bind
+        source: ../../../
+        target: /home/wger/src/
     ports:
       - 8000:8000
     env_file:
@@ -22,7 +18,7 @@ services:
     image: postgres:12.0-alpine
     volumes:
       - type: bind
-        source: /tmp/wger-postgres-data
+        source: ./wger-postgres-data
         target: /var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=wger
