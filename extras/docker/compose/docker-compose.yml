@@ -17,9 +17,7 @@ services:
   db:
     image: postgres:12.0-alpine
     volumes:
-      - type: bind
-        source: ./wger-postgres-data
-        target: /var/lib/postgresql/data/
+      - wger-postgres-data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=wger
       - POSTGRES_PASSWORD=wger
@@ -29,4 +27,4 @@ services:
     image: memcached
 
 volumes:
-  postgres_data:
+  wger-postgres-data:
