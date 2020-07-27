@@ -57,8 +57,7 @@ MEDIA_URL = '/media/'
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'
 
-# This might be a good idea if you setup memcached
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Configure a real backend in production
 if DEBUG:
@@ -71,8 +70,11 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
     CACHES = {
         'default': {
             'BACKEND': os.environ.get("DJANGO_CACHE_BACKEND"),
-            'LOCATION': os.environ.get("DJANGO_CACHE_HOST") + ":" + os.environ.get("DJANGO_CACHE_PORT"),
-            'TIMEOUT': os.environ.get("DJANGO_CACHE_TIMEOUT")
+            'LOCATION': os.environ.get("DJANGO_CACHE_LOCATION"),
+            'TIMEOUT': os.environ.get("DJANGO_CACHE_TIMEOUT"),
+            'OPTIONS': {
+                'CLIENT_CLASS': os.environ.get("DJANGO_CACHE_CLIENT_CLASS"),
+            }
         }
     }
 
