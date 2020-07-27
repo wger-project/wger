@@ -9,54 +9,54 @@ as well, for easy integration with other projects and tools.
 
 ## Usage
 
-This docker image is meant to provide a quick development environment using
-django's development server and an sqlite database from your current code
-checkout (if you don't want or need a local checkout, use the wger/apache image,
-it is self-contained)
+This docker-compose file starts up a development environment with django's
+development server, postgres as a database and redis for caching and saving
+the sessions. It binds your current code checkout into the volume, if you
+don't want or have one, use the wger/apache image, it is self-contained.
 
-### 1 - Start the container
+### 1 - Start all services
+
+To start all services:
+
+    docker-compose -f extras/docker/compose/docker-compose.yml up
+
+Then open <http://localhost:8000> and log in as: **admin**, password **admin**
 
 
-    docker run -ti  \
-       -v /path/to/your/wger/checkout:/home/wger/src \
-       --name wger.devel \
-       --publish 8000:8000 wger/devel
+### 2 - Lifecycle Management
 
-When developing with windows, you might have problems with the `--volume` option,
-use the more verbose mount instead:
- 
-    --mount type=bind,source='"C:\your\path\to your\checkout"',target=/home/wger/src
+To stop all services issue a stop command, this will preserve all containers
+and volumes:
 
-### 2 - Download additional files
+    docker-compose -f extras/docker/compose/docker-compose.yml stop
 
-On the first run, you need to download some CSS and JS files with bower (
-as well as every time there are updates):
+To start everything up again:
 
-     docker exec -ti wger.devel python3 manage.py bower install
+    docker-compose -f extras/docker/compose/docker-compose.yml start
 
-You might also want to download the exercise images (will take some time):
+To remove all containers (except for the postgres volume)
 
-    docker exec -ti wger.devel python3 manage.py download-exercise-images
+    docker-compose -f extras/docker/compose/docker-compose.yml down
+    
+To view the application's log: 
 
-### 3 - Open the Application
+    docker-compose -f extras/docker/compose/docker-compose.yml logs -f
 
-Just open <http://localhost:8000> and log in as: **admin**, password **admin**
+### 2 - Other commands
 
-To stop the container:
+You might need to issue other commands or do other manual work in the container,
+e.g.
 
-```sudo docker container stop wger.devel```
-
-To start developing again:
-
-```sudo docker container start --attach wger.devel```
+     docker-compose -f extras/docker/compose/docker-compose.yml exec web python3 manage.py bower install
+     docker-compose -f extras/docker/compose/docker-compose.yml exec web /bin/bash
 
 
 ## Building
 
-If you build this yourself, keep in mind that you **must** build from the
-project root!
+If you want to build this yourself, keep in mind that you **must** build from the
+project root. Make sure the wger/devel image is available locally as well:
 
-```docker build -f extras/docker/development/Dockerfile --tag wger/devel .```
+    docker-compose -f extras/docker/compose/docker-compose.yml build.
 
 
 ## Contact

@@ -30,7 +30,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Set up the application
-COPY . .
+COPY requirements* ./
 RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
 
 
