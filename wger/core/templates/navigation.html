@@ -7,18 +7,6 @@
             </button>
             <div class="collapse navbar-collapse" id="main-navbar-navigation">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    {#          #}
-                    {# User tab #}
-                    {#          #}
-                    <li class="nav-item {% if active_tab == 'user' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'core:index' %}">
-                            {% if not user.is_authenticated %}
-                                {% trans "Features" %}
-                            {% else %}
-                                {% trans "Dashboard" %}
-                            {% endif %}
-                        </a>
-                    </li>
 
 
                     {#             #}

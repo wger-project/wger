@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -61,19 +61,7 @@ the search.{% endblocktrans %}
     <div id="calculator-errors"></div>
     <input type="hidden" value="{{ingredient.id}}" name="ingredient">
 
-    <div class="row">
-        <div class="col-md-4" style="text-align:right;">
-        {% trans 'Nutritional values in' %}
-        </div>
-
-        <div class="col-md-4">
-            <div>{{form.amount|form_field_add_css:'form-control'}}</div>
-        </div>
-
-        <div class="col-md-4">
-            <div>{{form.unit|form_field_add_css:'form-control'}}</div>
-        </div>
-    </div>
+    {% crispy form %}
 </form>
 
 <table class="table">

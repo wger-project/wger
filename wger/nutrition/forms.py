@@ -19,7 +19,18 @@ import logging
 
 # Django
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row
+)
 
 # wger
 from wger.core.models import UserProfile
@@ -39,9 +50,11 @@ class UnitChooserForm(forms.Form):
     A small form to select an amount and a unit for an ingredient
     '''
     amount = forms.DecimalField(decimal_places=2,
+                                label=ugettext_lazy("Amount"),
                                 max_digits=5,
                                 localize=True)
     unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
+                                  label=ugettext_lazy("Unit"),
                                   empty_label="g",
                                   required=False)
 
@@ -59,6 +72,16 @@ class UnitChooserForm(forms.Form):
 
         self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
             ingredient_id=ingredient_id).select_related()
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('amount', css_class='form-group col-6 mb-0'),
+                Column('unit', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
+        self.helper.form_tag = False
 
 
 class BmiForm(forms.ModelForm):

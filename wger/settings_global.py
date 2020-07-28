@@ -360,7 +360,8 @@ else:
 #
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
-    'PAGINATE_BY': 20,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
     'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (

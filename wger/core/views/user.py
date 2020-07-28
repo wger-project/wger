@@ -115,15 +115,13 @@ def login(request):
     Small wrapper around the django login view
     '''
 
-    context = {'active_tab': USER_TAB}
     next_url = "?next=" + request.GET.get('next') if request.GET.get('next') else ''
 
     form = UserLoginForm
     form.helper.form_action = reverse('core:user:login') + next_url
 
     return LoginView.as_view(template_name='user/login.html',
-                             authentication_form=form,
-                             extra_context=context)
+                             authentication_form=form)
 
 
 @login_required()
