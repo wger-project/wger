@@ -30,7 +30,7 @@ from django.views import generic
 from formtools.preview import FormPreview
 
 # wger
-from wger.email.models import (
+from wger.mailer.models import (
     CronEntry,
     Log
 )
@@ -44,8 +44,8 @@ class EmailLogListView(PermissionRequiredMixin, generic.ListView):
 
     model = Log
     context_object_name = "email_list"
-    template_name = 'email/gym/overview.html'
-    permission_required = 'email.add_log'
+    template_name = 'mailer/gym/overview.html'
+    permission_required = 'mailer.add_log'
     gym = None
 
     def get_queryset(self):
@@ -77,8 +77,8 @@ class EmailLogListView(PermissionRequiredMixin, generic.ListView):
 
 
 class EmailListFormPreview(FormPreview):
-    preview_template = 'email/gym/preview.html'
-    form_template = 'email/gym/form.html'
+    preview_template = 'mailer/gym/preview.html'
+    form_template = 'mailer/gym/form.html'
     list_type = None
     gym = None
 

@@ -21,8 +21,8 @@ from django.conf.urls import (
 )
 
 # wger
-from wger.email.forms import EmailListForm
-from wger.email.views import gym
+from wger.mailer.forms import EmailListForm
+from wger.mailer.views import gym
 
 
 # sub patterns for email lists

@@ -34,6 +34,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cronentry',
             name='log',
-            field=models.ForeignKey(editable=False, to='email.Log', on_delete=models.CASCADE),
+            field=models.ForeignKey(editable=False, to='mailer.Log', on_delete=models.CASCADE),
         ),
     ]

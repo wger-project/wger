@@ -20,7 +20,7 @@ from django.core import mail
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.email.models import CronEntry
+from wger.mailer.models import CronEntry
 
 
 class Command(BaseCommand):

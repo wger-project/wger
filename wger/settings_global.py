@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     # Apps from wger proper
     'wger.config',
     'wger.core',
-    'wger.email',
+    'wger.mailer',
     'wger.exercises',
     'wger.gym',
     'wger.manager',
