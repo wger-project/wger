@@ -12,13 +12,20 @@ Upgrade steps from 1.9:
 * Update static files (only production): ``python manage.py collectstatic``
 
 
-New features:
+🚀 Features:
 
 * TBA
 
-Improvements:
+
+🐛 Bug Fixes:
+
+* TBA
+
+
+🧰 Maintenance:
 
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
+
 
 
 1.9
