@@ -9,5 +9,6 @@ fi
 
 /home/wger/venvwrapper collectstatic --no-input
 /home/wger/venvwrapper compress --force
+chown www-data:www-data -R /home/wger/static
 
 /usr/sbin/apache2ctl -D FOREGROUND

@@ -54,14 +54,6 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
-# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
-# when using the invoke/wger commands and bower
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-
 # Set up the application
 USER wger
 COPY --chown=wger:wger . /home/wger/src

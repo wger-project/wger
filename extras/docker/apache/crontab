@@ -1,6 +1,6 @@
 # wger cron jobs
-0 5 * * * root  /home/wger/venvwrapper email-reminders
-15 5 * * * root /home/wger/venvwrapper email-weight-reminders
-30 5 * * * root /home/wger/venvwrapper inactive-members
-42 4 * * * root /home/wger/venvwrapper delete-temp-users
+0  5 * * * wger /home/wger/venvwrapper email-reminders
+15 5 * * * wger /home/wger/venvwrapper email-weight-reminders
+30 5 * * * wger /home/wger/venvwrapper inactive-members
+42 4 * * * wger /home/wger/venvwrapper delete-temp-users
 # Don't remove the empty line at the end of this file. It is required to run the cron job
