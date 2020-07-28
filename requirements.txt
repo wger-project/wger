@@ -19,7 +19,7 @@ django-storages~=1.7
 easy-thumbnails~=2.7
 icalendar==4.0.3
 invoke==0.17
-pillow~=6.2
+pillow~=7.2
 python-mimeparse
 reportlab==3.5.21
 matplotlib>=3.1
