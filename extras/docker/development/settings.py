@@ -18,7 +18,7 @@ if os.environ.get("DJANGO_DB_ENGINE"):
     DATABASES = {
         'default': {
             'ENGINE': os.environ.get("DJANGO_DB_ENGINE"),
-            'NAME': os.environ.get("DJANGO_DB_NAME"),
+            'NAME': os.environ.get("DJANGO_DB_DATABASE"),
             'USER': os.environ.get("DJANGO_DB_USER"),
             'PASSWORD': os.environ.get("DJANGO_DB_PASSWORD"),
             'HOST': os.environ.get("DJANGO_DB_HOST"),
