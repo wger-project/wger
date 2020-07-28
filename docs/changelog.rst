@@ -25,6 +25,7 @@ Upgrade steps from 1.9:
 
 🧰 Maintenance:
 
+* Improved docker and docker-compose images
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
 
 
