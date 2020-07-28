@@ -37,8 +37,8 @@ To start everything up again:
 To remove all containers (except for the postgres volume)
 
     docker-compose -f extras/docker/compose/docker-compose.yml down
-    
-To view the application's log: 
+
+To view the application's log:
 
     docker-compose -f extras/docker/compose/docker-compose.yml logs -f
 

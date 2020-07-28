@@ -24,7 +24,7 @@ it is self-contained)
 
 When developing with windows, you might have problems with the `--volume` option,
 use the more verbose mount instead:
- 
+
     --mount type=bind,source='"C:\your\path\to your\checkout"',target=/home/wger/src
 
 ### 2 - Download additional files
