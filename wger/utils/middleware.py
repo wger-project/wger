@@ -12,9 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-'''
+"""
 Custom middleware
-'''
+"""
 
 # Standard Library
 import logging
@@ -37,10 +37,10 @@ SPECIAL_PATHS = ('dashboard',)
 
 
 def check_current_request(request):
-    '''
+    """
     Simple helper function that checks whether the current request hit one
     of the 'special' paths (paths that need a logged in user).
-    '''
+    """
 
     # Don't create guest users for requests that are accessing the site
     # through the REST API
@@ -79,11 +79,11 @@ def get_user(request):
 
 
 class WgerAuthenticationMiddleware(MiddlewareMixin):
-    '''
+    """
     Small wrapper around django's own AuthenticationMiddleware. Simply creates
     a new user with a temporary flag if the user hits certain URLs that need
     a logged in user
-    '''
+    """
     def process_request(self, request):
         assert hasattr(request, 'session'), "The Django authentication middleware requires "
         "session middleware to be installed. Edit your MIDDLEWARE_CLASSES setting to insert"
@@ -93,10 +93,10 @@ class WgerAuthenticationMiddleware(MiddlewareMixin):
 
 
 class RobotsExclusionMiddleware(MiddlewareMixin):
-    '''
+    """
     Simple middleware that sends the "X-Robots-Tag" tag for the URLs used in
     our WgerAuthenticationMiddleware so that those pages are not indexed.
-    '''
+    """
     def process_response(self, request, response):
         # Don't set it if it's already in the response
         if check_current_request(request) and response.get('X-Robots-Tag', None) is None:
@@ -105,7 +105,7 @@ class RobotsExclusionMiddleware(MiddlewareMixin):
 
 
 class JavascriptAJAXRedirectionMiddleware(MiddlewareMixin):
-    '''
+    """
     Middleware that sends helper headers when working with AJAX.
 
     This is used for AJAX forms due to limitations of javascript. The way it
@@ -113,7 +113,7 @@ class JavascriptAJAXRedirectionMiddleware(MiddlewareMixin):
     in the page and redirect to that URL. This now just sends a header when the
     form was called via the JS function wgerFormModalDialog() and no errors are
     present.
-    '''
+    """
 
     def process_response(self, request, response):
 

@@ -36,9 +36,9 @@ from wger.utils.cache import (
 
 
 class Command(BaseCommand):
-    '''
+    """
     Clears caches (HTML, etc.)
-    '''
+    """
 
     help = 'Clears the application cache. You *must* pass an option selecting ' \
            'what exactly you want to clear. See available options.'
@@ -64,9 +64,9 @@ class Command(BaseCommand):
                             help='Clear ALL cached entries')
 
     def handle(self, **options):
-        '''
+        """
         Process the options
-        '''
+        """
 
         if (not options['clear_template']
                 and not options['clear_workout']

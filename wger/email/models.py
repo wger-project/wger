@@ -23,69 +23,69 @@ from wger.gym.models import Gym
 
 
 class Log(models.Model):
-    '''
+    """
     A log of a sent email
-    '''
+    """
 
     class Meta:
         ordering = ["-date", ]
 
     date = models.DateField(auto_now=True)
-    '''
+    """
     Date when the log was created
-    '''
+    """
 
     user = models.ForeignKey(User,
                              editable=False,
                              on_delete=models.CASCADE)
-    '''
+    """
     The user that created the email
-    '''
+    """
 
     gym = models.ForeignKey(Gym,
                             editable=False,
                             related_name='email_log',
                             on_delete=models.CASCADE)
-    '''
+    """
     Gym this log belongs to
-    '''
+    """
 
     subject = models.CharField(max_length=100)
-    '''
+    """
     The email subject
-    '''
+    """
 
     body = models.TextField()
-    '''
+    """
     The email body
-    '''
+    """
 
     def __unicode__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return self.subject
 
 
 class CronEntry(models.Model):
-    '''
+    """
     Simple list of emails to be sent by a cron job
-    '''
+    """
 
     log = models.ForeignKey(Log,
                             editable=False,
                             on_delete=models.CASCADE)
-    '''
+    """
     Foreign key to email log with subject and body
-    '''
+    """
 
     email = models.EmailField()
-    '''
+    """
     The email address
-    '''
+    """
 
     def __unicode__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return self.email

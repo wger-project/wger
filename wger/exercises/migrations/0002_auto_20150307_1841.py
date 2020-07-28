@@ -5,12 +5,12 @@ from django.db import models, migrations
 import uuid
 
 def generate_uuids(apps, schema_editor):
-    '''
+    """
     Generate new UUIDs for each exercise
     :param apps:
     :param schema_editor:
     :return:
-    '''
+    """
     Excercise = apps.get_model("exercises", "Exercise")
     for exercise in Excercise.objects.all():
         exercise.uuid = uuid.uuid4()

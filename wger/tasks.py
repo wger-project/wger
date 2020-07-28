@@ -69,9 +69,9 @@ logger = logging.getLogger(__name__)
                           '"--arg1 --arg2=value". Default: none'})
 def start(context, address='localhost', port=8000, browser=False, settings_path=None,
           extra_args=''):
-    '''
+    """
     Start the application using django's built in webserver
-    '''
+    """
     if browser:
         start_browser("http://{0}:{1}".format(address, port))
 
@@ -101,9 +101,9 @@ def bootstrap(context,
               port=8000,
               browser=False,
               start_server=True):
-    '''
+    """
     Performs all steps necessary to bootstrap the application
-    '''
+    """
 
     # Find url to wger
     address, port = detect_listen_opts(address, port)
@@ -129,8 +129,6 @@ def bootstrap(context,
         create_or_reset_admin(context, settings_path=settings_path)
 
     # Download JS libraries with bower
-    context.run('npm install bower')
-    context.run('npm install')
     call_command("bower", "install")
 
     # Start the webserver
@@ -148,9 +146,9 @@ def bootstrap(context,
             'key-length': 'Lenght of the generated secret key. Default: 50'})
 def create_settings(context, settings_path=None, database_path=None, url=None,
                     database_type='sqlite3', key_length=50):
-    '''
+    """
     Creates a local settings file
-    '''
+    """
     if settings_path is None:
         settings_path = get_user_config_path('wger', 'settings.py')
 
@@ -216,9 +214,9 @@ def create_settings(context, settings_path=None, database_path=None, url=None,
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
                              'default'})
 def create_or_reset_admin(context, settings_path=None):
-    '''
+    """
     Creates an admin user or resets the password for an existing one
-    '''
+    """
 
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
@@ -241,9 +239,9 @@ def create_or_reset_admin(context, settings_path=None):
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
                              'default'})
 def migrate_db(context, settings_path=None):
-    '''
+    """
     Run all database migrations
-    '''
+    """
 
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
@@ -254,9 +252,9 @@ def migrate_db(context, settings_path=None):
 @task(help={'settings-path': 'Path to settings file (absolute path recommended). Leave empty for '
                              'default'})
 def load_fixtures(context, settings_path=None):
-    '''
+    """
     Loads all fixtures
-    '''
+    """
 
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
@@ -307,9 +305,9 @@ def load_fixtures(context, settings_path=None):
 
 @task
 def config_location(context):
-    '''
+    """
     Returns the default location for the settings file and the data folder
-    '''
+    """
     print('Default locations:')
     print('* settings:      {0}'.format(get_user_config_path('wger', 'settings.py')))
     print('* media folder:  {0}'.format(get_user_data_path('wger', 'media')))
@@ -389,9 +387,9 @@ def detect_listen_opts(address, port):
 
 
 def setup_django_environment(settings_path):
-    '''
+    """
     Setup the django environment
-    '''
+    """
 
     # Use default settings if the user didn't specify something else
     if settings_path is None:
@@ -432,9 +430,9 @@ def database_exists():
 
 
 def start_browser(url):
-    '''
+    """
     Start the web browser with the given URL
-    '''
+    """
     browser = webbrowser.get()
 
     def function():

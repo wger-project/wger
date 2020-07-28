@@ -1,7 +1,7 @@
-.. _getting_started:
+.. _installation:
 
-Getting started
-===============
+Installation
+============
 
 You can get a local instance of wger installed in a couple of minutes.
 
@@ -16,7 +16,7 @@ The application is compatible and regularly tested with
 * sqlite, postgres
 * python 3.6, 3.7 and 3.8
 
-You might also want to take a look at the :ref:`other-changes` section for other
+After installation you might also want to take a look at the :ref:`other-changes` section for other
 changes you might want to do to your local instance such as Terms of Service or
 contact page.
 
@@ -26,14 +26,12 @@ contact page.
     in the development page apply to all the installation options.
 
 
-These are the necessary packages for both development and production
-(node and npm are only used to download JS and CSS libraries)::
+These are the necessary packages for both development and production::
 
-    sudo apt-get install nodejs npm git python3-dev
+    sudo apt-get install nodejs npm git python3-dev python3-venv
 
 
 .. toctree::
-   :maxdepth: 2
 
    development
    docker

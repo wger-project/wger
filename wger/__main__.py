@@ -22,11 +22,11 @@ import sys
 from invoke import run
 
 
-'''
+"""
 This simple wrapper script is used as a console entry point in the packaged
 version of the application. It simply redirects all arguments to the invoke
 command, which does all the work.
-'''
+"""
 
 invoke_cmd = 'invoke '
 

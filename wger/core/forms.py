@@ -51,9 +51,9 @@ from wger.core.models import UserProfile
 
 
 class UserLoginForm(AuthenticationForm):
-    '''
+    """
     Form for logins
-    '''
+    """
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
@@ -142,14 +142,14 @@ class UserEmailForm(forms.ModelForm):
         fields = ('email', )
 
     def clean_email(self):
-        '''
+        """
         Email must be unique system wide
 
         However, this check should only be performed when the user changes his
         email, otherwise the uniqueness check will because it will find one user
         (the current one) using the same email. Only when the user changes it, do
         we want to check that nobody else has that email
-        '''
+        """
 
         email = self.cleaned_data["email"]
         if not email:
@@ -176,12 +176,12 @@ class UserPersonalInformationForm(UserEmailForm):
 
 
 class PasswordConfirmationForm(Form):
-    '''
+    """
     A simple password confirmation form.
 
     This can be used to make sure the user really wants to perform a dangerous
     action. The form must be initialised with a user object.
-    '''
+    """
     password = CharField(label=_("Password"),
                          widget=PasswordInput,
                          help_text=_('Please enter your current password.'))
@@ -196,9 +196,9 @@ class PasswordConfirmationForm(Form):
         )
 
     def clean_password(self):
-        '''
+        """
         Check that the password supplied matches the one for the user
-        '''
+        """
         password = self.cleaned_data.get('password', None)
         if not self.user.check_password(password):
             raise ValidationError(_('Invalid password'))
@@ -207,9 +207,9 @@ class PasswordConfirmationForm(Form):
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
-    '''
+    """
     Registration form
-    '''
+    """
 
     # Manually set the language to 'en', otherwise the language used seems to
     # randomly one of the application languages. This also appears to happen
@@ -220,9 +220,9 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 
 
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
-    '''
+    """
     Registration form without captcha field
-    '''
+    """
 
     def __init__(self, *args, **kwargs):
         super(RegistrationFormNoCaptcha, self).__init__(*args, **kwargs)
@@ -241,9 +241,9 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
 
 
 class FeedbackRegisteredForm(forms.Form):
-    '''
+    """
     Feedback form used for logged in users
-    '''
+    """
     contact = forms.CharField(max_length=50,
                               min_length=10,
                               label=_('Contact'),
@@ -259,8 +259,8 @@ class FeedbackRegisteredForm(forms.Form):
 
 
 class FeedbackAnonymousForm(FeedbackRegisteredForm):
-    '''
+    """
     Feedback form used for anonymous users (has additionally a reCaptcha field)
-    '''
+    """
     captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)

@@ -34,21 +34,21 @@ from wger.nutrition.models import (
 
 
 class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
 
 
 class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests adding a new weight unit to an ingredient
-    '''
+    """
 
     object_class = IngredientWeightUnit
     url = reverse_lazy('nutrition:unit_ingredient:add',
@@ -59,9 +59,9 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
 
 
 class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a weight unit from an ingredient
-    '''
+    """
 
     object_class = IngredientWeightUnit
     url = 'nutrition:unit_ingredient:delete'
@@ -69,9 +69,9 @@ class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
 
 
 class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a weight unit from an ingredient
-    '''
+    """
 
     object_class = IngredientWeightUnit
     url = 'nutrition:unit_ingredient:edit'
@@ -82,14 +82,14 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
 
 
 class WeightUnitFormTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the form for the weight units
-    '''
+    """
 
     def test_add_weight_unit(self):
-        '''
+        """
         Tests the form in the add view
-        '''
+        """
         self.user_login('admin')
         response = self.client.get(reverse('nutrition:unit_ingredient:add',
                                            kwargs={'ingredient_pk': 1}))
@@ -102,9 +102,9 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
                 self.assertIn(unit.name, choices)
 
     def test_edit_weight_unit(self):
-        '''
+        """
         Tests that the form in the edit view only shows weight units in the user's language
-        '''
+        """
         self.user_login('admin')
         response = self.client.get(reverse('nutrition:unit_ingredient:edit',
                                            kwargs={'pk': 1}))
@@ -118,9 +118,9 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
 
 
 class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the weight unit to ingredient API resource
-    '''
+    """
     pk = 1
     resource = IngredientWeightUnit
     private_resource = False

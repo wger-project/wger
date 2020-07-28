@@ -25,14 +25,14 @@ from wger.utils.helpers import check_access
 
 
 class CheckAccessTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the "check_access" helper function
-    '''
+    """
 
     def test_helper(self):
-        '''
+        """
         Test the helper function
-        '''
+        """
 
         user_share = User.objects.get(pk=1)
         self.assertTrue(user_share.userprofile.ro_access)

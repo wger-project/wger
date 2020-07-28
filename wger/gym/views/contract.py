@@ -46,9 +46,9 @@ logger = logging.getLogger(__name__)
 
 
 class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     View to add a new contract
-    '''
+    """
 
     model = Contract
     fields = '__all__'
@@ -57,13 +57,13 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     member = None
 
     def get_initial(self):
-        '''
+        """
         Get the initial data for new contracts
 
         Since the user's data probably didn't change between one contract and the
         next, try to fill in as much data as possible from previous ones or the
         user's profile
-        '''
+        """
         out = {}
         if Contract.objects.filter(member=self.member).exists():
             last_contract = Contract.objects.filter(member=self.member).first()
@@ -82,9 +82,9 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         return out
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Can only add documents to users in own gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -95,27 +95,27 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         return super(AddView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        '''
+        """
         Set user instances
-        '''
+        """
         form.instance.member = self.member
         form.instance.user = self.request.user
         return super(AddView, self).form_valid(form)
 
 
 class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    '''
+    """
     Detail view of a member's contract
-    '''
+    """
 
     model = Contract
     template_name = 'contract/view.html'
     permission_required = 'gym.add_contract'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Can only see contracts for own gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -126,18 +126,18 @@ class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
 
 class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     View to update an existing contract
-    '''
+    """
 
     model = Contract
     fields = '__all__'
     permission_required = 'gym.change_contract'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only trainers for this gym can edit user notes
-        '''
+        """
 
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
@@ -148,33 +148,33 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         return super(UpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
 
 class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    '''
+    """
     Overview of all available admin notes
-    '''
+    """
     model = Contract
     permission_required = 'gym.add_contract'
     template_name = 'contract/list.html'
     member = None
 
     def get_queryset(self):
-        '''
+        """
         Only documents for current user
-        '''
+        """
         return Contract.objects.filter(member=self.member)
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Can only list contract types in own gym
-        '''
+        """
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
@@ -185,9 +185,9 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return super(ListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ListView, self).get_context_data(**kwargs)
         context['member'] = self.member
         return context

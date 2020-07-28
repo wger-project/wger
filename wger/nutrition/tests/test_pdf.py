@@ -24,15 +24,15 @@ from wger.utils.helpers import make_token
 
 
 class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests exporting a nutritional plan as a pdf
-    '''
+    """
 
     def export_pdf_token(self):
-        '''
+        """
         Helper function to test exporting a nutritional plan as a pdf using
         a token as access (no fails)
-        '''
+        """
 
         user = User.objects.get(pk=2)
         uid, token = make_token(user)
@@ -51,9 +51,9 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
         self.assertLess(int(response['Content-Length']), 34000)
 
     def export_pdf(self, fail=False):
-        '''
+        """
         Helper function to test exporting a nutritional plan as a pdf
-        '''
+        """
 
         # Get a plan
         response = self.client.get(reverse('nutrition:plan:export-pdf',
@@ -94,26 +94,26 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
             self.assertLess(int(response['Content-Length']), 33420)
 
     def test_export_pdf_anonymous(self):
-        '''
+        """
         Tests exporting a nutritional plan as a pdf as an anonymous user
-        '''
+        """
 
         self.export_pdf(fail=True)
         self.export_pdf_token()
 
     def test_export_pdf_owner(self):
-        '''
+        """
         Tests exporting a nutritional plan as a pdf as the owner user
-        '''
+        """
 
         self.user_login('test')
         self.export_pdf(fail=False)
         self.export_pdf_token()
 
     def test_export_pdf_other(self):
-        '''
+        """
         Tests exporting a nutritional plan as a pdf as a logged user not owning the data
-        '''
+        """
 
         self.user_login('admin')
         self.export_pdf(fail=True)

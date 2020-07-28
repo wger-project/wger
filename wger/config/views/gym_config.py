@@ -31,9 +31,9 @@ logger = logging.getLogger(__name__)
 
 
 class GymConfigUpdateView(WgerFormMixin, UpdateView):
-    '''
+    """
     Generic view to edit the gym config table
-    '''
+    """
     model = GymConfig
     fields = '__all__'
     permission_required = 'config.change_gymconfig'
@@ -41,7 +41,7 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
     title = ugettext_lazy('Edit')
 
     def get_object(self):
-        '''
+        """
         Return the only gym config object
-        '''
+        """
         return GymConfig.objects.get(pk=1)

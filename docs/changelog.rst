@@ -2,8 +2,7 @@ Changelog
 =========
 
 2.0 - IN DEVELOPMENT
---------------------
-**2020-XX-XX**
+**2020-xx-xx**
 
 Upgrade steps from 1.9:
 
@@ -24,7 +23,10 @@ Upgrade steps from 1.9:
 
 🧰 Maintenance:
 
+* Improved docker and docker-compose images `#340`_
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
+
+.. _#340: https://github.com/wger-project/wger/issues/340
 
 
 

@@ -53,9 +53,9 @@ class ExerciseCommentEditView(WgerFormMixin,
                               LoginRequiredMixin,
                               PermissionRequiredMixin,
                               UpdateView):
-    '''
+    """
     Generic view to update an existing exercise comment
-    '''
+    """
 
     model = ExerciseComment
     form_class = CommentForm
@@ -70,9 +70,9 @@ class ExerciseCommentAddView(WgerFormMixin,
                              LoginRequiredMixin,
                              PermissionRequiredMixin,
                              CreateView):
-    '''
+    """
     Generic view to add a new exercise comment
-    '''
+    """
 
     model = ExerciseComment
     form_class = CommentForm

@@ -60,9 +60,9 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
                                      LoginRequiredMixin,
                                      PermissionRequiredMixin,
                                      CreateView):
-    '''
+    """
     Generic view to add a new weight unit to ingredient entry
-    '''
+    """
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Add a new weight unit')
@@ -77,9 +77,9 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
         return super(WeightUnitIngredientCreateView, self).form_valid(form)
 
     def get_form_class(self):
-        '''
+        """
         The form can only show units in the user's language
-        '''
+        """
 
         class IngredientWeightUnitForm(ModelForm):
             unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
@@ -95,9 +95,9 @@ class WeightUnitIngredientUpdateView(WgerFormMixin,
                                      LoginRequiredMixin,
                                      PermissionRequiredMixin,
                                      UpdateView):
-    '''
+    """
     Generic view to update an weight unit to ingredient entry
-    '''
+    """
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Edit a weight unit to ingredient connection')
@@ -107,9 +107,9 @@ class WeightUnitIngredientUpdateView(WgerFormMixin,
         return reverse('nutrition:ingredient:view', kwargs={'id': self.object.ingredient.id})
 
     def get_form_class(self):
-        '''
+        """
         The form can only show units in the user's language
-        '''
+        """
 
         class IngredientWeightUnitForm(ModelForm):
             unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
@@ -125,9 +125,9 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin,
                                      LoginRequiredMixin,
                                      PermissionRequiredMixin,
                                      DeleteView):
-    '''
+    """
     Generic view to delete a weight unit to ingredient entry
-    '''
+    """
 
     model = IngredientWeightUnit
     fields = ('unit', 'gram', 'amount')

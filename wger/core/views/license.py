@@ -46,18 +46,18 @@ logger = logging.getLogger(__name__)
 
 
 class LicenseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    '''
+    """
     Overview of all available licenses
-    '''
+    """
     model = License
     permission_required = 'core.add_license'
     template_name = 'license/list.html'
 
 
 class LicenseAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     View to add a new license
-    '''
+    """
 
     model = License
     fields = ['full_name', 'short_name', 'url']
@@ -67,9 +67,9 @@ class LicenseAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin,
 
 
 class LicenseUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     View to update an existing license
-    '''
+    """
 
     model = License
     fields = ['full_name', 'short_name', 'url']
@@ -77,18 +77,18 @@ class LicenseUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
     permission_required = 'core.change_license'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(LicenseUpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
 
 class LicenseDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    '''
+    """
     View to delete an existing license
-    '''
+    """
 
     model = License
     fields = ['full_name', 'short_name', 'url']
@@ -96,9 +96,9 @@ class LicenseDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredM
     permission_required = 'core.delete_license'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(LicenseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context

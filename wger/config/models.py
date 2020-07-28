@@ -43,11 +43,11 @@ logger = logging.getLogger(__name__)
 
 
 class LanguageConfig(models.Model):
-    '''
+    """
     Configuration for languages
 
     Allows to specify what exercises and ingredients are shown for each language
-    '''
+    """
     SHOW_ITEM_EXERCISES = '1'
     SHOW_ITEM_INGREDIENTS = '2'
     SHOW_ITEM_LIST = (
@@ -69,21 +69,21 @@ class LanguageConfig(models.Model):
     show = models.BooleanField(default=1)
 
     class Meta:
-        '''
+        """
         Set some other properties
-        '''
+        """
         ordering = ["item", "language_target", ]
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return u"Config for language {0}".format(self.language)
 
     def save(self, *args, **kwargs):
-        '''
+        """
         Reset all cached infos
-        '''
+        """
 
         super(LanguageConfig, self).save(*args, **kwargs)
 
@@ -95,9 +95,9 @@ class LanguageConfig(models.Model):
         delete_template_fragment_cache('exercise-overview', self.language_id)
 
     def delete(self, *args, **kwargs):
-        '''
+        """
         Reset all cached infos
-        '''
+        """
 
         # Cached objects
         cache.delete(cache_mapper.get_language_config_key(self.language, self.item))
@@ -110,12 +110,12 @@ class LanguageConfig(models.Model):
 
 
 class GymConfig(models.Model):
-    '''
+    """
     System wide configuration for gyms
 
     At the moment this only allows to set one gym as the default
     TODO: close registration (users can only become members thorough an admin)
-    '''
+    """
 
     default_gym = models.ForeignKey(Gym,
                                     verbose_name=_('Default gym'),
@@ -126,20 +126,20 @@ class GymConfig(models.Model):
                                     null=True,
                                     blank=True,
                                     on_delete=models.CASCADE)
-    '''
+    """
     Default gym for the wger installation
-    '''
+    """
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return u"Default gym {0}".format(self.default_gym)
 
     def save(self, *args, **kwargs):
-        '''
+        """
         Perform additional tasks
-        '''
+        """
         if self.default_gym:
 
             # All users that have no gym set in the profile are edited

@@ -29,27 +29,27 @@ from wger.exercises.models import (
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
-    '''
+    """
     Exercise serializer
-    '''
+    """
     class Meta:
         model = Exercise
         fields = '__all__'
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
-    '''
+    """
     Equipment serializer
-    '''
+    """
     class Meta:
         model = Equipment
         fields = '__all__'
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):
-    '''
+    """
     Equipment serializer
-    '''
+    """
     class Meta:
         model = Exercise
         depth = 3
@@ -57,36 +57,36 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
-    '''
+    """
     ExerciseCategory serializer
-    '''
+    """
     class Meta:
         model = ExerciseCategory
         fields = '__all__'
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
-    '''
+    """
     ExerciseImage serializer
-    '''
+    """
     class Meta:
         model = ExerciseImage
         fields = '__all__'
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
-    '''
+    """
     ExerciseComment serializer
-    '''
+    """
     class Meta:
         model = ExerciseComment
         fields = '__all__'
 
 
 class MuscleSerializer(serializers.ModelSerializer):
-    '''
+    """
     Muscle serializer
-    '''
+    """
     class Meta:
         model = Muscle
         fields = '__all__'

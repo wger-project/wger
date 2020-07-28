@@ -77,9 +77,9 @@ logger = logging.getLogger(__name__)
 # ************************
 @login_required
 def overview(request):
-    '''
+    """
     An overview of all the user's workouts
-    '''
+    """
 
     template_data = {}
 
@@ -93,9 +93,9 @@ def overview(request):
 
 @vary_on_headers('User-Agent')
 def view(request, pk):
-    '''
+    """
     Show the workout with the given ID
-    '''
+    """
     template_data = {}
     workout = get_object_or_404(Workout, pk=pk)
     user = workout.user
@@ -143,9 +143,9 @@ def view(request, pk):
 
 @login_required
 def copy_workout(request, pk):
-    '''
+    """
     Makes a copy of a workout
-    '''
+    """
 
     workout = get_object_or_404(Workout, pk=pk)
     user = workout.user
@@ -224,9 +224,9 @@ def copy_workout(request, pk):
 
 @login_required
 def add(request):
-    '''
+    """
     Add a new workout and redirect to its page
-    '''
+    """
     workout = Workout()
     workout.user = request.user
     workout.save()
@@ -235,9 +235,9 @@ def add(request):
 
 
 class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
-    '''
+    """
     Generic view to delete a workout routine
-    '''
+    """
 
     model = Workout
     fields = ('comment',)
@@ -251,9 +251,9 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
 
 
 class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing workout routine
-    '''
+    """
 
     model = Workout
     form_class = WorkoutForm
@@ -265,10 +265,10 @@ class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
 
 class LastWeightHelper:
-    '''
+    """
     Small helper class to retrieve the last workout log for a certain
     user, exercise and repetition combination.
-    '''
+    """
     user = None
     last_weight_list = {}
 
@@ -276,14 +276,14 @@ class LastWeightHelper:
         self.user = user
 
     def get_last_weight(self, exercise, reps, default_weight):
-        '''
+        """
         Returns an emtpy string if no entry is found
 
         :param exercise:
         :param reps:
         :param default_weight:
         :return: WorkoutLog or '' if none is found
-        '''
+        """
         key = (self.user.pk, exercise.pk, reps, default_weight)
         if self.last_weight_list.get(key) is None:
             last_log = WorkoutLog.objects.filter(user=self.user,
@@ -298,9 +298,9 @@ class LastWeightHelper:
 
 @login_required
 def timer(request, day_pk):
-    '''
+    """
     The timer view ("gym mode") for a workout
-    '''
+    """
 
     day = get_object_or_404(Day, pk=day_pk, training__user=request.user)
     canonical_day = day.canonical_representation

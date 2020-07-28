@@ -43,21 +43,21 @@ register = template.Library()
 
 @register.filter(name='get_current_settings')
 def get_current_settings(exercise, set_id):
-    '''
+    """
     Does a filter on the sets
 
     We need to do this here because it's not possible to pass arguments to function in
     the template, and we are only interested on the settings that belong to the current
     set
-    '''
+    """
     return exercise.setting_set.filter(set_id=set_id)
 
 
 @register.inclusion_tag('tags/render_day.html')
 def render_day(day, editable=True):
-    '''
+    """
     Renders a day as it will be displayed in the workout overview
-    '''
+    """
     return {'day': day.canonical_representation,
             'workout': day.training,
             'editable': editable}
@@ -65,9 +65,9 @@ def render_day(day, editable=True):
 
 @register.inclusion_tag('tags/pagination.html')
 def pagination(paginator, page):
-    '''
+    """
     Renders the necessary links to paginating a long list
-    '''
+    """
 
     # For very long lists (e.g. the English ingredient with more than 8000 items)
     # we muck around here to remove the pages not inmediately 'around' the current
@@ -97,9 +97,9 @@ def pagination(paginator, page):
 
 @register.inclusion_tag('tags/render_weight_log.html')
 def render_weight_log(log, div_uuid, user=None):
-    '''
+    """
     Renders a weight log series
-    '''
+    """
 
     return {'log': log,
             'div_uuid': div_uuid,
@@ -108,9 +108,9 @@ def render_weight_log(log, div_uuid, user=None):
 
 @register.inclusion_tag('tags/license-sidebar.html')
 def license_sidebar(license, author=None):
-    '''
+    """
     Renders the license notice for exercises
-    '''
+    """
 
     return {'license': license,
             'author': author}
@@ -118,9 +118,9 @@ def license_sidebar(license, author=None):
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)
 def language_select(context, language):
-    '''
+    """
     Renders a link to change the current language.
-    '''
+    """
 
     return {'language_name': language[1],
             'path': 'images/icons/flag-{0}.svg'.format(language[0]),
@@ -129,34 +129,34 @@ def language_select(context, language):
 
 @register.filter
 def get_item(dictionary, key):
-    '''
+    """
     Allows to access a specific key in a dictionary in a template
-    '''
+    """
     return dictionary.get(key)
 
 
 @register.simple_tag
 def auto_link_css(mobile=False, css=''):
-    '''
+    """
     Adds the appropriate classes to a sidebar link depending on the site version
 
     :param mobile: true if mobile version of site
     :param css: the CSS class, if any, of the link
     :return: the complete CSS classes, wrapped in class="foo"
-    '''
+    """
     css = css + ' btn btn-default btn-block' if mobile else css
     return mark_safe('class="{0}"'.format(css))
 
 
 @register.simple_tag
 def fa_class(class_name='', icon_type='fas', fixed_width=True):
-    '''
+    """
     Helper function to help add font awesome classes to elements
 
     :param class_name: the CSS class name, without the "fa-" prefix
     :param fixed_width: toggle for fixed icon width
     :return: the complete CSS classes
-    '''
+    """
     css = ''
     if not class_name:
         return css
@@ -170,14 +170,14 @@ def fa_class(class_name='', icon_type='fas', fixed_width=True):
 
 @register.simple_tag
 def trans_weight_unit(unit, user=None):
-    '''
+    """
     Returns the correct (translated) weight unit
 
     :param unit: the weight unit. Allowed values are 'kg' and 'g'
     :param user: the user object, needed to access the profile. If this evaluates
                  to False, metric is used
     :return: translated unit
-    '''
+    """
     if not user or user.userprofile.use_metric:
         if unit == 'kg':
             return _('kg')
@@ -192,9 +192,9 @@ def trans_weight_unit(unit, user=None):
 
 @register.filter
 def format_username(user):
-    '''
+    """
     Formats the username according to the information available
-    '''
+    """
     if user.get_full_name():
         return user.get_full_name()
     elif user.email:
@@ -217,10 +217,10 @@ class SpacelessNode(template.base.Node):
 
 @register.tag
 def spaceless_config(parser, token):
-    '''
+    """
     This is django's spaceless tag, copied here to use our configurable
     SpacelessNode
-    '''
+    """
     nodelist = parser.parse(('endspaceless_config',))
     parser.delete_first_token()
     return SpacelessNode(nodelist)
@@ -231,56 +231,56 @@ def spaceless_config(parser, token):
 #
 @register.filter(name='form_field_add_css')
 def form_field_add_css(field, css):
-    '''
+    """
     Adds a CSS class to a form field. This is needed among other places for
     bootstrap 3, which needs a 'form-control' class in the field itself
-    '''
+    """
     return field.as_widget(attrs={"class": css})
 
 
 @register.filter(name='is_checkbox')
 def is_checkbox(field):
-    '''
+    """
     Tests if a field element is a checkbox, as it needs to be handled slightly different
 
     :param field: a form field
     :return: boolen
-    '''
+    """
     return isinstance(field.field.widget, CheckboxInput)
 
 
 @register.filter(name='is_multiple')
 def is_multiple(field):
-    '''
+    """
     Tests if a field element is a multiple select rendered as a checkbox, as it
     needs to be handled slightly different
 
     :param field: a form field
     :return: boolen
-    '''
+    """
     return isinstance(field.field.widget, BootstrapSelectMultiple) \
         or isinstance(field.field.widget, BootstrapSelectMultipleTranslatedOriginal)
 
 
 @register.filter(name='is_fileupload')
 def is_fileupload(field):
-    '''
+    """
     Tests if a field element is a file upload, as it needs to be handled slightly different
 
     :param field: a form field
     :return: boolen
-    '''
+    """
     return isinstance(field.field.widget, ClearableFileInput)
 
 
 @register.inclusion_tag('tags/render_form_element.html')
 def render_form_field(field):
-    '''
+    """
     Renders a form field with all necessary labels, help texts and labels
     within 'form-group'.
 
     See bootstrap documentation for details: http://getbootstrap.com/css/#forms
-    '''
+    """
 
     return {'field': field}
 
@@ -323,7 +323,7 @@ def render_form_errors(form):
 
 @register.inclusion_tag('tags/render_form_fields.html')
 def render_form_fields(form, submit_text='Save', show_save=True):
-    '''
+    """
     Comfort function that renders all fields in a form, as well as the submit
     button
 
@@ -337,7 +337,7 @@ def render_form_fields(form, submit_text='Save', show_save=True):
 
     :param form: the form to be rendered
     :param save_text: the text to use on the submit button
-    '''
+    """
 
     return {'form': form,
             'show_save': show_save,

@@ -19,9 +19,9 @@ from wger.gym.models import GymConfig
 
 
 class EditGymConfigTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Test editing a gym configuration
-    '''
+    """
 
     pk = 1
     object_class = GymConfig

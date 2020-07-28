@@ -37,9 +37,9 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def users(request, gym_pk):
-    '''
+    """
     Exports all members in selected gym
-    '''
+    """
     gym = get_object_or_404(Gym, pk=gym_pk)
 
     if not request.user.has_perm('gym.manage_gyms') \

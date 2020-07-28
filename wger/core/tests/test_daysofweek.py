@@ -20,21 +20,21 @@ from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class DaysOfWeekRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(DaysOfWeek.objects.get(pk=1)), 'Monday')
 
 
 class DaysOfWeekApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the days of week resource
-    '''
+    """
     pk = 1
     resource = DaysOfWeek
     private_resource = False

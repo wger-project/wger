@@ -94,9 +94,9 @@ def overview(request):
 
 @login_required
 def add(request):
-    '''
+    """
     Add a new nutrition plan and redirect to its page
-    '''
+    """
 
     plan = NutritionPlan()
     plan.user = request.user
@@ -107,9 +107,9 @@ def add(request):
 
 
 class PlanDeleteView(WgerDeleteMixin, DeleteView):
-    '''
+    """
     Generic view to delete a nutritional plan
-    '''
+    """
 
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
@@ -117,35 +117,35 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(PlanDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context
 
 
 class PlanEditView(WgerFormMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing nutritional plan
-    '''
+    """
 
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(PlanEditView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context
 
 
 def view(request, id):
-    '''
+    """
     Show the nutrition plan with the given ID
-    '''
+    """
     template_data = {}
 
     plan = get_object_or_404(NutritionPlan, pk=id)
@@ -183,9 +183,9 @@ def view(request, id):
 
 @login_required
 def copy(request, pk):
-    '''
+    """
     Copy the nutrition plan
-    '''
+    """
 
     plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
@@ -217,13 +217,13 @@ def copy(request, pk):
 
 
 def export_pdf(request, id, uidb64=None, token=None):
-    '''
+    """
     Generates a PDF with the contents of a nutrition plan
 
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    '''
+    """
 
     # Load the plan
     if uidb64 is not None and token is not None:
@@ -386,12 +386,12 @@ def export_pdf(request, id, uidb64=None, token=None):
     elements.append(Spacer(10 * cm, 0.5 * cm))
     created = datetime.date.today().strftime("%d.%m.%Y")
     url = reverse('nutrition:plan:view', kwargs={'id': plan.id})
-    p = Paragraph('''<para align="left">
+    p = Paragraph("""<para align="left">
                         %(date)s -
                         <a href="%(url)s">%(url)s</a> -
                         %(created)s
                         %(version)s
-                    </para>''' %
+                    </para>""" %
                   {'date': _("Created on the <b>%s</b>") % created,
                    'created': "wger Workout Manager",
                    'version': get_version(),

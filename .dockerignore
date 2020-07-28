@@ -1,4 +1,5 @@
 venv
 node_modules
+bower_components
 **/__pycache__
 *.egg-info

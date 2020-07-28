@@ -31,16 +31,16 @@ from wger.utils import helpers
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 BMI views
-'''
+"""
 
 
 @login_required
 def view(request):
-    '''
+    """
     The BMI calculator detail page
-    '''
+    """
 
     context = {}
     form_data = {'height': request.user.userprofile.height,
@@ -51,9 +51,9 @@ def view(request):
 
 @login_required
 def calculate(request):
-    '''
+    """
     Calculates the BMI
-    '''
+    """
 
     data = []
 
@@ -75,13 +75,13 @@ def calculate(request):
 
 
 def chart_data(request):
-    '''
+    """
     Returns the data to render the BMI chart
 
     The individual values taken from
     * http://apps.who.int/bmi/index.jsp?introPage=intro_3.html
     * https://de.wikipedia.org/wiki/Body-Mass-Index
-    '''
+    """
 
     if request.user.userprofile.use_metric:
         data = json.dumps([

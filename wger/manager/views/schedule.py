@@ -77,9 +77,9 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def overview(request):
-    '''
+    """
     An overview of all the user's schedules
-    '''
+    """
 
     template_data = {}
     template_data['schedules'] = (Schedule.objects
@@ -90,9 +90,9 @@ def overview(request):
 
 @vary_on_headers('User-Agent')
 def view(request, pk):
-    '''
+    """
     Show the workout schedule
-    '''
+    """
     template_data = {}
     schedule = get_object_or_404(Schedule, pk=pk)
     user = schedule.user
@@ -122,9 +122,9 @@ def view(request, pk):
 
 
 def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Show the workout schedule
-    '''
+    """
     user = request.user
 
     comments = bool(int(comments))
@@ -187,9 +187,9 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
 
 
 def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Show the workout schedule
-    '''
+    """
     user = request.user
 
     comments = bool(int(comments))
@@ -254,12 +254,12 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
 
 @login_required
 def start(request, pk):
-    '''
+    """
     Starts a schedule
 
     This simply sets the start date to today and the schedule is marked as
     being active.
-    '''
+    """
 
     schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
     schedule.is_active = True
@@ -269,9 +269,9 @@ def start(request, pk):
 
 
 class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
-    '''
+    """
     Creates a new workout schedule
-    '''
+    """
 
     model = Schedule
     fields = '__all__'
@@ -279,7 +279,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     title = ugettext_lazy('Create schedule')
 
     def form_valid(self, form):
-        '''set the submitter'''
+        """set the submitter"""
         form.instance.user = self.request.user
         return super(ScheduleCreateView, self).form_valid(form)
 
@@ -288,9 +288,9 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
 
 
 class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
-    '''
+    """
     Generic view to delete a schedule
-    '''
+    """
 
     model = Schedule
     fields = ('name', 'start_date', 'is_active', 'is_loop')
@@ -298,26 +298,26 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ScheduleDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context
 
 
 class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
-    '''
+    """
     Generic view to update an existing workout routine
-    '''
+    """
 
     model = Schedule
     fields = '__all__'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ScheduleEditView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context

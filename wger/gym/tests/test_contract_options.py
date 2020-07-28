@@ -27,9 +27,9 @@ from wger.gym.models import ContractOption
 
 
 class AddContractOptionTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests creating a new contract option
-    '''
+    """
 
     object_class = ContractOption
     url = reverse('gym:contract-option:add', kwargs={'gym_pk': 1})
@@ -49,9 +49,9 @@ class AddContractOptionTestCase(WorkoutManagerAddTestCase):
 
 
 class EditContractOptionTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a contract option
-    '''
+    """
 
     pk = 1
     object_class = ContractOption
@@ -72,9 +72,9 @@ class EditContractOptionTestCase(WorkoutManagerEditTestCase):
 
 
 class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a contract option
-    '''
+    """
 
     pk = 1
     object_class = ContractOption
@@ -97,9 +97,9 @@ delete_testcase_add_methods(DeleteContractOptionTestCase)
 
 
 class AccessContractOptionOverviewTestCase(WorkoutManagerAccessTestCase):
-    '''
+    """
     Test accessing the contract option page
-    '''
+    """
     url = reverse('gym:contract-option:list', kwargs={'gym_pk': 1})
     user_success = ('manager1',
                     'manager2')

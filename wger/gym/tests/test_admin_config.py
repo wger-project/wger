@@ -18,9 +18,9 @@ from wger.gym.models import GymAdminConfig
 
 
 class EditConfigTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing an admin config
-    '''
+    """
 
     object_class = GymAdminConfig
     url = 'gym:admin_config:edit'

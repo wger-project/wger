@@ -21,10 +21,19 @@ RUN apt-get update \
       nodejs \
       npm \
       python3-venv \
-      vim \
-      tmux \
+      python3-pip \
       sqlite3 \
-  && rm -rf /var/lib/apt/lists/*
+      netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/* \
+  && locale-gen en_US.UTF-8
+
+# Environmental variables
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 
 # Add wger user

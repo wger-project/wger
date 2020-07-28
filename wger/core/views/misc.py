@@ -59,9 +59,9 @@ logger = logging.getLogger(__name__)
 # Misc functions
 # ************************
 def index(request):
-    '''
+    """
     Index page
-    '''
+    """
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('core:dashboard'))
     else:
@@ -69,9 +69,9 @@ def index(request):
 
 
 def demo_entries(request):
-    '''
+    """
     Creates a set of sample entries for guest users
-    '''
+    """
     if not settings.WGER_SETTINGS['ALLOW_GUEST_USERS']:
         return HttpResponseRedirect(reverse('software:features'))
 
@@ -96,10 +96,10 @@ def demo_entries(request):
 @login_required
 @vary_on_headers('User-Agent')
 def dashboard(request):
-    '''
+    """
     Show the index page, in our case, the last workout and nutritional plan
     and the current weight
-    '''
+    """
 
     template_data = {}
 
@@ -166,17 +166,17 @@ class FeedbackClass(FormView):
     success_url = reverse_lazy('core:contact')
 
     def get_initial(self):
-        '''
+        """
         Fill in the contact, if available
-        '''
+        """
         if self.request.user.is_authenticated:
             return {'contact': self.request.user.email}
         return {}
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Set necessary template data to correctly render the form
-        '''
+        """
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
         # TODO: change template so it iterates through form and not formfields
@@ -187,19 +187,19 @@ class FeedbackClass(FormView):
         return context
 
     def get_form_class(self):
-        '''
+        """
         Load the correct feedback form depending on the user
         (either with reCaptcha field or not)
-        '''
+        """
         if self.request.user.is_anonymous or self.request.user.userprofile.is_temporary:
             return FeedbackAnonymousForm
         else:
             return FeedbackRegisteredForm
 
     def form_valid(self, form):
-        '''
+        """
         Send the feedback to the administrators
-        '''
+        """
         messages.success(self.request, _('Your feedback was successfully sent. Thank you!'))
 
         context = {}

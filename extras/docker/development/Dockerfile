@@ -1,27 +1,13 @@
 #
 # Docker image for wger development
 #
-# Please consult the documentation for usage
+# Please consult the README for usage
 #
 # Note: you MUST build this image from the projec's root!
 # docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
 # Run the container:
-# docker run -ti --publish 8000:8000 --name wger.devel  wger/devel
-# (in docker) source ~/venv/bin/activate
-# (in docker) python manage.py download-exercise-images (optional, may take some time)
-# (in docker) python manage.py runserver 0.0.0.0:8000
-#
-# Alternatively, you can bind the local checkout into the container:
 # docker run -ti -v /path/to/this/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/devel
-#
-#
-# To stop the container:
-# sudo docker container stop wger.devel
-#
-# To start developing again
-# sudo docker container start --attach wger.devel
-#
 
 ##########
 # Builder
@@ -33,54 +19,43 @@ RUN apt-get update \
       build-essential \
       python3-dev \
       python3-pip \
+      python3-wheel \
       git \
   && rm -rf /var/lib/apt/lists/*
 
-# Set up the application
-COPY . .
-RUN pip3 install wheel \
-    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
+# Build the necessary python wheels
+COPY requirements* ./
+RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_devel.txt
+
 
 
 ########
 # Final
 ########
-FROM wger/base:1.9
+FROM wger/base:2.0-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
-# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
-# when using the invoke/wger commands and bower
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
 
 # Set up the application
-USER wger
-COPY --chown=wger:wger . /home/wger/src
-COPY --from=builder /usr/src/app/wheels /wheels
-#RUN git clone https://github.com/wger-project/wger.git /home/wger/src
-
 WORKDIR /home/wger/src
-RUN python3 -m venv /home/wger/venv
-RUN . /home/wger/venv/bin/activate \
-    && pip install --upgrade pip \
-    && pip install --no-cache /wheels/* \
-    && python setup.py develop \
-    && npm install \
-    && npm install bower \
-    && wger create_settings \
-        --settings-path /home/wger/src/settings.py \
-        --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap \
-        --settings-path /home/wger/src/settings.py \
-        --no-start-server
+COPY --chown=wger:wger . /home/wger/src
+COPY --from=builder /wheels /wheels
+COPY ${DOCKER_DIR}/settings.py /home/wger/src
+COPY ${DOCKER_DIR}/settings.py /tmp/
+COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
+RUN chmod +x /home/wger/entrypoint.sh
+RUN pip3 install --no-cache /wheels/* \
+    && pip3 install psycopg2-binary \
+    && pip3 install django-redis \
+    && python3 setup.py develop \
+    && npm install -g bower
 
-# Download the exercise images
+RUN chown -R wger:wger .
+
+USER wger
 RUN mkdir ~/media \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py
+    && mkdir ~/db/
 
-CMD ["/bin/bash"]
+CMD ["/home/wger/entrypoint.sh"]

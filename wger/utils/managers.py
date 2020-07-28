@@ -21,9 +21,9 @@ from django.db.models.query import QuerySet
 from wger.utils.models import AbstractSubmissionModel
 
 
-'''
+"""
 Custom managers and querysets
-'''
+"""
 
 # TODO: starting with django 1.7 this is simplified, see
 #       https://docs.djangoproject.com/en/1.7/topics/db/managers/#creating-manager-with-queryset-methods

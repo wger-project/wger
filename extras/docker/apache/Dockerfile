@@ -25,30 +25,23 @@ RUN apt-get update \
       build-essential \
       python3-dev \
       python3-pip \
+      python3-wheel \
       git \
   && rm -rf /var/lib/apt/lists/*
 
 # Set up the application
-COPY . .
-RUN pip3 install wheel \
-    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
+COPY requirements* ./
+RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
 
 
 ########
 # Final
 ########
-FROM wger/base:1.9
-
+FROM wger/base:2.0-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
+
 ARG DOCKER_DIR=./extras/docker/apache
 EXPOSE 80
-
-# Set locale to UTF8, otherwise problems with the encoding can occur, e.g.
-# when using the invoke/wger commands and bower
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
 
 
 # Install dependencies
@@ -77,14 +70,15 @@ RUN chmod 0644 /etc/cron.d/wger \
   && chmod +x /home/wger/venvwrapper /home/wger/entrypoint.sh \
   && touch /var/log/cron.log
 
-COPY --chown=wger:www-data . /home/wger/src
 COPY --from=builder /usr/src/app/wheels /wheels
+COPY --chown=wger:www-data . /home/wger/src
 
 # Set up the application
 RUN ln -s /home/wger/static/CACHE /var/www
 USER wger
 
 WORKDIR /home/wger/src
+#RUN git clone https://github.com/wger-project/wger.git
 RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \

@@ -38,16 +38,16 @@ class LanguageConfigUpdateView(WgerFormMixin,
                                LoginRequiredMixin,
                                PermissionRequiredMixin,
                                UpdateView):
-    '''
+    """
     Generic view to edit a language config
-    '''
+    """
     model = LanguageConfig
     fields = ['show']
     permission_required = 'config.change_languageconfig'
     title = ugettext_lazy('Edit')
 
     def get_success_url(self):
-        '''
+        """
         Return to the language page
-        '''
+        """
         return reverse_lazy('core:language:view', kwargs={'pk': self.object.language_id})

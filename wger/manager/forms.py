@@ -14,9 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-'''
+"""
 This file contains forms used in the application
-'''
+"""
 
 # Django
 from django.forms import (
@@ -115,11 +115,11 @@ class SettingForm(ModelForm):
         exclude = ('set', 'exercise', 'order', 'comment')
 
 class WorkoutLogForm(ModelForm):
-    '''
+    """
     Helper form for a WorkoutLog.
 
     These fields are re-defined here only to make them optional
-    '''
+    """
     repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
                                        label=_('Unit'),
                                        required=False)
@@ -160,9 +160,9 @@ class WorkoutLogFormHelper(FormHelper):
 
 
 class HelperWorkoutSessionForm(ModelForm):
-    '''
+    """
     A helper form used in the workout log view
-    '''
+    """
     class Meta:
         model = WorkoutSession
         exclude = ('user', 'workout')
@@ -187,9 +187,9 @@ class HelperWorkoutSessionForm(ModelForm):
 
 
 class WorkoutSessionForm(ModelForm):
-    '''
+    """
     Workout Session form
-    '''
+    """
     class Meta:
         model = WorkoutSession
         exclude = ('user', 'workout', 'date')
@@ -233,9 +233,9 @@ class WorkoutScheduleDownloadForm(Form):
 
 
 class WorkoutSessionHiddenFieldsForm(ModelForm):
-    '''
+    """
     Workout Session form used in the timer view
-    '''
+    """
     class Meta:
         model = WorkoutSession
         exclude = []

@@ -91,9 +91,9 @@ logger = logging.getLogger(__name__)
 
 
 class ExerciseListView(ListView):
-    '''
+    """
     Generic view to list all exercises
-    '''
+    """
 
     model = Exercise
     template_name = 'exercise/overview.html'
@@ -105,9 +105,9 @@ class ExerciseListView(ListView):
         return response
 
     def get_queryset(self):
-        '''
+        """
         Filter to only active exercises in the configured languages
-        '''
+        """
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         return Exercise.objects.accepted() \
             .filter(language__in=languages) \
@@ -115,18 +115,18 @@ class ExerciseListView(ListView):
             .select_related()
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Pass additional data to the template
-        '''
+        """
         context = super(ExerciseListView, self).get_context_data(**kwargs)
         context['show_shariff'] = True
         return context
 
 
 def view(request, id, slug=None):
-    '''
+    """
     Detail view for an exercise
-    '''
+    """
 
     template_data = {}
     template_data['comment_edit'] = False
@@ -182,10 +182,10 @@ def view(request, id, slug=None):
 
 
 class ExercisesEditAddView(WgerFormMixin):
-    '''
+    """
     Generic view to subclass from for exercise adding and editing, since they
     share all this settings
-    '''
+    """
     model = Exercise
     sidebar = 'exercise/form.html'
     title = ugettext_lazy('Add exercise')
@@ -247,9 +247,9 @@ class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
                          PermissionRequiredMixin,
                          UpdateView):
-    '''
+    """
     Generic view to update an existing exercise
-    '''
+    """
     permission_required = 'exercises.change_exercise'
 
     def get_context_data(self, **kwargs):
@@ -260,22 +260,22 @@ class ExerciseUpdateView(ExercisesEditAddView,
 
 
 class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
-    '''
+    """
     Generic view to add a new exercise
-    '''
+    """
 
     def form_valid(self, form):
-        '''
+        """
         Set language, author and status
-        '''
+        """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Demo users can't submit exercises
-        '''
+        """
         if request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
 
@@ -283,16 +283,16 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
 
 
 class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing exercise
-    '''
+    """
     sidebar = 'exercise/form_correct.html'
     messages = _('Thank you. Once the changes are reviewed the exercise will be updated.')
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only registered users can correct exercises
-        '''
+        """
         if not request.user.is_authenticated or request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
 
@@ -304,12 +304,12 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
         return context
 
     def form_valid(self, form):
-        '''
+        """
         If the form is valid send email notifications to the site administrators.
 
         We don't return the super().form_valid because we don't want the data
         to be saved.
-        '''
+        """
         subject = 'Correction submitted for exercise #{0}'.format(self.get_object().pk)
         context = {
             'exercise': self.get_object(),
@@ -330,9 +330,9 @@ class ExerciseDeleteView(WgerDeleteMixin,
                          LoginRequiredMixin,
                          PermissionRequiredMixin,
                          DeleteView):
-    '''
+    """
     Generic view to delete an existing exercise
-    '''
+    """
 
     model = Exercise
     fields = ('category',
@@ -347,18 +347,18 @@ class ExerciseDeleteView(WgerDeleteMixin,
     permission_required = 'exercises.delete_exercise'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object.name)
         return context
 
 
 class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    '''
+    """
     Generic view to list all weight units
-    '''
+    """
 
     model = Exercise
     template_name = 'exercise/pending.html'
@@ -366,17 +366,17 @@ class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListV
     permission_required = 'exercises.change_exercise'
 
     def get_queryset(self):
-        '''
+        """
         Only show pending exercises
-        '''
+        """
         return Exercise.objects.pending().order_by('-creation_date')
 
 
 @permission_required('exercises.add_exercise')
 def accept(request, pk):
-    '''
+    """
     Accepts a pending user submitted exercise and emails the user, if possible
-    '''
+    """
     exercise = get_object_or_404(Exercise, pk=pk)
     exercise.status = Exercise.STATUS_ACCEPTED
     exercise.save()
@@ -388,9 +388,9 @@ def accept(request, pk):
 
 @permission_required('exercises.add_exercise')
 def decline(request, pk):
-    '''
+    """
     Declines and deletes a pending user submitted exercise
-    '''
+    """
     exercise = get_object_or_404(Exercise, pk=pk)
     exercise.status = Exercise.STATUS_DECLINED
     exercise.save()

@@ -24,14 +24,14 @@ from wger.email.models import CronEntry
 
 
 class Command(BaseCommand):
-    '''
+    """
     Sends the prepared mass emails
-    '''
+    """
 
     def handle(self, **options):
-        '''
+        """
         Send some mails and remove them from the list
-        '''
+        """
         if CronEntry.objects.count():
             for email in CronEntry.objects.all()[:100]:
                 mail.send_mail(email.log.subject,
