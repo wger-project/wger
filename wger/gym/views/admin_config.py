@@ -19,7 +19,10 @@ import logging
 
 # Django
 from django.urls import reverse
-from django.utils.translation import ugettext as  _, ugettext_lazy
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import UpdateView
 
 # wger

@@ -21,6 +21,7 @@ from django.forms.widgets import (
     CheckboxInput,
     ClearableFileInput
 )
+from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     pgettext,
@@ -209,7 +210,6 @@ class SpacelessNode(template.base.Node):
 
     def render(self, context):
         if settings.WGER_SETTINGS['REMOVE_WHITESPACE']:
-            from django.utils.html import strip_spaces_between_tags
             return strip_spaces_between_tags(self.nodelist.render(context).strip())
         else:
             return self.nodelist.render(context)

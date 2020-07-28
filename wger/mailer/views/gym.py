@@ -30,11 +30,11 @@ from django.views import generic
 from formtools.preview import FormPreview
 
 # wger
+from wger.gym.models import Gym
 from wger.mailer.models import (
     CronEntry,
     Log
 )
-from wger.gym.models import Gym
 
 
 class EmailLogListView(PermissionRequiredMixin, generic.ListView):

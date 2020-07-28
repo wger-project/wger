@@ -25,9 +25,6 @@ import threading
 import time
 import webbrowser
 
-# Third Party
-from invoke import task
-
 # Django
 import django
 from django.core.management import (
@@ -35,6 +32,9 @@ from django.core.management import (
     execute_from_command_line
 )
 from django.utils.crypto import get_random_string
+
+# Third Party
+from invoke import task
 
 
 logger = logging.getLogger(__name__)
@@ -203,6 +203,7 @@ def create_or_reset_admin(context, settings_path=None):
 
     # can't be imported in global scope as it already requires
     # the settings module during import
+    # wger
     from wger.manager.models import User
     try:
         User.objects.get(username="admin")
@@ -393,8 +394,11 @@ def database_exists():
 
     # can't be imported in global scope as they already require
     # the settings module during import
-    from django.db import DatabaseError
+    # Django
     from django.core.exceptions import ImproperlyConfigured
+    from django.db import DatabaseError
+
+    # wger
     from wger.manager.models import User
 
     try:
