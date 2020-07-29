@@ -25,6 +25,7 @@ RUN apt-get update \
       sqlite3 \
       netcat-openbsd \
   && rm -rf /var/lib/apt/lists/* \
+  && npm install -g yarn \
   && locale-gen en_US.UTF-8
 
 # Environmental variables

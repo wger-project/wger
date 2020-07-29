@@ -49,8 +49,7 @@ RUN chmod +x /home/wger/entrypoint.sh
 RUN pip3 install --no-cache /wheels/* \
     && pip3 install psycopg2-binary \
     && pip3 install django-redis \
-    && python3 setup.py develop \
-    && npm install -g bower
+    && python3 setup.py develop
 
 RUN chown -R wger:wger .
 

@@ -28,7 +28,7 @@ Install Requirements
 ::
 
   $ pip install -r requirements_devel.txt
-  $ npm install bower
+  $ npm install yarn
   $ python setup.py develop
 
 Install application

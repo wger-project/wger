@@ -46,17 +46,17 @@
 
 
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/components-font-awesome/css/all.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/agency.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/build/shariff.min.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-    <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     {% endcompress %}
 
     <title>wger Workout Manager - {% trans "Features" %}</title>
@@ -130,7 +130,7 @@
     </div>
 </footer>
 
-<script src="{% static 'bower_components/shariff/build/shariff.min.js' %}"></script>
+<script src="{% static 'yarn/shariff/build/shariff.min.js' %}"></script>
 </body>
 {% endspaceless_config %}
 </html>

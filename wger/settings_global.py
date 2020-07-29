@@ -87,24 +87,6 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
-
-    # django-bower for installing bower packages
-    'djangobower',
-)
-
-# added list of external libraries to be installed by bower
-BOWER_INSTALLED_APPS = (
-    'bootstrap#4.x',
-    'components-font-awesome#5.13.x',
-    'd3#5.16.x',
-    'DataTables',
-    'devbridge-autocomplete#1.2.x',
-    'jquery#2.x',
-    'metrics-graphics',
-    'shariff#1.24.1',
-    'sortablejs#1.4.x',
-    'tinymce',
-    'tinymce-dist',
 )
 
 
@@ -171,8 +153,6 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # added BowerFinder to list of static file finders
-    'djangobower.finders.BowerFinder',
 
     # Django compressor
     'compressor.finders.CompressorFinder',
@@ -348,12 +328,6 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.template.TemplateFilter',
 ]
 COMPRESS_ROOT = STATIC_ROOT
-
-# BOWER binary
-if sys.platform.startswith('win32'):
-    BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'bower.cmd'))
-else:
-    BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'bower'))
 
 #
 # Django Rest Framework

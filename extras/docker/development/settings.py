@@ -77,5 +77,3 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             }
         }
     }
-
-BOWER_PATH = '/usr/local/bin/bower'

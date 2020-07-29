@@ -108,8 +108,8 @@ def bootstrap(context,
         load_fixtures(context, settings_path=settings_path)
         create_or_reset_admin(context, settings_path=settings_path)
 
-    # Download JS libraries with bower
-    call_command("bower", "install")
+    # Download JS and CSS libraries
+    context.run("yarn install")
 
     # Start the webserver
     if start_server:

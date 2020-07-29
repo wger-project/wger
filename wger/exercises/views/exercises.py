@@ -219,7 +219,7 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = (settings.STATIC_URL + 'bower_components/tinymce/tinymce.min.js',)
+                js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 
