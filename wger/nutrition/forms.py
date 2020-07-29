@@ -19,6 +19,7 @@ import logging
 
 # Django
 from django import forms
+from django.urls import reverse
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -27,10 +28,12 @@ from django.utils.translation import (
 # Third Party
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
-    Column,
     HTML,
+    ButtonHolder,
+    Column,
     Layout,
-    Row
+    Row,
+    Submit
 )
 
 # wger
@@ -95,6 +98,22 @@ class BmiForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('height', )
+
+    def __init__(self, *args, **kwargs):
+        super(BmiForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = reverse('nutrition:bmi:calculate')
+        self.helper.form_class = 'wger-form'
+        self.helper.form_id = 'bmi-form'
+        self.helper.layout = Layout(
+            Row(
+                Column('height', css_class='form-group col-6 mb-0'),
+                Column('weight', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
+        )
 
 
 class BmrForm(forms.ModelForm):
