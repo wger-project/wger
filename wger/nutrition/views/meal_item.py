@@ -68,7 +68,7 @@ class MealItemCreateView(WgerFormMixin, CreateView):
 
     model = MealItem
     form_class = MealItemForm
-    template_name = 'meal_item/edit.html'
+    custom_js = 'wgerInitIngredientAutocompleter();'
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -108,8 +108,8 @@ class MealItemEditView(WgerFormMixin, UpdateView):
 
     model = MealItem
     form_class = MealItemForm
+    custom_js = 'wgerInitIngredientAutocompleter();'
     title = ugettext_lazy('Edit meal item')
-    template_name = 'meal_item/edit.html'
 
     def get_success_url(self):
         return reverse('nutrition:plan:view', kwargs={'id': self.object.meal.plan.id})

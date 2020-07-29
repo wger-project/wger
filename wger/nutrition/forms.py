@@ -28,6 +28,7 @@ from django.utils.translation import (
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Column,
+    HTML,
     Layout,
     Row
 )
@@ -152,9 +153,13 @@ class MealItemForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
                                         widget=forms.HiddenInput)
 
+    ingredient_searchfield = forms.CharField()
+
     class Meta:
         model = MealItem
-        fields = '__all__'
+        fields = ['ingredient',
+                  'weight_unit',
+                  'amount']
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
@@ -172,3 +177,15 @@ class MealItemForm(forms.ModelForm):
         if ingredient_id:
             self.fields['weight_unit'].queryset = \
                 IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'ingredient',
+            'ingredient_searchfield',
+            HTML('<div id="exercise_name"></div>'),
+            Row(
+                Column('amount', css_class='form-group col-6 mb-0'),
+                Column('weight_unit', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
