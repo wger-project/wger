@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load rest_framework wger_extras django_bootstrap_breadcrumbs static %}
+{% load rest_framework wger_extras django_bootstrap_breadcrumbs static crispy_forms_tags %}
 
 {% block header %}
 <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
@@ -94,54 +94,15 @@
             <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
         </div>
         <div class="response-info">
-            <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% autoescape off %}
-{% for key, val in response_headers.items %}<b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize_quoted_links }}</span>
-{% endfor %}
-        </div>{{ content|urlize_quoted_links }}</pre>{% endautoescape %}
+            <pre class="prettyprint">
+                <div class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% autoescape off %}
+                {% for key, val in response_headers.items %}
+                    <b>{{ key }}:</b>
+                    <span class="lit">{{ val|break_long_headers|urlize_quoted_links }}</span>
+                {% endfor %}
+                </div>{{ content|urlize_quoted_links }}
+            </pre>
+            {% endautoescape %}
         </div>
     </div>
-
-
-
-
-    {#        #}
-    {# Forms  #}
-    {#        #}
-    {% if display_edit_forms %}
-
-        {% if post_form or raw_data_post_form %}
-            <h4>Edit form</h4>
-            {% with form=raw_data_post_form %}
-            <form action="{{ request.get_full_path }}" method="POST" class="wger-form" role="form">
-                <fieldset>
-                    {% render_form_fields form 'POST' %}
-                </fieldset>
-            </form>
-            {% endwith %}
-        {% endif %}
-
-        {% if put_form or raw_data_put_form or raw_data_patch_form %}
-            <h4>Edit form</h4>
-            {% with form=raw_data_put_or_patch_form %}
-            <form action="{{ request.get_full_path }}" method="POST" class="wger-form" role="form">
-                <fieldset>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {% render_form_field field %}
-                    {% endfor %}
-                    <div class="form-group">
-                        <div class="offset-md-3 col-md-9">
-                            {% if raw_data_put_form %}
-                            <button class="btn btn-default btn-block js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PUT" title="Make a PUT request on the {{ name }} resource">PUT</button>
-                            {% endif %}
-                            {% if raw_data_patch_form %}
-                            <button class="btn btn-default btn-block js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PATCH" title="Make a PATCH request on the {{ name }} resource">PATCH</button>
-                            {% endif %}
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            {% endwith %}
-        {% endif %}
-    {% endif %}
 {% endblock %}
