@@ -41,15 +41,15 @@
         {{current_user.obj}}
 
         {% if current_user.perms.gym_trainer %}
-            <span class="label label-primary">{% trans "Trainer" %}</span>
+            <span class="badge badge-primary">{% trans "Trainer" %}</span>
         {% endif %}
 
         {% if current_user.perms.manage_gym %}
-            <span class="label label-primary">{% trans "Gym manager" %}</span>
+            <span class="badge badge-primary">{% trans "Gym manager" %}</span>
         {% endif %}
 
         {% if current_user.perms.manage_gyms %}
-            <span class="label label-primary">{% trans "General manager" %}</span>
+            <span class="badge badge-primary">{% trans "General manager" %}</span>
         {% endif %}
     </td>
     <td>
