@@ -60,7 +60,7 @@ target/
 .idea/
 
 # External Libraries
-wger/core/static/bower_components
+wger/core/static/yarn
 node_modules
 
 venv
