@@ -1,2 +1,13 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Bash scripts (e.g. in Docker) make problems when the line ending is not LF
+* text eol=lf
+
+# These files are binary and should be left untouched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.woff binary
+*.eot binary
+*.pdf binary
