@@ -1,4 +1,5 @@
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
+# flake8: noqa
 """
 Simple FunkLoad test
 """
