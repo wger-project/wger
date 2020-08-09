@@ -36,7 +36,7 @@ sphinx
 
 # REST API
 django-cors-headers>=3.0
-django-filter==2.1.0
+django-filter==2.3.0
 django-tastypie~=0.14
 djangorestframework~=3.11
 
