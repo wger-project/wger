@@ -49,7 +49,6 @@ jobs:
         uses: docker://github/super-linter:v3.5.1
         env:
           VALIDATE_PYTHON_FLAKE8: true
-          PYTHON_FLAKE8_CONFIG_FILE:
           VALIDATE_MD: true
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_JSON: true

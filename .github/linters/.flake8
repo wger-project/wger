@@ -7,13 +7,9 @@ exclude =
     extras,
     build,
     dist,
-    node_modules,
+    yarn,
     migrations,
     settings.py,
     docs,
-    **/urls.py : E501
-    **/config/apps.py : F401
-    **/core/apps.py : F401
-    **/exercises/apps.py : F401
-    **/gym/apps.py : F401
-    **/manager/apps.py : F401
+    urls.py : E501
+    apps.py : F401
