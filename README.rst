@@ -1,12 +1,12 @@
-﻿Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
-application that manages your exercises and personal workouts, weight and diet
-plans. It can also be used as a simple gym management utility, providing different
-administrative roles (trainer, manager, etc.). It offers a REST API as well, for
-easy integration with other projects and tools.
+﻿wger
+====
 
-It is written with python/django and uses jQuery and some D3js for charts.
+wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that help
+you manage your personal workouts, weight and diet plans and can also be used
+as a simple gym management utility. It offers a REST API as well, for easy
+integration with other projects and tools.
 
-For more details and a live system, refer to the project's site: https://wger.de/
+For a live system, refer to the project's site: https://wger.de/
 
 
 Installation
@@ -15,8 +15,7 @@ Installation
 These are the basic steps to install and run the application locally on a Linux
 system. There are more detailed instructions, other deployment options as well
 as an administration guide available at https://wger.readthedocs.io or locally
-in your code repository in the docs folder (``make html`` to compile, then open
-_build/index.html).
+in your code repository in the docs folder.
 
 Please consult the commands' help for further information and available
 parameters.
@@ -26,7 +25,7 @@ Docker
 ------
 
 Useful to just try it out. Check the documentation on how to use the wger/devel
-docker image for development::
+docker image or the docker-compose file for development::
 
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 
@@ -137,8 +136,6 @@ file a bug anyway.
 * **gitter:** https://gitter.im/wger-project/wger
 * **issue tracker:** https://github.com/wger-project/wger/issues
 * **twitter:** https://twitter.com/wger_de
-* **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
-  no registration needed
 
 
 Sources
