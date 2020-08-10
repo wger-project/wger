@@ -11,17 +11,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    - steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Build dev image
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          cache_froms: wger/base:2.0-dev
-          repository: wger/devel
-          dockerfile: extras/docker/development/Dockerfile
-          tags: latest,2.0-dev
-          tag_with_ref: true
+    - name: Build dev image
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        cache_froms: wger/base:2.0-dev
+        repository: wger/devel
+        dockerfile: extras/docker/development/Dockerfile
+        tags: latest,2.0-dev
+        tag_with_ref: true
