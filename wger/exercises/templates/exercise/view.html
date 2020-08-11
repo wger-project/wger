@@ -318,7 +318,7 @@ $(document).ready(function() {
 {% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
 <h4>{% trans "Options" %}</h4>
 <p>
-    <a href="{% url 'exercise:exercise:correct' exercise.id %}" {% auto_link_css request.user_agent.is_mobile %}>
+    <a href="{% url 'exercise:exercise:correct' exercise.id %}">
         <span class="{% fa_class 'edit' %}"></span>
         {% trans "Submit a correction" %}
     </a>
