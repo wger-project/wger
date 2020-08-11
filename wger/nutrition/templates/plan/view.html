@@ -39,9 +39,7 @@ function wgerCustomModalInit()
 {#         #}
 {% block content %}
 {% if plan.description %}
-<p>
-    <strong>{% trans "Goal" %}:</strong> {{plan.description}}
-</p>
+    <h4>{{plan.description}}</h4>
 {% endif %}
 
 <table class="table table-bordered">
