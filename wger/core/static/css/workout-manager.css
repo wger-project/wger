@@ -21,14 +21,6 @@
  *
  **************************************************************/
 
-#main-footer {
-  background: none repeat scroll 0% 0% #eee;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #000;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
 #main {
   background-color: #fff;
 }
