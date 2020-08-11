@@ -1,0 +1,20 @@
+/* import only the necessary Bootstrap files */
+@import "../yarn/bootstrap-scss/functions";
+@import "../yarn/bootstrap-scss/variables";
+
+
+/* -------begin customization-------- */
+$teal:    #f1faee !default;
+$red:     #e63946 !default;
+$blue:    #1d3557 !default;
+$green:   #a8dadc !default;
+$cyan:    #457b9d !default;
+
+
+$theme-colors: (
+  primary: $red,
+  success: $blue
+);
+
+/* finally, import Bootstrap to set the changes! */
+@import "../yarn/bootstrap-scss/bootstrap";
