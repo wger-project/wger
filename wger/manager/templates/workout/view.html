@@ -53,9 +53,9 @@ $(document).ready(function () {
 
 
 {% if workout.comment %}
-<p>
-    <strong>{% trans "Goal" %}:</strong> {{workout.comment}}
-</p>
+<h4>
+    {{workout.comment}}
+</h4>
 {% endif %}
 
 {% for day in workout.canonical_representation.day_list %}

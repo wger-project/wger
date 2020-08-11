@@ -15,12 +15,12 @@
                 <span class="glyphicon glyphicon-chevron-right float-right"></span>
 
                 {% if schedule.is_active %}
-                <span class="badge badge-pill badge-primary">
+                <span class="badge badge-pill badge-primary float-right">
                     {% trans "active" %}
                 </span>
                 {% endif %}
 
-                <h4 class="list-group-item-heading">{{ schedule }}</h4>
+                <p class="list-group-item-heading h5">{{ schedule }}</p>
                 <p class="list-group-item-text">{{ schedule.start_date }}</p>
             </a>
         {% empty %}

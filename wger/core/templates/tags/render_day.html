@@ -20,7 +20,7 @@ $(document).ready(function() {
 
             {{ day.days_of_week.text }} – {{ day.obj.description }}
             {% if editable %}
-            <span class="editoptions" style="float: right;">
+            <span class="editoptions float-right">
                 <a href="{% url 'manager:day:delete' day.obj.id %}"
                    title="{% trans 'Delete' %}">
                     <span class="{% fa_class 'trash' %}"></span></a>
@@ -40,7 +40,7 @@ $(document).ready(function() {
         {% for set in day.set_list %}
         <tr data-id="{{ set.obj.id }}" id="set-{{ set.obj.id }}">
             <td style="width: 15%;border-right-width: 0px;">
-                <h5><strong>{{ forloop.counter }}</strong></h5>
+                <p><strong>{{ forloop.counter }}</strong></p>
 
                 {% if editable %}
                     <span class="editoptions">
@@ -87,9 +87,9 @@ $(document).ready(function() {
 
 
                         <div class="media-body">
-                            <h4 class="media-heading">
+                            <p class="media-heading h5">
                                 {{ exercise.obj.name }}
-                            </h4>
+                            </p>
                             <p>{{exercise.setting_text}}</p>
 
                             {% if editable %}

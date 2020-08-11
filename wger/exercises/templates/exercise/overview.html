@@ -70,7 +70,7 @@ $(document).ready(function() {
                              src="{% static 'images/icons/image-placeholder.svg' %}">
                     {% endif %}
                     <div class="media-body">
-                        <h4 class="mt-0">{{ exercise.name }}</h4>
+                        <p class="mt-0 h5">{{ exercise.name }}</p>
                             {% for equipment in exercise.equipment.all %}
                                 {% trans equipment.name %}
                                 {% if not forloop.last %},{% endif %}
