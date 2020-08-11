@@ -168,36 +168,35 @@ or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
 
 <div class="row">
     <div class="col-md">
-        {% if current_workout %}
-            {% if current_workout.day_set.all %}
-                <a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup" class="btn btn-success btn-sm">
-                    {% trans "Add new log" %}
+        <p>
+            {% if current_workout %}
+                {% if current_workout.day_set.all %}
+                    <a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup" class="btn btn-success btn-sm">
+                        {% trans "Add new log" %}
+                    </a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-sm btn-block btn-success">
+                    {% trans "No workouts found." %} {% trans "Add one now." %}
                 </a>
             {% endif %}
-        {% else %}
-            <a href="{% url 'manager:workout:add' %}" class="btn btn-sm btn-success">
-                {% trans "No workouts found." %} {% trans "Add one now." %}
-            </a>
-        {% endif %}
-    </div>
-    <div class="col-md">
-        {% if not plan %}
-            <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm  btn-success">
-                {% trans "No nutrition plans." %} {% trans "Add one now." %}
-            </a>
-        {% endif %}
-        <p>
-            <!--
-            <a href="{% url 'nutrition:plan:add' %}" class="btn btn-success btn-sm">
-                {% trans "Add nutrition plan" %}
-            </a>
-            -->
         </p>
     </div>
     <div class="col-md">
-        <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% trans "Add weight entry" %}
-        </a>
+        {% if not plan %}
+            <p>
+                <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm btn-block btn-success">
+                    {% trans "No nutrition plans." %} {% trans "Add one now." %}
+                </a>
+            </p>
+        {% endif %}
+    </div>
+    <div class="col-md">
+        <p>
+            <a href="{% url 'weight:add' %}" class="btn btn-success btn-block btn-sm wger-modal-dialog">
+                {% trans "Add weight entry" %}
+            </a>
+        </p>
     </div>
 </div>
 {% endblock %}
