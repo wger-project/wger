@@ -126,6 +126,17 @@ class BmrForm(forms.ModelForm):
         model = UserProfile
         fields = ('age', 'height', 'gender')
 
+    def __init__(self, *args, **kwargs):
+        super(BmrForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "age",
+            "height",
+            "gender",
+            "weight"
+        )
+        self.helper.form_tag = False
+
 
 class PhysicalActivitiesForm(forms.ModelForm):
     """
@@ -140,6 +151,29 @@ class PhysicalActivitiesForm(forms.ModelForm):
                   'sport_intensity',
                   'freetime_hours',
                   'freetime_intensity')
+
+    def __init__(self, *args, **kwargs):
+        super(PhysicalActivitiesForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "sleep_hours",
+            Row(
+                Column('work_hours', css_class='form-group col-6 mb-0'),
+                Column('work_intensity', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('sport_hours', css_class='form-group col-6 mb-0'),
+                Column('sport_intensity', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('freetime_hours', css_class='form-group col-6 mb-0'),
+                Column('freetime_intensity', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
+        self.helper.form_tag = False
 
 
 class DailyCaloriesForm(forms.ModelForm):
@@ -163,6 +197,12 @@ class DailyCaloriesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('calories',)
+
+    def __init__(self, *args, **kwargs):
+        super(DailyCaloriesForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
 
 
 class MealItemForm(forms.ModelForm):

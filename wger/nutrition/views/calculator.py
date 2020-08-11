@@ -50,10 +50,9 @@ def view(request):
                  'gender': request.user.userprofile.gender,
                  'weight': request.user.userprofile.weight}
 
-    context = {}
-    context['form'] = BmrForm(initial=form_data)
-    context['form_activities'] = PhysicalActivitiesForm(instance=request.user.userprofile)
-    context['form_calories'] = DailyCaloriesForm(instance=request.user.userprofile)
+    context = {'form': BmrForm(initial=form_data),
+               'form_activities': PhysicalActivitiesForm(instance=request.user.userprofile),
+               'form_calories': DailyCaloriesForm(instance=request.user.userprofile)}
 
     return render(request, 'rate/form.html', context)
 
