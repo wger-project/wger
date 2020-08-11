@@ -31,14 +31,25 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import (
+    LoginView,
+    PasswordChangeView,
+    PasswordResetConfirmView,
+    PasswordResetView
+)
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.context_processors import csrf
-from django.urls import reverse
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils import translation
 from django.utils.translation import (
     ugettext as _,
@@ -52,6 +63,14 @@ from django.views.generic import (
 )
 
 # Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Column,
+    Layout,
+    Row,
+    Submit
+)
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -78,11 +97,9 @@ from wger.manager.models import (
 from wger.nutrition.models import NutritionPlan
 from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
 )
-from wger.utils.helpers import ua_aware_render
 from wger.utils.user_agents import (
     check_request_amazon,
     check_request_android
@@ -98,13 +115,13 @@ def login(request):
     Small wrapper around the django login view
     """
 
-    context = {'active_tab': USER_TAB}
-    if request.GET.get('next'):
-        context['next'] = request.GET.get('next')
+    next_url = "?next=" + request.GET.get('next') if request.GET.get('next') else ''
+
+    form = UserLoginForm
+    form.helper.form_action = reverse('core:user:login') + next_url
 
     return LoginView.as_view(template_name='user/login.html',
-                             authentication_form=UserLoginForm,
-                             extra_context=context)
+                             authentication_form=form)
 
 
 @login_required()
@@ -118,7 +135,6 @@ def delete(request, user_pk=None):
 
     if user_pk:
         user = get_object_or_404(User, pk=user_pk)
-        form_action = reverse('core:user:delete', kwargs={'user_pk': user_pk})
 
         # Forbidden if the user has not enough rights, doesn't belong to the
         # gym or is an admin as well. General admins can delete all users.
@@ -131,7 +147,6 @@ def delete(request, user_pk=None):
             return HttpResponseForbidden()
     else:
         user = request.user
-        form_action = reverse('core:user:delete')
 
     form = PasswordConfirmationForm(user=request.user)
 
@@ -150,10 +165,9 @@ def delete(request, user_pk=None):
                 gym_pk = request.user.userprofile.gym_id
                 return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
     context = {'form': form,
-               'user_delete': user,
-               'form_action': form_action}
+               'user_delete': user}
 
-    return ua_aware_render(request, 'user/delete_account.html', context)
+    return render(request, 'user/delete_account.html', context)
 
 
 @login_required()
@@ -280,12 +294,9 @@ def registration(request):
 
     template_data['form'] = form
     template_data['title'] = _('Register')
-    template_data['form_fields'] = [i for i in form]
-    template_data['form_action'] = reverse('core:user:registration')
-    template_data['submit_text'] = _('Register')
     template_data['extend_template'] = 'base.html'
 
-    return ua_aware_render(request, 'form.html', template_data)
+    return render(request, 'form.html', template_data)
 
 
 @login_required
@@ -329,7 +340,7 @@ def preferences(request):
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
-        return ua_aware_render(request, 'user/preferences.html', template_data)
+        return render(request, 'user/preferences.html', template_data)
 
 
 class UserDeactivateView(LoginRequiredMixin,
@@ -437,7 +448,6 @@ class UserEditView(WgerFormMixin,
         Send some additional data to the template
         """
         context = super(UserEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('core:user:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit {0}'.format(self.object))
         return context
 
@@ -466,7 +476,7 @@ def api_key(request):
 
     context['token'] = token
 
-    return ua_aware_render(request, 'user/api_key.html', context)
+    return render(request, 'user/api_key.html', context)
 
 
 class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, DetailView):
@@ -520,7 +530,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         return context
 
 
-class UserListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all users in the instance
     """
@@ -553,4 +563,64 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin
                                           _('Last activity'),
                                           _('Gym')],
                                  'users': context['object_list']['members']}
+        return context
+
+
+class WgerPasswordChangeView(PasswordChangeView):
+    template_name = 'form.html'
+    success_url = reverse_lazy('core:user:preferences')
+    title = ugettext_lazy("Change password")
+
+    def get_form(self, form_class=None):
+        form = super(WgerPasswordChangeView, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_class = 'wger-form'
+        form.helper.layout = Layout(
+            'old_password',
+            Row(
+                Column('new_password1', css_class='form-group col-6 mb-0'),
+                Column('new_password2', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        )
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super(WgerPasswordChangeView, self).get_context_data(**kwargs)
+        context['extend_template'] = 'base.html'
+        return context
+
+
+class WgerPasswordResetView(PasswordResetView):
+    template_name = 'form.html'
+    email_template_name = 'registration/password_reset_email.html'
+    success_url = reverse_lazy('core:user:password_reset_done')
+
+    def get_form(self, form_class=None):
+        form = super(WgerPasswordResetView, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_class = 'wger-form'
+        form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super(WgerPasswordResetView, self).get_context_data(**kwargs)
+        context['extend_template'] = 'base.html'
+        return context
+
+
+class WgerPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'form.html'
+
+    def get_form(self, form_class=None):
+        form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_class = 'wger-form'
+        form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super(WgerPasswordResetConfirmView, self).get_context_data(**kwargs)
+        context['extend_template'] = 'base.html'
         return context

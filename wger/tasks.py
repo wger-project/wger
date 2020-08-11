@@ -15,36 +15,26 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import ctypes  # noqa  E402
-import logging  # noqa  E402
-import os  # noqa  E402
-import socket  # noqa  E402
+import ctypes
+import logging
+import os
+import pathlib
+import socket
 import sys
-import threading  # noqa  E402
-import time  # noqa  E402
-import webbrowser  # noqa  E402
+import threading
+import time
+import webbrowser
 
 # Django
-import django  # noqa  E402
-from django.core.management import (  # noqa  E402
+import django
+from django.core.management import (
     call_command,
     execute_from_command_line
 )
-from django.utils.crypto import get_random_string  # noqa  E402
+from django.utils.crypto import get_random_string
 
 # Third Party
-from invoke import task  # noqa  E402
-
-
-#
-# This is an ugly and terrible hack, please don't do this!
-#
-# The reason we do this is that during django's setup later in this script, it
-# tries to load the standard library's "mail" module which collides with our
-# (perhaps unluckily named) app with the same name. Since this script is only
-# used for installation and does not depend on anything from wger proper, it
-# is kind of OK to change the system path.
-sys.path = sys.path[1:]
+from invoke import task
 
 
 logger = logging.getLogger(__name__)
@@ -118,8 +108,8 @@ def bootstrap(context,
         load_fixtures(context, settings_path=settings_path)
         create_or_reset_admin(context, settings_path=settings_path)
 
-    # Download JS libraries with bower
-    call_command("bower", "install")
+    # Download JS and CSS libraries
+    context.run("yarn install")
 
     # Start the webserver
     if start_server:
@@ -213,6 +203,7 @@ def create_or_reset_admin(context, settings_path=None):
 
     # can't be imported in global scope as it already requires
     # the settings module during import
+    # wger
     from wger.manager.models import User
     try:
         User.objects.get(username="admin")
@@ -403,8 +394,11 @@ def database_exists():
 
     # can't be imported in global scope as they already require
     # the settings module during import
-    from django.db import DatabaseError
+    # Django
     from django.core.exceptions import ImproperlyConfigured
+    from django.db import DatabaseError
+
+    # wger
     from wger.manager.models import User
 
     try:

@@ -44,12 +44,13 @@ and stable state.
 ::
 
  $ sudo apt-get install python3-dev nodejs npm git
+ $ sudo npm install -g yarn
 
 
 Then install the python packages from pypi in the virtualenv::
 
- $ python3 -m venv venv-django
- $ source venv-django/bin/activate
+ $ python3 -m venv venv-wger
+ $ source venv-wger/bin/activate
 
 
 2) Start the application. This will download the required JS and CSS libraries
@@ -59,10 +60,7 @@ Then install the python packages from pypi in the virtualenv::
 
  $ git clone https://github.com/wger-project/wger.git
  $ cd wger
- $ pip install --upgrade pip
- $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ npm install
- $ npm install bower
+ $ pip install -r requirements.txt
  $ python setup.py develop
  $ wger create_settings \
         --settings-path /path/to/current/folder/settings.py \
@@ -74,7 +72,7 @@ Then install the python packages from pypi in the virtualenv::
 
 3) Log in as: **admin**, password **admin**
 
-After the first run you can just use django's development server::
+After the first run you just start django's development server::
 
  $ python manage.py runserver
 
@@ -87,8 +85,9 @@ Stable version (from PyPI)
 ::
 
  $ sudo apt-get install python3-dev nodejs npm git
- $ python3 -m venv venv-django
- $ source venv-django/bin/activate
+ $ sudo npm install -g yarn
+ $ python3 -m venv venv-wger
+ $ source venv-wger/bin/activate
  $ pip install wger
 
 

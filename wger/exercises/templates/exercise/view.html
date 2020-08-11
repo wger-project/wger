@@ -19,17 +19,6 @@
 {% endblock %}
 
 
-{#             #}
-{# Breadcrumbs #}
-{#             #}
-{% block breadcrumbs %}
-    {{ block.super }}
-
-    {% breadcrumb "Exercises" "exercise:exercise:overview" %}
-    {% breadcrumb exercise exercise.get_absolute_url %}
-{% endblock %}
-
-
 {#       #}
 {# Title #}
 {#       #}
@@ -54,9 +43,11 @@ $(document).ready(function() {
 {% block content %}
 
 {% if exercise.status == exercise.STATUS_PENDING %}
-<div class="panel panel-default">
-    <div class="panel-heading">{% trans "Exercise is pending review" %}</div>
-    <div class="panel-body">
+<div class="card mb-4">
+    <div class="card-header">
+        {% trans "Exercise is pending review" %}
+    </div>
+    <div class="card-body">
         <p>{% blocktrans %}This user submitted exercise is pending a decision to be
         included in the database.{% endblocktrans %}
         {% trans "Till then, it will not be shown in the overview or the search."  %}
@@ -64,17 +55,14 @@ $(document).ready(function() {
         </p>
 
         {% if perms.exercises.add_exercise %}
-        <div class="btn-group btn-group-justified" role="group">
-
-            <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-default">
+            <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-secondary">
                 <span class="{% fa_class 'check' %}"></span>
                 {% trans "Accept" %}
             </a>
-            <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-default">
+            <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-secondary">
                 <span class="{% fa_class 'times' %}"></span>
                 {% trans "Decline" %}
             </a>
-        </div>
         {% endif %} {# end check permissions #}
     </div>
 </div>
@@ -82,21 +70,21 @@ $(document).ready(function() {
 
 
 
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
+<div class="row mt-4">
+    <div class="col-md-3">
         <strong>{% trans "Category" %}:</strong>
     </div>
-    <div class="col-xs-9">
+    <div class="col-9">
         {% trans exercise.category.name %}
     </div>
 </div>
 
 {% if exercise.equipment.all %}
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
+<div class="row mt-4">
+    <div class="col-md-3">
         <strong>{% trans "Equipment" %}:</strong>
     </div>
-    <div class="col-xs-9">
+    <div class="col-9">
         {% for equipment in exercise.equipment.all %}
             {% trans equipment.name %}
             {% if not forloop.last %}, {% endif %}
@@ -106,11 +94,11 @@ $(document).ready(function() {
 {% endif %}
 
 
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
+<div class="row mt-4">
+    <div class="col-md-3">
         <strong>{% trans "Description" %}:</strong>
     </div>
-    <div class="col-xs-9">
+    <div class="col-md-9">
         {{ exercise.description|safe }}
     </div>
 </div>
@@ -120,34 +108,25 @@ $(document).ready(function() {
 {# Images #}
 {% with images=exercise.exerciseimage_set.accepted %}
 {% if images or perms.exercises.change_exerciseimage  %}
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
-        {% if perms.exercises.change_exerciseimage %}
-        <p>
-            <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-xs">
-                {% trans "Add new image" %}
-            </a>
-        </p>
-        {% endif %}
-{#        <strong>{% trans "Images" %}:</strong>#}
+<div class="row mt-4">
+    <div class="col-md-3">
+        <strong>{% trans "Images" %}:</strong>
     </div>
-    <div class="col-xs-9">
-        <div class="image-gallery">
+    <div class="col-md-9">
+        <div class="card-deck">
         {% with other_images=images %}
         {% for image in other_images %}
-            <div class="image-box">
-                <div class="boxInner">
-                    <img src="{{ image.image|thumbnail_url:'small' }}"
-                         alt=""
-                         class="gallery-image">
 
-                    <div class="titleBox">
-                        <a href="{{ image.image.url }}"
+            <div class="card">
+                <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
+                <div class="card-body">
+                    <a href="{{ image.image.url }}"
                            target="_blank"
                            class=" no-hover"
                            title="{% trans 'Download' %}">
-                             <span class="{% fa_class 'download' %}"></span></a>
-                        {% if perms.exercises.change_exerciseimage %}
+                             <span class="{% fa_class 'download' %}"></span>
+                    </a>
+                    {% if perms.exercises.change_exerciseimage %}
                         |
                         <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
                            class="wger-modal-dialog no-hover"
@@ -156,21 +135,28 @@ $(document).ready(function() {
                         <a href="{% url 'exercise:image:edit' image.pk %}"
                            class="no-hover"
                            title="{% trans 'Edit' %}">
-                             <span class="{% fa_class 'pencil-square-o' %}"></span></a>
-                        {% endif %}
+                             <span class="{% fa_class 'edit' %}"></span></a>
+                    {% endif %}
 
-                        <br>
+                    <p class="card-text">
                         {{image.get_license_display}}
                         {% if image.license_author %}
                              – {{image.license_author}}
                         {% endif %}
-
-                    </div>
+                    </p>
                 </div>
             </div>
         {% endfor %}
         {% endwith %}
         </div>
+
+        {% if perms.exercises.change_exerciseimage %}
+            <p>
+                <a href="{% url 'exercise:image:add' exercise.id %}" class="btn btn-success btn-sm">
+                    {% trans "Add new image" %}
+                </a>
+            </p>
+        {% endif %}
     </div>
 </div>
 {% endif %}
@@ -180,20 +166,11 @@ $(document).ready(function() {
 {% with images=exercise.exerciseimage_set.pending %}
 {% if images %}
 <h4>{% trans "Images pending review" %}</h4>
-<div class="list-group">
+<div class="card-deck">
     {% for image in images %}
-        <div class="list-group-item">
-            <div class="media">
-                <div style="width:60px;height:60px;" class="pull-left">
-                    <a href="{{image.image.url}}">
-                        <img alt="{{ image.exercise.name }}"
-                             class="media-object "
-                             style="max-width:100%; max-height:100%;"
-                             src="{{ image.image|thumbnail_url:'thumbnail' }}">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ image.image }}</h4>
+        <div class="card">
+                <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
+                <div class="card-body">
                     <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
                     <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
                     <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
@@ -210,11 +187,11 @@ $(document).ready(function() {
 {# Comments #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments or perms.exercises.change_exercisecomment %}
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
+<div class="row mt-4">
+    <div class="col-md-3">
         <strong>{% trans "Comments for this exercise" %}:</strong>
     </div>
-    <div class="col-xs-9">
+    <div class="col-md-9">
         <ul>
         {% for comment in comments %}
             <li>
@@ -227,24 +204,25 @@ $(document).ready(function() {
                     <a href="{% url 'exercise:comment:edit' comment.id %}"
                        title="{% trans 'Edit' %}"
                        class="wger-modal-dialog">
-                        <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                        <span class="{% fa_class 'edit' %}"></span></a>
                 </span>
                 {% endif %}
             </li>
         {% endfor %}
         </ul>
+        {% if perms.exercises.change_exercisecomment %}
+            <p>
+                <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-sm wger-modal-dialog">
+                    {% trans "Add new comment" %}
+                </a>
+            </p>
+        {% endif %}
     </div>
 </div>
 {% endif %}
 {% endwith %}
 
-{% if perms.exercises.change_exercisecomment %}
-<p>
-    <a href="{% url 'exercise:comment:add' exercise.id %}" class="btn btn-success btn-xs wger-modal-dialog">
-        {% trans "Add new comment" %}
-    </a>
-</p>
-{% endif %}
+
 
 
 
@@ -253,26 +231,27 @@ $(document).ready(function() {
 {% with muscles_secondary=exercise.muscles_secondary.all %}
 
 {% if muscles %}
-<div class="row" style="margin-top:1em;">
-    <div class="col-xs-3">
+<div class="row mt-4">
+    <div class="col-md-3">
         <strong>{% trans "Muscles" %}:</strong>
     </div>
-    <div class="col-xs-9">
+    <div class="col-md-9">
         <p>
             {% trans "The diagram shows the most used muscles on this exercise" %}
         </p>
-        <div>
-            <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
-            {% trans "Main muscles" %}
+        <div class="row">
+            <div class="col-md">
+                <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
+                {% trans "Main muscles" %}
+            </div>
+            <div class="col-md">
+                <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
+                {% trans "Secondary muscles" %}
+            </div>
         </div>
-
-        <div>
-            <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
-            {% trans "Secondary muscles" %}
-        </div>
-        <div class="row" style="margin-top:1em;">
-            <div class="col-md-6 col-xs-6">
-                <div id="muscle-front" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+        <div class="row ">
+            <div class="col-md ">
+                <div id="muscle-front" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
                 </div>
                 <ul>
                     {% for muscle in muscles %}
@@ -288,8 +267,8 @@ $(document).ready(function() {
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-md-6 col-xs-6">
-                <div id="muscle-back" class="muscle-background center-block" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+            <div class="col-md">
+                <div id="muscle-back" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
                 </div>
                 <ul>
                     {% for muscle in muscles %}
@@ -314,7 +293,7 @@ $(document).ready(function() {
 {% endcache %}
 
 {% if logs %}
-<div class="row" style="margin-top:1em;">
+<div class="row mt-4">
     <div class="col-xs-3">
         <strong>{% trans "Weight log" %}:</strong>
     </div>
@@ -339,8 +318,8 @@ $(document).ready(function() {
 {% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
 <h4>{% trans "Options" %}</h4>
 <p>
-    <a href="{% url 'exercise:exercise:correct' exercise.id %}" {% auto_link_css request.user_agent.is_mobile %}>
-        <span class="{% fa_class 'pencil-square-o' %}"></span>
+    <a href="{% url 'exercise:exercise:correct' exercise.id %}">
+        <span class="{% fa_class 'edit' %}"></span>
         {% trans "Submit a correction" %}
     </a>
 </p>
@@ -357,24 +336,24 @@ $(document).ready(function() {
 {% block options %}
 {% if perms.exercises.change_exercise %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'exercise:exercise:edit' exercise.id %}">
-                <span class="{% fa_class 'pencil-square-o' %}"></span>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'exercise:exercise:edit' exercise.id %}" class="dropdown-item">
+                <span class="{% fa_class 'edit' %}"></span>
                 {% trans "Edit" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog">
+            <div role="separator" class="dropdown-divider"></div>
+            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete" %}
             </a>
-        </li>
-    </ul>
+            </li>
+        </div>
+    </div>
 </div>
 {% endif %}
 {% endblock %}

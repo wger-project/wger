@@ -75,9 +75,6 @@ class ExerciseImageEditView(WgerFormMixin,
     def get_context_data(self, **kwargs):
         context = super(ExerciseImageEditView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['form_action'] = reverse('exercise:image:edit',
-                                         kwargs={'pk': self.object.id})
-
         return context
 
 
@@ -108,9 +105,6 @@ class ExerciseImageAddView(WgerFormMixin,
         """
         context = super(ExerciseImageAddView, self).get_context_data(**kwargs)
         context['enctype'] = 'multipart/form-data'
-        context['form_action'] = reverse('exercise:image:add',
-                                         kwargs={'exercise_pk': self.kwargs['exercise_pk']})
-
         return context
 
 
@@ -142,9 +136,6 @@ class ExerciseImageDeleteView(WgerDeleteMixin,
         context = super(ExerciseImageDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _('Delete exercise image?')
-        context['form_action'] = reverse('exercise:image:delete',
-                                         kwargs={'pk': pk, 'exercise_pk': exercise_pk})
-
         return context
 
 

@@ -24,7 +24,7 @@ from django.contrib.auth.mixins import (
 )
 from django.http import HttpResponseForbidden
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy
 from django.views.generic import UpdateView
 
 # wger
@@ -43,6 +43,7 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     model = GymUserConfig
     fields = '__all__'
     permission_required = 'gym.change_gymuserconfig'
+    title = ugettext_lazy('Configuration')
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -63,12 +64,3 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Return to the gym user overview
         """
         return reverse('gym:gym:user-list', kwargs={'pk': self.object.gym.pk})
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(ConfigUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:user_config:edit', kwargs={'pk': self.object.id})
-        context['title'] = _('Configuration')
-        return context

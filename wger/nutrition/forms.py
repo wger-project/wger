@@ -19,7 +19,22 @@ import logging
 
 # Django
 from django import forms
-from django.utils.translation import ugettext as _
+from django.urls import reverse
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    HTML,
+    ButtonHolder,
+    Column,
+    Layout,
+    Row,
+    Submit
+)
 
 # wger
 from wger.core.models import UserProfile
@@ -39,9 +54,11 @@ class UnitChooserForm(forms.Form):
     A small form to select an amount and a unit for an ingredient
     """
     amount = forms.DecimalField(decimal_places=2,
+                                label=ugettext_lazy("Amount"),
                                 max_digits=5,
                                 localize=True)
     unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
+                                  label=ugettext_lazy("Unit"),
                                   empty_label="g",
                                   required=False)
 
@@ -60,6 +77,16 @@ class UnitChooserForm(forms.Form):
         self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
             ingredient_id=ingredient_id).select_related()
 
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('amount', css_class='form-group col-6 mb-0'),
+                Column('unit', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
+        self.helper.form_tag = False
+
 
 class BmiForm(forms.ModelForm):
     height = forms.DecimalField(widget=Html5NumberInput(),
@@ -72,6 +99,22 @@ class BmiForm(forms.ModelForm):
         model = UserProfile
         fields = ('height', )
 
+    def __init__(self, *args, **kwargs):
+        super(BmiForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_action = reverse('nutrition:bmi:calculate')
+        self.helper.form_class = 'wger-form'
+        self.helper.form_id = 'bmi-form'
+        self.helper.layout = Layout(
+            Row(
+                Column('height', css_class='form-group col-6 mb-0'),
+                Column('weight', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
+        )
+
 
 class BmrForm(forms.ModelForm):
     """
@@ -82,6 +125,17 @@ class BmrForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('age', 'height', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super(BmrForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "age",
+            "height",
+            "gender",
+            "weight"
+        )
+        self.helper.form_tag = False
 
 
 class PhysicalActivitiesForm(forms.ModelForm):
@@ -97,6 +151,29 @@ class PhysicalActivitiesForm(forms.ModelForm):
                   'sport_intensity',
                   'freetime_hours',
                   'freetime_intensity')
+
+    def __init__(self, *args, **kwargs):
+        super(PhysicalActivitiesForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "sleep_hours",
+            Row(
+                Column('work_hours', css_class='form-group col-6 mb-0'),
+                Column('work_intensity', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('sport_hours', css_class='form-group col-6 mb-0'),
+                Column('sport_intensity', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('freetime_hours', css_class='form-group col-6 mb-0'),
+                Column('freetime_intensity', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
+        self.helper.form_tag = False
 
 
 class DailyCaloriesForm(forms.ModelForm):
@@ -121,6 +198,12 @@ class DailyCaloriesForm(forms.ModelForm):
         model = UserProfile
         fields = ('calories',)
 
+    def __init__(self, *args, **kwargs):
+        super(DailyCaloriesForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+
 
 class MealItemForm(forms.ModelForm):
     weight_unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
@@ -129,9 +212,13 @@ class MealItemForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
                                         widget=forms.HiddenInput)
 
+    ingredient_searchfield = forms.CharField()
+
     class Meta:
         model = MealItem
-        fields = '__all__'
+        fields = ['ingredient',
+                  'weight_unit',
+                  'amount']
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
@@ -149,3 +236,15 @@ class MealItemForm(forms.ModelForm):
         if ingredient_id:
             self.fields['weight_unit'].queryset = \
                 IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'ingredient',
+            'ingredient_searchfield',
+            HTML('<div id="exercise_name"></div>'),
+            Row(
+                Column('amount', css_class='form-group col-6 mb-0'),
+                Column('weight_unit', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )

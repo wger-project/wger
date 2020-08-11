@@ -21,7 +21,6 @@ from django.conf.urls import (
     url
 )
 from django.contrib.auth import views
-from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
 # wger
@@ -104,28 +103,19 @@ patterns_user = [
     # Password reset is implemented by Django, no need to cook our own soup here
     # (besides the templates)
     url(r'^password/change$',
-        views.PasswordChangeView.as_view(success_url=reverse_lazy('core:user:preferences')),
-        {'template_name': 'user/change_password.html',
-         'post_change_redirect': reverse_lazy('core:user:preferences')},
+        user.WgerPasswordChangeView.as_view(),
         name='change-password'),
     url(r'^password/reset/$',
-        views.PasswordResetView.as_view(),
-        {'template_name': 'user/password_reset_form.html',
-         'email_template_name': 'user/password_reset_email.html',
-         'post_reset_redirect': reverse_lazy('core:user:password_reset_done')},
+        user.WgerPasswordResetView.as_view(),
         name='password_reset'),
     url(r'^password/reset/done/$',
         views.PasswordResetDoneView.as_view(),
-        {'template_name': 'user/password_reset_done.html'},
         name='password_reset_done'),
     url(r'^password/reset/check/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
-        views.PasswordResetConfirmView.as_view(),
-        {'template_name': 'user/password_reset_confirm.html',
-         'post_reset_redirect': reverse_lazy('core:user:password_reset_complete')},
+        user.WgerPasswordResetConfirmView.as_view(),
         name='password_reset_confirm'),
     url(r'^password/reset/complete/$',
         views.PasswordResetCompleteView.as_view(),
-        {'template_name': 'user/password_reset_complete.html'},
         name='password_reset_complete'),
 ]
 

@@ -26,6 +26,10 @@ from django.forms import (
 )
 from django.utils.translation import ugettext as _
 
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout
+
 # wger
 from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
@@ -46,6 +50,16 @@ class WeightCsvImportForm(Form):
     """
     csv_input = CharField(widget=Textarea, label=_('Input'))
     date_format = forms.ChoiceField(choices=CSV_DATE_FORMAT, label=_('Date format'))
+
+    def __init__(self, *args, **kwargs):
+        super(WeightCsvImportForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "csv_input",
+            "date_format",
+        )
+        self.helper.form_tag = False
 
 
 class WeightForm(ModelForm):

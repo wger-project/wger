@@ -28,15 +28,20 @@ from django.contrib.auth.mixins import (
 from django.core import mail
 from django.core.cache import cache
 from django.forms import (
+    CheckboxSelectMultiple,
     ModelChoiceField,
     ModelForm,
-    ModelMultipleChoiceField
+    ModelMultipleChoiceField,
+    Select
 )
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.loader import render_to_string
 from django.urls import (
     reverse,
@@ -54,6 +59,13 @@ from django.views.generic import (
     UpdateView
 )
 
+# Third Party
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row
+)
+
 # wger
 from wger.config.models import LanguageConfig
 from wger.exercises.models import (
@@ -64,27 +76,21 @@ from wger.exercises.models import (
 from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
-from wger.utils.helpers import ua_aware_render
 from wger.utils.language import (
     load_item_languages,
     load_language
 )
-from wger.utils.widgets import (
-    TranslatedOriginalSelectMultiple,
-    TranslatedSelect,
-    TranslatedSelectMultiple
-)
+from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
 
 
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(UAAwareViewMixin, ListView):
+class ExerciseListView(ListView):
     """
     Generic view to list all exercises
     """
@@ -172,7 +178,7 @@ def view(request, id, slug=None):
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
 
-    return ua_aware_render(request, 'exercise/view.html', template_data)
+    return render(request, 'exercise/view.html', template_data)
 
 
 class ExercisesEditAddView(WgerFormMixin):
@@ -188,18 +194,16 @@ class ExercisesEditAddView(WgerFormMixin):
 
     def get_form_class(self):
 
-        # Define the exercise form here because only at this point during the request
-        # have we access to the currently used language. In other places Django defaults
-        # to 'en-us'.
         class ExerciseForm(ModelForm):
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=TranslatedSelect())
+                                        widget=Select()
+                                        )
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=TranslatedOriginalSelectMultiple(),
+                                               widget=CheckboxSelectMultiple(),
                                                required=False)
 
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=TranslatedOriginalSelectMultiple(),
+                                                         widget=CheckboxSelectMultiple(),
                                                          required=False)
 
             class Meta:
@@ -215,10 +219,29 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = (settings.STATIC_URL + 'bower_components/tinymce/tinymce.min.js',)
+                js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
 
         return ExerciseForm
 
+    def get_form(self, form_class=None):
+        form = super(ExercisesEditAddView, self).get_form(form_class)
+        form.helper.layout = Layout(
+            "name_original",
+            "description",
+            "category",
+            "equipment",
+            Row(
+                Column('muscles', css_class='form-group col-6 mb-0'),
+                Column('muscles_secondary', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('license', css_class='form-group col-6 mb-0'),
+                Column('license_author', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        return form
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
@@ -231,7 +254,6 @@ class ExerciseUpdateView(ExercisesEditAddView,
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
@@ -241,8 +263,6 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
     """
     Generic view to add a new exercise
     """
-
-    form_action = reverse_lazy('exercise:exercise:add')
 
     def form_valid(self, form):
         """
@@ -280,7 +300,6 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:correct', kwargs={'pk': self.object.id})
         context['title'] = _(u'Correct {0}').format(self.object.name)
         return context
 
@@ -323,7 +342,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
               'muscles_secondary',
               'equipment')
     success_url = reverse_lazy('exercise:exercise:overview')
-    delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
+    delete_message_extra = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
@@ -333,14 +352,10 @@ class ExerciseDeleteView(WgerDeleteMixin,
         """
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('exercise:exercise:delete',
-                                         kwargs={'pk': self.kwargs['pk']})
-
         return context
 
 
-class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin,
-                              UAAwareViewMixin, ListView):
+class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Generic view to list all weight units
     """

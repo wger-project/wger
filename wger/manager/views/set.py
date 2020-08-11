@@ -29,27 +29,24 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.urls import reverse
 
-# Third Party
-from django_user_agents.utils import get_user_agent
-
 # wger
-from wger.config.models import LanguageConfig
 from wger.exercises.models import Exercise
 from wger.manager.forms import (
     SetForm,
-    SetFormMobile,
-    SettingForm
+    SettingForm,
+    WorkoutLogFormHelper
 )
 from wger.manager.models import (
     Day,
     Set,
     Setting
 )
-from wger.utils.helpers import ua_aware_render
-from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger(__name__)
@@ -78,30 +75,13 @@ def create(request, day_pk):
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
 
-    # Select the correct form depending on the user-agent.
-    # The difference is that the mobile form doesn't use the autocompleter for
-    # exercises, but 2 dropdowns, one to filter by category and one to select
-    # the exercises themselves.
-    user_agent = get_user_agent(request)
-    if user_agent.is_mobile:
-        form_class = SetFormMobile
-    else:
-        form_class = SetForm
-
     context = {}
     formsets = []
-    form = form_class(initial={'sets': Set.DEFAULT_SETS})
-
-    # For the mobile dropdown list we need to manually filter the exercises
-    # by language and status
-    if user_agent.is_mobile:
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
-                                                        .filter(language__in=languages)
+    form = SetForm(initial={'sets': Set.DEFAULT_SETS})
 
     # If the form and all formsets validate, save them
     if request.method == "POST":
-        form = form_class(request.POST)
+        form = SetForm(request.POST)
         if form.is_valid():
             for exercise in form.cleaned_data['exercises']:
                 formset = SettingFormset(request.POST,
@@ -139,9 +119,9 @@ def create(request, day_pk):
     context['day'] = day
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
-    context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
+    context['helper'] = WorkoutLogFormHelper()
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
-    return ua_aware_render(request, 'set/add.html', context)
+    return render(request, 'set/add.html', context)
 
 
 @login_required
@@ -157,11 +137,13 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
                                            fields=SETTING_FORMSET_FIELDS)
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
+    context = {'formset': formset,
+               'helper': WorkoutLogFormHelper(),
+               'exercise': exercise}
 
-    return ua_aware_render(request,
-                           "set/formset.html",
-                           {'formset': formset,
-                            'exercise': exercise})
+    return render(request,
+                  "set/formset.html",
+                  context)
 
 
 @login_required
@@ -237,5 +219,5 @@ def edit(request, pk):
     # Other context we need
     context = {}
     context['formsets'] = formsets
-    context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
-    return ua_aware_render(request, 'set/edit.html', context)
+    context['helper'] = WorkoutLogFormHelper()
+    return render(request, 'set/edit.html', context)

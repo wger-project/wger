@@ -174,11 +174,6 @@ class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
 
         today = datetime.date.today()
         response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 5}))
-        self.assertEqual(response.context['form_action'],
-                         reverse('manager:session:add', kwargs={'workout_pk': 3,
-                                                                'year': today.year,
-                                                                'month': today.month,
-                                                                'day': today.day}))
 
         session = WorkoutSession()
         session.user = User.objects.get(username='test')
@@ -189,7 +184,3 @@ class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
         session.time_start = datetime.time(11, 00)
         session.time_end = datetime.time(13, 00)
         session.save()
-
-        response = self.client.get(reverse('manager:workout:timer', kwargs={'day_pk': 5}))
-        self.assertEqual(response.context['form_action'],
-                         reverse('manager:session:edit', kwargs={'pk': session.pk}))

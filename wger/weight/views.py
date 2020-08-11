@@ -29,6 +29,7 @@ from django.http import (
     HttpResponse,
     HttpResponseRedirect
 )
+from django.shortcuts import render
 from django.urls import (
     reverse,
     reverse_lazy
@@ -49,10 +50,7 @@ from rest_framework.response import Response
 
 # wger
 from wger.utils.generic_views import WgerFormMixin
-from wger.utils.helpers import (
-    check_access,
-    ua_aware_render
-)
+from wger.utils.helpers import check_access
 from wger.weight import helpers
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
@@ -68,7 +66,6 @@ class WeightAddView(WgerFormMixin, CreateView):
     model = WeightEntry
     form_class = WeightForm
     title = ugettext_lazy('Add weight entry')
-    form_action = reverse_lazy('weight:add')
 
     def get_initial(self):
         """
@@ -103,7 +100,6 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('weight:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit weight entry for the %s') % self.object.date
 
         return context
@@ -172,7 +168,7 @@ def overview(request, username=None):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
     template_data['last_five_weight_entries_details'] = last_weight_entries
-    return ua_aware_render(request, 'overview.html', template_data)
+    return render(request, 'overview.html', template_data)
 
 
 @api_view(['GET'])
@@ -213,8 +209,7 @@ class WeightCsvImportFormPreview(FormPreview):
 
         return {'form': form,
                 'stage_field': self.unused_name('stage'),
-                'state': self.state,
-                'form_action': reverse('weight:import-csv')}
+                'state': self.state}
 
     def process_preview(self, request, form, context):
         context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request,

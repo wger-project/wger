@@ -28,80 +28,32 @@ from django.contrib.sitemaps.views import sitemap
 
 # Third Party
 from rest_framework import routers
-from tastypie.api import Api
 
 # wger
-from wger.core.api import (
-    resources as core_api,
-    views as core_api_views
-)
-from wger.exercises.api import (
-    resources as exercises_api,
-    views as exercises_api_views
-)
+from wger.core.api import views as core_api_views
+from wger.exercises.api import views as exercises_api_views
 from wger.exercises.sitemap import ExercisesSitemap
-from wger.manager.api import (
-    resources as manager_api,
-    views as manager_api_views
-)
-from wger.nutrition.api import (
-    resources as nutrition_api,
-    views as nutrition_api_views
-)
+from wger.manager.api import views as manager_api_views
+from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import (
     TextTemplateView,
     WebappManifestView
 )
-from wger.weight.api import (
-    resources as weight_api,
-    views as weight_api_views
-)
+from wger.weight.api import views as weight_api_views
 
 
-admin.autodiscover()
+#admin.autodiscover()
 
 
 #
 # REST API
 #
-
-# /api/v1 - tastypie - deprecated
-v1_api = Api(api_name='v1')
-
-v1_api.register(exercises_api.ExerciseCategoryResource())
-v1_api.register(exercises_api.ExerciseCommentResource())
-v1_api.register(exercises_api.ExerciseImageResource())
-v1_api.register(exercises_api.ExerciseResource())
-v1_api.register(exercises_api.MuscleResource())
-v1_api.register(exercises_api.EquipmentResource())
-
-v1_api.register(nutrition_api.IngredientResource())
-v1_api.register(nutrition_api.WeightUnitResource())
-v1_api.register(nutrition_api.NutritionPlanResource())
-v1_api.register(nutrition_api.MealResource())
-v1_api.register(nutrition_api.MealItemResource())
-v1_api.register(nutrition_api.IngredientToWeightUnit())
-
-v1_api.register(manager_api.WorkoutResource())
-v1_api.register(manager_api.ScheduleResource())
-v1_api.register(manager_api.ScheduleStepResource())
-v1_api.register(manager_api.DayResource())
-v1_api.register(manager_api.SetResource())
-v1_api.register(manager_api.SettingResource())
-v1_api.register(manager_api.WorkoutLogResource())
-v1_api.register(manager_api.WorkoutSessionResource())
-
-v1_api.register(weight_api.WeightEntryResource())
-
-v1_api.register(core_api.LanguageResource())
-v1_api.register(core_api.DaysOfWeekResource())
-v1_api.register(core_api.UserProfileResource())
-v1_api.register(core_api.LicenseResource())
-
-
-# /api/v2 - django rest framework
 router = routers.DefaultRouter()
+
+#
+# Application
+#
 
 # Manager app
 router.register(r'workout', manager_api_views.WorkoutViewSet, basename='workout')
@@ -152,7 +104,7 @@ sitemaps = {'exercises': ExercisesSitemap,
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    url(r'^admin/', admin.site.urls),
+    #url(r'^admin/', admin.site.urls),
     url(r'^', include(('wger.core.urls', 'core'), namespace='core')),
     url(r'workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     url(r'exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
@@ -161,7 +113,7 @@ urlpatterns = i18n_patterns(
     url(r'software/', include(('wger.software.urls', 'software'), namespace='software')),
     url(r'config/', include(('wger.config.urls', 'config'), namespace='config')),
     url(r'gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
-    url(r'email/', include(('wger.email.urls', 'email'), namespace='email')),
+    url(r'email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},
@@ -179,7 +131,6 @@ urlpatterns += [
     url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
 
     # API
-    url(r'^api/', include(v1_api.urls)),
     url(r'^api/v2/exercise/search/$',
         exercises_api_views.search,
         name='exercise-search'),

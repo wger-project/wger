@@ -41,7 +41,6 @@ from django.views.generic import (
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -54,7 +53,7 @@ logger = logging.getLogger(__name__)
 # ************************
 
 
-class WeightUnitListView(PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class WeightUnitListView(PermissionRequiredMixin, ListView):
     """
     Generic view to list all weight units
     """
@@ -83,7 +82,6 @@ class WeightUnitCreateView(WgerFormMixin,
     model = WeightUnit
     fields = ['name']
     title = ugettext_lazy('Add new weight unit')
-    form_action = reverse_lazy('nutrition:weight_unit:add')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
@@ -105,7 +103,6 @@ class WeightUnitDeleteView(WgerDeleteMixin,
     model = WeightUnit
     fields = ['name']
     success_url = reverse_lazy('nutrition:weight_unit:list')
-    form_action_urlname = 'nutrition:weight_unit:delete'
     permission_required = 'nutrition.delete_ingredientweightunit'
     messages = ugettext_lazy('Successfully deleted')
 
@@ -128,7 +125,6 @@ class WeightUnitUpdateView(WgerFormMixin,
 
     model = WeightUnit
     fields = ['name']
-    form_action_urlname = 'nutrition:weight_unit:edit'
     permission_required = 'nutrition.change_ingredientweightunit'
 
     def get_success_url(self):

@@ -179,7 +179,7 @@ function wgerRenderBodyMassIndex(w) {
     .attr('width', width)
     .attr('height', height);
 
-  d3.json('/nutrition/calculator/bmi/chart-data', function (data) {
+  d3.json('/nutrition/calculator/bmi/chart-data').then(function (data) {
     var $bmiForm;
     var url;
     var layers;

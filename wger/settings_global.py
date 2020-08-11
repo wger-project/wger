@@ -48,12 +48,12 @@ INSTALLED_APPS = (
     'storages',
 
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    #'django.contrib.admin',
 
     # Apps from wger proper
     'wger.config',
     'wger.core',
-    'wger.email',
+    'wger.mailer',
     'wger.exercises',
     'wger.gym',
     'wger.manager',
@@ -68,16 +68,16 @@ INSTALLED_APPS = (
     # The sitemaps app
     'django.contrib.sitemaps',
 
-    'django_user_agents',
-
     # thumbnails
     'easy_thumbnails',
 
     # CSS/JS compressor
     'compressor',
 
+    # Form renderer helper
+    'crispy_forms',
+
     # REST-API
-    'tastypie',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
@@ -87,24 +87,6 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
-
-    # django-bower for installing bower packages
-    'djangobower',
-)
-
-# added list of external libraries to be installed by bower
-BOWER_INSTALLED_APPS = (
-    'bootstrap#3.x',
-    'components-font-awesome#4.7.x',
-    'd3',
-    'DataTables',
-    'devbridge-autocomplete#1.2.x',
-    'jquery#2.x',
-    'metrics-graphics',
-    'shariff#1.24.1',
-    'sortablejs#1.4.x',
-    'tinymce',
-    'tinymce-dist',
 )
 
 
@@ -119,8 +101,6 @@ MIDDLEWARE = (
 
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
-
-    'django_user_agents.middleware.UserAgentMiddleware',
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
@@ -173,8 +153,6 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # added BowerFinder to list of static file finders
-    'djangobower.finders.BowerFinder',
 
     # Django compressor
     'compressor.finders.CompressorFinder',
@@ -235,7 +213,6 @@ LOCALE_PATHS = (
     os.path.join(SITE_ROOT, 'locale'),
 )
 
-FLAVOURS_STORAGE_BACKEND = 'session'
 
 
 #
@@ -283,6 +260,10 @@ CACHES = {
     }
 }
 
+#
+# Django Crispy Templates
+#
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #
 # Easy thumbnails
@@ -348,18 +329,13 @@ COMPRESS_JS_FILTERS = [
 ]
 COMPRESS_ROOT = STATIC_ROOT
 
-# BOWER binary
-if sys.platform.startswith('win32'):
-    BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'bower.cmd'))
-else:
-    BOWER_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'node_modules', '.bin', 'bower'))
-
 #
 # Django Rest Framework
 #
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
-    'PAGINATE_BY': 20,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
     'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (

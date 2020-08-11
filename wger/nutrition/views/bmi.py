@@ -22,6 +22,7 @@ import logging
 # Django
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import render
 
 # wger
 from wger.nutrition.forms import BmiForm
@@ -45,7 +46,7 @@ def view(request):
     form_data = {'height': request.user.userprofile.height,
                  'weight': request.user.userprofile.weight}
     context['form'] = BmiForm(initial=form_data)
-    return helpers.ua_aware_render(request, 'bmi/form.html', context)
+    return render(request, 'bmi/form.html', context)
 
 
 @login_required

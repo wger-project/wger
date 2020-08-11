@@ -42,8 +42,11 @@ $(document).ready(function() {
 {% regroup exercises by category as exercise_list %}
 <ul class="nav nav-tabs">
     {% for item in exercise_list %}
-    <li {% if forloop.first %}class="active"{% endif %}>
-        <a href="#tab-{{ item.grouper.id }}" id="category-{{ item.grouper.id }}" data-toggle="tab">{% trans item.grouper.name %}</a>
+    <li class="nav-item" >
+        <a class="nav-link {% if forloop.first %}active{% endif %}"
+           href="#tab-{{ item.grouper.id }}"
+           id="category-{{ item.grouper.id }}"
+           data-toggle="tab">{% trans item.grouper.name %}</a>
     </li>
     {% empty %}
         <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
@@ -56,38 +59,28 @@ $(document).ready(function() {
         <div class="list-group">
         {% for exercise in item.list|dictsort:"name" %}
             <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                <div class="visible-xs">
-                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                </div>
                 <div class="media">
-                    <div style="width:60px;height:60px;" class="media-left">
-
                     {% if exercise.main_image %}
                         <img alt="{{ exercise.name }}"
-                         class="media-object "
-                         style="max-width:100%; max-height:100%;"
+                         class="mr-3"
                          src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
                     {% else %}
-                    <img alt="{% trans 'Placeholder image for exercise' %}"
-                         class="media-object "
-                         style="max-width:100%; max-height:100%; opacity: 0.4;"
-                         src="{% static 'images/icons/image-placeholder.svg' %}">
+                        <img alt="{% trans 'Placeholder image for exercise' %}"
+                             class="mr-3"
+                             src="{% static 'images/icons/image-placeholder.svg' %}">
                     {% endif %}
-                    </div>
-                    <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
-                        <h4 class="media-heading">{{ exercise.name }}</h4>
-                        <span class="text-muted">
+                    <div class="media-body">
+                        <h4 class="mt-0">{{ exercise.name }}</h4>
                             {% for equipment in exercise.equipment.all %}
                                 {% trans equipment.name %}
                                 {% if not forloop.last %},{% endif %}
                             {% endfor %}
-                        </span>
                      </div>
                 </div>
             </a>
         {% empty %}
             <a href="#" class="list-group-item">
-                <div class="col-md-offset-1 col-md-10" >
+                <div>
                     {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
                 </div>
             </a>
@@ -97,8 +90,6 @@ $(document).ready(function() {
     {% endfor %}
 </div>
 {% endcache %}
-
-
 {% endblock %}
 
 

@@ -42,7 +42,6 @@ from wger.gym.models import (
     Gym
 )
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -87,15 +86,6 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         form.instance.gym_id = self.kwargs['gym_pk']
         return super(AddView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(AddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:contract-option:add',
-                                         kwargs={'gym_pk': self.kwargs['gym_pk']})
-        return context
-
 
 class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
@@ -105,7 +95,6 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     model = ContractOption
     fields = ('name', 'description')
     permission_required = 'gym.change_contractoption'
-    form_action_urlname = 'gym:contract-option:edit'
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -143,7 +132,6 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     model = ContractOption
     fields = ('name', 'description')
     permission_required = 'gym.delete_contractoption'
-    form_action_urlname = 'gym:contract-option:delete'
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -173,7 +161,7 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
         return context
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available contract options
     """

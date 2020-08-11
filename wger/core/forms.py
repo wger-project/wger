@@ -33,6 +33,18 @@ from django.utils.translation import ugettext as _
 
 # Third Party
 from captcha.fields import ReCaptchaField
+from crispy_forms.bootstrap import (
+    Accordion,
+    AccordionGroup
+)
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Column,
+    Layout,
+    Row,
+    Submit
+)
 
 # wger
 from wger.core.models import UserProfile
@@ -41,13 +53,32 @@ from wger.core.models import UserProfile
 class UserLoginForm(AuthenticationForm):
     """
     Form for logins
-
-    Overwritten here just to change the label on the 'username' field
     """
-    username = forms.CharField(label=_("Username or email"), max_length=254)
+
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', _('Login'), css_class='btn-success btn-block'))
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-6 mb-0'),
+                Column('password', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
 
 
 class UserPreferencesForm(forms.ModelForm):
+    first_name = forms.CharField(label=_('First name'),
+                                 required=False)
+    last_name = forms.CharField(label=_('Last name'),
+                                required=False)
+    email = EmailField(label=_("Email"),
+                       help_text=_("Used for password resets and, optionally, email reminders."),
+                       required=False)
+
     class Meta:
         model = UserProfile
         fields = ('show_comments',
@@ -63,6 +94,42 @@ class UserPreferencesForm(forms.ModelForm):
                   'num_days_weight_reminder',
                   'birthdate'
                   )
+
+    def __init__(self, *args, **kwargs):
+        super(UserPreferencesForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            Accordion(
+                AccordionGroup(_("Email"),
+                               'email',
+                               Row(
+                                   Column('first_name', css_class='form-group col-6 mb-0'),
+                                   Column('last_name', css_class='form-group col-6 mb-0'),
+                                   css_class='form-row'
+                               ),
+                               ),
+                AccordionGroup(_("Workout reminders"),
+                               'workout_reminder_active',
+                               'workout_reminder',
+                               'workout_duration',
+                               ),
+                AccordionGroup("{} ({})".format(_("Gym mode"), _("mobile version only")),
+                               "timer_active",
+                               "timer_pause"
+                               ),
+                AccordionGroup(_("Other settings"),
+                               "ro_access",
+                               "notification_language",
+                               "weight_unit",
+                               "show_comments",
+                               "show_english_ingredients",
+                               "num_days_weight_reminder",
+                               "birthdate",
+                               )
+            ),
+            ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        )
 
 
 class UserEmailForm(forms.ModelForm):
@@ -122,6 +189,11 @@ class PasswordConfirmationForm(Form):
     def __init__(self, user, data=None):
         self.user = user
         super(PasswordConfirmationForm, self).__init__(data=data)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'password',
+            ButtonHolder(Submit('submit', _("Delete"), css_class='btn-danger btn-block'))
+        )
 
     def clean_password(self):
         """
@@ -131,6 +203,7 @@ class PasswordConfirmationForm(Form):
         if not self.user.check_password(password):
             raise ValidationError(_('Invalid password'))
         return self.cleaned_data.get("password")
+
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
@@ -149,12 +222,22 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     """
     Registration form without captcha field
-
-    This is used when registering through an app, in that case there is not
-    such a spam danger and simplifies the registration process on a mobile
-    device.
     """
-    pass
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationFormNoCaptcha, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            'username',
+            'email',
+            Row(
+                Column('password1', css_class='form-group col-6 mb-0'),
+                Column('password2', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+        )
 
 
 class FeedbackRegisteredForm(forms.Form):

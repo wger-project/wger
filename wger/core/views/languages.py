@@ -41,7 +41,6 @@ from django.views.generic import (
 # wger
 from wger.core.models import Language
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -50,7 +49,7 @@ from wger.utils.generic_views import (
 logger = logging.getLogger(__name__)
 
 
-class LanguageListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class LanguageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Show an overview of all languages
     """
@@ -75,7 +74,6 @@ class LanguageCreateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
     model = Language
     fields = '__all__'
     title = ugettext_lazy('Add')
-    form_action = reverse_lazy('core:language:add')
     permission_required = 'core.add_language'
 
 
@@ -95,10 +93,7 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
         Send some additional data to the template
         """
         context = super(LanguageDeleteView, self).get_context_data(**kwargs)
-
         context['title'] = _(u'Delete {0}?').format(self.object.full_name)
-        context['form_action'] = reverse('core:language:delete', kwargs={'pk': self.object.id})
-
         return context
 
 
@@ -109,7 +104,6 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
 
     model = Language
     fields = '__all__'
-    form_action_urlname = 'core:language:edit'
     permission_required = 'core.change_language'
 
     def get_context_data(self, **kwargs):

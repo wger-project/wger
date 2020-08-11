@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% load wger_extras %}
+{% load crispy_forms_tags %}
 
 {% block header %}
 <script>
@@ -28,14 +28,9 @@ at rest. This is the minimum energy needed for the body to function, without any
 additional physical activity.{% endblocktrans %}</p>
 <form action="{% url 'nutrition:calories:bmr' %}"
       method="post"
-      class="calories-autoform form-horizontal"
+      class="calories-autoform wger-form"
       id="bmr-form">
-    {% csrf_token %}
-    {% render_form_errors form %}
-
-    {% for current_field in form %}
-        {% render_form_field current_field %}
-    {% endfor %}
+    {% crispy form %}
 </form>
 
 <div id="bmr-result-container" style="display:none;">
@@ -55,24 +50,9 @@ the additional physical activity and is used to calculate the total energy
 required per day.{% endblocktrans %}</p>
 <form action="{% url 'nutrition:calories:activities' %}"
       method="post"
-      class="form-horizontal calories-autoform"
+      class="wger-form calories-autoform"
       id="activities-form">
-    {% csrf_token %}
-    {% render_form_errors form_activities %}
-    {% render_form_field form_activities.sleep_hours %}
-
-    <div class="row">
-        <div class="col-md-6 col-xs-6">
-            {% render_form_field form_activities.work_hours %}
-            {% render_form_field form_activities.sport_hours %}
-            {% render_form_field form_activities.freetime_hours %}
-        </div>
-        <div class="col-md-6 col-xs-6">
-            {% render_form_field form_activities.work_intensity %}
-            {% render_form_field form_activities.sport_intensity %}
-            {% render_form_field form_activities.freetime_intensity %}
-        </div>
-    </div>
+    {% crispy form_activities %}
 </form>
 
 <div id="activities-result-container" style="display:none;">
@@ -88,7 +68,7 @@ required per day.{% endblocktrans %}</p>
 needs based on your level of physical activity.{% endblocktrans %}</p>
 <form action=""
       method="post"
-      class="form-horizontal calories-autoform"
+      class="wger-form calories-autoform"
       id="base-calories-form">
     {% csrf_token %}
     <table class="table">
@@ -112,12 +92,11 @@ you might just enter yourself the amount of calories if you know the value.{% en
 
 <form action=""
       method="post"
-      class="form-horizontal"
+      class="wger-form"
       id="total-calories-form">
-    {% csrf_token %}
 
-    {% render_form_field form_calories.additional_calories %}
-    {% render_form_field form_calories.calories %}
+    {{ form_calories.additional_calories|as_crispy_field }}
+    {{ form_calories.calories|as_crispy_field }}
 
     <p>
         <input type="submit" class="btn btn-default btn-block" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">

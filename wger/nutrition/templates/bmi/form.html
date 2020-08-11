@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% load wger_extras %}
+{% load crispy_forms_tags %}
 
 {% block header %}
 <style>
@@ -31,9 +31,9 @@ $(document).ready(function () {
     /*
      * Process the form
      */
-    $("#bmi-form").click(function(e){
+    $("#submit-id-submit").click(function(e){
         e.preventDefault();
-        wgerRenderBodyMassIndex({% if request.user_agent.is_mobile %}$('#content').width() * 0.95{% endif %});
+        wgerRenderBodyMassIndex();
     });
 
 });
@@ -55,13 +55,8 @@ $(document).ready(function () {
 -->
 {% block content %}
 
-<form action="{% url 'nutrition:bmi:calculate' %}"
-      method="post"
-      class="form-horizontal"
-      id="bmi-form">
-    {% trans 'Calculate' as submit_text %}
-    {% render_form_fields form submit_text %}
-</form>
+{% crispy form %}
+
 
 <div id="bmi-result-container" style="display:none;">
     <h3>{% trans 'Results' %}</h3>

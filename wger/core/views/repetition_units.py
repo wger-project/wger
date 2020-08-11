@@ -38,7 +38,6 @@ from django.views.generic import (
 # wger
 from wger.core.models import RepetitionUnit
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -47,7 +46,7 @@ from wger.utils.generic_views import (
 logger = logging.getLogger(__name__)
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available setting units
     """
@@ -65,7 +64,6 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     fields = ['name']
     title = ugettext_lazy('Add')
     success_url = reverse_lazy('core:repetition-unit:list')
-    form_action = reverse_lazy('core:repetition-unit:add')
     permission_required = 'core.add_repetitionunit'
 
 
@@ -77,7 +75,6 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     model = RepetitionUnit
     fields = ['name']
     success_url = reverse_lazy('core:repetition-unit:list')
-    form_action_urlname = 'core:repetition-unit:edit'
     permission_required = 'core.change_repetitionunit'
 
     def get_context_data(self, **kwargs):
@@ -97,7 +94,6 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     model = RepetitionUnit
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.delete_repetitionunit'
-    form_action_urlname = 'core:repetition-unit:delete'
 
     def dispatch(self, request, *args, **kwargs):
         """

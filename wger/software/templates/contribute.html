@@ -1,4 +1,4 @@
-{% extends "base_wide.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -6,8 +6,6 @@
 {% block title %}{% trans "Contribute!" %}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6">
         <p>{% blocktrans %}wger Workout Manager is build by volunteers,
 the development process is open and freely accessible to anybody interested.
 If you are new to the free software world, we recommend to take a
@@ -19,83 +17,61 @@ article</a> which summarizes they way open source projects work very well. {% en
 Use this opportunity and influence the direction of the
 project. {% endblocktrans %}</p>
 
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">{% trans "Our goal" %}</h3>
-        </div>
-        <div class="panel-body">
-        <span style="text-align:center;"><strong>{% blocktrans %}The goal is to build an awesome
-and flexible fitness manager, along with a comprehensive and complete list of exercises and
-ingredients, all released under a free license.{% endblocktrans %}</strong></span>
-        </div>
-        </div>
-    </div>
-</div>
 
 
 
-<div class="row" style="margin-bottom: 1em;">
-    <div class="col-md-3">
-        <h4>{% trans "Use the site" %}</h4>
-    </div>
-    <div class="col-md-9">
-            <p>{% blocktrans %}Simply use the site and tell your friends
+<h5>{% trans "Use the site" %}</h5>
+<p>{% blocktrans %}Simply use the site and tell your friends
 how useful it is! ;) . When you find something that you specially liked,
 could need some improvements or just doesn't work, tell us! This might not sound
 like much, but is incredibly important!{% endblocktrans %}</p>
-<a class="btn btn-default" href="{% url 'core:contact' %}">{% trans "Get in touch" %} »</a>
-    </div>
-</div>
+<a class="btn btn-secondary mb-4" href="{% url 'core:contact' %}">{% trans "Get in touch" %} »</a>
 
 
-<div class="row" style="margin-bottom: 1em;">
-    <div class="col-md-3">
-        <h4>{% trans "Submit exercises" %}</h4>
-    </div>
-    <div class="col-md-9">
-            <p>{% blocktrans %}Submit those cool exercises that you absolutely
+<h5>{% trans "Submit exercises" %}</h5>
+<p>{% blocktrans %}Submit those cool exercises that you absolutely
 love and do every week but are not in the list yet. If you think some description
 is too short or some other detail is missing or could be improved, tell!{% endblocktrans %}</p>
+
         {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <a class="btn btn-default" href="{% url 'exercise:exercise:add' %}">{% trans "Add exercise" %} »</a>
+            <a class="btn btn-secondary mb-4" href="{% url 'exercise:exercise:add' %}">{% trans "Add exercise" %} »</a>
         {% else %}
-            <a class="btn disabled btn-default" href="#">{% trans "Only registered users can do this" %} »</a>
+            <a class="btn disabled btn-secondary mb-4" href="#">{% trans "Only registered users can do this" %} »</a>
         {% endif %}
-    </div>
-</div>
 
 
-<div class="row" style="margin-bottom: 1em;">
-    <div class="col-md-3">
-        <h4>{% trans "Translate" %}</h4>
-    </div>
-    <div class="col-md-9">
-        <p>{% blocktrans %}Do you want to use wger in your own language?
+<h5>{% trans "Translate" %}</h5>
+<p>{% blocktrans %}Do you want to use wger in your own language?
 Do you think the current translation could be improved?
 The translations are easily managed and edited online, if you are interested,
 go to the transifex site, request access and we will set everything
 up. {% endblocktrans %}</p>
 
-        <a class="btn btn-default"
-           href="https://www.transifex.com/rge/wger-workout-manager/">{% trans "Translate with Transifex" %} »</a>
-    </div>
-</div>
+    <a class="btn btn-secondary mb-4"
+       href="https://www.transifex.com/rge/wger-workout-manager/">{% trans "Translate with Transifex" %} »</a>
 
-<div class="row" style="margin-bottom: 1em;">
-    <div class="col-md-3">
-        <h4>{% trans "Code" %}</h4>
-    </div>
-    <div class="col-md-9">
-        <p>{% blocktrans %}Obviously, you are highly encouraged to clone the
+
+<h5>{% trans "Code" %}</h5>
+<p>{% blocktrans %}Obviously, you are highly encouraged to clone the
 repo and start hacking! Once you are ready, send a pull request and we
 will show the world. Take a look at the developer guide for more details
 on this.{% endblocktrans %}</p>
 
-        <a class="btn btn-default" href="{% url 'software:code' %}">{% trans "Get the code" %} »</a>
+<a class="btn btn-secondary" href="{% url 'software:code' %}">{% trans "Get the code" %} »</a>
+{% endblock %}
+
+
+{% block sidebar %}
+<div class="card text-white bg-info mb-3">
+    <div class="card-header">
+        {% trans "Our goal" %}
+    </div>
+    <div class="card-body">
+    {% blocktrans %}The goal is to build an awesome
+and flexible fitness manager, along with a comprehensive and complete list of exercises and
+ingredients, all released under a free license.{% endblocktrans %}
     </div>
 </div>
-
-
 {% endblock %}
+
+

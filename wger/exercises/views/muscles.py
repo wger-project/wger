@@ -41,7 +41,6 @@ from django.views.generic import (
 from wger.config.models import LanguageConfig
 from wger.exercises.models import Muscle
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -51,7 +50,7 @@ from wger.utils.language import load_item_languages
 logger = logging.getLogger(__name__)
 
 
-class MuscleListView(UAAwareViewMixin, ListView):
+class MuscleListView(ListView):
     """
     Overview of all muscles and their exercises
     """
@@ -88,7 +87,6 @@ class MuscleAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
     fields = '__all__'
     success_url = reverse_lazy('exercise:muscle:admin-list')
     title = ugettext_lazy('Add muscle')
-    form_action = reverse_lazy('exercise:muscle:add')
     permission_required = 'exercises.add_muscle'
 
 
@@ -107,7 +105,6 @@ class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Send some additional data to the template
         """
         context = super(MuscleUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:muscle:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object.name)
         return context
 
@@ -129,5 +126,4 @@ class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMi
         """
         context = super(MuscleDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('exercise:muscle:delete', kwargs={'pk': self.kwargs['pk']})
         return context

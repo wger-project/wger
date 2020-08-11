@@ -17,28 +17,15 @@ come from new versions of django or the installed dependencies). If you start
 the development server and see a message that there are unapplied migrations,
 just do ``python manage.py migrate --all``.
 
-Downloading dependencies with Bower
-```````````````````````````````````
+Downloading JS and CSS libraries
+````````````````````````````````
 
-Bower is used to download different JS and CSS libraries. If you update master
-it is recommended that you first delete the existing libraries
-(``rm wger/core/static/bower_components``) and then download the new versions
-with::
+We use yarn to download the JS and CSS libraries. To update them just go to
+the source and do ::
 
-    $ python manage.py bower install
+        $ yarn install
 
-
-Some info about bower, during the bootstrap process bower is installed locally
-to src/wger. If this didn't work and you get an error saying that bower is not
-installed, you can manually install it by going to the  project's root directory
-and performing the step manually::
-
-   $ cd src/wger
-   $ npm install bower
-
-Alternatively, you can manually set the path to the bower binary by editing
-``BOWER_PATH`` (see ``wger/settings_global.py``).
-
+This happens automatically during the bootstrap process.
 
 Clearing the cache
 ``````````````````

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load static wger_extras %}
+{% load static wger_extras crispy_forms_tags %}
 
 {#           #}
 {# Opengraph #}
@@ -120,7 +120,7 @@
                  <a href="{% url 'manager:step:edit' step.id %}"
                     title="{% trans 'Edit' %}"
                     class="wger-modal-dialog">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                    <span class="{% fa_class 'edit' %}"></span></a>
                 <a href="{% url 'manager:step:delete' step.id %}"
                    title="{% trans 'Delete' %}"
                    class="wger-modal-dialog">
@@ -131,7 +131,7 @@
             <td>
                 <a href="{{ step.workout.get_absolute_url }}">{{ step.workout }}</a>
                 {% if active_workout == step %}
-                &nbsp;<span class="label label-info">{% trans "active" %}</span>
+                &nbsp;<span class="badge badge-info">{% trans "active" %}</span>
                 {% endif  %}
             </td>
             <td>
@@ -177,26 +177,26 @@
 {% with step_dates=step.get_dates %}
 <div class="row">
     <div class="col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
                     {% blocktrans count weeks=step.duration %}{{ weeks }} Week
                     {% plural %}{{ weeks }} Weeks
                     {% endblocktrans %}
                 </h4>
 
-                {% if active_workout == step %}
-                    <span class="label label-info">{% trans "active" %}</span>
-                {% endif  %}
+                <span class="card-text">
+                    {% if active_workout == step %}
+                        <span class="badge badge-pill badge-primary">{% trans "active" %}</span><br>
+                    {% endif  %}
+                    <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
+                </span>
             </div>
-            <div class="panel-body">
-                <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
-            </div>
-            <div class="panel-footer">
+            <div class="card-footer">
                 <a href="{{ step.workout.get_absolute_url }}"
                    class="btn btn-default btn-block btn-sm"
                    style="white-space: normal;">
-                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    <span class="glyphicon glyphicon-chevron-right float-right"></span>
                     {{ step.workout }}
                 </a>
             </div>
@@ -228,8 +228,8 @@ than once.{% endblocktrans %}</p>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Export calendar file" %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <p>{% trans "Export this schedule as a calendar file." %}</p>
@@ -253,56 +253,14 @@ an appointment for each training day with the appropriate exercises.{% endblockt
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="wger-form">
+                    {% crispy download_form %}
                     <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_images" class="col-md-3 control-label">
-                                {% trans "Type" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9" style="padding-left: 35px;">
-                            <div class="radio">
-                                <input type="radio" name="pdf_type" id="id_type_log" value="log" checked>
-                                {% trans "Log" %}
-                            </div>
-                            <div class="radio">
-                                <input type="radio" name="pdf_type" id="id_type_table" value="table">
-                                {% trans "Table" %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_images" class="col-md-3 control-label">
-                                {% trans "with images" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="images" id="id_images" checked>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_comments" class="col-md-3 control-label">
-                                {% trans "with comments" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
-                        </div>
-                    </div>
                 </form>
-
-                <p>
-                    <a href="" class="btn btn-block btn-default" id="download-pdf-button-schedule">
-                        {% trans "Download" %}
-                    </a>
-                </p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
@@ -317,38 +275,32 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {#         #}
 {% block options %}
     <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="#" data-toggle="modal" data-target="#export-ical-popup">
-                <span class="{% fa_class 'calendar' %}"></span>
-                {% trans "Export calendar file" %}
-            </a>
-        </li>
-        <li>
-            <a data-toggle="modal" data-target="#download-pdf-popup">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
-        </li>
-        {% if is_owner %}
-        <li>
-            <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog">
-                <span class="{% fa_class 'pencil-square-o' %}"></span>
-                {% trans "Edit schedule" %}
-            </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog">
-                <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete schedule" %}
-            </a>
-        </li>
-        {% endif %}
-    </ul>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="{% fa_class 'cog' %}"></span>
+                {% trans "Options" %}
+            </button>
+            <div class="dropdown-menu">
+                <a href="#" data-toggle="modal" data-target="#export-ical-popup" class="dropdown-item">
+                    <span class="{% fa_class 'calendar' %}"></span>
+                    {% trans "Export calendar file" %}
+                </a>
+                <a data-toggle="modal" data-target="#download-pdf-popup" class="dropdown-item">
+                    <span class="{% fa_class 'download' %}"></span>
+                    {% trans "Download as PDF" %}
+                </a>
+                {% if is_owner %}
+                    <a href="{% url 'manager:schedule:edit' schedule.id %}" class="wger-modal-dialog dropdown-item">
+                        <span class="{% fa_class 'edit' %}"></span>
+                        {% trans "Edit schedule" %}
+                    </a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a href="{% url 'manager:schedule:delete' schedule.id %}" class="wger-modal-dialog dropdown-item">
+                        <span class="{% fa_class 'trash' %}"></span>
+                        {% trans "Delete schedule" %}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

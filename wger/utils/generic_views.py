@@ -24,19 +24,20 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.template.context_processors import csrf
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
+from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy
 from django.views.generic import TemplateView
-from django.views.generic.base import View
 from django.views.generic.edit import ModelFormMixin
 
 # Third Party
 import bleach
-from django_user_agents.utils import get_user_agent
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    ButtonHolder,
+    Layout,
+    Submit
+)
 
 # wger
 from wger.utils.constants import (
@@ -120,6 +121,7 @@ class WgerFormMixin(ModelFormMixin):
 
     form_action = ''
     form_action_urlname = ''
+
     sidebar = ''
     """
     Name of a template that will be included in the sidebar
@@ -148,41 +150,20 @@ class WgerFormMixin(ModelFormMixin):
 
     messages = ''
     """
-    A message to display on sucess
+    A message to display on success
     """
 
     def get_context_data(self, **kwargs):
         """
-        Set necessary template data to correctly render the form
+        Set context data
         """
 
-        # Call the base implementation first to get a context
         context = super(WgerFormMixin, self).get_context_data(**kwargs)
-
-        # CSRF token
-        context.update(csrf(self.request))
-
         context['sidebar'] = self.sidebar
-        # TODO: change template so it iterates through form and not formfields
-        context['form_fields'] = context['form']
+        context['title'] = self.title
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
-
-        # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the POST request
-        # reaches the correct controller
-        if self.form_action_urlname:
-            context['form_action'] = reverse(self.form_action_urlname,
-                                             kwargs={'pk': self.object.id})
-        elif self.form_action:
-            context['form_action'] = self.form_action
-
-        # Set the title
-        context['title'] = self.title
-
-        # Text used in the submit button
-        context['submit_text'] = self.submit_text
 
         # Template to extend. For AJAX requests we don't need the rest of the
         # template, only the form
@@ -228,6 +209,18 @@ class WgerFormMixin(ModelFormMixin):
         """
         return self.messages
 
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+        form = super(WgerFormMixin, self).get_form(form_class)
+        if not hasattr(form, "helper"):
+            form.helper = FormHelper()
+        form.helper.form_id = slugify(self.request.path)
+        form.helper.form_method = 'post'
+        form.helper.form_action = self.request.path
+        form.helper.add_input(Submit('submit', self.submit_text, css_class='btn-success btn-block'))
+        form.helper.form_class = 'wger-form'
+        return form
+
     def form_invalid(self, form):
         """
         Log form errors to the console
@@ -261,7 +254,8 @@ class WgerDeleteMixin(ModelFormMixin):
     form_action = ''
     form_action_urlname = ''
     title = ''
-    delete_message = ''
+    delete_message_extra = ''
+    delete_message = ugettext_lazy('Yes, delete')
     template_name = 'delete.html'
     messages = ''
 
@@ -273,29 +267,32 @@ class WgerDeleteMixin(ModelFormMixin):
         # Call the base implementation first to get a context
         context = super(WgerDeleteMixin, self).get_context_data(**kwargs)
 
-        # CSRF token
-        context.update(csrf(self.request))
-
-        # When viewing the page on it's own, this is not necessary, but when
-        # opening it on a modal dialog, we need to make sure the POST request
-        # reaches the correct controller
-        if self.form_action_urlname:
-            context['form_action'] = reverse(self.form_action_urlname,
-                                             kwargs={'pk': self.object.id})
-        elif self.form_action:
-            context['form_action'] = self.form_action
-
         # Set the title
         context['title'] = self.title
 
         # Additional delete message
-        context['delete_message'] = self.delete_message
+        context['delete_message'] = self.delete_message_extra
 
         # Template to extend. For AJAX requests we don't need the rest of the
         # template, only the form
         context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
 
         return context
+
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+        form = super(WgerDeleteMixin, self).get_form(form_class)
+        if not hasattr(form, "helper"):
+            form.helper = FormHelper()
+        form.helper.form_id = slugify(self.request.path)
+        form.helper.form_method = 'post'
+        form.helper.form_action = self.request.path
+        form.helper.layout = Layout(
+            ButtonHolder(
+                Submit('submit', self.delete_message, css_class='btn-warning btn-block')
+            )
+        )
+        return form
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -356,14 +353,3 @@ class WebappManifestView(TemplateView):
         resp = super().dispatch(request, args, kwargs)
         resp['Content-Type'] = 'application/x-web-app-manifest+json'
         return resp
-
-
-class UAAwareViewMixin(View):
-    def get_template_names(self):
-        templates = [self.template_name]
-
-        user_agent = get_user_agent(self.request)
-        if user_agent.is_mobile:
-            templates.insert(0, 'mobile/' + self.template_name)
-
-        return templates

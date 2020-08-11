@@ -7,11 +7,11 @@ wheel
 
 # Application
 bleach~=3.1
-django-bootstrap-breadcrumbs==0.9.1
-django-bower==5.2.0
+django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.0
 django-recaptcha==2.0.6
 Django~=3.0
+django-crispy-forms~=1.9
 django_compressor~=2.4
 django_extensions~=2.1
 django-sortedm2m~=3.0
@@ -37,7 +37,6 @@ sphinx
 # REST API
 django-cors-headers>=3.0
 django-filter==2.3.0
-django-tastypie~=0.14
 djangorestframework~=3.11
 
 

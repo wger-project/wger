@@ -12,11 +12,11 @@
     <div class="list-group">
         {% for schedule in schedules %}
             <a href="{% url 'manager:schedule:view' schedule.id %}" class="list-group-item">
-                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                <span class="glyphicon glyphicon-chevron-right float-right"></span>
 
                 {% if schedule.is_active %}
-                <span class="badge">
-                    <em>{% trans "active" %}</em>
+                <span class="badge badge-pill badge-primary">
+                    {% trans "active" %}
                 </span>
                 {% endif %}
 

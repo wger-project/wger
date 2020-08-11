@@ -65,6 +65,5 @@ class GymConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredM
         Send some additional data to the template
         """
         context = super(GymConfigUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:config:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object)
         return context

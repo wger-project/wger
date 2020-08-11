@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -53,7 +53,7 @@ the search.{% endblocktrans %}
 <div itemscope itemtype="http://schema.org/NutritionInformation">
 <meta itemprop="name" content="{{ingredient.name}}" />
 
-<form class="form-horizontal"
+<form class="wger-form"
       method="GET"
       action="{% url 'api-ingredient-get-values' ingredient.id %}"
       id="nutritional-values-form"
@@ -61,19 +61,7 @@ the search.{% endblocktrans %}
     <div id="calculator-errors"></div>
     <input type="hidden" value="{{ingredient.id}}" name="ingredient">
 
-    <div class="row">
-        <div class="col-md-4" style="text-align:right;">
-        {% trans 'Nutritional values in' %}
-        </div>
-
-        <div class="col-md-4">
-            <div>{{form.amount|form_field_add_css:'form-control'}}</div>
-        </div>
-
-        <div class="col-md-4">
-            <div>{{form.unit|form_field_add_css:'form-control'}}</div>
-        </div>
-    </div>
+    {% crispy form %}
 </form>
 
 <table class="table">
@@ -184,7 +172,7 @@ the search.{% endblocktrans %}
 {% if perms.nutrition.delete_ingredient %}
 <h4>{% trans "Weight units" %}</h4>
 <p>
-    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-xs wger-modal-dialog">
+    <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-sm wger-modal-dialog">
         {% trans "Add new weight unit" %}
     </a>
 </p>
@@ -201,18 +189,14 @@ the search.{% endblocktrans %}
         <tr>
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                <div class="dropdown float-right">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
+                        <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -235,26 +219,26 @@ the search.{% endblocktrans %}
 {% block options %}
 {% if perms.nutrition.delete_ingredient %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
             <a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
                title="{% trans 'Edit ingredient' %}"
-               {% auto_link_css request.user_agent.is_mobile %}>
-                <span class="{% fa_class 'pencil-square-o' %}"></span>
-                {% trans 'Edit ingredient' %}</a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
+               class="dropdown-item">
+                <span class="{% fa_class 'edit' %}"></span>
+                {% trans 'Edit ingredient' %}
+            </a>
+            <div role="separator" class="dropdown-divider"></div>
             <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
-               title="{% trans 'Delete ingredient' %}" {% auto_link_css request.user_agent.is_mobile "wger-modal-dialog" %}>
+               title="{% trans 'Delete ingredient' %}" class="wger-modal-dialog dropdown-item" >
                 <span class="{% fa_class 'trash' %}"></span>
-                {% trans 'Delete' %}</a>
-        </li>
-    </ul>
+                {% trans 'Delete' %}
+            </a>
+        </div>
+    </div>
 </div>
 {% endif %}
 {% endblock %}
