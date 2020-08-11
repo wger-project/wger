@@ -385,7 +385,6 @@ def timer(request, day_pk):
         session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
         session_form = WorkoutSessionHiddenFieldsForm(instance=session)
     else:
-        today = datetime.date.today()
         session_form = WorkoutSessionHiddenFieldsForm()
 
     # Render template

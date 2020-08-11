@@ -30,7 +30,6 @@ from django.shortcuts import (
     get_object_or_404,
     render
 )
-from django.template.context_processors import csrf
 from django.urls import (
     reverse,
     reverse_lazy

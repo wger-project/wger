@@ -131,8 +131,6 @@ class ExerciseImageDeleteView(WgerDeleteMixin,
         """
         Send some additional data to the template
         """
-        pk = self.kwargs['pk']
-        exercise_pk = self.kwargs['exercise_pk']
         context = super(ExerciseImageDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _('Delete exercise image?')

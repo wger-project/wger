@@ -33,10 +33,7 @@ from django.shortcuts import (
     get_object_or_404,
     render
 )
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
+from django.urls import reverse_lazy
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy

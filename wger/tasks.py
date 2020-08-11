@@ -18,7 +18,6 @@
 import ctypes
 import logging
 import os
-import pathlib
 import socket
 import sys
 import threading

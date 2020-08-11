@@ -116,6 +116,7 @@ class DayCreateView(DayView, CreateView):
         form.instance.training = Workout.objects.get(pk=self.kwargs['workout_pk'])
         return super(DayCreateView, self).form_valid(form)
 
+
 @login_required
 def delete(request, pk):
     """

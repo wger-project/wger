@@ -243,6 +243,7 @@ class ExercisesEditAddView(WgerFormMixin):
         )
         return form
 
+
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
                          PermissionRequiredMixin,

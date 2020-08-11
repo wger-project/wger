@@ -30,10 +30,7 @@ from django.http import (
     HttpResponseRedirect
 )
 from django.shortcuts import render
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
+from django.urls import reverse
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy

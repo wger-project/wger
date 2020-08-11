@@ -103,11 +103,9 @@ class UserPreferencesForm(forms.ModelForm):
             Accordion(
                 AccordionGroup(_("Email"),
                                'email',
-                               Row(
-                                   Column('first_name', css_class='form-group col-6 mb-0'),
+                               Row(Column('first_name', css_class='form-group col-6 mb-0'),
                                    Column('last_name', css_class='form-group col-6 mb-0'),
-                                   css_class='form-row'
-                               ),
+                                   css_class='form-row'),
                                ),
                 AccordionGroup(_("Workout reminders"),
                                'workout_reminder_active',
@@ -203,7 +201,6 @@ class PasswordConfirmationForm(Form):
         if not self.user.check_password(password):
             raise ValidationError(_('Invalid password'))
         return self.cleaned_data.get("password")
-
 
 
 class RegistrationForm(UserCreationForm, UserEmailForm):

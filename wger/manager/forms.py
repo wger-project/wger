@@ -28,7 +28,6 @@ from django.forms import (
     IntegerField,
     ModelChoiceField,
     ModelForm,
-    MultipleHiddenInput,
     widgets
 )
 from django.utils.translation import (
@@ -51,10 +50,7 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
-from wger.exercises.models import (
-    Exercise,
-    ExerciseCategory
-)
+from wger.exercises.models import Exercise
 from wger.manager.models import (
     Day,
     Set,
@@ -65,7 +61,6 @@ from wger.manager.models import (
 )
 from wger.utils.widgets import (
     ExerciseAjaxSelect,
-    TranslatedSelect,
     TranslatedSelectMultiple
 )
 
@@ -113,6 +108,7 @@ class SettingForm(ModelForm):
     class Meta:
         model = Setting
         exclude = ('set', 'exercise', 'order', 'comment')
+
 
 class WorkoutLogForm(ModelForm):
     """
@@ -213,14 +209,13 @@ class WorkoutScheduleDownloadForm(Form):
     Form for the workout schedule download
     """
     pdf_type = ChoiceField(
-        label = ugettext_lazy(u"Type"),
+        label=ugettext_lazy(u"Type"),
         choices=(("log", ugettext_lazy("Log")),
-                 ("table", ugettext_lazy("Table"))
-        ),
+                 ("table", ugettext_lazy("Table")))
     )
-    images = BooleanField(label = ugettext_lazy("with images"),
+    images = BooleanField(label=ugettext_lazy("with images"),
                           required=False)
-    comments = BooleanField(label = ugettext_lazy("with comments"),
+    comments = BooleanField(label=ugettext_lazy("with comments"),
                             required=False)
 
     def __init__(self):

@@ -95,7 +95,6 @@ from wger.manager.models import (
     WorkoutSession
 )
 from wger.nutrition.models import NutritionPlan
-from wger.utils.constants import USER_TAB
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin

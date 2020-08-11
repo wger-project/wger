@@ -18,7 +18,6 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
-import sys
 
 
 """
@@ -48,7 +47,7 @@ INSTALLED_APPS = (
     'storages',
 
     # Uncomment the next line to enable the admin:
-    #'django.contrib.admin',
+    # 'django.contrib.admin',
 
     # Apps from wger proper
     'wger.config',
@@ -212,7 +211,6 @@ LANGUAGE_CODE = 'en'
 LOCALE_PATHS = (
     os.path.join(SITE_ROOT, 'locale'),
 )
-
 
 
 #
