@@ -23,6 +23,9 @@ from django.forms import (
 )
 from django.utils.translation import pgettext
 
+# Third Party
+from crispy_forms.helper import FormHelper
+
 
 class EmailListForm(Form):
     """
@@ -31,3 +34,9 @@ class EmailListForm(Form):
 
     subject = CharField(label=pgettext('As in "email subject"', 'Subject'))
     body = CharField(widget=Textarea, label=pgettext('As in "content of an email"', 'Content'))
+
+    def __init__(self, *args, **kwargs):
+        super(EmailListForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False

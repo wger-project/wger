@@ -97,7 +97,7 @@ class EmailListFormPreview(FormPreview):
         """
         if not request.user.is_authenticated or\
                 request.user.userprofile.gym_id != self.gym.id or \
-                not request.user.has_perms('core.change_emailcron'):
+                not request.user.has_perm('mailer.change_log'):
             return HttpResponseForbidden()
 
         context = super(EmailListFormPreview, self).get_context(request, form)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wger_extras i18n django_bootstrap_breadcrumbs %}
+{% load i18n django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
 
@@ -20,7 +20,7 @@
 {% block content %}
 
 <h3>{% trans 'Current version' %}</h3>
-<form action="{{ form_action }}" method="post">
+<form action="{{ request.get_full_path }}" method="post">
     {% csrf_token %}
     <input type="hidden" name="{{ stage_field }}" value="2" />
     <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
@@ -44,15 +44,17 @@
         </div>
     </div>
     <div class="row" style="margin-top: 1em;">
-        {% render_form_submit 'Emails verschicken' %}
+        <input type="submit" name="submit" value="{% trans 'Send emails' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
     </div>
 </form>
 
 <h3>{% trans 'Correction' %}</h3>
-<form action="{{ form_action }}"
+<form action="{{ request.get_full_path }}"
       method="post"
       class="wger-form">
-    {% render_form_fields form 'Correction' %}
+    {% crispy form %}
+    <input type="submit" name="submit" value="{% trans 'Correction' %}" class="btn btn-primary btn-success btn-block" id="submit-id-correction">
+
 </form>
 {% endblock %}
 
