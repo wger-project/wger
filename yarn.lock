@@ -6,9 +6,15 @@ Sortable@RubaXa/Sortable#1.4.x:
   version "1.4.2"
   resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/51337f72792525e438680695e223b327b1648e0a"
 
-bootstrap@twbs/bootstrap#4.x:
+bootstrap-scss@4.5.0:
   version "4.5.0"
-  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/7a6da5e3e7ad7c749dde806546a35d4d4259d965"
+  resolved "https://registry.yarnpkg.com/bootstrap-scss/-/bootstrap-scss-4.5.0.tgz#c1e48d4050dec7885cc9acfc61d3df7827a134ca"
+  integrity sha512-6vCW3JBfOW7v9EQwyV0kWdEyvk2hf7U8TIojRgz19/nJoJGe8BQa1L/Tk7B0wmKEqHR/lA93Lhp+dLRphZt3vg==
+
+bootstrap@bootstrap-scss#4.x:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.2.tgz#a85c4eda59155f0d71186b6e6ad9b875813779ab"
+  integrity sha512-vlGn0bcySYl/iV+BGA544JkkZP5LB3jsmkeKLFQakCOwCM3AOk7VkldBz4jrzSe+Z0Ezn99NVXa1o45cQY4R6A==
 
 commander@2:
   version "2.20.3"
