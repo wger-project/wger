@@ -2,9 +2,15 @@
 # yarn lockfile v1
 
 
-Sortable@RubaXa/Sortable#1.4.x:
-  version "1.4.2"
-  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/51337f72792525e438680695e223b327b1648e0a"
+"@types/jquery@^2.0.32":
+  version "2.0.54"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.54.tgz#d7999245f77c3fab5d84e7d32b8a6c20bfd1f072"
+  integrity sha512-D/PomKwNkDfSKD13DEVQT/pq2TUjN54c6uB341fEZanIzkjfGe7UaFuuaLZbpEiS5j7Wk2MUHAZqZIoECw29lg==
+
+Sortable@RubaXa/Sortable#1.10.2:
+  version "1.10.2"
+  uid "2addddd67387b6e4b6b5e51806eb698f0a3eee88"
+  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/2addddd67387b6e4b6b5e51806eb698f0a3eee88"
 
 bootstrap@twbs/bootstrap#4.x:
   version "4.5.0"
@@ -15,9 +21,10 @@ commander@2:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
-components-font-awesome@components/font-awesome#5.13.x:
-  version "5.13.1"
-  resolved "https://codeload.github.com/components/font-awesome/tar.gz/7689f740772e9ce3db04e41455a48474e6afc1f1"
+components-font-awesome@components/font-awesome#5.14.0:
+  version "5.14.0"
+  uid "75afe9bc19a5944b4700e723e0646a8efb4591a1"
+  resolved "https://codeload.github.com/components/font-awesome/tar.gz/75afe9bc19a5944b4700e723e0646a8efb4591a1"
 
 d3-array@1, d3-array@^1.2.0:
   version "1.2.4"
@@ -358,8 +365,9 @@ d3@^4:
     d3-voronoi "1.1.2"
     d3-zoom "1.7.1"
 
-d3@mbostock-bower/d3-bower#>=4:
+d3@mbostock-bower/d3-bower#>=5:
   version "0.0.0"
+  uid c15b85ce115be200bd4ca473f97fcd0bb43bba07
   resolved "https://codeload.github.com/mbostock-bower/d3-bower/tar.gz/c15b85ce115be200bd4ca473f97fcd0bb43bba07"
 
 datatables@DataTables/DataTables#1.10.x:
@@ -368,10 +376,12 @@ datatables@DataTables/DataTables#1.10.x:
   dependencies:
     jquery ">=1.7"
 
-devbridge-autocomplete@devbridge/jQuery-Autocomplete#1.2.x:
-  version "1.2.27"
-  resolved "https://codeload.github.com/devbridge/jQuery-Autocomplete/tar.gz/062811cd42f35a25c667223334226872dc4011e8"
+devbridge-autocomplete@devbridge/jQuery-Autocomplete#v1.4.11:
+  version "1.4.11"
+  uid "9b30e414dd8b87e1831f9f28870b88d646f3553c"
+  resolved "https://codeload.github.com/devbridge/jQuery-Autocomplete/tar.gz/9b30e414dd8b87e1831f9f28870b88d646f3553c"
   dependencies:
+    "@types/jquery" "^2.0.32"
     jquery ">=1.7"
 
 font-awesome@^4.3.0:

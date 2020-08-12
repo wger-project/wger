@@ -8,9 +8,9 @@ wheel
 # Application
 bleach~=3.1
 django-bootstrap-breadcrumbs~=0.9
-django-formtools~=2.0
+django-formtools~=2.2
 django-recaptcha==2.0.6
-Django~=3.0
+Django~=3.1
 django-crispy-forms~=1.9
 django_compressor~=2.4
 django_extensions~=2.1
@@ -21,7 +21,7 @@ icalendar==4.0.3
 invoke==0.17
 pillow~=7.2
 python-mimeparse
-reportlab==3.5.21
+reportlab==3.5.47
 matplotlib>=3.1
 requests
 setuptools>=18.5
@@ -43,7 +43,7 @@ djangorestframework~=3.11
 # Explicitly set versions as a workaround for CI/Devel.
 # This is just intended to make life easier, has no deeper meaning and
 # can be removed if needed.
-docutils<0.16,>=0.10  # for botocore
+docutils>=0.10,<0.17  # for botocore
 six>=1.12.0  # for django-compressor
 
 
