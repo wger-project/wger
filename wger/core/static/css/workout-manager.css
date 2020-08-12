@@ -21,10 +21,26 @@
  *
  **************************************************************/
 
-#main {
-  background-color: #fff;
+/* sticky footer */
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
+body {
+  margin-bottom: 4rem !important; /* Margin bottom by footer height */
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem; /* Set the fixed height of the footer here */
+}
+
+
+/*
 #main-footer {
   background: none repeat scroll 0% 0% #eee;
   border-top: 1px solid #e5e5e5;
@@ -32,6 +48,7 @@
   padding-top: 1em;
   padding-bottom: 1em;
 }
+*/
 
 /*
  * Images in links are vertically aligned
