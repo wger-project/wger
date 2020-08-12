@@ -144,12 +144,9 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         """
         Test the equipment overview cache is correctly generated on visit
         """
-        if self.is_mobile:
-            self.client.get(reverse('exercise:equipment:overview'))
-        else:
-            self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
-            self.client.get(reverse('exercise:equipment:overview'))
-            self.assertTrue(cache.get(get_template_cache_name('equipment-overview', 2)))
+        self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
+        self.client.get(reverse('exercise:equipment:overview'))
+        self.assertTrue(cache.get(get_template_cache_name('equipment-overview', 2)))
 
     def test_equipmet_cache_update(self):
         """

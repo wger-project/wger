@@ -26,7 +26,7 @@ div.bmi-legend {
 <script>
 $(document).ready(function () {
 
-    wgerRenderBodyMassIndex({% if request.user_agent.is_mobile %}$('#content').width() * 0.95{% endif %});
+    wgerRenderBodyMassIndex();
 
     /*
      * Process the form

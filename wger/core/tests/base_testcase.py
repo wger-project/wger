@@ -120,7 +120,6 @@ class BaseTestCase(object):
                 'test-schedules')
     current_user = 'anonymous'
     current_password = ''
-    is_mobile = False
 
     def setUp(self):
         """
