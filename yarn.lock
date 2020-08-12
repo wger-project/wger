@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@types/jquery@^2.0.32":
+  version "2.0.54"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.54.tgz#d7999245f77c3fab5d84e7d32b8a6c20bfd1f072"
+  integrity sha512-D/PomKwNkDfSKD13DEVQT/pq2TUjN54c6uB341fEZanIzkjfGe7UaFuuaLZbpEiS5j7Wk2MUHAZqZIoECw29lg==
+
 Sortable@RubaXa/Sortable#1.10.2:
   version "1.10.2"
   uid "2addddd67387b6e4b6b5e51806eb698f0a3eee88"
@@ -370,10 +375,12 @@ datatables@DataTables/DataTables#1.10.x:
   dependencies:
     jquery ">=1.7"
 
-devbridge-autocomplete@devbridge/jQuery-Autocomplete#1.2.x:
-  version "1.2.27"
-  resolved "https://codeload.github.com/devbridge/jQuery-Autocomplete/tar.gz/062811cd42f35a25c667223334226872dc4011e8"
+devbridge-autocomplete@devbridge/jQuery-Autocomplete#v1.4.11:
+  version "1.4.11"
+  uid "9b30e414dd8b87e1831f9f28870b88d646f3553c"
+  resolved "https://codeload.github.com/devbridge/jQuery-Autocomplete/tar.gz/9b30e414dd8b87e1831f9f28870b88d646f3553c"
   dependencies:
+    "@types/jquery" "^2.0.32"
     jquery ">=1.7"
 
 font-awesome@^4.3.0:
