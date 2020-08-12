@@ -108,6 +108,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
                             <li><a class="dropdown-item" href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
+                            <li><a class="dropdown-item" href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
                             <li class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
                             <li><a class="dropdown-item" href="{% url 'software:license' %}">{% trans "License" %} </a></li>
@@ -129,24 +130,6 @@
                                     {% trans "Translate with Transifex" %}
                                 </a>
                             </li>
-                        </ul>
-                    </li>
-
-                    {#                     #}
-                    {# Options and contact #}
-                    {#                     #}
-                    <li class="dropdown nav-item">
-                        <a href=""
-                           class="dropdown-toggle nav-link"
-                           data-toggle="dropdown">{% trans "Options" %} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-
-                            {# Contact #}
-                            <li><a class="dropdown-item" href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'core:about' %}">{% trans "About" %}</a></li>
-
-                            {# Language #}
-                            <li><a class="dropdown-item" href="#language-options" data-toggle="modal">{% trans "Language" %}</a></li>
                         </ul>
                     </li>
                 </ul>
