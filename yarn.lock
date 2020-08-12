@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-Sortable@RubaXa/Sortable#1.4.x:
-  version "1.4.2"
-  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/51337f72792525e438680695e223b327b1648e0a"
+Sortable@RubaXa/Sortable#1.10.2:
+  version "1.10.2"
+  uid "2addddd67387b6e4b6b5e51806eb698f0a3eee88"
+  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/2addddd67387b6e4b6b5e51806eb698f0a3eee88"
 
 bootstrap@twbs/bootstrap#4.x:
   version "4.5.0"
