@@ -37,8 +37,8 @@ To start everything up again:
 To remove all containers (except for the postgres volume)
 
     docker-compose -f extras/docker/compose/docker-compose.yml down
-    
-To view the application's log: 
+
+To view the application's log:
 
     docker-compose -f extras/docker/compose/docker-compose.yml logs -f
 
@@ -47,8 +47,8 @@ To view the application's log:
 You might need to issue other commands or do other manual work in the container,
 e.g.
 
-     docker-compose -f extras/docker/compose/docker-compose.yml exec web python3 manage.py bower install
-     docker-compose -f extras/docker/compose/docker-compose.yml exec web /bin/bash
+     docker-compose -f extras/docker/compose/docker-compose.yml exec web yarn install
+     docker-compose -f extras/docker/compose/docker-compose.yml exec --user root web /bin/bash
 
 
 ## Building

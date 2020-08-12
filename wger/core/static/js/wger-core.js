@@ -213,9 +213,10 @@ function wgerInitTinymce() {
       mode: 'textareas',
       theme: 'silver',
       width: '100%',
-      height: '200',
+
       entity_encoding: 'raw',
-      menu: {},
+      plugins: "lists",
+      menubar: false,
       toolbar: 'undo redo | bold italic | bullist numlist '
     });
   }
@@ -326,7 +327,7 @@ function wgerFormModalDialog() {
     $('#ajax-info-title').html('Loading...');
     $('#wger-ajax-info').modal('show');
 
-    $ajaxInfoContent.load(targetUrl + ' .form-horizontal',
+    $ajaxInfoContent.load(targetUrl + ' .wger-form',
       function (responseText, textStatus, XMLHttpRequest) {
         var $ajaxInfoTitle;
         var modalTitle;
@@ -362,7 +363,7 @@ function wgerFormModalDialog() {
         // If there isn't assume all was saved correctly and load that result into the
         // page's main DIV (#main-content). All this must be done like this because there
         // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
-        if ($(responseText).find('.form-horizontal').length > 0) {
+        if ($(responseText).find('.wger-form').length > 0) {
           modalDialogFormEdit();
         }
       });
@@ -679,7 +680,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     downloadInfo = $('#pdf-download-info');
-    downloadType = $('input[name="pdf_type"]:checked').val();
+    downloadType = $('select[name="pdf_type"]').val();
     downloadImages = $('#id_images').is(':checked') ? 1 : 0;
     downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
 

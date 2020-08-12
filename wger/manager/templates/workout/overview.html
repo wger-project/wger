@@ -9,15 +9,15 @@
     <div class="list-group">
         {% for workout in workouts %}
             <a href="{{ workout.get_absolute_url }}" class="list-group-item">
-                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                <span class="glyphicon glyphicon-chevron-right float-right"></span>
 
                 {% if workout == current_workout %}
-                <span class="badge">
+                <span class="badge badge-primary float-right">
                     <em>{% trans "active" %}</em>
                 </span>
                 {% endif %}
 
-                <h4 class="list-group-item-heading">{{ workout }}</h4>
+                <p class="list-group-item-heading h5">{{ workout }}</p>
                 <p class="list-group-item-text">{{ workout.creation_date }}</p>
             </a>
         {% empty %}

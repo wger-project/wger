@@ -19,7 +19,10 @@ import logging
 
 # Django
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import UpdateView
 
 # wger
@@ -38,6 +41,7 @@ class ConfigUpdateView(WgerFormMixin, UpdateView):
     model = GymAdminConfig
     fields = '__all__'
     permission_required = 'gym.change_gymadminconfig'
+    title = ugettext_lazy('Configuration')
 
     def get_success_url(self):
         """

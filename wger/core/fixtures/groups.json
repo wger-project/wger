@@ -323,12 +323,12 @@
             "permissions": [
                 [
                     "add_log",
-                    "email",
+                    "mailer",
                     "log"
                 ],
                 [
                     "change_log",
-                    "email",
+                    "mailer",
                     "log"
                 ],
                 [

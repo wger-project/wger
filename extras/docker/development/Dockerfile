@@ -34,6 +34,7 @@ RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_devel.txt
 ########
 FROM wger/base:2.0-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
+ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
 
@@ -48,8 +49,7 @@ RUN chmod +x /home/wger/entrypoint.sh
 RUN pip3 install --no-cache /wheels/* \
     && pip3 install psycopg2-binary \
     && pip3 install django-redis \
-    && python3 setup.py develop \
-    && npm install -g bower
+    && python3 setup.py develop
 
 RUN chown -R wger:wger .
 

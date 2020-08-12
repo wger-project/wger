@@ -1,0 +1,46 @@
+name: Build and push Docker images
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build base image
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        repository: wger/base
+        dockerfile: extras/docker/base/Dockerfile
+        tags: latest,2.0-dev
+        tag_with_ref: true
+
+    - name: Build dev image
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        repository: wger/devel
+        dockerfile: extras/docker/development/Dockerfile
+        tags: latest,2.0-dev
+        tag_with_ref: true
+
+    - name: Build apache image
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        repository: wger/apache
+        dockerfile: extras/docker/apache/Dockerfile
+        tags: latest,2.0-dev
+        tag_with_ref: true

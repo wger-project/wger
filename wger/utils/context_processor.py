@@ -92,9 +92,6 @@ def processor(request):
     elif '/workout/' in request.get_full_path():
         context['active_tab'] = constants.WORKOUT_TAB
 
-    else:
-        context['active_tab'] = constants.USER_TAB
-
     return context
 
 

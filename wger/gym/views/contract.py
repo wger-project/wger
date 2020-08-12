@@ -25,7 +25,6 @@ from django.contrib.auth.mixins import (
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -39,10 +38,7 @@ from django.views.generic import (
 
 # wger
 from wger.gym.models import Contract
-from wger.utils.generic_views import (
-    UAAwareViewMixin,
-    WgerFormMixin
-)
+from wger.utils.generic_views import WgerFormMixin
 
 
 logger = logging.getLogger(__name__)
@@ -105,15 +101,6 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
         form.instance.user = self.request.user
         return super(AddView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(AddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('gym:contract:add',
-                                         kwargs={'user_pk': self.kwargs['user_pk']})
-        return context
-
 
 class DetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     """
@@ -145,7 +132,6 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     model = Contract
     fields = '__all__'
     permission_required = 'gym.change_contract'
-    form_action_urlname = 'gym:contract:edit'
 
     def dispatch(self, request, *args, **kwargs):
         """
@@ -169,7 +155,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         return context
 
 
-class ListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available admin notes
     """

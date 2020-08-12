@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load wger_extras %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block title %}{% trans "Preview imported CSV entries" %}{% endblock %}
 
@@ -62,14 +61,12 @@ entries that were successfully converted. All entries that produced an error
 will simply be ignored. It's up to you to decide whether they are useful
 (unrecognised entries) or not (e.g. headers, comments, etc.).{% endblocktrans %}</p>
 
-<form action="{{form_action}}"
-      method="post"
-      class="form-horizontal">
+<form action="{{request.get_full_path}}" method="post">
 
     <input type="hidden" name="{{ stage_field }}" value="2" />
     <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
-    {% trans 'Import' as submit_text %}
-    {% render_form_fields form submit_text %}
+    {% crispy form %}
+    <input type="submit" name="submit" value="{% trans 'Import' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 
 
@@ -79,13 +76,13 @@ will simply be ignored. It's up to you to decide whether they are useful
 <p>{% blocktrans %}You can correct the list here and re-submit it as often as
 you want.{% endblocktrans %}</p>
 
-<form action="{{form_action}}"
+<form action="{{request.get_full_path}}"
       method="post"
       class="form">
 
     <input type="hidden" name="{{ stage_field }}" value="1" />
-    {% trans 'Re-Submit' as submit_text %}
-    {% render_form_fields form submit_text %}
+    {% crispy form %}
+    <input type="submit" name="submit" value="{% trans 'Re-Submit' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 
 {% endblock %}

@@ -26,7 +26,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.context_processors import csrf
 from django.urls import (
     reverse,
@@ -63,10 +66,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
-from wger.utils.helpers import (
-    make_token,
-    ua_aware_render
-)
+from wger.utils.helpers import make_token
 
 
 logger = logging.getLogger(__name__)
@@ -88,7 +88,7 @@ def overview(request):
     template_data['workouts'] = workouts
     template_data['current_workout'] = current_workout
 
-    return ua_aware_render(request, 'workout/overview.html', template_data)
+    return render(request, 'workout/overview.html', template_data)
 
 
 @vary_on_headers('User-Agent')
@@ -138,7 +138,7 @@ def view(request, pk):
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
 
-    return ua_aware_render(request, 'workout/view.html', template_data)
+    return render(request, 'workout/view.html', template_data)
 
 
 @login_required
@@ -215,12 +215,11 @@ def copy_workout(request, pk):
         template_data.update(csrf(request))
         template_data['title'] = _('Copy workout')
         template_data['form'] = workout_form
-        template_data['form_action'] = reverse('manager:workout:copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
         template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
 
-        return ua_aware_render(request, 'form.html', template_data)
+        return render(request, 'form.html', template_data)
 
 
 @login_required
@@ -247,9 +246,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:workout:delete', kwargs={'pk': self.object.id})
         context['title'] = _(u'Delete {0}?').format(self.object)
-
         return context
 
 
@@ -260,12 +257,10 @@ class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
     model = Workout
     form_class = WorkoutForm
-    form_action_urlname = 'manager:workout:edit'
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutEditView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
-
         return context
 
 
@@ -388,14 +383,8 @@ def timer(request, day_pk):
     # the current one or create a new one (this will be the most usual case)
     if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
         session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
-        url = reverse('manager:session:edit', kwargs={'pk': session.pk})
         session_form = WorkoutSessionHiddenFieldsForm(instance=session)
     else:
-        today = datetime.date.today()
-        url = reverse('manager:session:add', kwargs={'workout_pk': day.training_id,
-                                                     'year': today.year,
-                                                     'month': today.month,
-                                                     'day': today.day})
         session_form = WorkoutSessionHiddenFieldsForm()
 
     # Render template
@@ -404,7 +393,6 @@ def timer(request, day_pk):
     context['canonical_day'] = canonical_day
     context['workout'] = day.training
     context['session_form'] = session_form
-    context['form_action'] = url
     context['weight_units'] = WeightUnit.objects.all()
     context['repetition_units'] = RepetitionUnit.objects.all()
-    return ua_aware_render(request, 'workout/timer.html', context)
+    return render(request, 'workout/timer.html', context)

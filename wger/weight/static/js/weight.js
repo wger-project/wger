@@ -56,7 +56,7 @@ $(document).ready(function () {
   username = $('#current-username').data('currentUsername');
   url = '/weight/api/get_weight_data/' + username;
 
-  d3.json(url, function (json) {
+  d3.json(url).then(function (json) {
     var data;
     if (json.length) {
       data = MG.convert.date(json, 'date');

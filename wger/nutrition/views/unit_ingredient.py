@@ -68,13 +68,6 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
     title = ugettext_lazy('Add a new weight unit')
     permission_required = 'nutrition.add_ingredientweightunit'
 
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(WeightUnitIngredientCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition:unit_ingredient:add',
-                                         kwargs={'ingredient_pk': self.kwargs['ingredient_pk']})
-        return context
-
     def get_success_url(self):
         return reverse('nutrition:ingredient:view', kwargs={'id': self.kwargs['ingredient_pk']})
 
@@ -108,7 +101,6 @@ class WeightUnitIngredientUpdateView(WgerFormMixin,
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Edit a weight unit to ingredient connection')
-    form_action_urlname = 'nutrition:unit_ingredient:edit'
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
@@ -140,7 +132,6 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin,
     model = IngredientWeightUnit
     fields = ('unit', 'gram', 'amount')
     title = ugettext_lazy('Delete?')
-    form_action_urlname = 'nutrition:unit_ingredient:delete'
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):

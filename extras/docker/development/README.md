@@ -24,21 +24,14 @@ it is self-contained)
 
 When developing with windows, you might have problems with the `--volume` option,
 use the more verbose mount instead:
- 
+
     --mount type=bind,source='"C:\your\path\to your\checkout"',target=/home/wger/src
-
-### 2 - Download additional files
-
-On the first run, you need to download some CSS and JS files with bower (
-as well as every time there are updates):
-
-     docker exec -ti wger.devel python3 manage.py bower install
 
 You might also want to download the exercise images (will take some time):
 
     docker exec -ti wger.devel python3 manage.py download-exercise-images
 
-### 3 - Open the Application
+### 2 - Open the Application
 
 Just open <http://localhost:8000> and log in as: **admin**, password **admin**
 
@@ -49,6 +42,13 @@ To stop the container:
 To start developing again:
 
 ```sudo docker container start --attach wger.devel```
+
+### 3 - Other commands
+
+If you need to update the CSS/JS libraries or just issue some other command:
+
+     docker exec -ti wger.devel yarn
+     docker exec -ti wger.devel /bin/bash
 
 ## Building
 

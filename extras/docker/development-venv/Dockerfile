@@ -66,8 +66,6 @@ RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
-    && npm install \
-    && npm install bower \
     && wger create_settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite \

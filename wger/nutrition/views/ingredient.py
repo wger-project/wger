@@ -29,11 +29,11 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
-from django.urls import (
-    reverse,
-    reverse_lazy
+from django.shortcuts import (
+    get_object_or_404,
+    render
 )
+from django.urls import reverse_lazy
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -51,11 +51,9 @@ from wger.nutrition.models import Ingredient
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
-from wger.utils.helpers import ua_aware_render
 from wger.utils.language import (
     load_ingredient_languages,
     load_language
@@ -68,7 +66,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
-class IngredientListView(UAAwareViewMixin, ListView):
+class IngredientListView(ListView):
     """
     Show an overview of all ingredients
     """
@@ -111,7 +109,7 @@ def view(request, id, slug=None):
                                                   'unit': None})
     template_data['show_shariff'] = True
 
-    return ua_aware_render(request, 'ingredient/view.html', template_data)
+    return render(request, 'ingredient/view.html', template_data)
 
 
 class IngredientDeleteView(WgerDeleteMixin,
@@ -142,9 +140,6 @@ class IngredientDeleteView(WgerDeleteMixin,
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
         context['title'] = _(u'Delete {0}?').format(self.object)
-        context['form_action'] = reverse('nutrition:ingredient:delete',
-                                         kwargs={'pk': self.object.id})
-
         return context
 
 
@@ -172,7 +167,6 @@ class IngredientEditView(IngredientMixin, LoginRequiredMixin, PermissionRequired
     """
 
     model = Ingredient
-    form_action_urlname = 'nutrition:ingredient:edit'
     permission_required = 'nutrition.change_ingredient'
 
     def get_context_data(self, **kwargs):
@@ -209,8 +203,7 @@ class IngredientCreateView(IngredientMixin, CreateView):
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
 
 
-class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin,
-                                UAAwareViewMixin, ListView):
+class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     List all ingredients pending review
     """

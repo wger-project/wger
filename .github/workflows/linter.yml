@@ -46,15 +46,9 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: docker://github/super-linter:v2.2.2
+        uses: docker://github/super-linter:v3.5.1
         env:
-          # Note: python was removed from validation because there seemed to
-          # be a problem with custom pylintrc files. If this bug is solved,
-          # python linting can be activated again (obviously!)
-          VALIDATE_PYTHON: false
-
-          # When setting a single validation option, all others are set to
-          # false. So re-enable all the languages sed in the project.
+          VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_MD: true
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_JSON: true

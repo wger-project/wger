@@ -39,16 +39,14 @@ indent_size = 2
 indent_size = 2
 
 #
-# Structured text
+# Structured text and Markdown
 #
 [*.md]
 trim_trailing_whitespace = false
+indent_size = 2
 
 [*.rst]
-indent_size = 8
-
-[CHANGES.md]
-indent_size = 2
+indent_size = 4
 
 #
 # Makefiles

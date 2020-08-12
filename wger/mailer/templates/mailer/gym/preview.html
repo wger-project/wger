@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs crispy_forms_tags %}
+
+{% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+
+    {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% breadcrumb "Emails" "email:email:overview" gym.pk %}
+    {% breadcrumb "Add" "email:email:add-gym" gym.pk %}
+{% endblock %}
+
+
+{% block content %}
+
+<h3>{% trans 'Current version' %}</h3>
+<form action="{{ request.get_full_path }}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="{{ stage_field }}" value="2" />
+    <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
+    <input type="hidden" name="body" value="{{ form.cleaned_data.body }}" />
+    <input type="hidden" name="subject" value="{{ form.cleaned_data.subject }}" />
+
+    <div class="row">
+        <div class="col-md-3 text-right">
+            {% trans 'Subject' context 'As in "email subject"' %}
+        </div>
+        <div class="col-md-9">
+            {{ form.cleaned_data.subject }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 text-right" style="white-space: pre-line;">
+            {% trans 'Content' context 'As in "content of an email"' %}
+        </div>
+        <div class="col-md-9" style="white-space: pre-line;">
+            {{ form.cleaned_data.body }}
+        </div>
+    </div>
+    <div class="row" style="margin-top: 1em;">
+        <input type="submit" name="submit" value="{% trans 'Send emails' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+    </div>
+</form>
+
+<h3>{% trans 'Correction' %}</h3>
+<form action="{{ request.get_full_path }}"
+      method="post"
+      class="wger-form">
+    {% crispy form %}
+    <input type="submit" name="submit" value="{% trans 'Correction' %}" class="btn btn-primary btn-success btn-block" id="submit-id-correction">
+
+</form>
+{% endblock %}
+
+{% block sidebar %}
+<h4>{% trans "Steps" %}</h4>
+<ol>
+    <li>{% trans "Fill in the form" %}</li>
+    <li>{% trans "You will receive a preview email for you to review" %}</li>
+    <li>{% trans "You can update and correct the content as often as you need before sending the emails" %}</li>
+</ol>
+{% endblock %}

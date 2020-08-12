@@ -1,12 +1,12 @@
-﻿Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
-application that manages your exercises and personal workouts, weight and diet
-plans. It can also be used as a simple gym management utility, providing different
-administrative roles (trainer, manager, etc.). It offers a REST API as well, for
-easy integration with other projects and tools.
+﻿wger
+====
 
-It is written with python/django and uses jQuery and some D3js for charts.
+wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that help
+you manage your personal workouts, weight and diet plans and can also be used
+as a simple gym management utility. It offers a REST API as well, for easy
+integration with other projects and tools.
 
-For more details and a live system, refer to the project's site: https://wger.de/
+For a live system, refer to the project's site: https://wger.de/
 
 
 Installation
@@ -15,8 +15,7 @@ Installation
 These are the basic steps to install and run the application locally on a Linux
 system. There are more detailed instructions, other deployment options as well
 as an administration guide available at https://wger.readthedocs.io or locally
-in your code repository in the docs folder (``make html`` to compile, then open
-_build/index.html).
+in your code repository in the docs folder.
 
 Please consult the commands' help for further information and available
 parameters.
@@ -26,7 +25,7 @@ Docker
 ------
 
 Useful to just try it out. Check the documentation on how to use the wger/devel
-docker image for development::
+docker image or the docker-compose file for development::
 
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 
@@ -45,12 +44,13 @@ and stable state.
 ::
 
  $ sudo apt-get install python3-dev nodejs npm git
+ $ sudo npm install -g yarn
 
 
 Then install the python packages from pypi in the virtualenv::
 
- $ python3 -m venv venv-django
- $ source venv-django/bin/activate
+ $ python3 -m venv venv-wger
+ $ source venv-wger/bin/activate
 
 
 2) Start the application. This will download the required JS and CSS libraries
@@ -60,10 +60,7 @@ Then install the python packages from pypi in the virtualenv::
 
  $ git clone https://github.com/wger-project/wger.git
  $ cd wger
- $ pip install --upgrade pip
- $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ npm install
- $ npm install bower
+ $ pip install -r requirements.txt
  $ python setup.py develop
  $ wger create_settings \
         --settings-path /path/to/current/folder/settings.py \
@@ -75,7 +72,7 @@ Then install the python packages from pypi in the virtualenv::
 
 3) Log in as: **admin**, password **admin**
 
-After the first run you can just use django's development server::
+After the first run you just start django's development server::
 
  $ python manage.py runserver
 
@@ -88,8 +85,9 @@ Stable version (from PyPI)
 ::
 
  $ sudo apt-get install python3-dev nodejs npm git
- $ python3 -m venv venv-django
- $ source venv-django/bin/activate
+ $ sudo npm install -g yarn
+ $ python3 -m venv venv-wger
+ $ source venv-wger/bin/activate
  $ pip install wger
 
 
@@ -137,8 +135,6 @@ file a bug anyway.
 * **gitter:** https://gitter.im/wger-project/wger
 * **issue tracker:** https://github.com/wger-project/wger/issues
 * **twitter:** https://twitter.com/wger_de
-* **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
-  no registration needed
 
 
 Sources

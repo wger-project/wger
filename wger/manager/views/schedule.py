@@ -26,7 +26,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.urls import (
     reverse,
     reverse_lazy
@@ -52,6 +55,7 @@ from reportlab.platypus import (
 )
 
 # wger
+from wger.manager.forms import WorkoutScheduleDownloadForm
 from wger.manager.helpers import render_workout_day
 from wger.manager.models import Schedule
 from wger.utils.generic_views import (
@@ -60,8 +64,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import (
     check_token,
-    make_token,
-    ua_aware_render
+    make_token
 )
 from wger.utils.pdf import (
     render_footer,
@@ -82,7 +85,7 @@ def overview(request):
     template_data['schedules'] = (Schedule.objects
                                   .filter(user=request.user)
                                   .order_by('-is_active', '-start_date'))
-    return ua_aware_render(request, 'schedule/overview.html', template_data)
+    return render(request, 'schedule/overview.html', template_data)
 
 
 @vary_on_headers('User-Agent')
@@ -113,8 +116,9 @@ def view(request, pk):
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
+    template_data['download_form'] = WorkoutScheduleDownloadForm()
 
-    return ua_aware_render(request, 'schedule/view.html', template_data)
+    return render(request, 'schedule/view.html', template_data)
 
 
 def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):
@@ -273,7 +277,6 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     fields = '__all__'
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
-    form_action = reverse_lazy('manager:schedule:add')
 
     def form_valid(self, form):
         """set the submitter"""
@@ -292,7 +295,6 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     model = Schedule
     fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
-    form_action_urlname = 'manager:schedule:delete'
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
@@ -311,7 +313,6 @@ class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
 
     model = Schedule
     fields = '__all__'
-    form_action_urlname = 'manager:schedule:edit'
 
     def get_context_data(self, **kwargs):
         """

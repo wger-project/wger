@@ -33,6 +33,7 @@ def filter_dump(data, model_list, filename):
     with open(filename, 'w') as outfile:
         json.dump(filter_data, outfile, indent=4)
 
+
 # This is a full dump of the DB
 fixture = open('data.json')
 data = json.load(fixture)

@@ -42,7 +42,6 @@ from wger.config.models import LanguageConfig
 from wger.exercises.models import Equipment
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
-    UAAwareViewMixin,
     WgerDeleteMixin,
     WgerFormMixin
 )
@@ -56,7 +55,7 @@ Exercise equipment
 """
 
 
-class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, UAAwareViewMixin, ListView):
+class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Generic view to list all equipments
     """
@@ -83,9 +82,6 @@ class EquipmentEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
     def get_context_data(self, **kwargs):
         context = super(EquipmentEditView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object)
-        context['form_action'] = reverse('exercise:equipment:edit',
-                                         kwargs={'pk': self.object.id})
-
         return context
 
 
@@ -100,15 +96,6 @@ class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(EquipmentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:equipment:add')
-
-        return context
-
 
 class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
@@ -118,13 +105,14 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
     model = Equipment
     fields = ('name',)
     messages = ugettext_lazy('Successfully deleted')
+    title = ugettext_lazy('Delete equipment?')
     permission_required = 'exercises.delete_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
     def get_context_data(self, **kwargs):
-        """
+        '''
         Send some additional data to the template
-        """
+        '''
         pk = self.kwargs['pk']
         context = super(EquipmentDeleteView, self).get_context_data(**kwargs)
 
@@ -135,7 +123,7 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
         return context
 
 
-class EquipmentOverviewView(UAAwareViewMixin, ListView):
+class EquipmentOverviewView(ListView):
     """
     Overview with all exercises, group by equipment
     """

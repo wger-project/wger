@@ -25,7 +25,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
-from django.shortcuts import get_object_or_404
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.context_processors import csrf
 from django.urls import (
     reverse,
@@ -64,8 +67,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import (
     check_token,
-    make_token,
-    ua_aware_render
+    make_token
 )
 from wger.utils.language import load_language
 from wger.utils.pdf import styleSheet
@@ -87,7 +89,7 @@ def overview(request):
     plans = NutritionPlan.objects.filter(user=request.user)
     template_data['plans'] = plans
 
-    return ua_aware_render(request, 'plan/overview.html', template_data)
+    return render(request, 'plan/overview.html', template_data)
 
 
 @login_required
@@ -112,7 +114,6 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
     success_url = reverse_lazy('nutrition:plan:overview')
-    form_action_urlname = 'nutrition:plan:delete'
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
@@ -131,7 +132,6 @@ class PlanEditView(WgerFormMixin, UpdateView):
 
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
-    form_action_urlname = 'nutrition:plan:edit'
 
     def get_context_data(self, **kwargs):
         """
@@ -178,7 +178,7 @@ def view(request, id):
     template_data['is_owner'] = is_owner
     template_data['show_shariff'] = is_owner
 
-    return ua_aware_render(request, 'plan/view.html', template_data)
+    return render(request, 'plan/view.html', template_data)
 
 
 @login_required

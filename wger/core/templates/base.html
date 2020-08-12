@@ -1,4 +1,4 @@
-{% extends request.user_agent.is_mobile|yesno:"mobile/template.html,template.html" %}
+{% extends "template.html" %}
 {% load i18n wger_extras django_bootstrap_breadcrumbs %}
 
 {% block template %}
@@ -21,12 +21,13 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-12 col-md-8">
         <h2 id="page-title" class="page-header">
             {% block title %}{% endblock %}
         </h2>
+        <hr>
     </div>
-    <div class="col-sm-4" style="padding-top: 15px; padding-bottom: 15px;">
+    <div class="col-md-4 py-4">
         <div class="btn-group">
 
             {% block options %}
@@ -48,7 +49,7 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 
 
 <div class="row">
-    <div class="col-sm-8" id="main-content">
+    <div class="col-md-8" id="main-content">
         {% if messages and not no_messages %}
             {% for message in messages %}
                 <div class="alert {% if message.tags == 'warning'%}alert-error{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
@@ -58,13 +59,13 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
             {% endfor %}
         {% endif %}
 
-        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap4.html" %}
 
         <div id="content">
         {% block content %}{% endblock %}
         </div>
     </div>
-    <div class="col-sm-4" id="main-sidebar">
+    <div class="col-md-4" id="main-sidebar">
         {% block sidebar %}
         {% endblock %}
     </div>

@@ -22,11 +22,8 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin
 )
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
-from django.utils.translation import ugettext as _
+from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy
 from django.views.generic import UpdateView
 
 # wger
@@ -47,17 +44,10 @@ class LanguageConfigUpdateView(WgerFormMixin,
     model = LanguageConfig
     fields = ['show']
     permission_required = 'config.change_languageconfig'
+    title = ugettext_lazy('Edit')
 
     def get_success_url(self):
         """
         Return to the language page
         """
         return reverse_lazy('core:language:view', kwargs={'pk': self.object.language_id})
-
-    def get_context_data(self, **kwargs):
-        context = super(LanguageConfigUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('config:language_config:edit',
-                                         kwargs={'pk': self.object.id})
-        context['title'] = _('Edit')
-
-        return context

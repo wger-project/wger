@@ -34,18 +34,16 @@ $(function() {
 -->
 {% block content %}
 {% cache cache_timeout equipment-overview language.id %}
-<div class="panel-group" id="accordion">
+<div class="accordion">
     {% for equipment in equipment_list %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{equipment.pk}}">
-                    {% trans equipment.name %}
-                </a>
-            </h4>
+    <div class="card">
+        <div class="card-header" id="header-{{equipment.pk}}">
+            <button class="btn  btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{equipment.pk}}" aria-expanded="true" aria-controls="collapse-{{equipment.pk}}">
+                {% trans equipment.name %}
+            </button>
         </div>
-        <div id="collapse-{{equipment.pk}}" class="panel-collapse collapse">
-            <div class="panel-body">
+        <div class="collapse" id="collapse-{{equipment.pk}}" >
+            <div class="card-body">
                 <div class="list-group">
                     {% for exercise in equipment.exercise_set.all %}
                     {% if exercise.language in exercise_languages %}
@@ -66,7 +64,7 @@ $(function() {
                             {% endif %}
                             </div>
                             <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
-                                <h4 class="media-heading">{{ exercise.name }}</h4>
+                                <p class="media-heading h5">{{ exercise.name }}</p>
                                 <span class="text-muted">
                                     {% trans exercise.category.name %}
                                     <!--

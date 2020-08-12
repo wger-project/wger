@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 #
 # wger Workout Manager documentation build configuration file, created by
 # sphinx-quickstart on Mon Dec  1 22:22:02 2014.
