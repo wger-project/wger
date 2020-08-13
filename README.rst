@@ -62,12 +62,8 @@ Then install the python packages from pypi in the virtualenv::
  $ cd wger
  $ pip install -r requirements.txt
  $ python setup.py develop
- $ wger create_settings \
-        --settings-path /path/to/current/folder/settings.py \
-        --database-path /path/to/current/folder/database.sqlite
- $ wger bootstrap \
-        --settings-path /path/to/current/folder/settings.py \
-        --no-start-server
+ $ wger create_settings --settings-path $(pwd)/settings.py --database-path $(pwd)/database.sqlite
+ $ wger bootstrap --settings-path $(pwd)/settings.py --no-start-server
  $ python manage.py runserver
 
 3) Log in as: **admin**, password **admin**
