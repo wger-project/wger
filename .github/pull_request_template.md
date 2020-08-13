@@ -1,19 +1,15 @@
-Fixes issue #
-
 ### Proposed Changes
 
   -
   -
   -
 
-
 ### Please check that the PR fulfills these requirements
 
 - [ ] Tests for the changes have been added (for bug fixes / features)
-- [ ] Code has been linted with with flake8 (``flake8 --config .github/linters/.flake8``)
+- [ ] New python code has been linted with with flake8 (``flake8 --config .github/linters/.flake8``)
 and isort (``isort``) 
 - [ ] Added yourself to AUTHORS.rst
-
 
 ### Other questions
 
