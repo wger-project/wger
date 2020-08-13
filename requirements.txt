@@ -17,7 +17,7 @@ django_extensions~=2.1
 django-sortedm2m~=3.0
 django-storages~=1.7
 easy-thumbnails~=2.7
-icalendar==4.0.3
+icalendar==4.0.6
 invoke==0.17
 pillow~=7.2
 python-mimeparse
