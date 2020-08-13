@@ -194,8 +194,7 @@ $(document).ready(function() {
 
 
 
-
-{% cache cache_timeout exercise-detail-muscles exercise.id language.id %}
+{% cache cache_timeout exercise-detail-muscles cache_vary_on %}
 {% with muscles=exercise.muscles.all %}
 {% with muscles_secondary=exercise.muscles_secondary.all %}
 

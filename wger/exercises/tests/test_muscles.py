@@ -15,6 +15,7 @@
 
 # Django
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.urls import reverse
 
 # wger
@@ -27,7 +28,6 @@ from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase
 )
 from wger.exercises.models import Muscle
-from wger.utils.cache import get_template_cache_name
 
 
 class MuscleRepresentationTestCase(WorkoutManagerTestCase):
@@ -125,9 +125,9 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
         Test the muscle overview cache is correctly generated on visit
         """
 
-        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
         self.client.get(reverse('exercise:muscle:overview'))
-        self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.assertTrue(cache.get(make_template_fragment_key('muscle-overview', [2])))
 
 
 class MuscleOverviewTestCase(WorkoutManagerAccessTestCase):

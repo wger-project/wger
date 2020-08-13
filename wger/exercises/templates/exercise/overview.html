@@ -82,6 +82,8 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
+    {% empty %}
+        <p>{% trans "No categories." %} {% trans "Use link to create one" %}</p>
     {% endfor %}
 </div>
 {% endcache %}

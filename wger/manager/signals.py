@@ -61,7 +61,7 @@ def reset_muscle_cache(sender, instance, **kwargs):
     for exercise in exercises:
         for language in languages:
             delete_template_fragment_cache('exercise-detail-muscles',
-                                           exercise.id, language.id)
+                                           "{}-{}".format(exercise.id, language.id))
 
 
 post_save.connect(reset_muscle_cache, sender=Muscle)
