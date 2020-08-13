@@ -22,7 +22,7 @@
     "components-font-awesome": "components/font-awesome#5.14.0",
     "d3": "mbostock-bower/d3-bower#>=5",
     "datatables": "DataTables/DataTables#1.10.x",
-    "devbridge-autocomplete": "devbridge/jQuery-Autocomplete#v1.4.11",
+    "devbridge-autocomplete": "^1.4.11",
     "jquery": "jquery/jquery-dist#2.x",
     "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
     "shariff": "heiseonline/shariff#1.24.1",
