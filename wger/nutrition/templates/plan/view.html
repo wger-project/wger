@@ -66,7 +66,7 @@ function wgerCustomModalInit()
     <tr>
         <td {% if meal.mealitem_set.count %}rowspan="{{meal.mealitem_set.count}}"{% endif %}>
             <strong>
-            {% trans "Nr."%} {{ forloop.parentloop.counter }}
+            {% trans "Nr."%} {{ forloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
             </strong>
 
