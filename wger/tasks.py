@@ -109,6 +109,7 @@ def bootstrap(context,
 
     # Download JS and CSS libraries
     context.run("yarn install")
+    context.run("sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css")
 
     # Start the webserver
     if start_server:

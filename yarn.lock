@@ -9,18 +9,11 @@
 
 Sortable@RubaXa/Sortable#1.10.2:
   version "1.10.2"
-  uid "2addddd67387b6e4b6b5e51806eb698f0a3eee88"
   resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/2addddd67387b6e4b6b5e51806eb698f0a3eee88"
 
-bootstrap-scss@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/bootstrap-scss/-/bootstrap-scss-4.5.0.tgz#c1e48d4050dec7885cc9acfc61d3df7827a134ca"
-  integrity sha512-6vCW3JBfOW7v9EQwyV0kWdEyvk2hf7U8TIojRgz19/nJoJGe8BQa1L/Tk7B0wmKEqHR/lA93Lhp+dLRphZt3vg==
-
-bootstrap@bootstrap-scss#4.x:
+bootstrap@twbs/bootstrap#4.x:
   version "4.5.2"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.2.tgz#a85c4eda59155f0d71186b6e6ad9b875813779ab"
-  integrity sha512-vlGn0bcySYl/iV+BGA544JkkZP5LB3jsmkeKLFQakCOwCM3AOk7VkldBz4jrzSe+Z0Ezn99NVXa1o45cQY4R6A==
+  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/5f2480a90ab911babc53039835fe78c6fc12646d"
 
 commander@2:
   version "2.20.3"
@@ -29,7 +22,6 @@ commander@2:
 
 components-font-awesome@components/font-awesome#5.14.0:
   version "5.14.0"
-  uid "75afe9bc19a5944b4700e723e0646a8efb4591a1"
   resolved "https://codeload.github.com/components/font-awesome/tar.gz/75afe9bc19a5944b4700e723e0646a8efb4591a1"
 
 d3-array@1, d3-array@^1.2.0:
@@ -373,7 +365,6 @@ d3@^4:
 
 d3@mbostock-bower/d3-bower#>=5:
   version "0.0.0"
-  uid c15b85ce115be200bd4ca473f97fcd0bb43bba07
   resolved "https://codeload.github.com/mbostock-bower/d3-bower/tar.gz/c15b85ce115be200bd4ca473f97fcd0bb43bba07"
 
 datatables@DataTables/DataTables#1.10.x:
@@ -384,7 +375,6 @@ datatables@DataTables/DataTables#1.10.x:
 
 devbridge-autocomplete@devbridge/jQuery-Autocomplete#v1.4.11:
   version "1.4.11"
-  uid "9b30e414dd8b87e1831f9f28870b88d646f3553c"
   resolved "https://codeload.github.com/devbridge/jQuery-Autocomplete/tar.gz/9b30e414dd8b87e1831f9f28870b88d646f3553c"
   dependencies:
     "@types/jquery" "^2.0.32"
