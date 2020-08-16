@@ -146,8 +146,8 @@ $(document).ready(function() {
         <div class="card">
                 <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
                 <div class="card-body">
-                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
-                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
+                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-light btn-sm">{% trans "Accept" %}</a>
+                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-light btn-sm">{% trans "Decline" %}</a>
                     <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
                  </div>
             </div>

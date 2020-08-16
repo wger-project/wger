@@ -33,11 +33,11 @@ the search.{% endblocktrans %}
 
 {% if perms.nutrition.add_ingredient %}
 <div class="btn-group btn-group-justified" role="group">
-    <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-default">
+    <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-light">
         <span class="{% fa_class 'check' %}"></span>
         {% trans "Accept" %}
     </a>
-    <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-default">
+    <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-light">
         <span class="{% fa_class 'times' %}"></span>
         {% trans "Decline" %}
     </a>
@@ -190,7 +190,7 @@ the search.{% endblocktrans %}
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
                 <div class="dropdown float-right">
-                    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
