@@ -18,6 +18,7 @@ import json
 # Django
 from django.core import mail
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.urls import reverse
 
 # wger
@@ -31,10 +32,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     Muscle
 )
-from wger.utils.cache import (
-    cache_mapper,
-    get_template_cache_name
-)
+from wger.utils.cache import cache_mapper
 
 
 class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
@@ -419,14 +417,9 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         """
         Test the exercise overview cache is correctly generated on visit
         """
-        if self.is_mobile:
-            self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-            self.client.get(reverse('exercise:exercise:overview'))
-            self.assertTrue(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
-        else:
-            self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
-            self.client.get(reverse('exercise:exercise:overview'))
-            self.assertTrue(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
+        self.client.get(reverse('exercise:exercise:overview'))
+        self.assertTrue(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
     def test_exercise_detail(self):
         """
@@ -439,19 +432,16 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         performing certain operations
         """
         self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
-        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('muscle-overview-mobile', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('muscle-overview-search', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
+        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview-search', [2])))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
         self.client.get(reverse('exercise:exercise:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         old_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
-        old_muscle_overview = cache.get(get_template_cache_name('muscle-overview', 2))
-        old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
-        old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
-                                                                         2))
+        old_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
+        old_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
         exercise = Exercise.objects.get(pk=2)
         exercise.name = 'Very cool exercise 2'
@@ -460,53 +450,47 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         exercise.save()
 
         self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
-        self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
         self.client.get(reverse('exercise:exercise:overview'))
         self.client.get(reverse('exercise:muscle:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         new_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
-        new_muscle_overview = cache.get(get_template_cache_name('muscle-overview', 2))
-        new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
-        new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
-                                                                         2))
+        new_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
+        new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
-        if not self.is_mobile:
-            self.assertNotEqual(old_exercise_bg, new_exercise_bg)
-            self.assertNotEqual(old_exercise_overview, new_exercise_overview)
-            self.assertNotEqual(old_muscle_overview, new_muscle_overview)
-        else:
-            self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
+        self.assertNotEqual(old_exercise_bg, new_exercise_bg)
+        self.assertNotEqual(old_exercise_overview, new_exercise_overview)
+        self.assertNotEqual(old_muscle_overview, new_muscle_overview)
 
     def test_muscles_cache_update_on_delete(self):
         """
         Test that the template cache for the overview is correctly reset when
         performing certain operations
         """
-        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.assertTrue(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
 
         muscle = Muscle.objects.get(pk=2)
         muscle.delete()
-        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
 
     def test_muscles_cache_update_on_update(self):
         """
         Test that the template cache for the overview is correctly reset when
         performing certain operations
         """
-        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-        self.assertTrue(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.assertTrue(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
 
         muscle = Muscle.objects.get(pk=2)
         muscle.name = 'foo'
         muscle.save()
-        self.assertFalse(cache.get(get_template_cache_name('exercise-detail-muscles', 2, 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
 
 
 class WorkoutCacheTestCase(WorkoutManagerTestCase):

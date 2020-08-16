@@ -34,7 +34,7 @@ $(function() {
 -->
 {% block content %}
 {% cache cache_timeout equipment-overview language.id %}
-<div class="accordion">
+<div class="accordion" id="equipmentAccordion">
     {% for equipment in equipment_list %}
     <div class="card">
         <div class="card-header" id="header-{{equipment.pk}}">
@@ -42,30 +42,25 @@ $(function() {
                 {% trans equipment.name %}
             </button>
         </div>
-        <div class="collapse" id="collapse-{{equipment.pk}}" >
+        <div class="collapse" id="collapse-{{equipment.pk}}" data-parent="#equipmentAccordion">
             <div class="card-body">
                 <div class="list-group">
                     {% for exercise in equipment.exercise_set.all %}
                     {% if exercise.language in exercise_languages %}
                     <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                         <div class="media">
-                            <div style="width:60px;height:60px;" class="media-left">
-
                             {% if exercise.main_image %}
                                 <img alt="{{ exercise.name }}"
-                                 class="media-object "
-                                 style="max-width:100%; max-height:100%;"
+                                 class="mr-3"
                                  src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
                             {% else %}
                             <img alt="{% trans 'Placeholder image for exercise' %}"
-                                 class="media-object "
-                                 style="max-width:100%; max-height:100%; opacity: 0.4;"
+                                 class="mr-3"
                                  src="{% static 'images/icons/image-placeholder.svg' %}">
                             {% endif %}
-                            </div>
-                            <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
+                            <div class="media-body">
                                 <p class="media-heading h5">{{ exercise.name }}</p>
-                                <span class="text-muted">
+                                <span class="text-muted small">
                                     {% trans exercise.category.name %}
                                     <!--
                                     {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}

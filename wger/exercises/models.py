@@ -144,7 +144,6 @@ class ExerciseCategory(models.Model):
         # Cached template fragments
         for language in Language.objects.all():
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
 
     def delete(self, *args, **kwargs):
         """
@@ -152,7 +151,6 @@ class ExerciseCategory(models.Model):
         """
         for language in Language.objects.all():
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
 
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
@@ -242,7 +240,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
@@ -261,7 +258,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts

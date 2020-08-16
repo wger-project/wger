@@ -16,18 +16,17 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "Sortable": "RubaXa/Sortable#1.4.x",
+    "yarn": "^1.22.4",
+    "Sortable": "RubaXa/Sortable#1.10.2",
     "bootstrap": "twbs/bootstrap#4.x",
-    "bootstrap-scss": "4.5.0",
-    "components-font-awesome": "components/font-awesome#5.13.x",
-    "d3": "mbostock-bower/d3-bower#>=4",
+    "components-font-awesome": "components/font-awesome#5.14.0",
+    "d3": "mbostock-bower/d3-bower#>=5",
     "datatables": "DataTables/DataTables#1.10.x",
-    "devbridge-autocomplete": "devbridge/jQuery-Autocomplete#1.2.x",
+    "devbridge-autocomplete": "devbridge/jQuery-Autocomplete#v1.4.11",
     "jquery": "jquery/jquery-dist#2.x",
     "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
     "shariff": "heiseonline/shariff#1.24.1",
-    "tinymce": "tinymce/tinymce-dist#4.5.x",
-    "yarn": "^1.22.4"
+    "tinymce": "tinymce/tinymce-dist#4.5.x"
   },
   "engines": {
     "yarn": ">= 1.0.0"

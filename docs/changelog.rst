@@ -6,15 +6,15 @@ Changelog
 
 Upgrade steps from 1.9:
 
-* Install ``yarn`` (e.g. ``sudo npm install -g yarn``)
 * Update python libraries ``pip install -r requirements.txt``
+* Install ``yarn`` (e.g. ``sudo npm install -g yarn``)
 * Update CSS and JS libraries ``yarn install``
 * Update static files (only production): ``python manage.py collectstatic``
 
 
 🚀 Features:
 
-* TBA
+* Improved user experience, on desktop and mobile `#337`_
 
 
 🐛 Bug Fixes:
@@ -27,8 +27,11 @@ Upgrade steps from 1.9:
 * Improved docker and docker-compose images `#340`_
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
 * Use yarn to download CSS/JS libraries
+* Improvements to documentation (e.g. `#494`_)
 
+.. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
+.. _#494: https://github.com/wger-project/wger/issues/494
 
 
 

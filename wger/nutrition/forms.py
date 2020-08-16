@@ -212,7 +212,7 @@ class MealItemForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
                                         widget=forms.HiddenInput)
 
-    ingredient_searchfield = forms.CharField()
+    ingredient_searchfield = forms.CharField(required=False)
 
     class Meta:
         model = MealItem

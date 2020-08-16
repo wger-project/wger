@@ -14,6 +14,7 @@
 
 # Django
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.urls import reverse
 
 # wger
@@ -26,7 +27,6 @@ from wger.core.tests.base_testcase import (
     WorkoutManagerTestCase
 )
 from wger.exercises.models import ExerciseCategory
-from wger.utils.cache import get_template_cache_name
 
 
 class ExerciseCategoryRepresentationTestCase(WorkoutManagerTestCase):
@@ -108,29 +108,21 @@ class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('exercise:exercise:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        old_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
-        old_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
-                                                                         2))
+        old_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
         category = ExerciseCategory.objects.get(pk=2)
         category.name = 'Cool category'
         category.save()
 
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview', 2)))
-        self.assertFalse(cache.get(get_template_cache_name('exercise-overview-mobile', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
         self.client.get(reverse('exercise:exercise:overview'))
         self.client.get(reverse('exercise:muscle:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        new_exercise_overview = cache.get(get_template_cache_name('exercise-overview', 2))
-        new_exercise_overview_mobile = cache.get(get_template_cache_name('exercise-overview-mobile',
-                                                                         2))
+        new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
-        if not self.is_mobile:
-            self.assertNotEqual(old_exercise_overview, new_exercise_overview)
-        else:
-            self.assertNotEqual(old_exercise_overview_mobile, new_exercise_overview_mobile)
+        self.assertNotEqual(old_exercise_overview, new_exercise_overview)
 
 
 class ExerciseCategoryApiTestCase(api_base_test.ApiBaseResourceTestCase):

@@ -97,15 +97,12 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.user_login('admin')
         self.dashboard()
 
-    def test_mobile_dashboard(self):
+    def test_dashboard(self):
         """
-        Test that a mobile request gets the mobile view
+        Test that the dashboard has the correct CSS files
         """
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
-
-        if self.is_mobile:
-            self.assertContains(response, 'css/workout-manager-mobile.css', html=False)
-        else:
-            self.assertContains(response, 'css/workout-manager.css', html=False)
+        self.assertContains(response, 'css/workout-manager.css', html=False)
+        self.assertContains(response, 'yarn/bootstrap/dist/css/bootstrap.min.css', html=False)

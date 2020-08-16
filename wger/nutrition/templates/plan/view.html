@@ -39,11 +39,10 @@ function wgerCustomModalInit()
 {#         #}
 {% block content %}
 {% if plan.description %}
-<p>
-    <strong>{% trans "Goal" %}:</strong> {{plan.description}}
-</p>
+    <h4>{{plan.description}}</h4>
 {% endif %}
 
+<div class="table-responsive">
 <table class="table table-bordered">
     <thead>
         <tr style="background: #E0E0E0;">
@@ -151,6 +150,8 @@ function wgerCustomModalInit()
     {% endif %}
     </tbody>
 </table>
+</div>
+
 
 <h4>{% trans "Nutritional data" %}</h4>
 {% if weight_entry %}

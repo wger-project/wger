@@ -40,53 +40,50 @@ $(document).ready(function() {
 
 {% cache cache_timeout exercise-overview language.id %}
 {% regroup exercises by category as exercise_list %}
-<ul class="nav nav-tabs">
+<div class="accordion" id="exerciseAccordion">
     {% for item in exercise_list %}
-    <li class="nav-item" >
-        <a class="nav-link {% if forloop.first %}active{% endif %}"
-           href="#tab-{{ item.grouper.id }}"
-           id="category-{{ item.grouper.id }}"
-           data-toggle="tab">{% trans item.grouper.name %}</a>
-    </li>
-    {% empty %}
-        <li>{% trans "No categories." %} {% trans "Use link to create one" %}</li>
-    {% endfor %}
-</ul>
+    <div class="card">
+        <div class="card-header" id="header-{{item.grouper.id}}">
+            <button class="btn  btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{item.grouper.id}}" aria-expanded="true" aria-controls="collapse-{{equipment.pk}}">
+                {% trans item.grouper.name %}
+            </button>
+        </div>
+        <div class="collapse" id="collapse-{{item.grouper.id}}" data-parent="#exerciseAccordion">
+            <div class="card-body">
+                <div class="list-group">
+                    {% for exercise in item.list|dictsort:"name" %}
+                    <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
+                        <div class="media">
+                            {% if exercise.main_image %}
+                                <img alt="{{ exercise.name }}"
+                                 class="mr-3"
+                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                            {% else %}
+                            <img alt="{% trans 'Placeholder image for exercise' %}"
+                                 class="mr-3"
+                                 src="{% static 'images/icons/image-placeholder.svg' %}">
+                            {% endif %}
+                            <div class="media-body">
+                                <p class="media-heading h5">{{ exercise.name }}</p>
+                                <span class="text-muted small">
 
-<div class="tab-content">
-    {% for item in exercise_list %}
-    <div class="tab-pane {% if forloop.first %}active{% endif %}" id="tab-{{ item.grouper.id }}">
-        <div class="list-group">
-        {% for exercise in item.list|dictsort:"name" %}
-            <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                <div class="media">
-                    {% if exercise.main_image %}
-                        <img alt="{{ exercise.name }}"
-                         class="mr-3"
-                         src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                    {% else %}
-                        <img alt="{% trans 'Placeholder image for exercise' %}"
-                             class="mr-3"
-                             src="{% static 'images/icons/image-placeholder.svg' %}">
-                    {% endif %}
-                    <div class="media-body">
-                        <p class="mt-0 h5">{{ exercise.name }}</p>
-                            {% for equipment in exercise.equipment.all %}
-                                {% trans equipment.name %}
-                                {% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                     </div>
+                                    {{ exercise.equipment.all|join:", " }}
+                                    <!--
+                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
+                                    <br>
+                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
+                                    -->
+                                </span>
+                             </div>
+                        </div>
+                    </a>
+                    {% endfor %}
                 </div>
-            </a>
-        {% empty %}
-            <a href="#" class="list-group-item">
-                <div>
-                    {% trans "No exercises in this category. Add or edit an exercise and set its category" %}
-                </div>
-            </a>
-        {% endfor %}
+            </div>
         </div>
     </div>
+    {% empty %}
+        <p>{% trans "No categories." %} {% trans "Use link to create one" %}</p>
     {% endfor %}
 </div>
 {% endcache %}

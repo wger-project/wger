@@ -15,6 +15,7 @@
 
 # Django
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.urls import reverse
 
 # wger
@@ -29,7 +30,6 @@ from wger.exercises.models import (
     Equipment,
     Exercise
 )
-from wger.utils.cache import get_template_cache_name
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
@@ -144,12 +144,9 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         """
         Test the equipment overview cache is correctly generated on visit
         """
-        if self.is_mobile:
-            self.client.get(reverse('exercise:equipment:overview'))
-        else:
-            self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
-            self.client.get(reverse('exercise:equipment:overview'))
-            self.assertTrue(cache.get(get_template_cache_name('equipment-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
+        self.client.get(reverse('exercise:equipment:overview'))
+        self.assertTrue(cache.get(make_template_fragment_key('equipment-overview', [2])))
 
     def test_equipmet_cache_update(self):
         """
@@ -157,12 +154,12 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         performing certain operations
         """
 
-        self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
 
         self.client.get(reverse('exercise:equipment:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        old_overview = cache.get(get_template_cache_name('equipment-overview', 2))
+        old_overview = cache.get(make_template_fragment_key('equipment-overview', [2]))
 
         exercise = Exercise.objects.get(pk=2)
         exercise.name = 'Very cool exercise 2'
@@ -170,12 +167,12 @@ class EquipmentCacheTestCase(WorkoutManagerTestCase):
         exercise.equipment.add(Equipment.objects.get(pk=2))
         exercise.save()
 
-        self.assertFalse(cache.get(get_template_cache_name('equipment-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
 
         self.client.get(reverse('exercise:equipment:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        new_overview = cache.get(get_template_cache_name('equipment-overview', 2))
+        new_overview = cache.get(make_template_fragment_key('equipment-overview', [2]))
 
         self.assertNotEqual(old_overview, new_overview)
 

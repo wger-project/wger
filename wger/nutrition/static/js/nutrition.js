@@ -100,7 +100,7 @@ function wgerInitIngredientAutocompleter() {
 /*
  * Draw the BMI chart
  */
-function wgerRenderBodyMassIndex(w) {
+function wgerRenderBodyMassIndex() {
   var svg;
   var area;
   var nest;
@@ -120,11 +120,7 @@ function wgerRenderBodyMassIndex(w) {
   d3.selectAll('svg').remove();
 
   // Calculate the size
-  if (typeof w === 'undefined') {
-    widthFactor = 600;
-  } else {
-    widthFactor = w;
-  }
+  widthFactor = 600;
 
   heightFactor = (widthFactor / 600) * 300;
 
