@@ -25,7 +25,7 @@ project. {% endblocktrans %}</p>
 how useful it is! ;) . When you find something that you specially liked,
 could need some improvements or just doesn't work, tell us! This might not sound
 like much, but is incredibly important!{% endblocktrans %}</p>
-<a class="btn btn-secondary mb-4" href="{% url 'core:contact' %}">{% trans "Get in touch" %} »</a>
+<a class="btn btn-light mb-4" href="{% url 'core:contact' %}">{% trans "Get in touch" %} »</a>
 
 
 <h5>{% trans "Submit exercises" %}</h5>
@@ -34,7 +34,7 @@ love and do every week but are not in the list yet. If you think some descriptio
 is too short or some other detail is missing or could be improved, tell!{% endblocktrans %}</p>
 
         {% if user.is_authenticated and not user.userprofile.is_temporary %}
-            <a class="btn btn-secondary mb-4" href="{% url 'exercise:exercise:add' %}">{% trans "Add exercise" %} »</a>
+            <a class="btn btn-light mb-4" href="{% url 'exercise:exercise:add' %}">{% trans "Add exercise" %} »</a>
         {% else %}
             <a class="btn disabled btn-secondary mb-4" href="#">{% trans "Only registered users can do this" %} »</a>
         {% endif %}
@@ -47,7 +47,7 @@ The translations are easily managed and edited online, if you are interested,
 go to the transifex site, request access and we will set everything
 up. {% endblocktrans %}</p>
 
-    <a class="btn btn-secondary mb-4"
+    <a class="btn btn-light mb-4"
        href="https://www.transifex.com/rge/wger-workout-manager/">{% trans "Translate with Transifex" %} »</a>
 
 
@@ -57,7 +57,7 @@ repo and start hacking! Once you are ready, send a pull request and we
 will show the world. Take a look at the developer guide for more details
 on this.{% endblocktrans %}</p>
 
-<a class="btn btn-secondary" href="{% url 'software:code' %}">{% trans "Get the code" %} »</a>
+<a class="btn btn-light" href="{% url 'software:code' %}">{% trans "Get the code" %} »</a>
 {% endblock %}
 
 
