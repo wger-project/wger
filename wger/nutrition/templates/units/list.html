@@ -14,7 +14,7 @@
             <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
-            <div class="dropdown-menu" role="menu">
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <a href="{% url 'nutrition:weight_unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
                 <div class="dropdown-divider"></div>
                 <a href="{% url 'nutrition:weight_unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>

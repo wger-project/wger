@@ -76,9 +76,9 @@
                            rel="nofollow">{% trans "Nutrition" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
                             {% if perms.nutrition %}
                                 <li class="dropdown-divider"></li>
                                 <li class="dropdown-header">{% trans "Administration" %}</li>

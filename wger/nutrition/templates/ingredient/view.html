@@ -131,7 +131,7 @@ the search.{% endblocktrans %}
     <tbody>
         <tr>
             <td style="width:80%;">{% trans "Fibres" %}</td>
-            <td itemprop="fiberContent" id="value-fibres">
+            <td itemprop="fiberContent">
                 {% if ingredient.fibres %}
                     <span id="value-fibres">{{ingredient.fibres}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
@@ -141,9 +141,9 @@ the search.{% endblocktrans %}
         </tr>
         <tr>
             <td>{% trans "Sodium" %}</td>
-            <td itemprop="sodiumContent" id="value-sodium">
+            <td itemprop="sodiumContent">
                 {% if ingredient.sodium %}
-                    <span id="value-fibres">{{ingredient.sodium}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                    <span id="value-sodium">{{ingredient.sodium}}</span> {% trans "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% trans "n.A." %}
                 {% endif %}
@@ -193,7 +193,7 @@ the search.{% endblocktrans %}
                     <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
-                    <div class="dropdown-menu" role="menu">
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
                         <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
                         <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
                     </div>
