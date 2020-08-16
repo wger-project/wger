@@ -33,6 +33,7 @@ from wger.exercises.models import (
     Muscle
 )
 from wger.utils.cache import cache_mapper
+from wger.utils.constants import WORKOUT_TAB
 
 
 class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
@@ -81,7 +82,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
-        self.assertEqual(response.context['active_tab'], 'exercises')
+        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         # Correct categories are shown
         category_1 = response.context['exercises'][0].category
@@ -170,7 +171,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
-        self.assertEqual(response.context['active_tab'], 'exercises')
+        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         # Exercise loaded correct muscles
         exercise_1 = response.context['exercise']
@@ -298,7 +299,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
         # Navigation tab
-        self.assertEqual(response.context['active_tab'], 'exercises')
+        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         exercise_1 = Exercise.objects.get(pk=exercise_id)
         self.assertEqual(exercise_1.name, 'my Test Exercise')

@@ -37,7 +37,7 @@ from wger.manager.models import (
     WorkoutSession
 )
 from wger.utils.cache import cache_mapper
-
+from wger.utils.constants import WORKOUT_TAB
 
 logger = logging.getLogger(__name__)
 
@@ -181,7 +181,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
 
         # All access OK, since user 1 has ro_access = True
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['active_tab'], 'workout')
+        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
         self.assertEqual(response.context['workout'].id, 1)
 
         # Open the log entry page
