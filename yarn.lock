@@ -376,10 +376,10 @@ datatables@DataTables/DataTables#1.10.x:
   dependencies:
     jquery ">=1.7"
 
-devbridge-autocomplete@devbridge/jQuery-Autocomplete#v1.4.11:
+devbridge-autocomplete@^1.4.11:
   version "1.4.11"
-  uid "9b30e414dd8b87e1831f9f28870b88d646f3553c"
-  resolved "https://codeload.github.com/devbridge/jQuery-Autocomplete/tar.gz/9b30e414dd8b87e1831f9f28870b88d646f3553c"
+  resolved "https://registry.yarnpkg.com/devbridge-autocomplete/-/devbridge-autocomplete-1.4.11.tgz#05424a675711a9c3ad118c98de0a22180944b00f"
+  integrity sha512-lRU1y9IKyPm45NKDMcujszJoftw+wqxKbtcNJoMx+LywJQJdDwjg/s4lwLYR4vyQQ6VTcUaIeveLMkZTqorBIA==
   dependencies:
     "@types/jquery" "^2.0.32"
     jquery ">=1.7"
