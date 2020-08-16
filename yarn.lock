@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@fortawesome/fontawesome-free@^5.8.2":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz#a371e91029ebf265015e64f81bfbf7d228c9681f"
+  integrity sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==
+
 "@types/jquery@^2.0.32":
   version "2.0.54"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.54.tgz#d7999245f77c3fab5d84e7d32b8a6c20bfd1f072"
@@ -384,11 +389,6 @@ devbridge-autocomplete@^1.4.11:
     "@types/jquery" "^2.0.32"
     jquery ">=1.7"
 
-font-awesome@^4.3.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
-  integrity sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=
-
 iconv-lite@0.4:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -396,15 +396,10 @@ iconv-lite@0.4:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-jquery@>=1.7:
+jquery@>=1.7, jquery@^3.4.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
   integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
-
-jquery@^1.11.2:
-  version "1.12.4"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
-  integrity sha1-AeHfuikP5z3rp3zurLD5ui/sngw=
 
 jquery@jquery/jquery-dist#2.x:
   version "2.2.4"
@@ -426,12 +421,13 @@ rw@1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-shariff@heiseonline/shariff#1.24.1:
-  version "1.24.1"
-  resolved "https://codeload.github.com/heiseonline/shariff/tar.gz/51153c199b58b7684e694b0b97cf41b75bb1dda9"
+shariff@heiseonline/shariff#3.2.1:
+  version "3.2.1"
+  uid e990102d0ed26763522e3044e309985c60ef529f
+  resolved "https://codeload.github.com/heiseonline/shariff/tar.gz/e990102d0ed26763522e3044e309985c60ef529f"
   dependencies:
-    font-awesome "^4.3.0"
-    jquery "^1.11.2"
+    "@fortawesome/fontawesome-free" "^5.8.2"
+    jquery "^3.4.1"
 
 tinymce@tinymce/tinymce-dist#4.5.x:
   version "4.5.12"
