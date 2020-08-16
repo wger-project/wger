@@ -62,7 +62,7 @@ class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     model = Equipment
     fields = '__all__'
-    template_name = 'equipment/list.html'
+    template_name = 'equipment/admin-overview.html'
     context_object_name = 'equipment_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
     permission_required = 'exercises.change_equipment'
