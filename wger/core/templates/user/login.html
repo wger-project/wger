@@ -15,7 +15,7 @@
 {% block sidebar %}
 <h4>{% trans "No account?" %}</h4>
 <p>
-    <a href="{% url 'core:user:registration' %}" class="btn btn-block btn-default">
+    <a href="{% url 'core:user:registration' %}">
         <span class="{% fa_class 'sign-in-alt' %}"></span>
         {% trans "Register" %}
     </a>
@@ -23,7 +23,7 @@
 
 <h4>{% trans "Forgot password?" %}</h4>
 <p>
-    <a href="{% url 'core:user:password_reset' %}" class="btn btn-block btn-default">
+    <a href="{% url 'core:user:password_reset' %}" >
         <span class="{% fa_class 'key' %}"></span>
         {% trans "Reset password" %}
     </a>
