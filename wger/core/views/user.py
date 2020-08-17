@@ -318,7 +318,11 @@ def preferences(request):
             form.save()
             redirect = True
     else:
-        form = UserPreferencesForm(instance=request.user.userprofile)
+        data = {'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email}
+
+        form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
 
     # Process the email form
     if request.method == 'POST':
@@ -329,11 +333,8 @@ def preferences(request):
             redirect = True
         else:
             redirect = False
-    else:
-        email_form = UserPersonalInformationForm(instance=request.user)
 
     template_data['form'] = form
-    template_data['email_form'] = email_form
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
