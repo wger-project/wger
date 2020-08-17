@@ -51,56 +51,52 @@ $(document).ready(function() {
 {% cache cache_timeout muscle-overview language.id %}
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
-<div class="row">
-    <div class="col-sm-4 col-xs-6">
-        <h4 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h4>
-        <div id="muscle-system"
-             class="muscle-background"
-             style="background-image: url('{% static "images/muscles/muscular_system_front.svg" %}');">
-        </div>
-    </div>
-    <div class="col-sm-4 col-xs-6">
+<div class="row mt-3">
+    <div class="col-sm-4 col-6">
         {# Why do we need to use |first? #}
         {% regroup muscle_list|first by is_front as muscle_group %}
         {% for group in muscle_group %}
             {% if group.grouper %}
                 <h4>{% trans "Front side" %}</h4>
             {% else %}
-                <h4>{% trans "Back side" %}</h4>
+                <h4 class="mt-3">{% trans "Back side" %}</h4>
             {% endif %}
 
-            <ul class="muscle-list">
-            {% for muscle in group.list %}
-            <li class="muscle"
-                data-target="muscle-{{muscle.id}}"
-                data-is-front="{{muscle.is_front}}"
-                data-name="{{muscle.name}}"
-                itemscope itemtype="http://schema.org/Muscle">
-                <span itemprop="name">{{muscle.name}}</span>
-            </li>
-            {% endfor %}
+            <ul class="list-group muscle-list">
+                {% for muscle in group.list %}
+                <li class="muscle list-group-item py-1 py-md-2"
+                    data-target="muscle-{{muscle.id}}"
+                    data-is-front="{{muscle.is_front}}"
+                    data-name="{{muscle.name}}"
+                    itemscope itemtype="http://schema.org/Muscle">
+                    <span itemprop="name">{{muscle.name}}</span>
+                </li>
+                {% endfor %}
             </ul>
         {% endfor %}
     </div>
-    <div class="col-sm-4 col-xs-12">
+    <div class="col-sm-4 col-6">
         {% for muscle in muscle_list|first %}
             <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
                 <h4>{% trans "Exercises" %}</h4>
-                <ul class="exercise-overview">
+                <div class="list-group exercise-overview">
                     {% for exercise in muscle.exercise_set.select_related %}
                     {% if exercise.language in active_languages %}
-                    <li class="exercise">
-                        <a href="{{exercise.get_absolute_url}}">{{exercise}}</a>
-                    </li>
+                        <a class="exercise list-group-item list-group-item-action py-1 py-md-2" href="{{exercise.get_absolute_url}}">{{exercise}}</a>
                     {% endif %}
                     {% empty %}
-                    <li>
                         <em>{% trans "No exercises that mainly train this muscle" %}</em>
-                    </li>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         {% endfor %}
+    </div>
+    <div class="col-sm-4">
+        <h4 style="padding-bottom:0.5em;">{% trans "Muscles" %}</h4>
+        <div id="muscle-system"
+             class="muscle-background"
+             style="background-image: url('{% static "images/muscles/muscular_system_front.svg" %}');">
+        </div>
     </div>
 </div>
 {% endcache %}

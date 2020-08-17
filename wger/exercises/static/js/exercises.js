@@ -34,12 +34,12 @@ function wgerHighlightMuscle(element) {
 
   // Reset all other highlighted muscles
   $muscle = $('.muscle');
-  $muscle.removeClass('muscle-active');
-  $muscle.addClass('muscle-inactive');
+  $muscle.removeClass('active');
+  $muscle.addClass('inactive');
 
   // Highlight the current one
-  $(element).removeClass('muscle-inactive');
-  $(element).addClass('muscle-active');
+  $(element).removeClass('inactive');
+  $(element).addClass('active');
 
   // Set the corresponding background
   $('#muscle-system').css('background-image',
