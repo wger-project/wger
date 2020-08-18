@@ -19,6 +19,10 @@ import json
 from django.core import mail
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
+from django.template import (
+    Context,
+    Template
+)
 from django.urls import reverse
 
 # wger
@@ -432,7 +436,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         Test that the template cache for the overview is correctly reseted when
         performing certain operations
         """
-        self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
         self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
         self.assertFalse(cache.get(make_template_fragment_key('muscle-overview-search', [2])))
         self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
@@ -440,7 +443,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('exercise:exercise:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        old_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
         old_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
         old_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
@@ -450,7 +452,6 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         exercise.muscles_secondary.add(Muscle.objects.get(pk=2))
         exercise.save()
 
-        self.assertFalse(cache.get(cache_mapper.get_exercise_muscle_bg_key(2)))
         self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
         self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
@@ -458,11 +459,9 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.client.get(reverse('exercise:muscle:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        new_exercise_bg = cache.get(cache_mapper.get_exercise_muscle_bg_key(2))
         new_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
         new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
-        self.assertNotEqual(old_exercise_bg, new_exercise_bg)
         self.assertNotEqual(old_exercise_overview, new_exercise_overview)
         self.assertNotEqual(old_muscle_overview, new_muscle_overview)
 
@@ -492,6 +491,136 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         muscle.name = 'foo'
         muscle.save()
         self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
+
+
+class MuscleTemplateTagTest(WorkoutManagerTestCase):
+
+    def test_render_main_muscles(self):
+        """
+        Test that the tag renders only the main muscles
+        """
+
+        context = Context({'muscles': Muscle.objects.get(pk=2)})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles %}'
+        )
+        rendered_template = template.render(context)
+        self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
+        self.assertNotIn('images/muscles/secondary/', rendered_template)
+        self.assertIn('images/muscles/muscular_system_back.svg', rendered_template)
+
+    def test_render_main_muscles_empty_secondary(self):
+        """
+        Test that the tag works when giben main muscles and empty secondary ones
+        """
+
+        context = Context({"muscles": Muscle.objects.get(pk=2),
+                           "muscles_sec": []})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles muscles_sec %}'
+        )
+        rendered_template = template.render(context)
+        self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
+        self.assertNotIn('images/muscles/secondary/', rendered_template)
+        self.assertIn('images/muscles/muscular_system_back.svg', rendered_template)
+
+    def test_render_secondary_muscles(self):
+        """
+        Test that the tag renders only the secondary muscles
+        """
+
+        context = Context({'muscles': Muscle.objects.get(pk=1)})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles_sec=muscles %}'
+        )
+        rendered_template = template.render(context)
+        self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
+        self.assertNotIn('images/muscles/main/', rendered_template)
+        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
+
+    def test_render_secondary_muscles_empty_primary(self):
+        """
+        Test that the tag works when given secondary muscles and empty main ones
+        """
+
+        context = Context({'muscles_sec': Muscle.objects.get(pk=1),
+                           'muscles': []})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles muscles_sec %}'
+        )
+        rendered_template = template.render(context)
+        self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
+        self.assertNotIn('images/muscles/main/', rendered_template)
+        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
+
+    def test_render_secondary_muscles_list(self):
+        """
+        Test that the tag works when given a list for secondary muscles and empty main ones
+        """
+
+        context = Context({'muscles_sec': Muscle.objects.filter(is_front=True),
+                           'muscles': []})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles muscles_sec %}'
+        )
+        rendered_template = template.render(context)
+        self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
+        self.assertNotIn('images/muscles/secondary/muscle-2.svg', rendered_template)
+        self.assertNotIn('images/muscles/secondary/muscle-3.svg', rendered_template)
+        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
+        self.assertNotIn('images/muscles/muscular_system_back.svg', rendered_template)
+
+    def test_render_muscle_list(self):
+        """
+        Test that the tag works when given a list for main and secondary muscles
+        """
+
+        context = Context({'muscles_sec': Muscle.objects.filter(id__in=[5, 6]),
+                           'muscles': Muscle.objects.filter(id__in=[1, 4])})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles muscles_sec %}'
+        )
+        rendered_template = template.render(context)
+        self.assertIn('images/muscles/main/muscle-1.svg', rendered_template)
+        self.assertNotIn('images/muscles/main/muscle-2.svg', rendered_template)
+        self.assertNotIn('images/muscles/main/muscle-3.svg', rendered_template)
+        self.assertIn('images/muscles/main/muscle-4.svg', rendered_template)
+        self.assertIn('images/muscles/secondary/muscle-5.svg', rendered_template)
+        self.assertIn('images/muscles/secondary/muscle-6.svg', rendered_template)
+        self.assertIn('images/muscles/muscular_system_front.svg', rendered_template)
+        self.assertNotIn('images/muscles/muscular_system_back.svg', rendered_template)
+
+    def test_render_empty(self):
+        """
+        Test that the tag works when given empty input
+        """
+
+        context = Context({'muscles': [],
+                           'muscles_sec': []})
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles muscles muscles_sec %}'
+        )
+        rendered_template = template.render(context)
+        self.assertEqual(rendered_template, "\n\n")
+
+    def test_render_no_parameters(self):
+        """
+        Test that the tag works when given no parameters
+        """
+
+        template = Template(
+            '{% load wger_extras %}'
+            '{% render_muscles %}'
+        )
+        rendered_template = template.render(Context({}))
+        self.assertEqual(rendered_template, "\n\n")
 
 
 class WorkoutCacheTestCase(WorkoutManagerTestCase):
