@@ -1,0 +1,4 @@
+{% load static %}
+<div class="muscle-background mx-auto"
+     style="background-image: {% for background in backgrounds %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
+</div>
