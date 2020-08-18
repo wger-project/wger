@@ -69,11 +69,11 @@ $(document).ready(function() {
 {% endif %} {# end exercise is pending review #}
 
 
-<h5>{% trans "Category" %}:</h5>
+<h5 class="mt-4">{% trans "Category" %}:</h5>
 {% trans exercise.category.name %}
 
 {% if exercise.equipment.all %}
-    <h5>{% trans "Equipment" %}:</h5>
+    <h5 class="mt-4">{% trans "Equipment" %}:</h5>
     {% for equipment in exercise.equipment.all %}
         {% trans equipment.name %}
         {% if not forloop.last %}, {% endif %}
@@ -195,10 +195,7 @@ $(document).ready(function() {
 
 
 {% cache cache_timeout exercise-detail-muscles cache_vary_on %}
-{% with muscles=exercise.muscles.all %}
-{% with muscles_secondary=exercise.muscles_secondary.all %}
-
-{% if muscles %}
+{% if muscles_main_front or muscles_main_back %}
     <h5 class="mt-4">{% trans "Muscles" %}:</h5>
     <p>
         {% trans "The diagram shows the most used muscles on this exercise" %}
@@ -214,43 +211,31 @@ $(document).ready(function() {
 
     <div class="row ">
         <div class="col">
-            <div id="muscle-front" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
+            {% render_muscles muscles_main_front muscles_sec_front %}
             <ul class="list-unstyled">
-                {% for muscle in muscles %}
-                    {% if muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+                {% for muscle in muscles_main_front %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                    {% if muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+                {% for muscle in muscles_sec_front %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
             </ul>
         </div>
         <div class="col">
-            <div id="muscle-back" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
+            {% render_muscles muscles_main_back muscles_sec_back %}
             <ul class="list-unstyled">
-                {% for muscle in muscles %}
-                    {% if not muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+                {% for muscle in muscles_main_back %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                    {% if not muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+                {% for muscle in muscles_sec_back %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 {% endif %}
-{% endwith %}
-{% endwith %} {# end musclelist #}
 {% endcache %}
 
 {% if logs %}

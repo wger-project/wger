@@ -111,22 +111,32 @@ def license_sidebar(license, author=None):
 
 
 @register.inclusion_tag('tags/muscles.html')
-def render_muscles(muscles_main, muscles_sec=None):
+def render_muscles(muscles=None, muscles_sec=None):
     """
     Renders the given muscles
     """
-    out_main = muscles_main if isinstance(muscles_main, (list, tuple, QuerySet)) else [muscles_main]
-    muscles_sec = muscles_sec if muscles_sec is not None else []
+    if not muscles and not muscles_sec:
+        return {"empty": True}
 
-    out_sec = muscles_sec if isinstance(muscles_sec, (list, tuple, QuerySet)) else [muscles_sec]
-    front_back = "front" if out_main[0].is_front else "back"
-    backgrounds_main = ["images/muscles/main/muscle-{}.svg".format(i.id) for i in out_main]
-    backgrounds_sec = ["images/muscles/secondary/muscle-{}.svg".format(i.id) for i in out_sec]
-    backgrounds = backgrounds_main + backgrounds_sec
-    backgrounds.append("images/muscles/muscular_system_{}.svg".format(front_back))
+    out_main = []
+    if muscles:
+        out_main = muscles if isinstance(muscles, (list, tuple, QuerySet)) else [muscles]
 
-    return {"backgrounds": backgrounds}
+    out_sec = []
+    if muscles_sec:
+        out_sec = muscles_sec if isinstance(muscles_sec, (list, tuple, QuerySet)) else [muscles_sec]
 
+    try:
+        front_back = "front" if out_main[0].is_front else "back"
+    except IndexError:
+        front_back = "front" if out_sec[0].is_front else "back"
+
+    backgrounds = ["images/muscles/main/muscle-{}.svg".format(i.id) for i in out_main] \
+        + ["images/muscles/secondary/muscle-{}.svg".format(i.id) for i in out_sec] \
+        + ["images/muscles/muscular_system_{}.svg".format(front_back)]
+
+    return {"backgrounds": backgrounds,
+            "empty": False}
 
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)
