@@ -17,6 +17,7 @@
 # Django
 from django import template
 from django.conf import settings
+from django.db.models import QuerySet
 from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
@@ -107,6 +108,25 @@ def license_sidebar(license, author=None):
 
     return {'license': license,
             'author': author}
+
+
+@register.inclusion_tag('tags/muscles.html')
+def render_muscles(muscles_main, muscles_sec=None):
+    """
+    Renders the given muscles
+    """
+    out_main = muscles_main if isinstance(muscles_main, (list, tuple, QuerySet)) else [muscles_main]
+    muscles_sec = muscles_sec if muscles_sec is not None else []
+
+    out_sec = muscles_sec if isinstance(muscles_sec, (list, tuple, QuerySet)) else [muscles_sec]
+    front_back = "front" if out_main[0].is_front else "back"
+    backgrounds_main = ["images/muscles/main/muscle-{}.svg".format(i.id) for i in out_main]
+    backgrounds_sec = ["images/muscles/secondary/muscle-{}.svg".format(i.id) for i in out_sec]
+    backgrounds = backgrounds_main + backgrounds_sec
+    backgrounds.append("images/muscles/muscular_system_{}.svg".format(front_back))
+
+    return {"backgrounds": backgrounds}
+
 
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)
