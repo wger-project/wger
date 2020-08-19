@@ -222,10 +222,6 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Download as PDF" %}
             </a>
-            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
             {% if is_owner %}
                 <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
                    <span class="{% fa_class 'edit' %}"></span>
