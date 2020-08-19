@@ -94,16 +94,6 @@ div.muscle-background {
   padding-left: 1em;
 }
 
-/**************************************************************
- * Workout log
- **************************************************************/
-
-/*
- * Workout log entry page needs the horizontal space
- */
-.workout-log-table .narrow-input {
-  width: 7em;
-}
 
 /**************************************************************
  * Mouse hover options
@@ -134,51 +124,12 @@ tbody tr:hover td .editoptions {
   background-color: transparent;
 }
 
-/**************************************************************
- * Header
- **************************************************************/
-
-/*
- * Add a shadow to the application name
- */
-header h1 {
-  text-shadow: 2px 3px 3px #292929;
-  font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-}
-
-header a,
-header a:hover,
-header a:focus {
-  color: white;
-  font-size: 90%;
-}
-
-header span.name {
-  text-shadow: 2px 3px 3px #292929;
-  font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 350%;
-  color: white;
-}
-
-header span.regular {
-  text-shadow: 2px 3px 3px #292929;
-  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 350%;
-  color: white;
-}
 
 /*
  * Make more space for the page title
  */
 #page-title {
   margin-top: 0.5em;
-}
-
-#content-wrapper {
-  padding-top: 0.8em;
 }
 
 /*
@@ -242,14 +193,6 @@ div.info a:active {
   font-weight: 300;
 }
 
-/**************************************************************
- * Set edit window
- **************************************************************/
-#slider {
-  width: 91%;
-  float: right;
-  margin-right: 1em;
-}
 
 /**************************************************************
  * Carousel on the feature page
@@ -260,11 +203,4 @@ div.info a:active {
   left: auto;
   right: auto;
   bottom: auto;
-}
-
-/**************************************************************
- * 'Your ...' shoutouts on the feature page
- **************************************************************/
-#shoutout h2:first-child {
-  margin-top: 0;
 }
