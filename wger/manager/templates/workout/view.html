@@ -218,16 +218,16 @@ an appointment for each training day with the appropriate exercises.{% endblockt
             {% trans "Options" %}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupWorkout">
-            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
             {% if is_owner %}
                 <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
                    <span class="{% fa_class 'edit' %}"></span>
                    {% trans "Edit workout" %}
                 </a>
             {% endif %}
+            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Download as PDF" %}
+            </a>
             <a class="dropdown-item" data-toggle="modal" data-target="#export-ical-popup">
                <span class="{% fa_class 'calendar' %}"></span>
                {% trans "Export calendar file" %}
@@ -239,7 +239,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
             {% if is_owner %}
                 <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
                     <span class="{% fa_class 'trash' %}"></span>
-                    {% trans "Delete this workout" %}
+                    {% trans "Delete" %}
                 </a>
             {% endif %}
         </div>
