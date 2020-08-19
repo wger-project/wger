@@ -100,8 +100,8 @@ $(document).ready(function() {
 
         <div class="col mb-4">
         <div class="card h-100">
-            <a href="{{ image.image.url }}">
-            <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}">
+            <a href="{{ image.image.url }}" title="Image for {{exercise}}">
+                <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}">
             </a>
             <div class="card-body text-center">
                 {% if perms.exercises.change_exerciseimage %}
@@ -115,9 +115,11 @@ $(document).ready(function() {
                          <span class="{% fa_class 'edit' %}"></span></a>
                 {% endif %}
 
-                <p class="card-text">
-
+                {% if image.is_main %}
+                <p class="card-text text-wger-green">
+                    <span class="{% fa_class 'medal' %}"></span></a>
                 </p>
+                {% endif %}
             </div>
             <div class="card-footer">
                 {{image.get_license_display}}
