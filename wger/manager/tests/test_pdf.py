@@ -17,11 +17,11 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import make_token
 
 
-class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
+class WorkoutPdfLogExportTestCase(WgerTestCase):
     """
     Tests exporting a workout as a pdf
     """
@@ -169,7 +169,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         self.export_pdf_token_wrong()
 
 
-class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
+class WorkoutPdfTableExportTestCase(WgerTestCase):
     """
     Tests exporting a workout as a pdf
     """

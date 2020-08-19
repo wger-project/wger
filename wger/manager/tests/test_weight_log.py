@@ -27,8 +27,8 @@ from django.urls import (
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerTestCase
+    WgerDeleteTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import Exercise
 from wger.manager.models import (
@@ -43,7 +43,7 @@ from wger.utils.constants import WORKOUT_TAB
 logger = logging.getLogger(__name__)
 
 
-class WorkoutLogShareButtonTestCase(WorkoutManagerTestCase):
+class WorkoutLogShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -63,7 +63,7 @@ class WorkoutLogShareButtonTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['show_shariff'])
 
 
-class WeightLogAccessTestCase(WorkoutManagerTestCase):
+class WeightLogAccessTestCase(WgerTestCase):
     """
     Test accessing the weight log page
     """
@@ -105,7 +105,7 @@ class WeightLogAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class CalendarShareButtonTestCase(WorkoutManagerTestCase):
+class CalendarShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -125,7 +125,7 @@ class CalendarShareButtonTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['show_shariff'])
 
 
-class CalendarAccessTestCase(WorkoutManagerTestCase):
+class CalendarAccessTestCase(WgerTestCase):
     """
     Test accessing the calendar page
     """
@@ -167,7 +167,7 @@ class CalendarAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
+class WeightLogOverviewAddTestCase(WgerTestCase):
     """
     Tests the weight log functionality
     """
@@ -247,7 +247,7 @@ class WeightLogOverviewAddTestCase(WorkoutManagerTestCase):
         self.add_weight_log(fail=True)
 
 
-class WeightlogTestCase(WorkoutManagerTestCase):
+class WeightlogTestCase(WgerTestCase):
     """
     Tests other model methods
     """
@@ -299,7 +299,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         self.assertEqual(log.get_workout_session(), session1)
 
 
-class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):
+class WeightLogDeleteTestCase(WgerDeleteTestCase):
     """
     Tests deleting a WorkoutLog
     """
@@ -309,7 +309,7 @@ class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
+class WeightLogEntryEditTestCase(WgerTestCase):
     """
     Tests editing individual weight log entries
     """
@@ -372,7 +372,7 @@ class WeightLogEntryEditTestCase(WorkoutManagerTestCase):
         self.edit_log_entry(fail=True)
 
 
-class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
+class WorkoutLogCacheTestCase(WgerTestCase):
     """
     Workout log cache test case
     """

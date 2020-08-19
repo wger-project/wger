@@ -16,10 +16,10 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
+from wger.core.tests.base_testcase import WgerAccessTestCase
 
 
-class AccessContractTestCase(WorkoutManagerAccessTestCase):
+class AccessContractTestCase(WgerAccessTestCase):
     """
     Test accessing the detail page of a contract
     """

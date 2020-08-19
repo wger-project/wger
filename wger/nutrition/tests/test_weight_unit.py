@@ -19,16 +19,16 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
-class WeightUnitRepresentationTestCase(WorkoutManagerTestCase):
+class WeightUnitRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -40,7 +40,7 @@ class WeightUnitRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'Scheibe')
 
 
-class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
+class AddWeightUnitTestCase(WgerAddTestCase):
     """
     Tests adding a new weight unit
     """
@@ -50,7 +50,7 @@ class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
     data = {'name': 'A new weight unit'}
 
 
-class DeleteWeightUnitTestCase(WorkoutManagerDeleteTestCase):
+class DeleteWeightUnitTestCase(WgerDeleteTestCase):
     """
     Tests deleting a weight unit
     """
@@ -60,7 +60,7 @@ class DeleteWeightUnitTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
+class EditWeightUnitTestCase(WgerEditTestCase):
     """
     Tests editing a weight unit
     """
@@ -71,7 +71,7 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'A new name'}
 
 
-class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
+class WeightUnitOverviewTestCase(WgerTestCase):
     """
     Tests the ingredient unit overview page
     """

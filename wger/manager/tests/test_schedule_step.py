@@ -21,15 +21,15 @@ from django.urls import reverse_lazy
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.manager.models import ScheduleStep
 
 
-class ScheduleStepRepresentationTestCase(WorkoutManagerTestCase):
+class ScheduleStepRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -41,7 +41,7 @@ class ScheduleStepRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(ScheduleStep.objects.get(pk=1)), 'A test workout')
 
 
-class ScheduleStepTestCase(WorkoutManagerTestCase):
+class ScheduleStepTestCase(WgerTestCase):
     """
     Other tests
     """
@@ -59,7 +59,7 @@ class ScheduleStepTestCase(WorkoutManagerTestCase):
         self.assertEqual(s3.get_dates(), (datetime.date(2013, 6, 16), datetime.date(2013, 6, 30)))
 
 
-class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
+class CreateScheduleStepTestCase(WgerAddTestCase):
     """
     Tests adding a schedule
     """
@@ -72,7 +72,7 @@ class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
             'duration': 4}
 
 
-class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
+class EditScheduleStepTestCase(WgerEditTestCase):
     """
     Tests editing a schedule
     """
@@ -84,7 +84,7 @@ class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
             'duration': 8}
 
 
-class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):
+class DeleteScheduleStepTestCase(WgerDeleteTestCase):
     """
     Tests editing a schedule
     """

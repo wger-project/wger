@@ -19,13 +19,13 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase
+    WgerAddTestCase,
+    WgerEditTestCase
 )
 from wger.nutrition.models import MealItem
 
 
-class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
+class EditMealItemUnitTestCase(WgerEditTestCase):
     """
     Tests editing a meal, set the amount using a unit
     """
@@ -38,7 +38,7 @@ class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
             'weight_unit': 1}
 
 
-class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
+class EditMealItemWeightTestCase(WgerEditTestCase):
     """
     Tests editing a meal, set the amount using weight
     """
@@ -50,7 +50,7 @@ class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
             'ingredient': 1}
 
 
-class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
+class AddMealItemUnitTestCase(WgerAddTestCase):
     """
     Tests adding a meal, set the amount using a unit
     """
@@ -62,7 +62,7 @@ class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
             'weight_unit': 1}
 
 
-class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
+class AddMealItemWeightTestCase(WgerAddTestCase):
     """
     Tests adding a meal, set the amount using weight
     """

@@ -19,7 +19,7 @@ import datetime
 from django.contrib.auth.models import User
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.helpers import get_user_last_activity
 from wger.manager.models import (
     WorkoutLog,
@@ -27,7 +27,7 @@ from wger.manager.models import (
 )
 
 
-class UserLastActivityTestCase(WorkoutManagerTestCase):
+class UserLastActivityTestCase(WgerTestCase):
     """
     Test the helper function for last user activity
     """

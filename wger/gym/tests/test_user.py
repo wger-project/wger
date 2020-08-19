@@ -25,14 +25,14 @@ from django.urls import reverse
 
 # wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import (
     Gym,
     GymAdminConfig
 )
 
 
-class GymAddUserTestCase(WorkoutManagerTestCase):
+class GymAddUserTestCase(WgerTestCase):
     """
     Tests admin adding users to gyms
     """
@@ -145,7 +145,7 @@ class GymAddUserTestCase(WorkoutManagerTestCase):
         self.new_user_data_export(fail=True)
 
 
-class TrainerLoginTestCase(WorkoutManagerTestCase):
+class TrainerLoginTestCase(WgerTestCase):
     """
     Tests the trainer login view (switching to user ID)
     """
@@ -231,7 +231,7 @@ class TrainerLoginTestCase(WorkoutManagerTestCase):
         self.assertFalse(self.client.session.get('trainer.identity'))
 
 
-class TrainerLogoutTestCase(WorkoutManagerTestCase):
+class TrainerLogoutTestCase(WgerTestCase):
     """
     Tests the trainer logout view (switching back to trainer ID)
     """

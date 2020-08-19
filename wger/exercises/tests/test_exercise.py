@@ -28,8 +28,8 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerTestCase
+    WgerDeleteTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import (
     Exercise,
@@ -40,7 +40,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.constants import WORKOUT_TAB
 
 
-class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
+class ExerciseRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -52,7 +52,7 @@ class ExerciseRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Exercise.objects.get(pk=1)), 'An exercise')
 
 
-class ExerciseShareButtonTestCase(WorkoutManagerTestCase):
+class ExerciseShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -73,7 +73,7 @@ class ExerciseShareButtonTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['show_shariff'])
 
 
-class ExerciseIndexTestCase(WorkoutManagerTestCase):
+class ExerciseIndexTestCase(WgerTestCase):
 
     def exercise_index(self, logged_in=True, demo=False, admin=False):
         """
@@ -161,7 +161,7 @@ class ExerciseIndexTestCase(WorkoutManagerTestCase):
         self.assertContains(response, 'No categories')
 
 
-class ExerciseDetailTestCase(WorkoutManagerTestCase):
+class ExerciseDetailTestCase(WgerTestCase):
     """
     Tests the exercise details page
     """
@@ -228,7 +228,7 @@ class ExerciseDetailTestCase(WorkoutManagerTestCase):
         self.exercise_detail(editor=False)
 
 
-class ExercisesTestCase(WorkoutManagerTestCase):
+class ExercisesTestCase(WgerTestCase):
     """
     Exercise test case
     """
@@ -401,7 +401,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
         self.search_exercise()
 
 
-class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
+class DeleteExercisesTestCase(WgerDeleteTestCase):
     """
     Exercise test case
     """
@@ -413,7 +413,7 @@ class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
     user_fail = 'test'
 
 
-class ExercisesCacheTestCase(WorkoutManagerTestCase):
+class ExercisesCacheTestCase(WgerTestCase):
     """
     Exercise cache test case
     """
@@ -493,7 +493,7 @@ class ExercisesCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
 
 
-class MuscleTemplateTagTest(WorkoutManagerTestCase):
+class MuscleTemplateTagTest(WgerTestCase):
 
     def test_render_main_muscles(self):
         """
@@ -623,7 +623,7 @@ class MuscleTemplateTagTest(WorkoutManagerTestCase):
         self.assertEqual(rendered_template, "\n\n")
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
+class WorkoutCacheTestCase(WgerTestCase):
     """
     Workout cache test case
     """

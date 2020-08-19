@@ -21,10 +21,10 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import (
     Equipment,
@@ -33,7 +33,7 @@ from wger.exercises.models import (
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
-class EquipmentRepresentationTestCase(WorkoutManagerTestCase):
+class EquipmentRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -45,7 +45,7 @@ class EquipmentRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Equipment.objects.get(pk=1)), 'Dumbbells')
 
 
-class EquipmentShareButtonTestCase(WorkoutManagerTestCase):
+class EquipmentShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -65,7 +65,7 @@ class EquipmentShareButtonTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['show_shariff'])
 
 
-class AddEquipmentTestCase(WorkoutManagerAddTestCase):
+class AddEquipmentTestCase(WgerAddTestCase):
     """
     Tests adding a new equipment
     """
@@ -75,7 +75,7 @@ class AddEquipmentTestCase(WorkoutManagerAddTestCase):
     data = {'name': 'A new equipment'}
 
 
-class DeleteEquipmentTestCase(WorkoutManagerDeleteTestCase):
+class DeleteEquipmentTestCase(WgerDeleteTestCase):
     """
     Tests deleting an equipment
     """
@@ -85,7 +85,7 @@ class DeleteEquipmentTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class EditEquipmentTestCase(WorkoutManagerEditTestCase):
+class EditEquipmentTestCase(WgerEditTestCase):
     """
     Tests editing an equipment
     """
@@ -96,7 +96,7 @@ class EditEquipmentTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'A new name'}
 
 
-class EquipmentListTestCase(WorkoutManagerTestCase):
+class EquipmentListTestCase(WgerTestCase):
     """
     Tests the equipment list page (admin view)
     """
@@ -135,7 +135,7 @@ class EquipmentListTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class EquipmentCacheTestCase(WorkoutManagerTestCase):
+class EquipmentCacheTestCase(WgerTestCase):
     """
     Equipment cache test case
     """

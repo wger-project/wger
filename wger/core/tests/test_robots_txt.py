@@ -17,10 +17,10 @@ from django.urls import reverse
 
 # wger
 from wger.core.models import Language
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class RobotsTxtTestCase(WorkoutManagerTestCase):
+class RobotsTxtTestCase(WgerTestCase):
     """
     Tests the generated robots.txt
     """

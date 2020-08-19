@@ -16,10 +16,10 @@
 # wger
 from wger.core.models import DaysOfWeek
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class DaysOfWeekRepresentationTestCase(WorkoutManagerTestCase):
+class DaysOfWeekRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """

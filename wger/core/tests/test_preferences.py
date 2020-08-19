@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
@@ -30,7 +30,7 @@ from wger.weight.models import WeightEntry
 logger = logging.getLogger(__name__)
 
 
-class PreferencesTestCase(WorkoutManagerTestCase):
+class PreferencesTestCase(WgerTestCase):
     """
     Tests the preferences page
     """
@@ -117,7 +117,7 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                           'city': ''})
 
 
-class UserBodyweightTestCase(WorkoutManagerTestCase):
+class UserBodyweightTestCase(WgerTestCase):
     """
     Tests the body weight generation/update function
     """
@@ -197,7 +197,7 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.weight, 100)
 
 
-class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
+class PreferencesCalculationsTestCase(WgerTestCase):
     """
     Tests the different calculation method in the user profile
     """

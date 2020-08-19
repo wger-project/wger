@@ -17,11 +17,11 @@ from django.core import mail
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import ExerciseImage
 
 
-class ImagePendingDetailTestCase(WorkoutManagerTestCase):
+class ImagePendingDetailTestCase(WgerTestCase):
     """
     Tests the detail page of an exercise with a pending image
     """
@@ -66,7 +66,7 @@ class ImagePendingDetailTestCase(WorkoutManagerTestCase):
         self.pending_view(fail=True)
 
 
-class ImageAcceptTestCase(WorkoutManagerTestCase):
+class ImageAcceptTestCase(WgerTestCase):
     """
     Tests accepting a user submitted exercise image
     """
@@ -114,7 +114,7 @@ class ImageAcceptTestCase(WorkoutManagerTestCase):
         self.accept(fail=True)
 
 
-class ImageRejectTestCase(WorkoutManagerTestCase):
+class ImageRejectTestCase(WgerTestCase):
     """
     Tests rejecting a user submitted exercise image
     """

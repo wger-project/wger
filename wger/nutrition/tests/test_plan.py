@@ -19,14 +19,14 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.nutrition.models import NutritionPlan
 
 
-class PlanRepresentationTestCase(WorkoutManagerTestCase):
+class PlanRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -43,7 +43,7 @@ class PlanRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(p), 'Nutrition plan')
 
 
-class PlanShareButtonTestCase(WorkoutManagerTestCase):
+class PlanShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -64,7 +64,7 @@ class PlanShareButtonTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['show_shariff'])
 
 
-class PlanAccessTestCase(WorkoutManagerTestCase):
+class PlanAccessTestCase(WgerTestCase):
     """
     Test accessing the workout page
     """
@@ -106,7 +106,7 @@ class PlanAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
+class DeletePlanTestCase(WgerDeleteTestCase):
     """
     Tests deleting a nutritional plan
     """
@@ -116,7 +116,7 @@ class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
     pk = 2
 
 
-class EditPlanTestCase(WorkoutManagerEditTestCase):
+class EditPlanTestCase(WgerEditTestCase):
     """
     Tests editing an ingredient
     """
@@ -127,7 +127,7 @@ class EditPlanTestCase(WorkoutManagerEditTestCase):
     data = {'description': 'My new description'}
 
 
-class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
+class PlanDailyCaloriesTestCase(WgerTestCase):
     """
     Tests the handling of the daily calories in the plan page
     """

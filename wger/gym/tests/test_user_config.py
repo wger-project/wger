@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WgerEditTestCase
 from wger.gym.models import GymUserConfig
 
 
-class EditConfigTestCase(WorkoutManagerEditTestCase):
+class EditConfigTestCase(WgerEditTestCase):
     """
     Tests editing a user config
     """

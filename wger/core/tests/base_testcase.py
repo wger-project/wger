@@ -150,7 +150,7 @@ class BaseTestCase(object):
         shutil.rmtree(self.media_root)
 
 
-class WorkoutManagerTestCase(BaseTestCase, TestCase):
+class WgerTestCase(BaseTestCase, TestCase):
     """
     Testcase to use with the regular website
     """
@@ -220,7 +220,7 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
         pass
 
 
-class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
+class WgerDeleteTestCase(WgerTestCase):
     """
     Tests deleting an object an authorized user, a different one and a logged out
     one. This assumes the delete action is only triggered with a POST request and
@@ -297,7 +297,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
                 self.delete_object(fail=True)
 
 
-class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
+class WgerEditTestCase(WgerTestCase):
     """
     Tests editing an object as an authorized user, a different one and a logged out
     one.
@@ -395,7 +395,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
                 self.edit_object(fail=True)
 
 
-class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
+class WgerAddTestCase(WgerTestCase):
     """
     Tests adding an object as an authorized user, a different one and a logged out
     one.
@@ -502,7 +502,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
                 self.add_object(fail=True)
 
 
-class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
+class WgerAccessTestCase(WgerTestCase):
     """
     Tests accessing a URL per GET as an authorized user, an unauthorized one and
     a logged out one.

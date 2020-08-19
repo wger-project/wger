@@ -14,11 +14,11 @@
 
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils import user_agents
 
 
-class AmazonUserAgentTestCase(WorkoutManagerTestCase):
+class AmazonUserAgentTestCase(WgerTestCase):
     """
     Tests the amazon WebApp user agent detector
     """
@@ -88,7 +88,7 @@ class AmazonUserAgentTestCase(WorkoutManagerTestCase):
         self.assertFalse(user_agents.is_amazon_webview(agent))
 
 
-class AndroidUserAgentTestCase(WorkoutManagerTestCase):
+class AndroidUserAgentTestCase(WgerTestCase):
     """
     Tests the android WebApp user agent detector
 

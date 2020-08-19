@@ -22,14 +22,14 @@ from django.urls import reverse
 # wger
 from wger.config.models import GymConfig
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import (
     Gym,
     GymUserConfig
 )
 
 
-class GymConfigTestCase(WorkoutManagerTestCase):
+class GymConfigTestCase(WgerTestCase):
     """
     Test the system wide gym configuration
     """

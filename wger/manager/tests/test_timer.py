@@ -24,7 +24,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import Exercise
 from wger.manager.models import (
     Workout,
@@ -35,7 +35,7 @@ from wger.manager.models import (
 logger = logging.getLogger(__name__)
 
 
-class WorkoutTimerTestCase(WorkoutManagerTestCase):
+class WorkoutTimerTestCase(WgerTestCase):
     """
     Tests the timer view (gym mode) for a workout day
     """
@@ -168,7 +168,7 @@ class WorkoutTimerTestCase(WorkoutManagerTestCase):
         self.timer(fail=True)
 
 
-class WorkoutTimerWorkoutSessionTestCase(WorkoutManagerTestCase):
+class WorkoutTimerWorkoutSessionTestCase(WgerTestCase):
     """
     Other tests
     """

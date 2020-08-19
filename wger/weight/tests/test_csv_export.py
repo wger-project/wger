@@ -19,13 +19,13 @@ import logging
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
 logger = logging.getLogger(__name__)
 
 
-class WeightCsvExportTestCase(WorkoutManagerTestCase):
+class WeightCsvExportTestCase(WgerTestCase):
     """
     Test case for the CSV export for weight entries
     """

@@ -17,11 +17,11 @@ from django.core import mail
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import Exercise
 
 
-class ExercisesCorrectionTestCase(WorkoutManagerTestCase):
+class ExercisesCorrectionTestCase(WgerTestCase):
     """
     Tests correcting an existing exercise
     """

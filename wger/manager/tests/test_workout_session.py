@@ -27,10 +27,10 @@ from django.urls import (
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.manager.models import (
     Workout,
@@ -45,7 +45,7 @@ Tests for workout sessions
 """
 
 
-class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
+class AddWorkoutSessionTestCase(WgerAddTestCase):
     """
     Tests adding a workout session
     """
@@ -66,7 +66,7 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
     }
 
 
-class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
+class EditWorkoutSessionTestCase(WgerEditTestCase):
     """
     Tests editing a workout session
     """
@@ -85,7 +85,7 @@ class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
     }
 
 
-class WorkoutSessionModelTestCase(WorkoutManagerTestCase):
+class WorkoutSessionModelTestCase(WgerTestCase):
     """
     Tests other functionality from the model
     """
@@ -102,7 +102,7 @@ class WorkoutSessionModelTestCase(WorkoutManagerTestCase):
                          u'{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
 
 
-class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
+class DeleteTestWorkoutTestCase(WgerDeleteTestCase):
     """
     Tests deleting a Workout
     """
@@ -112,7 +112,7 @@ class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
     pk = 3
 
 
-class WorkoutSessionDeleteLogsTestCase(WorkoutManagerTestCase):
+class WorkoutSessionDeleteLogsTestCase(WgerTestCase):
     """
     Tests that deleting a session can also delete all weight logs
     """
@@ -133,7 +133,7 @@ class WorkoutSessionDeleteLogsTestCase(WorkoutManagerTestCase):
         self.assertEqual(count_after, 0)
 
 
-class WorkoutSessionTestCase(WorkoutManagerTestCase):
+class WorkoutSessionTestCase(WgerTestCase):
     """
     Tests other workout session methods
     """
@@ -176,7 +176,7 @@ class WorkoutSessionTestCase(WorkoutManagerTestCase):
         self.assertRaises(ValidationError, session.full_clean)
 
 
-class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
+class WorkoutLogCacheTestCase(WgerTestCase):
     """
     Workout log cache test case
     """

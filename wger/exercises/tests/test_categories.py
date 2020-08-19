@@ -20,16 +20,16 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import ExerciseCategory
 
 
-class ExerciseCategoryRepresentationTestCase(WorkoutManagerTestCase):
+class ExerciseCategoryRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -41,7 +41,7 @@ class ExerciseCategoryRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(ExerciseCategory.objects.get(pk=1)), 'Category')
 
 
-class CategoryOverviewTestCase(WorkoutManagerAccessTestCase):
+class CategoryOverviewTestCase(WgerAccessTestCase):
     """
     Test that only admins see the edit links
     """
@@ -61,7 +61,7 @@ class CategoryOverviewTestCase(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
+class DeleteExerciseCategoryTestCase(WgerDeleteTestCase):
     """
     Exercise category delete test case
     """
@@ -73,7 +73,7 @@ class DeleteExerciseCategoryTestCase(WorkoutManagerDeleteTestCase):
     user_fail = 'test'
 
 
-class EditExerciseCategoryTestCase(WorkoutManagerEditTestCase):
+class EditExerciseCategoryTestCase(WgerEditTestCase):
     """
     Tests editing an exercise category
     """
@@ -84,7 +84,7 @@ class EditExerciseCategoryTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'A different name'}
 
 
-class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
+class AddExerciseCategoryTestCase(WgerAddTestCase):
     """
     Tests adding an exercise category
     """
@@ -94,7 +94,7 @@ class AddExerciseCategoryTestCase(WorkoutManagerAddTestCase):
     data = {'name': 'A new category'}
 
 
-class ExerciseCategoryCacheTestCase(WorkoutManagerTestCase):
+class ExerciseCategoryCacheTestCase(WgerTestCase):
     """
     Cache test case
     """

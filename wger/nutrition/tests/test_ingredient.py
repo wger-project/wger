@@ -26,10 +26,10 @@ from django.urls import reverse
 from wger.core.models import Language
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.nutrition.models import (
     Ingredient,
@@ -38,7 +38,7 @@ from wger.nutrition.models import (
 from wger.utils.constants import NUTRITION_TAB
 
 
-class IngredientRepresentationTestCase(WorkoutManagerTestCase):
+class IngredientRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -50,7 +50,7 @@ class IngredientRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
 
 
-class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
+class DeleteIngredientTestCase(WgerDeleteTestCase):
     """
     Tests deleting an ingredient
     """
@@ -60,7 +60,7 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class EditIngredientTestCase(WorkoutManagerEditTestCase):
+class EditIngredientTestCase(WgerEditTestCase):
     """
     Tests editing an ingredient
     """
@@ -89,7 +89,7 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
             self.assertEqual(ingredient.update_date, datetime.date.today())
 
 
-class AddIngredientTestCase(WorkoutManagerAddTestCase):
+class AddIngredientTestCase(WgerAddTestCase):
     """
     Tests adding an ingredient
     """
@@ -122,7 +122,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
-class IngredientDetailTestCase(WorkoutManagerTestCase):
+class IngredientDetailTestCase(WgerTestCase):
     """
     Tests the ingredient details page
     """
@@ -177,7 +177,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         self.ingredient_detail(editor=False)
 
 
-class IngredientSearchTestCase(WorkoutManagerTestCase):
+class IngredientSearchTestCase(WgerTestCase):
     """
     Tests the ingredient search functions
     """
@@ -217,7 +217,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.search_ingredient()
 
 
-class IngredientValuesTestCase(WorkoutManagerTestCase):
+class IngredientValuesTestCase(WgerTestCase):
     """
     Tests the nutritional value calculator for an ingredient
     """
@@ -279,7 +279,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
         self.calculate_value()
 
 
-class IngredientTestCase(WorkoutManagerTestCase):
+class IngredientTestCase(WgerTestCase):
     """
     Tests other ingredient functions
     """

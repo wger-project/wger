@@ -21,13 +21,13 @@ from django.urls import (
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAccessTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 
 
-class StatusUserTestCase(WorkoutManagerTestCase):
+class StatusUserTestCase(WgerTestCase):
     """
     Test activating and deactivating users
     """
@@ -132,7 +132,7 @@ class StatusUserTestCase(WorkoutManagerTestCase):
         self.deactivate(fail=True)
 
 
-class EditUserTestCase(WorkoutManagerEditTestCase):
+class EditUserTestCase(WgerEditTestCase):
     """
     Test editing a user
     """
@@ -156,7 +156,7 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
                  'trainer4')
 
 
-class EditUserTestCase2(WorkoutManagerEditTestCase):
+class EditUserTestCase2(WgerEditTestCase):
     """
     Test editing a user
     """
@@ -178,7 +178,7 @@ class EditUserTestCase2(WorkoutManagerEditTestCase):
                  'trainer4')
 
 
-class UserListTestCase(WorkoutManagerAccessTestCase):
+class UserListTestCase(WgerAccessTestCase):
     """
     Test accessing the general user overview
     """
@@ -197,7 +197,7 @@ class UserListTestCase(WorkoutManagerAccessTestCase):
                  'trainer4')
 
 
-class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
+class UserDetailPageTestCase(WgerAccessTestCase):
     """
     Test accessing the user detail page
     """
@@ -215,7 +215,7 @@ class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
                  'member2')
 
 
-class UserDetailPageTestCase2(WorkoutManagerAccessTestCase):
+class UserDetailPageTestCase2(WgerAccessTestCase):
     """
     Test accessing the user detail page
     """
