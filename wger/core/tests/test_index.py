@@ -17,13 +17,13 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 
 
-class DashboardTestCase(WorkoutManagerTestCase):
+class DashboardTestCase(WgerTestCase):
     """
     Dashboard (landing page) test case
     """

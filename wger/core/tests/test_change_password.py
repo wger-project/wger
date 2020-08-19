@@ -20,13 +20,13 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
 logger = logging.getLogger(__name__)
 
 
-class ChangePasswordTestCase(WorkoutManagerTestCase):
+class ChangePasswordTestCase(WgerTestCase):
     """
     Tests changing the password of a registered user
     """

@@ -17,16 +17,16 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
     delete_testcase_add_methods
 )
 from wger.gym.models import UserDocument
 
 
-class UserDocumentOverviewTest(WorkoutManagerAccessTestCase):
+class UserDocumentOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the user document overview page
     """
@@ -43,7 +43,7 @@ class UserDocumentOverviewTest(WorkoutManagerAccessTestCase):
                  'general_manager1')
 
 
-class AddDocumentTestCase(WorkoutManagerAddTestCase):
+class AddDocumentTestCase(WgerAddTestCase):
     """
     Tests uploading a new user document
     """
@@ -63,7 +63,7 @@ class AddDocumentTestCase(WorkoutManagerAddTestCase):
                  'general_manager1')
 
 
-class EditDocumentTestCase(WorkoutManagerEditTestCase):
+class EditDocumentTestCase(WgerEditTestCase):
     """
     Tests editing a user document
     """
@@ -82,7 +82,7 @@ class EditDocumentTestCase(WorkoutManagerEditTestCase):
                  'general_manager1')
 
 
-class DeleteDocumentTestCase(WorkoutManagerDeleteTestCase):
+class DeleteDocumentTestCase(WgerDeleteTestCase):
     """
     Tests deleting a user document
     """

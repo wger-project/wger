@@ -17,14 +17,14 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerEditTestCase
 )
 from wger.gym.models import Contract
 
 
-class AddContractTestCase(WorkoutManagerAddTestCase):
+class AddContractTestCase(WgerAddTestCase):
     """
     Tests creating a new contract
     """
@@ -47,7 +47,7 @@ class AddContractTestCase(WorkoutManagerAddTestCase):
                  'member5')
 
 
-class AccessContractTestCase(WorkoutManagerAccessTestCase):
+class AccessContractTestCase(WgerAccessTestCase):
     """
     Test accessing the detail page of a contract
     """
@@ -66,7 +66,7 @@ class AccessContractTestCase(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class AccessContractOverviewTestCase(WorkoutManagerAccessTestCase):
+class AccessContractOverviewTestCase(WgerAccessTestCase):
     """
     Test accessing the contract list page
     """
@@ -85,7 +85,7 @@ class AccessContractOverviewTestCase(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class EditContractTestCase(WorkoutManagerEditTestCase):
+class EditContractTestCase(WgerEditTestCase):
     """
     Tests editing a contract
     """

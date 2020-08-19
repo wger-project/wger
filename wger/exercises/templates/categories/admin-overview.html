@@ -9,10 +9,10 @@
     {% for category in exercisecategory_list %}
     <li class="list-group-item ">
         <div class="btn-group float-right">
-            <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
-            <div class="dropdown-menu" role="menu">
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <a href="{% url 'exercise:category:edit' category.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
                 <a href="{% url 'exercise:category:delete' category.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
             </div>

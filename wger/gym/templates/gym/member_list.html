@@ -58,7 +58,7 @@
 
     {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
     <td style="text-align: right;">
-        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-default btn-sm wger-modal-dialog">
+        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-light btn-sm wger-modal-dialog">
             <span class="{% fa_class 'cog' %}"></span>
         </a>
     </td>
@@ -80,7 +80,7 @@
 {#             #}
 {% if perms.gym.change_gym %}
 <div class="dropdown float-right">
-    <a type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <a type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -133,7 +133,7 @@
 {#                   #}
 {% if perms.gym.change_gymconfig %}
 <div class="dropdown float-right">
-    <a role="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
@@ -169,7 +169,7 @@
 {% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
 <div class="dropdown float-right">
     <div class="btn-group ">
-        <a role="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+        <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
             {% trans "Actions" %} <span class="caret"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -203,7 +203,7 @@
 {% endif %}
 {% if perms.gym.change_contracttype %}
 <div class="dropdown float-right">
-    <a role="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -236,7 +236,7 @@
 
 {% if perms.gym.change_contractoption %}
 <div class="dropdown float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -273,7 +273,7 @@
 {#             #}
 {% if perms.mailer.change_log %}
 <div class="dropdown float-right">
-    <a role="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">

@@ -17,16 +17,16 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
     delete_testcase_add_methods
 )
 from wger.gym.models import ContractOption
 
 
-class AddContractOptionTestCase(WorkoutManagerAddTestCase):
+class AddContractOptionTestCase(WgerAddTestCase):
     """
     Tests creating a new contract option
     """
@@ -48,7 +48,7 @@ class AddContractOptionTestCase(WorkoutManagerAddTestCase):
                  'member5')
 
 
-class EditContractOptionTestCase(WorkoutManagerEditTestCase):
+class EditContractOptionTestCase(WgerEditTestCase):
     """
     Tests editing a contract option
     """
@@ -71,7 +71,7 @@ class EditContractOptionTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'Standard contract 16-Gj'}
 
 
-class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
+class DeleteContractOptionTestCase(WgerDeleteTestCase):
     """
     Tests deleting a contract option
     """
@@ -96,7 +96,7 @@ class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
 delete_testcase_add_methods(DeleteContractOptionTestCase)
 
 
-class AccessContractOptionOverviewTestCase(WorkoutManagerAccessTestCase):
+class AccessContractOptionOverviewTestCase(WgerAccessTestCase):
     """
     Test accessing the contract option page
     """

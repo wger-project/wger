@@ -600,16 +600,6 @@ function wgerLoadMaincontent() {
 }
 
 /*
- Helper function to prefetch images on a page
- */
-function wgerPrefetchImages(imageArray) {
-  $(imageArray).each(function () {
-    (new Image()).src = this;
-    // console.log('Preloading image' + this);
-  });
-}
-
-/*
  Helper function used in the workout log dialog to fetch existing workout sessions through the
  REST API
  */

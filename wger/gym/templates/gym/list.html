@@ -12,10 +12,10 @@
     {% for gym in gym_list %}
     <li class="list-group-item ">
         <div class="btn-group float-right">
-            <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
-            <div class="dropdown-menu" role="menu">
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
                 <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
                 <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
             </div>
@@ -36,7 +36,7 @@
 {% block sidebar %}
 {% if perms.config.change_gymconfig %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">

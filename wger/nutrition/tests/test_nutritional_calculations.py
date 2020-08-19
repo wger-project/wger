@@ -18,7 +18,7 @@ import logging
 from decimal import Decimal
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition import models
 from wger.utils.constants import TWOPLACES
 
@@ -26,7 +26,7 @@ from wger.utils.constants import TWOPLACES
 logger = logging.getLogger(__name__)
 
 
-class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
+class NutritionalValuesCalculationsTestCase(WgerTestCase):
     """
     Tests the nutritional values calculators in the different models
     """

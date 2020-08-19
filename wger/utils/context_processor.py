@@ -81,7 +81,7 @@ def processor(request):
         context['show_shariff'] = True
 
     elif '/exercise/' in request.get_full_path():
-        context['active_tab'] = constants.EXERCISE_TAB
+        context['active_tab'] = constants.WORKOUT_TAB
 
     elif '/nutrition/' in request.get_full_path():
         context['active_tab'] = constants.NUTRITION_TAB

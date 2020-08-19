@@ -16,12 +16,12 @@
 from decimal import Decimal
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import FOURPLACES
 from wger.utils.units import AbstractWeight
 
 
-class WeightConversionTestCase(WorkoutManagerTestCase):
+class WeightConversionTestCase(WgerTestCase):
     """
     Test the abstract weight class
     """

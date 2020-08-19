@@ -16,11 +16,11 @@
 
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import smart_capitalize
 
 
-class CapitalizerTestCase(WorkoutManagerTestCase):
+class CapitalizerTestCase(WgerTestCase):
     """
     Tests the "intelligent" capitalizer
     """

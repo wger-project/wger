@@ -24,8 +24,8 @@
 
 <h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-default btn-sm">{% trans "Overview" %}</a>
-<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% trans "Overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% trans "Add workout" %}</a>
 {% endif %}
 
 <table class="table">
@@ -67,7 +67,7 @@
 
 <h4>{% trans "Log" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-light btn-sm">{% trans "Calendar" %}</a>
 {% endif %}
 
 <table class="table">
@@ -111,7 +111,7 @@
 
 <h4>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-light btn-sm">{% trans "Weight overview" %}</a>
 {% endif %}
 
 <table class="table">
@@ -143,8 +143,8 @@
 
 <h4>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-default btn-sm">{% trans "Overview" %}</a>
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-default btn-sm">{% trans "Add nutrition plan" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-light btn-sm">{% trans "Overview" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-light btn-sm">{% trans "Add nutrition plan" %}</a>
 {% endif %}
 
 <table class="table">
@@ -198,7 +198,7 @@
 {% block sidebar %}
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -319,7 +319,7 @@
 {#          #}
 {% if perms.gym.add_contract %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -358,7 +358,7 @@
 {#             #}
 {% if perms.gym.add_adminusernote %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -394,7 +394,7 @@
 {#           #}
 {% if perms.gym.add_userdocument %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -409,7 +409,7 @@
     <tr>
         <td>
             <a href="{{ document.document.url }}"
-               class="btn btn-default btn-sm"
+               class="btn btn-light btn-sm"
                title="{% trans 'Download' %}"
                download="{{ document.original_name }}">
                 <span class="glyphicon glyphicon-download"></span>
@@ -439,7 +439,7 @@
 {#                   #}
 {% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">

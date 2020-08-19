@@ -362,7 +362,7 @@ $(document).ready(function () {
 
             <div class="row bottom_buttons">
                 <div class="col-xs-6">
-                    <a class="next wide_link btn btn-default"
+                    <a class="next wide_link btn btn-light"
                        href="#"><!-- {% trans "Skip" %}--> <span class="glyphicon glyphicon-forward"></span>
                     </a>
                 </div>
@@ -399,19 +399,19 @@ $(document).ready(function () {
                     <h2><span id="counter-{{step.current_step}}">{{step.time}}</span></h2>
                 </div>
                 <div class="col-xs-4">
-                    <a class="start timer-plus btn btn-default"
+                    <a class="start timer-plus btn btn-light"
                        href="#"
                        id="button-plus-{{step.current_step}}">+10</a>
                 </div>
                 <div class="col-xs-4">
-                    <a class="start timer-minus btn btn-default"
+                    <a class="start timer-minus btn btn-light"
                        href="#"
                        id="button-minus-{{step.current_step}}">-10</a>
                 </div>
             </div>
 
 
-            <a class="next bottom_button wide_link btn btn-default"
+            <a class="next bottom_button wide_link btn btn-light"
                href="#">{% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span></a>
 
             <div id="progress-{{step.current_step}}" class="progress-bar">
@@ -446,7 +446,7 @@ $(document).ready(function () {
                             {% trans session_form.notes.help_text %}
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                          <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
                         </div>
                     </div>
                 </div>
@@ -454,7 +454,7 @@ $(document).ready(function () {
 
             <label for="{{session_form.notes.auto_id}}">
                 <a href="#info-{{session_form.notes.auto_id}}"
-                   class="btn btn-default btn-sm"
+                   class="btn btn-light btn-sm"
                    data-toggle="modal">
                     <span class="glyphicon glyphicon-asterisk"></span>
                    </a>
@@ -473,14 +473,14 @@ $(document).ready(function () {
                             {% trans session_form.impression.help_text %}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                            <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
                         </div>
                     </div>
                 </div>
             </div>
             <label for="{{session_form.impression.auto_id}}">
                 <a href="#info-{{session_form.impression.auto_id}}"
-                   class="btn btn-default btn-sm"
+                   class="btn btn-light btn-sm"
                    data-toggle="modal">
                     <span class="glyphicon glyphicon-asterisk"></span>
                    </a>
@@ -503,7 +503,7 @@ $(document).ready(function () {
     <div class="row bottom_buttons">
         <div class="col-xs-6">
             <a href="{% url 'core:dashboard' %}"
-               class="wide_link btn btn-default">{% trans "Dashboard" %}</a>
+               class="wide_link btn btn-light">{% trans "Dashboard" %}</a>
         </div>
         <div class="col-xs-6">
             <a href=""

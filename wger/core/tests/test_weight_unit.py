@@ -17,15 +17,15 @@
 from wger.core.models import WeightUnit
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 
 
-class RepresentationTestCase(WorkoutManagerTestCase):
+class RepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -37,7 +37,7 @@ class RepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'kg')
 
 
-class OverviewTest(WorkoutManagerAccessTestCase):
+class OverviewTest(WgerAccessTestCase):
     """
     Tests the weight unit overview page
     """
@@ -46,7 +46,7 @@ class OverviewTest(WorkoutManagerAccessTestCase):
     anonymous_fail = True
 
 
-class AddTestCase(WorkoutManagerAddTestCase):
+class AddTestCase(WgerAddTestCase):
     """
     Tests adding a new unit
     """
@@ -65,7 +65,7 @@ class AddTestCase(WorkoutManagerAddTestCase):
                  'manager3')
 
 
-class DeleteTestCase(WorkoutManagerDeleteTestCase):
+class DeleteTestCase(WgerDeleteTestCase):
     """
     Tests deleting a unit
     """
@@ -84,7 +84,7 @@ class DeleteTestCase(WorkoutManagerDeleteTestCase):
                  'manager3')
 
 
-class EditTestCase(WorkoutManagerEditTestCase):
+class EditTestCase(WgerEditTestCase):
     """
     Tests editing a unit
     """

@@ -16,10 +16,10 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class RobotsExclusionMiddlewareTestCase(WorkoutManagerTestCase):
+class RobotsExclusionMiddlewareTestCase(WgerTestCase):
     """
     Tests the robots exclusion middleware
     """

@@ -26,8 +26,8 @@ from django.urls import (
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import Exercise
 from wger.manager.models import (
@@ -41,7 +41,7 @@ from wger.utils.cache import cache_mapper
 logger = logging.getLogger(__name__)
 
 
-class SetAddTestCase(WorkoutManagerAddTestCase):
+class SetAddTestCase(WgerAddTestCase):
     """
     Test adding a set to a day
     """
@@ -147,7 +147,7 @@ class SetAddTestCase(WorkoutManagerAddTestCase):
                 self.assertIn(setting.reps, (8, 10))
 
 
-class SetDeleteTestCase(WorkoutManagerTestCase):
+class SetDeleteTestCase(WgerTestCase):
     """
     Tests deleting a set from a workout
     """
@@ -194,7 +194,7 @@ class SetDeleteTestCase(WorkoutManagerTestCase):
         self.delete_set(fail=False)
 
 
-class TestSetOrderTestCase(WorkoutManagerTestCase):
+class TestSetOrderTestCase(WgerTestCase):
     """
     Tests that the order of the (existing) sets in a workout is preservead
     when adding new ones
@@ -251,7 +251,7 @@ class TestSetOrderTestCase(WorkoutManagerTestCase):
             self.assertEqual(orig, prev)
 
 
-class TestSetAddFormset(WorkoutManagerTestCase):
+class TestSetAddFormset(WgerTestCase):
     """
     Tests the functionality of the formset mini-view that is used in the add
     set page
@@ -278,7 +278,7 @@ class TestSetAddFormset(WorkoutManagerTestCase):
         self.get_formset()
 
 
-class SetEditEditTestCase(WorkoutManagerTestCase):
+class SetEditEditTestCase(WgerTestCase):
     """
     Tests editing a set
     """
@@ -363,7 +363,7 @@ class SetEditEditTestCase(WorkoutManagerTestCase):
         self.edit_set(fail=False)
 
 
-class SetWorkoutCacheTestCase(WorkoutManagerTestCase):
+class SetWorkoutCacheTestCase(WgerTestCase):
     """
     Workout cache test case
     """
@@ -391,7 +391,7 @@ class SetWorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
 
 
-class SettingWorkoutCacheTestCase(WorkoutManagerTestCase):
+class SettingWorkoutCacheTestCase(WgerTestCase):
     """
     Workout cache test case
     """

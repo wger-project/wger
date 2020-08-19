@@ -17,16 +17,16 @@ from django.urls import reverse_lazy
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
     delete_testcase_add_methods
 )
 from wger.gym.models import AdminUserNote
 
 
-class AdminNoteOverviewTest(WorkoutManagerAccessTestCase):
+class AdminNoteOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the admin notes overview page
     """
@@ -43,7 +43,7 @@ class AdminNoteOverviewTest(WorkoutManagerAccessTestCase):
                  'general_manager2')
 
 
-class AddAdminNoteTestCase(WorkoutManagerAddTestCase):
+class AddAdminNoteTestCase(WgerAddTestCase):
     """
     Tests adding a new admin note
     """
@@ -61,7 +61,7 @@ class AddAdminNoteTestCase(WorkoutManagerAddTestCase):
                  'general_manager2')
 
 
-class EditAdminNoteTestCase(WorkoutManagerEditTestCase):
+class EditAdminNoteTestCase(WgerEditTestCase):
     """
     Tests editing an admin note
     """
@@ -81,7 +81,7 @@ class EditAdminNoteTestCase(WorkoutManagerEditTestCase):
     data = {'note': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr'}
 
 
-class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
+class DeleteAdminNoteTestCase(WgerDeleteTestCase):
     """
     Tests deleting an admin note
     """

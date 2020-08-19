@@ -19,17 +19,17 @@ from django.urls import reverse_lazy
 # wger
 from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase,
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase,
     delete_testcase_add_methods
 )
 from wger.gym.models import Gym
 
 
-class GymRepresentationTestCase(WorkoutManagerTestCase):
+class GymRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -41,7 +41,7 @@ class GymRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Gym.objects.get(pk=1)), 'Test 123')
 
 
-class GymOverviewTest(WorkoutManagerAccessTestCase):
+class GymOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the gym overview page
     """
@@ -58,7 +58,7 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
                  'manager3')
 
 
-class GymUserOverviewTest(WorkoutManagerAccessTestCase):
+class GymUserOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the gym user overview page
     """
@@ -76,7 +76,7 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
                  'manager3')
 
 
-class AddGymTestCase(WorkoutManagerAddTestCase):
+class AddGymTestCase(WgerAddTestCase):
     """
     Tests adding a new gym
     """
@@ -94,7 +94,7 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
                  'manager3')
 
 
-class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
+class DeleteGymTestCase(WgerDeleteTestCase):
     """
     Tests deleting a gym
     """
@@ -117,7 +117,7 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
 delete_testcase_add_methods(DeleteGymTestCase)
 
 
-class EditGymTestCase(WorkoutManagerEditTestCase):
+class EditGymTestCase(WgerEditTestCase):
     """
     Tests editing a gym
     """
@@ -138,7 +138,7 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
                  'manager3')
 
 
-class GymTestCase(WorkoutManagerTestCase):
+class GymTestCase(WgerTestCase):
     """
     Tests other gym methods
     """

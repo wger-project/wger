@@ -20,13 +20,13 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
 logger = logging.getLogger(__name__)
 
 
-class DeleteUserTestCase(WorkoutManagerTestCase):
+class DeleteUserTestCase(WgerTestCase):
     """
     Tests deleting the user account and all his data
     """
@@ -71,7 +71,7 @@ class DeleteUserTestCase(WorkoutManagerTestCase):
         self.delete_user(fail=True)
 
 
-class DeleteUserByAdminTestCase(WorkoutManagerTestCase):
+class DeleteUserByAdminTestCase(WgerTestCase):
     """
     Tests deleting a user account by a gym administrator
     """

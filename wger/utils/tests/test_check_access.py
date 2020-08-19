@@ -20,11 +20,11 @@ from django.contrib.auth.models import (
 from django.http import Http404
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import check_access
 
 
-class CheckAccessTestCase(WorkoutManagerTestCase):
+class CheckAccessTestCase(WgerTestCase):
     """
     Test the "check_access" helper function
     """

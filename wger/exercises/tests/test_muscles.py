@@ -21,16 +21,16 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import Muscle
 
 
-class MuscleRepresentationTestCase(WorkoutManagerTestCase):
+class MuscleRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -42,7 +42,7 @@ class MuscleRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
 
-class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
+class MuscleAdminOverviewTest(WgerAccessTestCase):
     """
     Tests the admin muscle overview page
     """
@@ -62,7 +62,7 @@ class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class MusclesShareButtonTestCase(WorkoutManagerTestCase):
+class MusclesShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -82,7 +82,7 @@ class MusclesShareButtonTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['show_shariff'])
 
 
-class AddMuscleTestCase(WorkoutManagerAddTestCase):
+class AddMuscleTestCase(WgerAddTestCase):
     """
     Tests adding a muscle
     """
@@ -93,7 +93,7 @@ class AddMuscleTestCase(WorkoutManagerAddTestCase):
             'is_front': True}
 
 
-class EditMuscleTestCase(WorkoutManagerEditTestCase):
+class EditMuscleTestCase(WgerEditTestCase):
     """
     Tests editing a muscle
     """
@@ -105,7 +105,7 @@ class EditMuscleTestCase(WorkoutManagerEditTestCase):
             'is_front': True}
 
 
-class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
+class DeleteMuscleTestCase(WgerDeleteTestCase):
     """
     Tests deleting a muscle
     """
@@ -115,7 +115,7 @@ class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class MuscleCacheTestCase(WorkoutManagerTestCase):
+class MuscleCacheTestCase(WgerTestCase):
     """
     Muscle cache test case
     """
@@ -130,7 +130,7 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
         self.assertTrue(cache.get(make_template_fragment_key('muscle-overview', [2])))
 
 
-class MuscleOverviewTestCase(WorkoutManagerAccessTestCase):
+class MuscleOverviewTestCase(WgerAccessTestCase):
     """
     Test that only admins see the edit links
     """

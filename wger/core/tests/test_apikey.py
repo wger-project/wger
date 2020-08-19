@@ -23,13 +23,13 @@ from django.urls import reverse
 from rest_framework.authtoken.models import Token
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
 logger = logging.getLogger(__name__)
 
 
-class ApiKeyTestCase(WorkoutManagerTestCase):
+class ApiKeyTestCase(WgerTestCase):
     """
     Tests the API key page
     """

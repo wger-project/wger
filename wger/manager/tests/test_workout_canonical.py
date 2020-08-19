@@ -24,7 +24,7 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import Exercise
 from wger.manager.models import (
     Day,
@@ -35,7 +35,7 @@ from wger.manager.models import (
 from wger.utils.cache import cache_mapper
 
 
-class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
+class WorkoutCanonicalFormTestCase(WgerTestCase):
     """
     Tests the canonical form for a workout
     """
@@ -164,7 +164,7 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         self.assertEqual(day.canonical_representation['set_list'], canonical_form)
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
+class WorkoutCacheTestCase(WgerTestCase):
     """
     Test case for the workout canonical representation
     """

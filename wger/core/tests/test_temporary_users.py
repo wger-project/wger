@@ -26,7 +26,7 @@ from wger.core.demo import (
     create_demo_entries,
     create_temporary_user
 )
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
     Day,
     Schedule,
@@ -41,7 +41,7 @@ from wger.nutrition.models import (
 from wger.weight.models import WeightEntry
 
 
-class DemoUserTestCase(WorkoutManagerTestCase):
+class DemoUserTestCase(WgerTestCase):
     """
     Tests the demo user
     """

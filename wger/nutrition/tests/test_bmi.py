@@ -23,12 +23,12 @@ from django.urls import reverse
 
 # wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
-class BmiTestCase(WorkoutManagerTestCase):
+class BmiTestCase(WgerTestCase):
     """
     Tests the BMI methods and views
     """

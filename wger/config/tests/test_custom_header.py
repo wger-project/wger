@@ -19,11 +19,11 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import Gym
 
 
-class GymNameHeaderTestCase(WorkoutManagerTestCase):
+class GymNameHeaderTestCase(WgerTestCase):
     """
     Test case for showing gym name on application header
     """

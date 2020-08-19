@@ -17,11 +17,11 @@ from django.core import mail
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import Ingredient
 
 
-class IngredientsPendingTestCase(WorkoutManagerTestCase):
+class IngredientsPendingTestCase(WgerTestCase):
     """
     Tests the pending ingredients overview page
     """
@@ -61,7 +61,7 @@ class IngredientsPendingTestCase(WorkoutManagerTestCase):
         self.pending_overview(fail=True)
 
 
-class IngredientsPendingDetailTestCase(WorkoutManagerTestCase):
+class IngredientsPendingDetailTestCase(WgerTestCase):
     """
     Tests the detail page of a pending ingredient
     """
@@ -107,7 +107,7 @@ class IngredientsPendingDetailTestCase(WorkoutManagerTestCase):
         self.pending_view(fail=True)
 
 
-class IngredientAcceptTestCase(WorkoutManagerTestCase):
+class IngredientAcceptTestCase(WgerTestCase):
     """
     Tests accepting a user submitted ingredient
     """
@@ -155,7 +155,7 @@ class IngredientAcceptTestCase(WorkoutManagerTestCase):
         self.accept(fail=True)
 
 
-class IngredientRejectTestCase(WorkoutManagerTestCase):
+class IngredientRejectTestCase(WgerTestCase):
     """
     Tests rejecting a user submitted ingredient
     """

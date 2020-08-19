@@ -17,10 +17,10 @@
 
 # wger
 from wger.config.models import LanguageConfig
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WgerEditTestCase
 
 
-class EditLanguageConfigTestCase(WorkoutManagerEditTestCase):
+class EditLanguageConfigTestCase(WgerEditTestCase):
     """
     Tests editing a language config
     """

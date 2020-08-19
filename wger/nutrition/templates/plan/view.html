@@ -66,7 +66,7 @@ function wgerCustomModalInit()
     <tr>
         <td {% if meal.mealitem_set.count %}rowspan="{{meal.mealitem_set.count}}"{% endif %}>
             <strong>
-            {% trans "Nr."%} {{ forloop.parentloop.counter }}
+            {% trans "Nr."%} {{ forloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
             </strong>
 
@@ -107,10 +107,10 @@ function wgerCustomModalInit()
                 </span>
                 {% endif %}
             </td>
-            <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.protein|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.fat|floatformat}}</td>
+            <td class="align-right">{{item.get_nutritional_values.energy|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.protein|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.fat|floatformat:1}}</td>
         </tr>
         {% empty %}
             {% if is_owner %}
@@ -179,37 +179,37 @@ function wgerCustomModalInit()
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{nutritional_data.total.energy|floatformat}} {% trans "kcal" %}</td>
+            <td class="align-right">{{nutritional_data.total.energy|floatformat:1}} {% trans "kcal" %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{nutritional_data.percent.protein|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.total.protein|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.percent.protein|floatformat:1}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.protein|floatformat:2}}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat:1}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat:2}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{nutritional_data.percent.fat|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.total.fat|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.percent.fat|floatformat:1}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.fat|floatformat:2}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
             <td></td>
             <td></td>
         </tr>

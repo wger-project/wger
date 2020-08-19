@@ -19,11 +19,11 @@ import datetime
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import Gym
 
 
-class GymMembersCsvExportTestCase(WorkoutManagerTestCase):
+class GymMembersCsvExportTestCase(WgerTestCase):
     """
     Test case for the CSV export of gym members
     """

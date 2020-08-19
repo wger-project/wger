@@ -16,11 +16,11 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import NutritionPlan
 
 
-class CopyPlanTestCase(WorkoutManagerTestCase):
+class CopyPlanTestCase(WgerTestCase):
     """
     Tests copying a nutritional plan
     """

@@ -79,7 +79,7 @@ $(document).ready(function() {
                                 {% if is_owner %}
                                 <span class="editoptions">
                                     <div class="dropdown float-right">
-                                        <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                                             <span class="{% fa_class 'cog' %}"></span>
                                         </button>
                                         <div class="dropdown-menu" role="menu">
@@ -123,13 +123,13 @@ $(document).ready(function() {
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-light">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-light">
                     <span class="{% fa_class 'plus' %}"></span>
                     {% trans "Add one now." %}
                 </a>
@@ -137,7 +137,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
