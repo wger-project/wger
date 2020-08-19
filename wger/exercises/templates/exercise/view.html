@@ -216,7 +216,7 @@ $(document).ready(function() {
     <div class="row ">
         <div class="col">
             {% render_muscles muscles_main_front muscles_sec_front %}
-            <ul class="list-unstyled">
+            <ul class="list-unstyled text-center">
                 {% for muscle in muscles_main_front %}
                     <li>{{muscle.name}}</li>
                 {% endfor %}
@@ -228,7 +228,7 @@ $(document).ready(function() {
         </div>
         <div class="col">
             {% render_muscles muscles_main_back muscles_sec_back %}
-            <ul class="list-unstyled">
+            <ul class="list-unstyled text-center">
                 {% for muscle in muscles_main_back %}
                     <li>{{muscle.name}}</li>
                 {% endfor %}

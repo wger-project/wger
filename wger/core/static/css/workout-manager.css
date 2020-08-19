@@ -81,7 +81,7 @@ a img {
  * Set the sizes for the background where the muscles are shown on the exercise view page
  */
 div.muscle-background {
-  width: 180px;
+  width: 150px;
   height: 276px;
   background-size: 150px;
   background-repeat: no-repeat;
