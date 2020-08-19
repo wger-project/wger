@@ -212,7 +212,8 @@ class MealItemForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
                                         widget=forms.HiddenInput)
 
-    ingredient_searchfield = forms.CharField(required=False)
+    ingredient_searchfield = forms.CharField(required=False,
+                                             label=ugettext_lazy("Ingredient"))
 
     class Meta:
         model = MealItem
