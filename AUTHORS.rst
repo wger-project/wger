@@ -25,7 +25,7 @@ Developers
 * Malcolm Jones: https://github.com/DevloperMal
 * Boniface Mwenda: https://github.com/andela-bmwenda
 * Scott Peshak: https://github.com/speshak
-
+* Sven - https://github.com/Svn-Sp
 Translators
 -----------
 
