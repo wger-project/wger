@@ -14,9 +14,9 @@ $(document).ready(function() {
 </script>
 
 <table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}" data-id="{{ day.obj.id }}">
-<thead>
+<thead class="thead-light">
     <tr id="day-{{ day.obj.id }}">
-        <th colspan="2" style="background: none repeat scroll 0% 0% #F5F5F5;">
+        <th colspan="2">
 
             {{ day.days_of_week.text }} – {{ day.obj.description }}
             {% if editable %}
@@ -92,7 +92,7 @@ $(document).ready(function() {
                                 <p>
                                     {% trans "This exercise has no repetitions." %}<br>
                                     <a href="{% url 'manager:set:edit' set.obj.id %}" class="wger-modal-dialog">
-                                    {% trans "Edit them now."%}
+                                        {% trans "Edit them now."%}
                                     </a>
                                 </p>
                                 {% endif %}
