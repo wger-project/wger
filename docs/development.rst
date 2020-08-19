@@ -28,7 +28,7 @@ Install Requirements
 ::
 
   $ pip install -r requirements_devel.txt
-  $ npm install yarn
+  $ npm install -g yarn sass
   $ python setup.py develop
 
 Install application

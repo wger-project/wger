@@ -27,6 +27,14 @@ the source and do ::
 
 This happens automatically during the bootstrap process.
 
+
+Updating SASS files
+```````````````````
+After updating the SASS files, you need to compile them to regular CSS::
+
+    sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css
+
+
 Clearing the cache
 ``````````````````
 

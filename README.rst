@@ -44,7 +44,7 @@ and stable state.
 ::
 
  $ sudo apt-get install python3-dev nodejs npm git
- $ sudo npm install -g yarn
+ $ sudo npm install -g yarn sass
 
 
 Then install the python packages from pypi in the virtualenv::

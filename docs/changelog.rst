@@ -7,8 +7,9 @@ Changelog
 Upgrade steps from 1.9:
 
 * Update python libraries ``pip install -r requirements.txt``
-* Install ``yarn`` (e.g. ``sudo npm install -g yarn``)
+* Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
 * Update CSS and JS libraries ``yarn install``
+* Compile the CSS ``sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css``
 * Update static files (only production): ``python manage.py collectstatic``
 
 

@@ -113,6 +113,7 @@ Get the application::
   git clone https://github.com/wger-project/wger.git /home/wger/src
   cd /home/wger/src
   pip install -r requirements.txt
+  npm install -g yarn sass
   python setup.py develop
   pip install psycopg2 # Only if using postgres
   wger create_settings \
