@@ -105,4 +105,4 @@ class DashboardTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'css/workout-manager.css', html=False)
-        self.assertContains(response, 'yarn/bootstrap/dist/css/bootstrap.min.css', html=False)
+        self.assertContains(response, 'yarn/bootstrap-compiled.css', html=False)
