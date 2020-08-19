@@ -237,7 +237,7 @@ class WgerDeleteTestCase(WgerTestCase):
         """
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerDeleteTestCase':
+        if self.__class__.__name__ == 'WgerDeleteTestCase':
             return
 
         # Fetch the delete page
@@ -322,7 +322,7 @@ class WgerEditTestCase(WgerTestCase):
         """
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerEditTestCase':
+        if self.__class__.__name__ == 'WgerEditTestCase':
             return
 
         # Fetch the edit page
@@ -422,7 +422,7 @@ class WgerAddTestCase(WgerTestCase):
         """
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerAddTestCase':
+        if self.__class__.__name__ == 'WgerAddTestCase':
             return
 
         # Fetch the add page
@@ -514,7 +514,7 @@ class WgerAccessTestCase(WgerTestCase):
     def access(self, fail=True):
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerAccessTestCase':
+        if self.__class__.__name__ == 'WgerAccessTestCase':
             return
 
         response = self.client.get(get_reverse(self.url))
