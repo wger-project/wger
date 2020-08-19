@@ -105,14 +105,12 @@ $(document).ready(function() {
             </a>
             <div class="card-body text-center">
                 {% if perms.exercises.change_exerciseimage %}
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
-                       class="wger-modal-dialog btn btn-link"
-                       title="{% trans 'Delete' %}">
-                         <span class="{% fa_class 'trash' %}"></span></a>
-                    <a href="{% url 'exercise:image:edit' image.pk %}"
-                       class="btn btn-link"
-                       title="{% trans 'Edit' %}">
-                         <span class="{% fa_class 'edit' %}"></span></a>
+                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="wger-modal-dialog btn btn-link">
+                         <span class="{% fa_class 'trash' %}"></span>
+                    </a>
+                    <a href="{% url 'exercise:image:edit' image.pk %}" class="btn btn-link">
+                         <span class="{% fa_class 'edit' %}"></span>
+                    </a>
                 {% endif %}
 
                 {% if image.is_main %}
