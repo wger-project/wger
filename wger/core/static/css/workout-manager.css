@@ -21,6 +21,45 @@
  *
  **************************************************************/
 
+/**************************************************************
+ * Font definitions
+ **************************************************************/
+
+/* font-face kit by Fonts2u - http://www.fonts2u.com */
+@font-face {
+  font-family: "Open Sans Light";
+  src:
+    url("/static/fonts/OpenSans-Light.eot?") format("eot"),
+    url("/static/fonts/OpenSans-Light.woff") format("woff"),
+    url("/static/fonts/OpenSans-Light.ttf") format("truetype"),
+    url("/static/fonts/OpenSans-Light.svg#OpenSans-Light") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src:
+    url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
+    url("/static/fonts/OpenSans-Regular.woff") format("woff"),
+    url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
+    url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans Bold";
+  src:
+    url("/static/fonts/OpenSans-Bold.eot?") format("eot"),
+    url("/static/fonts/OpenSans-Bold.woff") format("woff"),
+    url("/static/fonts/OpenSans-Bold.ttf") format("truetype"),
+    url("/static/fonts/OpenSans-Bold.svg#OpenSans-Bold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 /* sticky footer */
 
 html {
@@ -194,13 +233,191 @@ div.info a:active {
 }
 
 
+
 /**************************************************************
- * Carousel on the feature page
+ * Styling for the SVG elements on the weight chart
  **************************************************************/
-#feature-carousel .carousel-caption {
-  background-color: rgba(0, 0, 0, 0.75);
-  position: relative;
-  left: auto;
-  right: auto;
-  bottom: auto;
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: lightsteelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.dot {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+circle {
+  cursor: pointer;
+}
+
+circle:hover {
+  fill: #204a87;
+  stroke: #204a87;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: 0.125;
+  shape-rendering: crispEdges;
+}
+
+/* Color series from d3.scale.category10() */
+circle.color-1f77b4:hover {
+  fill: #1f77b4;
+}
+
+circle.color-ff7f0e:hover {
+  fill: #ff7f0e;
+}
+
+circle.color-2ca02c:hover {
+  fill: #2ca02c;
+}
+
+circle.color-d62728:hover {
+  fill: #d62728;
+}
+
+circle.color-9467bd:hover {
+  fill: #9467bd;
+}
+
+circle.color-8c564b:hover {
+  fill: #8c564b;
+}
+
+circle.color-e377c2:hover {
+  fill: #e377c2;
+}
+
+circle.color-7f7f7f:hover {
+  fill: #7f7f7f;
+}
+
+circle.color-bcbd22:hover {
+  fill: #bcbd22;
+}
+
+circle.color-17becf:hover {
+  fill: #17becf;
+}
+
+/**************************************************************
+ * Weight log calendar
+ **************************************************************/
+table.month td {
+  width: 14.285%;
+  height: 4em;
+  text-align: center;
+}
+
+table.month th.month {
+  text-align: center;
+  background-color: #eeeeec;
+}
+
+table.month a.calendar-link {
+  height: 100%;
+  line-height: 1;
+}
+
+table.month td.session-bad {
+  background-color: #f2dede;
+}
+
+table.month td.session-bad:hover {
+  background-color: #c9302c;
+}
+
+table.month td.session-neutral {
+  background-color: #f5f5f5;
+}
+
+table.month td.session-neutral:hover {
+  background-color: #babdb6;
+}
+
+table.month td.session-good {
+  background-color: #dff0d8;
+}
+
+table.month td.session-good:hover {
+  background-color: #449d44;
+}
+
+/*
+ * Autocompleter
+ */
+.autocomplete-wrapper {
+  margin: 44px auto 44px;
+  max-width: 600px;
+}
+
+.autocomplete-wrapper label {
+  display: block;
+  margin-bottom: 0.75em;
+  color: #3f4e5e;
+  font-size: 1.25em;
+}
+
+.autocomplete-wrapper .text-field {
+  padding: 0 15px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #cbd3dd;
+  font-size: 1.125em;
+}
+
+.autocomplete-wrapper ::-webkit-input-placeholder,
+.autocomplete-wrapper ::-moz-placeholder,
+.autocomplete-wrapper :-moz-placeholder,
+.autocomplete-wrapper :-ms-input-placeholder {
+  color: #cbd3dd;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.autocomplete-suggestions {
+  overflow: auto;
+  border: 1px solid #cbd3dd;
+  background: #fff;
+}
+
+.autocomplete-suggestion {
+  overflow: hidden;
+  padding: 5px 15px;
+  white-space: nowrap;
+}
+
+.autocomplete-selected {
+  background: #f0f0f0;
+}
+
+.autocomplete-suggestions strong {
+  color: #3465a4;
+  font-weight: bold;
+}
+
+.autocomplete-group {
+  background-color: #d3d7cf;
+}
+
+.autocomplete-group strong {
+  color: black;
+  font-weight: bold;
 }
