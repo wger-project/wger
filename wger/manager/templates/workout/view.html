@@ -60,22 +60,17 @@ $(document).ready(function () {
     <div id="div-day-{{ day.obj.id }}">
         {% render_day day.obj is_owner %}
     </div>
-{% empty %}
-    {% if is_owner %}
-        <p>
-            <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-light btn-block">
-            {% trans "No days for this workout." %}
-            {% trans "Add training day" %}
-            </a>
-        </p>
-    {% endif %}
 {% endfor %}
+
 
 {% if is_owner %}
 <p>
-    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog">{% trans "Add training day" %}</a>
+    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-link btn-block">{% trans "Add training day" %}</a>
+
+    <!--
     |
     <a id="exercise-comments-toggle" href="{% url 'core:user:preferences' %}">{% trans "Show/Hide exercise comments" %}</a>
+    -->
 </p>
 {% endif %}
 {% endblock %}
@@ -203,6 +198,14 @@ an appointment for each training day with the appropriate exercises.{% endblockt
         </div>
     </div>
 </div>
+
+{% if workout.canonical_representation.day_list %}
+<h4>{% trans "Logs" %}</h4>
+<p>
+    <a href="{% url 'manager:log:log' workout.id %}">{% trans 'View logs' %}</a>
+</p>
+{% endif %}
+
 {% endblock %}
 
 
