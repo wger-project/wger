@@ -113,10 +113,9 @@
                     <div class="modal-header">
                         <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
                         <button type="button"
-                                class="close"
+                                class="close pl-2"
                                 data-dismiss="modal"
-                                aria-hidden="true"
-                                style="padding-left: 0.5em;">&times;</button>
+                                aria-hidden="true">&times;</button>
 
                     </div>
                     <div class="modal-body" id="ajax-info-content">
@@ -170,7 +169,7 @@
         {#                                         #}
         <div class="btn-group float-right" role="group">
             <div class="btn-group" role="group">
-                <button id="btnGroupLanguages2" type="button" class="btn btn-link dropdown-toggle text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
+                <button id="btnGroupLanguages2" type="button" class="btn btn-link text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
                   {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
                   <img src="{% static flagname %}"
                          width="18"
