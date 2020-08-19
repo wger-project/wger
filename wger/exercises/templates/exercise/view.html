@@ -94,38 +94,38 @@ $(document).ready(function() {
 {% with images=exercise.exerciseimage_set.accepted %}
 {% if images or perms.exercises.change_exerciseimage  %}
     <h5 class="mt-4">{% trans "Images" %}:</h5>
-    <div class="card-deck">
+    <div class="row row-cols-2 row-cols-md-3">
     {% with other_images=images %}
     {% for image in other_images %}
 
-        <div class="card">
-            <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
-            <div class="card-body">
-                <a href="{{ image.image.url }}"
-                       target="_blank"
-                       class=" no-hover"
-                       title="{% trans 'Download' %}">
-                         <span class="{% fa_class 'download' %}"></span>
-                </a>
+        <div class="col mb-4">
+        <div class="card h-100">
+            <a href="{{ image.image.url }}">
+            <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}">
+            </a>
+            <div class="card-body text-center">
                 {% if perms.exercises.change_exerciseimage %}
-                    |
                     <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
-                       class="wger-modal-dialog no-hover"
+                       class="wger-modal-dialog btn btn-link"
                        title="{% trans 'Delete' %}">
-                         <span class="{% fa_class 'trash' %}"></span></a> |
+                         <span class="{% fa_class 'trash' %}"></span></a>
                     <a href="{% url 'exercise:image:edit' image.pk %}"
-                       class="no-hover"
+                       class="btn btn-link"
                        title="{% trans 'Edit' %}">
                          <span class="{% fa_class 'edit' %}"></span></a>
                 {% endif %}
 
                 <p class="card-text">
-                    {{image.get_license_display}}
-                    {% if image.license_author %}
-                         – {{image.license_author}}
-                    {% endif %}
+
                 </p>
             </div>
+            <div class="card-footer">
+                {{image.get_license_display}}
+                {% if image.license_author %}
+                    {{image.license_author}}
+                {% endif %}
+            </div>
+        </div>
         </div>
     {% endfor %}
     {% endwith %}
