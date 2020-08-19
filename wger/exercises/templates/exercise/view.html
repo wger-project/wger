@@ -43,7 +43,7 @@ $(document).ready(function() {
 {% block content %}
 
 {% if exercise.status == exercise.STATUS_PENDING %}
-<div class="card mb-4">
+<div class="card text-white bg-dark mb-4">
     <div class="card-header">
         {% trans "Exercise is pending review" %}
     </div>
@@ -62,6 +62,10 @@ $(document).ready(function() {
             <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-secondary">
                 <span class="{% fa_class 'times' %}"></span>
                 {% trans "Decline" %}
+            </a>
+            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog btn btn-secondary">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete" %}
             </a>
         {% endif %} {# end check permissions #}
     </div>
