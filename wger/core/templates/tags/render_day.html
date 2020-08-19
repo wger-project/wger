@@ -17,21 +17,31 @@ $(document).ready(function() {
 <thead class="thead-light">
     <tr id="day-{{ day.obj.id }}">
         <th colspan="2">
-
             {{ day.days_of_week.text }} – {{ day.obj.description }}
+
             {% if editable %}
-            <span class="editoptions float-right">
-                <a href="{% url 'manager:day:delete' day.obj.id %}"
-                   title="{% trans 'Delete' %}">
-                    <span class="{% fa_class 'trash' %}"></span></a>
-                <a href="{% url 'manager:day:edit' day.obj.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog">
-                    <span class="{% fa_class 'edit' %}"></span></a>
-                <a href="{% url 'manager:day:log' day.obj.id %}"
-                   title="{% trans 'Add weight log to this day' %}">
-                    <span class="{% fa_class 'chart-line' %}"></span></a>
-            </span>
+            <div class="float-right">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle " type="button" id="dropdownMenuDay{{day.obj.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="{% fa_class 'cog' %}"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDay{{day.obj.id}}">
+                    <a href="{% url 'manager:day:log' day.obj.id %}" class="dropdown-item">
+                        <span class="{% fa_class 'chart-line' %}"></span>
+                        {% trans 'Add weight log' %}
+                    </a>
+                    <a href="{% url 'manager:day:edit' day.obj.id %}" class="wger-modal-dialog dropdown-item">
+                        <span class="{% fa_class 'edit' %}"></span>
+                        {% trans 'Edit' %}
+                    </a>
+                    <a href="{% url 'manager:day:delete' day.obj.id %}" class="dropdown-item">
+                        <span class="{% fa_class 'trash' %}"></span>
+                        {% trans 'Delete' %}
+                    </a>
+
+                </div>
+            </div>
+            </div>
             {% endif %}
         </th>
     </tr>
@@ -122,4 +132,7 @@ $(document).ready(function() {
         </tr>
         {% endif %}
     </tbody>
+
+
+
 </table>
