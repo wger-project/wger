@@ -12,16 +12,28 @@
                     {#             #}
                     {# Workout tab #}
                     {#             #}
-                    {% if user.is_authenticated %}
+
                     <li class="nav-item dropdown {% if active_tab == 'workout' %}active{% endif %}">
                         <a href="{% url 'manager:workout:overview' %}"
                            rel="nofollow"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown">{% trans "Training" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'manager:workout:overview' %}" rel="nofollow">{% trans "Workouts" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">{% trans "Workouts schedules" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'manager:workout:overview' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% trans "Workouts" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% trans "Workouts schedules" %}
+                            </a></li>
+                            {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
+                            {% endif %}
 
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% trans "Exercises" %}</li>
@@ -44,7 +56,7 @@
                             {% endif %}
                         </ul>
                     </li>
-                    {% endif %}
+
 
 
                     {#            #}
@@ -52,7 +64,6 @@
                     {#            #}
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
-
                         <a href="{% url 'weight:overview' user.username %}"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown"
@@ -68,16 +79,31 @@
                     {#               #}
                     {# Nutrition tab #}
                     {#               #}
-                    {% if user.is_authenticated %}
+
                     <li class="nav-item dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
                         <a href="{% url 'nutrition:plan:overview' %}"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown"
                            rel="nofollow">{% trans "Nutrition" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">{% trans "Nutrition plans" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">{% trans "BMI calculator" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">{% trans "Daily calories calculator" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">
+                                    {% if not user.is_authenticated %}
+                                        <span class="{% fa_class 'lock' %}"></span>
+                                    {% endif %}
+                                    {% trans "Nutrition plans" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% trans "BMI calculator" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% trans "Daily calories calculator" %}
+                            </a></li>
                             <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
                             {% if perms.nutrition %}
                                 <li class="dropdown-divider"></li>
@@ -87,7 +113,7 @@
                             {% endif %}
                         </ul>
                     </li>
-                    {% endif %}
+
 
 
                     {#              #}
@@ -106,19 +132,19 @@
                             <li><a class="dropdown-item" href="{% url 'software:license' %}">{% trans "License" %} </a></li>
                             <li>
                                 <a  class="dropdown-item" href="https://wger.readthedocs.io/">
-                                    <span class="fas fa-external-link-alt" aria-hidden="true"></span>
+                                    <span class="{% fa_class 'external-link-alt' %}"></span>
                                     {% trans "Developer documentation" %}
                                 </a>
                             </li>
                             <li>
                                 <a  class="dropdown-item" href="https://github.com/wger-project/wger">
-                                    <span class="fas fa-external-link-alt" aria-hidden="true"></span>
+                                    <span class="{% fa_class 'external-link-alt' %}"></span>
                                     {% trans "Get the code" %} (Github)
                                 </a>
                             </li>
                             <li>
                                 <a  class="dropdown-item" href="https://www.transifex.com/rge/wger-workout-manager/">
-                                    <span class="fas fa-external-link-alt" aria-hidden="true"></span>
+                                    <span class="{% fa_class 'external-link-alt' %}"></span>
                                     {% trans "Translate with Transifex" %}
                                 </a>
                             </li>
