@@ -50,7 +50,7 @@ $(document).ready(function() {
         {% for set in day.set_list %}
         <tr data-id="{{ set.obj.id }}" id="set-{{ set.obj.id }}">
             <td style="width: 15%;border-right-width: 0px;">
-                <p><strong>{{ forloop.counter }}</strong></p>
+                <p>#{{ forloop.counter }}</p>
 
                 {% if editable %}
                     <span class="editoptions">
