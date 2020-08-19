@@ -125,7 +125,7 @@ $(document).ready(function() {
         {% endfor %} <!--for set in day-->
         {% if editable %}
         <tr>
-            <td colspan="2">
+            <td colspan="2" class="py-0">
                 <a href="{% url 'manager:set:add' day.obj.id %}"
                    class="wger-modal-dialog btn btn-link btn-block">{% trans "Add exercises to this workout day" %}</a>
             </td>
