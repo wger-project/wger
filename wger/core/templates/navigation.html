@@ -1,7 +1,9 @@
-{% load i18n cache wger_extras %}
+{% load static i18n cache wger_extras %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-wger-primary">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'core:index' %}" style="font-family: 'Open Sans Bold';">wger</a>
+            <a class="navbar-brand extra-bold" href="{% url 'core:index' %}">
+                <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 38px;">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar-navigation" aria-controls="main-navbar-navigation" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
