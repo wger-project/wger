@@ -130,7 +130,7 @@ file a bug anyway.
 
 * **gitter:** https://gitter.im/wger-project/wger
 * **issue tracker:** https://github.com/wger-project/wger/issues
-* **twitter:** https://twitter.com/wger_de
+* **twitter:** https://twitter.com/wger_project
 
 
 Sources

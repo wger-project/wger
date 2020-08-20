@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Armstrong Yan <yanqiangsdu@gmail.com>, 2016
 # Binbin Zhang <pt0079@gmail.com>, 2016
@@ -906,8 +906,8 @@ msgstr "打开反馈表单"
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
-msgstr "发推 @wger_de"
+msgid "tweet to @wger_project"
+msgstr "发推 @wger_project"
 
 #: core/templates/misc/contact.html:56
 #: core/templates/mobile/misc/contact.html:37

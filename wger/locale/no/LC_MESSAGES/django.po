@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # w00p <kjetil@stiligt.no>, 2016
 # Stian Lundanes <stian@lundanes.com>, 2015
@@ -904,8 +904,8 @@ msgstr "Åpne tilbakemeldingsskjema"
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
-msgstr "tweet til @wger_de"
+msgid "tweet to @wger_project"
+msgstr "tweet til @wger_project"
 
 #: core/templates/misc/contact.html:56
 #: core/templates/mobile/misc/contact.html:37

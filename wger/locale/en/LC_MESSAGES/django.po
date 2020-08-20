@@ -956,7 +956,7 @@ msgstr ""
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
+msgid "tweet to @wger_project"
 msgstr ""
 
 #: core/templates/misc/contact.html:56

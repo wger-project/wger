@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Acv2 Facundo <acv2facundo@gmail.com>, 2014
 # Enrique Garcia <ea2809@gmail.com>, 2015
@@ -906,8 +906,8 @@ msgstr "Abre formulário de sugerencias"
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
-msgstr "tweet a @wger_de"
+msgid "tweet to @wger_project"
+msgstr "tweet a @wger_project"
 
 #: core/templates/misc/contact.html:56
 #: core/templates/mobile/misc/contact.html:37

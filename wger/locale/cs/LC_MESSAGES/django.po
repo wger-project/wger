@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # rge <roland@geider.net>, 2016
 # rge <roland@geider.net>, 2016
@@ -906,8 +906,8 @@ msgstr "Otevřít formulář zpětné vazby"
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
-msgstr "tweet @wger_de"
+msgid "tweet to @wger_project"
+msgstr "tweet @wger_project"
 
 #: core/templates/misc/contact.html:56
 #: core/templates/mobile/misc/contact.html:37
