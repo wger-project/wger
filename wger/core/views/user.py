@@ -239,7 +239,8 @@ def registration(request):
     template_data.update(csrf(request))
 
     # Don't show captcha if the global parameter is false
-    FormClass = RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
+    FormClass = RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] \
+        else RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
     if request.user.is_authenticated and not request.user.userprofile.is_temporary:
