@@ -99,10 +99,6 @@ from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
 )
-from wger.utils.user_agents import (
-    check_request_amazon,
-    check_request_android
-)
 from wger.weight.models import WeightEntry
 
 
@@ -242,13 +238,8 @@ def registration(request):
     template_data = {}
     template_data.update(csrf(request))
 
-    # Don't use captcha when registering through an app
-    is_app = check_request_amazon(request) or check_request_android(request)
-    FormClass = RegistrationFormNoCaptcha if is_app else RegistrationForm
-
     # Don't show captcha if the global parameter is false
-    if not settings.WGER_SETTINGS['USE_RECAPTCHA']:
-        FormClass = RegistrationFormNoCaptcha
+    FormClass = RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
     if request.user.is_authenticated and not request.user.userprofile.is_temporary:
