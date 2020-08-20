@@ -142,15 +142,15 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 </table>
             </div>
         </div>
+        {% if not plan %}
         <div class="card-footer">
-            {% if not plan %}
             <p>
                 <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm btn-block btn-success">
                     {% trans "No nutrition plans." %} {% trans "Add one now." %}
                 </a>
             </p>
-            {% endif %}
         </div>
+        {% endif %}
     </div>
 
 
