@@ -14,17 +14,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
 import re
-import sys
 
-'''
+
+"""
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
-'''
+"""
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -42,14 +43,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'storages',
 
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    # 'django.contrib.admin',
 
     # Apps from wger proper
     'wger.config',
     'wger.core',
-    'wger.email',
+    'wger.mailer',
     'wger.exercises',
     'wger.gym',
     'wger.manager',
@@ -64,51 +67,36 @@ INSTALLED_APPS = (
     # The sitemaps app
     'django.contrib.sitemaps',
 
-    # Django mobile
-    'django_mobile',
-
     # thumbnails
     'easy_thumbnails',
 
     # CSS/JS compressor
     'compressor',
 
+    # Form renderer helper
+    'crispy_forms',
+
     # REST-API
-    'tastypie',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
 
     # CORS
     'corsheaders',
-
-    # django-bower for installing bower packages
-    'djangobower',
-)
-
-# added list of external libraries to be installed by bower
-BOWER_INSTALLED_APPS = (
-    'bootstrap',
-    'components-font-awesome',
-    'd3',
-    'DataTables',
-    'devbridge-autocomplete#1.2.x',
-    'jquery#2.1.x',
-    'metrics-graphics',
-    'shariff',
-    'sortablejs#1.4.x',
-    'tinymce',
-    'tinymce-dist',
 )
 
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+    # Django Admin
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
@@ -122,10 +110,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-
-    # Django mobile
-    'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -150,16 +134,10 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
 
-                # Django mobile
-                'django_mobile.context_processors.flavour',
-
                 # Breadcrumbs
                 'django.template.context_processors.request'
             ],
             'loaders': [
-                # Django mobile
-                'django_mobile.loader.Loader',
-
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
@@ -174,8 +152,6 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # added BowerFinder to list of static file finders
-    'djangobower.finders.BowerFinder',
 
     # Django compressor
     'compressor.finders.CompressorFinder',
@@ -210,7 +186,7 @@ USE_L10N = True
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = None
+TIME_ZONE = 'UTC'
 
 # Restrict the available languages
 LANGUAGES = (
@@ -225,6 +201,7 @@ LANGUAGES = (
             ('cs', 'Czech'),
             ('sv', 'Swedish'),
             ('no', 'Norwegian'),
+            ('fr', 'French'),
 )
 
 # Default language code for this installation.
@@ -234,8 +211,6 @@ LANGUAGE_CODE = 'en'
 LOCALE_PATHS = (
     os.path.join(SITE_ROOT, 'locale'),
 )
-
-FLAVOURS_STORAGE_BACKEND = 'session'
 
 
 #
@@ -283,6 +258,10 @@ CACHES = {
     }
 }
 
+#
+# Django Crispy Templates
+#
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #
 # Easy thumbnails
@@ -306,12 +285,35 @@ THUMBNAIL_ALIASES = {
     },
 }
 
+STATIC_ROOT = ''
+USE_S3 = os.getenv('USE_S3') == 'TRUE'
+
+if USE_S3:
+    # aws settings
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_CUSTOM_DOMAIN = os.getenv('WGER_CDN_DOMAIN')
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=31557600'}
+    # s3 static settings
+    AWS_LOCATION = 'static'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_URL = STATIC_URL
+    COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_OFFLINE = True
+    COMPRESS_OFFLINE_CONTEXT = [
+        {'request': {'user_agent': {'is_mobile': True}}, 'STATIC_URL': STATIC_URL},
+        {'request': {'user_agent': {'is_mobile': False}}, 'STATIC_URL': STATIC_URL}
+    ]
+else:
+    STATIC_URL = '/static/'
+
 
 #
 # Django compressor
 #
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
 
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
@@ -319,27 +321,26 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.rCSSMinFilter'
 )
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+    'compressor.filters.template.TemplateFilter',
+]
 COMPRESS_ROOT = STATIC_ROOT
-
-# BOWER binary
-if sys.platform.startswith('win32'):
-    BOWER_PATH = os.path.join('node_modules', '.bin', 'bower.cmd')
-else:
-    BOWER_PATH = os.path.join('node_modules', '.bin', 'bower')
 
 #
 # Django Rest Framework
 #
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
-    'PAGINATE_BY': 20,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
     'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.OrderingFilter',)
 }
 
@@ -356,6 +357,26 @@ CORS_URLS_REGEX = r'^/api/.*$'
 IGNORABLE_404_URLS = (
     re.compile(r'^/favicon\.ico$'),
 )
+
+#
+# Password rules
+#
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+USER_AGENTS_CACHE = 'default'
 
 #
 # Application specific configuration options

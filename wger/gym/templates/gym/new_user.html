@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{new_user|format_username}}{% endblock %}
 
@@ -34,6 +34,10 @@
         <th>{% trans "Gym" %}</th>
         <td>{{new_user.userprofile.gym}}</td>
     </tr>
+    <tr>
+        <th>{% trans "Date of Birth" %}</th>
+        <td>{{new_user.userprofile.birthdate}}</td>
+    </tr>
 </table>
 {% endblock %}
 
@@ -49,7 +53,7 @@ cannot be recovered later.{% endblocktrans %}
 </p>
 
 <p>
-    <a href="{% url 'gym:gym:new-user-data-export' %}" {% auto_link_css flavour %}>
+    <a href="{% url 'gym:gym:new-user-data-export' %}">
         {% trans "Export user data" %}
     </a>
 </p>

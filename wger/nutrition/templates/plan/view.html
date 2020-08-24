@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 {#           #}
@@ -43,11 +43,10 @@ function wgerCustomModalInit()
 {#         #}
 {% block content %}
 {% if plan.description %}
-<p>
-    <strong>{% trans "Goal" %}:</strong> {{plan.description}}
-</p>
+    <h4>{{plan.description}}</h4>
 {% endif %}
 
+<div class="table-responsive">
 <table class="table table-bordered">
     <thead>
         <tr style="background: #E0E0E0;">
@@ -67,13 +66,11 @@ function wgerCustomModalInit()
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
     </tr>
-{% for meal in plan.meal_set.select_related %}
-    {% for item in meal.mealitem_set.select_related %}
+    {% for meal in plan.meal_set.select_related %}
     <tr>
-        {% ifchanged meal.pk %}
-        <td rowspan="{{meal.mealitem_set.count}}">
+        <td {% if meal.mealitem_set.count %}rowspan="{{meal.mealitem_set.count}}"{% endif %}>
             <strong>
-            {% trans "Nr."%} {{ forloop.parentloop.counter }}
+            {% trans "Nr."%} {{ forloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
             </strong>
 
@@ -85,7 +82,7 @@ function wgerCustomModalInit()
                 <a href="{% url 'nutrition:meal:edit' meal.id %}"
                    title="{% trans 'Edit' %}"
                    class="wger-modal-dialog">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
+                    <span class="{% fa_class 'edit' %}"></span></a>
                 <a href="{% url 'nutrition:meal_item:add' meal.id %}"
                    title="{% trans 'Add' %}"
                    class="wger-modal-dialog edit-meal">
@@ -93,88 +90,81 @@ function wgerCustomModalInit()
             </div>
             {% endif %}
         </td>
-        {% endifchanged %}
-        <td>
-            {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
-            {% else %}
-                {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
-            {% endif %}
-            {{ item.ingredient.name }}
+        {% for item in meal.mealitem_set.select_related %}
+            <td>
+                {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}{{ item.amount|floatformat:"0" }}g
+                {% else %}
+                    {{ item.amount|floatformat:"0" }} × {{ item.weight_unit.unit.name }}
+                {% endif %}
+                {{ item.ingredient.name }}
 
-            {% if is_owner %}
-            <span class="editoptions">
-                <a href="{% url 'nutrition:meal_item:delete' item.id %}"
-                   title="{% trans 'Delete' %}"
-                   class="delete-mealitem">
-                   <span class="{% fa_class 'trash' %}"></span></a>
-                <a href="{% url 'nutrition:meal_item:edit' item.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog edit-meal edit-mealitem">
-                    <span class="{% fa_class 'pencil-square-o' %}"></span></a>
-            </span>
-            {% endif %}
+                {% if is_owner %}
+                <span class="editoptions float-right">
+                    <a href="{% url 'nutrition:meal_item:delete' item.id %}"
+                       title="{% trans 'Delete' %}"
+                       class="delete-mealitem">
+                       <span class="{% fa_class 'trash' %}"></span></a>
+                    <a href="{% url 'nutrition:meal_item:edit' item.id %}"
+                       title="{% trans 'Edit' %}"
+                       class="wger-modal-dialog edit-meal edit-mealitem">
+                        <span class="{% fa_class 'edit' %}"></span></a>
+                </span>
+                {% endif %}
             </td>
-            <td class="align-right">{{item.get_nutritional_values.energy|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.protein|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat}}</td>
-            <td class="align-right">{{item.get_nutritional_values.fat|floatformat}}</td>
-</tr>
+            <td class="align-right">{{item.get_nutritional_values.energy|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.protein|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.fat|floatformat:1}}</td>
+        </tr>
+        {% empty %}
+            {% if is_owner %}
+                <td colspan="6">
+                   <a href="{% url 'nutrition:meal_item:add' meal.id %}"
+                      title="{% trans 'Add one now.' %}"
+                      class="wger-modal-dialog edit-meal btn btn-link btn-block">
+                        {% trans "No items for this meal." %}
+                        {% trans "Add one now."%}
+                    </a>
+                </td>
+            {% endif %}
+        {% endfor %}
+
     {% empty %}
     {% if is_owner %}
     <tr>
-        <td colspan="7">
-           <a href="{% url 'nutrition:meal_item:add' meal.id %}"
-              title="{% trans 'Add one now.' %}"
-              class="wger-modal-dialog edit-meal btn btn-default btn-block">
-                {% trans "No items for this meal." %}
-                {% trans "Add one now."%}
+        <td colspan="6">
+         <a href="{% url 'nutrition:meal:add' plan.id %}" class="wger-modal-dialog btn btn-link btn-block">
+                {% trans "No meals for this plan." %}
+                {% trans "Add one now." %}
             </a>
         </td>
     </tr>
     {% endif %}
     {% endfor %}
-
-{% empty %}
-{% if is_owner %}
-<p>
-     <a href="{% url 'nutrition:meal:add' plan.id %}"
-        class="wger-modal-dialog btn btn-default btn-block">
-            {% trans "No meals for this plan." %}
-            {% trans "Add one now." %}
+    {% if is_owner %}
+    <tr>
+        <td colspan="6" class="py-0">
+        <a href="{% url 'nutrition:meal:add' plan.id %}"
+           class="wger-modal-dialog btn btn-link btn-block">
+            {% trans "Add a new meal" %}
         </a>
-</p>
-{% endif %}
-{% endfor %}
-        {% if is_owner %}
-        <tr>
-            <td colspan="6">
-            <a href="{% url 'nutrition:meal:add' plan.id %}"
-               class="wger-modal-dialog">
-                <span class="{% fa_class 'plus' %}"></span>
-                {% trans "Add a new meal" %}
-            </a>
-            </td>
-        </tr>
-        {% endif %}
+        </td>
+    <tr>
+    {% endif %}
     </tbody>
 </table>
-
-{% if language.short_name != 'en' and is_owner %}
-    <p>
-    {% trans "If you find the ingredient list too short, you might want to activate the preference to also show English ingredients." %}
-    <a href="{% url 'core:user:preferences' %}" id="ajax-english-ingredients">{% trans "That's done here" %}</a>.
-    </p>
-{% endif %}
-
+</div>
 
 
 <h4>{% trans "Nutritional data" %}</h4>
 {% if weight_entry %}
-    {% blocktrans with date=weight_entry.date weight=weight_entry.weight %}
-    <h5> Based on the weight entry dated {{date}} ({{weight}})</h5>
-    {% endblocktrans %}
+    <h6>
+        {% blocktrans with date=weight_entry.date weight=weight_entry.weight trimmed %}
+        Based on the weight entry dated {{date}} ({{weight}})
+        {% endblocktrans %}
+    </h6>
 {% endif %}
-<table class="table table-condensed">
+<table class="table table-sm">
     <thead>
         <tr>
             <th>{% trans "Macronutrients" %}</th>
@@ -192,37 +182,37 @@ function wgerCustomModalInit()
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{nutritional_data.total.energy|floatformat}} {% trans "kcal" %}</td>
+            <td class="align-right">{{nutritional_data.total.energy|floatformat:1}} {% trans "kcal" %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td class="align-right">{{nutritional_data.total.protein|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{nutritional_data.percent.protein|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.total.protein|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.percent.protein|floatformat:1}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.protein|floatformat:2}}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.percent.carbohydrates|floatformat:1}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat:2}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
-            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
             <td></td>
             <td></td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{nutritional_data.percent.fat|floatformat}} %</td>
+            <td class="align-right">{{nutritional_data.total.fat|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.percent.fat|floatformat:1}} %</td>
             <td class="align-right">{{nutritional_data.per_kg.fat|floatformat:2}}</td>
         </tr>
         <tr>
             <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
-            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat}} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
             <td></td>
             <td></td>
         </tr>
@@ -304,9 +294,8 @@ function wgerCustomModalInit()
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-
 <h4>{% trans "Energy" %}</h4>
-<table class="table table-condensed" id="nutritional-data-energy">
+<table class="table table-sm" id="nutritional-data-energy">
     <thead>
         <tr>
             <th>{% trans "Energy" %}</th>
@@ -320,8 +309,7 @@ function wgerCustomModalInit()
         <tr style="background-color:{% if total == 1 %}#8ae234;{% elif total == 2 %}#fce94f;{% elif total == 3 %}#fcaf3e;{% elif total > 3 %}#ef2929;{% endif %}">
             <td>{% trans "Goal" %}</td>
             <td class="align-right">
-                <strong>{{owner_user.userprofile.calories}} {% trans "kcal" %}</strong>
-            </td>
+                <strong>{{owner_user.userprofile.calories}} {% trans "kcal" %}</strong></td>
         </tr>
         {% endwith %}
         {% endif %}
@@ -355,34 +343,26 @@ function wgerCustomModalInit()
         <span class="{% fa_class 'cog' %}"></span>
         {% trans "Options" %}
     </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}" target="_blank">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
-        </li>
+    <div class="dropdown-menu">
+        <a href="{% url 'nutrition:plan:export-pdf' plan.id uid token %}" target="_blank" class="dropdown-item">
+            <span class="{% fa_class 'download' %}"></span>
+            {% trans "Download as PDF" %}
+        </a>
         {% if is_owner %}
-        <li>
-            <a href="{% url 'nutrition:plan:edit' plan.id %}" class="wger-modal-dialog">
-                <span class="{% fa_class 'pencil-square-o' %}"></span>
+            <a href="{% url 'nutrition:plan:edit' plan.id %}" class="wger-modal-dialog dropdown-item">
+                <span class="{% fa_class 'edit' %}"></span>
                 {% trans "Edit nutrition plan" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'nutrition:plan:copy' plan.id %}">
+            <a href="{% url 'nutrition:plan:copy' plan.id %}" class="dropdown-item">
                 <span class="{% fa_class 'clone' %}"></span>
                 {% trans "Make a copy of this nutrition plan" %}
             </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'nutrition:plan:delete' plan.id %}" class="wger-modal-dialog">
+            <div role="separator" class="divider"></div>
+            <a href="{% url 'nutrition:plan:delete' plan.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete nutrition plan" %}
             </a>
-        </li>
         {% endif %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

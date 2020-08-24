@@ -12,22 +12,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.contrib.auth.models import User, AnonymousUser
+# Django
+from django.contrib.auth.models import (
+    AnonymousUser,
+    User
+)
 from django.http import Http404
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import check_access
 
 
-class CheckAccessTestCase(WorkoutManagerTestCase):
-    '''
+class CheckAccessTestCase(WgerTestCase):
+    """
     Test the "check_access" helper function
-    '''
+    """
 
     def test_helper(self):
-        '''
+        """
         Test the helper function
-        '''
+        """
 
         user_share = User.objects.get(pk=1)
         self.assertTrue(user_share.userprofile.ro_access)

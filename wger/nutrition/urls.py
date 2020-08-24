@@ -15,24 +15,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.contrib.auth.decorators import login_required
+# Django
 from django.conf.urls import (
-    patterns,
-    url,
-    include
+    include,
+    url
 )
+from django.contrib.auth.decorators import login_required
 
+# wger
 from wger.nutrition.views import (
-    ingredient,
     bmi,
     calculator,
-    plan,
+    ingredient,
     meal,
     meal_item,
+    plan,
     unit,
     unit_ingredient,
     log
 )
+
 
 # sub patterns for nutritional plans
 patterns_plan = [
@@ -54,7 +56,7 @@ patterns_plan = [
     url(r'^(?P<pk>\d+)/edit/$',
         login_required(plan.PlanEditView.as_view()),
         name='edit'),
-    url(r'^(?P<id>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})$',
+    url(r'^(?P<id>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         plan.export_pdf,
         name='export-pdf'),
     url(r'^(?P<id>\d+)/pdf/$',
@@ -204,5 +206,5 @@ urlpatterns = [
    url(r'^unit-to-ingredient/', include(patterns_unit_ingredient, namespace="unit_ingredient")),
    url(r'^calculator/bmi/', include(patterns_bmi, namespace="bmi")),
    url(r'^calculator/calories/', include(patterns_calories, namespace="calories")),
-   url(r'^diary/', include(patterns_diary, namespace="log")),
+url(r'^diary/', include(patterns_diary, namespace="log")),
 ]

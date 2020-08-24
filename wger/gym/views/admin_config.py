@@ -14,12 +14,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+# Django
+from django.urls import reverse
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import UpdateView
 
+# wger
 from wger.gym.models import GymAdminConfig
 from wger.utils.generic_views import WgerFormMixin
 
@@ -28,24 +34,25 @@ logger = logging.getLogger(__name__)
 
 
 class ConfigUpdateView(WgerFormMixin, UpdateView):
-    '''
+    """
     View to update an existing admin gym configuration
-    '''
+    """
 
     model = GymAdminConfig
     fields = '__all__'
     permission_required = 'gym.change_gymadminconfig'
+    title = ugettext_lazy('Configuration')
 
     def get_success_url(self):
-        '''
+        """
         Return to the gym user overview
-        '''
+        """
         return reverse('gym:gym:user-list', kwargs={'pk': self.object.gym.pk})
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ConfigUpdateView, self).get_context_data(**kwargs)
         context['form_action'] = reverse('gym:admin_config:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Configuration')

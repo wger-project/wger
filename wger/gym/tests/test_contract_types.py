@@ -12,21 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerAccessTestCase,
-    delete_testcase_add_methods)
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import ContractType
 
 
-class AddContractTypeTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddContractTypeTestCase(WgerAddTestCase):
+    """
     Tests creating a new contract
-    '''
+    """
 
     object_class = ContractType
     url = reverse('gym:contract_type:add', kwargs={'gym_pk': 1})
@@ -45,10 +48,10 @@ class AddContractTypeTestCase(WorkoutManagerAddTestCase):
                  'member5')
 
 
-class EditContractTypeTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditContractTypeTestCase(WgerEditTestCase):
+    """
     Tests editing a contract type
-    '''
+    """
 
     pk = 1
     object_class = ContractType
@@ -68,10 +71,10 @@ class EditContractTypeTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'Standard contract 16-Gj'}
 
 
-class DeleteContractTypeTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteContractTypeTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a contract type
-    '''
+    """
 
     pk = 1
     object_class = ContractType
@@ -89,13 +92,14 @@ class DeleteContractTypeTestCase(WorkoutManagerDeleteTestCase):
                  'member4',
                  'member5')
 
+
 delete_testcase_add_methods(DeleteContractTypeTestCase)
 
 
-class AccessContractTypeOverviewTestCase(WorkoutManagerAccessTestCase):
-    '''
+class AccessContractTypeOverviewTestCase(WgerAccessTestCase):
+    """
     Test accessing the contract list page
-    '''
+    """
     url = reverse('gym:contract_type:list', kwargs={'gym_pk': 1})
     user_success = ('manager1',
                     'manager2')

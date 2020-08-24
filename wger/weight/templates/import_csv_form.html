@@ -1,16 +1,12 @@
 {% extends "base.html" %}
-{% load wger_extras %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block title %}{% trans "Import weight logs" %}{% endblock %}
 
 {% block content %}
-<form action="{{form_action}}"
-      method="post"
-      class="form-horizontal">
-
-    {% trans 'Submit' as submit_text %}
-    {% render_form_fields form submit_text %}
+<form action="{{request.get_full_path}}" method="post">
+    {% crispy form %}
+    <input type="submit" name="submit" value="{% trans 'Submit' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 {% endblock %}
 

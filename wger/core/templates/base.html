@@ -1,4 +1,6 @@
-{% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
+{% extends "template.html" %}
+{% load i18n wger_extras django_bootstrap_breadcrumbs %}
+
 {% block template %}
 {% if show_shariff %}
     {% include 'misc/fragments/shariff_modal.html' %}
@@ -19,34 +21,35 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-12 col-md-8">
         <h2 id="page-title" class="page-header">
             {% block title %}{% endblock %}
         </h2>
+        <hr>
     </div>
-    <div class="col-sm-4" style="padding-top: 15px; padding-bottom: 15px;">
+    <div class="col-md-4 py-3">
         <div class="btn-group">
 
             {% block options %}
             {% endblock %}
 
-            {% if show_shariff %}
-                <button type="button"
-                        class="btn btn-default btn-sm"
-                        data-toggle="modal"
-                        data-target="#shariffModal">
-                    <span class="glyphicon glyphicon-retweet"></span>
-                    {%  trans "Share" %}
-                </button>
-            {% endif %}
         </div>
+        {% if show_shariff %}
+        <button type="button"
+                class="btn btn-link btn-sm float-right"
+                data-toggle="modal"
+                data-target="#shariffModal"
+                title="{%  trans 'Share' %}">
+            <span class="{% fa_class 'share-alt' %}"></span>
+        </button>
+        {% endif %}
     </div>
 </div>
 
 
 
 <div class="row">
-    <div class="col-sm-8" id="main-content">
+    <div class="col-md-8 order-2 order-sm-1 mt-3" id="main-content">
         {% if messages and not no_messages %}
             {% for message in messages %}
                 <div class="alert {% if message.tags == 'warning'%}alert-error{% elif message.tags == 'info' %}alert-info{% elif message.tags == 'success' %}alert-success{% endif %}">
@@ -56,13 +59,13 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
             {% endfor %}
         {% endif %}
 
-        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap4.html" %}
 
         <div id="content">
         {% block content %}{% endblock %}
         </div>
     </div>
-    <div class="col-sm-4" id="main-sidebar">
+    <div class="col-md-4 order-1 order-sm-2" id="main-sidebar">
         {% block sidebar %}
         {% endblock %}
     </div>

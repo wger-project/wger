@@ -1,5 +1,5 @@
 {% extends "base_wide.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
@@ -26,44 +26,47 @@ $(document).ready(function () {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans 'Add log to day' %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <p>{% blocktrans %}Click to add weight logs to a training
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-light">{{day.description}}</a>
                 {% endfor %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
 </div>
 {% endif %}
 
-<div class="row">
-    <div class="col-sm-4">
-        <h4>{% trans "Workout"%}</h4>
-            {% if current_workout %}
-                <p>
-                    <a href="{{ current_workout.get_absolute_url }}">
-                        {% if current_workout.comment %}
-                            {{ current_workout.comment }}
-                        {% else %}
-                            {% trans "Workout" %}
-                        {% endif %}
-                    </a>
-                </p>
+
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{% trans "Workout"%}</h5>
+            <div class="card-text">
+                {% if current_workout %}
+                    <p>
+                        <a href="{{ current_workout.get_absolute_url }}">
+                            {% if current_workout.comment %}
+                                {{ current_workout.comment }}
+                            {% else %}
+                                {% trans "Workout" %}
+                            {% endif %}
+                        </a>
+                    </p>
                 <p>
                      – {{ current_workout.creation_date }}
                 <p>
-            {% endif %}
+                {% endif %}
 
-            <table class="table table-hover table-condensed">
+                <table class="table table-hover table-sm">
                 {% for day, exercise, is_workout in weekdays %}
                 <tr>
                     <td>
@@ -76,146 +79,132 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                     </td>
                 </tr>
                 {% endfor %}
-            </table>
-    </div>
-    <div class="col-sm-4">
-        <h4>{% trans "Nutrition plan"%}</h4>
+                </table>
 
-        {% if plan %}
-            <p>
-                <a href="{{ plan.get_absolute_url }}">{{ plan }}</a>
-            </p>
-            <p>
-                 – {{ plan.creation_date }}
-            </p>
-        {% endif %}
-        <table class="table table-hover table-condensed">
-            <tr>
-                <td>{% trans "Energy" %}</td>
-                <td>
-                    {{nutritional_info.total.energy|floatformat|default:"-/-"}} {% trans "kcal" %}
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans "Protein" %}</td>
-                <td>
-                    {{nutritional_info.total.protein|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans "Carbohydrates" %}</td>
-                <td>
-                    {{nutritional_info.total.carbohydrates|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans "Fat" %}</td>
-                <td>
-                    {{nutritional_info.total.fat|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="col-sm-4">
-        <h4>{% trans "Weight"%}</h4>
-        <p>
-            <a href="{% url 'weight:overview' user.username %}">{% trans "Overview" %}</a>
-        </p>
-
-        {% if weight %}
-        <p>
-            {% trans "Your current weight is: "%}
-            {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
-        </p>
-        <table class="table table-hover table-condensed">
-            {% for entry_detail in last_weight_entries %}
-            <tr>
-                <td>
-                    {{ entry_detail.0.date }}
-                </td>
-                <td>
-                    {{ entry_detail.0.weight }}
-                </td>
-                <td>
-                    {% if entry_detail.1 > 0 %}
-                        +
-                    {% endif %}
-                    {% if entry_detail.1 %}
-                        {{ entry_detail.1 }}
-                    {% else %}
-                        -/-
-                    {% endif %}
-                <td>
-            </tr>
-            {% endfor %}
-        </table>
-        {% endif %}
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-sm-4">
-        {% if schedule %}
-            <p>
-                → {% trans "This workout is part of a schedule:" %}
-                <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
-            </p>
-        {% endif %}
-        <p><em>{% blocktrans %}The current workout is selected from your active schedule
-or, if you don't have one, simply by date.{% endblocktrans %}</em></p>
-    </div>
-    <div class="col-sm-4">
-        <div id="nutrition_diary_chart"></div>
-    </div>
-    <div class="col-sm-4">
-        <div id="current-username" data-current-username="{{ user.username }}"></div>
-        <div id="weight_diagram"></div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-4">
-        {% if current_workout %}
-            {% if current_workout.day_set.all %}
-                <a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup" class="btn btn-success btn-sm">
-                    {% trans "Add new log" %}
+                {% if schedule %}
+                    <p>
+                        → {% trans "This workout is part of a schedule:" %}
+                        <a href="{{schedule.get_absolute_url}}">{{schedule.name}}</a>
+                    </p>
+                {% endif %}
+                <p><em>
+                    {% blocktrans trimmed %}The current workout is selected from your active
+                    schedule or, if you don't have one, simply by date.{% endblocktrans %}
+                </em></p>
+            </div>
+        </div>
+        <div class="card-footer">
+            {% if current_workout %}
+                {% if current_workout.day_set.all %}
+                    <a href="#" id="logging-popup-link" data-toggle="modal" data-target="#calendar-day-select-popup" class="btn btn-success btn-sm btn-block">
+                        {% trans "Add new log" %}
+                    </a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-sm btn-block btn-success btn-block">
+                    {% trans "No workouts found." %} {% trans "Add one now." %}
                 </a>
             {% endif %}
-        {% else %}
-            <a href="{% url 'manager:workout:add' %}" class="btn btn-sm btn-success">
-                {% trans "No workouts found." %} {% trans "Add one now." %}
-            </a>
-        {% endif %}
+        </div>
     </div>
-    <div class="col-sm-4">
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{% trans "Nutrition plan"%}</h5>
+            <div class="card-text">
+                {% if plan %}
+                    <p>
+                        <a href="{{ plan.get_absolute_url }}">{{ plan }}</a>
+                    </p>
+                    <p>
+                         – {{ plan.creation_date }}
+                    </p>
+                {% endif %}
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <td>{% trans "Energy" %}</td>
+                        <td>
+                            {{nutritional_info.total.energy|floatformat|default:"-/-"}} {% trans "kcal" %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Protein" %}</td>
+                        <td>
+                            {{nutritional_info.total.protein|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Carbohydrates" %}</td>
+                        <td>
+                            {{nutritional_info.total.carbohydrates|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Fat" %}</td>
+                        <td>
+                            {{nutritional_info.total.fat|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         {% if not plan %}
-                <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm  btn-success">
+        <div class="card-footer">
+            <p>
+                <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm btn-block btn-success">
                     {% trans "No nutrition plans." %} {% trans "Add one now." %}
                 </a>
+            </p>
+        </div>
         {% endif %}
-        <p>
-            <!--
-            <a href="{% url 'nutrition:plan:add' %}" class="btn btn-success btn-sm">
-                {% trans "Add nutrition plan" %}
-            </a>
-            -->
-        </p>
     </div>
-    <div class="col-sm-4">
-        <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% trans "Add weight entry" %}
-        </a>
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{% trans "Weight"%}</h5>
+            <div class="card-text">
+                {% if weight %}
+                <p>
+                    {% trans "Your current weight is: "%}
+                    {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
+                </p>
+                <table class="table table-hover table-sm">
+                    {% for entry_detail in last_weight_entries %}
+                    <tr>
+                        <td>
+                            {{ entry_detail.0.date }}
+                        </td>
+                        <td>
+                            {{ entry_detail.0.weight }}
+                        </td>
+                        <td>
+                            {% if entry_detail.1 > 0 %}
+                                +
+                            {% endif %}
+                            {% if entry_detail.1 %}
+                                {{ entry_detail.1 }}
+                            {% else %}
+                                -/-
+                            {% endif %}
+                        <td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+
+                <div id="current-username" data-current-username="{{ owner_user.username }}"></div>
+                <div id="weight_diagram"></div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'weight:add' %}" class="btn btn-success btn-block btn-sm wger-modal-dialog">
+                {% trans "Add weight entry" %}
+            </a>
+        </div>
     </div>
 </div>
-{% endblock %}
-
-
-
-{% block sidebar %}
-<h4>{% trans "Info" %}</h4>
-<p>{% blocktrans %}The current workout is selected from your active schedule
-or, if you don't have one, simply by date.{% endblocktrans %}</p>
-
-<p>{% trans "After adding a workout or a nutritional plan, you can edit them to set a goal." %}</p>
 {% endblock %}

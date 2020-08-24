@@ -15,17 +15,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from rest_framework import exceptions, viewsets
+# Third Party
+from rest_framework import (
+    exceptions,
+    viewsets
+)
 
 
 class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
-    '''
+    """
     Custom viewset that makes sure the user can only create objects for himself
-    '''
+    """
     def create(self, request, *args, **kwargs):
-        '''
+        """
         Check for creation (PUT, POST)
-        '''
+        """
         for entry in self.get_owner_objects():
             if request.data.get(entry[1]):
                 pk = request.data.get(entry[1])
@@ -36,9 +40,9 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
             return super(WgerOwnerObjectModelViewSet, self).create(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
-        '''
+        """
         Check for updates (PUT, PATCH)
-        '''
+        """
         for entry in self.get_owner_objects():
             if request.data.get(entry[1]):
                 pk = request.data.get(entry[1])

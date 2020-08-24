@@ -14,17 +14,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from wger.manager.models import WorkoutLog, WorkoutSession
+# wger
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession
+)
 
 
 def get_user_last_activity(user):
-    '''
+    """
     Find out when the user was last active. "Active" means in this context logging
     a weight, or saving a workout session.
 
     :param user: user object
     :return: a date or None if nothing was found
-    '''
+    """
 
     last_activity = None
 
@@ -50,17 +54,17 @@ def get_user_last_activity(user):
 
 
 def is_any_gym_admin(user):
-    '''
+    """
     Small utility that checks that the user object has any administrator
     permissions
-    '''
+    """
     return user.has_perm('gym.manage_gym')\
         or user.has_perm('gym.manage_gyms')\
         or user.has_perm('gym.gym_trainer')
 
 
 def get_permission_list(user):
-    '''
+    """
     Calculate available user permissions
 
     This is needed because a user shouldn't be able to create or give another
@@ -68,7 +72,7 @@ def get_permission_list(user):
 
     :param user: the user creating the account
     :return: a list of permissions
-    '''
+    """
 
     form_group_permission = ['user', 'trainer']
 

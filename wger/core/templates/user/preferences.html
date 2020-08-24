@@ -1,109 +1,14 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras crispy_forms_tags %}
 
 {% block title %}{% trans "Preferences" %}{% endblock %}
 
 {% block header %}
- <script>
-$(function() {
-    //$("#preferences-accordion").accordion({
-    //    heightStyle: "content"
-    //});
-});
-</script>
 {% endblock %}
 
 
-
 {% block content %}
-<form action="{% url 'core:user:preferences' %}"
-      method="post"
-      class="form-horizontal">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-
-    <div class="panel-group" id="preferences-accordion">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseEmail">
-                {% trans "Email" %}
-                </a>
-            </h4>
-            </div>
-            <div id="collapseEmail" class="panel-collapse collapse in">
-            <div class="panel-body">
-                {% render_form_field email_form.email %}
-                {% render_form_field email_form.first_name %}
-                {% render_form_field email_form.last_name %}
-            </div>
-            </div>
-        </div>
-
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-            <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseReminder">
-                {% trans "Workout reminders" %}
-                </a>
-            </h4>
-            </div>
-            <div id="collapseReminder" class="panel-collapse collapse">
-            <div class="panel-body">
-                {% render_form_field form.workout_reminder_active %}
-                {% render_form_field form.workout_duration %}
-                {% render_form_field form.workout_reminder %}
-            </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-            <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseGymMode">
-                {% trans "Gym mode" %} ({% trans "mobile version only" %})
-            </a>
-            </h4>
-            </div>
-            <div id="collapseGymMode" class="panel-collapse collapse">
-            <div class="panel-body">
-                {% render_form_field form.timer_active %}
-                {% render_form_field form.timer_pause %}
-            </div>
-            </div>
-        </div>
-
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-            <h3 class="panel-title">
-                <a data-toggle="collapse" data-parent="#preferences-accordion" href="#collapseOther">
-                {% trans "Other settings" %}
-            </a>
-            </h4>
-            </div>
-            <div id="collapseOther" class="panel-collapse collapse">
-            <div class="panel-body">
-                {% render_form_field form.ro_access %}
-                {% render_form_field form.notification_language %}
-                {% render_form_field form.weight_unit %}
-                {% render_form_field form.show_comments %}
-                {% render_form_field form.show_english_ingredients %}
-                {% render_form_field form.num_days_weight_reminder %}
-            </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <div class="col-md-12">
-            <input type="submit" value="{% trans 'Save' %}" id="form-save" class="btn btn-default btn-block">
-        </div>
-    </div>
-</form>
+    {% crispy form %}
 {% endblock %}
 
 
@@ -117,36 +22,26 @@ $(function() {
 {#         #}
 {% block options %}
 <div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'core:user:logout' %}">
-                <span class="{% fa_class 'sign-out' %}"></span>
-                {% trans "Logout" %}
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'core:user:change-password' %}" class="wger-modal-dialog">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'core:user:change-password' %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'key' %}"></span>
                 {% trans "Change password" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'core:user:api-key' %}">
+            <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
                 <span class="{% fa_class 'globe' %}"></span>
                 {% trans "API key" %}
             </a>
-        </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog">
+            <div role="separator" class="dropdown-divider"></div>
+            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% trans "Delete account" %}
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -12,24 +12,28 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
+
 
 logger = logging.getLogger(__name__)
 
 
-class WeightCsvExportTestCase(WorkoutManagerTestCase):
-    '''
+class WeightCsvExportTestCase(WgerTestCase):
+    """
     Test case for the CSV export for weight entries
-    '''
+    """
 
     def export_csv(self):
-        '''
+        """
         Helper function to test the CSV export
-        '''
+        """
         response = self.client.get(reverse('weight:export-csv'))
 
         self.assertEqual(response.status_code, 200)
@@ -40,9 +44,9 @@ class WeightCsvExportTestCase(WorkoutManagerTestCase):
         self.assertLessEqual(len(response.content), 150)
 
     def test_export_csv_logged_in(self):
-        '''
+        """
         Test the CSV export for weight entries by a logged in user
-        '''
+        """
 
         self.user_login('test')
         self.export_csv()

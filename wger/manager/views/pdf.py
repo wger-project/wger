@@ -14,43 +14,47 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
-import datetime
 
-from django.http import HttpResponse
-from django.http import HttpResponseForbidden
+# Django
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden
+)
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 
-from wger.manager.models import Workout
-from wger.manager.helpers import render_workout_day
-from wger.utils.helpers import check_token
-from wger.utils.pdf import styleSheet
-from wger.utils.pdf import render_footer
-
-from reportlab.lib.pagesizes import A4, cm
+# Third Party
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
-    Table,
     Spacer
 )
 
-from reportlab.lib import colors
+# wger
+from wger.manager.helpers import render_workout_day
+from wger.manager.models import Workout
+from wger.utils.helpers import check_token
+from wger.utils.pdf import (
+    render_footer,
+    styleSheet
+)
 
-from wger import get_version
 
 logger = logging.getLogger(__name__)
 
 
 def workout_log(request, id, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Generates a PDF with the contents of the given workout
 
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    '''
+    """
     comments = bool(int(comments))
     images = bool(int(images))
 
@@ -61,7 +65,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=id, user=request.user)
 
@@ -109,16 +113,16 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
 
 
 def workout_view(request, id, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Generates a PDF with the contents of the workout, without table for logs
-    '''
+    """
 
-    '''
+    """
     Generates a PDF with the contents of the given workout
     See also
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
-    '''
+    """
     comments = bool(int(comments))
     images = bool(int(images))
 
@@ -129,7 +133,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=id, user=request.user)
 

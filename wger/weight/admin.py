@@ -12,9 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from wger.weight.models import WeightEntry
-
+# Django
 from django.contrib import admin
+
+# wger
+from wger.weight.models import WeightEntry
 
 
 admin.site.register(WeightEntry)

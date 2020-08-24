@@ -13,44 +13,53 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
-
+# Django
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.urls import reverse_lazy
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    ListView,
-    DeleteView,
     CreateView,
+    DeleteView,
+    ListView,
     UpdateView
 )
 
+# wger
+from wger.config.models import LanguageConfig
 from wger.exercises.models import Muscle
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 from wger.utils.language import load_item_languages
-from wger.config.models import LanguageConfig
+
 
 logger = logging.getLogger(__name__)
 
 
 class MuscleListView(ListView):
-    '''
+    """
     Overview of all muscles and their exercises
-    '''
+    """
     model = Muscle
     queryset = Muscle.objects.all().order_by('-is_front', 'name'),
     context_object_name = 'muscle_list'
     template_name = 'muscles/overview.html'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(MuscleListView, self).get_context_data(**kwargs)
         context['active_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         context['show_shariff'] = True
@@ -58,31 +67,30 @@ class MuscleListView(ListView):
 
 
 class MuscleAdminListView(LoginRequiredMixin, PermissionRequiredMixin, MuscleListView):
-    '''
+    """
     Overview of all muscles, for administration purposes
-    '''
+    """
     permission_required = 'exercises.change_muscle'
     queryset = Muscle.objects.order_by('name')
     template_name = 'muscles/admin-overview.html'
 
 
 class MuscleAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     Generic view to add a new muscle
-    '''
+    """
 
     model = Muscle
     fields = '__all__'
     success_url = reverse_lazy('exercise:muscle:admin-list')
     title = ugettext_lazy('Add muscle')
-    form_action = reverse_lazy('exercise:muscle:add')
     permission_required = 'exercises.add_muscle'
 
 
 class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing muscle
-    '''
+    """
 
     model = Muscle
     fields = '__all__'
@@ -90,19 +98,18 @@ class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     permission_required = 'exercises.change_muscle'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(MuscleUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:muscle:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object.name)
         return context
 
 
 class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    '''
+    """
     Generic view to delete an existing muscle
-    '''
+    """
 
     model = Muscle
     fields = ('name', 'is_front')
@@ -111,10 +118,9 @@ class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMi
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(MuscleDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('exercise:muscle:delete', kwargs={'pk': self.kwargs['pk']})
         return context

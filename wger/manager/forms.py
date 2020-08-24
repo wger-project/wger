@@ -14,53 +14,59 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-'''
+"""
 This file contains forms used in the application
-'''
+"""
 
-from captcha.fields import ReCaptchaField
-
-from django.utils.translation import ugettext as _
+# Django
 from django.forms import (
-    Form,
-    MultipleHiddenInput,
-    ModelForm,
-    DateField,
-    IntegerField,
-    DecimalField,
+    BooleanField,
     CharField,
-    widgets,
-    ModelChoiceField
+    ChoiceField,
+    DecimalField,
+    Form,
+    IntegerField,
+    ModelChoiceField,
+    ModelForm,
+    widgets
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
 )
 
+# Third Party
+from captcha.fields import ReCaptchaField
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row,
+    Submit
+)
+
+# wger
 from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
-from wger.exercises.models import (
-    Exercise,
-    ExerciseCategory
-)
+from wger.exercises.models import Exercise
 from wger.manager.models import (
-    WorkoutSession,
-    Workout,
     Day,
     Set,
     Setting,
-    WorkoutLog
+    Workout,
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.widgets import (
-    TranslatedSelectMultiple,
-    TranslatedSelect,
-    ExerciseAjaxSelect
+    ExerciseAjaxSelect,
+    TranslatedSelectMultiple
 )
-from wger.utils.constants import DATE_FORMATS
-from wger.utils.widgets import Html5DateInput
 
 
 class DemoUserForm(Form):
-    captcha = ReCaptchaField(attrs={'theme': 'clean'},
-                             label=_('Confirmation text'),
+    captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
 
 
@@ -98,50 +104,18 @@ class SetForm(ModelForm):
                                                'they will be grouped together for a superset.')
 
 
-class SetFormMobile(ModelForm):
-    '''
-    Don't use the auto completer when accessing the mobile version
-    '''
-    class Meta:
-        model = Set
-        exclude = ('order', 'exerciseday')
-        widgets = {'exercises': MultipleHiddenInput(), }
-
-    categories_list = ModelChoiceField(ExerciseCategory.objects.all(),
-                                       empty_label=_('All categories'),
-                                       label=_('Categories'),
-                                       widget=TranslatedSelect(),
-                                       required=False)
-    exercise_list = ModelChoiceField(Exercise.objects)
-
-    # We need to overwrite the init method here because otherwise Django
-    # will output a default help text, regardless of the widget used
-    # https://code.djangoproject.com/ticket/9321
-    def __init__(self, *args, **kwargs):
-        super(SetFormMobile, self).__init__(*args, **kwargs)
-        self.fields['exercise_list'].help_text = _('You can search for more than one exercise, '
-                                                   'they will be grouped together for a superset.')
-
-
 class SettingForm(ModelForm):
     class Meta:
         model = Setting
         exclude = ('set', 'exercise', 'order', 'comment')
 
 
-class HelperDateForm(Form):
-    '''
-    A helper form used in the workout log view
-    '''
-    date = DateField(input_formats=DATE_FORMATS, widget=Html5DateInput())
-
-
 class WorkoutLogForm(ModelForm):
-    '''
+    """
     Helper form for a WorkoutLog.
 
     These fields are re-defined here only to make them optional
-    '''
+    """
     repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
                                        label=_('Unit'),
                                        required=False)
@@ -162,28 +136,101 @@ class WorkoutLogForm(ModelForm):
         exclude = ('workout', )
 
 
+class WorkoutLogFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form_method = 'post'
+        self.layout = Layout(
+            Row(
+                Column('reps', css_class='form-group col-md-2 col-3 mb-0'),
+                Column('repetition_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                Column('weight', css_class='form-group col-md-2 col-3 mb-0'),
+                Column('weight_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        self.form_show_labels = False
+        self.form_tag = False
+        self.disable_csrf = True
+        self.render_required_fields = True
+
+
 class HelperWorkoutSessionForm(ModelForm):
-    '''
+    """
     A helper form used in the workout log view
-    '''
+    """
     class Meta:
         model = WorkoutSession
-        exclude = ('user', 'workout', 'date')
+        exclude = ('user', 'workout')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='form-group col-6 mb-0'),
+                Column('impression', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'notes',
+            Row(
+                Column('time_start', css_class='form-group col-6 mb-0'),
+                Column('time_end', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        self.helper.form_tag = False
 
 
 class WorkoutSessionForm(ModelForm):
-    '''
+    """
     Workout Session form
-    '''
+    """
     class Meta:
         model = WorkoutSession
         exclude = ('user', 'workout', 'date')
 
+    def __init__(self, *args, **kwargs):
+        super(WorkoutSessionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'impression',
+            'notes',
+            Row(
+                Column('time_start', css_class='form-group col-6 mb-0'),
+                Column('time_end', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+
+
+class WorkoutScheduleDownloadForm(Form):
+    """
+    Form for the workout schedule download
+    """
+    pdf_type = ChoiceField(
+        label=ugettext_lazy(u"Type"),
+        choices=(("log", ugettext_lazy("Log")),
+                 ("table", ugettext_lazy("Table")))
+    )
+    images = BooleanField(label=ugettext_lazy("with images"),
+                          required=False)
+    comments = BooleanField(label=ugettext_lazy("with comments"),
+                            required=False)
+
+    def __init__(self):
+        super(WorkoutScheduleDownloadForm, self).__init__()
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.add_input(Submit('submit', _("Download"),
+                                     css_class='btn-success btn-block',
+                                     css_id="download-pdf-button-schedule"))
+
 
 class WorkoutSessionHiddenFieldsForm(ModelForm):
-    '''
+    """
     Workout Session form used in the timer view
-    '''
+    """
     class Meta:
         model = WorkoutSession
         exclude = []

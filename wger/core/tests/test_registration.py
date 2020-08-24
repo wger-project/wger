@@ -12,28 +12,34 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-from wger.core.forms import RegistrationForm
-from wger.core.forms import RegistrationFormNoCaptcha
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.forms import (
+    RegistrationForm,
+    RegistrationFormNoCaptcha
+)
+from wger.core.tests.base_testcase import WgerTestCase
+
 
 logger = logging.getLogger(__name__)
 
 
-class RegistrationTestCase(WorkoutManagerTestCase):
-    '''
+class RegistrationTestCase(WgerTestCase):
+    """
     Tests registering a new user
-    '''
+    """
 
     def test_registration_captcha(self):
-        '''
+        """
         Tests that the correct form is used depending on global
         configuration settings
-        '''
+        """
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True,
                                           'REMOVE_WHITESPACE': False,
                                           'ALLOW_REGISTRATION': True,
@@ -58,8 +64,8 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
         # Fill in the registration form
         registration_data = {'username': 'myusername',
-                             'password1': 'secret',
-                             'password2': 'secret',
+                             'password1': 'quai8fai7Zae',
+                             'password2': 'quai8fai7Zae',
                              'email': 'not an email',
                              'g-recaptcha-response': 'PASSED', }
         count_before = User.objects.count()
@@ -93,9 +99,9 @@ class RegistrationTestCase(WorkoutManagerTestCase):
         self.assertEqual(count_before + 1, count_after)
 
     def test_registration_deactivated(self):
-        '''
+        """
         Test that with deactivated registration no users can register
-        '''
+        """
 
         with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False,
                                           'REMOVE_WHITESPACE': False,
@@ -108,8 +114,8 @@ class RegistrationTestCase(WorkoutManagerTestCase):
 
             # Fill in the registration form
             registration_data = {'username': 'myusername',
-                                 'password1': 'secret',
-                                 'password2': 'secret',
+                                 'password1': 'Xee4fuev1ohj',
+                                 'password2': 'Xee4fuev1ohj',
                                  'email': 'my.email@example.com',
                                  'g-recaptcha-response': 'PASSED', }
             count_before = User.objects.count()

@@ -11,18 +11,47 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Docstrings and comments use max_line_length = 79
-[*.py]
-max_line_length = 100
-
+#
+# Javascript
+#
 [*.js]
 indent_size = 2
 
-[.eslintignore]
+[{.eslintrc,.eslintignore}]
 indent_size = 2
 
+#
+# Python
+#
+[*.py]
+max_line_length = 100
+
+#
+# JSON File
+#
 [*.json]
 indent_size = 2
 
+#
+# YAML File
+#
 [*.yml]
 indent_size = 2
+
+#
+# Structured text and Markdown
+#
+[*.md]
+trim_trailing_whitespace = false
+indent_size = 2
+
+[*.rst]
+indent_size = 4
+
+#
+# Makefiles
+#
+[{Makefile, makefile, GNUmakefile}]
+indent_style = tab
+indent_size = 4
+

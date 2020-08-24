@@ -14,48 +14,59 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import datetime
+import logging
 
+# Django
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden, HttpResponseBadRequest
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseForbidden
+)
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    UpdateView,
+    CreateView,
     DeleteView,
-    CreateView
+    UpdateView
 )
 
+# wger
 from wger.manager.forms import WorkoutSessionForm
 from wger.manager.models import (
     Workout,
-    WorkoutSession,
-    WorkoutLog
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 Workout session
-'''
+"""
 
 
 class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to edit an existing workout session entry
-    '''
+    """
     model = WorkoutSession
     form_class = WorkoutSessionForm
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:session:edit', kwargs={'pk': self.object.id})
         context['title'] = _('Edit workout impression for {0}').format(self.object.date)
 
         return context
@@ -65,17 +76,17 @@ class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
 
 class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
-    '''
+    """
     Generic view to add a new workout session entry
-    '''
+    """
     model = WorkoutSession
     form_class = WorkoutSessionForm
 
     def get_date(self):
-        '''
+        """
         Returns a date object from the URL parameters or None if no date
         could be created
-        '''
+        """
         try:
             date = datetime.date(int(self.kwargs['year']),
                                  int(self.kwargs['month']),
@@ -86,9 +97,9 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
         return date
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Check for ownership
-        '''
+        """
         workout = Workout.objects.get(pk=kwargs['workout_pk'])
         if workout.get_owner_object().user != request.user:
             return HttpResponseForbidden()
@@ -100,11 +111,6 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutSessionAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:session:add',
-                                         kwargs={'workout_pk': self.kwargs['workout_pk'],
-                                                 'year': self.kwargs['year'],
-                                                 'month': self.kwargs['month'],
-                                                 'day': self.kwargs['day']})
         context['title'] = _('New workout impression for the {0}'.format(self.get_date()))
         return context
 
@@ -112,9 +118,9 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
         return reverse('manager:workout:calendar')
 
     def form_valid(self, form):
-        '''
+        """
         Set the workout and the user
-        '''
+        """
 
         workout = Workout.objects.get(pk=self.kwargs['workout_pk'])
         form.instance.workout = workout
@@ -124,9 +130,9 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
 
 
 class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
-    '''
+    """
     Generic view to delete a workout routine
-    '''
+    """
 
     model = WorkoutSession
     fields = ('date', 'notes', 'impression', 'time_start', 'time_end')
@@ -134,21 +140,19 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     messages = ugettext_lazy('Successfully deleted')
 
     def delete(self, request, *args, **kwargs):
-        '''
+        """
         Delete the workout session and, if wished, all associated weight logs as well
-        '''
-        if self.kwargs['logs'] == 'logs':
+        """
+        if self.kwargs.get('logs') == 'logs':
             WorkoutLog.objects.filter(user=self.request.user, date=self.get_object().date).delete()
 
         return super(WorkoutSessionDeleteView, self).delete(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
 
-        logs = '' if not self.kwargs['logs'] else self.kwargs['logs']
+        logs = '' if not self.kwargs.get('logs') else self.kwargs['logs']
         context = super(WorkoutSessionDeleteView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:session:delete', kwargs={'pk': self.object.id,
-                                                                           'logs': logs})
         context['title'] = _(u'Delete {0}?').format(self.object)
-        if self.kwargs['logs'] == 'logs':
-            context['delete_message'] = _('This will delete all weight logs for this day as well.')
+        if logs == 'logs':
+            self.delete_message_extra = _('This will delete all weight logs for this day as well.')
         return context

@@ -13,53 +13,65 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy
-from django.utils.translation import ugettext as _
-
+# Django
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
     CreateView,
-    UpdateView,
     DeleteView,
-    ListView
+    ListView,
+    UpdateView
 )
+
+# wger
 from wger.config.models import LanguageConfig
 from wger.exercises.models import Equipment
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
-)
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
+from wger.utils.generic_views import (
+    WgerDeleteMixin,
+    WgerFormMixin
+)
 from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 Exercise equipment
-'''
+"""
 
 
 class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    '''
+    """
     Generic view to list all equipments
-    '''
+    """
 
     model = Equipment
     fields = '__all__'
-    template_name = 'equipment/list.html'
+    template_name = 'equipment/admin-overview.html'
     context_object_name = 'equipment_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
     permission_required = 'exercises.change_equipment'
 
 
 class EquipmentEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing equipment item
-    '''
+    """
 
     model = Equipment
     fields = ['name']
@@ -70,16 +82,13 @@ class EquipmentEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
     def get_context_data(self, **kwargs):
         context = super(EquipmentEditView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object)
-        context['form_action'] = reverse('exercise:equipment:edit',
-                                         kwargs={'pk': self.object.id})
-
         return context
 
 
 class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    '''
+    """
     Generic view to add a new equipment item
-    '''
+    """
 
     model = Equipment
     fields = ['name']
@@ -87,24 +96,16 @@ class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(EquipmentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:equipment:add')
-
-        return context
-
 
 class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    '''
+    """
     Generic view to delete an existing exercise image
-    '''
+    """
 
     model = Equipment
     fields = ('name',)
     messages = ugettext_lazy('Successfully deleted')
+    title = ugettext_lazy('Delete equipment?')
     permission_required = 'exercises.delete_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
@@ -123,18 +124,18 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
 
 
 class EquipmentOverviewView(ListView):
-    '''
+    """
     Overview with all exercises, group by equipment
-    '''
+    """
 
     model = Equipment
     template_name = 'equipment/overview.html'
     context_object_name = 'equipment_list'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(EquipmentOverviewView, self).get_context_data(**kwargs)
         context['exercise_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         for equipment in context['equipment_list']:

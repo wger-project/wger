@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 
 # This file is part of wger Workout Manager.
 #
@@ -80,7 +81,7 @@ user_parser.add_argument('--country',
                          action='store',
                          default='germany',
                          help='What country the generated users should belong to. Default: Germany',
-                         choices=['germany', 'ukraine', 'spain'])
+                         choices=['germany', 'ukraine', 'spain', 'usa'])
 
 # Workout options
 workouts_parser = subparsers.add_parser('workouts', help='Create workouts')
@@ -452,7 +453,7 @@ if hasattr(args, 'number_nutrition_plans'):
 
     # Total meals per plan
     total_meals = 4
-    
+
     for user in userlist:
         print('   - generating for {0}'.format(user.username))
 

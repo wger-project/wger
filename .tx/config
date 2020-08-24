@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[wger-workout-manager.application]
+file_filter = wger/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+

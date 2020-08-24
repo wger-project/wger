@@ -14,18 +14,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.contrib.auth.models import User
+# Django
 from django import forms
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
+# wger
 from wger.core.forms import UserPersonalInformationForm
 from wger.utils.widgets import BootstrapSelectMultiple
 
 
-class GymUserPermisssionForm(forms.ModelForm):
-    '''
+class GymUserPermissionForm(forms.ModelForm):
+    """
     Form used to set the permission group of a gym member
-    '''
+    """
     USER = 'user'
     GYM_ADMIN = 'admin'
     TRAINER = 'trainer'
@@ -41,12 +43,14 @@ class GymUserPermisssionForm(forms.ModelForm):
     role = forms.MultipleChoiceField(choices=ROLES,
                                      initial=USER)
 
-    def __init__(self, available_roles=[], *args, **kwargs):
-        '''
+    def __init__(self, available_roles=None, *args, **kwargs):
+        """
         Custom logic to reduce the available permissions
-        '''
-        super(GymUserPermisssionForm, self).__init__(*args, **kwargs)
+        """
+        super(GymUserPermissionForm, self).__init__(*args, **kwargs)
 
+        if available_roles is None:
+            available_roles = []
         field_choices = [(self.USER, _('User'))]
         if 'trainer' in available_roles:
             field_choices.append((self.TRAINER, _('Trainer')))
@@ -60,10 +64,12 @@ class GymUserPermisssionForm(forms.ModelForm):
                                                         widget=BootstrapSelectMultiple())
 
 
-class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
-    '''
+class GymUserAddForm(GymUserPermissionForm, UserPersonalInformationForm):
+    """
     Form used when adding a user to a gym
-    '''
+    """
+
+    birthdate = forms.DateField(required=False)
 
     class Meta:
         model = User
@@ -80,10 +86,10 @@ class GymUserAddForm(GymUserPermisssionForm, UserPersonalInformationForm):
                                              "@/.//-/_ characters.")})
 
     def clean_username(self):
-        '''
+        """
         Since User.username is unique, this check is redundant,
         but it sets a nicer error message than the ORM. See #13147.
-        '''
+        """
         username = self.cleaned_data["username"]
         try:
             User._default_manager.get(username=username)

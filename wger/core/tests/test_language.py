@@ -15,50 +15,55 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse_lazy
+# Django
+from django.urls import reverse_lazy
 
+# wger
 from wger.core.models import Language
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase, WorkoutManagerTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import (
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
 
 
-class LanguageRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class LanguageRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Language.objects.get(pk=1)), 'Deutsch (de)')
 
 
-class LanguageOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+class LanguageOverviewTest(WgerAccessTestCase):
+    """
     Tests accessing the system's languages
-    '''
+    """
 
     url = 'core:language:overview'
     anonymous_fail = True
 
 
-class LanguageDetailViewTest(WorkoutManagerAccessTestCase):
-    '''
+class LanguageDetailViewTest(WgerAccessTestCase):
+    """
     Tests accessing a detail view of a language
-    '''
+    """
 
     url = reverse_lazy('core:language:view', kwargs={'pk': 1})
     anonymous_fail = True
 
 
-class CreateLanguageTestCase(WorkoutManagerAddTestCase):
-    '''
+class CreateLanguageTestCase(WgerAddTestCase):
+    """
     Tests adding a new language
-    '''
+    """
 
     object_class = Language
     url = 'core:language:add'
@@ -66,10 +71,10 @@ class CreateLanguageTestCase(WorkoutManagerAddTestCase):
             'full_name': 'Dansk'}
 
 
-class EditLanguageTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditLanguageTestCase(WgerEditTestCase):
+    """
     Tests adding a new language
-    '''
+    """
 
     object_class = Language
     url = 'core:language:edit'
@@ -78,10 +83,10 @@ class EditLanguageTestCase(WorkoutManagerEditTestCase):
             'full_name': 'Dansk'}
 
 
-class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteLanguageTestCase(WgerDeleteTestCase):
+    """
     Tests adding a new language
-    '''
+    """
 
     object_class = Language
     url = 'core:language:delete'
@@ -89,9 +94,9 @@ class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
 
 
 class LanguageApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the language overview resource
-    '''
+    """
     pk = 1
     resource = Language
     private_resource = False

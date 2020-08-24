@@ -12,16 +12,16 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-from django.core.urlresolvers import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase, WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerEditTestCase
 from wger.gym.models import GymConfig
 
 
-class EditGymConfigTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditGymConfigTestCase(WgerEditTestCase):
+    """
     Test editing a gym configuration
-    '''
+    """
 
     pk = 1
     object_class = GymConfig

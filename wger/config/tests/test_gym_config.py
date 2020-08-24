@@ -15,24 +15,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
+# wger
 from wger.config.models import GymConfig
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.gym.models import Gym, GymUserConfig
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.gym.models import (
+    Gym,
+    GymUserConfig
+)
 
 
-class GymConfigTestCase(WorkoutManagerTestCase):
-    '''
+class GymConfigTestCase(WgerTestCase):
+    """
     Test the system wide gym configuration
-    '''
+    """
 
     def test_default_gym(self):
-        '''
+        """
         Test that newly registered users get a gym
-        '''
+        """
 
         gym = Gym.objects.get(pk=2)
         gym_config = GymConfig.objects.get(pk=1)
@@ -41,20 +46,21 @@ class GymConfigTestCase(WorkoutManagerTestCase):
 
         # Register
         registration_data = {'username': 'myusername',
-                             'password1': 'secret',
-                             'password2': 'secret',
+                             'password1': 'Aerieth4yuv5',
+                             'password2': 'Aerieth4yuv5',
                              'email': 'my.email@example.com',
                              'g-recaptcha-response': 'PASSED', }
-        self.client.post(reverse('core:user:registration'), registration_data)
+        response = self.client.post(reverse('core:user:registration'), registration_data)
+        self.assertEqual(response.status_code, 302)
         new_user = User.objects.all().last()
 
         self.assertEqual(new_user.userprofile.gym, gym)
         self.assertEqual(new_user.gymuserconfig.gym, gym)
 
     def test_no_default_gym(self):
-        '''
+        """
         Test the user registration without a default gym
-        '''
+        """
 
         gym_config = GymConfig.objects.get(pk=1)
         gym_config.default_gym = None
@@ -62,20 +68,21 @@ class GymConfigTestCase(WorkoutManagerTestCase):
 
         # Register
         registration_data = {'username': 'myusername',
-                             'password1': 'secret',
-                             'password2': 'secret',
+                             'password1': 'Iem2ahl1eizo',
+                             'password2': 'Iem2ahl1eizo',
                              'email': 'my.email@example.com',
                              'g-recaptcha-response': 'PASSED', }
-        self.client.post(reverse('core:user:registration'), registration_data)
+        response = self.client.post(reverse('core:user:registration'), registration_data)
+        self.assertEqual(response.status_code, 302)
 
         new_user = User.objects.all().last()
         self.assertEqual(new_user.userprofile.gym_id, None)
         self.assertRaises(GymUserConfig.DoesNotExist, GymUserConfig.objects.get, user=new_user)
 
     def test_update_userprofile(self):
-        '''
+        """
         Test setting the gym for users when setting a default gym
-        '''
+        """
 
         UserProfile.objects.update(gym=None)
         GymUserConfig.objects.all().delete()

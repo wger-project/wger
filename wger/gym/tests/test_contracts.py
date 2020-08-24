@@ -12,20 +12,22 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase,
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerEditTestCase
 )
 from wger.gym.models import Contract
 
 
-class AddContractTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddContractTestCase(WgerAddTestCase):
+    """
     Tests creating a new contract
-    '''
+    """
 
     object_class = Contract
     url = reverse('gym:contract:add', kwargs={'user_pk': 14})
@@ -45,10 +47,10 @@ class AddContractTestCase(WorkoutManagerAddTestCase):
                  'member5')
 
 
-class AccessContractTestCase(WorkoutManagerAccessTestCase):
-    '''
+class AccessContractTestCase(WgerAccessTestCase):
+    """
     Test accessing the detail page of a contract
-    '''
+    """
     url = reverse('gym:contract:view', kwargs={'pk': 1})
     user_success = ('manager1',
                     'manager2')
@@ -64,10 +66,10 @@ class AccessContractTestCase(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class AccessContractOverviewTestCase(WorkoutManagerAccessTestCase):
-    '''
+class AccessContractOverviewTestCase(WgerAccessTestCase):
+    """
     Test accessing the contract list page
-    '''
+    """
     url = reverse('gym:contract:list', kwargs={'user_pk': 4})
     user_success = ('manager1',
                     'manager2')
@@ -83,10 +85,10 @@ class AccessContractOverviewTestCase(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class EditContractTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditContractTestCase(WgerEditTestCase):
+    """
     Tests editing a contract
-    '''
+    """
 
     pk = 1
     object_class = Contract

@@ -12,28 +12,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import json
 from decimal import Decimal
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
+# wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
-class BmiTestCase(WorkoutManagerTestCase):
-    '''
+class BmiTestCase(WgerTestCase):
+    """
     Tests the BMI methods and views
-    '''
+    """
 
     def test_page(self):
-        '''
+        """
         Access the BMI page
-        '''
+        """
 
         response = self.client.get(reverse('nutrition:bmi:view'))
         self.assertEqual(response.status_code, 302)
@@ -44,9 +47,9 @@ class BmiTestCase(WorkoutManagerTestCase):
 
     def test_calculator(self):
 
-        '''
+        """
         Tests the calculator itself
-        '''
+        """
 
         self.user_login('test')
         response = self.client.post(reverse('nutrition:bmi:calculate'),
@@ -60,9 +63,9 @@ class BmiTestCase(WorkoutManagerTestCase):
 
     def test_calculator_imperial(self):
 
-        '''
+        """
         Tests the calculator using imperial units
-        '''
+        """
 
         self.user_login('test')
         profile = UserProfile.objects.get(user__username='test')
@@ -78,9 +81,9 @@ class BmiTestCase(WorkoutManagerTestCase):
         self.assertEqual(Decimal(bmi['height']), Decimal(180))
 
     def test_automatic_weight_entry(self):
-        '''
+        """
         Tests that weight entries are automatically created or updated
-        '''
+        """
 
         self.user_login('test')
         user = User.objects.get(username=self.current_user)

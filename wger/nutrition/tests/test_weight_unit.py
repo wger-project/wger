@@ -13,53 +13,57 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import (
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
-class WeightUnitRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class WeightUnitRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'Scheibe')
 
 
-class AddWeightUnitTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddWeightUnitTestCase(WgerAddTestCase):
+    """
     Tests adding a new weight unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'nutrition:weight_unit:add'
     data = {'name': 'A new weight unit'}
 
 
-class DeleteWeightUnitTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteWeightUnitTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a weight unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'nutrition:weight_unit:delete'
     pk = 1
 
 
-class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditWeightUnitTestCase(WgerEditTestCase):
+    """
     Tests editing a weight unit
-    '''
+    """
 
     object_class = WeightUnit
     url = 'nutrition:weight_unit:edit'
@@ -67,10 +71,10 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'A new name'}
 
 
-class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
-    '''
+class WeightUnitOverviewTestCase(WgerTestCase):
+    """
     Tests the ingredient unit overview page
-    '''
+    """
 
     def test_overview(self):
 
@@ -108,9 +112,9 @@ class WeightUnitOverviewTestCase(WorkoutManagerTestCase):
 
 
 class WeightUnitApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the weight unit overview resource
-    '''
+    """
     pk = 1
     resource = WeightUnit
     private_resource = False

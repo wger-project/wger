@@ -14,30 +14,42 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Django
 from django.conf import settings
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.core import mail
-from django.utils.translation import ugettext as _
-from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as django_login
+from django.contrib.auth.decorators import login_required
+from django.core import mail
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import ugettext as _
+from django.views.decorators.vary import vary_on_headers
+from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
 
-
-from wger.core.forms import FeedbackRegisteredForm, FeedbackAnonymousForm
-from wger.core.demo import create_demo_entries, create_temporary_user
+# wger
+from wger.core.demo import (
+    create_demo_entries,
+    create_temporary_user
+)
+from wger.core.forms import (
+    FeedbackAnonymousForm,
+    FeedbackRegisteredForm
+)
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
-from wger.weight.models import WeightEntry
 from wger.weight.helpers import get_last_entries
+from wger.weight.models import WeightEntry
 
 
 logger = logging.getLogger(__name__)
@@ -47,27 +59,27 @@ logger = logging.getLogger(__name__)
 # Misc functions
 # ************************
 def index(request):
-    '''
+    """
     Index page
-    '''
-    if request.user.is_authenticated():
+    """
+    if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('core:dashboard'))
     else:
         return HttpResponseRedirect(reverse('software:features'))
 
 
 def demo_entries(request):
-    '''
+    """
     Creates a set of sample entries for guest users
-    '''
+    """
     if not settings.WGER_SETTINGS['ALLOW_GUEST_USERS']:
         return HttpResponseRedirect(reverse('software:features'))
 
-    if (((not request.user.is_authenticated() or request.user.userprofile.is_temporary)
+    if (((not request.user.is_authenticated or request.user.userprofile.is_temporary)
          and not request.session['has_demo_data'])):
         # If we reach this from a page that has no user created by the
         # middleware, do that now
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             user = create_temporary_user()
             django_login(request, user)
 
@@ -82,11 +94,12 @@ def demo_entries(request):
 
 
 @login_required
+@vary_on_headers('User-Agent')
 def dashboard(request):
-    '''
+    """
     Show the index page, in our case, the last workout and nutritional plan
     and the current weight
-    '''
+    """
 
     template_data = {}
 
@@ -153,41 +166,40 @@ class FeedbackClass(FormView):
     success_url = reverse_lazy('core:contact')
 
     def get_initial(self):
-        '''
+        """
         Fill in the contact, if available
-        '''
-        if self.request.user.is_authenticated():
+        """
+        if self.request.user.is_authenticated:
             return {'contact': self.request.user.email}
         return {}
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Set necessary template data to correctly render the form
-        '''
+        """
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
         # TODO: change template so it iterates through form and not formfields
         context['form_fields'] = context['form']
-        context['form_action'] = reverse('core:feedback')
         context['submit_text'] = _('Send')
         context['contribute_url'] = reverse('software:contribute')
         context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
         return context
 
     def get_form_class(self):
-        '''
+        """
         Load the correct feedback form depending on the user
         (either with reCaptcha field or not)
-        '''
-        if self.request.user.is_anonymous() or self.request.user.userprofile.is_temporary:
+        """
+        if self.request.user.is_anonymous or self.request.user.userprofile.is_temporary:
             return FeedbackAnonymousForm
         else:
             return FeedbackRegisteredForm
 
     def form_valid(self, form):
-        '''
+        """
         Send the feedback to the administrators
-        '''
+        """
         messages.success(self.request, _('Your feedback was successfully sent. Thank you!'))
 
         context = {}

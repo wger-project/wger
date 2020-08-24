@@ -15,29 +15,33 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import datetime
 from calendar import HTMLCalendar
 
+# Django
+from django.urls import reverse
+from django.utils.translation import ugettext as _
+
+# Third Party
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    Paragraph,
-    Table,
+    Image,
     KeepTogether,
     ListFlowable,
     ListItem,
-    Image
+    Paragraph,
+    Table
 )
 
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+# wger
 from wger.utils.helpers import normalize_decimal
-
 from wger.utils.pdf import styleSheet
 
 
 def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
-    '''
+    """
     Render a table with reportlab with the contents of the training day
 
     :param day: a workout day object
@@ -48,7 +52,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
            be rendered as well
     :param only_table: boolean indicating whether to draw a table with space
            for weight logs or just a list of the exercises
-    '''
+    """
 
     # If rendering only the table, reset the nr of weeks, since these columns
     # will not be rendered anyway.
@@ -190,7 +194,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
 
 def reps_smart_text(settings, set_obj):
-    '''
+    """
     "Smart" textual representation
 
     This is a human representation of the settings, in a way that humans
@@ -201,15 +205,15 @@ def reps_smart_text(settings, set_obj):
     :param settings:
     :param set_obj:
     :return setting_text, setting_list:
-    '''
+    """
 
     def get_reps_reprentation(setting, rep_unit):
-        '''
+        """
         Returns the representation for the repetitions for a setting
 
         This is basically just to allow for a special representation for the
         "Until Failure" unit
-        '''
+        """
         if setting.repetition_unit_id != 2:
             reps = "{0} {1}".format(setting.reps, rep_unit).strip()
         else:
@@ -217,12 +221,12 @@ def reps_smart_text(settings, set_obj):
         return reps
 
     def get_weight_unit_reprentation(setting):
-        '''
+        """
         Returns the representation for the weight unit for a setting
 
         This is basically just to allow for a special representation for the
         "Repetition" and "Until Failure" unit
-        '''
+        """
         if setting.repetition_unit.id not in (1, 2):
             rep_unit = _(setting.repetition_unit.name)
         else:
@@ -230,11 +234,11 @@ def reps_smart_text(settings, set_obj):
         return rep_unit
 
     def normalize_weight(setting):
-        '''
+        """
         The weight can be None, or a decimal. In that case, normalize so
         that we don't return e.g. '15.00', but always '15', independently of
         the database used.
-        '''
+        """
         if setting.weight:
             weight = normalize_decimal(setting.weight)
         else:
@@ -303,10 +307,10 @@ def reps_smart_text(settings, set_obj):
 
 
 class WorkoutCalendar(HTMLCalendar):
-    '''
+    """
     A calendar renderer, see this blog entry for details:
     * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
-    '''
+    """
     def __init__(self, workout_logs, *args, **kwargs):
         super(WorkoutCalendar, self).__init__(*args, **kwargs)
         self.workout_logs = workout_logs
@@ -359,10 +363,10 @@ class WorkoutCalendar(HTMLCalendar):
         return self.day_cell(cssclass, '{0}'.format(''.join(body)))
 
     def formatmonth(self, year, month):
-        '''
+        """
         Format the table header. This is basically the same code from python's
         calendar module but with additional bootstrap classes
-        '''
+        """
         self.year, self.month = year, month
         out = []
         out.append('<table class="month table table-bordered">\n')
@@ -377,7 +381,7 @@ class WorkoutCalendar(HTMLCalendar):
         return ''.join(out)
 
     def day_cell(self, cssclass, body):
-        '''
+        """
         Renders a day cell
-        '''
+        """
         return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)

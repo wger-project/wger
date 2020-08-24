@@ -14,19 +14,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.core.management.base import BaseCommand
 
+# wger
 from wger.exercises.models import Exercise
 from wger.utils.helpers import smart_capitalize
 
 
 class Command(BaseCommand):
-    '''
+    """
     Re-calculates the capitalized exercise names
 
     This is a safe operation, since the original names (as entered by the user)
     are still available.
-    '''
+    """
 
     help = 'Re-calculates the capitalized exercise names'
 

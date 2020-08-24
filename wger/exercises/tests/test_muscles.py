@@ -13,36 +13,39 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Django
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.core.cache.utils import make_template_fragment_key
+from django.urls import reverse
 
+# wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerAccessTestCase)
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
 from wger.exercises.models import Muscle
-from wger.utils.cache import get_template_cache_name
 
 
-class MuscleRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class MuscleRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
 
-class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+class MuscleAdminOverviewTest(WgerAccessTestCase):
+    """
     Tests the admin muscle overview page
-    '''
+    """
     url = 'exercise:muscle:admin-list'
     anonymous_fail = True
     user_success = 'admin'
@@ -59,10 +62,10 @@ class MuscleAdminOverviewTest(WorkoutManagerAccessTestCase):
                  'member5')
 
 
-class MusclesShareButtonTestCase(WorkoutManagerTestCase):
-    '''
+class MusclesShareButtonTestCase(WgerTestCase):
+    """
     Test that the share button is correctly displayed and hidden
-    '''
+    """
 
     def test_share_button(self):
         url = reverse('exercise:muscle:overview')
@@ -79,10 +82,10 @@ class MusclesShareButtonTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['show_shariff'])
 
 
-class AddMuscleTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddMuscleTestCase(WgerAddTestCase):
+    """
     Tests adding a muscle
-    '''
+    """
 
     object_class = Muscle
     url = 'exercise:muscle:add'
@@ -90,10 +93,10 @@ class AddMuscleTestCase(WorkoutManagerAddTestCase):
             'is_front': True}
 
 
-class EditMuscleTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditMuscleTestCase(WgerEditTestCase):
+    """
     Tests editing a muscle
-    '''
+    """
 
     object_class = Muscle
     url = 'exercise:muscle:edit'
@@ -102,45 +105,44 @@ class EditMuscleTestCase(WorkoutManagerEditTestCase):
             'is_front': True}
 
 
-class DeleteMuscleTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteMuscleTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a muscle
-    '''
+    """
 
     object_class = Muscle
     url = 'exercise:muscle:delete'
     pk = 1
 
 
-class MuscleCacheTestCase(WorkoutManagerTestCase):
-    '''
+class MuscleCacheTestCase(WgerTestCase):
+    """
     Muscle cache test case
-    '''
+    """
 
     def test_overview(self):
-        '''
+        """
         Test the muscle overview cache is correctly generated on visit
-        '''
+        """
 
-        if not self.is_mobile:
-            self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
-            self.client.get(reverse('exercise:muscle:overview'))
-            self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
+        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
+        self.client.get(reverse('exercise:muscle:overview'))
+        self.assertTrue(cache.get(make_template_fragment_key('muscle-overview', [2])))
 
 
-class MuscleOverviewTestCase(WorkoutManagerAccessTestCase):
-    '''
+class MuscleOverviewTestCase(WgerAccessTestCase):
+    """
     Test that only admins see the edit links
-    '''
+    """
     url = 'exercise:muscle:overview'
     anonymous_fail = False
     user_fail = []
 
 
 class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the muscle overview resource
-    '''
+    """
     pk = 1
     resource = Muscle
     private_resource = False

@@ -12,29 +12,34 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Django
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.management import call_command
 
+# wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.manager.models import Schedule
-from wger.manager.models import Workout
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.models import (
+    Schedule,
+    Workout
+)
 
 
-class EmailReminderTestCase(WorkoutManagerTestCase):
-    '''
+class EmailReminderTestCase(WgerTestCase):
+    """
     Tests the email reminder command.
 
     User 2 has setting in profile active
-    '''
+    """
 
     def test_reminder_no_workouts(self):
-        '''
+        """
         Test with no schedules or workouts
-        '''
+        """
         Schedule.objects.all().delete()
         Workout.objects.all().delete()
 
@@ -42,11 +47,11 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_reminder_one_workout(self):
-        '''
+        """
         Test user with no schedules but one workout
 
         User 2, workout created 2012-11-20
-        '''
+        """
 
         Schedule.objects.all().delete()
         Workout.objects.exclude(user=User.objects.get(pk=2)).delete()
@@ -55,11 +60,11 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_reminder_skip_if_no_email(self):
-        '''
+        """
         Tests that no emails are sent if the user has provided no email
 
         User 2, workout created 2012-11-20
-        '''
+        """
 
         user = User.objects.get(pk=2)
         user.email = ''
@@ -72,12 +77,12 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_reminder_last_notification(self):
-        '''
+        """
         Test that no emails are sent if the last notification field is more
         recent than one week.
 
         User 2, workout created 2012-11-20
-        '''
+        """
 
         profile = UserProfile.objects.get(user=2)
         profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=3)
@@ -90,12 +95,12 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_reminder_last_notification_2(self):
-        '''
+        """
         Test that no emails are sent if the last notification field is more
         than one week away.
 
         User 2, workout created 2012-11-20
-        '''
+        """
 
         profile = UserProfile.objects.get(user=2)
         profile.last_workout_notification = datetime.date.today() - datetime.timedelta(days=10)
@@ -108,11 +113,11 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_reminder_last_notification_3(self):
-        '''
+        """
         Test that no emails are sent if the last notification field is null
 
         User 2, workout created 2012-11-20
-        '''
+        """
 
         profile = UserProfile.objects.get(user=2)
         profile.last_workout_notification = None
@@ -125,9 +130,9 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_reminder_setting_off(self):
-        '''
+        """
         Test user with no schedules, one workout but setting in profile off
-        '''
+        """
 
         user = User.objects.get(pk=2)
         user.userprofile.workout_reminder_active = False
@@ -139,9 +144,9 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_reminder_empty_schedule(self):
-        '''
+        """
         Test user with emtpy schedules and no workouts
-        '''
+        """
 
         user = User.objects.get(pk=2)
         user.userprofile.workout_reminder_active = False
@@ -160,9 +165,9 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_reminder_schedule(self):
-        '''
+        """
         Test user with a schedule and a workout
-        '''
+        """
 
         user = User.objects.get(pk=2)
         Workout.objects.exclude(user=user).delete()
@@ -171,9 +176,9 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_reminder_schedule_recent(self):
-        '''
+        """
         Test user with a schedule that has not finished
-        '''
+        """
 
         user = User.objects.get(pk=1)
         user.userprofile.workout_reminder_active = True
@@ -191,9 +196,9 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 0)
 
     def test_reminder_schedule_recent_2(self):
-        '''
+        """
         Test user with a schedule that is about to finish
-        '''
+        """
 
         user = User.objects.get(pk=1)
         user.userprofile.workout_reminder_active = True
@@ -212,9 +217,9 @@ class EmailReminderTestCase(WorkoutManagerTestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_reminder_schedule_recent_3(self):
-        '''
+        """
         Test user with a schedule that is about to finish
-        '''
+        """
 
         user = User.objects.get(pk=1)
         user.userprofile.workout_reminder_active = True

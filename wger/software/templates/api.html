@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 
@@ -17,14 +17,15 @@ objects such as workouts, you need to generate an API KEY</strong> and pass
 it in the header, see the link on the sidebar for details.</p>
 <p>You should always use HTTPS if possible when communicating with the server.</p>
 
-
+<div class="container">
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-6">
         <h4>Public endpoints</h4>
         <ul>
             <li>daysofweek</li>
             <li>equipment</li>
             <li>exercise</li>
+            <li>exerciseinfo</li>
             <li>exercisecategory</li>
             <li>exercisecomment</li>
             <li>exerciseimage</li>
@@ -38,7 +39,7 @@ it in the header, see the link on the sidebar for details.</p>
             <li>setting-weightunit</li>
         </ul>
     </div>
-    <div class="col-xs-6">
+    <div class="col-6">
         <h4>Private endpoints</h4>
         <ul>
             <li>day</li>
@@ -55,6 +56,7 @@ it in the header, see the link on the sidebar for details.</p>
             <li>workoutlog</li>
         </ul>
     </div>
+</div>
 </div>
 
 
@@ -193,7 +195,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/workout/&lt;id&gt;/canonical_representation/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         This is a complete representation of a workout, including all objects
         like workout days, exercises, etc. This form used by the django application
         to render workouts or perform other operations. The data is cached so,
@@ -206,7 +208,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/exerciseimage/&lt;id&gt;/thumbnails/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         Returns a list of available thumbnails for this image. The 'settings' key
         refers to the settings used by the thumbnailing application to generate
         that image. The special key 'original' is simply a downloadable link to
@@ -219,9 +221,9 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/exerciseiinfo/&lt;id&gt;/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         A convenience function that returns all the information about an exercise,
-        including, muscles, equipment, etc. This can be used to avoid having to call 
+        including, muscles, equipment, etc. This can be used to avoid having to call
         the other endpoints individually.
     </div>
 </div>
@@ -232,7 +234,7 @@ it in the header, see the link on the sidebar for details.</p>
     <code>api/v2/mealitem/&lt;id&gt;/nutritional_values/</code>
 </div>
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="offset-md-1 col-md-10">
         Returns the total nutritional values for a nutritional plan, a meal or
         an individual meal item. The nutritional plan lists this under the
         'total' key, the other two return a flat list.
@@ -273,70 +275,90 @@ database structure, which is basically exposed through the API 1-to-1. Click on
 the images to download a bigger version.</p>
 
 
-<div class="panel-group" id="api-accordion">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-workout">
-                Workouts
-                </a>
+<div class="accordion mb-4" id="api-accordion">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">
+                <button class="btn btn-link btn-block text-left"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#api-workout"
+                        aria-expanded="true"
+                        aria-controls="api-workout">
+                    Workouts
+                </button>
             </h4>
         </div>
-        <div id="api-workout" class="panel-collapse collapse in">
-            <div class="panel-body">
+        <div id="api-workout" class="collapse" data-parent="#api-accordion">
+            <div class="card-body">
                 <a href="{% static 'images/api/db-manager.svg' %}">
-                    <img src="{% static 'images/api/db-manager.svg' %}" class="img-responsive">
+                    <img src="{% static 'images/api/db-manager.svg' %}" class="img-fluid">
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-nutrition">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">
+                <button class="btn btn-link btn-block text-left"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#api-nutrition"
+                        aria-expanded="true"
+                        aria-controls="api-nutrition">
                 Nutrition
-                </a>
+                </button>
             </h4>
         </div>
-        <div id="api-nutrition" class="panel-collapse collapse">
-            <div class="panel-body">
+        <div id="api-nutrition" class="collapse" data-parent="#api-accordion">
+            <div class="card-body">
                 <a href="{% static 'images/api/db-nutrition.svg' %}">
-                    <img src="{% static 'images/api/db-nutrition.svg' %}" class="img-responsive">
+                    <img src="{% static 'images/api/db-nutrition.svg' %}" class="img-fluid">
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-exercises">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">
+                <button class="btn btn-link btn-block text-left"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#api-exercises"
+                        aria-expanded="true"
+                        aria-controls="api-exercises">
                 Exercises
-                </a>
+                </button>
             </h4>
         </div>
-        <div id="api-exercises" class="panel-collapse collapse">
-            <div class="panel-body">
+        <div id="api-exercises" class="collapse" data-parent="#api-accordion">
+            <div class="card-body">
                 <a href="{% static 'images/api/db-exercises.svg' %}">
-                    <img src="{% static 'images/api/db-exercises.svg' %}" class="img-responsive">
+                    <img src="{% static 'images/api/db-exercises.svg' %}" class="img-fluid">
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#api-accordion" href="#api-all">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="mb-0">
+                <button class="btn btn-link btn-block text-left"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#api-all"
+                        aria-expanded="true"
+                        aria-controls="api-all">
                 Complete DB
-                </a>
+                </button>
             </h4>
         </div>
-        <div id="api-all" class="panel-collapse collapse">
-            <div class="panel-body">
+        <div id="api-all" class="collapse" data-parent="#api-accordion">
+            <div class="card-body">
                 <a href="{% static 'images/api/db-all.svg' %}">
-                    <img src="{% static 'images/api/db-all.svg' %}" class="img-responsive">
+                    <img src="{% static 'images/api/db-all.svg' %}" class="img-fluid">
                 </a>
             </div>
         </div>
@@ -376,21 +398,6 @@ curl -H "Authorization: Token 123456..." \
 >>> pprint(json.loads(r.content))
 </pre>
 
-
-<h3>/api/v1</h3>
-<div class="panel panel-warning">
-    <div class="panel-heading">
-        <h3 class="panel-title">Deprecation warning</h3>
-    </div>
-    <div class="panel-body">
-        The first API supported only read operations. Due to different reasons
-        it is being deprecated and should not be used anymore, it will be
-        deactivated on June 2015.
-    </div>
-</div>
-<p>
-</p>
-
 {% endblock %}
 
 
@@ -398,9 +405,9 @@ curl -H "Authorization: Token 123456..." \
 {% block sidebar %}
 <div class="alert alert-info" style="margin-top:1em;">
     This is also new for us, if you plan on using the API,
-    <a href="https://groups.google.com/group/wger" class="alert-link">we'd love to hear from you</a>.
+    <a href="https://github.com/wger-project/wger" class="alert-link">we'd love to hear from you</a>.
 </div>
 
-<p><a href="/api/v2/" class="btn btn-block btn-default" rel="nofollow">Browse the API</a></p>
-<p><a href="{% url 'core:user:api-key' %}" class="btn btn-block btn-default">Generate API KEY</a></p>
+<p><a href="/api/v2/" class="btn btn-block btn-light" rel="nofollow">Browse the API</a></p>
+<p><a href="{% url 'core:user:api-key' %}" class="btn btn-block btn-light">Generate API KEY</a></p>
 {% endblock %}

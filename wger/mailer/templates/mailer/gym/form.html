@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs crispy_forms_tags %}
+
+{% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% if perms.gym.manage_gyms %}
+        {% breadcrumb "Gyms" "gym:gym:list" %}
+    {% endif %}
+
+    {% breadcrumb_raw gym "gym:gym:user-list" gym.pk %}
+    {% breadcrumb "Emails" "email:email:overview" gym.pk %}
+    {% breadcrumb "Add" "email:email:add-gym" gym.pk %}
+{% endblock %}
+
+{% block content %}
+<form action="{{ request.get_full_path }}"
+      method="post"
+      class="wger-form">
+    {% crispy form %}
+    <input type="submit" name="submit" value="{% trans 'Generate preview' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+</form>
+{% endblock %}
+
+{% block sidebar %}
+    <h4>{% trans "Steps" %}</h4>
+    <ol>
+        <li>{% trans "Fill in the form" %}</li>
+        <li>{% trans "You will receive a preview email for you to review" %}</li>
+        <li>{% trans "You can update and correct the content as often as you need before sending the emails" %}</li>
+    </ol>
+{% endblock %}

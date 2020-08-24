@@ -12,24 +12,30 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Django
 from django.contrib.auth.models import User
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.helpers import get_user_last_activity
-from wger.manager.models import WorkoutSession, WorkoutLog
+from wger.manager.models import (
+    WorkoutLog,
+    WorkoutSession
+)
 
 
-class UserLastActivityTestCase(WorkoutManagerTestCase):
-    '''
+class UserLastActivityTestCase(WgerTestCase):
+    """
     Test the helper function for last user activity
-    '''
+    """
 
     def test_user_last_activity(self):
-        '''
+        """
         Test the helper function for last user activity
-        '''
+        """
         self.user_login('admin')
         user = User.objects.get(username='admin')
         log = WorkoutLog.objects.get(pk=1)

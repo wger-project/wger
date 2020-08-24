@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 
 {#           #}
@@ -63,30 +63,23 @@
         {% with day_list=workout_log|get_item:day.obj.id %}
         {% with exercise_list=day_list|get_item:exercise.obj.id %}
 
-
-            <div class="row" style="padding-top: 1em;">
-                <div class="col-xs-3">
-                    <strong><a href="{{ exercise.obj.get_absolute_url }}">{{ exercise.obj.name }}</a></strong>
-                </div>
-                <div class="col-xs-9">
-                    {% if exercise_list.log_by_date %}
-                        {#  TODO: perhaps move the draw_weight_chart function to render_weight_log #}
-                        {% with list=exercise_list.log_by_date %}
-                            {% render_weight_log list exercise_list.div_uuid owner_user %}
-                            <script>
-                            $(document).ready(function() {
-                            wgerDrawWeightLogChart({{exercise_list.chart_data|safe}},
-                                                  "{{exercise_list.div_uuid}}");
-                            });
-                            </script>
-                        {% endwith %}
+            <h5 class="mt-4">{{ exercise.obj.name }}</h5>
+            {% if exercise_list.log_by_date %}
+                {#  TODO: perhaps move the draw_weight_chart function to render_weight_log #}
+                {% with list=exercise_list.log_by_date %}
+                    {% render_weight_log list exercise_list.div_uuid owner_user %}
+                    <script>
+                    $(document).ready(function() {
+                    wgerDrawWeightLogChart({{exercise_list.chart_data|safe}},
+                                          "{{exercise_list.div_uuid}}");
+                    });
+                    </script>
+                {% endwith %}
 
 
-                    {% else %}
-                        <p><em>{% trans "No weight entries here." %}</em></p>
-                    {% endif %}
-                </div>
-            </div>
+            {% else %}
+                <p><em>{% trans "No weight entries here." %}</em></p>
+            {% endif %}
 
         {% endwith %}
         {% endwith %}

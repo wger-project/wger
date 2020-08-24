@@ -8,56 +8,47 @@ running application (to e.g. delete guest users, send emails, etc.).
 Administration Commands
 -----------------------
 
-The application provides several administration and bootstraping commands. They
-are all available with ``wger`` (if installed from PyPI) or ``invoke`` (if
-installed from source)::
+The application provides several administration and bootstraping commands that
+can be passed to the ``wger`` command::
 
     wger <command>
 
-or ::
 
-    invoke <command>
-
-Both versions behave the same but for simplicity, the invoke version will be used
-in this manual.
-
-
-You can get a list of all available commands with ``invoke --list`` or ``wger``.
-While you can do this from any folder in the application, some of them (e.g.
-``start_wger``) might only work from the root folder::
+You can get a list of all available commands by calling ``wger`` without any
+arguments::
 
     Available tasks:
 
-    bootstrap_wger          Performs all steps necessary to bootstrap the application
+    bootstrap               Performs all steps necessary to bootstrap the application
     config_location         Returns the default location for the settings file and the data folder
     create_or_reset_admin   Creates an admin user or resets the password for an existing one
     create_settings         Creates a local settings file
     load_fixtures           Loads all fixtures
     migrate_db              Run all database migrations
-    start_wger              Start the application using django's built in webserver
+    start                   Start the application using django's built in webserver
 
-You can also get help on a specific command with ``invoke --help <command>``.
+You can also get help on a specific command with ``wger --help <command>``.
 
 .. note::
     Most commands support a ``--settings-path`` command line option that sets the
     settings file to use for the operation. If you use it, it is recommended to
     use absolute paths, for example::
 
-        invoke bootstrap_wger --settings-path /path/to/development/wger/settings-test.py
+        wger bootstrap --settings-path /path/to/development/wger/settings-test.py
 
 
 
-Bootstrap wger
-~~~~~~~~~~~~~~
+Bootstrap
+~~~~~~~~~
 
-Command: **bootstrap_wger**
+Command: **bootstrap**
 
 This command bootstraps the application: it creates a settings file, initialises
 a sqlite database, loads all necessary fixtures for the application to work and
 creates a default administrator user. While it can also work with e.g. a postgreSQL
 database, you will need to create it yourself::
 
-    invoke bootstrap_wger
+    wger bootstrap
 
 The most usual use-case is creating the settings file and the sqlite database to
 their default locations, but you can set your own paths if you want e.g. start
@@ -65,7 +56,7 @@ developing on a branch that is going to change the database schema.
 
 Usage::
 
-    Usage: inv[oke] [--core-opts] bootstrap_wger [--options] [other tasks here ...]
+    Usage: inv[oke] [--core-opts] bootstrap [--options] [other tasks here ...]
 
     Docstring:
       Performs all steps necessary to bootstrap the application
@@ -81,11 +72,11 @@ Usage::
 Start wger
 ~~~~~~~~~~
 
-Command: **start_wger**
+Command: **start**
 
 Starts an already installed application::
 
-    invoke start_wger
+    wger start
 
 Please note that this is simply a comfort function and does not use any *magic*,
 it simply calls django's development server and (optionally) opens a browser
@@ -94,7 +85,7 @@ is probably better.
 
 Usage::
 
-    Usage: inv[oke] [--core-opts] start_wger [--options] [other tasks here ...]
+    Usage: inv[oke] [--core-opts] start [--options] [other tasks here ...]
 
     Docstring:
       Start the application using django's built in webserver
@@ -126,11 +117,11 @@ Command: **create_settings**
 Creates a new settings file based. If you call it without further arguments it
 will create the settings in the default locations::
 
-    invoke create settings
+    wger create settings
 
 If you pass custom paths, it's recommended to use absolute paths::
 
-    invoke create_settings --settings-path /path/to/development/wger/settings-test.py --database-path /path/to/development/wger/database-test.sqlite
+    wger create_settings --settings-path /path/to/development/wger/settings-test.py --database-path /path/to/development/wger/database-test.sqlite
 
 
 Usage::

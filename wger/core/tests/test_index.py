@@ -13,23 +13,25 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 
 
-class DashboardTestCase(WorkoutManagerTestCase):
-    '''
+class DashboardTestCase(WgerTestCase):
+    """
     Dashboard (landing page) test case
-    '''
+    """
 
     def dashboard(self):
-        '''
+        """
         Helper function to test the dashboard
-        '''
+        """
 
         response = self.client.get(reverse('core:index'))
 
@@ -88,9 +90,19 @@ class DashboardTestCase(WorkoutManagerTestCase):
         self.assertTrue(response.context['weekdays'])
 
     def test_dashboard_logged_in(self):
-        '''
+        """
         Test index page as a logged in user
-        '''
+        """
 
         self.user_login('admin')
         self.dashboard()
+
+    def test_dashboard(self):
+        """
+        Test that the dashboard has the correct CSS files
+        """
+        response = self.client.get(reverse('core:dashboard'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'css/workout-manager.css', html=False)
+        self.assertContains(response, 'yarn/bootstrap-compiled.css', html=False)

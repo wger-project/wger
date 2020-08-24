@@ -12,30 +12,43 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Django
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase, WorkoutManagerDeleteTestCase
-from wger.manager.models import Workout, WorkoutSession, WorkoutLog
+from wger.core.tests.base_testcase import (
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
+from wger.manager.models import (
+    Workout,
+    WorkoutLog,
+    WorkoutSession
+)
 from wger.utils.cache import cache_mapper
 
 
-'''
+"""
 Tests for workout sessions
-'''
+"""
 
 
-class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddWorkoutSessionTestCase(WgerAddTestCase):
+    """
     Tests adding a workout session
-    '''
+    """
 
     object_class = WorkoutSession
     url = reverse_lazy('manager:session:add', kwargs={'workout_pk': 1,
@@ -53,10 +66,10 @@ class AddWorkoutSessionTestCase(WorkoutManagerAddTestCase):
     }
 
 
-class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditWorkoutSessionTestCase(WgerEditTestCase):
+    """
     Tests editing a workout session
-    '''
+    """
 
     object_class = WorkoutSession
     url = 'manager:session:edit'
@@ -72,15 +85,15 @@ class EditWorkoutSessionTestCase(WorkoutManagerEditTestCase):
     }
 
 
-class WorkoutSessionModelTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutSessionModelTestCase(WgerTestCase):
+    """
     Tests other functionality from the model
-    '''
+    """
 
     def test_unicode(self):
-        '''
+        """
         Test the unicode representation
-        '''
+        """
 
         session = WorkoutSession()
         session.workout = Workout.objects.get(pk=1)
@@ -89,20 +102,20 @@ class WorkoutSessionModelTestCase(WorkoutManagerTestCase):
                          u'{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
 
 
-class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteTestWorkoutTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a Workout
-    '''
+    """
 
     object_class = WorkoutSession
     url = 'manager:session:delete'
     pk = 3
 
 
-class WorkoutSessionDeleteLogsTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutSessionDeleteLogsTestCase(WgerTestCase):
+    """
     Tests that deleting a session can also delete all weight logs
-    '''
+    """
 
     def test_delete_logs(self):
         self.user_login('admin')
@@ -120,15 +133,15 @@ class WorkoutSessionDeleteLogsTestCase(WorkoutManagerTestCase):
         self.assertEqual(count_after, 0)
 
 
-class WorkoutSessionTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutSessionTestCase(WgerTestCase):
+    """
     Tests other workout session methods
-    '''
+    """
 
     def test_model_validation(self):
-        '''
+        """
         Tests the custom clean() method
-        '''
+        """
         self.user_login('admin')
 
         # Values OK
@@ -163,15 +176,15 @@ class WorkoutSessionTestCase(WorkoutManagerTestCase):
         self.assertRaises(ValidationError, session.full_clean)
 
 
-class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutLogCacheTestCase(WgerTestCase):
+    """
     Workout log cache test case
-    '''
+    """
 
     def test_cache_update_session(self):
-        '''
+        """
         Test that the caches are cleared when updating a workout session
-        '''
+        """
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
@@ -183,9 +196,9 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_update_session_2(self):
-        '''
+        """
         Test that the caches are only cleared for a the session's month
-        '''
+        """
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
@@ -198,9 +211,9 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_delete_session(self):
-        '''
+        """
         Test that the caches are cleared when deleting a workout session
-        '''
+        """
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
@@ -211,9 +224,9 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_log_list(log_hash)))
 
     def test_cache_delete_session_2(self):
-        '''
+        """
         Test that the caches are only cleared for a the session's month
-        '''
+        """
         log_hash = hash((1, 2012, 10))
         self.user_login('admin')
         self.client.get(reverse('manager:workout:calendar', kwargs={'year': 2012, 'month': 10}))
@@ -225,9 +238,9 @@ class WorkoutLogCacheTestCase(WorkoutManagerTestCase):
 
 
 class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the workout overview resource
-    '''
+    """
     pk = 4
     resource = WorkoutSession
     private_resource = True

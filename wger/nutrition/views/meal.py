@@ -13,18 +13,30 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core.urlresolvers import reverse
+# Django
 from django.contrib.auth.decorators import login_required
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy
+from django.views.generic import (
+    CreateView,
+    UpdateView
+)
 
-from django.views.generic import CreateView, UpdateView
-
-from wger.nutrition.models import NutritionPlan, Meal
+# wger
+from wger.nutrition.models import (
+    Meal,
+    NutritionPlan
+)
 from wger.utils.generic_views import WgerFormMixin
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,9 +46,9 @@ logger = logging.getLogger(__name__)
 # ************************
 
 class MealCreateView(WgerFormMixin, CreateView):
-    '''
+    """
     Generic view to add a new meal to a nutrition plan
-    '''
+    """
 
     model = Meal
     fields = '__all__'
@@ -55,21 +67,17 @@ class MealCreateView(WgerFormMixin, CreateView):
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(MealCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition:meal:add',
-                                         kwargs={'plan_pk': self.kwargs['plan_pk']})
-
         return context
 
 
 class MealEditView(WgerFormMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing meal
-    '''
+    """
 
     model = Meal
     fields = '__all__'
     title = ugettext_lazy('Edit meal')
-    form_action_urlname = 'nutrition:meal:edit'
 
     def get_success_url(self):
         return self.object.plan.get_absolute_url()
@@ -77,9 +85,9 @@ class MealEditView(WgerFormMixin, UpdateView):
 
 @login_required
 def delete_meal(request, id):
-    '''
+    """
     Deletes the meal with the given ID
-    '''
+    """
 
     # Load the meal
     meal = get_object_or_404(Meal, pk=id)

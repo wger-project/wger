@@ -14,8 +14,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.contrib.sitemaps import Sitemap
 
+# wger
 from wger.nutrition.models import Ingredient
 from wger.utils.language import load_language
 

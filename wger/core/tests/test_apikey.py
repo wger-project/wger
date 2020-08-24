@@ -12,26 +12,32 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
+
+# Third Party
 from rest_framework.authtoken.models import Token
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
+
 
 logger = logging.getLogger(__name__)
 
 
-class ApiKeyTestCase(WorkoutManagerTestCase):
-    '''
+class ApiKeyTestCase(WgerTestCase):
+    """
     Tests the API key page
-    '''
+    """
 
     def test_api_key_page(self):
-        '''
+        """
         Tests the API key generation page
-        '''
+        """
 
         self.user_login('test')
         user = User.objects.get(username='test')
@@ -50,9 +56,9 @@ class ApiKeyTestCase(WorkoutManagerTestCase):
         self.assertRaises(Token.DoesNotExist, Token.objects.get, user=user)
 
     def test_api_key_page_generation(self):
-        '''
+        """
         User generates a new key
-        '''
+        """
 
         self.user_login('test')
         user = User.objects.get(username='test')

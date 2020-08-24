@@ -13,34 +13,42 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+# Django
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.nutrition.models import IngredientWeightUnit
-from wger.nutrition.models import WeightUnit
+from wger.core.tests.base_testcase import (
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
+from wger.nutrition.models import (
+    IngredientWeightUnit,
+    WeightUnit
+)
 
 
-class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class WeightUnitIngredientRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
 
 
-class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddWeightUnitIngredientTestCase(WgerAddTestCase):
+    """
     Tests adding a new weight unit to an ingredient
-    '''
+    """
 
     object_class = IngredientWeightUnit
     url = reverse_lazy('nutrition:unit_ingredient:add',
@@ -50,20 +58,20 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
             'amount': 1}
 
 
-class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteWeightUnitIngredientTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a weight unit from an ingredient
-    '''
+    """
 
     object_class = IngredientWeightUnit
     url = 'nutrition:unit_ingredient:delete'
     pk = 1
 
 
-class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditWeightUnitTestCase(WgerEditTestCase):
+    """
     Tests editing a weight unit from an ingredient
-    '''
+    """
 
     object_class = IngredientWeightUnit
     url = 'nutrition:unit_ingredient:edit'
@@ -73,15 +81,15 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
             'amount': 0.3}
 
 
-class WeightUnitFormTestCase(WorkoutManagerTestCase):
-    '''
+class WeightUnitFormTestCase(WgerTestCase):
+    """
     Tests the form for the weight units
-    '''
+    """
 
     def test_add_weight_unit(self):
-        '''
+        """
         Tests the form in the add view
-        '''
+        """
         self.user_login('admin')
         response = self.client.get(reverse('nutrition:unit_ingredient:add',
                                            kwargs={'ingredient_pk': 1}))
@@ -94,9 +102,9 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
                 self.assertIn(unit.name, choices)
 
     def test_edit_weight_unit(self):
-        '''
+        """
         Tests that the form in the edit view only shows weight units in the user's language
-        '''
+        """
         self.user_login('admin')
         response = self.client.get(reverse('nutrition:unit_ingredient:edit',
                                            kwargs={'pk': 1}))
@@ -110,9 +118,9 @@ class WeightUnitFormTestCase(WorkoutManagerTestCase):
 
 
 class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the weight unit to ingredient API resource
-    '''
+    """
     pk = 1
     resource = IngredientWeightUnit
     private_resource = False

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{gym}}{% endblock %}
 
@@ -41,15 +41,15 @@
         {{current_user.obj}}
 
         {% if current_user.perms.gym_trainer %}
-            <span class="label label-primary">{% trans "Trainer" %}</span>
+            <span class="badge badge-primary">{% trans "Trainer" %}</span>
         {% endif %}
 
         {% if current_user.perms.manage_gym %}
-            <span class="label label-primary">{% trans "Gym manager" %}</span>
+            <span class="badge badge-primary">{% trans "Gym manager" %}</span>
         {% endif %}
 
         {% if current_user.perms.manage_gyms %}
-            <span class="label label-primary">{% trans "General manager" %}</span>
+            <span class="badge badge-primary">{% trans "General manager" %}</span>
         {% endif %}
     </td>
     <td>
@@ -58,7 +58,7 @@
 
     {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
     <td style="text-align: right;">
-        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-default btn-xs wger-modal-dialog">
+        <a href="{% url 'gym:gym:edit-user-permission' current_user.obj.pk %}" class="btn btn-light btn-sm wger-modal-dialog">
             <span class="{% fa_class 'cog' %}"></span>
         </a>
     </td>
@@ -79,18 +79,14 @@
 {# Gym details #}
 {#             #}
 {% if perms.gym.change_gym %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="dropdown float-right">
+    <a type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-        </li>
-        <li>
-            <a href="{% url 'gym:export:users' gym.id %}">{% trans "Export"%}</a>
-        </li>
-    </ul>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" role="menu">
+        <a href="{% url 'gym:gym:edit' gym.id %}" class="dropdown-item wger-modal-dialog">{% trans "Edit"%}</a>
+        <a href="{% url 'gym:export:users' gym.id %}" class="dropdown-item">{% trans "Export"%}</a>
+    </div>
 </div>
 {% endif %}
 
@@ -136,15 +132,13 @@
 {# Gym configuration #}
 {#                   #}
 {% if perms.gym.change_gymconfig %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="dropdown float-right">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:config:edit' gym.config.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-        </li>
-    </ul>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a href="{% url 'gym:config:edit' gym.config.id %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}111</a>
+    </div>
 </div>
 {% endif %}
 
@@ -156,7 +150,13 @@
     </tr>
     <tr>
         <td>{% trans "Show name in header" %}</td>
-        <td style="text-align: right;">{{gym.config.show_name}}</td>
+        <td style="text-align: right;">
+            {% if gym.config.show_name %}
+                <span class="{% fa_class 'check' %}"></span>
+            {% else %}
+                <span class="{% fa_class 'times' %}"></span>
+            {% endif %}
+        </td>
     </tr>
 </table>
 
@@ -167,15 +167,15 @@
 {# Admin configuration #}
 {#                     #}
 {% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:admin_config:edit' user.gymadminconfig.id %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-        </li>
-    </ul>
+<div class="dropdown float-right">
+    <div class="btn-group ">
+        <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+            {% trans "Actions" %} <span class="caret"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" role="menu">
+            <a href="{% url 'gym:admin_config:edit' user.gymadminconfig.id %}" class="dropdown-item wger-modal-dialog">{% trans "Edit"%}</a>
+        </div>
+    </div>
 </div>
 
 <h4>{% trans "My configuration" %}</h4>
@@ -202,18 +202,14 @@
     <h4>{% trans "Contracts" %}</h4>
 {% endif %}
 {% if perms.gym.change_contracttype %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="dropdown float-right">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:contract_type:list' gym.id %}">{% trans "Overview" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'gym:contract_type:add' gym.id %}" class="wger-modal-dialog">{% trans "Add" %}</a>
-        </li>
-    </ul>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" role="menu">
+        <a href="{% url 'gym:contract_type:list' gym.id %}" class="dropdown-item">{% trans "Overview" %}</a>
+        <a href="{% url 'gym:contract_type:add' gym.id %}" class="dropdown-item wger-modal-dialog">{% trans "Add" %}</a>
+    </div>
 </div>
 
 <h5>{% trans "Types" %}</h5>
@@ -239,18 +235,14 @@
 
 
 {% if perms.gym.change_contractoption %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="dropdown float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:contract-option:list' gym.id %}">{% trans "Overview" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'gym:contract-option:add' gym.id %}" class="wger-modal-dialog">{% trans "Add" %}</a>
-        </li>
-    </ul>
+    <div class="dropdown-menu dropdown-menu-right" role="menu">
+        <a href="{% url 'gym:contract-option:list' gym.id %}" class="dropdown-item">{% trans "Overview" %}</a>
+        <a href="{% url 'gym:contract-option:add' gym.id %}" class="dropdown-item wger-modal-dialog">{% trans "Add" %}</a>
+    </div>
 </div>
 
 <h5>{% trans "Options" %}</h5>
@@ -279,19 +271,15 @@
 {#             #}
 {# Email lists #}
 {#             #}
-{% if perms.email.change_log %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+{% if perms.mailer.change_log %}
+<div class="dropdown float-right">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'email:email:overview' gym.id %}">{% trans "Overview"%}</a>
-        </li>
-        <li>
-            <a href="{% url 'email:email:add-gym' gym.id %}">{% trans "Add"%}</a>
-        </li>
-    </ul>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" role="menu">
+        <a href="{% url 'email:email:overview' gym.id %}" class="dropdown-item">{% trans "Overview"%}</a>
+        <a href="{% url 'email:email:add-gym' gym.id %}" class="dropdown-item">{% trans "Add"%}</a>
+    </div>
 </div>
 
 <h4>{% trans "Emails" %}</h4>

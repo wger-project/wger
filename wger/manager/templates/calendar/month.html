@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 
 {#           #}
@@ -49,55 +49,55 @@ $(document).ready(function() {
 
         <h3>
             {{date}}
-            <small><a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% trans 'Detail page' %}</a></small>
+            <small>
+                <a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% trans 'Detail page' %}</a>
+            </small>
         </h3>
 
         {% include 'calendar/partial_overview_table.html' %}
 
-        <div class="row" style="margin-top: 2em;">
+        <div class="row row-cols-1 row-cols-md-3">
             {% for exercise, logs in value.logs.items %}
-                <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="min-height: 4em;">
+                <div class="col-sm-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
                         <a href="{{ exercise.get_absolute_url }}">
                             {{ exercise }}
                         </a>
                     </div>
-                    <ul class="list-group" style="min-height: 10em;">
-                    {% for log in logs %}
-                        <li class="list-group-item">
-                            {{log.reps}}
-                            {% if not log.repetition_unit.is_repetition %}
-                                {% trans log.repetition_unit.name %}
-                            {% endif %}
-                            ×
-                            {{log.weight}} {% trans log.weight_unit.name %}
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                        {% for log in logs %}
+                            <li class="list-group-item">
+                                {{log.reps}}
+                                {% if not log.repetition_unit.is_repetition %}
+                                    {% trans log.repetition_unit.name %}
+                                {% endif %}
+                                ×
+                                {{log.weight}} {% trans log.weight_unit.name %}
 
-                            {% if is_owner %}
-                            <span class="editoptions">
-                                <div class="btn-group pull-right">
-                                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-                                        <span class="{% fa_class 'cog' %}"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
+                                {% if is_owner %}
+                                <span class="editoptions">
+                                    <div class="dropdown float-right">
+                                        <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+                                            <span class="{% fa_class 'cog' %}"></span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
                                             <a href="{% url 'manager:log:edit' log.pk %}"
                                                title="{% trans 'Edit' %}"
-                                               class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                                        </li>
-                                        <li>
+                                               class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
                                             <a href="{% url 'manager:log:delete' log.pk %}"
                                                title="{% trans 'Delete' %}"
-                                               class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </span>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                    </ul>
+                                               class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                                        </div>
+                                    </div>
+                                </span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
                     </div>
+                </div>
                 </div>
             {% endfor %}
         </div>
@@ -114,8 +114,8 @@ $(document).ready(function() {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans 'Add log to day' %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 {% if current_workout %}
@@ -123,13 +123,13 @@ $(document).ready(function() {
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-light">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-light">
                     <span class="{% fa_class 'plus' %}"></span>
                     {% trans "Add one now." %}
                 </a>
@@ -137,7 +137,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>

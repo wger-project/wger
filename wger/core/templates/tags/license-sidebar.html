@@ -1,4 +1,4 @@
-{% load i18n staticfiles %}
+{% load i18n static %}
 
 <h4>{% trans "Free license" %}</h4>
 <p>
@@ -7,7 +7,7 @@
     {% if author %}
         – {{author}}
     {% endif %}
-    
+
     {% if license.url %}
         <br>
         <a rel="license" href="{{license.url}}">{% trans "Click here for more information" %}</a>

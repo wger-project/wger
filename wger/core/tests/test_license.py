@@ -13,39 +13,43 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# wger
 from wger.core.models import License
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase, WorkoutManagerTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import (
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
 
 
-class LicenseRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class LicenseRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(License.objects.get(pk=1)),
                          'A cool and free license - Germany (ACAFL - DE)')
 
 
-class LicenseOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+class LicenseOverviewTest(WgerAccessTestCase):
+    """
     Tests the licese overview page
-    '''
+    """
 
     url = 'core:license:list'
 
 
-class AddLicenseTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddLicenseTestCase(WgerAddTestCase):
+    """
     Tests adding a new license
-    '''
+    """
 
     object_class = License
     url = 'core:license:add'
@@ -53,20 +57,20 @@ class AddLicenseTestCase(WorkoutManagerAddTestCase):
             'short_name': 'SH'}
 
 
-class DeleteLicenseTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteLicenseTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a license
-    '''
+    """
 
     object_class = License
     url = 'core:license:delete'
     pk = 1
 
 
-class EditLicenseTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditLicenseTestCase(WgerEditTestCase):
+    """
     Tests editing a license
-    '''
+    """
 
     object_class = License
     url = 'core:license:edit'
@@ -76,9 +80,9 @@ class EditLicenseTestCase(WorkoutManagerEditTestCase):
 
 
 class LicenseApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the license resource
-    '''
+    """
     pk = 1
     resource = License
     private_resource = False

@@ -12,18 +12,25 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 from os.path import join as path_join
 
+# Django
 from django.conf import settings
-from django.utils import translation
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import translation
 
-from reportlab.lib.styles import ParagraphStyle, StyleSheet1
-from reportlab.pdfbase.ttfonts import TTFont
+# Third Party
+from reportlab.lib.styles import (
+    ParagraphStyle,
+    StyleSheet1
+)
 from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph
 
+# wger
 from wger import get_version
 from wger.core.models import Language
 
@@ -34,9 +41,9 @@ from wger.core.models import Language
 
 
 def load_language():
-    '''
+    """
     Returns the currently used language, e.g. to load appropriate exercises
-    '''
+    """
     # TODO: perhaps store a language preference in the user's profile?
 
     # Read the first part of a composite language, e.g. 'de-at'
@@ -53,7 +60,7 @@ def load_language():
 
 
 def load_ingredient_languages(request):
-    '''
+    """
     Filter the ingredients the user will see by its language.
 
     Additionally, if the user has selected on his preference page that he wishes
@@ -62,13 +69,13 @@ def load_ingredient_languages(request):
 
     This only makes sense if the user's language isn't English, as he will be
     presented those in that case anyway, so also do a check for this.
-    '''
+    """
 
     language = load_language()
     languages = (language.id,)
 
     # Only registered users have a profile
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         profile = request.user.userprofile
         show_english = profile.show_english_ingredients
 
@@ -80,18 +87,18 @@ def load_ingredient_languages(request):
 
 
 def render_footer(url, date=None):
-    '''
+    """
     Renders the footer used in the different PDFs
     :return: a Paragraph object
-    '''
+    """
     if not date:
         date = datetime.date.today().strftime("%d.%m.%Y")
-        p = Paragraph('''<para>
+        p = Paragraph("""<para>
                             {date} -
                             <a href="{url}">{url}</a> -
                             wger Workout Manager
                             {version}
-                        </para>'''.format(date=date,
+                        </para>""".format(date=date,
                                           url=url,
                                           version=get_version()),
                       styleSheet["Normal"])

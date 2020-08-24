@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# wger
 from wger.settings_global import *
+
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
@@ -23,6 +25,9 @@ DATABASES = {{
         'PORT': '{dbport}',
     }}
 }}
+
+# Timezone for this installation. Consult settings_global.py for more information
+TIME_ZONE = 'Europe/Berlin'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '{default_key}'

@@ -1,9 +1,107 @@
 Changelog
 =========
 
-1.8 - IN DEVELOPMENT
---------------------
-**2016-XX-XX**
+2.0 - IN DEVELOPMENT
+**2020-xx-xx**
+
+Upgrade steps from 1.9:
+
+* Update python libraries ``pip install -r requirements.txt``
+* Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
+* Update CSS and JS libraries ``yarn install``
+* Compile the CSS ``sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css``
+* Run migrations ``python manage.py migrate``
+* Update static files (only production): ``python manage.py collectstatic``
+
+
+🚀 Features:
+
+* Improved user experience, on desktop and mobile `#337`_
+
+
+🐛 Bug Fixes:
+
+* TBA
+
+
+🧰 Maintenance:
+
+* Improved docker and docker-compose images `#340`_
+* Updated many libraries to last version (bootstrap, font awesome, etc.)
+* Use yarn to download CSS/JS libraries
+* Improvements to documentation (e.g. `#494`_)
+
+.. _#337: https://github.com/wger-project/wger/issues/337
+.. _#340: https://github.com/wger-project/wger/issues/340
+.. _#494: https://github.com/wger-project/wger/issues/494
+
+
+
+1.9
+---
+**2020-06-29**
+
+Upgrade steps from 1.8:
+
+* Django update to 3.x: ``pip install -r requirements.txt``
+* Database upgrade: ``python manage.py migrate``
+* Update static files (only production): ``python manage.py collectstatic``
+
+New features:
+
+* Allow users to enter their birthdate instead of just the age (thanks `@dtopal`_) `#332`_
+* Work to ensure that mobile templates are used when appropriate
+* Added optional S3 static asset hosting.
+* Drop Python 2 support.
+* Replaced django-mobile with django-user_agent (and some custom code)
+  This isn't as slick as django-mobile was, but it unblocks possible Django 2.x support.
+* Update many dependencies to current versions.
+
+Improvements:
+
+* Improve look of weight graph (thanks `@alokhan`_) `#381`_
+* Added password validation rules for more security
+* Exercise image downloader checks only accepted exercises (thanks `@gmmoraes`_) `#363`_
+* Use a native data type for the exercises' UUID (thanks `@gmmoraes`_) `#364`_
+* Increase speed of testsuite by performing the tests in parallel (thanks `@Mbarak-Mbigo`_) `wger_vulcan/#6`_
+* Update screen when adding an exercise to the workout while using set slider (thanks `@gmmoraes`_) `#374`_
+* Work to slim docker image
+  * Download images at startup - If `DOWNLOAD_IMGS` environmental variable is set to `TRUE`
+  * Uninstall dev packages
+* Update Ubuntu version used in docker container.
+* Fixed a handful of hard coded static path references to use `static` taglib
+* Updated tinymce theme for v5.
+
+Other improvements and bugfixes: `#336`_, `#359`_,`#386`_, `#443`_
+
+.. _@gmmoraes: https://github.com/gmmoraes
+.. _@Mbarak-Mbigo: https://github.com/Mbarak-Mbigo
+.. _@dtopal: https://github.com/dtopal
+
+.. _wger_vulcan/#6: https://github.com/andela/wger_vulcan/pull/6
+
+.. _#332: https://github.com/wger-project/wger/issues/332
+.. _#336: https://github.com/wger-project/wger/issues/336
+.. _#359: https://github.com/wger-project/wger/issues/359
+.. _#363: https://github.com/wger-project/wger/issues/363
+.. _#364: https://github.com/wger-project/wger/issues/364
+.. _#374: https://github.com/wger-project/wger/issues/374
+.. _#381: https://github.com/wger-project/wger/issues/381
+.. _#386: https://github.com/wger-project/wger/issues/386
+.. _#443: https://github.com/wger-project/wger/issues/443
+
+
+1.8
+---
+**2017-04-05**
+
+.. warning ::
+   There have been some changes to the installation procedure. Calling 'invoke'
+   on its own has been deprecated, you should use the 'wger' command (which
+   accepts the same options). Also some of these commands have been renamed:
+
+   * ``start_wger`` to ``wger``
+   * ``bootstrap_wger`` to ``bootstrap``
 
 Upgrade steps from 1.7:
 
@@ -22,6 +120,7 @@ Upgrade steps from 1.7:
 New languages:
 
 * Norwegian (many thanks to Kjetil Elde `@w00p`_ `#304`_)
+* French (many thanks to all translators)
 
 New features:
 
@@ -41,7 +140,9 @@ Improvements:
 * Check and enforce style guide for JS files `#317`_ (`@petervanderdoes`_)
 * BMI calculator now works with pounds as well (thanks `@petervanderdoes`_) `#318`_
 * Give feedback when autocompleter didn't find any results `#293`_
+* Make exercise names links to their detail page in training log pages `#350`_
 * Better GUI consistency in modal dialogs (thanks `@jstoebel`_ ) `#274`_
+* Cache is cleared when editing muscles (thanks `@RyanSept`_ `@pythonGeek`_  ) `#260`_
 * Fields in workout log form are no longer required, making it possible to only log weight for certain exercises `#334`_
 * New, more verbose, API endpoint for exercises, (thanks `@andela-bmwenda`_)
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
@@ -66,6 +167,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#243: https://github.com/wger-project/wger/issues/243
 .. _#248: https://github.com/wger-project/wger/issues/248
 .. _#247: https://github.com/wger-project/wger/issues/247
+.. _#260: https://github.com/wger-project/wger/issues/260
 .. _#263: https://github.com/wger-project/wger/issues/263
 .. _#269: https://github.com/wger-project/wger/issues/269
 .. _#272: https://github.com/wger-project/wger/issues/272
@@ -90,6 +192,7 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _#330: https://github.com/wger-project/wger/issues/330
 .. _#331: https://github.com/wger-project/wger/issues/331
 .. _#334: https://github.com/wger-project/wger/issues/334
+.. _#350: https://github.com/wger-project/wger/issues/350
 .. _@petervanderdoes: https://github.com/petervanderdoes
 .. _@DeveloperMal: https://github.com/DeveloperMal
 .. _@alelevinas: https://github.com/alelevinas
@@ -97,6 +200,8 @@ Other improvements and bugfixes:     `#25`_, `#243`_, `#279`_, `#275`_, `#270`_,
 .. _@alokhan: https://github.com/alokhan
 .. _@w00p: https://github.com/w00p
 .. _@andela-bmwenda: https://github.com/andela-bmwenda
+.. _@RyanSept: https://github.com/RyanSept
+.. _@pythonGeek: https://github.com/pythonGeek
 
 
 

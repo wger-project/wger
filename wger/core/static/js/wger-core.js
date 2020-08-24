@@ -110,7 +110,7 @@ function setProfileField(field, newValue) {
   dataDict[field] = newValue;
   $.get('/api/v2/userprofile', function () {
   }).done(function (userprofile) {
-    console.log('Updating profile field "' + field + '" to value: ' + newValue);
+    //console.log('Updating profile field "' + field + '" to value: ' + newValue);
     $.ajax({
       url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
       type: 'PATCH',
@@ -189,11 +189,11 @@ function wgerToggleReadOnlyAccess() {
 
     $shariffModal = $('#shariffModal');
     if (!roAccess) {
-      $shariffModal.find('.shariff').removeClass('hidden');
-      $shariffModal.find('.noRoAccess').addClass('hidden');
+      $shariffModal.find('.shariff').removeClass('d-none');
+      $shariffModal.find('.noRoAccess').addClass('d-none');
     } else {
-      $shariffModal.find('.shariff').addClass('hidden');
-      $shariffModal.find('.noRoAccess').removeClass('hidden');
+      $shariffModal.find('.shariff').addClass('d-none');
+      $shariffModal.find('.noRoAccess').removeClass('d-none');
     }
   });
 }
@@ -211,11 +211,12 @@ function wgerInitTinymce() {
     tinyMCE.init({
       // General options
       mode: 'textareas',
-      theme: 'modern',
+      theme: 'silver',
       width: '100%',
-      height: '200',
+
       entity_encoding: 'raw',
-      menu: {},
+      plugins: "lists",
+      menubar: false,
       toolbar: 'undo redo | bold italic | bullist numlist '
     });
   }
@@ -326,7 +327,7 @@ function wgerFormModalDialog() {
     $('#ajax-info-title').html('Loading...');
     $('#wger-ajax-info').modal('show');
 
-    $ajaxInfoContent.load(targetUrl + ' .form-horizontal',
+    $ajaxInfoContent.load(targetUrl + ' .wger-form',
       function (responseText, textStatus, XMLHttpRequest) {
         var $ajaxInfoTitle;
         var modalTitle;
@@ -362,7 +363,7 @@ function wgerFormModalDialog() {
         // If there isn't assume all was saved correctly and load that result into the
         // page's main DIV (#main-content). All this must be done like this because there
         // doesn't seem to be any reliable and easy way to detect redirects with AJAX.
-        if ($(responseText).find('.form-horizontal').length > 0) {
+        if ($(responseText).find('.wger-form').length > 0) {
           modalDialogFormEdit();
         }
       });
@@ -520,7 +521,7 @@ function wgerInitEditSet() {
   initRemoveExerciseFormset();
 
   // Slider to set the number of sets
-  $('#id_sets').on('change', function () {
+  $('#id_sets').on('input', function () {
     updateAllExerciseFormset();
     $('#id_sets_value').html($('#id_sets').val());
   });
@@ -599,16 +600,6 @@ function wgerLoadMaincontent() {
 }
 
 /*
- Helper function to prefetch images on a page
- */
-function wgerPrefetchImages(imageArray) {
-  $(imageArray).each(function () {
-    (new Image()).src = this;
-    // console.log('Preloading image' + this);
-  });
-}
-
-/*
  Helper function used in the workout log dialog to fetch existing workout sessions through the
  REST API
  */
@@ -679,7 +670,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     downloadInfo = $('#pdf-download-info');
-    downloadType = $('input[name="pdf_type"]:checked').val();
+    downloadType = $('select[name="pdf_type"]').val();
     downloadImages = $('#id_images').is(':checked') ? 1 : 0;
     downloadComments = $('#id_comments').is(':checked') ? 1 : 0;
 

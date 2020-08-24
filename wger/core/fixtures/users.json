@@ -1,6 +1,6 @@
 [
     {
-        "pk": 1,    
+        "pk": 1,
         "model": "auth.user",
         "fields": {
             "username": "admin",
@@ -34,12 +34,12 @@
         }
     },
     {
-        "pk": 1, 
-        "model": "core.userprofile", 
+        "pk": 1,
+        "model": "core.userprofile",
         "fields": {
-            "is_temporary": false, 
-            "show_comments": false, 
-            "show_english_ingredients": false, 
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
             "user": 1,
             "gym": 1
         }

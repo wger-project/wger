@@ -1,14 +1,14 @@
-
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from __future__ import unicode_literals
 
 from django.db import migrations, models
 
 
 def update_permission_names(apps, schema_editor):
-    '''
+    """
     Updates the wording of our three custom gym permissions
-    '''
+    """
     Permission = apps.get_model("auth", "Permission")
 
     for name in ['Trainer, can see the users for a gym',

@@ -12,21 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerAccessTestCase,
-    delete_testcase_add_methods)
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import ContractOption
 
 
-class AddContractOptionTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddContractOptionTestCase(WgerAddTestCase):
+    """
     Tests creating a new contract option
-    '''
+    """
 
     object_class = ContractOption
     url = reverse('gym:contract-option:add', kwargs={'gym_pk': 1})
@@ -45,10 +48,10 @@ class AddContractOptionTestCase(WorkoutManagerAddTestCase):
                  'member5')
 
 
-class EditContractOptionTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditContractOptionTestCase(WgerEditTestCase):
+    """
     Tests editing a contract option
-    '''
+    """
 
     pk = 1
     object_class = ContractOption
@@ -68,10 +71,10 @@ class EditContractOptionTestCase(WorkoutManagerEditTestCase):
     data = {'name': 'Standard contract 16-Gj'}
 
 
-class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteContractOptionTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a contract option
-    '''
+    """
 
     pk = 1
     object_class = ContractOption
@@ -89,13 +92,14 @@ class DeleteContractOptionTestCase(WorkoutManagerDeleteTestCase):
                  'member4',
                  'member5')
 
+
 delete_testcase_add_methods(DeleteContractOptionTestCase)
 
 
-class AccessContractOptionOverviewTestCase(WorkoutManagerAccessTestCase):
-    '''
+class AccessContractOptionOverviewTestCase(WgerAccessTestCase):
+    """
     Test accessing the contract option page
-    '''
+    """
     url = reverse('gym:contract-option:list', kwargs={'gym_pk': 1})
     user_success = ('manager1',
                     'manager2')

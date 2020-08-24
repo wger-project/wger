@@ -14,29 +14,40 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.forms.models import modelformset_factory, inlineformset_factory
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core.urlresolvers import reverse
+# Django
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.contrib.auth.decorators import login_required
+from django.forms.models import (
+    inlineformset_factory,
+    modelformset_factory
+)
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.urls import reverse
 
+# wger
+from wger.exercises.models import Exercise
+from wger.manager.forms import (
+    SetForm,
+    SettingForm,
+    WorkoutLogFormHelper
+)
 from wger.manager.models import (
     Day,
     Set,
     Setting
 )
-from wger.exercises.models import Exercise
-from wger.manager.forms import (
-    SetForm,
-    SetFormMobile,
-    SettingForm
-)
-from wger.utils.language import load_item_languages
-from wger.config.models import LanguageConfig
+
 
 logger = logging.getLogger(__name__)
 
@@ -56,37 +67,21 @@ SettingFormset = modelformset_factory(Setting,
 
 @login_required
 def create(request, day_pk):
-    '''
+    """
     Creates a new set. This view handles both the set form and the corresponding
     settings formsets
-    '''
+    """
     day = get_object_or_404(Day, pk=day_pk)
     if day.get_owner_object().user != request.user:
         return HttpResponseForbidden()
 
-    # Select the correct form depending on the flavour of the request.
-    # The difference is that the mobile form doesn't use the autocompleter for
-    # exercises, but 2 dropdowns, one to filter by category and one to select
-    # the exercises themselves.
-    if request.flavour == 'mobile':
-        form_class = SetFormMobile
-    else:
-        form_class = SetForm
-
     context = {}
     formsets = []
-    form = form_class(initial={'sets': Set.DEFAULT_SETS})
-
-    # For the mobile dropdown list we need to manually filter the exercises
-    # by language and status
-    if request.flavour == 'mobile':
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        form.fields['exercise_list'].queryset = Exercise.objects.accepted() \
-                                                        .filter(language__in=languages)
+    form = SetForm(initial={'sets': Set.DEFAULT_SETS})
 
     # If the form and all formsets validate, save them
     if request.method == "POST":
-        form = form_class(request.POST)
+        form = SetForm(request.POST)
         if form.is_valid():
             for exercise in form.cleaned_data['exercises']:
                 formset = SettingFormset(request.POST,
@@ -115,7 +110,7 @@ def create(request, day_pk):
                     instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'pk': day.get_owner_object().id}))
+                                                kwargs={'pk': day.get_owner_object().id}))
         else:
             logger.debug(form.errors)
 
@@ -124,16 +119,16 @@ def create(request, day_pk):
     context['day'] = day
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
-    context['form_action'] = reverse('manager:set:add', kwargs={'day_pk': day_pk})
+    context['helper'] = WorkoutLogFormHelper()
     context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     return render(request, 'set/add.html', context)
 
 
 @login_required
 def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
-    '''
+    """
     Returns a formset. This is then rendered inside the new set template
-    '''
+    """
     exercise = Exercise.objects.get(pk=exercise_pk)
     SettingFormSet = inlineformset_factory(Set,
                                            Setting,
@@ -142,18 +137,20 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
                                            fields=SETTING_FORMSET_FIELDS)
     formset = SettingFormSet(queryset=Setting.objects.none(),
                              prefix='exercise{0}'.format(exercise_pk))
+    context = {'formset': formset,
+               'helper': WorkoutLogFormHelper(),
+               'exercise': exercise}
 
     return render(request,
                   "set/formset.html",
-                  {'formset': formset,
-                   'exercise': exercise})
+                  context)
 
 
 @login_required
 def delete(request, pk):
-    '''
+    """
     Deletes the given set
-    '''
+    """
 
     # Load the set
     set_obj = get_object_or_404(Set, pk=pk)
@@ -169,9 +166,9 @@ def delete(request, pk):
 
 @login_required
 def edit(request, pk):
-    '''
+    """
     Edit a set (its settings actually)
-    '''
+    """
     set_obj = get_object_or_404(Set, pk=pk)
     if set_obj.get_owner_object().user != request.user:
         return HttpResponseForbidden()
@@ -217,10 +214,10 @@ def edit(request, pk):
                         instance.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                        kwargs={'pk': set_obj.get_owner_object().id}))
+                                                kwargs={'pk': set_obj.get_owner_object().id}))
 
     # Other context we need
     context = {}
     context['formsets'] = formsets
-    context['form_action'] = reverse('manager:set:edit', kwargs={'pk': pk})
+    context['helper'] = WorkoutLogFormHelper()
     return render(request, 'set/edit.html', context)

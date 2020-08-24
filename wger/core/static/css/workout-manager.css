@@ -21,76 +21,135 @@
  *
  **************************************************************/
 
-#main-footer{
-    background: none repeat scroll 0% 0% #EEE;
-    border-top: 1px solid #E5E5E5;
-    border-bottom: 1px solid #000;
-    padding-top: 1em;
-    padding-bottom: 1em;
+/**************************************************************
+ * Font definitions
+ **************************************************************/
+
+/* font-face kit by Fonts2u - http://www.fonts2u.com */
+@font-face {
+  font-family: "Open Sans Light";
+  src:
+    url("/static/fonts/OpenSans-Light.eot?") format("eot"),
+    url("/static/fonts/OpenSans-Light.woff") format("woff"),
+    url("/static/fonts/OpenSans-Light.ttf") format("truetype"),
+    url("/static/fonts/OpenSans-Light.svg#OpenSans-Light") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
 
-#main{
-    background-color: #FFF;
+@font-face {
+  font-family: "Open Sans";
+  src:
+    url("/static/fonts/OpenSans-Regular.eot?") format("eot"),
+    url("/static/fonts/OpenSans-Regular.woff") format("woff"),
+    url("/static/fonts/OpenSans-Regular.ttf") format("truetype"),
+    url("/static/fonts/OpenSans-Regular.svg#OpenSans") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans Bold";
+  src:
+    url("/static/fonts/OpenSans-Bold.eot?") format("eot"),
+    url("/static/fonts/OpenSans-Bold.woff") format("woff"),
+    url("/static/fonts/OpenSans-Bold.ttf") format("truetype"),
+    url("/static/fonts/OpenSans-Bold.svg#OpenSans-Bold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* sticky footer */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 5rem !important; /* Margin bottom by footer height */
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem; /* Set the fixed height of the footer here */
 }
 
 
 /*
  * Images in links are vertically aligned
  */
-
-a img{
-    vertical-align: middle;
+a img {
+  vertical-align: middle;
 }
 
 /*
  * "invisible" elements, simply hidden (they still take all the space)
  */
-.invisible{
-    display: none;
+.invisible {
+  display: none;
 }
 
-.align-right
-{
-    text-align: right;
+.align-right {
+  text-align: right;
 }
 
-.sortable-settings
-{
-    border: 1px solid black;
+.sortable-settings {
+  border: 1px solid black;
 }
 
-.sortable-settings-drag
-{
-    padding-left: 1em;
-    padding-right: 1em;
-    background-color: #babdb6;
-    border-bottom:1px solid black;
+.sortable-settings-drag {
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: #babdb6;
+  border-bottom: 1px solid black;
 }
 
 /*
  * Set a more appropriate cursor to the drag'n'drop handle on the
  * workout view
  */
-.dragndrop-handle{
-    cursor:move
+.dragndrop-handle {
+  cursor: move;
 }
+
+/*
+ * Set the sizes for the background where the muscles are shown on the exercise view page
+ */
+div.muscle-background {
+  width: 150px;
+  height: 276px;
+  background-size: 150px;
+  background-repeat: no-repeat;
+}
+
+/*
+ * Set an additional padding to the generated DIV on the edit set page
+ */
+#exercise-search-log {
+  padding-left: 1em;
+}
+
 
 /**************************************************************
  * Mouse hover options
  **************************************************************/
+
 /*
  * Hide the edit options (edit, delete) on tables, only show them when the mouse is over the row
  */
-.editoptions
-{
-    visibility: hidden;
+.editoptions {
+  visibility: hidden;
 }
 
-tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
-{
-    visibility: visible;
+ul:hover .editoptions,
+tr:hover .editoptions,
+tbody tr:hover td .editoptions {
+  visibility: visible;
 }
-
 
 /*
  * Deactivate the default background color on hover
@@ -101,194 +160,264 @@ tr:hover .editoptions, tbody tr:hover td .editoptions, ul:hover .editoptions
 .ajax-exercise-select a:hover,
 .no-hover a:hover,
 .no-hover:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
-
-/*
- * Images inside a link are set to greyscale till mouseover
- */
-/*
-a img
-{
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
-}
-
-a:hover img
-{
-    filter: grayscale(0%);
-    -webkit-filter: grayscale(0%);
-    -moz-filter: grayscale(0%);
-    -ms-filter: grayscale(0%);
-    -o-filter: grayscale(0%);	
-}
-*/
-
-/*
- * Set the sizes for the background where the muscles are shown on the exercise view page
- */
-div.muscle-background
-{
-    width: 180px;
-    height: 276px;
-    background-size: 150px;
-    background-repeat: no-repeat;
-}
-
-/*
- * Set an additional padding to the generated DIV on the edit set page
- */
-#exercise-search-log{
-    padding-left: 1em;
-}
-
-
-/**************************************************************
- * Workout log
- **************************************************************/
-/*
- * Workout log entry page needs the horizontal space
- */
-.workout-log-table .narrow-input {
-    width: 7em;
-}
-
-
-/**************************************************************
- * Header
- **************************************************************/
-
-/*
- * Add a shadow to the application name
- */
-header h1{
-    text-shadow: 2px 3px 3px #292929;
-    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-    font-weight: 300;
-}
-
-header a,
-header a:hover, 
-header a:focus{
-    color:white;
-    font-size:90%;
-}
-
-header span.name{
-    text-shadow: 2px 3px 3px #292929;
-    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-    font-weight: 300;
-    font-size:   350%;
-    color:       white;
-}
-
-
-header span.regular{
-    text-shadow: 2px 3px 3px #292929;
-    font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-    font-weight: 300;
-    font-size:   350%;
-    color:       white;
-}
 
 /*
  * Make more space for the page title
  */
-#page-title{
-    margin-top: 0.5em;
+#page-title {
+  margin-top: 0.5em;
 }
-
-#content-wrapper{
-    padding-top: 0.8em;
-}
-
 
 /*
  * Links in warning boxes get a different style, the default blue doesn't match
  * well with orange
  */
-div.success a, div.success a:hover, div.success a:active,
-div.warning a, div.warning a:hover, div.warning a:active,
-div.info a, div.info a:hover, div.info a:active{
-    color: black;
-    text-decoration: underline;
-    background-color: transparent;
+div.warning a,
+div.success a,
+div.info a,
+div.success a:hover,
+div.success a:active,
+div.warning a:hover,
+div.warning a:active,
+div.info a:hover,
+div.info a:active {
+  color: black;
+  text-decoration: underline;
+  background-color: transparent;
 }
-
 
 /**************************************************************
  * Autocompleter
  **************************************************************/
+
 /*
  * Category heading for the ajax autocompleter
  */
 .ui-autocomplete-category {
-    margin:0;
-    text-align: center;
-    zoom: 1;
-    width: 100%;
-    font-weight: bold;
-    background-color: #D3D7CF;
-    border-bottom: 1px solid #888a85;
+  margin: 0;
+  text-align: center;
+  zoom: 1;
+  width: 100%;
+  font-weight: bold;
+  background-color: #d3d7cf;
+  border-bottom: 1px solid #888a85;
 }
 
 /*
  * Give the result list from the autocompleter a maximum size
  */
 .ui-autocomplete {
-    max-height: 500px;
-    max-width: 500px;
-    overflow-y: auto;
-    overflow-x: hidden; /* prevent horizontal scrollbar */
+  max-height: 500px;
+  max-width: 500px;
+  overflow-y: auto;
+  overflow-x: hidden; /* prevent horizontal scrollbar */
 }
 
 /*
  * Give odd child's a different background colour (thanks CSS3!)
  */
-.ui-autocomplete li.ui-menu-item:nth-child(odd)
-{
-    background: #eeeeec;
+.ui-autocomplete li.ui-menu-item:nth-child(odd) {
+  background: #eeeeec;
 }
-
 
 /**************************************************************
  * extra-bold fonts
  **************************************************************/
 
-.extra-bold{
-    font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
-    font-weight: 300;
-}
-
-/**************************************************************
- * Set edit window
- **************************************************************/
-#slider{
-    width: 91%;
-    float: right;
-    margin-right: 1em;
+.extra-bold {
+  font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
+  font-weight: 300;
 }
 
 
+
 /**************************************************************
- * Carousel on the feature page
+ * Styling for the SVG elements on the weight chart
  **************************************************************/
-#feature-carousel .carousel-caption
-{
-    background-color: rgba(0, 0, 0, 0.75);
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: lightsteelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.dot {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+circle {
+  cursor: pointer;
+}
+
+circle:hover {
+  fill: #204a87;
+  stroke: #204a87;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: 0.125;
+  shape-rendering: crispEdges;
+}
+
+/* Color series from d3.scale.category10() */
+circle.color-1f77b4:hover {
+  fill: #1f77b4;
+}
+
+circle.color-ff7f0e:hover {
+  fill: #ff7f0e;
+}
+
+circle.color-2ca02c:hover {
+  fill: #2ca02c;
+}
+
+circle.color-d62728:hover {
+  fill: #d62728;
+}
+
+circle.color-9467bd:hover {
+  fill: #9467bd;
+}
+
+circle.color-8c564b:hover {
+  fill: #8c564b;
+}
+
+circle.color-e377c2:hover {
+  fill: #e377c2;
+}
+
+circle.color-7f7f7f:hover {
+  fill: #7f7f7f;
+}
+
+circle.color-bcbd22:hover {
+  fill: #bcbd22;
+}
+
+circle.color-17becf:hover {
+  fill: #17becf;
 }
 
 /**************************************************************
- * 'Your ...' shoutouts on the feature page
+ * Weight log calendar
  **************************************************************/
-#shoutout h2:first-child {
-    margin-top: 0;
+table.month td {
+  width: 14.285%;
+  height: 4em;
+  text-align: center;
+}
+
+table.month th.month {
+  text-align: center;
+  background-color: #eeeeec;
+}
+
+table.month a.calendar-link {
+  height: 100%;
+  line-height: 1;
+}
+
+table.month td.session-bad {
+  background-color: #f2dede;
+}
+
+table.month td.session-bad:hover {
+  background-color: #c9302c;
+}
+
+table.month td.session-neutral {
+  background-color: #f5f5f5;
+}
+
+table.month td.session-neutral:hover {
+  background-color: #babdb6;
+}
+
+table.month td.session-good {
+  background-color: #dff0d8;
+}
+
+table.month td.session-good:hover {
+  background-color: #449d44;
+}
+
+/*
+ * Autocompleter
+ */
+.autocomplete-wrapper {
+  margin: 44px auto 44px;
+  max-width: 600px;
+}
+
+.autocomplete-wrapper label {
+  display: block;
+  margin-bottom: 0.75em;
+  color: #3f4e5e;
+  font-size: 1.25em;
+}
+
+.autocomplete-wrapper .text-field {
+  padding: 0 15px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #cbd3dd;
+  font-size: 1.125em;
+}
+
+.autocomplete-wrapper ::-webkit-input-placeholder,
+.autocomplete-wrapper ::-moz-placeholder,
+.autocomplete-wrapper :-moz-placeholder,
+.autocomplete-wrapper :-ms-input-placeholder {
+  color: #cbd3dd;
+  font-style: italic;
+  font-size: 18px;
+}
+
+.autocomplete-suggestions {
+  overflow: auto;
+  border: 1px solid #cbd3dd;
+  background: #fff;
+}
+
+.autocomplete-suggestion {
+  overflow: hidden;
+  padding: 5px 15px;
+  white-space: nowrap;
+}
+
+.autocomplete-selected {
+  background: #f0f0f0;
+}
+
+.autocomplete-suggestions strong {
+  color: #3465a4;
+  font-weight: bold;
+}
+
+.autocomplete-group {
+  background-color: #d3d7cf;
+}
+
+.autocomplete-group strong {
+  color: black;
+  font-weight: bold;
 }

@@ -13,20 +13,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import logging
 from decimal import Decimal
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition import models
 from wger.utils.constants import TWOPLACES
+
 
 logger = logging.getLogger(__name__)
 
 
-class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
-    '''
+class NutritionalValuesCalculationsTestCase(WgerTestCase):
+    """
     Tests the nutritional values calculators in the different models
-    '''
+    """
 
     def test_calculations(self):
         plan = models.NutritionPlan(user_id=1, language_id=1)
@@ -127,10 +130,10 @@ class NutritionalValuesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(result_meal, result_plan['total'])
 
     def test_calculations_user(self):
-        '''
+        """
         Tests the calculations
         :return:
-        '''
+        """
         self.user_login('test')
         plan = models.NutritionPlan.objects.get(pk=4)
         values = plan.get_nutritional_values()

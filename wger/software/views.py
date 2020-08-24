@@ -14,19 +14,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Django
 from django.conf import settings
-
 from django.shortcuts import render
+
 
 logger = logging.getLogger(__name__)
 
 
 def features(request):
-    '''
+    """
     Render the features page
-    '''
+    """
 
     context = {'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
                'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']}

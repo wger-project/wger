@@ -1,8 +1,8 @@
-{% load i18n staticfiles %}
+{% load i18n static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
-<script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
-<script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
+<link rel="stylesheet" type="text/css" href="{% static 'yarn/datatables/media/css/dataTables.bootstrap4.min.css' %}">
+<script src="{% static 'yarn/datatables/media/js/jquery.datatables.min.js' %}" ></script>
+<script src="{% static 'yarn/datatables/media/js/dataTables.bootstrap4.min.js' %}" ></script>
 <script>
 $(document).ready( function () {
     /* Make table sortable */
@@ -14,7 +14,7 @@ $(document).ready( function () {
 });
 </script>
 
-<table class="table table-hover" id="main_member_list">
+<table class="table table-hover table-responsive" id="main_member_list">
 <thead>
 <tr>
     {% for key in user_table.keys %}

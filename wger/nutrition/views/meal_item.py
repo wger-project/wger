@@ -13,17 +13,30 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core.urlresolvers import reverse
+# Django
 from django.contrib.auth.decorators import login_required
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import (
+    CreateView,
+    UpdateView
+)
 
+# wger
 from wger.nutrition.forms import MealItemForm
-from wger.nutrition.models import Meal, MealItem
+from wger.nutrition.models import (
+    Meal,
+    MealItem
+)
 from wger.utils.generic_views import WgerFormMixin
 
 
@@ -32,9 +45,9 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def delete_meal_item(request, item_id):
-    '''
+    """
     Deletes the meal ingredient with the given ID
-    '''
+    """
 
     # Load the item
     item = get_object_or_404(MealItem, pk=item_id)
@@ -49,18 +62,18 @@ def delete_meal_item(request, item_id):
 
 
 class MealItemCreateView(WgerFormMixin, CreateView):
-    '''
+    """
     Generic view to create a new meal item
-    '''
+    """
 
     model = MealItem
     form_class = MealItemForm
-    template_name = 'meal_item/edit.html'
+    custom_js = 'wgerInitIngredientAutocompleter();'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Check that the user owns the meal
-        '''
+        """
         meal = get_object_or_404(Meal, pk=kwargs['meal_id'])
         if meal.plan.user == request.user:
             self.meal = meal
@@ -72,42 +85,39 @@ class MealItemCreateView(WgerFormMixin, CreateView):
         return reverse('nutrition:plan:view', kwargs={'id': self.meal.plan.id})
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(MealItemCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition:meal_item:add',
-                                         kwargs={'meal_id': self.meal.id})
         context['ingredient_searchfield'] = self.request.POST.get('ingredient_searchfield', '')
         return context
 
     def form_valid(self, form):
-        '''
+        """
         Manually set the corresponding meal
-        '''
+        """
         form.instance.meal = self.meal
         form.instance.order = 1
         return super(MealItemCreateView, self).form_valid(form)
 
 
 class MealItemEditView(WgerFormMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing meal item
-    '''
+    """
 
     model = MealItem
     form_class = MealItemForm
+    custom_js = 'wgerInitIngredientAutocompleter();'
     title = ugettext_lazy('Edit meal item')
-    form_action_urlname = 'nutrition:meal_item:edit'
-    template_name = 'meal_item/edit.html'
 
     def get_success_url(self):
         return reverse('nutrition:plan:view', kwargs={'id': self.object.meal.plan.id})
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(MealItemEditView, self).get_context_data(**kwargs)
         context['ingredient_searchfield'] = self.object.ingredient.name
         return context

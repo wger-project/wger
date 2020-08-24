@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 {% load cache %}
 {% load thumbnail %}
@@ -34,40 +34,33 @@ $(function() {
 -->
 {% block content %}
 {% cache cache_timeout equipment-overview language.id %}
-<div class="panel-group" id="accordion">
+<div class="accordion" id="equipmentAccordion">
     {% for equipment in equipment_list %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{equipment.pk}}">
-                    {% trans equipment.name %}
-                </a>
-            </h4>
+    <div class="card">
+        <div class="card-header" id="header-{{equipment.pk}}">
+            <button class="btn  btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{equipment.pk}}" aria-expanded="true" aria-controls="collapse-{{equipment.pk}}">
+                {% trans equipment.name %}
+            </button>
         </div>
-        <div id="collapse-{{equipment.pk}}" class="panel-collapse collapse">
-            <div class="panel-body">
-                <div class="list-group">
+        <div class="collapse" id="collapse-{{equipment.pk}}" data-parent="#equipmentAccordion">
+            <div class="card-body px-0">
+                <div class="list-group list-group-flush">
                     {% for exercise in equipment.exercise_set.all %}
                     {% if exercise.language in exercise_languages %}
                     <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                         <div class="media">
-                            <div style="width:60px;height:60px;" class="media-left">
-
                             {% if exercise.main_image %}
                                 <img alt="{{ exercise.name }}"
-                                 class="media-object "
-                                 style="max-width:100%; max-height:100%;"
+                                 class="mr-3"
                                  src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
                             {% else %}
-                            <img alt="{% trans 'Placeholder image for exercise' %}"
-                                 class="media-object "
-                                 style="max-width:100%; max-height:100%; opacity: 0.4;"
-                                 src="{% static 'images/icons/image-placeholder.svg' %}">
+                                <img alt="{% trans 'Placeholder image for exercise' %}"
+                                     class="mr-3"
+                                     src="{% static 'images/icons/image-placeholder.svg' %}">
                             {% endif %}
-                            </div>
-                            <div class="media-body" style="position: absolute; top: 10px; left: 100px;">
-                                <h4 class="media-heading">{{ exercise.name }}</h4>
-                                <span class="text-muted">
+                            <div class="media-body">
+                                <p class="media-heading h5">{{ exercise.name }}</p>
+                                <span class="text-muted small">
                                     {% trans exercise.category.name %}
                                     <!--
                                     {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}

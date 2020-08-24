@@ -7,10 +7,13 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
+# Third Party
 from setuptools import (
-    setup,
-    find_packages
+    find_packages,
+    setup
 )
+
+# wger
 from wger import get_version
 
 
@@ -24,6 +27,7 @@ setup(
     name='wger',
     description='FLOSS workout, fitness and weight manager/tracker written with Django',
     long_description=long_description,
+    long_description_content_type='text/x-rst',
     version=get_version(),
     url='https://github.com/wger-project',
     author='Roland Geider',
@@ -39,13 +43,13 @@ setup(
         'Framework :: Django',
         'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
-    install_requires=install_requires,
+
+    nstall_requires=install_requires,
     entry_points={
         'console_scripts': [
             'wger = wger.__main__:main',

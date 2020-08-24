@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{% trans "User notes" %}{% endblock %}
 
@@ -21,8 +21,8 @@
 <ul class="list-group">
     {% for note in adminusernote_list %}
     <li class="list-group-item ">
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
