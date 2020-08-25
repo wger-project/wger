@@ -41,6 +41,7 @@ from wger.core.models import UserProfile
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
+    LogItem,
     MealItem
 )
 from wger.utils.widgets import Html5NumberInput
@@ -249,3 +250,12 @@ class MealItemForm(forms.ModelForm):
                 css_class='form-row'
             )
         )
+
+
+class MealLogItemForm(MealItemForm):
+
+    class Meta:
+        model = LogItem
+        fields = ['ingredient',
+                  'weight_unit',
+                  'amount']

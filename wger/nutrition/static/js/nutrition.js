@@ -97,6 +97,30 @@ function wgerInitIngredientAutocompleter() {
   });
 }
 
+function wgerDrawNutritionDiaryChart(planPk) {
+  var dataConverted;
+  d3.json('/api/v2/nutritionplan/' + planPk + '/get_log_overview/').then(function (data) {
+    if (data.length > 0) {
+      dataConverted = MG.convert.date(data, 'date');
+      $.getJSON('/api/v2/nutritionplan/' + planPk + '/nutritional_values/',
+        function (nutritionalValues) {
+          MG.data_graphic({
+            data: dataConverted,
+            //chart_type: 'bar',
+            y_accessor: 'energy',
+            x_accessor: 'date',
+            decimals: 0,
+            full_width: true,
+            baselines: [{ value: nutritionalValues.total.energy,
+                          label: 'Planned (' + nutritionalValues.total.energy + 'kcal)' }],
+            target: '#nutrition_diary_chart',
+            colors: '#307916'
+          });
+        });
+    }
+  });
+}
+
 /*
  * Draw the BMI chart
  */

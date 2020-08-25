@@ -49,7 +49,7 @@ $(document).ready(function () {
     x_accessor: 'date',
     y_accessor: 'weight',
     min_y_from_data: true,
-    colors: ['#3465a4']
+    colors: ['#266dd3']
   };
 
   username = $('#current-username').data('currentUsername');

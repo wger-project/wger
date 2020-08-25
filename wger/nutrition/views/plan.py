@@ -157,6 +157,15 @@ def view(request, id):
 
     uid, token = make_token(user)
 
+    # Process and show the last 5 diary entries
+    log_data = []
+    planned_calories = plan.get_nutritional_values()['total']['energy']
+    for item in plan.get_log_overview()[:5]:
+        log_data.append({'date': item['date'],
+                         'planned_calories': planned_calories,
+                         'logged_calories': item['energy'],
+                         'difference': item['energy'] - planned_calories})
+
     # Load the language and pass it to the template
     language = load_language()
     template_data['language'] = language
@@ -173,6 +182,7 @@ def view(request, id):
 
     # Tokens for the links
     template_data['uid'] = uid
+    template_data['log_data'] = log_data
     template_data['token'] = token
     template_data['owner_user'] = user
     template_data['is_owner'] = is_owner

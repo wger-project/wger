@@ -115,6 +115,7 @@ class BaseTestCase(object):
                 'test-weight-units',
                 'test-ingredients',
                 'test-nutrition-data',
+                'test-nutrition-diary',
                 'test-workout-data',
                 'test-workout-session',
                 'test-schedules')

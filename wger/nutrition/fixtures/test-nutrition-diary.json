@@ -1,0 +1,62 @@
+[
+    {
+        "fields": {
+            "plan": 1,
+            "datetime": "2016-05-15T12:01:00Z",
+            "ingredient": 5,
+            "comment": "",
+            "amount": "2",
+            "weight_unit": 1
+        },
+        "pk": 1,
+        "model": "nutrition.logitem"
+    },
+    {
+        "fields": {
+            "plan": 1,
+            "datetime": "2016-05-15T12:01:15Z",
+            "ingredient": 4,
+            "comment": "",
+            "amount": "100",
+            "weight_unit": null
+        },
+        "pk": 2,
+        "model": "nutrition.logitem"
+    },
+    {
+        "fields": {
+            "plan": 1,
+            "datetime": "2016-05-15T12:01:00Z",
+            "ingredient": 1,
+            "comment": "",
+            "amount": "75",
+            "weight_unit": null
+        },
+        "pk": 3,
+        "model": "nutrition.logitem"
+    },
+    {
+        "fields": {
+            "plan": 1,
+            "datetime": "2016-05-14T17:11:33Z",
+            "ingredient": 1,
+            "comment": "",
+            "amount": "75",
+            "weight_unit": null
+        },
+        "pk": 4,
+        "model": "nutrition.logitem"
+    },
+    {
+        "fields": {
+            "plan": 2,
+            "datetime": "2016-05-14T17:11:33Z",
+            "ingredient": 1,
+            "comment": "",
+            "amount": "75",
+            "weight_unit": null
+        },
+        "pk": 4,
+        "model": "nutrition.logitem"
+    }
+]
