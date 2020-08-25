@@ -44,6 +44,46 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
     </div>
 </div>
 {% endif %}
+{% if plan %}
+<div class="modal fade" id="nutrition-diary-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{% trans 'Add new diary entry' %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% blocktrans trimmed %}Click to add an entry to your nutrition diary for
+                    today. You can either log a meal as you defined it, or entry any number of
+                    custom entries.{% endblocktrans %}
+                </p>
+
+                {% for meal in plan.meal_set.all %}
+                    <a href="{% url 'nutrition:log:log_meal' meal.pk %}" class="btn btn-block btn-light">
+                        {{meal.time}}
+                        - {{meal.get_nutritional_values.energy|floatformat:0}}{% trans "kcal" %}
+                        <br>
+                        <small>
+                            {% for item in meal.mealitem_set.select_related %}
+                                {{ item.ingredient }}
+                                {% if not forloop.last %} / {% endif %}
+                            {% endfor %}
+                        </small>
+                    </a>
+                {% endfor %}
+
+                <a href="{% url 'nutrition:log:add' plan.pk %}" class="btn btn-block btn-light">
+                    {% trans "Add custom diary entry" %}
+                </a>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 
 <div class="card-deck">
@@ -151,15 +191,17 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
             </div>
             <div id="nutrition_diary_chart"></div>
         </div>
-        {% if not plan %}
         <div class="card-footer">
-            <p>
+            {% if not plan %}
                 <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm btn-block btn-success">
                     {% trans "No nutrition plans." %} {% trans "Add one now." %}
                 </a>
-            </p>
+            {% else %}
+                <a href="#" id="nutrition-diary-link" data-toggle="modal" data-target="#nutrition-diary-popup" class="btn btn-success btn-sm btn-block">
+                    {% trans "Add new diary entry" %}
+                </a>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 
 

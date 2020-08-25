@@ -160,9 +160,7 @@ def view(request, id):
     # Process and show the last 5 diary entries
     log_data = []
     planned_calories = plan.get_nutritional_values()['total']['energy']
-    for item in plan.get_log_overview():
-        if len(log_data) == 5:
-            break
+    for item in plan.get_log_overview()[:5]:
         log_data.append({'date': item['date'],
                          'planned_calories': planned_calories,
                          'logged_calories': item['energy'],
