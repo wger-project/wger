@@ -34,6 +34,7 @@ from django.views.generic import DeleteView
 # wger
 from wger.nutrition.models import (
     LogItem,
+    Meal,
     NutritionPlan
 )
 from wger.utils.generic_views import (
@@ -108,6 +109,35 @@ def detail(request, pk, year, month, day):
     return render(request, 'log/detail.html', context)
 
 
+def log_meal(request, meal_pk):
+    """
+    Copy the requested meal item and logs its nutritional values
+    """
+
+    # Check read permission
+    meal = get_object_or_404(Meal, pk=meal_pk)
+    user = meal.plan.user
+    is_owner = request.user == user
+    date = datetime.date.today()
+
+    if not is_owner and not user.userprofile.ro_access:
+        return HttpResponseForbidden()
+
+    for item in meal.mealitem_set.select_related():
+        log_item = LogItem(plan=item.meal.plan,
+                           ingredient=item.ingredient,
+                           weight_unit=item.weight_unit,
+                           amount=item.amount)
+        log_item.save()
+
+    return HttpResponseRedirect(reverse('nutrition:log:detail',
+                                        kwargs={'pk': meal.plan.pk,
+                                                'year': date.year,
+                                                'month': date.month,
+                                                'day': date.day
+                                                }))
+
+
 class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     """
     Delete a nutrition diary entry
@@ -116,6 +146,7 @@ class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     title = ugettext_lazy('Delete?')
     form_action_urlname = 'nutrition:log:delete'
     login_required = True
+    fields = ["comment", ]
 
     def get_success_url(self):
         """

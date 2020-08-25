@@ -106,6 +106,7 @@ function wgerDrawNutritionDiaryChart(planPk) {
         function (nutritionalValues) {
           MG.data_graphic({
             data: dataConverted,
+            //chart_type: 'bar',
             y_accessor: 'energy',
             x_accessor: 'date',
             decimals: 0,

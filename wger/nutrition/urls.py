@@ -194,6 +194,9 @@ patterns_diary = [
     url(r'^entry/(?P<pk>\d+)/delete$',
         log.LogDeleteView.as_view(),
         name='delete'),
+    url(r'^log-meal/(?P<meal_pk>\d+)$',
+        log.log_meal,
+        name='log_meal'),
 ]
 
 

@@ -87,6 +87,10 @@ function wgerCustomModalInit()
                    title="{% trans 'Add' %}"
                    class="wger-modal-dialog edit-meal">
                     <span class="{% fa_class 'plus' %}"></span></a>
+                <a href="{% url 'nutrition:log:log_meal' meal.id %}"
+                   title="{% trans 'Log this meal' %}"
+                   class="">
+                    <span class="{% fa_class 'chart-line' %}"></span></a>
             </div>
             {% endif %}
         </td>

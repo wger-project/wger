@@ -210,9 +210,9 @@ class NutritionPlan(models.Model):
             return 4
 
     def get_log_overview(self):
-        '''
+        """
         Returns an overview for all logs available for this plan
-        '''
+        """
         result = []
         for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
             # TODO: in python 3.5 this can be simplified as z = {**x, **y}
@@ -223,16 +223,13 @@ class NutritionPlan(models.Model):
         return result
 
     def get_log_entries(self, date=None):
-        '''
+        """
         Convenience function that returns the log entries for a given date
-        '''
+        """
         if not date:
             date = datetime.date.today()
 
-        # TODO: in django 1.9 use __date=date here
-        return self.logitem_set.filter(datetime__year=date.year,
-                                       datetime__month=date.month,
-                                       datetime__day=date.day).select_related()
+        return self.logitem_set.filter(datetime__date=date).select_related()
 
     def get_log_summary(self, date=None):
         '''

@@ -88,10 +88,9 @@
         <tr>
             <th>{% trans "Time" %}</th>
             <th>{% trans "Ingredient" %}</th>
-            <th class="align-right">{% trans "Amount" %}</th>
             <th class="align-right">{% trans "Energy" %}</th>
             {% if is_owner %}
-            <th class="align-right"></th>
+                <th></th>
             {% endif %}
         </tr>
     </thead>
@@ -99,15 +98,15 @@
 {% for entry in log_entries %}
     <tr>
         <td>{{ entry.datetime|time }}</td>
-        <td>{{ entry.ingredient }}</td>
-        <td class="align-right">
-            {{ entry.amount }}
+        <td>
             {% if entry.weight_unit %}
-                {{ entry.weight_unit }}
+                {{ entry.amount|floatformat:"0" }} × {{ entry.weight_unit.unit.name }}
             {% else %}
-                {% trans "g" %}
+                {{ entry.amount|floatformat:"0" }}{% trans "g" %}
             {% endif %}
+            {{ entry.ingredient }}
         </td>
+
         <td class="align-right">
             {{ entry.get_nutritional_values.energy }} {% trans "kcal" %}
         </td>
