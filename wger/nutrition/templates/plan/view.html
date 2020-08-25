@@ -75,22 +75,27 @@ function wgerCustomModalInit()
             </strong>
 
             {% if is_owner %}
-            <div class="editoptions">
-                <a href="{% url 'nutrition:meal:delete' meal.id %}"
-                   title="{% trans 'Delete' %}">
-                   <span class="{% fa_class 'trash' %}"></span></a>
-                <a href="{% url 'nutrition:meal:edit' meal.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog">
-                    <span class="{% fa_class 'edit' %}"></span></a>
-                <a href="{% url 'nutrition:meal_item:add' meal.id %}"
-                   title="{% trans 'Add' %}"
-                   class="wger-modal-dialog edit-meal">
-                    <span class="{% fa_class 'plus' %}"></span></a>
-                <a href="{% url 'nutrition:log:log_meal' meal.id %}"
-                   title="{% trans 'Log this meal' %}"
-                   class="">
-                    <span class="{% fa_class 'chart-line' %}"></span></a>
+            <div class="dropdown">
+                <button type="button" class="btn btn-link btn-block dropdown-toggle btn-xs" data-toggle="dropdown"></button>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a href="{% url 'nutrition:log:log_meal' meal.id %}" class="dropdown-item">
+                            <span class="{% fa_class 'chart-line' %}"></span>
+                            {% trans 'Log this meal' %}
+                        </a>
+                        <a href="{% url 'nutrition:meal_item:add' meal.id %}" class="wger-modal-dialog edit-meal dropdown-item">
+                            <span class="{% fa_class 'plus' %}"></span>
+                            {% trans 'Add' %}
+                        </a>
+                        <a href="{% url 'nutrition:meal:edit' meal.id %}" class="wger-modal-dialog dropdown-item">
+                            <span class="{% fa_class 'edit' %}"></span>
+                            {% trans 'Edit' %}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'nutrition:meal:delete' meal.id %}" class="dropdown-item">
+                            <span class="{% fa_class 'trash' %}"></span>
+                            {% trans 'Delete' %}
+                        </a>
+                </div>
             </div>
             {% endif %}
         </td>
@@ -103,15 +108,22 @@ function wgerCustomModalInit()
                 {{ item.ingredient.name }}
 
                 {% if is_owner %}
+                <div class="dropdown float-right">
+                    <button type="button" class="btn btn-link dropdown-toggle btn-xs" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a href="{% url 'nutrition:meal_item:edit' item.id %}" class="wger-modal-dialog edit-meal edit-mealitem dropdown-item">
+                            <span class="{% fa_class 'edit' %}"></span>
+                            {% trans 'Edit' %}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'nutrition:meal_item:delete' item.id %}" class="delete-mealitem dropdown-item">
+                            <span class="{% fa_class 'trash' %}"></span>
+                            {% trans 'Delete' %}
+                        </a>
+                    </div>
+                </div>
                 <span class="editoptions float-right">
-                    <a href="{% url 'nutrition:meal_item:delete' item.id %}"
-                       title="{% trans 'Delete' %}"
-                       class="delete-mealitem">
-                       <span class="{% fa_class 'trash' %}"></span></a>
-                    <a href="{% url 'nutrition:meal_item:edit' item.id %}"
-                       title="{% trans 'Edit' %}"
-                       class="wger-modal-dialog edit-meal edit-mealitem">
-                        <span class="{% fa_class 'edit' %}"></span></a>
+
                 </span>
                 {% endif %}
             </td>
@@ -203,7 +215,7 @@ function wgerCustomModalInit()
             <td class="align-right">{{nutritional_data.per_kg.carbohydrates|floatformat:2}}</td>
         </tr>
         <tr>
-            <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
+            <td class="pl-4">{% trans "Sugar content in carbohydrates" %}</td>
             <td class="align-right">{{nutritional_data.total.carbohydrates_sugar|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
             <td></td>
             <td></td>
@@ -215,7 +227,7 @@ function wgerCustomModalInit()
             <td class="align-right">{{nutritional_data.per_kg.fat|floatformat:2}}</td>
         </tr>
         <tr>
-            <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
+            <td class="pl-4">{% trans "Saturated fat content in fats" %}</td>
             <td class="align-right">{{nutritional_data.total.fat_saturated|floatformat:1}} {% trans_weight_unit 'g' owner_user %}</td>
             <td></td>
             <td></td>
@@ -242,7 +254,6 @@ function wgerCustomModalInit()
 
 
 <h4>{% trans "Nutrition diary" %}</h4>
-
 <div id="nutrition_diary_chart"></div>
 
 <table class="table table-condensed">
@@ -282,14 +293,14 @@ function wgerCustomModalInit()
         {% if log_data %}
             <tr>
                 <td colspan="4">
-                    <a href="{% url 'nutrition:log:overview' plan.pk %}">{% trans "View details" %}</a>
+                    <a href="{% url 'nutrition:log:overview' plan.pk %}" class="btn btn-link btn-block">{% trans "View details" %}</a>
                 </td>
             </tr>
         {% endif %}
     </tbody>
 </table>
 <p>
-    <a href="{% url 'nutrition:log:overview' plan.pk %}" class="btn btn-success btn-sm">{% trans "Add diary entry" %}</a>
+    <a href="{% url 'nutrition:log:add' plan.pk %}" class="btn btn-success btn-sm wger-modal-dialog">{% trans "Add custom diary entry" %}</a>
 </p>
 {% endblock %}
 

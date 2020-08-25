@@ -24,6 +24,7 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import (
     WgerAccessTestCase,
+    WgerAddTestCase,
     WgerDeleteTestCase,
     WgerTestCase
 )
@@ -179,6 +180,20 @@ class NutritionDiaryTestCase(WgerTestCase):
         response = self.client.get(reverse('nutrition:log:log_meal', kwargs={"meal_pk": 1}))
         self.assertEqual(response.status_code, 403)
         self.assertEqual(LogItem.objects.filter(plan=plan).count(), 0)
+
+
+class AddMealItemUnitTestCase(WgerAddTestCase):
+    """
+    Tests adding a meal, set the amount using a unit
+    """
+
+    user_success = 'test'
+    user_fail = 'admin'
+    object_class = LogItem
+    url = reverse('nutrition:log:add', kwargs={'plan_pk': 1})
+    data = {'amount': 1,
+            'ingredient': 1,
+            'weight_unit': 1}
 
 
 class DeleteLogEntryTestCase(WgerDeleteTestCase):

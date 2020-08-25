@@ -50,7 +50,7 @@
             <td class="align-right">{{ log_summary.carbohydrates|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
-            <td style="padding-left: 2em;">{% trans "Sugar content in carbohydrates" %}</td>
+            <td class="pl-4">{% trans "Sugar content in carbohydrates" %}</td>
             <td class="align-right">{{ nutritional_data.total.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
@@ -60,7 +60,7 @@
             <td class="align-right">{{ log_summary.fat|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
-            <td style="padding-left: 2em;">{% trans "Saturated fat content in fats" %}</td>
+            <td class="pl-4">{% trans "Saturated fat content in fats" %}</td>
             <td class="align-right">{{ nutritional_data.total.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>

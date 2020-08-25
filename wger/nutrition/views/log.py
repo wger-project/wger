@@ -29,9 +29,13 @@ from django.shortcuts import (
 )
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy
-from django.views.generic import DeleteView
+from django.views.generic import (
+    CreateView,
+    DeleteView
+)
 
 # wger
+from wger.nutrition.forms import MealLogItemForm
 from wger.nutrition.models import (
     LogItem,
     Meal,
@@ -39,6 +43,7 @@ from wger.nutrition.models import (
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
+    WgerFormMixin,
     WgerPermissionMixin
 )
 
@@ -136,6 +141,46 @@ def log_meal(request, meal_pk):
                                                 'month': date.month,
                                                 'day': date.day
                                                 }))
+
+
+class LogCreateView(WgerFormMixin, CreateView):
+    """
+    Generic view to create a new meal diary entry
+    """
+
+    model = LogItem
+    form_class = MealLogItemForm
+    custom_js = 'wgerInitIngredientAutocompleter();'
+    plan = None
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Check that the user owns the meal
+        """
+        plan = get_object_or_404(NutritionPlan, pk=kwargs['plan_pk'])
+        if plan.user == request.user:
+            self.plan = plan
+            return super(LogCreateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
+
+    def get_success_url(self):
+        return reverse('nutrition:plan:view', kwargs={'id': self.plan.id})
+
+    def get_context_data(self, **kwargs):
+        """
+        Send some additional data to the template
+        """
+        context = super(LogCreateView, self).get_context_data(**kwargs)
+        context['ingredient_searchfield'] = self.request.POST.get('ingredient_searchfield', '')
+        return context
+
+    def form_valid(self, form):
+        """
+        Manually set the corresponding meal
+        """
+        form.instance.plan = self.plan
+        return super(LogCreateView, self).form_valid(form)
 
 
 class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
