@@ -36,33 +36,33 @@
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{ nutritional_data.total.energy|floatformat }} {% trans "kcal" %}</td>
-            <td class="align-right">{{ log_summary.energy|floatformat }} {% trans "kcal" %}</td>
+            <td class="align-right">{{ nutritional_data.total.energy|floatformat:0 }} {% trans "kcal" %}</td>
+            <td class="align-right">{{ log_summary.energy|floatformat:0 }} {% trans "kcal" %}</td>
         </tr>
         <tr>
             <td>{% trans "Protein" %}</td>
-            <td class="align-right">{{ nutritional_data.total.protein|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_summary.protein|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ nutritional_data.total.protein|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.protein|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td>{% trans "Carbohydrates" %}</td>
-            <td class="align-right">{{ nutritional_data.total.carbohydrates|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_summary.carbohydrates|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ nutritional_data.total.carbohydrates|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.carbohydrates|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td class="pl-4">{% trans "Sugar content in carbohydrates" %}</td>
-            <td class="align-right">{{ nutritional_data.total.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_summary.carbohydrates_sugar|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ nutritional_data.total.carbohydrates_sugar|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.carbohydrates_sugar|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td>{% trans "Fat" %}</td>
-            <td class="align-right">{{ nutritional_data.total.fat|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_summary.fat|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ nutritional_data.total.fat|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fat|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
         <tr>
             <td class="pl-4">{% trans "Saturated fat content in fats" %}</td>
-            <td class="align-right">{{ nutritional_data.total.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
-            <td class="align-right">{{ log_summary.fat_saturated|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ nutritional_data.total.fat_saturated|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fat_saturated|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
         </tr>
 
 
@@ -108,7 +108,7 @@
         </td>
 
         <td class="align-right">
-            {{ entry.get_nutritional_values.energy }} {% trans "kcal" %}
+            {{ entry.get_nutritional_values.energy|floatformat:0 }} {% trans "kcal" %}
         </td>
         {% if is_owner %}
         <td>

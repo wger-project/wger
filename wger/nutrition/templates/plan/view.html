@@ -84,7 +84,7 @@ function wgerCustomModalInit()
                         </a>
                         <a href="{% url 'nutrition:meal_item:add' meal.id %}" class="wger-modal-dialog edit-meal dropdown-item">
                             <span class="{% fa_class 'plus' %}"></span>
-                            {% trans 'Add' %}
+                            {% trans 'Add ingredient to meal' %}
                         </a>
                         <a href="{% url 'nutrition:meal:edit' meal.id %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'edit' %}"></span>
@@ -198,7 +198,7 @@ function wgerCustomModalInit()
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{nutritional_data.total.energy|floatformat:1}} {% trans "kcal" %}</td>
+            <td class="align-right">{{nutritional_data.total.energy|floatformat:0}} {% trans "kcal" %}</td>
             <td></td>
             <td></td>
         </tr>
@@ -253,14 +253,13 @@ function wgerCustomModalInit()
 </table>
 
 
-<h4>{% trans "Nutrition diary" %}</h4>
+<h4>{% trans "Nutrition diary" %} - {{nutritional_data.total.energy|floatformat:0}}{% trans "kcal" %}</h4>
 <div id="nutrition_diary_chart"></div>
 
 <table class="table table-condensed">
     <thead>
         <tr>
             <th>{% trans "Date" %}</th>
-            <th class="align-right">{% trans "Planned" %}</th>
             <th class="align-right">{% trans "Logged" %}</th>
             <th class="align-right">{% trans "Difference" %}</th>
         </tr>
@@ -274,13 +273,10 @@ function wgerCustomModalInit()
                     </a>
                 </td>
                 <td class="align-right">
-                    {{ entry.planned_calories|floatformat }} {% trans "kcal" %}
+                    {{ entry.logged_calories|floatformat:0 }} {% trans "kcal" %}
                 </td>
                 <td class="align-right">
-                    {{ entry.logged_calories }} {% trans "kcal" %}
-                </td>
-                <td class="align-right">
-                    {{ entry.difference }}
+                    {{ entry.difference|floatformat:0 }}
                 </td>
             </tr>
         {% empty %}
@@ -293,7 +289,7 @@ function wgerCustomModalInit()
         {% if log_data %}
             <tr>
                 <td colspan="4">
-                    <a href="{% url 'nutrition:log:overview' plan.pk %}" class="btn btn-link btn-block">{% trans "View details" %}</a>
+                    <a href="{% url 'nutrition:log:overview' plan.pk %}" class="btn btn-link btn-block">{% trans "View complete nutrition log" %}</a>
                 </td>
             </tr>
         {% endif %}
@@ -314,7 +310,7 @@ function wgerCustomModalInit()
     <thead>
         <tr>
             <th>{% trans "Energy" %}</th>
-            <th class="align-right">{{nutritional_data.total.energy|floatformat}} {% trans "kcal" %}</th>
+            <th class="align-right">{{nutritional_data.total.energy|floatformat:0}} {% trans "kcal" %}</th>
         </tr>
     </thead>
     <tbody>
