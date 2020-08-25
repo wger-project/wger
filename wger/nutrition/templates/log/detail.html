@@ -113,13 +113,12 @@
         </td>
         {% if is_owner %}
         <td>
-            <div class="btn-group pull-right">
+            <div class="dropdown">
                 <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-cog"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu">
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     <li>
-                        <a href="{% url 'nutrition:log:delete' entry.pk %}" class="wger-modal-dialog">
+                        <a href="{% url 'nutrition:log:delete' entry.pk %}" class="wger-modal-dialog dropdown-item">
                             {% trans 'Delete' %}
                         </a>
                     </li>
