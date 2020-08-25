@@ -13,18 +13,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+# Standard Library
 import datetime
+import logging
 from decimal import Decimal
 
+# Django
 from django.core.urlresolvers import reverse
 
-from wger.nutrition.models import NutritionPlan, LogItem
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
     WorkoutManagerAccessTestCase,
-    WorkoutManagerDeleteTestCase
+    WorkoutManagerDeleteTestCase,
+    WorkoutManagerTestCase
 )
+from wger.nutrition.models import (
+    LogItem,
+    NutritionPlan
+)
+
 
 logger = logging.getLogger(__name__)
 

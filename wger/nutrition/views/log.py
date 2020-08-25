@@ -14,37 +14,41 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import logging
 
-from django.core.urlresolvers import reverse
+# Django
 from django.http import (
-    HttpResponseRedirect,
-    HttpResponseForbidden
+    HttpResponseForbidden,
+    HttpResponseRedirect
 )
 from django.shortcuts import (
-    render,
-    get_object_or_404
+    get_object_or_404,
+    render
 )
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy
 from django.views.generic import DeleteView
 
+# wger
 from wger.nutrition.models import (
-    NutritionPlan,
-    LogItem
+    LogItem,
+    NutritionPlan
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerPermissionMixin
 )
 
+
 logger = logging.getLogger(__name__)
 
 
 def overview(request, pk):
-    '''
+    """
     Shows an overview of diary entries for the given plan
-    '''
+    """
 
     # Check read permission
     plan = get_object_or_404(NutritionPlan, pk=pk)
@@ -71,9 +75,9 @@ def overview(request, pk):
 
 
 def detail(request, pk, year, month, day):
-    '''
+    """
     Shows an overview of the log for the given date
-    '''
+    """
 
     # Check read permission
     plan = get_object_or_404(NutritionPlan, pk=pk)
@@ -105,18 +109,18 @@ def detail(request, pk, year, month, day):
 
 
 class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
-    '''
+    """
     Delete a nutrition diary entry
-    '''
+    """
     model = LogItem
     title = ugettext_lazy('Delete?')
     form_action_urlname = 'nutrition:log:delete'
     login_required = True
 
     def get_success_url(self):
-        '''
+        """
         Return to the nutrition diary detail page
-        '''
+        """
         return reverse('nutrition:log:detail', kwargs={'pk': self.object.plan.pk,
                                                        'year': self.object.datetime.year,
                                                        'month': self.object.datetime.month,

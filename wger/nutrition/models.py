@@ -16,10 +16,9 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import logging
 import datetime
+import logging
 from decimal import Decimal
-from collections import OrderedDict
 
 # Django
 from django.conf import settings
@@ -33,10 +32,10 @@ from django.core.validators import (
     MinValueValidator
 )
 from django.db import models
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
 # wger
@@ -758,7 +757,8 @@ class LogItem(BaseMealItem, models.Model):
 
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     '''
     The plan this log belongs to
     '''
@@ -775,7 +775,9 @@ class LogItem(BaseMealItem, models.Model):
     Comment field, for additional information
     '''
 
-    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   on_delete=models.CASCADE)
     '''
     Ingredient
     '''
@@ -784,7 +786,7 @@ class LogItem(BaseMealItem, models.Model):
                                     verbose_name=_('Weight unit'),
                                     null=True,
                                     blank=True,
-                                    )
+                                    on_delete=models.CASCADE)
     '''
     Weight unit used (grams, slices, etc.)
     '''
@@ -799,13 +801,13 @@ class LogItem(BaseMealItem, models.Model):
     '''
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return u"Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
 
     def get_owner_object(self):
-        '''
+        """
         Returns the object that has owner information
-        '''
+        """
         return self.plan
