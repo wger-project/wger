@@ -370,6 +370,7 @@ d3@^4:
 
 d3@mbostock-bower/d3-bower#>=5:
   version "0.0.0"
+  uid c15b85ce115be200bd4ca473f97fcd0bb43bba07
   resolved "https://codeload.github.com/mbostock-bower/d3-bower/tar.gz/c15b85ce115be200bd4ca473f97fcd0bb43bba07"
 
 datatables@DataTables/DataTables#1.10.x:
