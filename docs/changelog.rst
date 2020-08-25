@@ -16,6 +16,7 @@ Upgrade steps from 1.9:
 
 🚀 Features:
 
+* Add nutrition diary to log the daily calories actually taken `#284`_
 * Improved user experience, on desktop and mobile `#337`_
 
 
@@ -31,6 +32,7 @@ Upgrade steps from 1.9:
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 
+.. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
 .. _#494: https://github.com/wger-project/wger/issues/494
