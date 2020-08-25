@@ -426,9 +426,10 @@ shariff@^3.2.1:
     "@fortawesome/fontawesome-free" "^5.8.2"
     jquery "^3.4.1"
 
-tinymce@tinymce/tinymce-dist#4.5.x:
-  version "4.5.12"
-  resolved "https://codeload.github.com/tinymce/tinymce-dist/tar.gz/3d007282ded510e32c638b2ed5a9ffe1f219d329"
+tinymce@^4.9.11:
+  version "4.9.11"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.11.tgz#e3dae099722294c5b8d84ba7ef18dd126de6b582"
+  integrity sha512-nkSLsax+VY5DBRjMFnHFqPwTnlLEGHCco82FwJF2JNH6W+5/ClvNC1P4uhD5lXPDNiDykSHR0XJdEh7w/ICHzA==
 
 xmlhttprequest@1:
   version "1.8.0"

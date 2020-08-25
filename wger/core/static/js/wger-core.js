@@ -211,7 +211,6 @@ function wgerInitTinymce() {
     tinyMCE.init({
       // General options
       mode: 'textareas',
-      theme: 'silver',
       width: '100%',
 
       entity_encoding: 'raw',
