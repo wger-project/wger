@@ -116,7 +116,7 @@ Get the application::
   npm install -g yarn sass
   python setup.py develop
   pip install psycopg2 # Only if using postgres
-  wger create_settings \
+  wger create-settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite
 

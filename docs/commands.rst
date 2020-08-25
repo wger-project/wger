@@ -20,11 +20,11 @@ arguments::
     Available tasks:
 
     bootstrap               Performs all steps necessary to bootstrap the application
-    config_location         Returns the default location for the settings file and the data folder
-    create_or_reset_admin   Creates an admin user or resets the password for an existing one
-    create_settings         Creates a local settings file
-    load_fixtures           Loads all fixtures
-    migrate_db              Run all database migrations
+    config-location         Returns the default location for the settings file and the data folder
+    create-or-reset-admin   Creates an admin user or resets the password for an existing one
+    create-settings         Creates a local settings file
+    load-fixtures           Loads all fixtures
+    migrate-db              Run all database migrations
     start                   Start the application using django's built in webserver
 
 You can also get help on a specific command with ``wger --help <command>``.
@@ -102,7 +102,7 @@ Usage::
 Default locations
 ~~~~~~~~~~~~~~~~~
 
-Command: **config_location**
+Command: **config-location**
 
 Information command that simply outputs the default locations for the settings
 file as well as the data folder used for the sqlite database and the uploaded
@@ -112,21 +112,21 @@ files.
 Create settings
 ~~~~~~~~~~~~~~~
 
-Command: **create_settings**
+Command: **create-settings**
 
 Creates a new settings file based. If you call it without further arguments it
 will create the settings in the default locations::
 
-    wger create settings
+    wger create-settings
 
 If you pass custom paths, it's recommended to use absolute paths::
 
-    wger create_settings --settings-path /path/to/development/wger/settings-test.py --database-path /path/to/development/wger/database-test.sqlite
+    wger create-settings --settings-path /path/to/development/wger/settings-test.py --database-path /path/to/development/wger/database-test.sqlite
 
 
 Usage::
 
-    Usage: inv[oke] [--core-opts] create_settings [--options] [other tasks here ...]
+    Usage: inv[oke] [--core-opts] create-settings [--options] [other tasks here ...]
 
     Docstring:
       Creates a local settings file
@@ -143,7 +143,7 @@ Usage::
 Create or reset admin
 ~~~~~~~~~~~~~~~~~~~~~
 
-Command: **create_or_reset_admin**
+Command: **create-or-reset-admin**
 
 Makes sure that the default administrator user exists. If you change the password
 it is reset.
@@ -151,7 +151,7 @@ it is reset.
 
 Usage::
 
-    Usage: inv[oke] [--core-opts] create_or_reset_admin [--options] [other tasks here ...]
+    Usage: inv[oke] [--core-opts] create-or-reset-admin [--options] [other tasks here ...]
 
     Docstring:
       Creates an admin user or resets the password for an existing one
@@ -164,7 +164,7 @@ Usage::
 Migrate database
 ~~~~~~~~~~~~~~~~
 
-Command: **migrate_db**
+Command: **migrate-db**
 
 Migrates the database schema. This command is called internally when installing
 the application. The only need to call this explicitly is after installing a new
@@ -176,7 +176,7 @@ will happen.
 
 Usage::
 
-    Usage: inv[oke] [--core-opts] migrate_db [--options] [other tasks here ...]
+    Usage: inv[oke] [--core-opts] migrate-db [--options] [other tasks here ...]
 
     Docstring:
       Run all database migrations
@@ -189,7 +189,7 @@ Usage::
 Load all fixtures
 ~~~~~~~~~~~~~~~~~
 
-Command: **load_fixtures**
+Command: **load-fixtures**
 
 Loads all fixture file with the default data. This data includes all data necessary
 for the application to work such as:
@@ -206,7 +206,7 @@ as workouts are *not* reset with this, only the application data.
 
 Usage::
 
-    Usage: inv[oke] [--core-opts] load_fixtures [--options] [other tasks here ...]
+    Usage: inv[oke] [--core-opts] load-fixtures [--options] [other tasks here ...]
 
     Docstring:
       Loads all fixtures

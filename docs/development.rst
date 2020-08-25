@@ -38,7 +38,7 @@ This will download the required JS and CSS libraries and create a SQlite
 database and populate it with data on the first run::
 
 
-  $ wger create_settings \
+  $ wger create-settings \
            --settings-path  $WGER_PATH/settings.py \
            --database-path  $WGER_PATH/database.sqlite
   $ wger bootstrap \

@@ -12,6 +12,7 @@ Upgrade steps from 1.9:
 * Compile the CSS ``sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css``
 * Run migrations ``python manage.py migrate``
 * Update static files (only production): ``python manage.py collectstatic``
+* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)
 
 
 🚀 Features:
