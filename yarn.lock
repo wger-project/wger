@@ -423,10 +423,10 @@ shariff@^3.2.1:
     "@fortawesome/fontawesome-free" "^5.8.2"
     jquery "^3.4.1"
 
-tinymce@^4.9.11:
-  version "4.9.11"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.11.tgz#e3dae099722294c5b8d84ba7ef18dd126de6b582"
-  integrity sha512-nkSLsax+VY5DBRjMFnHFqPwTnlLEGHCco82FwJF2JNH6W+5/ClvNC1P4uhD5lXPDNiDykSHR0XJdEh7w/ICHzA==
+tinymce@^5.4.2:
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.4.2.tgz#a1df417ea7e85697c2932269f7f93fbef30d4502"
+  integrity sha512-MRquvKxI28AiSn2ikypgJFD7LH4mQZLtgFn+yROF1bTFp92MdlLeGBrI38/O5mej3cvz27g3Pgr+3MShepbJ+w==
 
 xmlhttprequest@1:
   version "1.8.0"
