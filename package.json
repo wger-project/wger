@@ -26,7 +26,7 @@
     "jquery": "^3.5.0",
     "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
     "shariff": "^3.2.1",
-    "tinymce": "^4.9.11"
+    "tinymce": "^5.4.2"
   },
   "engines": {
     "yarn": ">= 1.0.0"
