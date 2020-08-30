@@ -46,6 +46,7 @@ fixture.close()
 filter_dump(data, ('nutrition.ingredient',), 'ingredients.json')
 filter_dump(data, ('nutrition.weightunit',), 'weight_units.json')
 filter_dump(data, ('nutrition.ingredientweightunit',), 'ingredient_units.json')
+filter_dump(data, ('nutrition.logitem',), 'nutrition_diary.json')
 
 #
 # Exercises
@@ -86,5 +87,3 @@ filter_dump(data, ('config.gymconfig',), 'gym_config.json')
 #
 filter_dump(data, ('auth.group',), 'groups.json')
 filter_dump(data, ('auth.user',), 'users.json')
-
-filter_dump(data, ('nutrition.logitem',), 'nutrition_diary.json')
