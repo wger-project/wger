@@ -33,9 +33,9 @@ from wger.groups.models import (
 
 @login_required
 def join_public_group(request, group_pk):
-    '''
+    """
     Lets a user join a public group
-    '''
+    """
     group = get_object_or_404(Group, pk=group_pk)
     if not group.public:
         return HttpResponseForbidden()
@@ -51,9 +51,9 @@ def join_public_group(request, group_pk):
 
 @login_required
 def leave_group(request, group_pk, user_pk=None):
-    '''
+    """
     Removes a user from a group, either because he left or because an admin removed him
-    '''
+    """
     # TODO: what if it's the last user
     group = get_object_or_404(Group, pk=group_pk)
 
@@ -78,9 +78,9 @@ def leave_group(request, group_pk, user_pk=None):
 
 @login_required
 def promote(request, group_pk, user_pk):
-    '''
+    """
     Promotes a user administrator of a group
-    '''
+    """
 
     group = get_object_or_404(Group, pk=group_pk)
     user = get_object_or_404(User, pk=user_pk)
@@ -102,9 +102,9 @@ def promote(request, group_pk, user_pk):
 
 @login_required
 def demote(request, group_pk, user_pk):
-    '''
+    """
     Demotes an administrator user
-    '''
+    """
 
     # TODO: can one demote oneself?
     group = get_object_or_404(Group, pk=group_pk)

@@ -20,14 +20,14 @@ from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class ApplyGroupTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the workflow to apply joining a private group
-    '''
+    """
 
     def apply_group(self, fail=False, username='', group_pk=2):
-        '''
+        """
         Helper method to apply to private groups
-        '''
+        """
         self.user_login(username)
 
         group = Group.objects.get(pk=group_pk)
@@ -49,15 +49,15 @@ class ApplyGroupTestCase(WorkoutManagerTestCase):
             self.assertEqual(count_applications_before + 1, count_applications_after)
 
     def test_apply_private_group_no_member(self):
-        '''
+        """
         Apply to join a private group, without being already a member
-        '''
+        """
         self.apply_group(fail=False, username='member1', group_pk=2)
 
     def test_apply_private_group_already_applied(self):
-        '''
+        """
         Apply to join a private group, while having already having applied
-        '''
+        """
         application = Application()
         application.user = User.objects.get(username='member1')
         application.group_id = 2
@@ -65,33 +65,33 @@ class ApplyGroupTestCase(WorkoutManagerTestCase):
         self.apply_group(fail=True, username='member1', group_pk=2)
 
     def test_apply_private_group_member(self):
-        '''
+        """
         Apply to join a private group, while being already a member
-        '''
+        """
         self.apply_group(fail=True, username='trainer1', group_pk=2)
 
     def test_apply_public_group_no_member(self):
-        '''
+        """
         Apply to join a public group, without being already a member
-        '''
+        """
         self.apply_group(fail=True, username='member1', group_pk=1)
 
     def test_apply_public_group_member(self):
-        '''
+        """
         Apply to join a public group, while being already a member
-        '''
+        """
         self.apply_group(fail=True, username='test', group_pk=1)
 
 
 class AcceptApplicationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the workflow to accept an application to join a private group
-    '''
+    """
 
     def accept_application(self, fail=False):
-        '''
+        """
         Helper method to accept applications
-        '''
+        """
         group_pk = 2
 
         group = Group.objects.get(pk=group_pk)
@@ -115,57 +115,57 @@ class AcceptApplicationTestCase(WorkoutManagerTestCase):
             self.assertEqual(count_applications_before - 1, count_applications_after)
 
     def test_accept_application_admin_own_group(self):
-        '''
+        """
         Accept application to join own private group, being admin
-        '''
+        """
         self.user_login('test')
         self.accept_application(fail=False)
 
     def test_accept_application_twice(self):
-        '''
+        """
         Accept application to join own private group twice
-        '''
+        """
         self.user_login('test')
         self.accept_application(fail=False)
         self.accept_application(fail=True)
 
     def test_accept_application_not_admin_own_group(self):
-        '''
+        """
         Accept application to join own private group, being admin
-        '''
+        """
         self.user_login('trainer1')
         self.accept_application(fail=True)
 
     def test_accept_application_admin_other_group(self):
-        '''
+        """
         Accept application to join private group, being admin in other group
-        '''
+        """
         self.user_login('admin')
         self.accept_application(fail=True)
 
     def test_accept_application_not_admin_other_group(self):
-        '''
+        """
         Accept application to join private group, being regular user in other group
-        '''
+        """
         self.user_login('member2')
         self.accept_application(fail=True)
 
     def test_accept_application_anonymous(self):
-        '''
+        """
         Accept application to join private group as an anonymous user
-        '''
+        """
         self.accept_application(fail=True)
 
 
 class DenyApplicationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests the workflow to deny an application to join a private group
-    '''
+    """
 
     def deny_application(self, fail=False):
-        '''
+        """
         Helper method to deny applications
-        '''
+        """
         group_pk = 2
 
         group = Group.objects.get(pk=group_pk)
@@ -188,43 +188,43 @@ class DenyApplicationTestCase(WorkoutManagerTestCase):
             self.assertEqual(count_applications_before - 1, count_applications_after)
 
     def test_deny_application_admin_own_group(self):
-        '''
+        """
         Deny application to join own private group, being admin
-        '''
+        """
         self.user_login('test')
         self.deny_application(fail=False)
 
     def test_deny_application_twice(self):
-        '''
+        """
         Deny application to join own private group twice
-        '''
+        """
         self.user_login('test')
         self.deny_application(fail=False)
         self.deny_application(fail=True)
 
     def test_deny_application_not_admin_own_group(self):
-        '''
+        """
         Deny application to join own private group, being admin
-        '''
+        """
         self.user_login('trainer1')
         self.deny_application(fail=True)
 
     def test_deny_application_admin_other_group(self):
-        '''
+        """
         Deny application to join private group, being admin in other group
-        '''
+        """
         self.user_login('admin')
         self.deny_application(fail=True)
 
     def test_deny_application_not_admin_other_group(self):
-        '''
+        """
         Deny application to join private group, being regular user in other group
-        '''
+        """
         self.user_login('member2')
         self.deny_application(fail=True)
 
     def test_deny_application_anonymous(self):
-        '''
+        """
         Deny application to join private group as an anonymous user
-        '''
+        """
         self.deny_application(fail=True)

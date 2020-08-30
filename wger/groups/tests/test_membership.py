@@ -19,14 +19,14 @@ from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
 class GroupUserJoinTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests different ways of joining a group
-    '''
+    """
 
     def test_create_group(self):
-        '''
+        """
         Creating a group joins the user and makes him an administrator
-        '''
+        """
         self.user_login('test')
         user = User.objects.get(username='test')
         self.assertTrue(user.userprofile.gym)
@@ -39,11 +39,11 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.gym_id, 1)
 
     def test_create_group_no_gym(self):
-        '''
+        """
         Creating a group joins the user and makes him an administrator
 
         If the user doesn't belong to a gym, the group's gym reference is not set
-        '''
+        """
         user = User.objects.get(username='test')
         user.userprofile.gym = None
         user.userprofile.save()
@@ -56,38 +56,38 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.gym)
 
     def join_public_group(self):
-        '''
+        """
         Everybody can join a public group (helper function)
-        '''
+        """
         group = Group.objects.get(pk=4)
         self.assertEqual(group.membership_set.count(), 0)
         self.client.get(reverse('groups:member:join-public', kwargs={'group_pk': 4}))
         self.assertEqual(group.membership_set.count(), 1)
 
     def test_join_public_group_admin(self):
-        '''
+        """
         Join public group as user admin
-        '''
+        """
         self.user_login('admin')
         self.join_public_group()
 
     def test_join_public_group_test(self):
-        '''
+        """
         Join public group as user test
-        '''
+        """
         self.user_login('test')
         self.join_public_group()
 
 
 class GroupUserLeaveTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests different ways of leaving a group
-    '''
+    """
 
     def test_leave_group_own(self):
-        '''
+        """
         User leaves a group he is a member of
-        '''
+        """
         self.user_login('test')
         group = Group.objects.get(pk=2)
         self.assertEqual(group.membership_set.count(), 2)
@@ -96,9 +96,9 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.filter(user_id=2).count(), 0)
 
     def test_leave_group_other(self):
-        '''
+        """
         User leaves a group he is not member of
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=2)
         self.assertEqual(group.membership_set.count(), 2)
@@ -107,9 +107,9 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.filter(user_id=1).count(), 0)
 
     def test_kick_out_admin_user(self):
-        '''
+        """
         Admin kicks out regular user
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertEqual(group.membership_set.count(), 3)
@@ -118,9 +118,9 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.filter(user_id=2).count(), 0)
 
     def test_kick_out_user_user(self):
-        '''
+        """
         User kicks out regular user
-        '''
+        """
         self.user_login('demo')
         group = Group.objects.get(pk=1)
         self.assertEqual(group.membership_set.count(), 3)
@@ -129,9 +129,9 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.filter(user_id=2).count(), 1)
 
     def test_kick_out_admin_user_other(self):
-        '''
+        """
         Admin kicks out regular user of different group
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=2)
         self.assertEqual(group.membership_set.count(), 2)
@@ -140,9 +140,9 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.filter(user_id=2).count(), 1)
 
     def test_kick_out_user_user_other(self):
-        '''
+        """
         User kicks out regular user of different group
-        '''
+        """
         self.user_login('test')
         group = Group.objects.get(pk=3)
         self.assertEqual(group.membership_set.count(), 4)
@@ -152,14 +152,14 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
 
 
 class GroupAdminTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Tests promoting and demoting administrators of a group
-    '''
+    """
 
     def test_promote_admin_member(self):
-        '''
+        """
         Promoter is admin, new user is member
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.get(user_id=2).admin)
@@ -167,9 +167,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertTrue(group.membership_set.get(user_id=2).admin)
 
     def test_promote_admin_member_other(self):
-        '''
+        """
         Promoter is admin, new user is member of other group
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.filter(user_id=4).count())
@@ -177,9 +177,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.membership_set.filter(user_id=4).count())
 
     def test_promote_member_member(self):
-        '''
+        """
         Promoter is regular member, new user is member of group
-        '''
+        """
         self.user_login('test')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.get(user_id=3).admin)
@@ -188,9 +188,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.membership_set.get(user_id=3).admin)
 
     def test_promote_member_member_other(self):
-        '''
+        """
         Promoter is regular member, new user is member of other group
-        '''
+        """
         self.user_login('test')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.filter(user_id=4).count())
@@ -199,9 +199,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.membership_set.filter(user_id=4).count())
 
     def test_demote_admin_member(self):
-        '''
+        """
         Demoter is admin, other user is member
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.get(user_id=2).admin)
@@ -210,9 +210,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.membership_set.get(user_id=2).admin)
 
     def test_demote_admin_member_other(self):
-        '''
+        """
         Demoter is admin, other user is member of other group
-        '''
+        """
         self.user_login('admin')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.filter(user_id=4).count())
@@ -221,9 +221,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertFalse(group.membership_set.filter(user_id=4).count())
 
     def test_demote_member_admin(self):
-        '''
+        """
         Demoter is regular member, other user is admin
-        '''
+        """
         self.user_login('test')
         group = Group.objects.get(pk=1)
         self.assertTrue(group.membership_set.get(user_id=1).admin)
@@ -232,9 +232,9 @@ class GroupAdminTestCase(WorkoutManagerTestCase):
         self.assertTrue(group.membership_set.get(user_id=1).admin)
 
     def test_demote_member_member_other(self):
-        '''
+        """
         Promoter is regular member, new user is member of other group
-        '''
+        """
         self.user_login('test')
         group = Group.objects.get(pk=1)
         self.assertFalse(group.membership_set.filter(user_id=4).count())

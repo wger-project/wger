@@ -47,27 +47,27 @@ from wger.utils.generic_views import (
 
 
 class ListView(LoginRequiredMixin, ListView):
-    '''
+    """
     Overview of all available groups
-    '''
+    """
     model = Group
     template_name = 'group/list.html'
 
 
 class DetailView(LoginRequiredMixin, DetailView):
-    '''
+    """
     Detail view for a group
-    '''
+    """
 
     model = Group
 
     def get_template_names(self):
-        '''
+        """
         Return the correct template based on membership status:
 
         * members see the regular group detail page
         * non-members reach a different page where they can apply for membership
-        '''
+        """
         group = self.get_object()
         if not group.public\
                 and not group.membership_set.filter(user=self.request.user).exists():
@@ -75,9 +75,9 @@ class DetailView(LoginRequiredMixin, DetailView):
         return 'group/view.html'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(DetailView, self).get_context_data(**kwargs)
         application = self.object.application_set.filter(user=self.request.user).exists()
         group = self.get_object()
@@ -139,9 +139,9 @@ class DetailView(LoginRequiredMixin, DetailView):
 
 
 class AddView(WgerFormMixin, LoginRequiredMixin, CreateView):
-    '''
+    """
     View to add a new group
-    '''
+    """
 
     model = Group
     fields = ('name',
@@ -151,9 +151,9 @@ class AddView(WgerFormMixin, LoginRequiredMixin, CreateView):
     form_action = reverse_lazy('groups:group:add')
 
     def form_valid(self, form):
-        '''
+        """
         Add the user to list of members and make him admin
-        '''
+        """
 
         # First save the form so the group gets saved to the database
         out = super(AddView, self).form_valid(form)
@@ -175,25 +175,25 @@ class AddView(WgerFormMixin, LoginRequiredMixin, CreateView):
 
 
 class UpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
-    '''
+    """
     View to update an existing Group
-    '''
+    """
 
     model = Group
     fields = ('name', 'description', 'image', 'public')
     form_action_urlname = 'groups:group:edit'
 
     def form_valid(self, form):
-        '''
+        """
         Add event to django activity stream
-        '''
+        """
         action.send(self.request.user, verb='edited', target=form.instance)
         return super(UpdateView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only administrators for the group can edit it
-        '''
+        """
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
@@ -205,9 +205,9 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         return HttpResponseForbidden()
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(UpdateView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         context['enctype'] = 'multipart/form-data'
@@ -215,9 +215,9 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
 
 class DeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
-    '''
+    """
     View to delete an existing Group
-    '''
+    """
 
     model = Group
     fields = ('name',
@@ -226,9 +226,9 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     form_action_urlname = 'groups:group:delete'
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only administrators for the group can delete it
-        '''
+        """
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
 
@@ -240,15 +240,15 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
         return HttpResponseForbidden()
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(DeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context
 
     def get_success_url(self):
-        '''
+        """
         Redirect back to user page
-        '''
+        """
         return reverse('groups:group:list')

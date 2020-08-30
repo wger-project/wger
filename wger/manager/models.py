@@ -84,7 +84,7 @@ class Workout(models.Model):
                               editable=False,
                               null=True,
                               on_delete=models.CASCADE)
-    '''The group this workout belongs to, if any'''
+    """The group this workout belongs to, if any"""
 
     def get_absolute_url(self):
         """

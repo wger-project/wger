@@ -26,21 +26,21 @@ from wger.core.tests.base_testcase import (
 
 
 class GroupRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Group.objects.get(pk=1)), 'Cool team')
 
 
 class PublicGroupDetailAccessTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests accessing a detail view of a public group
-    '''
+    """
     url = reverse_lazy('groups:group:view', kwargs={'pk': 1})
     anonymous_fail = True
     user_success = ('admin',
@@ -56,9 +56,9 @@ class PublicGroupDetailAccessTest(WorkoutManagerAccessTestCase):
 
 
 class PrivateGroupDetailAccessTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests accessing a detail view of a private group
-    '''
+    """
     url = reverse_lazy('groups:group:view', kwargs={'pk': 2})
     anonymous_fail = True
     user_success = ('test',
@@ -70,9 +70,9 @@ class PrivateGroupDetailAccessTest(WorkoutManagerAccessTestCase):
 
 
 class GroupOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+    """
     Tests accessing the group overview page
-    '''
+    """
     url = reverse_lazy('groups:group:list')
     anonymous_fail = True
     user_fail = ()
@@ -88,9 +88,9 @@ class GroupOverviewTest(WorkoutManagerAccessTestCase):
 
 
 class CreateGroupTestCase(WorkoutManagerAddTestCase):
-    '''
+    """
     Tests creating a new group
-    '''
+    """
     object_class = Group
     url = 'groups:group:add'
 
@@ -107,18 +107,18 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
                     'manager3')
 
     def get_data(self, username):
-        '''
+        """
         Custom data generator to get around the group's name uniqueness
         constraints.
-        '''
+        """
         return {'name': 'The group for {0}'.format(username),
                 'description': 'Description here'}
 
 
 class EditGroupTestCase(WorkoutManagerEditTestCase):
-    '''
+    """
     Tests editing a group
-    '''
+    """
 
     object_class = Group
     url = 'groups:group:edit'
@@ -135,9 +135,9 @@ class EditGroupTestCase(WorkoutManagerEditTestCase):
 
 
 class DeleteGroupTestCase(WorkoutManagerDeleteTestCase):
-    '''
+    """
     Tests deleting a group
-    '''
+    """
 
     pk = 2
     object_class = Group

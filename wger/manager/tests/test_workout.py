@@ -91,9 +91,9 @@ class WorkoutAccessTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_access_group(self):
-        '''
+        """
         Test accessing the URL of a group's workout
-        '''
+        """
         workout = Workout.objects.get(pk=3)
 
         # workout owner
@@ -125,9 +125,9 @@ class AddWorkoutTestCase(WgerTestCase):
     """
 
     def test_create_workout_gym(self):
-        '''
+        """
         Create a workout, adding it to a group
-        '''
+        """
 
         self.user_login('test')
         group = Group.objects.get(id=1)
@@ -138,9 +138,9 @@ class AddWorkoutTestCase(WgerTestCase):
         self.assertEqual(workout.group, group)
 
     def test_create_workout_gym_other(self):
-        '''
+        """
         Create a workout, adding it to a group the user is not a member of
-        '''
+        """
 
         self.user_login('test')
         response = self.client.get(reverse('manager:workout:add', kwargs={'group_pk': 3}))

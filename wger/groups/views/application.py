@@ -31,9 +31,9 @@ from wger.groups.models import (
 
 @login_required
 def apply(request, group_pk):
-    '''
+    """
     Lets a user apply for membership in a private group
-    '''
+    """
     group = get_object_or_404(Group, pk=group_pk)
 
     if group.public or \
@@ -51,9 +51,9 @@ def apply(request, group_pk):
 
 @login_required
 def accept(request, group_pk, user_pk):
-    '''
+    """
     Accepts a user's application to join a private group
-    '''
+    """
     group = get_object_or_404(Group, pk=group_pk)
     user = get_object_or_404(User, pk=user_pk)
 
@@ -77,9 +77,9 @@ def accept(request, group_pk, user_pk):
 
 @login_required
 def deny(request, group_pk, user_pk):
-    '''
+    """
     Denies a user's application to join a private group
-    '''
+    """
     group = get_object_or_404(Group, pk=group_pk)
     user = get_object_or_404(User, pk=user_pk)
 

@@ -319,13 +319,13 @@ class WgerEditTestCase(WgerTestCase):
     """
 
     def get_data(self, username=None):
-        '''
+        """
         Returns the data to test as a dictionary
 
         The default behaviour is just to return self.data, but more advanced
         logic can be implemented here (e.g. if there are some uniqueness
         constraints).
-        '''
+        """
         return self.data
 
     def edit_object(self, fail=False):
@@ -431,13 +431,13 @@ class WgerAddTestCase(WgerTestCase):
     """
 
     def get_data(self, username=None):
-        '''
+        """
         Returns the data to test as a dictionary
 
         The default behaviour is just to return self.data, but more advanced
         logic can be implemented here (e.g. if there are some uniqueness
         constraints).
-        '''
+        """
         return self.data
 
     def add_object(self, fail=False):
