@@ -39,7 +39,6 @@ from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
 )
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     DeleteView,
     UpdateView
@@ -91,7 +90,6 @@ def overview(request):
     return render(request, 'workout/overview.html', template_data)
 
 
-@vary_on_headers('User-Agent')
 def view(request, pk):
     """
     Show the workout with the given ID

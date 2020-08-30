@@ -38,7 +38,6 @@ from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
 )
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -88,7 +87,6 @@ def overview(request):
     return render(request, 'schedule/overview.html', template_data)
 
 
-@vary_on_headers('User-Agent')
 def view(request, pk):
     """
     Show the workout schedule
