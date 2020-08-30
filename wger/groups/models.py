@@ -17,9 +17,8 @@
 
 import uuid
 
-from django.core.urlresolvers import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
@@ -33,7 +32,6 @@ def group_image_upload_dir(instance, filename):
     return "group-images/{0}/{1}".format(instance.id, uuid.uuid4())
 
 
-@python_2_unicode_compatible
 class Group(models.Model):
     '''
     Model for a group
@@ -71,7 +69,8 @@ class Group(models.Model):
 
     gym = models.ForeignKey(Gym,
                             null=True,
-                            blank=True)
+                            blank=True,
+                            on_delete=models.CASCADE)
     '''The gym this group belongs to, if any'''
 
     members = models.ManyToManyField(User, through='Membership')
@@ -117,10 +116,12 @@ class Membership(models.Model):
     Intermediate table for many-to-many relationship between users and groups
     '''
 
-    group = models.ForeignKey(Group)
+    group = models.ForeignKey(Group,
+                              on_delete=models.CASCADE)
     '''The group'''
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE)
     '''The user'''
 
     admin = models.BooleanField(verbose_name=_('Administrator'),
@@ -152,10 +153,12 @@ class Application(models.Model):
         Only one entry per user and group
         '''
 
-    group = models.ForeignKey(Group)
+    group = models.ForeignKey(Group,
+                              on_delete=models.CASCADE)
     '''The group'''
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE)
     '''The user'''
 
     date = models.DateField(_('Date'), auto_now_add=True)

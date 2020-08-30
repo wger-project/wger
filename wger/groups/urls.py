@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
 
 from wger.groups.views import (
@@ -77,7 +77,7 @@ patterns_applications = [
 ]
 
 urlpatterns = [
-   url(r'^', include(patterns_group, namespace="group")),
-   url(r'^', include(patterns_membership, namespace="member")),
-   url(r'^application/', include(patterns_applications, namespace="application")),
+   url(r'^', include((patterns_group, "group"), namespace="group")),
+   url(r'^', include((patterns_membership, "member"), namespace="member")),
+   url(r'^application/', include((patterns_applications, "application"), namespace="application")),
 ]

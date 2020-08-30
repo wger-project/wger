@@ -19,13 +19,10 @@ from actstream.models import target_stream
 
 from django.http import HttpResponseForbidden
 from django.contrib.auth.mixins import (
-    PermissionRequiredMixin,
     LoginRequiredMixin
 )
-from django.core.urlresolvers import (
-    reverse_lazy,
-    reverse
-)
+from django.urls import reverse, reverse_lazy
+
 from django.utils.translation import (
     ugettext_lazy,
     ugettext as _

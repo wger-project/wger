@@ -110,7 +110,7 @@ urlpatterns = i18n_patterns(
     url(r'software/', include(('wger.software.urls', 'software'), namespace='software')),
     url(r'config/', include(('wger.config.urls', 'config'), namespace='config')),
     url(r'gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
-url(r'groups/', include('wger.groups.urls', namespace='groups', app_name='groups')),
+    url(r'groups/', include(('wger.groups.urls', 'groups'), namespace='groups')),
     url(r'email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     url(r'^sitemap\.xml$',
         sitemap,
