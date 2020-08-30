@@ -12,17 +12,23 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from datetime import timedelta, datetime
+# Standard Library
+from datetime import (
+    datetime,
+    timedelta
+)
 
+# Django
 from django.contrib.auth.models import User
 from django.core import mail
 from django.core.management import call_command
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.weight.models import WeightEntry
 
 
-class EmailWeightReminderTestCase(WorkoutManagerTestCase):
+class EmailWeightReminderTestCase(WgerTestCase):
     def test_without_email(self):
         user = User.objects.get(pk=2)
         user.email = ''

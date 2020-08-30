@@ -14,39 +14,43 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import requests
+# Standard Library
 import os
 
-from wger import get_version
-from optparse import make_option
-from requests.utils import default_user_agent
-from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand, CommandError
+# Django
+from django.conf import settings
+from django.core.exceptions import (
+    ImproperlyConfigured,
+    ValidationError
+)
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.core.management.base import (
+    BaseCommand,
+    CommandError
+)
 from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
-from django.conf import settings
 
-from wger.exercises.models import Exercise, ExerciseImage
+# Third Party
+import requests
+from requests.utils import default_user_agent
+
+# wger
+from wger import get_version
+from wger.exercises.models import (
+    Exercise,
+    ExerciseImage
+)
 
 
 class Command(BaseCommand):
-    '''
+    """
     Download exercise images from wger.de and updates the local database
 
     The script assumes that the local IDs correspond to the remote ones, which
     is the case if the user installed the exercises from the JSON fixtures.
     Otherwise, the exercise is simply skipped
-    '''
-
-    option_list = BaseCommand.option_list + (
-        make_option('--remote-url',
-                    action='store',
-                    dest='remote_url',
-                    default='https://wger.de',
-                    help='Remote URL to fetch the exercises from (default: https://wger.de)'),
-    )
+    """
 
     help = ('Download exercise images from wger.de and update the local database\n'
             '\n'
@@ -54,6 +58,14 @@ class Command(BaseCommand):
             '           to your local exercises. The exercises are identified by\n'
             '           their UUID field, if you manually edited or changed it\n'
             '           the script will not be able to match them.')
+
+    def add_arguments(self, parser):
+        parser.add_argument('--remote-url',
+                            action='store',
+                            dest='remote_url',
+                            default='https://wger.de',
+                            help='Remote URL to fetch the exercises from (default: '
+                                 'https://wger.de)')
 
     def handle(self, **options):
 
@@ -67,7 +79,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        exercise_api = "{0}/api/v2/exercise/?limit=999"
+        exercise_api = "{0}/api/v2/exercise/?limit=999&status=2"
         image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
         thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
 
@@ -76,7 +88,7 @@ class Command(BaseCommand):
         # Get all exercises
         result = requests.get(exercise_api.format(remote_url), headers=headers).json()
         for exercise_json in result['results']:
-            exercise_name = exercise_json['name'].encode('utf-8')
+            exercise_name = exercise_json['name']
             exercise_uuid = exercise_json['uuid']
             exercise_id = exercise_json['id']
 
@@ -87,8 +99,10 @@ class Command(BaseCommand):
 
             try:
                 exercise = Exercise.objects.get(uuid=exercise_uuid)
+
             except Exercise.DoesNotExist:
                 self.stdout.write('    Remote exercise not found in local DB, skipping...')
+
                 continue
 
             # Get all images

@@ -14,41 +14,62 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import logging
+# Standard Library
 import datetime
+import logging
 
-from django.shortcuts import render, get_object_or_404
-from django.http import (
-    HttpResponseRedirect,
-    HttpResponseForbidden,
-    HttpResponse
-)
-from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import PermissionRequiredMixin
+# Django
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     CreateView,
     DeleteView,
     UpdateView
 )
 
+# Third Party
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import (
-    SimpleDocTemplate,
     Paragraph,
+    SimpleDocTemplate,
     Spacer
 )
 
-from wger.manager.models import Schedule
+# wger
+from wger.manager.forms import WorkoutScheduleDownloadForm
 from wger.manager.helpers import render_workout_day
+from wger.manager.models import Schedule
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
-from wger.utils.helpers import make_token, check_token
-from wger.utils.pdf import styleSheet, render_footer
+from wger.utils.helpers import (
+    check_token,
+    make_token
+)
+from wger.utils.pdf import (
+    render_footer,
+    styleSheet
+)
 
 
 logger = logging.getLogger(__name__)
@@ -56,9 +77,9 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def overview(request):
-    '''
+    """
     An overview of all the user's schedules
-    '''
+    """
 
     template_data = {}
     template_data['schedules'] = (Schedule.objects
@@ -67,10 +88,11 @@ def overview(request):
     return render(request, 'schedule/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
-    '''
+    """
     Show the workout schedule
-    '''
+    """
     template_data = {}
     schedule = get_object_or_404(Schedule, pk=pk)
     user = schedule.user
@@ -94,14 +116,15 @@ def view(request, pk):
     template_data['is_owner'] = is_owner
     template_data['owner_user'] = user
     template_data['show_shariff'] = is_owner
+    template_data['download_form'] = WorkoutScheduleDownloadForm()
 
     return render(request, 'schedule/view.html', template_data)
 
 
 def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Show the workout schedule
-    '''
+    """
     user = request.user
 
     comments = bool(int(comments))
@@ -114,7 +137,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 
@@ -164,9 +187,9 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
 
 
 def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, token=None):
-    '''
+    """
     Show the workout schedule
-    '''
+    """
     user = request.user
 
     comments = bool(int(comments))
@@ -179,7 +202,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=user)
 
@@ -231,12 +254,12 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
 
 @login_required
 def start(request, pk):
-    '''
+    """
     Starts a schedule
 
     This simply sets the start date to today and the schedule is marked as
     being active.
-    '''
+    """
 
     schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
     schedule.is_active = True
@@ -246,18 +269,17 @@ def start(request, pk):
 
 
 class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
-    '''
+    """
     Creates a new workout schedule
-    '''
+    """
 
     model = Schedule
     fields = '__all__'
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
-    form_action = reverse_lazy('manager:schedule:add')
 
     def form_valid(self, form):
-        '''set the submitter'''
+        """set the submitter"""
         form.instance.user = self.request.user
         return super(ScheduleCreateView, self).form_valid(form)
 
@@ -266,38 +288,36 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
 
 
 class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
-    '''
+    """
     Generic view to delete a schedule
-    '''
+    """
 
     model = Schedule
     fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
-    form_action_urlname = 'manager:schedule:delete'
     messages = ugettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ScheduleDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object)
         return context
 
 
 class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
-    '''
+    """
     Generic view to update an existing workout routine
-    '''
+    """
 
     model = Schedule
     fields = '__all__'
-    form_action_urlname = 'manager:schedule:edit'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ScheduleEditView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
         return context

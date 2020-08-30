@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from __future__ import unicode_literals
 
 from django.db import models, migrations
@@ -43,22 +44,22 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('name', models.CharField(verbose_name='Name', max_length=25)),
                 ('description', models.TextField(verbose_name='Description', blank=True, null=True)),
-                ('gym', models.ForeignKey(to='gym.Gym', editable=False)),
+                ('gym', models.ForeignKey(to='gym.Gym', editable=False, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
             model_name='contract',
             name='contract_type',
-            field=models.ForeignKey(verbose_name='Contract type', blank=True, null=True, to='gym.ContractType'),
+            field=models.ForeignKey(verbose_name='Contract type', blank=True, null=True, to='gym.ContractType', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='contract',
             name='member',
-            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='contract_member'),
+            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='contract_member', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='contract',
             name='user',
-            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='contract_user'),
+            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, related_name='contract_user', on_delete=models.CASCADE),
         ),
     ]

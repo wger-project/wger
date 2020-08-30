@@ -14,24 +14,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.template import loader
-from django.core.management.base import BaseCommand
-from django.core import mail
-from django.utils.translation import ugettext_lazy as _
-from django.utils import translation
+# Django
 from django.conf import settings
-
 from django.contrib.sites.models import Site
+from django.core import mail
+from django.core.management.base import BaseCommand
+from django.template import loader
+from django.utils import translation
+from django.utils.translation import ugettext_lazy as _
+
+# wger
 from wger.core.models import UserProfile
 from wger.weight.models import WeightEntry
 
 
 class Command(BaseCommand):
-    '''
+    """
     Helper admin command to send out email reminders
-    '''
+    """
 
     help = 'Send out automatic emails to remind the user to enter the weight'
 
@@ -59,12 +62,12 @@ class Command(BaseCommand):
 
     @staticmethod
     def send_email(user, last_entry, datediff):
-        '''
+        """
         Notify a user to input the weight entry
 
         :type user User
         :type last_entry Date
-        '''
+        """
 
         # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)

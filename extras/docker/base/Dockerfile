@@ -8,17 +8,34 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
-MAINTAINER Roland Geider <roland@geider.net>
+LABEL maintainer="Roland Geider <roland@geider.net>"
 
 # Install dependencies
-RUN apt-get update;\
-    apt-get install -y nodejs nodejs-legacy npm git \
-        python-virtualenv python3-dev \
-        libjpeg8-dev zlib1g-dev libwebp-dev \
-        sudo
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+      git \
+      locales \
+      nodejs \
+      npm \
+      python3-venv \
+      python3-pip \
+      sqlite3 \
+      netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/* \
+  && npm install -g yarn sass \
+  && locale-gen en_US.UTF-8
+
+# Environmental variables
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 
 # Add wger user
 RUN adduser wger --disabled-password --gecos ""
-RUN echo "wger ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/wger

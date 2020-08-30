@@ -12,22 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 from decimal import Decimal
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import FOURPLACES
 from wger.utils.units import AbstractWeight
 
 
-class WeightConversionTestCase(WorkoutManagerTestCase):
-    '''
+class WeightConversionTestCase(WgerTestCase):
+    """
     Test the abstract weight class
-    '''
+    """
 
     def test_conversion(self):
-        '''
+        """
         Test the weight conversion
-        '''
+        """
 
         tmp = AbstractWeight(10)
         self.assertEqual(tmp.kg, 10)
@@ -50,9 +52,9 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         self.assertEqual(tmp.kg, 80)
 
     def test_conversion_subunits(self):
-        '''
+        """
         Test the weight conversion with "subunits" (grams, ounces)
-        '''
+        """
 
         tmp = AbstractWeight(100.1, 'g')
         self.assertEqual(tmp.kg, Decimal(0.1001).quantize(FOURPLACES))
@@ -79,9 +81,9 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         self.assertEqual(tmp.lb, 1)
 
     def test_sum(self):
-        '''
+        """
         Tests adding two abstract weights
-        '''
+        """
         weight1 = AbstractWeight(80, 'kg')
         weight2 = AbstractWeight(10, 'kg')
         sum = weight1 + weight2
@@ -98,9 +100,9 @@ class WeightConversionTestCase(WorkoutManagerTestCase):
         self.assertEqual(sum.lb, Decimal(90))
 
     def test_subunits(self):
-        '''
+        """
         Test weight subunit calculations
-        '''
+        """
 
         tmp = AbstractWeight(10)
         self.assertEqual(tmp.g, 10000)

@@ -16,7 +16,7 @@
     along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-{% load i18n staticfiles wger_extras compress django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras compress django_bootstrap_breadcrumbs %}
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
 {% endblock %}
@@ -25,7 +25,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Roland Geider">
 
     <!-- OpenGraph -->
@@ -48,24 +48,23 @@
 
     {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager-common.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/components-font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/shariff/build/shariff.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/components-font-awesome/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-    <script src="{% static 'bower_components/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'bower_components/Sortable/Sortable.min.js' %}"></script>
-    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
-    <script src="{% static 'bower_components/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
-    <script src="{% static 'bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+    <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
+    <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
+    <script src="{% static 'yarn/d3/d3.js' %}"></script>
+    <script src="{% static 'yarn/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
+    <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
     <script src="{% static 'js/wger-core.js' %}"></script>
     <script src="{% static 'js/exercises.js' %}"></script>
     <script src="{% static 'js/nutrition.js' %}"></script>
@@ -76,7 +75,7 @@
     <script>
     $(document).ready(function() {
 
-        if (typeof wgerCustomPageInit != "undefined")
+        if (typeof wgerCustomPageInit !== "undefined")
         {
             wgerCustomPageInit();
         }
@@ -89,79 +88,40 @@
 
         // Check for RO-access before allowing sharing
         wgerToggleReadOnlyAccess();
-     });
+    });
     </script>
 
 
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9" style="padding-bottom: 0.5em;">
-                {# Show application's name or user's gym #}
-                {% if custom_header %}
-                    <span class="name">{{ custom_header }}</span>
-                {% else %}
-                    <span class="name">wger</span>
-                    <span class="regular">| Workout Manager</span>
-                {% endif %}
-            </div>
-            <div class="col-md-3">
-                <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-                |
-
-                {#                                         #}
-                {# Render the links to the other languages #}
-                {#                                         #}
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
-                        <img src="/static/images/icons/flag-{{language.short_name}}.svg"
-                             width="18"
-                             height="11"
-                             alt="{% trans language.full_name %}"
-                             title="{% trans language.full_name %}"
-                             style="border: 1px solid #151515;">
-                        {{language.full_name}} <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        {% for language in languages %}
-                        {% language_select language %}
-                        {% endfor %}
-                        <li class="divider"></li>
-                        <li>
-                            <a href="https://www.transifex.com/rge/wger-workout-manager/">
-                                <span class="{% fa_class 'plus' %}"></span>
-                                {% trans "Translate" %}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</header>
+{#            #}
+{# Navigation #}
+{#            #}
 {% include 'navigation.html' %}
+
+
+
+{#              #}
+{# Main content #}
+{#              #}
 <div id="main">
-    <div class="container" style="padding-bottom: 1em;">
+    <div class="container pt-4">
         <div class="modal fade" id="wger-ajax-info" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-hidden="true"
-                                style="padding-left: 0.5em;">&times;</button>
                         <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
+                        <button type="button"
+                                class="close pl-2"
+                                data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+
                     </div>
                     <div class="modal-body" id="ajax-info-content">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -175,15 +135,17 @@
         {#             #}
         {# {% if not user.is_authenticated or user.userprofile.is_temporary %} #}
         {% if user.is_authenticated and user.userprofile.is_temporary %}
-            <div class="alert alert-warning" role="alert" style="padding:0.6em; margin-top: 1em; text-align:center; font-size:95%;">
+            <div class="alert alert-warning text-center" role="alert">
                 {% trans "You are using a guest account, data entered will be deleted after a week." %}
                 {% if not has_demo_data %}
-                <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-success btn-xs">
-                    {% trans "Create some demo entries" %}
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
+                    <br>
+                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-link btn-sm">
+                        {% trans "Create some demo entries" %}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 {% else %}
-                    <a href="{% url 'core:user:registration' %}" class="btn btn-success btn-xs">
+                    <br>
+                    <a href="{% url 'core:user:registration' %}" class="btn btn-link btn-sm">
                         {% trans "Register" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
@@ -196,28 +158,61 @@
 
 
 
-<footer id="main-footer">
+<footer id="main-footer" class="bg-wger-light border-top">
     <div class="container">
-        <a href="https://github.com/wger-project/wger" class="no-hover">
-            <img src="{% static 'images/agpl-v3.svg' %}"
-                 width="88"
-                 height="31"
-                 alt="{% trans 'Released under the Affero GPL' %}"
-                 title="{% trans 'Released under the Affero GPL' %}">
-        </a>
+    <div class="row">
+        <div class="col-md-8">
 
-        <a href="{% url 'core:about' %}">{% trans "About" %}</a>
-        | <a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a>
-        | <a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a>
-        | <a href="{% url 'software:tos' %}">{% trans "Terms of service" %}</a>
 
-        <div class="navbar-right">
-            <em class="text-muted" style="font-size: 80%;">{{version}}</em>
+        {#                                         #}
+        {# Render the links to the other languages #}
+        {#                                         #}
+        <div class="btn-group float-right" role="group">
+            <div class="btn-group" role="group">
+                <button id="btnGroupLanguages2" type="button" class="btn btn-link text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
+                  {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                  <img src="{% static flagname %}"
+                         width="18"
+                         height="11"
+                         alt="{% trans language.full_name %}"
+                         title="{% trans language.full_name %}"
+                         style="">
+                    {{language.full_name}} <span class="caret"></span>
+                  {% endwith %}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupLanguages">
+                    {% for language in languages %}
+                        {% language_select language %}
+                    {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a href="https://www.transifex.com/rge/wger-workout-manager/" class="dropdown-item" target="_blank">
+                        <span class="{% fa_class 'plus' %}"></span>
+                        {% trans "Translate" %}
+                    </a>
+                </div>
+            </div>
         </div>
+
+        <ul class="list-unstyled mb-0 pt-2">
+            <li><a href="{% url 'core:about' %}" class="text-muted small">{% trans "About" %}</a></li>
+            <li><a href="{% url 'software:tos' %}" class="text-muted small">{% trans "Terms of service" %}</a></li>
+        </ul>
+            <!--
+            <a href="https://github.com/wger-project/wger" class="no-hover">
+                <img src="{% static 'images/agpl-v3.svg' %}"
+                     width="57"
+                     height="20"
+                     alt="{% trans 'Released under the Affero GPL' %}"
+                     title="{% trans 'Released under the Affero GPL' %}"></a>
+            <em class="text-muted small">{{version}}</em> -->
+
+    </div>
+    </div>
+    </div>
     </div>
 </footer>
 
-<script src="{% static 'bower_components/shariff/build/shariff.min.js' %}"></script>
+<script src="{% static 'yarn/shariff/dist/shariff.min.js' %}"></script>
 </body>
 {% endspaceless_config %}
 </html>

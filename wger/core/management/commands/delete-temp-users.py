@@ -14,17 +14,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.utils.timezone import now
+# Django
 from django.core.management.base import BaseCommand
+from django.utils.timezone import now
+
+# wger
 from wger.core.models import UserProfile
 
 
 class Command(BaseCommand):
-    '''
+    """
     Helper admin command to clean up demo users, to be called e.g. by cron
-    '''
+    """
 
     help = 'Deletes all temporary users older than 1 week'
 

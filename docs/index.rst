@@ -19,22 +19,27 @@ https://github.com/wger-project/wger
 This documentation is intended for developers and administrators of the software.
 
 
-Installation and development
-----------------------------
+Installation and administration
+-------------------------------
 .. toctree::
-   :maxdepth: 2
 
-   install
-   commands
+   installation
+
+
+Development
+-------------------------------
+.. toctree::
+
+   tips_and_tricks
+   codingstyle
    i18n
-
 
 
 Administration guide
 --------------------
 .. toctree::
-   :maxdepth: 2
 
+   commands
    settings
    gym
 
@@ -53,11 +58,11 @@ Feel free to contact us if you found this useful or if there was something that
 didn't behave as you expected (in this case you can also open a ticket on the
 issue tracker).
 
-* **twitter:** https://twitter.com/wger_de
+* **gitter:** https://gitter.im/wger-project/wger
+* **issue tracker:** https://github.com/wger-project/wger/issues
+* **twitter:** https://twitter.com/wger_project
 * **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
   no registration needed
-* **IRC:** channel #wger on freenode.net, webchat: http://webchat.freenode.net/?channels=wger
-* **issue tracker:** https://github.com/wger-project/wger/issues
 
 
 Sources
@@ -84,12 +89,4 @@ folders for more details.
 
 .. include the authors file from the root folder
 .. include:: ../AUTHORS.rst
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
-* :ref:`modindex`
 

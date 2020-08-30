@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 {#           #}
 {# Opengraph #}
@@ -40,7 +40,6 @@
 
         {% include 'calendar/partial_overview_table.html' %}
 
-
         {% for exercise, logs in value.logs.items %}
             <table class="table table-hover table-bordered" style="margin-top: 2em;">
             <tr class="active">
@@ -57,23 +56,19 @@
                     {{log.weight}} {% trans log.weight_unit.name %}
 
                     {% if is_owner %}
-                    <span class="editoptions">
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                    <span class="editoptions dropdown">
+                        <div class="float-right">
+                            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                                 <span class="{% fa_class 'cog' %}"></span>
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{% url 'manager:log:edit' log.pk %}"
-                                       title="{% trans 'Edit' %}"
-                                       class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'manager:log:delete' log.pk %}"
-                                       title="{% trans 'Delete' %}"
-                                       class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                                </li>
-                            </ul>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'manager:log:edit' log.pk %}"
+                                   title="{% trans 'Edit' %}"
+                                   class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
+                                <a href="{% url 'manager:log:delete' log.pk %}"
+                                   title="{% trans 'Delete' %}"
+                                   class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                            </div>
                         </div>
                     </span>
                     {% endif %}

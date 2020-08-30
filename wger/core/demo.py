@@ -14,44 +14,47 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import random
-import datetime
 import uuid
 
-from django.contrib.auth.models import User
+# Django
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from wger.weight.models import WeightEntry
-from wger.exercises.models import Exercise
+# wger
 from wger.core.models import DaysOfWeek
+from wger.exercises.models import Exercise
 from wger.manager.models import (
-    Workout,
     Day,
+    Schedule,
+    ScheduleStep,
     Set,
     Setting,
-    WorkoutLog,
-    Schedule,
-    ScheduleStep
+    Workout,
+    WorkoutLog
 )
 from wger.nutrition.models import (
-    NutritionPlan,
+    Ingredient,
+    IngredientWeightUnit,
     Meal,
     MealItem,
-    Ingredient,
-    IngredientWeightUnit
+    NutritionPlan
 )
-
 from wger.utils.language import load_language
+from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 
 
 def create_temporary_user():
-    '''
+    """
     Creates a temporary user
-    '''
+    """
     username = uuid.uuid4().hex[:-2]
     password = uuid.uuid4().hex[:-2]
     email = ''
@@ -68,9 +71,9 @@ def create_temporary_user():
 
 
 def create_demo_entries(user):
-    '''
+    """
     Creates some demo data for temporary users
-    '''
+    """
 
     # (this is a bit ugly and long...)
     language = load_language()

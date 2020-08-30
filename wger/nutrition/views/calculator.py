@@ -15,53 +15,55 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
+# Standard Library
 import json
+import logging
 
+# Django
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
+# wger
 from wger.nutrition.forms import (
     BmrForm,
-    PhysicalActivitiesForm,
-    DailyCaloriesForm
+    DailyCaloriesForm,
+    PhysicalActivitiesForm
 )
 
 
 logger = logging.getLogger(__name__)
 
-'''
+"""
 Protein calculator views
-'''
+"""
 
 
 @login_required
 def view(request):
-    '''
+    """
     The basal metabolic rate detail page
-    '''
+    """
 
     form_data = {'age': request.user.userprofile.age,
                  'height': request.user.userprofile.height,
                  'gender': request.user.userprofile.gender,
                  'weight': request.user.userprofile.weight}
 
-    context = {}
-    context['form'] = BmrForm(initial=form_data)
-    context['form_activities'] = PhysicalActivitiesForm(instance=request.user.userprofile)
-    context['form_calories'] = DailyCaloriesForm(instance=request.user.userprofile)
+    context = {'form': BmrForm(initial=form_data),
+               'form_activities': PhysicalActivitiesForm(instance=request.user.userprofile),
+               'form_calories': DailyCaloriesForm(instance=request.user.userprofile)}
 
     return render(request, 'rate/form.html', context)
 
 
 @login_required
 def calculate_bmr(request):
-    '''
+    """
     Calculates the basal metabolic rate.
 
     Currently only the Mifflin-St.Jeor-Formel is supported
-    '''
+    """
 
     data = []
 
@@ -84,9 +86,9 @@ def calculate_bmr(request):
 
 @login_required
 def calculate_activities(request):
-    '''
+    """
     Calculates the calories needed by additional physical activities
-    '''
+    """
 
     data = []
 

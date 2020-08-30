@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% trans "Nutrition diary" %} - {{ log_data.0.planned_calories|floatformat:0 }} {% trans "kcal" %}{% endblock %}
+
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Nutrition plans" "nutrition:plan:overview" %}
+    {% breadcrumb plan plan.get_absolute_url %}
+    {% breadcrumb "Nutrition diary" "nutrition:log:overview" plan.pk %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>{% trans "Date" %}</th>
+            <th class="align-right">{% trans "Logged" %}</th>
+            <th class="align-right">{% trans "Difference" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in log_data %}
+            <tr>
+                <td>
+                    <a href="{% url 'nutrition:log:detail' plan.pk entry.date.year entry.date.month entry.date.day %}">
+                        {{ entry.date|date }}
+                    </a>
+                </td>
+                <td class="align-right">
+                    {{ entry.logged_calories|floatformat:0 }} {% trans "kcal" %}
+                </td>
+                <td class="align-right">
+                    {{ entry.difference|floatformat:0 }}
+                </td>
+            </tr>
+        {% empty %}
+             <tr>
+                <td colspan="4">
+                    <em>{% trans "nothing found" %}</em>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+{#          #}
+{# Side bar #}
+{#          #}
+{% block sidebar%}
+{% endblock %}

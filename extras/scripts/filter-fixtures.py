@@ -14,24 +14,26 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-'''
+"""
 Simple script that filters the output of django's dumpdata command into more
 manageable chunks.
 
 Create the data.json e.g. with:
     python ../../manage.py dumpdata --indent 4 --natural-foreign > data.json
-'''
+"""
 
 import json
 
 
 def filter_dump(data, model_list, filename):
-    '''
+    """
     Helper function
-    '''
+    """
     filter_data = [i for i in data if i['model'] in model_list]
-    with open(filename, 'w') as outfile:
-        json.dump(filter_data, outfile, indent=4)
+    if filter_data:
+        with open(filename, 'w') as outfile:
+            json.dump(filter_data, outfile, indent=4)
+
 
 # This is a full dump of the DB
 fixture = open('data.json')
@@ -44,6 +46,7 @@ fixture.close()
 filter_dump(data, ('nutrition.ingredient',), 'ingredients.json')
 filter_dump(data, ('nutrition.weightunit',), 'weight_units.json')
 filter_dump(data, ('nutrition.ingredientweightunit',), 'ingredient_units.json')
+filter_dump(data, ('nutrition.logitem',), 'nutrition_diary.json')
 
 #
 # Exercises

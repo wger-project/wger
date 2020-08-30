@@ -1,52 +1,60 @@
 #
 # Docker image for wger development
 #
-# Please consult the documentation for usage
-# docker build -t wger/devel .
-# docker run -ti --name wger.devel --publish 8000:8000 wger/devel
-# (in docker) source ~/venv/bin/activate
-# (in docker) python manage.py runserver 0.0.0.0:8000
+# Please consult the README for usage
 #
+# Note: you MUST build this image from the projec's root!
+# docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
+# Run the container:
+# docker run -ti -v /path/to/this/checkout:/home/wger/src --name wger.devel --publish 8000:8000 wger/devel
+
+##########
+# Builder
+##########
+FROM ubuntu:20.04 as builder
+
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+      build-essential \
+      python3-dev \
+      python3-pip \
+      python3-wheel \
+      git \
+  && rm -rf /var/lib/apt/lists/*
+
+# Build the necessary python wheels
+COPY requirements* ./
+RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_devel.txt
 
 
-FROM wger/base
 
-MAINTAINER Roland Geider <roland@geider.net>
+########
+# Final
+########
+FROM wger/base:2.0-dev
+LABEL maintainer="Roland Geider <roland@geider.net>"
+ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000
 
-# Install dependencies
-RUN apt-get install -y vim tmux sqlite3
 
 # Set up the application
-USER wger
-RUN git clone https://github.com/wger-project/wger.git /home/wger/src
-
 WORKDIR /home/wger/src
-RUN virtualenv --python python3 /home/wger/venv
-RUN . /home/wger/venv/bin/activate \
-    && pip install --upgrade pip \
-    && pip install -r requirements_devel.txt \
-    && invoke create_settings \
-        --settings-path /home/wger/src/settings.py \
-        --database-path /home/wger/db/database.sqlite \
-    && invoke bootstrap_wger \
-        --settings-path /home/wger/src/settings.py \
-        --no-start-server
+COPY --chown=wger:wger . /home/wger/src
+COPY --from=builder /wheels /wheels
+COPY ${DOCKER_DIR}/settings.py /home/wger/src
+COPY ${DOCKER_DIR}/settings.py /tmp/
+COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
+RUN chmod +x /home/wger/entrypoint.sh
+RUN pip3 install --no-cache /wheels/* \
+    && pip3 install psycopg2-binary \
+    && pip3 install django-redis \
+    && python3 setup.py develop
 
-# Install node modules for JS linting and download the exercise images
-#
-# Note: it seems there are problems with node and docker, so it's necessary
-#       to delete the node_modules folder and install everything again
-#       -> https://github.com/npm/npm/issues/9863
-#       -> https://github.com/npm/npm/issues/13306
-RUN rm -r node_modules \
-    && npm install bower \
-    && npm install \
-    && mkdir ~/media \
-    && sed -i "/^MEDIA_ROOT/c\MEDIA_ROOT='\/home\/wger\/media'" settings.py \
-    && . /home/wger/venv/bin/activate \
-    && python manage.py download-exercise-images
+RUN chown -R wger:wger .
 
+USER wger
+RUN mkdir ~/media \
+    && mkdir ~/db/
 
-CMD ["/bin/bash"]
+CMD ["/home/wger/entrypoint.sh"]

@@ -14,20 +14,22 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.core.management.base import BaseCommand
 
+# wger
 from wger.core.models import RepetitionUnit
 from wger.exercises.models import (
+    Equipment,
     ExerciseCategory,
-    Muscle,
-    Equipment
+    Muscle
 )
 
 
 class Command(BaseCommand):
-    '''
+    """
     Helper command to read out the strings to manually include in the .po files
-    '''
+    """
 
     help = 'Read out all strings that have to be included manually in the .po file'
 

@@ -14,20 +14,27 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import os
 import sys
+
+# Third Party
 from invoke import run
 
-'''
+
+"""
 This simple wrapper script is used as a console entry point in the packaged
 version of the application. It simply redirects all arguments to the invoke
 command, which does all the work.
-'''
+"""
 
 invoke_cmd = 'invoke '
 
 
 def main():
+    # Change the working directory so that invoke can find the tasks fiel
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
     args = sys.argv[1:]
     if len(args):
         run(invoke_cmd + ' '.join(args), pty=True)

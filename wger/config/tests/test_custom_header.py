@@ -15,16 +15,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import Gym
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
 
 
-class GymNameHeaderTestCase(WorkoutManagerTestCase):
-    '''
+class GymNameHeaderTestCase(WgerTestCase):
+    """
     Test case for showing gym name on application header
-    '''
+    """
 
     def check_header(self, gym=None):
 
@@ -32,9 +34,9 @@ class GymNameHeaderTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.context['custom_header'], gym)
 
     def test_custom_header_gym_members(self):
-        '''
+        """
         Test the custom header for gym members
-        '''
+        """
 
         # Gym 1, custom header activated
         gym = Gym.objects.get(pk=1)
@@ -60,7 +62,7 @@ class GymNameHeaderTestCase(WorkoutManagerTestCase):
             self.check_header(gym=None)
 
     def test_custom_header_anonymous_user(self):
-        '''
+        """
         Test the custom header for logged out users
-        '''
+        """
         self.check_header(gym=None)

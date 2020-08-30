@@ -12,27 +12,33 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.utils.helpers import next_weekday, make_token
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.utils.helpers import (
+    make_token,
+    next_weekday
+)
 
 
 # TODO: parse the generated calendar files with the icalendar library
 
 
-class IcalToolsTestCase(WorkoutManagerTestCase):
-    '''
+class IcalToolsTestCase(WgerTestCase):
+    """
     Tests some tools used for iCal generation
-    '''
+    """
 
     def test_next_weekday(self):
-        '''
+        """
         Test the next weekday function
-        '''
+        """
         start_date = datetime.date(2013, 12, 5)
 
         # Find next monday
@@ -45,15 +51,15 @@ class IcalToolsTestCase(WorkoutManagerTestCase):
         self.assertEqual(next_weekday(start_date, 5), datetime.date(2013, 12, 7))
 
 
-class WorkoutICalExportTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutICalExportTestCase(WgerTestCase):
+    """
     Tests exporting the ical file for a workout
-    '''
+    """
 
     def export_ical_token(self):
-        '''
+        """
         Helper function that checks exporing an ical file using tokens for access
-        '''
+        """
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
@@ -71,9 +77,9 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         self.assertLess(len(response.content), 560)
 
     def export_ical_token_wrong(self):
-        '''
+        """
         Helper function that checks exporing an ical file using a wrong token
-        '''
+        """
 
         uid = 'AB'
         token = 'abc-11223344556677889900'
@@ -84,9 +90,9 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
     def export_ical(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
 
         response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3}))
 
@@ -103,18 +109,18 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
             self.assertLess(len(response.content), 560)
 
     def test_export_ical_anonymous(self):
-        '''
+        """
         Tests exporting a workout as an ical file as an anonymous user
-        '''
+        """
 
         self.export_ical(fail=True)
         self.export_ical_token()
         self.export_ical_token_wrong()
 
     def test_export_ical_owner(self):
-        '''
+        """
         Tests exporting a workout as an ical file as the owner user
-        '''
+        """
 
         self.user_login('test')
         self.export_ical(fail=False)
@@ -122,9 +128,9 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         self.export_ical_token_wrong()
 
     def test_export_ical_other(self):
-        '''
+        """
         Tests exporting a workout as an ical file as a logged user not owning the data
-        '''
+        """
 
         self.user_login('admin')
         self.export_ical(fail=True)
@@ -132,15 +138,15 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         self.export_ical_token_wrong()
 
 
-class ScheduleICalExportTestCase(WorkoutManagerTestCase):
-    '''
+class ScheduleICalExportTestCase(WgerTestCase):
+    """
     Tests exporting the ical file for a schedule
-    '''
+    """
 
     def export_ical_token(self):
-        '''
+        """
         Helper function that checks exporing an ical file using tokens for access
-        '''
+        """
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
@@ -158,9 +164,9 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         self.assertLess(len(response.content), 1670)
 
     def export_ical_token_wrong(self):
-        '''
+        """
         Helper function that checks exporing an ical file using a wrong token
-        '''
+        """
 
         uid = 'AB'
         token = 'abc-11223344556677889900'
@@ -171,9 +177,9 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
     def export_ical(self, fail=False):
-        '''
+        """
         Helper function
-        '''
+        """
 
         response = self.client.get(reverse('manager:schedule:ical', kwargs={'pk': 2}))
 
@@ -190,18 +196,18 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
             self.assertLess(len(response.content), 1670)
 
     def test_export_ical_anonymous(self):
-        '''
+        """
         Tests exporting a schedule as an ical file as an anonymous user
-        '''
+        """
 
         self.export_ical(fail=True)
         self.export_ical_token()
         self.export_ical_token_wrong()
 
     def test_export_ical_owner(self):
-        '''
+        """
         Tests exporting a schedule as an ical file as the owner user
-        '''
+        """
 
         self.user_login('admin')
         self.export_ical(fail=False)
@@ -209,9 +215,9 @@ class ScheduleICalExportTestCase(WorkoutManagerTestCase):
         self.export_ical_token_wrong()
 
     def test_export_ical_other(self):
-        '''
+        """
         Tests exporting a schedule as an ical file as a logged user not owning the data
-        '''
+        """
 
         self.user_login('test')
         self.export_ical(fail=True)

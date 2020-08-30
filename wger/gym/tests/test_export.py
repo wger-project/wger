@@ -12,23 +12,26 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import Gym
 
 
-class GymMembersCsvExportTestCase(WorkoutManagerTestCase):
-    '''
+class GymMembersCsvExportTestCase(WgerTestCase):
+    """
     Test case for the CSV export of gym members
-    '''
+    """
 
     def export_csv(self, fail=True):
-        '''
+        """
         Helper function to test the CSV export
-        '''
+        """
         response = self.client.get(reverse('gym:export:users', kwargs={'gym_pk': 1}))
         gym = Gym.objects.get(pk=1)
 
@@ -47,18 +50,18 @@ class GymMembersCsvExportTestCase(WorkoutManagerTestCase):
             self.assertLessEqual(len(response.content), 1300)
 
     def test_export_csv_authorized(self):
-        '''
+        """
         Test the CSV export by authorized users
-        '''
+        """
 
         for username in ('manager1', 'manager2', 'general_manager1'):
             self.user_login(username)
             self.export_csv(fail=False)
 
     def test_export_csv_unauthorized(self):
-        '''
+        """
         Test the CSV export by unauthorized users
-        '''
+        """
 
         for username in ('manager3',
                          'manager4',
@@ -72,8 +75,8 @@ class GymMembersCsvExportTestCase(WorkoutManagerTestCase):
             self.export_csv(fail=True)
 
     def test_export_csv_logged_out(self):
-        '''
+        """
         Test the CSV export by a logged out user
-        '''
+        """
         self.user_logout()
         self.export_csv(fail=True)

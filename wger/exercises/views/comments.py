@@ -13,19 +13,31 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+# Django
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy
+from django.views.generic import (
+    CreateView,
+    UpdateView
+)
 
-from django.views.generic import CreateView, UpdateView
-
+# wger
 from wger.exercises.forms import CommentForm
-from wger.exercises.models import Exercise, ExerciseComment
+from wger.exercises.models import (
+    Exercise,
+    ExerciseComment
+)
 from wger.utils.generic_views import WgerFormMixin
 
 
@@ -41,9 +53,9 @@ class ExerciseCommentEditView(WgerFormMixin,
                               LoginRequiredMixin,
                               PermissionRequiredMixin,
                               UpdateView):
-    '''
+    """
     Generic view to update an existing exercise comment
-    '''
+    """
 
     model = ExerciseComment
     form_class = CommentForm
@@ -53,22 +65,14 @@ class ExerciseCommentEditView(WgerFormMixin,
     def get_success_url(self):
         return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
 
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCommentEditView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:comment:edit',
-                                         kwargs={'pk': self.object.id})
-
-        return context
-
 
 class ExerciseCommentAddView(WgerFormMixin,
                              LoginRequiredMixin,
                              PermissionRequiredMixin,
                              CreateView):
-    '''
+    """
     Generic view to add a new exercise comment
-    '''
+    """
 
     model = ExerciseComment
     form_class = CommentForm
@@ -81,16 +85,6 @@ class ExerciseCommentAddView(WgerFormMixin,
 
     def get_success_url(self):
         return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
-
-    def get_context_data(self, **kwargs):
-        '''
-        Send some additional data to the template
-        '''
-        context = super(ExerciseCommentAddView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:comment:add',
-                                         kwargs={'exercise_pk': self.kwargs['exercise_pk']})
-
-        return context
 
 
 @permission_required('exercises.delete_exercisecomment')

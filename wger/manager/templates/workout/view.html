@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 {#           #}
@@ -24,24 +24,24 @@
 {#        #}
 {% block header %}
 <script>
-function wgerCustomModalInit()
-{
-    // Set up the edit set functions on modal dialogs
-    wgerInitEditSet();
+function wgerCustomModalInit() {
+  // Set up the edit set functions on modal dialogs
+  wgerInitEditSet();
 }
 
-$(document).ready(function() {
-    // Allow the sets to be sortable
-    wgerSetupSortable();
+$(document).ready(function () {
+  var $exercisecomments = $(".exercise-comments");
+  // Allow the sets to be sortable
+  wgerSetupSortable();
 
-    // Show/Hide the comments to the exercises
-    {% if user.userprofile.show_comments %}
-        $(".exercise-comments").show();
-    {% else %}
-        $(".exercise-comments").hide();
-    {% endif %}
-    wgerToggleComments();
- });
+  // Show/Hide the comments to the exercises
+  {% if user.userprofile.show_comments %}
+    $exercisecomments.show();
+  {% else %}
+    $exercisecomments.hide();
+  {% endif %}
+  wgerToggleComments();
+});
 </script>
 {% endblock %}
 
@@ -53,31 +53,24 @@ $(document).ready(function() {
 
 
 {% if workout.comment %}
-<p>
-    <strong>{% trans "Goal" %}:</strong> {{workout.comment}}
-</p>
+    <h4>{{workout.comment}}</h4>
 {% endif %}
 
 {% for day in workout.canonical_representation.day_list %}
     <div id="div-day-{{ day.obj.id }}">
         {% render_day day.obj is_owner %}
     </div>
-{% empty %}
-    {% if is_owner %}
-        <p>
-            <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
-            {% trans "No days for this workout." %}
-            {% trans "Add training day" %}
-            </a>
-        </p>
-    {% endif %}
 {% endfor %}
+
 
 {% if is_owner %}
 <p>
-    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog">{% trans "Add training day" %}</a>
+    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-link btn-block">{% trans "Add training day" %}</a>
+
+    <!--
     |
     <a id="exercise-comments-toggle" href="{% url 'core:user:preferences' %}">{% trans "Show/Hide exercise comments" %}</a>
+    -->
 </p>
 {% endif %}
 {% endblock %}
@@ -104,15 +97,15 @@ $(document).ready(function() {
 </p>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <div id="muscle-front"
-             class="muscle-background center-block"
+             class="muscle-background"
              style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-6">
         <div id="muscle-back"
-                 class="muscle-background center-block"
+                 class="muscle-background"
                  style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
         </div>
     </div>
@@ -123,8 +116,8 @@ $(document).ready(function() {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Export calendar file" %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <p>{% trans "Export this workout as a calendar file." %}</p>
@@ -132,13 +125,13 @@ $(document).ready(function() {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
                    {% trans "Export calendar file" %}
                 </a>
                 </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
@@ -148,63 +141,58 @@ an appointment for each training day with the appropriate exercises.{% endblockt
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+                <button type="button" class="close float-right" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="wger-form">
                     <div id="pdf-download-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_images" class="col-md-3 control-label">
-                                {% trans "Type" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9" style="padding-left: 35px;">
-                            <div class="radio">
-                                <input type="radio" name="pdf_type" id="id_type_log" value="log" checked>
-                                {% trans "Log" %}
-                            </div>
-                            <div class="radio">
-                                <input type="radio" name="pdf_type" id="id_type_table" value="table">
-                                {% trans "Table" %}
-                            </div>
-                        </div>
+                    <div class="form-group form-check-inline">
+                        <input type="radio" name="pdf_type" class="form-check-input" id="id_type_log" value="log" checked>
+                        <label class="form-check-label" for="id_type_log">
+                            {% trans "Log" %}
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_images" class="col-md-3 control-label">
-                                {% trans "with images" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="images" id="id_images" checked>
-                        </div>
+                    <div class="form-group form-check-inline">
+                        <input type="radio" name="pdf_type" id="id_type_table" class="form-check-input" value="table">
+                        <label class="form-check-label" for="id_type_table">
+                            {% trans "Table" %}
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_comments" class="col-md-3 control-label">
-                                {% trans "with comments" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
-                        </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" name="images" id="id_images" checked>
+                        <label for="id_images" class="form-check-label">
+                            {% trans "with images" %}
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" name="comments" id="id_comments" checked>
+                        <label for="id_comments" class="form-check-label">
+                            {% trans "with comments" %}
+                        </label>
                     </div>
                 </form>
 
                 <p>
-                <a href="" class="btn btn-block btn-default" id="download-pdf-button">
+                <a href="" class="btn btn-block btn-light" id="download-pdf-button">
                    {% trans "Download" %}
                 </a>
                 </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
 </div>
+
+{% if workout.canonical_representation.day_list %}
+<h4>{% trans "Logs" %}</h4>
+<p>
+    <a href="{% url 'manager:log:log' workout.id %}">{% trans 'View logs' %}</a>
+</p>
+{% endif %}
+
 {% endblock %}
 
 
@@ -213,53 +201,38 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {# Options #}
 {#         #}
 {% block options %}
-<div class="btn-group">
-    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="{% fa_class 'cog' %}"></span>
-        {% trans "Options" %}
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a data-toggle="modal" data-target="#download-pdf-popup">
+<div class="btn-group" role="group" >
+    <div class="btn-group" role="group">
+        <button id="btnGroupWorkout" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupWorkout">
+            {% if is_owner %}
+                <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
+                   <span class="{% fa_class 'edit' %}"></span>
+                   {% trans "Edit workout" %}
+                </a>
+            {% endif %}
+            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
                 <span class="{% fa_class 'download' %}"></span>
                 {% trans "Download as PDF" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'manager:log:log' workout.id %}">
-               <span class="{% fa_class 'line-chart' %}"></span>
-               {% trans "View weight log" %}
-            </a>
-        </li>
-        {% if is_owner %}
-        <li>
-            <a href="{% url 'manager:workout:edit' workout.id %}" class="wger-modal-dialog">
-               <span class="{% fa_class 'pencil-square-o' %}"></span>
-               {% trans "Edit workout" %}
-            </a>
-        </li>
-        {% endif %}
-        <li>
-            <a data-toggle="modal" data-target="#export-ical-popup">
+            <a class="dropdown-item" data-toggle="modal" data-target="#export-ical-popup">
                <span class="{% fa_class 'calendar' %}"></span>
                {% trans "Export calendar file" %}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'manager:workout:copy' workout.id %}" class="wger-modal-dialog">
+            <a href="{% url 'manager:workout:copy' workout.id %}" class="dropdown-item wger-modal-dialog">
                <span class="{% fa_class 'clone' %}"></span>
                {% trans "Make a copy of this workout" %}
             </a>
-        </li>
-        {% if is_owner %}
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'manager:workout:delete' workout.id %}" class="wger-modal-dialog">
-                <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete this workout" %}
-            </a>
-        </li>
-    </ul>
+            {% if is_owner %}
+                <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
+                    <span class="{% fa_class 'trash' %}"></span>
+                    {% trans "Delete" %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
 </div>
-{% endif %}
 {% endblock %}

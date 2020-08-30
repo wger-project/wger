@@ -14,27 +14,41 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-import logging
+# Standard Library
 import datetime
+import logging
 
-from icalendar import Calendar
-from icalendar import Event
+# Django
+from django.contrib.sites.models import Site
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden
+)
+from django.shortcuts import get_object_or_404
+
+# Third Party
+from icalendar import (
+    Calendar,
+    Event
+)
 from icalendar.tools import UIDGenerator
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseForbidden
-from django.contrib.sites.models import Site
-
+# wger
 from wger import get_version
-from wger.manager.models import Workout, Schedule
-from wger.utils.helpers import next_weekday, check_token
+from wger.manager.models import (
+    Schedule,
+    Workout
+)
+from wger.utils.helpers import (
+    check_token,
+    next_weekday
+)
 
 
 logger = logging.getLogger(__name__)
 
 
-'''
+"""
 Exports workouts and schedules as an iCal file that can be imported to a
 calendaring application.
 
@@ -44,16 +58,16 @@ to make this work, looking at the module test files or the official RF is
 
 * https://tools.ietf.org/html/rfc5545
 * https://github.com/collective/icalendar/tree/master/src/icalendar/tests
-'''
+"""
 
 
 # Helper functions
 def get_calendar():
-    '''
+    """
     Creates and returns a calendar object
 
     :return: Calendar
-    '''
+    """
     calendar = Calendar()
     calendar.add('prodid', '-//wger Workout Manager//wger.de//')
     calendar.add('version', get_version())
@@ -61,7 +75,7 @@ def get_calendar():
 
 
 def get_events_workout(calendar, workout, duration, start_date=None):
-    '''
+    """
     Creates all necessary events from the given workout and adds them to
     the calendar. Each event's occurrence ist set to weekly (one event for
     each training day).
@@ -71,7 +85,7 @@ def get_events_workout(calendar, workout, duration, start_date=None):
     :param duration: duration in weeks
     :param start_date: start date, default: profile default
     :return: None
-    '''
+    """
 
     start_date = start_date if start_date else workout.creation_date
     end_date = start_date + datetime.timedelta(weeks=duration)
@@ -84,7 +98,7 @@ def get_events_workout(calendar, workout, duration, start_date=None):
         description_list = []
         for set in day['set_list']:
             for exercise in set['exercise_list']:
-                description_list.append(six.text_type(exercise['obj']))
+                description_list.append(str(exercise['obj']))
         description = ', '.join(description_list) if description_list else day['obj'].description
 
         # Make an event for each weekday
@@ -102,9 +116,9 @@ def get_events_workout(calendar, workout, duration, start_date=None):
 
 # Views
 def export(request, pk, uidb64=None, token=None):
-    '''
+    """
     Export the current workout as an iCal file
-    '''
+    """
 
     # Load the workout
     if uidb64 is not None and token is not None:
@@ -113,7 +127,7 @@ def export(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         workout = get_object_or_404(Workout, pk=pk, user=request.user)
 
@@ -133,9 +147,9 @@ def export(request, pk, uidb64=None, token=None):
 
 
 def export_schedule(request, pk, uidb64=None, token=None):
-    '''
+    """
     Export the current schedule as an iCal file
-    '''
+    """
 
     # Load the schedule
     if uidb64 is not None and token is not None:
@@ -144,7 +158,7 @@ def export_schedule(request, pk, uidb64=None, token=None):
         else:
             return HttpResponseForbidden()
     else:
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponseForbidden()
         schedule = get_object_or_404(Schedule, pk=pk, user=request.user)
 

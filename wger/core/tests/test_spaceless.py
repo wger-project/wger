@@ -12,24 +12,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
-from django.template import Template, Context
+# Django
+from django.template import (
+    Context,
+    Template
+)
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
+
 
 logger = logging.getLogger(__name__)
 
 
-class SpacelessTestCase(WorkoutManagerTestCase):
-    '''
+class SpacelessTestCase(WgerTestCase):
+    """
     Tests the custom spaceless template tag
-    '''
+    """
 
     def test_spaceless(self):
-        '''
+        """
         Tests the custom spaceless template tag
-        '''
+        """
         t = Template('{% load wger_extras %}'
                      '{% spaceless_config %}<p>A text</p>   <p>more</p>{% endspaceless_config %}')
         context = Context()

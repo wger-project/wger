@@ -12,15 +12,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-
+# wger
+from wger.core.tests.base_testcase import WgerEditTestCase
 from wger.gym.models import GymAdminConfig
 
 
-class EditConfigTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditConfigTestCase(WgerEditTestCase):
+    """
     Tests editing an admin config
-    '''
+    """
 
     object_class = GymAdminConfig
     url = 'gym:admin_config:edit'

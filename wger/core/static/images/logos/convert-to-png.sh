@@ -28,15 +28,13 @@ do
     inkscape \
     --export-png=logo-${resolution}.png \
     --export-area-page \
-    --export-width ${resolution}\
-    --export-height ${resolution}\
+    --export-width ${resolution}
     logo.svg
 
     # Icon for Firefox OS
     inkscape \
-    --export-png=logo-marketplace-${resolution}.png \
+    --export-png=logo-bg-white-${resolution}.png \
     --export-area-page \
     --export-width ${resolution}\
-    --export-height ${resolution}\
-    logo-marketplace.svg
+    logo-bg-white.svg
 done

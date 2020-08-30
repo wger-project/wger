@@ -12,21 +12,23 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.core import mail
 from django.core.management import call_command
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class EmailInactiveUserTestCase(WorkoutManagerTestCase):
-    '''
+class EmailInactiveUserTestCase(WgerTestCase):
+    """
     Test email reminders for inactive users
-    '''
+    """
 
     def test_reminder(self, fail=False):
-        '''
+        """
         Test email reminders for inactive users
-        '''
+        """
 
         call_command('inactive-members')
         self.assertEqual(len(mail.outbox), 6)

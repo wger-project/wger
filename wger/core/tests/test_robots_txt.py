@@ -12,21 +12,22 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import six
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.models import Language
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class RobotsTxtTestCase(WorkoutManagerTestCase):
-    '''
+class RobotsTxtTestCase(WgerTestCase):
+    """
     Tests the generated robots.txt
-    '''
+    """
 
     def test_robots(self):
 
         response = self.client.get(reverse('robots'))
         for lang in Language.objects.all():
             self.assertTrue('wger.de/{0}/sitemap.xml'.format(lang.short_name)
-                            in six.text_type(response.content))
+                            in str(response.content))

@@ -13,35 +13,40 @@
 # You should have received a copy of the GNU Affero General Public License
 
 
+# Django
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
+# wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAddTestCase
+    WgerAddTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
-from wger.exercises.models import Exercise, ExerciseComment
+from wger.exercises.models import (
+    Exercise,
+    ExerciseComment
+)
 from wger.utils.cache import cache_mapper
 
 
-class ExerciseCommentRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class ExerciseCommentRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(ExerciseComment.objects.get(pk=1)), 'test 123')
 
 
-class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddExerciseCommentTestCase(WgerAddTestCase):
+    """
     Tests adding a comment to an exercise
-    '''
+    """
 
     object_class = ExerciseComment
     url = reverse('exercise:comment:add', kwargs={'exercise_pk': 1})
@@ -49,10 +54,10 @@ class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
     data = {'comment': 'a new cool comment'}
 
 
-class EditExerciseCommentTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditExerciseCommentTestCase(WgerEditTestCase):
+    """
     Tests editing a comment to an exercise
-    '''
+    """
 
     object_class = ExerciseComment
     url = 'exercise:comment:edit'
@@ -60,12 +65,12 @@ class EditExerciseCommentTestCase(WorkoutManagerEditTestCase):
     data = {'comment': 'an edited comment'}
 
 
-class ExercisecommentsTestCase(WorkoutManagerTestCase):
+class ExercisecommentsTestCase(WgerTestCase):
 
     def exercise_delete_comment(self, fail=True):
-        '''
+        """
         Tests the deletion of exercise comments
-        '''
+        """
 
         # Load the exercise
         exercise_1 = Exercise.objects.get(pk=1)
@@ -90,39 +95,39 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
             self.assertEqual(len(comments), 0)
 
     def test_exercise_delete_comment_no_authorized(self):
-        '''
+        """
         Tests the exercise comments
-        '''
+        """
 
         self.user_login('test')
         self.exercise_delete_comment(fail=True)
         self.user_logout()
 
     def test_exercise_delete_comment_not_logged_in(self):
-        '''
+        """
         Tests the exercise comments
-        '''
+        """
 
         self.exercise_delete_comment(fail=True)
 
     def test_exercise_delete_comment_authorized(self):
-        '''
+        """
         Tests the exercise comments
-        '''
+        """
 
         self.user_login()
         self.exercise_delete_comment(fail=False)
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutCacheTestCase(WgerTestCase):
+    """
     Workout cache test case
-    '''
+    """
 
     def test_canonical_form_cache_save(self):
-        '''
+        """
         Tests the workout cache when saving
-        '''
+        """
         comment = ExerciseComment.objects.get(pk=1)
         for set in comment.exercise.set_set.all():
             set.exerciseday.training.canonical_representation
@@ -133,9 +138,9 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
             self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
     def test_canonical_form_cache_delete(self):
-        '''
+        """
         Tests the workout cache when deleting
-        '''
+        """
         comment = ExerciseComment.objects.get(pk=1)
 
         workout_ids = []
@@ -151,9 +156,9 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
 
 
 class ExerciseCommentApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the exercise comment overview resource
-    '''
+    """
     pk = 1
     resource = ExerciseComment
     private_resource = False

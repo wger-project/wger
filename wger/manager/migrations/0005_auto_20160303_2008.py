@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from __future__ import unicode_literals
 
 from django.db import migrations, models
@@ -16,12 +17,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='setting',
             name='unit',
-            field=models.ForeignKey(verbose_name='Unit', default=1, to='core.RepetitionUnit'),
+            field=models.ForeignKey(verbose_name='Unit', default=1, to='core.RepetitionUnit', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='workoutlog',
             name='unit',
-            field=models.ForeignKey(verbose_name='Unit', default=1, to='core.RepetitionUnit'),
+            field=models.ForeignKey(verbose_name='Unit', default=1, to='core.RepetitionUnit', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='day',

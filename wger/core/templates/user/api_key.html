@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 {% block title %}{% trans "API key" %}{% endblock %}
 
@@ -13,11 +13,11 @@ anything). You must pass this information in the header in the format shown belo
 {% endwith %}
 
 <p>{% blocktrans %}For security reasons, you should only access the API via HTTPS.{% endblocktrans %}</p>
-<div class="panel {% if token %}panel-success{% else %}panel-default{% endif %}">
-    <div class="panel-heading">
-        <h3 class="panel-title">{% trans "Your API key" %}</h4>
+<div class="card mb-4 {% if token %}text-white bg-success{% else %}bg-light{% endif %}" >
+    <div class="card-header">
+        {% trans "Your API key" %}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         {% if token %}
             <strong>{{token.key}}</strong>
         {% else %}
@@ -25,12 +25,14 @@ anything). You must pass this information in the header in the format shown belo
         {% endif %}
     </div>
 </div>
+
+<h5>In the request header</h5>
 <pre>
-# In the request header
 Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% endif %}
+</pre>
 
-
-# Example with curl
+<h5>Example with curl</h5>
+<pre>
 curl -X GET https://wger.de/api/v2/workout/ \
      -H 'Authorization: Token {% if token %}{{token.key}}{% else %}1234567890abcde...{% endif %}'
 </pre>
@@ -43,13 +45,13 @@ curl -X GET https://wger.de/api/v2/workout/ \
 
 <p>
 {% if token %}
-    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-default">{% trans 'Delete current API key and generate new one' %}</a>
+    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-light">{% trans 'Delete current API key and generate new one' %}</a>
 {% else %}
-    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-default">{% trans 'Generate new API key' %}</a>
+    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-light">{% trans 'Generate new API key' %}</a>
 {% endif %}
 </p>
 
 <p>
-    <a href="{% url 'software:api' %}" class="btn btn-block btn-default">{% trans 'Documentation' %}</a>
+    <a href="{% url 'software:api' %}" class="btn btn-block btn-light">{% trans 'Documentation' %}</a>
 </p>
 {% endblock %}

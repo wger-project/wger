@@ -97,10 +97,34 @@ function wgerInitIngredientAutocompleter() {
   });
 }
 
+function wgerDrawNutritionDiaryChart(planPk) {
+  var dataConverted;
+  d3.json('/api/v2/nutritionplan/' + planPk + '/get_log_overview/').then(function (data) {
+    if (data.length > 0) {
+      dataConverted = MG.convert.date(data, 'date');
+      $.getJSON('/api/v2/nutritionplan/' + planPk + '/nutritional_values/',
+        function (nutritionalValues) {
+          MG.data_graphic({
+            data: dataConverted,
+            //chart_type: 'bar',
+            y_accessor: 'energy',
+            x_accessor: 'date',
+            decimals: 0,
+            full_width: true,
+            baselines: [{ value: nutritionalValues.total.energy,
+                          label: 'Planned (' + nutritionalValues.total.energy + 'kcal)' }],
+            target: '#nutrition_diary_chart',
+            colors: '#307916'
+          });
+        });
+    }
+  });
+}
+
 /*
  * Draw the BMI chart
  */
-function wgerRenderBodyMassIndex(w) {
+function wgerRenderBodyMassIndex() {
   var svg;
   var area;
   var nest;
@@ -120,11 +144,7 @@ function wgerRenderBodyMassIndex(w) {
   d3.selectAll('svg').remove();
 
   // Calculate the size
-  if (typeof w === 'undefined') {
-    widthFactor = 600;
-  } else {
-    widthFactor = w;
-  }
+  widthFactor = 600;
 
   heightFactor = (widthFactor / 600) * 300;
 
@@ -179,7 +199,7 @@ function wgerRenderBodyMassIndex(w) {
     .attr('width', width)
     .attr('height', height);
 
-  d3.json('/nutrition/calculator/bmi/chart-data', function (data) {
+  d3.json('/nutrition/calculator/bmi/chart-data').then(function (data) {
     var $bmiForm;
     var url;
     var layers;

@@ -15,21 +15,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Third Party
 from rest_framework import serializers
+
+# wger
 from wger.nutrition.models import (
-    NutritionPlan,
+    Ingredient,
     IngredientWeightUnit,
-    WeightUnit,
-    MealItem,
     Meal,
-    Ingredient
+    MealItem,
+    NutritionPlan,
+    WeightUnit
 )
 
 
 class NutritionPlanSerializer(serializers.ModelSerializer):
-    '''
+    """
     Nutritional plan serializer
-    '''
+    """
 
     class Meta:
         model = NutritionPlan
@@ -37,49 +40,54 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
 
 
 class IngredientWeightUnitSerializer(serializers.ModelSerializer):
-    '''
+    """
     IngredientWeightUnit serializer
-    '''
+    """
 
     class Meta:
         model = IngredientWeightUnit
+        fields = '__all__'
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
-    '''
+    """
     WeightUnit serializer
-    '''
+    """
 
     class Meta:
         model = WeightUnit
+        fields = '__all__'
 
 
 class MealItemSerializer(serializers.ModelSerializer):
-    '''
+    """
     MealItem serializer
-    '''
+    """
     meal = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
                                               queryset=Meal.objects.all())
 
     class Meta:
         model = MealItem
+        fields = '__all__'
 
 
 class MealSerializer(serializers.ModelSerializer):
-    '''
+    """
     Meal serializer
-    '''
+    """
     plan = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
                                               queryset=NutritionPlan.objects.all())
 
     class Meta:
         model = Meal
+        fields = '__all__'
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    '''
+    """
     Ingredient serializer
-    '''
+    """
 
     class Meta:
         model = Ingredient
+        fields = '__all__'

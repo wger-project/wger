@@ -12,15 +12,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class SitemapTestCase(WorkoutManagerTestCase):
-    '''
+class SitemapTestCase(WgerTestCase):
+    """
     Tests the generated sitemap
-    '''
+    """
 
     def test_sitemap(self):
 

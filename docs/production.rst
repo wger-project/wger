@@ -30,7 +30,7 @@ Configure apache to serve the application::
 
 
     <VirtualHost *:80>
-        WSGIDaemonProcess wger python-path=/home/wger/src:/home/wger/venv/lib/python3.4/site-packages
+        WSGIDaemonProcess wger python-path=/home/wger/src python-home=/home/wger/venv
         WSGIProcessGroup wger
         WSGIScriptAlias / /home/wger/src/wger/wsgi.py
 
@@ -44,13 +44,13 @@ Configure apache to serve the application::
             Require all granted
         </Directory>
 
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ErrorLog ${APACHE_LOG_DIR}/wger-error.log
+        CustomLog ${APACHE_LOG_DIR}/wger-access.log combined
     </VirtualHost>
 
 Apache has a problem when uploading files that have non-ASCII characters, e.g.
 for exercise images. To avoid this, add to /etc/apache2/envvars (if there is
-already an ``export LANG``, replace it)::
+already an ``export LANG``, replace it) or set your system's locale::
 
     export LANG='en_US.UTF-8'
     export LC_ALL='en_US.UTF-8'
@@ -63,14 +63,15 @@ Activate the settings and disable apache's default::
     sudo service apache2 reload
 
 Database
----------
+--------
 
+.. _prod_postgres:
 postgreSQL
 ~~~~~~~~~~
 
 Install the postgres server and create a database and a user::
 
-    sudo apt-get install postgresql postgresql-server-dev-9.3 # or appropriate version
+    sudo apt-get install postgresql postgresql-server-dev-12 # or appropriate version
     su - postgres
     createdb wger
     psql wger -c "CREATE USER wger WITH PASSWORD 'wger'";
@@ -94,7 +95,7 @@ Application
 
 Make a virtualenv for python and activate it::
 
-  virtualenv --python python3 /home/wger/venv
+  python3 -m venv /home/wger/venv
   source /home/wger/venv/bin/activate
 
 Create folders to collect all static resources and save uploaded files. The
@@ -111,10 +112,11 @@ Get the application::
 
   git clone https://github.com/wger-project/wger.git /home/wger/src
   cd /home/wger/src
-  npm install bower
   pip install -r requirements.txt
+  npm install -g yarn sass
+  python setup.py develop
   pip install psycopg2 # Only if using postgres
-  invoke create_settings \
+  wger create-settings \
         --settings-path /home/wger/src/settings.py \
         --database-path /home/wger/db/database.sqlite
 
@@ -126,7 +128,7 @@ for the engine). Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and
 Run the installation script, this will download some CSS and JS libraries and
 load all initial data::
 
-  invoke bootstrap_wger --settings-path /path/to/settings.py --no-start-server
+  wger bootstrap --settings-path /home/wger/src/settings.py --no-start-server
 
 
 Collect all static resources::

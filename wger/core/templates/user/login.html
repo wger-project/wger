@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras crispy_forms_tags %}
 
 {% block title %}{% trans "Login" %}{% endblock %}
 
@@ -8,27 +8,22 @@
 {% endblock %}
 
 {% block content %}
-<form action="{% url 'core:user:login' %}{% if next %}?next={{next}}{% endif %}"
-      method="post"
-      class="form-horizontal">
-    {% trans 'Login' as submit_text %}
-    {% render_form_fields form submit_text %}
-</form>
+    {% crispy form %}
 {% endblock %}
 
 
 {% block sidebar %}
 <h4>{% trans "No account?" %}</h4>
 <p>
-    <a href="{% url 'core:user:registration' %}" class="btn btn-block btn-default">
-        <span class="{% fa_class 'sign-in' %}"></span>
+    <a href="{% url 'core:user:registration' %}">
+        <span class="{% fa_class 'sign-in-alt' %}"></span>
         {% trans "Register" %}
     </a>
 </p>
 
 <h4>{% trans "Forgot password?" %}</h4>
 <p>
-    <a href="{% url 'core:user:password_reset' %}" class="btn btn-block btn-default">
+    <a href="{% url 'core:user:password_reset' %}" >
         <span class="{% fa_class 'key' %}"></span>
         {% trans "Reset password" %}
     </a>

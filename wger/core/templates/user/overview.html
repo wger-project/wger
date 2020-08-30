@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras django_bootstrap_breadcrumbs %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
 {% block title %}{{current_user|format_username}}{% endblock %}
 
@@ -24,8 +24,8 @@
 
 <h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-default btn-sm">{% trans "Overview" %}</a>
-<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-default btn-sm">{% trans "Add workout" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% trans "Overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% trans "Add workout" %}</a>
 {% endif %}
 
 <table class="table">
@@ -67,7 +67,7 @@
 
 <h4>{% trans "Log" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-default btn-sm">{% trans "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-light btn-sm">{% trans "Calendar" %}</a>
 {% endif %}
 
 <table class="table">
@@ -111,7 +111,7 @@
 
 <h4>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-default btn-sm">{% trans "Weight overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-light btn-sm">{% trans "Weight overview" %}</a>
 {% endif %}
 
 <table class="table">
@@ -143,8 +143,8 @@
 
 <h4>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
 {% if perms.gym.gym_trainer %}
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-default btn-sm">{% trans "Overview" %}</a>
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-default btn-sm">{% trans "Add nutrition plan" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-light btn-sm">{% trans "Overview" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-light btn-sm">{% trans "Add nutrition plan" %}</a>
 {% endif %}
 
 <table class="table">
@@ -197,44 +197,34 @@
 
 {% block sidebar %}
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'core:user:edit' current_user.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-        </li>
-        <li class="divider"></li>
-        <li>
+    <div class="dropdown-menu" role="menu">
+        <a href="{% url 'core:user:edit' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}</a>
+        <div class="dropdown-divider"></div>
             {% if current_user.is_active %}
-                <a href="{% url 'core:user:deactivate' current_user.pk %}" >{% trans "Deactivate user"%}</a>
-            {% else %}
-                <a href="{% url 'core:user:activate' current_user.pk %}">{% trans "Activate user"%}</a>
-            {% endif %}
-        </li>
-        <li>
-            <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal">{% trans "Reset user password" %}</a>
-        </li>
+            <a href="{% url 'core:user:deactivate' current_user.pk %}" class="dropdown-item">{% trans "Deactivate user"%}</a>
+        {% else %}
+            <a href="{% url 'core:user:activate' current_user.pk %}" class="dropdown-item">{% trans "Activate user"%}</a>
+        {% endif %}
+        <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal" class="dropdown-item">{% trans "Reset user password" %}</a>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         {% if current_user.userprofile.gym %}
-        <li>
-            <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog">{% trans "Roles"%}</a>
-        </li>
+            <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Roles"%}</a>
         {% endif %}
         {% endif %}
-        <li>
-            <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog">{% trans "Delete"%}</a>
-        </li>
-    </ul>
+        <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Delete"%}</a>
+    </div>
 </div>
 
 <div id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{% trans 'Password reset confirmation' %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <p>{% trans 'Do you really want to change this user&#39;s password?' %}</p>
@@ -251,7 +241,7 @@
     $(document).ready(function() {
         $('#confirmation-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var url = button.data('url')
+            var url = button.data('url');
             var modal = $(this);
 
             modal.find('button.btn-success').click(function() {
@@ -328,18 +318,14 @@
 {# Contract #}
 {#          #}
 {% if perms.gym.add_contract %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:contract:list' current_user.id %}">{% trans "Overview"%}</a>
-        </li>
-        <li>
-            <a href="{% url 'gym:contract:add' current_user.pk %}">{% trans "Add"%}</a>
-        </li>
-    </ul>
+    <div class="dropdown-menu" role="menu">
+        <a href="{% url 'gym:contract:list' current_user.id %}" class="dropdown-item">{% trans "Overview"%}</a>
+        <a href="{% url 'gym:contract:add' current_user.pk %}" class="dropdown-item">{% trans "Add"%}</a>
+    </div>
 </div>
 
 <h4>{% trans "Contracts" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
@@ -371,18 +357,14 @@
 {# Admin notes #}
 {#             #}
 {% if perms.gym.add_adminusernote %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:admin_note:list' current_user.pk %}">{% trans "Overview" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog">{% trans "Add"%}</a>
-        </li>
-    </ul>
+    <div class="dropdown-menu" role="menu">
+        <a href="{% url 'gym:admin_note:list' current_user.pk %}" class="dropdown-item">{% trans "Overview" %}</a>
+        <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Add"%}</a>
+    </div>
 </div>
 
 <h4>{% trans "Notes" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
@@ -411,18 +393,14 @@
 {# Documents #}
 {#           #}
 {% if perms.gym.add_userdocument %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'gym:document:list' current_user.pk %}">{% trans "Overview" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'gym:document:add' current_user.pk %}">{% trans "Add"%}</a>
-        </li>
-    </ul>
+    <div class="dropdown-menu" role="menu">
+        <a href="{% url 'gym:document:list' current_user.pk %}" class="dropdown-item">{% trans "Overview" %}</a>
+        <a href="{% url 'gym:document:add' current_user.pk %}" class="dropdown-item">{% trans "Add"%}</a>
+    </div>
 </div>
 
 <h4>{% trans "Documents" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
@@ -431,7 +409,7 @@
     <tr>
         <td>
             <a href="{{ document.document.url }}"
-               class="btn btn-default btn-xs"
+               class="btn btn-light btn-sm"
                title="{% trans 'Download' %}"
                download="{{ document.original_name }}">
                 <span class="glyphicon glyphicon-download"></span>
@@ -460,16 +438,13 @@
 {# Gym configuration #}
 {#                   #}
 {% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-
-        <li>
-            <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-        </li>
-    </ul>
+    <div class="dropdown-menu" role="menu">
+        <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}</a>
+    </div>
 </div>
 {% endif %}
 

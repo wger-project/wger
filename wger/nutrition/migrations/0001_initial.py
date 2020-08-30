@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from __future__ import unicode_literals
 
 from django.db import models, migrations
@@ -32,9 +33,9 @@ class Migration(migrations.Migration):
                 ('fat_saturated', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Saturated fat content in fats')),
                 ('fibres', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Fibres')),
                 ('sodium', models.DecimalField(decimal_places=3, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100)], max_digits=6, blank=True, help_text='In g per 100g of product', null=True, verbose_name='Sodium')),
-                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language')),
-                ('license', models.ForeignKey(default=2, verbose_name='License', to='core.License')),
-                ('user', models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='User')),
+                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language', on_delete=models.CASCADE)),
+                ('license', models.ForeignKey(default=2, verbose_name='License', to='core.License', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='User', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['name'],
@@ -47,7 +48,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('gram', models.IntegerField(verbose_name='Amount in grams')),
                 ('amount', models.DecimalField(default=1, help_text='Unit amount, e.g. "1 Cup" or "1/2 spoon"', verbose_name='Amount', max_digits=5, decimal_places=2)),
-                ('ingredient', models.ForeignKey(editable=False, to='nutrition.Ingredient', verbose_name='Ingredient')),
+                ('ingredient', models.ForeignKey(editable=False, to='nutrition.Ingredient', verbose_name='Ingredient', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -71,9 +72,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('order', models.IntegerField(verbose_name='Order', max_length=1, editable=False, blank=True)),
                 ('amount', models.DecimalField(verbose_name='Amount', max_digits=6, decimal_places=2, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(1000)])),
-                ('ingredient', models.ForeignKey(verbose_name='Ingredient', to='nutrition.Ingredient')),
-                ('meal', models.ForeignKey(editable=False, to='nutrition.Meal', verbose_name='Nutrition plan')),
-                ('weight_unit', models.ForeignKey(verbose_name='Weight unit', blank=True, to='nutrition.IngredientWeightUnit', null=True)),
+                ('ingredient', models.ForeignKey(verbose_name='Ingredient', to='nutrition.Ingredient', on_delete=models.CASCADE)),
+                ('meal', models.ForeignKey(editable=False, to='nutrition.Meal', verbose_name='Nutrition plan', on_delete=models.CASCADE)),
+                ('weight_unit', models.ForeignKey(verbose_name='Weight unit', blank=True, to='nutrition.IngredientWeightUnit', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -86,8 +87,8 @@ class Migration(migrations.Migration):
                 ('creation_date', models.DateField(auto_now_add=True, verbose_name='Creation date')),
                 ('description', models.TextField(help_text='A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"', max_length=2000, verbose_name='Description', blank=True)),
                 ('has_goal_calories', models.BooleanField(default=False, help_text='Tick the box if you want to mark this plan as having a goal amount of calories. You can use the calculator or enter the value yourself.', verbose_name='Use daily calories')),
-                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language')),
-                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, verbose_name='User')),
+                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, verbose_name='User', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-creation_date'],
@@ -99,7 +100,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=200, verbose_name='Name')),
-                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language')),
+                ('language', models.ForeignKey(editable=False, to='core.Language', verbose_name='Language', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['name'],
@@ -109,13 +110,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='meal',
             name='plan',
-            field=models.ForeignKey(editable=False, to='nutrition.NutritionPlan', verbose_name='Nutrition plan'),
+            field=models.ForeignKey(editable=False, to='nutrition.NutritionPlan', verbose_name='Nutrition plan', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='ingredientweightunit',
             name='unit',
-            field=models.ForeignKey(verbose_name='Weight unit', to='nutrition.WeightUnit'),
+            field=models.ForeignKey(verbose_name='Weight unit', to='nutrition.WeightUnit', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

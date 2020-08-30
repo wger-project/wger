@@ -13,29 +13,39 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Standard Library
 import logging
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+# Django
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.forms import (
+    ModelChoiceField,
+    ModelForm
+)
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse
-from django.forms import ModelForm, ModelChoiceField
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy
-
-from wger.utils.language import load_language
 from django.views.generic import (
-    DeleteView,
     CreateView,
+    DeleteView,
     UpdateView
 )
+
+# wger
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     WeightUnit
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
+from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
@@ -50,20 +60,13 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
                                      LoginRequiredMixin,
                                      PermissionRequiredMixin,
                                      CreateView):
-    '''
+    """
     Generic view to add a new weight unit to ingredient entry
-    '''
+    """
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Add a new weight unit')
     permission_required = 'nutrition.add_ingredientweightunit'
-
-    # Send some additional data to the template
-    def get_context_data(self, **kwargs):
-        context = super(WeightUnitIngredientCreateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('nutrition:unit_ingredient:add',
-                                         kwargs={'ingredient_pk': self.kwargs['ingredient_pk']})
-        return context
 
     def get_success_url(self):
         return reverse('nutrition:ingredient:view', kwargs={'id': self.kwargs['ingredient_pk']})
@@ -74,9 +77,9 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
         return super(WeightUnitIngredientCreateView, self).form_valid(form)
 
     def get_form_class(self):
-        '''
+        """
         The form can only show units in the user's language
-        '''
+        """
 
         class IngredientWeightUnitForm(ModelForm):
             unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
@@ -92,22 +95,21 @@ class WeightUnitIngredientUpdateView(WgerFormMixin,
                                      LoginRequiredMixin,
                                      PermissionRequiredMixin,
                                      UpdateView):
-    '''
+    """
     Generic view to update an weight unit to ingredient entry
-    '''
+    """
 
     model = IngredientWeightUnit
     title = ugettext_lazy('Edit a weight unit to ingredient connection')
-    form_action_urlname = 'nutrition:unit_ingredient:edit'
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
         return reverse('nutrition:ingredient:view', kwargs={'id': self.object.ingredient.id})
 
     def get_form_class(self):
-        '''
+        """
         The form can only show units in the user's language
-        '''
+        """
 
         class IngredientWeightUnitForm(ModelForm):
             unit = ModelChoiceField(queryset=WeightUnit.objects.filter(language=load_language()))
@@ -123,14 +125,13 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin,
                                      LoginRequiredMixin,
                                      PermissionRequiredMixin,
                                      DeleteView):
-    '''
+    """
     Generic view to delete a weight unit to ingredient entry
-    '''
+    """
 
     model = IngredientWeightUnit
     fields = ('unit', 'gram', 'amount')
     title = ugettext_lazy('Delete?')
-    form_action_urlname = 'nutrition:unit_ingredient:delete'
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):

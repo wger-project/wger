@@ -6,6 +6,8 @@
 -r requirements.txt
 
 # Development packages
-pep8
-django-debug-toolbar
 coverage
+django-debug-toolbar
+tblib
+transifex-client
+isort

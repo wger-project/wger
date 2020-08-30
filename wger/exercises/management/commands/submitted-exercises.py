@@ -14,16 +14,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.core.management.base import BaseCommand
+
+# wger
 from wger.exercises.models import Exercise
 
 
 class Command(BaseCommand):
-    '''
+    """
     Read out the user submitted exercise.
 
     Used to generate the AUTHORS file for a release
-    '''
+    """
 
     help = 'Read out the user submitted exercise'
 

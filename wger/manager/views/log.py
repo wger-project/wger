@@ -14,43 +14,59 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import uuid
-import datetime
 
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
+# Django
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelformset_factory
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    UpdateView,
+    DeleteView,
     DetailView,
-    DeleteView
+    UpdateView
 )
 
+# wger
+from wger.manager.forms import (
+    HelperWorkoutSessionForm,
+    WorkoutLogForm,
+    WorkoutLogFormHelper
+)
 from wger.manager.helpers import WorkoutCalendar
 from wger.manager.models import (
-    Workout,
-    WorkoutSession,
     Day,
+    Schedule,
+    Workout,
     WorkoutLog,
-    Schedule
-)
-from wger.manager.forms import (
-    HelperDateForm,
-    HelperWorkoutSessionForm,
-    WorkoutLogForm
+    WorkoutSession
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 from wger.utils.helpers import check_access
-from wger.weight.helpers import process_log_entries, group_log_entries
+from wger.weight.helpers import (
+    group_log_entries,
+    process_log_entries
+)
 
 
 logger = logging.getLogger(__name__)
@@ -60,25 +76,23 @@ logger = logging.getLogger(__name__)
 # Log functions
 # ************************
 class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
-    '''
+    """
     Generic view to edit an existing workout log weight entry
-    '''
+    """
     model = WorkoutLog
     form_class = WorkoutLogForm
     success_url = reverse_lazy('manager:workout:calendar')
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:log:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit log entry for %s') % self.object.exercise.name
-
         return context
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
-    '''
+    """
     Delete a workout log
-    '''
+    """
 
     model = WorkoutLog
     fields = ('exercise',
@@ -89,16 +103,16 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
               'weight_unit')
     success_url = reverse_lazy('manager:workout:calendar')
     title = ugettext_lazy('Delete workout log')
-    form_action_urlname = 'manager:log:delete'
 
 
 def add(request, pk):
-    '''
+    """
     Add a new workout log
-    '''
+    """
 
-    template_data = {}
-    template_data.update(csrf(request))
+    # NOTE: This function is waaaay too complex and convoluted. While updating
+    #       to crispy forms, the template logic could be reduced a lot, but
+    #       there is still a lot optimisations that could happen here.
 
     # Load the day and check ownership
     day = get_object_or_404(Day, pk=pk)
@@ -151,12 +165,11 @@ def add(request, pk):
 
         # Pass the new data to the forms
         formset = WorkoutLogFormSet(data=post_copy)
-        dateform = HelperDateForm(data=post_copy)
         session_form = HelperWorkoutSessionForm(data=post_copy)
 
         # If all the data is valid, save and redirect to log overview page
-        if dateform.is_valid() and session_form.is_valid() and formset.is_valid():
-            log_date = dateform.cleaned_data['date']
+        if session_form.is_valid() and formset.is_valid():
+            log_date = session_form.cleaned_data['date']
 
             if WorkoutSession.objects.filter(user=request.user, date=log_date).exists():
                 session = WorkoutSession.objects.get(user=request.user, date=log_date)
@@ -192,8 +205,6 @@ def add(request, pk):
                                     initial=[{'weight_unit': user_weight_unit,
                                               'repetition_unit': 1} for x in range(0, total_sets)])
 
-        dateform = HelperDateForm(initial={'date': datetime.date.today()})
-
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)
         if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
@@ -209,21 +220,23 @@ def add(request, pk):
         form_id_to = max(exercise_list[exercise]['form_ids'])
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
 
-    template_data['day'] = day
-    template_data['exercises'] = exercise_list
-    template_data['exercise_list'] = exercise_list
-    template_data['formset'] = formset
-    template_data['dateform'] = dateform
-    template_data['session_form'] = session_form
-    template_data['form_action'] = reverse('manager:day:log', kwargs={'pk': pk})
+    context = {}
+    context['day'] = day
+    context['exercises'] = exercise_list
+    context['formset'] = formset
+    context['helper'] = WorkoutLogFormHelper()
+    context['session_form'] = session_form
+    context['form'] = session_form
+    context['extend_template'] = 'base.html'
+    context['form_action'] = request.path
 
-    return render(request, 'day/log.html', template_data)
+    return render(request, 'log/add.html', context)
 
 
 class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
-    '''
+    """
     An overview of the workout's log
-    '''
+    """
 
     model = Workout
     template_name = 'workout/log.html'
@@ -278,9 +291,9 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Check for ownership
-        '''
+        """
 
         workout = get_object_or_404(Workout, pk=kwargs['pk'])
         self.owner_user = workout.user
@@ -294,9 +307,9 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
 
 
 def calendar(request, username=None, year=None, month=None):
-    '''
+    """
     Show a calendar with all the workout logs
-    '''
+    """
     context = {}
     is_owner, user = check_access(request.user, username)
     year = int(year) if year else datetime.date.today().year
@@ -319,9 +332,9 @@ def calendar(request, username=None, year=None, month=None):
 
 
 def day(request, username, year, month, day):
-    '''
+    """
     Show the logs for a single day
-    '''
+    """
     context = {}
     is_owner, user = check_access(request.user, username)
 

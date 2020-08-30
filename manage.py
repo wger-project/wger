@@ -1,12 +1,17 @@
 #!/usr/bin/env python
+
+# Standard Library
 import sys
 
+# Django
 from django.core.management import execute_from_command_line
 
-from tasks import (
-    setup_django_environment,
-    get_user_config_path
+# wger
+from wger.tasks import (
+    get_user_config_path,
+    setup_django_environment
 )
+
 
 if __name__ == "__main__":
 

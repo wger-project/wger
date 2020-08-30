@@ -5,7 +5,7 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-VERSION = (1, 8, 0, 'beta', 1)
+VERSION = (2, 0, 0, 'alpha', 1)
 RELEASE = False
 
 
@@ -33,6 +33,6 @@ def get_version(version=None, release=None):
     else:
         sub = ''
     if not release:
-        sub += '-dev'
+        sub += '.dev0'
 
     return main + sub

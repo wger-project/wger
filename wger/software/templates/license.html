@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 
@@ -11,13 +11,12 @@
 Software (FLOSS).{% endblocktrans %}</p>
 
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 text-center">
         <img src="{% static 'images/agpl-v3.svg' %}"
              width="88"
              height="31"
              alt="{% trans 'Released under the Affero GPL' %}"
-             title="{% trans 'Released under the Affero GPL' %}"
-             class="pull-left">
+             title="{% trans 'Released under the Affero GPL' %}">
     </div>
     <div class="col-md-10">
         <p>{% blocktrans %}wger Workout Manager is released under the <strong>Affero GNU

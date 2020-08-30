@@ -1,0 +1,15 @@
+[flake8]
+# H101: Use TODO(NAME)
+# W503: line break before binary operator
+ignore = H101,W503
+max-line-length = 100
+exclude =
+    extras,
+    build,
+    dist,
+    yarn,
+    migrations,
+    settings.py,
+    docs,
+    urls.py : E501
+    apps.py : F401

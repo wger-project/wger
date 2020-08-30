@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static wger_extras %}
 
 {% block title %}{% trans "License list" %}{% endblock %}
 
@@ -8,18 +8,14 @@
 <ul class="list-group">
     {% for license in license_list %}
     <li class="list-group-item ">
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="{% url 'core:license:edit' license.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                </li>
-                <li>
-                    <a href="{% url 'core:license:delete' license.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                </li>
-            </ul>
+            <div class="dropdown-menu" role="menu">
+                <a href="{% url 'core:license:edit' license.id %}" class="dropdown-item wger-modal-dialog">{% trans 'Edit' %}</a>
+                <a href="{% url 'core:license:delete' license.id %}" class="dropdown-item wger-modal-dialog">{% trans 'Delete' %}</a>
+            </div>
         </div>
         {{license}}
     </li>

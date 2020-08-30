@@ -2,30 +2,49 @@
 # Requirements for wger for production
 #
 
-bleach
+# Building/installing
+wheel
+
+# Application
+bleach~=3.1
 django-activity-stream
-django-bootstrap-breadcrumbs
-django-bower
-django-formtools>=1.0,<1.1
-django-recaptcha
-django-sortedm2m
-Django>=1.9,<1.10
-django_compressor
-django_mobile
-easy-thumbnails
-icalendar
-invoke>=0.14,<0.15
-pillow
+django-bootstrap-breadcrumbs~=0.9
+django-formtools~=2.2
+django-recaptcha==2.0.6
+Django~=3.1
+django-crispy-forms~=1.9
+django_compressor~=2.4
+django_extensions~=3.0
+django-sortedm2m~=3.0
+django-storages~=1.9
+easy-thumbnails~=2.7
+icalendar==4.0.6
+invoke~=1.4
+pillow~=7.2
 python-mimeparse
-reportlab>=3.3,<3.4
+reportlab==3.5.48
+matplotlib>=3.1
 requests
+setuptools>=18.5
 sphinx
 
-# REST API
-django-cors-headers
-django-filter
-django-tastypie>=0.13,<0.14
-djangorestframework>=3.2,<3.3
+# AWS
+#boto3
 
-# Python3 compatibility
-six
+# Production
+#psycopg2
+#python-memcached
+
+# REST API
+django-cors-headers>=3.0
+django-filter==2.3.0
+djangorestframework~=3.11
+
+
+# Explicitly set versions as a workaround for CI/Devel.
+# This is just intended to make life easier, has no deeper meaning and
+# can be removed if needed.
+docutils>=0.10,<0.17  # for botocore
+six>=1.12.0  # for django-compressor
+
+

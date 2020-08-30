@@ -1,29 +1,21 @@
 {% extends extend_template %}
-{% load i18n staticfiles wger_extras %}
+{% load i18n static crispy_forms_tags %}
 
 {% block header %}
-
-{{ form.media }}
-
-{% if custom_js %}
-<script type="text/javascript">
-    {{custom_js|safe}}
-</script>
-{% endif %}
+    {{ form.media }}
+    {% if custom_js %}
+        <script type="text/javascript">
+        $(document).ready(function() {
+            {{custom_js|safe}}
+        });
+        </script>
+    {% endif %}
 {% endblock %}
-
 
 {% block title %}{{title}}{% endblock %}
 
-
 {% block content %}
-<form action="{{form_action}}"
-      method="post"
-      class="form-horizontal"
-      role="form"
-      {% if enctype %}enctype="{{enctype}}"{% endif %}>
-    {% render_form_fields form submit_text %}
-</form>
+    {% crispy form %}
 {% endblock %}
 
 

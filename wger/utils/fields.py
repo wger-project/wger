@@ -12,38 +12,45 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import logging
 
+# Django
 from django.db import models
 
-from wger.utils.widgets import Html5FormDateField, Html5FormTimeField
+# wger
+from wger.utils.widgets import (
+    Html5FormDateField,
+    Html5FormTimeField
+)
+
 
 logger = logging.getLogger(__name__)
 
 
 class Html5TimeField(models.TimeField):
-    '''
+    """
     Custom Time field that uses the Html5TimeInput widget
-    '''
+    """
 
     def formfield(self, **kwargs):
-        '''
+        """
         Use our custom field
-        '''
+        """
         defaults = {'form_class': Html5FormTimeField}
         defaults.update(kwargs)
         return super(Html5TimeField, self).formfield(**defaults)
 
 
 class Html5DateField(models.DateField):
-    '''
+    """
     Custom Time field that uses the Html5DateInput widget
-    '''
+    """
 
     def formfield(self, **kwargs):
-        '''
+        """
         Use our custom field
-        '''
+        """
         defaults = {'form_class': Html5FormDateField}
         defaults.update(kwargs)
         return super(Html5DateField, self).formfield(**defaults)

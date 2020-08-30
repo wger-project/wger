@@ -12,29 +12,33 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 import decimal
 import logging
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 
 
-class PreferencesTestCase(WorkoutManagerTestCase):
-    '''
+class PreferencesTestCase(WgerTestCase):
+    """
     Tests the preferences page
-    '''
+    """
 
     def test_preferences(self):
-        '''
+        """
         Helper function to test the preferences page
-        '''
+        """
 
         self.user_login('test')
         response = self.client.get(reverse('core:user:preferences'))
@@ -57,7 +61,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_active': False,
                                      'timer_pause': 100,
                                      'num_days_weight_reminder': 10,
-                                     'weight_unit': 'kg'})
+                                     'weight_unit': 'kg',
+                                     'birthdate': '02/25/1987'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
@@ -80,7 +85,8 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                                      'timer_active': True,
                                      'timer_pause': 40,
                                      'num_days_weight_reminder': 10,
-                                     'weight_unit': 'lb'})
+                                     'weight_unit': 'lb',
+                                     'birthdate': '02/25/1987'})
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
@@ -90,9 +96,9 @@ class PreferencesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.context['user'].email, '')
 
     def test_address(self):
-        '''
+        """
         Test that the address property works correctly
-        '''
+        """
 
         # Member2 has a contract
         user = User.objects.get(username='member2')
@@ -111,15 +117,15 @@ class PreferencesTestCase(WorkoutManagerTestCase):
                           'city': ''})
 
 
-class UserBodyweightTestCase(WorkoutManagerTestCase):
-    '''
+class UserBodyweightTestCase(WgerTestCase):
+    """
     Tests the body weight generation/update function
-    '''
+    """
 
     def test_bodyweight_new(self):
-        '''
+        """
         Tests that a new weight entry is created
-        '''
+        """
         user = User.objects.get(pk=2)
         count_before = WeightEntry.objects.filter(user=user).count()
 
@@ -129,9 +135,9 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.date, datetime.date.today())
 
     def test_bodyweight_new_2(self):
-        '''
+        """
         Tests that a new weight entry is created
-        '''
+        """
         user = User.objects.get(pk=2)
         count_before = WeightEntry.objects.filter(user=user).count()
         last_entry = WeightEntry.objects.filter(user=user).latest()
@@ -144,9 +150,9 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.date, datetime.date.today())
 
     def test_bodyweight_no_entries(self):
-        '''
+        """
         Tests that a new weight entry is created if there are no weight entries
-        '''
+        """
         user = User.objects.get(pk=2)
         WeightEntry.objects.filter(user=user).delete()
 
@@ -157,9 +163,9 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.date, datetime.date.today())
 
     def test_bodyweight_edit(self):
-        '''
+        """
         Tests that the last weight entry is edited
-        '''
+        """
         user = User.objects.get(pk=2)
         last_entry = WeightEntry.objects.filter(user=user).latest()
         last_entry.date = datetime.date.today() - datetime.timedelta(days=3)
@@ -174,9 +180,9 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.weight, 100)
 
     def test_bodyweight_edit_2(self):
-        '''
+        """
         Tests that the last weight entry is edited
-        '''
+        """
         user = User.objects.get(pk=2)
         last_entry = WeightEntry.objects.filter(user=user).latest()
         last_entry.date = datetime.date.today()
@@ -191,14 +197,14 @@ class UserBodyweightTestCase(WorkoutManagerTestCase):
         self.assertEqual(entry.weight, 100)
 
 
-class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
-    '''
+class PreferencesCalculationsTestCase(WgerTestCase):
+    """
     Tests the different calculation method in the user profile
-    '''
+    """
     def test_last_weight_entry(self):
-        '''
+        """
         Tests that the last weight entry is correctly returned
-        '''
+        """
         self.user_login('test')
         user = User.objects.get(pk=2)
         entry = WeightEntry()
@@ -212,31 +218,31 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(user.userprofile.weight, 150)
 
     def test_last_weight_entry_empty(self):
-        '''
+        """
         Tests that the last weight entry is correctly returned if no matches
-        '''
+        """
         self.user_login('test')
         user = User.objects.get(pk=2)
         WeightEntry.objects.filter(user=user).delete()
         self.assertEqual(user.userprofile.weight, 0)
 
     def test_bmi(self):
-        '''
+        """
         Tests the BMI calculator
-        '''
+        """
 
         self.user_login('test')
 
         user = User.objects.get(pk=2)
         bmi = user.userprofile.calculate_bmi()
         self.assertEqual(bmi,
-                         user.userprofile.weight.quantize(TWOPLACES) /
-                         decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES))
+                         user.userprofile.weight.quantize(TWOPLACES)
+                         / decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES))
 
     def test_basal_metabolic_rate(self):
-        '''
+        """
         Tests the BMR calculator
-        '''
+        """
 
         self.user_login('test')
 
@@ -256,9 +262,9 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
         self.assertEqual(bmr, 0)
 
     def test_calculate_activities(self):
-        '''
+        """
         Tests the calories calculator for physical activities
-        '''
+        """
 
         self.user_login('test')
         user = User.objects.get(pk=2)
@@ -284,9 +290,9 @@ class PreferencesCalculationsTestCase(WorkoutManagerTestCase):
 
 # TODO: the user can't delete or create new profiles
 # class UserProfileApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     '''
+#     """
 #     Tests the user preferences overview resource
-#     '''
+#     """
 #     pk = 2
 #     resource = UserProfile
 #     private_resource = True

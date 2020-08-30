@@ -24,6 +24,30 @@
         }
     },
     {
+        "pk": 4,
+        "model": "exercises.muscle",
+        "fields": {
+            "is_front": true,
+            "name": "Bigus Pectoralis"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "exercises.muscle",
+        "fields": {
+            "is_front": true,
+            "name": "Latissimus wingus"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "exercises.muscle",
+        "fields": {
+            "is_front": true,
+            "name": "Gluteus jucicus"
+        }
+    },
+    {
         "pk": 1,
         "model": "exercises.exercisecategory",
         "fields": {

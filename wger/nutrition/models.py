@@ -14,32 +14,42 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
+# Standard Library
+import datetime
 import logging
 from decimal import Decimal
 
-from django.db import models
-
-from django.template.loader import render_to_string
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
-from django.core import mail
-from django.core.cache import cache
+# Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.core import mail
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator
+)
+from django.db import models
+from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import translation
-from django.conf import settings
+from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
 
+# wger
 from wger.core.models import Language
-from wger.utils.constants import TWOPLACES
 from wger.utils.cache import cache_mapper
+from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
-from wger.utils.models import AbstractLicenseModel, AbstractSubmissionModel
+from wger.utils.models import (
+    AbstractLicenseModel,
+    AbstractSubmissionModel
+)
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
+
 
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
@@ -50,19 +60,17 @@ ENERGY_FACTOR = {'protein': {'kg': 4,
                                    'lb': 113},
                  'fat': {'kg': 9,
                          'lb': 225}}
-'''
+"""
 Simple approximation of energy (kcal) provided per gram or ounce
-'''
-
+"""
 
 logger = logging.getLogger(__name__)
 
 
-@python_2_unicode_compatible
 class NutritionPlan(models.Model):
-    '''
+    """
     A nutrition plan
-    '''
+    """
 
     # Metaclass to set some other properties
     class Meta:
@@ -72,12 +80,14 @@ class NutritionPlan(models.Model):
 
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.TextField(max_length=2000,
+    description = models.CharField(max_length=(80),
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
@@ -88,27 +98,27 @@ class NutritionPlan(models.Model):
                                                         "plan as having a goal amount of calories. "
                                                         "You can use the calculator or enter the "
                                                         "value yourself."))
-    '''A flag indicating whether the plan has a goal amount of calories'''
+    """A flag indicating whether the plan has a goal amount of calories"""
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         if self.description:
             return u"{0}".format(self.description)
         else:
             return u"{0}".format(_("Nutrition plan"))
 
     def get_absolute_url(self):
-        '''
+        """
         Returns the canonical URL to view this object
-        '''
+        """
         return reverse('nutrition:plan:view', kwargs={'id': self.id})
 
     def get_nutritional_values(self):
-        '''
+        """
         Sums the nutritional info of all items in the plan
-        '''
+        """
         use_metric = self.user.userprofile.use_metric
         unit = 'kg' if use_metric else 'lb'
         result = {'total': {'energy': 0,
@@ -155,10 +165,10 @@ class NutritionPlan(models.Model):
         return result
 
     def get_closest_weight_entry(self):
-        '''
+        """
         Returns the closest weight entry for the nutrition plan.
         Returns None if there are no entries.
-        '''
+        """
         target = self.creation_date
         closest_entry_gte = WeightEntry.objects.filter(user=self.user) \
             .filter(date__gte=target).order_by('date').first()
@@ -172,16 +182,16 @@ class NutritionPlan(models.Model):
             return closest_entry_lte
 
     def get_owner_object(self):
-        '''
+        """
         Returns the object that has owner information
-        '''
+        """
         return self
 
     def get_calories_approximation(self):
-        '''
+        """
         Calculates the deviation from the goal calories and the actual
         amount of the current plan
-        '''
+        """
 
         goal_calories = self.user.userprofile.calories
         actual_calories = self.get_nutritional_values()['total']['energy']
@@ -199,18 +209,60 @@ class NutritionPlan(models.Model):
         else:
             return 4
 
+    def get_log_overview(self):
+        """
+        Returns an overview for all logs available for this plan
+        """
+        result = []
+        for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
+            # TODO: in python 3.5 this can be simplified as z = {**x, **y}
+            tmp = self.get_log_summary(date=date).copy()
+            tmp.update({'date': date.date()})
+            result.append(tmp)
 
-@python_2_unicode_compatible
+        return result
+
+    def get_log_entries(self, date=None):
+        """
+        Convenience function that returns the log entries for a given date
+        """
+        if not date:
+            date = datetime.date.today()
+
+        return self.logitem_set.filter(datetime__date=date).select_related()
+
+    def get_log_summary(self, date=None):
+        """
+        Sums the nutritional info of the items logged for the given date
+        """
+        use_metric = self.user.userprofile.use_metric
+        result = {'energy': 0,
+                  'protein': 0,
+                  'carbohydrates': 0,
+                  'carbohydrates_sugar': 0,
+                  'fat': 0,
+                  'fat_saturated': 0,
+                  'fibres': 0,
+                  'sodium': 0}
+
+        # Perform the sums
+        for item in self.get_log_entries(date):
+            values = item.get_nutritional_values(use_metric=use_metric)
+            for key in result.keys():
+                result[key] += values[key]
+        return result
+
+
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
-    '''
+    """
     An ingredient, with some approximate nutrition values
-    '''
+    """
 
     ENERGY_APPROXIMATION = 15
-    '''
+    """
     How much the calculated energy from protein, etc. can deviate from the
     energy amount given (in percent).
-    '''
+    """
 
     # Metaclass to set some other properties
     class Meta:
@@ -218,7 +270,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
 
     creation_date = models.DateField(_('Date'), auto_now_add=True)
     update_date = models.DateField(_('Date'),
@@ -227,7 +280,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    editable=False)
 
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'),)
+                            verbose_name=_('Name'), )
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
@@ -294,14 +347,14 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
 
     def get_absolute_url(self):
-        '''
+        """
         Returns the canonical URL to view this object
-        '''
+        """
         return reverse('nutrition:ingredient:view',
                        kwargs={'id': self.id, 'slug': slugify(self.name)})
 
     def clean(self):
-        '''
+        """
         Do a very broad sanity check on the nutritional values according to
         the following rules:
         - 1g of protein: 4kcal
@@ -310,7 +363,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         The sum is then compared to the given total energy, with ENERGY_APPROXIMATION
         percent tolerance.
-        '''
+        """
 
         # Note: calculations in 100 grams, to save us the '/100' everywhere
         energy_protein = 0
@@ -339,44 +392,57 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                         'provided by protein, carbohydrates and fat.'))
 
     def save(self, *args, **kwargs):
-        '''
+        """
         Reset the cache
-        '''
+        """
 
         super(Ingredient, self).save(*args, **kwargs)
         cache.delete(cache_mapper.get_ingredient_key(self.id))
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return self.name
 
     def __eq__(self, other):
-        '''
+        """
         Compare ingredients based on their values, not like django on their PKs
-        '''
+        """
 
         logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
         equal = True
         if isinstance(other, self.__class__):
             for i in self._meta.fields:
-                if (hasattr(self, i.name) and hasattr(other, i.name) and
-                   (getattr(self, i.name, None) != getattr(other, i.name, None))):
-                        equal = False
+                if (hasattr(self, i.name)
+                   and hasattr(other, i.name)
+                   and (getattr(self, i.name, None) != getattr(other, i.name, None))):
+                    equal = False
         else:
             equal = False
         return equal
+
+    def __hash__(self):
+        """
+        Define a hash function
+
+        This is rather unnecessary, but it seems that newer versions of django
+        have a problem when the __eq__ function is implemented, but not the
+        __hash__ one. Returning hash(pk) is also django's default.
+
+        :return: hash(pk)
+        """
+        return hash(self.pk)
 
     #
     # Own methods
     #
     def compare_with_database(self):
-        '''
+        """
         Compares the current ingredient with the version saved in the database.
 
         If the current object has no PK, returns false
-        '''
+        """
         if not self.pk:
             return False
 
@@ -387,10 +453,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return True
 
     def send_email(self, request):
-        '''
+        """
         Sends an email after being successfully added to the database (for user
         submitted ingredients only)
-        '''
+        """
         try:
             user = User.objects.get(username=self.license_author)
         except User.DoesNotExist:
@@ -423,58 +489,58 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
             # Send email to administrator
             subject = _('New user submitted ingredient')
-            message = _(u'''The user {0} submitted a new ingredient "{1}".'''.format(
+            message = _(u"""The user {0} submitted a new ingredient "{1}".""".format(
                 request.user.username, self.name))
             mail.mail_admins(subject,
                              message,
                              fail_silently=True)
 
     def get_owner_object(self):
-        '''
+        """
         Ingredient has no owner information
-        '''
+        """
         return False
 
 
-@python_2_unicode_compatible
 class WeightUnit(models.Model):
-    '''
+    """
     A more human usable weight unit (spoon, table, slice...)
-    '''
+    """
 
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
-                                 editable=False)
+                                 editable=False,
+                                 on_delete=models.CASCADE)
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'),)
+                            verbose_name=_('Name'), )
 
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return self.name
 
     def get_owner_object(self):
-        '''
+        """
         Weight unit has no owner information
-        '''
+        """
         return None
 
 
-@python_2_unicode_compatible
 class IngredientWeightUnit(models.Model):
-    '''
+    """
     A specific human usable weight unit for an ingredient
-    '''
+    """
 
     ingredient = models.ForeignKey(Ingredient,
                                    verbose_name=_('Ingredient'),
-                                   editable=False)
-    unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'))
+                                   editable=False,
+                                   on_delete=models.CASCADE)
+    unit = models.ForeignKey(WeightUnit, verbose_name=_('Weight unit'), on_delete=models.CASCADE)
 
     gram = models.IntegerField(verbose_name=_('Amount in grams'))
     amount = models.DecimalField(decimal_places=2,
@@ -484,26 +550,25 @@ class IngredientWeightUnit(models.Model):
                                  help_text=_('Unit amount, e.g. "1 Cup" or "1/2 spoon"'))
 
     def get_owner_object(self):
-        '''
+        """
         Weight unit has no owner information
-        '''
+        """
         return None
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
 
         return u"{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
                                        self.unit.name,
                                        self.gram)
 
 
-@python_2_unicode_compatible
 class Meal(models.Model):
-    '''
+    """
     A meal
-    '''
+    """
 
     # Metaclass to set some other properties
     class Meta:
@@ -511,7 +576,8 @@ class Meal(models.Model):
 
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
-                             editable=False)
+                             editable=False,
+                             on_delete=models.CASCADE)
     order = models.IntegerField(verbose_name=_('Order'),
                                 blank=True,
                                 editable=False)
@@ -520,23 +586,23 @@ class Meal(models.Model):
                           verbose_name=_('Time (approx)'))
 
     def __str__(self):
-        '''
+        """
         Return a more human-readable representation
-        '''
+        """
         return u"{0} Meal".format(self.order)
 
     def get_owner_object(self):
-        '''
+        """
         Returns the object that has owner information
-        '''
+        """
         return self.plan
 
     def get_nutritional_values(self, use_metric=True):
-        '''
+        """
         Sums the nutrional info of all items in the meal
 
         :param use_metric Flag that controls the units used
-        '''
+        """
         nutritional_info = {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
@@ -560,49 +626,19 @@ class Meal(models.Model):
         return nutritional_info
 
 
-@python_2_unicode_compatible
-class MealItem(models.Model):
-    '''
-    An item (component) of a meal
-    '''
+class BaseMealItem(object):
+    """
+    Base class for an item (component) of a meal or log
 
-    meal = models.ForeignKey(Meal,
-                             verbose_name=_('Nutrition plan'),
-                             editable=False)
-    ingredient = models.ForeignKey(Ingredient, verbose_name=_('Ingredient'))
-    weight_unit = models.ForeignKey(IngredientWeightUnit,
-                                    verbose_name=_('Weight unit'),
-                                    null=True,
-                                    blank=True,
-                                    )
-
-    order = models.IntegerField(verbose_name=_('Order'),
-                                blank=True,
-                                editable=False)
-    amount = models.DecimalField(decimal_places=2,
-                                 max_digits=6,
-                                 verbose_name=_('Amount'),
-                                 validators=[MinValueValidator(1),
-                                             MaxValueValidator(1000)])
-
-    def __str__(self):
-        '''
-        Return a more human-readable representation
-        '''
-        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
-
-    def get_owner_object(self):
-        '''
-        Returns the object that has owner information
-        '''
-        return self.meal.plan
+    This just provides some common helper functions
+    """
 
     def get_unit_type(self):
-        '''
+        """
         Returns the type of unit used:
         - a value in grams
         - a 'human' unit like 'a cup' or 'a slice'
-        '''
+        """
 
         if self.weight_unit:
             return MEALITEM_WEIGHT_UNIT
@@ -610,11 +646,11 @@ class MealItem(models.Model):
             return MEALITEM_WEIGHT_GRAM
 
     def get_nutritional_values(self, use_metric=True):
-        '''
+        """
         Sums the nutrional info for the ingredient in the MealItem
 
         :param use_metric Flag that controls the units used
-        '''
+        """
         nutritional_info = {'energy': 0,
                             'protein': 0,
                             'carbohydrates': 0,
@@ -627,17 +663,17 @@ class MealItem(models.Model):
         if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
             item_weight = self.amount
         else:
-            item_weight = (self.amount *
-                           self.weight_unit.amount *
-                           self.weight_unit.gram)
+            item_weight = (self.amount
+                           * self.weight_unit.amount
+                           * self.weight_unit.gram)
 
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
         nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
-            nutritional_info['carbohydrates_sugar'] += self.ingredient.carbohydrates_sugar \
-                * item_weight / 100
+            nutritional_info['carbohydrates_sugar'] += \
+                self.ingredient.carbohydrates_sugar * item_weight / 100
 
         nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
@@ -666,3 +702,109 @@ class MealItem(models.Model):
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
+
+
+class MealItem(BaseMealItem, models.Model):
+    """
+    An item (component) of a meal
+    """
+
+    meal = models.ForeignKey(Meal,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False,
+                             on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   on_delete=models.CASCADE)
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.CASCADE)
+
+    order = models.IntegerField(verbose_name=_('Order'),
+                                blank=True,
+                                editable=False)
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 verbose_name=_('Amount'),
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(1000)])
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.meal.plan
+
+
+class LogItem(BaseMealItem, models.Model):
+    """
+    An item (component) of a log
+    """
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["datetime", ]
+
+    plan = models.ForeignKey(NutritionPlan,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False,
+                             on_delete=models.CASCADE)
+    """
+    The plan this log belongs to
+    """
+
+    datetime = models.DateTimeField(auto_now=True)
+    """
+    Time and date when the log was added
+    """
+
+    comment = models.TextField(verbose_name=_('Comment'),
+                               blank=True,
+                               null=True)
+    """
+    Comment field, for additional information
+    """
+
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   on_delete=models.CASCADE)
+    """
+    Ingredient
+    """
+
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.CASCADE)
+    """
+    Weight unit used (grams, slices, etc.)
+    """
+
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 verbose_name=_('Amount'),
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(1000)])
+    """
+    The amount of units
+    """
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return u"Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.plan

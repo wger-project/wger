@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from __future__ import unicode_literals
 
 from django.db import models, migrations
@@ -56,7 +57,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('comment', models.CharField(help_text='A comment about how to correctly do this exercise.', max_length=200, verbose_name='Comment')),
-                ('exercise', models.ForeignKey(editable=False, to='exercises.Exercise', verbose_name='Exercise')),
+                ('exercise', models.ForeignKey(editable=False, to='exercises.Exercise', verbose_name='Exercise', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -70,8 +71,8 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(default=b'1', max_length=2, editable=False, choices=[(b'1', 'Pending'), (b'2', 'Accepted'), (b'3', 'Declined')])),
                 ('image', models.ImageField(help_text='Only PNG and JPEG formats are supported', upload_to=wger.exercises.models.exercise_image_upload_dir, verbose_name='Image')),
                 ('is_main', models.BooleanField(default=False, help_text='Tick the box if you want to set this image as the main one for the exercise (will be shown e.g. in the search). The first image is automatically marked by the system.', verbose_name='Is main picture')),
-                ('exercise', models.ForeignKey(verbose_name='Exercise', to='exercises.Exercise')),
-                ('license', models.ForeignKey(default=2, verbose_name='License', to='core.License')),
+                ('exercise', models.ForeignKey(verbose_name='Exercise', to='exercises.Exercise', on_delete=models.CASCADE)),
+                ('license', models.ForeignKey(default=2, verbose_name='License', to='core.License', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-is_main', 'id'],
@@ -93,7 +94,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='exercise',
             name='category',
-            field=models.ForeignKey(verbose_name='Category', to='exercises.ExerciseCategory'),
+            field=models.ForeignKey(verbose_name='Category', to='exercises.ExerciseCategory', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -105,13 +106,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='exercise',
             name='language',
-            field=models.ForeignKey(verbose_name='Language', to='core.Language'),
+            field=models.ForeignKey(verbose_name='Language', to='core.Language', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='exercise',
             name='license',
-            field=models.ForeignKey(default=2, verbose_name='License', to='core.License'),
+            field=models.ForeignKey(default=2, verbose_name='License', to='core.License', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(

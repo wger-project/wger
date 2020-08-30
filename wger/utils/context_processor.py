@@ -13,9 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
 from django.conf import settings
 from django.templatetags.static import static
 
+# wger
 from wger import get_version
 from wger.config.models import GymConfig
 from wger.utils import constants
@@ -82,11 +84,11 @@ def processor(request):
     if '/software/' in request.get_full_path() \
        or '/contact' in request.get_full_path() \
        or '/api/v2' in request.get_full_path():
-            context['active_tab'] = constants.SOFTWARE_TAB
-            context['show_shariff'] = True
+        context['active_tab'] = constants.SOFTWARE_TAB
+        context['show_shariff'] = True
 
     elif '/exercise/' in request.get_full_path():
-        context['active_tab'] = constants.EXERCISE_TAB
+        context['active_tab'] = constants.WORKOUT_TAB
 
     elif '/nutrition/' in request.get_full_path():
         context['active_tab'] = constants.NUTRITION_TAB
@@ -98,22 +100,19 @@ def processor(request):
             or '/groups/' in request.get_full_path():
         context['active_tab'] = constants.WORKOUT_TAB
 
-    else:
-        context['active_tab'] = constants.USER_TAB
-
     return context
 
 
 def get_custom_header(request):
-    '''
+    """
     Loads the custom header for the application, if available
 
     Currently the header can only be overwritten to use the user's current gym
-    '''
+    """
 
     # Current gym
     current_gym = None
-    if request.user.is_authenticated() and request.user.userprofile.gym:
+    if request.user.is_authenticated and request.user.userprofile.gym:
         current_gym = request.user.userprofile.gym
     else:
         global_gymconfig = GymConfig.objects.get(pk=1)

@@ -12,20 +12,24 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse_lazy
+# Django
+from django.urls import reverse_lazy
 
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import delete_testcase_add_methods
+# wger
+from wger.core.tests.base_testcase import (
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import AdminUserNote
 
 
-class AdminNoteOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+class AdminNoteOverviewTest(WgerAccessTestCase):
+    """
     Tests accessing the admin notes overview page
-    '''
+    """
     url = reverse_lazy('gym:admin_note:list', kwargs={'user_pk': 14})
     anonymous_fail = True
     user_success = ('trainer1',
@@ -39,10 +43,10 @@ class AdminNoteOverviewTest(WorkoutManagerAccessTestCase):
                  'general_manager2')
 
 
-class AddAdminNoteTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddAdminNoteTestCase(WgerAddTestCase):
+    """
     Tests adding a new admin note
-    '''
+    """
     object_class = AdminUserNote
     url = reverse_lazy('gym:admin_note:add', kwargs={'user_pk': 14})
     data = {'note': 'The note text goes here'}
@@ -57,10 +61,10 @@ class AddAdminNoteTestCase(WorkoutManagerAddTestCase):
                  'general_manager2')
 
 
-class EditAdminNoteTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditAdminNoteTestCase(WgerEditTestCase):
+    """
     Tests editing an admin note
-    '''
+    """
 
     object_class = AdminUserNote
     url = 'gym:admin_note:edit'
@@ -77,10 +81,10 @@ class EditAdminNoteTestCase(WorkoutManagerEditTestCase):
     data = {'note': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr'}
 
 
-class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteAdminNoteTestCase(WgerDeleteTestCase):
+    """
     Tests deleting an admin note
-    '''
+    """
 
     pk = 2
     object_class = AdminUserNote
@@ -94,5 +98,6 @@ class DeleteAdminNoteTestCase(WorkoutManagerDeleteTestCase):
                  'trainer4',
                  'general_manager1',
                  'general_manager2')
+
 
 delete_testcase_add_methods(DeleteAdminNoteTestCase)

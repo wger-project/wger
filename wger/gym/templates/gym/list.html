@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load wger_extras %}
 
 {% block title %}{% trans "Gym list" %}{% endblock %}
@@ -11,18 +11,14 @@
 <ul class="list-group">
     {% for gym in gym_list %}
     <li class="list-group-item ">
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog">{% trans 'Edit' %}</a>
-                </li>
-                <li>
-                    <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog">{% trans 'Delete' %}</a>
-                </li>
-            </ul>
+            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
+                <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+            </div>
         </div>
         <a href="{% url 'gym:gym:user-list' gym.pk %}">{{gym}}</a>
     </li>
@@ -39,15 +35,13 @@
 
 {% block sidebar %}
 {% if perms.config.change_gymconfig %}
-<div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
         {% trans "Actions" %} <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>
-            <a href="{% url 'config:gym_config:edit' %}" class="wger-modal-dialog">{% trans "Edit"%}</a>
-        </li>
-    </ul>
+    <div class="dropdown-menu" role="menu">
+        <a href="{% url 'config:gym_config:edit' %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}</a>
+    </div>
 </div>
 {% endif %}
 <h4>{% trans "Global gym configuration" %}</h4>

@@ -13,24 +13,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import (
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
+)
 from wger.nutrition.models import NutritionPlan
 
 
-class PlanRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class PlanRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         p = NutritionPlan.objects.get(pk=5)
         self.assertEqual("{0}".format(p), 'Description 1')
 
@@ -39,10 +43,10 @@ class PlanRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(p), 'Nutrition plan')
 
 
-class PlanShareButtonTestCase(WorkoutManagerTestCase):
-    '''
+class PlanShareButtonTestCase(WgerTestCase):
+    """
     Test that the share button is correctly displayed and hidden
-    '''
+    """
 
     def test_share_button(self):
         plan = NutritionPlan.objects.get(pk=5)
@@ -60,15 +64,15 @@ class PlanShareButtonTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['show_shariff'])
 
 
-class PlanAccessTestCase(WorkoutManagerTestCase):
-    '''
+class PlanAccessTestCase(WgerTestCase):
+    """
     Test accessing the workout page
-    '''
+    """
 
     def test_access_shared(self):
-        '''
+        """
         Test accessing the URL of a shared workout
-        '''
+        """
         plan = NutritionPlan.objects.get(pk=5)
 
         self.user_login('admin')
@@ -84,9 +88,9 @@ class PlanAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_access_not_shared(self):
-        '''
+        """
         Test accessing the URL of a private workout
-        '''
+        """
         plan = NutritionPlan.objects.get(pk=4)
 
         self.user_login('admin')
@@ -102,20 +106,20 @@ class PlanAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class DeletePlanTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeletePlanTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a nutritional plan
-    '''
+    """
 
     object_class = NutritionPlan
     url = 'nutrition:plan:delete'
     pk = 2
 
 
-class EditPlanTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditPlanTestCase(WgerEditTestCase):
+    """
     Tests editing an ingredient
-    '''
+    """
 
     object_class = NutritionPlan
     url = 'nutrition:plan:edit'
@@ -123,14 +127,14 @@ class EditPlanTestCase(WorkoutManagerEditTestCase):
     data = {'description': 'My new description'}
 
 
-class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
-    '''
+class PlanDailyCaloriesTestCase(WgerTestCase):
+    """
     Tests the handling of the daily calories in the plan page
-    '''
+    """
     def test_overview_no_calories(self):
-        '''
+        """
         Tests the overview page with no daily calories set
-        '''
+        """
 
         self.user_login('test')
 
@@ -142,9 +146,9 @@ class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
         self.assertNotContains(response, 'goal amount of calories')
 
     def test_overview_calories(self):
-        '''
+        """
         Tests the overview page with no daily calories set
-        '''
+        """
 
         # Plan has daily calories goal
         self.user_login('test')
@@ -160,9 +164,9 @@ class PlanDailyCaloriesTestCase(WorkoutManagerTestCase):
 
 
 class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the nutritional plan overview resource
-    '''
+    """
     pk = 4
     resource = NutritionPlan
     private_resource = True

@@ -12,36 +12,39 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 from decimal import Decimal
 
+# Django
 from django.core.cache import cache
 
+# wger
 from wger.core.models import (
     DaysOfWeek,
     RepetitionUnit,
     WeightUnit
 )
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import Exercise
 from wger.manager.models import (
-    Workout,
     Day,
     Set,
-    Setting
+    Setting,
+    Workout
 )
 from wger.utils.cache import cache_mapper
 
 
-class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutCanonicalFormTestCase(WgerTestCase):
+    """
     Tests the canonical form for a workout
-    '''
+    """
     maxDiff = None
 
     def test_canonical_form(self):
-        '''
+        """
         Tests the canonical form for a workout
-        '''
+        """
 
         workout = Workout.objects.get(pk=1)
         setting_1 = Setting.objects.get(pk=1)
@@ -121,9 +124,9 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         self.assertEqual(workout.canonical_representation['day_list'][2], canonical_form)
 
     def test_canonical_form_day(self):
-        '''
+        """
         Tests the canonical form for a day
-        '''
+        """
 
         day = Day.objects.get(pk=5)
         weekday1 = DaysOfWeek.objects.get(pk=3)
@@ -161,15 +164,15 @@ class WorkoutCanonicalFormTestCase(WorkoutManagerTestCase):
         self.assertEqual(day.canonical_representation['set_list'], canonical_form)
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
-    '''
+class WorkoutCacheTestCase(WgerTestCase):
+    """
     Test case for the workout canonical representation
-    '''
+    """
 
     def test_canonical_form_cache(self):
-        '''
+        """
         Tests that the workout cache of the canonical form is correctly generated
-        '''
+        """
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(1)))
 
         workout = Workout.objects.get(pk=1)
@@ -177,9 +180,9 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertTrue(cache.get(cache_mapper.get_workout_canonical(1)))
 
     def test_canonical_form_cache_save(self):
-        '''
+        """
         Tests the workout cache when saving
-        '''
+        """
         workout = Workout.objects.get(pk=1)
         workout.canonical_representation
         self.assertTrue(cache.get(cache_mapper.get_workout_canonical(1)))
@@ -188,9 +191,9 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(1)))
 
     def test_canonical_form_cache_delete(self):
-        '''
+        """
         Tests the workout cache when deleting
-        '''
+        """
         workout = Workout.objects.get(pk=1)
         workout.canonical_representation
         self.assertTrue(cache.get(cache_mapper.get_workout_canonical(1)))

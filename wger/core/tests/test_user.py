@@ -12,20 +12,25 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 
+# wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerAccessTestCase
+    WgerAccessTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 
 
-class StatusUserTestCase(WorkoutManagerTestCase):
-    '''
+class StatusUserTestCase(WgerTestCase):
+    """
     Test activating and deactivating users
-    '''
+    """
 
     user_success = ('general_manager1',
                     'general_manager2',
@@ -43,9 +48,9 @@ class StatusUserTestCase(WorkoutManagerTestCase):
                  'trainer4')
 
     def activate(self, fail=False):
-        '''
+        """
         Helper function to test activating users
-        '''
+        """
         user = User.objects.get(pk=2)
         user.is_active = False
         user.save()
@@ -61,33 +66,33 @@ class StatusUserTestCase(WorkoutManagerTestCase):
             self.assertTrue(user.is_active)
 
     def test_activate_authorized(self):
-        '''
+        """
         Tests activating a user as an administrator
-        '''
+        """
         for username in self.user_success:
             self.user_login(username)
             self.activate()
             self.user_logout()
 
     def test_activate_unauthorized(self):
-        '''
+        """
         Tests activating a user as another logged in user
-        '''
+        """
         for username in self.user_fail:
             self.user_login(username)
             self.activate(fail=True)
             self.user_logout()
 
     def test_activate_logged_out(self):
-        '''
+        """
         Tests activating a user a logged out user
-        '''
+        """
         self.activate(fail=True)
 
     def deactivate(self, fail=False):
-        '''
+        """
         Helper function to test deactivating users
-        '''
+        """
         user = User.objects.get(pk=2)
         user.is_active = True
         user.save()
@@ -103,34 +108,34 @@ class StatusUserTestCase(WorkoutManagerTestCase):
             self.assertFalse(user.is_active)
 
     def test_deactivate_authorized(self):
-        '''
+        """
         Tests deactivating a user as an administrator
-        '''
+        """
         for username in self.user_success:
             self.user_login(username)
             self.deactivate()
             self.user_logout()
 
     def test_deactivate_unauthorized(self):
-        '''
+        """
         Tests deactivating a user as another logged in user
-        '''
+        """
         for username in self.user_fail:
             self.user_login(username)
             self.deactivate(fail=True)
             self.user_logout()
 
     def test_deactivate_logged_out(self):
-        '''
+        """
         Tests deactivating a user a logged out user
-        '''
+        """
         self.deactivate(fail=True)
 
 
-class EditUserTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditUserTestCase(WgerEditTestCase):
+    """
     Test editing a user
-    '''
+    """
 
     object_class = User
     url = 'core:user:edit'
@@ -151,10 +156,10 @@ class EditUserTestCase(WorkoutManagerEditTestCase):
                  'trainer4')
 
 
-class EditUserTestCase2(WorkoutManagerEditTestCase):
-    '''
+class EditUserTestCase2(WgerEditTestCase):
+    """
     Test editing a user
-    '''
+    """
 
     object_class = User
     url = 'core:user:edit'
@@ -173,10 +178,10 @@ class EditUserTestCase2(WorkoutManagerEditTestCase):
                  'trainer4')
 
 
-class UserListTestCase(WorkoutManagerAccessTestCase):
-    '''
+class UserListTestCase(WgerAccessTestCase):
+    """
     Test accessing the general user overview
-    '''
+    """
 
     url = 'core:user:list'
     user_success = ('admin',
@@ -192,10 +197,10 @@ class UserListTestCase(WorkoutManagerAccessTestCase):
                  'trainer4')
 
 
-class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
-    '''
+class UserDetailPageTestCase(WgerAccessTestCase):
+    """
     Test accessing the user detail page
-    '''
+    """
 
     url = reverse_lazy('core:user:overview', kwargs={'pk': 2})
     user_success = ('trainer1',
@@ -210,10 +215,10 @@ class UserDetailPageTestCase(WorkoutManagerAccessTestCase):
                  'member2')
 
 
-class UserDetailPageTestCase2(WorkoutManagerAccessTestCase):
-    '''
+class UserDetailPageTestCase2(WgerAccessTestCase):
+    """
     Test accessing the user detail page
-    '''
+    """
 
     url = reverse_lazy('core:user:overview', kwargs={'pk': 19})
     user_success = ('trainer4',

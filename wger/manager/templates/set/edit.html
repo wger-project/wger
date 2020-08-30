@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load staticfiles %}
-{% load wger_extras %}
+{% load static %}
 
 
 <!--
@@ -14,22 +13,15 @@
         Main Content
 -->
 {% block content %}
-<form action="{{form_action}}"
+<form action="{{request.path}}"
       method="post"
-      class="form-horizontal">
+      class="wger-form">
 
     {% csrf_token %}
-    <div class="form-group">
-        <label class="col-md-3 control-label">
-            {% trans "Repetitions" %}
-        </label>
-        <div class="col-md-9">
-        {% for formset in formsets %}
-                {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
-        {% endfor %}
-        </div>
-    </div>
+    {% for formset in formsets %}
+        {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset helper=helper %}
+    {% endfor %}
 
-    {% render_form_submit %}
+     <input type="submit" class="btn btn-primary btn-success btn-block" value="{% trans 'Update' %}">
 </form>
 {% endblock %}

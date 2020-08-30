@@ -13,16 +13,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+# wger
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
-class OverviewPlanTestCase(WorkoutManagerTestCase):
-    '''
+class OverviewPlanTestCase(WgerTestCase):
+    """
     Tests the ingredient overview
-    '''
+    """
 
     def test_overview(self):
 
@@ -73,9 +75,9 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 404)
 
     def ingredient_overview(self, logged_in=True, demo=False, admin=False):
-        '''
+        """
         Helper function to test the ingredient overview page
-        '''
+        """
 
         # Page exists
         response = self.client.get(reverse('nutrition:ingredient:list'))
@@ -95,32 +97,32 @@ class OverviewPlanTestCase(WorkoutManagerTestCase):
             self.assertContains(response, 'Only registered users can do this')
 
     def test_ingredient_index_editor(self):
-        '''
+        """
         Tests the ingredient overview page as a logged in user with editor rights
-        '''
+        """
 
         self.user_login('admin')
         self.ingredient_overview(admin=True)
 
     def test_ingredient_index_non_editor(self):
-        '''
+        """
         Tests the overview overview page as a logged in user without editor rights
-        '''
+        """
 
         self.user_login('test')
         self.ingredient_overview()
 
     def test_ingredient_index_demo_user(self):
-        '''
+        """
         Tests the overview overview page as a logged in demo user
-        '''
+        """
 
         self.user_login('demo')
         self.ingredient_overview(demo=True)
 
     def test_ingredient_index_logged_out(self):
-        '''
+        """
         Tests the overview overview page as an anonymous (logged out) user
-        '''
+        """
 
         self.ingredient_overview(logged_in=False)

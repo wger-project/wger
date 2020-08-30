@@ -14,45 +14,64 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
 import logging
 import uuid
-import datetime
 
 from actstream import action
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.template.context_processors import csrf
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy, ugettext as _
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+# Django
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
+from django.template.context_processors import csrf
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.decorators.vary import vary_on_headers
+from django.views.generic import (
+    DeleteView,
+    UpdateView
+)
 
 from wger.utils.helpers import make_token
 from wger.groups.models import (
     Group,
     Membership
 )
+# wger
 from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
-from wger.manager.models import (
-    Workout,
-    WorkoutSession,
-    WorkoutLog,
-    Schedule,
-    Day
-)
 from wger.manager.forms import (
+    WorkoutCopyForm,
     WorkoutForm,
-    WorkoutSessionHiddenFieldsForm,
-    WorkoutCopyForm
+    WorkoutSessionHiddenFieldsForm
+)
+from wger.manager.models import (
+    Day,
+    Schedule,
+    Workout,
+    WorkoutLog,
+    WorkoutSession
 )
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 
 
@@ -64,9 +83,9 @@ logger = logging.getLogger(__name__)
 # ************************
 @login_required
 def overview(request):
-    '''
+    """
     An overview of all the user's workouts
-    '''
+    """
 
     template_data = {}
 
@@ -78,10 +97,11 @@ def overview(request):
     return render(request, 'workout/overview.html', template_data)
 
 
+@vary_on_headers('User-Agent')
 def view(request, pk):
-    '''
+    """
     Show the workout with the given ID
-    '''
+    """
     template_data = {}
     workout = get_object_or_404(Workout, pk=pk)
     user = workout.user
@@ -136,9 +156,9 @@ def view(request, pk):
 
 @login_required
 def copy_workout(request, pk):
-    '''
+    """
     Makes a copy of a workout
-    '''
+    """
 
     workout = get_object_or_404(Workout, pk=pk)
     user = workout.user
@@ -186,7 +206,7 @@ def copy_workout(request, pk):
                     current_set_copy.save()
 
                     # Exercises has Many2Many relationship
-                    current_set_copy.exercises = exercises
+                    current_set_copy.exercises.set(exercises)
 
                     # Go through the exercises
                     for exercise in exercises:
@@ -208,7 +228,6 @@ def copy_workout(request, pk):
         template_data.update(csrf(request))
         template_data['title'] = _('Copy workout')
         template_data['form'] = workout_form
-        template_data['form_action'] = reverse('manager:workout:copy', kwargs={'pk': workout.id})
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
         template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
@@ -218,9 +237,9 @@ def copy_workout(request, pk):
 
 @login_required
 def add(request, group_pk=None):
-    '''
+    """
     Add a new workout and redirect to its page
-    '''
+    """
     workout = Workout()
     workout.user = request.user
     if group_pk:
@@ -239,9 +258,9 @@ def add(request, group_pk=None):
 
 
 class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
-    '''
+    """
     Generic view to delete a workout routine
-    '''
+    """
 
     model = Workout
     fields = ('comment',)
@@ -250,33 +269,29 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('manager:workout:delete', kwargs={'pk': self.object.id})
         context['title'] = _(u'Delete {0}?').format(self.object)
-
         return context
 
 
 class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing workout routine
-    '''
+    """
 
     model = Workout
     form_class = WorkoutForm
-    form_action_urlname = 'manager:workout:edit'
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutEditView, self).get_context_data(**kwargs)
         context['title'] = _(u'Edit {0}').format(self.object)
-
         return context
 
 
 class LastWeightHelper:
-    '''
+    """
     Small helper class to retrieve the last workout log for a certain
     user, exercise and repetition combination.
-    '''
+    """
     user = None
     last_weight_list = {}
 
@@ -284,14 +299,14 @@ class LastWeightHelper:
         self.user = user
 
     def get_last_weight(self, exercise, reps, default_weight):
-        '''
+        """
         Returns an emtpy string if no entry is found
 
         :param exercise:
         :param reps:
         :param default_weight:
         :return: WorkoutLog or '' if none is found
-        '''
+        """
         key = (self.user.pk, exercise.pk, reps, default_weight)
         if self.last_weight_list.get(key) is None:
             last_log = WorkoutLog.objects.filter(user=self.user,
@@ -306,9 +321,9 @@ class LastWeightHelper:
 
 @login_required
 def timer(request, day_pk):
-    '''
+    """
     The timer view ("gym mode") for a workout
-    '''
+    """
 
     day = get_object_or_404(Day, pk=day_pk, training__user=request.user)
     canonical_day = day.canonical_representation
@@ -391,14 +406,8 @@ def timer(request, day_pk):
     # the current one or create a new one (this will be the most usual case)
     if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
         session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
-        url = reverse('manager:session:edit', kwargs={'pk': session.pk})
         session_form = WorkoutSessionHiddenFieldsForm(instance=session)
     else:
-        today = datetime.date.today()
-        url = reverse('manager:session:add', kwargs={'workout_pk': day.training_id,
-                                                     'year': today.year,
-                                                     'month': today.month,
-                                                     'day': today.day})
         session_form = WorkoutSessionHiddenFieldsForm()
 
     # Render template
@@ -407,7 +416,6 @@ def timer(request, day_pk):
     context['canonical_day'] = canonical_day
     context['workout'] = day.training
     context['session_form'] = session_form
-    context['form_action'] = url
     context['weight_units'] = WeightUnit.objects.all()
     context['repetition_units'] = RepetitionUnit.objects.all()
     return render(request, 'workout/timer.html', context)

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# flake8: noqa
 from __future__ import unicode_literals
 
 from django.db import migrations, models
@@ -17,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=25, verbose_name='Name')),
                 ('description', models.TextField(null=True, verbose_name='Description', blank=True)),
-                ('gym', models.ForeignKey(editable=False, to='gym.Gym')),
+                ('gym', models.ForeignKey(editable=False, to='gym.Gym', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['name'],

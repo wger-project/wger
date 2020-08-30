@@ -44,18 +44,18 @@ $(document).ready(function () {
     left: 30,
     right: 10,
     show_secondary_x_label: true,
-    xax_count: 10,
+    interpolate: d3.curveLinear,
     target: '#weight_diagram',
     x_accessor: 'date',
     y_accessor: 'weight',
     min_y_from_data: true,
-    colors: ['#3465a4']
+    colors: ['#266dd3']
   };
 
   username = $('#current-username').data('currentUsername');
   url = '/weight/api/get_weight_data/' + username;
 
-  d3.json(url, function (json) {
+  d3.json(url).then(function (json) {
     var data;
     if (json.length) {
       data = MG.convert.date(json, 'date');

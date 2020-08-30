@@ -12,34 +12,39 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-from django.core.urlresolvers import reverse_lazy
 
+# Django
+from django.urls import reverse_lazy
+
+# wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerAccessTestCase
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
-from wger.core.tests.base_testcase import delete_testcase_add_methods
+from wger.core.tests.base_testcase import (
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase,
+    delete_testcase_add_methods
+)
 from wger.gym.models import Gym
 
 
-class GymRepresentationTestCase(WorkoutManagerTestCase):
-    '''
+class GymRepresentationTestCase(WgerTestCase):
+    """
     Test the representation of a model
-    '''
+    """
 
     def test_representation(self):
-        '''
+        """
         Test that the representation of an object is correct
-        '''
+        """
         self.assertEqual("{0}".format(Gym.objects.get(pk=1)), 'Test 123')
 
 
-class GymOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+class GymOverviewTest(WgerAccessTestCase):
+    """
     Tests accessing the gym overview page
-    '''
+    """
     url = 'gym:gym:list'
     anonymous_fail = True
     user_success = ('admin',
@@ -53,10 +58,10 @@ class GymOverviewTest(WorkoutManagerAccessTestCase):
                  'manager3')
 
 
-class GymUserOverviewTest(WorkoutManagerAccessTestCase):
-    '''
+class GymUserOverviewTest(WgerAccessTestCase):
+    """
     Tests accessing the gym user overview page
-    '''
+    """
     url = reverse_lazy('gym:gym:user-list', kwargs={'pk': 1})
     anonymous_fail = True
     user_success = ('admin',
@@ -71,10 +76,10 @@ class GymUserOverviewTest(WorkoutManagerAccessTestCase):
                  'manager3')
 
 
-class AddGymTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddGymTestCase(WgerAddTestCase):
+    """
     Tests adding a new gym
-    '''
+    """
     object_class = Gym
     url = 'gym:gym:add'
     data = {'name': 'The name here'}
@@ -89,10 +94,10 @@ class AddGymTestCase(WorkoutManagerAddTestCase):
                  'manager3')
 
 
-class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
-    '''
+class DeleteGymTestCase(WgerDeleteTestCase):
+    """
     Tests deleting a gym
-    '''
+    """
 
     pk = 2
     object_class = Gym
@@ -108,13 +113,14 @@ class DeleteGymTestCase(WorkoutManagerDeleteTestCase):
                  'manager1',
                  'manager3')
 
+
 delete_testcase_add_methods(DeleteGymTestCase)
 
 
-class EditGymTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditGymTestCase(WgerEditTestCase):
+    """
     Tests editing a gym
-    '''
+    """
 
     object_class = Gym
     url = 'gym:gym:edit'
@@ -132,17 +138,17 @@ class EditGymTestCase(WorkoutManagerEditTestCase):
                  'manager3')
 
 
-class GymTestCase(WorkoutManagerTestCase):
-    '''
+class GymTestCase(WgerTestCase):
+    """
     Tests other gym methods
-    '''
+    """
 
     def test_delete_gym(self):
-        '''
+        """
         Tests that deleting a gym also removes it from all user profiles
-        '''
+        """
         gym = Gym.objects.get(pk=1)
         self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 17)
 
         gym.delete()
-        self.assertEqual(UserProfile.objects.filter(gym=gym).count(), 0)
+        self.assertEqual(UserProfile.objects.filter(gym_id=1).count(), 0)

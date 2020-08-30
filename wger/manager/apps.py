@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
+# Django
 from django.apps import AppConfig
 
 

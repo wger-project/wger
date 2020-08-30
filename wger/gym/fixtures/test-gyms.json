@@ -1,20 +1,20 @@
 [
     {
-        "pk": 1, 
+        "pk": 1,
         "model": "gym.gym",
         "fields": {
             "name": "Test 123"
         }
-    }, 
+    },
     {
-        "pk": 2, 
+        "pk": 2,
         "model": "gym.gym",
         "fields": {
             "name": "A cool gym"
         }
-    }, 
+    },
     {
-        "pk": 3, 
+        "pk": 3,
         "model": "gym.gym",
         "fields": {
             "name": "Muscle Gym"

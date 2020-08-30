@@ -15,18 +15,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.conf.urls import patterns, url, include
+# Django
+from django.conf.urls import (
+    include,
+    url
+)
 from django.contrib.auth.decorators import login_required
 
+# wger
 from wger.exercises.views import (
-    exercises,
-    comments,
     categories,
-    muscles,
+    comments,
+    equipment,
+    exercises,
     images,
-    equipment
+    muscles
 )
-
 
 
 # sub patterns for muscles
@@ -152,10 +156,10 @@ patterns_exercise = [
 
 
 urlpatterns = [
-   url(r'^muscle/', include(patterns_muscle, namespace="muscle")),
-   url(r'^image/', include(patterns_images, namespace="image")),
-   url(r'^comment/', include(patterns_comment, namespace="comment")),
-   url(r'^category/', include(patterns_category, namespace="category")),
-   url(r'^equipment/', include(patterns_equipment, namespace="equipment")),
-   url(r'^', include(patterns_exercise, namespace="exercise")),
+    url(r'^muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
+    url(r'^image/', include((patterns_images, 'image'), namespace="image")),
+    url(r'^comment/', include((patterns_comment, 'comment'), namespace="comment")),
+    url(r'^category/', include((patterns_category, 'category'), namespace="category")),
+    url(r'^equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
+    url(r'^', include((patterns_exercise, 'exercise'), namespace="exercise")),
 ]

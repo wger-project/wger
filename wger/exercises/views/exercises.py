@@ -11,53 +11,79 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
 # You should have received a copy of the GNU Affero General Public License
-import six
+
+# Standard Library
 import logging
 import uuid
-from django.core import mail
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.forms import (
-    ModelForm,
-    ModelChoiceField,
-    ModelMultipleChoiceField
-)
-from django.core.cache import cache
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.contrib.auth.decorators import permission_required
+# Django
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
+from django.core import mail
+from django.forms import (
+    CharField,
+    CheckboxSelectMultiple,
+    ModelChoiceField,
+    ModelForm,
+    ModelMultipleChoiceField,
+    Select,
+    Textarea
+)
+from django.http import (
+    HttpResponseForbidden,
+    HttpResponseRedirect
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render
+)
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.cache import patch_vary_headers
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
 from django.views.generic import (
-    ListView,
-    DeleteView,
     CreateView,
+    DeleteView,
+    ListView,
     UpdateView
 )
 
-from wger.manager.models import WorkoutLog
+# Third Party
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row
+)
+
+# wger
+from wger.config.models import LanguageConfig
 from wger.exercises.models import (
     Exercise,
-    Muscle,
-    ExerciseCategory
+    ExerciseCategory,
+    Muscle
 )
+from wger.manager.models import WorkoutLog
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
-from wger.utils.language import load_language, load_item_languages
-from wger.utils.cache import cache_mapper
-from wger.utils.widgets import (
-    TranslatedSelect,
-    TranslatedSelectMultiple,
-    TranslatedOriginalSelectMultiple
+from wger.utils.language import (
+    load_item_languages,
+    load_language
 )
-from wger.config.models import LanguageConfig
+from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
 
 
@@ -65,18 +91,23 @@ logger = logging.getLogger(__name__)
 
 
 class ExerciseListView(ListView):
-    '''
+    """
     Generic view to list all exercises
-    '''
+    """
 
     model = Exercise
     template_name = 'exercise/overview.html'
     context_object_name = 'exercises'
 
+    def get(self, request, *args, **kwargs):
+        response = super(ListView, self).get(request, *args, **kwargs)
+        patch_vary_headers(response, ['User-Agent'])
+        return response
+
     def get_queryset(self):
-        '''
+        """
         Filter to only active exercises in the configured languages
-        '''
+        """
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         return Exercise.objects.accepted() \
             .filter(language__in=languages) \
@@ -84,18 +115,18 @@ class ExerciseListView(ListView):
             .select_related()
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Pass additional data to the template
-        '''
+        """
         context = super(ExerciseListView, self).get_context_data(**kwargs)
         context['show_shariff'] = True
         return context
 
 
 def view(request, id, slug=None):
-    '''
+    """
     Detail view for an exercise
-    '''
+    """
 
     template_data = {}
     template_data['comment_edit'] = False
@@ -105,56 +136,32 @@ def view(request, id, slug=None):
 
     template_data['exercise'] = exercise
 
-    # Create the backgrounds that show what muscles the exercise works on
-    backgrounds = cache.get(cache_mapper.get_exercise_muscle_bg_key(int(id)))
-    if not backgrounds:
-        backgrounds_back = []
-        backgrounds_front = []
-
-        for muscle in exercise.muscles.all():
-            if muscle.is_front:
-                backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-            else:
-                backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-
-        for muscle in exercise.muscles_secondary.all():
-            if muscle.is_front:
-                backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-            else:
-                backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-
-        # Append the "main" background, with the silhouette of the human body
-        # This has to happen as the last step, so it is rendered behind the muscles.
-        backgrounds_front.append('images/muscles/muscular_system_front.svg')
-        backgrounds_back.append('images/muscles/muscular_system_back.svg')
-        backgrounds = (backgrounds_front, backgrounds_back)
-
-        cache.set(cache_mapper.get_exercise_muscle_bg_key(int(id)),
-                  (backgrounds_front, backgrounds_back))
-
-    template_data['muscle_backgrounds_front'] = backgrounds[0]
-    template_data['muscle_backgrounds_back'] = backgrounds[1]
+    template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
+    template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
+    template_data["muscles_sec_front"] = exercise.muscles_secondary.filter(is_front=True)
+    template_data["muscles_sec_back"] = exercise.muscles_secondary.filter(is_front=False)
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
     entry_log = []
     chart_data = []
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
         entry_log, chart_data = process_log_entries(logs)
 
     template_data['logs'] = entry_log
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
+    template_data['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
 
     return render(request, 'exercise/view.html', template_data)
 
 
 class ExercisesEditAddView(WgerFormMixin):
-    '''
+    """
     Generic view to subclass from for exercise adding and editing, since they
     share all this settings
-    '''
+    """
     model = Exercise
     sidebar = 'exercise/form.html'
     title = ugettext_lazy('Add exercise')
@@ -163,19 +170,23 @@ class ExercisesEditAddView(WgerFormMixin):
 
     def get_form_class(self):
 
-        # Define the exercise form here because only at this point during the request
-        # have we access to the currently used language. In other places Django defaults
-        # to 'en-us'.
         class ExerciseForm(ModelForm):
+            # Redefine some fields here to set some properties
+            # (some of this could be done with a crispy form helper and would be
+            # a cleaner solution)
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=TranslatedSelect())
+                                        widget=Select())
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=TranslatedOriginalSelectMultiple(),
+                                               widget=CheckboxSelectMultiple(),
                                                required=False)
 
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=TranslatedOriginalSelectMultiple(),
+                                                         widget=CheckboxSelectMultiple(),
                                                          required=False)
+
+            description = CharField(label=_('Description'),
+                                    widget=Textarea,
+                                    required=False)
 
             class Meta:
                 model = Exercise
@@ -190,47 +201,64 @@ class ExercisesEditAddView(WgerFormMixin):
                           'license_author']
 
             class Media:
-                js = ('/static/bower_components/tinymce/tinymce.min.js',)
+                js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
 
         return ExerciseForm
+
+    def get_form(self, form_class=None):
+        form = super(ExercisesEditAddView, self).get_form(form_class)
+        form.helper.layout = Layout(
+            "name_original",
+            "description",
+            "category",
+            "equipment",
+            Row(
+                Column('muscles', css_class='form-group col-6 mb-0'),
+                Column('muscles_secondary', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('license', css_class='form-group col-6 mb-0'),
+                Column('license_author', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
+        return form
 
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
                          PermissionRequiredMixin,
                          UpdateView):
-    '''
+    """
     Generic view to update an existing exercise
-    '''
+    """
     permission_required = 'exercises.change_exercise'
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:edit', kwargs={'pk': self.object.id})
         context['title'] = _(u'Edit {0}').format(self.object.name)
 
         return context
 
 
 class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
-    '''
+    """
     Generic view to add a new exercise
-    '''
-
-    form_action = reverse_lazy('exercise:exercise:add')
+    """
 
     def form_valid(self, form):
-        '''
+        """
         Set language, author and status
-        '''
+        """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Demo users can't submit exercises
-        '''
+        """
         if request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
 
@@ -238,34 +266,33 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
 
 
 class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
-    '''
+    """
     Generic view to update an existing exercise
-    '''
+    """
     sidebar = 'exercise/form_correct.html'
     messages = _('Thank you. Once the changes are reviewed the exercise will be updated.')
 
     def dispatch(self, request, *args, **kwargs):
-        '''
+        """
         Only registered users can correct exercises
-        '''
-        if not request.user.is_authenticated() or request.user.userprofile.is_temporary:
+        """
+        if not request.user.is_authenticated or request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
 
         return super(ExerciseCorrectView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:correct', kwargs={'pk': self.object.id})
         context['title'] = _(u'Correct {0}').format(self.object.name)
         return context
 
     def form_valid(self, form):
-        '''
+        """
         If the form is valid send email notifications to the site administrators.
 
         We don't return the super().form_valid because we don't want the data
         to be saved.
-        '''
+        """
         subject = 'Correction submitted for exercise #{0}'.format(self.get_object().pk)
         context = {
             'exercise': self.get_object(),
@@ -273,8 +300,8 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
             'user': self.request.user
         }
         message = render_to_string('exercise/email_correction.tpl', context)
-        mail.mail_admins(six.text_type(subject),
-                         six.text_type(message),
+        mail.mail_admins(str(subject),
+                         str(message),
                          fail_silently=True)
 
         messages.success(self.request, self.messages)
@@ -286,9 +313,9 @@ class ExerciseDeleteView(WgerDeleteMixin,
                          LoginRequiredMixin,
                          PermissionRequiredMixin,
                          DeleteView):
-    '''
+    """
     Generic view to delete an existing exercise
-    '''
+    """
 
     model = Exercise
     fields = ('category',
@@ -298,26 +325,23 @@ class ExerciseDeleteView(WgerDeleteMixin,
               'muscles_secondary',
               'equipment')
     success_url = reverse_lazy('exercise:exercise:overview')
-    delete_message = ugettext_lazy('This will delete the exercise from all workouts.')
+    delete_message_extra = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _(u'Delete {0}?').format(self.object.name)
-        context['form_action'] = reverse('exercise:exercise:delete',
-                                         kwargs={'pk': self.kwargs['pk']})
-
         return context
 
 
 class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    '''
+    """
     Generic view to list all weight units
-    '''
+    """
 
     model = Exercise
     template_name = 'exercise/pending.html'
@@ -325,17 +349,17 @@ class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListV
     permission_required = 'exercises.change_exercise'
 
     def get_queryset(self):
-        '''
+        """
         Only show pending exercises
-        '''
+        """
         return Exercise.objects.pending().order_by('-creation_date')
 
 
 @permission_required('exercises.add_exercise')
 def accept(request, pk):
-    '''
+    """
     Accepts a pending user submitted exercise and emails the user, if possible
-    '''
+    """
     exercise = get_object_or_404(Exercise, pk=pk)
     exercise.status = Exercise.STATUS_ACCEPTED
     exercise.save()
@@ -347,9 +371,9 @@ def accept(request, pk):
 
 @permission_required('exercises.add_exercise')
 def decline(request, pk):
-    '''
+    """
     Declines and deletes a pending user submitted exercise
-    '''
+    """
     exercise = get_object_or_404(Exercise, pk=pk)
     exercise.status = Exercise.STATUS_DECLINED
     exercise.save()

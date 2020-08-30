@@ -13,18 +13,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.urlresolvers import reverse
+# Django
+from django.urls import reverse
 
+# wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import WorkoutManagerAddTestCase
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import (
+    WgerAddTestCase,
+    WgerEditTestCase
+)
 from wger.nutrition.models import MealItem
 
 
-class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditMealItemUnitTestCase(WgerEditTestCase):
+    """
     Tests editing a meal, set the amount using a unit
-    '''
+    """
 
     object_class = MealItem
     url = 'nutrition:meal_item:edit'
@@ -34,10 +38,10 @@ class EditMealItemUnitTestCase(WorkoutManagerEditTestCase):
             'weight_unit': 1}
 
 
-class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
-    '''
+class EditMealItemWeightTestCase(WgerEditTestCase):
+    """
     Tests editing a meal, set the amount using weight
-    '''
+    """
 
     object_class = MealItem
     url = 'nutrition:meal_item:edit'
@@ -46,10 +50,10 @@ class EditMealItemWeightTestCase(WorkoutManagerEditTestCase):
             'ingredient': 1}
 
 
-class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddMealItemUnitTestCase(WgerAddTestCase):
+    """
     Tests adding a meal, set the amount using a unit
-    '''
+    """
 
     object_class = MealItem
     url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
@@ -58,10 +62,10 @@ class AddMealItemUnitTestCase(WorkoutManagerAddTestCase):
             'weight_unit': 1}
 
 
-class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
-    '''
+class AddMealItemWeightTestCase(WgerAddTestCase):
+    """
     Tests adding a meal, set the amount using weight
-    '''
+    """
 
     object_class = MealItem
     url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
@@ -70,9 +74,9 @@ class AddMealItemWeightTestCase(WorkoutManagerAddTestCase):
 
 
 class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
-    '''
+    """
     Tests the meal overview resource
-    '''
+    """
     pk = 10
     resource = MealItem
     private_resource = True

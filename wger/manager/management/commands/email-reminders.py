@@ -14,31 +14,34 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
-from django.template import loader
-from django.core.management.base import BaseCommand
-from django.core import mail
-from django.utils.translation import ugettext_lazy as _
-from django.utils import translation
+# Django
 from django.conf import settings
-
 from django.contrib.sites.models import Site
+from django.core import mail
+from django.core.management.base import BaseCommand
+from django.template import loader
+from django.utils import translation
+from django.utils.translation import ugettext_lazy as _
+
+# wger
 from wger.core.models import UserProfile
 from wger.manager.models import Schedule
 
 
 class Command(BaseCommand):
-    '''
+    """
     Helper admin command to send out email reminders
-    '''
+    """
 
     help = 'Send out automatic email reminders for workouts'
 
     def handle(self, **options):
-        '''
+        """
         Find if the currently active workout is overdue
-        '''
+        """
         profile_list = UserProfile.objects.filter(workout_reminder_active=True)
         counter = 0
         for profile in profile_list:
@@ -96,13 +99,13 @@ class Command(BaseCommand):
 
     @staticmethod
     def send_email(user, workout, delta):
-        '''
+        """
         Notify a user that a workout is about to expire
 
         :type user User
         :type workout Workout
         :type delta datetime.timedelta
-        '''
+        """
 
         # Update the last notification date field
         user.userprofile.last_workout_notification = datetime.date.today()

@@ -1,0 +1,47 @@
+/*
+ * wger customization for bootstrap
+ *
+ * https://coolors.co/e63946-a8dadc-457b9d-1d3557-cba328-296713-266dd3-a5a5b6
+ */
+
+$wger-blue:         #2A4C7D !default;
+$wger-blue-2:       #266dd3 !default;
+$wger-blue-light:   #457b9d !default;
+$wger-blue-light-2: #a8dadc !default;
+$wger-light:        #f4f4f6 !default;
+$wger-light-2:      #dddde3 !default;
+$wger-light-3:      #a5a5b6 !default;
+$wger-red:          #e63946 !default;
+$wger-yellow:       #cba328 !default;
+$wger-green:        #307916 !default;
+
+
+$blue: $wger-blue !default;
+$red: $wger-red;
+$yellow: $wger-yellow !default;
+$green: $wger-green !default;
+
+
+
+$theme-colors: (
+    "wger-primary": $wger-blue,
+    "wger-red": $wger-red,
+    "wger-yellow": $wger-yellow,
+    "wger-green": $wger-green,
+    "wger-light": $wger-light,
+    "wger-light-2": $wger-light-2,
+    "wger-light-3": $wger-light-3,
+) !default;
+
+$link-color: $wger-blue-2 !default;
+
+$font-family-sans-serif: "Open Sans Light";
+
+$enable-responsive-font-sizes: true;
+
+/*
+ * Import the rest of the bootstrap files
+ */
+@import "../yarn/bootstrap/scss/_functions";
+@import "../yarn/bootstrap/scss/_variables";
+@import "../yarn/bootstrap/scss/bootstrap";
