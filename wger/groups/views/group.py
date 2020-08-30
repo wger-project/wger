@@ -194,7 +194,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         """
         Only administrators for the group can edit it
         """
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         group = self.get_object()
@@ -229,7 +229,7 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
         """
         Only administrators for the group can delete it
         """
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
         group = self.get_object()

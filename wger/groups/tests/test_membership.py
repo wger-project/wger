@@ -12,13 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from wger.groups.models import Group
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class GroupUserJoinTestCase(WorkoutManagerTestCase):
+class GroupUserJoinTestCase(WgerTestCase):
     """
     Tests different ways of joining a group
     """
@@ -79,7 +79,7 @@ class GroupUserJoinTestCase(WorkoutManagerTestCase):
         self.join_public_group()
 
 
-class GroupUserLeaveTestCase(WorkoutManagerTestCase):
+class GroupUserLeaveTestCase(WgerTestCase):
     """
     Tests different ways of leaving a group
     """
@@ -151,7 +151,7 @@ class GroupUserLeaveTestCase(WorkoutManagerTestCase):
         self.assertEqual(group.membership_set.filter(user_id=14).count(), 1)
 
 
-class GroupAdminTestCase(WorkoutManagerTestCase):
+class GroupAdminTestCase(WgerTestCase):
     """
     Tests promoting and demoting administrators of a group
     """

@@ -12,20 +12,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 
 from wger.groups.models import Group
 from wger.core.tests.base_testcase import (
-    WorkoutManagerTestCase,
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerDeleteTestCase,
+    WgerTestCase,
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerEditTestCase,
+    WgerDeleteTestCase,
     delete_testcase_add_methods
 )
 
 
-class GroupRepresentationTestCase(WorkoutManagerTestCase):
+class GroupRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -37,7 +37,7 @@ class GroupRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Group.objects.get(pk=1)), 'Cool team')
 
 
-class PublicGroupDetailAccessTest(WorkoutManagerAccessTestCase):
+class PublicGroupDetailAccessTest(WgerAccessTestCase):
     """
     Tests accessing a detail view of a public group
     """
@@ -55,7 +55,7 @@ class PublicGroupDetailAccessTest(WorkoutManagerAccessTestCase):
     user_fail = ()
 
 
-class PrivateGroupDetailAccessTest(WorkoutManagerAccessTestCase):
+class PrivateGroupDetailAccessTest(WgerAccessTestCase):
     """
     Tests accessing a detail view of a private group
     """
@@ -69,7 +69,7 @@ class PrivateGroupDetailAccessTest(WorkoutManagerAccessTestCase):
     user_fail = None
 
 
-class GroupOverviewTest(WorkoutManagerAccessTestCase):
+class GroupOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the group overview page
     """
@@ -87,7 +87,7 @@ class GroupOverviewTest(WorkoutManagerAccessTestCase):
                     'general_manager2')
 
 
-class CreateGroupTestCase(WorkoutManagerAddTestCase):
+class CreateGroupTestCase(WgerAddTestCase):
     """
     Tests creating a new group
     """
@@ -115,7 +115,7 @@ class CreateGroupTestCase(WorkoutManagerAddTestCase):
                 'description': 'Description here'}
 
 
-class EditGroupTestCase(WorkoutManagerEditTestCase):
+class EditGroupTestCase(WgerEditTestCase):
     """
     Tests editing a group
     """
@@ -134,7 +134,7 @@ class EditGroupTestCase(WorkoutManagerEditTestCase):
                  'manager3')
 
 
-class DeleteGroupTestCase(WorkoutManagerDeleteTestCase):
+class DeleteGroupTestCase(WgerDeleteTestCase):
     """
     Tests deleting a group
     """

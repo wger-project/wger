@@ -13,13 +13,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from wger.groups.models import Group, Application
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class ApplyGroupTestCase(WorkoutManagerTestCase):
+class ApplyGroupTestCase(WgerTestCase):
     """
     Tests the workflow to apply joining a private group
     """
@@ -83,7 +83,7 @@ class ApplyGroupTestCase(WorkoutManagerTestCase):
         self.apply_group(fail=True, username='test', group_pk=1)
 
 
-class AcceptApplicationTestCase(WorkoutManagerTestCase):
+class AcceptApplicationTestCase(WgerTestCase):
     """
     Tests the workflow to accept an application to join a private group
     """
@@ -157,7 +157,7 @@ class AcceptApplicationTestCase(WorkoutManagerTestCase):
         self.accept_application(fail=True)
 
 
-class DenyApplicationTestCase(WorkoutManagerTestCase):
+class DenyApplicationTestCase(WgerTestCase):
     """
     Tests the workflow to deny an application to join a private group
     """

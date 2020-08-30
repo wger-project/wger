@@ -33,7 +33,7 @@ def processor(request):
     full_path = request.get_full_path()
     i18n_path = {}
     static_path = static('images/logos/logo-marketplace-256.png')
-    groups = Membership.objects.filter(user=user) if user.is_authenticated() else []
+    groups = Membership.objects.filter(user=user) if user.is_authenticated else []
 
     for lang in settings.LANGUAGES:
         i18n_path[lang[0]] = u'/{0}{1}'.format(lang[0], full_path[3:])
