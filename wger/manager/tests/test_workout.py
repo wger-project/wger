@@ -19,13 +19,13 @@ import datetime
 from django.urls import reverse
 
 # wger
-from wger.groups.models import Group
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerEditTestCase,
     WgerTestCase
 )
+from wger.groups.models import Group
 from wger.manager.models import Workout
 
 

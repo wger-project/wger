@@ -14,15 +14,23 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from actstream import action
-
-from django.db.models.signals import pre_save, post_save
-from django.db.models.signals import post_delete
+# Django
+from django.db.models.signals import (
+    post_delete,
+    post_save,
+    pre_save
+)
 from django.dispatch import receiver
 
+# Third Party
+from actstream import action
 from easy_thumbnails.files import get_thumbnailer
 
-from wger.groups.models import Group, Membership
+# wger
+from wger.groups.models import (
+    Group,
+    Membership
+)
 
 
 @receiver(post_delete, sender=Group)

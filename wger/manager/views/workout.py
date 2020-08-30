@@ -19,8 +19,6 @@ import datetime
 import logging
 import uuid
 
-from actstream import action
-
 # Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -47,16 +45,15 @@ from django.views.generic import (
     UpdateView
 )
 
-from wger.utils.helpers import make_token
-from wger.groups.models import (
-    Group,
-    Membership
-)
+# Third Party
+from actstream import action
+
 # wger
 from wger.core.models import (
     RepetitionUnit,
     WeightUnit
 )
+from wger.groups.models import Group
 from wger.manager.forms import (
     WorkoutCopyForm,
     WorkoutForm,
@@ -73,6 +70,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
+from wger.utils.helpers import make_token
 
 
 logger = logging.getLogger(__name__)

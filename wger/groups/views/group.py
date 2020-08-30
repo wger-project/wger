@@ -14,35 +14,37 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseForbidden
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
+from django.utils.translation import (
+    ugettext as _,
+    ugettext_lazy
+)
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView
+)
+
+# Third Party
 from actstream import action
 from actstream.models import target_stream
 
-from django.http import HttpResponseForbidden
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin
-)
-from django.urls import reverse, reverse_lazy
-
-from django.utils.translation import (
-    ugettext_lazy,
-    ugettext as _
-)
-from django.views.generic import (
-    ListView,
-    CreateView,
-    DetailView,
-    UpdateView,
-    DeleteView
-)
-
+# wger
 from wger.groups.models import (
     Group,
     Membership
 )
 from wger.utils.generic_views import (
-    WgerPermissionMixin,
+    WgerDeleteMixin,
     WgerFormMixin,
-    WgerDeleteMixin
 )
 
 

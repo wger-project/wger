@@ -15,13 +15,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
 import uuid
 
+# Django
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 
+# wger
 from wger.gym.models import Gym
 
 

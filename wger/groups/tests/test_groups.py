@@ -12,17 +12,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
 from django.urls import reverse_lazy
 
-from wger.groups.models import Group
+# wger
 from wger.core.tests.base_testcase import (
-    WgerTestCase,
     WgerAccessTestCase,
     WgerAddTestCase,
-    WgerEditTestCase,
     WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase,
     delete_testcase_add_methods
 )
+from wger.groups.models import Group
 
 
 class GroupRepresentationTestCase(WgerTestCase):
@@ -153,5 +155,6 @@ class DeleteGroupTestCase(WgerDeleteTestCase):
                  'trainer4',
                  'manager1',
                  'manager3')
+
 
 delete_testcase_add_methods(DeleteGroupTestCase)

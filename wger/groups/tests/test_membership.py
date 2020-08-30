@@ -11,11 +11,13 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+# Django
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from wger.groups.models import Group
+# wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.groups.models import Group
 
 
 class GroupUserJoinTestCase(WgerTestCase):

@@ -14,17 +14,20 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from actstream import action
-
+# Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect
 )
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 
+# Third Party
+from actstream import action
+
+# wger
 from wger.groups.models import (
     Group,
     Membership

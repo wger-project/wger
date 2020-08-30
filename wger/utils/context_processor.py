@@ -20,9 +20,9 @@ from django.templatetags.static import static
 # wger
 from wger import get_version
 from wger.config.models import GymConfig
+from wger.groups.models import Membership
 from wger.utils import constants
 from wger.utils.language import load_language
-from wger.groups.models import Membership
 
 
 def processor(request):
