@@ -23,7 +23,7 @@ Upgrade steps from 1.9:
 
 🐛 Bug Fixes:
 
-* `#499`_
+* `#499`_, `#505`_
 
 
 🧰 Maintenance:
@@ -38,6 +38,7 @@ Upgrade steps from 1.9:
 .. _#340: https://github.com/wger-project/wger/issues/340
 .. _#494: https://github.com/wger-project/wger/issues/494
 .. _#499: https://github.com/wger-project/wger/issues/499
+.. _#505: https://github.com/wger-project/wger/issues/505
 
 
 

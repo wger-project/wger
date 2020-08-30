@@ -333,7 +333,7 @@ class ExercisesTestCase(WgerTestCase):
                                      'name_original': 'my test exercise',
                                      'license': 1,
                                      'muscles': []})
-        self.assertFalse(response.context['form'].errors.get('muscles'))
+        self.assertEqual(response.status_code, 302)
 
         # No muscles - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
@@ -342,7 +342,7 @@ class ExercisesTestCase(WgerTestCase):
                                      'license': 1,
                                      'muscles': []})
         if admin:
-            self.assertFalse(response.context['form'].errors.get('muscles'))
+            self.assertEqual(response.status_code, 302)
         else:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
@@ -359,7 +359,7 @@ class ExercisesTestCase(WgerTestCase):
         """
         self.user_login('test')
         self.add_exercise_success(admin=False)
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 2)
 
     def search_exercise(self, fail=True):
         """

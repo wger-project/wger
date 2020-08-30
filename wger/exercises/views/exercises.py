@@ -27,11 +27,13 @@ from django.contrib.auth.mixins import (
 )
 from django.core import mail
 from django.forms import (
+    CharField,
     CheckboxSelectMultiple,
     ModelChoiceField,
     ModelForm,
     ModelMultipleChoiceField,
-    Select
+    Select,
+    Textarea
 )
 from django.http import (
     HttpResponseForbidden,
@@ -169,9 +171,11 @@ class ExercisesEditAddView(WgerFormMixin):
     def get_form_class(self):
 
         class ExerciseForm(ModelForm):
+            # Redefine some fields here to set some properties
+            # (some of this could be done with a crispy form helper and would be
+            # a cleaner solution)
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=Select()
-                                        )
+                                        widget=Select())
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
                                                widget=CheckboxSelectMultiple(),
                                                required=False)
@@ -179,6 +183,10 @@ class ExercisesEditAddView(WgerFormMixin):
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
                                                          widget=CheckboxSelectMultiple(),
                                                          required=False)
+
+            description = CharField(label=_('Description'),
+                                    widget=Textarea,
+                                    required=False)
 
             class Meta:
                 model = Exercise
