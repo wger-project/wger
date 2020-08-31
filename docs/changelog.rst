@@ -32,7 +32,11 @@ Upgrade steps from 1.9:
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
+* Improved cache handling `#246`_ (thanks `@louiCoder`_)
 
+.. _@louiCoder: https://github.com/louiCoder
+
+.. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340

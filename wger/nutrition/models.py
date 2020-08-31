@@ -32,8 +32,6 @@ from django.core.validators import (
     MinValueValidator
 )
 from django.db import models
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
@@ -813,20 +811,3 @@ class LogItem(BaseMealItem, models.Model):
         Returns the object that has owner information
         """
         return self.plan
-
-
-@receiver(post_save, sender=NutritionPlan)
-@receiver(post_delete, sender=NutritionPlan)
-@receiver(post_save, sender=Meal)
-@receiver(post_delete, sender=Meal)
-@receiver(post_save, sender=MealItem)
-@receiver(post_delete, sender=MealItem)
-def reset_nutritional_values_canonical_form(sender, **kwargs):
-    '''
-    Reset the nutrition values canonical form in cache
-    '''
-    sender_instance = kwargs["instance"]
-    if isinstance(sender_instance, (Meal, MealItem)):
-        cache.delete(cache_mapper.get_nutrition_cache_by_key(sender_instance.get_owner_object().id))
-    elif isinstance(sender_instance, NutritionPlan):
-        cache.delete(cache_mapper.get_nutrition_cache_by_key(sender_instance.id))

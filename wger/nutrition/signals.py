@@ -17,12 +17,16 @@
 # Django
 from django.core.cache import cache
 from django.db.models.signals import (
-    post_save,
-    post_delete
+    post_delete,
+    post_save
 )
 
 # wger
-from wger.nutrition.models import NutritionPlan, Meal, MealItem
+from wger.nutrition.models import (
+    Meal,
+    MealItem,
+    NutritionPlan
+)
 from wger.utils.cache import cache_mapper
 
 
@@ -30,10 +34,7 @@ def reset_nutritional_values_canonical_form(sender, instance, **kwargs):
     """
     Reset the nutrition values canonical form in cache
     """
-    if isinstance(instance, (Meal, MealItem)):
-        cache.delete(cache_mapper.get_nutrition_cache_by_key(instance.get_owner_object().id))
-    elif isinstance(instance, NutritionPlan):
-        cache.delete(cache_mapper.get_nutrition_cache_by_key(instance.id))
+    cache.delete(cache_mapper.get_nutrition_cache_by_key(instance.get_owner_object().id))
 
 
 post_save.connect(reset_nutritional_values_canonical_form, sender=NutritionPlan)
@@ -42,4 +43,3 @@ post_save.connect(reset_nutritional_values_canonical_form, sender=Meal)
 post_delete.connect(reset_nutritional_values_canonical_form, sender=Meal)
 post_save.connect(reset_nutritional_values_canonical_form, sender=MealItem)
 post_delete.connect(reset_nutritional_values_canonical_form, sender=MealItem)
-

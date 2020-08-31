@@ -25,6 +25,7 @@ Developers
 * Malcolm Jones: https://github.com/DevloperMal
 * Boniface Mwenda: https://github.com/andela-bmwenda
 * Scott Peshak: https://github.com/speshak
+* Musanje Louis Michael: https://github.com/louiCoder
 
 Translators
 -----------

@@ -1,9 +1,16 @@
+# Django
 from django.contrib.auth.models import User
 from django.core.cache import cache
-from wger.core.tests.base_testcase import WgerTestCase
-from wger.nutrition.models import NutritionPlan, Meal, MealItem
-from wger.utils.cache import cache_mapper
+
+# wger
 from wger.core.models import Language
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.nutrition.models import (
+    Meal,
+    MealItem,
+    NutritionPlan
+)
+from wger.utils.cache import cache_mapper
 
 
 class NutritionaCacheTestCase(WgerTestCase):
