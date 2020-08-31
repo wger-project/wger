@@ -15,7 +15,7 @@ django-crispy-forms~=1.9
 django_compressor~=2.4
 django_extensions~=3.0
 django-sortedm2m~=3.0
-django-storages~=1.9
+django-storages~=1.10
 easy-thumbnails~=2.7
 icalendar==4.0.6
 invoke~=1.4
