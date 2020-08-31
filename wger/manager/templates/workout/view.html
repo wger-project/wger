@@ -125,9 +125,9 @@ $(document).ready(function () {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
-                   {% trans "Export calendar file" %}
-                </a>
+                    <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
+                       {% trans "Export calendar file" %}
+                    </a>
                 </p>
             </div>
             <div class="modal-footer">
@@ -227,6 +227,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                {% trans "Make a copy of this workout" %}
             </a>
             {% if is_owner %}
+                <div class="dropdown-divider"></div>
                 <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
                     <span class="{% fa_class 'trash' %}"></span>
                     {% trans "Delete" %}

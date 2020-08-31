@@ -34,6 +34,7 @@ $(document).ready(function() {
                         <span class="{% fa_class 'edit' %}"></span>
                         {% trans 'Edit' %}
                     </a>
+                    <div class="dropdown-divider"></div>
                     <a href="{% url 'manager:day:delete' day.obj.id %}" class="dropdown-item">
                         <span class="{% fa_class 'trash' %}"></span>
                         {% trans 'Delete' %}
@@ -50,23 +51,31 @@ $(document).ready(function() {
         {% for set in day.set_list %}
         <tr data-id="{{ set.obj.id }}" id="set-{{ set.obj.id }}">
             <td style="width: 15%;border-right-width: 0px;">
-                <p>#{{ forloop.counter }}</p>
+                <span>#{{ forloop.counter }}</span>
 
                 {% if editable %}
+                    <div class="dropdown float-right">
+                        <button class="btn btn-link btn-sm btn-block dropdown-toggle " type="button" id="dropdownMenuSet{{set.obj.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuSet{{set.obj.id}}">
+                            <a href="{% url 'manager:set:edit' set.obj.id %}" class="wger-modal-dialog dropdown-item">
+                               <span class="{% fa_class 'edit' %}"></span>
+                               {% trans 'Edit' %}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'manager:set:delete' set.obj.id %}" class="dropdown-item">
+                                <span class="{% fa_class 'trash' %}"></span>
+                                {% trans 'Delete' %}
+                            </a>
+                        </div>
+                    </div>
+
+                    {% if false and day.set_list|length > 1 %}
                     <span class="editoptions">
-                    {% if day.set_list|length > 1 %}
                         <span class="{% fa_class 'bars' %} dragndrop-handle"></span>
                         <br>
-                    {% endif %}
-                    <a href="{% url 'manager:set:edit' set.obj.id %}"
-                       title="{% trans 'Edit' %}"
-                       class="wger-modal-dialog">
-                           <span class="{% fa_class 'edit' %}"></span></a>
-                        <br>
-                    <a href="{% url 'manager:set:delete' set.obj.id %}"
-                       title="{% trans 'Delete' %}">
-                            <span class="{% fa_class 'trash' %}"></span></a>
                     </span>
+                    {% endif %}
                 {% endif %}
             </td>
             <td style="border-left-width: 0px;">
