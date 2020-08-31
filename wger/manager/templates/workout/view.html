@@ -98,16 +98,10 @@ $(document).ready(function () {
 
 <div class="row">
     <div class="col-6">
-        <div id="muscle-front"
-             class="muscle-background"
-             style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+        {% render_muscles muscles.front muscles.frontsecondary %}
     </div>
     <div class="col-6">
-        <div id="muscle-back"
-                 class="muscle-background"
-                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+        {% render_muscles muscles.back muscles.backsecondary %}
     </div>
 </div>
 

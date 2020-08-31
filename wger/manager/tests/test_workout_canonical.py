@@ -25,7 +25,10 @@ from wger.core.models import (
     WeightUnit
 )
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.exercises.models import Exercise
+from wger.exercises.models import (
+    Exercise,
+    Muscle
+)
 from wger.manager.models import (
     Day,
     Set,
@@ -51,16 +54,21 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
         setting_2 = Setting.objects.get(pk=2)
         repetition_unit = RepetitionUnit.objects.get(pk=1)
         weight_unit = WeightUnit.objects.get(pk=1)
+        muscle1 = Muscle.objects.get(pk=1)
+        muscle2 = Muscle.objects.get(pk=2)
         self.assertEqual(workout.canonical_representation['muscles'],
-                         {'back': [2], 'frontsecondary': [1], 'backsecondary': [1], 'front': [1]})
+                         {'back': [muscle2],
+                          'frontsecondary': [muscle1],
+                          'backsecondary': [muscle1],
+                          'front': [muscle1]})
         self.assertEqual(workout.canonical_representation['obj'], workout)
 
         canonical_form = {'days_of_week': {'day_list': [DaysOfWeek.objects.get(pk=2)],
                                            'text': u'Tuesday'},
-                          'muscles': {'back': [2],
+                          'muscles': {'back': [muscle2],
                                       'frontsecondary': [],
                                       'backsecondary': [],
-                                      'front': [1]},
+                                      'front': [muscle1]},
                           'obj': Day.objects.get(pk=1),
                           'set_list': [{'exercise_list': [{'obj': Exercise.objects.get(pk=1),
                                                            'comment_list': [u'test 123'],
@@ -76,17 +84,19 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                             weight_unit]}],
                                         'is_superset': False,
                                         'has_settings': True,
-                                        'muscles': {'back': [2], 'frontsecondary': [],
+                                        'muscles': {'back': [muscle2],
+                                                    'frontsecondary': [],
                                                     'backsecondary': [],
-                                                    'front': [1]},
+                                                    'front': [muscle1]},
                                         'obj': Set.objects.get(pk=1)}]}
         self.assertEqual(workout.canonical_representation['day_list'][0], canonical_form)
 
         canonical_form = {'days_of_week': {'day_list': [DaysOfWeek.objects.get(pk=4)],
                                            'text': u'Thursday'},
                           'obj': Day.objects.get(pk=2),
-                          'muscles': {'back': [2],
-                                      'frontsecondary': [1], 'backsecondary': [1],
+                          'muscles': {'back': [muscle2],
+                                      'frontsecondary': [muscle1],
+                                      'backsecondary': [muscle1],
                                       'front': []},
                           'set_list': [{'exercise_list': [{'obj': Exercise.objects.get(pk=2),
                                                            'comment_list': [u'Foobar'],
@@ -109,8 +119,9 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                             weight_unit]}],
                                         'is_superset': False,
                                         'has_settings': True,
-                                        'muscles': {'back': [2],
-                                                    'frontsecondary': [1], 'backsecondary': [1],
+                                        'muscles': {'back': [muscle2],
+                                                    'frontsecondary': [muscle1],
+                                                    'backsecondary': [muscle1],
                                                     'front': []},
                                         'obj': Set.objects.get(pk=2)}]}
         self.assertEqual(workout.canonical_representation['day_list'][1], canonical_form)
@@ -118,8 +129,10 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
         canonical_form = {'days_of_week': {'day_list': [DaysOfWeek.objects.get(pk=5)],
                                            'text': u'Friday'},
                           'obj': Day.objects.get(pk=4),
-                          'muscles': {'back': [], 'front': [],
-                                      'frontsecondary': [], 'backsecondary': []},
+                          'muscles': {'back': [],
+                                      'front': [],
+                                      'frontsecondary': [],
+                                      'backsecondary': []},
                           'set_list': []}
         self.assertEqual(workout.canonical_representation['day_list'][2], canonical_form)
 
@@ -133,10 +146,15 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
         weekday2 = DaysOfWeek.objects.get(pk=5)
         repetition_unit = RepetitionUnit.objects.get(pk=1)
         weight_unit = WeightUnit.objects.get(pk=1)
+        muscle1 = Muscle.objects.get(pk=1)
+        muscle2 = Muscle.objects.get(pk=2)
         self.assertEqual(day.canonical_representation['days_of_week'],
                          {'day_list': [weekday1, weekday2], 'text': u'Wednesday, Friday'})
         self.assertEqual(day.canonical_representation['muscles'],
-                         {'back': [2], 'frontsecondary': [1], 'backsecondary': [1], 'front': []})
+                         {'back': [muscle2],
+                          'frontsecondary': [muscle1],
+                          'backsecondary': [muscle1],
+                          'front': []})
         self.assertEqual(day.canonical_representation['obj'], day)
 
         canonical_form = [{'exercise_list': [{'obj': Exercise.objects.get(pk=2),
@@ -157,8 +175,10 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                weight_unit]}],
                            'is_superset': False,
                            'has_settings': True,
-                           'muscles': {'back': [2], 'frontsecondary': [1],
-                                       'backsecondary': [1], 'front': []},
+                           'muscles': {'back': [muscle2],
+                                       'frontsecondary': [muscle1],
+                                       'backsecondary': [muscle1],
+                                       'front': []},
                            'obj': Set.objects.get(pk=3)}]
 
         self.assertEqual(day.canonical_representation['set_list'], canonical_form)

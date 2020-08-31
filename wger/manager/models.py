@@ -456,16 +456,16 @@ class Day(models.Model):
 
                 # Muscles for this set
                 for muscle in exercise.muscles.all():
-                    if muscle.is_front and muscle.id not in muscles_front:
-                        muscles_front.append(muscle.id)
-                    elif not muscle.is_front and muscle.id not in muscles_back:
-                        muscles_back.append(muscle.id)
+                    if muscle.is_front and muscle not in muscles_front:
+                        muscles_front.append(muscle)
+                    elif not muscle.is_front and muscle not in muscles_back:
+                        muscles_back.append(muscle)
 
                 for muscle in exercise.muscles_secondary.all():
-                    if muscle.is_front and muscle.id not in muscles_front:
-                        muscles_front_secondary.append(muscle.id)
+                    if muscle.is_front and muscle not in muscles_front:
+                        muscles_front_secondary.append(muscle)
                     elif not muscle.is_front and muscle.id not in muscles_back:
-                        muscles_back_secondary.append(muscle.id)
+                        muscles_back_secondary.append(muscle)
 
                 for setting in Setting.objects.filter(set=set_obj,
                                                       exercise=exercise).order_by('order', 'id'):

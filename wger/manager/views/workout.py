@@ -105,31 +105,8 @@ def view(request, pk):
     canonical = workout.canonical_representation
     uid, token = make_token(user)
 
-    # Create the backgrounds that show what muscles the workout will work on
-    muscles_front = []
-    muscles_back = []
-    for i in canonical['muscles']['front']:
-        if i not in muscles_front:
-            muscles_front.append('images/muscles/main/muscle-{0}.svg'.format(i))
-    for i in canonical['muscles']['back']:
-        if i not in muscles_back:
-            muscles_back.append('images/muscles/main/muscle-{0}.svg'.format(i))
-
-    for i in canonical['muscles']['frontsecondary']:
-        if i not in muscles_front and i not in canonical['muscles']['front']:
-            muscles_front.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
-    for i in canonical['muscles']['backsecondary']:
-        if i not in muscles_back and i not in canonical['muscles']['back']:
-            muscles_back.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
-
-    # Append the silhouette of the human body as the last entry so the browser
-    # renders it in the background
-    muscles_front.append('images/muscles/muscular_system_front.svg')
-    muscles_back.append('images/muscles/muscular_system_back.svg')
-
     template_data['workout'] = workout
-    template_data['muscle_backgrounds_front'] = muscles_front
-    template_data['muscle_backgrounds_back'] = muscles_back
+    template_data['muscles'] = canonical['muscles']
     template_data['uid'] = uid
     template_data['token'] = token
     template_data['is_owner'] = is_owner
