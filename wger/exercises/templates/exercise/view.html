@@ -171,15 +171,21 @@ $(document).ready(function() {
     {% for comment in comments %}
         <li>
             {{ comment }}
+            
             {% if perms.exercises.change_exercisecomment %}
-            <span class="editoptions">
-                <a href="{% url 'exercise:comment:delete' comment.id %}"
-                   title="{% trans 'Delete' %}">
-                    <span class="{% fa_class 'trash' %}"></span></a>
-                <a href="{% url 'exercise:comment:edit' comment.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog">
-                    <span class="{% fa_class 'edit' %}"></span></a>
+            <span class="dropdown">
+                <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown"></button>
+                <div class="dropdown-menu">
+                    <a href="{% url 'exercise:comment:edit' comment.id %}" class="dropdown-item wger-modal-dialog">
+                        <span class="{% fa_class 'edit' %}"></span>
+                        {% trans 'Edit' %}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'exercise:comment:delete' comment.id %}" class="dropdown-item">
+                        <span class="{% fa_class 'trash' %}"></span>
+                        {% trans 'Delete' %}
+                    </a>
+                </div>
             </span>
             {% endif %}
         </li>
