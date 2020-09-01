@@ -47,8 +47,8 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
                          'attachment; filename=nutritional-plan.pdf')
 
         # Approximate size
-        self.assertGreater(int(response['Content-Length']), 29000)
-        self.assertLess(int(response['Content-Length']), 34000)
+        self.assertGreater(int(response['Content-Length']), 38000)
+        self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf(self, fail=False):
         """
@@ -68,8 +68,8 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 34000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
         # Create an empty plan
         user = User.objects.get(pk=2)
@@ -90,8 +90,8 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 33420)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def test_export_pdf_anonymous(self):
         """

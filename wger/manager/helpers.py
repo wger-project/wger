@@ -37,7 +37,11 @@ from reportlab.platypus import (
 
 # wger
 from wger.utils.helpers import normalize_decimal
-from wger.utils.pdf import styleSheet
+from wger.utils.pdf import (
+    header_colour,
+    row_color,
+    styleSheet
+)
 
 
 def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_table=False):
@@ -66,20 +70,13 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
     day_markers = []
     group_exercise_marker = {}
 
-    # Background colour for days
-    # Reportlab doesn't use the HTML hexadecimal format, but has a range of
-    # 0 till 1, so we have to convert here.
-    header_colour = colors.Color(int('73', 16) / 255.0,
-                                 int('8a', 16) / 255.0,
-                                 int('5f', 16) / 255.0)
-
     set_count = 1
     day_markers.append(len(data))
 
     p = Paragraph(u'<para align="center">%(days)s: %(description)s</para>' %
                   {'days': day['days_of_week']['text'],
                    'description': day['obj'].description},
-                  styleSheet["Bold"])
+                  styleSheet["SubHeader"])
 
     data.append([p])
 
@@ -138,7 +135,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
                                              bulletFontSize=3,
                                              start='square')]
 
-            data.append([set_count,
+            data.append([f"#{set_count}",
                          exercise_content,
                          setting_out]
                         + [''] * nr_of_weeks)
@@ -176,7 +173,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
     # list
     for i in range(exercise_start, len(data) + 1):
         if not i % 2:
-            table_style.append(('BACKGROUND', (1, i - 1), (-1, i - 1), colors.lavender))
+            table_style.append(('BACKGROUND', (0, i - 1), (-1, i - 1), row_color))
 
     # Put everything together and manually set some of the widths
     t = Table(data, style=table_style)
