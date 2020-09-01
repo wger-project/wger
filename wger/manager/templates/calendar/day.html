@@ -56,18 +56,18 @@
                     {{log.weight}} {% trans log.weight_unit.name %}
 
                     {% if is_owner %}
-                    <span class="editoptions dropdown">
+                    <span class="dropdown">
                         <div class="float-right">
-                            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                                <span class="{% fa_class 'cog' %}"></span>
+                            <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown">
                             </button>
                             <div class="dropdown-menu">
-                                <a href="{% url 'manager:log:edit' log.pk %}"
-                                   title="{% trans 'Edit' %}"
-                                   class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
-                                <a href="{% url 'manager:log:delete' log.pk %}"
-                                   title="{% trans 'Delete' %}"
-                                   class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                                <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
+                                    {% trans 'Edit' %}
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
+                                    {% trans 'Delete' %}
+                                </a>
                             </div>
                         </div>
                     </span>
