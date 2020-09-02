@@ -71,8 +71,9 @@ function wgerInitIngredientAutocompleter() {
       var ingredientId = suggestion.data.id;
 
       // After clicking on a result set the value of the hidden field
+
       $('#id_ingredient').val(ingredientId);
-      $('#exercise_name').html(suggestion.value);
+      $('#ingredient_name').html(suggestion.value);
 
       // See if the ingredient has any units and set the values for the forms
       $.get('/api/v2/ingredientweightunit/?ingredient=' + ingredientId, function (unitData) {

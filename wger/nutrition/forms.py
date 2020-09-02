@@ -243,7 +243,7 @@ class MealItemForm(forms.ModelForm):
         self.helper.layout = Layout(
             'ingredient',
             'ingredient_searchfield',
-            HTML('<div id="exercise_name"></div>'),
+            HTML('<div id="ingredient_name"></div>'),
             Row(
                 Column('amount', css_class='form-group col-6 mb-0'),
                 Column('weight_unit', css_class='form-group col-6 mb-0'),
