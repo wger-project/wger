@@ -17,9 +17,7 @@ if [[ "$DJANGO_DB_PORT" == "5432" ]]; then
 fi
 
 # Bootstrap the application
-wger bootstrap \
-    --settings-path /home/wger/src/settings.py \
-    --no-start-server
+wger bootstrap
 
 if [[ "$WGER_DOWNLOAD_IMGS" == "TRUE" ]];
 then

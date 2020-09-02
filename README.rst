@@ -24,8 +24,8 @@ parameters.
 Docker
 ------
 
-Useful to just try it out. Check the documentation on how to use the wger/devel
-docker image or the docker-compose file for development::
+Useful to just try it out. Check the REAMES in wger/extras/docker on how to use
+the wger/devel docker image or the docker-compose file for development::
 
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 
@@ -62,8 +62,8 @@ Then install the python packages from pypi in the virtualenv::
  $ cd wger
  $ pip install -r requirements.txt
  $ python setup.py develop
- $ wger create-settings --settings-path $(pwd)/settings.py --database-path $(pwd)/database.sqlite
- $ wger bootstrap --settings-path $(pwd)/settings.py --no-start-server
+ $ wger create-settings
+ $ wger bootstrap
  $ python manage.py runserver
 
 3) Log in as: **admin**, password **admin**
@@ -109,10 +109,12 @@ You can get a list of all available commands by calling ``wger`` without any
 arguments::
 
     Available tasks:
-
-    bootstrap               Performs all steps necessary to bootstrap the application
-    config-location         Returns the default location for the settings file and the data folder
-    create-or-reset-admin   Creates an admin user or resets the password for an existing one
+    bootstrap               Performs all steps necessary to bootstrap the
+                            application
+    config-location         Returns the default location for the settings file
+                            and the data folder
+    create-or-reset-admin   Creates an admin user or resets the password for an
+                            existing one
     create-settings         Creates a local settings file
     load-fixtures           Loads all fixtures
     migrate-db              Run all database migrations

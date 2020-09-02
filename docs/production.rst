@@ -116,9 +116,7 @@ Get the application::
   npm install -g yarn sass
   python setup.py develop
   pip install psycopg2 # Only if using postgres
-  wger create-settings \
-        --settings-path /home/wger/src/settings.py \
-        --database-path /home/wger/db/database.sqlite
+  wger create-settings --database-path /home/wger/db/database.sqlite
 
 If you are using postgres, you need to edit the settings file and set the
 correct values for the database (use ``django.db.backends.postgresql_psycopg2``
@@ -128,7 +126,7 @@ for the engine). Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and
 Run the installation script, this will download some CSS and JS libraries and
 load all initial data::
 
-  wger bootstrap --settings-path /home/wger/src/settings.py --no-start-server
+  wger bootstrap
 
 
 Collect all static resources::

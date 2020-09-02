@@ -85,12 +85,8 @@ RUN . /home/wger/venv/bin/activate \
     && pip install wheel \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
-    && wger create-settings \
-        --settings-path /home/wger/src/settings.py \
-        --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap \
-        --settings-path /home/wger/src/settings.py \
-        --no-start-server
+    && wger create-settings --database-path /home/wger/db/database.sqlite \
+    && wger bootstrap
 
 
 # Change permissions of some files and folders so the apache process
