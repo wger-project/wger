@@ -9,7 +9,7 @@ Upgrade steps from 1.9:
 * Update python libraries ``pip install -r requirements.txt``
 * Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
 * Update CSS and JS libraries ``yarn install``
-* Compile the CSS ``sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css``
+* Compile the CSS ``yarn build:css:sass``
 * Run migrations ``python manage.py migrate``
 * Update static files (only production): ``python manage.py collectstatic``
 * Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)

@@ -32,7 +32,7 @@ Updating SASS files
 ```````````````````
 After updating the SASS files, you need to compile them to regular CSS::
 
-    sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css
+    yarn build:css:sass
 
 
 Clearing the cache

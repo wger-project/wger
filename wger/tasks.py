@@ -87,7 +87,7 @@ def bootstrap(context,
 
     # Download JS and CSS libraries
     context.run("yarn install")
-    context.run("sass core/static/scss/main.scss:core/static/yarn/bootstrap-compiled.css")
+    context.run("yarn build:css:sass")
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
