@@ -282,8 +282,12 @@ def config_location(context):
 def get_path(file="settings.py") -> pathlib.Path:
     """
     Return the path of the given file relatively to the wger source folder
+
+    Note: one parent is the step from e.g. some-checkout/wger/settings.py
+    to some-checkout/wger, the second one to get to the source folder
+    itself.
     """
-    return pathlib.Path(__file__).parent.absolute() / file
+    return (pathlib.Path(__file__).parent.parent / file).resolve()
 
 
 def setup_django_environment(settings_path):
