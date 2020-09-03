@@ -25,7 +25,7 @@ parameters.
 
 ### Docker
 
-Useful to just try it out. Check the REAMES in wger/extras/docker on how to use
+Useful to just try it out. Check the READMES in wger/extras/docker on how to use
 the wger/devel docker image or the docker-compose file for development:
 
 ```shell script
@@ -56,7 +56,9 @@ source venv-wger/bin/activate
 ```
 
 Start the application. This will download the required JS and CSS libraries
-and create a SQlite database and populate it with data on the first run.
+and create a SQlite database and populate it with data on the first run. If
+you want to use another database, edit the settings.py file before calling
+bootstrap. You will need to create the database and user yourself.
 
 ```shell script
 git clone https://github.com/wger-project/wger.git
