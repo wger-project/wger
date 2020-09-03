@@ -82,8 +82,9 @@ python manage.py runserver
 ## Command line options
 
 You can get a list of all available commands by calling ``wger`` without any
-arguments::
+arguments:
 
+```
     Available tasks:
     bootstrap               Performs all steps necessary to bootstrap the
                             application
@@ -95,6 +96,7 @@ arguments::
     load-fixtures           Loads all fixtures
     migrate-db              Run all database migrations
     start                   Start the application using django's built in webserver
+```
 
 You can also get help on a specific command with ``wger <command> --help``.
 
