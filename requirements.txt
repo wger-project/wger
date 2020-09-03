@@ -21,7 +21,7 @@ icalendar==4.0.6
 invoke~=1.4
 pillow~=7.2
 python-mimeparse
-reportlab==3.5.48
+reportlab==3.5.49
 matplotlib>=3.1
 requests
 setuptools>=18.5
