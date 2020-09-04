@@ -37,7 +37,7 @@ def main():
 
     args = sys.argv[1:]
     if len(args):
-        run(invoke_cmd + ' '.join(args), pty=True)
+        run(invoke_cmd + ' '.join(args), pty=False)
     else:
         run(invoke_cmd + '--list')
 
