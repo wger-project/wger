@@ -653,7 +653,7 @@ class BaseMealItem(object):
 
     def get_nutritional_values(self, use_metric=True):
         """
-        Sums the nutrional info for the ingredient in the MealItem
+        Sums the nutritional info for the ingredient in the MealItem
 
         :param use_metric Flag that controls the units used
         """

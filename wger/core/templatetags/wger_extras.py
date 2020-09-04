@@ -158,6 +158,22 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
+@register.filter
+def minus(a, b):
+    """
+    Simple function that subtracts two values in a template
+    """
+    return a - b
+
+
+@register.filter
+def is_positive(a):
+    """
+    Simple function that checks whether one value is bigger than the other
+    """
+    return a > 0
+
+
 @register.simple_tag
 def fa_class(class_name='', icon_type='fas', fixed_width=True):
     """
