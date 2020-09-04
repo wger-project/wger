@@ -34,7 +34,10 @@ from django.core.validators import (
 from django.db import models
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
+from django.utils import (
+    timezone,
+    translation
+)
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
@@ -763,7 +766,7 @@ class LogItem(BaseMealItem, models.Model):
     The plan this log belongs to
     """
 
-    datetime = models.DateTimeField(auto_now=True)
+    datetime = models.DateTimeField(default=timezone.now)
     """
     Time and date when the log was added
     """
