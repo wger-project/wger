@@ -2,11 +2,10 @@ version: '3.7'
 
 services:
   web:
-    image: wger/devel:2.0-dev
+    image: wger/devel:latest
+    command: bash -c "/home/wger/entrypoint.sh"
     volumes:
-      - type: bind
-        source: ../../../
-        target: /home/wger/src/
+      - 'wger:/home/wger/src'
     ports:
       - 8000:8000
     env_file:
@@ -34,3 +33,4 @@ services:
 
 volumes:
   wger-postgres-data:
+  wger:
