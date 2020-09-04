@@ -295,9 +295,12 @@ function wgerCustomModalInit()
         {% endif %}
     </tbody>
 </table>
+
+{% if is_owner %}
 <p>
     <a href="{% url 'nutrition:log:add' plan.pk %}" class="btn btn-success btn-sm wger-modal-dialog">{% trans "Add custom diary entry" %}</a>
 </p>
+{% endif %}
 {% endblock %}
 
 
