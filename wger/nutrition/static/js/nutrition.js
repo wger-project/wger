@@ -99,13 +99,15 @@ function wgerInitIngredientAutocompleter() {
 }
 
 function wgerDrawNutritionDiaryChart(planPk) {
+  var dataConverted;
   d3.json('/api/v2/nutritionplan/' + planPk + '/get_log_overview/').then(function (data) {
     if (data.length > 0) {
+      dataConverted = MG.convert.date(data, 'date');
       $.getJSON('/api/v2/nutritionplan/' + planPk + '/nutritional_values/',
         function (nutritionalValues) {
           MG.data_graphic({
-            data: data,
-            chart_type: 'bar',
+            data: dataConverted,
+            //chart_type: 'bar',
             y_accessor: 'energy',
             x_accessor: 'date',
             decimals: 0,
