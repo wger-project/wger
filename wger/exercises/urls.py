@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Django
+# Third Party
 from django.conf.urls import (
     include,
     url
@@ -29,7 +29,9 @@ from wger.exercises.views import (
     equipment,
     exercises,
     images,
-    muscles
+    muscles,
+    export,
+    import_exercises
 )
 
 
@@ -119,6 +121,24 @@ patterns_equipment = [
         name='overview'),
 ]
 
+# sub patterns for exercices export
+patterns_export = [
+    url(r'^overview',
+        export.ExerciseExportOverview.as_view(),
+        name="overview"),
+    url(r'^export_all',
+        export.export_all_exercices,
+        name="export_all"),
+    url(r'^export_current_language',
+        export.export_exercises_for_current_language,
+        name="export_current_language"),
+]
+
+patterns_import = [
+    url(r'^overview',
+        import_exercises.import_overview,
+        name="overview"),
+]
 
 # sub patterns for exercises
 patterns_exercise = [
@@ -156,10 +176,12 @@ patterns_exercise = [
 
 
 urlpatterns = [
-    url(r'^muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    url(r'^image/', include((patterns_images, 'image'), namespace="image")),
-    url(r'^comment/', include((patterns_comment, 'comment'), namespace="comment")),
-    url(r'^category/', include((patterns_category, 'category'), namespace="category")),
-    url(r'^equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
-    url(r'^', include((patterns_exercise, 'exercise'), namespace="exercise")),
+    url(r'^muscle/', include((patterns_muscle, "muscle"), namespace="muscle")),
+    url(r'^image/', include((patterns_images, "image"), namespace="image")),
+    url(r'^comment/', include((patterns_comment, "comment"), namespace="comment")),
+    url(r'^category/', include((patterns_category, "category"), namespace="category")),
+    url(r'^equipment/', include((patterns_equipment, "equipment"), namespace="equipment")),
+    url(r'^export/', include((patterns_export, "export"), namespace="export")),
+    url(r'^import/', include((patterns_import, "import"), namespace="import")),
+    url(r'^', include((patterns_exercise, "exercise"), namespace="exercise")),
 ]

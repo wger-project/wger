@@ -334,6 +334,40 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                              str(message),
                              fail_silently=True)
 
+    def get_exercises_count_by_current_language(self):
+        """
+        Filter to only active exercises in the configured languages
+        """
+        from wger.config.models import LanguageConfig
+        from wger.utils.language import (
+            load_item_languages,
+            load_language
+        )
+        # Above imports are to prevent circular imports
+
+        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        return Exercise.objects.accepted() \
+            .filter(language__in=languages) \
+            .order_by('category__id') \
+            .select_related().count()
+
+    def get_exercises_by_current_language(self):
+        """
+        Filter to only active exercises in the configured languages
+        """
+        from wger.config.models import LanguageConfig
+        from wger.utils.language import (
+            load_item_languages,
+            load_language
+        )
+        # Above imports are to prevent circular imports
+
+        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        return Exercise.objects.accepted() \
+            .filter(language__in=languages) \
+            .order_by('category__id') \
+            .select_related()
+
 
 def exercise_image_upload_dir(instance, filename):
     """

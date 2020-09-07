@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
+# Third Party
 from django import forms
 
 # wger
@@ -37,3 +37,6 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = ExerciseComment
         exclude = ('exercise',)
+
+class ImportExercisesForm(forms.Form):
+    file = forms.FileField()

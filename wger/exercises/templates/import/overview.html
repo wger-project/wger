@@ -1,0 +1,36 @@
+{% extends "base_wide.html" %}
+{% load i18n %}
+{% load static %}
+{% load wger_extras %}
+{% load cache %}
+{% load thumbnail %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Import des exercices" %}{% endblock %}
+
+<!--
+        Main Content
+-->
+{% block content %}
+<p>{% trans "You can import previously exported exercises here" %}</p>
+<div class="col-sm-4">
+        {% if form.is_multipart %}
+                <form enctype="multipart/form-data" method="POST">
+        {% else %}
+                <form method="POST">
+        {% endif %}
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-sm btn-primary" style="margin-top: 15px;">{% trans "Import" %}</button>
+        </form>
+</div>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+{% endblock %}

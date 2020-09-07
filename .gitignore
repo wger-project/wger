@@ -64,3 +64,8 @@ wger/core/static/yarn
 node_modules
 
 venv
+
+# Media wger
+media/
+
+.gitignore

@@ -1,0 +1,42 @@
+{% extends "base_wide.html" %}
+{% load i18n %}
+{% load static %}
+{% load wger_extras %}
+{% load cache %}
+{% load thumbnail %}
+
+<!--
+        Title
+-->
+{% block title %}{% trans "Export des exercices" %}{% endblock %}
+
+<!--
+        Main Content
+-->
+{% block content %}
+<div class="card-deck">
+        <div class="card">
+                <div class="card-body">
+                        <h5 class="card-title">{% trans "number_all_exercices" %}: {{ number_exercises }}</h5>
+                        <div class="card-text">
+                                <a class="btn btn-sm btn-primary" href="{% url 'exercise:export:export_all' %}">{% trans "export_all_exercices" %}</a>
+                        </div>
+                </div>
+        </div>
+        <div class="card">
+                <div class="card-body">
+                        <h5 class="card-title">{% trans "number_my_language_exercices" %}: {{ number_exercices_by_language }}</h5>
+                        <div class="card-text">
+                                <a class="btn btn-sm btn-primary" href="{% url 'exercise:export:export_current_language' %}">{% trans "export_exercices_current_language" %}</a>
+                        </div>
+                </div>
+        </div>
+</div>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+{% endblock %}
