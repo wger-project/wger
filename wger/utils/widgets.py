@@ -107,9 +107,9 @@ class ExerciseAjaxSelect(SelectMultiple):
         if value is None:
             value = []
 
-        output = [u'<div>']
-        output.append(u'<input type="text" id="exercise-search" class="form-control">')
-        output.append(u'</div>')
+        output = ['<div>']
+        output.append('<input type="text" id="exercise-search" class="form-control">')
+        output.append('</div>')
 
         output.append('<div id="exercise-search-log">')
         options = self.render_options(choices, value)
@@ -117,7 +117,7 @@ class ExerciseAjaxSelect(SelectMultiple):
             output.append(options)
         output.append('</div>')
 
-        return mark_safe(u'\n'.join(output))
+        return mark_safe('\n'.join(output))
 
     def render_options(self, choices, selected_choices):
         # Normalize to strings.
@@ -125,13 +125,13 @@ class ExerciseAjaxSelect(SelectMultiple):
         output = []
         for option_value, option_label in chain(self.choices, choices):
             output.append(self.render_option(selected_choices, option_value, option_label))
-        return u'\n'.join(output)
+        return '\n'.join(output)
 
     def render_option(self, selected_choices, option_value, option_label):
         option_value = force_text(option_value)
         if option_value in selected_choices:
 
-            return u"""
+            return """
                     <div id="a%(div_id)s" class="ajax-exercise-select">
                         <a href="#">
                         <img src="/static/images/icons/status-off.svg"
@@ -174,7 +174,7 @@ class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
 
     def __init__(self, name, value, attrs, choice, index):
         if _(choice[1]) != choice[1]:
-            choice = (choice[0], u"{0} ({1})".format(choice[1], _(choice[1])))
+            choice = (choice[0], "{0} ({1})".format(choice[1], _(choice[1])))
         else:
             choice = (choice[0], _(choice[1]))
 

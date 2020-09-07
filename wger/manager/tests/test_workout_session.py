@@ -99,7 +99,7 @@ class WorkoutSessionModelTestCase(WgerTestCase):
         session.workout = Workout.objects.get(pk=1)
         session.date = datetime.date.today()
         self.assertEqual('{0}'.format(session),
-                         u'{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
+                         '{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
 
 
 class DeleteTestWorkoutTestCase(WgerDeleteTestCase):

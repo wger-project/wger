@@ -90,7 +90,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin,
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object.name)
+        context['title'] = _('Edit {0}').format(self.object.name)
 
         return context
 
@@ -118,5 +118,5 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin,
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(ExerciseCategoryDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object.name)
+        context['title'] = _('Delete {0}?').format(self.object.name)
         return context

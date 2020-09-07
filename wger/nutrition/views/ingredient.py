@@ -139,7 +139,7 @@ class IngredientDeleteView(WgerDeleteMixin,
     def get_context_data(self, **kwargs):
         context = super(IngredientDeleteView, self).get_context_data(**kwargs)
 
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         return context
 
 
@@ -174,7 +174,7 @@ class IngredientEditView(IngredientMixin, LoginRequiredMixin, PermissionRequired
         Send some additional data to the template
         """
         context = super(IngredientEditView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 

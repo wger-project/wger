@@ -89,9 +89,9 @@ class Workout(models.Model):
         Return a more human-readable representation
         """
         if self.comment:
-            return u"{0}".format(self.comment)
+            return "{0}".format(self.comment)
         else:
-            return u"{0} ({1})".format(_('Workout'), self.creation_date)
+            return "{0} ({1})".format(_('Workout'), self.creation_date)
 
     def save(self, *args, **kwargs):
         """
@@ -538,7 +538,7 @@ class Day(models.Model):
 
         return {'obj': self,
                 'days_of_week': {
-                    'text': u', '.join([str(_(i.day_of_week))
+                    'text': ', '.join([str(_(i.day_of_week))
                                        for i in tmp_days_of_week]),
                     'day_list': tmp_days_of_week},
                 'muscles': {
@@ -577,7 +577,7 @@ class Set(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"Set-ID {0}".format(self.id)
+        return "Set-ID {0}".format(self.id)
 
     def get_owner_object(self):
         """
@@ -658,7 +658,7 @@ class Setting(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"settings for exercise {0} in set {1}".format(self.exercise.id, self.set.id)
+        return "settings for exercise {0} in set {1}".format(self.exercise.id, self.set.id)
 
     def save(self, *args, **kwargs):
         """
@@ -743,9 +743,9 @@ class WorkoutLog(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"Log entry: {0} - {1} kg on {2}".format(self.reps,
-                                                        self.weight,
-                                                        self.date)
+        return "Log entry: {0} - {1} kg on {2}".format(self.reps,
+                                                       self.weight,
+                                                       self.date)
 
     def get_owner_object(self):
         """
@@ -861,7 +861,7 @@ class WorkoutSession(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0} - {1}".format(self.workout, self.date)
+        return "{0} - {1}".format(self.workout, self.date)
 
     class Meta:
         """

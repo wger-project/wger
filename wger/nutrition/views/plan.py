@@ -125,7 +125,7 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
         Send some additional data to the template
         """
         context = super(PlanDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         return context
 
 
@@ -142,7 +142,7 @@ class PlanEditView(WgerFormMixin, UpdateView):
         Send some additional data to the template
         """
         context = super(PlanEditView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 
@@ -279,13 +279,13 @@ def export_pdf(request, id, uidb64=None, token=None):
         meal_markers.append(len(data))
 
         if not meal.time:
-            p = Paragraph(u'<para align="center"><strong>{nr} {meal_nr}</strong></para>'
+            p = Paragraph('<para align="center"><strong>{nr} {meal_nr}</strong></para>'
                           .format(nr=_('Nr.'), meal_nr=i),
                           styleSheet["SubHeader"])
         else:
-            p = Paragraph(u'<para align="center"><strong>'
-                          u'{nr} {meal_nr} - {meal_time}'
-                          u'</strong></para>'
+            p = Paragraph('<para align="center"><strong>'
+                          '{nr} {meal_nr} - {meal_time}'
+                          '</strong></para>'
                           .format(nr=_('Nr.'), meal_nr=i, meal_time=meal.time.strftime("%H:%M")),
                           styleSheet["SubHeader"])
         data.append([p])
@@ -294,13 +294,13 @@ def export_pdf(request, id, uidb64=None, token=None):
         for item in meal.mealitem_set.select_related():
             ingredient_markers.append(len(data))
 
-            p = Paragraph(u'<para>{0}</para>'.format(item.ingredient.name), styleSheet["Normal"])
+            p = Paragraph('<para>{0}</para>'.format(item.ingredient.name), styleSheet["Normal"])
             if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                 unit_name = 'g'
             else:
                 unit_name = ' × ' + item.weight_unit.unit.name
 
-            data.append([Paragraph(u"{0:.0f}{1}".format(item.amount, unit_name),
+            data.append([Paragraph("{0:.0f}{1}".format(item.amount, unit_name),
                                    styleSheet["Normal"]), p])
 
         # Add filler
@@ -351,7 +351,7 @@ def export_pdf(request, id, uidb64=None, token=None):
 
     # Create table with nutritional calculations
     data = []
-    data.append([Paragraph(u'<para align="center">{0}</para>'.format(_('Nutritional data')),
+    data.append([Paragraph('<para align="center">{0}</para>'.format(_('Nutritional data')),
                            styleSheet["SubHeaderBlack"])])
     data.append([Paragraph(_('Macronutrients'), styleSheet["Normal"]),
                  Paragraph(_('Total'), styleSheet["Normal"]),

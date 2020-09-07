@@ -73,7 +73,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
     set_count = 1
     day_markers.append(len(data))
 
-    p = Paragraph(u'<para align="center">%(days)s: %(description)s</para>' %
+    p = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
                   {'days': day['days_of_week']['text'],
                    'description': day['obj'].description},
                   styleSheet["SubHeader"])
@@ -97,7 +97,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             # Process the settings
             if exercise['has_weight']:
                 setting_out = []
-                for i in exercise['setting_text'].split(u'–'):
+                for i in exercise['setting_text'].split('–'):
                     setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
             else:
                 setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
@@ -214,7 +214,7 @@ def reps_smart_text(settings, set_obj):
         if setting.repetition_unit_id != 2:
             reps = "{0} {1}".format(setting.reps, rep_unit).strip()
         else:
-            reps = u'∞'
+            reps = '∞'
         return reps
 
     def get_weight_unit_reprentation(setting):
@@ -259,8 +259,8 @@ def reps_smart_text(settings, set_obj):
         weight_unit = settings[0].weight_unit
         weight = normalize_weight(settings[0])
 
-        setting_text = u'{0} × {1}'.format(set_obj.sets, reps).strip()
-        setting_list_text = u'{0} {1}'.format(reps, rep_unit).strip()
+        setting_text = '{0} × {1}'.format(set_obj.sets, reps).strip()
+        setting_list_text = '{0} {1}'.format(reps, rep_unit).strip()
         if weight:
             setting_text += ' ({0} {1})'.format(weight, weight_unit)
             setting_list_text += ' ({0} {1})'.format(weight, weight_unit)
@@ -293,7 +293,7 @@ def reps_smart_text(settings, set_obj):
             tmp_repetition_unit.append(setting.repetition_unit)
             tmp_weight_unit.append(setting.weight_unit)
 
-        setting_text = u' – '.join(tmp_reps_text)
+        setting_text = ' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
         repetition_units = tmp_repetition_unit
         weight_units = tmp_weight_unit

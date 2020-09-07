@@ -236,14 +236,14 @@ class IngredientValuesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
-        self.assertEqual(result, {u'sodium': u'0.01',
-                                  u'energy': u'1.76',
-                                  u'fat': u'0.08',
-                                  u'carbohydrates_sugar': u'0.00',
-                                  u'fat_saturated': u'0.03',
-                                  u'fibres': u'0.00',
-                                  u'protein': u'0.26',
-                                  u'carbohydrates': u'0.00'})
+        self.assertEqual(result, {'sodium': '0.01',
+                                  'energy': '1.76',
+                                  'fat': '0.08',
+                                  'carbohydrates_sugar': '0.00',
+                                  'fat_saturated': '0.03',
+                                  'fibres': '0.00',
+                                  'protein': '0.26',
+                                  'carbohydrates': '0.00'})
 
         # Get the nutritional values in 1 unit of product
         response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
@@ -254,14 +254,14 @@ class IngredientValuesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
-        self.assertEqual(result, {u'sodium': u'0.61',
-                                  u'energy': u'196.24',
-                                  u'fat': u'9.13',
-                                  u'carbohydrates_sugar': u'0.00',
-                                  u'fat_saturated': u'3.62',
-                                  u'fibres': u'0.00',
-                                  u'protein': u'28.58',
-                                  u'carbohydrates': u'0.14'})
+        self.assertEqual(result, {'sodium': '0.61',
+                                  'energy': '196.24',
+                                  'fat': '9.13',
+                                  'carbohydrates_sugar': '0.00',
+                                  'fat_saturated': '3.62',
+                                  'fibres': '0.00',
+                                  'protein': '28.58',
+                                  'carbohydrates': '0.14'})
 
     def test_calculate_value_anonymous(self):
         """

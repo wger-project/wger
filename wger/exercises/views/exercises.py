@@ -237,7 +237,7 @@ class ExerciseUpdateView(ExercisesEditAddView,
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object.name)
+        context['title'] = _('Edit {0}').format(self.object.name)
 
         return context
 
@@ -283,7 +283,7 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Correct {0}').format(self.object.name)
+        context['title'] = _('Correct {0}').format(self.object.name)
         return context
 
     def form_valid(self, form):
@@ -334,7 +334,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
         Send some additional data to the template
         """
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object.name)
+        context['title'] = _('Delete {0}?').format(self.object.name)
         return context
 
 
