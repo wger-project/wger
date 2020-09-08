@@ -65,7 +65,5 @@ node_modules
 
 venv
 
-# Media wger
+# Wger
 media/
-
-.gitignore

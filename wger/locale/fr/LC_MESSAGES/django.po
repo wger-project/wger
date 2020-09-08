@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-07 13:27+0200\n"
+"POT-Creation-Date: 2020-09-08 23:41+0200\n"
 "PO-Revision-Date: 2017-04-04 17:42+0000\n"
 "Last-Translator: rge <roland@geider.net>\n"
 "Language-Team: French (http://www.transifex.com/rge/wger-workout-manager/"
@@ -1089,11 +1089,11 @@ msgid "Categories"
 msgstr "Catégories"
 
 #: wger/core/templates/navigation.html:58
-msgid "exercices_export"
+msgid "Export exercises"
 msgstr "Exporter des exercices"
 
 #: wger/core/templates/navigation.html:59
-msgid "exercices_import"
+msgid "Import exercises"
 msgstr "Importer des exercices"
 
 #: wger/core/templates/navigation.html:74
@@ -2095,33 +2095,33 @@ msgstr "Proposer une correction"
 msgid "Export des exercices"
 msgstr ""
 
-#: wger/exercises/templates/export/overview.html:17
+#: wger/exercises/templates/export/overview.html:20
 msgid "number_all_exercices"
 msgstr "Nombre d'exercices"
 
-#: wger/exercises/templates/export/overview.html:18
-msgid "number_my_language_exercices"
-msgstr "Nombre d'exercices pour ma langue"
-
-#: wger/exercises/templates/export/overview.html:20
+#: wger/exercises/templates/export/overview.html:22
 msgid "export_all_exercices"
 msgstr "Exporter tous les exercices"
 
-#: wger/exercises/templates/export/overview.html:23
+#: wger/exercises/templates/export/overview.html:28
+msgid "number_my_language_exercices"
+msgstr "Nombre d'exercices pour ma langue"
+
+#: wger/exercises/templates/export/overview.html:30
 msgid "export_exercices_current_language"
 msgstr "Exporter tous les exercices pour ma langue"
 
-#: wger/exercises/templates/import/overview.html:7
+#: wger/exercises/templates/import/overview.html:11
 #, fuzzy
 #| msgid "Submit exercises"
 msgid "Import des exercices"
 msgstr "Soumettre des exercices"
 
-#: wger/exercises/templates/import/overview.html:13
+#: wger/exercises/templates/import/overview.html:17
 msgid "You can import previously exported exercises here"
 msgstr "Vous pouvez importer des exercices précédemment exportés"
 
-#: wger/exercises/templates/import/overview.html:22
+#: wger/exercises/templates/import/overview.html:26
 #: wger/weight/templates/import_csv_preview.html:69
 msgid "Import"
 msgstr "Importer"
@@ -4343,6 +4343,12 @@ msgstr "Importer d'une feuille de calcul"
 #, python-format
 msgid "Edit weight entry for the %s"
 msgstr "Modifier le poids entré pour %s"
+
+#~ msgid "exercices_export"
+#~ msgstr "Exporter des exercices"
+
+#~ msgid "exercices_import"
+#~ msgstr "Importer des exercices"
 
 #~ msgid "Username or email"
 #~ msgstr "Nom d'utilisateur ou email"
