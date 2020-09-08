@@ -45,12 +45,12 @@ $(document).ready(function () {
     right: 10,
     show_secondary_x_label: true,
     interpolate: d3.curveLinear,
-    xax_count: 10,
     target: '#weight_diagram',
     x_accessor: 'date',
     y_accessor: 'weight',
+    xax_count: 5,
     min_y_from_data: true,
-    colors: ['#3465a4']
+    colors: ['#266dd3']
   };
 
   username = $('#current-username').data('currentUsername');
@@ -78,40 +78,15 @@ $(document).ready(function () {
       chartParams.data = data;
       MG.data_graphic(chartParams);
     }
-  });  
-  //show bmi lines
+  });
+  
   $(document.querySelector("#enable_bmi")).click(function(){
   	var height = document.querySelector("#height").value / 100;
   	//kg = bmi * cm²
-  	var max = height*height * 25;
-  	var min = height*height * 20;
-  	var yAxisChildren = document.querySelector("#weight_diagram").querySelector("svg").querySelector(".mg-y-axis").children;
-	//get index of first text element
-	for(let i = 0; i<yAxisChildren.length; i++){
-		if(yAxisChildren[i].tagName=="text"){
-			var firstTextIndex = i;
-			break;
-		}
-	}
-	//calculate the y pos of the two lines
-	var pxDifference = parseFloat(yAxisChildren[firstTextIndex + 1].attributes["y"].value) - parseFloat(yAxisChildren[firstTextIndex].attributes["y"].value);
-	var kgDifference = parseFloat(yAxisChildren[firstTextIndex + 1].textContent) - parseFloat(yAxisChildren[firstTextIndex].textContent);
-	var pxPerKg = pxDifference / kgDifference;
-	var kgLowestToMin = min  - parseFloat(yAxisChildren[firstTextIndex].textContent);
-	var minYPos = parseFloat(yAxisChildren[firstTextIndex].attributes["y"].value) + (kgLowestToMin * pxPerKg);
-	var kgLowestToMax = max  - parseFloat(yAxisChildren[firstTextIndex].textContent);
-	var maxYPos = parseFloat(yAxisChildren[firstTextIndex].attributes["y"].value) + (kgLowestToMax * pxPerKg);
-	var minMaxYPos = [minYPos, maxYPos];
-	//create & draw lines
-  	var ns = 'http://www.w3.org/2000/svg';
-  	for(let i of minMaxYPos){
-  		var line = document.createElementNS(ns, 'line');
-  		line.setAttributeNS(null, "x1", 30);
-  		line.setAttributeNS(null, "x2", 720);
-  		line.setAttributeNS(null,"y1", i );
-  		line.setAttributeNS(null, "y2", i);
-  		document.querySelector("#weight_diagram").querySelector("svg").querySelector(".mg-y-axis").appendChild(line);
-  	}
+  	let max = height*height * 25;
+  	let min = height*height * 19;
+  	chartParams.baselines = [{value:max, label:"slight overweight"},{value:min, label:"slight underweight"}];
+  	MG.data_graphic(chartParams);
   });
 });
 
