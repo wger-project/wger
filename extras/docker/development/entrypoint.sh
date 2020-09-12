@@ -25,5 +25,12 @@ then
     chmod -R g+w ~wger/media
 fi
 
-# Run the development server
-python3 manage.py runserver 0.0.0.0:8000
+# Run the server
+if [ -z "$WGER_USE_GUNICORN" ]
+then
+    python3 manage.py runserver 0.0.0.0:8000
+else
+    gunicorn wger.wsgi:application --reload --bind 0.0.0.0:8000
+fi
+
+

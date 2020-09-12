@@ -6,8 +6,8 @@ from wger.settings_global import *
 
 
 # Use 'DEBUG = True' to get more details for server errors
-DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True
+DEBUG = os.environ.get("DJANGO_DEBUG", True)
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 ADMINS = (
     ('Your name', 'your_email@example.com'),
@@ -51,8 +51,10 @@ SITE_URL = 'http://localhost:8000'
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = '/home/wger/media'
+MEDIA_ROOT = os.environ.get("DJANGO_MEDIA_ROOT", '/home/wger/media')
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", '/home/wger/static')
 
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'

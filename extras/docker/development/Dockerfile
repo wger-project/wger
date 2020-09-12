@@ -25,7 +25,7 @@ RUN apt-get update \
 
 # Build the necessary python wheels
 COPY requirements* ./
-RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_devel.txt
+RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_prod.txt
 
 
 
@@ -47,14 +47,13 @@ COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
 RUN chmod +x /home/wger/entrypoint.sh
 RUN pip3 install --no-cache /wheels/* \
-    && pip3 install psycopg2-binary \
-    && pip3 install django-redis \
     && python3 setup.py develop
 
 RUN chown -R wger:wger .
 
 USER wger
 RUN mkdir ~/media \
+    && mkdir ~/static \
     && mkdir ~/db/
 
 CMD ["/home/wger/entrypoint.sh"]

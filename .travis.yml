@@ -27,7 +27,7 @@ env:
 # Install the application
 install:
   # Install requirements
-  - pip install -r requirements_devel.txt
+  - pip install -r requirements_dev.txt
   - python setup.py develop
   - cd wger
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi

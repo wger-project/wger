@@ -1,9 +1,6 @@
 #
-# Requirements for wger for production
+# Common requirements for wger
 #
-
-# Building/installing
-wheel
 
 # Application
 bleach~=3.1
@@ -30,9 +27,6 @@ sphinx
 # AWS
 #boto3
 
-# Production
-#psycopg2
-#python-memcached
 
 # REST API
 django-cors-headers>=3.0
