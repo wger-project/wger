@@ -126,12 +126,9 @@ patterns_export = [
     url(r'^overview',
         export.ExerciseExportOverview.as_view(),
         name="overview"),
-    url(r'^export_all',
-        export.export_all_exercices,
-        name="export_all"),
-    url(r'^export_current_language',
-        export.export_exercises_for_current_language,
-        name="export_current_language"),
+    url(r'^export_exercises/(?P<languages>all|user)',
+        export.export_exercises,
+        name="export_exercises"),
 ]
 
 patterns_import = [

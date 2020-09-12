@@ -1,9 +1,5 @@
-{% extends "base_wide.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% load static %}
-{% load wger_extras %}
-{% load cache %}
-{% load thumbnail %}
 
 <!--
         Title
@@ -19,7 +15,7 @@
                 <div class="card-body">
                         <h5 class="card-title">{% trans "number_all_exercices" %}: {{ number_exercises }}</h5>
                         <div class="card-text">
-                                <a class="btn btn-sm btn-primary" href="{% url 'exercise:export:export_all' %}">{% trans "export_all_exercices" %}</a>
+                                <a class="btn btn-sm btn-primary" href="{% url 'exercise:export:export_exercises' 'all' %}">{% trans "export_all_exercices" %}</a>
                         </div>
                 </div>
         </div>
@@ -27,7 +23,7 @@
                 <div class="card-body">
                         <h5 class="card-title">{% trans "number_my_language_exercices" %}: {{ number_exercices_by_language }}</h5>
                         <div class="card-text">
-                                <a class="btn btn-sm btn-primary" href="{% url 'exercise:export:export_current_language' %}">{% trans "export_exercices_current_language" %}</a>
+                                <a class="btn btn-sm btn-primary" href="{% url 'exercise:export:export_exercises' 'user' %}">{% trans "export_exercices_current_language" %}</a>
                         </div>
                 </div>
         </div>

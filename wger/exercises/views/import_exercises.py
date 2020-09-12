@@ -1,34 +1,27 @@
 # -*- coding: utf-8 -*-
 
-import os
 import datetime
 
 import xml.etree.cElementTree as ET
 import base64
 import io
-
-from xml.dom import minidom
+import uuid
+import logging
 
 from wger.exercises.forms import ImportExercisesForm
 from wger.core.models import License, Language
-from django.conf import settings
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
-from django.core.files import File
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.models import User
 
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    ugettext as _
 )
 
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    ListView,
-    UpdateView
-)
+from django.views.generic import ListView
 
 from wger.exercises.models import (
     Exercise,
@@ -38,27 +31,27 @@ from wger.exercises.models import (
     Equipment
 )
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 
-from wger.config.models import LanguageConfig
-from wger.utils.language import (
-    load_item_languages,
-    load_language
-)
 
+@permission_required('exercises.change_exercise')
 class ExerciseImportOverview (ListView):
     model = Exercise
     template_name = "import/overview.html"
-    context_object_name="number_exercises"
+    context_object_name = "number_exercises"
 
+
+@permission_required('exercises.change_exercise')
 def import_overview(request):
     if request.method == 'POST':
         form = ImportExercisesForm(request.POST, request.FILES)
         if form.is_valid():
             try:
-                do_import(request.FILES['file'])
+                do_import(request.FILES['file'], request.user)
             except ET.ParseError:
-                messages.warning(request, _("Cannot import file as it doesn't seems to be a valid XML"))
+                messages.warning(
+                    request, _("Cannot import file as it doesn't seems to be a valid XML")
+                )
             else:
                 messages.success(request, _("Successfully imported file!"))
 
@@ -67,18 +60,17 @@ def import_overview(request):
         form = ImportExercisesForm()
     return render(request, 'import/overview.html', {'form': form})
 
-def do_import(uploaded_file):
+
+def do_import(uploaded_file, current_user):
     file_content = bytes()
-    file_name = uploaded_file.name
 
     file_content = _get_file_content(uploaded_file)
 
     root = ET.fromstring(file_content.decode("utf-8"))
-    
-    # Let's go!
-    _parse_exercises(root)
 
-    #print(file_content.decode("utf-8"))
+    # Let's go!
+    _parse_exercises(root, current_user)
+
 
 def _get_file_content(file):
     content = bytes()
@@ -88,35 +80,41 @@ def _get_file_content(file):
 
     return content
 
-def _parse_exercises(xml_data):
+
+def _parse_exercises(xml_data, current_user):
     """
-    Importer les exos puis les images car il faut l'id de l'exercice pour correctement positionner l'image dans le
+    Importer les exos puis les images car il faut l'id de l'exercice
+    pour correctement positionner l'image dans le
     systeme de fichiers
     cf: models.py:351
     """
+    current_username = current_user.username
+    users_list = User.objects.values_list("username", flat=True)
+
     for _exercise in xml_data:
         identity = _get_exercise_identity(_exercise)
 
         # Checking exercise existence based on the name
         # if exists skipping this iteration
-        if _exercise_exists(identity["name"], identity["language"]):
+        if _exercise_exists(identity["uuid"]):
             continue
 
-        description = base64.b64decode(_exercise.text)
+        description = base64.b64decode(_exercise.text).decode("utf-8")
         muscles_list = _get_muscles(_exercise)
         equipment_list = _get_equipment(_exercise)
 
-        print("Inserting exercise \"" + identity["name"] + "\" into database")
+        author = identity["author"] if identity["author"] in users_list else current_username
 
         exercise = Exercise()
         exercise.name = identity["name"]
         exercise.name_original = identity["name"]
-        exercise.author = identity["author"]
+        exercise.license_author = author
         exercise.creation_date = identity["creation_date"]
         exercise.category = identity["category"]
         exercise.language = identity["language"]
         exercise.license = identity["license"]
         exercise.status = identity["status"]
+        exercise.uuid = uuid.UUID(identity["uuid"])
         exercise.description = description
 
         exercise.save()
@@ -129,8 +127,6 @@ def _parse_exercises(xml_data):
 
         for _equipment in equipment_list:
             exercise.equipment.add(_equipment)
-        
-        print("Exercise (" + str(exercise.id) + ")successfully inserted")
 
         images_xml = _get_images(_exercise)
 
@@ -154,8 +150,7 @@ def _parse_exercises(xml_data):
                 exercise_image.status = exercise_image.STATUS_ACCEPTED
 
                 exercise_image.save()
-        
-        
+
 
 def _get_exercise_identity(exercise_node):
     """
@@ -171,6 +166,7 @@ def _get_exercise_identity(exercise_node):
     language = exercise_node.get("language")
     license = exercise_node.get("license")
     status = exercise_node.get("status")
+    uuid = exercise_node.get("uuid")
 
     creation_date = datetime.datetime.strptime(creation_date, "%Y-%m-%dT%H:%M:%S")
 
@@ -178,6 +174,7 @@ def _get_exercise_identity(exercise_node):
     exercise_identity["author"] = author
     exercise_identity["creation_date"] = creation_date
     exercise_identity["status"] = status
+    exercise_identity["uuid"] = uuid
 
     try:
         _db_category = ExerciseCategory.objects.get(name=category)
@@ -200,8 +197,8 @@ def _get_exercise_identity(exercise_node):
     else:
         exercise_identity["license"] = _db_license
 
-
     return exercise_identity
+
 
 def _get_muscles(exercise_node):
     """
@@ -230,6 +227,7 @@ def _get_muscles(exercise_node):
 
     return muscles_list
 
+
 def _get_equipment(exercise_node):
     equipment_node = exercise_node.find("equipments")
     equipment_list = list()
@@ -243,24 +241,24 @@ def _get_equipment(exercise_node):
         try:
             _db_equipment = Equipment.objects.get(name=equipment_name)
         except ObjectDoesNotExist:
-            print(equipment_name + " does not exists, creating")
             _db_equipment = Equipment(name=equipment_name)
             _db_equipment.save()
-            print(equipment_name + " successfully created")
         finally:
             equipment_list.append(_db_equipment)
 
     return equipment_list
 
-def _exercise_exists(exercise_name, language):
-    _db_exercise = Exercise.objects.filter(name=exercise_name, language=language)
-    
+
+def _exercise_exists(exercise_uuid):
+    _db_exercise = Exercise.objects.filter(uuid=exercise_uuid)
+
     if _db_exercise:
         for i in _db_exercise:
-            print("Found exercise: " + i.name)
+            logging.debug("Found exercise: " + i.name)
         return True
 
     return False
+
 
 def _get_images(exercise_node):
     """
