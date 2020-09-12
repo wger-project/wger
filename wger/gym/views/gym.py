@@ -310,11 +310,13 @@ def gym_permissions_user_edit(request, user_pk):
         form = GymUserPermissionForm(initial={'role': initial_data},
                                      available_roles=form_group_permission)
 
-    context = {}
-    context['title'] = member.get_full_name()
-    context['form'] = form
-    context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
-    context['submit_text'] = 'Save'
+    # Set form action to absolute path
+    form.helper.form_action = request.path
+
+    context = {'title': member.get_full_name(),
+               'form': form,
+               'extend_template': 'base_empty.html' if request.is_ajax() else 'base.html',
+               'submit_text': 'Save'}
 
     return render(request, 'form.html', context)
 
