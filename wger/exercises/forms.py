@@ -38,5 +38,6 @@ class CommentForm(forms.ModelForm):
         model = ExerciseComment
         exclude = ('exercise',)
 
+
 class ImportExercisesForm(forms.Form):
     file = forms.FileField()

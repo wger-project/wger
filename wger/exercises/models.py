@@ -339,10 +339,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Filter to only active exercises in the configured languages
         """
         from wger.config.models import LanguageConfig
-        from wger.utils.language import (
-            load_item_languages,
-            load_language
-        )
+        from wger.utils.language import load_item_languages
         # Above imports are to prevent circular imports
 
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
@@ -356,10 +353,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Filter to only active exercises in the configured languages
         """
         from wger.config.models import LanguageConfig
-        from wger.utils.language import (
-            load_item_languages,
-            load_language
-        )
+        from wger.utils.language import load_item_languages
         # Above imports are to prevent circular imports
 
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
