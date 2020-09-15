@@ -71,7 +71,6 @@ from crispy_forms.layout import (
     Row,
     Submit
 )
-from rest_framework.authtoken.models import Token
 
 # wger
 from wger.config.models import GymConfig
@@ -95,6 +94,7 @@ from wger.manager.models import (
     WorkoutSession
 )
 from wger.nutrition.models import NutritionPlan
+from wger.utils.api_token import create_token
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
@@ -453,15 +453,8 @@ def api_key(request):
     context = {}
     context.update(csrf(request))
 
-    try:
-        token = Token.objects.get(user=request.user)
-    except Token.DoesNotExist:
-        token = False
+    token = create_token(request.user, request.GET.get('new_key'))
     if request.GET.get('new_key'):
-        if token:
-            token.delete()
-
-        token = Token.objects.create(user=request.user)
 
         # Redirect to get rid of the GET parameter
         return HttpResponseRedirect(reverse('core:user:api-key'))

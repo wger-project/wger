@@ -136,6 +136,10 @@ urlpatterns += [
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
+
+    # The api user login
+    url(r'^api/v2/login/$', core_api_views.UserAPILoginView.as_view({
+        'post': 'post'}), name='api_user'),
 ]
 
 #

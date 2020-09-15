@@ -15,12 +15,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
 # Django
 from django.contrib.auth.models import User
 
 # Third Party
-from rest_framework import viewsets
+from rest_framework import (
+    status,
+    viewsets
+)
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 # wger
@@ -29,6 +36,7 @@ from wger.core.api.serializers import (
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
+    UserApiSerializer,
     UsernameSerializer,
     UserprofileSerializer,
     WeightUnitSerializer
@@ -41,10 +49,14 @@ from wger.core.models import (
     UserProfile,
     WeightUnit
 )
+from wger.utils.api_token import create_token
 from wger.utils.permissions import (
     UpdateOnlyPermission,
     WgerPermission
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -76,6 +88,38 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         user = self.get_object().user
         return Response(UsernameSerializer(user).data)
+
+
+class UserAPILoginView(viewsets.ViewSet):
+    """
+    API endpoint for api user objects
+    """
+    permission_classes = (AllowAny,)
+    queryset = User.objects.all()
+    serializer_class = UserApiSerializer
+    throttle_scope = 'login'
+
+    def post(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        username = serializer.data["username"]
+        password = serializer.data["password"]
+
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            logger.info(f"Tried logging via API with unknown user: '{username}'")
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        if user.check_password(password):
+            token = create_token(user)
+            return Response({'token': token.key},
+                            status=status.HTTP_200_OK)
+        else:
+            logger.info(f"User '{username}' tried logging via API with a wrong password")
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
