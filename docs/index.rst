@@ -58,11 +58,10 @@ Feel free to contact us if you found this useful or if there was something that
 didn't behave as you expected (in this case you can also open a ticket on the
 issue tracker).
 
+* **discord:** https://discord.gg/rPWFv6W
 * **gitter:** https://gitter.im/wger-project/wger
 * **issue tracker:** https://github.com/wger-project/wger/issues
 * **twitter:** https://twitter.com/wger_project
-* **mailing list:** https://groups.google.com/group/wger / wger@googlegroups.com,
-  no registration needed
 
 
 Sources
