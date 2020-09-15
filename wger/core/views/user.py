@@ -71,6 +71,7 @@ from crispy_forms.layout import (
     Row,
     Submit
 )
+from rest_framework.authtoken.models import Token
 
 # wger
 from wger.config.models import GymConfig
@@ -453,8 +454,13 @@ def api_key(request):
     context = {}
     context.update(csrf(request))
 
-    token = create_token(request.user, request.GET.get('new_key'))
+    try:
+        token = Token.objects.get(user=request.user)
+    except Token.DoesNotExist:
+        token = None
+
     if request.GET.get('new_key'):
+        token = create_token(request.user, request.GET.get('new_key'))
 
         # Redirect to get rid of the GET parameter
         return HttpResponseRedirect(reverse('core:user:api-key'))

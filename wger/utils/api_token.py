@@ -26,6 +26,7 @@ def create_token(user, force_new=False):
     """
     Creates a new token for a user or returns the existing one.
 
+    :param user: User object
     :param force_new: forces creating a new token
     """
     token = False
