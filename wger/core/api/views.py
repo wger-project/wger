@@ -99,6 +99,9 @@ class UserAPILoginView(viewsets.ViewSet):
     serializer_class = UserApiSerializer
     throttle_scope = 'login'
 
+    def get(self, request):
+        return Response({'message': "You must send a 'username' and 'password' via POST"})
+
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
