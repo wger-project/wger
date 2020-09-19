@@ -49,7 +49,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
 
-    nstall_requires=install_requires,
+    install_requires=install_requires,
     entry_points={
         'console_scripts': [
             'wger = wger.__main__:main',
