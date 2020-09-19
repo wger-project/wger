@@ -47,7 +47,7 @@ COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
 RUN chmod +x /home/wger/entrypoint.sh
 RUN pip3 install --no-cache /wheels/* \
-    && python3 setup.py prod
+    && python3 setup.py develop
 
 RUN chown -R wger:wger .
 
