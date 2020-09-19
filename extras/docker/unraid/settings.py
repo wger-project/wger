@@ -34,20 +34,21 @@ else:
     }
 
 # Timezone for this installation. Consult settings_global.py for more information
-TIME_ZONE = 'Europe/Berlin'
+TIME_ZONE = os.environ.get("TIME_ZONE")
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '3^st!i-*a*iy!-4-^!rc8nv)-q34dg3u6f=bl%!h+!$xbznqj5'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 # Your reCaptcha keys
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
-NOCAPTCHA = True
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+NOCAPTCHA = os.environ.get('NOCAPTCHA')
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be
 # properly served.
-SITE_URL = 'http://localhost:8000'
+SITE_URL = os.environ.get('SITE_URL')
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -64,10 +65,20 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Configure a real backend in production
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    # add email vars from env
+    pass
 
 # Sender address used for sent emails
-WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
+WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{os.environ.get("FROM_EMAIL")}>'
 
+# Management
+if os.environ.get("ALLOW_REGISTRATION"):
+    WGER_SETTINGS["ALLOW_REGISTRATION"] = os.environ.get("ALLOW_REGISTRATION")
+if os.environ.get("ALLOW_GUEST_USERS"):
+    WGER_SETTINGS["ALLOW_GUEST_USERS"] = os.environ.get("ALLOW_GUEST_USERS")
+
+# Cache
 if os.environ.get("DJANGO_CACHE_BACKEND"):
     CACHES = {
         'default': {
