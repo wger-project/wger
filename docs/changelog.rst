@@ -19,6 +19,7 @@ Upgrade steps from 1.9:
 
 * Add nutrition diary to log the daily calories actually taken `#284`_ `#501`_ (thanks `@WalkingPizza`_)
 * Improved user experience, on desktop and mobile `#337`_
+* Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 
 
 🐛 Bug Fixes:
@@ -34,6 +35,7 @@ Upgrade steps from 1.9:
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
 
+.. _@Svn-Sp: https://github.com/Svn-Sp
 .. _@louiCoder: https://github.com/louiCoder
 .. _@WalkingPizza: https://github.com/WalkingPizza
 
@@ -41,6 +43,7 @@ Upgrade steps from 1.9:
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
+.. _#462: https://github.com/wger-project/wger/issues/462
 .. _#494: https://github.com/wger-project/wger/issues/494
 .. _#499: https://github.com/wger-project/wger/issues/499
 .. _#501: https://github.com/wger-project/wger/issues/501
