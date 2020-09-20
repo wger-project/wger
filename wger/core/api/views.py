@@ -114,7 +114,8 @@ class UserAPILoginView(viewsets.ViewSet):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             logger.info(f"Tried logging via API with unknown user: '{username}'")
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Username or password unknown'},
+                            status=status.HTTP_401_UNAUTHORIZED)
 
         if user.check_password(password):
             token = create_token(user)
@@ -122,7 +123,8 @@ class UserAPILoginView(viewsets.ViewSet):
                             status=status.HTTP_200_OK)
         else:
             logger.info(f"User '{username}' tried logging via API with a wrong password")
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Username or password unknown'},
+                            status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
