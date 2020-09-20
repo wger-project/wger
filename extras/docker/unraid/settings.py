@@ -80,12 +80,12 @@ if os.environ.get("ENABLE_EMAIL"):
 WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{os.environ.get("FROM_EMAIL")}>'
 
 # Management
-if os.environ.get("ALLOW_REGISTRATION") == 'False'
+if os.environ.get("ALLOW_REGISTRATION") == 'False':
     WGER_SETTINGS["ALLOW_REGISTRATION"] = False
 else:
     WGER_SETTINGS["ALLOW_REGISTRATION"] = True
 
-if os.environ.get("ALLOW_GUEST_USERS") == 'False'
+if os.environ.get("ALLOW_GUEST_USERS") == 'False':
     WGER_SETTINGS["ALLOW_GUEST_USERS"] = False
 else:
     WGER_SETTINGS["ALLOW_GUEST_USERS"] = True
