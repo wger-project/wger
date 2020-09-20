@@ -79,5 +79,14 @@ $(document).ready(function () {
       MG.data_graphic(chartParams);
     }
   });
+  
+  $(document.querySelector("#enable_bmi")).click(function(){
+  	var height = document.querySelector("#height").value / 100;
+  	//kg = bmi * cm²
+  	let max = height*height * 25;
+  	let min = height*height * 19;
+  	chartParams.baselines = [{value:max, label:"slight overweight"},{value:min, label:"slight underweight"}];
+  	MG.data_graphic(chartParams);
+  });
 });
 
