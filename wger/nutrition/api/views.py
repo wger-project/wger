@@ -15,6 +15,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+
+# Django
+from django.shortcuts import get_object_or_404
+
 # Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import (
@@ -204,6 +210,31 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         Return an overview of the nutritional plan's values
         """
         return Response(NutritionPlan.objects.get(pk=pk).get_nutritional_values())
+
+    @action(detail=True)
+    def get_log_overview(self, request, pk):
+        '''
+        Return a list of log diary entries for the nutrition plan
+        '''
+        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+        return Response(plan.get_log_overview())
+
+    @action(detail=True)
+    def log_summary(self, request, pk):
+        '''
+        Return a summary of the nutrition diary for a given date
+        '''
+        today = datetime.date.today()
+        year = request.GET.get('year', today.year)
+        month = request.GET.get('month', today.month)
+        day = request.GET.get('day', today.day)
+        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+
+        try:
+            date = datetime.date(year=int(year), month=int(month), day=int(day))
+        except ValueError:
+            date = today
+        return Response(plan.get_log_summary(date))
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):

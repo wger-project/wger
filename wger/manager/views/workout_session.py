@@ -152,7 +152,7 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
 
         logs = '' if not self.kwargs.get('logs') else self.kwargs['logs']
         context = super(WorkoutSessionDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         if logs == 'logs':
             self.delete_message_extra = _('This will delete all weight logs for this day as well.')
         return context

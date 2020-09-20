@@ -21,14 +21,14 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.manager.models import Workout
 
 
-class WorkoutShareButtonTestCase(WorkoutManagerTestCase):
+class WorkoutShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -48,7 +48,7 @@ class WorkoutShareButtonTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['show_shariff'])
 
 
-class WorkoutAccessTestCase(WorkoutManagerTestCase):
+class WorkoutAccessTestCase(WgerTestCase):
     """
     Test accessing the workout page
     """
@@ -90,7 +90,7 @@ class WorkoutAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class AddWorkoutTestCase(WorkoutManagerTestCase):
+class AddWorkoutTestCase(WgerTestCase):
     """
     Tests adding a Workout
     """
@@ -128,7 +128,7 @@ class AddWorkoutTestCase(WorkoutManagerTestCase):
         self.user_logout()
 
 
-class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
+class DeleteTestWorkoutTestCase(WgerDeleteTestCase):
     """
     Tests deleting a Workout
     """
@@ -140,7 +140,7 @@ class DeleteTestWorkoutTestCase(WorkoutManagerDeleteTestCase):
     user_fail = 'admin'
 
 
-class EditWorkoutTestCase(WorkoutManagerEditTestCase):
+class EditWorkoutTestCase(WgerEditTestCase):
     """
     Tests editing a Workout
     """
@@ -153,7 +153,7 @@ class EditWorkoutTestCase(WorkoutManagerEditTestCase):
     data = {'comment': 'A new comment'}
 
 
-class WorkoutOverviewTestCase(WorkoutManagerTestCase):
+class WorkoutOverviewTestCase(WgerTestCase):
     """
     Tests the workout overview
     """
@@ -177,7 +177,7 @@ class WorkoutOverviewTestCase(WorkoutManagerTestCase):
         self.get_workout_overview()
 
 
-class WorkoutModelTestCase(WorkoutManagerTestCase):
+class WorkoutModelTestCase(WgerTestCase):
     """
     Tests other functionality from the model
     """
@@ -190,10 +190,10 @@ class WorkoutModelTestCase(WorkoutManagerTestCase):
         workout = Workout()
         workout.creation_date = datetime.date.today()
         self.assertEqual('{0}'.format(workout),
-                         '{0} ({1})'.format(u'Workout', datetime.date.today()))
+                         '{0} ({1})'.format('Workout', datetime.date.today()))
 
-        workout.comment = u'my description'
-        self.assertEqual('{0}'.format(workout), u'my description')
+        workout.comment = 'my description'
+        self.assertEqual('{0}'.format(workout), 'my description')
 
 
 class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):

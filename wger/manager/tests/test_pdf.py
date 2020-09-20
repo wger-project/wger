@@ -17,11 +17,11 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import make_token
 
 
-class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
+class WorkoutPdfLogExportTestCase(WgerTestCase):
     """
     Tests exporting a workout as a pdf
     """
@@ -43,8 +43,8 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=Workout-3-log.pdf')
 
         # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 29000)
-        self.assertLess(int(response['Content-Length']), 35000)
+        self.assertGreater(int(response['Content-Length']), 38000)
+        self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf_token_wrong(self):
         """
@@ -75,8 +75,8 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-log.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 35000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf_with_comments(self, fail=False):
         """
@@ -95,8 +95,8 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-log.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 35000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf_with_images(self, fail=False):
         """
@@ -115,8 +115,8 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-log.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 35000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf_with_images_and_comments(self, fail=False):
         """
@@ -136,8 +136,8 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-log.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 35000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def test_export_pdf_anonymous(self):
         """
@@ -169,7 +169,7 @@ class WorkoutPdfLogExportTestCase(WorkoutManagerTestCase):
         self.export_pdf_token_wrong()
 
 
-class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
+class WorkoutPdfTableExportTestCase(WgerTestCase):
     """
     Tests exporting a workout as a pdf
     """
@@ -191,8 +191,8 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=Workout-3-table.pdf')
 
         # Approximate size only
-        self.assertGreater(int(response['Content-Length']), 29000)
-        self.assertLess(int(response['Content-Length']), 35000)
+        self.assertGreater(int(response['Content-Length']), 38000)
+        self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf_token_wrong(self):
         """
@@ -224,8 +224,8 @@ class WorkoutPdfTableExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=Workout-3-table.pdf')
 
             # Approximate size only
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 35000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def test_export_pdf_anonymous(self):
         """

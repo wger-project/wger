@@ -339,17 +339,3 @@ class TextTemplateView(TemplateView):
         resp = super().dispatch(request, args, kwargs)
         resp['Content-Type'] = 'text/plain'
         return resp
-
-
-class WebappManifestView(TemplateView):
-    """
-    A regular templateView that sets the mime type as application/x-web-app-manifest+json
-
-    This is used in the mozilla market place
-    """
-    template_name = 'manifest.webapp'
-
-    def dispatch(request, *args, **kwargs):
-        resp = super().dispatch(request, args, kwargs)
-        resp['Content-Type'] = 'application/x-web-app-manifest+json'
-        return resp

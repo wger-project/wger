@@ -19,6 +19,10 @@ from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
 # wger
 from wger.core.forms import UserPersonalInformationForm
 from wger.utils.widgets import BootstrapSelectMultiple
@@ -62,6 +66,9 @@ class GymUserPermissionForm(forms.ModelForm):
         self.fields['role'] = forms.MultipleChoiceField(choices=field_choices,
                                                         initial=User,
                                                         widget=BootstrapSelectMultiple())
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
 
 
 class GymUserAddForm(GymUserPermissionForm, UserPersonalInformationForm):

@@ -65,7 +65,7 @@ $(document).ready(function() {
                             {{ exercise }}
                         </a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body px-0 py-0">
                         <ul class="list-group list-group-flush">
                         {% for log in logs %}
                             <li class="list-group-item">
@@ -77,21 +77,19 @@ $(document).ready(function() {
                                 {{log.weight}} {% trans log.weight_unit.name %}
 
                                 {% if is_owner %}
-                                <span class="editoptions">
                                     <div class="dropdown float-right">
-                                        <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
-                                            <span class="{% fa_class 'cog' %}"></span>
+                                        <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown">
                                         </button>
-                                        <div class="dropdown-menu" role="menu">
-                                            <a href="{% url 'manager:log:edit' log.pk %}"
-                                               title="{% trans 'Edit' %}"
-                                               class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
-                                            <a href="{% url 'manager:log:delete' log.pk %}"
-                                               title="{% trans 'Delete' %}"
-                                               class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
+                                                {% trans 'Edit' %}
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
+                                                {% trans 'Delete' %}
+                                            </a>
                                         </div>
                                     </div>
-                                </span>
                                 {% endif %}
                             </li>
                         {% endfor %}
@@ -123,13 +121,13 @@ $(document).ready(function() {
 day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
-                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-default">{{day.description}}</a>
+                    <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-light">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
                 <p><em>{% trans "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-default">
+                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-light">
                     <span class="{% fa_class 'plus' %}"></span>
                     {% trans "Add one now." %}
                 </a>
@@ -137,7 +135,7 @@ day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</str
                 {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>

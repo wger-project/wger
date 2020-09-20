@@ -21,16 +21,6 @@
  *
  **************************************************************/
 
-html {
-  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-
-body {
-  font-family: "Open Sans Light", Arial, Helvetica, sans-serif;
-}
-
 h1, h2, h3, h4, h5, h6 {
 font-family: "Open Sans Bold", Arial, Helvetica, sans-serif;
 }

@@ -22,15 +22,15 @@ from django.urls import reverse_lazy
 from wger.core.models import Language
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 
 
-class LanguageRepresentationTestCase(WorkoutManagerTestCase):
+class LanguageRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -42,7 +42,7 @@ class LanguageRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Language.objects.get(pk=1)), 'Deutsch (de)')
 
 
-class LanguageOverviewTest(WorkoutManagerAccessTestCase):
+class LanguageOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the system's languages
     """
@@ -51,7 +51,7 @@ class LanguageOverviewTest(WorkoutManagerAccessTestCase):
     anonymous_fail = True
 
 
-class LanguageDetailViewTest(WorkoutManagerAccessTestCase):
+class LanguageDetailViewTest(WgerAccessTestCase):
     """
     Tests accessing a detail view of a language
     """
@@ -60,7 +60,7 @@ class LanguageDetailViewTest(WorkoutManagerAccessTestCase):
     anonymous_fail = True
 
 
-class CreateLanguageTestCase(WorkoutManagerAddTestCase):
+class CreateLanguageTestCase(WgerAddTestCase):
     """
     Tests adding a new language
     """
@@ -71,7 +71,7 @@ class CreateLanguageTestCase(WorkoutManagerAddTestCase):
             'full_name': 'Dansk'}
 
 
-class EditLanguageTestCase(WorkoutManagerEditTestCase):
+class EditLanguageTestCase(WgerEditTestCase):
     """
     Tests adding a new language
     """
@@ -83,7 +83,7 @@ class EditLanguageTestCase(WorkoutManagerEditTestCase):
             'full_name': 'Dansk'}
 
 
-class DeleteLanguageTestCase(WorkoutManagerDeleteTestCase):
+class DeleteLanguageTestCase(WgerDeleteTestCase):
     """
     Tests adding a new language
     """

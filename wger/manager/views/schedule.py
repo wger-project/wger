@@ -38,7 +38,6 @@ from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
 )
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -88,7 +87,6 @@ def overview(request):
     return render(request, 'schedule/overview.html', template_data)
 
 
-@vary_on_headers('User-Agent')
 def view(request, pk):
     """
     Show the workout schedule
@@ -158,13 +156,13 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
     elements = []
 
     # Set the title
-    p = Paragraph(u'<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
+    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
-        p = Paragraph(u'<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+        p = Paragraph('<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
                       styleSheet["HeaderBold"])
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
@@ -223,13 +221,13 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
     elements = []
 
     # Set the title
-    p = Paragraph(u'<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
+    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
-        p = Paragraph(u'<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+        p = Paragraph('<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
                       styleSheet["HeaderBold"])
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
@@ -302,7 +300,7 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
         Send some additional data to the template
         """
         context = super(ScheduleDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         return context
 
 
@@ -319,5 +317,5 @@ class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
         Send some additional data to the template
         """
         context = super(ScheduleEditView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context

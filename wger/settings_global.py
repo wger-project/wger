@@ -194,7 +194,7 @@ LANGUAGES = (
             ('de', 'German'),
             ('bg', 'Bulgarian'),
             ('es', 'Spanish'),
-            ('ru', 'Russian'),
+            ('r', 'Russian'),
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
@@ -341,7 +341,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
-                                'rest_framework.filters.OrderingFilter',)
+                                'rest_framework.filters.OrderingFilter'),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '3/min'
+    }
 }
 
 

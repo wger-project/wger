@@ -9,14 +9,13 @@
 #
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-
-
-# Standard Library
-#
-# You should have received a copy of the GNU Affero General Public License
-import csv
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
+# You should have received a copy of the GNU Affero General Public License
+#
+
+# Standard Library
+import csv
 import datetime
 import logging
 
@@ -43,6 +42,7 @@ from django.urls import (
     reverse,
     reverse_lazy
 )
+from django.utils.text import slugify
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -53,6 +53,10 @@ from django.views.generic import (
     ListView,
     UpdateView
 )
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # wger
 from wger.config.models import GymConfig as GlobalGymConfig
@@ -306,11 +310,13 @@ def gym_permissions_user_edit(request, user_pk):
         form = GymUserPermissionForm(initial={'role': initial_data},
                                      available_roles=form_group_permission)
 
-    context = {}
-    context['title'] = member.get_full_name()
-    context['form'] = form
-    context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
-    context['submit_text'] = 'Save'
+    # Set form action to absolute path
+    form.helper.form_action = request.path
+
+    context = {'title': member.get_full_name(),
+               'form': form,
+               'extend_template': 'base_empty.html' if request.is_ajax() else 'base.html',
+               'submit_text': 'Save'}
 
     return render(request, 'form.html', context)
 
@@ -359,8 +365,15 @@ class GymAddUserView(WgerFormMixin,
         """
         Set available user permissions
         """
-        return self.form_class(available_roles=get_permission_list(self.request.user),
+        form = self.form_class(available_roles=get_permission_list(self.request.user),
                                **self.get_form_kwargs())
+        form.helper = FormHelper()
+        form.helper.form_id = slugify(self.request.path)
+        form.helper.form_method = 'post'
+        form.helper.form_action = self.request.path
+        form.helper.add_input(Submit('submit', self.submit_text, css_class='btn-success btn-block'))
+        form.helper.form_class = 'wger-form'
+        return form
 
     def form_valid(self, form):
         """
@@ -434,7 +447,7 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
         Send some additional data to the template
         """
         context = super(GymUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 
@@ -459,5 +472,5 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin
         Send some additional data to the template
         """
         context = super(GymDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         return context

@@ -20,14 +20,14 @@ from django.urls import reverse
 
 # wger
 from wger.core.models import UserProfile
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import Workout
 
 
 logger = logging.getLogger(__name__)
 
 
-class CopyWorkoutTestCase(WorkoutManagerTestCase):
+class CopyWorkoutTestCase(WgerTestCase):
     """
     Tests copying a workout
     """

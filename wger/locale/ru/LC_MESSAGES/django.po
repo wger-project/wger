@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Inna <inna@geider.net>, 2013
 # Inna <inna@geider.net>, 2013-2015
@@ -907,8 +907,8 @@ msgstr "Открытая форма отзыва"
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
-msgstr "твитнуть @wger_de"
+msgid "tweet to @wger_project"
+msgstr "твитнуть @wger_project"
 
 #: core/templates/misc/contact.html:56
 #: core/templates/mobile/misc/contact.html:37

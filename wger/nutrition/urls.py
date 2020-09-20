@@ -27,6 +27,7 @@ from wger.nutrition.views import (
     bmi,
     calculator,
     ingredient,
+    log,
     meal,
     meal_item,
     plan,
@@ -182,14 +183,34 @@ patterns_calories = [
         name='activities'),  # JS
 ]
 
+# sub patterns for calories dairy
+patterns_diary = [
+    url(r'^(?P<pk>\d+)$',
+        log.overview,
+        name='overview'),
+    url(r'^(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
+        log.detail,
+        name='detail'),
+    url(r'^entry/(?P<pk>\d+)/delete$',
+        log.LogDeleteView.as_view(),
+        name='delete'),
+    url(r'^plan/(?P<plan_pk>\d+)/add',
+        log.LogCreateView.as_view(),
+        name='add'),
+    url(r'^log-meal/(?P<meal_pk>\d+)$',
+        log.log_meal,
+        name='log_meal'),
+]
+
 
 urlpatterns = [
-    url(r'^', include((patterns_plan, 'plan'), namespace="plan")),
-    url(r'^meal/', include((patterns_meal, 'meal'), namespace="meal")),
-    url(r'^meal/item/', include((patterns_meal_item, 'meal_item'), namespace="meal_item")),
-    url(r'^ingredient/', include((patterns_ingredient, 'ingredient'), namespace="ingredient")),
-    url(r'^unit/', include((patterns_weight_unit, 'weight_unit'), namespace="weight_unit")),
-    url(r'^unit-to-ingredient/', include((patterns_unit_ingredient, 'unit_ingredient'), namespace="unit_ingredient")),
-    url(r'^calculator/bmi/', include((patterns_bmi, 'bmi'), namespace="bmi")),
-    url(r'^calculator/calories/', include((patterns_calories, 'calories'), namespace="calories")),
+   url(r'^', include((patterns_plan, "plan"), namespace="plan")),
+   url(r'^meal/', include((patterns_meal,  "meal"), namespace="meal")),
+   url(r'^meal/item/', include((patterns_meal_item, "meal_item"), namespace="meal_item")),
+   url(r'^ingredient/', include((patterns_ingredient, "ingredient"), namespace="ingredient")),
+   url(r'^unit/', include((patterns_weight_unit, "weight_unit"), namespace="weight_unit")),
+   url(r'^unit-to-ingredient/', include((patterns_unit_ingredient, "unit_ingredient"), namespace="unit_ingredient")),
+   url(r'^calculator/bmi/', include((patterns_bmi, "bmi"), namespace="bmi")),
+   url(r'^calculator/calories/', include((patterns_calories, "calories"), namespace="calories")),
+   url(r'^diary/', include((patterns_diary, "log"), namespace="log")),
 ]

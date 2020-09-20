@@ -93,9 +93,9 @@ class Command(BaseCommand):
             exercise_id = exercise_json['id']
 
             self.stdout.write('')
-            self.stdout.write(u"*** Processing {0} (ID: {1}, UUID: {2})".format(exercise_name,
-                                                                                exercise_id,
-                                                                                exercise_uuid))
+            self.stdout.write("*** Processing {0} (ID: {1}, UUID: {2})".format(exercise_name,
+                                                                               exercise_id,
+                                                                               exercise_uuid))
 
             try:
                 exercise = Exercise.objects.get(uuid=exercise_uuid)

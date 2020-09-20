@@ -19,12 +19,12 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
-    WorkoutManagerTestCase
+    WgerTestCase
 )
 from wger.exercises.models import Exercise
 
 
-class ExercisesPendingTestCase(WorkoutManagerTestCase):
+class ExercisesPendingTestCase(WgerTestCase):
     """
     Tests the pending exercises overview page
     """
@@ -64,7 +64,7 @@ class ExercisesPendingTestCase(WorkoutManagerTestCase):
         self.pending_overview(fail=True)
 
 
-class ExercisesPendingDetailTestCase(WorkoutManagerTestCase):
+class ExercisesPendingDetailTestCase(WgerTestCase):
     """
     Tests the detail page of a pending exercise
     """
@@ -110,7 +110,7 @@ class ExercisesPendingDetailTestCase(WorkoutManagerTestCase):
         self.pending_view(fail=True)
 
 
-class ExerciseAcceptTestCase(WorkoutManagerTestCase):
+class ExerciseAcceptTestCase(WgerTestCase):
     """
     Tests accepting a user submitted exercise
     """
@@ -159,7 +159,7 @@ class ExerciseAcceptTestCase(WorkoutManagerTestCase):
         self.accept(fail=True)
 
 
-class ExerciseRejectTestCase(WorkoutManagerTestCase):
+class ExerciseRejectTestCase(WgerTestCase):
     """
     Tests rejecting a user submitted exercise
     """

@@ -15,7 +15,13 @@ objects: <a href="/api/v2/" rel="nofollow">https://wger.de/api/v2/</a></p>
 ingredients can be accessed without authentication. For <strong>user owned
 objects such as workouts, you need to generate an API KEY</strong> and pass
 it in the header, see the link on the sidebar for details.</p>
+
+<p>You can also generate a token via the <code>login</code> endpoint. Send a
+username and password and you will get the user's token or a new one will be
+generated. At the moment it is not possible to register via the API.</p>
+
 <p>You should always use HTTPS if possible when communicating with the server.</p>
+
 
 <div class="container">
 <div class="row">
@@ -245,6 +251,27 @@ it in the header, see the link on the sidebar for details.</p>
     </div>
 </div>
 
+<div style="margin-top: 1em;">
+    <code>api/v2/nutritionplan/&lt;id&gt;/get_log_overview/</code><br>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        Returns a list with the combined nutritional values logged for the given
+        plan for all available days where a diary entry was logged.
+    </div>
+</div>
+
+<div style="margin-top: 1em;">
+    <code>api/v2/nutritionplan/&lt;id&gt;/log_summary/?year=&lt;year&gt;&month=&lt;month&gt;&day=&lt;day&gt;</code><br>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        Returns the nutritional values logged for the nutrition diary for a
+        plan for the given date. You can omit the GET parameters, then you
+        will get the values for today.
+    </div>
+</div>
+
 
 <h3>Data documentation</h3>
 <p>The data structures should be pretty forward and easy to understand: a workout
@@ -387,6 +414,6 @@ curl -H "Authorization: Token 123456..." \
     <a href="https://github.com/wger-project/wger" class="alert-link">we'd love to hear from you</a>.
 </div>
 
-<p><a href="/api/v2/" class="btn btn-block btn-default" rel="nofollow">Browse the API</a></p>
-<p><a href="{% url 'core:user:api-key' %}" class="btn btn-block btn-default">Generate API KEY</a></p>
+<p><a href="/api/v2/" class="btn btn-block btn-light" rel="nofollow">Browse the API</a></p>
+<p><a href="{% url 'core:user:api-key' %}" class="btn btn-block btn-light">Generate API KEY</a></p>
 {% endblock %}

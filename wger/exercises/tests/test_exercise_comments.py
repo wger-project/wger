@@ -20,9 +20,9 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import (
     Exercise,
@@ -31,7 +31,7 @@ from wger.exercises.models import (
 from wger.utils.cache import cache_mapper
 
 
-class ExerciseCommentRepresentationTestCase(WorkoutManagerTestCase):
+class ExerciseCommentRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -43,7 +43,7 @@ class ExerciseCommentRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(ExerciseComment.objects.get(pk=1)), 'test 123')
 
 
-class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
+class AddExerciseCommentTestCase(WgerAddTestCase):
     """
     Tests adding a comment to an exercise
     """
@@ -54,7 +54,7 @@ class AddExerciseCommentTestCase(WorkoutManagerAddTestCase):
     data = {'comment': 'a new cool comment'}
 
 
-class EditExerciseCommentTestCase(WorkoutManagerEditTestCase):
+class EditExerciseCommentTestCase(WgerEditTestCase):
     """
     Tests editing a comment to an exercise
     """
@@ -65,7 +65,7 @@ class EditExerciseCommentTestCase(WorkoutManagerEditTestCase):
     data = {'comment': 'an edited comment'}
 
 
-class ExercisecommentsTestCase(WorkoutManagerTestCase):
+class ExercisecommentsTestCase(WgerTestCase):
 
     def exercise_delete_comment(self, fail=True):
         """
@@ -119,7 +119,7 @@ class ExercisecommentsTestCase(WorkoutManagerTestCase):
         self.exercise_delete_comment(fail=False)
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
+class WorkoutCacheTestCase(WgerTestCase):
     """
     Workout cache test case
     """

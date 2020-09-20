@@ -41,6 +41,7 @@ from wger.core.models import UserProfile
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
+    LogItem,
     MealItem
 )
 from wger.utils.widgets import Html5NumberInput
@@ -212,7 +213,8 @@ class MealItemForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
                                         widget=forms.HiddenInput)
 
-    ingredient_searchfield = forms.CharField(required=False)
+    ingredient_searchfield = forms.CharField(required=False,
+                                             label=ugettext_lazy("Ingredient"))
 
     class Meta:
         model = MealItem
@@ -241,10 +243,19 @@ class MealItemForm(forms.ModelForm):
         self.helper.layout = Layout(
             'ingredient',
             'ingredient_searchfield',
-            HTML('<div id="exercise_name"></div>'),
+            HTML('<div id="ingredient_name"></div>'),
             Row(
                 Column('amount', css_class='form-group col-6 mb-0'),
                 Column('weight_unit', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
             )
         )
+
+
+class MealLogItemForm(MealItemForm):
+
+    class Meta:
+        model = LogItem
+        fields = ['ingredient',
+                  'weight_unit',
+                  'amount']

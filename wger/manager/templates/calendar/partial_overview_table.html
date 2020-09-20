@@ -1,14 +1,14 @@
 {% load i18n wger_extras %}
 
 <div class="btn-group btn-group-justified" role="group">
-    <a href="{{value.workout.get_absolute_url}}" class="btn btn-default">{{ value.workout }}</a>
-    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-default">{% trans "Log overview" %}</a>
+    <a href="{{value.workout.get_absolute_url}}" class="btn btn-link">{{ value.workout }}</a>
+    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-link">{% trans "Log overview" %}</a>
 
     {% if is_owner %}
         {% if value.session %}
             <div class="btn-group">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% trans "Workout session" %}
                         <span class="caret"></span>
                     </button>
@@ -17,6 +17,7 @@
                             <span class="{% fa_class 'edit-o' %}"></span>
                             {% trans "Edit" %}
                         </a>
+                        <div class="dropdown-divider"></div>
                         <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'trash' %}"></span>
                             {% trans "Delete" %}
@@ -29,7 +30,7 @@
                 </div>
             </div>
         {% else %}
-            <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-default btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+            <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-light btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
         {% endif %}
     {% endif %}
 </div>

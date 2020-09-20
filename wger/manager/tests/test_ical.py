@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.helpers import (
     make_token,
     next_weekday
@@ -30,7 +30,7 @@ from wger.utils.helpers import (
 # TODO: parse the generated calendar files with the icalendar library
 
 
-class IcalToolsTestCase(WorkoutManagerTestCase):
+class IcalToolsTestCase(WgerTestCase):
     """
     Tests some tools used for iCal generation
     """
@@ -51,7 +51,7 @@ class IcalToolsTestCase(WorkoutManagerTestCase):
         self.assertEqual(next_weekday(start_date, 5), datetime.date(2013, 12, 7))
 
 
-class WorkoutICalExportTestCase(WorkoutManagerTestCase):
+class WorkoutICalExportTestCase(WgerTestCase):
     """
     Tests exporting the ical file for a workout
     """
@@ -138,7 +138,7 @@ class WorkoutICalExportTestCase(WorkoutManagerTestCase):
         self.export_ical_token_wrong()
 
 
-class ScheduleICalExportTestCase(WorkoutManagerTestCase):
+class ScheduleICalExportTestCase(WgerTestCase):
     """
     Tests exporting the ical file for a schedule
     """

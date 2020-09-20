@@ -17,6 +17,7 @@
 # Django
 from django import template
 from django.conf import settings
+from django.db.models import QuerySet
 from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
@@ -109,6 +110,35 @@ def license_sidebar(license, author=None):
             'author': author}
 
 
+@register.inclusion_tag('tags/muscles.html')
+def render_muscles(muscles=None, muscles_sec=None):
+    """
+    Renders the given muscles
+    """
+    if not muscles and not muscles_sec:
+        return {"empty": True}
+
+    out_main = []
+    if muscles:
+        out_main = muscles if isinstance(muscles, (list, tuple, QuerySet)) else [muscles]
+
+    out_sec = []
+    if muscles_sec:
+        out_sec = muscles_sec if isinstance(muscles_sec, (list, tuple, QuerySet)) else [muscles_sec]
+
+    try:
+        front_back = "front" if out_main[0].is_front else "back"
+    except IndexError:
+        front_back = "front" if out_sec[0].is_front else "back"
+
+    backgrounds = ["images/muscles/main/muscle-{}.svg".format(i.id) for i in out_main] \
+        + ["images/muscles/secondary/muscle-{}.svg".format(i.id) for i in out_sec] \
+        + ["images/muscles/muscular_system_{}.svg".format(front_back)]
+
+    return {"backgrounds": backgrounds,
+            "empty": False}
+
+
 @register.inclusion_tag('tags/language_select.html', takes_context=True)
 def language_select(context, language):
     """
@@ -126,6 +156,22 @@ def get_item(dictionary, key):
     Allows to access a specific key in a dictionary in a template
     """
     return dictionary.get(key)
+
+
+@register.filter
+def minus(a, b):
+    """
+    Simple function that subtracts two values in a template
+    """
+    return a - b
+
+
+@register.filter
+def is_positive(a):
+    """
+    Simple function that checks whether one value is bigger than the other
+    """
+    return a > 0
 
 
 @register.simple_tag

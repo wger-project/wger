@@ -115,6 +115,7 @@ class BaseTestCase(object):
                 'test-weight-units',
                 'test-ingredients',
                 'test-nutrition-data',
+                'test-nutrition-diary',
                 'test-workout-data',
                 'test-workout-session',
                 'test-schedules')
@@ -150,7 +151,7 @@ class BaseTestCase(object):
         shutil.rmtree(self.media_root)
 
 
-class WorkoutManagerTestCase(BaseTestCase, TestCase):
+class WgerTestCase(BaseTestCase, TestCase):
     """
     Testcase to use with the regular website
     """
@@ -220,7 +221,7 @@ class WorkoutManagerTestCase(BaseTestCase, TestCase):
         pass
 
 
-class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
+class WgerDeleteTestCase(WgerTestCase):
     """
     Tests deleting an object an authorized user, a different one and a logged out
     one. This assumes the delete action is only triggered with a POST request and
@@ -237,7 +238,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
         """
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerDeleteTestCase':
+        if self.__class__.__name__ == 'WgerDeleteTestCase':
             return
 
         # Fetch the delete page
@@ -297,7 +298,7 @@ class WorkoutManagerDeleteTestCase(WorkoutManagerTestCase):
                 self.delete_object(fail=True)
 
 
-class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
+class WgerEditTestCase(WgerTestCase):
     """
     Tests editing an object as an authorized user, a different one and a logged out
     one.
@@ -322,7 +323,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
         """
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerEditTestCase':
+        if self.__class__.__name__ == 'WgerEditTestCase':
             return
 
         # Fetch the edit page
@@ -395,7 +396,7 @@ class WorkoutManagerEditTestCase(WorkoutManagerTestCase):
                 self.edit_object(fail=True)
 
 
-class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
+class WgerAddTestCase(WgerTestCase):
     """
     Tests adding an object as an authorized user, a different one and a logged out
     one.
@@ -422,7 +423,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
         """
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerAddTestCase':
+        if self.__class__.__name__ == 'WgerAddTestCase':
             return
 
         # Fetch the add page
@@ -502,7 +503,7 @@ class WorkoutManagerAddTestCase(WorkoutManagerTestCase):
                 self.add_object(fail=True)
 
 
-class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
+class WgerAccessTestCase(WgerTestCase):
     """
     Tests accessing a URL per GET as an authorized user, an unauthorized one and
     a logged out one.
@@ -514,7 +515,7 @@ class WorkoutManagerAccessTestCase(WorkoutManagerTestCase):
     def access(self, fail=True):
 
         # Only perform the checks on derived classes
-        if self.__class__.__name__ == 'WorkoutManagerAccessTestCase':
+        if self.__class__.__name__ == 'WgerAccessTestCase':
             return
 
         response = self.client.get(get_reverse(self.url))

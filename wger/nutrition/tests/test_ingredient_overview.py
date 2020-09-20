@@ -17,11 +17,11 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
-class OverviewPlanTestCase(WorkoutManagerTestCase):
+class OverviewPlanTestCase(WgerTestCase):
     """
     Tests the ingredient overview
     """

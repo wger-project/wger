@@ -60,7 +60,7 @@ class WeightEntry(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0}: {1:.2f} kg".format(self.date, self.weight)
+        return "{0}: {1:.2f} kg".format(self.date, self.weight)
 
     def get_owner_object(self):
         """

@@ -14,11 +14,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
+from wger.core.tests.base_testcase import WgerEditTestCase
 from wger.gym.models import GymConfig
 
 
-class EditGymConfigTestCase(WorkoutManagerEditTestCase):
+class EditGymConfigTestCase(WgerEditTestCase):
     """
     Test editing a gym configuration
     """

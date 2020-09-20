@@ -101,7 +101,7 @@ class UserPreferencesForm(forms.ModelForm):
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
             Accordion(
-                AccordionGroup(_("Email"),
+                AccordionGroup(_("Personal data"),
                                'email',
                                Row(Column('first_name', css_class='form-group col-6 mb-0'),
                                    Column('last_name', css_class='form-group col-6 mb-0'),

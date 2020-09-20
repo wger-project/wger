@@ -24,10 +24,10 @@ from django.urls import reverse
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.manager.models import (
     Schedule,
@@ -40,7 +40,7 @@ from wger.utils.helpers import make_token
 logger = logging.getLogger(__name__)
 
 
-class ScheduleShareButtonTestCase(WorkoutManagerTestCase):
+class ScheduleShareButtonTestCase(WgerTestCase):
     """
     Test that the share button is correctly displayed and hidden
     """
@@ -60,7 +60,7 @@ class ScheduleShareButtonTestCase(WorkoutManagerTestCase):
         self.assertFalse(response.context['show_shariff'])
 
 
-class ScheduleAccessTestCase(WorkoutManagerTestCase):
+class ScheduleAccessTestCase(WgerTestCase):
     """
     Test accessing the workout page
     """
@@ -102,7 +102,7 @@ class ScheduleAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class ScheduleRepresentationTestCase(WorkoutManagerTestCase):
+class ScheduleRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -115,7 +115,7 @@ class ScheduleRepresentationTestCase(WorkoutManagerTestCase):
                          'my cool schedule that i found on the internet')
 
 
-class CreateScheduleTestCase(WorkoutManagerAddTestCase):
+class CreateScheduleTestCase(WgerAddTestCase):
     """
     Tests adding a schedule
     """
@@ -130,7 +130,7 @@ class CreateScheduleTestCase(WorkoutManagerAddTestCase):
             'is_loop': True}
 
 
-class DeleteScheduleTestCase(WorkoutManagerDeleteTestCase):
+class DeleteScheduleTestCase(WgerDeleteTestCase):
     """
     Tests deleting a schedule
     """
@@ -142,7 +142,7 @@ class DeleteScheduleTestCase(WorkoutManagerDeleteTestCase):
     user_fail = 'admin'
 
 
-class EditScheduleTestCase(WorkoutManagerEditTestCase):
+class EditScheduleTestCase(WgerEditTestCase):
     """
     Tests editing a schedule
     """
@@ -156,7 +156,7 @@ class EditScheduleTestCase(WorkoutManagerEditTestCase):
             'is_loop': True}
 
 
-class ScheduleTestCase(WorkoutManagerTestCase):
+class ScheduleTestCase(WgerTestCase):
     """
     Other tests
     """
@@ -178,15 +178,12 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'This schedule is a loop')
 
-    # Commented out since travis was seemingly randomly failing this. See #468
-    #
-    # def test_schedule_detail_page_owner(self):
-    #     """
-    #     Tests the schedule detail page as the owning user
-    #     """
-    #
-    #     self.user_login()
-    #     self.schedule_detail_page()
+    def test_schedule_detail_page_owner(self):
+        """
+        Tests the schedule detail page as the owning user
+        """
+        self.user_login()
+        self.schedule_detail_page()
 
     def test_schedule_overview(self):
         """
@@ -282,7 +279,7 @@ class ScheduleTestCase(WorkoutManagerTestCase):
         self.start_schedule(fail=True)
 
 
-class ScheduleEndDateTestCase(WorkoutManagerTestCase):
+class ScheduleEndDateTestCase(WgerTestCase):
     """
     Test the schedule's get_end_date method
     """
@@ -314,7 +311,7 @@ class ScheduleEndDateTestCase(WorkoutManagerTestCase):
         self.assertEqual(schedule.get_end_date(), schedule.start_date)
 
 
-class ScheduleModelTestCase(WorkoutManagerTestCase):
+class ScheduleModelTestCase(WgerTestCase):
     """
     Tests the model methods
     """
@@ -485,7 +482,7 @@ class ScheduleModelTestCase(WorkoutManagerTestCase):
         self.assertTrue(schedule.get_current_scheduled_workout().workout, workout)
 
 
-class SchedulePdfExportTestCase(WorkoutManagerTestCase):
+class SchedulePdfExportTestCase(WgerTestCase):
     """
     Test exporting a schedule as a pdf
     """

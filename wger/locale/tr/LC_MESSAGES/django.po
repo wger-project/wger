@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -902,7 +902,7 @@ msgstr ""
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
+msgid "tweet to @wger_project"
 msgstr ""
 
 #: core/templates/misc/contact.html:56

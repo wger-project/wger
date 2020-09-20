@@ -22,9 +22,9 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.nutrition.models import (
     Meal,
@@ -32,7 +32,7 @@ from wger.nutrition.models import (
 )
 
 
-class MealRepresentationTestCase(WorkoutManagerTestCase):
+class MealRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -44,7 +44,7 @@ class MealRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Meal.objects.get(pk=1)), '1 Meal')
 
 
-class EditMealTestCase(WorkoutManagerEditTestCase):
+class EditMealTestCase(WgerEditTestCase):
     """
     Tests editing a meal
     """
@@ -55,7 +55,7 @@ class EditMealTestCase(WorkoutManagerEditTestCase):
     data = {'time': datetime.time(8, 12)}
 
 
-class AddMealTestCase(WorkoutManagerAddTestCase):
+class AddMealTestCase(WgerAddTestCase):
     """
     Tests adding a Meal
     """
@@ -67,7 +67,7 @@ class AddMealTestCase(WorkoutManagerAddTestCase):
     user_fail = 'admin'
 
 
-class PlanOverviewTestCase(WorkoutManagerTestCase):
+class PlanOverviewTestCase(WgerTestCase):
     """
     Tests the nutrition plan overview
     """
@@ -91,7 +91,7 @@ class PlanOverviewTestCase(WorkoutManagerTestCase):
         self.get_plan_overview()
 
 
-class PlanDetailTestCase(WorkoutManagerTestCase):
+class PlanDetailTestCase(WgerTestCase):
     """
     Tests the nutrition plan detail view
     """

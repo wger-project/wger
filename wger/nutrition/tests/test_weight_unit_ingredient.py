@@ -22,10 +22,10 @@ from django.urls import (
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.nutrition.models import (
     IngredientWeightUnit,
@@ -33,7 +33,7 @@ from wger.nutrition.models import (
 )
 
 
-class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
+class WeightUnitIngredientRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -45,7 +45,7 @@ class WeightUnitIngredientRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
 
 
-class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
+class AddWeightUnitIngredientTestCase(WgerAddTestCase):
     """
     Tests adding a new weight unit to an ingredient
     """
@@ -58,7 +58,7 @@ class AddWeightUnitIngredientTestCase(WorkoutManagerAddTestCase):
             'amount': 1}
 
 
-class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
+class DeleteWeightUnitIngredientTestCase(WgerDeleteTestCase):
     """
     Tests deleting a weight unit from an ingredient
     """
@@ -68,7 +68,7 @@ class DeleteWeightUnitIngredientTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
+class EditWeightUnitTestCase(WgerEditTestCase):
     """
     Tests editing a weight unit from an ingredient
     """
@@ -81,7 +81,7 @@ class EditWeightUnitTestCase(WorkoutManagerEditTestCase):
             'amount': 0.3}
 
 
-class WeightUnitFormTestCase(WorkoutManagerTestCase):
+class WeightUnitFormTestCase(WgerTestCase):
     """
     Tests the form for the weight units
     """

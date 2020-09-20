@@ -27,14 +27,14 @@ env:
 # Install the application
 install:
   # Install requirements
-  - pip install -r requirements_devel.txt
+  - pip install -r requirements_dev.txt
   - python setup.py develop
   - cd wger
   - if [[ "$DB" = "postgresql" ]]; then pip install psycopg2; fi
 
   # Setup application
-  - if [[ "$DB" = "sqlite" ]]; then wger create_settings; fi
-  - if [[ "$DB" = "postgresql" ]]; then wger create_settings --database-type postgresql; fi
+  - if [[ "$DB" = "sqlite" ]]; then wger create-settings; fi
+  - if [[ "$DB" = "postgresql" ]]; then wger create-settings --database-type postgresql; fi
 
   # change back to the source folder
   - cd ..

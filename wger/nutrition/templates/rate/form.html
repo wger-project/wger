@@ -78,7 +78,7 @@ needs based on your level of physical activity.{% endblocktrans %}</p>
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" class="btn btn-default btn-block" value="{% trans 'Calculate basic caloric intake' %}" id="form-calculate-daily-calories">
+                <input type="submit" class="btn btn-light btn-block" value="{% trans 'Calculate basic caloric intake' %}" id="form-calculate-daily-calories">
             </td>
         </tr>
     </table>
@@ -99,15 +99,15 @@ you might just enter yourself the amount of calories if you know the value.{% en
     {{ form_calories.calories|as_crispy_field }}
 
     <p>
-        <input type="submit" class="btn btn-default btn-block" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">
+        <input type="submit" class="btn btn-light btn-block" value="{% trans 'Transfer basic intake to total daily calories' %}" id="form-transfer-calories">
     </p>
 
     <p>
-        <input type="submit" class="btn btn-default btn-block" value="{% trans 'Add additional calories to total daily calories' %}" id="add-calories-total">
+        <input type="submit" class="btn btn-light btn-block" value="{% trans 'Add additional calories to total daily calories' %}" id="add-calories-total">
     </p>
 
     <p>
-        <input type="submit" class="btn btn-default btn-block" value="{% trans 'Save total calories to profile' %}" id="form-update-calories">
+        <input type="submit" class="btn btn-light btn-block" value="{% trans 'Save total calories to profile' %}" id="form-update-calories">
     </p>
 </form>
 {% endblock %}

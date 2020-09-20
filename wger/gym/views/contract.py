@@ -151,7 +151,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         Send some additional data to the template
         """
         context = super(UpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 

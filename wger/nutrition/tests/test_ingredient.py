@@ -26,10 +26,10 @@ from django.urls import reverse
 from wger.core.models import Language
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.nutrition.models import (
     Ingredient,
@@ -38,7 +38,7 @@ from wger.nutrition.models import (
 from wger.utils.constants import NUTRITION_TAB
 
 
-class IngredientRepresentationTestCase(WorkoutManagerTestCase):
+class IngredientRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -50,7 +50,7 @@ class IngredientRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
 
 
-class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
+class DeleteIngredientTestCase(WgerDeleteTestCase):
     """
     Tests deleting an ingredient
     """
@@ -60,7 +60,7 @@ class DeleteIngredientTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class EditIngredientTestCase(WorkoutManagerEditTestCase):
+class EditIngredientTestCase(WgerEditTestCase):
     """
     Tests editing an ingredient
     """
@@ -89,7 +89,7 @@ class EditIngredientTestCase(WorkoutManagerEditTestCase):
             self.assertEqual(ingredient.update_date, datetime.date.today())
 
 
-class AddIngredientTestCase(WorkoutManagerAddTestCase):
+class AddIngredientTestCase(WgerAddTestCase):
     """
     Tests adding an ingredient
     """
@@ -122,7 +122,7 @@ class AddIngredientTestCase(WorkoutManagerAddTestCase):
             self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
-class IngredientDetailTestCase(WorkoutManagerTestCase):
+class IngredientDetailTestCase(WgerTestCase):
     """
     Tests the ingredient details page
     """
@@ -177,7 +177,7 @@ class IngredientDetailTestCase(WorkoutManagerTestCase):
         self.ingredient_detail(editor=False)
 
 
-class IngredientSearchTestCase(WorkoutManagerTestCase):
+class IngredientSearchTestCase(WgerTestCase):
     """
     Tests the ingredient search functions
     """
@@ -217,7 +217,7 @@ class IngredientSearchTestCase(WorkoutManagerTestCase):
         self.search_ingredient()
 
 
-class IngredientValuesTestCase(WorkoutManagerTestCase):
+class IngredientValuesTestCase(WgerTestCase):
     """
     Tests the nutritional value calculator for an ingredient
     """
@@ -236,14 +236,14 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
-        self.assertEqual(result, {u'sodium': u'0.01',
-                                  u'energy': u'1.76',
-                                  u'fat': u'0.08',
-                                  u'carbohydrates_sugar': u'0.00',
-                                  u'fat_saturated': u'0.03',
-                                  u'fibres': u'0.00',
-                                  u'protein': u'0.26',
-                                  u'carbohydrates': u'0.00'})
+        self.assertEqual(result, {'sodium': '0.01',
+                                  'energy': '1.76',
+                                  'fat': '0.08',
+                                  'carbohydrates_sugar': '0.00',
+                                  'fat_saturated': '0.03',
+                                  'fibres': '0.00',
+                                  'protein': '0.26',
+                                  'carbohydrates': '0.00'})
 
         # Get the nutritional values in 1 unit of product
         response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
@@ -254,14 +254,14 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 8)
-        self.assertEqual(result, {u'sodium': u'0.61',
-                                  u'energy': u'196.24',
-                                  u'fat': u'9.13',
-                                  u'carbohydrates_sugar': u'0.00',
-                                  u'fat_saturated': u'3.62',
-                                  u'fibres': u'0.00',
-                                  u'protein': u'28.58',
-                                  u'carbohydrates': u'0.14'})
+        self.assertEqual(result, {'sodium': '0.61',
+                                  'energy': '196.24',
+                                  'fat': '9.13',
+                                  'carbohydrates_sugar': '0.00',
+                                  'fat_saturated': '3.62',
+                                  'fibres': '0.00',
+                                  'protein': '28.58',
+                                  'carbohydrates': '0.14'})
 
     def test_calculate_value_anonymous(self):
         """
@@ -279,7 +279,7 @@ class IngredientValuesTestCase(WorkoutManagerTestCase):
         self.calculate_value()
 
 
-class IngredientTestCase(WorkoutManagerTestCase):
+class IngredientTestCase(WgerTestCase):
     """
     Tests other ingredient functions
     """

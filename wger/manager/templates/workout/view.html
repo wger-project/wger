@@ -60,22 +60,17 @@ $(document).ready(function () {
     <div id="div-day-{{ day.obj.id }}">
         {% render_day day.obj is_owner %}
     </div>
-{% empty %}
-    {% if is_owner %}
-        <p>
-            <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-default btn-block">
-            {% trans "No days for this workout." %}
-            {% trans "Add training day" %}
-            </a>
-        </p>
-    {% endif %}
 {% endfor %}
+
 
 {% if is_owner %}
 <p>
-    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog">{% trans "Add training day" %}</a>
+    <a href="{% url 'manager:day:add' workout.id %}" class="wger-modal-dialog btn btn-link btn-block">{% trans "Add training day" %}</a>
+
+    <!--
     |
     <a id="exercise-comments-toggle" href="{% url 'core:user:preferences' %}">{% trans "Show/Hide exercise comments" %}</a>
+    -->
 </p>
 {% endif %}
 {% endblock %}
@@ -103,16 +98,10 @@ $(document).ready(function () {
 
 <div class="row">
     <div class="col-6">
-        <div id="muscle-front"
-             class="muscle-background center-block"
-             style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+        {% render_muscles muscles.front muscles.frontsecondary %}
     </div>
     <div class="col-6">
-        <div id="muscle-back"
-                 class="muscle-background center-block"
-                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+        {% render_muscles muscles.back muscles.backsecondary %}
     </div>
 </div>
 
@@ -130,13 +119,13 @@ $(document).ready(function () {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-default">
-                   {% trans "Export calendar file" %}
-                </a>
+                    <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
+                       {% trans "Export calendar file" %}
+                    </a>
                 </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
@@ -146,63 +135,58 @@ an appointment for each training day with the appropriate exercises.{% endblockt
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+                <button type="button" class="close float-right" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 <form class="wger-form">
                     <div id="pdf-download-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_images" class="col-md-3 control-label">
-                                {% trans "Type" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9" style="padding-left: 35px;">
-                            <div class="radio">
-                                <input type="radio" name="pdf_type" id="id_type_log" value="log" checked>
-                                {% trans "Log" %}
-                            </div>
-                            <div class="radio">
-                                <input type="radio" name="pdf_type" id="id_type_table" value="table">
-                                {% trans "Table" %}
-                            </div>
-                        </div>
+                    <div class="form-group form-check-inline">
+                        <input type="radio" name="pdf_type" class="form-check-input" id="id_type_log" value="log" checked>
+                        <label class="form-check-label" for="id_type_log">
+                            {% trans "Log" %}
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_images" class="col-md-3 control-label">
-                                {% trans "with images" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="images" id="id_images" checked>
-                        </div>
+                    <div class="form-group form-check-inline">
+                        <input type="radio" name="pdf_type" id="id_type_table" class="form-check-input" value="table">
+                        <label class="form-check-label" for="id_type_table">
+                            {% trans "Table" %}
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="id_comments" class="col-md-3 control-label">
-                                {% trans "with comments" %}
-                            </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="checkbox" class="checkbox" name="comments" id="id_comments" checked>
-                        </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" name="images" id="id_images" checked>
+                        <label for="id_images" class="form-check-label">
+                            {% trans "with images" %}
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" name="comments" id="id_comments" checked>
+                        <label for="id_comments" class="form-check-label">
+                            {% trans "with comments" %}
+                        </label>
                     </div>
                 </form>
 
                 <p>
-                <a href="" class="btn btn-block btn-default" id="download-pdf-button">
+                <a href="" class="btn btn-block btn-light" id="download-pdf-button">
                    {% trans "Download" %}
                 </a>
                 </p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
             </div>
         </div>
     </div>
 </div>
+
+{% if workout.canonical_representation.day_list %}
+<h4>{% trans "Logs" %}</h4>
+<p>
+    <a href="{% url 'manager:log:log' workout.id %}">{% trans 'View logs' %}</a>
+</p>
+{% endif %}
+
 {% endblock %}
 
 
@@ -213,25 +197,21 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {% block options %}
 <div class="btn-group" role="group" >
     <div class="btn-group" role="group">
-        <button id="btnGroupWorkout" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button id="btnGroupWorkout" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
             {% trans "Options" %}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupWorkout">
-            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
-            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
-                <span class="{% fa_class 'download' %}"></span>
-                {% trans "Download as PDF" %}
-            </a>
             {% if is_owner %}
                 <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
                    <span class="{% fa_class 'edit' %}"></span>
                    {% trans "Edit workout" %}
                 </a>
             {% endif %}
+            <a class="dropdown-item" data-toggle="modal" data-target="#download-pdf-popup">
+                <span class="{% fa_class 'download' %}"></span>
+                {% trans "Download as PDF" %}
+            </a>
             <a class="dropdown-item" data-toggle="modal" data-target="#export-ical-popup">
                <span class="{% fa_class 'calendar' %}"></span>
                {% trans "Export calendar file" %}
@@ -241,9 +221,10 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                {% trans "Make a copy of this workout" %}
             </a>
             {% if is_owner %}
+                <div class="dropdown-divider"></div>
                 <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
                     <span class="{% fa_class 'trash' %}"></span>
-                    {% trans "Delete this workout" %}
+                    {% trans "Delete" %}
                 </a>
             {% endif %}
         </div>

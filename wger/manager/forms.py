@@ -209,7 +209,7 @@ class WorkoutScheduleDownloadForm(Form):
     Form for the workout schedule download
     """
     pdf_type = ChoiceField(
-        label=ugettext_lazy(u"Type"),
+        label=ugettext_lazy("Type"),
         choices=(("log", ugettext_lazy("Log")),
                  ("table", ugettext_lazy("Table")))
     )

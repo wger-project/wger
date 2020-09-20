@@ -22,15 +22,15 @@ from django.urls import reverse
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
-class MealRepresentationTestCase(WorkoutManagerTestCase):
+class MealRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -42,7 +42,7 @@ class MealRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(WeightEntry.objects.get(pk=1)), '2012-10-01: 77.00 kg')
 
 
-class WeightEntryAccessTestCase(WorkoutManagerTestCase):
+class WeightEntryAccessTestCase(WgerTestCase):
     """
     Test accessing the weight overview page
     """
@@ -84,7 +84,7 @@ class WeightEntryAccessTestCase(WorkoutManagerTestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
+class AddWeightEntryTestCase(WgerAddTestCase):
     """
     Tests adding a weight entry
     """
@@ -97,7 +97,7 @@ class AddWeightEntryTestCase(WorkoutManagerAddTestCase):
             'user': 1}
 
 
-class EditWeightEntryTestCase(WorkoutManagerEditTestCase):
+class EditWeightEntryTestCase(WgerEditTestCase):
     """
     Tests editing a weight entry
     """

@@ -21,37 +21,6 @@
 'use strict';
 
 /*
- Highlight a muscle in the overview
- */
-function wgerHighlightMuscle(element) {
-  var $muscle;
-  var muscleId;
-  var isFront;
-  var divId;
-  divId = $(element).data('target');
-  isFront = ($(element).data('isFront') === 'True') ? 'front' : 'back';
-  muscleId = divId.match(/\d+/);
-
-  // Reset all other highlighted muscles
-  $muscle = $('.muscle');
-  $muscle.removeClass('muscle-active');
-  $muscle.addClass('muscle-inactive');
-
-  // Highlight the current one
-  $(element).removeClass('muscle-inactive');
-  $(element).addClass('muscle-active');
-
-  // Set the corresponding background
-  $('#muscle-system').css('background-image',
-    'url({{ STATIC_URL | escapejs }}images/muscles/main/muscle-' + muscleId + '.svg),' +
-    'url({{ STATIC_URL | escapejs }}images/muscles/muscular_system_' + isFront + '.svg)');
-
-  // Show the corresponding exercises
-  $('.exercise-list').hide();
-  $('#' + divId).show();
-}
-
-/*
  D3js functions
  */
 

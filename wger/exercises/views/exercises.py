@@ -26,13 +26,14 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.core import mail
-from django.core.cache import cache
 from django.forms import (
+    CharField,
     CheckboxSelectMultiple,
     ModelChoiceField,
     ModelForm,
     ModelMultipleChoiceField,
-    Select
+    Select,
+    Textarea
 )
 from django.http import (
     HttpResponseForbidden,
@@ -74,7 +75,6 @@ from wger.exercises.models import (
     Muscle
 )
 from wger.manager.models import WorkoutLog
-from wger.utils.cache import cache_mapper
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
@@ -136,35 +136,10 @@ def view(request, id, slug=None):
 
     template_data['exercise'] = exercise
 
-    # Create the backgrounds that show what muscles the exercise works on
-    backgrounds = cache.get(cache_mapper.get_exercise_muscle_bg_key(int(id)))
-    if not backgrounds:
-        backgrounds_back = []
-        backgrounds_front = []
-
-        for muscle in exercise.muscles.all():
-            if muscle.is_front:
-                backgrounds_front.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-            else:
-                backgrounds_back.append('images/muscles/main/muscle-%s.svg' % muscle.id)
-
-        for muscle in exercise.muscles_secondary.all():
-            if muscle.is_front:
-                backgrounds_front.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-            else:
-                backgrounds_back.append('images/muscles/secondary/muscle-%s.svg' % muscle.id)
-
-        # Append the "main" background, with the silhouette of the human body
-        # This has to happen as the last step, so it is rendered behind the muscles.
-        backgrounds_front.append('images/muscles/muscular_system_front.svg')
-        backgrounds_back.append('images/muscles/muscular_system_back.svg')
-        backgrounds = (backgrounds_front, backgrounds_back)
-
-        cache.set(cache_mapper.get_exercise_muscle_bg_key(int(id)),
-                  (backgrounds_front, backgrounds_back))
-
-    template_data['muscle_backgrounds_front'] = backgrounds[0]
-    template_data['muscle_backgrounds_back'] = backgrounds[1]
+    template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
+    template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
+    template_data["muscles_sec_front"] = exercise.muscles_secondary.filter(is_front=True)
+    template_data["muscles_sec_back"] = exercise.muscles_secondary.filter(is_front=False)
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
@@ -196,9 +171,11 @@ class ExercisesEditAddView(WgerFormMixin):
     def get_form_class(self):
 
         class ExerciseForm(ModelForm):
+            # Redefine some fields here to set some properties
+            # (some of this could be done with a crispy form helper and would be
+            # a cleaner solution)
             category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=Select()
-                                        )
+                                        widget=Select())
             muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
                                                widget=CheckboxSelectMultiple(),
                                                required=False)
@@ -206,6 +183,10 @@ class ExercisesEditAddView(WgerFormMixin):
             muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
                                                          widget=CheckboxSelectMultiple(),
                                                          required=False)
+
+            description = CharField(label=_('Description'),
+                                    widget=Textarea,
+                                    required=False)
 
             class Meta:
                 model = Exercise
@@ -256,7 +237,7 @@ class ExerciseUpdateView(ExercisesEditAddView,
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object.name)
+        context['title'] = _('Edit {0}').format(self.object.name)
 
         return context
 
@@ -302,7 +283,7 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Correct {0}').format(self.object.name)
+        context['title'] = _('Correct {0}').format(self.object.name)
         return context
 
     def form_valid(self, form):
@@ -353,7 +334,7 @@ class ExerciseDeleteView(WgerDeleteMixin,
         Send some additional data to the template
         """
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object.name)
+        context['title'] = _('Delete {0}?').format(self.object.name)
         return context
 
 

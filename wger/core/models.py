@@ -63,7 +63,7 @@ class Language(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0} ({1})".format(self.full_name, self.short_name)
+        return "{0} ({1})".format(self.full_name, self.short_name)
 
     def get_absolute_url(self):
         """
@@ -382,7 +382,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         Return a more human-readable representation
         """
-        return u"Profile for user {0}".format(self.user)
+        return "Profile for user {0}".format(self.user)
 
     @property
     def use_metric(self):
@@ -521,7 +521,7 @@ class UserCache(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"Cache for user {0}".format(self.user)
+        return "Cache for user {0}".format(self.user)
 
 
 class DaysOfWeek(models.Model):
@@ -582,7 +582,7 @@ class License(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0} ({1})".format(self.full_name, self.short_name)
+        return "{0} ({1})".format(self.full_name, self.short_name)
 
     #
     # Own methods

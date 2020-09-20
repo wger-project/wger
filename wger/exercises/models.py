@@ -24,7 +24,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
-from django.core.cache import cache
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
@@ -39,7 +38,6 @@ import bleach
 # wger
 from wger.core.models import Language
 from wger.utils.cache import (
-    cache_mapper,
     delete_template_fragment_cache,
     reset_workout_canonical_form
 )
@@ -233,9 +231,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         self.name = smart_capitalize(self.name_original)
         super(Exercise, self).save(*args, **kwargs)
 
-        # Cached objects
-        cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
-
         # Cached template fragments
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
@@ -250,9 +245,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         Reset all cached infos
         """
-
-        # Cached objects
-        cache.delete(cache_mapper.get_exercise_muscle_bg_key(self))
 
         # Cached template fragments
         for language in Language.objects.all():
@@ -336,7 +328,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_author = request.user.username
 
             subject = _('New user submitted exercise')
-            message = _(u'The user {0} submitted a new exercise "{1}".').format(
+            message = _('The user {0} submitted a new exercise "{1}".').format(
                 request.user.username, self.name)
             mail.mail_admins(str(subject),
                              str(message),
@@ -456,7 +448,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                 self.license_author = request.user.username
 
             subject = _('New user submitted image')
-            message = _(u'The user {0} submitted a new image "{1}" for exercise {2}.').format(
+            message = _('The user {0} submitted a new image "{1}" for exercise {2}.').format(
                 request.user.username,
                 self.name,
                 self.exercise)

@@ -70,19 +70,19 @@ class Gym(m.Model):
                         null=True)
     """Gym owner"""
 
-    zip_code = m.CharField(_(u'ZIP code'),
+    zip_code = m.CharField(_('ZIP code'),
                            max_length=10,
                            blank=True,
                            null=True)
     """ZIP code"""
 
-    city = m.CharField(_(u'City'),
+    city = m.CharField(_('City'),
                        max_length=30,
                        blank=True,
                        null=True)
     """City"""
 
-    street = m.CharField(_(u'Street'),
+    street = m.CharField(_('Street'),
                          max_length=30,
                          blank=True,
                          null=True)
@@ -139,7 +139,7 @@ class GymConfig(m.Model):
         """
         Return a more human-readable representation
         """
-        return ugettext(u'Configuration for {}'.format(self.gym.name))
+        return ugettext('Configuration for {}'.format(self.gym.name))
 
     def get_owner_object(self):
         """
@@ -401,7 +401,7 @@ class ContractType(m.Model):
         """
         Return a more human-readable representation
         """
-        return u"{}".format(self.name)
+        return "{}".format(self.name)
 
     def get_owner_object(self):
         """
@@ -450,7 +450,7 @@ class ContractOption(m.Model):
         """
         Return a more human-readable representation
         """
-        return u"{}".format(self.name)
+        return "{}".format(self.name)
 
     def get_owner_object(self):
         """
@@ -571,19 +571,19 @@ class Contract(m.Model):
                          null=True)
     """The member's email"""
 
-    zip_code = m.CharField(_(u'ZIP code'),
+    zip_code = m.CharField(_('ZIP code'),
                            max_length=10,
                            blank=True,
                            null=True)
     """ZIP code"""
 
-    city = m.CharField(_(u'City'),
+    city = m.CharField(_('City'),
                        max_length=30,
                        blank=True,
                        null=True)
     """City"""
 
-    street = m.CharField(_(u'Street'),
+    street = m.CharField(_('Street'),
                          max_length=30,
                          blank=True,
                          null=True)

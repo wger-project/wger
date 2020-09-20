@@ -110,9 +110,9 @@ function setProfileField(field, newValue) {
   dataDict[field] = newValue;
   $.get('/api/v2/userprofile', function () {
   }).done(function (userprofile) {
-    console.log('Updating profile field "' + field + '" to value: ' + newValue);
+    //console.log('Updating profile field "' + field + '" to value: ' + newValue);
     $.ajax({
-      url: '/api/v2/userprofile/' + userprofile[0].id + '/',
+      url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
       type: 'PATCH',
       data: dataDict
     });
@@ -131,7 +131,7 @@ function getProfileField(field) {
     type: 'GET',
     async: false,
     success: function (userprofile) {
-      result = userprofile[0][field];
+      result = userprofile.results[0][field];
     }
   });
   return result;
@@ -189,11 +189,11 @@ function wgerToggleReadOnlyAccess() {
 
     $shariffModal = $('#shariffModal');
     if (!roAccess) {
-      $shariffModal.find('.shariff').removeClass('hidden');
-      $shariffModal.find('.noRoAccess').addClass('hidden');
+      $shariffModal.find('.shariff').removeClass('d-none');
+      $shariffModal.find('.noRoAccess').addClass('d-none');
     } else {
-      $shariffModal.find('.shariff').addClass('hidden');
-      $shariffModal.find('.noRoAccess').removeClass('hidden');
+      $shariffModal.find('.shariff').addClass('d-none');
+      $shariffModal.find('.noRoAccess').removeClass('d-none');
     }
   });
 }
@@ -211,7 +211,6 @@ function wgerInitTinymce() {
     tinyMCE.init({
       // General options
       mode: 'textareas',
-      theme: 'silver',
       width: '100%',
 
       entity_encoding: 'raw',
@@ -596,16 +595,6 @@ function wgerLoadMaincontent() {
 
       wgerLoadMaincontent();
     });
-  });
-}
-
-/*
- Helper function to prefetch images on a page
- */
-function wgerPrefetchImages(imageArray) {
-  $(imageArray).each(function () {
-    (new Image()).src = this;
-    // console.log('Preloading image' + this);
   });
 }
 

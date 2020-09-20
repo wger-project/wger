@@ -21,14 +21,13 @@ Get the code
 
   $ git clone https://github.com/wger-project/wger.git src
   $ cd src
-  $ WGER_PATH=$(pwd)
 
 Install Requirements
 ~~~~~~~~~~~~~~~~~~~~
 ::
 
-  $ pip install -r requirements_devel.txt
-  $ npm install yarn
+  $ pip install -r requirements_dev.txt
+  $ npm install -g yarn sass
   $ python setup.py develop
 
 Install application
@@ -38,12 +37,8 @@ This will download the required JS and CSS libraries and create a SQlite
 database and populate it with data on the first run::
 
 
-  $ wger create_settings \
-           --settings-path  $WGER_PATH/settings.py \
-           --database-path  $WGER_PATH/database.sqlite
-  $ wger bootstrap \
-           --settings-path  $WGER_PATH/settings.py \
-           --no-start-server
+  $ wger create-settings
+  $ wger bootstrap
 
 You can of course also use other databases such as postgres or mariaDB. Create
 a database and user and edit the DATABASES settings before calling bootstrap.

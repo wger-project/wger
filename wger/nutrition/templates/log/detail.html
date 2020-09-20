@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% trans "Nutrition diary" %} - {{ date }}{% endblock %}
+
+
+
+{#             #}
+{# Breadcrumbs #}
+{#             #}
+{% block breadcrumbs %}
+    {{ block.super }}
+
+    {% breadcrumb "Nutrition plans" "nutrition:plan:overview" %}
+    {% breadcrumb plan plan.get_absolute_url %}
+    {% breadcrumb "Nutrition diary" "nutrition:log:overview" plan.pk %}
+    {% breadcrumb date|date "nutrition:log:detail" plan.pk date.year date.month date.day %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+    <table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>{% trans "Macronutrients" %}</th>
+            <th class="align-right">{% trans "Planned" %}</th>
+            <th class="align-right">{% trans "Logged" %}</th>
+            <th class="align-right">{% trans "Difference" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% trans "Energy" %}</td>
+            <td class="align-right">{{ nutritional_data.total.energy|floatformat:0 }} {% trans "kcal" %}</td>
+            <td class="align-right">{{ log_summary.energy|floatformat:0 }} {% trans "kcal" %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.energy|minus:log_summary.energy %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans "Protein" %}</td>
+            <td class="align-right">{{ nutritional_data.total.protein|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.protein|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.protein|minus:log_summary.protein %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans "Carbohydrates" %}</td>
+            <td class="align-right">{{ nutritional_data.total.carbohydrates|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.carbohydrates|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.carbohydrates|minus:log_summary.carbohydrates %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <td class="pl-4">{% trans "Sugar content in carbohydrates" %}</td>
+            <td class="align-right">{{ nutritional_data.total.carbohydrates_sugar|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.carbohydrates_sugar|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.carbohydrates_sugar|minus:log_summary.carbohydrates_sugar %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans "Fat" %}</td>
+            <td class="align-right">{{ nutritional_data.total.fat|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fat|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.fat|minus:log_summary.fat %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <td class="pl-4">{% trans "Saturated fat content in fats" %}</td>
+            <td class="align-right">{{ nutritional_data.total.fat_saturated|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fat_saturated|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.fat_saturated|minus:log_summary.fat_saturated %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+
+
+        <tr>
+            <th colspan="4">{% trans "Others" %}</th>
+        </tr>
+        <tr>
+            <td>{% trans "Fibres" %}</td>
+            <td class="align-right">{{ nutritional_data.total.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.fibres|minus:log_summary.fibres %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans "Sodium" %}</td>
+            <td class="align-right">{{ nutritional_data.total.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">{{ log_summary.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
+            <td class="align-right">
+                {% with diff=nutritional_data.total.sodium|minus:log_summary.sodium %}
+                    {% if diff|is_positive %}
+                        +
+                    {% endif %}
+                    {{ diff|floatformat:0 }}
+                {% endwith %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>{% trans "Entries" %}</h3>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>{% trans "Time" %}</th>
+            <th>{% trans "Ingredient" %}</th>
+            <th class="align-right">{% trans "Energy" %}</th>
+            {% if is_owner %}
+                <th></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+{% for entry in log_entries %}
+    <tr>
+        <td>{{ entry.datetime|time }}</td>
+        <td>
+            {% if entry.weight_unit %}
+                {{ entry.amount|floatformat:"0" }} × {{ entry.weight_unit.unit.name }}
+            {% else %}
+                {{ entry.amount|floatformat:"0" }}{% trans "g" %}
+            {% endif %}
+            {{ entry.ingredient }}
+            <p class="small text-muted">
+                {% trans "Protein" %}: {{entry.get_nutritional_values.protein|floatformat:"1"}} <br>
+                {% trans "Carbohydrates" %}: {{entry.get_nutritional_values.carbohydrates|floatformat:"1"}} ({{entry.get_nutritional_values.carbohydrates_sugar|floatformat:"1"}})<br>
+                {% trans "Fat" %}: {{entry.get_nutritional_values.fat|floatformat:"1"}} ({{entry.get_nutritional_values.fat|floatformat:"1"}})<br>
+                {% if entry.get_nutritional_values.fibres %}
+                    {% trans "Fibres" %}: {{entry.get_nutritional_values.fibres|floatformat:"1"}}<br>
+                {% endif %}
+                {% if entry.get_nutritional_values.sodium %}
+                    {% trans "Sodium" %}: {{entry.get_nutritional_values.sodium|floatformat:"1"}}<br>
+                {% endif %}
+            </p>
+        </td>
+
+        <td class="align-right">
+            {{ entry.get_nutritional_values.energy|floatformat:0 }} {% trans "kcal" %}
+        </td>
+        {% if is_owner %}
+        <td>
+            <div class="dropdown">
+                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li>
+                        <a href="{% url 'nutrition:log:delete' entry.pk %}" class="wger-modal-dialog dropdown-item">
+                            {% trans 'Delete' %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        {% endif %}
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
+{#          #}
+{# Side bar #}
+{#          #}
+{% block sidebar%}
+{% endblock %}

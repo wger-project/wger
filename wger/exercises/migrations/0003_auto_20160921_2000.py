@@ -26,7 +26,7 @@ def capitalize_name(apps, schema_editor):
     def capitalize(input):
         out = []
         for word in input.split(' '):
-            if len(word) > 2 and word[0] != u'ß':
+            if len(word) > 2 and word[0] != 'ß':
                 out.append(word[:1].upper() + word[1:])
             else:
                 out.append(word)

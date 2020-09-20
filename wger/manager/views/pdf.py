@@ -39,6 +39,7 @@ from wger.manager.helpers import render_workout_day
 from wger.manager.models import Workout
 from wger.utils.helpers import check_token
 from wger.utils.pdf import (
+    get_logo,
     render_footer,
     styleSheet
 )
@@ -87,12 +88,16 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     # container for the 'Flowable' objects
     elements = []
 
+    # Add site logo
+    elements.append(get_logo())
+    elements.append(Spacer(10 * cm, 0.5 * cm))
+
     # Set the title
     p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
                   {'description': workout},
                   styleSheet["HeaderBold"])
     elements.append(p)
-    elements.append(Spacer(10 * cm, 0.5 * cm))
+    elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:
@@ -154,12 +159,16 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     # container for the 'Flowable' objects
     elements = []
 
+    # Add site logo
+    elements.append(get_logo())
+    elements.append(Spacer(10 * cm, 0.5 * cm))
+
     # Set the title
     p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
                   {'description': workout},
                   styleSheet["HeaderBold"])
     elements.append(p)
-    elements.append(Spacer(10 * cm, 0.5 * cm))
+    elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:

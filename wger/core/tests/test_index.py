@@ -17,13 +17,13 @@
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import Workout
 from wger.nutrition.models import NutritionPlan
 from wger.weight.models import WeightEntry
 
 
-class DashboardTestCase(WorkoutManagerTestCase):
+class DashboardTestCase(WgerTestCase):
     """
     Dashboard (landing page) test case
     """
@@ -105,4 +105,4 @@ class DashboardTestCase(WorkoutManagerTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'css/workout-manager.css', html=False)
-        self.assertContains(response, 'yarn/bootstrap/dist/css/bootstrap.min.css', html=False)
+        self.assertContains(response, 'yarn/bootstrap-compiled.css', html=False)

@@ -18,15 +18,15 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.manager.models import Day
 from wger.utils.cache import cache_mapper
 
 
-class DayRepresentationTestCase(WorkoutManagerTestCase):
+class DayRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -38,7 +38,7 @@ class DayRepresentationTestCase(WorkoutManagerTestCase):
         self.assertEqual("{0}".format(Day.objects.get(pk=1)), 'A day')
 
 
-class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
+class AddWorkoutDayTestCase(WgerAddTestCase):
     """
     Tests adding a day to a workout
     """
@@ -51,7 +51,7 @@ class AddWorkoutDayTestCase(WorkoutManagerAddTestCase):
             'day': [1, 4]}
 
 
-class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
+class DeleteWorkoutDayTestCase(WgerTestCase):
     """
     Tests deleting a day
     """
@@ -100,7 +100,7 @@ class DeleteWorkoutDayTestCase(WorkoutManagerTestCase):
         self.delete_day(fail=True)
 
 
-class EditWorkoutDayTestCase(WorkoutManagerEditTestCase):
+class EditWorkoutDayTestCase(WgerEditTestCase):
     """
     Tests editing the day of a Workout
     """
@@ -114,7 +114,7 @@ class EditWorkoutDayTestCase(WorkoutManagerEditTestCase):
             'day': [1, 4]}
 
 
-class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
+class RenderWorkoutDayTestCase(WgerTestCase):
     """
     Tests rendering a single workout day
     """
@@ -159,7 +159,7 @@ class RenderWorkoutDayTestCase(WorkoutManagerTestCase):
         self.render_day(fail=True)
 
 
-class WorkoutCacheTestCase(WorkoutManagerTestCase):
+class WorkoutCacheTestCase(WgerTestCase):
     """
     Workout cache test case
     """
@@ -187,7 +187,7 @@ class WorkoutCacheTestCase(WorkoutManagerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
 
 
-class DayTestCase(WorkoutManagerTestCase):
+class DayTestCase(WgerTestCase):
     """
     Other tests
     """

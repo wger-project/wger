@@ -24,13 +24,13 @@ from wger.core.forms import (
     RegistrationForm,
     RegistrationFormNoCaptcha
 )
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 
 
 logger = logging.getLogger(__name__)
 
 
-class RegistrationTestCase(WorkoutManagerTestCase):
+class RegistrationTestCase(WgerTestCase):
     """
     Tests registering a new user
     """

@@ -43,7 +43,7 @@ $(document).ready(function() {
 {% block content %}
 
 {% if exercise.status == exercise.STATUS_PENDING %}
-<div class="card mb-4">
+<div class="card text-white bg-dark mb-4">
     <div class="card-header">
         {% trans "Exercise is pending review" %}
     </div>
@@ -63,17 +63,21 @@ $(document).ready(function() {
                 <span class="{% fa_class 'times' %}"></span>
                 {% trans "Decline" %}
             </a>
+            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog btn btn-secondary">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete" %}
+            </a>
         {% endif %} {# end check permissions #}
     </div>
 </div>
 {% endif %} {# end exercise is pending review #}
 
 
-<h5>{% trans "Category" %}:</h5>
+<h5 class="mt-4">{% trans "Category" %}:</h5>
 {% trans exercise.category.name %}
 
 {% if exercise.equipment.all %}
-    <h5>{% trans "Equipment" %}:</h5>
+    <h5 class="mt-4">{% trans "Equipment" %}:</h5>
     {% for equipment in exercise.equipment.all %}
         {% trans equipment.name %}
         {% if not forloop.last %}, {% endif %}
@@ -90,38 +94,38 @@ $(document).ready(function() {
 {% with images=exercise.exerciseimage_set.accepted %}
 {% if images or perms.exercises.change_exerciseimage  %}
     <h5 class="mt-4">{% trans "Images" %}:</h5>
-    <div class="card-deck">
+    <div class="row row-cols-2 row-cols-md-3">
     {% with other_images=images %}
     {% for image in other_images %}
 
-        <div class="card">
-            <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
-            <div class="card-body">
-                <a href="{{ image.image.url }}"
-                       target="_blank"
-                       class=" no-hover"
-                       title="{% trans 'Download' %}">
-                         <span class="{% fa_class 'download' %}"></span>
-                </a>
+        <div class="col mb-4">
+        <div class="card h-100">
+            <a href="{{ image.image.url }}" title="Image for {{exercise}}">
+                <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}">
+            </a>
+            <div class="card-body text-center">
                 {% if perms.exercises.change_exerciseimage %}
-                    |
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}"
-                       class="wger-modal-dialog no-hover"
-                       title="{% trans 'Delete' %}">
-                         <span class="{% fa_class 'trash' %}"></span></a> |
-                    <a href="{% url 'exercise:image:edit' image.pk %}"
-                       class="no-hover"
-                       title="{% trans 'Edit' %}">
-                         <span class="{% fa_class 'edit' %}"></span></a>
+                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="wger-modal-dialog btn btn-link">
+                         <span class="{% fa_class 'trash' %}"></span>
+                    </a>
+                    <a href="{% url 'exercise:image:edit' image.pk %}" class="btn btn-link">
+                         <span class="{% fa_class 'edit' %}"></span>
+                    </a>
                 {% endif %}
 
-                <p class="card-text">
-                    {{image.get_license_display}}
-                    {% if image.license_author %}
-                         – {{image.license_author}}
-                    {% endif %}
+                {% if image.is_main %}
+                <p class="card-text text-wger-green">
+                    <span class="{% fa_class 'medal' %}"></span></a>
                 </p>
+                {% endif %}
             </div>
+            <div class="card-footer">
+                {{image.get_license_display}}
+                {% if image.license_author %}
+                    {{image.license_author}}
+                {% endif %}
+            </div>
+        </div>
         </div>
     {% endfor %}
     {% endwith %}
@@ -146,8 +150,8 @@ $(document).ready(function() {
         <div class="card">
                 <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
                 <div class="card-body">
-                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-default btn-sm">{% trans "Accept" %}</a>
-                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-default btn-sm">{% trans "Decline" %}</a>
+                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-light btn-sm">{% trans "Accept" %}</a>
+                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-light btn-sm">{% trans "Decline" %}</a>
                     <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
                  </div>
             </div>
@@ -167,15 +171,21 @@ $(document).ready(function() {
     {% for comment in comments %}
         <li>
             {{ comment }}
+            
             {% if perms.exercises.change_exercisecomment %}
-            <span class="editoptions">
-                <a href="{% url 'exercise:comment:delete' comment.id %}"
-                   title="{% trans 'Delete' %}">
-                    <span class="{% fa_class 'trash' %}"></span></a>
-                <a href="{% url 'exercise:comment:edit' comment.id %}"
-                   title="{% trans 'Edit' %}"
-                   class="wger-modal-dialog">
-                    <span class="{% fa_class 'edit' %}"></span></a>
+            <span class="dropdown">
+                <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown"></button>
+                <div class="dropdown-menu">
+                    <a href="{% url 'exercise:comment:edit' comment.id %}" class="dropdown-item wger-modal-dialog">
+                        <span class="{% fa_class 'edit' %}"></span>
+                        {% trans 'Edit' %}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'exercise:comment:delete' comment.id %}" class="dropdown-item">
+                        <span class="{% fa_class 'trash' %}"></span>
+                        {% trans 'Delete' %}
+                    </a>
+                </div>
             </span>
             {% endif %}
         </li>
@@ -195,10 +205,7 @@ $(document).ready(function() {
 
 
 {% cache cache_timeout exercise-detail-muscles cache_vary_on %}
-{% with muscles=exercise.muscles.all %}
-{% with muscles_secondary=exercise.muscles_secondary.all %}
-
-{% if muscles %}
+{% if muscles_main_front or muscles_main_back %}
     <h5 class="mt-4">{% trans "Muscles" %}:</h5>
     <p>
         {% trans "The diagram shows the most used muscles on this exercise" %}
@@ -214,43 +221,31 @@ $(document).ready(function() {
 
     <div class="row ">
         <div class="col">
-            <div id="muscle-front" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-            <ul class="list-unstyled">
-                {% for muscle in muscles %}
-                    {% if muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+            {% render_muscles muscles_main_front muscles_sec_front %}
+            <ul class="list-unstyled text-center">
+                {% for muscle in muscles_main_front %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                    {% if muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+                {% for muscle in muscles_sec_front %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
             </ul>
         </div>
         <div class="col">
-            <div id="muscle-back" class="muscle-background mx-auto" style="background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-            </div>
-            <ul class="list-unstyled">
-                {% for muscle in muscles %}
-                    {% if not muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+            {% render_muscles muscles_main_back muscles_sec_back %}
+            <ul class="list-unstyled text-center">
+                {% for muscle in muscles_main_back %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
 
-                {% for muscle in muscles_secondary %}
-                    {% if not muscle.is_front %}
-                        <li>{{muscle.name}}</li>
-                    {% endif %}
+                {% for muscle in muscles_sec_back %}
+                    <li>{{muscle.name}}</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 {% endif %}
-{% endwith %}
-{% endwith %} {# end musclelist #}
 {% endcache %}
 
 {% if logs %}

@@ -18,12 +18,12 @@ from django.urls import reverse
 
 # wger
 from wger.core.models import Language
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import NutritionPlan
 from wger.utils.helpers import make_token
 
 
-class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
+class NutritionalPlanPdfExportTestCase(WgerTestCase):
     """
     Tests exporting a nutritional plan as a pdf
     """
@@ -47,8 +47,8 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                          'attachment; filename=nutritional-plan.pdf')
 
         # Approximate size
-        self.assertGreater(int(response['Content-Length']), 29000)
-        self.assertLess(int(response['Content-Length']), 34000)
+        self.assertGreater(int(response['Content-Length']), 38000)
+        self.assertLess(int(response['Content-Length']), 42000)
 
     def export_pdf(self, fail=False):
         """
@@ -68,8 +68,8 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 34000)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
         # Create an empty plan
         user = User.objects.get(pk=2)
@@ -90,8 +90,8 @@ class NutritionalPlanPdfExportTestCase(WorkoutManagerTestCase):
                              'attachment; filename=nutritional-plan.pdf')
 
             # Approximate size
-            self.assertGreater(int(response['Content-Length']), 29000)
-            self.assertLess(int(response['Content-Length']), 33420)
+            self.assertGreater(int(response['Content-Length']), 38000)
+            self.assertLess(int(response['Content-Length']), 42000)
 
     def test_export_pdf_anonymous(self):
         """

@@ -36,10 +36,7 @@ from wger.exercises.sitemap import ExercisesSitemap
 from wger.manager.api import views as manager_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
-from wger.utils.generic_views import (
-    TextTemplateView,
-    WebappManifestView
-)
+from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
 
@@ -127,8 +124,6 @@ urlpatterns += [
     url(r'^robots\.txt$',
         TextTemplateView.as_view(template_name="robots.txt"),
         name='robots'),
-    url(r'^manifest\.webapp$', WebappManifestView.as_view(template_name="manifest.webapp")),
-    url(r'^amazon-manifest\.webapp$', WebappManifestView.as_view(template_name="amazon-manifest.webapp")),
 
     # API
     url(r'^api/v2/exercise/search/$',
@@ -141,6 +136,10 @@ urlpatterns += [
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
+
+    # The api user login
+    url(r'^api/v2/login/$', core_api_views.UserAPILoginView.as_view({
+        'post': 'post'}), name='api_user'),
 ]
 
 #

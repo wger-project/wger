@@ -4,7 +4,7 @@ include AUTHORS.txt
 include AGPL.txt
 include CC-BY-SA.txt
 include requirements.txt
-include requirements_devel.txt
+include requirements_dev.txt
 
 # Application folder as well as extras
 recursive-include extras *.*

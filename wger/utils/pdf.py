@@ -22,13 +22,19 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import translation
 
 # Third Party
+from reportlab.lib import colors
+from reportlab.lib.colors import HexColor
 from reportlab.lib.styles import (
     ParagraphStyle,
     StyleSheet1
 )
+from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import Paragraph
+from reportlab.platypus import (
+    Image,
+    Paragraph
+)
 
 # wger
 from wger import get_version
@@ -93,16 +99,27 @@ def render_footer(url, date=None):
     """
     if not date:
         date = datetime.date.today().strftime("%d.%m.%Y")
-        p = Paragraph("""<para>
-                            {date} -
-                            <a href="{url}">{url}</a> -
-                            wger Workout Manager
-                            {version}
-                        </para>""".format(date=date,
-                                          url=url,
-                                          version=get_version()),
-                      styleSheet["Normal"])
+
+    p = Paragraph("""<para>
+                        {date} -
+                        <a href="{url}">{url}</a> -
+                        wger Workout Manager
+                        {version}
+                    </para>""".format(date=date,
+                                      url=url,
+                                      version=get_version()),
+                  styleSheet["Normal"])
     return p
+
+
+def get_logo(width=1.5):
+    """
+    Returns the wger logo
+    """
+    image = Image(path_join(settings.SITE_ROOT, 'core/static/images/logos/logo.png'))
+    image.drawHeight = width * cm * image.drawHeight / image.drawWidth
+    image.drawWidth = width * cm
+    return image
 
 
 # register new truetype fonts for reportlab
@@ -136,17 +153,21 @@ styleSheet.add(ParagraphStyle(
 styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
                name='HeaderBold',
-               fontSize=14,
+               fontSize=16,
                fontName='OpenSans-Bold',
                ))
 styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
                name='SubHeader',
-               fontSize=12,
-               fontName='OpenSans',
+               fontName='OpenSans-Bold',
+               textColor=colors.white
                ))
 styleSheet.add(ParagraphStyle(
                parent=styleSheet['Normal'],
-               name='Bold',
+               name='SubHeaderBlack',
                fontName='OpenSans-Bold',
+               textColor=colors.black
                ))
+
+header_colour = HexColor(0x24416b)
+row_color = HexColor(0xd1def0)

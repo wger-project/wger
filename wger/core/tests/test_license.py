@@ -17,15 +17,15 @@
 from wger.core.models import License
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAccessTestCase,
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAccessTestCase,
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 
 
-class LicenseRepresentationTestCase(WorkoutManagerTestCase):
+class LicenseRepresentationTestCase(WgerTestCase):
     """
     Test the representation of a model
     """
@@ -38,7 +38,7 @@ class LicenseRepresentationTestCase(WorkoutManagerTestCase):
                          'A cool and free license - Germany (ACAFL - DE)')
 
 
-class LicenseOverviewTest(WorkoutManagerAccessTestCase):
+class LicenseOverviewTest(WgerAccessTestCase):
     """
     Tests the licese overview page
     """
@@ -46,7 +46,7 @@ class LicenseOverviewTest(WorkoutManagerAccessTestCase):
     url = 'core:license:list'
 
 
-class AddLicenseTestCase(WorkoutManagerAddTestCase):
+class AddLicenseTestCase(WgerAddTestCase):
     """
     Tests adding a new license
     """
@@ -57,7 +57,7 @@ class AddLicenseTestCase(WorkoutManagerAddTestCase):
             'short_name': 'SH'}
 
 
-class DeleteLicenseTestCase(WorkoutManagerDeleteTestCase):
+class DeleteLicenseTestCase(WgerDeleteTestCase):
     """
     Tests deleting a license
     """
@@ -67,7 +67,7 @@ class DeleteLicenseTestCase(WorkoutManagerDeleteTestCase):
     pk = 1
 
 
-class EditLicenseTestCase(WorkoutManagerEditTestCase):
+class EditLicenseTestCase(WgerEditTestCase):
     """
     Tests editing a license
     """

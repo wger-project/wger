@@ -10,14 +10,14 @@
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-
-
-# Standard Library
-# You should have received a copy of the GNU Affero General Public License
-# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-import logging
 # GNU General Public License for more details.
 #
+# You should have received a copy of the GNU Affero General Public License
+# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
+
+# Standard Library
+import datetime
+import logging
 from decimal import Decimal
 
 # Django
@@ -32,10 +32,13 @@ from django.core.validators import (
     MinValueValidator
 )
 from django.db import models
-from django.template.defaultfilters import slugify  # django.utils.text.slugify in django 1.5!
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
+from django.utils import (
+    timezone,
+    translation
+)
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
 # wger
@@ -87,7 +90,7 @@ class NutritionPlan(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.TextField(max_length=2000,
+    description = models.CharField(max_length=(80),
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
@@ -105,9 +108,9 @@ class NutritionPlan(models.Model):
         Return a more human-readable representation
         """
         if self.description:
-            return u"{0}".format(self.description)
+            return "{0}".format(self.description)
         else:
-            return u"{0}".format(_("Nutrition plan"))
+            return "{0}".format(_("Nutrition plan"))
 
     def get_absolute_url(self):
         """
@@ -119,50 +122,53 @@ class NutritionPlan(models.Model):
         """
         Sums the nutritional info of all items in the plan
         """
-        use_metric = self.user.userprofile.use_metric
-        unit = 'kg' if use_metric else 'lb'
-        result = {'total': {'energy': 0,
-                            'protein': 0,
-                            'carbohydrates': 0,
-                            'carbohydrates_sugar': 0,
-                            'fat': 0,
-                            'fat_saturated': 0,
-                            'fibres': 0,
-                            'sodium': 0},
-                  'percent': {'protein': 0,
-                              'carbohydrates': 0,
-                              'fat': 0},
-                  'per_kg': {'protein': 0,
-                             'carbohydrates': 0,
-                             'fat': 0},
-                  }
+        nutritional_representation = cache.get(cache_mapper.get_nutrition_cache_by_key(self.pk))
+        if not nutritional_representation:
+            use_metric = self.user.userprofile.use_metric
+            unit = 'kg' if use_metric else 'lb'
+            result = {'total': {'energy': 0,
+                                'protein': 0,
+                                'carbohydrates': 0,
+                                'carbohydrates_sugar': 0,
+                                'fat': 0,
+                                'fat_saturated': 0,
+                                'fibres': 0,
+                                'sodium': 0},
+                      'percent': {'protein': 0,
+                                  'carbohydrates': 0,
+                                  'fat': 0},
+                      'per_kg': {'protein': 0,
+                                 'carbohydrates': 0,
+                                 'fat': 0},
+                      }
 
-        # Energy
-        for meal in self.meal_set.select_related():
-            values = meal.get_nutritional_values(use_metric=use_metric)
-            for key in result['total'].keys():
-                result['total'][key] += values[key]
+            # Energy
+            for meal in self.meal_set.select_related():
+                values = meal.get_nutritional_values(use_metric=use_metric)
+                for key in result['total'].keys():
+                    result['total'][key] += values[key]
 
-        energy = result['total']['energy']
+            energy = result['total']['energy']
 
-        # In percent
-        if energy:
-            for key in result['percent'].keys():
-                result['percent'][key] = \
-                    result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
+            # In percent
+            if energy:
+                for key in result['percent'].keys():
+                    result['percent'][key] = \
+                        result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
 
-        # Per body weight
-        weight_entry = self.get_closest_weight_entry()
-        if weight_entry:
-            for key in result['per_kg'].keys():
-                result['per_kg'][key] = result['total'][key] / weight_entry.weight
+            # Per body weight
+            weight_entry = self.get_closest_weight_entry()
+            if weight_entry:
+                for key in result['per_kg'].keys():
+                    result['per_kg'][key] = result['total'][key] / weight_entry.weight
 
-        # Only 2 decimal places, anything else doesn't make sense
-        for key in result.keys():
-            for i in result[key]:
-                result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
-
-        return result
+            # Only 2 decimal places, anything else doesn't make sense
+            for key in result.keys():
+                for i in result[key]:
+                    result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
+            nutritional_representation = result
+            cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)
+        return nutritional_representation
 
     def get_closest_weight_entry(self):
         """
@@ -208,6 +214,49 @@ class NutritionPlan(models.Model):
         # even more
         else:
             return 4
+
+    def get_log_overview(self):
+        """
+        Returns an overview for all logs available for this plan
+        """
+        result = []
+        for date in self.logitem_set.datetimes('datetime', 'day', order='DESC'):
+            # TODO: in python 3.5 this can be simplified as z = {**x, **y}
+            tmp = self.get_log_summary(date=date).copy()
+            tmp.update({'date': date.date()})
+            result.append(tmp)
+
+        return result
+
+    def get_log_entries(self, date=None):
+        """
+        Convenience function that returns the log entries for a given date
+        """
+        if not date:
+            date = datetime.date.today()
+
+        return self.logitem_set.filter(datetime__date=date).select_related()
+
+    def get_log_summary(self, date=None):
+        """
+        Sums the nutritional info of the items logged for the given date
+        """
+        use_metric = self.user.userprofile.use_metric
+        result = {'energy': 0,
+                  'protein': 0,
+                  'carbohydrates': 0,
+                  'carbohydrates_sugar': 0,
+                  'fat': 0,
+                  'fat_saturated': 0,
+                  'fibres': 0,
+                  'sodium': 0}
+
+        # Perform the sums
+        for item in self.get_log_entries(date):
+            values = item.get_nutritional_values(use_metric=use_metric)
+            for key in result.keys():
+                result[key] += values[key]
+        return result
 
 
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
@@ -446,7 +495,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
             # Send email to administrator
             subject = _('New user submitted ingredient')
-            message = _(u"""The user {0} submitted a new ingredient "{1}".""".format(
+            message = _("""The user {0} submitted a new ingredient "{1}".""".format(
                 request.user.username, self.name))
             mail.mail_admins(subject,
                              message,
@@ -517,9 +566,9 @@ class IngredientWeightUnit(models.Model):
         Return a more human-readable representation
         """
 
-        return u"{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
-                                       self.unit.name,
-                                       self.gram)
+        return "{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
+                                      self.unit.name,
+                                      self.gram)
 
 
 class Meal(models.Model):
@@ -546,7 +595,7 @@ class Meal(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0} Meal".format(self.order)
+        return "{0} Meal".format(self.order)
 
     def get_owner_object(self):
         """
@@ -583,44 +632,12 @@ class Meal(models.Model):
         return nutritional_info
 
 
-class MealItem(models.Model):
+class BaseMealItem(object):
     """
-    An item (component) of a meal
+    Base class for an item (component) of a meal or log
+
+    This just provides some common helper functions
     """
-
-    meal = models.ForeignKey(Meal,
-                             verbose_name=_('Nutrition plan'),
-                             editable=False,
-                             on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient,
-                                   verbose_name=_('Ingredient'),
-                                   on_delete=models.CASCADE)
-    weight_unit = models.ForeignKey(IngredientWeightUnit,
-                                    verbose_name=_('Weight unit'),
-                                    null=True,
-                                    blank=True,
-                                    on_delete=models.CASCADE)
-
-    order = models.IntegerField(verbose_name=_('Order'),
-                                blank=True,
-                                editable=False)
-    amount = models.DecimalField(decimal_places=2,
-                                 max_digits=6,
-                                 verbose_name=_('Amount'),
-                                 validators=[MinValueValidator(1),
-                                             MaxValueValidator(1000)])
-
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
-
-    def get_owner_object(self):
-        """
-        Returns the object that has owner information
-        """
-        return self.meal.plan
 
     def get_unit_type(self):
         """
@@ -636,7 +653,7 @@ class MealItem(models.Model):
 
     def get_nutritional_values(self, use_metric=True):
         """
-        Sums the nutrional info for the ingredient in the MealItem
+        Sums the nutritional info for the ingredient in the MealItem
 
         :param use_metric Flag that controls the units used
         """
@@ -691,3 +708,109 @@ class MealItem(models.Model):
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
         return nutritional_info
+
+
+class MealItem(BaseMealItem, models.Model):
+    """
+    An item (component) of a meal
+    """
+
+    meal = models.ForeignKey(Meal,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False,
+                             on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   on_delete=models.CASCADE)
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.CASCADE)
+
+    order = models.IntegerField(verbose_name=_('Order'),
+                                blank=True,
+                                editable=False)
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 verbose_name=_('Amount'),
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(1000)])
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return "{0}g ingredient {1}".format(self.amount, self.ingredient_id)
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.meal.plan
+
+
+class LogItem(BaseMealItem, models.Model):
+    """
+    An item (component) of a log
+    """
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = ["datetime", ]
+
+    plan = models.ForeignKey(NutritionPlan,
+                             verbose_name=_('Nutrition plan'),
+                             editable=False,
+                             on_delete=models.CASCADE)
+    """
+    The plan this log belongs to
+    """
+
+    datetime = models.DateTimeField(default=timezone.now)
+    """
+    Time and date when the log was added
+    """
+
+    comment = models.TextField(verbose_name=_('Comment'),
+                               blank=True,
+                               null=True)
+    """
+    Comment field, for additional information
+    """
+
+    ingredient = models.ForeignKey(Ingredient,
+                                   verbose_name=_('Ingredient'),
+                                   on_delete=models.CASCADE)
+    """
+    Ingredient
+    """
+
+    weight_unit = models.ForeignKey(IngredientWeightUnit,
+                                    verbose_name=_('Weight unit'),
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.CASCADE)
+    """
+    Weight unit used (grams, slices, etc.)
+    """
+
+    amount = models.DecimalField(decimal_places=2,
+                                 max_digits=6,
+                                 verbose_name=_('Amount'),
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(1000)])
+    """
+    The amount of units
+    """
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return "Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.plan

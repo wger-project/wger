@@ -22,12 +22,12 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
 
-class CaloriesCalculatorTestCase(WorkoutManagerTestCase):
+class CaloriesCalculatorTestCase(WgerTestCase):
     """
     Tests the calories calculator methods and views
     """

@@ -24,11 +24,11 @@ from django.core import mail
 from django.core.management import call_command
 
 # wger
-from wger.core.tests.base_testcase import WorkoutManagerTestCase
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.weight.models import WeightEntry
 
 
-class EmailWeightReminderTestCase(WorkoutManagerTestCase):
+class EmailWeightReminderTestCase(WgerTestCase):
     def test_without_email(self):
         user = User.objects.get(pk=2)
         user.email = ''

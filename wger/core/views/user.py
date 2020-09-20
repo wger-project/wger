@@ -95,13 +95,10 @@ from wger.manager.models import (
     WorkoutSession
 )
 from wger.nutrition.models import NutritionPlan
+from wger.utils.api_token import create_token
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
-)
-from wger.utils.user_agents import (
-    check_request_amazon,
-    check_request_android
 )
 from wger.weight.models import WeightEntry
 
@@ -242,13 +239,9 @@ def registration(request):
     template_data = {}
     template_data.update(csrf(request))
 
-    # Don't use captcha when registering through an app
-    is_app = check_request_amazon(request) or check_request_android(request)
-    FormClass = RegistrationFormNoCaptcha if is_app else RegistrationForm
-
     # Don't show captcha if the global parameter is false
-    if not settings.WGER_SETTINGS['USE_RECAPTCHA']:
-        FormClass = RegistrationFormNoCaptcha
+    FormClass = RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] \
+        else RegistrationFormNoCaptcha
 
     # Redirect regular users, in case they reached the registration page
     if request.user.is_authenticated and not request.user.userprofile.is_temporary:
@@ -318,7 +311,11 @@ def preferences(request):
             form.save()
             redirect = True
     else:
-        form = UserPreferencesForm(instance=request.user.userprofile)
+        data = {'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email}
+
+        form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
 
     # Process the email form
     if request.method == 'POST':
@@ -329,11 +326,8 @@ def preferences(request):
             redirect = True
         else:
             redirect = False
-    else:
-        email_form = UserPersonalInformationForm(instance=request.user)
 
     template_data['form'] = form
-    template_data['email_form'] = email_form
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
@@ -463,12 +457,10 @@ def api_key(request):
     try:
         token = Token.objects.get(user=request.user)
     except Token.DoesNotExist:
-        token = False
-    if request.GET.get('new_key'):
-        if token:
-            token.delete()
+        token = None
 
-        token = Token.objects.create(user=request.user)
+    if request.GET.get('new_key'):
+        token = create_token(request.user, request.GET.get('new_key'))
 
         # Redirect to get rid of the GET parameter
         return HttpResponseRedirect(reverse('core:user:api-key'))

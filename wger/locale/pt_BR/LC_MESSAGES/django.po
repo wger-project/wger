@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Danilo Silva, 2015-2016
 # Danilo Silva, 2016
@@ -909,8 +909,8 @@ msgstr "Formulário de feedback aberto"
 
 #: core/templates/misc/contact.html:53
 #: core/templates/mobile/misc/contact.html:31
-msgid "tweet to @wger_de"
-msgstr "tweet para @wger_de"
+msgid "tweet to @wger_project"
+msgstr "tweet para @wger_project"
 
 #: core/templates/misc/contact.html:56
 #: core/templates/mobile/misc/contact.html:37

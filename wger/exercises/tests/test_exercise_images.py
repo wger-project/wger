@@ -18,10 +18,10 @@ from django.urls import reverse
 
 # wger
 from wger.core.tests.base_testcase import (
-    WorkoutManagerAddTestCase,
-    WorkoutManagerDeleteTestCase,
-    WorkoutManagerEditTestCase,
-    WorkoutManagerTestCase
+    WgerAddTestCase,
+    WgerDeleteTestCase,
+    WgerEditTestCase,
+    WgerTestCase
 )
 from wger.exercises.models import (
     Exercise,
@@ -29,7 +29,7 @@ from wger.exercises.models import (
 )
 
 
-class MainImageTestCase(WorkoutManagerTestCase):
+class MainImageTestCase(WgerTestCase):
     """
     Tests the methods to make sure there is always a main image per picture
     """
@@ -107,7 +107,7 @@ class MainImageTestCase(WorkoutManagerTestCase):
         self.assertFalse(ExerciseImage.objects.get(pk=pk5).is_main)
 
 
-class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
+class AddExerciseImageTestCase(WgerAddTestCase):
     """
     Tests adding an image to an exercise
     """
@@ -120,7 +120,7 @@ class AddExerciseImageTestCase(WorkoutManagerAddTestCase):
             'license': 1}
 
 
-class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
+class EditExerciseImageTestCase(WgerEditTestCase):
     """
     Tests editing an image to an exercise
     """
@@ -132,7 +132,7 @@ class EditExerciseImageTestCase(WorkoutManagerEditTestCase):
             'license': 1}
 
 
-class DeleteExerciseImageTestCase(WorkoutManagerDeleteTestCase):
+class DeleteExerciseImageTestCase(WgerDeleteTestCase):
     """
     Tests deleting an image to an exercise
     """
