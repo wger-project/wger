@@ -27,6 +27,7 @@ Developers
 * Scott Peshak: https://github.com/speshak
 * Musanje Louis Michael: https://github.com/louiCoder
 * Kevin Antonio Rateni Iatauro: https://github.com/WalkingPizza
+* Sven - https://github.com/Svn-Sp
 
 Translators
 -----------
