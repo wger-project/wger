@@ -73,10 +73,8 @@ else:
 WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{os.environ.get("FROM_EMAIL")}>'
 
 # Management
-if os.environ.get("ALLOW_REGISTRATION"):
-    WGER_SETTINGS["ALLOW_REGISTRATION"] = os.environ.get("ALLOW_REGISTRATION")
-if os.environ.get("ALLOW_GUEST_USERS"):
-    WGER_SETTINGS["ALLOW_GUEST_USERS"] = os.environ.get("ALLOW_GUEST_USERS")
+WGER_SETTINGS["ALLOW_REGISTRATION"] = os.environ.get("ALLOW_REGISTRATION")
+WGER_SETTINGS["ALLOW_GUEST_USERS"] = os.environ.get("ALLOW_GUEST_USERS")
 
 # Cache
 if os.environ.get("DJANGO_CACHE_BACKEND"):
