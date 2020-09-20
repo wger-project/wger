@@ -65,9 +65,16 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Configure a real backend in production
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    # TODO add email vars from env
-    pass
+if os.environ.get("ENABLE_EMAIL"):
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.environ.get("EMAIL_HOST")
+    EMAIL_PORT = os.environ.get("EMAIL_PORT")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
+    EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL")
+    EMAIL_TIMEOUT = 60
+
 
 # Sender address used for sent emails
 WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{os.environ.get("FROM_EMAIL")}>'
@@ -88,6 +95,7 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             }
         }
     }
+    
 
 print('''#############################################################
     ENV VARS:''')
