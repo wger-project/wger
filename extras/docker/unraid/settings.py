@@ -66,7 +66,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    # add email vars from env
+    # TODO add email vars from env
     pass
 
 # Sender address used for sent emails
