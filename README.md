@@ -22,7 +22,7 @@ Please consult the commands' help for further information and available
 parameters.
 
 
-### Docker
+### Production
 
 If you want to host your own instance, take a look at the provided docker
 compose file. This config will persist your database and uploaded images:
@@ -40,7 +40,7 @@ If you just want to try it out:
 Then just open <http://localhost:8000> and log in as **admin**, password **admin**
 
 Please note that this image will overwrite your data when you pull a new version,
-it is only intended as an easy to setup demo 
+it is only intended as an easy to setup demo
 
 ### Development version
 
