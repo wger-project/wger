@@ -25,12 +25,18 @@ then
     chmod -R g+w ~wger/media
 fi
 
-# Run the server
-if [ -z "$WGER_USE_GUNICORN" ]
+# Collect static files
+if [[ "$DJANGO_DEBUG" == "False" ]];
 then
-    python3 manage.py runserver 0.0.0.0:8000
-else
+    python3 manage.py collectstatic
+fi
+
+# Run the server
+if [[ "$WGER_USE_GUNICORN" == "True" ]];
+then
     gunicorn wger.wsgi:application --reload --bind 0.0.0.0:8000
+else
+    python3 manage.py runserver 0.0.0.0:8000
 fi
 
 
