@@ -28,7 +28,7 @@ fi
 # Collect static files
 if [[ "$DJANGO_DEBUG" == "False" ]];
 then
-    python3 manage.py collectstatic
+    python3 manage.py collectstatic --no-input
 fi
 
 # Run the server
