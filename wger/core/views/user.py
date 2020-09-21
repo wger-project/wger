@@ -160,6 +160,7 @@ def delete(request, user_pk=None):
             else:
                 gym_pk = request.user.userprofile.gym_id
                 return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
+    form.helper.form_action = request.path
     context = {'form': form,
                'user_delete': user}
 

@@ -247,6 +247,12 @@ class WgerDeleteTestCase(WgerTestCase):
         count_after = self.object_class.objects.count()
         self.assertEqual(count_before, count_after)
 
+        # Checks that the forms have the correct CSS class
+        # This makes sure they can be used with the current modal dialog logic.
+        # Hopefully we will refactor that in the future and then this check can
+        # be removed
+        self.assertInHTML("wger-form", response)
+
         if fail:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
         else:
@@ -273,6 +279,13 @@ class WgerDeleteTestCase(WgerTestCase):
             # response = self.client.get(response['Location'])
             # self.assertEqual(response.status_code, 200)
         self.post_test_hook()
+
+    def test_form_css_class(self):
+        """
+
+        """
+        self.delete_object(fail=True)
+
 
     def test_delete_object_anonymous(self):
         """
