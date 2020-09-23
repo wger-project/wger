@@ -43,6 +43,11 @@ from wger.exercises.models import (
 )
 
 
+EXERCISE_API = "{0}/api/v2/exercise/?limit=999&status=2"
+IMAGE_API = "{0}/api/v2/exerciseimage/?exercise={1}"
+THUMBNAIL_API = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
+
+
 class Command(BaseCommand):
     """
     Download exercise images from wger.de and updates the local database
@@ -79,14 +84,10 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        exercise_api = "{0}/api/v2/exercise/?limit=999&status=2"
-        image_api = "{0}/api/v2/exerciseimage/?exercise={1}"
-        thumbnail_api = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
-
         headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
 
         # Get all exercises
-        result = requests.get(exercise_api.format(remote_url), headers=headers).json()
+        result = requests.get(EXERCISE_API.format(remote_url), headers=headers).json()
         for exercise_json in result['results']:
             exercise_name = exercise_json['name']
             exercise_uuid = exercise_json['uuid']
@@ -102,17 +103,16 @@ class Command(BaseCommand):
 
             except Exercise.DoesNotExist:
                 self.stdout.write('    Remote exercise not found in local DB, skipping...')
-
                 continue
 
             # Get all images
-            images = requests.get(image_api.format(remote_url, exercise_id), headers=headers).json()
+            images = requests.get(IMAGE_API.format(remote_url, exercise_id), headers=headers).json()
 
             if images['count']:
 
                 for image_json in images['results']:
                     image_id = image_json['id']
-                    result = requests.get(thumbnail_api.format(remote_url, image_id),
+                    result = requests.get(THUMBNAIL_API.format(remote_url, image_id),
                                           headers=headers).json()
 
                     image_name = os.path.basename(result['original'])
@@ -129,7 +129,7 @@ class Command(BaseCommand):
 
                     # Save the downloaded image, see link for details
                     # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
-                    retrieved_image = requests.get(result['original'], headers=headers)
+                    retrieved_image = requests.get(remote_url + result['original'], headers=headers)
                     img_temp = NamedTemporaryFile(delete=True)
                     img_temp.write(retrieved_image.content)
                     img_temp.flush()
