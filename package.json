@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "yarn": "^1.22.5",
+    "yarn": "^1.22.10",
     "Sortable": "RubaXa/Sortable#1.10.2",
     "bootstrap": "twbs/bootstrap#4.x",
     "components-font-awesome": "components/font-awesome#5.14.0",
