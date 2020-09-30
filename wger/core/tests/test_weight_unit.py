@@ -34,7 +34,7 @@ class RepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'kg')
+        self.assertEqual(f"{WeightUnit.objects.get(pk=1)}", 'kg')
 
 
 class OverviewTest(WgerAccessTestCase):
