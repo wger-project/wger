@@ -39,7 +39,7 @@ class LanguageRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Language.objects.get(pk=1)), 'Deutsch (de)')
+        self.assertEqual(f"{Language.objects.get(pk=1)}", 'Deutsch (de)')
 
 
 class LanguageOverviewTest(WgerAccessTestCase):

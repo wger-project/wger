@@ -43,4 +43,4 @@ class Command(BaseCommand):
                 counter += 1
                 profile.user.delete()
 
-        self.stdout.write("Deleted {0} temporary users".format(counter))
+        self.stdout.write(f"Deleted {counter} temporary users")

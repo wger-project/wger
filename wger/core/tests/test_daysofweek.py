@@ -28,7 +28,7 @@ class DaysOfWeekRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(DaysOfWeek.objects.get(pk=1)), 'Monday')
+        self.assertEqual(f"{DaysOfWeek.objects.get(pk=1)}", 'Monday')
 
 
 class DaysOfWeekApiTestCase(api_base_test.ApiBaseResourceTestCase):
