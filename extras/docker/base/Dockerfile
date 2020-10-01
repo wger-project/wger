@@ -20,16 +20,14 @@ RUN apt-get update \
       locales \
       nodejs \
       npm \
-      yarnpkg \
       sassc \
       python3-venv \
       python3-pip \
       sqlite3 \
       netcat-openbsd \
   && rm -rf /var/lib/apt/lists/* \
+  && npm install -g yarn@1.22.5 \
   && locale-gen en_US.UTF-8
-
-  #&& npm install -g yarn sass
 
 # Environmental variables
 ENV LANG en_US.UTF-8
