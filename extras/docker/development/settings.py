@@ -7,7 +7,6 @@ from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = os.environ.get("DJANGO_DEBUG", True)
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 ADMINS = (
     ('Your name', 'your_email@example.com'),
