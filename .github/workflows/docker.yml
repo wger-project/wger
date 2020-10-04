@@ -6,38 +6,44 @@ on:
       - master
 
 jobs:
-  deploy:
+  path-context:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Build base image
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        repository: wger/base
-        dockerfile: extras/docker/base/Dockerfile
-        tags: latest,2.0-dev
-        tag_with_ref: true
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
 
-    - name: Build dev image
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        repository: wger/devel
-        dockerfile: extras/docker/development/Dockerfile
-        tags: latest,2.0-dev
-        tag_with_ref: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Build apache image
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        repository: wger/apache
-        dockerfile: extras/docker/apache/Dockerfile
-        tags: latest,2.0-dev
-        tag_with_ref: true
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build base image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: extras/docker/base/Dockerfile
+          push: true
+          tags: wger/base:latest,wger/base:2.0-dev
+
+      - name: Build apache image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: extras/docker/apache/Dockerfile
+          push: true
+          tags: wger/apache:latest,wger/apache:2.0-dev
+
+      - name: Build dev image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: extras/docker/development/Dockerfile
+          push: true
+          tags: wger/devel:latest,wger/devel:2.0-dev
