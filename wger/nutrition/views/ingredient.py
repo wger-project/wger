@@ -83,8 +83,8 @@ class IngredientListView(ListView):
         native language, see load_ingredient_languages)
         """
         languages = load_ingredient_languages(self.request)
-        return (Ingredient.objects.filter(language__in=languages)
-                                  .filter(status=Ingredient.STATUS_ACCEPTED)
+        return (Ingredient.objects.accepted()
+                                  .filter(language__in=languages)
                                   .only('id', 'name'))
 
     def get_context_data(self, **kwargs):

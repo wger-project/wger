@@ -58,7 +58,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for ingredient objects
     """
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.accepted()
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = ('carbohydrates',

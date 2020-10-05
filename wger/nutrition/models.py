@@ -46,6 +46,7 @@ from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
+from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
     AbstractSubmissionModel
@@ -263,6 +264,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
+    objects = SubmissionManager()
+    """Custom manager"""
+
 
     ENERGY_APPROXIMATION = 15
     """
