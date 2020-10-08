@@ -121,27 +121,44 @@ def log_meal(request, meal_pk):
 
     # Check read permission
     meal = get_object_or_404(Meal, pk=meal_pk)
-    user = meal.plan.user
-    is_owner = request.user == user
-    date = datetime.date.today()
+    mealUser = meal.plan.user
+    is_owner = request.user == mealUser
 
-    if not is_owner and not user.userprofile.ro_access:
+    if not is_owner and not mealUser.userprofile.ro_access:
         return HttpResponseForbidden()
+    
+    _logMealPlan([meal])
+    date = datetime.date.today()
+    return HttpResponseRedirect(reverse('nutrition:log:detail', kwargs={'pk': meal_pk,
+                                        'year': date.year,
+                                        'month': date.month,
+                                        'day': date.day}))
 
-    for item in meal.mealitem_set.select_related():
-        log_item = LogItem(plan=item.meal.plan,
-                           ingredient=item.ingredient,
-                           weight_unit=item.weight_unit,
-                           amount=item.amount)
-        log_item.save()
+def log_plan(request, plan_pk):
+    """
+    Copy the requested plan item and log all of the meals within it
+    """
+    plan = get_object_or_404(NutritionPlan, pk=plan_pk)
+    planUser = plan.user
+    is_owner = request.user == planUser
+    if not is_owner and not planUser.userprofile.ro_access:
+        return HttpResponseForbidden()
+    
+    _logMealPlan(plan.meal_set.select_related())
+    return HttpResponseRedirect(reverse('nutrition:log:overview', kwargs={'pk': plan_pk}))
 
-    return HttpResponseRedirect(reverse('nutrition:log:detail',
-                                        kwargs={'pk': meal.plan.pk,
-                                                'year': date.year,
-                                                'month': date.month,
-                                                'day': date.day
-                                                }))
+def _logMealPlan(meals):
+    """
+    Helper method to log a collection of meals
+    """
 
+    for meal in meals:
+        for item in meal.mealitem_set.select_related():
+            log_item = LogItem(plan=item.meal.plan,
+            ingredient=item.ingredient,
+            weight_unit=item.weight_unit,
+            amount=item.amount)
+            log_item.save()
 
 class LogCreateView(WgerFormMixin, CreateView):
     """
