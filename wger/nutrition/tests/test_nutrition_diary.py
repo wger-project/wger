@@ -180,7 +180,45 @@ class NutritionDiaryTestCase(WgerTestCase):
         response = self.client.get(reverse('nutrition:log:log_meal', kwargs={"meal_pk": 1}))
         self.assertEqual(response.status_code, 403)
         self.assertEqual(LogItem.objects.filter(plan=plan).count(), 0)
+    
+    def test_log_plan(self):
+        """
+        Tests that logging a plan creates a log entry for all meals within the plan
+        """
+        plan = NutritionPlan.objects.get(pk=1)
+        LogItem.objects.all().delete()
+        self.assertFalse(LogItem.objects.filter(plan=plan))
+        self.user_login('test')
+        response = self.client.get(
+            reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(LogItem.objects.filter(plan=plan).count(), 3)
+    
+    def test_log_plan_logged_out(self):
+        """
+        Tests that logging a plan doesn't work for a logged out user
+        """
+        plan = NutritionPlan.objects.get(pk=1)
+        LogItem.objects.all().delete()
+        self.assertFalse(LogItem.objects.filter(plan=plan))
+        response = self.client.get(
+            reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(LogItem.objects.filter(plan=plan).count(), 0)
+    
+    def test_log_plan_other_user(self):
+        """
+        Tests that logging a plan doesn't work for a logged out user
+        """
+        plan = NutritionPlan.objects.get(pk=1)
+        LogItem.objects.all().delete()
+        self.assertFalse(LogItem.objects.filter(plan=plan))
+        self.user_login('admin')
+        response = self.client.get(
+            reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
 
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(LogItem.objects.filter(plan=plan).count(), 0)
 
 class AddMealItemUnitTestCase(WgerAddTestCase):
     """
