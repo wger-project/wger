@@ -126,13 +126,15 @@ def log_meal(request, meal_pk):
 
     if not is_owner and not mealUser.userprofile.ro_access:
         return HttpResponseForbidden()
-    
+
     _logMealPlan([meal])
     date = datetime.date.today()
-    return HttpResponseRedirect(reverse('nutrition:log:detail', kwargs={'pk': meal_pk,
-                                        'year': date.year,
-                                        'month': date.month,
-                                        'day': date.day}))
+    return HttpResponseRedirect(reverse('nutrition:log:detail',
+                                        kwargs={'pk': meal_pk,
+                                                'year': date.year,
+                                                'month': date.month,
+                                                'day': date.day}))
+
 
 def log_plan(request, plan_pk):
     """
@@ -143,9 +145,10 @@ def log_plan(request, plan_pk):
     is_owner = request.user == planUser
     if not is_owner and not planUser.userprofile.ro_access:
         return HttpResponseForbidden()
-    
+
     _logMealPlan(plan.meal_set.select_related())
     return HttpResponseRedirect(reverse('nutrition:log:overview', kwargs={'pk': plan_pk}))
+
 
 def _logMealPlan(meals):
     """
@@ -155,10 +158,11 @@ def _logMealPlan(meals):
     for meal in meals:
         for item in meal.mealitem_set.select_related():
             log_item = LogItem(plan=item.meal.plan,
-            ingredient=item.ingredient,
-            weight_unit=item.weight_unit,
-            amount=item.amount)
+                               ingredient=item.ingredient,
+                               weight_unit=item.weight_unit,
+                               amount=item.amount)
             log_item.save()
+
 
 class LogCreateView(WgerFormMixin, CreateView):
     """
