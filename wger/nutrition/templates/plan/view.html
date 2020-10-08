@@ -159,6 +159,11 @@ function wgerCustomModalInit()
     {% endfor %}
     {% if is_owner %}
     <tr>
+        <td colspan="6" class="py-0"><a href="{% url 'nutrition:log:log_plan' plan.id %}"
+            class="btn btn-link btn-block">
+            {% trans "Log this Plan" %}</a></td>
+    </tr>
+    <tr>
         <td colspan="6" class="py-0">
         <a href="{% url 'nutrition:meal:add' plan.id %}"
            class="wger-modal-dialog btn btn-link btn-block">
