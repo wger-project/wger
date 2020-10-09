@@ -28,6 +28,7 @@ Developers
 * Musanje Louis Michael: https://github.com/louiCoder
 * Kevin Antonio Rateni Iatauro: https://github.com/WalkingPizza
 * Sven - https://github.com/Svn-Sp
+* Christopher OConnell - https://github.com/oconnelc
 
 Translators
 -----------
