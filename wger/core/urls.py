@@ -21,7 +21,11 @@ from django.conf.urls import (
     url
 )
 from django.contrib.auth import views
+from django.urls import path
 from django.views.generic import TemplateView
+
+# Third Party
+from rest_framework.schemas import get_schema_view
 
 # wger
 from wger.core.forms import UserLoginForm
@@ -173,6 +177,17 @@ patterns_weight_units = [
 # Actual patterns
 #
 urlpatterns = [
+
+    path('openapi', get_schema_view(
+        title="wger Workout Manager",
+        description="an API for your gainz…",
+        version="1.0.0"
+    ), name='openapi-schema'),
+
+    path('swagger-ui/', TemplateView.as_view(
+        template_name='swagger-ui.html',
+        extra_context={'schema_url':'core:openapi-schema'}
+    ), name='swagger-ui'),
 
     # The landing page
     url(r'^$',
