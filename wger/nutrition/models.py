@@ -267,7 +267,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     objects = SubmissionManager()
     """Custom manager"""
 
-
     ENERGY_APPROXIMATION = 15
     """
     How much the calculated energy from protein, etc. can deviate from the
