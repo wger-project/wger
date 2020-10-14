@@ -3,7 +3,7 @@
 #
 # Please consult the README for usage
 #
-# Note: you MUST build this image from the projec's root!
+# Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
 # Run the container:
