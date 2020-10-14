@@ -1,7 +1,7 @@
 #
 # A wger installation under apache with WSGI
 #
-# Note: you MUST build this image from the projec's root!
+# Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
 #
 # Please consult the documentation for usage
