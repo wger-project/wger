@@ -33,6 +33,10 @@ urlpatterns = [
         login_required(views.WeightUpdateView.as_view()),
         name='edit'),
 
+    url(r'^(?P<pk>\d+)/delete/$',
+        views.WeightDeleteView.as_view(),
+        name='delete'),
+
     url(r'^export-csv/$',
         views.export_csv,
         name='export-csv'),

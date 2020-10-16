@@ -84,6 +84,11 @@
                                <span class="{% fa_class 'edit' %}"></span>
                                {% trans "Edit weight" %}
                             </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'weight:delete' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
+                                <span class="{% fa_class 'trash' %}"></span>
+                                {% trans "Delete" %}
+                            </a>
                         </div>
                     </div>
                 </div>
