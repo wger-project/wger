@@ -72,6 +72,22 @@
                     -/-
                 {% endif %}
             </td>
+            <td>
+                <div class="btn-group" role="group" >
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupWorkout" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="{% fa_class 'cog' %}"></span>
+                            {% trans "Options" %}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupWorkout">
+                            <a href="{% url 'weight:edit' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
+                               <span class="{% fa_class 'edit' %}"></span>
+                               {% trans "Edit workout" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
         </tr>
     {% endfor %}
 </table>

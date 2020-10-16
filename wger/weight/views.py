@@ -21,6 +21,7 @@ import logging
 
 # Django
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import (
     Max,
     Min
@@ -88,7 +89,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         return reverse('weight:overview', kwargs={'username': self.object.user.username})
 
 
-class WeightUpdateView(WgerFormMixin, UpdateView):
+class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
