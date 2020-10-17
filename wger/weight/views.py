@@ -21,6 +21,7 @@ import logging
 
 # Django
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import (
     Max,
     Min
@@ -37,7 +38,8 @@ from django.utils.translation import (
 )
 from django.views.generic import (
     CreateView,
-    UpdateView
+    UpdateView,
+    DeleteView
 )
 
 # Third Party
@@ -46,7 +48,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 # wger
-from wger.utils.generic_views import WgerFormMixin
+from wger.utils.generic_views import (
+    WgerFormMixin,
+    WgerDeleteMixin
+)
 from wger.utils.helpers import check_access
 from wger.weight import helpers
 from wger.weight.forms import WeightForm
@@ -88,7 +93,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         return reverse('weight:overview', kwargs={'username': self.object.user.username})
 
 
-class WeightUpdateView(WgerFormMixin, UpdateView):
+class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
@@ -99,6 +104,28 @@ class WeightUpdateView(WgerFormMixin, UpdateView):
         context = super(WeightUpdateView, self).get_context_data(**kwargs)
         context['title'] = _('Edit weight entry for the %s') % self.object.date
 
+        return context
+
+    def get_success_url(self):
+        """
+        Return to overview with username
+        """
+        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+
+
+class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
+    """
+    Generic view to delete a weight entry
+    """
+
+    model = WeightEntry
+    fields = ('weight',)
+
+    messages = ugettext_lazy('Successfully deleted.')
+
+    def get_context_data(self, **kwargs):
+        context = super(WeightDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _('Delete weight entry for the %s') % self.object.date
         return context
 
     def get_success_url(self):

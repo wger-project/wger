@@ -24,7 +24,8 @@ from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
+    WgerDeleteTestCase
 )
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
@@ -108,6 +109,18 @@ class EditWeightEntryTestCase(WgerEditTestCase):
     data = {'weight': 100,
             'date': datetime.date(2013, 2, 1),
             'user': 1}
+    user_success = 'test'
+    user_fail = 'admin'
+
+
+class DeleteWeightEntryTestCase(WgerDeleteTestCase):
+    """
+    Tests deleting a weight entry
+    """
+
+    object_class = WeightEntry
+    url = 'weight:delete'
+    pk = 1
     user_success = 'test'
     user_fail = 'admin'
 
