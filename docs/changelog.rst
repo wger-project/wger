@@ -21,6 +21,7 @@ Upgrade steps from 1.9:
 `#506`_ (thanks `@oconnelc`_)
 * Improved user experience, on desktop and mobile `#337`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
+* Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
 
 
 🐛 Bug Fixes:
@@ -40,12 +41,14 @@ Upgrade steps from 1.9:
 .. _@louiCoder: https://github.com/louiCoder
 .. _@WalkingPizza: https://github.com/WalkingPizza
 .. _@oconnelc: https://github.com/oconnelc
+.. _@beingbiplov: https://github.com/beingbiplov
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
 .. _#462: https://github.com/wger-project/wger/issues/462
+.. _#478: https://github.com/wger-project/wger/issues/478
 .. _#494: https://github.com/wger-project/wger/issues/494
 .. _#499: https://github.com/wger-project/wger/issues/499
 .. _#501: https://github.com/wger-project/wger/issues/501
