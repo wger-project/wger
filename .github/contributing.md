@@ -15,7 +15,8 @@ in a pull request.
 ## Questions
 Are you just using the software and have a question or improvement?
 
-* Ask it on the [gitter channel](https://gitter.im/wger-project/wger)
+* Ask it on the [gitter channel](https://gitter.im/wger-project/wger),
+* the [discord server](https://discord.gg/rPWFv6W)
 * or just [open an issue](https://github.com/wger-project/wger/issues)
 
 ## Issues

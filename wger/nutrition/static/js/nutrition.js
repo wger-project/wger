@@ -71,8 +71,9 @@ function wgerInitIngredientAutocompleter() {
       var ingredientId = suggestion.data.id;
 
       // After clicking on a result set the value of the hidden field
+
       $('#id_ingredient').val(ingredientId);
-      $('#exercise_name').html(suggestion.value);
+      $('#ingredient_name').html(suggestion.value);
 
       // See if the ingredient has any units and set the values for the forms
       $.get('/api/v2/ingredientweightunit/?ingredient=' + ingredientId, function (unitData) {
@@ -98,15 +99,13 @@ function wgerInitIngredientAutocompleter() {
 }
 
 function wgerDrawNutritionDiaryChart(planPk) {
-  var dataConverted;
   d3.json('/api/v2/nutritionplan/' + planPk + '/get_log_overview/').then(function (data) {
     if (data.length > 0) {
-      dataConverted = MG.convert.date(data, 'date');
       $.getJSON('/api/v2/nutritionplan/' + planPk + '/nutritional_values/',
         function (nutritionalValues) {
           MG.data_graphic({
-            data: dataConverted,
-            //chart_type: 'bar',
+            data: data,
+            chart_type: 'bar',
             y_accessor: 'energy',
             x_accessor: 'date',
             decimals: 0,

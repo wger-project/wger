@@ -32,7 +32,7 @@ Updating SASS files
 ```````````````````
 After updating the SASS files, you need to compile them to regular CSS::
 
-    sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css
+    yarn build:css:sass
 
 
 Clearing the cache
@@ -80,7 +80,8 @@ Or for options for, e.g. user generation::
 
 To get you started, you might want to invoke the script in the following way. This
 will create 10 gyms and 300 users, randomly assigning them to a different gym. Each
-user will have 20 workouts and each exercise in each workout 30 log entries::
+user will have 20 workouts and each exercise in each workout 30 log entries as well
+as 10 nutrition diary entries per day::
 
   python generator.py gyms 10
   python generator.py users 300
@@ -89,6 +90,7 @@ user will have 20 workouts and each exercise in each workout 30 log entries::
   python generator.py sessions random
   python generator.py weight 100
   python generator.py nutrition 20
+  python generator.py nutrition-diary 10
 
 .. note::
    All generated users have their username as password.

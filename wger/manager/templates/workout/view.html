@@ -98,16 +98,10 @@ $(document).ready(function () {
 
 <div class="row">
     <div class="col-6">
-        <div id="muscle-front"
-             class="muscle-background"
-             style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_front %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+        {% render_muscles muscles.front muscles.frontsecondary %}
     </div>
     <div class="col-6">
-        <div id="muscle-back"
-                 class="muscle-background"
-                 style="width: 120px; height: 220px; background-size: 120px; background-image: {% for background in muscle_backgrounds_back %}url({% static background %}){% if not forloop.last %},{% endif %}{% endfor %};">
-        </div>
+        {% render_muscles muscles.back muscles.backsecondary %}
     </div>
 </div>
 
@@ -125,9 +119,9 @@ $(document).ready(function () {
 application for example google calendar, outlook or iCal. This will create
 an appointment for each training day with the appropriate exercises.{% endblocktrans %}</p>
                 <p>
-                <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
-                   {% trans "Export calendar file" %}
-                </a>
+                    <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
+                       {% trans "Export calendar file" %}
+                    </a>
                 </p>
             </div>
             <div class="modal-footer">
@@ -227,6 +221,7 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                {% trans "Make a copy of this workout" %}
             </a>
             {% if is_owner %}
+                <div class="dropdown-divider"></div>
                 <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
                     <span class="{% fa_class 'trash' %}"></span>
                     {% trans "Delete" %}

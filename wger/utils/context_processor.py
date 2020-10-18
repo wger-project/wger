@@ -36,7 +36,7 @@ def processor(request):
     groups = Membership.objects.filter(user=user) if user.is_authenticated else []
 
     for lang in settings.LANGUAGES:
-        i18n_path[lang[0]] = u'/{0}{1}'.format(lang[0], full_path[3:])
+        i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
 
     context = {
         # Application version

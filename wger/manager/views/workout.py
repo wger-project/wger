@@ -39,7 +39,6 @@ from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
 )
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import (
     DeleteView,
     UpdateView
@@ -95,7 +94,6 @@ def overview(request):
     return render(request, 'workout/overview.html', template_data)
 
 
-@vary_on_headers('User-Agent')
 def view(request, pk):
     """
     Show the workout with the given ID
@@ -118,31 +116,8 @@ def view(request, pk):
     canonical = workout.canonical_representation
     uid, token = make_token(user)
 
-    # Create the backgrounds that show what muscles the workout will work on
-    muscles_front = []
-    muscles_back = []
-    for i in canonical['muscles']['front']:
-        if i not in muscles_front:
-            muscles_front.append('images/muscles/main/muscle-{0}.svg'.format(i))
-    for i in canonical['muscles']['back']:
-        if i not in muscles_back:
-            muscles_back.append('images/muscles/main/muscle-{0}.svg'.format(i))
-
-    for i in canonical['muscles']['frontsecondary']:
-        if i not in muscles_front and i not in canonical['muscles']['front']:
-            muscles_front.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
-    for i in canonical['muscles']['backsecondary']:
-        if i not in muscles_back and i not in canonical['muscles']['back']:
-            muscles_back.append('images/muscles/secondary/muscle-{0}.svg'.format(i))
-
-    # Append the silhouette of the human body as the last entry so the browser
-    # renders it in the background
-    muscles_front.append('images/muscles/muscular_system_front.svg')
-    muscles_back.append('images/muscles/muscular_system_back.svg')
-
     template_data['workout'] = workout
-    template_data['muscle_backgrounds_front'] = muscles_front
-    template_data['muscle_backgrounds_back'] = muscles_back
+    template_data['muscles'] = canonical['muscles']
     template_data['uid'] = uid
     template_data['token'] = token
     template_data['is_owner'] = is_owner
@@ -267,7 +242,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         return context
 
 
@@ -281,7 +256,7 @@ class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutEditView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 

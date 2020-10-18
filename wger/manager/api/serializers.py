@@ -24,7 +24,10 @@ from wger.core.api.serializers import (
     RepetitionUnitSerializer,
     WeightUnitSerializer
 )
-from wger.exercises.api.serializers import ExerciseSerializer
+from wger.exercises.api.serializers import (
+    ExerciseSerializer,
+    MuscleSerializer
+)
 from wger.manager.models import (
     Day,
     Schedule,
@@ -115,6 +118,16 @@ class SettingSerializer(serializers.ModelSerializer):
 #
 # Custom helper serializers for the canonical form of a workout
 #
+class MusclesCanonicalFormSerializer(serializers.Serializer):
+    """
+    Serializer for the muscles in the canonical form of a day/workout
+    """
+    front = serializers.ListField(child=MuscleSerializer())
+    back = serializers.ListField(child=MuscleSerializer())
+    frontsecondary = serializers.ListField(child=MuscleSerializer())
+    backsecondary = serializers.ListField(child=MuscleSerializer())
+
+
 class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     """
     Serializer for settings in the canonical form of a workout
@@ -139,7 +152,7 @@ class WorkoutCanonicalFormExerciseSerializer(serializers.Serializer):
     exercise_list = WorkoutCanonicalFormExerciseListSerializer(many=True)
     has_settings = serializers.BooleanField()
     is_superset = serializers.BooleanField()
-    muscles = serializers.ReadOnlyField()
+    muscles = MusclesCanonicalFormSerializer()
 
 
 class DaysOfWeekCanonicalFormSerializer(serializers.Serializer):
@@ -159,7 +172,7 @@ class DayCanonicalFormSerializer(serializers.Serializer):
     obj = DaySerializer()
     set_list = WorkoutCanonicalFormExerciseSerializer(many=True)
     days_of_week = DaysOfWeekCanonicalFormSerializer()
-    muscles = serializers.ReadOnlyField()
+    muscles = MusclesCanonicalFormSerializer()
 
 
 class WorkoutCanonicalFormSerializer(serializers.Serializer):
@@ -167,5 +180,5 @@ class WorkoutCanonicalFormSerializer(serializers.Serializer):
     Serializer for the canonical form of a workout
     """
     obj = WorkoutSerializer()
-    muscles = serializers.ReadOnlyField()
     day_list = DayCanonicalFormSerializer(many=True)
+    muscles = MusclesCanonicalFormSerializer()

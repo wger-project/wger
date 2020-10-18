@@ -7,6 +7,7 @@ services:
       - type: bind
         source: ../../../
         target: /home/wger/src/
+      - media:/home/wger/media
     ports:
       - 8000:8000
     env_file:
@@ -34,3 +35,4 @@ services:
 
 volumes:
   wger-postgres-data:
+  media:

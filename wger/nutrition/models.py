@@ -34,7 +34,10 @@ from django.core.validators import (
 from django.db import models
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
+from django.utils import (
+    timezone,
+    translation
+)
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
@@ -43,6 +46,7 @@ from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
+from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
     AbstractSubmissionModel
@@ -105,9 +109,9 @@ class NutritionPlan(models.Model):
         Return a more human-readable representation
         """
         if self.description:
-            return u"{0}".format(self.description)
+            return "{0}".format(self.description)
         else:
-            return u"{0}".format(_("Nutrition plan"))
+            return "{0}".format(_("Nutrition plan"))
 
     def get_absolute_url(self):
         """
@@ -119,50 +123,53 @@ class NutritionPlan(models.Model):
         """
         Sums the nutritional info of all items in the plan
         """
-        use_metric = self.user.userprofile.use_metric
-        unit = 'kg' if use_metric else 'lb'
-        result = {'total': {'energy': 0,
-                            'protein': 0,
-                            'carbohydrates': 0,
-                            'carbohydrates_sugar': 0,
-                            'fat': 0,
-                            'fat_saturated': 0,
-                            'fibres': 0,
-                            'sodium': 0},
-                  'percent': {'protein': 0,
-                              'carbohydrates': 0,
-                              'fat': 0},
-                  'per_kg': {'protein': 0,
-                             'carbohydrates': 0,
-                             'fat': 0},
-                  }
+        nutritional_representation = cache.get(cache_mapper.get_nutrition_cache_by_key(self.pk))
+        if not nutritional_representation:
+            use_metric = self.user.userprofile.use_metric
+            unit = 'kg' if use_metric else 'lb'
+            result = {'total': {'energy': 0,
+                                'protein': 0,
+                                'carbohydrates': 0,
+                                'carbohydrates_sugar': 0,
+                                'fat': 0,
+                                'fat_saturated': 0,
+                                'fibres': 0,
+                                'sodium': 0},
+                      'percent': {'protein': 0,
+                                  'carbohydrates': 0,
+                                  'fat': 0},
+                      'per_kg': {'protein': 0,
+                                 'carbohydrates': 0,
+                                 'fat': 0},
+                      }
 
-        # Energy
-        for meal in self.meal_set.select_related():
-            values = meal.get_nutritional_values(use_metric=use_metric)
-            for key in result['total'].keys():
-                result['total'][key] += values[key]
+            # Energy
+            for meal in self.meal_set.select_related():
+                values = meal.get_nutritional_values(use_metric=use_metric)
+                for key in result['total'].keys():
+                    result['total'][key] += values[key]
 
-        energy = result['total']['energy']
+            energy = result['total']['energy']
 
-        # In percent
-        if energy:
-            for key in result['percent'].keys():
-                result['percent'][key] = \
-                    result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
+            # In percent
+            if energy:
+                for key in result['percent'].keys():
+                    result['percent'][key] = \
+                        result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
 
-        # Per body weight
-        weight_entry = self.get_closest_weight_entry()
-        if weight_entry:
-            for key in result['per_kg'].keys():
-                result['per_kg'][key] = result['total'][key] / weight_entry.weight
+            # Per body weight
+            weight_entry = self.get_closest_weight_entry()
+            if weight_entry:
+                for key in result['per_kg'].keys():
+                    result['per_kg'][key] = result['total'][key] / weight_entry.weight
 
-        # Only 2 decimal places, anything else doesn't make sense
-        for key in result.keys():
-            for i in result[key]:
-                result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
-
-        return result
+            # Only 2 decimal places, anything else doesn't make sense
+            for key in result.keys():
+                for i in result[key]:
+                    result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
+            nutritional_representation = result
+            cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)
+        return nutritional_representation
 
     def get_closest_weight_entry(self):
         """
@@ -257,6 +264,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
+    objects = SubmissionManager()
+    """Custom manager"""
 
     ENERGY_APPROXIMATION = 15
     """
@@ -489,7 +498,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
             # Send email to administrator
             subject = _('New user submitted ingredient')
-            message = _(u"""The user {0} submitted a new ingredient "{1}".""".format(
+            message = _("""The user {0} submitted a new ingredient "{1}".""".format(
                 request.user.username, self.name))
             mail.mail_admins(subject,
                              message,
@@ -560,9 +569,9 @@ class IngredientWeightUnit(models.Model):
         Return a more human-readable representation
         """
 
-        return u"{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
-                                       self.unit.name,
-                                       self.gram)
+        return "{0}{1} ({2}g)".format(self.amount if self.amount > 1 else '',
+                                      self.unit.name,
+                                      self.gram)
 
 
 class Meal(models.Model):
@@ -589,7 +598,7 @@ class Meal(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0} Meal".format(self.order)
+        return "{0} Meal".format(self.order)
 
     def get_owner_object(self):
         """
@@ -647,7 +656,7 @@ class BaseMealItem(object):
 
     def get_nutritional_values(self, use_metric=True):
         """
-        Sums the nutrional info for the ingredient in the MealItem
+        Sums the nutritional info for the ingredient in the MealItem
 
         :param use_metric Flag that controls the units used
         """
@@ -735,7 +744,7 @@ class MealItem(BaseMealItem, models.Model):
         """
         Return a more human-readable representation
         """
-        return u"{0}g ingredient {1}".format(self.amount, self.ingredient_id)
+        return "{0}g ingredient {1}".format(self.amount, self.ingredient_id)
 
     def get_owner_object(self):
         """
@@ -760,7 +769,7 @@ class LogItem(BaseMealItem, models.Model):
     The plan this log belongs to
     """
 
-    datetime = models.DateTimeField(auto_now=True)
+    datetime = models.DateTimeField(default=timezone.now)
     """
     Time and date when the log was added
     """
@@ -801,7 +810,7 @@ class LogItem(BaseMealItem, models.Model):
         """
         Return a more human-readable representation
         """
-        return u"Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
+        return "Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
 
     def get_owner_object(self):
         """

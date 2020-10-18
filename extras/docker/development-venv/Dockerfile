@@ -2,12 +2,12 @@
 # Docker image for wger development:
 #
 # This image uses a virtual environment, which is not necessary in a docker
-# image and is more or less intented to check that the installation instructions
-# for a local develoment are up-to-date
+# image and is more or less intended to check that the installation instructions
+# for a local development are up-to-date
 #
 # Please consult the documentation for usage
 #
-# Note: you MUST build this image from the projec's root!
+# Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
 # Run the container:
@@ -43,7 +43,7 @@ RUN apt-get update \
 # Set up the application
 COPY . .
 RUN pip3 install wheel \
-    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_devel.txt
+    && pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_dev.txt
 
 
 ########
@@ -66,12 +66,8 @@ RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
-    && wger create-settings \
-        --settings-path /home/wger/src/settings.py \
-        --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap \
-        --settings-path /home/wger/src/settings.py \
-        --no-start-server
+    && wger create-settings --database-path /home/wger/db/database.sqlite \
+    && wger bootstrap
 
 # Download the exercise images
 RUN mkdir ~/media \

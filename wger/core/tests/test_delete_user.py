@@ -84,10 +84,10 @@ class DeleteUserByAdminTestCase(WgerTestCase):
         self.assertEqual(User.objects.filter(username='test').count(), 1)
         if fail:
             self.assertIn(response.status_code, (302, 403),
-                          'Unexpected status code for user {0}'.format(self.current_user))
+                          f'Unexpected status code for user {self.current_user}')
         else:
             self.assertEqual(response.status_code, 200,
-                             'Unexpected status code for user {0}'.format(self.current_user))
+                             f'Unexpected status code for user {self.current_user}')
 
         # Wrong admin password
         if not fail:

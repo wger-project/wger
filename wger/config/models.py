@@ -78,7 +78,7 @@ class LanguageConfig(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"Config for language {0}".format(self.language)
+        return "Config for language {0}".format(self.language)
 
     def save(self, *args, **kwargs):
         """
@@ -134,7 +134,7 @@ class GymConfig(models.Model):
         """
         Return a more human-readable representation
         """
-        return u"Default gym {0}".format(self.default_gym)
+        return "Default gym {0}".format(self.default_gym)
 
     def save(self, *args, **kwargs):
         """

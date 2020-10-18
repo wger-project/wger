@@ -30,7 +30,9 @@
 {% endif %}
 
 <div id="weight_diagram"></div>
-
+<br>
+<input id="height" placeholder="height in cm" type="number">
+<input id="enable_bmi" type="button" value="BMI">
 
 <div class="btn-group modify-time-period-controls float-right" role="group" aria-label="..." style="padding-bottom: 1em;">
     <button type="button" class="btn btn-light" data-time_period="90">{% trans "Last 3 months" %}</button>
@@ -69,6 +71,25 @@
                 {% else %}
                     -/-
                 {% endif %}
+            </td>
+            <td>
+                <div class="btn-group" role="group" >
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupWorkout" type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupWorkout">
+                            <a href="{% url 'weight:edit' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
+                               <span class="{% fa_class 'edit' %}"></span>
+                               {% trans "Edit weight" %}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'weight:delete' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
+                                <span class="{% fa_class 'trash' %}"></span>
+                                {% trans "Delete" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
     {% endfor %}

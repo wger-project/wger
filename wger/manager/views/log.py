@@ -85,7 +85,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit log entry for %s') % self.object.exercise.name
+        context['title'] = _('Edit log entry for %s') % self.object.exercise.name
         return context
 
 

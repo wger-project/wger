@@ -15,53 +15,59 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-import os
-import sys
-import csv
-import uuid
-import random
-import django
-import datetime
+# Standard Library
 import argparse
+import csv
+import datetime
+import os
+import random
+import sys
+import uuid
 
+# Django
+import django
 from django.db import IntegrityError
+from django.utils import timezone
 from django.utils.text import slugify
+
 
 sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 django.setup()
 
+# Django
 # Must happen after calling django.setup()
 from django.contrib.auth.models import User
-from wger.core.models import DaysOfWeek
+
+# wger
+from wger.core.models import (
+    DaysOfWeek,
+    Language
+)
 from wger.exercises.models import Exercise
 from wger.gym.models import (
-    GymUserConfig,
-    Gym
+    Gym,
+    GymUserConfig
 )
 from wger.manager.models import (
-    Workout,
     Day,
-    Set,
-    Setting,
     Schedule,
     ScheduleStep,
+    Set,
+    Setting,
+    Workout,
     WorkoutLog,
     WorkoutSession
 )
-from wger.weight.models import WeightEntry
-
-from wger.core.models import Language
-
-# Nutrition import //_c
 from wger.nutrition.models import (
     Ingredient,
-    IngredientWeightUnit,
-    WeightUnit,
-    NutritionPlan,
+    LogItem,
     Meal,
-    MealItem
+    MealItem,
+    NutritionPlan
 )
+from wger.weight.models import WeightEntry
+
 
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
 subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
@@ -132,12 +138,27 @@ weight_parser.add_argument('--base-weight',
 # Nutrition options
 nutrition_parser = subparsers.add_parser('nutrition', help='Creates a meal plan')
 nutrition_parser.add_argument('number_nutrition_plans',
-                         action='store',
-                         help='Number of meal plans to create',
-                         type=int)
+                              action='store',
+                              help='Number of meal plans to create',
+                              type=int)
 nutrition_parser.add_argument('--add-to-user',
-                           action='store',
-                           help='Add to the specified user-ID, not all existing users')
+                              action='store',
+                              help='Add to the specified user-ID, not all existing users')
+
+# Nutrition diary options
+nutrition_parser = subparsers.add_parser('nutrition-diary', help='Creates a meal plan')
+nutrition_parser.add_argument('number_nutrition_logs',
+                              action='store',
+                              help='Number of nutrition diary logs to create',
+                              type=int)
+nutrition_parser.add_argument('--number-diary-dates',
+                              action='store',
+                              help='Number of dates in which to create logs (default: 30)',
+                              default=30,
+                              type=int)
+nutrition_parser.add_argument('--add-to-user',
+                              action='store',
+                              help='Add to the specified user-ID, not all existing users')
 
 args = parser.parse_args()
 # print(args)
@@ -247,7 +268,6 @@ if hasattr(args, 'number_gyms'):
 
     # Bulk-create all the gyms
     Gym.objects.bulk_create(gym_list)
-
 
 #
 # Workout generator
@@ -364,7 +384,6 @@ if hasattr(args, 'number_logs'):
         # Bulk-create the logs
         WorkoutLog.objects.bulk_create(weight_log)
 
-
 #
 # Session generator
 #
@@ -382,8 +401,8 @@ if hasattr(args, 'impression_sessions'):
 
                 workout = WorkoutLog.objects.filter(user=user, date=date).first().workout
                 start = datetime.time(hour=random.randint(8, 20), minute=random.randint(0, 59))
-                end = datetime.datetime.combine(datetime.date.today(), start)  \
-                    + datetime.timedelta(minutes=random.randint(40, 120))
+                end = datetime.datetime.combine(datetime.date.today(), start) \
+                      + datetime.timedelta(minutes=random.randint(40, 120))
                 end = datetime.time(hour=end.hour, minute=end.minute)
 
                 session = WorkoutSession()
@@ -449,7 +468,7 @@ if hasattr(args, 'number_nutrition_plans'):
         userlist = [i for i in User.objects.all()]
 
     # Load all ingredients to a list
-    ingredientList = [i for i in Ingredient.objects.order_by('?').all()[:100]]
+    ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
 
     # Total meals per plan
     total_meals = 4
@@ -461,8 +480,9 @@ if hasattr(args, 'number_nutrition_plans'):
         for i in range(0, args.number_nutrition_plans):
             uid = str(uuid.uuid4()).split('-')
             start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
-            nutrition_plan = NutritionPlan(language=Language.objects.all()[1], description='Dummy nutrition plan - {0}'.format(uid[1]),
-                              creation_date=start_date)
+            nutrition_plan = NutritionPlan(language=Language.objects.all()[1],
+                                           description='Dummy nutrition plan - {0}'.format(uid[1]),
+                                           creation_date=start_date)
             nutrition_plan.user = user
 
             nutrition_plan.save()
@@ -472,8 +492,40 @@ if hasattr(args, 'number_nutrition_plans'):
             for j in range(0, total_meals):
                 meal = Meal(plan=nutrition_plan, order=order)
                 meal.save()
-                for k in range(0, random.randint(1,5)):
-                    ingredient = random.choice(ingredientList)
-                    meal_item = MealItem(meal=meal, ingredient=ingredient, weight_unit=None, order=order, amount=random.randint(10, 250))
+                for k in range(0, random.randint(1, 5)):
+                    ingredient = random.choice(ingredient_list)
+                    meal_item = MealItem(meal=meal, ingredient=ingredient, weight_unit=None,
+                                         order=order, amount=random.randint(10, 250))
                     meal_item.save()
                 order = order + 1
+
+# Nutrition logs Generator
+if hasattr(args, 'number_nutrition_logs'):
+    print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_logs))
+
+    if args.add_to_user:
+        userlist = [User.objects.get(pk=args.add_to_user)]
+    else:
+        userlist = [i for i in User.objects.all()]
+
+    # Load all ingredients to a list
+    ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
+
+    for user in userlist:
+        plan_list = NutritionPlan.objects.order_by('?').filter(user=user)
+        print('   - generating for {0}'.format(user.username))
+
+        # Add diary entries
+        for plan in NutritionPlan.objects.filter(user=user):
+            for i in range(0, args.number_diary_dates):
+                date = timezone.now() - datetime.timedelta(days=random.randint(0, 100),
+                                                           hours=random.randint(0, 12),
+                                                           minutes=random.randint(0, 59))
+                for j in range(0, args.number_nutrition_logs):
+                    ingredient = random.choice(ingredient_list)
+                    log = LogItem(plan=plan,
+                                  datetime=date,
+                                  ingredient=ingredient,
+                                  weight_unit=None,
+                                  amount=random.randint(10, 300))
+                    log.save()

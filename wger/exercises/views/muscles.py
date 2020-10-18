@@ -102,7 +102,7 @@ class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Send some additional data to the template
         """
         context = super(MuscleUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object.name)
+        context['title'] = _('Edit {0}').format(self.object.name)
         return context
 
 
@@ -122,5 +122,5 @@ class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMi
         Send some additional data to the template
         """
         context = super(MuscleDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object.name)
+        context['title'] = _('Delete {0}?').format(self.object.name)
         return context

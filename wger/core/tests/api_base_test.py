@@ -79,14 +79,14 @@ class ApiBaseTestCase(APITestCase):
         """
         Return the URL to use for testing
         """
-        return '/api/{0}/{1}/'.format(self.api_version, self.get_resource_name())
+        return f'/api/{self.api_version}/{self.get_resource_name()}/'
 
     @property
     def url_detail(self):
         """
         Return the detail URL to use for testing
         """
-        return '{0}{1}/'.format(self.url, self.pk)
+        return f'{self.url}{self.pk}/'
 
     def get_credentials(self, username=None):
         """
@@ -399,7 +399,7 @@ class ApiPutTestCase(object):
             #
             # Currently resources that have a 'user' field 'succeed'
             if response.status_code == status.HTTP_201_CREATED:
-                # print('201: {0}'.format(self.url_detail))
+                # print(f'201: {self.url_detail}')
                 obj = self.resource.objects.get(pk=response.data['id'])
                 obj2 = self.resource.objects.get(pk=self.pk)
                 self.assertNotEqual(obj.get_owner_object().user.username,
@@ -408,7 +408,7 @@ class ApiPutTestCase(object):
                 self.assertEqual(count_before + 1, count_after)
 
             elif response.status_code == status.HTTP_403_FORBIDDEN:
-                # print('403: {0}'.format(self.url_detail))
+                # print(f'403: {self.url_detail}')
                 self.assertEqual(count_before, count_after)
         else:
             # Anonymous user

@@ -48,6 +48,7 @@ $(document).ready(function () {
     target: '#weight_diagram',
     x_accessor: 'date',
     y_accessor: 'weight',
+    xax_count: 5,
     min_y_from_data: true,
     colors: ['#266dd3']
   };
@@ -77,6 +78,15 @@ $(document).ready(function () {
       chartParams.data = data;
       MG.data_graphic(chartParams);
     }
+  });
+  
+  $(document.querySelector("#enable_bmi")).click(function(){
+  	var height = document.querySelector("#height").value / 100;
+  	//kg = bmi * cm²
+  	let max = height*height * 25;
+  	let min = height*height * 19;
+  	chartParams.baselines = [{value:max, label:"slight overweight"},{value:min, label:"slight underweight"}];
+  	MG.data_graphic(chartParams);
   });
 });
 

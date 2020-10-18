@@ -98,9 +98,9 @@
                 <div class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% autoescape off %}
                 {% for key, val in response_headers.items %}
                     <b>{{ key }}:</b>
-                    <span class="lit">{{ val|break_long_headers|urlize_quoted_links }}</span>
+                    <span class="lit">{{ val|break_long_headers|urlize }}</span>
                 {% endfor %}
-                </div>{{ content|urlize_quoted_links }}
+                </div>{{ content|urlize }}
             </pre>
             {% endautoescape %}
         </div>

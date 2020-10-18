@@ -25,6 +25,11 @@ Developers
 * Malcolm Jones: https://github.com/DevloperMal
 * Boniface Mwenda: https://github.com/andela-bmwenda
 * Scott Peshak: https://github.com/speshak
+* Musanje Louis Michael: https://github.com/louiCoder
+* Kevin Antonio Rateni Iatauro: https://github.com/WalkingPizza
+* Sven - https://github.com/Svn-Sp
+* Christopher OConnell - https://github.com/oconnelc
+* Biplov - https://github.com/beingbiplov
 
 Translators
 -----------

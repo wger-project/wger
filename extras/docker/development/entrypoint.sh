@@ -16,16 +16,31 @@ if [[ "$DJANGO_DB_PORT" == "5432" ]]; then
     echo "PostgreSQL started :)"
 fi
 
-# Bootstrap the application
-wger bootstrap \
-    --settings-path /home/wger/src/settings.py \
-    --no-start-server
-
-if [[ "$WGER_DOWNLOAD_IMGS" == "TRUE" ]];
+# The python wger package needs to be installed in development mode.
+# If the created folder does not exist (e.g. because this image was mounted
+# after a first checkout), repeat the process.
+if [ ! -d "/home/wger/src/wger.egg-info" ];
 then
-    wger download-exercise-images
-    chmod -R g+w ~wger/media
+    python3 setup.py develop --user
 fi
 
-# Run the development server
-python3 manage.py runserver 0.0.0.0:8000
+# Bootstrap the application
+#   * Load the fixtures with exercises, ingredients, etc
+#   * Create an admin user
+#   * Download JS and CSS files
+#   * Compile custom bootstrap theme
+wger bootstrap
+
+# Collect static files
+if [[ "$DJANGO_DEBUG" == "False" ]];
+then
+    python3 manage.py collectstatic --no-input
+fi
+
+# Run the server
+if [[ "$WGER_USE_GUNICORN" == "True" ]];
+then
+    gunicorn wger.wsgi:application --reload --bind 0.0.0.0:8000
+else
+    python3 manage.py runserver 0.0.0.0:8000
+fi

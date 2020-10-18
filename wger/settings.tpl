@@ -7,7 +7,6 @@ from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True
 
 ADMINS = (
     ('Your name', 'your_email@example.com'),
@@ -18,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {{
     'default': {{
         'ENGINE': 'django.db.backends.{dbengine}',
-        'NAME': {dbname},
+        'NAME': '{dbname}',
         'USER': '{dbuser}',
         'PASSWORD': '{dbpassword}',
         'HOST': '{dbhost}',
@@ -44,7 +43,7 @@ SITE_URL = '{siteurl}'
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = {media_folder_path}
+MEDIA_ROOT = '{media_folder_path}'
 MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application. Change if used in production.

@@ -131,9 +131,9 @@ def render_muscles(muscles=None, muscles_sec=None):
     except IndexError:
         front_back = "front" if out_sec[0].is_front else "back"
 
-    backgrounds = ["images/muscles/main/muscle-{}.svg".format(i.id) for i in out_main] \
-        + ["images/muscles/secondary/muscle-{}.svg".format(i.id) for i in out_sec] \
-        + ["images/muscles/muscular_system_{}.svg".format(front_back)]
+    backgrounds = [f"images/muscles/main/muscle-{i.id}.svg" for i in out_main] \
+        + [f"images/muscles/secondary/muscle-{i.id}.svg" for i in out_sec] \
+        + [f"images/muscles/muscular_system_{front_back}.svg"]
 
     return {"backgrounds": backgrounds,
             "empty": False}
@@ -146,7 +146,7 @@ def language_select(context, language):
     """
 
     return {'language_name': language[1],
-            'path': 'images/icons/flag-{0}.svg'.format(language[0]),
+            'path': f'images/icons/flag-{language[0]}.svg',
             'i18n_path': context['i18n_path'][language[0]]}
 
 
@@ -156,6 +156,22 @@ def get_item(dictionary, key):
     Allows to access a specific key in a dictionary in a template
     """
     return dictionary.get(key)
+
+
+@register.filter
+def minus(a, b):
+    """
+    Simple function that subtracts two values in a template
+    """
+    return a - b
+
+
+@register.filter
+def is_positive(a):
+    """
+    Simple function that checks whether one value is bigger than the other
+    """
+    return a > 0
 
 
 @register.simple_tag
@@ -171,7 +187,7 @@ def fa_class(class_name='', icon_type='fas', fixed_width=True):
     if not class_name:
         return css
 
-    css += '{} fa-{}'.format(icon_type, class_name)
+    css += f'{icon_type} fa-{class_name}'
 
     if fixed_width:
         css += ' fa-fw'

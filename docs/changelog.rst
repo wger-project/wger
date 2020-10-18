@@ -9,7 +9,7 @@ Upgrade steps from 1.9:
 * Update python libraries ``pip install -r requirements.txt``
 * Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
 * Update CSS and JS libraries ``yarn install``
-* Compile the CSS ``sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css``
+* Compile the CSS ``yarn build:css:sass``
 * Run migrations ``python manage.py migrate``
 * Update static files (only production): ``python manage.py collectstatic``
 * Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)
@@ -17,13 +17,16 @@ Upgrade steps from 1.9:
 
 🚀 Features:
 
-* Add nutrition diary to log the daily calories actually taken `#284`_
+* Add nutrition diary to log the daily calories actually taken `#284`_ `#501`_ (thanks `@WalkingPizza`_)
+`#506`_ (thanks `@oconnelc`_)
 * Improved user experience, on desktop and mobile `#337`_
+* Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
+* Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
 
 
 🐛 Bug Fixes:
 
-* `#499`_, `#505`_, `#504`_
+* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_
 
 
 🧰 Maintenance:
@@ -32,14 +35,29 @@ Upgrade steps from 1.9:
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
+* Improved cache handling `#246`_ (thanks `@louiCoder`_)
 
+.. _@Svn-Sp: https://github.com/Svn-Sp
+.. _@louiCoder: https://github.com/louiCoder
+.. _@WalkingPizza: https://github.com/WalkingPizza
+.. _@oconnelc: https://github.com/oconnelc
+.. _@beingbiplov: https://github.com/beingbiplov
+
+.. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
+.. _#462: https://github.com/wger-project/wger/issues/462
+.. _#478: https://github.com/wger-project/wger/issues/478
 .. _#494: https://github.com/wger-project/wger/issues/494
 .. _#499: https://github.com/wger-project/wger/issues/499
+.. _#501: https://github.com/wger-project/wger/issues/501
 .. _#504: https://github.com/wger-project/wger/issues/504
 .. _#505: https://github.com/wger-project/wger/issues/505
+.. _#506: https://github.com/wger-project/wger/issues/506
+.. _#511: https://github.com/wger-project/wger/issues/511
+.. _#516: https://github.com/wger-project/wger/issues/516
+.. _#522: https://github.com/wger-project/wger/issues/522
 
 
 

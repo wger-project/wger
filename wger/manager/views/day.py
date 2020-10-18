@@ -97,7 +97,7 @@ class DayEditView(DayView, UpdateView):
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
         context = super(DayEditView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 

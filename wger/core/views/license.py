@@ -81,7 +81,7 @@ class LicenseUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMix
         Send some additional data to the template
         """
         context = super(LicenseUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object)
+        context['title'] = _('Edit {0}').format(self.object)
         return context
 
 
@@ -100,5 +100,5 @@ class LicenseDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredM
         Send some additional data to the template
         """
         context = super(LicenseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object)
+        context['title'] = _('Delete {0}?').format(self.object)
         return context

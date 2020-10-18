@@ -1,9 +1,12 @@
 #
-# Requirements for wger during development
+# Requirements for wger during development only
 #
 
-# Production packages
+# Regular packages
 -r requirements.txt
+
+# Building/installing
+wheel
 
 # Development packages
 coverage

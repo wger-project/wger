@@ -200,6 +200,9 @@ patterns_diary = [
     url(r'^log-meal/(?P<meal_pk>\d+)$',
         log.log_meal,
         name='log_meal'),
+    url(r'^log-plan/(?P<plan_pk>\d+)$',
+        log.log_plan,
+        name='log_plan')
 ]
 
 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+    This file is part of wger Workout Manager
+
+    wger is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    wger is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+{% load i18n static wger_extras compress django_bootstrap_breadcrumbs %}
+<html lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Roland Geider">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+
+    {% block header %}{% endblock %}
+
+    <title>{% trans "An error occurred" %}</title>
+</head>
+
+<body>
+{#            #}
+{# Navigation #}
+{#            #}
+<nav class="navbar navbar-expand-lg navbar-dark bg-wger-primary">
+    <div class="container">
+        <a class="navbar-brand extra-bold" href="{% url 'core:index' %}">
+            <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 38px;">
+        </a>
+        </div>
+    </div>
+</nav>
+
+
+
+
+{#              #}
+{# Main content #}
+{#              #}
+<div id="main">
+    <div class="container pt-4">
+        <div class="row">
+        <div class="col-12 col-md-8">
+            <h2 id="page-title" class="page-header">
+                {% block title %}{% endblock %}
+            </h2>
+            <hr>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 order-2 order-sm-1 mt-3" id="main-content">
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<footer id="main-footer" class="bg-wger-light border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-unstyled mb-0 pt-2">
+                    <li><a href="{% url 'core:about' %}" class="text-muted small">{% trans "About" %}</a></li>
+                    <li><a href="{% url 'software:tos' %}" class="text-muted small">{% trans "Terms of service" %}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'yarn/shariff/dist/shariff.min.js' %}"></script>
+</body>
+</html>

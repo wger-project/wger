@@ -34,7 +34,7 @@ class LicenseRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(License.objects.get(pk=1)),
+        self.assertEqual(f"{License.objects.get(pk=1)}",
                          'A cool and free license - Germany (ACAFL - DE)')
 
 

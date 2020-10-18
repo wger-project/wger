@@ -90,7 +90,7 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
         Send some additional data to the template
         """
         context = super(LanguageDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Delete {0}?').format(self.object.full_name)
+        context['title'] = _('Delete {0}?').format(self.object.full_name)
         return context
 
 
@@ -108,5 +108,5 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
         Send some additional data to the template
         """
         context = super(LanguageEditView, self).get_context_data(**kwargs)
-        context['title'] = _(u'Edit {0}').format(self.object.full_name)
+        context['title'] = _('Edit {0}').format(self.object.full_name)
         return context

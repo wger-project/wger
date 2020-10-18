@@ -95,6 +95,7 @@ from wger.manager.models import (
     WorkoutSession
 )
 from wger.nutrition.models import NutritionPlan
+from wger.utils.api_token import create_token
 from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin
@@ -159,6 +160,7 @@ def delete(request, user_pk=None):
             else:
                 gym_pk = request.user.userprofile.gym_id
                 return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
+    form.helper.form_action = request.path
     context = {'form': form,
                'user_delete': user}
 
@@ -196,13 +198,11 @@ def trainer_login(request, user_pk):
             or user.has_perm('gym.manage_gyms')):
         own = True
 
-    # Note: it seems we have to manually set the authentication backend here
-    # - https://docs.djangoproject.com/en/1.6/topics/auth/default/#auth-web-requests
-    # - http://stackoverflow.com/questions/3807777/django-login-without-authenticating
+    # Note: when logging without authenticating, it is necessary to set the
+    # authentication backend
     if own:
         del(request.session['trainer.identity'])
-    user.backend = 'django.contrib.auth.backends.ModelBackend'
-    django_login(request, user)
+    django_login(request, user, 'django.contrib.auth.backends.ModelBackend')
 
     if not own:
         request.session['trainer.identity'] = orig_user_pk
@@ -456,12 +456,10 @@ def api_key(request):
     try:
         token = Token.objects.get(user=request.user)
     except Token.DoesNotExist:
-        token = False
-    if request.GET.get('new_key'):
-        if token:
-            token.delete()
+        token = None
 
-        token = Token.objects.create(user=request.user)
+    if request.GET.get('new_key'):
+        token = create_token(request.user, request.GET.get('new_key'))
 
         # Redirect to get rid of the GET parameter
         return HttpResponseRedirect(reverse('core:user:api-key'))

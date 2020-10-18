@@ -75,13 +75,13 @@ def delete_testcase_add_methods(cls):
         def test_unauthorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
-        setattr(cls, 'test_unauthorized_{0}'.format(user), test_unauthorized)
+        setattr(cls, f'test_unauthorized_{user}', test_unauthorized)
 
     for user in get_user_list(cls.user_success):
         def test_authorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
-        setattr(cls, 'test_authorized_{0}'.format(user), test_authorized)
+        setattr(cls, f'test_authorized_{user}', test_authorized)
 
 
 class BaseTestCase(object):
@@ -173,7 +173,7 @@ class WgerTestCase(BaseTestCase, TestCase):
         """
         Login the user, by default as 'admin'
         """
-        password = '{0}{0}'.format(user)
+        password = f'{user}{user}'
         self.client.login(username=user, password=password)
         self.current_user = user
         self.current_password = password

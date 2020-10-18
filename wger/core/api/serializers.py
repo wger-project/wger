@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Django
+from django.contrib.auth.models import User
+
 # Third Party
 from rest_framework import serializers
 
@@ -43,6 +46,16 @@ class UsernameSerializer(serializers.Serializer):
     Serializer to extract the username
     """
     username = serializers.CharField()
+
+
+class UserApiSerializer(serializers.ModelSerializer):
+    """ Serializer to map to User model in relation to api user"""
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, min_length=8)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
 
 
 class LanguageSerializer(serializers.ModelSerializer):

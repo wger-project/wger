@@ -59,7 +59,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     """
     API endpoint for exercise objects
     """
-    queryset = Exercise.objects.all()
+    queryset = Exercise.objects.accepted()
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
