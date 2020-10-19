@@ -6,51 +6,49 @@
 
 {% block content %}
 
-<div class="list-group">
+<ul class="list-unstyled">
     {% for group in object_list %}
-        <a href="{% url 'groups:group:view' group.pk %}" class="list-group-item">
-        <div class="media">
-            <div style="width:60px;height:60px;" class="media-left">
+        <li class="media">
             {% if group.image %}
                 <img alt="{{ group.name }}"
-                 class="media-object img-responsive img-circle img-thumbnail"
-                 style="max-height:100%;"
-                 src="{{ group.image|thumbnail_url:'small_cropped'}}">
+                     class="mr-3 img-fluid img-thumbnail"
+                     width="80"
+                     src="{{ group.image|thumbnail_url:'small_cropped'}}">
             {% else %}
                 <img alt="{% trans 'Placeholder image' %}"
-                     class="media-object"
-                     style="opacity: 0.4; padding-left: 10px; padding-right: 10px;"
+                     class="mr-3 img-fluid img-thumbnail"
+                     width="80"
                      src="{% static 'images/icons/image-placeholder.svg' %}">
             {% endif %}
-            </div>
             <div class="media-body">
                 {% if not group.public %}
-                    <span class="label label-warning pull-right" style="margin-left: 1em;">
-                        <span class="glyphicon glyphicon-lock"></span>
+                    <span class="badge badge-pill badge-primary float-right">
+                        <span class="{% fa_class 'lock' %}"></span>
                         {% trans "Private group" %}
                     </span>
                 {% endif %}
 
                 {% if user in group.get_member_list %}
-                    <span class="label label-primary pull-right">
-                        <span class="glyphicon glyphicon-user"></span>
+                    <span class="badge badge-pill badge-primary float-right">
+                        <span class="{% fa_class 'user' %}"></span>
                         {% trans "Member" %}
                     </span>
                 {% endif %}
 
-                <h4 class="media-heading">{{ group }}</h4>
-
-                <p class="list-group-item-text">{{ group.description|truncatewords:20 }}</p>
+                <a href="{{ group.get_absolute_url}}">
+                    <h5 class="mt-0 mb-1">{{ group }}</h5>
+                </a>
+                <p>{{ group.description|truncatewords:20 }}</p>
 
             </div>
-        </div>
-        </a>
+        </li>
+
     {% empty %}
         <a href="{% url 'groups:group:add' %}" class="list-group-item">
             {% trans "Nothing found" %}
         </a>
     {% endfor %}
-</div>
+</ul>
 {% endblock %}
 
 

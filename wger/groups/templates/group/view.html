@@ -26,43 +26,44 @@
 
 {# Render the activity stream #}
 {% for event in last_activity %}
-<div class="panel panel-default">
-    <div class="panel-body">
-        <p class="list-group-item-text pull-right">
-        {# Verb #}
-        <span class="glyphicon
-            {% if event.verb == 'added' %}
-                glyphicon-plus
-            {% elif event.verb == 'created' %}
-                glyphicon-asterisk
-            {% elif event.verb == 'edited' %}
-                glyphicon-pencil
-            {% elif event.verb == 'left' %}
-                glyphicon-log-out
-            {% elif event.verb == 'joined' %}
-                glyphicon-log-in
-            {% elif event.verb == 'promoted' %}
-                glyphicon-sunglasses
-            {% endif %}
-        "></span>
+<div class="card">
+    <div class="card-body">
+        <p class="list-group-item-text float-right">
+
+        {# Time #}
+        {{ event.timestamp|timesince }}
+
+            {# Verb #}
+        {% if event.verb == 'added' %}
+            <span class="{% fa_class 'plus' %}"></span>
+        {% elif event.verb == 'created' %}
+            <span class="{% fa_class 'asterisk' %}"></span>
+        {% elif event.verb == 'edited' %}
+            <span class="{% fa_class 'pencil-alt' %}"></span>
+        {% elif event.verb == 'left' %}
+            <span class="{% fa_class 'sign-out-alt' %}"></span>
+        {% elif event.verb == 'joined' %}
+            <span class="{% fa_class 'sign-in-alt' %}"></span>
+        {% elif event.verb == 'promoted' %}
+            <span class="{% fa_class 'asterisk' %}"></span>
+        {% endif %}
+        </p>
+
+        {# Actor #}
+        <p>
+            {{ event.actor|format_username }}
+        </p>
 
         {# Action object #}
         {% if event.action_object %}
+        <p>
             {% if event.action_object.get_absolute_url %}
                 <a href="{{ event.action_object.get_absolute_url }}">{{ event.action_object }}</a>
             {% else %}
                 {{ event.action_object }}
             {% endif %}
-        {% endif %}
-
-        {# Time #}
-        {{ event.timestamp|timesince }}
         </p>
-
-        {# Actor #}
-        <h4 class="list-group-item-heading">
-            {{ event.actor|format_username }}
-        </h4>
+        {% endif %}
     </div>
 
 </div>
@@ -77,53 +78,38 @@
 {% block sidebar %}
 
     {% if object.image %}
-        <img src="{{ object.image|thumbnail_url:'large' }}" class="img-responsive img-rounded">
+        <img src="{{ object.image|thumbnail_url:'large' }}" class="img-fluid rounded">
         <br>
     {% endif %}
 
     {% if object.description %}
-        <h4>{% trans "Description" %}</h4>
         <p style="white-space: pre-line;">{{ object.description }}</p>
     {% endif %}
 
-    {% if group_dropdown %}
-    <div class="btn-group pull-right">
-        <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-            {% trans "Actions" %} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            {% for entry in group_dropdown %}
-                <li>
-                    <a href="{{ entry.1 }}">{{ entry.0 }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
 
-    <h4>{% trans "Members" %}</h4>
+
+    <h4 class="pt-3">{% trans "Members" %}</h4>
     <ul class="list-group">
     {% for membership in memberships_list %}
     <li class="list-group-item ">
 
         {{ membership.user|format_username }}
         {% if membership.is_admin %}
-            <span class="label label-primary">{% trans "Admin" %}</span>
+            <span class="badge badge-pill badge-primary">{% trans "Admin" %}</span>
         {% endif %}
 
         {% if membership.dropdowns %}
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default btn-xs dropdown-toggle btn-xs" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-cog"></span>
+        <div class="dropdown float-right">
+            <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
-            <ul class="dropdown-menu" role="menu">
+            <div class="dropdown-menu dropdown-menu-right">
                 {% for option in membership.dropdowns %}
-                    <li>
-                        <a href="{{ option.1 }}">{{ option.0 }}</a>
-                    </li>
+                    <a href="{{ option.1 }}" class="dropdown-item">{{ option.0 }}</a>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
+
+
         {% endif %}
     </li>
     {% empty %}
@@ -134,32 +120,27 @@
     </ul>
 
     {% if user in object.get_admins_list and object.application_set.count %}
-        <h4>{% trans "Applicants" %}</h4>
+        <h4  class="pt-3">{% trans "Applicants" %}</h4>
         <ul class="list-group">
             {% for application in object.application_set.all %}
             <li class="list-group-item ">
                 {{ application.user|format_username }}
 
-
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-cog"></span>
+                <div class="dropdown float-right">
+                    <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="{% url 'groups:application:accept' object.pk application.user.pk %}">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                {% trans "Accept" %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'groups:application:deny' object.pk application.user.pk %}">
-                                <span class="glyphicon glyphicon-remove"></span>
-                                {% trans "Deny" %}
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="{% url 'groups:application:accept' object.pk application.user.pk %}" class="dropdown-item">
+                            <span class="{% fa_class 'ok' %}"></span>
+                            {% trans "Accept" %}
+                        </a>
+                        <a href="{% url 'groups:application:deny' object.pk application.user.pk %}" class="dropdown-item">
+                            <span class="{% fa_class 'remove' %}"></span>
+                            {% trans "Deny" %}
+                        </a>
+                    </div>
                 </div>
+
 
             </li>
             {% endfor %}
@@ -167,17 +148,7 @@
     {% endif %}
 
 
-    <div class="btn-group pull-right">
-        <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-            {% trans "Actions" %} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                <a href="{% url 'manager:workout:add' object.pk %}">{% trans 'Add workout' %}</a>
-            </li>
-        </ul>
-    </div>
-    <h4>{% trans "Workouts" %}</h4>
+    <h4  class="pt-3">{% trans "Workouts" %}</h4>
     <div class="list-group">
         {% for workout in object.workout_set.all %}
             <a class="list-group-item" href="{{ workout.get_absolute_url }}">
@@ -187,5 +158,23 @@
             <div class="list-group-item">{% trans "Nothing found" %}</div>
         {% endfor %}
     </div>
+    <a href="{% url 'manager:workout:add' object.pk %}" class="btn btn-block btn-block">{% trans 'Add workout' %}</a>
 
+{% endblock %}
+
+
+{% block options %}
+{% if group_dropdown %}
+    <div class="dropdown">
+        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            {% for entry in group_dropdown %}
+            <a href="{{ entry.1 }}" class="dropdown-item">{{ entry.0 }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
