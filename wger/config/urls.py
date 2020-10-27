@@ -16,10 +16,8 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import (
-    include,
-    url
-)
+from django.conf.urls import include
+from django.urls import path
 
 # wger
 from wger.config.views import (
@@ -30,17 +28,17 @@ from wger.config.views import (
 
 # sub patterns for language configs
 patterns_language_config = [
-    url(r'^(?P<pk>\d+)/edit',
-        language_config.LanguageConfigUpdateView.as_view(),
-        name='edit'),
+    path('<int:pk>/edit',
+         language_config.LanguageConfigUpdateView.as_view(),
+         name='edit'),
 ]
 
 
 # sub patterns for default gym
 patterns_gym_config = [
-    url(r'^edit$',
-        gym_config.GymConfigUpdateView.as_view(),
-        name='edit'),
+    path('edit',
+         gym_config.GymConfigUpdateView.as_view(),
+         name='edit'),
 ]
 
 
@@ -48,6 +46,6 @@ patterns_gym_config = [
 # Actual patterns
 #
 urlpatterns = [
-    url(r'^language-config/', include((patterns_language_config, 'language_config'), namespace="language_config")),
-    url(r'^gym-config/', include((patterns_gym_config, 'gym_config'), namespace="gym_config")),
+    path('language-config/', include((patterns_language_config, 'language_config'), namespace="language_config")),
+    path('gym-config/', include((patterns_gym_config, 'gym_config'), namespace="gym_config")),
 ]

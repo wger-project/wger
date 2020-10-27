@@ -23,9 +23,9 @@ from django.urls import reverse
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
+    WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase,
-    WgerDeleteTestCase
+    WgerTestCase
 )
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry

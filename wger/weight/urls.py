@@ -18,6 +18,7 @@
 # Django
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
+from django.urls import path
 
 # wger
 from wger.weight import views
@@ -25,24 +26,24 @@ from wger.weight.forms import WeightCsvImportForm
 
 
 urlpatterns = [
-    url(r'^add/$',
-        login_required(views.WeightAddView.as_view()),
-        name='add'),
+    path('add/',
+         login_required(views.WeightAddView.as_view()),
+         name='add'),
 
-    url(r'^(?P<pk>\d+)/edit/$',
-        login_required(views.WeightUpdateView.as_view()),
-        name='edit'),
+    path('<int:pk>/edit/',
+         login_required(views.WeightUpdateView.as_view()),
+         name='edit'),
 
-    url(r'^(?P<pk>\d+)/delete/$',
-        views.WeightDeleteView.as_view(),
-        name='delete'),
+    path('<int:pk>/delete/',
+         views.WeightDeleteView.as_view(),
+         name='delete'),
 
-    url(r'^export-csv/$',
-        views.export_csv,
-        name='export-csv'),
-    url(r'^import-csv/$',
-        login_required(views.WeightCsvImportFormPreview(WeightCsvImportForm)),
-        name='import-csv'),
+    path('export-csv/',
+         views.export_csv,
+         name='export-csv'),
+    path('import-csv/',
+         login_required(views.WeightCsvImportFormPreview(WeightCsvImportForm)),
+         name='import-csv'),
 
     url(r'^overview/(?P<username>[\w.@+-]+)$',
         views.overview,
@@ -53,7 +54,7 @@ urlpatterns = [
     url(r'^api/get_weight_data/(?P<username>[\w.@+-]+)$',  # JS
         views.get_weight_data,
         name='weight-data'),
-    url(r'^api/get_weight_data/$',  # JS
-        views.get_weight_data,
-        name='weight-data'),
+    path('api/get_weight_data/',  # JS
+         views.get_weight_data,
+         name='weight-data'),
 ]

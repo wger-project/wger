@@ -38,8 +38,8 @@ from django.utils.translation import (
 )
 from django.views.generic import (
     CreateView,
-    UpdateView,
-    DeleteView
+    DeleteView,
+    UpdateView
 )
 
 # Third Party
@@ -49,8 +49,8 @@ from rest_framework.response import Response
 
 # wger
 from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerDeleteMixin
+    WgerDeleteMixin,
+    WgerFormMixin
 )
 from wger.utils.helpers import check_access
 from wger.weight import helpers
