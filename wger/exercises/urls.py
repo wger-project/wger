@@ -16,7 +16,10 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import include
+from django.conf.urls import (
+    include,
+    url
+)
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 
@@ -126,9 +129,9 @@ patterns_exercise = [
     path('<int:id>/view/',
          exercises.view,
          name='view'),
-    path('<int:id>/view/<slug:slug>/',
-         exercises.view,
-         name='view'),
+    url(r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
+        exercises.view,
+        name='view'),
     path('add/',
          login_required(exercises.ExerciseAddView.as_view()),
          name='add'),
