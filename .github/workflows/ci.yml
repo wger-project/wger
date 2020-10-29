@@ -50,12 +50,14 @@ jobs:
           wger create-settings --database-type postgresql
           coverage run --source='.' ./manage.py test
           coverage html --directory coverage-postgres
+          coverage report
 
       # - name: Test the application (Sqlite)
       #  run: |
       #    wger create-settings
       #    coverage run --source='.' ./manage.py test
       #    coverage html --directory coverage-sqlite
+      #    coverage report
 
       - name: Save coverage result artifacts
         uses: actions/upload-artifact@v2
