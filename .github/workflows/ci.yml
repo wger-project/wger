@@ -58,7 +58,7 @@ jobs:
       #    coverage html --directory coverage-sqlite
 
       - name: Save coverage result artifacts
-          uses: actions/upload-artifact@v2
-          with:
-            name: coverage-results-${{ matrix.python-version }}
-            path: coverage-postgres/
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-results-${{ matrix.python-version }}
+          path: coverage-postgres/
