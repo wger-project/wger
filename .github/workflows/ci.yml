@@ -48,13 +48,13 @@ jobs:
       - name: Test the application (Postgres)
         run: |
           wger create-settings --database-type postgresql
-          coverage run --source='.' python manage.py test
+          coverage run --source='.' ./manage.py test
           coverage html --directory coverage-postgres
 
       # - name: Test the application (Sqlite)
       #  run: |
       #    wger create-settings
-      #    coverage run --source='.' python manage.py test
+      #    coverage run --source='.' ./manage.py test
       #    coverage html --directory coverage-sqlite
 
       - name: Save coverage result artifacts
