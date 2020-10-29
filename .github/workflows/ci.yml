@@ -50,7 +50,7 @@ jobs:
           wger create-settings --database-type postgresql
           python3 manage.py test
 
-      - name: Test the application (Sqlite)
-        run: |
-          wger create-settings
-          python3 manage.py test
+      # - name: Test the application (Sqlite)
+      #  run: |
+      #    wger create-settings
+      #    python3 manage.py test
