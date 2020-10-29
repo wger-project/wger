@@ -125,14 +125,13 @@ def create_settings(context,
     with open(settings_template, 'r') as settings_file:
         settings_content = settings_file.read()
 
-    # The environment variable is set by travis during testing
     if database_type == 'postgresql':
         dbengine = 'postgresql_psycopg2'
-        dbname = 'test_wger'
-        dbuser = 'postgres'
-        dbpassword = ''
-        dbhost = '127.0.0.1'
-        dbport = ''
+        dbname = 'wger'
+        dbuser = 'wger'
+        dbpassword = 'wger'
+        dbhost = 'localhost'
+        dbport = 5432
     elif database_type == 'sqlite3':
         dbengine = 'sqlite3'
         dbname = dbpath_value
