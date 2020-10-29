@@ -75,3 +75,4 @@ jobs:
         with:
           name: coverage-results-${{ matrix.python-version }}
           path: coverage-postgres/
+        if: matrix.python-version == 3.8
