@@ -142,8 +142,7 @@ Contributing
   people insist on rebasing before sending a pull request, it's not necessary.
 
 * **Run the tests**: wger is proud to have a test coverage of over 90%. When you
-  implement something new, don't forget to run the testsuite and write approriate
-  tests for the new code. If you use github, configure the awesome Travis CI,
-  there is already a .travis file in the sources.
+  implement something new, don't forget to run the testsuite and write appropriate
+  tests for the new code.
 
 * **Code according to the coding style**: :ref:`codingstyle`
