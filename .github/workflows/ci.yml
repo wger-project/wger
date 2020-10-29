@@ -60,7 +60,7 @@ jobs:
       - name: Test the application (Postgres)
         run: |
           wger create-settings --database-type postgresql
-          ./manage.py test
+          python manage.py test
         if: matrix.python-version != 3.8
 
       # - name: Test the application (Sqlite)
