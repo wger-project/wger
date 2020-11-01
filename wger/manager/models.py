@@ -643,6 +643,18 @@ class Setting(models.Model):
     """
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     """
+    NUMBERS = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)]
+    rpe = models.IntegerField(verbose_name=_('rpe'),
+                              default=5,
+                              blank=True,
+                              null=True,
+                              choices=NUMBERS)
+
+    """
+    RPE is expressed in a number from 1 to 10; 1 being very easy and 10 being the most intense a
+    movement could be without failing. RPE with halves is sometimes used, e.g. RPE of 7,5; 8,5; 9,5
+    to have slightly more values to add more nuance.
+    """
 
     order = models.IntegerField(blank=True,
                                 verbose_name=_('Order'))

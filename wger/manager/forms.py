@@ -142,10 +142,11 @@ class WorkoutLogFormHelper(FormHelper):
         self.form_method = 'post'
         self.layout = Layout(
             Row(
-                Column('reps', css_class='form-group col-md-2 col-3 mb-0'),
-                Column('repetition_unit', css_class='form-group col-md-4 col-3 mb-0'),
-                Column('weight', css_class='form-group col-md-2 col-3 mb-0'),
-                Column('weight_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                Column('reps', css_class='form-group col-md-2 col-2 mb-0'),
+                Column('repetition_unit', css_class='form-group col-md-3 col-3 mb-0'),
+                Column('weight', css_class='form-group col-md-2 col-2 mb-0'),
+                Column('weight_unit', css_class='form-group col-md-3 col-3 mb-0'),
+                Column('rpe', css_class='form-group col-md-2 col-2 mb-0'),
                 css_class='form-row'
             ),
         )
