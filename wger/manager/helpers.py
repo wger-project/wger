@@ -212,7 +212,7 @@ def reps_smart_text(settings, set_obj):
         "Until Failure" unit
         """
         if setting.repetition_unit_id != 2:
-            reps = "{0} {1}".format(setting.reps, rep_unit).strip()
+            reps = "{0} {1} ({2})".format(setting.reps, rep_unit, setting.rpe).strip()
         else:
             reps = '∞'
         return reps
@@ -285,7 +285,7 @@ def reps_smart_text(settings, set_obj):
             reps = get_reps_reprentation(setting, rep_unit)
             weight = normalize_weight(setting)
             if weight:
-                reps += ' ({0} {1})'.format(weight, setting.weight_unit)
+                reps += ' x {0} {1}'.format(weight, setting.weight_unit)
 
             tmp_reps_text.append(reps)
             tmp_reps.append(setting.reps)
