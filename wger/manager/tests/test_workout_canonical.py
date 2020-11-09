@@ -82,6 +82,9 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                                 repetition_unit],
                                                            'weight_units': [weight_unit,
                                                                             weight_unit]}],
+                                        'exercise_image_list': [{
+                                            'image': '/media/exercise-images/1/protestschwein.jpg',
+                                            'is_main': True}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [muscle2],
@@ -89,7 +92,22 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                     'backsecondary': [],
                                                     'front': [muscle1]},
                                         'obj': Set.objects.get(pk=1)}]}
-        self.assertEqual(workout.canonical_representation['day_list'][0], canonical_form)
+
+        days_test_data = workout.canonical_representation['day_list'][0]
+        self.assertEqual(days_test_data['days_of_week'], canonical_form['days_of_week'])
+        self.assertEqual(days_test_data['muscles'], canonical_form['muscles'])
+        self.assertEqual(days_test_data['obj'], canonical_form['obj'])
+        self.assertEqual(days_test_data['set_list'][0]['exercise_list'],
+                         canonical_form['set_list'][0]['exercise_list'])
+        self.assertEqual(days_test_data['set_list'][0]['exercise_image_list'][0],
+                         canonical_form['set_list'][0]['exercise_image_list'][0])
+        self.assertEqual(days_test_data['set_list'][0]['is_superset'],
+                         canonical_form['set_list'][0]['is_superset'])
+        self.assertEqual(days_test_data['set_list'][0]['has_settings'],
+                         canonical_form['set_list'][0]['has_settings'])
+        self.assertEqual(days_test_data['set_list'][0]['muscles'],
+                         canonical_form['set_list'][0]['muscles'])
+        self.assertEqual(days_test_data['set_list'][0]['obj'], canonical_form['set_list'][0]['obj'])
 
         canonical_form = {'days_of_week': {'day_list': [DaysOfWeek.objects.get(pk=4)],
                                            'text': 'Thursday'},
@@ -117,6 +135,9 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                             weight_unit,
                                                                             weight_unit,
                                                                             weight_unit]}],
+                                        'exercise_image_list': [{
+                                            'image': '/media/exercise-images/1/wildschwein.jpg',
+                                            'is_main': False}],
                                         'is_superset': False,
                                         'has_settings': True,
                                         'muscles': {'back': [muscle2],
@@ -124,7 +145,21 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                     'backsecondary': [muscle1],
                                                     'front': []},
                                         'obj': Set.objects.get(pk=2)}]}
-        self.assertEqual(workout.canonical_representation['day_list'][1], canonical_form)
+        days_test_data = workout.canonical_representation['day_list'][1]
+        self.assertEqual(days_test_data['days_of_week'], canonical_form['days_of_week'])
+        self.assertEqual(days_test_data['muscles'], canonical_form['muscles'])
+        self.assertEqual(days_test_data['obj'], canonical_form['obj'])
+        self.assertEqual(days_test_data['set_list'][0]['exercise_list'],
+                         canonical_form['set_list'][0]['exercise_list'])
+        self.assertEqual(days_test_data['set_list'][0]['exercise_image_list'][0],
+                         canonical_form['set_list'][0]['exercise_image_list'][0])
+        self.assertEqual(days_test_data['set_list'][0]['is_superset'],
+                         canonical_form['set_list'][0]['is_superset'])
+        self.assertEqual(days_test_data['set_list'][0]['has_settings'],
+                         canonical_form['set_list'][0]['has_settings'])
+        self.assertEqual(days_test_data['set_list'][0]['muscles'],
+                         canonical_form['set_list'][0]['muscles'])
+        self.assertEqual(days_test_data['set_list'][0]['obj'], canonical_form['set_list'][0]['obj'])
 
         canonical_form = {'days_of_week': {'day_list': [DaysOfWeek.objects.get(pk=5)],
                                            'text': 'Friday'},

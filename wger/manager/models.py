@@ -450,6 +450,7 @@ class Day(models.Model):
 
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
+            exercise_images_tmp = []
             has_setting_tmp = True
             for exercise in set_obj.exercises.select_related():
                 setting_tmp = []
@@ -500,6 +501,10 @@ class Day(models.Model):
                                      'reps_list': reps_list,
                                      'setting_text': setting_text,
                                      'comment_list': comment_list})
+                for image in exercise.exerciseimage_set.all():
+                    exercise_images_tmp.append({'image': image.image.url,
+                                                'is_main': image.is_main,
+                                                })
 
             # If it's a superset, check that all exercises have the same repetitions.
             # If not, just take the smallest number and drop the rest, because otherwise
@@ -522,6 +527,7 @@ class Day(models.Model):
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
+                                   'exercise_image_list': exercise_images_tmp,
                                    'is_superset': True if len(exercise_tmp) > 1 else False,
                                    'has_settings': has_setting_tmp,
                                    'muscles': {
