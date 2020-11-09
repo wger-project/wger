@@ -208,6 +208,9 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                weight_unit,
                                                                weight_unit,
                                                                weight_unit]}],
+                           'exercise_image_list': [
+                               {'image': '/media/exercise-images/1/wildschwein.jpg',
+                                'is_main': False}],
                            'is_superset': False,
                            'has_settings': True,
                            'muscles': {'back': [muscle2],
