@@ -153,7 +153,8 @@ def dashboard(request):
 class ContactClassView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ContactClassView, self).get_context_data(**kwargs)
-        context.update({'contribute': reverse('software:contribute'),
+        context.update({'discord': 'https://discord.gg/rPWFv6W',
+                        'contribute': reverse('software:contribute'),
                         'issues': reverse('software:issues'),
                         'feedback': reverse('core:feedback')})
         return context

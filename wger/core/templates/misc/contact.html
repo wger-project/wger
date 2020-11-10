@@ -9,8 +9,8 @@
     <div class="col-sm-6">
 <p>{% blocktrans %}Thank you for your interest. Feel free to use any of the
 ways below to send feedback you have about any aspect of the site. For
-support, it's better to use the mailing list
-(<a href="mailto:wger@googlegroups.com">wger@googlegroups.com</a>), to report
+support, say hi
+<a href="{{discord}}">on the discord channel</a>, to report
 a bug, consider doing it through the <a href="{{issues}}">issue tracker</a>
 .{% endblocktrans %}</p>
     </div>
@@ -39,7 +39,7 @@ you think! Except patches, don't send patches via twitter.{% endblocktrans %}</p
 
 
     <div class="col-md-4">
-        <h4>{% trans "Forum / Mailing list" %}</h4>
+        <h4>{% trans "Discord" %}</h4>
         <p>{% blocktrans %}Use the public group to get support for your
 local wger installation, discuss issues or your new idea, etc.
 (no registration needed){% endblocktrans %}</p>
@@ -53,7 +53,7 @@ local wger installation, discuss issues or your new idea, etc.
            class="btn btn-light btn-block twitter-mention-button">{% trans "tweet to @wger_project" %}</a>
     </div>
     <div class="col-md-4">
-        <a href="https://groups.google.com/group/wger" class="btn btn-light btn-block">{% trans "Go to mailing list" %}</a>
+        <a href="{{discord}}" class="btn btn-light btn-block">{% trans "Go to the discord server" %}</a>
     </div>
 </div>
 
