@@ -159,7 +159,6 @@ class WorkoutCanonicalFormExerciseSerializer(serializers.Serializer):
     """
     obj = SetSerializer()
     exercise_list = WorkoutCanonicalFormExerciseListSerializer(many=True)
-    #exercise_image_list = WorkoutCanonicalFormExerciseImagesListSerializer(many=True)
     has_settings = serializers.BooleanField()
     is_superset = serializers.BooleanField()
     muscles = MusclesCanonicalFormSerializer()

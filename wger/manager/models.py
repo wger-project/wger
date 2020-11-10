@@ -532,7 +532,6 @@ class Day(models.Model):
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
-                                   'exercise_image_list': exercise_images_tmp,
                                    'is_superset': True if len(exercise_tmp) > 1 else False,
                                    'has_settings': has_setting_tmp,
                                    'muscles': {
