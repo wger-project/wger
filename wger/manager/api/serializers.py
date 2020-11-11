@@ -128,6 +128,14 @@ class MusclesCanonicalFormSerializer(serializers.Serializer):
     backsecondary = serializers.ListField(child=MuscleSerializer())
 
 
+class WorkoutCanonicalFormExerciseImagesListSerializer(serializers.Serializer):
+    """
+    Serializer for settings in the canonical form of a workout
+    """
+    image = serializers.ReadOnlyField()
+    is_main = serializers.ReadOnlyField()
+
+
 class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     """
     Serializer for settings in the canonical form of a workout
@@ -141,6 +149,7 @@ class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     repetition_units = RepetitionUnitSerializer(many=True)
     weight_units = WeightUnitSerializer(many=True)
     comment_list = serializers.ReadOnlyField()
+    image_list = WorkoutCanonicalFormExerciseImagesListSerializer(many=True)
     obj = ExerciseSerializer()
 
 

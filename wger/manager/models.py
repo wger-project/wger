@@ -451,8 +451,10 @@ class Day(models.Model):
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
             has_setting_tmp = True
+
             for exercise in set_obj.exercises.select_related():
                 setting_tmp = []
+                exercise_images_tmp = []
 
                 # Muscles for this set
                 for muscle in exercise.muscles.all():
@@ -490,6 +492,13 @@ class Day(models.Model):
                         has_weight = True
                         break
 
+                # Collect exercise images
+                for image in exercise.exerciseimage_set.all():
+                    exercise_images_tmp.append({'image': image.image.url,
+                                                'is_main': image.is_main,
+                                                })
+
+                # Put it all together
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
@@ -499,7 +508,8 @@ class Day(models.Model):
                                      'has_weight': has_weight,
                                      'reps_list': reps_list,
                                      'setting_text': setting_text,
-                                     'comment_list': comment_list})
+                                     'comment_list': comment_list,
+                                     'image_list': exercise_images_tmp})
 
             # If it's a superset, check that all exercises have the same repetitions.
             # If not, just take the smallest number and drop the rest, because otherwise
