@@ -131,7 +131,8 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                             '10 (15 kg, 5 RPE)'],
                                                            'weight_list': [Decimal(15)] * 4,
                                                            'setting_obj_list': [setting_2],
-                                                           'setting_text': '4 \xd7 10 (15 kg, 5 RPE)',
+                                                           'setting_text': '4 \xd7 10 (15 kg, 5 RPE'
+                                                                           ')',
                                                            'repetition_units': [repetition_unit,
                                                                                 repetition_unit,
                                                                                 repetition_unit,
