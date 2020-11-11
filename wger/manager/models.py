@@ -653,9 +653,12 @@ class Setting(models.Model):
     """
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     """
-    NUMBERS = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)]
-    rpe = models.IntegerField(verbose_name=_('rpe'),
+    NUMBERS = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (7.5, 7.5), (8, 8),
+               (8.5, 8.5), (9, 9), (9.5, 9.5), (10, 10)]
+    rpe = models.DecimalField(verbose_name=_('rpe'),
                               default=5,
+                              decimal_places=1,
+                              max_digits=3,
                               blank=True,
                               null=True,
                               choices=NUMBERS)
