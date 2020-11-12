@@ -31,6 +31,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 # wger
+from wger import get_version
 from wger.core.api.serializers import (
     DaysOfWeekSerializer,
     LanguageSerializer,
@@ -88,6 +89,16 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         user = self.get_object().user
         return Response(UsernameSerializer(user).data)
+
+
+class ApplicationVersionView(viewsets.ViewSet):
+    """
+    Returns the application's version
+    """
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        return Response(get_version())
 
 
 class UserAPILoginView(viewsets.ViewSet):

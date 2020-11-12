@@ -138,6 +138,11 @@ urlpatterns += [
     # The api user login
     path('api/v2/login/', core_api_views.UserAPILoginView.as_view({
          'post': 'post'}), name='api_user'),
+
+    # Others
+    path('api/v2/version/', core_api_views.ApplicationVersionView.as_view({
+        'get': 'get'}), name='app_version'),
+
 ]
 
 #
