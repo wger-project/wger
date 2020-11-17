@@ -132,13 +132,13 @@ def search(request):
     return Response(json_response)
 
 
-class ExerciseInfoViewset(viewsets.ModelViewSet):
+class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise objects
     """
-    queryset = Exercise.objects.all()
+
+    queryset = Exercise.objects.accepted()
     serializer_class = ExerciseInfoSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filterset_fields = ('category',
                         'creation_date',
@@ -146,7 +146,6 @@ class ExerciseInfoViewset(viewsets.ModelViewSet):
                         'language',
                         'muscles',
                         'muscles_secondary',
-                        'status',
                         'name',
                         'equipment',
                         'license',
