@@ -397,8 +397,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
 
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-                raise ValidationError(_('Total energy is not the approximate sum of the energy '
-                                        'provided by protein, carbohydrates and fat.'))
+                raise ValidationError(
+                    _(f'The total energy ({self.energy}kcal) is not the approximate sum of the '
+                      f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal '
+                      f'+/-{self.ENERGY_APPROXIMATION}%)'))
 
     def save(self, *args, **kwargs):
         """
