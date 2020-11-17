@@ -90,4 +90,42 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        fields = ['id',
+                  'name',
+                  'creation_date',
+                  'update_date',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author']
+
+
+class IngredientInfoSerializer(serializers.ModelSerializer):
+    """
+    Ingredient info serializer
+    """
+
+    class Meta:
+        model = Ingredient
+        depth = 1
+        fields = ['id',
+                  'name',
+                  'creation_date',
+                  'update_date',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author',
+                  'ingredientweightunit_set']

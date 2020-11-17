@@ -134,7 +134,8 @@ def search(request):
 
 class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for exercise objects
+    Read-only info API endpoint for exercise objects. Returns nested data
+    structures for more easy parsing.
     """
 
     queryset = Exercise.objects.accepted()

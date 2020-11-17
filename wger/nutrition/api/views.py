@@ -31,6 +31,7 @@ from rest_framework.response import Response
 
 # wger
 from wger.nutrition.api.serializers import (
+    IngredientInfoSerializer,
     IngredientSerializer,
     IngredientWeightUnitSerializer,
     MealItemSerializer,
@@ -124,6 +125,14 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             result['errors'] = form.errors
 
         return Response(result)
+
+
+class IngredientInfoViewSet(IngredientViewSet):
+    """
+    Read-only info API endpoint for ingredient objects. Returns nested data
+    structures for more easy parsing.
+    """
+    serializer_class = IngredientInfoSerializer
 
 
 @api_view(['GET'])
