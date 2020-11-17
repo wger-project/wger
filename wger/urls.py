@@ -84,6 +84,7 @@ router.register(r'ingredientinfo', nutrition_api_views.IngredientInfoViewSet, ba
 router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, basename='weightunit')
 router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet, basename='ingredientweightunit')
 router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, basename='nutritionplan')
+router.register(r'nutritionplaninfo', nutrition_api_views.NutritionPlanInfoViewSet, basename='nutritionplaninfo')
 router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='mealitem')
 

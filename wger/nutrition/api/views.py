@@ -36,6 +36,7 @@ from wger.nutrition.api.serializers import (
     IngredientWeightUnitSerializer,
     MealItemSerializer,
     MealSerializer,
+    NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
     WeightUnitSerializer
 )
@@ -244,6 +245,14 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         except ValueError:
             date = today
         return Response(plan.get_log_summary(date))
+
+
+class NutritionPlanInfoViewSet(NutritionPlanViewSet):
+    """
+    Read-only info API endpoint for nutrition plan objects. Returns nested data
+    structures for more easy parsing.
+    """
+    serializer_class = NutritionPlanInfoSerializer
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
