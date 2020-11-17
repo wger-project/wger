@@ -49,6 +49,19 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
+    """
+    IngredientWeightUnit info serializer
+    """
+
+    class Meta:
+        model = IngredientWeightUnit
+        depth = 1
+        fields = ['gram',
+                  'amount',
+                  'unit']
+
+
 class WeightUnitSerializer(serializers.ModelSerializer):
     """
     WeightUnit serializer
@@ -110,6 +123,8 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     """
     Ingredient info serializer
     """
+
+    ingredientweightunit_set = IngredientWeightUnitInfoSerializer(many=True)
 
     class Meta:
         model = Ingredient
