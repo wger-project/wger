@@ -171,7 +171,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'))
-    """The exercise's name, with correct upercase"""
+    """The exercise's name, with correct uppercase"""
 
     name_original = models.CharField(max_length=200,
                                      verbose_name=_('Name'),
