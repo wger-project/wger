@@ -20,6 +20,7 @@ Upgrade steps from 1.9:
 * Add nutrition diary to log the daily calories actually taken `#284`_ `#501`_ (thanks `@WalkingPizza`_)
 `#506`_ (thanks `@oconnelc`_)
 * Improved user experience, on desktop and mobile `#337`_
+* Improved info endpoints for exercises and ingredients, this saves additional API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 * Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
 
@@ -47,6 +48,7 @@ Upgrade steps from 1.9:
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
+.. _#411: https://github.com/wger-project/wger/issues/411
 .. _#462: https://github.com/wger-project/wger/issues/462
 .. _#478: https://github.com/wger-project/wger/issues/478
 .. _#494: https://github.com/wger-project/wger/issues/494
