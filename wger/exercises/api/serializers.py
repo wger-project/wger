@@ -46,38 +46,6 @@ class EquipmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ExerciseInfoSerializer(serializers.ModelSerializer):
-    """
-    Equipment serializer
-    """
-    class Meta:
-        model = Exercise
-        depth = 1
-        fields = ("id",
-                  "name",
-                  "uuid",
-                  "category",
-                  "description",
-                  "creation_date",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
-                  "language",
-                  "license",
-                  "license_author",
-                  "exerciseimage_set",
-                  "exercisecomment_set")
-
-
-class ExerciseCategorySerializer(serializers.ModelSerializer):
-    """
-    ExerciseCategory serializer
-    """
-    class Meta:
-        model = ExerciseCategory
-        fields = '__all__'
-
-
 class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
@@ -93,6 +61,42 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseComment
+        fields = '__all__'
+
+
+class ExerciseInfoSerializer(serializers.ModelSerializer):
+    """
+    Equipment serializer
+    """
+
+    images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
+    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
+
+    class Meta:
+        model = Exercise
+        depth = 1
+        fields = ("id",
+                  "name",
+                  "uuid",
+                  "category",
+                  "description",
+                  "creation_date",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author",
+                  "images",
+                  "comments")
+
+
+class ExerciseCategorySerializer(serializers.ModelSerializer):
+    """
+    ExerciseCategory serializer
+    """
+    class Meta:
+        model = ExerciseCategory
         fields = '__all__'
 
 
