@@ -27,7 +27,7 @@ Upgrade steps from 1.9:
 
 🐛 Bug Fixes:
 
-* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_
+* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_
 
 
 🧰 Maintenance:
@@ -43,6 +43,7 @@ Upgrade steps from 1.9:
 .. _@WalkingPizza: https://github.com/WalkingPizza
 .. _@oconnelc: https://github.com/oconnelc
 .. _@beingbiplov: https://github.com/beingbiplov
+.. _@sandilsranasinghe: https://github.com/sandilsranasinghe
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
@@ -60,6 +61,7 @@ Upgrade steps from 1.9:
 .. _#511: https://github.com/wger-project/wger/issues/511
 .. _#516: https://github.com/wger-project/wger/issues/516
 .. _#522: https://github.com/wger-project/wger/issues/522
+.. _#554: https://github.com/wger-project/wger/issues/554
 
 
 
