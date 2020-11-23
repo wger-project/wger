@@ -2,6 +2,7 @@ Changelog
 =========
 
 2.0 - IN DEVELOPMENT
+--------------------
 **2020-xx-xx**
 
 Upgrade steps from 1.9:
@@ -18,7 +19,7 @@ Upgrade steps from 1.9:
 🚀 Features:
 
 * Add nutrition diary to log the daily calories actually taken `#284`_ `#501`_ (thanks `@WalkingPizza`_)
-`#506`_ (thanks `@oconnelc`_)
+  `#506`_ (thanks `@oconnelc`_)
 * Improved user experience, on desktop and mobile `#337`_
 * Improved info endpoints for exercises and ingredients, this saves additional API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
@@ -27,7 +28,7 @@ Upgrade steps from 1.9:
 
 🐛 Bug Fixes:
 
-* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_
+* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_ (`@sandilsranasinghe`_)
 
 
 🧰 Maintenance:
