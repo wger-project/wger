@@ -28,7 +28,7 @@ Upgrade steps from 1.9:
 
 🐛 Bug Fixes:
 
-* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_ (`@sandilsranasinghe`_)
+* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_ (thanks `@sandilsranasinghe`_)
 
 
 🧰 Maintenance:
@@ -38,6 +38,7 @@ Upgrade steps from 1.9:
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
+* Others: `#450`_ (thanks `@Rkamath2`_)
 
 .. _@Svn-Sp: https://github.com/Svn-Sp
 .. _@louiCoder: https://github.com/louiCoder
@@ -45,12 +46,14 @@ Upgrade steps from 1.9:
 .. _@oconnelc: https://github.com/oconnelc
 .. _@beingbiplov: https://github.com/beingbiplov
 .. _@sandilsranasinghe: https://github.com/sandilsranasinghe
+.. _@Rkamath2: https://github.com/Rkamath2
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
 .. _#411: https://github.com/wger-project/wger/issues/411
+.. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
 .. _#478: https://github.com/wger-project/wger/issues/478
 .. _#494: https://github.com/wger-project/wger/issues/494
