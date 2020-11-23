@@ -221,11 +221,20 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise comment objects
     """
-    queryset = ExerciseComment.objects.all()
     serializer_class = ExerciseCommentSerializer
     ordering_fields = '__all__'
     filterset_fields = ('comment',
                         'exercise')
+    """
+    Filter by language for exercise comments
+    """
+    def get_queryset(self):
+        qs = ExerciseComment.objects.all()
+        language = self.request.query_params.get('language')
+        if language:
+            exercises = Exercise.objects.filter(language=language)
+            qs = ExerciseComment.objects.filter(exercise__in=exercises)
+        return qs
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
