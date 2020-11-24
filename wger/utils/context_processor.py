@@ -29,7 +29,7 @@ def processor(request):
     language = load_language()
     full_path = request.get_full_path()
     i18n_path = {}
-    static_path = static('images/logos/logo-marketplace-256.png')
+    static_path = static('images/logos/logo-social.png')
 
     for lang in settings.LANGUAGES:
         i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
