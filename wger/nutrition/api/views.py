@@ -58,7 +58,8 @@ from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for ingredient objects
+    API endpoint for ingredient objects. For a read-only endpoint with all
+    the information of an ingredient, see /api/v2/ingredientinfo/
     """
     queryset = Ingredient.objects.accepted()
     serializer_class = IngredientSerializer
@@ -192,7 +193,8 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
 
 class NutritionPlanViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for nutrition plan objects
+    API endpoint for nutrition plan objects. For a read-only endpoint with all
+    the information of nutritional plan(s), see /api/v2/nutritionplaninfo/
     """
     serializer_class = NutritionPlanSerializer
     is_private = True

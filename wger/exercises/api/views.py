@@ -57,7 +57,8 @@ from wger.utils.permissions import CreateOnlyPermission
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for exercise objects
+    API endpoint for exercise objects. For a read-only endpoint with all
+    the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.accepted()
     serializer_class = ExerciseSerializer
