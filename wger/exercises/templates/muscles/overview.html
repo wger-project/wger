@@ -54,10 +54,12 @@
                             {% if exercise.main_image %}
                                 <img alt="{{ exercise.name }}"
                                  class="mr-3"
+                                 style="width: 50px;"
                                  src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
                             {% else %}
                                 <img alt="{% trans 'Placeholder image for exercise' %}"
                                      class="mr-3"
+                                     style="width: 50px;"
                                      src="{% static 'images/icons/image-placeholder.svg' %}">
                             {% endif %}
                             <div class="media-body">

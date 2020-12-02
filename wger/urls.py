@@ -80,9 +80,11 @@ router.register(r'muscle', exercises_api_views.MuscleViewSet, basename='muscle')
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='api-ingredient')
+router.register(r'ingredientinfo', nutrition_api_views.IngredientInfoViewSet, basename='api-ingredientinfo')
 router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, basename='weightunit')
 router.register(r'ingredientweightunit', nutrition_api_views.IngredientWeightUnitViewSet, basename='ingredientweightunit')
 router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, basename='nutritionplan')
+router.register(r'nutritionplaninfo', nutrition_api_views.NutritionPlanInfoViewSet, basename='nutritionplaninfo')
 router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='mealitem')
 
@@ -138,6 +140,11 @@ urlpatterns += [
     # The api user login
     path('api/v2/login/', core_api_views.UserAPILoginView.as_view({
          'post': 'post'}), name='api_user'),
+
+    # Others
+    path('api/v2/version/', core_api_views.ApplicationVersionView.as_view({
+        'get': 'get'}), name='app_version'),
+
 ]
 
 #

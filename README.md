@@ -46,8 +46,14 @@ it is only intended as an easy to setup demo
 
 #### Docker
 
-To develop, check the README in wger/extras/docker on how to use
-the wger/devel docker image or the docker-compose file for development
+We provide a docker compose file that sets everything up for development and
+persists the database on a volume. From the root folder just call 
+
+````shell script
+docker-compose -f extras/docker/compose/docker-compose.yml up
+````
+
+For more info, check the README in wger/extras/compose.
 
 #### Local installation (git)
 

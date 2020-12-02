@@ -30,6 +30,7 @@ Developers
 * Sven - https://github.com/Svn-Sp
 * Christopher OConnell - https://github.com/oconnelc
 * Biplov - https://github.com/beingbiplov
+* Rashmi Kamath - https://github.com/Rkamath2
 
 Translators
 -----------

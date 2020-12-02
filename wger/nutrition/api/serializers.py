@@ -29,16 +29,6 @@ from wger.nutrition.models import (
 )
 
 
-class NutritionPlanSerializer(serializers.ModelSerializer):
-    """
-    Nutritional plan serializer
-    """
-
-    class Meta:
-        model = NutritionPlan
-        exclude = ('user',)
-
-
 class IngredientWeightUnitSerializer(serializers.ModelSerializer):
     """
     IngredientWeightUnit serializer
@@ -49,6 +39,19 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
+    """
+    IngredientWeightUnit info serializer
+    """
+
+    class Meta:
+        model = IngredientWeightUnit
+        depth = 1
+        fields = ['gram',
+                  'amount',
+                  'unit']
+
+
 class WeightUnitSerializer(serializers.ModelSerializer):
     """
     WeightUnit serializer
@@ -57,6 +60,56 @@ class WeightUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeightUnit
         fields = '__all__'
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    """
+    Ingredient serializer
+    """
+
+    class Meta:
+        model = Ingredient
+        fields = ['id',
+                  'name',
+                  'creation_date',
+                  'update_date',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author']
+
+
+class IngredientInfoSerializer(serializers.ModelSerializer):
+    """
+    Ingredient info serializer
+    """
+
+    ingredientweightunit_set = IngredientWeightUnitInfoSerializer(many=True)
+
+    class Meta:
+        model = Ingredient
+        depth = 1
+        fields = ['id',
+                  'name',
+                  'creation_date',
+                  'update_date',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author',
+                  'ingredientweightunit_set']
 
 
 class MealItemSerializer(serializers.ModelSerializer):
@@ -71,6 +124,20 @@ class MealItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class MealItemInfoSerializer(serializers.ModelSerializer):
+    """
+    Meal Item info serializer
+    """
+
+    class Meta:
+        model = MealItem
+        depth = 1
+        fields = ['ingredient',
+                  'weight_unit',
+                  'order',
+                  'amount']
+
+
 class MealSerializer(serializers.ModelSerializer):
     """
     Meal serializer
@@ -83,11 +150,43 @@ class MealSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class IngredientSerializer(serializers.ModelSerializer):
+class MealInfoSerializer(serializers.ModelSerializer):
     """
-    Ingredient serializer
+    Meal info serializer
+    """
+
+    meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
+
+    class Meta:
+        model = Meal
+        fields = ['order',
+                  'time',
+                  'meal_items',
+                  'get_nutritional_values']
+
+
+class NutritionPlanSerializer(serializers.ModelSerializer):
+    """
+    Nutritional plan serializer
     """
 
     class Meta:
-        model = Ingredient
-        fields = '__all__'
+        model = NutritionPlan
+        exclude = ('user',)
+
+
+class NutritionPlanInfoSerializer(serializers.ModelSerializer):
+    """
+    Nutritional plan info serializer
+    """
+
+    meals = MealInfoSerializer(source='meal_set', many=True)
+
+    class Meta:
+        model = NutritionPlan
+        depth = 1
+        fields = ['language',
+                  'creation_date',
+                  'description',
+                  'get_nutritional_values',
+                  'meals']

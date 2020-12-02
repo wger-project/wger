@@ -8,9 +8,9 @@ django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.2
 django-recaptcha==2.0.6
 Django~=3.1
-django-crispy-forms~=1.9
+django-crispy-forms~=1.10
 django_compressor~=2.4
-django_extensions~=3.0
+django_extensions~=3.1
 django-sortedm2m~=3.0
 django-storages~=1.10
 easy-thumbnails~=2.7

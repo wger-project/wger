@@ -31,10 +31,12 @@ from rest_framework.response import Response
 
 # wger
 from wger.nutrition.api.serializers import (
+    IngredientInfoSerializer,
     IngredientSerializer,
     IngredientWeightUnitSerializer,
     MealItemSerializer,
     MealSerializer,
+    NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
     WeightUnitSerializer
 )
@@ -56,7 +58,8 @@ from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for ingredient objects
+    API endpoint for ingredient objects. For a read-only endpoint with all
+    the information of an ingredient, see /api/v2/ingredientinfo/
     """
     queryset = Ingredient.objects.accepted()
     serializer_class = IngredientSerializer
@@ -126,6 +129,14 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(result)
 
 
+class IngredientInfoViewSet(IngredientViewSet):
+    """
+    Read-only info API endpoint for ingredient objects. Returns nested data
+    structures for more easy parsing.
+    """
+    serializer_class = IngredientInfoSerializer
+
+
 @api_view(['GET'])
 def search(request):
     """
@@ -182,7 +193,8 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
 
 class NutritionPlanViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for nutrition plan objects
+    API endpoint for nutrition plan objects. For a read-only endpoint with all
+    the information of nutritional plan(s), see /api/v2/nutritionplaninfo/
     """
     serializer_class = NutritionPlanSerializer
     is_private = True
@@ -213,17 +225,17 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
 
     @action(detail=True)
     def get_log_overview(self, request, pk):
-        '''
+        """
         Return a list of log diary entries for the nutrition plan
-        '''
+        """
         plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
         return Response(plan.get_log_overview())
 
     @action(detail=True)
     def log_summary(self, request, pk):
-        '''
+        """
         Return a summary of the nutrition diary for a given date
-        '''
+        """
         today = datetime.date.today()
         year = request.GET.get('year', today.year)
         month = request.GET.get('month', today.month)
@@ -235,6 +247,14 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         except ValueError:
             date = today
         return Response(plan.get_log_summary(date))
+
+
+class NutritionPlanInfoViewSet(NutritionPlanViewSet):
+    """
+    Read-only info API endpoint for nutrition plan objects. Returns nested data
+    structures for more easy parsing.
+    """
+    serializer_class = NutritionPlanInfoSerializer
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
