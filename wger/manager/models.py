@@ -55,6 +55,16 @@ from wger.utils.fields import Html5DateField
 
 logger = logging.getLogger(__name__)
 
+RIR_OPTIONS = [(None, '------'),
+               (0, 1),
+               (0.5, 0.5),
+               (1, 1),
+               (1.5, 1.5),
+               (2, 2),
+               (2.5, 2.5),
+               (3, 3),
+               (3.5, 3.5),
+               (4, 4)]
 
 #
 # Classes
@@ -653,20 +663,16 @@ class Setting(models.Model):
     """
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     """
-    NUMBERS = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (7.5, 7.5), (8, 8),
-               (8.5, 8.5), (9, 9), (9.5, 9.5), (10, 10)]
-    rpe = models.DecimalField(verbose_name=_('rpe'),
-                              default=5,
+
+    rir = models.DecimalField(verbose_name=_('RiR'),
                               decimal_places=1,
                               max_digits=3,
                               blank=True,
                               null=True,
-                              choices=NUMBERS)
-
+                              choices=RIR_OPTIONS)
     """
-    RPE is expressed in a number from 1 to 10; 1 being very easy and 10 being the most intense a
-    movement could be without failing. RPE with halves is sometimes used, e.g. RPE of 7,5; 8,5; 9,5
-    to have slightly more values to add more nuance.
+    Reps in reserve, RiR. The amount of reps that could realistically still be
+    done in the set.
     """
 
     order = models.IntegerField(blank=True,
@@ -759,6 +765,17 @@ class WorkoutLog(models.Model):
     """
 
     date = Html5DateField(verbose_name=_('Date'))
+
+    rir = models.DecimalField(verbose_name=_('RiR'),
+                              decimal_places=1,
+                              max_digits=3,
+                              blank=True,
+                              null=True,
+                              choices=RIR_OPTIONS)
+    """
+    Reps in reserve, RiR. The amount of reps that could realistically still be
+    done in the set.
+    """
 
     # Metaclass to set some other properties
     class Meta:

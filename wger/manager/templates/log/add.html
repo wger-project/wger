@@ -49,10 +49,11 @@ $(document).ready(function () {
                     </label>
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-3">{% trans "Amount" %}</div>
-                    <div class="col-md-4 col-3">{% trans "Unit" %}</div>
-                    <div class="col-md-2 col-3">{% trans "Weight" %}</div>
-                    <div class="col-md-4 col-3">{% trans "Unit" %}</div>
+                    <div class="col-2">{% trans "Amount" %}</div>
+                    <div class="col-3">{% trans "Unit" %}</div>
+                    <div class="col-2">{% trans "Weight" %}</div>
+                    <div class="col-3">{% trans "Unit" %}</div>
+                    <div class="col-2">{% trans "RiR" %}</div>
                 </div>
                 {% for form in value.forms %}
                     {% crispy form helper %}

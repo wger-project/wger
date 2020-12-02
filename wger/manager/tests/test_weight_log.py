@@ -204,10 +204,12 @@ class WeightLogOverviewAddTestCase(WgerTestCase):
                                      'form-0-repetition_unit': 1,
                                      'form-0-weight': 10,
                                      'form-0-weight_unit': 1,
+                                     'form-0-rir': '1',
                                      'form-1-reps': 10,
                                      'form-1-repetition_unit': 1,
                                      'form-1-weight': 10,
                                      'form-1-weight_unit': 1,
+                                     'form-1-rir': '2',
                                      'form-TOTAL_FORMS': 3,
                                      'form-INITIAL_FORMS': 0,
                                      'form-MAX-NUM_FORMS': 3
@@ -333,7 +335,8 @@ class WeightLogEntryEditTestCase(WgerTestCase):
                                      'repetition_unit': 2,
                                      'weight_unit': 3,
                                      'weight': 10,
-                                     'exercise': 1
+                                     'exercise': 1,
+                                     'rir': 2
                                      })
 
         date_after = WorkoutLog.objects.get(pk=1).date
