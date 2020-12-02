@@ -134,7 +134,8 @@
             "weight_unit_id": 1,
             "weight": null,
             "order": 1,
-            "exercise": 1
+            "exercise": 1,
+            "rir": 3
         }
     },
     {
