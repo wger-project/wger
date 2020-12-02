@@ -1,5 +1,7 @@
+# Standard Library
 import sqlite3
 from itertools import permutations
+
 
 '''
 This script automates adding exercise variations to the database.
@@ -90,6 +92,7 @@ exercise_variation_ids = {
 conn = sqlite3.connect('database.sqlite')
 c = conn.cursor()
 
+
 # Gets all variations of exercises and pairs them together
 def get_exercise_permutations(exercise):
     perms = permutations(exercise, 2)
@@ -101,5 +104,5 @@ for i in exercise_variation_ids:
     c.executemany('''INSERT INTO exercises_exercise_variations(from_exercise_id, to_exercise_id)
                      VALUES(?, ?)''', exercise_perms)
 
-#conn.commit()
-#conn.close()
+# conn.commit()
+# conn.close()

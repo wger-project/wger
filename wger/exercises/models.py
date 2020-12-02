@@ -213,9 +213,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     # Added variation field
     variations = models.ManyToManyField("self",
-                                       verbose_name=_('Variations'),
-                                       symmetrical=True,
-                                       blank=True)
+                                        verbose_name=_('Variations'),
+                                        symmetrical=True,
+                                        blank=True)
     "Variations of this exercise"
 
     #
