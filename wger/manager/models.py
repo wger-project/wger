@@ -56,7 +56,7 @@ from wger.utils.fields import Html5DateField
 logger = logging.getLogger(__name__)
 
 RIR_OPTIONS = [(None, '------'),
-               (0, 1),
+               (0, 0),
                (0.5, 0.5),
                (1, 1),
                (1.5, 1.5),
