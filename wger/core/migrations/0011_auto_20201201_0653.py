@@ -15,6 +15,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='userprofile',
             name='gym',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to='gym.gym'),
+            field=models.ForeignKey(blank=True,
+                                    editable=False,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.SET_NULL,
+                                    to='gym.gym'),
         ),
     ]

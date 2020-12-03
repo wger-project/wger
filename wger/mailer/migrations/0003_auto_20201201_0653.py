@@ -15,6 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='log',
             name='gym',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, related_name='email_log', to='gym.gym'),
+            field=models.ForeignKey(editable=False,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='email_log', to='gym.gym'),
         ),
     ]
