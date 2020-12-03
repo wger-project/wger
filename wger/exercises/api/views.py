@@ -73,6 +73,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
                         'status',
                         'name',
                         'equipment',
+                        'variations',
                         'license',
                         'license_author')
 
@@ -151,6 +152,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
                         'name',
                         'equipment',
                         'license',
+                        'variations',
                         'license_author')
 
 

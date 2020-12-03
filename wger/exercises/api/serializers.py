@@ -88,6 +88,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
                   "license",
                   "license_author",
                   "images",
+                  "variations",
                   "comments")
 
 
