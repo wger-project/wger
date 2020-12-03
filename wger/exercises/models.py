@@ -230,11 +230,13 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
 
     # Added variation field
-    variations = models.ForeignKey(Variation,
-                                     verbose_name=_('Variations'),
-                                     on_delete=models.CASCADE,
-                                     null=True,
-                                     default="")
+    variations = models.ForeignKey(
+        Variation,
+        verbose_name=_('Variations'),
+        on_delete=models.CASCADE,
+        null=True,
+        default=""
+    )
     "Variations of this exercise"
 
     #

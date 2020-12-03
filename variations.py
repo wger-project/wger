@@ -1,6 +1,5 @@
 # Standard Library
 import sqlite3
-from itertools import permutations
 
 
 '''
@@ -121,8 +120,6 @@ exercise_variation_ids = {
 
 conn = sqlite3.connect('database.sqlite')
 c = conn.cursor()
-
-
 
 for i in exercise_variation_ids:
     c.execute('''INSERT INTO
