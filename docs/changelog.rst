@@ -18,10 +18,11 @@ Upgrade steps from 1.9:
 
 🚀 Features:
 
-* Add nutrition diary to log the daily calories actually taken `#284`_ `#501`_ (thanks `@WalkingPizza`_)
-  `#506`_ (thanks `@oconnelc`_)
+* Add nutrition diary to log the daily calories actually taken `#284`_, `#501`_ and `#506`_
+  (thanks `@WalkingPizza`_ and `@oconnelc`_)
 * Support for reps-in-reserve (RiR) in workout plans and logs `#479`_ (thanks `@SkyNetIndustry`_)
 * Improved user experience, on desktop and mobile `#337`_
+* Group similar exercises such as wide grip, reverse, etc. `#555`_ (thanks `@ryowright`_)
 * Improved info endpoints for exercises and ingredients, this saves additional API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 * Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
@@ -50,6 +51,7 @@ Upgrade steps from 1.9:
 .. _@sandilsranasinghe: https://github.com/sandilsranasinghe
 .. _@Rkamath2: https://github.com/Rkamath2
 .. _@SkyNetIndustry: https://github.com/SkyNetIndustry
+.. _@ryowright: https://github.com/ryowright
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
@@ -70,6 +72,7 @@ Upgrade steps from 1.9:
 .. _#516: https://github.com/wger-project/wger/issues/516
 .. _#522: https://github.com/wger-project/wger/issues/522
 .. _#554: https://github.com/wger-project/wger/issues/554
+.. _#555: https://github.com/wger-project/wger/issues/555
 .. _#560: https://github.com/wger-project/wger/issues/560
 
 
