@@ -146,9 +146,13 @@ def insert_variations(apps, schema_editor):
         variation.save()
 
         for exercise_id in group:
-            exercise = Exercise.objects.get(pk=exercise_id)
-            exercise.variations = variation
-            exercise.save()
+            # Exercises won't be found on an empty (new) database, just ignore
+            try:
+                exercise = Exercise.objects.get(pk=exercise_id)
+                exercise.variations = variation
+                exercise.save()
+            except Exercise.DoesNotExist:
+                pass
 
 
 def remove_variations(apps, schema_editor):
