@@ -170,6 +170,9 @@ class Variation(models.Model):
         """
         return False
 
+    def get_variation(self):
+        return f'Variation {self.id}'
+
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -295,6 +298,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
+
+    @property
+    def get_variations(self):
+        return self.variations.exercise_set.exclude(id=self.id)
 
     @property
     def main_image(self):

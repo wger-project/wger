@@ -133,11 +133,8 @@ def view(request, id, slug=None):
     template_data['show_shariff'] = True
 
     exercise = get_object_or_404(Exercise, pk=id)
-    variations = Exercise.objects.select_related().filter(
-        variations=exercise.variations).exclude(name=exercise.name)
 
     template_data['exercise'] = exercise
-    template_data['variations'] = variations
 
     template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
     template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
