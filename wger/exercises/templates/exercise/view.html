@@ -256,7 +256,7 @@ $(document).ready(function() {
 {% if exercise.variations %}
     <h5 class="mt-4">{% trans "Exercise Variations" %}:</h5>
         <ul>
-        {% for variation in exercise.variations.all %}
+        {% for variation in variations %}
             <li>
                 <a href="{{ variation.get_absolute_url }}">{{ variation }}</a>
             </li>

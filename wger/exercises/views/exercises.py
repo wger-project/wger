@@ -72,7 +72,8 @@ from wger.config.models import LanguageConfig
 from wger.exercises.models import (
     Exercise,
     ExerciseCategory,
-    Muscle
+    Muscle,
+    Variation
 )
 from wger.manager.models import WorkoutLog
 from wger.utils.generic_views import (
@@ -133,8 +134,10 @@ def view(request, id, slug=None):
     template_data['show_shariff'] = True
 
     exercise = get_object_or_404(Exercise, pk=id)
+    variations = Exercise.objects.select_related().filter(variations = exercise.variations).exclude(name = exercise.name)
 
     template_data['exercise'] = exercise
+    template_data['variations'] = variations
 
     template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
     template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)

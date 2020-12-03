@@ -13,10 +13,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "b83e3d85-a53d-4939-a61c-7baa2e94d358",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -33,10 +33,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "ef487de3-f071-41bf-85a6-6e76afe9c732",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -53,10 +53,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "0e10ac9b-ed1d-42c9-b8cc-123c22ccc5d5",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [3],
-      "equipment": [8],
-      "variations": []
+      "equipment": [8]
     }
   },
   {
@@ -73,10 +73,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "5675ae61-6597-4806-ae5c-2dda5a5ac03c",
+      "variations": null,
       "muscles": [8, 10],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -93,10 +93,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "a27cfdd9-5299-49ab-85f5-6e4042657549",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -113,10 +113,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "36c27886-b10b-41b6-ac60-f02ee3784041",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -133,10 +133,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "6dde45fc-7fdf-4523-a039-9c373677a750",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [5],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -153,10 +153,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "521a5e4f-6f35-43e5-9d1c-6e75c4956e96",
+      "variations": null,
       "muscles": [12, 10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -173,10 +173,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "793f471c-04ca-4e5c-b73a-d502919a3190",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -193,10 +193,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "89e0ea72-fef4-4d6e-b9e0-0085f536e9ee",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 13],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -213,10 +213,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "9d4990c5-ae5a-450a-a9ef-0a3e0e7cd469",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -233,10 +233,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "283d4ec5-1b29-41bb-997d-74c30e7a68b5",
+      "variations": null,
       "muscles": [7],
       "muscles_secondary": [15],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -253,10 +253,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "47b4d57a-3bb3-4a03-a522-a0559a254730",
+      "variations": null,
       "muscles": [15],
       "muscles_secondary": [7],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -273,10 +273,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "198dcb2e-e35f-4b69-ae8b-e1124d438eae",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [1, 8],
-      "variations": []
+      "equipment": [1, 8]
     }
   },
   {
@@ -293,10 +293,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "af491dbd-311f-4648-a4f4-ab293329fcdb",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [3, 9],
-      "variations": []
+      "equipment": [3, 9]
     }
   },
   {
@@ -313,10 +313,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "3ef8a516-d0d4-4078-9b4a-d7783da0fcf7",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 12, 5],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -333,10 +333,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "c0119734-a412-4f34-91f1-cd1c1177fcb8",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -353,10 +353,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "52f2f6d2-5b7a-4013-b131-ffeb4c515210",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -373,10 +373,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "72e78f4d-65f7-4ddd-9247-cdc1e133fa80",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -393,10 +393,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "605b4a25-bc1d-4604-bd93-c85b2aaf84ae",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -413,10 +413,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "8f0170a2-5274-4487-a295-1a9baf2c92a3",
+      "variations": null,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -433,10 +433,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "c7b98fb5-7723-471a-92a1-7b4e892a5468",
+      "variations": null,
       "muscles": [7],
       "muscles_secondary": [15],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -453,10 +453,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "2e3fa138-3894-4f61-959a-d8966804a1a3",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -473,10 +473,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "9972e42d-43d8-43c0-b547-4638ca3e47be",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [2],
-      "variations": []
+      "equipment": [2]
     }
   },
   {
@@ -493,10 +493,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "8cbbffcc-1989-43de-9200-03869480398c",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -513,10 +513,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "ca03dd79-4a92-47ef-a461-e67ccc406f82",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -533,10 +533,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "d7c553b1-e84d-4dbc-9f6c-05db489b27c8",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -553,10 +553,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "41b495fd-562e-4d6e-942a-60dc52d5e194",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [4, 6],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -573,10 +573,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "9df24c6f-016b-4623-8878-f71c235c50fa",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -593,10 +593,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "2e6a2f01-15c9-4985-8a01-1b412ec79400",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -613,10 +613,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "f5e98b51-6c0e-4c77-94ec-158210669f6d",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -633,10 +633,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "5c47b690-d19f-4523-9c47-47160693eefc",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -653,10 +653,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "342e5889-fee2-420e-a287-f6e5a7f6c4b1",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [3],
-      "equipment": [4],
-      "variations": []
+      "equipment": [4]
     }
   },
   {
@@ -673,10 +673,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "ecff5124-9f6a-414a-b91a-70101847b76d",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [3],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -693,10 +693,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "4e741c73-d40a-4fad-b0e0-76edd9bbe8df",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 9],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -713,10 +713,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "91fa0487-b137-4bef-86cf-39816cd5ee48",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -733,10 +733,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "4def60e7-ed8d-4a9d-bf76-ceb15ecf9779",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [2, 4],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -753,10 +753,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "a07629b2-a422-4da0-b70a-810fa203bf12",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -773,10 +773,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "b2b04771-5032-44bc-8a18-cede3c82947b",
+      "variations": null,
       "muscles": [12, 4, 3],
       "muscles_secondary": [5],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -793,10 +793,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "fe7f0a02-3675-4cf2-9726-e762f0b2309e",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [1, 9],
-      "variations": []
+      "equipment": [1, 9]
     }
   },
   {
@@ -813,10 +813,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "9dc1a227-5343-4675-ba59-40cad41803d3",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -833,10 +833,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "8277124a-9ef2-442a-9824-7ab4439a5f1f",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [2],
-      "variations": []
+      "equipment": [2]
     }
   },
   {
@@ -853,10 +853,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "1f255866-ea06-45fa-9183-03e9ea6c0ec1",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -873,10 +873,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "ff454f5a-70ee-40fb-9200-5e7e42960ef0",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -893,10 +893,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "e701de98-32c6-4e9d-956d-434cf5bcaaf0",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [9],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -913,10 +913,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "22897ebe-cf17-44cf-97e6-87566285684d",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 9],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -933,10 +933,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "5af2ca13-8f3e-4a14-b70d-0e7655a1b6dd",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -953,10 +953,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "a311a463-f219-4741-b4fb-247013dc8dd8",
+      "variations": null,
       "muscles": [11, 8],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -973,10 +973,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "efbece79-4384-49d1-bb88-e16fcd8de5aa",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -993,10 +993,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "44b0d79a-5c5b-43df-bf62-3e67148f1c33",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1013,10 +1013,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "069c8dfb-b5ce-42e9-9659-89d2d73e63e5",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [5],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1033,10 +1033,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "e7d0cc2d-e28b-479f-91d9-7eab7b686fd8",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1053,10 +1053,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "27301836-ed7f-4510-83e7-66c0b8041a44",
+      "variations": null,
       "muscles": [8, 10],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -1073,10 +1073,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "6f473716-2fc0-453d-9ab7-70212c1d2f92",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [9],
-      "variations": []
+      "equipment": [9]
     }
   },
   {
@@ -1093,10 +1093,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "60f329dd-f8ab-469a-8a88-39f80275b3a7",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1113,10 +1113,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "bdf8997a-84ce-434a-ae95-1f9fc50f43bb",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -1133,10 +1133,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "126d719a-4b59-4458-b182-d578cdcfee1a",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -1153,10 +1153,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "913d71cc-ba7a-4902-bfa8-3c5203129d72",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1173,10 +1173,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "d9319e68-b2a2-4306-9f7d-4d53242dd6b0",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1193,10 +1193,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "82be7262-2c5d-4c38-a433-61160fd22a0b",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [1],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -1213,10 +1213,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "60aab5bf-ff7a-4e50-9e92-1f4813c3da75",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1233,10 +1233,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "ba57a28a-63e3-41ed-8d22-f8dfb2be7b7e",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1253,10 +1253,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "39fe696c-bd08-4a30-954f-7e5ea730dd92",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1273,10 +1273,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "475a9665-2044-4c76-be29-cabbbef126bd",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [5],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1293,10 +1293,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "011b956d-33b3-4600-9e42-2e7dcbac9fb5",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [8],
-      "variations": []
+      "equipment": [8]
     }
   },
   {
@@ -1313,10 +1313,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "71efbc60-c301-453e-8ac7-4184b16a4681",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1333,10 +1333,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "5da0cb07-6e05-4ca5-95e2-e44ad67e6757",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -1353,10 +1353,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "9055153b-6151-47e7-a7fc-ab77f5d1a5cd",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1373,10 +1373,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "9075241c-0493-4f2a-a399-a57e3634093e",
+      "variations": null,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1393,10 +1393,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "3b34d81d-7882-46a6-bb83-40f84d3f8300",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3, 9],
-      "variations": []
+      "equipment": [3, 9]
     }
   },
   {
@@ -1413,10 +1413,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "c56078d2-ae85-4524-a467-d1e143b6df1a",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [1],
-      "variations": [129, 81, 80, 275, 298, 86, 138, 193, 208, 205, 768, 305]
+      "equipment": [1]
     }
   },
   {
@@ -1433,10 +1433,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "25cbe148-a9f0-4720-bf2f-bcc07e6d2874",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1453,10 +1453,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "06450bcb-03a8-4bd7-8349-ef677ee57ea3",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -1473,10 +1473,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "87423a4f-3216-4c9b-b735-9074e0f664ee",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [1],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1493,10 +1493,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "38919515-ce04-4383-9c3f-5846edd0e844",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [2],
-      "variations": [129, 74, 81, 275, 298, 86, 138, 193, 208, 205, 768, 305]
+      "equipment": [2]
     }
   },
   {
@@ -1513,10 +1513,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "48a59aa8-4568-409c-8afe-f8cb99c558ea",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": [129, 74, 80, 275, 298, 86, 138, 193, 208, 205, 768, 305]
+      "equipment": [3]
     }
   },
   {
@@ -1533,10 +1533,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "22879094-ced4-4bd1-81f2-76fdfeb867e6",
+      "variations": 19,
       "muscles": [5],
       "muscles_secondary": [4, 6],
-      "equipment": [],
-      "variations": [83, 360, 162]
+      "equipment": []
     }
   },
   {
@@ -1553,10 +1553,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "aa4fcd9b-baee-41cf-b4c5-8462bc43a8be",
+      "variations": 19,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [8],
-      "variations": [82, 360, 162]
+      "equipment": [8]
     }
   },
   {
@@ -1573,10 +1573,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "ee4a350b-c681-407f-a414-6ec243809ec7",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [8, 2],
-      "variations": [88, 217, 85, 386, 218, 186]
+      "equipment": [8, 2]
     }
   },
   {
@@ -1593,10 +1593,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "ee00d53e-4482-44aa-b780-bbc570061841",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [8, 3],
-      "variations": [88, 217, 84, 386, 218, 186]
+      "equipment": [8, 3]
     }
   },
   {
@@ -1613,10 +1613,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "6dcc9adb-939c-4581-9e44-d0d73753997b",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [129, 74, 81, 80, 275, 298, 138, 193, 208, 205, 768, 305]
+      "equipment": [3]
     }
   },
   {
@@ -1633,10 +1633,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "d147a6c2-ce64-424b-baf3-4ca841a51512",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1653,10 +1653,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "03d821e7-e1ac-4026-903b-d406381cbf76",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [2, 4],
-      "equipment": [1, 8],
-      "variations": [217, 85, 84, 386, 218, 186]
+      "equipment": [1, 8]
     }
   },
   {
@@ -1673,10 +1673,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "f1b5e525-6232-4d60-a243-9b2cd6c55298",
+      "variations": 17,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [344, 274, 90]
+      "equipment": []
     }
   },
   {
@@ -1693,10 +1693,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "20a76bd0-1e56-4a4e-bd79-0ab118552bde",
+      "variations": 17,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [344, 274, 89]
+      "equipment": []
     }
   },
   {
@@ -1713,10 +1713,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "d325dd5c-6833-41c7-8eea-6b95c4871133",
+      "variations": 10,
       "muscles": [6],
       "muscles_secondary": [3],
-      "equipment": [8, 4],
-      "variations": [92, 416, 94, 93, 176, 95, 170]
+      "equipment": [8, 4]
     }
   },
   {
@@ -1733,10 +1733,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "8d6c13c6-256d-4137-b1c6-b0e817697639",
+      "variations": 10,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [91, 416, 94, 93, 176, 95, 170]
+      "equipment": []
     }
   },
   {
@@ -1753,10 +1753,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "4bd55b0a-559a-4458-aabd-e66619b63610",
+      "variations": 10,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [91, 92, 416, 94, 176, 95, 170]
+      "equipment": []
     }
   },
   {
@@ -1773,10 +1773,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "6709577b-95ec-4053-a822-d5fe1f753966",
+      "variations": 10,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [91, 92, 416, 93, 176, 95, 170]
+      "equipment": []
     }
   },
   {
@@ -1793,10 +1793,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "fb750082-7034-4c51-b1e4-dfa0fe2dac8e",
+      "variations": 10,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [91, 92, 416, 94, 93, 176, 170]
+      "equipment": []
     }
   },
   {
@@ -1813,10 +1813,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "0ec76f5d-1311-4d6d-bf79-00fa17c3061a",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -1833,10 +1833,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "3c3857f8-d224-4d5a-8cc1-f4e7982d3475",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1853,10 +1853,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "08637e04-d995-4c07-b021-a20f26b6fd97",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -1873,10 +1873,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "b72ae8d4-ede6-4480-8fc5-7b80e369f7ed",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": [192, 101, 163, 210, 211, 270, 399]
+      "equipment": [1]
     }
   },
   {
@@ -1893,10 +1893,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "80d318b3-4b8a-41aa-9c6c-0a2a921fe1e6",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [192, 100, 163, 210, 211, 270, 399]
+      "equipment": [3]
     }
   },
   {
@@ -1913,10 +1913,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "abc4c62e-27b2-4c31-8766-40f8dca84cab",
+      "variations": 6,
       "muscles": [7],
       "muscles_secondary": [15],
-      "equipment": [],
-      "variations": [776, 104, 103]
+      "equipment": []
     }
   },
   {
@@ -1933,10 +1933,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "399666e7-30a7-4b86-833d-4422e4c72b61",
+      "variations": 6,
       "muscles": [15],
       "muscles_secondary": [7],
-      "equipment": [],
-      "variations": [776, 104, 102]
+      "equipment": []
     }
   },
   {
@@ -1953,10 +1953,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "e7677699-5e4f-49e6-a645-e8915a203c4d",
+      "variations": 6,
       "muscles": [7],
       "muscles_secondary": [15],
-      "equipment": [],
-      "variations": [776, 103, 102]
+      "equipment": []
     }
   },
   {
@@ -1973,10 +1973,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "22cca8fc-cfaf-4941-b0f7-faf9f2937c52",
+      "variations": 3,
       "muscles": [12, 10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": [381, 161, 351, 328, 209]
+      "equipment": [1]
     }
   },
   {
@@ -1993,10 +1993,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "3c3f23b5-b523-4a69-8c79-1106a4ce9b6d",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [2, 1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2013,10 +2013,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "7ce6b090-5099-4cd0-83ae-1a02725c868b",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 9],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -2033,10 +2033,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "57747eb3-411a-4efd-8842-a45e562320ee",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2053,10 +2053,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "f82c579e-c069-4dc7-8e36-a3266dfd8e4a",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [2, 1],
-      "equipment": [1],
-      "variations": [412, 110, 362]
+      "equipment": [1]
     }
   },
   {
@@ -2073,10 +2073,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "77688310-f2cf-4d37-a854-dca906387be7",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [2, 1],
-      "equipment": [1],
-      "variations": [412, 109, 362]
+      "equipment": [1]
     }
   },
   {
@@ -2093,10 +2093,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "c4856da3-8454-4857-8997-336d06df590f",
+      "variations": 12,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": [407, 342, 346, 300, 191, 650, 389, 355, 160, 185, 795, 387]
+      "equipment": [1]
     }
   },
   {
@@ -2113,10 +2113,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "587c0052-f2bc-48ca-8af9-415175308901",
+      "variations": 13,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [3],
-      "variations": [405, 346, 113]
+      "equipment": [3]
     }
   },
   {
@@ -2133,10 +2133,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "ffd4ce7e-e14f-49d4-9dc9-dc1362631382",
+      "variations": 13,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [3],
-      "variations": [405, 346, 112]
+      "equipment": [3]
     }
   },
   {
@@ -2153,10 +2153,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "3caed096-c65e-434d-9792-33db636743e7",
+      "variations": 15,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": [788, 130, 115]
+      "equipment": []
     }
   },
   {
@@ -2173,10 +2173,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "560e1a20-33e1-45db-ba5b-63f8c51af76d",
+      "variations": 15,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": [788, 130, 114]
+      "equipment": []
     }
   },
   {
@@ -2193,10 +2193,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "6e862700-3d63-486c-99ae-744c68d2f753",
+      "variations": null,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2213,10 +2213,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "61950a59-be4e-43cc-abc1-cb52abd15354",
+      "variations": 14,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [792, 154, 118]
+      "equipment": []
     }
   },
   {
@@ -2233,10 +2233,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "89c98117-dd53-4334-bfa6-72a96525629a",
+      "variations": 14,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [792, 154, 117]
+      "equipment": []
     }
   },
   {
@@ -2253,10 +2253,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "9926e18f-4e2b-4c20-9477-9bfb08d229bc",
+      "variations": 5,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": [228, 227, 329, 229, 190, 123, 152, 155]
+      "equipment": [1]
     }
   },
   {
@@ -2273,10 +2273,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "9e672a47-ad9e-4ae1-8fbe-011646da1c37",
+      "variations": 9,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [145, 146, 206]
+      "equipment": []
     }
   },
   {
@@ -2293,10 +2293,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "1df6a1b5-7bd2-402f-9d5e-94f9ed6d8b54",
+      "variations": 5,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [228, 227, 329, 229, 190, 119, 152, 155]
+      "equipment": [3]
     }
   },
   {
@@ -2313,10 +2313,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "8715a96e-c8a2-458a-b023-4ea7d82fdab8",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2333,10 +2333,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "7c3cc0ce-e335-4f5c-aa32-1576a908a539",
+      "variations": 11,
       "muscles": [6],
       "muscles_secondary": [3],
-      "equipment": [4],
-      "variations": [303, 166, 126, 631]
+      "equipment": [4]
     }
   },
   {
@@ -2353,10 +2353,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "3d8273d2-1fbe-4a8f-99a6-d2b5e204cb41",
+      "variations": 11,
       "muscles": [6],
       "muscles_secondary": [3],
-      "equipment": [],
-      "variations": [303, 166, 125, 631]
+      "equipment": []
     }
   },
   {
@@ -2373,10 +2373,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "61271a8e-6a00-4898-8dc3-ea9ef913f25e",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [1],
-      "equipment": [2],
-      "variations": []
+      "equipment": [2]
     }
   },
   {
@@ -2393,10 +2393,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "f57a0c60-7d37-4eb3-a94e-1a90292e8c02",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2413,10 +2413,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "8c6c1544-cbf8-403c-ae12-b27b392702f8",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [74, 81, 80, 275, 298, 86, 138, 193, 208, 205, 768, 305]
+      "equipment": []
     }
   },
   {
@@ -2433,10 +2433,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "2966e4a2-4306-4cb5-a2dc-8951cd192555",
+      "variations": 15,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [788, 115, 114]
+      "equipment": []
     }
   },
   {
@@ -2453,10 +2453,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "382731d2-ae07-4a3c-a055-09dadd5f12e0",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2473,10 +2473,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "da7fccca-941e-457a-a2eb-d0c56d419938",
+      "variations": null,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2493,10 +2493,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "06e9de49-ac1b-45c1-b289-475118932434",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2513,10 +2513,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "c8d08cbd-d406-4ce0-b1b9-10b236272d30",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2533,10 +2533,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "490a615c-4185-4560-88a5-020f3aa40be2",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2553,10 +2553,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "a63d40df-a872-44e7-87d2-9b58b67d5406",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [5],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -2573,10 +2573,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "5baf40e5-ea3c-4f8d-b60a-d294ee2de55b",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [],
-      "variations": [129, 74, 81, 80, 275, 298, 86, 193, 208, 205, 768, 305]
+      "equipment": []
     }
   },
   {
@@ -2593,10 +2593,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "88bbdbde-c9b6-45a1-aee9-efc6f02cfab3",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2613,10 +2613,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "d46adbda-7c60-42a0-b1fd-9ec111b35956",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [2, 1, 9],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2633,10 +2633,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "a81d18a0-6280-44f8-ab5a-166d016e858e",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2653,10 +2653,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "1ad8e721-9297-46c2-a983-7297ca4dfa52",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2673,10 +2673,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "b192c4eb-31c6-458e-b566-d3f38b5aa30c",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2693,10 +2693,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "bcabc8cf-c005-4630-8853-ef4922e7fd91",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1, 13],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2713,10 +2713,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "754391c6-39d5-4bb6-a311-68a520f6fd3a",
+      "variations": 9,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [122, 146, 206]
+      "equipment": [3]
     }
   },
   {
@@ -2733,10 +2733,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "acf1f2df-46c4-49a3-8e6c-2979ea4204b1",
+      "variations": 9,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [122, 145, 206]
+      "equipment": [3]
     }
   },
   {
@@ -2753,10 +2753,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "26c72fd7-d5b9-497b-be5e-cdfe9715ddac",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [1],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -2773,10 +2773,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "5345766a-c092-457a-aa21-8ee6ffa855d4",
+      "variations": 4,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [421, 233, 149, 306, 237]
+      "equipment": [3]
     }
   },
   {
@@ -2793,10 +2793,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "79a3a34c-262f-4cae-b827-b5a85b11b860",
+      "variations": 4,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [421, 233, 148, 306, 237]
+      "equipment": []
     }
   },
   {
@@ -2813,10 +2813,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "3721be0c-2a59-4bb9-90d3-695faaf028af",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -2833,10 +2833,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "ee61aef0-f0c7-4a7a-882a-3b39312dfffd",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -2853,10 +2853,10 @@
       "creation_date": "2013-05-05",
       "language": 2,
       "uuid": "7389be43-215b-4db8-8b69-75dc77004d74",
+      "variations": 5,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [228, 227, 329, 229, 190, 119, 123, 155]
+      "equipment": []
     }
   },
   {
@@ -2873,10 +2873,10 @@
       "creation_date": "2013-05-05",
       "language": 1,
       "uuid": "47c33837-be38-4ebb-b19a-84c280f5f2b0",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [1, 8],
-      "variations": []
+      "equipment": [1, 8]
     }
   },
   {
@@ -2893,10 +2893,10 @@
       "creation_date": "2013-05-08",
       "language": 2,
       "uuid": "cd4fac32-48fb-4237-a263-a44c5108790a",
+      "variations": 14,
       "muscles": [11],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [792, 117, 118]
+      "equipment": []
     }
   },
   {
@@ -2913,10 +2913,10 @@
       "creation_date": "2013-05-08",
       "language": 2,
       "uuid": "68d505ec-5416-4153-b228-eb1545d5c89f",
+      "variations": 5,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [228, 227, 329, 229, 190, 119, 123, 152]
+      "equipment": []
     }
   },
   {
@@ -2933,10 +2933,10 @@
       "creation_date": "2013-05-24",
       "language": 1,
       "uuid": "b78d22f4-b5f8-4789-8e42-07464d82718f",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1],
-      "equipment": [],
-      "variations": [213, 188, 187, 212, 424, 204]
+      "equipment": []
     }
   },
   {
@@ -2953,10 +2953,10 @@
       "creation_date": "2013-05-28",
       "language": 2,
       "uuid": "b1d6d536-7f4a-4dd3-8b76-62d7a984e115",
+      "variations": 12,
       "muscles": [11, 8],
       "muscles_secondary": [2, 1, 13],
-      "equipment": [],
-      "variations": [407, 342, 346, 300, 191, 650, 389, 355, 185, 795, 111, 387]
+      "equipment": []
     }
   },
   {
@@ -2973,10 +2973,10 @@
       "creation_date": "2013-06-21",
       "language": 2,
       "uuid": "2738e6e0-2158-4a7e-8fbd-32657d043a65",
+      "variations": 3,
       "muscles": [8],
       "muscles_secondary": [1],
-      "equipment": [],
-      "variations": [105, 381, 351, 328, 209]
+      "equipment": []
     }
   },
   {
@@ -2993,10 +2993,10 @@
       "creation_date": "2013-06-21",
       "language": 2,
       "uuid": "5a29197f-e159-4a98-9b40-534c41ab34a1",
+      "variations": 19,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [82, 83, 360]
+      "equipment": []
     }
   },
   {
@@ -3013,10 +3013,10 @@
       "creation_date": "2013-06-21",
       "language": 2,
       "uuid": "6cfd927c-8009-4cc2-9501-acb3db417396",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [5],
-      "equipment": [1, 9],
-      "variations": [192, 100, 101, 210, 211, 270, 399]
+      "equipment": [1, 9]
     }
   },
   {
@@ -3033,10 +3033,10 @@
       "creation_date": "2013-06-21",
       "language": 2,
       "uuid": "a0d1e216-4517-46db-ac4c-fa11686fd513",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3053,10 +3053,10 @@
       "creation_date": "2013-06-21",
       "language": 2,
       "uuid": "39c416c8-64db-4330-9d37-c41ec70048fb",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [14],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3073,10 +3073,10 @@
       "creation_date": "2013-06-22",
       "language": 2,
       "uuid": "5aab5983-55d6-4d4c-a24e-bc18704f50c5",
+      "variations": 11,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [303, 125, 126, 631]
+      "equipment": []
     }
   },
   {
@@ -3093,10 +3093,10 @@
       "creation_date": "2013-06-23",
       "language": 2,
       "uuid": "c376346a-1923-4468-9320-b0f480c46b1e",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3113,10 +3113,10 @@
       "creation_date": "2013-07-01",
       "language": 2,
       "uuid": "2d728ea9-9e80-4d16-9d6c-801e1e4b4d0b",
+      "variations": 8,
       "muscles": [4],
       "muscles_secondary": [11],
-      "equipment": [],
-      "variations": [260, 182, 790, 302]
+      "equipment": []
     }
   },
   {
@@ -3133,10 +3133,10 @@
       "creation_date": "2013-07-06",
       "language": 2,
       "uuid": "ec706f20-6ea7-40f9-96f4-994c66554e17",
+      "variations": 10,
       "muscles": [14],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [91, 92, 416, 94, 93, 176, 95]
+      "equipment": []
     }
   },
   {
@@ -3153,10 +3153,10 @@
       "creation_date": "2013-07-18",
       "language": 1,
       "uuid": "35871103-6cfe-493f-afe1-8401f88fed84",
+      "variations": null,
       "muscles": [2, 1, 4],
       "muscles_secondary": [8, 10, 6, 3, 9],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -3173,10 +3173,10 @@
       "creation_date": "2013-07-19",
       "language": 1,
       "uuid": "99881bdd-43d7-4c3b-82ed-9c187d0455b7",
+      "variations": null,
       "muscles": [8, 6],
       "muscles_secondary": [11],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3193,10 +3193,10 @@
       "creation_date": "2013-07-19",
       "language": 2,
       "uuid": "53a9f95e-914c-4790-940f-f5346159ea72",
+      "variations": 10,
       "muscles": [14],
       "muscles_secondary": [6],
-      "equipment": [4],
-      "variations": [91, 92, 416, 94, 93, 95, 170]
+      "equipment": [4]
     }
   },
   {
@@ -3213,10 +3213,10 @@
       "creation_date": "2013-07-19",
       "language": 2,
       "uuid": "a24a0521-6391-419c-bd89-795bba0eb5ee",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3233,10 +3233,10 @@
       "creation_date": "2013-07-24",
       "language": 2,
       "uuid": "f6c4e2fa-226d-46e8-87dc-75fc8cd628bd",
+      "variations": null,
       "muscles": [1, 12],
       "muscles_secondary": [],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -3253,10 +3253,10 @@
       "creation_date": "2013-07-30",
       "language": 2,
       "uuid": "53b6a314-df50-4ef8-9b3d-ce290562df5b",
+      "variations": 8,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [260, 168, 790, 302]
+      "equipment": []
     }
   },
   {
@@ -3273,10 +3273,10 @@
       "creation_date": "2013-07-30",
       "language": 2,
       "uuid": "bdb7bdbb-8930-46e5-8b98-eb13e604553f",
+      "variations": 12,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [407, 342, 346, 300, 191, 650, 389, 355, 160, 795, 111, 387]
+      "equipment": []
     }
   },
   {
@@ -3293,10 +3293,10 @@
       "creation_date": "2013-07-31",
       "language": 2,
       "uuid": "1855c71b-b005-4615-b90c-b2fed8e10342",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [2],
-      "equipment": [],
-      "variations": [88, 217, 85, 84, 386, 218]
+      "equipment": []
     }
   },
   {
@@ -3313,10 +3313,10 @@
       "creation_date": "2013-08-04",
       "language": 2,
       "uuid": "1f2d6fd6-bb93-424b-834e-e91dee52dcf3",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [213, 188, 158, 212, 424, 204]
+      "equipment": []
     }
   },
   {
@@ -3333,10 +3333,10 @@
       "creation_date": "2013-08-04",
       "language": 2,
       "uuid": "dbe77958-51a8-4412-9927-4b24d80ed44f",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [213, 187, 158, 212, 424, 204]
+      "equipment": []
     }
   },
   {
@@ -3353,10 +3353,10 @@
       "creation_date": "2013-08-11",
       "language": 2,
       "uuid": "742334a0-9a6e-4668-9883-fa578ead2a64",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [10],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3373,10 +3373,10 @@
       "creation_date": "2013-08-11",
       "language": 2,
       "uuid": "b22cfb08-66ab-4e2d-9757-9dea7c5d47f8",
+      "variations": 5,
       "muscles": [9],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": [228, 227, 329, 229, 119, 123, 152, 155]
+      "equipment": []
     }
   },
   {
@@ -3393,10 +3393,10 @@
       "creation_date": "2013-08-11",
       "language": 2,
       "uuid": "f2e563d2-507b-4586-88c8-77652cd19648",
+      "variations": 12,
       "muscles": [8],
       "muscles_secondary": [6],
-      "equipment": [1],
-      "variations": [407, 342, 346, 300, 650, 389, 355, 160, 185, 795, 111, 387]
+      "equipment": [1]
     }
   },
   {
@@ -3413,10 +3413,10 @@
       "creation_date": "2013-08-11",
       "language": 2,
       "uuid": "5da6340b-22ec-4c1b-a443-eef2f59f92f0",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [1, 8],
-      "variations": [100, 101, 163, 210, 211, 270, 399]
+      "equipment": [1, 8]
     }
   },
   {
@@ -3433,10 +3433,10 @@
       "creation_date": "2013-08-12",
       "language": 2,
       "uuid": "84b4e711-8b29-4541-ad58-dad967f82390",
+      "variations": 16,
       "muscles": [13],
       "muscles_secondary": [13],
-      "equipment": [],
-      "variations": [129, 74, 81, 80, 275, 298, 86, 138, 208, 205, 768, 305]
+      "equipment": []
     }
   },
   {
@@ -3453,10 +3453,10 @@
       "creation_date": "2013-08-20",
       "language": 2,
       "uuid": "122f5dd3-fc8c-47fe-9a79-1c15cf784a60",
+      "variations": null,
       "muscles": [12, 4, 3],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3473,10 +3473,10 @@
       "creation_date": "2013-08-28",
       "language": 2,
       "uuid": "9d756e84-6b77-4f17-b21d-7d266d6a8bd2",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [2, 4, 6],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -3493,10 +3493,10 @@
       "creation_date": "2013-09-08",
       "language": 1,
       "uuid": "2ec697b5-0a69-4727-b842-3c78432253be",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3513,10 +3513,10 @@
       "creation_date": "2013-09-22",
       "language": 2,
       "uuid": "e7fdd8fb-5e07-4a29-9d56-a005338b2e19",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3533,10 +3533,10 @@
       "creation_date": "2013-11-09",
       "language": 1,
       "uuid": "61f77ca6-0e8d-42c7-b01f-aa83a0d7b386",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3553,10 +3553,10 @@
       "creation_date": "2013-11-09",
       "language": 1,
       "uuid": "c8acba02-61be-4005-ba4f-028cc21b1565",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3573,10 +3573,10 @@
       "creation_date": "2013-12-27",
       "language": 1,
       "uuid": "b3eb5e26-5e55-41d8-901a-2af56f1fffe0",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3593,10 +3593,10 @@
       "creation_date": "2014-01-06",
       "language": 2,
       "uuid": "eed05679-d1cb-44a2-a17d-dd5b0097c874",
+      "variations": 1,
       "muscles": [12, 9],
       "muscles_secondary": [1, 5],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -3613,10 +3613,10 @@
       "creation_date": "2014-01-12",
       "language": 2,
       "uuid": "504c91f8-5a76-4faa-943f-13799357a426",
+      "variations": null,
       "muscles": [2, 4, 5],
       "muscles_secondary": [8, 6, 3, 9],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -3633,10 +3633,10 @@
       "creation_date": "2014-01-13",
       "language": 2,
       "uuid": "34fc154f-cc8d-4e52-adb7-ff0dad2d0770",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [213, 188, 187, 158, 212, 424]
+      "equipment": []
     }
   },
   {
@@ -3653,10 +3653,10 @@
       "creation_date": "2014-01-15",
       "language": 2,
       "uuid": "83e079a9-b61c-413b-b055-f9cf515904f1",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [129, 74, 81, 80, 275, 298, 86, 138, 193, 208, 768, 305]
+      "equipment": [3]
     }
   },
   {
@@ -3673,10 +3673,10 @@
       "creation_date": "2014-01-15",
       "language": 2,
       "uuid": "7327ab51-7073-4c84-9e3f-2e83af40e96c",
+      "variations": 9,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3, 9],
-      "variations": [122, 145, 146]
+      "equipment": [3, 9]
     }
   },
   {
@@ -3693,10 +3693,10 @@
       "creation_date": "2014-01-15",
       "language": 2,
       "uuid": "1b9ed9da-46d1-4484-8acc-236379ee823c",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3713,10 +3713,10 @@
       "creation_date": "2014-01-15",
       "language": 2,
       "uuid": "438678dc-5a62-4496-9458-341af0616626",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [2],
-      "variations": [129, 74, 81, 80, 275, 298, 86, 138, 193, 205, 768, 305]
+      "equipment": [2]
     }
   },
   {
@@ -3733,10 +3733,10 @@
       "creation_date": "2014-01-16",
       "language": 2,
       "uuid": "335d0042-7cb3-41c3-af23-c22c8cb858ad",
+      "variations": 3,
       "muscles": [11],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": [105, 381, 161, 351, 328]
+      "equipment": [1]
     }
   },
   {
@@ -3753,10 +3753,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "15c5dfa0-4103-4515-979d-807eee8faa53",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3, 9],
-      "variations": [192, 100, 101, 163, 211, 270, 399]
+      "equipment": [3, 9]
     }
   },
   {
@@ -3773,10 +3773,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "a36e5cec-3b9d-4dd5-a3fb-cbcc78a97c3b",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [192, 100, 101, 163, 210, 270, 399]
+      "equipment": []
     }
   },
   {
@@ -3793,10 +3793,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "bf618c32-b4b1-4bbb-a74f-73485e4143ed",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [1],
-      "equipment": [],
-      "variations": [213, 188, 187, 158, 424, 204]
+      "equipment": []
     }
   },
   {
@@ -3813,10 +3813,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "42b092ec-80b1-4471-90d1-e462a65ab18c",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [188, 187, 158, 212, 424, 204]
+      "equipment": []
     }
   },
   {
@@ -3833,10 +3833,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "212e98e1-3917-422c-a030-8b312e6b1812",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3853,10 +3853,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "dc53ad5b-bd04-46d0-9499-28e9965f0e6d",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [5],
-      "equipment": [],
-      "variations": [216]
+      "equipment": []
     }
   },
   {
@@ -3873,10 +3873,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "034a4dcd-d085-43fa-a2b5-6d54b444ac20",
+      "variations": 2,
       "muscles": [12],
       "muscles_secondary": [5],
-      "equipment": [],
-      "variations": [215]
+      "equipment": []
     }
   },
   {
@@ -3893,10 +3893,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "6cc54626-d5ef-4013-9184-010ac96de20a",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [4],
-      "equipment": [1, 8],
-      "variations": [88, 85, 84, 386, 218, 186]
+      "equipment": [1, 8]
     }
   },
   {
@@ -3913,10 +3913,10 @@
       "creation_date": "2014-02-01",
       "language": 2,
       "uuid": "9d1c13b0-2e9b-4585-b1d7-fc48ba4c692f",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [4],
-      "equipment": [],
-      "variations": [88, 217, 85, 84, 386, 186]
+      "equipment": []
     }
   },
   {
@@ -3933,10 +3933,10 @@
       "creation_date": "2014-02-20",
       "language": 1,
       "uuid": "61deb9d0-ec4c-4fe3-8cc4-c276116b4b95",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3953,10 +3953,10 @@
       "creation_date": "2014-02-21",
       "language": 1,
       "uuid": "bf5973a3-6434-46a6-babd-80367866eac7",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -3973,10 +3973,10 @@
       "creation_date": "2014-02-26",
       "language": 1,
       "uuid": "e56d0a17-b1b8-427d-991e-97c530c7db6a",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -3993,10 +3993,10 @@
       "creation_date": "2014-03-01",
       "language": 1,
       "uuid": "da935415-da89-40a0-820b-136f95a747f8",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4013,10 +4013,10 @@
       "creation_date": "2014-03-01",
       "language": 1,
       "uuid": "82de8ce3-8ea4-4154-8119-dd37cb5cdec5",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4033,10 +4033,10 @@
       "creation_date": "2014-03-01",
       "language": 1,
       "uuid": "0fdc6c45-5212-413a-8a6d-058675afab3b",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4053,10 +4053,10 @@
       "creation_date": "2014-03-09",
       "language": 2,
       "uuid": "53ca25b3-61d9-4f72-bfdb-492b83484ff5",
+      "variations": 5,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [228, 329, 229, 190, 119, 123, 152, 155]
+      "equipment": [3]
     }
   },
   {
@@ -4073,10 +4073,10 @@
       "creation_date": "2014-03-09",
       "language": 1,
       "uuid": "880bff63-6798-4ffc-a818-b2a1ccfec0f7",
+      "variations": 5,
       "muscles": [2],
       "muscles_secondary": [3, 9, 5],
-      "equipment": [3],
-      "variations": [227, 329, 229, 190, 119, 123, 152, 155]
+      "equipment": [3]
     }
   },
   {
@@ -4093,10 +4093,10 @@
       "creation_date": "2014-03-09",
       "language": 2,
       "uuid": "89e6d2ea-9a17-4a77-9a52-d5bcf39d57fd",
+      "variations": 5,
       "muscles": [2],
       "muscles_secondary": [4, 5],
-      "equipment": [1],
-      "variations": [228, 227, 329, 190, 119, 123, 152, 155]
+      "equipment": [1]
     }
   },
   {
@@ -4113,10 +4113,10 @@
       "creation_date": "2014-03-09",
       "language": 1,
       "uuid": "981ef1f0-414a-478b-bc1b-9c6afa45bc77",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [4],
-      "variations": []
+      "equipment": [4]
     }
   },
   {
@@ -4133,10 +4133,10 @@
       "creation_date": "2014-03-09",
       "language": 1,
       "uuid": "1ea6774c-083a-4141-89cf-4c0e973ede12",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4153,10 +4153,10 @@
       "creation_date": "2014-03-09",
       "language": 1,
       "uuid": "ebe60386-bf33-4f50-87a6-d44c5f454158",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -4173,10 +4173,10 @@
       "creation_date": "2014-03-24",
       "language": 2,
       "uuid": "a87de062-2101-4dc4-adda-328b4c722c6d",
+      "variations": 4,
       "muscles": [2],
       "muscles_secondary": [1, 3],
-      "equipment": [1, 3],
-      "variations": [421, 148, 149, 306, 237]
+      "equipment": [1, 3]
     }
   },
   {
@@ -4193,10 +4193,10 @@
       "creation_date": "2014-03-27",
       "language": 5,
       "uuid": "340ce1d3-fa8f-417d-8bda-abcc486aef77",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4213,10 +4213,10 @@
       "creation_date": "2014-03-27",
       "language": 5,
       "uuid": "206fe75c-ede9-4a80-b050-9ec62c5759e3",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -4233,10 +4233,10 @@
       "creation_date": "2014-03-30",
       "language": 2,
       "uuid": "69f271a6-5408-49d9-8a3a-1f6088835f30",
+      "variations": 4,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [421, 233, 148, 149, 306]
+      "equipment": [3]
     }
   },
   {
@@ -4253,10 +4253,10 @@
       "creation_date": "2014-03-31",
       "language": 2,
       "uuid": "7729ffe5-a896-4deb-80e0-f4e6163c0c09",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -4273,10 +4273,10 @@
       "creation_date": "2014-04-08",
       "language": 1,
       "uuid": "a2ac7d09-20f1-4c52-a5de-381882088803",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [6],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4293,10 +4293,10 @@
       "creation_date": "2014-04-08",
       "language": 1,
       "uuid": "0f464c32-90c5-4698-8f97-eae0ae663a74",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [6],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4313,10 +4313,10 @@
       "creation_date": "2014-04-08",
       "language": 1,
       "uuid": "0d4390ea-51dc-42dc-94af-ba0e94a73484",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4333,10 +4333,10 @@
       "creation_date": "2014-04-08",
       "language": 1,
       "uuid": "0842e81e-7b90-4d68-8e6b-e9a7c0186b54",
+      "variations": null,
       "muscles": [1, 13],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4353,10 +4353,10 @@
       "creation_date": "2014-04-10",
       "language": 1,
       "uuid": "705adbb9-0f94-4943-9247-64c555c352ca",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4373,10 +4373,10 @@
       "creation_date": "2014-04-11",
       "language": 1,
       "uuid": "3e7413d3-3105-49da-91cd-b136d63c395b",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4393,10 +4393,10 @@
       "creation_date": "2014-04-12",
       "language": 1,
       "uuid": "788ef0a5-492f-48a7-87dc-b15dda185bb8",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4413,10 +4413,10 @@
       "creation_date": "2014-04-18",
       "language": 2,
       "uuid": "9d1b45e0-0689-411d-915b-5c5e3452e2b0",
+      "variations": null,
       "muscles": [8],
       "muscles_secondary": [11],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4433,10 +4433,10 @@
       "creation_date": "2014-05-09",
       "language": 1,
       "uuid": "18f955d4-6344-4d19-ae96-dca71e8ad787",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4453,10 +4453,10 @@
       "creation_date": "2014-05-10",
       "language": 1,
       "uuid": "c438efed-81de-42e4-b616-023948acb824",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4473,10 +4473,10 @@
       "creation_date": "2014-05-10",
       "language": 1,
       "uuid": "59b210db-aefa-4a50-85a3-71c677cf4414",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4493,10 +4493,10 @@
       "creation_date": "2014-06-09",
       "language": 1,
       "uuid": "5ba12913-759c-4343-aa26-ddd9b64875d4",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4513,10 +4513,10 @@
       "creation_date": "2014-06-12",
       "language": 2,
       "uuid": "8aadcd68-f085-44a0-a897-8b6ecf827ed0",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [2],
-      "variations": []
+      "equipment": [2]
     }
   },
   {
@@ -4533,10 +4533,10 @@
       "creation_date": "2014-07-01",
       "language": 2,
       "uuid": "deb02a12-37ce-43d6-b3f2-c77ed2b4259f",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -4553,10 +4553,10 @@
       "creation_date": "2014-07-10",
       "language": 1,
       "uuid": "c659577f-d9de-4e39-bcd1-1b0bf1f62d11",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [14],
-      "equipment": [4],
-      "variations": []
+      "equipment": [4]
     }
   },
   {
@@ -4573,10 +4573,10 @@
       "creation_date": "2014-07-12",
       "language": 2,
       "uuid": "36ef5f12-6f77-4754-a926-39915e4b57a5",
+      "variations": 8,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [7],
-      "variations": [168, 182, 790, 302]
+      "equipment": [7]
     }
   },
   {
@@ -4593,10 +4593,10 @@
       "creation_date": "2014-07-20",
       "language": 5,
       "uuid": "c59e493d-4331-4a86-b16f-9b399996ecd5",
+      "variations": null,
       "muscles": [11, 7, 8, 10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4613,10 +4613,10 @@
       "creation_date": "2014-07-22",
       "language": 2,
       "uuid": "9f622058-85a4-4272-ad99-e5696e772137",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4633,10 +4633,10 @@
       "creation_date": "2014-07-27",
       "language": 2,
       "uuid": "a7e15f4f-a7e6-4c0c-9bcb-ef3de90201aa",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4653,10 +4653,10 @@
       "creation_date": "2014-08-14",
       "language": 1,
       "uuid": "197600e7-9bb2-448c-baca-244d679e7b07",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4673,10 +4673,10 @@
       "creation_date": "2014-09-01",
       "language": 2,
       "uuid": "34ce7ec5-12a1-4bf8-b4f1-94544c3f1cfc",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4693,10 +4693,10 @@
       "creation_date": "2014-09-03",
       "language": 2,
       "uuid": "51d56238-31a1-4e5a-b747-da30eece4871",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4713,10 +4713,10 @@
       "creation_date": "2014-09-08",
       "language": 2,
       "uuid": "625aefd5-7ba2-40e9-bdc3-7d3ab1bcf3b8",
+      "variations": 7,
       "muscles": [4],
       "muscles_secondary": [5],
-      "equipment": [1, 8],
-      "variations": [192, 100, 101, 163, 210, 211, 399]
+      "equipment": [1, 8]
     }
   },
   {
@@ -4733,10 +4733,10 @@
       "creation_date": "2014-09-08",
       "language": 2,
       "uuid": "3490d1c7-c9ce-4a08-acd3-e0bdada71c37",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -4753,10 +4753,10 @@
       "creation_date": "2014-09-26",
       "language": 2,
       "uuid": "3f7b893e-a089-450f-b8cc-ec3ec17d3bf3",
+      "variations": 17,
       "muscles": [5],
       "muscles_secondary": [2, 4],
-      "equipment": [3],
-      "variations": [344, 89, 90]
+      "equipment": [3]
     }
   },
   {
@@ -4773,10 +4773,10 @@
       "creation_date": "2014-10-04",
       "language": 2,
       "uuid": "dfa090e4-77ae-40ed-86c0-4696fe93dcf1",
+      "variations": 16,
       "muscles": [13],
       "muscles_secondary": [1],
-      "equipment": [3],
-      "variations": [129, 74, 81, 80, 298, 86, 138, 193, 208, 205, 768, 305]
+      "equipment": [3]
     }
   },
   {
@@ -4793,10 +4793,10 @@
       "creation_date": "2014-10-06",
       "language": 6,
       "uuid": "8ebe030b-7182-49a8-9eb2-1dafb05f5fc9",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [6],
-      "equipment": [4],
-      "variations": []
+      "equipment": [4]
     }
   },
   {
@@ -4813,10 +4813,10 @@
       "creation_date": "2014-10-22",
       "language": 2,
       "uuid": "0203c27e-e3f0-4ae2-b5c3-f11c45336f54",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [6],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4833,10 +4833,10 @@
       "creation_date": "2014-10-22",
       "language": 2,
       "uuid": "88568115-5e88-4afc-b005-e2f7d453ac13",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4853,10 +4853,10 @@
       "creation_date": "2014-10-24",
       "language": 1,
       "uuid": "b85a9224-a562-4924-a0f1-5ead09943c75",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -4873,10 +4873,10 @@
       "creation_date": "2014-10-30",
       "language": 2,
       "uuid": "e1881607-9418-4bcc-8c69-2301a579637e",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4893,10 +4893,10 @@
       "creation_date": "2014-10-31",
       "language": 1,
       "uuid": "5afb7241-2eb9-4c9e-aa8f-b0b9bc8a0797",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4913,10 +4913,10 @@
       "creation_date": "2014-11-02",
       "language": 2,
       "uuid": "6add5973-86d0-4543-928a-6bb8b3f34efc",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [9],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4933,10 +4933,10 @@
       "creation_date": "2014-11-02",
       "language": 2,
       "uuid": "3329b890-685a-475d-b8e5-42362711b445",
+      "variations": null,
       "muscles": [1, 13, 5],
       "muscles_secondary": [2],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4953,10 +4953,10 @@
       "creation_date": "2014-12-01",
       "language": 1,
       "uuid": "867917d6-6688-4bf9-a43b-b3ab9a5a9ec3",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -4973,10 +4973,10 @@
       "creation_date": "2014-12-17",
       "language": 2,
       "uuid": "a35655c8-6b2a-4606-b1d6-b57425986e2e",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -4993,10 +4993,10 @@
       "creation_date": "2014-12-21",
       "language": 1,
       "uuid": "ec1db965-6315-438c-84dd-d52677e65c62",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [5],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5013,10 +5013,10 @@
       "creation_date": "2014-12-26",
       "language": 1,
       "uuid": "032a38cf-b15a-4761-b684-577e41893f54",
+      "variations": null,
       "muscles": [11, 7, 8, 10, 6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5033,10 +5033,10 @@
       "creation_date": "2014-12-26",
       "language": 1,
       "uuid": "8e65edc1-9693-4364-ade6-6dd863b22307",
+      "variations": null,
       "muscles": [7],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5053,10 +5053,10 @@
       "creation_date": "2015-01-01",
       "language": 2,
       "uuid": "fa56d30a-7a8f-4084-aa68-46bd52f97959",
+      "variations": 16,
       "muscles": [1],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": [129, 74, 81, 80, 275, 86, 138, 193, 208, 205, 768, 305]
+      "equipment": [3]
     }
   },
   {
@@ -5073,10 +5073,10 @@
       "creation_date": "2015-01-08",
       "language": 2,
       "uuid": "2120f390-4a5f-41bc-9139-045581a3a245",
+      "variations": 12,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [407, 342, 346, 191, 650, 389, 355, 160, 185, 795, 111, 387]
+      "equipment": [3]
     }
   },
   {
@@ -5093,10 +5093,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "fc63159a-3939-426c-b236-d4b39adbf28c",
+      "variations": 8,
       "muscles": [2, 14, 4, 5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [260, 168, 182, 790]
+      "equipment": []
     }
   },
   {
@@ -5113,10 +5113,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "ce37341b-379c-4611-ac9f-830c6c3c397a",
+      "variations": 11,
       "muscles": [14, 6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [166, 125, 126, 631]
+      "equipment": []
     }
   },
   {
@@ -5133,10 +5133,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "d79e7078-0dd3-4b49-8947-731e6aaa1de0",
+      "variations": null,
       "muscles": [11, 7, 10, 15],
       "muscles_secondary": [14, 6, 3],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5153,10 +5153,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "7738fb4e-8f17-4aeb-84ef-2ee3e12eaff7",
+      "variations": 16,
       "muscles": [1, 13],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [129, 74, 81, 80, 275, 298, 86, 138, 193, 208, 205, 768]
+      "equipment": []
     }
   },
   {
@@ -5173,10 +5173,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "aba7ba7a-6ff0-47d4-ab66-8952e21e38c5",
+      "variations": 4,
       "muscles": [2, 9],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": [421, 233, 148, 149, 237]
+      "equipment": [3]
     }
   },
   {
@@ -5193,10 +5193,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "1b8b1657-40fd-4e3b-97b7-1c79b1079f8e",
+      "variations": null,
       "muscles": [2, 7, 4, 6, 3, 15, 5],
       "muscles_secondary": [8, 12, 14, 10, 9],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5213,10 +5213,10 @@
       "creation_date": "2015-02-06",
       "language": 2,
       "uuid": "074530d6-801a-404b-b3b7-adc207be69be",
+      "variations": null,
       "muscles": [7, 15],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5233,10 +5233,10 @@
       "creation_date": "2015-02-07",
       "language": 2,
       "uuid": "e17db782-6e28-48ef-9324-4c01672ffc54",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [12],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5253,10 +5253,10 @@
       "creation_date": "2015-02-11",
       "language": 2,
       "uuid": "97d7eba2-681f-4b14-8e78-7d9b5865d336",
+      "variations": null,
       "muscles": [2, 9],
       "muscles_secondary": [1],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -5273,10 +5273,10 @@
       "creation_date": "2015-02-22",
       "language": 2,
       "uuid": "5708d3c5-0016-446b-b3f4-54b2120e8297",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -5293,10 +5293,10 @@
       "creation_date": "2015-03-07",
       "language": 1,
       "uuid": "801f7f2c-a11a-4881-85c0-6beac7578a72",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5313,10 +5313,10 @@
       "creation_date": "2015-03-07",
       "language": 1,
       "uuid": "bd453a9f-b3c6-4719-a947-10e4891691dc",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5333,10 +5333,10 @@
       "creation_date": "2015-03-07",
       "language": 2,
       "uuid": "1ec5352f-41da-408b-8e6c-3fef79475847",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5353,10 +5353,10 @@
       "creation_date": "2015-03-09",
       "language": 2,
       "uuid": "bd07fc6b-db86-4139-b6de-e328cea0f694",
+      "variations": null,
       "muscles": [2, 8, 14, 3],
       "muscles_secondary": [2, 8, 14, 3],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -5373,10 +5373,10 @@
       "creation_date": "2015-03-15",
       "language": 2,
       "uuid": "bd892f71-2b19-41c4-90e2-2cd4df82c621",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -5393,10 +5393,10 @@
       "creation_date": "2015-04-07",
       "language": 2,
       "uuid": "4aecc570-d535-4ec1-8290-2e1a5c482f48",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -5413,10 +5413,10 @@
       "creation_date": "2015-04-07",
       "language": 2,
       "uuid": "1076ed41-6f7c-46c9-a28f-ab13fc1ab92c",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5433,10 +5433,10 @@
       "creation_date": "2015-05-21",
       "language": 2,
       "uuid": "a36f852f-a29f-4f93-81b6-1012047ac1ee",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [14],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5453,10 +5453,10 @@
       "creation_date": "2015-06-02",
       "language": 2,
       "uuid": "bf9e572d-d138-43e9-a486-a5c6ad9033f8",
+      "variations": null,
       "muscles": [8, 14, 6],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5473,10 +5473,10 @@
       "creation_date": "2015-06-11",
       "language": 2,
       "uuid": "273f9563-948a-44c8-9353-b7213703f502",
+      "variations": 3,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [105, 381, 161, 351, 209]
+      "equipment": []
     }
   },
   {
@@ -5493,10 +5493,10 @@
       "creation_date": "2015-06-12",
       "language": 2,
       "uuid": "ee291ad5-2064-4d0a-b252-c715f362e035",
+      "variations": 5,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [8],
-      "variations": [228, 227, 229, 190, 119, 123, 152, 155]
+      "equipment": [8]
     }
   },
   {
@@ -5513,10 +5513,10 @@
       "creation_date": "2015-06-22",
       "language": 2,
       "uuid": "6572a8e9-083c-4622-8f0c-6107a013a490",
+      "variations": null,
       "muscles": [8, 12],
       "muscles_secondary": [],
-      "equipment": [4],
-      "variations": []
+      "equipment": [4]
     }
   },
   {
@@ -5533,10 +5533,10 @@
       "creation_date": "2015-07-21",
       "language": 2,
       "uuid": "20b88059-3958-4184-9134-b48656ad868d",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [6],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5553,10 +5553,10 @@
       "creation_date": "2015-07-21",
       "language": 2,
       "uuid": "b6492677-07df-4399-bc90-20b58e4dba35",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5573,10 +5573,10 @@
       "creation_date": "2015-07-21",
       "language": 2,
       "uuid": "fbbebbfc-a5b2-4573-8914-147ff60cb7c5",
+      "variations": 1,
       "muscles": [],
       "muscles_secondary": [12],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -5593,10 +5593,10 @@
       "creation_date": "2015-07-21",
       "language": 2,
       "uuid": "4e15a410-5530-4b86-964f-8af26e118e2b",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5613,10 +5613,10 @@
       "creation_date": "2015-07-23",
       "language": 2,
       "uuid": "5bd3ba00-8f4e-4935-a682-87b150d830c8",
+      "variations": 12,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": [407, 346, 300, 191, 650, 389, 355, 160, 185, 795, 111, 387]
+      "equipment": []
     }
   },
   {
@@ -5633,10 +5633,10 @@
       "creation_date": "2015-07-27",
       "language": 2,
       "uuid": "1b9dc5bc-790b-4e21-a55d-f8b3115e94c5",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [2, 12],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -5653,10 +5653,10 @@
       "creation_date": "2015-07-27",
       "language": 2,
       "uuid": "2cd5e256-20a7-4bc8-a7a8-d62bf8ce00cf",
+      "variations": 17,
       "muscles": [5],
       "muscles_secondary": [2, 4],
-      "equipment": [1],
-      "variations": [274, 89, 90]
+      "equipment": [1]
     }
   },
   {
@@ -5673,10 +5673,10 @@
       "creation_date": "2015-08-03",
       "language": 2,
       "uuid": "c788d643-150a-4ac7-97ef-84643c6419bf",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [10],
-      "variations": []
+      "equipment": [10]
     }
   },
   {
@@ -5693,26 +5693,10 @@
       "creation_date": "2015-08-19",
       "language": 2,
       "uuid": "1d90f3a8-56e4-4c15-a4b4-94fc0e114e8c",
+      "variations": 13,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [
-        407,
-        405,
-        342,
-        300,
-        112,
-        113,
-        191,
-        650,
-        389,
-        355,
-        160,
-        185,
-        795,
-        111,
-        387
-      ]
+      "equipment": []
     }
   },
   {
@@ -5729,10 +5713,10 @@
       "creation_date": "2015-08-27",
       "language": 2,
       "uuid": "8976d255-d7e4-46c7-8079-ca525f0a7d0d",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5749,10 +5733,10 @@
       "creation_date": "2015-10-19",
       "language": 2,
       "uuid": "e35528f9-1785-41b5-860a-3408a6c02b2d",
+      "variations": 3,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": [105, 381, 161, 328, 209]
+      "equipment": [1]
     }
   },
   {
@@ -5769,10 +5753,10 @@
       "creation_date": "2015-10-22",
       "language": 7,
       "uuid": "583281c7-2362-48e7-95d5-8fd6c455e0fb",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5789,10 +5773,10 @@
       "creation_date": "2015-11-01",
       "language": 2,
       "uuid": "6335de72-146f-4f38-886d-6b8a27db62ff",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5809,10 +5793,10 @@
       "creation_date": "2015-11-22",
       "language": 2,
       "uuid": "b9c97cec-ffc7-4e9a-8ecc-08b285aed3b4",
+      "variations": 12,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [407, 342, 346, 300, 191, 650, 389, 160, 185, 795, 111, 387]
+      "equipment": []
     }
   },
   {
@@ -5829,10 +5813,10 @@
       "creation_date": "2016-01-04",
       "language": 1,
       "uuid": "40a0019e-eaf2-491f-a134-9fdd51121358",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [11, 8],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5849,10 +5833,10 @@
       "creation_date": "2016-01-04",
       "language": 2,
       "uuid": "472d117c-c2a9-47cf-a5c7-fdb9fbac23a9",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5869,10 +5853,10 @@
       "creation_date": "2016-01-04",
       "language": 2,
       "uuid": "f7b6a6b0-6dd8-4648-9a32-83039f5e28e1",
+      "variations": 19,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [82, 83, 162]
+      "equipment": []
     }
   },
   {
@@ -5889,10 +5873,10 @@
       "creation_date": "2016-01-04",
       "language": 2,
       "uuid": "00be3262-2783-4670-8cf4-70cacbff5ca1",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [5],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -5909,10 +5893,10 @@
       "creation_date": "2016-01-05",
       "language": 2,
       "uuid": "f866fd75-c18d-4419-84b9-1b9ccd22adba",
+      "variations": 1,
       "muscles": [12],
       "muscles_secondary": [1, 11, 13],
-      "equipment": [3],
-      "variations": [412, 109, 110]
+      "equipment": [3]
     }
   },
   {
@@ -5929,10 +5913,10 @@
       "creation_date": "2016-01-11",
       "language": 9,
       "uuid": "c38e34a7-5560-46a1-bae4-c4fce9619e55",
+      "variations": null,
       "muscles": [8],
       "muscles_secondary": [10],
-      "equipment": [1, 3],
-      "variations": []
+      "equipment": [1, 3]
     }
   },
   {
@@ -5949,10 +5933,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "987d4bd5-dfd7-41b3-a51a-54bc9380e9ba",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -5969,10 +5953,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "d92fd2b6-d5c0-4422-b565-34b0f24b4be1",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -5989,10 +5973,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "87ea2a91-3276-4fd2-abdf-4dcd68ef5842",
+      "variations": null,
       "muscles": [12, 9],
       "muscles_secondary": [1, 5],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6009,10 +5993,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "e4aaf859-9d7e-4356-b144-2d00a2fcd868",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [12],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -6029,10 +6013,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "1d0e502a-d31b-4e38-a4bf-543fbb31f0a2",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -6049,10 +6033,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "73537127-d96f-45ba-a36b-427b634dfe21",
+      "variations": null,
       "muscles": [14],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -6069,10 +6053,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "f18f3080-8495-4986-aff6-5b5e6504894c",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -6089,10 +6073,10 @@
       "creation_date": "2016-01-13",
       "language": 9,
       "uuid": "f70761d1-5003-4ffc-b6fe-9c1d024d0562",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -6109,10 +6093,10 @@
       "creation_date": "2016-01-14",
       "language": 9,
       "uuid": "6e72cd75-2ff7-4ee9-b43b-90ba82bdc6ae",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6129,10 +6113,10 @@
       "creation_date": "2016-01-14",
       "language": 9,
       "uuid": "648ef50c-1697-485c-b018-82964474c379",
+      "variations": null,
       "muscles": [7],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6149,10 +6133,10 @@
       "creation_date": "2016-01-14",
       "language": 9,
       "uuid": "31061d58-abab-4053-bd19-96e0ebb1c49d",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6169,10 +6153,10 @@
       "creation_date": "2016-01-23",
       "language": 2,
       "uuid": "5b12d361-be23-4f61-94af-0cc1665711ca",
+      "variations": null,
       "muscles": [11, 8],
       "muscles_secondary": [12, 14, 6, 9],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -6189,10 +6173,10 @@
       "creation_date": "2016-01-30",
       "language": 7,
       "uuid": "4b3025a9-b717-4577-9e92-b1c200fe5f1c",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6209,10 +6193,10 @@
       "creation_date": "2016-02-09",
       "language": 2,
       "uuid": "83b741dc-fd19-4c85-ac0c-b0388c5838e6",
+      "variations": 3,
       "muscles": [],
       "muscles_secondary": [11, 8, 12, 6, 15],
-      "equipment": [1],
-      "variations": [105, 161, 351, 328, 209]
+      "equipment": [1]
     }
   },
   {
@@ -6229,10 +6213,10 @@
       "creation_date": "2016-02-15",
       "language": 2,
       "uuid": "22eb7cf6-bf6c-42c3-a1c8-85c2fc2ed931",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6249,10 +6233,10 @@
       "creation_date": "2016-02-16",
       "language": 2,
       "uuid": "9910d61d-b5d4-44fe-8b5f-00fa6e2aaf76",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [],
-      "equipment": [4, 7],
-      "variations": []
+      "equipment": [4, 7]
     }
   },
   {
@@ -6269,10 +6253,10 @@
       "creation_date": "2016-02-26",
       "language": 2,
       "uuid": "76964898-192c-4e93-b24c-914ea542002b",
+      "variations": 18,
       "muscles": [5],
       "muscles_secondary": [],
-      "equipment": [8, 3],
-      "variations": [88, 217, 85, 84, 218, 186]
+      "equipment": [8, 3]
     }
   },
   {
@@ -6289,10 +6273,10 @@
       "creation_date": "2016-02-29",
       "language": 2,
       "uuid": "b229c57f-5363-41e2-add7-c2501a31de0b",
+      "variations": 12,
       "muscles": [11, 10],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": [407, 342, 346, 300, 191, 650, 389, 355, 160, 185, 795, 111]
+      "equipment": [7]
     }
   },
   {
@@ -6309,10 +6293,10 @@
       "creation_date": "2016-02-29",
       "language": 2,
       "uuid": "79181b05-1429-45be-bc8a-5bf0913d22b9",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6329,10 +6313,10 @@
       "creation_date": "2016-03-11",
       "language": 2,
       "uuid": "222e10a6-e3ba-40fd-9598-6c1d664b450a",
+      "variations": 12,
       "muscles": [8, 10],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": [407, 342, 346, 300, 191, 650, 355, 160, 185, 795, 111, 387]
+      "equipment": [1]
     }
   },
   {
@@ -6349,10 +6333,10 @@
       "creation_date": "2016-03-24",
       "language": 1,
       "uuid": "d23d1980-3a50-4d3f-8123-90d7e55c7804",
+      "variations": null,
       "muscles": [11, 8, 10],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -6369,10 +6353,10 @@
       "creation_date": "2016-04-18",
       "language": 2,
       "uuid": "6ae341ba-f941-44b5-9d59-b0fba42c0980",
+      "variations": null,
       "muscles": [2, 1, 11, 14, 4, 10, 6, 3, 15, 9, 5],
       "muscles_secondary": [2, 1, 11, 13, 7, 8, 12, 14, 4, 10, 6, 3, 15, 9, 5],
-      "equipment": [1, 8, 3, 4, 9, 7],
-      "variations": []
+      "equipment": [1, 8, 3, 4, 9, 7]
     }
   },
   {
@@ -6389,10 +6373,10 @@
       "creation_date": "2016-04-20",
       "language": 2,
       "uuid": "659f3fb9-2370-42fb-9c29-9aaf65c7a7de",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6409,10 +6393,10 @@
       "creation_date": "2016-05-11",
       "language": 2,
       "uuid": "2fb46a71-adf6-4197-ac17-d4bdb63f69b0",
+      "variations": null,
       "muscles": [2, 10],
       "muscles_secondary": [11, 8, 9, 5],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   },
   {
@@ -6429,10 +6413,10 @@
       "creation_date": "2016-05-11",
       "language": 2,
       "uuid": "bbee856a-abe0-4a5f-a622-d5f85ee1d1f1",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6449,10 +6433,10 @@
       "creation_date": "2016-05-11",
       "language": 2,
       "uuid": "2359347e-0561-4d03-b050-b3c18f9d7b37",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6469,10 +6453,10 @@
       "creation_date": "2016-05-25",
       "language": 2,
       "uuid": "30a8ef85-a24c-4f44-b558-55d3279b29c5",
+      "variations": 7,
       "muscles": [4, 5],
       "muscles_secondary": [2],
-      "equipment": [1, 8],
-      "variations": [192, 100, 101, 163, 210, 211, 270]
+      "equipment": [1, 8]
     }
   },
   {
@@ -6489,10 +6473,10 @@
       "creation_date": "2016-06-03",
       "language": 1,
       "uuid": "178eb027-fb5e-4fb3-84a9-6a3c229a92f1",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -6509,10 +6493,10 @@
       "creation_date": "2016-06-12",
       "language": 1,
       "uuid": "634dcf89-c346-4af8-8b09-61f238798877",
+      "variations": null,
       "muscles": [8, 10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6529,10 +6513,10 @@
       "creation_date": "2016-07-30",
       "language": 2,
       "uuid": "ae6a6c23-4616-49b7-a152-49d7461c2b7f",
+      "variations": 13,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": [346, 112, 113]
+      "equipment": [1]
     }
   },
   {
@@ -6549,10 +6533,10 @@
       "creation_date": "2016-07-30",
       "language": 2,
       "uuid": "1215dad0-b7e0-42c6-80d4-112f69acb68a",
+      "variations": 12,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [1],
-      "variations": [342, 346, 300, 191, 650, 389, 355, 160, 185, 795, 111, 387]
+      "equipment": [1]
     }
   },
   {
@@ -6569,10 +6553,10 @@
       "creation_date": "2016-07-31",
       "language": 2,
       "uuid": "97ae7d90-a4b2-472c-bf7b-826df674622c",
+      "variations": null,
       "muscles": [8],
       "muscles_secondary": [11],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6589,10 +6573,10 @@
       "creation_date": "2016-07-31",
       "language": 2,
       "uuid": "75ec610d-216a-49fe-b395-c5fd8ee14b53",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6609,10 +6593,10 @@
       "creation_date": "2016-08-15",
       "language": 2,
       "uuid": "2c864448-288d-4e79-9da6-a3c99af3c1fb",
+      "variations": null,
       "muscles": [7],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6629,10 +6613,10 @@
       "creation_date": "2016-08-15",
       "language": 2,
       "uuid": "b8466ace-ebc7-42bb-941c-39e0e7e67a4f",
+      "variations": 1,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": [109, 110, 362]
+      "equipment": [1]
     }
   },
   {
@@ -6649,10 +6633,10 @@
       "creation_date": "2016-09-05",
       "language": 2,
       "uuid": "6ec02111-96f7-4e66-ad1f-82d102580ed6",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6669,10 +6653,10 @@
       "creation_date": "2016-09-05",
       "language": 1,
       "uuid": "237c8770-4c1f-433d-b8b4-b1ae5c69bbc5",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [9],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6689,10 +6673,10 @@
       "creation_date": "2016-09-13",
       "language": 2,
       "uuid": "6ec0d447-1dfa-40fa-9fad-9a86c222d1a4",
+      "variations": 10,
       "muscles": [6],
       "muscles_secondary": [14],
-      "equipment": [],
-      "variations": [91, 92, 94, 93, 176, 95, 170]
+      "equipment": []
     }
   },
   {
@@ -6709,10 +6693,10 @@
       "creation_date": "2016-09-15",
       "language": 1,
       "uuid": "257cdb33-ba8b-410a-9396-5132b08dc912",
+      "variations": null,
       "muscles": [6],
       "muscles_secondary": [7, 8, 4, 10, 3, 9],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -6729,10 +6713,10 @@
       "creation_date": "2016-09-29",
       "language": 2,
       "uuid": "170cc52f-345f-41b3-bdae-8a5e0c9aa449",
+      "variations": 4,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [8, 3],
-      "variations": [233, 148, 149, 306, 237]
+      "equipment": [8, 3]
     }
   },
   {
@@ -6749,10 +6733,10 @@
       "creation_date": "2016-09-29",
       "language": 2,
       "uuid": "9f705970-cba3-4cef-a582-c2cc69ae9b5f",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6769,10 +6753,10 @@
       "creation_date": "2016-10-01",
       "language": 2,
       "uuid": "7277d3bb-e68b-48fb-829e-37e13268f124",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6789,10 +6773,10 @@
       "creation_date": "2016-10-06",
       "language": 2,
       "uuid": "36f940ff-6352-4480-b763-1234438f6624",
+      "variations": 2,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [213, 188, 187, 158, 212, 204]
+      "equipment": []
     }
   },
   {
@@ -6809,10 +6793,10 @@
       "creation_date": "2016-10-26",
       "language": 2,
       "uuid": "82a0a7e2-2d4d-4336-9412-f9878575f709",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6829,10 +6813,10 @@
       "creation_date": "2016-11-02",
       "language": 2,
       "uuid": "e5b6bf59-d933-416e-8228-75c0e7de5dd9",
+      "variations": null,
       "muscles": [7, 10, 15],
       "muscles_secondary": [6],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6849,10 +6833,10 @@
       "creation_date": "2018-01-15",
       "language": 2,
       "uuid": "e3c163b4-205e-457f-8b91-68e5c6d6be96",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6869,10 +6853,10 @@
       "creation_date": "2018-02-07",
       "language": 2,
       "uuid": "e934e2b2-abe7-411d-b753-8ce298391b9e",
+      "variations": null,
       "muscles": [1, 11, 4, 9, 5],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -6889,10 +6873,10 @@
       "creation_date": "2018-11-27",
       "language": 2,
       "uuid": "b1133e95-a644-42e4-b109-38bda8bda278",
+      "variations": null,
       "muscles": [1],
       "muscles_secondary": [],
-      "equipment": [8],
-      "variations": []
+      "equipment": [8]
     }
   },
   {
@@ -6909,10 +6893,10 @@
       "creation_date": "2019-02-01",
       "language": 2,
       "uuid": "85b2f07b-2ce3-4c85-82ab-474a6e5620b2",
+      "variations": null,
       "muscles": [1, 11],
       "muscles_secondary": [],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -6929,10 +6913,10 @@
       "creation_date": "2019-03-07",
       "language": 2,
       "uuid": "d89d34e8-2bd6-4d85-acf7-cae5d776c5e9",
+      "variations": 11,
       "muscles": [6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [303, 166, 125, 126]
+      "equipment": []
     }
   },
   {
@@ -6949,10 +6933,10 @@
       "creation_date": "2019-05-29",
       "language": 2,
       "uuid": "0fd6154d-fb53-4b24-acc0-1c5c05b57ebc",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -6969,10 +6953,10 @@
       "creation_date": "2019-08-18",
       "language": 2,
       "uuid": "06dee092-b84a-40b4-986f-b0b3e64adc22",
+      "variations": 12,
       "muscles": [10],
       "muscles_secondary": [8],
-      "equipment": [],
-      "variations": [407, 342, 346, 300, 191, 389, 355, 160, 185, 795, 111, 387]
+      "equipment": []
     }
   },
   {
@@ -6989,10 +6973,10 @@
       "creation_date": "2019-12-03",
       "language": 2,
       "uuid": "f8a14f95-bdf7-433a-a1db-ef26b4ecd2e9",
+      "variations": 1,
       "muscles": [12, 9],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -7009,10 +6993,10 @@
       "creation_date": "2020-01-14",
       "language": 7,
       "uuid": "4ff3a822-f67d-4f66-adef-ba887179ed73",
+      "variations": null,
       "muscles": [5],
       "muscles_secondary": [4],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7029,10 +7013,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "7f3e45fa-3b17-4cdb-90d5-cb9957212cbf",
+      "variations": null,
       "muscles": [8, 10],
       "muscles_secondary": [11],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7049,10 +7033,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "143cf744-ce94-458c-9c74-1aea6c64cfc7",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [8],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7069,10 +7053,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "c0b71d46-e5ad-47c0-9c60-a0abbd633692",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7089,10 +7073,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "68f96d3e-9172-468c-9018-06f71a97faff",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7109,10 +7093,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "1546af08-017c-4de5-b13f-cb3a1999733d",
+      "variations": null,
       "muscles": [2, 8, 14, 10, 3],
       "muscles_secondary": [],
-      "equipment": [10],
-      "variations": []
+      "equipment": [10]
     }
   },
   {
@@ -7129,10 +7113,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "e4b3da5b-1803-42af-a50e-ffbac3853cd0",
+      "variations": null,
       "muscles": [2, 11, 7, 8, 14, 4, 10, 6, 3, 15, 9, 5],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7149,10 +7133,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "5bae16b0-cefb-4fc7-be2b-e31794335c42",
+      "variations": null,
       "muscles": [2, 7, 8, 14, 4, 10, 6, 3, 15, 5],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7169,10 +7153,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "341c73d5-2e9a-4f13-89c9-c984c86cc088",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [8, 3],
-      "variations": []
+      "equipment": [8, 3]
     }
   },
   {
@@ -7189,10 +7173,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "85ee5927-c441-4726-8cff-b0bbe33faf55",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7209,10 +7193,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "666d1c77-d74b-411c-be3e-1e60a02c548d",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 14, 6, 5],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7229,10 +7213,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "5009eedc-554f-43ef-852e-77ba45a7297c",
+      "variations": null,
       "muscles": [4],
       "muscles_secondary": [2, 5],
-      "equipment": [1, 8],
-      "variations": []
+      "equipment": [1, 8]
     }
   },
   {
@@ -7249,10 +7233,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "32a3096a-4ce7-4264-8784-46856210c61b",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [4, 5],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7269,10 +7253,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "84afd45e-235a-41c3-8711-ea9f6d08eeb6",
+      "variations": null,
       "muscles": [7, 15],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7289,10 +7273,10 @@
       "creation_date": "2020-01-17",
       "language": 1,
       "uuid": "9e71d2a3-9021-4270-a7b9-0d8bd28e7394",
+      "variations": null,
       "muscles": [12],
       "muscles_secondary": [1, 13],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -7309,10 +7293,10 @@
       "creation_date": "2020-04-01",
       "language": 10,
       "uuid": "0fe97ed6-7d37-444c-90b6-f855cea68a6f",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1, 8],
-      "variations": []
+      "equipment": [1, 8]
     }
   },
   {
@@ -7329,10 +7313,10 @@
       "creation_date": "2020-04-01",
       "language": 10,
       "uuid": "95b25f5e-4a01-48f1-a3df-2b7fe8fd624d",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1, 8],
-      "variations": []
+      "equipment": [1, 8]
     }
   },
   {
@@ -7349,10 +7333,10 @@
       "creation_date": "2020-04-04",
       "language": 1,
       "uuid": "deb2622d-5864-4ce4-b763-0e2851f439a2",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1, 8, 3, 10, 7],
-      "variations": []
+      "equipment": [1, 8, 3, 10, 7]
     }
   },
   {
@@ -7369,10 +7353,10 @@
       "creation_date": "2020-04-04",
       "language": 1,
       "uuid": "b399006c-bb45-451e-908e-1b279b2a42a6",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [1, 10, 7],
-      "variations": []
+      "equipment": [1, 10, 7]
     }
   },
   {
@@ -7389,10 +7373,10 @@
       "creation_date": "2020-04-04",
       "language": 1,
       "uuid": "ceaff086-55a9-439f-89f6-7aef8b54c637",
+      "variations": null,
       "muscles": [],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7409,10 +7393,10 @@
       "creation_date": "2020-04-05",
       "language": 2,
       "uuid": "6163bf70-c825-49f4-8edb-69c2ee45f42e",
+      "variations": 16,
       "muscles": [1, 13],
       "muscles_secondary": [13],
-      "equipment": [3],
-      "variations": [129, 74, 81, 80, 275, 298, 86, 138, 193, 208, 205, 305]
+      "equipment": [3]
     }
   },
   {
@@ -7429,10 +7413,10 @@
       "creation_date": "2020-04-06",
       "language": 2,
       "uuid": "b6ecc0eb-877c-449f-ac61-8caced7736d6",
+      "variations": 6,
       "muscles": [7, 15],
       "muscles_secondary": [],
-      "equipment": [3, 10],
-      "variations": [104, 103, 102]
+      "equipment": [3, 10]
     }
   },
   {
@@ -7449,10 +7433,10 @@
       "creation_date": "2020-04-06",
       "language": 2,
       "uuid": "7191e015-0c60-4376-9be0-733b9754b7f8",
+      "variations": null,
       "muscles": [4, 5],
       "muscles_secondary": [5],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7469,10 +7453,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "6c8e863c-f6c2-4ad0-a0e9-5e6d9e6a928b",
+      "variations": 15,
       "muscles": [11, 7, 8, 10],
       "muscles_secondary": [7, 8],
-      "equipment": [],
-      "variations": [130, 115, 114]
+      "equipment": []
     }
   },
   {
@@ -7489,10 +7473,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "819f89d5-df2b-473e-a9c8-3242738ddc2b",
+      "variations": 8,
       "muscles": [2, 4, 5],
       "muscles_secondary": [13, 3],
-      "equipment": [7],
-      "variations": [260, 168, 182, 302]
+      "equipment": [7]
     }
   },
   {
@@ -7509,10 +7493,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "d543595d-bbad-40b8-a9a4-e67cbdb76490",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7529,10 +7513,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "43f534f6-fca3-4ad0-beda-0c68a0a5f0f8",
+      "variations": 14,
       "muscles": [11, 8],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": [154, 117, 118]
+      "equipment": []
     }
   },
   {
@@ -7549,10 +7533,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "d86e6486-0d25-43ea-8594-31651a7964f3",
+      "variations": null,
       "muscles": [14, 6],
       "muscles_secondary": [1, 14, 10, 6, 5],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7569,10 +7553,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "85e6baf6-f8a3-48ea-9365-ef2bf5b3c6d1",
+      "variations": 12,
       "muscles": [2, 1, 11, 13, 7, 8, 12, 14, 4, 10, 6, 3, 15, 9, 5],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": [407, 342, 346, 300, 191, 650, 389, 355, 160, 185, 111, 387]
+      "equipment": [7]
     }
   },
   {
@@ -7589,10 +7573,10 @@
       "creation_date": "2020-04-26",
       "language": 2,
       "uuid": "ef9e44cc-dfe7-42ad-a788-2c1061c66069",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7609,10 +7593,10 @@
       "creation_date": "2020-05-10",
       "language": 2,
       "uuid": "7b4243cd-6da8-4e68-a972-6e1650f6e790",
+      "variations": null,
       "muscles": [12, 9],
       "muscles_secondary": [10],
-      "equipment": [1, 3, 6],
-      "variations": []
+      "equipment": [1, 3, 6]
     }
   },
   {
@@ -7629,10 +7613,10 @@
       "creation_date": "2020-05-10",
       "language": 2,
       "uuid": "a6b214dc-6744-422c-bef6-65da323d6fd7",
+      "variations": null,
       "muscles": [2],
       "muscles_secondary": [],
-      "equipment": [3],
-      "variations": []
+      "equipment": [3]
     }
   },
   {
@@ -7649,10 +7633,10 @@
       "creation_date": "2020-05-10",
       "language": 2,
       "uuid": "0849d95d-e83b-44bd-ae95-1fcb89fa5a04",
+      "variations": null,
       "muscles": [1, 12],
       "muscles_secondary": [],
-      "equipment": [6],
-      "variations": []
+      "equipment": [6]
     }
   },
   {
@@ -7669,10 +7653,10 @@
       "creation_date": "2020-05-11",
       "language": 2,
       "uuid": "57e739b5-e931-405f-a548-d419a70ea602",
+      "variations": null,
       "muscles": [10],
       "muscles_secondary": [],
-      "equipment": [],
-      "variations": []
+      "equipment": []
     }
   },
   {
@@ -7689,10 +7673,10 @@
       "creation_date": "2020-05-11",
       "language": 2,
       "uuid": "4f7900d8-3cd8-41ae-8eec-a3e540c5b3ea",
+      "variations": null,
       "muscles": [9],
       "muscles_secondary": [],
-      "equipment": [1, 3],
-      "variations": []
+      "equipment": [1, 3]
     }
   },
   {
@@ -7709,10 +7693,10 @@
       "creation_date": "2020-05-11",
       "language": 2,
       "uuid": "035d5dfc-1a1b-480b-bc9b-b6f634f19aee",
+      "variations": null,
       "muscles": [14, 9],
       "muscles_secondary": [11, 13, 8, 12, 10],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7729,10 +7713,10 @@
       "creation_date": "2020-05-11",
       "language": 2,
       "uuid": "f568e69c-5fe8-4288-a0c3-926087b8c4e3",
+      "variations": null,
       "muscles": [9, 5],
       "muscles_secondary": [],
-      "equipment": [7],
-      "variations": []
+      "equipment": [7]
     }
   },
   {
@@ -7749,10 +7733,10 @@
       "creation_date": "2020-07-27",
       "language": 1,
       "uuid": "7662a76a-3ea7-4b63-86d9-c0702b554090",
+      "variations": null,
       "muscles": [1, 13],
       "muscles_secondary": [],
-      "equipment": [1],
-      "variations": []
+      "equipment": [1]
     }
   }
 ]

@@ -153,6 +153,24 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
+class Variation(models.Model):
+    """
+    Variation ids for exercises
+    """
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return self.name
+
+    def get_owner_object(self):
+        """
+        Variation has no owner information
+        """
+        return False
+
+
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Model for an exercise
@@ -212,10 +230,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
 
     # Added variation field
-    variations = models.ManyToManyField("self",
-                                        verbose_name=_('Variations'),
-                                        symmetrical=True,
-                                        blank=True)
+    variations = models.ForeignKey(Variation,
+                                     verbose_name=_('Variations'),
+                                     on_delete=models.CASCADE,
+                                     null=True,
+                                     default="")
     "Variations of this exercise"
 
     #
