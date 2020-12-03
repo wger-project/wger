@@ -162,16 +162,13 @@ class Variation(models.Model):
         """
         Return a more human-readable representation
         """
-        return self.name
+        return f'Variation {self.id}'
 
     def get_owner_object(self):
         """
         Variation has no owner information
         """
         return False
-
-    def get_variation(self):
-        return f'Variation {self.id}'
 
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
@@ -240,7 +237,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         null=True,
         default=""
     )
-    "Variations of this exercise"
+    """Variations of this exercise"""
 
     #
     # Django methods
@@ -301,6 +298,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     @property
     def get_variations(self):
+        """
+        Returns the variations for this exercise
+        """
+
         return self.variations.exercise_set.exclude(id=self.id)
 
     @property
