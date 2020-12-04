@@ -20,7 +20,7 @@ To start all services:
 
     docker-compose -f extras/docker/compose/docker-compose.yml up
 
-Then open <http://localhost:8000> and log in as: **admin**, password **admin**
+Then open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
 
 ### 2 - Lifecycle Management

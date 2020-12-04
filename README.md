@@ -37,7 +37,7 @@ If you just want to try it out:
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 ```
 
-Then just open <http://localhost:8000> and log in as **admin**, password **admin**
+Then just open <http://localhost:8000> and log in as **admin**, password **adminadmin**
 
 Please note that this image will overwrite your data when you pull a new version,
 it is only intended as an easy to setup demo
@@ -90,7 +90,7 @@ wger bootstrap
 python manage.py runserver
 ```
 
-Log in as: **admin**, password **admin**
+Log in as: **admin**, password **adminadmin**
 
 After the first run you just start django's development server::
 

@@ -38,7 +38,7 @@ You might also want to download the exercise images (will take some time):
 
 ### 2 - Open the Application
 
-Just open <http://localhost:8000> and log in as: **admin**, password **admin**
+Just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
 To stop the container:
 
