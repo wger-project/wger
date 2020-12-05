@@ -29,7 +29,8 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator
+    MinValueValidator,
+    MinLengthValidator
 )
 from django.db import models
 from django.template.loader import render_to_string
@@ -289,7 +290,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    editable=False)
 
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'), )
+                            verbose_name=_('Name'),
+                            validators=[MinLengthValidator(3)])
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
