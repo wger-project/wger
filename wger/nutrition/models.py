@@ -29,8 +29,8 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator,
-    MinLengthValidator
+    MinLengthValidator,
+    MinValueValidator
 )
 from django.db import models
 from django.template.loader import render_to_string
