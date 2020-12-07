@@ -32,6 +32,7 @@ Developers
 * Biplov - https://github.com/beingbiplov
 * Rashmi Kamath - https://github.com/Rkamath2
 * Anthony (Ryo) Wright - https://github.com/ryowright
+* Austin Leung - https://github.com/austin-leung
 
 Translators
 -----------

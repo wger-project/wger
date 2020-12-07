@@ -122,6 +122,52 @@ class AddIngredientTestCase(WgerAddTestCase):
             self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
+class IngredientNameShortTestCase(WgerTestCase):
+    """
+    Tests that ingredient cannot have name with length less than 3
+    """
+    data = {'name': 'Ui',
+            'sodium': 2,
+            'energy': 200,
+            'fat': 10,
+            'carbohydrates_sugar': 5,
+            'fat_saturated': 3.14,
+            'fibres': 2.1,
+            'protein': 20,
+            'carbohydrates': 10,
+            'license': 2,
+            'license_author': 'me!'}
+
+    def test_add_ingredient_short_name(self):
+        """
+        Test that ingredient cannot be added with name of length less than 3
+        """
+        self.user_login('admin')
+
+        count_before = Ingredient.objects.count()
+
+        response = self.client.post(reverse('nutrition:ingredient:add'), self.data)
+        count_after = Ingredient.objects.count()
+        self.assertEqual(response.status_code, 200)
+
+        # Ingredient was not added
+        self.assertEqual(count_before, count_after)
+
+    def test_edit_ingredient_short_name(self):
+        """
+        Test that ingredient cannot be edited to name of length less than 3
+        """
+        self.user_login('admin')
+
+        response = self.client.post(reverse('nutrition:ingredient:edit',
+                                    kwargs={'pk': '1'}), self.data)
+        self.assertEqual(response.status_code, 200)
+
+        ingredient = Ingredient.objects.get(pk=1)
+        # Ingredient was not edited
+        self.assertNotEqual(ingredient.update_date, datetime.date.today())
+
+
 class IngredientDetailTestCase(WgerTestCase):
     """
     Tests the ingredient details page
