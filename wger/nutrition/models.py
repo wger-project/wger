@@ -92,7 +92,7 @@ class NutritionPlan(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.CharField(max_length=(80),
+    description = models.CharField(max_length=80,
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '

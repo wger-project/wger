@@ -71,6 +71,9 @@ def processor(request):
 
         # current gym, if available
         'custom_header': get_custom_header(request),
+
+        # Template to extend in forms, kinda ugly
+        'extend_template': 'base_empty.html' if request.is_ajax() else 'base.html'
     }
 
     # Pseudo-intelligent navigation here

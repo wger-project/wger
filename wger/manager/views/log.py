@@ -227,7 +227,6 @@ def add(request, pk):
     context['helper'] = WorkoutLogFormHelper()
     context['session_form'] = session_form
     context['form'] = session_form
-    context['extend_template'] = 'base.html'
     context['form_action'] = request.path
 
     return render(request, 'log/add.html', context)
