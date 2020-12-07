@@ -13,17 +13,21 @@ Upgrade steps from 1.9:
 * Compile the CSS ``yarn build:css:sass``
 * Run migrations ``python3 manage.py migrate``
 * Update static files (only production): ``python3 manage.py collectstatic``
-* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)
+* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings
+  instead of create_settings)
 
 
 🚀 Features:
 
-* Add nutrition diary to log the daily calories actually taken `#284`_, `#501`_ and `#506`_
-  (thanks `@WalkingPizza`_ and `@oconnelc`_)
-* Support for reps-in-reserve (RiR) in workout plans and logs `#479`_ (thanks `@SkyNetIndustry`_)
+* Add nutrition diary to log the daily calories actually taken `#284`_, `#501`_
+  and `#506`_ (thanks `@WalkingPizza`_ and `@oconnelc`_)
+* Support for reps-in-reserve (RiR) in workout plans and logs `#479`_
+  (thanks `@SkyNetIndustry`_)
 * Improved user experience, on desktop and mobile `#337`_
-* Group similar exercises such as wide grip, reverse, etc. `#555`_ (thanks `@ryowright`_)
-* Improved info endpoints for exercises and ingredients, this saves additional API calls `#411`_
+* Group similar exercises such as wide grip, reverse, etc. `#555`_
+  (thanks `@ryowright`_)
+* Improved info endpoints for exercises and ingredients, this saves additional
+  API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 * Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
 
