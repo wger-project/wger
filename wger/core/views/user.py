@@ -591,6 +591,7 @@ class WgerPasswordResetView(PasswordResetView):
 
 class WgerPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'form.html'
+    success_url = reverse_lazy('core:user:login')
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
