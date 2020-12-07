@@ -7,12 +7,12 @@ Changelog
 
 Upgrade steps from 1.9:
 
-* Update python libraries ``pip install -r requirements.txt``
+* Update python libraries ``pip3 install -r requirements.txt``
 * Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
 * Update CSS and JS libraries ``yarn install``
 * Compile the CSS ``yarn build:css:sass``
-* Run migrations ``python manage.py migrate``
-* Update static files (only production): ``python manage.py collectstatic``
+* Run migrations ``python3 manage.py migrate``
+* Update static files (only production): ``python3 manage.py collectstatic``
 * Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)
 
 
@@ -31,7 +31,7 @@ Upgrade steps from 1.9:
 🐛 Bug Fixes:
 
 * `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_
-  and `#560`_ (thanks `@sandilsranasinghe`_)
+  and `#560`_ (thanks `@sandilsranasinghe`_), `#426`_ (thanks `@austin-leung`_),
 
 
 🧰 Maintenance:
@@ -52,12 +52,14 @@ Upgrade steps from 1.9:
 .. _@Rkamath2: https://github.com/Rkamath2
 .. _@SkyNetIndustry: https://github.com/SkyNetIndustry
 .. _@ryowright: https://github.com/ryowright
+.. _@austin-leung: https://github.com/austin-leung
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
 .. _#411: https://github.com/wger-project/wger/issues/411
+.. _#426: https://github.com/wger-project/wger/issues/426
 .. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
 .. _#478: https://github.com/wger-project/wger/issues/478
