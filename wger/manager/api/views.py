@@ -106,8 +106,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Set the owner
         """
-        today = datetime.date.today()
-        serializer.save(date=today, user=self.request.user)
+        serializer.save(user=self.request.user)
 
     def get_owner_objects(self):
         """
