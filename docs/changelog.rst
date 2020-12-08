@@ -34,7 +34,7 @@ Upgrade steps from 1.9:
 
 🐛 Bug Fixes:
 
-* `#426`_ (thanks `@austin-leung`_), `#499`_, `#505`_, `#504`_, `#511`_, `#516`_,
+* `#368`_, `#426`_ (thanks `@austin-leung`_), `#499`_, `#505`_, `#504`_, `#511`_, `#516`_,
   `#522`_, `#554`_ and `#560`_ (thanks `@sandilsranasinghe`_), `#564`_, `#565`_
 
 
@@ -61,6 +61,7 @@ Upgrade steps from 1.9:
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
+.. _#368: https://github.com/wger-project/wger/issues/368
 .. _#340: https://github.com/wger-project/wger/issues/340
 .. _#411: https://github.com/wger-project/wger/issues/411
 .. _#426: https://github.com/wger-project/wger/issues/426
