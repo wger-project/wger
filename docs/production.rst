@@ -139,7 +139,7 @@ The bootstrap command will also create a default administrator user (you probabl
 want to change the password as soon as you log in):
 
 * **username**: admin
-* **password**: admin
+* **password**: adminadmin
 
 
 .. _other-changes:
