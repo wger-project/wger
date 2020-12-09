@@ -46,7 +46,7 @@ from django.views.generic import (
 )
 
 # wger
-from wger.nutrition.forms import  (
+from wger.nutrition.forms import (
     UnitChooserForm,
     IngredientForm,
 )
@@ -187,7 +187,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
         if request.user.userprofile.is_temporary:
             return HttpResponseForbidden()
         return super(IngredientCreateView, self).dispatch(request, *args, **kwargs)
-    
+
     def get_context_data(self, **kwargs):
         context = super(IngredientCreateView, self).get_context_data(**kwargs)
         context['extend_template'] = 'base.html'
