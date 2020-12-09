@@ -259,3 +259,42 @@ class MealLogItemForm(MealItemForm):
         fields = ['ingredient',
                   'weight_unit',
                   'amount']
+
+
+class IngredientForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = ['name',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author']
+
+    def __init__(self, *args, **kwargs):
+        super(IngredientForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'name',
+            'energy',
+            'protein',
+            Row(
+                Column('carbohydrates', css_class='form-group col-6 mb-0'),
+                Column('carbohydrates_sugar', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('fat', css_class='form-group col-6 mb-0'),
+                Column('fat_saturated', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'fibres',
+            'sodium',
+            'license',
+            'license_author'
+        )
