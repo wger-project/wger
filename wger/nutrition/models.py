@@ -512,6 +512,11 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         return False
 
+    def _get_energy_kilojoule(self):
+        return self.energy * 4184
+
+    energy_kilojoule = property(_get_energy_kilojoule)
+
 
 class WeightUnit(models.Model):
     """
