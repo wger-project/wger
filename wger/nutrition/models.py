@@ -260,6 +260,36 @@ class NutritionPlan(models.Model):
                 result[key] += values[key]
         return result
 
+class IngredientCategory(models.Model):
+    """
+    Model for an Ingredient category
+    """
+    name = models.CharField(max_length=100,
+                            verbose_name=_('Name'))
+    # Metaclass to set some other properties
+    class Meta:
+        verbose_name_plural = _("Ingredient Categories")
+        ordering = ["name", ]
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return self.name
+
+    def get_owner_object(self):
+        """
+        Category has no owner information
+        """
+        return False
+
+    def save(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+
+        super(IngredientCategory, self).save(*args, **kwargs)
+
 
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -352,6 +382,43 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                  help_text=_('In g per 100g of product'),
                                  validators=[MinValueValidator(0),
                                              MaxValueValidator(100)])
+    code = models.CharField(max_length=200,
+                            verbose_name=_('Name'),
+                            null=True)
+
+    source_name = models.CharField(max_length=200,
+                                   verbose_name=_('Source Name'),
+                                   null=True)
+    
+    source_url = models.URLField(verbose_name=_('Link'),
+                                help_text=_('Link to product'),
+                                blank=True,
+                                null=True)
+    
+    last_imported = models.DateTimeField(default=timezone.now)
+
+    updated = models.DateTimeField(default=timezone.now) 
+
+    common_name = models.CharField(max_length=200,
+                                   verbose_name=_('Common name of product'),
+                                   null=True,
+                                   blank=True)
+
+    image = models.ImageField(verbose_name=_('Image'),
+                              help_text=_('Only PNG and JPEG formats are supported'),
+                              null=True,
+                              blank=True)
+    
+    category = models.ForeignKey(IngredientCategory,
+                                 verbose_name=_('Category'),
+                                 on_delete=models.CASCADE,
+                                 null=True,
+                                 blank=True)
+
+    brand = models.CharField(max_length=200,
+                            verbose_name=_('Brand name of product'),
+                            null=True,
+                            blank=True)
 
     #
     # Django methods
