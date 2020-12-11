@@ -204,8 +204,6 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                        blank=True)
     """Equipment needed by this exercise"""
 
-    
-
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -215,9 +213,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     objects = SubmissionManager()
     """Custom manager"""
 
-    category = models.ForeignKey(ExerciseCategory,
-                                 verbose_name=_('Category'),
-                                 on_delete=models.CASCADE)
     description = models.TextField(max_length=2000,
                                    verbose_name=_('Description'),
                                    validators=[MinLengthValidator(40)])
@@ -231,22 +226,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                      verbose_name=_('Name'),
                                      default='')
     """The exercise's name, as entered by the user"""
-
-    muscles = models.ManyToManyField(Muscle,
-                                     blank=True,
-                                     verbose_name=_('Primary muscles'))
-    """Main muscles trained by the exercise"""
-
-    muscles_secondary = models.ManyToManyField(Muscle,
-                                               verbose_name=_('Secondary muscles'),
-                                               related_name='secondary_muscles',
-                                               blank=True)
-    """Secondary muscles trained by the exercise"""
-
-    equipment = models.ManyToManyField(Equipment,
-                                       verbose_name=_('Equipment'),
-                                       blank=True)
-    """Equipment needed by this exercise"""
 
     creation_date = models.DateField(_('Date'),
                                      auto_now_add=True,
@@ -388,7 +367,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     def set_author(self, request):
         """
         Set author and status
-
         This is only used when creating exercises (via web or API)
         """
         if request.user.has_perm('exercises.add_exercise'):
@@ -507,7 +485,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     def set_author(self, request):
         """
         Set author and status
-
         This is only used when creating images (via web or API)
         """
         if request.user.has_perm('exercises.add_exerciseimage'):
