@@ -397,8 +397,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     
     last_imported = models.DateTimeField(default=timezone.now)
 
-    updated = models.DateTimeField(default=timezone.now) 
-
     common_name = models.CharField(max_length=200,
                                    verbose_name=_('Common name of product'),
                                    null=True,
