@@ -18,6 +18,7 @@
 from django import template
 from django.conf import settings
 from django.db.models import QuerySet
+from django.templatetags.static import static
 from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
@@ -131,9 +132,9 @@ def render_muscles(muscles=None, muscles_sec=None):
     except IndexError:
         front_back = "front" if out_sec[0].is_front else "back"
 
-    backgrounds = [f"images/muscles/main/muscle-{i.id}.svg" for i in out_main] \
-        + [f"images/muscles/secondary/muscle-{i.id}.svg" for i in out_sec] \
-        + [f"images/muscles/muscular_system_{front_back}.svg"]
+    backgrounds = [i.image_url_main for i in out_main] \
+        + [i.image_url_secondary for i in out_sec] \
+        + [static(f"images/muscles/muscular_system_{front_back}.svg")]
 
     return {"backgrounds": backgrounds,
             "empty": False}
