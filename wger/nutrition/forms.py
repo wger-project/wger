@@ -276,7 +276,6 @@ class IngredientForm(forms.ModelForm):
                   'fat_saturated',
                   'fibres',
                   'sodium',
-                  'image', # optional
                   'license',
                   'license_author']
         widgets = {'category': forms.TextInput}
@@ -306,7 +305,6 @@ class IngredientForm(forms.ModelForm):
             ),
             'fibres',
             'sodium',
-            'image',
             'license',
             'license_author'
         )

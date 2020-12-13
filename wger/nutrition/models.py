@@ -401,11 +401,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    verbose_name=_('Common name of product'),
                                    null=True,
                                    blank=True)
-
-    image = models.ImageField(verbose_name=_('Image'),
-                              help_text=_('Only PNG and JPEG formats are supported'),
-                              null=True,
-                              blank=True)
     
     category = models.ForeignKey(IngredientCategory,
                                  verbose_name=_('Category'),
