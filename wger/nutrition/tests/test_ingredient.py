@@ -263,12 +263,25 @@ class IngredientValuesTestCase(WgerTestCase):
                                   'protein': '28.58',
                                   'carbohydrates': '0.14'})
 
+    def verify_kilojoules(self):
+        ingredient1 = Ingredient.objects.get(pk=1)
+        self.assertEqual(ingredient1.energy_kilojoule, (ingredient1.energy * 4184))
+        self.assertEqual(ingredient1.energy_kilojoule, 736384)
+
+        ingredient2 = Ingredient()
+        self.assertEqual(ingredient2.energy_kilojoule, 0)
+        ingredient2.energy = 75
+        self.assertEqual(ingredient2.energy_kilojoule, 313800)
+        ingredient2.energy = 100
+        self.assertEqual(ingredient2.energy_kilojoule, 418400)
+
     def test_calculate_value_anonymous(self):
         """
         Calculate the nutritional values as an anonymous user
         """
 
         self.calculate_value()
+        self.verify_kilojoules()
 
     def test_calculate_value_logged_in(self):
         """
@@ -277,6 +290,7 @@ class IngredientValuesTestCase(WgerTestCase):
 
         self.user_login('test')
         self.calculate_value()
+        self.verify_kilojoules()
 
 
 class IngredientTestCase(WgerTestCase):
