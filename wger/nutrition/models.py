@@ -513,6 +513,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return False
 
     def _get_energy_kilojoule(self):
+        """
+        returns kilojoules for current ingredient, 0 if energy is uninitialized
+        """
         if self.energy:
             return self.energy * 4184
         else:

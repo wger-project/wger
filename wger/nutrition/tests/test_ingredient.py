@@ -264,6 +264,9 @@ class IngredientValuesTestCase(WgerTestCase):
                                   'carbohydrates': '0.14'})
 
     def verify_kilojoules(self):
+        """
+        Verify kilojoules as propety of ingredient --> (ingredient.energy * 4184)
+        """
         ingredient1 = Ingredient.objects.get(pk=1)
         self.assertEqual(ingredient1.energy_kilojoule, (ingredient1.energy * 4184))
         self.assertEqual(ingredient1.energy_kilojoule, 736384)
