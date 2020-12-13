@@ -513,10 +513,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return False
 
     def _get_energy_kilojoule(self):
-      if self.energy:
-        return self.energy * 4184
-      else:
-        return 0
+        if self.energy:
+            return self.energy * 4184
+        else:
+            return 0
 
     energy_kilojoule = property(_get_energy_kilojoule)
 
