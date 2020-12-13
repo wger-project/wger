@@ -260,12 +260,14 @@ class NutritionPlan(models.Model):
                 result[key] += values[key]
         return result
 
+
 class IngredientCategory(models.Model):
     """
     Model for an Ingredient category
     """
     name = models.CharField(max_length=100,
                             verbose_name=_('Name'))
+
     # Metaclass to set some other properties
     class Meta:
         verbose_name_plural = _("Ingredient Categories")
@@ -384,24 +386,26 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                              MaxValueValidator(100)])
     code = models.CharField(max_length=200,
                             verbose_name=_('Name'),
-                            null=True)
+                            null=True,
+                            blank=True)
 
     source_name = models.CharField(max_length=200,
                                    verbose_name=_('Source Name'),
-                                   null=True)
-    
+                                   null=True,
+                                   blank=True)
+
     source_url = models.URLField(verbose_name=_('Link'),
-                                help_text=_('Link to product'),
-                                blank=True,
-                                null=True)
-    
-    last_imported = models.DateTimeField(default=timezone.now)
+                                 help_text=_('Link to product'),
+                                 blank=True,
+                                 null=True)
+
+    last_imported = models.DateTimeField(_('Date'), auto_now_add=True, null=True, blank=True)
 
     common_name = models.CharField(max_length=200,
                                    verbose_name=_('Common name of product'),
                                    null=True,
                                    blank=True)
-    
+
     category = models.ForeignKey(IngredientCategory,
                                  verbose_name=_('Category'),
                                  on_delete=models.CASCADE,
@@ -409,9 +413,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                  blank=True)
 
     brand = models.CharField(max_length=200,
-                            verbose_name=_('Brand name of product'),
-                            null=True,
-                            blank=True)
+                             verbose_name=_('Brand name of product'),
+                             null=True,
+                             blank=True)
 
     #
     # Django methods

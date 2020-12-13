@@ -265,9 +265,9 @@ class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = ['name',
-                  'common_name', #optional
-                  'brand', # optional
-                  'category', #option (Eg. vegetarian) include this as help text
+                  'common_name',
+                  'brand',
+                  'category',
                   'energy',
                   'protein',
                   'carbohydrates',
