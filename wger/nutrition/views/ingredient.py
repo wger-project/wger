@@ -47,8 +47,8 @@ from django.views.generic import (
 
 # wger
 from wger.nutrition.forms import (
-    UnitChooserForm,
     IngredientForm,
+    UnitChooserForm
 )
 from wger.nutrition.models import Ingredient
 from wger.utils.cache import cache_mapper
