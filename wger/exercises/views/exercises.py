@@ -73,6 +73,7 @@ from wger.exercises.models import (
     Exercise,
     ExerciseBase,
     ExerciseCategory,
+    Equipment,
     Muscle
 )
 from wger.manager.models import WorkoutLog
@@ -185,6 +186,10 @@ class ExercisesEditAddView(WgerFormMixin):
                                                          widget=CheckboxSelectMultiple(),
                                                          required=False)
 
+            equipment = ModelMultipleChoiceField(queryset=Equipment.objects.all(),
+                                                 widget=CheckboxSelectMultiple(),
+                                                 required=False)
+
             description = CharField(label=_('Description'),
                                     widget=Textarea,
                                     required=False)
@@ -239,7 +244,7 @@ class ExerciseUpdateView(ExercisesEditAddView,
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object.name)
-
+        print(context)
         return context
 
 
@@ -254,6 +259,16 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
+        exercise_base = ExerciseBase.objects.create(category = ExerciseCategory.objects.get(name=form.cleaned_data['category']))
+        
+        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+
+        print(form.instance)
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -319,12 +334,8 @@ class ExerciseDeleteView(WgerDeleteMixin,
     """
 
     model = Exercise
-    fields = ('category',
-              'description',
-              'name_original',
-              'muscles',
-              'muscles_secondary',
-              'equipment')
+    fields = ('description',
+              'name_original')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message_extra = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Successfully deleted')

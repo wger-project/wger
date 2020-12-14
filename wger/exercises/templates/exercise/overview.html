@@ -39,7 +39,7 @@ $(document).ready(function() {
 {% block content %}
 
 {% cache cache_timeout exercise-overview language.id %}
-{% regroup exercises by category as exercise_list %}
+{% regroup exercises by exercise_base.category as exercise_list %}
 <div class="accordion" id="exerciseAccordion">
     {% for item in exercise_list %}
     <div class="card">

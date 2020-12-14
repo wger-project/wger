@@ -21,12 +21,20 @@ from rest_framework import serializers
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     Muscle
 )
 
+class ExerciseBaseSerializer(serializers.ModelSerializer):
+    """
+    Exercise serializer
+    """
+    class Meta:
+        model = ExerciseBase
+        fields = '__all__'
 
 class ExerciseSerializer(serializers.ModelSerializer):
     """
@@ -71,6 +79,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
 
     images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
     comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
+    exercise_base = ExerciseBaseSerializer(source='exercisebase_set', many=True)
 
     class Meta:
         model = Exercise
@@ -78,12 +87,9 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
         fields = ("id",
                   "name",
                   "uuid",
-                  "category",
                   "description",
                   "creation_date",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
+                  "exercise_base"
                   "language",
                   "license",
                   "license_author",

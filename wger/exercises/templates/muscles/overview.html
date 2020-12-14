@@ -47,37 +47,39 @@
                         {% render_muscles muscle %}
                     </div>
 
-                    {% for exercise in muscle.exercise_set.all %}
-                    {% if exercise.language in active_languages %}
-                    <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                        <div class="media">
-                            {% if exercise.main_image %}
-                                <img alt="{{ exercise.name }}"
-                                 class="mr-3"
-                                 style="width: 50px;"
-                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                            {% else %}
-                                <img alt="{% trans 'Placeholder image for exercise' %}"
-                                     class="mr-3"
-                                     style="width: 50px;"
-                                     src="{% static 'images/icons/image-placeholder.svg' %}">
-                            {% endif %}
-                            <div class="media-body">
-                                <p class="media-heading h5">{{ exercise.name }}</p>
-                                <span class="text-muted small">
-                                    {% trans exercise.exercise_base.category.name %}
-                                    <!--
-                                    {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
-                                    <br>
-                                    {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
-                                    -->
-                                </span>
-                             </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                    {% empty %}
-                        {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+                    {% for exercise_base in muscle.exercisebase_set.all %}
+                        {% for exercise in exercise_base.exercises.all %}
+                        {% if exercise.language in active_languages %}
+                        <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
+                            <div class="media">
+                                {% if exercise.main_image %}
+                                    <img alt="{{ exercise.name }}"
+                                    class="mr-3"
+                                    style="width: 50px;"
+                                    src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                                {% else %}
+                                    <img alt="{% trans 'Placeholder image for exercise' %}"
+                                        class="mr-3"
+                                        style="width: 50px;"
+                                        src="{% static 'images/icons/image-placeholder.svg' %}">
+                                {% endif %}
+                                <div class="media-body">
+                                    <p class="media-heading h5">{{ exercise.name }}</p>
+                                    <span class="text-muted small">
+                                        {% trans exercise.exercise_base.category.name %}
+                                        <!--
+                                        {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
+                                        <br>
+                                        {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
+                                        -->
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% empty %}
+                            {% trans "No exercises for this muscle. Add or edit an exercise and set the muscle." %}
+                        {% endfor %}
                     {% endfor %}
                 </div>
             </div>
