@@ -15,7 +15,7 @@ langs = {"en": "English", "de": "German", "es": "Spanish",
         "el": "Greek", "nl": "Dutch", "no": "Norwegian", "cs": "Czech",
         "sv": "Swedish", "pt": "Portuguese"}
 
-for product in db.products.find({'lang': { "$in": list(langs.keys())}}).limit(10):
+for product in db.products.find({'lang': { "$in": list(langs.keys())}}):
     lang = product['lang']
 
     main_details = ['product_name', 'code']
@@ -66,5 +66,6 @@ for product in db.products.find({'lang': { "$in": list(langs.keys())}}).limit(10
         source_name = source_name,
         source_url = source_url,
         common_name = common_name,
-        brand = brand
+        brand = brand,
+        status = 2
     )
