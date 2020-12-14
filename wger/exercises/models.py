@@ -170,7 +170,6 @@ class Variation(models.Model):
         """
         return False
 
-
 class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Model for an exercise base
@@ -182,10 +181,6 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'),
                                  on_delete=models.CASCADE)
-
-    equipment = models.ManyToManyField(Equipment,
-                                       verbose_name=_('Equipment'),
-                                       blank=True)
     
     muscles = models.ManyToManyField(Muscle,
                                      blank=True,
@@ -203,7 +198,6 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                        verbose_name=_('Equipment'),
                                        blank=True)
     """Equipment needed by this exercise"""
-
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -253,6 +247,14 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         default=""
     )
     """Variations of this exercise"""
+
+    exercise_base = models.ForeignKey(ExerciseBase,
+                                verbose_name=('ExerciseBase'),
+                                on_delete=models.CASCADE,
+                                default=None,
+                                null=True,
+                                related_name='exercises')
+    """ Refers to the base exercise with non translated information """
 
     #
     # Django methods

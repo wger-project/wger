@@ -71,6 +71,7 @@ from crispy_forms.layout import (
 from wger.config.models import LanguageConfig
 from wger.exercises.models import (
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     Muscle
 )
@@ -111,7 +112,7 @@ class ExerciseListView(ListView):
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         return Exercise.objects.accepted() \
             .filter(language__in=languages) \
-            .order_by('category__id') \
+            .order_by('exercise_base__category__id') \
             .select_related()
 
     def get_context_data(self, **kwargs):
@@ -136,10 +137,10 @@ def view(request, id, slug=None):
 
     template_data['exercise'] = exercise
 
-    template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
-    template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
-    template_data["muscles_sec_front"] = exercise.muscles_secondary.filter(is_front=True)
-    template_data["muscles_sec_back"] = exercise.muscles_secondary.filter(is_front=False)
+    template_data["muscles_main_front"] = exercise.exercise_base.muscles.filter(is_front=True)
+    template_data["muscles_main_back"] = exercise.exercise_base.muscles.filter(is_front=False)
+    template_data["muscles_sec_front"] = exercise.exercise_base.muscles_secondary.filter(is_front=True)
+    template_data["muscles_sec_back"] = exercise.exercise_base.muscles_secondary.filter(is_front=False)
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart

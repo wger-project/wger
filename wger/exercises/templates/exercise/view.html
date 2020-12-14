@@ -74,11 +74,11 @@ $(document).ready(function() {
 
 
 <h5 class="mt-4">{% trans "Category" %}:</h5>
-{% trans exercise.category.name %}
+{% trans exercise.exercise_base.category.name %}
 
-{% if exercise.equipment.all %}
+{% if exercise.exercise_base.equipment.all %}
     <h5 class="mt-4">{% trans "Equipment" %}:</h5>
-    {% for equipment in exercise.equipment.all %}
+    {% for equipment in exercise.exercise_base.equipment.all %}
         {% trans equipment.name %}
         {% if not forloop.last %}, {% endif %}
     {% endfor %}

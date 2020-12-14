@@ -69,11 +69,11 @@ $(document).ready(function() {
                                 <p class="media-heading h5">{{ exercise.name }}</p>
                                 <span class="text-muted small">
 
-                                    {{ exercise.equipment.all|join:", " }}
+                                    {{ exercise.exercise_base.equipment.all|join:", " }}
                                     <!--
-                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
+                                    {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
                                     <br>
-                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
+                                    {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
                                     -->
                                 </span>
                              </div>

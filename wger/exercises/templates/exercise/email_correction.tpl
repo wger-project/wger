@@ -15,7 +15,7 @@ Changes to the exercise:
   - New:      {{ form_data.name }}
 
 * Category:
-  - Original: {{ exercise.category }}
+  - Original: {{ exercise.exercise_base.category }}
   - New:      {{ form_data.category }}
 
 * Description:
@@ -23,15 +23,15 @@ Changes to the exercise:
   - New:      {{ form_data.description }}
 
 * Muscles (primary):
-  - Original: {{ exercise.muscles.all|join:", " }}
+  - Original: {{ exercise.exercise_base.muscles.all|join:", " }}
   - New:      {{ form_data.muscles.all|join:", " }}
 
 * Muscles (secondary):
-  - Original: {{ exercise.muscles_secondary.all|join:", " }}
+  - Original: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
   - New:      {{ form_data.muscles_secondary.all|join:", " }}
 
 * Equipment:
-  - Original: {{ exercise.equipment.all|join:", " }}
+  - Original: {{ exercise.exercise_base.equipment.all|join:", " }}
   - New:      {{ form_data.equipment.all|join:", " }}
 
 * License:

@@ -28,4 +28,9 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+        migrations.AddField(
+            model_name='exercise',
+            name='exercise_base',
+            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='exercises', to='exercises.exercisebase', verbose_name='ExerciseBase'),
+        ),
     ]

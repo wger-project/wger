@@ -123,7 +123,7 @@ def search(request):
                 'data': {
                     'id': exercise.id,
                     'name': exercise.name,
-                    'category': _(exercise.category.name),
+                    'category': _(exercise.exercise_base.category.name),
                     'image': image,
                     'image_thumbnail': thumbnail
                 }
