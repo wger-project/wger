@@ -375,21 +375,19 @@ def create_exercise_mapping(apps, schema_editor):
     ExerciseBase = apps.get_model('exercises', 'ExerciseBase')
     for exercise_group in exercise_mapping:
         langs = list(exercise_group.keys())
-        exercise_objects = list(map(lambda lang: Exercise.objects.filter(uuid=exercise_group[lang]).first(), langs))
+        exercise_objects = []
+        for lang in langs:
+            try:
+                exercise_objects.append(Exercise.objects.get(uuid=exercise_group[lang]))
+            except:
+                print(exercise_group[lang], "does not exist")
 
         if(len(exercise_objects) > 0):
-            if(exercise_objects[0] is None):
-                print(exercise_group[langs[0]])
-                continue
             exercise_base_main = exercise_objects[0].exercise_base
-            for i in range(1, len(exercise_objects)):
-                if(exercise_objects[i] is None):
-                    print(exercise_group[langs[i]])
-                else:
-                    exercise = exercise_objects[i]
-                    ExerciseBase.objects.filter(id=exercise.exercise_base.id).delete()
-                    exercise.exercise_base = exercise_base_main
-                    exercise.save()
+            for exercise in exercise_objects[1:]:
+                ExerciseBase.objects.get(id=exercise.exercise_base.id).delete()
+                exercise.exercise_base = exercise_base_main
+                exercise.save()
 
 def remove_mappings(apps, schema_editor):
     """
