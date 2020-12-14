@@ -33,6 +33,9 @@ Developers
 * Rashmi Kamath - https://github.com/Rkamath2
 * Anthony (Ryo) Wright - https://github.com/ryowright
 * Austin Leung - https://github.com/austin-leung
+* Harlene Samra - https://github.com/harlenesamra
+* Nikitha Murikinati - https://github.com/nikithamurikinati
+* Justine Cho - https://github.com/jcho1
 
 Translators
 -----------
