@@ -387,7 +387,7 @@ def create_exercise_mapping(apps, schema_editor):
                     print(exercise_group[langs[i]])
                 else:
                     exercise = exercise_objects[i]
-                    exercise.exercise_base.delete()
+                    ExerciseBase.objects.filter(id=exercise.exercise_base.id).delete()
                     exercise.exercise_base = exercise_base_main
                     exercise.save()
 
@@ -395,7 +395,7 @@ def remove_mappings(apps, schema_editor):
     """
     Backwards migration. Removes all variation data.
     """
-    print("Hello")
+    pass
 
 class Migration(migrations.Migration):
 
