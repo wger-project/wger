@@ -25,7 +25,7 @@ from django.utils.translation import (
     ugettext_lazy
 )
 
-# Third Party
+# wger
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -35,8 +35,6 @@ from crispy_forms.layout import (
     Row,
     Submit
 )
-
-# wger
 from wger.core.models import UserProfile
 from wger.nutrition.models import (
     Ingredient,
@@ -260,21 +258,22 @@ class MealLogItemForm(MealItemForm):
                   'weight_unit',
                   'amount']
 
+
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = ['name',
-              'energy',
-              'protein',
-              'carbohydrates',
-              'carbohydrates_sugar',
-              'fat',
-              'fat_saturated',
-              'fibres',
-              'sodium',
-              'license',
-              'license_author']
-    
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author']
+
     def __init__(self, *args, **kwargs):
         super(IngredientForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

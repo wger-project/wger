@@ -60,20 +60,18 @@ from django.views.generic import (
     UpdateView
 )
 
-# Third Party
+# wger
 from crispy_forms.layout import (
     Column,
     Layout,
     Row
 )
-
-# wger
 from wger.config.models import LanguageConfig
 from wger.exercises.models import (
+    Equipment,
     Exercise,
     ExerciseBase,
     ExerciseCategory,
-    Equipment,
     Muscle
 )
 from wger.manager.models import WorkoutLog
@@ -135,13 +133,14 @@ def view(request, id, slug=None):
     template_data['show_shariff'] = True
 
     exercise = get_object_or_404(Exercise, pk=id)
+    exercise_base = exercise.exercise_base
 
     template_data['exercise'] = exercise
 
-    template_data["muscles_main_front"] = exercise.exercise_base.muscles.filter(is_front=True)
-    template_data["muscles_main_back"] = exercise.exercise_base.muscles.filter(is_front=False)
-    template_data["muscles_sec_front"] = exercise.exercise_base.muscles_secondary.filter(is_front=True)
-    template_data["muscles_sec_back"] = exercise.exercise_base.muscles_secondary.filter(is_front=False)
+    template_data["muscles_main_front"] = exercise_base.muscles.filter(is_front=True)
+    template_data["muscles_main_back"] = exercise_base.muscles.filter(is_front=False)
+    template_data["muscles_sec_front"] = exercise_base.muscles_secondary.filter(is_front=True)
+    template_data["muscles_sec_back"] = exercise_base.muscles_secondary.filter(is_front=False)
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
@@ -198,7 +197,6 @@ class ExercisesEditAddView(WgerFormMixin):
                 model = Exercise
                 widgets = {'equipment': TranslatedSelectMultiple()}
                 fields = ['name_original',
-                        #   'exercise_base',
                           'category',
                           'description',
                           'muscles',
@@ -238,14 +236,15 @@ class ExercisesEditAddView(WgerFormMixin):
         return form
 
     def form_valid(self, form):
-        exercise_base = Exercise.objects.get(name = form.instance.name).exercise_base
+        exercise_base = Exercise.objects.get(name=form.instance.name).exercise_base
         exercise_base.equipment.set(form.cleaned_data['equipment'].all())
         exercise_base.muscles.set(form.cleaned_data['muscles'].all())
         exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
 
         form.instance.exercise_base = exercise_base
         form.instance.save()
-        return super(ExercisesEditAddView, self).form_valid(form) 
+        return super(ExercisesEditAddView, self).form_valid(form)
+
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
@@ -261,6 +260,7 @@ class ExerciseUpdateView(ExercisesEditAddView,
         context['title'] = _('Edit {0}').format(self.object.name)
         return context
 
+
 class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
     """
     Generic view to add a new exercise
@@ -272,8 +272,10 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
-        exercise_base = ExerciseBase.objects.create(category = ExerciseCategory.objects.get(name=form.cleaned_data['category']))
-        
+        exercise_base = ExerciseBase.objects.create(
+            category=ExerciseCategory.objects.get(name=form.cleaned_data['category'])
+        )
+
         exercise_base.equipment.set(form.cleaned_data['equipment'].all())
         exercise_base.muscles.set(form.cleaned_data['muscles'].all())
         exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())

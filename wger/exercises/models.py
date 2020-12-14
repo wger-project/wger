@@ -170,6 +170,7 @@ class Variation(models.Model):
         """
         return False
 
+
 class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Model for an exercise base
@@ -181,23 +182,23 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'),
                                  on_delete=models.CASCADE)
-    
+
     muscles = models.ManyToManyField(Muscle,
                                      blank=True,
                                      verbose_name=_('Primary muscles'))
-    """Main muscles trained by the exercise"""                        
+    """Main muscles trained by the exercise"""
 
     muscles_secondary = models.ManyToManyField(Muscle,
                                                verbose_name=_('Secondary muscles'),
                                                related_name='secondary_muscles_base',
                                                blank=True)
-    """Secondary muscles trained by the exercise"""                                
-
+    """Secondary muscles trained by the exercise"""
 
     equipment = models.ManyToManyField(Equipment,
                                        verbose_name=_('Equipment'),
                                        blank=True)
     """Equipment needed by this exercise"""
+
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -249,11 +250,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """Variations of this exercise"""
 
     exercise_base = models.ForeignKey(ExerciseBase,
-                                verbose_name=('ExerciseBase'),
-                                on_delete=models.CASCADE,
-                                default=None,
-                                null=True,
-                                related_name='exercises')
+                                      verbose_name=('ExerciseBase'),
+                                      on_delete=models.CASCADE,
+                                      default=None,
+                                      null=True,
+                                      related_name='exercises')
     """ Refers to the base exercise with non translated information """
 
     #

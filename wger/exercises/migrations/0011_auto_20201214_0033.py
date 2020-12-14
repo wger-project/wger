@@ -370,6 +370,7 @@ exercise_mapping = [
     {'en': 'bdb7bdbb-8930-46e5-8b98-eb13e604553f', 'de': '032a38cf-b15a-4761-b684-577e41893f54'},
 ]
 
+
 def create_exercise_mapping(apps, schema_editor):
     Exercise = apps.get_model('exercises', 'Exercise')
     ExerciseBase = apps.get_model('exercises', 'ExerciseBase')
@@ -379,7 +380,7 @@ def create_exercise_mapping(apps, schema_editor):
         for lang in langs:
             try:
                 exercise_objects.append(Exercise.objects.get(uuid=exercise_group[lang]))
-            except:
+            except Exercise.DoesNotExist:
                 print(exercise_group[lang], "does not exist")
 
         if(len(exercise_objects) > 0):
@@ -389,11 +390,13 @@ def create_exercise_mapping(apps, schema_editor):
                 exercise.exercise_base = exercise_base_main
                 exercise.save()
 
+
 def remove_mappings(apps, schema_editor):
     """
-    Backwards migration. Removes all variation data.
+    Backwards migration.
     """
     pass
+
 
 class Migration(migrations.Migration):
 

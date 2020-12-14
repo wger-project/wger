@@ -9,7 +9,7 @@ def copy_columns(apps, schema_editor):
 
     for exercise in Exercise.objects.all():
         exercise_base = ExerciseBase.objects.create(
-            category = exercise.category,
+            category=exercise.category,
         )
         exercise_base.equipment.set(exercise.equipment.all())
         exercise_base.muscles.set(exercise.muscles.all())

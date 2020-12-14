@@ -18,7 +18,7 @@
 # Django
 from django.utils.translation import ugettext as _
 
-# Third Party
+# wger
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -28,8 +28,6 @@ from rest_framework.decorators import (
 )
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-
-# wger
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
@@ -69,6 +67,7 @@ class ExerciseBaseViewSet(viewsets.ModelViewSet):
                         'muscles',
                         'muscles_secondary',
                         'equipment')
+
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     """

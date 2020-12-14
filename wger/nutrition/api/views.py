@@ -21,15 +21,13 @@ import datetime
 # Django
 from django.shortcuts import get_object_or_404
 
-# Third Party
+# wger
 from rest_framework import viewsets
 from rest_framework.decorators import (
     action,
     api_view
 )
 from rest_framework.response import Response
-
-# wger
 from wger.nutrition.api.serializers import (
     IngredientInfoSerializer,
     IngredientSerializer,
