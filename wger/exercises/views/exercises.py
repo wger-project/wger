@@ -214,6 +214,11 @@ class ExercisesEditAddView(WgerFormMixin):
 
     def get_form(self, form_class=None):
         form = super(ExercisesEditAddView, self).get_form(form_class)
+        exercise = self.get_form_kwargs()['instance']
+        form.fields['category'].initial = exercise.exercise_base.category
+        form.fields['equipment'].initial = exercise.exercise_base.equipment.all()
+        form.fields['muscles'].initial = exercise.exercise_base.muscles.all()
+        form.fields['muscles_secondary'].initial = exercise.exercise_base.muscles_secondary.all()
         form.helper.layout = Layout(
             "name_original",
             "description",
@@ -232,6 +237,15 @@ class ExercisesEditAddView(WgerFormMixin):
         )
         return form
 
+    def form_valid(self, form):
+        exercise_base = Exercise.objects.get(name = form.instance.name).exercise_base
+        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+        return super(ExercisesEditAddView, self).form_valid(form) 
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
@@ -245,22 +259,7 @@ class ExerciseUpdateView(ExercisesEditAddView,
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object.name)
-        context['form'].fields['category'].initial = context['exercise'].exercise_base.category
-        context['form'].fields['equipment'].initial = context['exercise'].exercise_base.equipment.all()
-        context['form'].fields['muscles'].initial = context['exercise'].exercise_base.muscles.all()
-        context['form'].fields['muscles_secondary'].initial = context['exercise'].exercise_base.muscles_secondary.all()
         return context
-    
-    def form_valid(self, form):
-        exercise_base = Exercise.objects.get(name = form.instance.name).exercise_base
-        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
-        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
-        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
-
-        form.instance.exercise_base = exercise_base
-        form.instance.save()
-        return super(ExerciseUpdateView, self).form_valid(form) 
-
 
 class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
     """
