@@ -198,6 +198,7 @@ class ExercisesEditAddView(WgerFormMixin):
                 model = Exercise
                 widgets = {'equipment': TranslatedSelectMultiple()}
                 fields = ['name_original',
+                        #   'exercise_base',
                           'category',
                           'description',
                           'muscles',
@@ -244,8 +245,21 @@ class ExerciseUpdateView(ExercisesEditAddView,
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object.name)
-        print(context)
+        context['form'].fields['category'].initial = context['exercise'].exercise_base.category
+        context['form'].fields['equipment'].initial = context['exercise'].exercise_base.equipment.all()
+        context['form'].fields['muscles'].initial = context['exercise'].exercise_base.muscles.all()
+        context['form'].fields['muscles_secondary'].initial = context['exercise'].exercise_base.muscles_secondary.all()
         return context
+    
+    def form_valid(self, form):
+        exercise_base = Exercise.objects.get(name = form.instance.name).exercise_base
+        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+        return super(ExerciseUpdateView, self).form_valid(form) 
 
 
 class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
@@ -268,7 +282,6 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         form.instance.exercise_base = exercise_base
         form.instance.save()
 
-        print(form.instance)
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -300,6 +313,8 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
         context['title'] = _('Correct {0}').format(self.object.name)
+        # context['form']context['exercise']
+        print(context)
         return context
 
     def form_valid(self, form):
