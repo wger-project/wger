@@ -281,9 +281,10 @@ class IngredientValuesTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 8)
+        self.assertEqual(len(result), 9)
         self.assertEqual(result, {'sodium': '0.01',
                                   'energy': '1.76',
+                                  'energy_kilojoule': '7.36',
                                   'fat': '0.08',
                                   'carbohydrates_sugar': '0.00',
                                   'fat_saturated': '0.03',
@@ -299,9 +300,10 @@ class IngredientValuesTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 8)
+        self.assertEqual(len(result), 9)
         self.assertEqual(result, {'sodium': '0.61',
                                   'energy': '196.24',
+                                  'energy_kilojoule': '821.07',
                                   'fat': '9.13',
                                   'carbohydrates_sugar': '0.00',
                                   'fat_saturated': '3.62',

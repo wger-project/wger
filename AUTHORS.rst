@@ -36,6 +36,9 @@ Developers
 * Harlene Samra - https://github.com/harlenesamra
 * Nikitha Murikinati - https://github.com/nikithamurikinati
 * Justine Cho - https://github.com/jcho1
+* Derek Li - https://github.com/derekli17
+* Noah Pinter - https://github.com/nopinter
+
 
 Translators
 -----------
