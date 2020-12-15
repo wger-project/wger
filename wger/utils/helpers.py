@@ -263,3 +263,9 @@ def levenshtein(s1, s2):
                 distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
         distances = distances_
     return distances[-1]
+
+def random_string(length=32):
+    """
+    Generates a random string
+    """
+    return ''.join(random.choice(string.ascii_uppercase) for i in range(length))

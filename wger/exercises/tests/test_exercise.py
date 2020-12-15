@@ -38,6 +38,7 @@ from wger.exercises.models import (
 )
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import WORKOUT_TAB
+from wger.utils.helpers import random_string
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -242,7 +243,7 @@ class ExercisesTestCase(WgerTestCase):
         count_before = Exercise.objects.count()
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 2,
-                                     'name_original': 'my test exercise',
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
@@ -293,9 +294,10 @@ class ExercisesTestCase(WgerTestCase):
         # Add an exercise
         count_before = Exercise.objects.count()
         description = 'a nice, long and accurate description for the exercise'
+        name_original = random_string()
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 2,
-                                     'name_original': 'my test exercise',
+                                     'name_original': name_original,
                                      'license': 1,
                                      'description': description,
                                      'muscles': [1, 2]})
@@ -323,12 +325,12 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         exercise_1 = Exercise.objects.get(pk=exercise_id)
-        self.assertEqual(exercise_1.name, 'my Test Exercise')
+        self.assertEqual(exercise_1.name, name_original)
 
         # Wrong category - adding
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 111,
-                                     'name_original': 'my test exercise',
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'muscles': [1, 2]})
         self.assertTrue(response.context['form'].errors['category'])
@@ -336,7 +338,7 @@ class ExercisesTestCase(WgerTestCase):
         # Wrong category - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
                                     {'category': 111,
-                                     'name_original': 'my test exercise',
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'muscles': [1, 2]})
         if admin:
@@ -347,7 +349,7 @@ class ExercisesTestCase(WgerTestCase):
         # No muscles - adding
         response = self.client.post(reverse('exercise:exercise:add'),
                                     {'category': 1,
-                                     'name_original': 'my test exercise',
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'muscles': []})
         self.assertEqual(response.status_code, 302)
@@ -355,7 +357,7 @@ class ExercisesTestCase(WgerTestCase):
         # No muscles - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
                                     {'category': 1,
-                                     'name_original': 'my test exercise',
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'muscles': []})
         if admin:
