@@ -264,6 +264,7 @@ def levenshtein(s1, s2):
         distances = distances_
     return distances[-1]
 
+
 def random_string(length=32):
     """
     Generates a random string
