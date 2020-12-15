@@ -194,6 +194,10 @@ class ExerciseForm(ModelForm):
         js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
 
     def clean_name_original(self):
+        """
+        Throws a validation error if the submitted name is too similar to an existing
+        exercise's name
+        """
         name_original = self.cleaned_data['name_original']
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         exercises = Exercise.objects.accepted() \

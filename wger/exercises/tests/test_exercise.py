@@ -268,6 +268,23 @@ class ExercisesTestCase(WgerTestCase):
         self.add_exercise_user_fail()
         self.user_logout()
 
+    def test_add_exercise_name_too_similar_fail(self):
+        """
+        Tests that adding an exercise with a name that is too similar
+        to an existing exercise fails
+        """
+        count_before = Exercise.objects.count()
+        response = self.client.post(reverse('exercise:exercise:add'),
+                                    {'category': 2,
+                                     'name_original': 'Squats',
+                                     'license': 1,
+                                     'muscles': [1, 2]})
+        count_after = Exercise.objects.count()
+        self.assertIn(response.status_code, STATUS_CODES_FAIL)
+
+        # Exercise was not added
+        self.assertEqual(count_before, count_after)
+
     def add_exercise_success(self, admin=False):
         """
         Tests adding/editing an exercise with a user with enough rights to do this
