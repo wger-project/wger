@@ -30,6 +30,7 @@ Upgrade steps from 1.9:
   API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 * Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
+* Show kJoules as well as kcal in nutritional plan `#568`_  (thanks `@nopinter`_ and `@derekli17`_)
 
 
 🐛 Bug Fixes:
@@ -59,6 +60,8 @@ Upgrade steps from 1.9:
 .. _@ryowright: https://github.com/ryowright
 .. _@austin-leung: https://github.com/austin-leung
 .. _@harlenesamra: https://github.com/harlenesamra
+.. _@derekli17: https://github.com/derekli17
+.. _@nopinter: https://github.com/nopinter
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
@@ -87,6 +90,7 @@ Upgrade steps from 1.9:
 .. _#560: https://github.com/wger-project/wger/issues/560
 .. _#564: https://github.com/wger-project/wger/issues/564
 .. _#565: https://github.com/wger-project/wger/issues/565
+.. _#568: https://github.com/wger-project/wger/issues/568
 
 
 
