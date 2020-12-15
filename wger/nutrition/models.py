@@ -151,6 +151,7 @@ class NutritionPlan(models.Model):
                     result['total'][key] += values[key]
 
             energy = result['total']['energy']
+            result['total']['energy_kilojoule'] = result['total']['energy'] * Decimal(4.184)
 
             # In percent
             if energy:
@@ -514,6 +515,16 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         return False
 
+    @property
+    def energy_kilojoule(self):
+        """
+        returns kilojoules for current ingredient, 0 if energy is uninitialized
+        """
+        if self.energy:
+            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+        else:
+            return 0
+
 
 class WeightUnit(models.Model):
     """
@@ -632,6 +643,8 @@ class Meal(models.Model):
             for key in nutritional_info.keys():
                 nutritional_info[key] += values[key]
 
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
+
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
@@ -709,6 +722,8 @@ class BaseMealItem(object):
 
                 # Everything else, to ounces
                 nutritional_info[key] = AbstractWeight(value, 'g').oz
+
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
 
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
