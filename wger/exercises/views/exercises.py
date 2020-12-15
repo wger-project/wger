@@ -76,16 +76,16 @@ from wger.exercises.models import (
     Muscle
 )
 from wger.manager.models import WorkoutLog
+from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
+from wger.utils.helpers import levenshtein
 from wger.utils.language import (
     load_item_languages,
     load_language
 )
-from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
-from wger.utils.helpers import levenshtein
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
 
@@ -167,12 +167,12 @@ class ExerciseForm(ModelForm):
     category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
                                 widget=Select())
     muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                        widget=CheckboxSelectMultiple(),
-                                        required=False)
+                                       widget=CheckboxSelectMultiple(),
+                                       required=False)
 
     muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                    widget=CheckboxSelectMultiple(),
-                                                    required=False)
+                                                 widget=CheckboxSelectMultiple(),
+                                                 required=False)
 
     description = CharField(label=_('Description'),
                             widget=Textarea,
@@ -182,13 +182,13 @@ class ExerciseForm(ModelForm):
         model = Exercise
         widgets = {'equipment': TranslatedSelectMultiple()}
         fields = ['name_original',
-                    'category',
-                    'description',
-                    'muscles',
-                    'muscles_secondary',
-                    'equipment',
-                    'license',
-                    'license_author']
+                  'category',
+                  'description',
+                  'muscles',
+                  'muscles_secondary',
+                  'equipment',
+                  'license',
+                  'license_author']
 
     class Media:
         js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
@@ -200,12 +200,13 @@ class ExerciseForm(ModelForm):
             .filter(language__in=languages)
         for exercise in exercises:
             exercise_name = str(exercise)
-            if levenshtein(exercise_name.casefold(), name_original.casefold()) < MIN_EDIT_DISTANCE_THRESHOLD:
+            min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
+            if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
                 raise ValidationError(
                     _('%(name_original)s is too similar to existing exercise "%(exercise_name)s"'),
                     params={'name_original': name_original, 'exercise_name': exercise_name},
                 )
-        return data
+        return name_original
 
 
 class ExercisesEditAddView(WgerFormMixin):
