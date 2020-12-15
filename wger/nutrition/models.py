@@ -29,6 +29,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
+    MinLengthValidator,
     MinValueValidator
 )
 from django.db import models
@@ -91,7 +92,7 @@ class NutritionPlan(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.CharField(max_length=(80),
+    description = models.CharField(max_length=80,
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
@@ -150,6 +151,7 @@ class NutritionPlan(models.Model):
                     result['total'][key] += values[key]
 
             energy = result['total']['energy']
+            result['total']['energy_kilojoule'] = result['total']['energy'] * Decimal(4.184)
 
             # In percent
             if energy:
@@ -289,7 +291,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    editable=False)
 
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'), )
+                            verbose_name=_('Name'),
+                            validators=[MinLengthValidator(3)])
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
@@ -512,6 +515,16 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         return False
 
+    @property
+    def energy_kilojoule(self):
+        """
+        returns kilojoules for current ingredient, 0 if energy is uninitialized
+        """
+        if self.energy:
+            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+        else:
+            return 0
+
 
 class WeightUnit(models.Model):
     """
@@ -630,6 +643,8 @@ class Meal(models.Model):
             for key in nutritional_info.keys():
                 nutritional_info[key] += values[key]
 
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
+
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
@@ -707,6 +722,8 @@ class BaseMealItem(object):
 
                 # Everything else, to ounces
                 nutritional_info[key] = AbstractWeight(value, 'g').oz
+
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
 
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
