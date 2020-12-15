@@ -60,3 +60,7 @@ HTML_STYLES_WHITELIST = ('text-decoration',)
 PAGINATION_OBJECTS_PER_PAGE = 25
 PAGINATION_MAX_TOTAL_PAGES = 10
 PAGINATION_PAGES_AROUND_CURRENT = 5
+
+# Minimum edit distance from all existing exercises for a new exercise submission
+# to be accepted
+MIN_EDIT_DISTANCE_THRESHOLD = 2
