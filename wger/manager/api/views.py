@@ -15,9 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-import datetime
-
 # Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -106,8 +103,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Set the owner
         """
-        today = datetime.date.today()
-        serializer.save(date=today, user=self.request.user)
+        serializer.save(user=self.request.user)
 
     def get_owner_objects(self):
         """

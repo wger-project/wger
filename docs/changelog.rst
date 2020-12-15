@@ -7,31 +7,37 @@ Changelog
 
 Upgrade steps from 1.9:
 
-* Update python libraries ``pip install -r requirements.txt``
+* Update python libraries ``pip3 install -r requirements.txt``
 * Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
 * Update CSS and JS libraries ``yarn install``
 * Compile the CSS ``yarn build:css:sass``
-* Run migrations ``python manage.py migrate``
-* Update static files (only production): ``python manage.py collectstatic``
-* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)
+* Run migrations ``python3 manage.py migrate``
+* Update static files (only production): ``python3 manage.py collectstatic``
+* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings
+  instead of create_settings)
 
 
 🚀 Features:
 
-* Add nutrition diary to log the daily calories actually taken `#284`_, `#501`_ and `#506`_
-  (thanks `@WalkingPizza`_ and `@oconnelc`_)
-* Support for reps-in-reserve (RiR) in workout plans and logs `#479`_ (thanks `@SkyNetIndustry`_)
+* Add nutrition diary to log the daily calories actually taken `#284`_, `#501`_
+  and `#506`_ (thanks `@WalkingPizza`_ and `@oconnelc`_)
+* Support for reps-in-reserve (RiR) in workout plans and logs `#479`_
+  (thanks `@SkyNetIndustry`_)
 * Improved user experience, on desktop and mobile `#337`_
-* Group similar exercises such as wide grip, reverse, etc. `#555`_ (thanks `@ryowright`_)
-* Improved info endpoints for exercises and ingredients, this saves additional API calls `#411`_
+* Group similar exercises such as wide grip, reverse, etc. `#555`_
+  (thanks `@ryowright`_)
+* Improved info endpoints for exercises and ingredients, this saves additional
+  API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 * Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
+* Show kJoules as well as kcal in nutritional plan `#568`_  (thanks `@nopinter`_ and `@derekli17`_)
 
 
 🐛 Bug Fixes:
 
-* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_, `#554`_
-  and `#560`_ (thanks `@sandilsranasinghe`_)
+* `#368`_, `#379`_, `#426`_ (thanks `@austin-leung`_), `#499`_, `#505`_, `#504`_,
+  `#511`_, `#516`_, `#522`_, `#554`_ and `#560`_ (thanks `@sandilsranasinghe`_),
+  `#564`_, `#565`_
 
 
 🧰 Maintenance:
@@ -41,7 +47,7 @@ Upgrade steps from 1.9:
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
-* Others: `#450`_ (thanks `@Rkamath2`_)
+* Others: `#450`_ (thanks `@Rkamath2`_), `#550`_ (thanks `@harlenesamra`_),
 
 .. _@Svn-Sp: https://github.com/Svn-Sp
 .. _@louiCoder: https://github.com/louiCoder
@@ -52,12 +58,19 @@ Upgrade steps from 1.9:
 .. _@Rkamath2: https://github.com/Rkamath2
 .. _@SkyNetIndustry: https://github.com/SkyNetIndustry
 .. _@ryowright: https://github.com/ryowright
+.. _@austin-leung: https://github.com/austin-leung
+.. _@harlenesamra: https://github.com/harlenesamra
+.. _@derekli17: https://github.com/derekli17
+.. _@nopinter: https://github.com/nopinter
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
+.. _#368: https://github.com/wger-project/wger/issues/368
+.. _#379: https://github.com/wger-project/wger/issues/379
 .. _#411: https://github.com/wger-project/wger/issues/411
+.. _#426: https://github.com/wger-project/wger/issues/426
 .. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
 .. _#478: https://github.com/wger-project/wger/issues/478
@@ -71,9 +84,13 @@ Upgrade steps from 1.9:
 .. _#511: https://github.com/wger-project/wger/issues/511
 .. _#516: https://github.com/wger-project/wger/issues/516
 .. _#522: https://github.com/wger-project/wger/issues/522
+.. _#550: https://github.com/wger-project/wger/issues/550
 .. _#554: https://github.com/wger-project/wger/issues/554
 .. _#555: https://github.com/wger-project/wger/issues/555
 .. _#560: https://github.com/wger-project/wger/issues/560
+.. _#564: https://github.com/wger-project/wger/issues/564
+.. _#565: https://github.com/wger-project/wger/issues/565
+.. _#568: https://github.com/wger-project/wger/issues/568
 
 
 
