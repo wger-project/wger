@@ -24,7 +24,7 @@ Run a container and start the application::
 
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 
-Then just open http://localhost:8000 and log in as: **admin**, password **admin**
+Then just open http://localhost:8000 and log in as: **admin**, password **adminadmin**
 
 
 Development
@@ -43,7 +43,7 @@ Run a container and start the application::
     (in docker) source ~/venv/bin/activate
     (in docker) python manage.py runserver 0.0.0.0:8000
 
-Then just open http://localhost:8000 and log in as: **admin**, password **admin**
+Then just open http://localhost:8000 and log in as: **admin**, password **adminadmin**
 
 As an alternative you might want to map a local folder to the container.
 This is interesting if e.g. you want to keep the wger source code on

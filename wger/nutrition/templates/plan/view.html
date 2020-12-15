@@ -61,7 +61,7 @@ function wgerCustomModalInit()
     <tbody>
     <tr>
         <td colspan="2"></td>
-        <td class="align-right">{% trans 'kcal' %}</td>
+        <td class="align-right">{% trans 'kcal' %} / {% trans 'kJ' %}</td>
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
         <td class="align-right">{% trans_weight_unit 'g' owner_user %}</td>
@@ -127,7 +127,8 @@ function wgerCustomModalInit()
                 </span>
                 {% endif %}
             </td>
-            <td class="align-right">{{item.get_nutritional_values.energy|floatformat:1}}</td>
+            <td class="align-right">{{item.get_nutritional_values.energy|floatformat:1}} / 
+                                    {{item.get_nutritional_values.energy_kilojoule|floatformat:1}}</td>
             <td class="align-right">{{item.get_nutritional_values.protein|floatformat:1}}</td>
             <td class="align-right">{{item.get_nutritional_values.carbohydrates|floatformat:1}}</td>
             <td class="align-right">{{item.get_nutritional_values.fat|floatformat:1}}</td>
@@ -158,6 +159,11 @@ function wgerCustomModalInit()
     {% endif %}
     {% endfor %}
     {% if is_owner %}
+    <tr>
+        <td colspan="6" class="py-0"><a href="{% url 'nutrition:log:log_plan' plan.id %}"
+            class="btn btn-link btn-block">
+            {% trans "Log this Plan" %}</a></td>
+    </tr>
     <tr>
         <td colspan="6" class="py-0">
         <a href="{% url 'nutrition:meal:add' plan.id %}"
@@ -198,7 +204,8 @@ function wgerCustomModalInit()
     <tbody>
         <tr>
             <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{nutritional_data.total.energy|floatformat:0}} {% trans "kcal" %}</td>
+            <td class="align-right">{{nutritional_data.total.energy|floatformat:0}} {% trans "kcal" %} / 
+                                    {{nutritional_data.total.energy_kilojoule|floatformat:0}} {% trans "kJ" %}</td>
             <td></td>
             <td></td>
         </tr>

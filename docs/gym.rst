@@ -18,7 +18,7 @@ There are 3 groups used for the different administrative roles:
 
 * **general manager:** Can manage (add, edit, delete) the different gyms for the
   installation as well as add gym managers, trainers and member, but is not
-  allowed to see the members workout data.
+  allowed to see the members' workout data.
 * **gym manager:** Can manage users for a single gym (editing, deactivating,
   adding contracts, etc.).
 * **trainer:** Can manage the workouts and other data for the members of a
@@ -34,7 +34,7 @@ be changed later. The user's gym appears in the top right menu.
 
 Member management
 -----------------
-You can new members to a gym by clicking the *Add member* button at the top of
+You can add members to a gym by clicking the *Add member* button at the top of
 the member overview. After filling in the form, a password will be generated
 for the user. You should save this and give it to the user, as it is not possible
 to retrieve it later. Alternatively you can just instruct the new members to

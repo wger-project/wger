@@ -7,12 +7,16 @@ from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True
 
+# List of administrations
 ADMINS = (
     ('Your name', 'your_email@example.com'),
 )
 MANAGERS = ADMINS
+
+# SERVER_EMAIL = 'info@my-domain.com'
+# The email address that error messages (and only error messages, such as
+# internal server errors) come from, such as those sent to ADMINS and MANAGERS.
 
 
 DATABASES = {{
@@ -50,10 +54,11 @@ MEDIA_URL = '/media/'
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'
 
-# This might be a good idea if you setup memcached
+# This might be a good idea if you setup redis
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Configure a real backend in production
+# See: https://docs.djangoproject.com/en/dev/topics/email/#email-backends
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -62,3 +67,4 @@ WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 
 # Your twitter handle, if you have one for this instance.
 #WGER_SETTINGS['TWITTER'] = ''
+

@@ -110,9 +110,9 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
     success_url = reverse_lazy('exercise:equipment:list')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         pk = self.kwargs['pk']
         context = super(EquipmentDeleteView, self).get_context_data(**kwargs)
 

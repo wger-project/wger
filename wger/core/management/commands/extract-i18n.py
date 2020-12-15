@@ -44,5 +44,5 @@ class Command(BaseCommand):
 
         # Print the result
         for i in out:
-            self.stdout.write('msgid "{0}"\n'
-                              'msgstr ""\n\n'.format(i))
+            self.stdout.write(f'msgid "{i}"\n'
+                              'msgstr ""\n\n')

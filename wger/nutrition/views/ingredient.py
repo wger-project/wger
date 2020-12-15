@@ -46,7 +46,10 @@ from django.views.generic import (
 )
 
 # wger
-from wger.nutrition.forms import UnitChooserForm
+from wger.nutrition.forms import (
+    UnitChooserForm,
+    IngredientForm,
+)
 from wger.nutrition.models import Ingredient
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
@@ -83,8 +86,8 @@ class IngredientListView(ListView):
         native language, see load_ingredient_languages)
         """
         languages = load_ingredient_languages(self.request)
-        return (Ingredient.objects.filter(language__in=languages)
-                                  .filter(status=Ingredient.STATUS_ACCEPTED)
+        return (Ingredient.objects.accepted()
+                                  .filter(language__in=languages)
                                   .only('id', 'name'))
 
     def get_context_data(self, **kwargs):
@@ -143,30 +146,14 @@ class IngredientDeleteView(WgerDeleteMixin,
         return context
 
 
-class IngredientMixin(WgerFormMixin):
-    """
-    Manually set the order of the fields
-    """
-
-    fields = ['name',
-              'energy',
-              'protein',
-              'carbohydrates',
-              'carbohydrates_sugar',
-              'fat',
-              'fat_saturated',
-              'fibres',
-              'sodium',
-              'license',
-              'license_author']
-
-
-class IngredientEditView(IngredientMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class IngredientEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Generic view to update an existing ingredient
     """
 
+    template_name = 'form.html'
     model = Ingredient
+    form_class = IngredientForm
     permission_required = 'nutrition.change_ingredient'
 
     def get_context_data(self, **kwargs):
@@ -178,15 +165,14 @@ class IngredientEditView(IngredientMixin, LoginRequiredMixin, PermissionRequired
         return context
 
 
-class IngredientCreateView(IngredientMixin, CreateView):
+class IngredientCreateView(WgerFormMixin, CreateView):
     """
     Generic view to add a new ingredient
     """
-
+    template_name = 'form.html'
     model = Ingredient
+    form_class = IngredientForm
     title = ugettext_lazy('Add a new ingredient')
-    form_action = reverse_lazy('nutrition:ingredient:add')
-    sidebar = 'ingredient/form.html'
 
     def form_valid(self, form):
 

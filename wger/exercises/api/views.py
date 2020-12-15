@@ -57,9 +57,10 @@ from wger.utils.permissions import CreateOnlyPermission
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for exercise objects
+    API endpoint for exercise objects. For a read-only endpoint with all
+    the information of an exercise, see /api/v2/exerciseinfo/
     """
-    queryset = Exercise.objects.all()
+    queryset = Exercise.objects.accepted()
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
@@ -72,6 +73,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
                         'status',
                         'name',
                         'equipment',
+                        'variations',
                         'license',
                         'license_author')
 
@@ -132,13 +134,14 @@ def search(request):
     return Response(json_response)
 
 
-class ExerciseInfoViewset(viewsets.ModelViewSet):
+class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for exercise objects
+    Read-only info API endpoint for exercise objects. Returns nested data
+    structures for more easy parsing.
     """
-    queryset = Exercise.objects.all()
+
+    queryset = Exercise.objects.accepted()
     serializer_class = ExerciseInfoSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filterset_fields = ('category',
                         'creation_date',
@@ -146,10 +149,10 @@ class ExerciseInfoViewset(viewsets.ModelViewSet):
                         'language',
                         'muscles',
                         'muscles_secondary',
-                        'status',
                         'name',
                         'equipment',
                         'license',
+                        'variations',
                         'license_author')
 
 
@@ -221,11 +224,20 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise comment objects
     """
-    queryset = ExerciseComment.objects.all()
     serializer_class = ExerciseCommentSerializer
     ordering_fields = '__all__'
     filterset_fields = ('comment',
                         'exercise')
+    """
+    Filter by language for exercise comments
+    """
+    def get_queryset(self):
+        qs = ExerciseComment.objects.all()
+        language = self.request.query_params.get('language')
+        if language:
+            exercises = Exercise.objects.filter(language=language)
+            qs = ExerciseComment.objects.filter(exercise__in=exercises)
+        return qs
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):

@@ -204,6 +204,17 @@ def reps_smart_text(settings, set_obj):
     :return setting_text, setting_list:
     """
 
+    def get_rir_representation(setting):
+        """
+        Returns the representation for the RepsInReserve for a setting
+        """
+
+        if setting.rir:
+            rir = "{0} RiR".format(normalize_decimal(setting.rir))
+        else:
+            rir = ""
+        return rir
+
     def get_reps_reprentation(setting, rep_unit):
         """
         Returns the representation for the repetitions for a setting
@@ -258,12 +269,20 @@ def reps_smart_text(settings, set_obj):
         reps = get_reps_reprentation(settings[0], rep_unit)
         weight_unit = settings[0].weight_unit
         weight = normalize_weight(settings[0])
+        rir = get_rir_representation(settings[0])
 
         setting_text = '{0} × {1}'.format(set_obj.sets, reps).strip()
         setting_list_text = '{0} {1}'.format(reps, rep_unit).strip()
         if weight:
-            setting_text += ' ({0} {1})'.format(weight, weight_unit)
-            setting_list_text += ' ({0} {1})'.format(weight, weight_unit)
+            setting_text += ' ({0} {1}'.format(weight, weight_unit)
+            setting_list_text += ' ({0} {1}'.format(weight, weight_unit)
+
+            setting_text += ', {0})'.format(rir) if rir else ')'
+            setting_list_text += ', {0})'.format(rir) if rir else ')'
+
+        else:
+            setting_text += ' ({0})'.format(rir) if rir else ''
+            setting_list_text += ' ({0})'.format(rir) if rir else ''
 
         setting_list = [setting_list_text] * set_obj.sets
         reps_list = [settings[0].reps] * set_obj.sets
@@ -284,8 +303,12 @@ def reps_smart_text(settings, set_obj):
             rep_unit = get_weight_unit_reprentation(setting)
             reps = get_reps_reprentation(setting, rep_unit)
             weight = normalize_weight(setting)
+            rir = get_rir_representation(setting)
             if weight:
-                reps += ' ({0} {1})'.format(weight, setting.weight_unit)
+                reps += ' ({0} {1}'.format(weight, setting.weight_unit)
+                reps += ', {0})'.format(rir) if rir else ')'
+            else:
+                reps += ' ({0})'.format(rir) if rir else ''
 
             tmp_reps_text.append(reps)
             tmp_reps.append(setting.reps)

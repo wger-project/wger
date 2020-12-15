@@ -55,6 +55,17 @@ from wger.utils.fields import Html5DateField
 
 logger = logging.getLogger(__name__)
 
+RIR_OPTIONS = [(None, '------'),
+               (0, 0),
+               (0.5, 0.5),
+               (1, 1),
+               (1.5, 1.5),
+               (2, 2),
+               (2.5, 2.5),
+               (3, 3),
+               (3.5, 3.5),
+               (4, 4)]
+
 
 #
 # Classes
@@ -451,8 +462,10 @@ class Day(models.Model):
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
             has_setting_tmp = True
+
             for exercise in set_obj.exercises.select_related():
                 setting_tmp = []
+                exercise_images_tmp = []
 
                 # Muscles for this set
                 for muscle in exercise.muscles.all():
@@ -490,6 +503,13 @@ class Day(models.Model):
                         has_weight = True
                         break
 
+                # Collect exercise images
+                for image in exercise.exerciseimage_set.all():
+                    exercise_images_tmp.append({'image': image.image.url,
+                                                'is_main': image.is_main,
+                                                })
+
+                # Put it all together
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
@@ -499,7 +519,8 @@ class Day(models.Model):
                                      'has_weight': has_weight,
                                      'reps_list': reps_list,
                                      'setting_text': setting_text,
-                                     'comment_list': comment_list})
+                                     'comment_list': comment_list,
+                                     'image_list': exercise_images_tmp})
 
             # If it's a superset, check that all exercises have the same repetitions.
             # If not, just take the smallest number and drop the rest, because otherwise
@@ -644,6 +665,17 @@ class Setting(models.Model):
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     """
 
+    rir = models.DecimalField(verbose_name=_('RiR'),
+                              decimal_places=1,
+                              max_digits=3,
+                              blank=True,
+                              null=True,
+                              choices=RIR_OPTIONS)
+    """
+    Reps in reserve, RiR. The amount of reps that could realistically still be
+    done in the set.
+    """
+
     order = models.IntegerField(blank=True,
                                 verbose_name=_('Order'))
     comment = models.CharField(max_length=100,
@@ -734,6 +766,17 @@ class WorkoutLog(models.Model):
     """
 
     date = Html5DateField(verbose_name=_('Date'))
+
+    rir = models.DecimalField(verbose_name=_('RiR'),
+                              decimal_places=1,
+                              max_digits=3,
+                              blank=True,
+                              null=True,
+                              choices=RIR_OPTIONS)
+    """
+    Reps in reserve, RiR. The amount of reps that could realistically still be
+    done in the set.
+    """
 
     # Metaclass to set some other properties
     class Meta:

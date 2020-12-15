@@ -29,6 +29,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
+    MinLengthValidator,
     MinValueValidator
 )
 from django.db import models
@@ -46,6 +47,7 @@ from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
+from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
     AbstractSubmissionModel
@@ -90,7 +92,7 @@ class NutritionPlan(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.CharField(max_length=(80),
+    description = models.CharField(max_length=80,
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
@@ -149,6 +151,7 @@ class NutritionPlan(models.Model):
                     result['total'][key] += values[key]
 
             energy = result['total']['energy']
+            result['total']['energy_kilojoule'] = result['total']['energy'] * Decimal(4.184)
 
             # In percent
             if energy:
@@ -263,6 +266,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
+    objects = SubmissionManager()
+    """Custom manager"""
 
     ENERGY_APPROXIMATION = 15
     """
@@ -286,7 +291,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    editable=False)
 
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'), )
+                            verbose_name=_('Name'),
+                            validators=[MinLengthValidator(3)])
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
@@ -394,8 +400,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
 
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-                raise ValidationError(_('Total energy is not the approximate sum of the energy '
-                                        'provided by protein, carbohydrates and fat.'))
+                raise ValidationError(
+                    _(f'The total energy ({self.energy}kcal) is not the approximate sum of the '
+                      f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal '
+                      f'+/-{self.ENERGY_APPROXIMATION}%)'))
 
     def save(self, *args, **kwargs):
         """
@@ -506,6 +514,16 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Ingredient has no owner information
         """
         return False
+
+    @property
+    def energy_kilojoule(self):
+        """
+        returns kilojoules for current ingredient, 0 if energy is uninitialized
+        """
+        if self.energy:
+            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+        else:
+            return 0
 
 
 class WeightUnit(models.Model):
@@ -625,6 +643,8 @@ class Meal(models.Model):
             for key in nutritional_info.keys():
                 nutritional_info[key] += values[key]
 
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
+
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
@@ -702,6 +722,8 @@ class BaseMealItem(object):
 
                 # Everything else, to ounces
                 nutritional_info[key] = AbstractWeight(value, 'g').oz
+
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
 
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:

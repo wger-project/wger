@@ -112,7 +112,7 @@ class UserPreferencesForm(forms.ModelForm):
                                'workout_reminder',
                                'workout_duration',
                                ),
-                AccordionGroup("{} ({})".format(_("Gym mode"), _("mobile version only")),
+                AccordionGroup(f"{_('Gym mode')} ({_('mobile version only')})",
                                "timer_active",
                                "timer_pause"
                                ),

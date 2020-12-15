@@ -1,7 +1,7 @@
 #
 # A wger installation under apache with WSGI
 #
-# Note: you MUST build this image from the projec's root!
+# Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
 #
 # Please consult the documentation for usage
@@ -100,6 +100,7 @@ RUN mkdir -p ~/static/CACHE ~/media \
 USER root
 RUN apt-get remove build-essential -y \
     && apt autoremove -y \
-    && chown www-data:www-data -R /home/wger/db
+    && chown :www-data -R /home/wger/db \
+    && chmod g+w /home/wger/db /home/wger/db/database.sqlite
 
 ENTRYPOINT ["/home/wger/entrypoint.sh"]

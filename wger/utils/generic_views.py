@@ -165,10 +165,6 @@ class WgerFormMixin(ModelFormMixin):
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
 
-        # Template to extend. For AJAX requests we don't need the rest of the
-        # template, only the form
-        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
-
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -272,10 +268,6 @@ class WgerDeleteMixin(ModelFormMixin):
 
         # Additional delete message
         context['delete_message'] = self.delete_message_extra
-
-        # Template to extend. For AJAX requests we don't need the rest of the
-        # template, only the form
-        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
 
         return context
 

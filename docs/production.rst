@@ -88,7 +88,8 @@ If using sqlite, create a folder for it (must be writable by the apache user)::
 
   mkdir db
   touch db/database.sqlite
-  chmod -R o+w db
+  chown :www-data -R /home/wger/db
+  chmod g+w /home/wger/db /home/wger/db/database.sqlite
 
 Application
 -----------
@@ -138,7 +139,7 @@ The bootstrap command will also create a default administrator user (you probabl
 want to change the password as soon as you log in):
 
 * **username**: admin
-* **password**: admin
+* **password**: adminadmin
 
 
 .. _other-changes:

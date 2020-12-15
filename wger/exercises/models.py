@@ -153,6 +153,24 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
+class Variation(models.Model):
+    """
+    Variation ids for exercises
+    """
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f'Variation {self.id}'
+
+    def get_owner_object(self):
+        """
+        Variation has no owner information
+        """
+        return False
+
+
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Model for an exercise
@@ -171,7 +189,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'))
-    """The exercise's name, with correct upercase"""
+    """The exercise's name, with correct uppercase"""
 
     name_original = models.CharField(max_length=200,
                                      verbose_name=_('Name'),
@@ -210,6 +228,16 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Globally unique ID, to identify the exercise across installations
     """
+
+    # Added variation field
+    variations = models.ForeignKey(
+        Variation,
+        verbose_name=_('Variations'),
+        on_delete=models.CASCADE,
+        null=True,
+        default=""
+    )
+    """Variations of this exercise"""
 
     #
     # Django methods
@@ -267,6 +295,14 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
+
+    @property
+    def get_variations(self):
+        """
+        Returns the variations for this exercise
+        """
+
+        return self.variations.exercise_set.exclude(id=self.id)
 
     @property
     def main_image(self):

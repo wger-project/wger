@@ -52,6 +52,7 @@ from wger.core.models import (
 )
 from wger.exercises.models import Exercise
 from wger.manager.models import (
+    RIR_OPTIONS,
     Day,
     Set,
     Setting,
@@ -130,6 +131,10 @@ class WorkoutLogForm(ModelForm):
     weight = DecimalField(label=_('Weight'),
                           initial=0,
                           required=False)
+    rir = ChoiceField(label=_('RiR'),
+
+                      choices=RIR_OPTIONS,
+                      required=False)
 
     class Meta:
         model = WorkoutLog
@@ -142,10 +147,11 @@ class WorkoutLogFormHelper(FormHelper):
         self.form_method = 'post'
         self.layout = Layout(
             Row(
-                Column('reps', css_class='form-group col-md-2 col-3 mb-0'),
-                Column('repetition_unit', css_class='form-group col-md-4 col-3 mb-0'),
-                Column('weight', css_class='form-group col-md-2 col-3 mb-0'),
-                Column('weight_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                Column('reps', css_class='form-group col-2 mb-0'),
+                Column('repetition_unit', css_class='form-group col-3 mb-0'),
+                Column('weight', css_class='form-group col-2 mb-0'),
+                Column('weight_unit', css_class='form-group col-3 mb-0'),
+                Column('rir', css_class='form-group col-2 mb-0'),
                 css_class='form-row'
             ),
         )

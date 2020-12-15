@@ -24,7 +24,12 @@
             <tr>
                 <td class="text-right">{{entry.reps}}</td>
                 <td class="text-center" style="padding:0px;">×</td>
-                <td style="padding:0px;">{{entry.weight}}</td>
+                <td style="padding:0px;">
+                    {{entry.weight}}
+                    {% if entry.rir %}
+                        {{ entry.rir }} {% trans "RiR" %}
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
             </tbody>

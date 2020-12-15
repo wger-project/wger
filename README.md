@@ -37,7 +37,7 @@ If you just want to try it out:
     docker run -ti --name wger.apache --publish 8000:80 wger/apache
 ```
 
-Then just open <http://localhost:8000> and log in as **admin**, password **admin**
+Then just open <http://localhost:8000> and log in as **admin**, password **adminadmin**
 
 Please note that this image will overwrite your data when you pull a new version,
 it is only intended as an easy to setup demo
@@ -46,8 +46,14 @@ it is only intended as an easy to setup demo
 
 #### Docker
 
-To develop, check the README in wger/extras/docker on how to use
-the wger/devel docker image or the docker-compose file for development
+We provide a docker compose file that sets everything up for development and
+persists the database on a volume. From the root folder just call 
+
+````shell script
+docker-compose -f extras/docker/compose/docker-compose.yml up
+````
+
+For more info, check the README in wger/extras/compose.
 
 #### Local installation (git)
 
@@ -84,7 +90,7 @@ wger bootstrap
 python manage.py runserver
 ```
 
-Log in as: **admin**, password **admin**
+Log in as: **admin**, password **adminadmin**
 
 After the first run you just start django's development server::
 

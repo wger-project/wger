@@ -15,10 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.conf.urls import (
-    include,
-    url
-)
+from django.conf.urls import include
+from django.urls import path
 
 # wger
 from wger.mailer.forms import EmailListForm
@@ -27,15 +25,15 @@ from wger.mailer.views import gym
 
 # sub patterns for email lists
 patterns_email = [
-    url(r'^overview/gym/(?P<gym_pk>\d+)$',
-        gym.EmailLogListView.as_view(),
-        name='overview'),
-    url(r'^add/gym/(?P<gym_pk>\d+)$',
-        gym.EmailListFormPreview(EmailListForm),
-        name='add-gym'),
+    path('overview/gym/<int:gym_pk>',
+         gym.EmailLogListView.as_view(),
+         name='overview'),
+    path('add/gym/<int:gym_pk>',
+         gym.EmailListFormPreview(EmailListForm),
+         name='add-gym'),
 ]
 
 
 urlpatterns = [
-    url(r'^email/', include((patterns_email, 'email'), namespace="email")),
+    path('email', include((patterns_email, 'email'), namespace="email")),
 ]

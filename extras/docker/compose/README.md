@@ -12,7 +12,7 @@ as well, for easy integration with other projects and tools.
 This docker-compose file starts up a development environment with django's
 development server, postgres as a database and redis for caching and saving
 the sessions. It binds your current code checkout into the volume, if you
-don't want or have one, use the wger/apache image, it is self-contained.
+don't want or have one, use the `wger/apache` image, it is self-contained.
 
 ### 1 - Start all services
 
@@ -20,7 +20,7 @@ To start all services:
 
     docker-compose -f extras/docker/compose/docker-compose.yml up
 
-Then open <http://localhost:8000> and log in as: **admin**, password **admin**
+Then open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
 
 ### 2 - Lifecycle Management
@@ -50,6 +50,10 @@ e.g.
      docker-compose -f extras/docker/compose/docker-compose.yml exec web yarn install
      docker-compose -f extras/docker/compose/docker-compose.yml exec --user root web /bin/bash
 
+When developing some feature that requires database updates, you might find
+if easier to remove the DJANGO_DB_* entries from the dev.env file so that
+an sqlite file in ~/db/ is used instead of postgres. Then you can simply copy
+the file to re-run migrations, etc.
 
 ## Building
 
