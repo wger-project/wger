@@ -33,6 +33,8 @@ Developers
 * Rashmi Kamath - https://github.com/Rkamath2
 * Anthony (Ryo) Wright - https://github.com/ryowright
 * Austin Leung - https://github.com/austin-leung
+* Derek Li - https://github.com/derekli17
+* Noah Pinter - https://github.com/nopinter
 
 Translators
 -----------
