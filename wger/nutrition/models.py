@@ -29,6 +29,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
+    MinLengthValidator,
     MinValueValidator
 )
 from django.db import models
@@ -91,7 +92,7 @@ class NutritionPlan(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.CharField(max_length=(80),
+    description = models.CharField(max_length=80,
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
@@ -290,7 +291,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    editable=False)
 
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'), )
+                            verbose_name=_('Name'),
+                            validators=[MinLengthValidator(3)])
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))

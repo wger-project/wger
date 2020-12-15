@@ -120,7 +120,6 @@ def create(request, day_pk):
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
     context['helper'] = WorkoutLogFormHelper()
-    context['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
     return render(request, 'set/add.html', context)
 
 
