@@ -76,7 +76,8 @@ the search.{% endblocktrans %}
         <tr>
             <td>{% trans "Energy" %}</td>
             <td itemprop="calories" class="text-right">
-                <span id="value-energy">{{ingredient.energy|floatformat:1}}</span> {% trans "kcal" %}
+                <span id="value-energy">{{ingredient.energy|floatformat:1}}</span> {% trans "kcal" %} /
+                <span id="value-energy-kjoule">{{ingredient.energy_kilojoule|floatformat:1}}</span> {% trans "kJ" %}
             </td>
         </tr>
         <tr>
