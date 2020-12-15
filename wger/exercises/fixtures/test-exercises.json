@@ -77,18 +77,68 @@
     },
     {
         "pk": 1,
-        "model": "exercises.exercise",
+        "model": "exercises.exercisebase",
         "fields": {
-            "status": "2",
             "category": 2,
-            "language": 1,
             "muscles": [
                 1,
                 2
             ],
             "muscles_secondary": [
                 3
+            ]
+        }
+    },
+    {
+        "pk": 2,
+        "model": "exercises.exercisebase",
+        "fields": {
+            "category": 2,
+            "muscles": [
+                2
             ],
+            "muscles_secondary": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "pk": 3,
+        "model": "exercises.exercisebase",
+        "fields": {
+            "category": 3,
+            "muscles": [
+                1
+            ]
+        }
+    },
+    {
+        "pk": 4,
+        "model": "exercises.exercisebase",
+        "fields": {
+            "category": 3,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary":[]
+        }
+    },
+    {
+        "pk": 6,
+        "model": "exercises.exercisebase",
+        "fields": {
+            "category": 1,
+            "muscles": []
+        }
+    },
+    {
+        "pk": 1,
+        "model": "exercises.exercise",
+        "fields": {
+            "status": "2",
+            "language": 1,
+            "exercise_base": 1, 
             "description": "",
             "name": "An exercise"
         }
@@ -97,16 +147,9 @@
         "pk": 2,
         "model": "exercises.exercise",
         "fields": {
-            "status": "2",
-            "category": 2,
+            "status": "2",           
             "language": 2,
-            "muscles": [
-                2
-            ],
-            "muscles_secondary": [
-                1,
-                3
-            ],
+            "exercise_base": 2,
             "description": "",
             "name": "Very cool exercise"
         }
@@ -116,11 +159,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
-            "language": 1,
-            "muscles": [
-                1
-            ],
+            "language": 1,       
+            "exercise_base": 3,
             "description": "",
             "name": "Boring exercise"
         }
@@ -130,12 +170,9 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "1",
-            "category": 3,
             "language": 1,
-            "muscles": [
-                1
-            ],
             "description": "",
+            "exercise_base": 3,
             "license_author": "test",
             "name": "Pending exercise"
         }
@@ -145,12 +182,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
             "language": 1,
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
+            "exercise_base": 4,
             "description": "",
             "name": "Needed for demo user"
         }
@@ -160,12 +193,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
             "language": 1,
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
+            "exercise_base": 4,
             "description": "",
             "name": "Needed for demo user"
         }
@@ -175,12 +204,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
             "language": 2,
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
+            "exercise_base": 4,
             "description": "",
             "name": "Needed for demo user"
         }
@@ -190,12 +215,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
             "language": 2,
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
+            "exercise_base": 4,
             "description": "",
             "name": "Needed for demo user"
         }
@@ -205,12 +226,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
             "language": 2,
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
+            "exercise_base": 4,
             "description": "",
             "name": "Needed for demo user"
         }
@@ -220,12 +237,8 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "category": 3,
             "language": 2,
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
+            "exercise_base": 4,
             "description": "",
             "name": "Needed for demo user"
         }

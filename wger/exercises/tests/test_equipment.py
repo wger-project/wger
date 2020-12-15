@@ -164,7 +164,7 @@ class EquipmentCacheTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=2)
         exercise.name = 'Very cool exercise 2'
         exercise.description = 'New description'
-        exercise.equipment.add(Equipment.objects.get(pk=2))
+        exercise.exercise_base.equipment.add(Equipment.objects.get(pk=2))
         exercise.save()
 
         self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))

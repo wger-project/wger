@@ -32,11 +32,11 @@ class ExercisesCorrectionTestCase(WgerTestCase):
         """
         description = 'a nice, long and accurate description for the exercise'
         response = self.client.post(reverse('exercise:exercise:correct', kwargs={'pk': 1}),
-                                    {'category': 3,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 2,
                                      'description': description,
-                                     'muscles': [3]})
+                                     'muscles': [3],
+                                     'category': 3})
 
         if fail:
             self.assertEqual(response.status_code, 403)
@@ -50,10 +50,10 @@ class ExercisesCorrectionTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=1)
         self.assertEqual(exercise.name, 'An exercise')
         self.assertEqual(exercise.description, '')
-        self.assertEqual(exercise.category_id, 2)
+        self.assertEqual(exercise.exercise_base.category_id, 2)
         self.assertEqual(exercise.language_id, 1)
-        self.assertEqual([i.pk for i in exercise.muscles.all()], [1, 2])
-        self.assertEqual([i.pk for i in exercise.muscles_secondary.all()], [3])
+        self.assertEqual([i.pk for i in exercise.exercise_base.muscles.all()], [1, 2])
+        self.assertEqual([i.pk for i in exercise.exercise_base.muscles_secondary.all()], [3])
 
         # Check the notification email
         if fail:

@@ -89,18 +89,20 @@ class ExerciseIndexTestCase(WgerTestCase):
         self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         # Correct categories are shown
-        category_1 = response.context['exercises'][0].category
+        category_1 = response.context['exercises'][0].exercise_base.category
         self.assertEqual(category_1.id, 2)
         self.assertEqual(category_1.name, "Another category")
 
-        category_2 = response.context['exercises'][1].category
+        category_2 = response.context['exercises'][1].exercise_base.category
         self.assertEqual(category_2.id, 3)
         self.assertEqual(category_2.name, "Yet another category")
 
         # Correct exercises in the categories
-        exercises_1 = category_1.exercise_set.all()
+        exercise_bases_1 = category_1.exercisebase_set.all()
+        exercises_1 = exercise_bases_1[0].exercises.all()
+        exercises_2 = exercise_bases_1[1].exercises.all()
         exercise_1 = exercises_1[0]
-        exercise_2 = exercises_1[1]
+        exercise_2 = exercises_2[0]
         self.assertEqual(exercise_1.id, 1)
         self.assertEqual(exercise_1.name, "An exercise")
 
@@ -181,7 +183,7 @@ class ExerciseDetailTestCase(WgerTestCase):
         exercise_1 = response.context['exercise']
         self.assertEqual(exercise_1.id, 1)
 
-        muscles = exercise_1.muscles.all()
+        muscles = exercise_1.exercise_base.muscles.all()
         muscle_1 = muscles[0]
         muscle_2 = muscles[1]
 
@@ -241,10 +243,12 @@ class ExercisesTestCase(WgerTestCase):
         # Add an exercise
         count_before = Exercise.objects.count()
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 2,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 1,
-                                     'muscles': [1, 2]})
+                                     'exercise_base': {
+                                         'category': 2,
+                                         'muscles': [1, 2]
+                                     }})
         count_after = Exercise.objects.count()
         self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
@@ -277,10 +281,10 @@ class ExercisesTestCase(WgerTestCase):
         count_before = Exercise.objects.count()
         description = 'a nice, long and accurate description for the exercise'
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 2,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 1,
                                      'description': description,
+                                     'category': 2,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()
         self.assertEqual(response.status_code, 302)
@@ -310,18 +314,20 @@ class ExercisesTestCase(WgerTestCase):
 
         # Wrong category - adding
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 111,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 1,
-                                     'muscles': [1, 2]})
+                                     'category': 111,
+                                     'muscles': [1, 2]
+                                     })
         self.assertTrue(response.context['form'].errors['category'])
 
         # Wrong category - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
-                                    {'category': 111,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 1,
-                                     'muscles': [1, 2]})
+                                     'category': 111,
+                                     'muscles': [1, 2]
+                                     })
         if admin:
             self.assertTrue(response.context['form'].errors['category'])
         else:
@@ -329,18 +335,20 @@ class ExercisesTestCase(WgerTestCase):
 
         # No muscles - adding
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 1,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 1,
-                                     'muscles': []})
+                                     'category': 1,
+                                     'muscles': []
+                                     })
         self.assertEqual(response.status_code, 302)
 
         # No muscles - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
-                                    {'category': 1,
-                                     'name_original': 'my test exercise',
+                                    {'name_original': 'my test exercise',
                                      'license': 1,
-                                     'muscles': []})
+                                     'category': 1,
+                                     'muscles': []
+                                     })
         if admin:
             self.assertEqual(response.status_code, 302)
         else:
@@ -449,7 +457,7 @@ class ExercisesCacheTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=2)
         exercise.name = 'Very cool exercise 2'
         exercise.description = 'New description'
-        exercise.muscles_secondary.add(Muscle.objects.get(pk=2))
+        exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
         exercise.save()
 
         self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
