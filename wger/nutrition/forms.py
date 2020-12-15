@@ -25,7 +25,7 @@ from django.utils.translation import (
     ugettext_lazy
 )
 
-# wger
+# Third Party
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -35,6 +35,8 @@ from crispy_forms.layout import (
     Row,
     Submit
 )
+
+# wger
 from wger.core.models import UserProfile
 from wger.nutrition.models import (
     Ingredient,

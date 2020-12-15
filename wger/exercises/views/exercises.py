@@ -60,12 +60,14 @@ from django.views.generic import (
     UpdateView
 )
 
-# wger
+# Third Party
 from crispy_forms.layout import (
     Column,
     Layout,
     Row
 )
+
+# wger
 from wger.config.models import LanguageConfig
 from wger.exercises.models import (
     Equipment,
