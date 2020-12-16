@@ -7,7 +7,6 @@ from wger.settings_global import *
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = os.environ.get("DJANGO_DEBUG", True)
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 ADMINS = (
     ('Your name', 'your_email@example.com'),
@@ -34,7 +33,7 @@ else:
     }
 
 # Timezone for this installation. Consult settings_global.py for more information
-TIME_ZONE = os.environ.get("TIME_ZONE")
+TIME_ZONE = os.environ.get("TIME_ZONE" , 'Europe/Berlin')
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -48,7 +47,7 @@ NOCAPTCHA = os.environ.get('NOCAPTCHA')
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be
 # properly served.
-SITE_URL = os.environ.get('SITE_URL')
+SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
