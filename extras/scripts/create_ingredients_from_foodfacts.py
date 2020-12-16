@@ -35,6 +35,12 @@ for product in db.products.find({'lang': {"$in": langs}}):
     else:
         continue
 
+    # Some products have no name, skipping
+    if not name:
+        continue
+
+    print(f'Processing {name}...')
+
     # these are optional
     sodium = product['nutriments'].get('sodium_100g', None)
     fibre = product['nutriments'].get('fiber_100g', None)
