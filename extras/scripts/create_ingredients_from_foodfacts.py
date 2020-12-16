@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 import os
+import sys
 import django
+sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
 from wger.nutrition.models import Ingredient  # noqa: E402
