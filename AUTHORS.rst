@@ -33,6 +33,11 @@ Developers
 * Rashmi Kamath - https://github.com/Rkamath2
 * Anthony (Ryo) Wright - https://github.com/ryowright
 * Austin Leung - https://github.com/austin-leung
+* Lydia Xing - https://github.com/lydiaxing
+* Ellie Qiu - https://github.com/eq8913
+* Hita Kambhamettu - https://github.com/Hita-K 
+* Derek Li - https://github.com/derekli17
+* Noah Pinter - https://github.com/nopinter
 
 Translators
 -----------
