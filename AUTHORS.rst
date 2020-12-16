@@ -38,6 +38,7 @@ Developers
 * Hita Kambhamettu - https://github.com/Hita-K 
 * Derek Li - https://github.com/derekli17
 * Noah Pinter - https://github.com/nopinter
+* Aaron Kimbrell - https://github.com/aronwk-aaron
 
 Translators
 -----------
