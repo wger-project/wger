@@ -30,6 +30,8 @@ Upgrade steps from 1.9:
   API calls `#411`_
 * Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
 * Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
+* Check name similarity when adding exercises to avoid duplicates `#551`_
+  (thanks `@lydiaxing`_, `@eq8913`_, `@Hita-K`_)
 
 
 🐛 Bug Fixes:
@@ -59,6 +61,10 @@ Upgrade steps from 1.9:
 .. _@ryowright: https://github.com/ryowright
 .. _@austin-leung: https://github.com/austin-leung
 .. _@harlenesamra: https://github.com/harlenesamra
+.. _@lydiaxing: https://github.com/lydiaxing
+.. _@eq8913: https://github.com/eq8913
+.. _@Hita-K: https://github.com/Hita-K
+
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
@@ -82,6 +88,7 @@ Upgrade steps from 1.9:
 .. _#516: https://github.com/wger-project/wger/issues/516
 .. _#522: https://github.com/wger-project/wger/issues/522
 .. _#550: https://github.com/wger-project/wger/issues/550
+.. _#551: https://github.com/wger-project/wger/issues/551
 .. _#554: https://github.com/wger-project/wger/issues/554
 .. _#555: https://github.com/wger-project/wger/issues/555
 .. _#560: https://github.com/wger-project/wger/issues/560
