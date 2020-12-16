@@ -199,9 +199,9 @@ class ExerciseForm(ModelForm):
         exercise's name
         """
         name_original = self.cleaned_data['name_original']
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
+        language = load_language()
         exercises = Exercise.objects.accepted() \
-            .filter(language__in=languages)
+            .filter(language=language)
         for exercise in exercises:
             exercise_name = str(exercise)
             min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
