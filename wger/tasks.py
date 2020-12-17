@@ -36,7 +36,6 @@ from invoke import task
 
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/ingredients.json.zip'
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @task(help={'address': 'Address to bind to. Default: localhost',
             'port': 'Port to use. Default: 8000',
@@ -218,45 +217,38 @@ def load_fixtures(context, settings_path=None):
     setup_django_environment(settings_path)
 
     # Gym
-    path = os.path.join(CURRENT_DIR, 'gym', 'fixtures/')
-    call_command("loaddata", path + "gym.json")
+    call_command("loaddata", "gym.json")
 
     # Core
-    path = os.path.join(current_dir, 'core', 'fixtures/')
-    call_command("loaddata", path + "languages.json")
-    call_command("loaddata", path + "groups.json")
-    call_command("loaddata", path + "users.json")
-    call_command("loaddata", path + "licenses.json")
-    call_command("loaddata", path + "days_of_week.json")
-    call_command("loaddata", path + "setting_repetition_units.json")
-    call_command("loaddata", path + "setting_weight_units.json")
+    call_command("loaddata", "languages.json")
+    call_command("loaddata", "groups.json")
+    call_command("loaddata", "users.json")
+    call_command("loaddata", "licenses.json")
+    call_command("loaddata", "days_of_week.json")
+    call_command("loaddata", "setting_repetition_units.json")
+    call_command("loaddata", "setting_weight_units.json")
 
     # Config
-    path = os.path.join(current_dir, 'config', 'fixtures/')
-    call_command("loaddata", path + "language_config.json")
-    call_command("loaddata", path + "gym_config.json")
+    call_command("loaddata", "language_config.json")
+    call_command("loaddata", "gym_config.json")
 
     # Manager
-    # path = os.path.join(current_dir, 'manager', 'fixtures/')
 
     # Exercises
-    path = os.path.join(current_dir, 'exercises', 'fixtures/')
-    call_command("loaddata", path + "equipment.json")
-    call_command("loaddata", path + "muscles.json")
-    call_command("loaddata", path + "categories.json")
-    call_command("loaddata", path + "exercises.json")
+    call_command("loaddata", "equipment.json")
+    call_command("loaddata", "muscles.json")
+    call_command("loaddata", "categories.json")
+    call_command("loaddata", "exercises.json")
 
     # Nutrition
-    path = os.path.join(current_dir, 'nutrition', 'fixtures/')
-    call_command("loaddata", path + "ingredients.json")
-    call_command("loaddata", path + "weight_units.json")
-    call_command("loaddata", path + "ingredient_units.json")
+    call_command("loaddata", "ingredients.json")
+    call_command("loaddata", "weight_units.json")
+    call_command("loaddata", "ingredient_units.json")
 
     # Gym
-    path = os.path.join(current_dir, 'gym', 'fixtures/')
-    call_command("loaddata", path + "gym.json")
-    call_command("loaddata", path + "gym-config.json")
-    call_command("loaddata", path + "gym-adminconfig.json")
+    call_command("loaddata", "gym.json")
+    call_command("loaddata", "gym-config.json")
+    call_command("loaddata", "gym-adminconfig.json")
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
