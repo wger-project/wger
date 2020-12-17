@@ -107,4 +107,4 @@ class MuscleSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Muscle
-        fields = '__all__'
+        fields = ['name', 'is_front', 'image_url_main', 'image_url_secondary']
