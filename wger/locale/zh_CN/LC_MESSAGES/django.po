@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Armstrong Yan <yanqiangsdu@gmail.com>, 2016
 # Binbin Zhang <pt0079@gmail.com>, 2016
@@ -3875,9 +3875,6 @@ msgstr ""
 
 msgid "Minutes"
 msgstr ""
-
-msgid "Repetitions"
-msgstr "重复次数"
 
 msgid "Seconds"
 msgstr ""

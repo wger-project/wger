@@ -3882,9 +3882,6 @@ msgstr ""
 msgid "Minutes"
 msgstr ""
 
-msgid "Repetitions"
-msgstr ""
-
 msgid "Seconds"
 msgstr ""
 

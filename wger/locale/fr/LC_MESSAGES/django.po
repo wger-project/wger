@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Alex Deneuvillers <alex.deneuvillers@gmail.com>, 2017
 # Alexis <d3.alexisferreira@yahoo.fr>, 2014
@@ -3882,9 +3882,6 @@ msgstr "miles"
 
 msgid "Minutes"
 msgstr "minutes"
-
-msgid "Repetitions"
-msgstr "Répétitions"
 
 msgid "Seconds"
 msgstr "secondes"
