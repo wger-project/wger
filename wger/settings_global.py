@@ -202,6 +202,7 @@ LANGUAGES = (
             ('sv', 'Swedish'),
             ('no', 'Norwegian'),
             ('fr', 'French'),
+            ('it', 'Italian'),
 )
 
 # Default language code for this installation.

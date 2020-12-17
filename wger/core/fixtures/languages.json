@@ -94,5 +94,13 @@
             "short_name": "fr",
             "full_name": "Fran\u00e7ais"
         }
+    },
+    {
+        "model": "core.language",
+        "pk": 13,
+        "fields": {
+            "short_name": "it",
+            "full_name": "Italian"
+        }
     }
 ]
