@@ -1116,7 +1116,7 @@
             "language": 8,
             "language_target": 2,
             "item": "2",
-            "show": false
+            "show": true
         }
     },
     {
@@ -2506,7 +2506,7 @@
             "language": 12,
             "language_target": 2,
             "item": "1",
-            "show": false
+            "show": true
         }
     },
     {
@@ -2516,7 +2516,7 @@
             "language": 12,
             "language_target": 2,
             "item": "2",
-            "show": false
+            "show": true
         }
     },
     {
@@ -2986,7 +2986,7 @@
             "language": 13,
             "language_target": 2,
             "item": "1",
-            "show": false
+            "show": true
         }
     },
     {
@@ -2996,7 +2996,7 @@
             "language": 13,
             "language_target": 2,
             "item": "2",
-            "show": false
+            "show": true
         }
     },
     {
@@ -3546,7 +3546,7 @@
             "language": 14,
             "language_target": 2,
             "item": "1",
-            "show": false
+            "show": true
         }
     },
     {
@@ -3556,7 +3556,7 @@
             "language": 14,
             "language_target": 2,
             "item": "2",
-            "show": false
+            "show": true
         }
     },
     {
@@ -4226,7 +4226,7 @@
             "language": 15,
             "language_target": 2,
             "item": "1",
-            "show": false
+            "show": true
         }
     },
     {
@@ -4236,7 +4236,7 @@
             "language": 15,
             "language_target": 2,
             "item": "2",
-            "show": false
+            "show": true
         }
     },
     {
