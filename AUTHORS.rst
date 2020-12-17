@@ -35,7 +35,7 @@ Developers
 * Austin Leung - https://github.com/austin-leung
 * Lydia Xing - https://github.com/lydiaxing
 * Ellie Qiu - https://github.com/eq8913
-* Hita Kambhamettu - https://github.com/Hita-K 
+* Hita Kambhamettu - https://github.com/Hita-K
 * Derek Li - https://github.com/derekli17
 * Noah Pinter - https://github.com/nopinter
 * Kevin Geng - https://github.com/gengkev
@@ -43,16 +43,100 @@ Developers
 Translators
 -----------
 
-* Bulgarian: Lyuboslav Petrov
-* Czech: Tomáš Z.
-* Dutch: David Machiels
-* Greek: Mark Nicolaou
-* Norwegian: Kjetil Elde
-* Portuguese: Jefferson Campos – http://jeffersoncampos.eti.br
-* Russian: Inna
-* Spanish: acv2facundo
-* Swedish: ywecur
+* Bulgarian:
 
+  - Lyuboslav Petrov
+
+* Czech:
+
+  - Tomáš Z.
+
+* Dutch:
+
+  - David Machiels
+  - Arthur van Rooijen
+  - Hans Poelmans
+  - Oscar Gala Grano
+  - Philip Plaeke
+
+* Greek:
+
+  - Mark Nicolaou
+  - Ruth Bochere
+
+* Norwegian:
+
+  - Jon-Sindre Husum
+  - w00p
+  - Stian Lundanes
+
+* Portuguese:
+
+  - Jefferson Campos
+  - Danilo Silva
+  - Matheus Zorzete Marchiore
+  - Nari Gao
+
+* Russian:
+
+  - Andrew
+  - Inna
+  - Maxim Dushniak
+  - MrClon
+  - Stepa
+
+* Spanish:
+
+  - Acv2 Facundo
+  - Damian Suarez
+  - Enrique Garcia
+  - jgrdpy
+  - Manuel
+  - Naty Quin
+
+* Swedish:
+
+  - Housame Oueslati
+  - Olle Karlsson
+  - oskarmalm
+  - ywecur
+
+* French:
+
+  - Alex Deneuvillers
+  - Alexis
+  - ckoker
+  - Gauthier Flichy
+  - Jeremy Barascut
+  - Jordane Pelloux-Prayer
+  - Mickael Fortunato
+  - Nicolas Roby
+  - Olivier
+  - Quentin Galliou
+  - Serge S
+
+* Italian
+
+  - Agostino Lecci
+  - lediable
+  - Roberta Guarino
+  - Sergio  Oliva
+  - Sergio Zampello
+
+* Polish
+
+  - Andrzej
+  - Arkady Asuratov
+  - Filip Makowski
+  - Krzysztof Tataradziński
+  - Marius
+  - Michał Jastrzębowski
+
+* Ukrainian
+
+  - Artem Polivanchuk
+  - Inna
+  - MikeLMI
 
 Exercises
 ---------
