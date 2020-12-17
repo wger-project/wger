@@ -37,6 +37,7 @@ from invoke import task
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/ingredients.json.zip'
 
+
 @task(help={'address': 'Address to bind to. Default: localhost',
             'port': 'Port to use. Default: 8000',
             'settings-path': 'Path to settings file (absolute path). Leave empty for '
