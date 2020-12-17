@@ -194,7 +194,7 @@ LANGUAGES = (
             ('de', 'German'),
             ('bg', 'Bulgarian'),
             ('es', 'Spanish'),
-            ('r', 'Russian'),
+            ('ru', 'Russian'),
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
