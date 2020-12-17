@@ -203,6 +203,7 @@ LANGUAGES = (
             ('no', 'Norwegian'),
             ('fr', 'French'),
             ('it', 'Italian'),
+            ('pl', 'Polish'),
 )
 
 # Default language code for this installation.

@@ -102,5 +102,13 @@
             "short_name": "it",
             "full_name": "Italian"
         }
+    },
+    {
+        "model": "core.language",
+        "pk": 14,
+        "fields": {
+            "short_name": "pl",
+            "full_name": "Polish"
+        }
     }
 ]
