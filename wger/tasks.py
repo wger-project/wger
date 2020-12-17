@@ -19,6 +19,7 @@ import logging
 import os
 import pathlib
 import sys
+import tempfile
 
 # Django
 import django
@@ -29,11 +30,13 @@ from django.core.management import (
 from django.utils.crypto import get_random_string
 
 # Third Party
+import requests
 from invoke import task
 
 
 logger = logging.getLogger(__name__)
-
+FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/ingredients.json.zip'
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @task(help={'address': 'Address to bind to. Default: localhost',
             'port': 'Port to use. Default: 8000',
@@ -214,10 +217,8 @@ def load_fixtures(context, settings_path=None):
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
     # Gym
-    path = os.path.join(current_dir, 'gym', 'fixtures/')
+    path = os.path.join(CURRENT_DIR, 'gym', 'fixtures/')
     call_command("loaddata", path + "gym.json")
 
     # Core
@@ -256,6 +257,34 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", path + "gym.json")
     call_command("loaddata", path + "gym-config.json")
     call_command("loaddata", path + "gym-adminconfig.json")
+
+
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
+                             'default'})
+def download_ingredients(context, settings_path=None):
+    """
+    Downloads ingredient fixture and installs it.
+    """
+
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
+
+    # Prepare the download
+    print(f'Downloading ingredient data from {FIXTURE_URL}...')
+    response = requests.get(FIXTURE_URL, stream=True)
+    size = int(response.headers["content-length"]) / (1024 * 1024)
+    print(f'-> fixture size: {size:.3} MB')
+
+    # Save to temporary file and load the data
+    f = tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip')
+    print(f'-> saving to temp file {f.name}')
+    f.write(response.content)
+    f.close()
+    call_command("loaddata", f.name)
+    call_command("loaddata", 'weight_units.json')
+    call_command("loaddata", 'ingredient_units.json')
+    print('-> removing temp file')
+    os.unlink(f.name)
 
 
 @task
