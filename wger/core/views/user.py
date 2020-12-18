@@ -285,7 +285,6 @@ def registration(request):
 
     template_data['form'] = form
     template_data['title'] = _('Register')
-    template_data['extend_template'] = 'base.html'
 
     return render(request, 'form.html', template_data)
 
@@ -576,11 +575,6 @@ class WgerPasswordChangeView(PasswordChangeView):
         )
         return form
 
-    def get_context_data(self, **kwargs):
-        context = super(WgerPasswordChangeView, self).get_context_data(**kwargs)
-        context['extend_template'] = 'base.html'
-        return context
-
 
 class WgerPasswordResetView(PasswordResetView):
     template_name = 'form.html'
@@ -594,14 +588,10 @@ class WgerPasswordResetView(PasswordResetView):
         form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         return form
 
-    def get_context_data(self, **kwargs):
-        context = super(WgerPasswordResetView, self).get_context_data(**kwargs)
-        context['extend_template'] = 'base.html'
-        return context
-
 
 class WgerPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'form.html'
+    success_url = reverse_lazy('core:user:login')
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
@@ -609,8 +599,3 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         form.helper.form_class = 'wger-form'
         form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         return form
-
-    def get_context_data(self, **kwargs):
-        context = super(WgerPasswordResetConfirmView, self).get_context_data(**kwargs)
-        context['extend_template'] = 'base.html'
-        return context

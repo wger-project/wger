@@ -182,7 +182,6 @@ class FeedbackClass(FormView):
         context['form_fields'] = context['form']
         context['submit_text'] = _('Send')
         context['contribute_url'] = reverse('software:contribute')
-        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
         return context
 
     def get_form_class(self):

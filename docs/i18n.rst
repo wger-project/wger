@@ -8,18 +8,18 @@ Updating the translation files
 ------------------------------
 
 wger uses django's translation infrastructure, but there are a couple of things
-that need to be considered. First, update your po files with the usual django
-command (run this in the wger subfolder, not the root one)::
-
-    django-admin makemessages --locale en --extension py,html,tpl
-
-Extract some translatable strings from the database such as exercise categories
-and muscle names::
+that need to be considered. First you need to extract some translatable strings
+from the database such as exercise categories and muscle names::
 
     python ../manage.py extract-i18n
 
-and add them to the end of ``locale/en/LC_MESSAGES/django.po``. Once you have
-translated the file, compile it with::
+Then, update your po files with the usual django command (run this in the wger
+subfolder, not the root one)::
+
+    django-admin makemessages --locale en --extension py,html,tpl
+
+
+and finally you can compile them with::
 
     django-admin compilemessages --all
 

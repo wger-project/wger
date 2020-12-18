@@ -49,10 +49,18 @@ logger = logging.getLogger(__name__)
 class Html5DateInput(DateInput):
     """
     Custom Input class that is rendered with an HTML5 type="date"
-
-    This is specially useful in mobile devices
     """
+    template_name = 'forms/html5_date.html'
     input_type = 'date'
+
+    def get_context(self, name, value, attrs):
+        """Pass the value as a date to the template. This is necessary because
+        django's default behaviour is to convert it to a string, where it can't
+        be formatted anymore."""
+
+        context = super(Html5DateInput, self).get_context(name, value, attrs)
+        context['widget']['orig_value'] = value
+        return context
 
 
 class Html5FormDateField(fields.DateField):

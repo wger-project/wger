@@ -56,6 +56,7 @@ def processor(request):
 
         # Translation links
         'i18n_path': i18n_path,
+        'is_api_path': '/api/' in request.build_absolute_uri(),
 
         # Flag for guest users
         'has_demo_data': request.session.get('has_demo_data', False),
@@ -71,6 +72,9 @@ def processor(request):
 
         # current gym, if available
         'custom_header': get_custom_header(request),
+
+        # Template to extend in forms, kinda ugly
+        'extend_template': 'base_empty.html' if request.is_ajax() else 'base.html'
     }
 
     # Pseudo-intelligent navigation here

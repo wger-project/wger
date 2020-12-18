@@ -63,4 +63,8 @@ target/
 wger/core/static/yarn
 node_modules
 
+# Virtual envs
 venv
+
+# Dummy file for translations
+/wger/i18n.tpl
