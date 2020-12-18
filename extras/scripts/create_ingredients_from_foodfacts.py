@@ -1,4 +1,19 @@
+# This file is part of wger Workout Manager.
+#
+# wger Workout Manager is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# wger Workout Manager is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+
 from pymongo import MongoClient
+from Levenshtein import distance
 import os
 import django
 import sys
@@ -10,6 +25,39 @@ from django.conf import settings # noqa: E402
 
 from wger.nutrition.models import Ingredient  # noqa: E402
 from wger.core.models import Language  # noqa: E402
+
+
+"""
+Simple script that imports and loads the Open Food Facts database into the
+ingredients database.
+
+NOTE: The file is VERY large (17 GB), so it takes a long time (> 3 hours) to run
+and create all ingredients.
+
+
+* Requirements:
+pip3 install python-Levenshtein
+apt-get install mongo-tools  # (for mongorestore)
+
+* Steps:
+wget https://static.openfoodfacts.org/data/openfoodfacts-mongodbdump.tar.gz
+tar xzvf openfoodfacts-mongodbdump.tar.gz
+
+# Import
+docker pull mongo
+docker run -it --name wger_mongo -p 27017:27017 -d mongo:latest
+mongorestore -d off -c products tmp/mongo_dump/off/products.bson
+
+# Process
+python create_ingredients_from_foodfacts.py
+
+# Cleanup
+docker stop wger_mongo
+docker rm wger_mongo
+rm openfoodfacts-mongodbdump.tar.gz
+rm -r dump
+"""
+
 
 client = MongoClient(port=27017)
 db = client.off
@@ -34,14 +82,34 @@ lang_objects = [Language.objects.get(short_name=lang) for lang in langs]
 # Lang sv has 1340 completed products out of 2878
 # Lang pt has 526 completed products out of 3541
 
+print('***********************************')
+print(langs)
+print('***********************************')
 
-for product in db.products.find({'lang': {"$in": langs}, 'complete': 1}):
+stats = {'levenshtein': 0,
+         'new': 0,
+         'edited': 0,
+         'skipped': 0}
+
+product_names = {}
+for lang in langs:
+    product_names[lang] = []
+
+for product in db.products.find({'lang': {"$in": langs}}).limit(500):
     lang = product['lang']
 
     main_details = ['product_name', 'code']
     if all(req in product for req in main_details):
         name = product['product_name']
         code = product['code']
+
+    # Some products have no name or name is too long, skipping
+    if not name or len(name) > 200:
+        print(f'-> skipping due to name requirements')
+        stats['skipped'] += 1
+        continue
+
+    print(f'Processing "{name}"...')
 
     required = ['energy-kcal_100g',
                 'proteins_100g',
@@ -57,13 +125,9 @@ for product in db.products.find({'lang': {"$in": langs}, 'complete': 1}):
         fat = product['nutriments']['fat_100g']
         saturated = product['nutriments']['saturated-fat_100g']
     else:
+        print(f'-> skipping due to required nutriments')
+        stats['skipped'] += 1
         continue
-
-    # Some products have no name, skipping
-    if not name:
-        continue
-
-    print(f'Processing {name}...')
 
     # these are optional
     sodium = product['nutriments'].get('sodium_100g', None)
@@ -73,6 +137,20 @@ for product in db.products.find({'lang': {"$in": langs}, 'complete': 1}):
 
     source_name = "Open Food Facts"
     source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
+
+    # Check if there are already names with similar names in the same language
+    found_similar = False
+    for i in product_names[lang]:
+        if distance(name, i) <= 3:
+            stats['levenshtein'] += 1
+            print(f'-> skipping due to similarity with "{i}"')
+            found_similar = True
+            break
+
+    if found_similar:
+        continue
+
+    product_names[lang].append(name)
 
     ingredient_data = {
         'language': lang_objects[langs.index(lang)],
@@ -100,9 +178,15 @@ for product in db.products.find({'lang': {"$in": langs}, 'complete': 1}):
         obj, created = Ingredient.objects.update_or_create(code=code, defaults=ingredient_data)
 
         if created:
-            print('   -> added to the database')
+            stats['new'] += 1
+            print('-> added to the database')
         else:
-            print('   -> updated')
+            stats['edited'] += 1
+            print('-> updated')
 
     except:  # noqa: E722
         continue
+
+print('***********************************')
+print(stats)
+print('***********************************')
