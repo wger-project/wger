@@ -71,8 +71,7 @@ db = client.admin
 # requires two queries per product(!!!) and takes probably a week to complete.
 MODE = 'insert'
 
-langs = [i[0] for i in settings.LANGUAGES]
-lang_objects = [Language.objects.get(short_name=lang) for lang in langs]
+languages = {i[0]:Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
 
 BULK_SIZE = 500
 bulk_update_bucket = []
@@ -81,10 +80,10 @@ stats = {'levenshtein': 0,
          'edited': 0,
          'skipped': 0}
 product_names = {}
-for lang in langs:
+for lang in languages.keys():
     product_names[lang] = []
 
-# for lang in langs:
+# for lang in languages.keys():
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
 #    total = db.products.count_documents({'lang': lang})
 #    print(f'Lang {lang} has {count} completed products out of {total}')
@@ -102,11 +101,11 @@ for lang in langs:
 # Lang pt has 526 completed products out of 3541
 
 print('***********************************')
-print(langs)
+print(languages.keys())
 print('***********************************')
 
 
-for product in db.products.find({'lang': {"$in": langs}}):
+for product in db.products.find({'lang': {"$in": languages.keys()}}):
     lang = product['lang']
 
     main_details = ['product_name', 'code']
@@ -167,7 +166,7 @@ for product in db.products.find({'lang': {"$in": langs}}):
     product_names[lang].append(name)
 
     ingredient_data = {
-        'language': lang_objects[langs.index(lang)],
+        'language': languages[lang],
         'name': name,
         'energy': energy,
         'protein': protein,
@@ -207,6 +206,7 @@ for product in db.products.find({'lang': {"$in": langs}}):
                     except Exception as e:
                         pass
 
+            stats['new'] += BULK_SIZE
             bulk_update_bucket = []
 
     # Update existing entries
