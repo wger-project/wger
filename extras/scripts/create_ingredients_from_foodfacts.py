@@ -45,8 +45,11 @@ tar xzvf openfoodfacts-mongodbdump.tar.gz
 
 # Import
 docker pull mongo
-docker run -it --name wger_mongo -p 27017:27017 -d mongo:latest
-mongorestore -d off -c products tmp/mongo_dump/off/products.bson
+docker run -it --name wger_mongo -p 27017:27017 -d  \
+    -e MONGO_INITDB_ROOT_USERNAME=off \
+    -e MONGO_INITDB_ROOT_PASSWORD=off-wger \
+    mongo:latest
+mongorestore --username off --password off-wger -d admin -c products dump/off/products.bson
 
 # Process
 python create_ingredients_from_foodfacts.py
@@ -59,8 +62,8 @@ rm -r dump
 """
 
 
-client = MongoClient(port=27017)
-db = client.off
+client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
+db = client.admin
 
 langs = [i[0] for i in settings.LANGUAGES]
 lang_objects = [Language.objects.get(short_name=lang) for lang in langs]
@@ -95,7 +98,7 @@ product_names = {}
 for lang in langs:
     product_names[lang] = []
 
-for product in db.products.find({'lang': {"$in": langs}}).limit(500):
+for product in db.products.find({'lang': {"$in": langs}}):
     lang = product['lang']
 
     main_details = ['product_name', 'code']
