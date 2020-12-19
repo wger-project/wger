@@ -65,8 +65,24 @@ rm -r dump
 client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
 db = client.admin
 
+# Mode for this script. When using 'insert', the script will bulk-insert the new
+# ingredients, which is very efficient. Importing the whole database will require
+# around 2 hours. When using 'update', existing ingredients will be updated, which
+# requires two queries per product(!!!) and takes probably a week to complete.
+MODE = 'insert'
+
 langs = [i[0] for i in settings.LANGUAGES]
 lang_objects = [Language.objects.get(short_name=lang) for lang in langs]
+
+BULK_SIZE = 500
+bulk_update_bucket = []
+stats = {'levenshtein': 0,
+         'new': 0,
+         'edited': 0,
+         'skipped': 0}
+product_names = {}
+for lang in langs:
+    product_names[lang] = []
 
 # for lang in langs:
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
@@ -89,14 +105,6 @@ print('***********************************')
 print(langs)
 print('***********************************')
 
-stats = {'levenshtein': 0,
-         'new': 0,
-         'edited': 0,
-         'skipped': 0}
-
-product_names = {}
-for lang in langs:
-    product_names[lang] = []
 
 for product in db.products.find({'lang': {"$in": langs}}):
     lang = product['lang']
@@ -107,12 +115,12 @@ for product in db.products.find({'lang': {"$in": langs}}):
         code = product['code']
 
     # Some products have no name or name is too long, skipping
-    if not name or len(name) > 200:
-        print(f'-> skipping due to name requirements')
+    if not name or len(name) > 200 :
+        #print(f'-> skipping due to name requirements')
         stats['skipped'] += 1
         continue
 
-    print(f'Processing "{name}"...')
+    #print(f'Processing "{name}"...')
 
     required = ['energy-kcal_100g',
                 'proteins_100g',
@@ -128,7 +136,7 @@ for product in db.products.find({'lang': {"$in": langs}}):
         fat = product['nutriments']['fat_100g']
         saturated = product['nutriments']['saturated-fat_100g']
     else:
-        print(f'-> skipping due to required nutriments')
+        #print(f'-> skipping due to required nutriments')
         stats['skipped'] += 1
         continue
 
@@ -138,6 +146,9 @@ for product in db.products.find({'lang': {"$in": langs}}):
     common_name = product.get('generic_name', None)
     brand = product.get('brands', None)
 
+    if common_name and len(common_name) > 200:
+        continue
+
     source_name = "Open Food Facts"
     source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
 
@@ -146,7 +157,7 @@ for product in db.products.find({'lang': {"$in": langs}}):
     for i in product_names[lang]:
         if distance(name, i) <= 3:
             stats['levenshtein'] += 1
-            print(f'-> skipping due to similarity with "{i}"')
+            #print(f'-> skipping due to similarity with "{i}"')
             found_similar = True
             break
 
@@ -176,21 +187,46 @@ for product in db.products.find({'lang': {"$in": langs}}):
         'license_author': 'Open Food Facts',
     }
 
-    try:
-        # Update an existing product (look-up key is the code) or create a new
-        # one. While this might not be the most efficient query (there will always
-        # be a SELECT first), it's ok because this script is run very rarely.
-        obj, created = Ingredient.objects.update_or_create(code=code, defaults=ingredient_data)
+    # Add entries as new products
+    if MODE == 'insert':
+        bulk_update_bucket.append(Ingredient(**ingredient_data))
+        if len(bulk_update_bucket) > BULK_SIZE:
+            try:
+                Ingredient.objects.bulk_create(bulk_update_bucket)
+                print('***** Bulk adding products *****')
+            except Exception as e:
+                print('--> Error while saving the product bucket. Saving individually')
+                print(e)
 
-        if created:
-            stats['new'] += 1
-            print('-> added to the database')
-        else:
-            stats['edited'] += 1
-            print('-> updated')
+                # Try saving the ingredients individually as most will be correct
+                for ingredient in bulk_update_bucket:
+                    try:
+                        ingredient.save()
 
-    except:  # noqa: E722
-        continue
+                    # ¯\_(ツ)_/¯
+                    except Exception as e:
+                        pass
+
+            bulk_update_bucket = []
+
+    # Update existing entries
+    else:
+        try:
+
+            # Update an existing product (look-up key is the code) or create a new
+            # one. While this might not be the most efficient query (there will always
+            # be a SELECT first), it's ok because this script is run very rarely.
+            obj, created = Ingredient.objects.update_or_create(code=code, defaults=ingredient_data)
+
+            if created:
+                stats['new'] += 1
+                print('-> added to the database')
+            else:
+                stats['edited'] += 1
+                print('-> updated')
+
+        except:  # noqa: E722
+            continue
 
 print('***********************************')
 print(stats)
