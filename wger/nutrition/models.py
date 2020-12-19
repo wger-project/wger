@@ -285,13 +285,6 @@ class IngredientCategory(models.Model):
         """
         return False
 
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        super(IngredientCategory, self).save(*args, **kwargs)
-
 
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -310,6 +303,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     class Meta:
         ordering = ["name", ]
 
+    # Meta data
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
                                  editable=False,
@@ -321,6 +315,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    blank=True,
                                    editable=False)
 
+    # Product infos
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),
                             validators=[MinLengthValidator(3)])
@@ -384,25 +379,27 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                  help_text=_('In g per 100g of product'),
                                  validators=[MinValueValidator(0),
                                              MaxValueValidator(100)])
+
     code = models.CharField(max_length=200,
-                            verbose_name=_('Name'),
                             null=True,
-                            blank=True)
+                            blank=True,
+                            db_index=True)
+    """Internal ID of the source database, e.g. a barcode or similar"""
 
     source_name = models.CharField(max_length=200,
-                                   verbose_name=_('Source Name'),
                                    null=True,
                                    blank=True)
+    """Name of the source, such as Open Food Facts"""
 
     source_url = models.URLField(verbose_name=_('Link'),
                                  help_text=_('Link to product'),
                                  blank=True,
                                  null=True)
+    """URL of the product at the source"""
 
     last_imported = models.DateTimeField(_('Date'), auto_now_add=True, null=True, blank=True)
 
     common_name = models.CharField(max_length=200,
-                                   verbose_name=_('Common name of product'),
                                    null=True,
                                    blank=True)
 

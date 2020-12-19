@@ -265,9 +265,7 @@ class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = ['name',
-                  'common_name',
                   'brand',
-                  'category',
                   'energy',
                   'protein',
                   'carbohydrates',
@@ -286,11 +284,9 @@ class IngredientForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column('name', css_class='form-group col-6 mb-0'),
-                Column('common_name', css_class='form-group col-6 mb-0'),
+                Column('brand', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
             ),
-            'brand',
-            'category',
             'energy',
             'protein',
             Row(
@@ -305,6 +301,9 @@ class IngredientForm(forms.ModelForm):
             ),
             'fibres',
             'sodium',
-            'license',
-            'license_author'
+            Row(
+                Column('license', css_class='form-group col-6 mb-0'),
+                Column('license_author', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
         )
