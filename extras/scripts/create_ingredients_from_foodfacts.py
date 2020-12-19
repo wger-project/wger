@@ -172,6 +172,8 @@ for product in db.products.find({'lang': {"$in": langs}}):
         'common_name': common_name,
         'brand': brand,
         'status': 2,
+        'license_id': 5,
+        'license_author': 'Open Food Facts',
     }
 
     try:
