@@ -21,7 +21,7 @@ import sys
 sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
-from django.conf import settings # noqa: E402
+from django.conf import settings  # noqa: E402
 
 from wger.nutrition.models import Ingredient  # noqa: E402
 from wger.core.models import Language  # noqa: E402
@@ -71,7 +71,7 @@ db = client.admin
 # requires two queries per product(!!!) and takes probably a week to complete.
 MODE = 'insert'
 
-languages = {i[0]:Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
+languages = {i[0]: Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
 
 BULK_SIZE = 500
 bulk_update_bucket = []
@@ -114,12 +114,12 @@ for product in db.products.find({'lang': {"$in": languages.keys()}}):
         code = product['code']
 
     # Some products have no name or name is too long, skipping
-    if not name or len(name) > 200 :
-        #print(f'-> skipping due to name requirements')
+    if not name or len(name) > 200:
+        # print(f'-> skipping due to name requirements')
         stats['skipped'] += 1
         continue
 
-    #print(f'Processing "{name}"...')
+    # print(f'Processing "{name}"...')
 
     required = ['energy-kcal_100g',
                 'proteins_100g',
@@ -135,7 +135,7 @@ for product in db.products.find({'lang': {"$in": languages.keys()}}):
         fat = product['nutriments']['fat_100g']
         saturated = product['nutriments']['saturated-fat_100g']
     else:
-        #print(f'-> skipping due to required nutriments')
+        # print(f'-> skipping due to required nutriments')
         stats['skipped'] += 1
         continue
 
@@ -156,7 +156,7 @@ for product in db.products.find({'lang': {"$in": languages.keys()}}):
     for i in product_names[lang]:
         if distance(name, i) <= 3:
             stats['levenshtein'] += 1
-            #print(f'-> skipping due to similarity with "{i}"')
+            # print(f'-> skipping due to similarity with "{i}"')
             found_similar = True
             break
 
@@ -203,7 +203,7 @@ for product in db.products.find({'lang': {"$in": languages.keys()}}):
                         ingredient.save()
 
                     # ¯\_(ツ)_/¯
-                    except Exception as e:
+                    except Exception:
                         pass
 
             stats['new'] += BULK_SIZE
