@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 from pymongo import MongoClient
-from Levenshtein import distance
 import os
 import django
 import sys
@@ -67,23 +66,19 @@ db = client.admin
 
 # Mode for this script. When using 'insert', the script will bulk-insert the new
 # ingredients, which is very efficient. Importing the whole database will require
-# around 2 hours. When using 'update', existing ingredients will be updated, which
-# requires two queries per product(!!!) and takes probably a week to complete.
+# barely a minute. When using 'update', existing ingredients will be updated, which
+# requires two queries per product.
 MODE = 'insert'
 
 languages = {i[0]: Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
 
 BULK_SIZE = 500
 bulk_update_bucket = []
-stats = {'levenshtein': 0,
-         'new': 0,
+stats = {'new': 0,
          'edited': 0,
          'skipped': 0}
-product_names = {}
-for lang in languages.keys():
-    product_names[lang] = []
 
-# for lang in languages.keys():
+#for lang in languages.keys():
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
 #    total = db.products.count_documents({'lang': lang})
 #    print(f'Lang {lang} has {count} completed products out of {total}')
@@ -105,7 +100,7 @@ print(languages.keys())
 print('***********************************')
 
 
-for product in db.products.find({'lang': {"$in": languages.keys()}}):
+for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'complete': 1}):
     lang = product['lang']
 
     main_details = ['product_name', 'code']
@@ -150,20 +145,6 @@ for product in db.products.find({'lang': {"$in": languages.keys()}}):
 
     source_name = "Open Food Facts"
     source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
-
-    # Check if there are already names with similar names in the same language
-    found_similar = False
-    for i in product_names[lang]:
-        if distance(name, i) <= 3:
-            stats['levenshtein'] += 1
-            # print(f'-> skipping due to similarity with "{i}"')
-            found_similar = True
-            break
-
-    if found_similar:
-        continue
-
-    product_names[lang].append(name)
 
     ingredient_data = {
         'language': languages[lang],
@@ -220,10 +201,10 @@ for product in db.products.find({'lang': {"$in": languages.keys()}}):
 
             if created:
                 stats['new'] += 1
-                print('-> added to the database')
+                # print('-> added to the database')
             else:
                 stats['edited'] += 1
-                print('-> updated')
+                # print('-> updated')
 
         except:  # noqa: E722
             continue
