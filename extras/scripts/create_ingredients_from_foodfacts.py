@@ -35,7 +35,6 @@ and create all ingredients.
 
 
 * Requirements:
-pip3 install python-Levenshtein
 apt-get install mongo-tools  # (for mongorestore)
 
 * Steps:
