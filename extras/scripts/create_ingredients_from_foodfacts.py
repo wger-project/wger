@@ -84,7 +84,7 @@ stats = {'new': 0,
          'edited': 0,
          'skipped': 0}
 
-#for lang in languages.keys():
+# for lang in languages.keys():
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
 #    total = db.products.count_documents({'lang': lang})
 #    print(f'Lang {lang} has {count} completed products out of {total}')
