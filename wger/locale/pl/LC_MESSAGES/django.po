@@ -3879,9 +3879,6 @@ msgstr "Mile"
 msgid "Minutes"
 msgstr "Minuty"
 
-msgid "Repetitions"
-msgstr "Powtórzenia"
-
 msgid "Seconds"
 msgstr "Sekundy"
 

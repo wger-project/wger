@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # 6e88143b8c6f031cbb5b5ea22c7e0e8c_3906e26 <28bf8a0969e2877eb1f346e9213fed3d_37949>, 2013
 msgid ""
@@ -3870,9 +3870,6 @@ msgid "Miles"
 msgstr ""
 
 msgid "Minutes"
-msgstr ""
-
-msgid "Repetitions"
 msgstr ""
 
 msgid "Seconds"

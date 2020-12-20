@@ -45,7 +45,7 @@ $(function() {
         <div class="collapse" id="collapse-{{equipment.pk}}" data-parent="#equipmentAccordion">
             <div class="card-body px-0">
                 <div class="list-group list-group-flush">
-                    {% for exercise in equipment.exercise_set.all %}
+                    {% for exercise in equipment.exercise_set.accepted %}
                     {% if exercise.language in exercise_languages %}
                     <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                         <div class="media">

@@ -94,5 +94,29 @@
             "short_name": "fr",
             "full_name": "Fran\u00e7ais"
         }
+    },
+    {
+        "model": "core.language",
+        "pk": 13,
+        "fields": {
+            "short_name": "it",
+            "full_name": "Italian"
+        }
+    },
+    {
+        "model": "core.language",
+        "pk": 14,
+        "fields": {
+            "short_name": "pl",
+            "full_name": "Polish"
+        }
+    },
+    {
+        "model": "core.language",
+        "pk": 15,
+        "fields": {
+            "short_name": "uk",
+            "full_name": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430 \u043c\u043e\u0432\u0430"
+        }
     }
 ]

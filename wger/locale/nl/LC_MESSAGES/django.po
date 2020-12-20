@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Arthur van Rooijen <al.vrooijen@gmail.com>, 2017
 # David Machiels <david@davidmachiels.be>, 2014
@@ -3877,9 +3877,6 @@ msgstr "Mijl"
 
 msgid "Minutes"
 msgstr "Minuten"
-
-msgid "Repetitions"
-msgstr "Herhalingen"
 
 msgid "Seconds"
 msgstr "Seconden"
