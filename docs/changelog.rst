@@ -24,6 +24,8 @@ Upgrade steps from 1.9:
 * Support for reps-in-reserve (RiR) in workout plans and logs `#479`_
   (thanks `@SkyNetIndustry`_)
 * Improved user experience, on desktop and mobile `#337`_
+* Around 70000 new ingredients with Open Food Facts import with more to come `#422`_
+  (thanks `@harlenesamra`_, `@nikithamurikinati`_ and `@jcho1`_)
 * Group similar exercises such as wide grip, reverse, etc. `#555`_
   (thanks `@ryowright`_)
 * Improved info endpoints for exercises and ingredients, this saves additional
@@ -69,6 +71,9 @@ Upgrade steps from 1.9:
 .. _@derekli17: https://github.com/derekli17
 .. _@nopinter: https://github.com/nopinter
 .. _@gengkev: https://github.com/gengkev
+.. _@nikithamurikinati: https://github.com/nikithamurikinati
+.. _@jcho1: https://github.com/jcho1
+
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
@@ -77,6 +82,7 @@ Upgrade steps from 1.9:
 .. _#368: https://github.com/wger-project/wger/issues/368
 .. _#379: https://github.com/wger-project/wger/issues/379
 .. _#411: https://github.com/wger-project/wger/issues/411
+.. _#422: https://github.com/wger-project/wger/issues/422
 .. _#426: https://github.com/wger-project/wger/issues/426
 .. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
