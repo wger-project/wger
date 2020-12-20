@@ -420,10 +420,18 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     def get_absolute_url(self):
         """
-        Returns the canonical URL to view this object
+        Returns the canonical URL to view this object.
+
+        Since some names consist of only non-ascii characters (e.g. 감자깡), the
+        resulting slug would be empty and no URL would match. In that case, use
+        the regular URL with only the ID.
         """
-        return reverse('nutrition:ingredient:view',
-                       kwargs={'id': self.id, 'slug': slugify(self.name)})
+        slug = slugify(self.name)
+        if not slug:
+            return reverse('nutrition:ingredient:view', kwargs={'id': self.id})
+        else:
+            return reverse('nutrition:ingredient:view',
+                           kwargs={'id': self.id, 'slug': slug})
 
     def clean(self):
         """
