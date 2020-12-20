@@ -4,7 +4,6 @@ you manage your personal workouts, weight and diet plans and can also be used
 as a simple gym management utility. It offers a REST API as well, for easy
 integration with other projects and tools.
 
-
 Please note that this image is intended for development, if you want to
 host your own instance, take a look at the provided docker compose file:
 
@@ -17,7 +16,9 @@ host your own instance, take a look at the provided docker compose file:
 This docker image is meant to provide a quick development environment using
 django's development server and an sqlite database from your current code
 checkout (if you don't want or need a local checkout, use the wger/apache image,
-it is self-contained)
+it is self-contained).
+
+A more comfortable development version is provided in the compose folder.
 
 ### 1 - Start the container
 
@@ -32,9 +33,11 @@ use the more verbose mount instead:
 
     --mount type=bind,source='"C:\your\path\to your\checkout"',target=/home/wger/src
 
-You might also want to download the exercise images (will take some time):
+You might also want to download the exercise images and the ingredients
+(will take some time):
 
-    docker exec -ti wger.devel python3 manage.py download-exercise-images
+    docker exec wger.devel python3 manage.py download-exercise-images
+    docker exec wger.devel python3 manage.py load-online-fixtures
 
 ### 2 - Open the Application
 

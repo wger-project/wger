@@ -12,6 +12,9 @@ Upgrade steps from 1.9:
 * Update CSS and JS libraries ``yarn install``
 * Compile the CSS ``yarn build:css:sass``
 * Run migrations ``python3 manage.py migrate``
+* Update data ``python3 manage.py loaddata licenses.json languages.json language_config.json``
+* Load new ingredients (note that this will overwrite any ingredients that you
+  might have added) ``wger load-online-fixtures``
 * Update static files (only production): ``python3 manage.py collectstatic``
 * Subcommands for ``wger`` now use dashes in their names (i.e. create-settings
   instead of create_settings)
