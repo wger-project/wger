@@ -35,7 +35,7 @@ and create all ingredients.
 
 
 * Requirements:
-pip3 install python-Levenshtein
+pip3 install pymongo
 apt-get install mongo-tools  # (for mongorestore)
 
 * Steps:
@@ -51,13 +51,16 @@ docker run -it --name wger_mongo -p 27017:27017 -d  \
 mongorestore --username off --password off-wger -d admin -c products dump/off/products.bson
 
 # Process
-python create_ingredients_from_foodfacts.py
+python extras/scripts/create_ingredients_from_foodfacts.py
 
 # Cleanup
 docker stop wger_mongo
 docker rm wger_mongo
 rm openfoodfacts-mongodbdump.tar.gz
 rm -r dump
+
+# Update ingredient fixture
+python3 manage.py dumpdata nutritrion.ingredient > extras/scripts/
 """
 
 
