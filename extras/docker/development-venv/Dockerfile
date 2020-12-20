@@ -14,6 +14,7 @@
 # docker run -ti --publish 8000:8000 --name wger.devel  wger/devel
 # (in docker) source ~/venv/bin/activate
 # (in docker) python manage.py download-exercise-images (optional, may take some time)
+# (in docker) python manage.py load-online-fixtures (optional, may take some time)
 # (in docker) python manage.py runserver 0.0.0.0:8000
 #
 # Alternatively, you can bind the local checkout into the container:
@@ -67,7 +68,8 @@ RUN . /home/wger/venv/bin/activate \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap
+    && wger bootstrap \
+    && wger load-online-fixtures
 
 # Download the exercise images
 RUN mkdir ~/media \

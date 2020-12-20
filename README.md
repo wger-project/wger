@@ -87,6 +87,7 @@ pip install -r requirements.txt
 python3 setup.py develop
 wger create-settings
 wger bootstrap
+wger load-online-fixtures
 python3 manage.py runserver
 ```
 
