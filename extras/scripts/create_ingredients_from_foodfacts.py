@@ -35,7 +35,7 @@ and create all ingredients.
 
 
 * Requirements:
-pip3 install pymongo
+pip3 install pymongo zip
 apt-get install mongo-tools  # (for mongorestore)
 
 * Steps:
@@ -60,7 +60,10 @@ rm openfoodfacts-mongodbdump.tar.gz
 rm -r dump
 
 # Update ingredient fixture
-python3 manage.py dumpdata nutritrion.ingredient > extras/scripts/
+python3 manage.py dumpdata nutrition.ingredient > extras/scripts/data.json
+cd extras/scripts/
+python3 python3 filter-fixtures.py
+zip ingredients.json.zip ingredients.json
 """
 
 
