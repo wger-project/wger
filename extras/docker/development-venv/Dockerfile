@@ -14,7 +14,7 @@
 # docker run -ti --publish 8000:8000 --name wger.devel  wger/devel
 # (in docker) source ~/venv/bin/activate
 # (in docker) python manage.py download-exercise-images (optional, may take some time)
-# (in docker) python manage.py load-online-fixtures (optional, may take some time)
+# (in docker) wger load-online-fixtures (optional, may take some time)
 # (in docker) python manage.py runserver 0.0.0.0:8000
 #
 # Alternatively, you can bind the local checkout into the container:

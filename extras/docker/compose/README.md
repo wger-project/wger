@@ -20,6 +20,12 @@ To start all services:
 
     docker-compose -f extras/docker/compose/docker-compose.yml up
 
+You might also want to download the exercise images and the ingredients
+(will take some time):
+
+    docker-compose -f extras/docker/compose/docker-compose.yml exec web wger download-exercise-images
+    docker-compose -f extras/docker/compose/docker-compose.yml exec web wger load-online-fixtures
+
 Then open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
 
