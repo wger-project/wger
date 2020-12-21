@@ -60,7 +60,7 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutSession
-        fields = '__all__'
+        fields = ['user', 'workout', 'date', 'notes', 'impression', 'time_start', 'time_end']
 
 
 class WorkoutLogSerializer(serializers.ModelSerializer):
@@ -78,7 +78,7 @@ class ScheduleStepSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ScheduleStep
-        fields = '__all__'
+        fields = ['schedule', 'workout', 'duration']
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -97,7 +97,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = '__all__'
+        fields = ['training', 'description', 'day']
 
 
 class SetSerializer(serializers.ModelSerializer):
@@ -107,7 +107,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
-        fields = '__all__'
+        fields = ['exerciseday', 'exercises', 'sets', 'order']
 
 
 class SettingSerializer(serializers.ModelSerializer):
@@ -116,7 +116,8 @@ class SettingSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Setting
-        fields = '__all__'
+        fields = ['set', 'exercise', 'repetition_unit', 'reps',
+        'weight', 'weight_unit', 'rir', 'order', 'comment']
 
 
 #

@@ -64,7 +64,7 @@ class ExerciseCategoryAddView(WgerFormMixin,
     """
 
     model = ExerciseCategory
-    fields = '__all__'
+    fields = ['name']
     success_url = reverse_lazy('exercise:category:list')
     title = ugettext_lazy('Add category')
     permission_required = 'exercises.add_exercisecategory'
@@ -83,7 +83,7 @@ class ExerciseCategoryUpdateView(WgerFormMixin,
     """
 
     model = ExerciseCategory
-    fields = '__all__'
+    fields = ['name']
     success_url = reverse_lazy('exercise:category:list')
     permission_required = 'exercises.change_exercisecategory'
 

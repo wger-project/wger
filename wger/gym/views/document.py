@@ -90,7 +90,14 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = UserDocument
-    fields = '__all__'
+    fields = ['user',
+              'member',
+              'timestamp_created',
+              'timestamp_edited',
+              'document',
+              'original_name',
+              'name',
+              'note']
     title = ugettext_lazy('Add note')
     permission_required = 'gym.add_userdocument'
     member = None
@@ -139,8 +146,9 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     View to update an existing document
     """
 
-    fields = '__all__'
     model = UserDocument
+    fields = ['user', 'member', 'timestamp_created', 'timestamp_edited', 'document',
+              'original_name', 'name', 'note']
     permission_required = 'gym.change_userdocument'
 
     def get_success_url(self):
