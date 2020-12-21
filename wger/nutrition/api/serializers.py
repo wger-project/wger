@@ -121,7 +121,11 @@ class MealItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealItem
-        fields = '__all__'
+        fields = ['id',
+                  'ingredient',
+                  'weight_unit',
+                  'order',
+                  'amount']
 
 
 class MealItemInfoSerializer(serializers.ModelSerializer):
@@ -132,7 +136,8 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = MealItem
         depth = 1
-        fields = ['ingredient',
+        fields = ['id',
+                  'ingredient',
                   'weight_unit',
                   'order',
                   'amount']
@@ -159,7 +164,8 @@ class MealInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = ['order',
+        fields = ['id',
+                  'order',
                   'time',
                   'meal_items',
                   'get_nutritional_values']
@@ -185,7 +191,8 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = NutritionPlan
         depth = 1
-        fields = ['language',
+        fields = ['id',
+                  'language',
                   'creation_date',
                   'description',
                   'get_nutritional_values',
