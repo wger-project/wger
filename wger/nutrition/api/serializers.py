@@ -122,6 +122,7 @@ class MealItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MealItem
         fields = ['id',
+                  'meal',
                   'ingredient',
                   'weight_unit',
                   'order',
