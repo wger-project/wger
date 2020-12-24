@@ -117,7 +117,7 @@ class SettingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Setting
         fields = ['set', 'exercise', 'repetition_unit', 'reps',
-        'weight', 'weight_unit', 'rir', 'order', 'comment']
+                  'weight', 'weight_unit', 'rir', 'order', 'comment']
 
 
 #
