@@ -39,7 +39,7 @@ class ConfigUpdateView(WgerFormMixin, UpdateView):
     """
 
     model = GymAdminConfig
-    fields = '__all__'
+    fields = ['overview_inactive']
     permission_required = 'gym.change_gymadminconfig'
     title = ugettext_lazy('Configuration')
 

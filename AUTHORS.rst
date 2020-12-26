@@ -42,6 +42,7 @@ Developers
 * Derek Li - https://github.com/derekli17
 * Noah Pinter - https://github.com/nopinter
 * Kevin Geng - https://github.com/gengkev
+* Karmen Lu - https://github.com/klu17
 
 Translators
 -----------

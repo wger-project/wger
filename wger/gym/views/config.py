@@ -41,7 +41,7 @@ class GymConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredM
     """
 
     model = GymConfig
-    fields = '__all__'
+    fields = ['weeks_inactive', 'show_name']
     permission_required = 'gym.change_gymconfig'
 
     def dispatch(self, request, *args, **kwargs):

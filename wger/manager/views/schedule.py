@@ -272,7 +272,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     """
 
     model = Schedule
-    fields = '__all__'
+    fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
     title = ugettext_lazy('Create schedule')
 
@@ -310,7 +310,7 @@ class ScheduleEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
     """
 
     model = Schedule
-    fields = '__all__'
+    fields = ('name', 'start_date', 'is_active', 'is_loop')
 
     def get_context_data(self, **kwargs):
         """
