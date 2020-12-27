@@ -35,7 +35,7 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
     Generic view to edit the gym config table
     """
     model = GymConfig
-    fields = '__all__'
+    fields = ['default_gym']
     permission_required = 'config.change_gymconfig'
     success_url = reverse_lazy('gym:gym:list')
     title = ugettext_lazy('Edit')

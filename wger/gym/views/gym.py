@@ -160,7 +160,7 @@ class GymAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Cre
     """
 
     model = Gym
-    fields = '__all__'
+    fields = ['name', 'phone', 'email', 'owner', 'zip_code', 'city', 'street']
     title = ugettext_lazy('Add new gym')
     permission_required = 'gym.add_gym'
 
@@ -424,7 +424,7 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
     """
 
     model = Gym
-    fields = '__all__'
+    fields = ['name', 'phone', 'email', 'owner', 'zip_code', 'city', 'street']
     title = ugettext_lazy('Edit gym')
     permission_required = 'gym.change_gym'
 

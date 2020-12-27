@@ -38,7 +38,33 @@ class UserprofileSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ['user',
+                  'gym',
+                  'is_temporary',
+                  'show_comments',
+                  'show_english_ingredients',
+                  'workout_reminder_active',
+                  'workout_reminder',
+                  'workout_duration',
+                  'last_workout_notification',
+                  'notification_language',
+                  'timer_active',
+                  'timer_active',
+                  'age',
+                  'birthdate',
+                  'height',
+                  'gender',
+                  'sleep_hours',
+                  'work_hours',
+                  'work_intensity',
+                  'sport_hours',
+                  'sport_intensity',
+                  'freetime_hours',
+                  'freetime_intensity',
+                  'calories',
+                  'weight_unit',
+                  'ro_access',
+                  'num_days_weight_reminder']
 
 
 class UsernameSerializer(serializers.Serializer):
@@ -64,7 +90,8 @@ class LanguageSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Language
-        fields = '__all__'
+        fields = ['short_name',
+                  'full_name']
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):
@@ -73,7 +100,7 @@ class DaysOfWeekSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = DaysOfWeek
-        fields = '__all__'
+        fields = ['day_of_week']
 
 
 class LicenseSerializer(serializers.ModelSerializer):
@@ -82,7 +109,9 @@ class LicenseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = License
-        fields = '__all__'
+        fields = ['full_name',
+                  'short_name',
+                  'url']
 
 
 class RepetitionUnitSerializer(serializers.ModelSerializer):
@@ -91,7 +120,7 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = RepetitionUnit
-        fields = '__all__'
+        fields = ['name']
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
@@ -100,4 +129,4 @@ class WeightUnitSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = WeightUnit
-        fields = '__all__'
+        fields = ['name']
