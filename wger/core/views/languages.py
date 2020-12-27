@@ -69,7 +69,7 @@ class LanguageCreateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
     """
 
     model = Language
-    fields = '__all__'
+    fields = ['short_name', 'full_name']
     title = ugettext_lazy('Add')
     permission_required = 'core.add_language'
 
@@ -80,7 +80,7 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
     """
 
     model = Language
-    fields = '__all__'
+    fields = ['short_name', 'full_name']
     success_url = reverse_lazy('core:language:overview')
     messages = ugettext_lazy('Successfully deleted')
     permission_required = 'core.delete_language'
@@ -100,7 +100,7 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = Language
-    fields = '__all__'
+    fields = ['short_name', 'full_name']
     permission_required = 'core.change_language'
 
     def get_context_data(self, **kwargs):

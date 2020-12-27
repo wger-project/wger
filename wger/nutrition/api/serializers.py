@@ -36,7 +36,11 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientWeightUnit
-        fields = '__all__'
+        fields = ['id',
+                  'amount',
+                  'gram',
+                  'ingredient',
+                  'unit']
 
 
 class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
@@ -59,7 +63,8 @@ class WeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightUnit
-        fields = '__all__'
+        fields = ['language',
+                  'name']
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -153,7 +158,9 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = '__all__'
+        fields = ['plan',
+                  'order',
+                  'time']
 
 
 class MealInfoSerializer(serializers.ModelSerializer):
