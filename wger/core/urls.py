@@ -129,7 +129,7 @@ patterns_license = [
     path('license/add',
          license.LicenseAddView.as_view(),
          name='add'),
-    path('license/<int:pk>)/edit',
+    path('license/<int:pk>/edit',
          license.LicenseUpdateView.as_view(),
          name='edit'),
     path('license/<int:pk>/delete',
