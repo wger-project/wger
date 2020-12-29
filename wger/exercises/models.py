@@ -545,3 +545,26 @@ class ExerciseComment(models.Model):
         Comment has no owner information
         """
         return False
+
+
+class VideoReference(models.Model):
+    """
+    Model for a video reference that demonstrates an exercise.
+    """
+    exercise = models.ForeignKey(Exercise,
+                                 verbose_name=_('Exercise'),
+                                 editable=False,
+                                 on_delete=models.CASCADE)
+    """ForeignKey to an exercise"""
+    description = models.CharField(max_length=200,
+                               verbose_name=_('Description'),
+                               help_text=_('A description for a video reference.'))
+    """Description for an exercise video reference"""
+    url = models.URLField(max_length = 200)
+    """URL to view a video reference"""
+
+    def __str__(self):
+        """
+        Return a human-readable description of a video reference
+        """
+        return self.description
