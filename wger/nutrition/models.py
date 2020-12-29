@@ -765,12 +765,11 @@ class BaseMealItem(object):
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
         nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
+        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
             nutritional_info['carbohydrates_sugar'] += \
                 self.ingredient.carbohydrates_sugar * item_weight / 100
-
-        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.fat_saturated:
             nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * item_weight / 100

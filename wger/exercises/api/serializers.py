@@ -34,7 +34,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Exercise
-        fields = ['objects',
+        fields = ['id',
                   'category',
                   'description',
                   'name',
@@ -54,7 +54,8 @@ class EquipmentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Equipment
-        fields = ['name']
+        fields = ['id',
+                  'name']
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
@@ -63,7 +64,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseImage
-        fields = ['objects',
+        fields = ['id',
                   'exercise',
                   'image',
                   'is_main']
@@ -75,7 +76,8 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseComment
-        fields = ['exercise',
+        fields = ['id',
+                  'exercise',
                   'comment']
 
 
@@ -113,7 +115,8 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseCategory
-        fields = ['name']
+        fields = ['id',
+                  'name']
 
 
 class MuscleSerializer(serializers.ModelSerializer):

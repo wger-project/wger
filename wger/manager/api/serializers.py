@@ -60,7 +60,7 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutSession
-        fields = ['user', 'workout', 'date', 'notes', 'impression', 'time_start', 'time_end']
+        fields = ['id', 'user', 'workout', 'date', 'notes', 'impression', 'time_start', 'time_end']
 
 
 class WorkoutLogSerializer(serializers.ModelSerializer):
@@ -78,7 +78,10 @@ class ScheduleStepSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ScheduleStep
-        fields = ['schedule', 'workout', 'duration']
+        fields = ['id',
+                  'schedule',
+                  'workout',
+                  'duration']
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -97,7 +100,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = ['training', 'description', 'day']
+        fields = ['id', 'training', 'description', 'day']
 
 
 class SetSerializer(serializers.ModelSerializer):
@@ -107,7 +110,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
-        fields = ['exerciseday', 'exercises', 'sets', 'order']
+        fields = ['id', 'exerciseday', 'exercises', 'sets', 'order']
 
 
 class SettingSerializer(serializers.ModelSerializer):
@@ -116,7 +119,7 @@ class SettingSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Setting
-        fields = ['set', 'exercise', 'repetition_unit', 'reps',
+        fields = ['id', 'set', 'exercise', 'repetition_unit', 'reps',
                   'weight', 'weight_unit', 'rir', 'order', 'comment']
 
 
