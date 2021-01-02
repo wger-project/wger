@@ -15,7 +15,7 @@ django-sortedm2m~=3.0
 django-storages~=1.11
 easy-thumbnails~=2.7
 icalendar==4.0.7
-invoke~=1.4
+invoke~=1.5
 pillow~=8.0
 python-mimeparse
 reportlab==3.5.57
