@@ -132,7 +132,6 @@ class WorkoutLogForm(ModelForm):
                           initial=0,
                           required=False)
     rir = ChoiceField(label=_('RiR'),
-
                       choices=RIR_OPTIONS,
                       required=False)
 

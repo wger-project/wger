@@ -194,30 +194,46 @@ class WeightLogOverviewAddTestCase(WgerTestCase):
 
         # Add new log entries
         count_before = WorkoutLog.objects.count()
-        response = self.client.post(reverse('manager:day:log', kwargs={'pk': 1}),
-                                    {'date': '2012-01-01',
-                                     'notes': 'My cool impression',
-                                     'impression': '3',
-                                     'time_start': datetime.time(10, 0),
-                                     'time_end': datetime.time(12, 0),
-                                     'form-0-reps': 10,
-                                     'form-0-repetition_unit': 1,
-                                     'form-0-weight': 10,
-                                     'form-0-weight_unit': 1,
-                                     'form-0-rir': '1',
-                                     'form-1-reps': 10,
-                                     'form-1-repetition_unit': 1,
-                                     'form-1-weight': 10,
-                                     'form-1-weight_unit': 1,
-                                     'form-1-rir': '2',
-                                     'form-TOTAL_FORMS': 3,
-                                     'form-INITIAL_FORMS': 0,
-                                     'form-MAX-NUM_FORMS': 3
-                                     })
+        form_data = {'date': '2012-01-01',
+                     'notes': 'My cool impression',
+                     'impression': '3',
+                     'time_start': datetime.time(10, 0),
+                     'time_end': datetime.time(12, 0),
+                     'form-0-reps': 10,
+                     'form-0-repetition_unit': 1,
+                     'form-0-weight': 10,
+                     'form-0-weight_unit': 1,
+                     'form-0-rir': '1',
+                     'form-1-reps': 10,
+                     'form-1-repetition_unit': 1,
+                     'form-1-weight': 10,
+                     'form-1-weight_unit': 1,
+                     'form-1-rir': '2',
+                     'form-TOTAL_FORMS': 3,
+                     'form-INITIAL_FORMS': 0,
+                     'form-MAX-NUM_FORMS': 3
+                  }
+        response = self.client.post(reverse('manager:day:log', kwargs={'pk': 1}), form_data)
         count_after = WorkoutLog.objects.count()
 
         # Logged out users get a 302 redirect to login page
         # Users not owning the workout, a 403, forbidden
+        if fail:
+            self.assertIn(response.status_code, (302, 403))
+            self.assertEqual(count_before, count_after)
+        else:
+            self.assertEqual(response.status_code, 302)
+            self.assertGreater(count_after, count_before)
+
+        #
+        # Post log without RiR
+        #
+        form_data['form-0-rir'] = ''
+        form_data['form-1-rir'] = ''
+        count_before = WorkoutLog.objects.count()
+        response = self.client.post(reverse('manager:day:log', kwargs={'pk': 1}), form_data)
+        count_after = WorkoutLog.objects.count()
+
         if fail:
             self.assertIn(response.status_code, (302, 403))
             self.assertEqual(count_before, count_after)
