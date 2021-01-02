@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='logitem',
             name='plan',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='nutrition.nutritionplan', verbose_name='Nutrition plan'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    to='nutrition.nutritionplan', verbose_name='Nutrition plan'),
         ),
     ]

@@ -211,8 +211,8 @@ class WeightLogOverviewAddTestCase(WgerTestCase):
                      'form-1-rir': '2',
                      'form-TOTAL_FORMS': 3,
                      'form-INITIAL_FORMS': 0,
-                     'form-MAX-NUM_FORMS': 3
-                  }
+                     'form-MAX-NUM_FORMS': 3}
+
         response = self.client.post(reverse('manager:day:log', kwargs={'pk': 1}), form_data)
         count_after = WorkoutLog.objects.count()
 
