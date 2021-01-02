@@ -19,7 +19,6 @@ from django.contrib.sitemaps import Sitemap
 
 # wger
 from wger.nutrition.models import Ingredient
-from wger.utils.language import load_language
 
 
 class NutritionSitemap(Sitemap):
@@ -27,5 +26,7 @@ class NutritionSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return (Ingredient.objects.filter(language=load_language())
-                                  .filter(status=Ingredient.STATUS_ACCEPTED))
+        return Ingredient.objects.accepted()
+
+    def lastmod(self, obj):
+        return obj.update_date
