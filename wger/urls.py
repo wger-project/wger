@@ -90,7 +90,7 @@ router.register(r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, base
 router.register(r'nutritionplaninfo', nutrition_api_views.NutritionPlanInfoViewSet, basename='nutritionplaninfo')
 router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='mealitem')
-router.register(r'nutritiondiary', nutrition_api_views.LogItemViewSet, basename='nutritiondiary')
+#router.register(r'nutritiondiary', nutrition_api_views.LogItemViewSet, basename='nutritiondiary')
 
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
