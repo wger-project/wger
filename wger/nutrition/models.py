@@ -850,7 +850,6 @@ class LogItem(BaseMealItem, models.Model):
 
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
-                             editable=False,
                              on_delete=models.CASCADE)
     """
     The plan this log belongs to
