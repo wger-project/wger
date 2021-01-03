@@ -114,7 +114,7 @@ urlpatterns = i18n_patterns(
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('email', include(('wger.mailer.urls', 'email'), namespace='email')),
-    path('sitemap.xml', index, {'sitemaps': sitemaps}),
+    path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path('sitemap-<section>.xml',
          sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap')
