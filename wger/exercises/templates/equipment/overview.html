@@ -34,7 +34,6 @@ $(function() {
 -->
 {% block content %}
 {% cache cache_timeout equipment-overview language.id %}
-{{language}}
 <div class="accordion" id="equipmentAccordion">
     {% for equipment in equipment_list %}
     <div class="card">
