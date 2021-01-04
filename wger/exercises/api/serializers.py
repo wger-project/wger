@@ -38,15 +38,6 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ExerciseSerializer(serializers.ModelSerializer):
-    """
-    Exercise serializer
-    """
-    class Meta:
-        model = Exercise
-        fields = '__all__'
-
-
 class EquipmentSerializer(serializers.ModelSerializer):
     """
     Equipment serializer
@@ -74,32 +65,6 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ExerciseInfoSerializer(serializers.ModelSerializer):
-    """
-    Equipment serializer
-    """
-
-    images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
-    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
-    exercise_base = ExerciseBaseSerializer(source='exercisebase_set', many=True)
-
-    class Meta:
-        model = Exercise
-        depth = 1
-        fields = ("id",
-                  "name",
-                  "uuid",
-                  "description",
-                  "creation_date",
-                  "exercise_base"
-                  "language",
-                  "license",
-                  "license_author",
-                  "images",
-                  "variations",
-                  "comments")
-
-
 class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     ExerciseCategory serializer
@@ -116,3 +81,70 @@ class MuscleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Muscle
         fields = '__all__'
+
+
+class ExerciseSerializer(serializers.ModelSerializer):
+    """
+    Exercise serializer
+
+    The fields from the new ExerciseBase are retrieved here as to retain
+    compatibility with the old model where all the fields where in Exercise.
+    """
+    category = serializers.PrimaryKeyRelatedField(source='exercise_base.category',
+                                                  read_only=True)
+    muscles = serializers.PrimaryKeyRelatedField(source='exercise_base.muscles',
+                                                 many=True,
+                                                 read_only=True)
+    muscles_secondary = serializers.PrimaryKeyRelatedField(source='exercise_base.muscles_secondary',
+                                                           many=True,
+                                                           read_only=True)
+    equipment = serializers.PrimaryKeyRelatedField(source='exercise_base.equipment',
+                                                   many=True,
+                                                   read_only=True)
+
+    class Meta:
+        model = Exercise
+        fields = ("id",
+                  "uuid",
+                  "name",
+                  "description",
+                  "creation_date",
+                  "category",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author")
+
+
+class ExerciseInfoSerializer(serializers.ModelSerializer):
+    """
+    Exercise info serializer
+    """
+
+    images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
+    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
+    category = ExerciseCategorySerializer(source='exercise_base.category')
+    muscles = MuscleSerializer(source='exercise_base.muscles', many=True)
+    muscles_secondary = MuscleSerializer(source='exercise_base.muscles_secondary', many=True)
+    equipment = EquipmentSerializer(source='exercise_base.equipment', many=True)
+
+    class Meta:
+        model = Exercise
+        depth = 1
+        fields = ("id",
+                  "name",
+                  "uuid",
+                  "description",
+                  "creation_date",
+                  "category",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author",
+                  "images",
+                  "variations",
+                  "comments")

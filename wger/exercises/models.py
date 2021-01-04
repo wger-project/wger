@@ -250,7 +250,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """Variations of this exercise"""
 
     exercise_base = models.ForeignKey(ExerciseBase,
-                                      verbose_name=('ExerciseBase'),
+                                      verbose_name='ExerciseBase',
                                       on_delete=models.CASCADE,
                                       default=None,
                                       null=True,
