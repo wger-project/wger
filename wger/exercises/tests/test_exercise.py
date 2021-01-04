@@ -38,6 +38,7 @@ from wger.exercises.models import (
 )
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import WORKOUT_TAB
+from wger.utils.helpers import random_string
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -243,7 +244,7 @@ class ExercisesTestCase(WgerTestCase):
         # Add an exercise
         count_before = Exercise.objects.count()
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'name_original': 'my test exercise',
+                                    {'name_original': random_string(),
                                      'license': 1,
                                      'exercise_base': {
                                          'category': 2,
@@ -272,6 +273,23 @@ class ExercisesTestCase(WgerTestCase):
         self.add_exercise_user_fail()
         self.user_logout()
 
+    def test_add_exercise_name_too_similar_fail(self):
+        """
+        Tests that adding an exercise with a name that is too similar
+        to an existing exercise fails
+        """
+        count_before = Exercise.objects.count()
+        response = self.client.post(reverse('exercise:exercise:add'),
+                                    {'category': 2,
+                                     'name_original': 'Squats',
+                                     'license': 1,
+                                     'muscles': [1, 2]})
+        count_after = Exercise.objects.count()
+        self.assertIn(response.status_code, STATUS_CODES_FAIL)
+
+        # Exercise was not added
+        self.assertEqual(count_before, count_after)
+
     def add_exercise_success(self, admin=False):
         """
         Tests adding/editing an exercise with a user with enough rights to do this
@@ -280,8 +298,9 @@ class ExercisesTestCase(WgerTestCase):
         # Add an exercise
         count_before = Exercise.objects.count()
         description = 'a nice, long and accurate description for the exercise'
+        name_original = random_string()
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'name_original': 'my test exercise',
+                                    {'name_original': name_original,
                                      'license': 1,
                                      'description': description,
                                      'category': 2,
@@ -310,11 +329,12 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         exercise_1 = Exercise.objects.get(pk=exercise_id)
-        self.assertEqual(exercise_1.name, 'my Test Exercise')
+        self.assertEqual(exercise_1.name, name_original)
 
         # Wrong category - adding
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'name_original': 'my test exercise',
+                                    {'category': 111,
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'category': 111,
                                      'muscles': [1, 2]
@@ -323,7 +343,8 @@ class ExercisesTestCase(WgerTestCase):
 
         # Wrong category - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
-                                    {'name_original': 'my test exercise',
+                                    {'category': 111,
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'category': 111,
                                      'muscles': [1, 2]
@@ -335,7 +356,8 @@ class ExercisesTestCase(WgerTestCase):
 
         # No muscles - adding
         response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'name_original': 'my test exercise',
+                                    {'category': 1,
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'category': 1,
                                      'muscles': []
@@ -344,7 +366,8 @@ class ExercisesTestCase(WgerTestCase):
 
         # No muscles - editing
         response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
-                                    {'name_original': 'my test exercise',
+                                    {'category': 1,
+                                     'name_original': random_string(),
                                      'license': 1,
                                      'category': 1,
                                      'muscles': []

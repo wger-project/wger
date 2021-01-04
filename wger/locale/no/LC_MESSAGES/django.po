@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jon-Sindre Husum <jhusum@gmail.com>, 2020
 # w00p <kjetil@elde.io>, 2016
@@ -3873,9 +3873,6 @@ msgstr ""
 
 msgid "Minutes"
 msgstr ""
-
-msgid "Repetitions"
-msgstr "Repetisjoner"
 
 msgid "Seconds"
 msgstr ""

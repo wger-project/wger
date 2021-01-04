@@ -27,6 +27,7 @@ from django.core import mail
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils import translation
 from django.utils.text import slugify
@@ -67,6 +68,16 @@ class Muscle(models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
+
+    # Image to use when displaying this as a main muscle in an exercise
+    @property
+    def image_url_main(self):
+        return static(f"images/muscles/main/muscle-{self.id}.svg")
+
+    # Image to use when displaying this as a secondary muscle in an exercise
+    @property
+    def image_url_secondary(self):
+        return static(f"images/muscles/secondary/muscle-{self.id}.svg")
 
     def __str__(self):
         """
@@ -245,7 +256,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         verbose_name=_('Variations'),
         on_delete=models.CASCADE,
         null=True,
-        default=""
+        blank=True
     )
     """Variations of this exercise"""
 

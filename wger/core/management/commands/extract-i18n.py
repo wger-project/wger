@@ -36,13 +36,16 @@ class Command(BaseCommand):
     def handle(self, **options):
 
         # Collect all translatable items
-        out = []
-        out += [i for i in ExerciseCategory.objects.all()]
-        out += [i for i in Equipment.objects.all()]
-        out += [i for i in Muscle.objects.all()]
-        out += [i for i in RepetitionUnit.objects.all()]
+        data = [i for i in ExerciseCategory.objects.all()] \
+            + [i for i in Equipment.objects.all()] \
+            + [i for i in Muscle.objects.all()] \
+            + [i for i in RepetitionUnit.objects.all()]
 
-        # Print the result
-        for i in out:
-            self.stdout.write(f'msgid "{i}"\n'
-                              'msgstr ""\n\n')
+        # Write the result to a file that can be read by gettext. Yes, this is
+        # a bit ugly, but the categories or muscles have basically never changed.
+        out = '{% load i18n %}\n'
+        for i in data:
+            out += f'{{% translate  "{i}" %}}\n'
+
+        with open('wger/i18n.tpl', 'w') as f:
+            f.write(out)

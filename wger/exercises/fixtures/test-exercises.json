@@ -80,6 +80,7 @@
         "model": "exercises.exercisebase",
         "fields": {
             "category": 2,
+            "status": "2",
             "muscles": [
                 1,
                 2
@@ -94,6 +95,7 @@
         "model": "exercises.exercisebase",
         "fields": {
             "category": 2,
+            "status": "2",
             "muscles": [
                 2
             ],
@@ -108,6 +110,7 @@
         "model": "exercises.exercisebase",
         "fields": {
             "category": 3,
+            "status": "2",
             "muscles": [
                 1
             ]
@@ -118,6 +121,7 @@
         "model": "exercises.exercisebase",
         "fields": {
             "category": 3,
+            "status": "2",
             "muscles": [
                 1
             ],
@@ -129,6 +133,7 @@
         "model": "exercises.exercisebase",
         "fields": {
             "category": 1,
+            "status": "2",
             "muscles": []
         }
     },
@@ -138,7 +143,7 @@
         "fields": {
             "status": "2",
             "language": 1,
-            "exercise_base": 1, 
+            "exercise_base": 1,
             "description": "",
             "name": "An exercise"
         }
@@ -147,7 +152,7 @@
         "pk": 2,
         "model": "exercises.exercise",
         "fields": {
-            "status": "2",           
+            "status": "2",
             "language": 2,
             "exercise_base": 2,
             "description": "",
@@ -159,7 +164,7 @@
         "model": "exercises.exercise",
         "fields": {
             "status": "2",
-            "language": 1,       
+            "language": 1,
             "exercise_base": 3,
             "description": "",
             "name": "Boring exercise"

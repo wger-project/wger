@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Andreas Wili <cicco0@outlook.com>, 2017
 # manuel wimmer <wimmer.manuel@me.com>, 2014
@@ -3873,9 +3873,6 @@ msgstr "Meilen"
 
 msgid "Minutes"
 msgstr "Minuten"
-
-msgid "Repetitions"
-msgstr "Wiederholungen"
 
 msgid "Seconds"
 msgstr "Sekunden"

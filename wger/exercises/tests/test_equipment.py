@@ -148,7 +148,7 @@ class EquipmentCacheTestCase(WgerTestCase):
         self.client.get(reverse('exercise:equipment:overview'))
         self.assertTrue(cache.get(make_template_fragment_key('equipment-overview', [2])))
 
-    def test_equipmet_cache_update(self):
+    def test_equipment_cache_update(self):
         """
         Test that the template cache for the overview is correctly reseted when
         performing certain operations
@@ -157,9 +157,9 @@ class EquipmentCacheTestCase(WgerTestCase):
         self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
 
         self.client.get(reverse('exercise:equipment:overview'))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         old_overview = cache.get(make_template_fragment_key('equipment-overview', [2]))
+        self.assertTrue(old_overview)
 
         exercise = Exercise.objects.get(pk=2)
         exercise.name = 'Very cool exercise 2'
@@ -168,9 +168,7 @@ class EquipmentCacheTestCase(WgerTestCase):
         exercise.save()
 
         self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
-
         self.client.get(reverse('exercise:equipment:overview'))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         new_overview = cache.get(make_template_fragment_key('equipment-overview', [2]))
 

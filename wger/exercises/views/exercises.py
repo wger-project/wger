@@ -26,6 +26,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.core import mail
+from django.core.exceptions import ValidationError
 from django.forms import (
     CharField,
     CheckboxSelectMultiple,
@@ -77,10 +78,12 @@ from wger.exercises.models import (
     Muscle
 )
 from wger.manager.models import WorkoutLog
+from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
+from wger.utils.helpers import levenshtein
 from wger.utils.language import (
     load_item_languages,
     load_language
@@ -160,6 +163,63 @@ def view(request, id, slug=None):
     return render(request, 'exercise/view.html', template_data)
 
 
+class ExerciseForm(ModelForm):
+    # Redefine some fields here to set some properties
+    # (some of this could be done with a crispy form helper and would be
+    # a cleaner solution)
+    category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
+                                widget=Select())
+    muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
+                                       widget=CheckboxSelectMultiple(),
+                                       required=False)
+
+    muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
+                                                 widget=CheckboxSelectMultiple(),
+                                                 required=False)
+
+    equipment = ModelMultipleChoiceField(queryset=Equipment.objects.all(),
+                                         widget=CheckboxSelectMultiple(),
+                                         required=False)
+
+    description = CharField(label=_('Description'),
+                            widget=Textarea,
+                            required=False)
+
+    class Meta:
+        model = Exercise
+        widgets = {'equipment': TranslatedSelectMultiple()}
+        fields = ['name_original',
+                  'category',
+                  'description',
+                  'muscles',
+                  'muscles_secondary',
+                  'equipment',
+                  'license',
+                  'license_author']
+
+    class Media:
+        js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
+
+    def clean_name_original(self):
+        """
+        Throws a validation error if the submitted name is too similar to an existing
+        exercise's name
+        """
+        name_original = self.cleaned_data['name_original']
+        language = load_language()
+        exercises = Exercise.objects.accepted() \
+            .filter(language=language)
+        for exercise in exercises:
+            exercise_name = str(exercise)
+            min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
+            if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
+                raise ValidationError(
+                    _('%(name_original)s is too similar to existing exercise "%(exercise_name)s"'),
+                    params={'name_original': name_original, 'exercise_name': exercise_name},
+                )
+        return name_original
+
+
 class ExercisesEditAddView(WgerFormMixin):
     """
     Generic view to subclass from for exercise adding and editing, since they
@@ -172,44 +232,6 @@ class ExercisesEditAddView(WgerFormMixin):
     clean_html = ('description', )
 
     def get_form_class(self):
-
-        class ExerciseForm(ModelForm):
-            # Redefine some fields here to set some properties
-            # (some of this could be done with a crispy form helper and would be
-            # a cleaner solution)
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=Select())
-            muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=CheckboxSelectMultiple(),
-                                               required=False)
-
-            muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=CheckboxSelectMultiple(),
-                                                         required=False)
-
-            equipment = ModelMultipleChoiceField(queryset=Equipment.objects.all(),
-                                                 widget=CheckboxSelectMultiple(),
-                                                 required=False)
-
-            description = CharField(label=_('Description'),
-                                    widget=Textarea,
-                                    required=False)
-
-            class Meta:
-                model = Exercise
-                widgets = {'equipment': TranslatedSelectMultiple()}
-                fields = ['name_original',
-                          'category',
-                          'description',
-                          'muscles',
-                          'muscles_secondary',
-                          'equipment',
-                          'license',
-                          'license_author']
-
-            class Media:
-                js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
-
         return ExerciseForm
 
     def get_form(self, form_class=None):

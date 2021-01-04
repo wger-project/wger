@@ -167,6 +167,8 @@
         {#                                         #}
         {# Render the links to the other languages #}
         {#                                         #}
+
+        {% if not is_api_path %} {# Don't show language switcher in the generated API views #}
         <div class="btn-group float-right" role="group">
             <div class="btn-group" role="group">
                 <button id="btnGroupLanguages2" type="button" class="btn btn-link text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -192,6 +194,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <ul class="list-unstyled mb-0 pt-2">
             <li><a href="{% url 'core:about' %}" class="text-muted small">{% trans "About" %}</a></li>

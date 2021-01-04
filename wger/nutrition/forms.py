@@ -265,6 +265,7 @@ class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = ['name',
+                  'brand',
                   'energy',
                   'protein',
                   'carbohydrates',
@@ -275,12 +276,17 @@ class IngredientForm(forms.ModelForm):
                   'sodium',
                   'license',
                   'license_author']
+        widgets = {'category': forms.TextInput}
 
     def __init__(self, *args, **kwargs):
         super(IngredientForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'name',
+            Row(
+                Column('name', css_class='form-group col-6 mb-0'),
+                Column('brand', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
             'energy',
             'protein',
             Row(
@@ -295,6 +301,9 @@ class IngredientForm(forms.ModelForm):
             ),
             'fibres',
             'sodium',
-            'license',
-            'license_author'
+            Row(
+                Column('license', css_class='form-group col-6 mb-0'),
+                Column('license_author', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
         )

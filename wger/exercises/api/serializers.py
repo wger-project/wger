@@ -35,7 +35,12 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseBase
-        fields = '__all__'
+        fields = ['id',
+                  'category',
+                  'muscles',
+                  'muscles_secondary',
+                  'equipment',
+                  'creation_date']
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
@@ -44,7 +49,8 @@ class EquipmentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Equipment
-        fields = '__all__'
+        fields = ['id',
+                  'name']
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
@@ -53,7 +59,10 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseImage
-        fields = '__all__'
+        fields = ['id',
+                  'exercise',
+                  'image',
+                  'is_main']
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
@@ -62,7 +71,9 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseComment
-        fields = '__all__'
+        fields = ['id',
+                  'exercise',
+                  'comment']
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
@@ -71,7 +82,8 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseCategory
-        fields = '__all__'
+        fields = ['id',
+                  'name']
 
 
 class MuscleSerializer(serializers.ModelSerializer):
@@ -80,7 +92,11 @@ class MuscleSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Muscle
-        fields = '__all__'
+        fields = ['id',
+                  'name',
+                  'is_front',
+                  'image_url_main',
+                  'image_url_secondary']
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -133,7 +149,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         depth = 1
-        fields = ("id",
+        fields = ["id",
                   "name",
                   "uuid",
                   "description",
@@ -147,4 +163,4 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
                   "license_author",
                   "images",
                   "variations",
-                  "comments")
+                  "comments"]

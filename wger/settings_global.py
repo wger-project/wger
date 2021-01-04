@@ -194,7 +194,7 @@ LANGUAGES = (
             ('de', 'German'),
             ('bg', 'Bulgarian'),
             ('es', 'Spanish'),
-            ('r', 'Russian'),
+            ('ru', 'Russian'),
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
@@ -202,6 +202,9 @@ LANGUAGES = (
             ('sv', 'Swedish'),
             ('no', 'Norwegian'),
             ('fr', 'French'),
+            ('it', 'Italian'),
+            ('pl', 'Polish'),
+            ('uk', 'Ukrainian'),
 )
 
 # Default language code for this installation.

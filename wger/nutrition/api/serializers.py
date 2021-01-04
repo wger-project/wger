@@ -22,6 +22,7 @@ from rest_framework import serializers
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
+    LogItem,
     Meal,
     MealItem,
     NutritionPlan,
@@ -36,7 +37,11 @@ class IngredientWeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = IngredientWeightUnit
-        fields = '__all__'
+        fields = ['id',
+                  'amount',
+                  'gram',
+                  'ingredient',
+                  'unit']
 
 
 class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
@@ -59,7 +64,8 @@ class WeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightUnit
-        fields = '__all__'
+        fields = ['language',
+                  'name']
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -121,7 +127,27 @@ class MealItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealItem
-        fields = '__all__'
+        fields = ['id',
+                  'meal',
+                  'ingredient',
+                  'weight_unit',
+                  'order',
+                  'amount']
+
+
+class LogItemSerializer(serializers.ModelSerializer):
+    """
+    LogItem serializer
+    """
+
+    class Meta:
+        model = LogItem
+        fields = ['id',
+                  'plan',
+                  'ingredient',
+                  'weight_unit',
+                  'datetime',
+                  'amount']
 
 
 class MealItemInfoSerializer(serializers.ModelSerializer):
@@ -129,10 +155,17 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     Meal Item info serializer
     """
 
+    meal = serializers.PrimaryKeyRelatedField(read_only=True)
+    ingredient = serializers.PrimaryKeyRelatedField(read_only=True)
+    ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
+
     class Meta:
         model = MealItem
         depth = 1
-        fields = ['ingredient',
+        fields = ['id',
+                  'meal',
+                  'ingredient_obj',
+                  'ingredient',
                   'weight_unit',
                   'order',
                   'amount']
@@ -147,7 +180,9 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = '__all__'
+        fields = ['plan',
+                  'order',
+                  'time']
 
 
 class MealInfoSerializer(serializers.ModelSerializer):
@@ -156,10 +191,13 @@ class MealInfoSerializer(serializers.ModelSerializer):
     """
 
     meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
+    plan = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Meal
-        fields = ['order',
+        fields = ['id',
+                  'plan',
+                  'order',
                   'time',
                   'meal_items',
                   'get_nutritional_values']
@@ -185,7 +223,8 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = NutritionPlan
         depth = 1
-        fields = ['language',
+        fields = ['id',
+                  'language',
                   'creation_date',
                   'description',
                   'get_nutritional_values',

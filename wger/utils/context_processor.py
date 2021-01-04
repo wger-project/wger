@@ -56,6 +56,7 @@ def processor(request):
 
         # Translation links
         'i18n_path': i18n_path,
+        'is_api_path': '/api/' in request.build_absolute_uri(),
 
         # Flag for guest users
         'has_demo_data': request.session.get('has_demo_data', False),

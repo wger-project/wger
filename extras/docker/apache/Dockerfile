@@ -5,7 +5,6 @@
 # docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
 #
 # Please consult the documentation for usage
-# docker build --tag wger/apache .
 # docker run -ti --name wger.apache --publish 8000:80 wger/apache
 #
 # To stop the container:
@@ -86,7 +85,8 @@ RUN . /home/wger/venv/bin/activate \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap
+    && wger bootstrap \
+    && wger load-online-fixtures
 
 
 # Change permissions of some files and folders so the apache process

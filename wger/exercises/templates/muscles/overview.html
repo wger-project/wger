@@ -47,8 +47,8 @@
                         {% render_muscles muscle %}
                     </div>
 
-                    {% for exercise_base in muscle.exercisebase_set.all %}
-                        {% for exercise in exercise_base.exercises.all %}
+                    {% for exercise_base in muscle.exercisebase_set.accepted %}
+                        {% for exercise in exercise_base.exercises.accepted %}
                         {% if exercise.language in active_languages %}
                         <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                             <div class="media">

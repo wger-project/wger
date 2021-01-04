@@ -39,6 +39,7 @@ database and populate it with data on the first run::
 
   $ wger create-settings
   $ wger bootstrap
+  $ wger load-online-fixtures
 
 You can of course also use other databases such as postgres or mariaDB. Create
 a database and user and edit the DATABASES settings before calling bootstrap.
