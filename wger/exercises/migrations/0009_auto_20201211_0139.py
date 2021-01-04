@@ -15,6 +15,9 @@ def copy_columns(apps, schema_editor):
         exercise_base.muscles.set(exercise.muscles.all())
         exercise_base.muscles_secondary.set(exercise.muscles_secondary.all())
         exercise_base.status = exercise.status
+        exercise_base.license = exercise.license
+        exercise_base.license_author = exercise.license_author
+        exercise_base.license_author = exercise.license_author
         exercise_base.save()
 
         exercise.exercise_base = exercise_base
