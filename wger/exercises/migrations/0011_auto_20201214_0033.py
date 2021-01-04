@@ -381,7 +381,8 @@ def create_exercise_mapping(apps, schema_editor):
             try:
                 exercise_objects.append(Exercise.objects.get(uuid=exercise_group[lang]))
             except Exercise.DoesNotExist:
-                print(exercise_group[lang], "does not exist")
+                pass
+                # print(exercise_group[lang], "does not exist")
 
         if(len(exercise_objects) > 0):
             exercise_base_main = exercise_objects[0].exercise_base
