@@ -41,6 +41,10 @@ class Migration(migrations.Migration):
                                                              related_name='secondary_muscles_base',
                                                              to='exercises.Muscle',
                                                              verbose_name='Secondary muscles')),
+                ('variations', models.ForeignKey(null=True,
+                                                 on_delete=django.db.models.deletion.CASCADE,
+                                                 to='exercises.variation',
+                                                 verbose_name='Variations'))
             ],
             options={
                 'abstract': False,

@@ -210,6 +210,13 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                        blank=True)
     """Equipment needed by this exercise"""
 
+    variations = models.ForeignKey(Variation,
+                                   verbose_name=_('Variations'),
+                                   on_delete=models.CASCADE,
+                                   null=True,
+                                   blank=True)
+    """Variations of this exercise"""
+
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -249,16 +256,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Globally unique ID, to identify the exercise across installations
     """
-
-    # Added variation field
-    variations = models.ForeignKey(
-        Variation,
-        verbose_name=_('Variations'),
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
-    )
-    """Variations of this exercise"""
 
     exercise_base = models.ForeignKey(ExerciseBase,
                                       verbose_name='ExerciseBase',
@@ -330,8 +327,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         Returns the variations for this exercise
         """
-
-        return self.variations.exercise_set.exclude(id=self.id)
+        out = []
+        for variation in self.exercise_base.variations.exercisebase_set.all():
+            for exercise in variation.exercises.filter(language=self.language).accepted():
+                out.append(exercise)
+        return out
 
     @property
     def main_image(self):

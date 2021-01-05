@@ -18,6 +18,7 @@ def copy_columns(apps, schema_editor):
         exercise_base.license = exercise.license
         exercise_base.license_author = exercise.license_author
         exercise_base.license_author = exercise.license_author
+        exercise_base.variations = exercise.variations
         exercise_base.save()
 
         exercise.exercise_base = exercise_base

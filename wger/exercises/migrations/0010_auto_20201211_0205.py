@@ -26,4 +26,8 @@ class Migration(migrations.Migration):
             model_name='exercise',
             name='category',
         ),
+        migrations.RemoveField(
+            model_name='exercise',
+            name='variations',
+        ),
     ]

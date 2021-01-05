@@ -248,8 +248,8 @@ class ExercisesTestCase(WgerTestCase):
                                      'license': 1,
                                      'exercise_base': {
                                          'category': 2,
-                                         'muscles': [1, 2]
-                                     }})
+                                         'muscles': [1, 2]}
+                                     })
         count_after = Exercise.objects.count()
         self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
