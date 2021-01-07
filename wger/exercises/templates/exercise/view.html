@@ -171,7 +171,7 @@ $(document).ready(function() {
     {% for comment in comments %}
         <li>
             {{ comment }}
-            
+
             {% if perms.exercises.change_exercisecomment %}
             <span class="dropdown">
                 <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown"></button>
@@ -253,7 +253,7 @@ $(document).ready(function() {
     {% render_weight_log logs svg_uuid user %}
 {% endif %}
 
-{% if exercise.variations %}
+{% if exercise.get_variations %}
     <h5 class="mt-4">{% trans "Exercise Variations" %}:</h5>
         <ul>
         {% for variation in exercise.get_variations %}
