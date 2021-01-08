@@ -38,14 +38,14 @@ class MainImageTestCase(WgerTestCase):
         """
         Helper function to save an image to an exercise
         """
-        with open('wger/exercises/tests/{0}'.format(filename), 'rb') as inFile:
+        with open(f'wger/exercises/tests/{filename}', 'rb') as inFile:
             if not db_filename:
                 db_filename = filename
             image = ExerciseImage()
             image.exercise = exercise.exercise_base
             image.status = ExerciseImage.STATUS_ACCEPTED
             image.image.save(
-                filename,
+                db_filename,
                 File(inFile)
             )
             image.save()
