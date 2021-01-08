@@ -504,7 +504,7 @@ class Day(models.Model):
                         break
 
                 # Collect exercise images
-                for image in exercise.exerciseimage_set.all():
+                for image in exercise.images.all():
                     exercise_images_tmp.append({'image': image.image.url,
                                                 'is_main': image.is_main,
                                                 })

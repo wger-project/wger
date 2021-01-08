@@ -348,6 +348,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     def equipment(self):
         return self.exercise_base.equipment
 
+    @property
+    def images(self):
+        return self.exercise_base.exerciseimage_set
+
     #
     # Own methods
     #
@@ -368,7 +372,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         Return the main image for the exercise or None if nothing is found
         """
-        return self.exerciseimage_set.accepted().filter(is_main=True).first()
+        return self.images.accepted().filter(is_main=True).first()
 
     @property
     def description_clean(self):
@@ -444,7 +448,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     objects = SubmissionManager()
     """Custom manager"""
 
-    exercise = models.ForeignKey(Exercise,
+    exercise = models.ForeignKey(ExerciseBase,
                                  verbose_name=_('Exercise'),
                                  on_delete=models.CASCADE)
     """The exercise the image belongs to"""

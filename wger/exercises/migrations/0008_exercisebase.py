@@ -58,4 +58,10 @@ class Migration(migrations.Migration):
                                     related_name='exercises', to='exercises.exercisebase',
                                     verbose_name='ExerciseBase'),
         ),
+        migrations.AlterField(
+            model_name='exerciseimage',
+            name='exercise',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    to='exercises.exercisebase', verbose_name='Exercise'),
+        ),
     ]

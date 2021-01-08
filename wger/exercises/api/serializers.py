@@ -132,8 +132,8 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     Exercise info serializer
     """
 
-    images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
-    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
+    images = ExerciseImageSerializer(many=True, read_only=True)
+    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
     category = ExerciseCategorySerializer(read_only=True)
     muscles = MuscleSerializer(many=True, read_only=True)
     muscles_secondary = MuscleSerializer(many=True, read_only=True)

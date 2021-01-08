@@ -42,14 +42,14 @@ class MainImageTestCase(WgerTestCase):
             if not db_filename:
                 db_filename = filename
             image = ExerciseImage()
-            image.exercise = exercise
+            image.exercise = exercise.exercise_base
             image.status = ExerciseImage.STATUS_ACCEPTED
             image.image.save(
                 filename,
                 File(inFile)
             )
             image.save()
-            return(image.pk)
+            return image.pk
 
     def test_auto_main_image(self):
         """
