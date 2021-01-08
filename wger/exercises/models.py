@@ -190,6 +190,9 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     objects = SubmissionManager()
     """Custom manager"""
 
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    """Globally unique ID, to identify the base across installations"""
+
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'),
                                  on_delete=models.CASCADE)
@@ -263,10 +266,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """The exercise's language"""
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
-
-    """
-    Globally unique ID, to identify the exercise across installations
-    """
+    """Globally unique ID, to identify the exercise across installations"""
 
     exercise_base = models.ForeignKey(ExerciseBase,
                                       verbose_name='ExerciseBase',

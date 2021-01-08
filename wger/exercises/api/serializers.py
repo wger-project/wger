@@ -36,6 +36,7 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseBase
         fields = ['id',
+                  'uuid',
                   'category',
                   'muscles',
                   'muscles_secondary',

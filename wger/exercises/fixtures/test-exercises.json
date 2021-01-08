@@ -91,6 +91,7 @@
         "pk": 1,
         "model": "exercises.exercisebase",
         "fields": {
+            "uuid": "acad394936fb44819a72be2ddae2bc05",
             "category": 2,
             "status": "2",
             "muscles": [
@@ -107,6 +108,7 @@
         "pk": 2,
         "model": "exercises.exercisebase",
         "fields": {
+            "uuid": "029a6eac67f242d9b71d9d692b0a35b0",
             "category": 2,
             "status": "2",
             "muscles": [
@@ -123,6 +125,7 @@
         "pk": 3,
         "model": "exercises.exercisebase",
         "fields": {
+            "uuid": "c2dc11e9b14a49cb9d11d1b9441f16f4",
             "category": 3,
             "status": "2",
             "muscles": [
@@ -135,6 +138,7 @@
         "pk": 4,
         "model": "exercises.exercisebase",
         "fields": {
+            "uuid": "9838235ce38f4ca6921e9d237d8e0813",
             "category": 3,
             "status": "2",
             "muscles": [
@@ -148,6 +152,7 @@
         "pk": 6,
         "model": "exercises.exercisebase",
         "fields": {
+            "uuid": "e9e35f0c45b14d64b00db707a94c6fb8",
             "category": 1,
             "status": "2",
             "muscles": [],
@@ -158,6 +163,7 @@
         "pk": 1,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "9838235ce38f4ca6921e9d237d8e0813",
             "status": "2",
             "language": 1,
             "exercise_base": 1,
@@ -169,6 +175,7 @@
         "pk": 2,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "3275c4e6e7ba4368964b6b1a9d80ca7a",
             "status": "2",
             "language": 2,
             "exercise_base": 2,
@@ -180,6 +187,7 @@
         "pk": 3,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
             "status": "2",
             "language": 1,
             "exercise_base": 3,
@@ -191,6 +199,7 @@
         "pk": 4,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "37b5813c76bd4658820a572d9dd93f31",
             "status": "1",
             "language": 1,
             "description": "",
@@ -203,6 +212,7 @@
         "pk": 35,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "150f17eb8674450d976f4c5538479bfb",
             "status": "2",
             "language": 1,
             "exercise_base": 4,
@@ -214,6 +224,7 @@
         "pk": 81,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "885c1110aa324235af361164347a4465",
             "status": "2",
             "language": 1,
             "exercise_base": 4,
@@ -225,6 +236,7 @@
         "pk": 84,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "a7c662b36b474affb313a872a104dd2f",
             "status": "2",
             "language": 2,
             "exercise_base": 4,
@@ -236,6 +248,7 @@
         "pk": 91,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "f2417bb4fa314e51bd5c425af21be468",
             "status": "2",
             "language": 2,
             "exercise_base": 4,
@@ -247,6 +260,7 @@
         "pk": 111,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "cc3dbb66889f4deda2f0142c942c464f",
             "status": "2",
             "language": 2,
             "exercise_base": 4,
@@ -258,6 +272,7 @@
         "pk": 126,
         "model": "exercises.exercise",
         "fields": {
+            "uuid": "283ad85ca8984a719abbc9cadd62b353",
             "status": "2",
             "language": 2,
             "exercise_base": 4,
