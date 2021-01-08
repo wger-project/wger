@@ -17,6 +17,7 @@ from django.core.files import File
 from django.urls import reverse
 
 # wger
+from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
@@ -142,15 +143,13 @@ class DeleteExerciseImageTestCase(WgerDeleteTestCase):
     pk = 1
 
 
-# TODO: fix test
-# class ExerciseImagesApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     """
-#     Tests the exercise image overview resource
-#     """
-#     pk = 1
-#     resource = ExerciseImage
-#     private_resource = False
-#     special_endpoints = ('thumbnails',)
-#     data = {'is_main': 'true',
-#             'exercise': '1',
-#             'id': 1}
+# TODO: add POST and DELETE tests
+class ExerciseImagesApiTestCase(api_base_test.BaseTestCase,
+                                api_base_test.ApiBaseTestCase,
+                                api_base_test.ApiGetTestCase):
+    """
+    Tests the exercise image resource
+    """
+    pk = 1
+    private_resource = False
+    resource = ExerciseImage
