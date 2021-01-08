@@ -21,6 +21,7 @@ from rest_framework import serializers
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
@@ -28,24 +29,19 @@ from wger.exercises.models import (
 )
 
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
     Exercise serializer
     """
     class Meta:
-        model = Exercise
+        model = ExerciseBase
         fields = ['id',
+                  'uuid',
                   'category',
-                  'description',
-                  'name',
-                  'name_original',
                   'muscles',
                   'muscles_secondary',
                   'equipment',
-                  'creation_date',
-                  'language',
-                  'uuid',
-                  'variations']
+                  'creation_date']
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
@@ -81,34 +77,6 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
                   'comment']
 
 
-class ExerciseInfoSerializer(serializers.ModelSerializer):
-    """
-    Equipment serializer
-    """
-
-    images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
-    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
-
-    class Meta:
-        model = Exercise
-        depth = 1
-        fields = ["id",
-                  "name",
-                  "uuid",
-                  "category",
-                  "description",
-                  "creation_date",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
-                  "language",
-                  "license",
-                  "license_author",
-                  "images",
-                  "variations",
-                  "comments"]
-
-
 class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     ExerciseCategory serializer
@@ -130,3 +98,66 @@ class MuscleSerializer(serializers.ModelSerializer):
                   'is_front',
                   'image_url_main',
                   'image_url_secondary']
+
+
+class ExerciseSerializer(serializers.ModelSerializer):
+    """
+    Exercise serializer
+
+    The fields from the new ExerciseBase are retrieved here as to retain
+    compatibility with the old model where all the fields where in Exercise.
+    """
+    category = serializers.PrimaryKeyRelatedField(read_only=True)
+    muscles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    equipment = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Exercise
+        fields = ("id",
+                  "uuid",
+                  "name",
+                  "description",
+                  "creation_date",
+                  "category",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author",
+                  "variations")
+
+
+class ExerciseInfoSerializer(serializers.ModelSerializer):
+    """
+    Exercise info serializer
+    """
+
+    images = ExerciseImageSerializer(many=True, read_only=True)
+    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+    category = ExerciseCategorySerializer(read_only=True)
+    muscles = MuscleSerializer(many=True, read_only=True)
+    muscles_secondary = MuscleSerializer(many=True, read_only=True)
+    equipment = EquipmentSerializer(many=True, read_only=True)
+    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Exercise
+        depth = 1
+        fields = ["id",
+                  "name",
+                  "uuid",
+                  "description",
+                  "creation_date",
+                  "category",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author",
+                  "images",
+                  "comments",
+                  "variations"]

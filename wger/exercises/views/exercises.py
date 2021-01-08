@@ -70,8 +70,11 @@ from crispy_forms.layout import (
 
 # wger
 from wger.config.models import LanguageConfig
+from wger.core.models import License
 from wger.exercises.models import (
+    Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     Muscle
 )
@@ -114,7 +117,7 @@ class ExerciseListView(ListView):
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         return Exercise.objects.accepted() \
             .filter(language__in=languages) \
-            .order_by('category__id') \
+            .order_by('exercise_base__category__id') \
             .select_related()
 
     def get_context_data(self, **kwargs):
@@ -174,6 +177,10 @@ class ExerciseForm(ModelForm):
                                                  widget=CheckboxSelectMultiple(),
                                                  required=False)
 
+    equipment = ModelMultipleChoiceField(queryset=Equipment.objects.all(),
+                                         widget=CheckboxSelectMultiple(),
+                                         required=False)
+
     description = CharField(label=_('Description'),
                             widget=Textarea,
                             required=False)
@@ -229,6 +236,13 @@ class ExercisesEditAddView(WgerFormMixin):
 
     def get_form(self, form_class=None):
         form = super(ExercisesEditAddView, self).get_form(form_class)
+        exercise = self.get_form_kwargs()['instance']
+        if exercise is not None:
+            form.fields['category'].initial = exercise.exercise_base.category
+            form.fields['equipment'].initial = exercise.exercise_base.equipment.all()
+            form.fields['muscles'].initial = exercise.exercise_base.muscles.all()
+            form.fields['muscles_secondary'].initial = \
+                exercise.exercise_base.muscles_secondary.all()
         form.helper.layout = Layout(
             "name_original",
             "description",
@@ -247,6 +261,16 @@ class ExercisesEditAddView(WgerFormMixin):
         )
         return form
 
+    def form_valid(self, form):
+        exercise_base = Exercise.objects.filter(name=form.instance.name)[0].exercise_base
+        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+        return super(ExercisesEditAddView, self).form_valid(form)
+
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
@@ -260,7 +284,6 @@ class ExerciseUpdateView(ExercisesEditAddView,
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object.name)
-
         return context
 
 
@@ -275,6 +298,32 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
+        existing = ExerciseBase.objects.filter(
+            category=ExerciseCategory.objects.get(name=form.cleaned_data['category']))
+        for elem in form.cleaned_data['equipment'].all():
+            existing = existing.filter(equipment=elem)
+        for elem in form.cleaned_data['muscles'].all():
+            existing = existing.filter(muscles=elem)
+        for elem in form.cleaned_data['muscles_secondary'].all():
+            existing = existing.filter(equipment=elem)
+        if not existing:
+            print(form.cleaned_data)
+            print('-------------------------')
+            exercise_base = ExerciseBase.objects.create(
+                category=ExerciseCategory.objects.get(name=form.cleaned_data['category']),
+                license=License.objects.get(id=form.cleaned_data['license']),
+                license_author=License.objects.get(id=form.cleaned_data['license_author']),
+            )
+            exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+            exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+            exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+            exercise_base.save()
+        else:
+            exercise_base = existing.first()
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -340,12 +389,8 @@ class ExerciseDeleteView(WgerDeleteMixin,
     """
 
     model = Exercise
-    fields = ('category',
-              'description',
-              'name_original',
-              'muscles',
-              'muscles_secondary',
-              'equipment')
+    fields = ('description',
+              'name_original')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message_extra = ugettext_lazy('This will delete the exercise from all workouts.')
     messages = ugettext_lazy('Successfully deleted')

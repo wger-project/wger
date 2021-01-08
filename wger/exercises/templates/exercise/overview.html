@@ -39,7 +39,7 @@ $(document).ready(function() {
 {% block content %}
 
 {% cache cache_timeout exercise-overview language.id %}
-{% regroup exercises by category as exercise_list %}
+{% regroup exercises by exercise_base.category as exercise_list %}
 <div class="accordion" id="exerciseAccordion">
     {% for item in exercise_list %}
     <div class="card">
@@ -71,9 +71,9 @@ $(document).ready(function() {
 
                                     {{ exercise.equipment.all|join:", " }}
                                     <!--
-                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
+                                    {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
                                     <br>
-                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
+                                    {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
                                     -->
                                 </span>
                              </div>

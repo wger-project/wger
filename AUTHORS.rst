@@ -32,6 +32,11 @@ Developers
 * Biplov - https://github.com/beingbiplov
 * Rashmi Kamath - https://github.com/Rkamath2
 * Anthony (Ryo) Wright - https://github.com/ryowright
+* Nikitha Murikinati - https://github.com/nikithamurikinati
+* Harlene Samra - https://github.com/harlenesamra
+* Justine Cho - https://github.com/jcho17
+* Vaheeshta Mehrshahi - https://github.com/vaheeshta
+* Jeevika Ghosh - https://github.com/jeevikaghosh
 * Austin Leung - https://github.com/austin-leung
 * Harlene Samra - https://github.com/harlenesamra
 * Nikitha Murikinati - https://github.com/nikithamurikinati
@@ -43,6 +48,7 @@ Developers
 * Noah Pinter - https://github.com/nopinter
 * Kevin Geng - https://github.com/gengkev
 * Karmen Lu - https://github.com/klu17
+
 
 Translators
 -----------
