@@ -352,13 +352,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     def images(self):
         return self.exercise_base.exerciseimage_set
 
-    #
-    # Own methods
-    #
     @property
-    def get_variations(self):
+    def variations(self):
         """
-        Returns the variations for this exercise
+        Returns the variations for this exercise in the same language
         """
         out = []
         if self.exercise_base.variations:
@@ -367,6 +364,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                     out.append(exercise)
         return out
 
+    #
+    # Own methods
+    #
     @property
     def main_image(self):
         """

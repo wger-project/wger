@@ -110,6 +110,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     muscles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     equipment = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Exercise
@@ -124,7 +125,8 @@ class ExerciseSerializer(serializers.ModelSerializer):
                   "equipment",
                   "language",
                   "license",
-                  "license_author")
+                  "license_author",
+                  "variations")
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):
@@ -138,6 +140,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     muscles = MuscleSerializer(many=True, read_only=True)
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
+    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Exercise
@@ -155,4 +158,5 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
                   "license",
                   "license_author",
                   "images",
-                  "comments"]
+                  "comments",
+                  "variations"]

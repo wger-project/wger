@@ -253,10 +253,10 @@ $(document).ready(function() {
     {% render_weight_log logs svg_uuid user %}
 {% endif %}
 
-{% if exercise.get_variations %}
+{% if exercise.variations %}
     <h5 class="mt-4">{% trans "Exercise Variations" %}:</h5>
         <ul>
-        {% for variation in exercise.get_variations %}
+        {% for variation in exercise.variations %}
             <li>
                 <a href="{{ variation.get_absolute_url }}">{{ variation }}</a>
             </li>
