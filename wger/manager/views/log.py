@@ -45,6 +45,10 @@ from django.views.generic import (
 )
 
 # wger
+from wger.core.models import (
+    RepetitionUnit,
+    WeightUnit
+)
 from wger.manager.forms import (
     HelperWorkoutSessionForm,
     WorkoutLogForm,
@@ -189,8 +193,18 @@ def add(request, pk):
             # Log entries (only the ones with actual content)
             instances = [i for i in formset.save(commit=False) if i.reps]
             for instance in instances:
+
+                # Set the weight unit in kg
+                if not hasattr(instance, 'weight_unit'):
+                    instance.weight_unit = WeightUnit.objects.get(pk=1)
+
+                # Set the unit in reps
+                if not hasattr(instance, 'repetition_unit'):
+                    instance.repetition_unit = RepetitionUnit.objects.get(pk=1)
+
                 if not instance.weight:
                     instance.weight = 0
+
                 instance.user = request.user
                 instance.workout = day.training
                 instance.date = log_date

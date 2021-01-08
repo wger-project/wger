@@ -115,7 +115,10 @@ class WorkoutLogForm(ModelForm):
     """
     Helper form for a WorkoutLog.
 
-    These fields are re-defined here only to make them optional
+    These fields are re-defined here only to make them optional. Otherwise
+    all the entries in the formset would be required, which is not really what
+    we want. This form is one prime candidate to rework with some modern JS
+    framework, there is a ton of ugly logic like this just to make it work.
     """
     repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
                                        label=_('Unit'),
