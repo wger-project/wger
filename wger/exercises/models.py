@@ -217,6 +217,17 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    blank=True)
     """Variations of this exercise"""
 
+    #
+    # Own methods
+    #
+
+    @property
+    def get_languages(self):
+        """
+        Returns the languages from the exercises tha tuse this base
+        """
+        return [exercise.language for exercise in self.exercises.all()]
+
 
 class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
@@ -319,18 +330,37 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return self.name
 
     #
+    # Properties to expose the info from the exercise base
+    #
+    @property
+    def category(self):
+        return self.exercise_base.category
+
+    @property
+    def muscles(self):
+        return self.exercise_base.muscles
+
+    @property
+    def muscles_secondary(self):
+        return self.exercise_base.muscles_secondary
+
+    @property
+    def equipment(self):
+        return self.exercise_base.equipment
+
+    #
     # Own methods
     #
-
     @property
     def get_variations(self):
         """
         Returns the variations for this exercise
         """
         out = []
-        for variation in self.exercise_base.variations.exercisebase_set.all():
-            for exercise in variation.exercises.filter(language=self.language).accepted():
-                out.append(exercise)
+        if self.exercise_base.variations:
+            for variation in self.exercise_base.variations.exercisebase_set.all():
+                for exercise in variation.exercises.filter(language=self.language).accepted():
+                    out.append(exercise)
         return out
 
     @property

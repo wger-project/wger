@@ -70,6 +70,7 @@ from crispy_forms.layout import (
 
 # wger
 from wger.config.models import LanguageConfig
+from wger.core.models import License
 from wger.exercises.models import (
     Equipment,
     Exercise,
@@ -138,14 +139,13 @@ def view(request, id, slug=None):
     template_data['show_shariff'] = True
 
     exercise = get_object_or_404(Exercise, pk=id)
-    exercise_base = exercise.exercise_base
 
     template_data['exercise'] = exercise
 
-    template_data["muscles_main_front"] = exercise_base.muscles.filter(is_front=True)
-    template_data["muscles_main_back"] = exercise_base.muscles.filter(is_front=False)
-    template_data["muscles_sec_front"] = exercise_base.muscles_secondary.filter(is_front=True)
-    template_data["muscles_sec_back"] = exercise_base.muscles_secondary.filter(is_front=False)
+    template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
+    template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
+    template_data["muscles_sec_front"] = exercise.muscles_secondary.filter(is_front=True)
+    template_data["muscles_sec_back"] = exercise.muscles_secondary.filter(is_front=False)
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
@@ -307,11 +307,17 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         for elem in form.cleaned_data['muscles_secondary'].all():
             existing = existing.filter(equipment=elem)
         if not existing:
+            print(form.cleaned_data)
+            print('-------------------------')
             exercise_base = ExerciseBase.objects.create(
-                category=ExerciseCategory.objects.get(name=form.cleaned_data['category']))
+                category=ExerciseCategory.objects.get(name=form.cleaned_data['category']),
+                license=License.objects.get(id=form.cleaned_data['license']),
+                license_author=License.objects.get(id=form.cleaned_data['license_author']),
+            )
             exercise_base.equipment.set(form.cleaned_data['equipment'].all())
             exercise_base.muscles.set(form.cleaned_data['muscles'].all())
             exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+            exercise_base.save()
         else:
             exercise_base = existing.first()
 

@@ -26,6 +26,7 @@ from django.template import (
 from django.urls import reverse
 
 # wger
+from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
     WgerDeleteTestCase,
@@ -691,21 +692,25 @@ class WorkoutCacheTestCase(WgerTestCase):
 
 
 # TODO: fix test, all registered users can upload exercises
-# class ExerciseApiTestCase(api_base_test.ApiBaseResourceTestCase):
-#     """
-#     Tests the exercise overview resource
-#     """
-#     pk = 1
-#     resource = Exercise
-#     private_resource = False
-#     data = {"category": "1",
-#             "comments": [],
-#             "creation_date": "2013-01-01",
-#             "description": "Something here",
-#             "id": 1,
-#             "language": "2",
-#             "muscles": [
-#                 "1"
-#             ],
-#             "name": "foobar",
-#             "status": "5"}
+class ExerciseApiTestCase(api_base_test.BaseTestCase,
+                          api_base_test.ApiBaseTestCase,
+                          api_base_test.ApiGetTestCase):
+    """
+    Tests the exercise overview resource
+    """
+    pk = 1
+    resource = Exercise
+    private_resource = False
+
+
+class ExerciseInfoApiTestCase(api_base_test.BaseTestCase,
+                              api_base_test.ApiBaseTestCase,
+                              api_base_test.ApiGetTestCase):
+    """
+    Tests the exercise info resource
+    """
+    pk = 1
+    private_resource = False
+
+    def get_resource_name(self):
+        return 'exerciseinfo'

@@ -50,10 +50,10 @@ class ExercisesCorrectionTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=1)
         self.assertEqual(exercise.name, 'An exercise')
         self.assertEqual(exercise.description, '')
-        self.assertEqual(exercise.exercise_base.category_id, 2)
+        self.assertEqual(exercise.category.id, 2)
         self.assertEqual(exercise.language_id, 1)
-        self.assertEqual([i.pk for i in exercise.exercise_base.muscles.all()], [1, 2])
-        self.assertEqual([i.pk for i in exercise.exercise_base.muscles_secondary.all()], [3])
+        self.assertEqual([i.pk for i in exercise.muscles.all()], [1, 2])
+        self.assertEqual([i.pk for i in exercise.muscles_secondary.all()], [3])
 
         # Check the notification email
         if fail:

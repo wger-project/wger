@@ -468,13 +468,13 @@ class Day(models.Model):
                 exercise_images_tmp = []
 
                 # Muscles for this set
-                for muscle in exercise.exercise_base.muscles.all():
+                for muscle in exercise.muscles.all():
                     if muscle.is_front and muscle not in muscles_front:
                         muscles_front.append(muscle)
                     elif not muscle.is_front and muscle not in muscles_back:
                         muscles_back.append(muscle)
 
-                for muscle in exercise.exercise_base.muscles_secondary.all():
+                for muscle in exercise.muscles_secondary.all():
                     if muscle.is_front and muscle not in muscles_front:
                         muscles_front_secondary.append(muscle)
                     elif not muscle.is_front and muscle.id not in muscles_back:

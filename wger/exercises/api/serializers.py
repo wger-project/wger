@@ -106,17 +106,10 @@ class ExerciseSerializer(serializers.ModelSerializer):
     The fields from the new ExerciseBase are retrieved here as to retain
     compatibility with the old model where all the fields where in Exercise.
     """
-    category = serializers.PrimaryKeyRelatedField(source='exercise_base.category',
-                                                  read_only=True)
-    muscles = serializers.PrimaryKeyRelatedField(source='exercise_base.muscles',
-                                                 many=True,
-                                                 read_only=True)
-    muscles_secondary = serializers.PrimaryKeyRelatedField(source='exercise_base.muscles_secondary',
-                                                           many=True,
-                                                           read_only=True)
-    equipment = serializers.PrimaryKeyRelatedField(source='exercise_base.equipment',
-                                                   many=True,
-                                                   read_only=True)
+    category = serializers.PrimaryKeyRelatedField(read_only=True)
+    muscles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    equipment = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Exercise
@@ -141,10 +134,10 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
 
     images = ExerciseImageSerializer(source='exerciseimage_set', many=True)
     comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True)
-    category = ExerciseCategorySerializer(source='exercise_base.category')
-    muscles = MuscleSerializer(source='exercise_base.muscles', many=True)
-    muscles_secondary = MuscleSerializer(source='exercise_base.muscles_secondary', many=True)
-    equipment = EquipmentSerializer(source='exercise_base.equipment', many=True)
+    category = ExerciseCategorySerializer(read_only=True)
+    muscles = MuscleSerializer(many=True, read_only=True)
+    muscles_secondary = MuscleSerializer(many=True, read_only=True)
+    equipment = EquipmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Exercise
@@ -162,5 +155,4 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
                   "license",
                   "license_author",
                   "images",
-                  "variations",
                   "comments"]

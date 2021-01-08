@@ -85,7 +85,6 @@ class ExerciseViewSet(viewsets.ModelViewSet):
                         'language',
                         'status',
                         'name',
-                        'variations',
                         'license',
                         'license_author')
 
@@ -135,7 +134,7 @@ def search(request):
                 'data': {
                     'id': exercise.id,
                     'name': exercise.name,
-                    'category': _(exercise.exercise_base.category.name),
+                    'category': _(exercise.category.name),
                     'image': image,
                     'image_thumbnail': thumbnail
                 }
@@ -161,7 +160,6 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
                         'name',
                         'exercise_base',
                         'license',
-                        'variations',
                         'license_author')
 
 
