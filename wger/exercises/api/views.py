@@ -56,7 +56,7 @@ from wger.utils.language import (
 from wger.utils.permissions import CreateOnlyPermission
 
 
-class ExerciseBaseViewSet(viewsets.ModelViewSet):
+class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise base objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
@@ -71,7 +71,7 @@ class ExerciseBaseViewSet(viewsets.ModelViewSet):
                         'equipment')
 
 
-class ExerciseViewSet(viewsets.ModelViewSet):
+class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/

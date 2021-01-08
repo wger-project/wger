@@ -77,6 +77,18 @@
     },
     {
         "pk": 1,
+        "model": "exercises.variation",
+        "fields": {
+        }
+    },
+    {
+        "pk": 2,
+        "model": "exercises.variation",
+        "fields": {
+        }
+    },
+    {
+        "pk": 1,
         "model": "exercises.exercisebase",
         "fields": {
             "category": 2,
@@ -87,7 +99,8 @@
             ],
             "muscles_secondary": [
                 3
-            ]
+            ],
+            "variations": 1
         }
     },
     {
@@ -102,7 +115,8 @@
             "muscles_secondary": [
                 1,
                 3
-            ]
+            ],
+            "variations": 1
         }
     },
     {
@@ -113,7 +127,8 @@
             "status": "2",
             "muscles": [
                 1
-            ]
+            ],
+            "variations": 2
         }
     },
     {
@@ -125,7 +140,8 @@
             "muscles": [
                 1
             ],
-            "muscles_secondary":[]
+            "muscles_secondary":[],
+            "variations": 2
         }
     },
     {
@@ -134,7 +150,8 @@
         "fields": {
             "category": 1,
             "status": "2",
-            "muscles": []
+            "muscles": [],
+            "variations": null
         }
     },
     {
