@@ -34,10 +34,10 @@ class ExerciseBaseTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=1)
         base = exercise.exercise_base
         self. assertEqual(base.category, exercise.category)
-        self. assertEqual(self.get_ids(base.equipment), self.get_ids(exercise.equipment))
-        self. assertEqual(self.get_ids(base.muscles), self.get_ids(exercise.muscles))
-        self. assertEqual(self.get_ids(base.muscles_secondary),
-                          self.get_ids(exercise.muscles_secondary))
+        self. assertListEqual(self.get_ids(base.equipment), self.get_ids(exercise.equipment))
+        self. assertListEqual(self.get_ids(base.muscles), self.get_ids(exercise.muscles))
+        self. assertListEqual(self.get_ids(base.muscles_secondary),
+                              self.get_ids(exercise.muscles_secondary))
 
     def test_variations(self):
         """Test that the variations are correctly returned"""
@@ -45,7 +45,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         # Even if these exercises have the same base, only the variations for
         # their respective languages are returned.
         exercise = Exercise.objects.get(pk=81)
-        self.assertEqual([i.id for i in exercise.variations], [3, 35, 81])
+        self.assertListEqual([i.id for i in exercise.variations], [3, 35, 81])
 
         exercise2 = Exercise.objects.get(pk=84)
         self.assertEqual([i.id for i in exercise2.variations], [84, 91, 111, 126])
@@ -54,4 +54,4 @@ class ExerciseBaseTestCase(WgerTestCase):
         """Test that the correct images are returned for the exercises"""
         exercise = Exercise.objects.get(pk=1)
         base = exercise.exercise_base
-        self.assertEqual(self.get_ids(exercise.images), self.get_ids(base.exerciseimage_set))
+        self.assertListEqual(self.get_ids(exercise.images), self.get_ids(base.exerciseimage_set))
