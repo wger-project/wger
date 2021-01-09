@@ -33,10 +33,10 @@ else:
     }
 
 # Timezone for this installation. Consult settings_global.py for more information
-TIME_ZONE = os.environ.get("TIME_ZONE")
+TIME_ZONE = os.environ.get("TIME_ZONE" , 'Europe/Berlin')
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", 'wger-django-secret-key')
 
 
 # Your reCaptcha keys
