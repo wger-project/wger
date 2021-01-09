@@ -12,9 +12,10 @@
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.54.tgz#d7999245f77c3fab5d84e7d32b8a6c20bfd1f072"
   integrity sha512-D/PomKwNkDfSKD13DEVQT/pq2TUjN54c6uB341fEZanIzkjfGe7UaFuuaLZbpEiS5j7Wk2MUHAZqZIoECw29lg==
 
-Sortable@RubaXa/Sortable#1.10.2:
-  version "1.10.2"
-  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/2addddd67387b6e4b6b5e51806eb698f0a3eee88"
+Sortable@RubaXa/Sortable#1.13.0:
+  version "1.13.0"
+  uid "8a987c007cff0535edf65cd19a1a0a70cd880a07"
+  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/8a987c007cff0535edf65cd19a1a0a70cd880a07"
 
 bootstrap@twbs/bootstrap#4.x:
   version "4.5.2"

@@ -84,10 +84,11 @@ bootstrap. You will need to create the database and user yourself.
 git clone https://github.com/wger-project/wger.git
 cd wger
 pip install -r requirements.txt
-python setup.py develop
+python3 setup.py develop
 wger create-settings
 wger bootstrap
-python manage.py runserver
+wger load-online-fixtures
+python3 manage.py runserver
 ```
 
 Log in as: **admin**, password **adminadmin**

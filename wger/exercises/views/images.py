@@ -92,12 +92,14 @@ class ExerciseImageAddView(WgerFormMixin,
     form_class = ExerciseImageForm
 
     def form_valid(self, form):
-        form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])
+        """Set the exercise base and the author"""
+        exercise = get_object_or_404(Exercise, pk=self.kwargs['exercise_pk'])
+        form.instance.exercise = exercise.exercise_base
         form.instance.set_author(self.request)
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.kwargs['exercise_pk']})
 
     def get_context_data(self, **kwargs):
         """
@@ -147,7 +149,7 @@ def accept(request, pk):
     image.save()
     # image.send_email(request)
 
-    return HttpResponseRedirect(image.exercise.get_absolute_url())
+    return HttpResponseRedirect(reverse('exercise:exercise:overview'))
 
 
 @permission_required('exercises.change_exerciseimage')
@@ -160,4 +162,4 @@ def decline(request, pk):
     image.save()
     # image.send_email(request)
 
-    return HttpResponseRedirect(image.exercise.get_absolute_url())
+    return HttpResponseRedirect(reverse('exercise:exercise:overview'))

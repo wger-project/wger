@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Andrew <andrew@dorokhin.moscow>, 2018
 # Inna <inna@geider.net>, 2013
@@ -3879,9 +3879,6 @@ msgstr "Миль"
 
 msgid "Minutes"
 msgstr "Минут"
-
-msgid "Repetitions"
-msgstr "Повторении"
 
 msgid "Seconds"
 msgstr "Секунд"

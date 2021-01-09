@@ -56,7 +56,7 @@ class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     """
 
     model = ScheduleStep
-    fields = '__all__'
+    fields = ('schedule', 'workout', 'duration', 'order')
     title = ugettext_lazy('Add workout')
 
     def get_form_class(self):

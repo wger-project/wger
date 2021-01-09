@@ -1,0 +1,6705 @@
+[
+    {
+        "model": "exercises.exercisebase",
+        "pk": 1,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                10
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 2,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8,
+                6
+            ],
+            "muscles_secondary": [
+                11
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 3,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 4,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                3,
+                9,
+                5
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 5,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 6,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 7,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 8,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 9,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 10,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [
+                9
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 11,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 12,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                2,
+                4
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 13,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 14,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 15,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [
+                2,
+                12
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 16,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 17,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 18,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 19,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                2,
+                4
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 20,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 21,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                14
+            ],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 22,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                2,
+                7,
+                4,
+                6,
+                3,
+                15,
+                5
+            ],
+            "muscles_secondary": [
+                8,
+                12,
+                14,
+                10,
+                9
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 23,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 24,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                2,
+                11,
+                7,
+                8,
+                14,
+                4,
+                10,
+                6,
+                3,
+                15,
+                9,
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 25,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 26,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 27,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 28,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 29,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                3
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 30,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                3
+            ],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 31,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 32,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 33,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 34,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 35,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 36,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 37,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 38,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                2,
+                4
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 39,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 40,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 41,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 42,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 43,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 44,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 45,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                11,
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 46,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 47,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 48,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 49,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 50,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 51,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 52,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1,
+                13
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 53,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 54,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 55,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 56,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 57,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 58,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 59,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 60,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 61,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                2,
+                7,
+                8,
+                14,
+                4,
+                10,
+                6,
+                3,
+                15,
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 62,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 63,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 64,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 65,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 66,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 67,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 68,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 69,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 70,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 71,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7,
+                15
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 72,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7,
+                15
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3,
+                10
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 73,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [
+                15
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 74,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                1,
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 75,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                1,
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 76,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                13
+            ],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 77,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                4
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 78,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 79,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                12,
+                4,
+                3
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 80,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                3
+            ],
+            "equipment": [
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 81,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                3
+            ],
+            "equipment": [
+                8,
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 82,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 83,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                14
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 84,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 85,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 86,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 87,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 88,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 89,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 90,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                14,
+                9
+            ],
+            "muscles_secondary": [
+                11,
+                13,
+                8,
+                12,
+                10
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 91,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 92,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 93,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12,
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 94,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 95,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 96,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 97,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [
+                11,
+                8,
+                12,
+                6,
+                15
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 98,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 99,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                4,
+                6
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 100,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                4,
+                6
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 101,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4,
+                5
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 102,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 103,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 104,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                13
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 105,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 106,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 107,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 108,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 109,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                2,
+                4
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 110,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 111,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 112,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 113,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                11,
+                8
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 114,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1,
+                8,
+                3,
+                10,
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 115,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 116,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                9
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 117,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 118,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 119,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3,
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 120,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 121,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 122,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 123,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 124,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 125,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 126,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 127,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 128,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                8,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 129,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                1,
+                3
+            ],
+            "equipment": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 130,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 131,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 132,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 133,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 134,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 135,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 136,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 137,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 138,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                8,
+                14,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 139,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 140,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                4
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 141,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8
+            ],
+            "muscles_secondary": [
+                11
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 142,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                11,
+                8
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 143,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 144,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 145,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 146,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 147,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 148,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 149,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 150,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 151,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                4,
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 152,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9,
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 153,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 154,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1,
+                13,
+                5
+            ],
+            "muscles_secondary": [
+                2
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 155,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                7,
+                10,
+                15
+            ],
+            "muscles_secondary": [
+                14,
+                6,
+                3
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 156,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                7,
+                10,
+                15
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 157,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 158,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 159,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                11,
+                8
+            ],
+            "muscles_secondary": [
+                12,
+                14,
+                6,
+                9
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 160,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                4,
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 161,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 162,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 163,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                1,
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 164,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3,
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 165,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3,
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 166,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [
+                12
+            ],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 167,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                14
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 168,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                11
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 169,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 170,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                14,
+                6,
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 171,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 172,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 173,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 174,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 175,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 176,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 177,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8
+            ],
+            "muscles_secondary": [
+                11
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 178,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 179,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                12
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 180,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                9
+            ],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 181,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                9
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 182,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 183,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 184,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 185,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12,
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 186,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 187,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 188,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 189,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 190,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 191,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 192,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 193,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 194,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 195,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 196,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                8
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 197,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 198,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 199,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 200,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 201,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 202,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 203,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                7,
+                8,
+                10
+            ],
+            "muscles_secondary": [
+                7,
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 204,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 205,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 206,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 207,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 208,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                3
+            ],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 209,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                3
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 210,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 211,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 212,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                2,
+                1,
+                4
+            ],
+            "muscles_secondary": [
+                8,
+                10,
+                6,
+                3,
+                9
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 213,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 214,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 215,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 216,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 217,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 218,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 219,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 220,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 221,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 222,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 223,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                4,
+                5
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 224,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 225,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                1,
+                11
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 226,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 227,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                12,
+                5
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 228,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 229,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 230,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 231,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 232,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 233,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 234,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 235,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 236,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 237,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 238,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12,
+                9
+            ],
+            "muscles_secondary": [
+                1,
+                5
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 239,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 240,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 241,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                8
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 242,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 243,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14,
+                6
+            ],
+            "muscles_secondary": [
+                1,
+                14,
+                10,
+                6,
+                5
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 244,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                10
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 245,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                13
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 246,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 247,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                9
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 248,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 249,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                9
+            ],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 250,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 251,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                2,
+                4,
+                6
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 252,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                2,
+                4,
+                5
+            ],
+            "muscles_secondary": [
+                13,
+                3
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 253,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 254,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 255,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                8
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 256,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 257,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12,
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 258,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 259,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1,
+                13
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 260,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4,
+                5
+            ],
+            "muscles_secondary": [
+                2
+            ],
+            "equipment": [
+                1,
+                8
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 261,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 262,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 263,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 264,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 265,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12,
+                9
+            ],
+            "muscles_secondary": [
+                10
+            ],
+            "equipment": [
+                1,
+                3,
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 266,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 267,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 268,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 269,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 270,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 271,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 272,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 273,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 274,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 275,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 276,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 277,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 278,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 279,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 280,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 281,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 282,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                3,
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 283,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": [
+                1,
+                9
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 284,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [
+                2,
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 285,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 286,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 287,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 288,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 289,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 290,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 291,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 292,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 293,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 294,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 295,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 296,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 297,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 298,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 299,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 300,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 301,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 302,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 303,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 304,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                9
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 305,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 306,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 307,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 308,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 309,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [
+                6
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 310,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                14
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 311,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 312,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                2,
+                14,
+                4,
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 313,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 314,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 315,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 316,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 317,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                15
+            ],
+            "muscles_secondary": [
+                7
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 318,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 319,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                4
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 320,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 321,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 322,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 323,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 324,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                2,
+                1,
+                11,
+                13,
+                7,
+                8,
+                12,
+                14,
+                4,
+                10,
+                6,
+                3,
+                15,
+                9,
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 325,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                10
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 326,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 327,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12,
+                9
+            ],
+            "muscles_secondary": [
+                1,
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 328,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1,
+                13
+            ],
+            "muscles_secondary": [
+                13
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 329,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [
+                15
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 330,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 331,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 332,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11
+            ],
+            "muscles_secondary": [
+                8
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 333,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 334,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 335,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1,
+                10,
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 336,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                8,
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 337,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                13
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 338,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 339,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                2,
+                10
+            ],
+            "muscles_secondary": [
+                11,
+                8,
+                9,
+                5
+            ],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 340,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                7,
+                8,
+                10,
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 341,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 342,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [
+                2
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 343,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 344,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 345,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 346,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 347,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 348,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 349,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 350,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 351,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 352,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [
+                12
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 353,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                2,
+                8,
+                14,
+                3
+            ],
+            "muscles_secondary": [
+                2,
+                8,
+                14,
+                3
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 354,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                2,
+                8,
+                14,
+                10,
+                3
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                10
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 355,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                4
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 356,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 357,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 358,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [
+                7,
+                8,
+                4,
+                10,
+                3,
+                9
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 359,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                2,
+                1,
+                11,
+                14,
+                4,
+                10,
+                6,
+                3,
+                15,
+                9,
+                5
+            ],
+            "muscles_secondary": [
+                2,
+                1,
+                11,
+                13,
+                7,
+                8,
+                12,
+                14,
+                4,
+                10,
+                6,
+                3,
+                15,
+                9,
+                5
+            ],
+            "equipment": [
+                1,
+                8,
+                3,
+                4,
+                9,
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 360,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 361,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 362,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 363,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2,
+                9
+            ],
+            "muscles_secondary": [
+                1
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 364,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 365,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [
+                2
+            ],
+            "muscles_secondary": [
+                9
+            ],
+            "equipment": [
+                8,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 366,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                8
+            ],
+            "muscles_secondary": [
+                10
+            ],
+            "equipment": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 367,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 368,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7,
+                15
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 369,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                15
+            ],
+            "muscles_secondary": [
+                7
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 370,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [
+                15
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 371,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [
+                15
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 372,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 14,
+            "muscles": [
+                7
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 373,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 13,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 374,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                2,
+                4,
+                5
+            ],
+            "muscles_secondary": [
+                8,
+                6,
+                3,
+                9
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 375,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                1,
+                11,
+                4,
+                9,
+                5
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 376,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 377,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                8,
+                10
+            ],
+            "muscles_secondary": [
+                11
+            ],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 378,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 379,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 380,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 12,
+            "muscles": [
+                12
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 381,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [
+                1,
+                13
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 382,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                6
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 383,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 10,
+            "muscles": [
+                14
+            ],
+            "muscles_secondary": [],
+            "equipment": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 384,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 11,
+            "muscles": [
+                12,
+                4,
+                3
+            ],
+            "muscles_secondary": [
+                5
+            ],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 385,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [
+                11,
+                7,
+                8,
+                10
+            ],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 386,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 8,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": []
+        }
+    },
+    {
+        "model": "exercises.exercisebase",
+        "pk": 387,
+        "fields": {
+            "license": 2,
+            "license_author": null,
+            "status": "1",
+            "category": 9,
+            "muscles": [],
+            "muscles_secondary": [],
+            "equipment": [
+                7
+            ]
+        }
+    }
+]

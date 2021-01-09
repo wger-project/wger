@@ -262,6 +262,31 @@ class NutritionPlan(models.Model):
         return result
 
 
+class IngredientCategory(models.Model):
+    """
+    Model for an Ingredient category
+    """
+    name = models.CharField(max_length=100,
+                            verbose_name=_('Name'))
+
+    # Metaclass to set some other properties
+    class Meta:
+        verbose_name_plural = _("Ingredient Categories")
+        ordering = ["name", ]
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return self.name
+
+    def get_owner_object(self):
+        """
+        Category has no owner information
+        """
+        return False
+
+
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
@@ -279,6 +304,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     class Meta:
         ordering = ["name", ]
 
+    # Meta data
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
                                  editable=False,
@@ -290,6 +316,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    blank=True,
                                    editable=False)
 
+    # Product infos
     name = models.CharField(max_length=200,
                             verbose_name=_('Name'),
                             validators=[MinLengthValidator(3)])
@@ -354,16 +381,58 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                  validators=[MinValueValidator(0),
                                              MaxValueValidator(100)])
 
+    code = models.CharField(max_length=200,
+                            null=True,
+                            blank=True,
+                            db_index=True)
+    """Internal ID of the source database, e.g. a barcode or similar"""
+
+    source_name = models.CharField(max_length=200,
+                                   null=True,
+                                   blank=True)
+    """Name of the source, such as Open Food Facts"""
+
+    source_url = models.URLField(verbose_name=_('Link'),
+                                 help_text=_('Link to product'),
+                                 blank=True,
+                                 null=True)
+    """URL of the product at the source"""
+
+    last_imported = models.DateTimeField(_('Date'), auto_now_add=True, null=True, blank=True)
+
+    common_name = models.CharField(max_length=200,
+                                   null=True,
+                                   blank=True)
+
+    category = models.ForeignKey(IngredientCategory,
+                                 verbose_name=_('Category'),
+                                 on_delete=models.CASCADE,
+                                 null=True,
+                                 blank=True)
+
+    brand = models.CharField(max_length=200,
+                             verbose_name=_('Brand name of product'),
+                             null=True,
+                             blank=True)
+
     #
     # Django methods
     #
 
     def get_absolute_url(self):
         """
-        Returns the canonical URL to view this object
+        Returns the canonical URL to view this object.
+
+        Since some names consist of only non-ascii characters (e.g. 감자깡), the
+        resulting slug would be empty and no URL would match. In that case, use
+        the regular URL with only the ID.
         """
-        return reverse('nutrition:ingredient:view',
-                       kwargs={'id': self.id, 'slug': slugify(self.name)})
+        slug = slugify(self.name)
+        if not slug:
+            return reverse('nutrition:ingredient:view', kwargs={'id': self.id})
+        else:
+            return reverse('nutrition:ingredient:view',
+                           kwargs={'id': self.id, 'slug': slug})
 
     def clean(self):
         """
@@ -696,12 +765,11 @@ class BaseMealItem(object):
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
         nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
+        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
             nutritional_info['carbohydrates_sugar'] += \
                 self.ingredient.carbohydrates_sugar * item_weight / 100
-
-        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.fat_saturated:
             nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * item_weight / 100
@@ -782,7 +850,6 @@ class LogItem(BaseMealItem, models.Model):
 
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
-                             editable=False,
                              on_delete=models.CASCADE)
     """
     The plan this log belongs to

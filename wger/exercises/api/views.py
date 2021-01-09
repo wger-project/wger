@@ -33,6 +33,7 @@ from rest_framework.response import Response
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
+    ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
@@ -55,7 +56,22 @@ from wger.utils.language import (
 from wger.utils.permissions import CreateOnlyPermission
 
 
-class ExerciseViewSet(viewsets.ModelViewSet):
+class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for exercise base objects. For a read-only endpoint with all
+    the information of an exercise, see /api/v2/exerciseinfo/
+    """
+    queryset = Exercise.objects.accepted()
+    serializer_class = ExerciseBaseSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    ordering_fields = '__all__'
+    filterset_fields = ('category',
+                        'muscles',
+                        'muscles_secondary',
+                        'equipment')
+
+
+class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
@@ -64,16 +80,11 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filterset_fields = ('category',
-                        'creation_date',
+    filterset_fields = ('creation_date',
                         'description',
                         'language',
-                        'muscles',
-                        'muscles_secondary',
                         'status',
                         'name',
-                        'equipment',
-                        'variations',
                         'license',
                         'license_author')
 
@@ -105,7 +116,7 @@ def search(request):
         exercises = (Exercise.objects.filter(name__icontains=q)
                      .filter(language__in=languages)
                      .filter(status=Exercise.STATUS_ACCEPTED)
-                     .order_by('category__name', 'name')
+                     .order_by('exercise_base__category__name', 'name')
                      .distinct())
 
         for exercise in exercises:
@@ -143,16 +154,12 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     queryset = Exercise.objects.accepted()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('category',
-                        'creation_date',
+    filterset_fields = ('creation_date',
                         'description',
                         'language',
-                        'muscles',
-                        'muscles_secondary',
                         'name',
-                        'equipment',
+                        'exercise_base',
                         'license',
-                        'variations',
                         'license_author')
 
 

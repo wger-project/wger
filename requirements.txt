@@ -12,13 +12,13 @@ django-crispy-forms~=1.10
 django_compressor~=2.4
 django_extensions~=3.1
 django-sortedm2m~=3.0
-django-storages~=1.10
+django-storages~=1.11
 easy-thumbnails~=2.7
 icalendar==4.0.7
-invoke~=1.4
-pillow~=8.0
+invoke~=1.5
+pillow~=8.1
 python-mimeparse
-reportlab==3.5.56
+reportlab==3.5.59
 matplotlib>=3.1
 requests
 setuptools>=18.5

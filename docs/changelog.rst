@@ -12,6 +12,9 @@ Upgrade steps from 1.9:
 * Update CSS and JS libraries ``yarn install``
 * Compile the CSS ``yarn build:css:sass``
 * Run migrations ``python3 manage.py migrate``
+* Update data ``python3 manage.py loaddata licenses.json languages.json language_config.json``
+* Load new ingredients (note that this will overwrite any ingredients that you
+  might have added) ``wger load-online-fixtures``
 * Update static files (only production): ``python3 manage.py collectstatic``
 * Subcommands for ``wger`` now use dashes in their names (i.e. create-settings
   instead of create_settings)
@@ -24,6 +27,11 @@ Upgrade steps from 1.9:
 * Support for reps-in-reserve (RiR) in workout plans and logs `#479`_
   (thanks `@SkyNetIndustry`_)
 * Improved user experience, on desktop and mobile `#337`_
+* Around 70000 new ingredients with Open Food Facts import with more to come `#422`_
+  (thanks `@harlenesamra`_, `@nikithamurikinati`_ and `@jcho1`_)
+* Group common exercise information such as muscles, etc. for more easy translations,
+  data management, etc. `#448`_ (thanks `@nikithamurikinati`_, `@harlenesamra`_,
+  `@jcho17`_, `@vaheeshta`_ and `@jeevikaghosh`_)
 * Group similar exercises such as wide grip, reverse, etc. `#555`_
   (thanks `@ryowright`_)
 * Improved info endpoints for exercises and ingredients, this saves additional
@@ -33,6 +41,7 @@ Upgrade steps from 1.9:
 * Show kJoules as well as kcal in nutritional plan `#568`_  (thanks `@nopinter`_ and `@derekli17`_)
 * Check name similarity when adding exercises to avoid duplicates `#551`_
   (thanks `@lydiaxing`_, `@eq8913`_, `@Hita-K`_)
+* Return the muscle background images in the REST API `#547`_ (thanks `@gengkev`_)
 
 
 🐛 Bug Fixes:
@@ -67,6 +76,13 @@ Upgrade steps from 1.9:
 .. _@Hita-K: https://github.com/Hita-K
 .. _@derekli17: https://github.com/derekli17
 .. _@nopinter: https://github.com/nopinter
+.. _@gengkev: https://github.com/gengkev
+.. _@nikithamurikinati: https://github.com/nikithamurikinati
+.. _@jcho1: https://github.com/jcho1
+.. _@jcho17: https://github.com/jcho17
+.. _@vaheeshta: https://github.com/vaheeshta
+.. _@jeevikaghosh: https://github.com/jeevikaghosh
+
 
 .. _#246: https://github.com/wger-project/wger/issues/246
 .. _#284: https://github.com/wger-project/wger/issues/284
@@ -75,7 +91,9 @@ Upgrade steps from 1.9:
 .. _#368: https://github.com/wger-project/wger/issues/368
 .. _#379: https://github.com/wger-project/wger/issues/379
 .. _#411: https://github.com/wger-project/wger/issues/411
+.. _#422: https://github.com/wger-project/wger/issues/422
 .. _#426: https://github.com/wger-project/wger/issues/426
+.. _#448: https://github.com/wger-project/wger/issues/448
 .. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
 .. _#478: https://github.com/wger-project/wger/issues/478
@@ -89,6 +107,7 @@ Upgrade steps from 1.9:
 .. _#511: https://github.com/wger-project/wger/issues/511
 .. _#516: https://github.com/wger-project/wger/issues/516
 .. _#522: https://github.com/wger-project/wger/issues/522
+.. _#547: https://github.com/wger-project/wger/issues/547
 .. _#550: https://github.com/wger-project/wger/issues/550
 .. _#551: https://github.com/wger-project/wger/issues/551
 .. _#554: https://github.com/wger-project/wger/issues/554

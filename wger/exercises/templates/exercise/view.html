@@ -11,7 +11,7 @@
     <meta property="og:description" content="{{ exercise.description_clean }}">
 {% endblock %}
 {% block opengraphimages %}
-    {% for image in exercise.exerciseimage_set.accepted %}
+    {% for image in exercise.images.accepted %}
         <meta property="og:image" content="{{ image.image.url }}">
     {% empty %}
         <meta property="og:image" content="{{ image_absolute_path }}">
@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 
 {# Images #}
-{% with images=exercise.exerciseimage_set.accepted %}
+{% with images=exercise.images.accepted %}
 {% if images or perms.exercises.change_exerciseimage  %}
     <h5 class="mt-4">{% trans "Images" %}:</h5>
     <div class="row row-cols-2 row-cols-md-3">
@@ -142,7 +142,7 @@ $(document).ready(function() {
 {% endwith %}
 
 {% if perms.exercises.change_exerciseimage %}
-{% with images=exercise.exerciseimage_set.pending %}
+{% with images=exercise.images.pending %}
 {% if images %}
 <h5 class="mt-4">{% trans "Images pending review" %}</h5>
 <div class="card-deck">
@@ -171,7 +171,7 @@ $(document).ready(function() {
     {% for comment in comments %}
         <li>
             {{ comment }}
-            
+
             {% if perms.exercises.change_exercisecomment %}
             <span class="dropdown">
                 <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown"></button>
@@ -256,7 +256,7 @@ $(document).ready(function() {
 {% if exercise.variations %}
     <h5 class="mt-4">{% trans "Exercise Variations" %}:</h5>
         <ul>
-        {% for variation in exercise.get_variations %}
+        {% for variation in exercise.variations %}
             <li>
                 <a href="{{ variation.get_absolute_url }}">{{ variation }}</a>
             </li>

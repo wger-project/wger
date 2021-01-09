@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # rge <roland@geider.net>, 2016
 # rge <roland@geider.net>, 2016
@@ -3876,9 +3876,6 @@ msgstr "Míle"
 
 msgid "Minutes"
 msgstr "Minuty"
-
-msgid "Repetitions"
-msgstr "Opakování"
 
 msgid "Seconds"
 msgstr "Sekundy"
