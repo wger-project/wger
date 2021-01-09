@@ -18,8 +18,13 @@
 Simple script that filters the output of django's dumpdata command into more
 manageable chunks.
 
-Create the data.json e.g. with:
-    python ../../manage.py dumpdata --indent 4 --natural-foreign > data.json
+After dumping the databas (or parts of it), just copy the file and filter it:
+    python ./manage.py dumpdata --indent 4 --natural-foreign > extras/scripts/data.json
+    cd extras/scripts
+    python3 filter-fixtures.py
+    mv exercises.json ../../wger/exercises/fixtures/
+    ...
+    rm *.json
 """
 
 import json
