@@ -275,17 +275,10 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     exercise_log[exercise_id] = []
 
                     # Filter the logs for user and exclude all units that are not weight
-                    #
-                    # TODO: add the repetition_unit to the filter. For some reason (bug
-                    #       in django? DB problems?) when adding the filter there, the
-                    #       execution time explodes. The weight unit filter works as
-                    #       expected. Also, adding the unit IDs to the exclude list
-                    #       also has the disadvantage that if new ones are added in a
-                    #       local instance, they could "slip" through.
                     logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
                                                                       weight_unit__in=(1, 2),
-                                                                      workout=self.object) \
-                        .exclude(repetition_unit_id__in=(2, 3, 4, 5, 6, 7, 8))
+                                                                      repetition_unit=1,
+                                                                      workout=self.object)
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise_list['obj'].id].append(entry_log)
