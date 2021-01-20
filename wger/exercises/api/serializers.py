@@ -64,7 +64,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
                   'exercise',
                   'image',
                   'is_main',
-                  'status',]
+                  'status']
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
