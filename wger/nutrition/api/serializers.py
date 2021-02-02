@@ -22,6 +22,7 @@ from rest_framework import serializers
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
+    LogItem,
     Meal,
     MealItem,
     NutritionPlan,
@@ -134,15 +135,36 @@ class MealItemSerializer(serializers.ModelSerializer):
                   'amount']
 
 
+class LogItemSerializer(serializers.ModelSerializer):
+    """
+    LogItem serializer
+    """
+
+    class Meta:
+        model = LogItem
+        fields = ['id',
+                  'plan',
+                  'ingredient',
+                  'weight_unit',
+                  'datetime',
+                  'amount']
+
+
 class MealItemInfoSerializer(serializers.ModelSerializer):
     """
     Meal Item info serializer
     """
 
+    meal = serializers.PrimaryKeyRelatedField(read_only=True)
+    ingredient = serializers.PrimaryKeyRelatedField(read_only=True)
+    ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
+
     class Meta:
         model = MealItem
         depth = 1
         fields = ['id',
+                  'meal',
+                  'ingredient_obj',
                   'ingredient',
                   'weight_unit',
                   'order',
@@ -169,10 +191,12 @@ class MealInfoSerializer(serializers.ModelSerializer):
     """
 
     meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
+    plan = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Meal
         fields = ['id',
+                  'plan',
                   'order',
                   'time',
                   'meal_items',

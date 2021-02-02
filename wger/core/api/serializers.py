@@ -109,7 +109,8 @@ class LicenseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = License
-        fields = ['full_name',
+        fields = ['id',
+                  'full_name',
                   'short_name',
                   'url']
 
@@ -120,7 +121,8 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = RepetitionUnit
-        fields = ['name']
+        fields = ['id',
+                  'name']
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
@@ -129,4 +131,4 @@ class WeightUnitSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = WeightUnit
-        fields = ['name']
+        fields = ['id', 'name']

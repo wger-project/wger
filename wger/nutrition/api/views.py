@@ -34,6 +34,7 @@ from wger.nutrition.api.serializers import (
     IngredientInfoSerializer,
     IngredientSerializer,
     IngredientWeightUnitSerializer,
+    LogItemSerializer,
     MealItemSerializer,
     MealSerializer,
     NutritionPlanInfoSerializer,
@@ -44,6 +45,7 @@ from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
+    LogItem,
     Meal,
     MealItem,
     NutritionPlan,
@@ -331,3 +333,38 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         Return an overview of the nutritional plan's values
         """
         return Response(MealItem.objects.get(pk=pk).get_nutritional_values())
+
+
+class LogItemViewSet(WgerOwnerObjectModelViewSet):
+    """
+    API endpoint for a meal log item
+    """
+
+    serializer_class = LogItemSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = ('amount',
+                        'ingredient',
+                        'plan',
+                        'weight_unit')
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        return LogItem.objects.filter(plan__user=self.request.user)
+
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(NutritionPlan, 'plan')]
+
+    @action(detail=True)
+    def nutritional_values(self, request, pk):
+        """
+        Return an overview of the nutritional plan's values
+        """
+        return Response(LogItem.objects
+                        .get(pk=pk, plan__user=self.request.user)
+                        .get_nutritional_values())

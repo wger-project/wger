@@ -56,15 +56,15 @@ from wger.utils.fields import Html5DateField
 logger = logging.getLogger(__name__)
 
 RIR_OPTIONS = [(None, '------'),
-               (0, 0),
-               (0.5, 0.5),
-               (1, 1),
-               (1.5, 1.5),
-               (2, 2),
-               (2.5, 2.5),
-               (3, 3),
-               (3.5, 3.5),
-               (4, 4)]
+               ('0', 0),
+               ('0.5', 0.5),
+               ('1', 1),
+               ('1.5', 1.5),
+               ('2', 2),
+               ('2.5', 2.5),
+               ('3', 3),
+               ('3.5', 3.5),
+               ('4', 4)]
 
 
 #
@@ -504,7 +504,7 @@ class Day(models.Model):
                         break
 
                 # Collect exercise images
-                for image in exercise.exerciseimage_set.all():
+                for image in exercise.images.all():
                     exercise_images_tmp.append({'image': image.image.url,
                                                 'is_main': image.is_main,
                                                 })
@@ -665,12 +665,11 @@ class Setting(models.Model):
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     """
 
-    rir = models.DecimalField(verbose_name=_('RiR'),
-                              decimal_places=1,
-                              max_digits=3,
-                              blank=True,
-                              null=True,
-                              choices=RIR_OPTIONS)
+    rir = models.CharField(verbose_name=_('RiR'),
+                           max_length=3,
+                           blank=True,
+                           null=True,
+                           choices=RIR_OPTIONS)
     """
     Reps in reserve, RiR. The amount of reps that could realistically still be
     done in the set.
@@ -767,12 +766,11 @@ class WorkoutLog(models.Model):
 
     date = Html5DateField(verbose_name=_('Date'))
 
-    rir = models.DecimalField(verbose_name=_('RiR'),
-                              decimal_places=1,
-                              max_digits=3,
-                              blank=True,
-                              null=True,
-                              choices=RIR_OPTIONS)
+    rir = models.CharField(verbose_name=_('RiR'),
+                           max_length=3,
+                           blank=True,
+                           null=True,
+                           choices=RIR_OPTIONS)
     """
     Reps in reserve, RiR. The amount of reps that could realistically still be
     done in the set.

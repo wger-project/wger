@@ -130,7 +130,7 @@ def log_meal(request, meal_pk):
     _logMealPlan([meal])
     date = datetime.date.today()
     return HttpResponseRedirect(reverse('nutrition:log:detail',
-                                        kwargs={'pk': meal_pk,
+                                        kwargs={'pk': meal.plan_id,
                                                 'year': date.year,
                                                 'month': date.month,
                                                 'day': date.day}))

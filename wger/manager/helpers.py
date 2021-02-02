@@ -210,7 +210,7 @@ def reps_smart_text(settings, set_obj):
         """
 
         if setting.rir:
-            rir = "{0} RiR".format(normalize_decimal(setting.rir))
+            rir = f"{setting.rir} RiR"
         else:
             rir = ""
         return rir

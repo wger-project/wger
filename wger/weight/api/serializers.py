@@ -32,6 +32,7 @@ class WeightEntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightEntry
-        fields = ['date',
+        fields = ['id',
+                  'date',
                   'weight',
                   'user']

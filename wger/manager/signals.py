@@ -55,7 +55,9 @@ post_save.connect(update_activity_cache, sender=WorkoutLog)
 
 
 def reset_muscle_cache(sender, instance, **kwargs):
-    exercises = Exercise.objects.filter(Q(muscles=instance) | Q(muscles_secondary=instance)).all()
+    exercises = Exercise.objects.filter(
+        Q(exercise_base__muscles=instance)
+        | Q(exercise_base__muscles_secondary=instance)).all()
     languages = Language.objects.all()
 
     for exercise in exercises:

@@ -29,6 +29,9 @@ Upgrade steps from 1.9:
 * Improved user experience, on desktop and mobile `#337`_
 * Around 70000 new ingredients with Open Food Facts import with more to come `#422`_
   (thanks `@harlenesamra`_, `@nikithamurikinati`_ and `@jcho1`_)
+* Group common exercise information such as muscles, etc. for more easy translations,
+  data management, etc. `#448`_ (thanks `@nikithamurikinati`_, `@harlenesamra`_,
+  `@jcho17`_, `@vaheeshta`_ and `@jeevikaghosh`_)
 * Group similar exercises such as wide grip, reverse, etc. `#555`_
   (thanks `@ryowright`_)
 * Improved info endpoints for exercises and ingredients, this saves additional
@@ -76,6 +79,9 @@ Upgrade steps from 1.9:
 .. _@gengkev: https://github.com/gengkev
 .. _@nikithamurikinati: https://github.com/nikithamurikinati
 .. _@jcho1: https://github.com/jcho1
+.. _@jcho17: https://github.com/jcho17
+.. _@vaheeshta: https://github.com/vaheeshta
+.. _@jeevikaghosh: https://github.com/jeevikaghosh
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246
@@ -87,6 +93,7 @@ Upgrade steps from 1.9:
 .. _#411: https://github.com/wger-project/wger/issues/411
 .. _#422: https://github.com/wger-project/wger/issues/422
 .. _#426: https://github.com/wger-project/wger/issues/426
+.. _#448: https://github.com/wger-project/wger/issues/448
 .. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
 .. _#478: https://github.com/wger-project/wger/issues/478

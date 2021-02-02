@@ -45,37 +45,39 @@ $(function() {
         <div class="collapse" id="collapse-{{equipment.pk}}" data-parent="#equipmentAccordion">
             <div class="card-body px-0">
                 <div class="list-group list-group-flush">
-                    {% for exercise in equipment.exercise_set.accepted %}
-                    {% if exercise.language in exercise_languages %}
-                    <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                        <div class="media">
-                            {% if exercise.main_image %}
-                                <img alt="{{ exercise.name }}"
-                                 class="mr-3"
-                                 style="width: 50px;"
-                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                            {% else %}
-                                <img alt="{% trans 'Placeholder image for exercise' %}"
-                                     class="mr-3"
-                                     style="width: 50px;"
-                                     src="{% static 'images/icons/image-placeholder.svg' %}">
+                    {% for exercise_base in equipment.exercisebase_set.accepted %}
+                        {% for exercise in exercise_base.exercises.accepted %}
+                            {% if exercise.language in exercise_languages %}
+                            <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
+                                <div class="media">
+                                    {% if exercise.main_image %}
+                                        <img alt="{{ exercise.name }}"
+                                        class="mr-3"
+                                        style="width: 50px;"
+                                        src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                                    {% else %}
+                                        <img alt="{% trans 'Placeholder image for exercise' %}"
+                                            class="mr-3"
+                                            style="width: 50px;"
+                                            src="{% static 'images/icons/image-placeholder.svg' %}">
+                                    {% endif %}
+                                    <div class="media-body">
+                                        <p class="media-heading h5">{{ exercise.name }}</p>
+                                        <span class="text-muted small">
+                                            {% trans exercise_base.category.name %}
+                                            <!--
+                                            {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
+                                            <br>
+                                            {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
+                                            -->
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
                             {% endif %}
-                            <div class="media-body">
-                                <p class="media-heading h5">{{ exercise.name }}</p>
-                                <span class="text-muted small">
-                                    {% trans exercise.category.name %}
-                                    <!--
-                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
-                                    <br>
-                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
-                                    -->
-                                </span>
-                             </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                    {% empty %}
-                        {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+                        {% empty %}
+                            {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+                        {% endfor %}
                     {% endfor %}
                 </div>
             </div>
