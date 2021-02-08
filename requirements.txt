@@ -3,12 +3,12 @@
 #
 
 # Application
-bleach~=3.2
+bleach~=3.3
 django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.2
 django-recaptcha==2.0.6
 Django~=3.1
-django-crispy-forms~=1.10
+django-crispy-forms~=1.11
 django_compressor~=2.4
 django_extensions~=3.1
 django-sortedm2m~=3.0
@@ -18,7 +18,7 @@ icalendar==4.0.7
 invoke~=1.5
 pillow~=8.1
 python-mimeparse
-reportlab==3.5.59
+reportlab==3.5.60
 matplotlib>=3.1
 requests
 setuptools>=18.5
