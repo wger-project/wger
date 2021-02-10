@@ -87,17 +87,23 @@ class UserApiSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        required=False,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
     username = serializers.CharField(required=True,
                                      validators=[UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
 
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('username', 'email', 'password')
 
     def create(self, validated_data):
         user = User.objects.create(username=validated_data['username'])
         user.set_password(validated_data['password'])
+        if validated_data.get('email'):
+            user.email = validated_data['email']
         user.save()
 
         return user
