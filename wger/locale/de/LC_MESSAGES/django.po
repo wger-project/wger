@@ -568,7 +568,7 @@ msgstr "Etwas hat einen Fehler verursacht."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Sie sind benutzen die Anwengung als der Benutzer \"%(current_user)s\", alle Aktionen werden auf seine Daten ausgeführt."
 

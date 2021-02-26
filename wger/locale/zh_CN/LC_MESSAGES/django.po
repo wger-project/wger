@@ -571,7 +571,7 @@ msgstr "某个问题导致了错误."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "你正在以用户\"%(current_user)s\"浏览这个站点.\n任何操作都会执行在他的数据上."
 

@@ -571,7 +571,7 @@ msgstr "Dokonał się błąd."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Przeglądasz stronę jako  \"%(current_user)s\", wszystkie akcje operują na jego danych."
 
