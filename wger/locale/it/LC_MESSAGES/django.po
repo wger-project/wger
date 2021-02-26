@@ -572,7 +572,7 @@ msgstr "È successo qualcosa che ha causato un errore."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Stai\nnavigando nel sito come utente \"%(current_user)s\", tutte le azioni vengono eseguite sui suoi dati."
 

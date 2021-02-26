@@ -568,7 +568,7 @@ msgstr "Κάτι συνέβει που προκάλεσε ένα σφάλμα."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Περιηγήστε στην σελίδα ώς χρήστης \"%(current_user)s\", όλες οι ενέργειες θα έχουν ως αποτέλεσμα να επηρεάσουν αυτόν τον χρήστη."
 

@@ -569,7 +569,7 @@ msgstr "Hände något som orsakat ett fel."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Du besöker denna sida som användare \"%(current_user)s\", alla handlingar påverkar dennes data."
 

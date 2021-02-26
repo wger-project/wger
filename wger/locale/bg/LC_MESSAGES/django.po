@@ -569,7 +569,7 @@ msgstr "Нещо се случи, което причини грешка."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr ""
 
