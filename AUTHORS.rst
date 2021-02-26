@@ -49,6 +49,8 @@ Developers
 * Kevin Geng - https://github.com/gengkev
 * Karmen Lu - https://github.com/klu17
 * Aaron Kimbrell - https://github.com/aronwk-aaron
+* Aaron Bassett - https://github.com/aaronbassett
+* Rachael Wright-Munn - https://github.com/ChaelCodes
 
 
 Translators

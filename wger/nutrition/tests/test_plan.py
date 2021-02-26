@@ -162,6 +162,22 @@ class PlanDailyCaloriesTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'goal amount of calories')
 
+    def test_meal_overview(self):
+        """
+        Tests the meal overview row
+        """
+
+        # Plan has daily calories goal
+        self.user_login('test')
+        plan = NutritionPlan.objects.get(pk=1)
+        plan.has_goal_calories = True
+        plan.save()
+
+        # Can find goal calories text
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
+        meal = response.context['plan'].meal_set.select_related()[0]
+        self.assertTrue(meal.get_nutritional_values()['energy'])
+
 
 class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
