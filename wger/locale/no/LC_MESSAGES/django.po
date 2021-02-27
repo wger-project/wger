@@ -568,7 +568,7 @@ msgstr "Noe skjedde som forårsaket en feil."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Du surfer på denne siden som brukeren: \"%(current_user)s\", alle handlinger blir utført på denne brukerens data."
 

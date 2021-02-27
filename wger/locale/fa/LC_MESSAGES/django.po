@@ -566,7 +566,7 @@ msgstr "اتفاقی موجب خطا شده است"
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "شما به عنوان کاربر %(current_user)s در حال جستجو در سایت هستید.\nجستجو شما قابل مشاهده است."
 

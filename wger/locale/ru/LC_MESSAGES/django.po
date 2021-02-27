@@ -572,7 +572,7 @@ msgstr "Произошли действия, которые вызвали ош�
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Вы просматриваете сайт как пользователь \"%(current_user)s\", все действия выполняются на его данных."
 

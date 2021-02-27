@@ -572,7 +572,7 @@ msgstr "Er is iets gebeurd dat een fout veroorzaakte."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Je bladert door de site als gebruiker \"%(current_user)s\", alle acties worden uitgevoerd op diens data."
 

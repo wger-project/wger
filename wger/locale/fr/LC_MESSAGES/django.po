@@ -577,7 +577,7 @@ msgstr "Quelque-chose s'est passé et a causé un erreur."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr "Vous êtes\nconnectés en tant que \"%(current_user)s\", toutes les actions seront faîtes sur ses\ndonnées."
 
