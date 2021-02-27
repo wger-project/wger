@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Armstrong Yan <yanqiangsdu@gmail.com>, 2015
 msgid ""
@@ -566,7 +566,7 @@ msgstr ""
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
 "    "
 msgstr ""
 
@@ -3869,6 +3869,9 @@ msgid "Miles"
 msgstr ""
 
 msgid "Minutes"
+msgstr ""
+
+msgid "Repetitions"
 msgstr ""
 
 msgid "Seconds"

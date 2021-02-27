@@ -205,6 +205,7 @@ LANGUAGES = (
             ('it', 'Italian'),
             ('pl', 'Polish'),
             ('uk', 'Ukrainian'),
+            ('tr', 'Turkish'),
 )
 
 # Default language code for this installation.

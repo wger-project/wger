@@ -1,10 +1,11 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Armstrong Yan <yanqiangsdu@gmail.com>, 2016
 # Binbin Zhang <pt0079@gmail.com>, 2016
+# D X <xiaodinghoney@gmail.com>, 2021
 # Harold <pxduharold@126.com>, 2018
 # Jay Luo <15190010740@163.com>, 2018
 # rge <roland@geider.net>, 2016
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-14 14:05+0100\n"
-"PO-Revision-Date: 2020-12-14 13:15+0000\n"
-"Last-Translator: Armstrong Yan <yanqiangsdu@gmail.com>\n"
+"PO-Revision-Date: 2021-01-11 16:59+0000\n"
+"Last-Translator: D X <xiaodinghoney@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/rge/wger-workout-manager/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -251,7 +252,7 @@ msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 
 #: core/forms.py:104
 msgid "Personal data"
-msgstr ""
+msgstr "个人数据"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -320,7 +321,7 @@ msgstr "你怎么看?"
 #: core/models.py:94
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s不是一个有效的出生日期"
 
 #: core/models.py:103
 msgid "Male"
@@ -516,7 +517,7 @@ msgstr "全称"
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
-msgstr ""
+msgstr "如果一个许可证已经本地化，例如，不同国家的 \"知识共享 \"许可证，请将它们作为单独的条目添加到这里。"
 
 #: core/models.py:563
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -561,7 +562,7 @@ msgstr "你请求的页面不存在."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "发生错误"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -571,7 +572,7 @@ msgstr "某个问题导致了错误."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
 "    "
 msgstr "你正在以用户\"%(current_user)s\"浏览这个站点.\n任何操作都会执行在他的数据上."
 
@@ -616,13 +617,13 @@ msgstr "关闭"
 
 #: core/templates/index.html:52 core/templates/index.html:201
 msgid "Add new diary entry"
-msgstr ""
+msgstr "添加新的日记条目"
 
 #: core/templates/index.html:57
 msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
-msgstr ""
+msgstr "点击添加一个条目到你今天的营养日记。您可以按照自己的定义记录一餐，也可以输入任意数量的自定义条目。"
 
 #: core/templates/index.html:65 core/templates/index.html:169
 #: core/templates/user/overview.html:171
@@ -644,7 +645,7 @@ msgstr "大卡"
 
 #: core/templates/index.html:77 nutrition/templates/plan/view.html:306
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "添加自定义日记条目"
 
 #: core/templates/index.html:92 core/templates/index.html:100
 #: manager/models.py:105 manager/models.py:395 manager/models.py:735
@@ -664,7 +665,7 @@ msgstr "这个健身是日程的一部分"
 msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
-msgstr ""
+msgstr "当前的锻炼是从您的健身计划中选择的，如果您没有活动计划，则只需按日期选择。"
 
 #: core/templates/index.html:140 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -781,7 +782,7 @@ msgstr "关于我们"
 
 #: core/templates/misc/about.html:8
 msgid "Responsible for the content of this site as per German law §5 TMG:"
-msgstr ""
+msgstr "根据德国法律§5 TMG，对本网站的内容负责。"
 
 #: core/templates/misc/about.html:16
 msgid "GNUPG-Key:"
@@ -833,7 +834,7 @@ msgstr "我们也在推特上.推特我们告诉我们你的想法!当然,除了
 
 #: core/templates/misc/contact.html:42
 msgid "Discord"
-msgstr ""
+msgstr "不一致"
 
 #: core/templates/misc/contact.html:43
 msgid ""
@@ -848,7 +849,7 @@ msgstr "打开反馈表单"
 
 #: core/templates/misc/contact.html:53
 msgid "tweet to @wger_project"
-msgstr ""
+msgstr "发推给@wger_project"
 
 #: core/templates/misc/contact.html:56
 msgid "Go to the discord server"
@@ -873,11 +874,11 @@ msgstr "已经完成"
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "licenses for the different countries, add them as separate entries here."
-msgstr ""
+msgstr "如果一个许可证已经本地化，例如，不同国家的 \"知识共享 \"许可证，请将它们作为单独的条目添加到这里。"
 
 #: core/templates/navigation.html:22
 msgid "Training"
-msgstr ""
+msgstr "训练"
 
 #: core/templates/navigation.html:28 core/templates/user/overview.html:25
 #: software/templates/features.html:72
@@ -898,17 +899,17 @@ msgstr "日历"
 #: core/templates/navigation.html:42
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "按类别"
 
 #: core/templates/navigation.html:43
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "按肌肉"
 
 #: core/templates/navigation.html:44
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "按器械"
 
 #: core/templates/navigation.html:48
 #: exercises/templates/equipment/overview.html:107
@@ -947,7 +948,7 @@ msgstr "类别"
 
 #: core/templates/navigation.html:72
 msgid "Body weight"
-msgstr ""
+msgstr "体重"
 
 #: core/templates/navigation.html:74 core/templates/user/overview.html:114
 #: weight/templates/overview.html:7
@@ -1037,7 +1038,7 @@ msgstr "许可协议"
 #: core/templates/navigation.html:209
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
-msgstr ""
+msgstr "重复单元"
 
 #: core/templates/navigation.html:212 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:173
@@ -1122,7 +1123,7 @@ msgstr "后一页"
 
 #: core/templates/tags/render_day.html:31
 msgid "Add weight log"
-msgstr ""
+msgstr "新增体重记录"
 
 #: core/templates/tags/render_day.html:97
 #: exercises/templates/equipment/overview.html:58
@@ -1309,7 +1310,7 @@ msgstr "日志"
 #: core/templates/user/overview.html:77 manager/models.py:879
 #: manager/templates/calendar/partial_overview_table.html:52
 msgid "General impression"
-msgstr ""
+msgstr "总体印象"
 
 #: core/templates/user/overview.html:78 core/templates/user/overview.html:370
 #: manager/models.py:870
@@ -1323,7 +1324,7 @@ msgstr "备注"
 #: manager/templates/workout/timer.html:500
 #: nutrition/templates/log/detail.html:154
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: core/templates/user/overview.html:147
 #: nutrition/templates/plan/overview.html:36
@@ -3875,6 +3876,9 @@ msgstr ""
 
 msgid "Minutes"
 msgstr ""
+
+msgid "Repetitions"
+msgstr "重复次数"
 
 msgid "Seconds"
 msgstr ""

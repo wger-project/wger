@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Artem Polivanchuk, 2015
 # Artem Polivanchuk, 2015
@@ -570,7 +570,7 @@ msgstr "Сталося щось, що призвело до помилки."
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
 "    "
 msgstr "Ви переглядаєте сайт як користувач \"%(current_user)s\", всі дії виконуються з його даними"
 
@@ -3877,6 +3877,9 @@ msgstr "Милі"
 
 msgid "Minutes"
 msgstr "Хвилини"
+
+msgid "Repetitions"
+msgstr "Повтори"
 
 msgid "Seconds"
 msgstr "Секунди"

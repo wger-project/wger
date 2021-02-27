@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Andrew <andrew@dorokhin.moscow>, 2018
 # Inna <inna@geider.net>, 2013
@@ -572,7 +572,7 @@ msgstr "Произошли действия, которые вызвали ош�
 #, python-format
 msgid ""
 "You are\n"
-"browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
+"browsing the site as the user \"%(current_user)s\", all actions are performed on his data.\n"
 "    "
 msgstr "Вы просматриваете сайт как пользователь \"%(current_user)s\", все действия выполняются на его данных."
 
@@ -3879,6 +3879,9 @@ msgstr "Миль"
 
 msgid "Minutes"
 msgstr "Минут"
+
+msgid "Repetitions"
+msgstr "Повторении"
 
 msgid "Seconds"
 msgstr "Секунд"
