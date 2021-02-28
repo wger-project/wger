@@ -97,6 +97,17 @@ function wgerSetupSortable() {
   });
 }
 
+/* 
+Functions related to site performance 
+*/
+
+function debounce(func, delay, timer) {
+  // Delays calling a function until it hasn't been called for the set delay
+  clearTimeout(timer);
+  timer = setTimeout(func, delay);
+  return timer;
+}
+
 /*
  Functions related to the user's preferences
  */
@@ -520,9 +531,10 @@ function wgerInitEditSet() {
   initRemoveExerciseFormset();
 
   // Slider to set the number of sets
+  var setsSliderTimer;
   $('#id_sets').on('input', function () {
-    updateAllExerciseFormset();
     $('#id_sets_value').html($('#id_sets').val());
+    setsSliderTimer = debounce(updateAllExerciseFormset, 250, setsSliderTimer);
   });
 
   /*
