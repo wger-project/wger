@@ -68,7 +68,7 @@ function wgerCustomModalInit()
     </tr>
     {% for meal in plan.meal_set.select_related %}
     <tr>
-        <td {% if meal.mealitem_set.count %}rowspan="{{meal.mealitem_set.count}}"{% endif %}>
+        <td {% if meal.mealitem_set.count %}rowspan="{{meal.mealitem_set.count|add:1}}"{% endif %}>
             <strong>
             {% trans "Nr."%} {{ forloop.counter }}
             {% if meal.time %} &ndash; {{meal.time|time:"H:i"}}{% endif %}
@@ -146,6 +146,14 @@ function wgerCustomModalInit()
             {% endif %}
         {% endfor %}
 
+        <tr>
+            <td></td>
+            <td class="align-right">{{meal.get_nutritional_values.energy|floatformat:1}} /
+                                    {{meal.get_nutritional_values.energy_kilojoule|floatformat:1}}</td>
+            <td class="align-right">{{meal.get_nutritional_values.protein|floatformat:1}}</td>
+            <td class="align-right">{{meal.get_nutritional_values.carbohydrates|floatformat:1}}</td>
+            <td class="align-right">{{meal.get_nutritional_values.fat|floatformat:1}}</td>
+        </tr>
     {% empty %}
     {% if is_owner %}
     <tr>

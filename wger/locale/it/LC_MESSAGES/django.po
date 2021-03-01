@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # 503c1deac2ae4f6e4b07271635937f42_11988b1 <6739e8e0b5e8a59fa257ec04a7e9ae17_482758>, 2018
 # Agostino Lecci, 2015
@@ -3877,6 +3877,9 @@ msgstr "Miglia"
 
 msgid "Minutes"
 msgstr "Minuti"
+
+msgid "Repetitions"
+msgstr "Ripetizioni"
 
 msgid "Seconds"
 msgstr "Secondi"

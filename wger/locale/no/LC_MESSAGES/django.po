@@ -1,8 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Frode Mikalsen <frodemikalsen@gmail.com>, 2021
 # Jon-Sindre Husum <jhusum@gmail.com>, 2020
 # w00p <kjetil@elde.io>, 2016
 # Stian Lundanes <stian@lundanes.com>, 2015
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-14 14:05+0100\n"
-"PO-Revision-Date: 2020-12-14 13:15+0000\n"
-"Last-Translator: w00p <kjetil@elde.io>\n"
+"PO-Revision-Date: 2021-02-26 07:44+0000\n"
+"Last-Translator: Frode Mikalsen <frodemikalsen@gmail.com>\n"
 "Language-Team: Norwegian (http://www.transifex.com/rge/wger-workout-manager/language/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,7 +249,7 @@ msgstr "Brukes for passordtilbakestillinger og eventuelt e-postpåminnelser."
 
 #: core/forms.py:104
 msgid "Personal data"
-msgstr ""
+msgstr "Personlig data"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -317,7 +318,7 @@ msgstr "Hva vil du si?"
 #: core/models.py:94
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s er ikke en gyldig fødselsdato"
 
 #: core/models.py:103
 msgid "Male"
@@ -513,7 +514,7 @@ msgstr "Fullt navn"
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
-msgstr ""
+msgstr "Hvis en lisens er lokalisert, f.eks. Creative Commons-lisensene for de forskjellige landene, legg dem til som separate oppføringer her."
 
 #: core/models.py:563
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -558,7 +559,7 @@ msgstr "Siden du spør etter eksisterer ikke."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "En feil oppstod"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -613,13 +614,13 @@ msgstr "Lukk"
 
 #: core/templates/index.html:52 core/templates/index.html:201
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Legg til ny dagbokoppføring"
 
 #: core/templates/index.html:57
 msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
-msgstr ""
+msgstr "Klikk for å legge til en oppføring i ernæringsdagboken din i dag. Du kan enten logge et måltid slik du definerte det, eller legge inn et hvilket som helst antall tilpassede oppføringer."
 
 #: core/templates/index.html:65 core/templates/index.html:169
 #: core/templates/user/overview.html:171
@@ -641,7 +642,7 @@ msgstr "kcal"
 
 #: core/templates/index.html:77 nutrition/templates/plan/view.html:306
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Legg til tilpasset dagbokoppføring"
 
 #: core/templates/index.html:92 core/templates/index.html:100
 #: manager/models.py:105 manager/models.py:395 manager/models.py:735
@@ -661,7 +662,7 @@ msgstr "Denne treningsøkten er en del av en plan."
 msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
-msgstr ""
+msgstr "Den aktuelle treningen velges fra den aktive timeplanen din, eller hvis du ikke har en, etter dato."
 
 #: core/templates/index.html:140 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -799,7 +800,7 @@ msgid ""
 "<a href=\"%(discord)s\">on the discord channel</a>, to report\n"
 "a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</a>\n"
 "."
-msgstr ""
+msgstr "Takk for din interesse. Bruk gjerne noen av\nmåtene nedenfor for å sende tilbakemelding om ethvert aspekt av nettstedet. For\nstøtte, si hei\n <a href=\"%(discord)s\"> på diskord-kanalen </a>, for å rapportere\nen feil, bør du vurdere å gjøre det gjennom <a href=\"%(issues)s\"> issue tracker </a>\n."
 
 #: core/templates/misc/contact.html:20
 #, python-format
@@ -830,7 +831,7 @@ msgstr "Vi er også på twitter. Skriv til oss og fortell oss hva\ndu tror! Bort
 
 #: core/templates/misc/contact.html:42
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: core/templates/misc/contact.html:43
 msgid ""
@@ -845,11 +846,11 @@ msgstr "Åpne tilbakemeldingsskjema"
 
 #: core/templates/misc/contact.html:53
 msgid "tweet to @wger_project"
-msgstr ""
+msgstr "tweet to @wger_project"
 
 #: core/templates/misc/contact.html:56
 msgid "Go to the discord server"
-msgstr ""
+msgstr "Gå til discord serveren"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -874,7 +875,7 @@ msgstr "Hvis en lisens er en lokal lisens, feks Creative Commons\nlisenser for d
 
 #: core/templates/navigation.html:22
 msgid "Training"
-msgstr ""
+msgstr "Trening"
 
 #: core/templates/navigation.html:28 core/templates/user/overview.html:25
 #: software/templates/features.html:72
@@ -895,17 +896,17 @@ msgstr "Kalender"
 #: core/templates/navigation.html:42
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "etter kategori"
 
 #: core/templates/navigation.html:43
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "etter muskler"
 
 #: core/templates/navigation.html:44
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "etter apperat"
 
 #: core/templates/navigation.html:48
 #: exercises/templates/equipment/overview.html:107
@@ -944,7 +945,7 @@ msgstr "Kategorier"
 
 #: core/templates/navigation.html:72
 msgid "Body weight"
-msgstr ""
+msgstr "Kropsvekt"
 
 #: core/templates/navigation.html:74 core/templates/user/overview.html:114
 #: weight/templates/overview.html:7
@@ -1034,7 +1035,7 @@ msgstr "Lisenser"
 #: core/templates/navigation.html:209
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
-msgstr ""
+msgstr "Repetisjonsenheter"
 
 #: core/templates/navigation.html:212 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:173
@@ -1119,7 +1120,7 @@ msgstr "neste"
 
 #: core/templates/tags/render_day.html:31
 msgid "Add weight log"
-msgstr ""
+msgstr "Legg til vektlogg"
 
 #: core/templates/tags/render_day.html:97
 #: exercises/templates/equipment/overview.html:58
@@ -1148,7 +1149,7 @@ msgstr "Repetisjoner"
 #: manager/models.py:668 manager/models.py:770
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
 msgid "RiR"
-msgstr ""
+msgstr "RiR"
 
 #: core/templates/template.html:139
 msgid ""
@@ -1601,7 +1602,7 @@ msgstr "Språk"
 
 #: exercises/models.py:235
 msgid "Variations"
-msgstr ""
+msgstr "Variasjoner"
 
 #: exercises/models.py:339 exercises/views/exercises.py:367
 msgid "Exercise was successfully added to the general database"
@@ -1723,7 +1724,7 @@ msgstr "Takk for at du bidrar og lager denne siden bedre!"
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr ""
+msgstr "%(site)s laget"
 
 #: exercises/templates/exercise/form.html:4
 msgid "Submitting an exercise"
@@ -1790,7 +1791,7 @@ msgstr "Øvelse venter på godkjenning"
 msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "        included in the database."
-msgstr ""
+msgstr "Denne brukerinnsendte øvelsen venter på at beslutningen skal være\n        inkludert i databasen."
 
 #: exercises/templates/exercise/view.html:53
 msgid "Till then, it will not be shown in the overview or the search."
@@ -1844,7 +1845,7 @@ msgstr "Vektlogg"
 
 #: exercises/templates/exercise/view.html:257
 msgid "Exercise Variations"
-msgstr ""
+msgstr "Treningsvariasjoner"
 
 #: exercises/templates/exercise/view.html:278
 msgid "Submit a correction"
@@ -1969,11 +1970,11 @@ msgstr "Antall uker siden forrige gang en bruker logget hans tilstedeværelse fo
 
 #: gym/models.py:131 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "Vis navn i topptekst"
 
 #: gym/models.py:132
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Vis navnet på treningsstudioet i sideoverskriften"
 
 #: gym/models.py:142
 msgid "Configuration for {}"
@@ -2148,7 +2149,7 @@ msgstr "Legg til medlem"
 
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Fødselsdato"
 
 #: gym/templates/gym/new_user.html:48
 #: manager/templates/calendar/month.html:144 manager/templates/log/add.html:75
@@ -2220,7 +2221,7 @@ msgstr "Innhold"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Generer forhåndsvisning"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2251,7 +2252,7 @@ msgstr "Gjeldene versjon"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Sende e-poster"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2284,7 +2285,7 @@ msgstr "Repetisjoner"
 
 #: manager/forms.py:218
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: manager/forms.py:220 manager/templates/workout/view.html:153
 msgid "Table"
@@ -2292,11 +2293,11 @@ msgstr "Tabell"
 
 #: manager/forms.py:222 manager/templates/workout/view.html:159
 msgid "with images"
-msgstr ""
+msgstr "med bilder"
 
 #: manager/forms.py:224 manager/templates/workout/view.html:165
 msgid "with comments"
-msgstr ""
+msgstr "med kommentarer"
 
 #: manager/management/commands/email-reminders.py:121
 msgid "Workout will expire soon"
@@ -2540,8 +2541,8 @@ msgid ""
 msgid_plural ""
 "%(weeks)s Weeks\n"
 "                    "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(weeks)s Uke\n                    "
+msgstr[1] "%(weeks)s Uker\n                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
@@ -2609,7 +2610,7 @@ msgstr "Endre sett"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "Oppdater"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
@@ -2689,7 +2690,7 @@ msgid ""
 "Note that only entries with a weight unit (kg or lb) and\n"
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
-msgstr ""
+msgstr "Merk at bare oppføringer med en vektenhet (kg eller lb) og\ngjentakelser er kartlagt, andre kombinasjoner som tid eller til utmattelse\nblir ignorert her."
 
 #: manager/templates/workout/overview.html:5
 msgid "Your workouts"
@@ -2755,11 +2756,11 @@ msgstr "Eksporter denne treningsøkten som en kalender fil"
 
 #: manager/templates/workout/view.html:184
 msgid "Logs"
-msgstr ""
+msgstr "Logg"
 
 #: manager/templates/workout/view.html:186
 msgid "View logs"
-msgstr ""
+msgstr "Vis logger"
 
 #: manager/templates/workout/view.html:208 manager/views/schedule_step.py:99
 msgid "Edit workout"
@@ -2896,7 +2897,7 @@ msgstr "Natrium"
 #, python-brace-format
 msgid ""
 "The total energy ({self.energy}kcal) is not the approximate sum of the "
-msgstr ""
+msgstr "Den totale energien ({self.energy} kcal) er ikke den omtrentlige summen av"
 
 #: nutrition/models.py:481 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
@@ -3076,27 +3077,27 @@ msgstr "Slett ingrediens"
 #: nutrition/templates/log/overview.html:7
 #: nutrition/templates/plan/view.html:261
 msgid "Nutrition diary"
-msgstr ""
+msgstr "Ernæringsdagbok"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
-msgstr ""
+msgstr "Planlagt"
 
 #: nutrition/templates/log/detail.html:33
 #: nutrition/templates/log/overview.html:31
 #: nutrition/templates/plan/view.html:268
 msgid "Logged"
-msgstr ""
+msgstr "Logget"
 
 #: nutrition/templates/log/detail.html:34
 #: nutrition/templates/log/overview.html:32
 #: nutrition/templates/plan/view.html:269
 msgid "Difference"
-msgstr ""
+msgstr "Forskjell"
 
 #: nutrition/templates/log/detail.html:150
 msgid "Entries"
-msgstr ""
+msgstr "Oppføringer"
 
 #: nutrition/templates/log/detail.html:170
 msgid "g"
@@ -3105,7 +3106,7 @@ msgstr "g"
 #: nutrition/templates/log/overview.html:53
 #: nutrition/templates/plan/view.html:290
 msgid "nothing found"
-msgstr ""
+msgstr "Ingenting funnet"
 
 #: nutrition/templates/plan/overview.html:5
 msgid "Your nutrition plans"
@@ -3121,11 +3122,11 @@ msgstr "Innhold"
 
 #: nutrition/templates/plan/view.html:83
 msgid "Log this meal"
-msgstr ""
+msgstr "Logg dette måltidet"
 
 #: nutrition/templates/plan/view.html:87
 msgid "Add ingredient to meal"
-msgstr ""
+msgstr "Tilsett ingrediens i måltidet"
 
 #: nutrition/templates/plan/view.html:141
 msgid "No items for this meal."
@@ -3137,7 +3138,7 @@ msgstr "Ingen måltider for denne planen"
 
 #: nutrition/templates/plan/view.html:164
 msgid "Log this Plan"
-msgstr ""
+msgstr "Logg denne planen"
 
 #: nutrition/templates/plan/view.html:170
 msgid "Add a new meal"
@@ -3150,7 +3151,7 @@ msgstr "Ernæringsmessige data"
 #: nutrition/templates/plan/view.html:183
 #, python-format
 msgid "Based on the weight entry dated %(date)s (%(weight)s)"
-msgstr ""
+msgstr "Basert på vektoppføringen datert %(date)s (%(weight)s)"
 
 #: nutrition/templates/plan/view.html:192 nutrition/views/plan.py:357
 msgid "Total"
@@ -3170,7 +3171,7 @@ msgstr "oz per kropps lb"
 
 #: nutrition/templates/plan/view.html:297
 msgid "View complete nutrition log"
-msgstr ""
+msgstr "Se full ernæringslogg"
 
 #: nutrition/templates/plan/view.html:339
 msgid ""
@@ -3288,12 +3289,12 @@ msgstr "Endre måltids element"
 
 #: nutrition/views/plan.py:261
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Ernæringsplan"
 
 #: nutrition/views/plan.py:263
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Ernæringsplan for %s"
 
 #: nutrition/views/plan.py:330
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
@@ -3386,7 +3387,7 @@ msgstr "hvor Workout Manager er et gratis, åpen kildekode web-applikasjon som h
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
-msgstr ""
+msgstr "Velkommen til wger"
 
 #: software/templates/features.html:25
 msgid "Your body."
@@ -3410,7 +3411,7 @@ msgstr "Prøv den nå"
 
 #: software/templates/features.html:55
 msgid "Your advantages"
-msgstr ""
+msgstr "Fordelene dine"
 
 #: software/templates/features.html:57
 msgid ""
@@ -3418,7 +3419,7 @@ msgid ""
 "your exercises, workouts and nutrition. It started as a pet project of mine "
 "to replace my growing collection of different spreadsheets, but it has "
 "become something other people could also find useful."
-msgstr ""
+msgstr "wger Workout Manager er en fri og åpen kildekode-webapplikasjon som administrerer dine øvelser, treningsøkter og ernæring. Det startet som et kjæledyrprosjekt av meg for å erstatte den voksende samlingen av forskjellige regneark, men det har blitt noe andre mennesker også kan finne nyttig."
 
 #: software/templates/features.html:74
 msgid ""
@@ -3426,7 +3427,7 @@ msgid ""
 "Select exactly which exercises you'll do and how many repetitions, time or "
 "distance you want to do them. You can also combine different workouts into a"
 " schedule."
-msgstr ""
+msgstr "Du kan opprette og administrere fleksible treningsrutiner for alle mål du har. Velg nøyaktig hvilke øvelser du vil gjøre og hvor mange repetisjoner, tid eller avstand du vil gjøre dem. Du kan også kombinere forskjellige treningsøkter i en tidsplan."
 
 #: software/templates/features.html:89
 msgid ""
@@ -3434,7 +3435,7 @@ msgid ""
 "different ingredients as you need. The application will calculate the "
 "nutritional values (total energy, protein, carbohydrates, and so on) about "
 "the whole plan as well as the indivual meals."
-msgstr ""
+msgstr "Lag din personlige diettplan ved å lage så mange måltider med så mange forskjellige ingredienser som du trenger. Applikasjonen vil beregne ernæringsverdiene (total energi, protein, karbohydrater og så videre) for hele planen så vel som de individuelle måltidene."
 
 #: software/templates/features.html:102
 msgid "Diary"
@@ -3445,7 +3446,7 @@ msgid ""
 "Enter the weights and repetitions you did for each exercise to generate "
 "diagrams that let you see at a glance how well you are doing. The raw "
 "numbers are of course still accessible."
-msgstr ""
+msgstr "Angi vektene og repetisjonene du gjorde for hver øvelse for å generere diagrammer som lar deg raskt se hvor bra du gjør det. Råtallene er selvfølgelig fremdeles tilgjengelige."
 
 #: software/templates/features.html:109
 msgid ""
@@ -3454,7 +3455,7 @@ msgstr "Du kan også skrive notater og gi et generelt inntrykk (god nøytral, et
 
 #: software/templates/features.html:121
 msgid "Among many others"
-msgstr ""
+msgstr "Blant mange andre"
 
 #: software/templates/features.html:133
 msgid "Weight tracker"
@@ -3464,13 +3465,13 @@ msgstr "Vektsporing"
 msgid ""
 "Keep track of your progress with the body weight chart. This makes it easy "
 "to see if you are reaching your goals or need to adjust something."
-msgstr ""
+msgstr "Hold oversikt over fremgangen din med kroppsvekt-diagrammet. Dette gjør det enkelt å se om du når målene dine eller trenger å justere noe."
 
 #: software/templates/features.html:156
 msgid ""
 "Get an overview of how and when you trained as well as how you personally "
 "felt you performed. Access all your individual diary entries with one click."
-msgstr ""
+msgstr "Få en oversikt over hvordan og når du trente, samt hvordan du personlig følte at du presterte. Få tilgang til alle dine dagbokoppføringer med ett klikk."
 
 #: software/templates/features.html:171
 msgid "Exercise database"
@@ -3481,7 +3482,7 @@ msgid ""
 "The exercise database contains more than hundred exercises from which you "
 "can choose when creating a workout. You can view them by category and "
 "equipment used or muscles trained."
-msgstr ""
+msgstr "Øvelsesdatabasen inneholder over hundre øvelser du kan velge når du lager en treningsøkt. Du kan se dem etter kategori og utstyr som er brukt eller trente muskler."
 
 #: software/templates/features.html:190
 msgid "Gym management"
@@ -3492,18 +3493,18 @@ msgid ""
 "Use the application for your gym to manage its members, their workouts and "
 "attendance. You can manage the members' contracts, keep notes and upload any"
 " files you might need."
-msgstr ""
+msgstr "Bruk applikasjonen for treningsstudioet ditt til å administrere medlemmene, treningsøktene og oppmøtet. Du kan administrere medlemmene sine kontrakter, føre notater og laste opp eventuelle filer du trenger."
 
 #: software/templates/features.html:213
 msgid ""
 "wger provides a REST API with full read and write access to all data so you "
 "can integrate your own application and tools."
-msgstr ""
+msgstr "wger gir et REST API med full lese- og skrivetilgang til all data, slik at du kan integrere din egen applikasjon og verktøy."
 
 #: software/templates/features.html:223
 #, python-format
 msgid "100%% Free <br>and <br>Open Source"
-msgstr ""
+msgstr "100%% Fri <br> og <br> Åpen Kildekode"
 
 #: software/templates/issues.html:6
 msgid "Reporting a problem"
@@ -3570,7 +3571,7 @@ msgid ""
 "A copy the license text is contained in every wger Workout\n"
 "Manager release (LICENSE.txt) and can be read online on the website of\n"
 "<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>."
-msgstr ""
+msgstr "En kopi av lisenseteksten finnes i hver wger Workout\nManager utgivelse (LICENSE.txt) og kan leses online på nettstedet til\n <a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>GNU prosjektet </a>."
 
 #: utils/generic_views.py:254
 msgid "Yes, delete"
@@ -3721,15 +3722,15 @@ msgstr "Bruk lenken for å opprette"
 
 #: weight/templates/overview.html:38
 msgid "Last 3 months"
-msgstr ""
+msgstr "Siste 3 måneder"
 
 #: weight/templates/overview.html:39
 msgid "Last 12 months"
-msgstr ""
+msgstr "Siste 12 måneder"
 
 #: weight/templates/overview.html:40
 msgid "No filter"
-msgstr ""
+msgstr "Ingen filter"
 
 #: weight/templates/overview.html:50
 msgctxt "Noun, not verb"
@@ -3742,7 +3743,7 @@ msgstr "Dager"
 
 #: weight/templates/overview.html:83
 msgid "Edit weight"
-msgstr ""
+msgstr "Rediger vekt"
 
 #: weight/templates/overview.html:126
 msgid "Export as CSV"
@@ -3759,12 +3760,12 @@ msgstr "Endre vektoppføring for %s"
 
 #: weight/views.py:124
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Slettet."
 
 #: weight/views.py:128
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "Slett vektoppføring for %s"
 
 msgid "Abs"
 msgstr "Mage"
@@ -3866,16 +3867,19 @@ msgid "Triceps brachii"
 msgstr "Triceps brachii"
 
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilometer"
 
 msgid "Miles"
-msgstr ""
+msgstr "Miles"
 
 msgid "Minutes"
-msgstr ""
+msgstr "Minutter"
+
+msgid "Repetitions"
+msgstr "Repetisjoner"
 
 msgid "Seconds"
-msgstr ""
+msgstr "Sekunder"
 
 msgid "Until Failure"
-msgstr ""
+msgstr "Til Utmattelse"

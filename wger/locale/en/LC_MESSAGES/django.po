@@ -559,7 +559,7 @@ msgstr ""
 msgid ""
 "You are\n"
 "browsing the site as the user \"%(current_user)s\", all actions are "
-"performed on his data.\n"
+"performed on their data.\n"
 "    "
 msgstr ""
 

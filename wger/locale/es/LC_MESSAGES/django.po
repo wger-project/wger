@@ -1,12 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Acv2 Facundo <acv2facundo@gmail.com>, 2014
 # Damian Suarez <rdsuarez@gmail.com>, 2018
 # Enrique Garcia <ea2809@gmail.com>, 2015
 # jgrdpy <javi_guti@hotmail.com>, 2018
+# Javier HM <jav1.x64@gmail.com>, 2020
 # Manuel <lendulado@gmail.com>, 2015
 # Naty Quin <quintern@oregonstate.edu>, 2017
 # rge <roland@geider.net>, 2013-2014,2016
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-14 14:05+0100\n"
-"PO-Revision-Date: 2020-12-14 13:15+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
+"PO-Revision-Date: 2020-12-16 21:27+0000\n"
+"Last-Translator: Javier HM <jav1.x64@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/rge/wger-workout-manager/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -252,7 +253,7 @@ msgstr "Se usa para restablecer constraseñas y, opcionalmente, para enviar avis
 
 #: core/forms.py:104
 msgid "Personal data"
-msgstr ""
+msgstr "Datos personales"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -321,7 +322,7 @@ msgstr "¿Qué quieres decir?"
 #: core/models.py:94
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s Fecha de nacimiento no valida"
 
 #: core/models.py:103
 msgid "Male"
@@ -562,7 +563,7 @@ msgstr "La página que has solicitado no existe."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Ha ocurrido un error"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -617,7 +618,7 @@ msgstr "Cerrar"
 
 #: core/templates/index.html:52 core/templates/index.html:201
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Añadir una entrada nueva"
 
 #: core/templates/index.html:57
 msgid ""
@@ -645,7 +646,7 @@ msgstr "kcal"
 
 #: core/templates/index.html:77 nutrition/templates/plan/view.html:306
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Añadir una entrada personalizada"
 
 #: core/templates/index.html:92 core/templates/index.html:100
 #: manager/models.py:105 manager/models.py:395 manager/models.py:735
@@ -899,17 +900,17 @@ msgstr "Calendario"
 #: core/templates/navigation.html:42
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "por categoría"
 
 #: core/templates/navigation.html:43
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "por músculos"
 
 #: core/templates/navigation.html:44
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "por equipamiento"
 
 #: core/templates/navigation.html:48
 #: exercises/templates/equipment/overview.html:107
@@ -1123,7 +1124,7 @@ msgstr "siguiente"
 
 #: core/templates/tags/render_day.html:31
 msgid "Add weight log"
-msgstr ""
+msgstr "Añader registro de peso"
 
 #: core/templates/tags/render_day.html:97
 #: exercises/templates/equipment/overview.html:58
@@ -1605,7 +1606,7 @@ msgstr "Idioma"
 
 #: exercises/models.py:235
 msgid "Variations"
-msgstr ""
+msgstr "Variantes"
 
 #: exercises/models.py:339 exercises/views/exercises.py:367
 msgid "Exercise was successfully added to the general database"
@@ -1848,7 +1849,7 @@ msgstr "Registro de peso"
 
 #: exercises/templates/exercise/view.html:257
 msgid "Exercise Variations"
-msgstr ""
+msgstr "Variantes de ejercicios"
 
 #: exercises/templates/exercise/view.html:278
 msgid "Submit a correction"
@@ -1973,11 +1974,11 @@ msgstr "Número de semanas desde la última vez que un usuario registrara su pre
 
 #: gym/models.py:131 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "Mostrar nombre en la cabecera"
 
 #: gym/models.py:132
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Mostrar el nombre del gimnasio en la cabecera"
 
 #: gym/models.py:142
 msgid "Configuration for {}"
@@ -2152,7 +2153,7 @@ msgstr "Añadir miembro"
 
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Fecha de cumpleaños"
 
 #: gym/templates/gym/new_user.html:48
 #: manager/templates/calendar/month.html:144 manager/templates/log/add.html:75
@@ -2224,7 +2225,7 @@ msgstr "Contenido"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Generar vista previa"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2255,7 +2256,7 @@ msgstr "Versión actual"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Enviar email"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2333,7 +2334,7 @@ msgstr "Activa si quieres marcar este programa como activo (será mostrado p.ej.
 
 #: manager/models.py:259 manager/templates/schedule/view.html:84
 msgid "Is a loop"
-msgstr ""
+msgstr "Se repite"
 
 #: manager/models.py:261
 msgid ""
@@ -2362,7 +2363,7 @@ msgstr "Orden"
 msgid ""
 "A description of what is done on this day (e.g. \"Pull day\") or what body "
 "parts are trained (e.g. \"Arms and abs\")"
-msgstr ""
+msgstr "Descripción de lo que has hecho en el día (ej: día de jalar) o la parte del cuerpo que ha sido entrenada (ej: brazos y abdomen)"
 
 #: manager/models.py:402
 msgid "Day"
@@ -2421,12 +2422,12 @@ msgstr "La hora de inicio no puede ser posterior a la hora de finalización."
 #: manager/templates/calendar/day.html:9
 #: manager/templates/calendar/day.html:31
 msgid "Workout log"
-msgstr ""
+msgstr "Registro de entrenamiento"
 
 #: manager/templates/calendar/day.html:12
 #, python-format
 msgid "Workout log for %(username)s for %(date)s"
-msgstr ""
+msgstr "Registro de entrenamiento de %(username)s en %(date)s"
 
 #: manager/templates/calendar/month.html:13
 #, python-format
@@ -2613,7 +2614,7 @@ msgstr "Editar serie"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
@@ -2759,11 +2760,11 @@ msgstr "Exportar esta rutina como archivo de calendario."
 
 #: manager/templates/workout/view.html:184
 msgid "Logs"
-msgstr ""
+msgstr "Registro"
 
 #: manager/templates/workout/view.html:186
 msgid "View logs"
-msgstr ""
+msgstr "Ver registro de peso"
 
 #: manager/templates/workout/view.html:208 manager/views/schedule_step.py:99
 msgid "Edit workout"
@@ -3485,7 +3486,7 @@ msgid ""
 "The exercise database contains more than hundred exercises from which you "
 "can choose when creating a workout. You can view them by category and "
 "equipment used or muscles trained."
-msgstr ""
+msgstr "La base de datos contiene más de cien ejercicios, puedes escogerlos para hacer tu entrenamiento. Puedes verlos por categoría, equipamiento o músculo entrenado."
 
 #: software/templates/features.html:190
 msgid "Gym management"
@@ -3877,6 +3878,9 @@ msgstr "Millas"
 
 msgid "Minutes"
 msgstr "Minutos"
+
+msgid "Repetitions"
+msgstr "Repeticiones"
 
 msgid "Seconds"
 msgstr "Segundos"

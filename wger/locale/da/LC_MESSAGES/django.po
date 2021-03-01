@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>, 2017
 # voszp <peter.vosz@web.de>, 2015
@@ -3871,6 +3871,9 @@ msgid "Miles"
 msgstr ""
 
 msgid "Minutes"
+msgstr ""
+
+msgid "Repetitions"
 msgstr ""
 
 msgid "Seconds"

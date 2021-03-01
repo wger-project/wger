@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Housame Oueslati <housame.oueslati@hotmail.com>, 2018
 # Olle Karlsson <olle.12.k@gmail.com>, 2015
@@ -3874,6 +3874,9 @@ msgstr "Mil"
 
 msgid "Minutes"
 msgstr "Minuter"
+
+msgid "Repetitions"
+msgstr "Repetitioner"
 
 msgid "Seconds"
 msgstr "Sekunder"

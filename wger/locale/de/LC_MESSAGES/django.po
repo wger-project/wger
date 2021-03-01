@@ -1,18 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Andreas Wili <cicco0@outlook.com>, 2017
 # manuel wimmer <wimmer.manuel@me.com>, 2014
+# Max Buchholz <2maxax2@gmx.de>, 2020
 # rge <roland@geider.net>, 2013-2016,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-14 14:05+0100\n"
-"PO-Revision-Date: 2020-12-14 14:08+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
+"PO-Revision-Date: 2020-12-30 16:47+0000\n"
+"Last-Translator: Max Buchholz <2maxax2@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/rge/wger-workout-manager/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3454,7 +3455,7 @@ msgstr "Du kannst auch Notizen und einen allgemeinen Eindruck (gut, neutral, etc
 
 #: software/templates/features.html:121
 msgid "Among many others"
-msgstr ""
+msgstr "Neben vielen anderen"
 
 #: software/templates/features.html:133
 msgid "Weight tracker"
@@ -3873,6 +3874,9 @@ msgstr "Meilen"
 
 msgid "Minutes"
 msgstr "Minuten"
+
+msgid "Repetitions"
+msgstr "Wiederholungen"
 
 msgid "Seconds"
 msgstr "Sekunden"

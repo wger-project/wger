@@ -1,9 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Mark Nicolaou <mark.nicolaou@gmail.com>, 2015
+# Mark Nicolaou <mark.nicolaou@gmail.com>, 2015,2020
 # rge <roland@geider.net>, 2015-2016
 # Ruth Bochere <ruth.ogendi@andela.com>, 2016
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-14 14:05+0100\n"
-"PO-Revision-Date: 2020-12-14 13:15+0000\n"
+"PO-Revision-Date: 2020-12-16 17:42+0000\n"
 "Last-Translator: Mark Nicolaou <mark.nicolaou@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/rge/wger-workout-manager/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Γλώσσες"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr ""
+msgstr "Δεν βρέθηκε τίποτα."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:145
 #: core/templates/index.html:197 manager/templates/calendar/month.html:132
@@ -244,11 +244,11 @@ msgstr "Email"
 
 #: core/forms.py:79 core/forms.py:135
 msgid "Used for password resets and, optionally, email reminders."
-msgstr ""
+msgstr "Χρησιμοποιείται για ανάκτηση κωδικού και κατα περίπτωση, υπενθυμίσεις μηνυμάτων"
 
 #: core/forms.py:104
 msgid "Personal data"
-msgstr ""
+msgstr "Προσωπικά δεδομένα"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -317,7 +317,7 @@ msgstr "Τί θέλετε να πείτε;"
 #: core/models.py:94
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s δεν είναι σωστή ημερομηνία γέννησης"
 
 #: core/models.py:103
 msgid "Male"
@@ -481,7 +481,7 @@ msgstr "Μονάδα βάρους"
 
 #: core/models.py:326
 msgid "Allow external access"
-msgstr "toestaan ​​externe toegang"
+msgstr "Να επιτρέπεται η εξωτερική πρόσβαση"
 
 #: core/models.py:327
 msgid ""
@@ -3873,6 +3873,9 @@ msgstr ""
 
 msgid "Minutes"
 msgstr ""
+
+msgid "Repetitions"
+msgstr "Επαναλήψεις"
 
 msgid "Seconds"
 msgstr ""

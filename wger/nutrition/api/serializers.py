@@ -180,7 +180,8 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = ['plan',
+        fields = ['id',
+                  'plan',
                   'order',
                   'time']
 

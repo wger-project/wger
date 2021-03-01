@@ -1,8 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Flavius Margea <frogman544@gmail.com>, 2021
 # Gheorghita Butnaru <gbutnaru@tuiasi.ro>, 2016
 # Inna <inna@geider.net>, 2013
 # rge <roland@geider.net>, 2013
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-14 14:05+0100\n"
-"PO-Revision-Date: 2020-12-14 13:15+0000\n"
-"Last-Translator: Inna <inna@geider.net>\n"
+"PO-Revision-Date: 2021-02-11 20:42+0000\n"
+"Last-Translator: Flavius Margea <frogman544@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/rge/wger-workout-manager/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -244,30 +245,30 @@ msgstr "Adresa de email"
 
 #: core/forms.py:79 core/forms.py:135
 msgid "Used for password resets and, optionally, email reminders."
-msgstr ""
+msgstr "Folosit pentru resetarea parolei și, opțional, pentru memento-uri prin e-mail."
 
 #: core/forms.py:104
 msgid "Personal data"
-msgstr ""
+msgstr "Date personale"
 
 #: core/forms.py:110
 msgid "Workout reminders"
-msgstr ""
+msgstr "Mementouri de antrenament"
 
 #: core/forms.py:119
 msgid "Other settings"
-msgstr ""
+msgstr "Alte setari"
 
 #: core/forms.py:129 core/views/user.py:574 core/views/user.py:588
 #: core/views/user.py:600 gym/forms.py:71 manager/templates/set/add.html:68
 #: manager/templates/workout/timer.html:371
 #: manager/templates/workout/timer.html:512 utils/generic_views.py:141
 msgid "Save"
-msgstr ""
+msgstr "Salvează"
 
 #: core/forms.py:162
 msgid "This email is already used."
-msgstr ""
+msgstr "Acest email este deja folosit."
 
 #: core/forms.py:183 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -295,7 +296,7 @@ msgstr "Ca masură de siguranță, te rog introdu cuvintele anterioare"
 #: core/templates/user/login.html:20 core/views/user.py:287
 #: software/templates/features.html:38
 msgid "Register"
-msgstr ""
+msgstr "Inregistreaza-te"
 
 #: core/forms.py:246
 msgid "Contact"
@@ -317,7 +318,7 @@ msgstr "Ce vrei să spui?"
 #: core/models.py:94
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s nu este o dată de naștere validă"
 
 #: core/models.py:103
 msgid "Male"
@@ -353,7 +354,7 @@ msgstr "Arată comentariile exercițiilor"
 
 #: core/models.py:150
 msgid "Check to show exercise comments on the workout view"
-msgstr ""
+msgstr "Bifați pentru a afișa comentarii despre exerciții în vizualizarea antrenamentului"
 
 #: core/models.py:160
 msgid "Also use ingredients in English"
@@ -365,11 +366,11 @@ msgid ""
 "a nutritional plan. These ingredients are extracted from a list provided\n"
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
-msgstr ""
+msgstr "Bifați pentru a afișa și ingredientele în limba engleză în timp ce creați\nun plan nutrițional. Aceste ingrediente sunt extrase dintr-o listă furnizată\nde către Departamentul Agriculturii al SUA. Este extrem de complet, cu aproximativ\n7000 de intrări, dar pot fi oarecum copleșitoare și pot face căutarea dificilă."
 
 #: core/models.py:167
 msgid "Activate workout reminders"
-msgstr ""
+msgstr "Activați mementourile de antrenament"
 
 #: core/models.py:168
 msgid ""
@@ -3696,82 +3697,82 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"
-msgstr ""
+msgstr "Sau încercați din nou"
 
 #: weight/templates/import_csv_preview.html:76
 msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
-msgstr ""
+msgstr "Puteți corecta lista aici și o puteți retrimite de câte ori\nvreți."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
-msgstr ""
+msgstr "Retrimiteți"
 
 #: weight/templates/overview.html:27
 msgid "There is no chart here because there are no weight entries."
-msgstr ""
+msgstr "Nu există o diagramă aici, deoarece nu există înregistrări de greutate."
 
 #: weight/templates/overview.html:28
 msgid "Use link to add one."
-msgstr ""
+msgstr "Utilizați linkul pentru a adăuga unul."
 
 #: weight/templates/overview.html:38
 msgid "Last 3 months"
-msgstr ""
+msgstr "Ultimele 3 luni"
 
 #: weight/templates/overview.html:39
 msgid "Last 12 months"
-msgstr ""
+msgstr "Ultimele 12 luni"
 
 #: weight/templates/overview.html:40
 msgid "No filter"
-msgstr ""
+msgstr "Fără filtru"
 
 #: weight/templates/overview.html:50
 msgctxt "Noun, not verb"
 msgid "Change"
-msgstr ""
+msgstr "Schimba"
 
 #: weight/templates/overview.html:51
 msgid "Days"
-msgstr ""
+msgstr "Zile"
 
 #: weight/templates/overview.html:83
 msgid "Edit weight"
-msgstr ""
+msgstr "Editați greutatea"
 
 #: weight/templates/overview.html:126
 msgid "Export as CSV"
-msgstr ""
+msgstr "Exportați ca CSV"
 
 #: weight/templates/overview.html:130
 msgid "Import from spreadsheet"
-msgstr ""
+msgstr "Importați din foaie de calcul"
 
 #: weight/views.py:105
 #, python-format
 msgid "Edit weight entry for the %s"
-msgstr ""
+msgstr "Editați intrarea de greutate pentru %s"
 
 #: weight/views.py:124
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Șters cu succes."
 
 #: weight/views.py:128
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "Ștergeți greutatea pentru %s"
 
 msgid "Abs"
-msgstr ""
+msgstr "Abdomen"
 
 msgid "Arms"
-msgstr ""
+msgstr "Brate"
 
 msgid "Back"
 msgstr "Înapoi"
@@ -3780,103 +3781,106 @@ msgid "Calves"
 msgstr ""
 
 msgid "Chest"
-msgstr ""
+msgstr "Piept"
 
 msgid "Legs"
-msgstr ""
+msgstr "Picioare"
 
 msgid "Shoulders"
-msgstr ""
+msgstr "Umeri"
 
 msgid "Barbell"
-msgstr ""
+msgstr "Barbell"
 
 msgid "Bench"
-msgstr ""
+msgstr "Bancă"
 
 msgid "Dumbbell"
-msgstr ""
+msgstr "Haltere"
 
 msgid "Gym mat"
-msgstr ""
+msgstr "Saltea de gimnastica"
 
 msgid "Incline bench"
-msgstr ""
+msgstr "Bancă înclinată"
 
 msgid "Kettlebell"
-msgstr ""
+msgstr "Kettlebell"
 
 msgid "Pull-up bar"
-msgstr ""
+msgstr "Bara de tragere"
 
 msgid "SZ-Bar"
-msgstr ""
+msgstr "SZ-Bar"
 
 msgid "Swiss Ball"
-msgstr ""
+msgstr "Minge Elvețiană"
 
 msgid "none (bodyweight exercise)"
-msgstr ""
+msgstr "nici unul (exercițiu cu greutate corporală)"
 
 msgid "Anterior deltoid"
-msgstr ""
+msgstr "Deltoidul anterior"
 
 msgid "Biceps brachii"
-msgstr ""
+msgstr "Biceps brachii"
 
 msgid "Biceps femoris"
-msgstr ""
+msgstr "Biceps femoral"
 
 msgid "Brachialis"
-msgstr ""
+msgstr "Brahial"
 
 msgid "Erector spinae"
-msgstr ""
+msgstr "Erector spinae"
 
 msgid "Gastrocnemius"
-msgstr ""
+msgstr "Gastrocnemius"
 
 msgid "Gluteus maximus"
-msgstr ""
+msgstr "Gluteus maximus"
 
 msgid "Latissimus dorsi"
-msgstr ""
+msgstr "Dorsal mare"
 
 msgid "Obliquus externus abdominis"
-msgstr ""
+msgstr "Obliquus externus abdominis"
 
 msgid "Pectoralis major"
-msgstr ""
+msgstr "Pectoral major"
 
 msgid "Quadriceps femoris"
-msgstr ""
+msgstr "Quadriceps femoris"
 
 msgid "Rectus abdominis"
-msgstr ""
+msgstr "Drept abdominal"
 
 msgid "Serratus anterior"
-msgstr ""
+msgstr "Serratus anterior"
 
 msgid "Soleus"
-msgstr ""
+msgstr "Soleus"
 
 msgid "Trapezius"
-msgstr ""
+msgstr "Trapez"
 
 msgid "Triceps brachii"
-msgstr ""
+msgstr "Triceps brachii"
 
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilometri"
 
 msgid "Miles"
-msgstr ""
+msgstr "Mile"
 
 msgid "Minutes"
+msgstr "Minute"
+
+msgid "Repetitions"
 msgstr ""
 
 msgid "Seconds"
-msgstr ""
+msgstr "Secunde"
 
 msgid "Until Failure"
-msgstr ""
+msgstr "Până la eșec"

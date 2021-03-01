@@ -32,6 +32,7 @@ from rest_framework.response import Response
 
 # wger
 from wger import get_version
+from wger.core.api.permissions import AllowRegisterUser
 from wger.core.api.serializers import (
     DaysOfWeekSerializer,
     LanguageSerializer,
@@ -40,6 +41,7 @@ from wger.core.api.serializers import (
     UserApiSerializer,
     UsernameSerializer,
     UserprofileSerializer,
+    UserRegistrationSerializer,
     WeightUnitSerializer
 )
 from wger.core.models import (
@@ -136,6 +138,31 @@ class UserAPILoginView(viewsets.ViewSet):
             logger.info(f"User '{username}' tried logging via API with a wrong password")
             return Response({'detail': 'Username or password unknown'},
                             status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UserAPIRegistrationViewSet(viewsets.ViewSet):
+    """
+    API endpoint for api user objects
+    """
+    permission_classes = (AllowRegisterUser, )
+    serializer_class = UserRegistrationSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        return UserProfile.objects.filter(user=self.request.user)
+
+    def post(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token = create_token(user)
+
+        return Response({'message': 'api user successfully registered',
+                         'token': token.key},
+                        status=status.HTTP_201_CREATED)
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):

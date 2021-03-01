@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # 7b18e4bb1a98d7bba9dc47bb98d1d8fe, 2015
 # Tapio Vuorinen, 2016
@@ -3871,6 +3871,9 @@ msgid "Miles"
 msgstr ""
 
 msgid "Minutes"
+msgstr ""
+
+msgid "Repetitions"
 msgstr ""
 
 msgid "Seconds"
