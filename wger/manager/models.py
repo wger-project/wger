@@ -132,8 +132,7 @@ class Workout(models.Model):
         caches are not needed anymore.
         """
         workout_canonical_form = cache.get(cache_mapper.get_workout_canonical(self.pk))
-        #if not workout_canonical_form:
-        if True:
+        if not workout_canonical_form:
             day_canonical_repr = []
             muscles_front = []
             muscles_back = []
