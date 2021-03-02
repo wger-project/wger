@@ -90,9 +90,6 @@
         "pk": 1,
         "model": "manager.set",
         "fields": {
-            "exercises": [
-                1
-            ],
             "exerciseday": 1,
             "order": 1,
             "sets": "2"
@@ -102,9 +99,6 @@
         "pk": 2,
         "model": "manager.set",
         "fields": {
-            "exercises": [
-                2
-            ],
             "exerciseday": 2,
             "order": 1,
             "sets": "4"
@@ -114,9 +108,6 @@
         "pk": 3,
         "model": "manager.set",
         "fields": {
-            "exercises": [
-                2
-            ],
             "exerciseday": 5,
             "order": 1,
             "sets": "4"

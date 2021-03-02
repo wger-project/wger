@@ -253,23 +253,23 @@ def reps_smart_text(settings, set_obj):
             weight = setting.weight
         return weight
 
+    out = {'text': '',
+           'list': []}
+
     if len(settings) == 0:
         setting_text = ''
         setting_list = []
-        weight_list = []
-        reps_list = []
-        repetition_units = []
-        weight_units = []
 
     # Only one setting entry, this is a "compact" representation such as e.g.
     # 4x10 or similar
     elif len(settings) == 1:
+        setting = settings[0]
 
-        rep_unit = get_weight_unit_reprentation(settings[0])
-        reps = get_reps_reprentation(settings[0], rep_unit)
-        weight_unit = settings[0].weight_unit
-        weight = normalize_weight(settings[0])
-        rir = get_rir_representation(settings[0])
+        rep_unit = get_weight_unit_reprentation(setting)
+        reps = get_reps_reprentation(setting, rep_unit)
+        weight_unit = settings[0].weight_unit.name
+        weight = normalize_weight(setting)
+        rir = get_rir_representation(setting)
 
         setting_text = '{0} × {1}'.format(set_obj.sets, reps).strip()
         setting_list_text = '{0} {1}'.format(reps, rep_unit).strip()
@@ -285,19 +285,19 @@ def reps_smart_text(settings, set_obj):
             setting_list_text += ' ({0})'.format(rir) if rir else ''
 
         setting_list = [setting_list_text] * set_obj.sets
-        reps_list = [settings[0].reps] * set_obj.sets
-        weight_list = [weight] * set_obj.sets
-        repetition_units = [settings[0].repetition_unit] * set_obj.sets
-        weight_units = [settings[0].weight_unit] * set_obj.sets
+
+        out['text'] = setting_text
+        setting = {'reps': setting.reps,
+                   'reps_unit': rep_unit,
+                   'weight': weight,
+                   'weight_unit': setting.weight_unit.name,
+                   'rir': setting.rir}
+        out['list'] = [setting] * set_obj.sets
 
     # There's more than one setting, each set can have a different combination
     # of repetitions, weight, etc. e.g. 10, 8, 8, 12
     elif len(settings) > 1:
         tmp_reps_text = []
-        tmp_reps = []
-        tmp_weight = []
-        tmp_repetition_unit = []
-        tmp_weight_unit = []
         for setting in settings:
 
             rep_unit = get_weight_unit_reprentation(setting)
@@ -311,19 +311,18 @@ def reps_smart_text(settings, set_obj):
                 reps += ' ({0})'.format(rir) if rir else ''
 
             tmp_reps_text.append(reps)
-            tmp_reps.append(setting.reps)
-            tmp_weight.append(weight)
-            tmp_repetition_unit.append(setting.repetition_unit)
-            tmp_weight_unit.append(setting.weight_unit)
+            setting = {'reps': setting.reps,
+                       'reps_unit': setting.repetition_unit.name,
+                       'weight': weight,
+                       'weight_unit': setting.weight_unit.name,
+                       'rir': setting.rir}
+            out['list'].append(setting)
 
         setting_text = ' – '.join(tmp_reps_text)
         setting_list = tmp_reps_text
-        repetition_units = tmp_repetition_unit
-        weight_units = tmp_weight_unit
-        reps_list = tmp_reps
-        weight_list = tmp_weight
+        out['text'] = setting_text
 
-    return setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units
+    return setting_text, setting_list, out
 
 
 class WorkoutCalendar(HTMLCalendar):

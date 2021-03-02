@@ -160,15 +160,12 @@ def copy_workout(request, pk):
                 # Copy the sets
                 for current_set in sets:
                     current_set_id = current_set.id
-                    exercises = current_set.exercises.all()
+                    exercises = current_set.exercises
 
                     current_set_copy = current_set
                     current_set_copy.pk = None
                     current_set_copy.exerciseday = day_copy
                     current_set_copy.save()
-
-                    # Exercises has Many2Many relationship
-                    current_set_copy.exercises.set(exercises)
 
                     # Go through the exercises
                     for exercise in exercises:

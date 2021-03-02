@@ -101,13 +101,15 @@ def create(request, day_pk):
             form.instance.exerciseday = day
             set_obj = form.save()
 
+            order = 1
             for formset in formsets:
                 instances = formset['formset'].save(commit=False)
                 for instance in instances:
                     instance.set = set_obj
-                    instance.order = 1
+                    instance.order = order
                     instance.exercise = formset['exercise']
                     instance.save()
+                    order += 1
 
             return HttpResponseRedirect(reverse('manager:workout:view',
                                                 kwargs={'pk': day.get_owner_object().id}))
@@ -173,14 +175,14 @@ def edit(request, pk):
         return HttpResponseForbidden()
 
     formsets = []
-    for exercise in set_obj.exercises.all():
+    for exercise in set_obj.exercises:
         queryset = Setting.objects.filter(set=set_obj, exercise=exercise)
         formset = SettingFormset(queryset=queryset, prefix='exercise{0}'.format(exercise.id))
         formsets.append({'exercise': exercise, 'formset': formset})
 
     if request.method == "POST":
         formsets = []
-        for exercise in set_obj.exercises.all():
+        for exercise in set_obj.exercises:
             formset = SettingFormset(request.POST,
                                      prefix='exercise{0}'.format(exercise.id))
             formsets.append({'exercise': exercise, 'formset': formset})

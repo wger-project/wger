@@ -115,11 +115,11 @@ class ExerciseAjaxSelect(SelectMultiple):
         if value is None:
             value = []
 
-        output = ['<div>']
-        output.append('<input type="text" id="exercise-search" class="form-control">')
-        output.append('</div>')
+        output = ['<div>',
+                  '<input type="text" id="exercise-search" class="form-control">',
+                  '</div>',
+                  '<div id="exercise-search-log">']
 
-        output.append('<div id="exercise-search-log">')
         options = self.render_options(choices, value)
         if options:
             output.append(options)
