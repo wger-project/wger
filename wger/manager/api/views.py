@@ -196,8 +196,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('exerciseday',
                         'order',
-                        'sets',
-                        'exercises')
+                        'sets')
 
     def get_queryset(self):
         """
