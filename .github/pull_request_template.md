@@ -7,7 +7,7 @@
 ### Please check that the PR fulfills these requirements
 
 - [ ] Tests for the changes have been added (for bug fixes / features)
-- [ ] New python code has been linted with with flake8 (``flake8 --config .github/linters/.flake8``)
+- [ ] New python code has been linted with with flake8 (``flake8 --config .github/linters/.flake8 ./wger``)
 and isort (``isort``) 
 - [ ] Added yourself to AUTHORS.rst
 
