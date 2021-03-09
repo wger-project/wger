@@ -320,7 +320,25 @@ circle.color-17becf:hover {
 /**************************************************************
  * Weight log calendar
  **************************************************************/
+ .table{
+   background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhSo5UMVAyLQLhKa7Sdi7Ffffi3dQEGzISlg&usqp=CAU");
+   /*background: url("https://d113wk4ga3f0l0.cloudfront.net/c?o=eJw1jUsOwiAYhO_CulIoFtvujSvPQBD-tkiRhkcaY7y7NOpsJpPMfPNC0eegQFh4ogF1NeOMcs6auiH0RCjpaN9ywmuy6yTE9SLIsaWHszYJ39cJVX_CLSsLqUCUd3gx05xi8spi4-QEEed18VJHvAavs0rGP8r0-zq248j6Ejej04yGricVmmFH_EICty4yQSlvxYKTwYImFL0_I2I8qA==&s=2691a24ce6b177e4116e5924cb1fd449af1b0ec7");
+   background: url("http://127.0.0.1:8000/static/images/main.jpg");
+   opacity: 0.7;*/
+   background-size: 750px;
+ }
+ table.table{
+   color:white;
+ }
+
+
+ th {
+   color: blue;
+   font-size: 20px;
+ }
+
 table.month td {
+  color: white;
   width: 14.285%;
   height: 4em;
   text-align: center;
@@ -334,6 +352,10 @@ table.month th.month {
 table.month a.calendar-link {
   height: 100%;
   line-height: 1;
+}
+
+table.month td {
+  color:white;
 }
 
 table.month td.session-bad {
