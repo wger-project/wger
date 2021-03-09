@@ -23,7 +23,7 @@
     "d3": "mbostock-bower/d3-bower#>=5",
     "datatables": "DataTables/DataTables#1.10.x",
     "devbridge-autocomplete": "^1.4.11",
-    "jquery": "^3.5.0",
+    "jquery": "^3.6.0",
     "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
     "shariff": "^3.2.1",
     "tinymce": "^5.7.0"

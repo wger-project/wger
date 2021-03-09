@@ -51,6 +51,7 @@ Developers
 * Aaron Kimbrell - https://github.com/aronwk-aaron
 * Aaron Bassett - https://github.com/aaronbassett
 * Rachael Wright-Munn - https://github.com/ChaelCodes
+* Will Pearson - https://github.com/qagoose
 
 
 Translators
