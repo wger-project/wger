@@ -28,6 +28,7 @@ from django.forms import (
     IntegerField,
     ModelChoiceField,
     ModelForm,
+    ModelMultipleChoiceField,
     widgets
 )
 from django.utils.translation import (
@@ -90,19 +91,27 @@ class DayForm(ModelForm):
         widgets = {'day': TranslatedSelectMultiple()}
 
 
+class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
+    """Ordered multiple choice field"""
+    def clean(self, value):
+        int_list = [int(i) for i in value]
+        qs = super(OrderedModelMultipleChoiceField, self).clean(int_list)
+        return sorted(qs, key=lambda x: int_list.index(x.pk))
+
+
 class SetForm(ModelForm):
+
+    exercises = OrderedModelMultipleChoiceField(queryset=Exercise.objects.all(),
+                                                label=_('Exercises'),
+                                                required=False,
+                                                widget=ExerciseAjaxSelect,
+                                                help_text=_('You can search for more than one '
+                                                            'exercise, they will be grouped '
+                                                            'together for a superset.'))
+
     class Meta:
         model = Set
         exclude = ('order', 'exerciseday')
-        widgets = {'exercises': ExerciseAjaxSelect(), }
-
-    # We need to overwrite the init method here because otherwise Django
-    # will output a default help text, regardless of the widget used
-    # https://code.djangoproject.com/ticket/9321
-    def __init__(self, *args, **kwargs):
-        super(SetForm, self).__init__(*args, **kwargs)
-        self.fields['exercises'].help_text = _('You can search for more than one exercise, '
-                                               'they will be grouped together for a superset.')
 
 
 class SettingForm(ModelForm):

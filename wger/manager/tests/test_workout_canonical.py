@@ -19,11 +19,7 @@ from decimal import Decimal
 from django.core.cache import cache
 
 # wger
-from wger.core.models import (
-    DaysOfWeek,
-    RepetitionUnit,
-    WeightUnit
-)
+from wger.core.models import DaysOfWeek
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
@@ -52,8 +48,6 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
         workout = Workout.objects.get(pk=1)
         setting_1 = Setting.objects.get(pk=1)
         setting_2 = Setting.objects.get(pk=2)
-        repetition_unit = RepetitionUnit.objects.get(pk=1)
-        weight_unit = WeightUnit.objects.get(pk=1)
         muscle1 = Muscle.objects.get(pk=1)
         muscle2 = Muscle.objects.get(pk=2)
         image1 = '/media/exercise-images/1/protestschwein.jpg'
@@ -78,16 +72,26 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                {'image': image2, 'is_main': False}],
                                                            'comment_list': ['test 123'],
                                                            'has_weight': False,
-                                                           'setting_list': ['8 (3 RiR)',
-                                                                            '8 (3 RiR)'],
-                                                           'reps_list': [8, 8],
-                                                           'weight_list': [None, None],
                                                            'setting_obj_list': [setting_1],
                                                            'setting_text': '2 \xd7 8 (3 RiR)',
-                                                           'repetition_units': [repetition_unit,
-                                                                                repetition_unit],
-                                                           'weight_units': [weight_unit,
-                                                                            weight_unit]}],
+                                                           'setting_list': ['8 (3 RiR)',
+                                                                            '8 (3 RiR)'],
+                                                           'settings_calculated': [
+                                                               {
+                                                                   "reps": 8,
+                                                                   "reps_unit": "",
+                                                                   "weight": None,
+                                                                   "weight_unit": "kg",
+                                                                   "rir": '3'
+                                                               },
+                                                               {
+                                                                   "reps": 8,
+                                                                   "reps_unit": "",
+                                                                   "weight": None,
+                                                                   "weight_unit": "kg",
+                                                                   "rir": '3'
+                                                               }]
+                                                           }],
 
                                         'is_superset': False,
                                         'has_settings': True,
@@ -124,22 +128,42 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                                'is_main': False}],
                                                            'comment_list': ['Foobar'],
                                                            'has_weight': True,
-                                                           'reps_list': [10, 10, 10, 10],
                                                            'setting_list': ['10 (15 kg)',
                                                                             '10 (15 kg)',
                                                                             '10 (15 kg)',
                                                                             '10 (15 kg)'],
-                                                           'weight_list': [Decimal(15)] * 4,
                                                            'setting_obj_list': [setting_2],
                                                            'setting_text': '4 \xd7 10 (15 kg)',
-                                                           'repetition_units': [repetition_unit,
-                                                                                repetition_unit,
-                                                                                repetition_unit,
-                                                                                repetition_unit],
-                                                           'weight_units': [weight_unit,
-                                                                            weight_unit,
-                                                                            weight_unit,
-                                                                            weight_unit]}],
+                                                           'settings_calculated': [
+                                                               {
+                                                                   "reps": 10,
+                                                                   "reps_unit": "",
+                                                                   "weight": Decimal(15),
+                                                                   "weight_unit": "kg",
+                                                                   "rir": None
+                                                               },
+                                                               {
+                                                                   "reps": 10,
+                                                                   "reps_unit": "",
+                                                                   "weight": Decimal(15),
+                                                                   "weight_unit": "kg",
+                                                                   "rir": None
+                                                               },
+                                                               {
+                                                                   "reps": 10,
+                                                                   "reps_unit": "",
+                                                                   "weight": Decimal(15),
+                                                                   "weight_unit": "kg",
+                                                                   "rir": None
+                                                               },
+                                                               {
+                                                                   "reps": 10,
+                                                                   "reps_unit": "",
+                                                                   "weight": Decimal(15),
+                                                                   "weight_unit": "kg",
+                                                                   "rir": None
+                                                               }],
+                                                           }],
 
                                         'is_superset': False,
                                         'has_settings': True,
@@ -180,8 +204,6 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
         day = Day.objects.get(pk=5)
         weekday1 = DaysOfWeek.objects.get(pk=3)
         weekday2 = DaysOfWeek.objects.get(pk=5)
-        repetition_unit = RepetitionUnit.objects.get(pk=1)
-        weight_unit = WeightUnit.objects.get(pk=1)
         muscle1 = Muscle.objects.get(pk=1)
         muscle2 = Muscle.objects.get(pk=2)
         image2 = '/media/exercise-images/1/wildschwein.jpg'
@@ -199,20 +221,40 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                                   'image': image2,
                                                   'is_main': False}],
                                               'comment_list': ['Foobar'],
-                                              'reps_list': [10, 10, 10, 10],
                                               'has_weight': False,
                                               'setting_list': ['10', '10', '10', '10'],
-                                              'weight_list': [None, None, None, None],
                                               'setting_obj_list': [Setting.objects.get(pk=3)],
                                               'setting_text': '4 \xd7 10',
-                                              'repetition_units': [repetition_unit,
-                                                                   repetition_unit,
-                                                                   repetition_unit,
-                                                                   repetition_unit],
-                                              'weight_units': [weight_unit,
-                                                               weight_unit,
-                                                               weight_unit,
-                                                               weight_unit]}],
+                                              'settings_calculated': [
+                                                  {
+                                                      "reps": 10,
+                                                      "reps_unit": "",
+                                                      "weight": None,
+                                                      "weight_unit": "kg",
+                                                      "rir": None
+                                                  },
+                                                  {
+                                                      "reps": 10,
+                                                      "reps_unit": "",
+                                                      "weight": None,
+                                                      "weight_unit": "kg",
+                                                      "rir": None
+                                                  },
+                                                  {
+                                                      "reps": 10,
+                                                      "reps_unit": "",
+                                                      "weight": None,
+                                                      "weight_unit": "kg",
+                                                      "rir": None
+                                                  },
+                                                  {
+                                                      "reps": 10,
+                                                      "reps_unit": "",
+                                                      "weight": None,
+                                                      "weight_unit": "kg",
+                                                      "rir": None
+                                                  }],
+                                              }],
                            'is_superset': False,
                            'has_settings': True,
                            'muscles': {'back': [muscle2],

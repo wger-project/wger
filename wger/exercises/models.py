@@ -303,8 +303,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
-        for set in self.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training_id)
+        for setting in self.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
     def delete(self, *args, **kwargs):
         """
@@ -318,8 +318,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
-        for set in self.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training.pk)
+        for setting in self.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Exercise, self).delete(*args, **kwargs)
 
@@ -576,8 +576,8 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for set in self.exercise.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training_id)
+        for setting in self.exercise.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
         super(ExerciseComment, self).save(*args, **kwargs)
 
@@ -585,8 +585,8 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for set in self.exercise.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training.pk)
+        for setting in self.exercise.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(ExerciseComment, self).delete(*args, **kwargs)
 

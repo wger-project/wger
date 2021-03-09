@@ -102,7 +102,6 @@ def create_demo_entries(user):
         exercise = Exercise.objects.get(pk=81)
     day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
-    day_set.exercises.add(exercise)
 
     setting = Setting(set=day_set, exercise=exercise, reps=8, order=1)
     setting.save()
@@ -125,7 +124,6 @@ def create_demo_entries(user):
         exercise = Exercise.objects.get(pk=84)
     day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
-    day_set.exercises.add(exercise)
 
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=8, order=1))
 
@@ -147,7 +145,6 @@ def create_demo_entries(user):
         exercise = Exercise.objects.get(pk=111)
     day_set = Set(exerciseday=day, sets=4, order=3)
     day_set.save()
-    day_set.exercises.add(exercise)
 
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=10, order=1))
 
@@ -169,7 +166,6 @@ def create_demo_entries(user):
         exercise = Exercise.objects.get(pk=91)
     day_set = Set(exerciseday=day, sets=4, order=4)
     day_set.save()
-    day_set.exercises.add(exercise)
 
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=30, order=1))
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=99, order=2))
@@ -180,7 +176,6 @@ def create_demo_entries(user):
         exercise = Exercise.objects.get(pk=35)
     else:
         exercise = Exercise.objects.get(pk=126)
-    day_set.exercises.add(exercise)
 
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=30, order=1))
     setting_list.append(Setting(set=day_set, exercise=exercise, reps=40, order=2))

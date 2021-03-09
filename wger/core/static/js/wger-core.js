@@ -521,8 +521,11 @@ function wgerInitEditSet() {
 
   // Slider to set the number of sets
   $('#id_sets').on('input', function () {
-    updateAllExerciseFormset();
     $('#id_sets_value').html($('#id_sets').val());
+  });
+  
+  $('#id_sets').on('pointerup', function () {
+    updateAllExerciseFormset();
   });
 
   /*

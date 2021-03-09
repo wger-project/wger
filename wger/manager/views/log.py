@@ -132,7 +132,7 @@ def add(request, pk):
     form_to_exercise = {}
 
     for exercise_set in day.set_set.all():
-        for exercise in exercise_set.exercises.all():
+        for exercise in exercise_set.exercises:
 
             # Maximum possible values
             total_sets += int(exercise_set.sets)

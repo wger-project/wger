@@ -18,6 +18,7 @@
 # Standard Library
 import datetime
 import logging
+import typing
 
 # Django
 from django.contrib.auth.models import User
@@ -33,9 +34,6 @@ from django.core.validators import (
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-
-# Third Party
-from sortedm2m.fields import SortedManyToManyField
 
 # wger
 from wger.core.models import (
@@ -463,7 +461,7 @@ class Day(models.Model):
             exercise_tmp = []
             has_setting_tmp = True
 
-            for exercise in set_obj.exercises.select_related():
+            for exercise in set_obj.exercises:
                 setting_tmp = []
                 exercise_images_tmp = []
 
@@ -485,8 +483,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units \
-                    = reps_smart_text(setting_tmp, set_obj)
+                setting_text, setting_list, out = reps_smart_text(setting_tmp, set_obj)
 
                 # Flag indicating whether all exercises have settings
                 has_setting_tmp = True if len(setting_tmp) > 0 else False
@@ -513,12 +510,10 @@ class Day(models.Model):
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
                                      'setting_list': setting_list,
-                                     'repetition_units': repetition_units,
-                                     'weight_units': weight_units,
-                                     'weight_list': weight_list,
                                      'has_weight': has_weight,
-                                     'reps_list': reps_list,
+
                                      'setting_text': setting_text,
+                                     'settings_calculated': out['list'],
                                      'comment_list': comment_list,
                                      'image_list': exercise_images_tmp})
 
@@ -581,8 +576,6 @@ class Set(models.Model):
     exerciseday = models.ForeignKey(Day,
                                     verbose_name=_('Exercise day'),
                                     on_delete=models.CASCADE)
-    exercises = SortedManyToManyField(Exercise,
-                                      verbose_name=_('Exercises'))
     order = models.IntegerField(blank=True,
                                 null=True,
                                 verbose_name=_('Order'))
@@ -621,6 +614,11 @@ class Set(models.Model):
 
         reset_workout_canonical_form(self.exerciseday.training_id)
         super(Set, self).delete(*args, **kwargs)
+
+    @property
+    def exercises(self) -> typing.List[Exercise]:
+        """Returns the exercises for this set"""
+        return list(dict.fromkeys([s.exercise for s in self.setting_set.all()]))
 
 
 class Setting(models.Model):
