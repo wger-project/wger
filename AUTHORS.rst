@@ -52,7 +52,7 @@ Developers
 * Aaron Bassett - https://github.com/aaronbassett
 * Rachael Wright-Munn - https://github.com/ChaelCodes
 * Will Pearson - https://github.com/qagoose
-
+* Brad Johnson - https://github.com/bradsk88
 
 Translators
 -----------
@@ -155,4 +155,4 @@ Translators
 Exercises
 ---------
 
-And of course many thanks as well to everyone that submited exercises!
+And of course many thanks as well to everyone that submitted exercises!

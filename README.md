@@ -53,7 +53,9 @@ persists the database on a volume. From the root folder just call
 docker-compose -f extras/docker/compose/docker-compose.yml up
 ````
 
-For more info, check the README in wger/extras/compose.
+For more info, check the [README in wger/extras/docker/compose](
+ ./extras/docker/compose/README.md
+).
 
 #### Local installation (git)
 

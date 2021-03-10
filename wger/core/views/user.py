@@ -39,7 +39,8 @@ from django.contrib.auth.views import (
 )
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
+    HttpResponseNotFound,
 )
 from django.shortcuts import (
     get_object_or_404,
@@ -175,10 +176,6 @@ def trainer_login(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     orig_user_pk = request.user.pk
 
-    # Changing only between the same gym
-    if request.user.userprofile.gym != user.userprofile.gym:
-        return HttpResponseForbidden()
-
     # No changing if identity is not set
     if not request.user.has_perm('gym.gym_trainer') \
             and not request.session.get('trainer.identity'):
@@ -190,6 +187,13 @@ def trainer_login(request, user_pk):
                  or user.has_perm('gym.manage_gym')
                  or user.has_perm('gym.manage_gyms')):
         return HttpResponseForbidden()
+
+    # Changing is only allowed between the same gym
+    if request.user.userprofile.gym != user.userprofile.gym:
+        return HttpResponseNotFound(
+            'There are no users in gym "{}" with user ID "{}".'.format(
+                request.user.userprofile.gym, user_pk,
+            ))
 
     # Check if we're switching back to our original account
     own = False
