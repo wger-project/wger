@@ -25,19 +25,10 @@ def _build_mock_user(gym_name, is_trainer=False):
     return user
 
 
+@mock.patch('wger.core.views.user.django_login')
 class TrainerLoginTestCase(WgerTestCase):
 
-    mock_django_login = None
-
-    @classmethod
-    def setUpClass(cls):
-        cls.mock_django_login = mock.patch('wger.core.views.user.django_login').start()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.mock_django_login.stop()
-
-    def test_trainer_is_allowed_to_login_to_non_trainer_in_same_gym(self):
+    def test_trainer_is_allowed_to_login_to_non_trainer_in_same_gym(self, _):
         request_user = _build_mock_user('same-gym', is_trainer=True)
         request = _build_mock_request(request_user)
         user_from_db_lookup = _build_mock_user('same-gym', is_trainer=False)
@@ -47,7 +38,7 @@ class TrainerLoginTestCase(WgerTestCase):
 
         self.assertEqual(302, resp.status_code)
 
-    def test_trainer_is_denied_from_login_to_trainer_in_same_gym(self):
+    def test_trainer_is_denied_from_login_to_trainer_in_same_gym(self, _):
         request_user = _build_mock_user('same-gym', is_trainer=True)
         request = _build_mock_request(request_user)
         user_from_db_lookup = _build_mock_user('same-gym', is_trainer=True)
@@ -57,7 +48,7 @@ class TrainerLoginTestCase(WgerTestCase):
 
         self.assertEqual(403, resp.status_code)
 
-    def test_trainer_is_denied_from_login_to_trainer_at_different_gym(self):
+    def test_trainer_is_denied_from_login_to_trainer_at_different_gym(self, _):
         request_user = _build_mock_user('trainer-gym', is_trainer=True)
         request = _build_mock_request(request_user)
         user_from_db_lookup = _build_mock_user('other-trainer-gym', is_trainer=True)
@@ -67,7 +58,7 @@ class TrainerLoginTestCase(WgerTestCase):
 
         self.assertEqual(403, resp.status_code)
 
-    def test_trainer_gets_404_when_trying_to_login_to_non_trainer_in_different_gym(self):
+    def test_trainer_gets_404_when_trying_to_login_to_non_trainer_in_different_gym(self, _):
         request_user = _build_mock_user('trainer-gym', is_trainer=True)
         request = _build_mock_request(request_user)
         user_from_db_lookup = _build_mock_user('user-gym', is_trainer=False)
