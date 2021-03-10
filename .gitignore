@@ -65,6 +65,7 @@ node_modules
 
 # Virtual envs
 venv
+venv-wget
 
 # Dummy file for translations
 /wger/i18n.tpl
