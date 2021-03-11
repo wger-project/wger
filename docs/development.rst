@@ -55,7 +55,7 @@ After the first run you can just use django's development server::
 That's it. You can log in with the default administrator user:
 
 * **username**: admin
-* **password**: admin
+* **password**: adminadmin
 
 You can start the application again with the django server with
 ``python manage.py runserver``.

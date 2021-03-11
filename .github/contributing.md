@@ -28,9 +28,9 @@ describe a use-case or similar.
 ## Pull Requests
 You want to contribute code? Awesome! Here are some tips:
 
-* Make sure the tests are running (``python3 manage.py tests``)...
+* Make sure the tests are running (``python3 manage.py test``)...
 * ... and if you write new code, write new tests
-* Lint the code with flake8 (``flake8 --config .github/linters/.flake8``)
+* Lint the code with flake8 (``flake8 --config .github/linters/.flake8 ./wger``)
 and isort (``isort``) 
 * You can expect a response from a maintainer within a week, if you
 haven’t heard anything by then, feel free to ping the thread.

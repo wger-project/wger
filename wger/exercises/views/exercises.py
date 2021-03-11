@@ -202,21 +202,24 @@ class ExerciseForm(ModelForm):
 
     def clean_name_original(self):
         """
-        Throws a validation error if the submitted name is too similar to an existing
-        exercise's name
+        Throws a validation error if the newly submitted name is too similar to
+        an existing exercise's name
         """
         name_original = self.cleaned_data['name_original']
-        language = load_language()
-        exercises = Exercise.objects.accepted() \
-            .filter(language=language)
-        for exercise in exercises:
-            exercise_name = str(exercise)
-            min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
-            if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
-                raise ValidationError(
-                    _('%(name_original)s is too similar to existing exercise "%(exercise_name)s"'),
-                    params={'name_original': name_original, 'exercise_name': exercise_name},
-                )
+
+        if not self.instance.id:
+            language = load_language()
+            exercises = Exercise.objects.accepted() \
+                .filter(language=language)
+            for exercise in exercises:
+                exercise_name = str(exercise)
+                min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
+                if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
+                    raise ValidationError(
+                        _('%(name_original)s is too similar to existing exercise '
+                          '"%(exercise_name)s"'),
+                        params={'name_original': name_original, 'exercise_name': exercise_name},
+                    )
         return name_original
 
 

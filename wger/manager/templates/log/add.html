@@ -41,7 +41,7 @@ $(document).ready(function () {
     {% crispy session_form %}
 
     {% for set in day.set_set.select_related %}
-        {% for exercise in set.exercises.select_related %}
+        {% for exercise in set.exercises %}
             {% with value=exercises|get_item:exercise.id %}
                 <div class="row">
                     <label class="col-md-12 font-weight-bold">
