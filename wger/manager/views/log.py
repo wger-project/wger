@@ -72,7 +72,6 @@ from wger.weight.helpers import (
     process_log_entries
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -234,14 +233,13 @@ def add(request, pk):
         form_id_to = max(exercise_list[exercise]['form_ids'])
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
 
-    context = {}
-    context['day'] = day
-    context['exercises'] = exercise_list
-    context['formset'] = formset
-    context['helper'] = WorkoutLogFormHelper()
-    context['session_form'] = session_form
-    context['form'] = session_form
-    context['form_action'] = request.path
+    context = {'day': day,
+               'exercises': exercise_list,
+               'formset': formset,
+               'helper': WorkoutLogFormHelper(),
+               'session_form': session_form,
+               'form': session_form,
+               'form_action': request.path}
 
     return render(request, 'log/add.html', context)
 
