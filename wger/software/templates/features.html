@@ -9,7 +9,7 @@
     <meta property="og:title" content="{% trans 'Features' %} - wger">
 
     {% with username=owner_user.username %}
-        <meta property="og:description" content="{% blocktrans %}wger Workout Manager is a free, open source web application that manages your exercises and workouts. {% endblocktrans %}">
+        <meta property="og:description" content="{% blocktrans %}Copylefted libre software web app for your health.{% endblocktrans %}">
     {% endwith %}
 {% endblock %}
 
@@ -55,10 +55,7 @@
                     <h2 class="section-heading text-light">{% trans "Your advantages" %}</h2>
                     <h3 class="section-subheading text-muted">
                         {% blocktrans trimmed %}
-                            wger Workout Manager is a free, open source web application that manages
-                            your exercises, workouts and nutrition. It started as a pet project of
-                            mine to replace my growing collection of different spreadsheets, but it
-                            has become something other people could also find useful.
+                            Software freedom. Use, see, change and share at will, with all.
                         {% endblocktrans %}
                     </h3>
                 </div>
@@ -72,11 +69,8 @@
                     <h4 class="service-heading text-light">{% trans "Workouts" %}</h4>
                     <p class="text-muted">
                         {% blocktrans trimmed %}
-                            You can create and manage flexible workout routines for any goals you
-                            have. Select exactly which exercises you'll do and how many repetitions,
-                            time or distance you want to do them. You can also combine different
-                            workouts into a schedule.
-                        {% endblocktrans %}
+                            Create, manage and combine workout routines for goals into schedules.
+                            Select exercises, time, distance and/or repetitions to do.
                     </p>
                 </div>
                 <div class="col-md-4">
@@ -87,10 +81,8 @@
                     <h4 class="service-heading text-light">{% trans "Nutrition" %}</h4>
                     <p class="text-muted">
                         {% blocktrans trimmed %}
-                            Create your personal diet plan by creating as many meals with as many
-                            different ingredients as you need. The application will calculate the
-                            nutritional values (total energy, protein, carbohydrates, and so on)
-                            about the whole plan as well as the indivual meals.
+                            Plan a diet by creating meals down to their ingredients.
+                            Get the nutritional values of the whole plan and its meals.
                         {% endblocktrans %}
                     </p>
                 </div>
@@ -102,9 +94,8 @@
                     <h4 class="service-heading text-light">{% trans 'Diary' %}</h4>
                     <p class="text-muted">
                         {% blocktrans trimmed %}
-                            Enter the weights and repetitions you did for each exercise to generate
-                            diagrams that let you see at a glance how well you are doing. The raw
-                            numbers are of course still accessible.
+                            Enter weights and repetitions for each exercise done and get
+                            diagrams of how you are doing. The raw numbers are also accessible.
                         {% endblocktrans %}
                         {% trans "You can also enter notes and a general impression (great, neutral, etc.)" %}
                     </p>
@@ -135,9 +126,7 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            Keep track of your progress with the body weight chart. This makes
-                                            it easy to see if you are reaching your goals or need to adjust
-                                            something.
+                                            Keep progress out of mind in the body weight chart.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
@@ -154,9 +143,8 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            Get an overview of how and when you trained as well as how you
-                                            personally felt you performed. Access all your individual diary
-                                            entries with one click.
+                                            Overview of how and when you trained and how you felt about it.
+                                            All diary entries are one click away.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
@@ -173,9 +161,8 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            The exercise database contains more than hundred exercises from
-                                            which you can choose when creating a workout. You can view them by
-                                            category and equipment used or muscles trained.
+                                            Pick from more than hundred exercises, or adjust them.
+                                            View them by category and equipment used or muscles trained.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
@@ -192,9 +179,8 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            Use the application for your gym to manage its members, their
-                                            workouts and attendance. You can manage the members' contracts,
-                                            keep notes and upload any files you might need.
+                                            Manage your gym members, their workouts, contracts and attendance.
+                                            Keep notes and upload any files you might need.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
@@ -211,8 +197,8 @@
                                 <div class="timeline-body">
                                     <p class="text-muted">
                                         {% blocktrans trimmed %}
-                                            wger provides a REST API with full read and write access to all
-                                            data so you can integrate your own application and tools.
+                                            A REST API with full read and write access to all
+                                            data is provided to integrate your own apps and tools.
                                         {% endblocktrans %}
                                     </p>
                                 </div>
@@ -220,9 +206,8 @@
                         </li>
                         <li class="timeline">
                             <div class="timeline-image">
-                                <h4>{% blocktrans trimmed %}100% Free
-                                    <br>and
-                                    <br>Open Source{% endblocktrans %}
+                                <h4>{% blocktrans trimmed %}AGPLv3+
+                                    <br>license{% endblocktrans %}
                                 </h4>
                             </div>
                         </li>
