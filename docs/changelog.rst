@@ -3,7 +3,7 @@ Changelog
 
 2.0 - IN DEVELOPMENT
 --------------------
-**2020-xx-xx**
+**2021-xx-xx**
 
 Upgrade steps from 1.9:
 
@@ -48,7 +48,7 @@ Upgrade steps from 1.9:
 
 * `#368`_, `#379`_, `#426`_ (thanks `@austin-leung`_), `#499`_, `#505`_, `#504`_,
   `#511`_, `#516`_, `#522`_, `#554`_ and `#560`_ (thanks `@sandilsranasinghe`_),
-  `#564`_, `#565`_, `#615`_
+  `#564`_, `#565`_, `#615`_, `#560`_ (thanks `@bradsk88`_),
 
 
 🧰 Maintenance:
@@ -58,7 +58,7 @@ Upgrade steps from 1.9:
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
-* Others: `#450`_ (thanks `@Rkamath2`_), `#550`_ (thanks `@harlenesamra`_),
+* Others: `#450`_ (thanks `@Rkamath2`_), `#631`_ (thanks `@harlenesamra`_),
 
 .. _@Svn-Sp: https://github.com/Svn-Sp
 .. _@louiCoder: https://github.com/louiCoder
@@ -82,6 +82,7 @@ Upgrade steps from 1.9:
 .. _@jcho17: https://github.com/jcho17
 .. _@vaheeshta: https://github.com/vaheeshta
 .. _@jeevikaghosh: https://github.com/jeevikaghosh
+.. _@bradsk88: https://github.com/bradsk88
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246
@@ -117,6 +118,7 @@ Upgrade steps from 1.9:
 .. _#565: https://github.com/wger-project/wger/issues/565
 .. _#568: https://github.com/wger-project/wger/issues/568
 .. _#615: https://github.com/wger-project/wger/issues/615
+.. _#631: https://github.com/wger-project/wger/issues/631
 
 
 
