@@ -19,7 +19,7 @@
     "yarn": "^1.22.5",
     "Sortable": "RubaXa/Sortable#1.13.0",
     "bootstrap": "twbs/bootstrap#4.x",
-    "components-font-awesome": "components/font-awesome#5.15.1",
+    "components-font-awesome": "components/font-awesome#5.15.3",
     "d3": "mbostock-bower/d3-bower#>=5",
     "datatables": "DataTables/DataTables#1.10.x",
     "devbridge-autocomplete": "^1.4.11",
