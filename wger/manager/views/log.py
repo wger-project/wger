@@ -72,6 +72,7 @@ from wger.weight.helpers import (
     process_log_entries
 )
 
+
 logger = logging.getLogger(__name__)
 
 

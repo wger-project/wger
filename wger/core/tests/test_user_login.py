@@ -1,5 +1,7 @@
+# Standard Library
 from unittest import mock
 
+# wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.core.views.user import trainer_login
 

@@ -15,6 +15,7 @@
 # Standard Library
 import logging
 from decimal import Decimal
+from typing import List
 
 # Django
 from django.core.cache import cache
@@ -31,7 +32,6 @@ from wger.core.tests.base_testcase import (
     WgerTestCase
 )
 from wger.exercises.models import Exercise
-from wger.manager.helpers import reps_smart_text
 from wger.manager.models import (
     Day,
     Set,
@@ -421,7 +421,7 @@ class SettingWorkoutCacheTestCase(WgerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
-class SetSmartRepr(WgerTestCase):
+class SetSmartReprTestCase(WgerTestCase):
     """Tests the "smart text representation" for sets"""
 
     def test_smart_repr_one_setting(self):
@@ -429,82 +429,96 @@ class SetSmartRepr(WgerTestCase):
         Tests the representation with one setting
         """
         set_obj = Set.objects.get(pk=1)
-        settings = [i for i in set_obj.setting_set.all()]
 
-        setting_text, setting_list, out = reps_smart_text(settings, set_obj)
+        setting_text = set_obj.reps_smart_text(set_obj.exercises[0])
         self.assertEqual(setting_text, '2 × 8 (3 RiR)')
-        self.assertEqual(len(out['list']), 2)
-        self.assertEqual(out['list'][0],
-                         {'reps': 8,
-                          'reps_unit': '',
-                          'weight': None,
-                          'weight_unit': 'kg',
-                          'rir': '3'})
 
     def test_smart_repr_custom_setting(self):
         """
         Tests the representation with several settings
         """
         set_obj = Set(exerciseday_id=1, order=1, sets=4)
+        set_obj.save()
         setting1 = Setting(set=set_obj,
                            exercise_id=1,
                            repetition_unit_id=1,
                            reps=8,
                            weight=Decimal(90),
                            weight_unit_id=1,
-                           rir='3')
+                           rir='3',
+                           order=1)
+        setting1.save()
         setting2 = Setting(set=set_obj,
                            exercise_id=1,
                            repetition_unit_id=1,
                            reps=10,
                            weight=Decimal(80),
                            weight_unit_id=1,
-                           rir='2.5')
+                           rir='2.5',
+                           order=2)
+        setting2.save()
         setting3 = Setting(set=set_obj,
                            exercise_id=1,
                            repetition_unit_id=1,
                            reps=10,
                            weight=Decimal(80),
                            weight_unit_id=1,
-                           rir='2')
+                           rir='2',
+                           order=3)
+        setting3.save()
         setting4 = Setting(set=set_obj,
                            exercise_id=1,
                            repetition_unit_id=1,
                            reps=12,
                            weight=Decimal(80),
                            weight_unit_id=1,
-                           rir='1')
+                           rir='1',
+                           order=4)
+        setting4.save()
 
-        setting_text, setting_list, out = reps_smart_text([setting1, setting2, setting3, setting4],
-                                                          set_obj)
-        self.assertEqual(len(out['list']), 4)
+        setting_text = set_obj.reps_smart_text(Exercise.objects.get(pk=1))
         self.assertEqual(setting_text,
                          '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – '
                          '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)')
-        self.assertEqual(out['list'][0],
-                         {'reps': 8,
-                          'reps_unit': 'Repetitions',
-                          'weight': Decimal('90'),
-                          'weight_unit': 'kg',
-                          'rir': '3'})
-        self.assertEqual(out['list'][1],
-                         {'reps': 10,
-                          'reps_unit': 'Repetitions',
-                          'weight': Decimal('80'),
-                          'weight_unit': 'kg',
-                          'rir': '2.5'})
-        self.assertEqual(out['list'][2],
-                         {'reps': 10,
-                          'reps_unit': 'Repetitions',
-                          'weight': Decimal('80'),
-                          'weight_unit': 'kg',
-                          'rir': '2'})
-        self.assertEqual(out['list'][3],
-                         {'reps': 12,
-                          'reps_unit': 'Repetitions',
-                          'weight': Decimal('80'),
-                          'weight_unit': 'kg',
-                          'rir': '1'})
+
+    def test_synthetic_settings(self):
+        set_obj = Set(exerciseday_id=1, order=1, sets=4)
+        set_obj.save()
+        setting1 = Setting(set=set_obj,
+                           exercise_id=1,
+                           repetition_unit_id=1,
+                           reps=8,
+                           weight=Decimal(90),
+                           weight_unit_id=1,
+                           rir='3',
+                           order=1)
+        setting1.save()
+        setting2 = Setting(set=set_obj,
+                           exercise_id=3,
+                           repetition_unit_id=1,
+                           reps=10,
+                           weight=Decimal(80),
+                           weight_unit_id=1,
+                           rir='2.5',
+                           order=2)
+        setting2.save()
+        settings: List[Setting] = set_obj.compute_settings
+
+        # Check that there are 2 x 4 entries (2 Exercises x 4 Sets)
+        self.assertEqual(len(settings), 8)
+
+        # Check interleaved settings
+        for i in range(0, len(settings)):
+            if (i % 2) == 0:
+                self.assertEqual(settings[i].exercise_id, 1)
+                self.assertEqual(settings[i].reps, 8)
+                self.assertEqual(settings[i].weight, Decimal(90))
+                self.assertEqual(settings[i].rir, '3')
+            else:
+                self.assertEqual(settings[i].exercise_id, 3)
+                self.assertEqual(settings[i].reps, 10)
+                self.assertEqual(settings[i].weight, Decimal(80))
+                self.assertEqual(settings[i].rir, '2.5')
 
 
 class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):

@@ -107,7 +107,7 @@ $(document).ready(function() {
                                 <p>{{exercise.setting_text}}</p>
 
                                 {% if editable %}
-                                {% if not exercise.setting_list %}
+                                {% if not exercise.setting_obj_list %}
                                 <p>
                                     {% trans "This exercise has no repetitions." %}<br>
                                     <a href="{% url 'manager:set:edit' set.obj.id %}" class="wger-modal-dialog">

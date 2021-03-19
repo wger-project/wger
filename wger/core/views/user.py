@@ -39,8 +39,8 @@ from django.contrib.auth.views import (
 )
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect,
     HttpResponseNotFound,
+    HttpResponseRedirect
 )
 from django.shortcuts import (
     get_object_or_404,
