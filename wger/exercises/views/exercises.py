@@ -70,7 +70,6 @@ from crispy_forms.layout import (
 
 # wger
 from wger.config.models import LanguageConfig
-from wger.core.models import License
 from wger.exercises.models import (
     Equipment,
     Exercise,
