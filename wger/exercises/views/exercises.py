@@ -301,6 +301,8 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
+
+        # Try retrieving a base exercise first
         existing = ExerciseBase.objects.filter(
             category=ExerciseCategory.objects.get(name=form.cleaned_data['category']))
         for elem in form.cleaned_data['equipment'].all():
@@ -308,15 +310,16 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         for elem in form.cleaned_data['muscles'].all():
             existing = existing.filter(muscles=elem)
         for elem in form.cleaned_data['muscles_secondary'].all():
-            existing = existing.filter(equipment=elem)
+            existing = existing.filter(muscles_secondary=elem)
+
+        # Create a new exercise base
         if not existing:
-            print(form.cleaned_data)
-            print('-------------------------')
             exercise_base = ExerciseBase.objects.create(
-                category=ExerciseCategory.objects.get(name=form.cleaned_data['category']),
-                license=License.objects.get(id=form.cleaned_data['license']),
-                license_author=License.objects.get(id=form.cleaned_data['license_author']),
+                category=form.cleaned_data['category'],
+                license=form.cleaned_data['license'],
+                license_author=form.cleaned_data['license_author']
             )
+
             exercise_base.equipment.set(form.cleaned_data['equipment'].all())
             exercise_base.muscles.set(form.cleaned_data['muscles'].all())
             exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
