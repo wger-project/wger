@@ -417,6 +417,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Set author and status
         This is only used when creating exercises (via web or API)
         """
+
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
@@ -426,8 +427,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_author = request.user.username
 
             subject = _('New user submitted exercise')
+
             message = _('The user {0} submitted a new exercise "{1}".').format(
-                request.user.username, self.name)
+                request.user.username, self.name_original)
             mail.mail_admins(str(subject),
                              str(message),
                              fail_silently=True)
