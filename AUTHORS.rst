@@ -53,6 +53,7 @@ Developers
 * Rachael Wright-Munn - https://github.com/ChaelCodes
 * Will Pearson - https://github.com/qagoose
 * Brad Johnson - https://github.com/bradsk88
+* Sidrah Madiha Siddiqui https://github.com/Sidrah-Madiha
 
 Translators
 -----------
