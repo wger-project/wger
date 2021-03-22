@@ -48,7 +48,8 @@ Upgrade steps from 1.9:
 
 * `#368`_, `#379`_, `#426`_ (thanks `@austin-leung`_), `#499`_, `#505`_, `#504`_,
   `#511`_, `#516`_, `#522`_, `#554`_ and `#560`_ (thanks `@sandilsranasinghe`_),
-  `#564`_, `#565`_, `#615`_, `#560`_ (thanks `@bradsk88`_), `#636`_,
+  `#564`_, `#565`_, `#615`_, `#560`_ (thanks `@bradsk88`_), `#617`_ (thanks `@Sidrah-Madiha`_),
+  `#636`_,
 
 
 🧰 Maintenance:
@@ -83,6 +84,7 @@ Upgrade steps from 1.9:
 .. _@vaheeshta: https://github.com/vaheeshta
 .. _@jeevikaghosh: https://github.com/jeevikaghosh
 .. _@bradsk88: https://github.com/bradsk88
+.. _@Sidrah-Madiha: https://github.com/Sidrah-Madiha
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246
@@ -118,6 +120,7 @@ Upgrade steps from 1.9:
 .. _#565: https://github.com/wger-project/wger/issues/565
 .. _#568: https://github.com/wger-project/wger/issues/568
 .. _#615: https://github.com/wger-project/wger/issues/615
+.. _#617: https://github.com/wger-project/wger/issues/617
 .. _#631: https://github.com/wger-project/wger/issues/631
 .. _#636: https://github.com/wger-project/wger/issues/636
 
