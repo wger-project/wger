@@ -26,10 +26,10 @@ commander@2:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
-components-font-awesome@components/font-awesome#5.15.1:
+components-font-awesome@components/font-awesome#5.15.3:
   version "5.15.1"
-  uid "6943708effe6d823d40255bcdbe9ee021312c880"
-  resolved "https://codeload.github.com/components/font-awesome/tar.gz/6943708effe6d823d40255bcdbe9ee021312c880"
+  uid "09f1f2e02ea0cd319569b32f8639b37dfcd7a62d"
+  resolved "https://codeload.github.com/components/font-awesome/tar.gz/09f1f2e02ea0cd319569b32f8639b37dfcd7a62d"
 
 d3-array@1, d3-array@^1.2.0:
   version "1.2.4"
@@ -425,10 +425,10 @@ shariff@^3.2.1:
     "@fortawesome/fontawesome-free" "^5.8.2"
     jquery "^3.4.1"
 
-tinymce@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.7.0.tgz#bc565877e4041db83848a330dfa7916993110cba"
-  integrity sha512-WikgMpJbqYPaucV3lfstCj+Y4NquZlK61gyuJ2eqDUBlSU+4fFh6rpwnelVTxuvtEyJsAVOl8HZmbzBfDJiLsQ==
+tinymce@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.7.1.tgz#658a6fb4c7d53a8496cc00f8da33f4b8290da06d"
+  integrity sha512-1gY8RClc734srSlkYwY0MQzmkS1j73PuPC+nYtNtrrQVPY9VNcZ4bOiRwzTbdjPPD8GOtv6BAk8Ww/H2RiqKpA==
 
 xmlhttprequest@1:
   version "1.8.0"
