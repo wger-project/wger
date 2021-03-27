@@ -94,9 +94,7 @@ class Command(BaseCommand):
             exercise_id = exercise_json['id']
 
             self.stdout.write('')
-            self.stdout.write("*** Processing {0} (ID: {1}, UUID: {2})".format(exercise_name,
-                                                                               exercise_id,
-                                                                               exercise_uuid))
+            self.stdout.write(f"*** {exercise_name} (ID: {exercise_id}, UUID: {exercise_uuid})")
 
             try:
                 exercise = Exercise.objects.get(uuid=exercise_uuid)
@@ -112,6 +110,7 @@ class Command(BaseCommand):
 
                 for image_json in images['results']:
                     image_id = image_json['id']
+                    image_uuid = image_json['uuid']
                     result = requests.get(THUMBNAIL_API.format(remote_url, image_id),
                                           headers=headers).json()
 
@@ -119,18 +118,23 @@ class Command(BaseCommand):
                     self.stdout.write('    Fetching image {0} - {1}'.format(image_id, image_name))
 
                     try:
-                        image = ExerciseImage.objects.get(pk=image_id)
+                        image = ExerciseImage.objects.get(uuid=image_uuid)
                         self.stdout.write('    --> Image already present locally, skipping...')
                         continue
                     except ExerciseImage.DoesNotExist:
                         self.stdout.write('    --> Image not found in local DB, creating now...')
                         image = ExerciseImage()
-                        image.pk = image_id
+                        image.uuid = image_uuid
 
-                    # Save the downloaded image, see link for details
+                    # Save the downloaded image
                     # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
                     retrieved_image = requests.get(remote_url + result['original'], headers=headers)
-                    img_temp = NamedTemporaryFile(delete=True)
+
+                    # Temporary files on windows don't support the delete attribute
+                    if os.name == 'nt':
+                        img_temp = NamedTemporaryFile()
+                    else:
+                        img_temp = NamedTemporaryFile(delete=True)
                     img_temp.write(retrieved_image.content)
                     img_temp.flush()
 

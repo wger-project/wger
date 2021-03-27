@@ -61,6 +61,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseImage
         fields = ['id',
+                  'uuid',
                   'exercise',
                   'image',
                   'is_main',

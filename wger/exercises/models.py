@@ -448,6 +448,11 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     objects = SubmissionManager()
     """Custom manager"""
 
+    uuid = models.UUIDField(default=uuid.uuid4,
+                            editable=False,
+                            verbose_name='UUID')
+    """Globally unique ID, to identify the image across installations"""
+
     exercise = models.ForeignKey(ExerciseBase,
                                  verbose_name=_('Exercise'),
                                  on_delete=models.CASCADE)
