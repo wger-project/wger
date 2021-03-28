@@ -3,6 +3,25 @@
 from django.db import migrations
 
 
+def increment_order(apps, schema_editor):
+    """
+    Increment the oder in settings so ensure the order is preserved
+
+    Otherwise, and depending on the database, when a set has supersets, the
+    exercises could be ordered alphabetically.
+    """
+
+    WorkoutSet = apps.get_model("manager", "Set")
+
+    for workout_set in WorkoutSet.objects.all():
+        counter = 1
+        for exercise in workout_set.exercises.all():
+            for setting in workout_set.setting_set.filter(exercise=exercise):
+                setting.order = counter
+                setting.save()
+                counter += 1
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,6 +29,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(increment_order),
         migrations.RemoveField(
             model_name='set',
             name='exercises',
