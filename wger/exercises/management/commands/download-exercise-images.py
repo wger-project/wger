@@ -38,23 +38,20 @@ from requests.utils import default_user_agent
 # wger
 from wger import get_version
 from wger.exercises.models import (
-    Exercise,
+    ExerciseBase,
     ExerciseImage
 )
 
 
-EXERCISE_API = "{0}/api/v2/exercise/?limit=999&status=2"
-IMAGE_API = "{0}/api/v2/exerciseimage/?exercise={1}"
-THUMBNAIL_API = "{0}/api/v2/exerciseimage/{1}/thumbnails/"
+IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
 
 
 class Command(BaseCommand):
     """
     Download exercise images from wger.de and updates the local database
 
-    The script assumes that the local IDs correspond to the remote ones, which
-    is the case if the user installed the exercises from the JSON fixtures.
-    Otherwise, the exercise is simply skipped
+    Both the exercises and the images are identified by their UUID, which can't
+    be modified via the GUI.
     """
 
     help = ('Download exercise images from wger.de and update the local database\n'
@@ -86,66 +83,60 @@ class Command(BaseCommand):
 
         headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
 
-        # Get all exercises
-        result = requests.get(EXERCISE_API.format(remote_url), headers=headers).json()
-        for exercise_json in result['results']:
-            exercise_name = exercise_json['name']
-            exercise_uuid = exercise_json['uuid']
-            exercise_id = exercise_json['id']
-
+        # Get all images
+        page = 1
+        all_images_processed = False
+        result = requests.get(IMAGE_API.format(remote_url), headers=headers).json()
+        self.stdout.write('*** Processing images ***')
+        while not all_images_processed:
             self.stdout.write('')
-            self.stdout.write(f"*** {exercise_name} (ID: {exercise_id}, UUID: {exercise_uuid})")
+            self.stdout.write(f'*** Page {page}')
+            self.stdout.write('')
+            page += 1
 
-            try:
-                exercise = Exercise.objects.get(uuid=exercise_uuid)
-
-            except Exercise.DoesNotExist:
-                self.stdout.write('    Remote exercise not found in local DB, skipping...')
-                continue
-
-            # Get all images
-            images = requests.get(IMAGE_API.format(remote_url, exercise_id), headers=headers).json()
-
-            if images['count']:
-
-                for image_json in images['results']:
-                    image_id = image_json['id']
-                    image_uuid = image_json['uuid']
-                    result = requests.get(THUMBNAIL_API.format(remote_url, image_id),
-                                          headers=headers).json()
-
-                    image_name = os.path.basename(result['original'])
-                    self.stdout.write('    Fetching image {0} - {1}'.format(image_id, image_name))
-
-                    try:
-                        image = ExerciseImage.objects.get(uuid=image_uuid)
-                        self.stdout.write('    --> Image already present locally, skipping...')
-                        continue
-                    except ExerciseImage.DoesNotExist:
-                        self.stdout.write('    --> Image not found in local DB, creating now...')
-                        image = ExerciseImage()
-                        image.uuid = image_uuid
-
-                    # Save the downloaded image
-                    # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
-                    retrieved_image = requests.get(remote_url + result['original'], headers=headers)
-
-                    # Temporary files on windows don't support the delete attribute
-                    if os.name == 'nt':
-                        img_temp = NamedTemporaryFile()
-                    else:
-                        img_temp = NamedTemporaryFile(delete=True)
-                    img_temp.write(retrieved_image.content)
-                    img_temp.flush()
-
-                    image.exercise = exercise.exercise_base
-                    image.is_main = image_json['is_main']
-                    image.status = image_json['status']
-                    image.image.save(
-                        os.path.basename(image_name),
-                        File(img_temp),
-                    )
-                    image.save()
-
+            if result['next']:
+                result = requests.get(result['next'], headers=headers).json()
             else:
-                self.stdout.write('    No images for this exercise, nothing to do')
+                all_images_processed = True
+
+            for image_data in result['results']:
+                image_uuid = image_data['uuid']
+
+                self.stdout.write(f'Processing image {image_uuid}')
+
+                try:
+                    exercise_base = ExerciseBase.objects.get(id=image_data['exercise'])
+                except ExerciseBase.DoesNotExist:
+                    self.stdout.write('    Remote exercise base not found in local DB, skipping...')
+                    continue
+
+                try:
+                    image = ExerciseImage.objects.get(uuid=image_uuid)
+                    self.stdout.write('    Image already present locally, skipping...')
+                    continue
+                except ExerciseImage.DoesNotExist:
+                    self.stdout.write('    Image not found in local DB, creating now...')
+                    image = ExerciseImage()
+                    image.uuid = image_uuid
+
+                # Save the downloaded image
+                # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
+                retrieved_image = requests.get(image_data['image'], headers=headers)
+
+                # Temporary files on windows don't support the delete attribute
+                if os.name == 'nt':
+                    img_temp = NamedTemporaryFile()
+                else:
+                    img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(retrieved_image.content)
+                img_temp.flush()
+
+                image.exercise = exercise_base
+                image.is_main = image_data['is_main']
+                image.status = image_data['status']
+                image.image.save(
+                    os.path.basename(os.path.basename(image_data['image'])),
+                    File(img_temp),
+                )
+                image.save()
+                self.stdout.write(self.style.SUCCESS('    successfully saved'))
