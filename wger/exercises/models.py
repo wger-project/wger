@@ -227,7 +227,7 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     @property
     def get_languages(self):
         """
-        Returns the languages from the exercises tha tuse this base
+        Returns the languages from the exercises that use this base
         """
         return [exercise.language for exercise in self.exercises.all()]
 
