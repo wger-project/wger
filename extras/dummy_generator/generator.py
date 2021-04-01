@@ -320,7 +320,6 @@ if hasattr(args, 'number_workouts'):
 
                     day_set = Set(exerciseday=day, sets=sets, order=order)
                     day_set.save()
-                    day_set.exercises.add(exercise)
 
                     setting = Setting(set=day_set, exercise=exercise, reps=reps, order=order)
                     setting.save()

@@ -146,11 +146,10 @@ class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     """
     setting_obj_list = SettingSerializer(many=True)
     setting_list = serializers.ReadOnlyField()
+    setting_text = serializers.ReadOnlyField()
     reps_list = serializers.ReadOnlyField()
     has_weight = serializers.ReadOnlyField()
     weight_list = serializers.ReadOnlyField()
-    setting_text = serializers.ReadOnlyField()
-    settings_calculated = serializers.ReadOnlyField()
     comment_list = serializers.ReadOnlyField()
     image_list = WorkoutCanonicalFormExerciseImagesListSerializer(many=True)
     obj = ExerciseSerializer()
@@ -162,8 +161,8 @@ class WorkoutCanonicalFormExerciseSerializer(serializers.Serializer):
     """
     obj = SetSerializer()
     exercise_list = WorkoutCanonicalFormExerciseListSerializer(many=True)
-    has_settings = serializers.BooleanField()
     is_superset = serializers.BooleanField()
+    settings_computed = SettingSerializer(many=True)
     muscles = MusclesCanonicalFormSerializer()
 
 

@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
 # Django
 from django.utils.translation import ugettext as _
 
@@ -56,6 +59,9 @@ from wger.utils.language import (
 from wger.utils.permissions import CreateOnlyPermission
 
 
+logger = logging.getLogger(__name__)
+
+
 class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise base objects. For a read-only endpoint with all
@@ -80,13 +86,12 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
-    filterset_fields = ('creation_date',
+    filterset_fields = ('uuid',
+                        'creation_date',
                         'description',
                         'language',
                         'status',
-                        'name',
-                        'license',
-                        'license_author')
+                        'name')
 
     def perform_create(self, serializer):
         """
@@ -97,6 +102,50 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         # Todo is it right to call set author after save?
         obj.set_author(self.request)
         obj.save()
+
+    def get_queryset(self):
+        """Add additional filters for fields from exercise base"""
+
+        qs = Exercise.objects.accepted()
+
+        category = self.request.query_params.get('category')
+        muscles = self.request.query_params.get('muscles')
+        muscles_secondary = self.request.query_params.get('muscles_secondary')
+        equipment = self.request.query_params.get('equipment')
+        license = self.request.query_params.get('license')
+
+        if category:
+            try:
+                qs = qs.filter(exercise_base__category_id=int(category))
+            except ValueError:
+                logger.info(f"Got {category} as category ID")
+
+        if muscles:
+            try:
+                qs = qs.filter(exercise_base__muscles__in=[int(m) for m in muscles.split(',')])
+            except ValueError:
+                logger.info(f"Got {muscles} as muscle IDs")
+
+        if muscles_secondary:
+            try:
+                muscle_ids = [int(m) for m in muscles_secondary.split(',')]
+                qs = qs.filter(exercise_base__muscles_secondary__in=muscle_ids)
+            except ValueError:
+                logger.info(f"Got '{muscles_secondary}' as secondary muscle IDs")
+
+        if equipment:
+            try:
+                qs = qs.filter(exercise_base__equipment__in=[int(e) for e in equipment.split(',')])
+            except ValueError:
+                logger.info(f"Got {equipment} as equipment IDs")
+
+        if license:
+            try:
+                qs = qs.filter(exercise_base__license_id=int(license))
+            except ValueError:
+                logger.info(f"Got {license} as license ID")
+
+        return qs
 
 
 @api_view(['GET'])
@@ -235,10 +284,9 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('comment',
                         'exercise')
-    """
-    Filter by language for exercise comments
-    """
+
     def get_queryset(self):
+        """Filter by language for exercise comments"""
         qs = ExerciseComment.objects.all()
         language = self.request.query_params.get('language')
         if language:

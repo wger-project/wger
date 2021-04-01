@@ -86,7 +86,8 @@ RUN . /home/wger/venv/bin/activate \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
     && wger bootstrap \
-    && wger load-online-fixtures
+    && wger load-online-fixtures \
+    && python3 manage.py download-exercise-images
 
 
 # Change permissions of some files and folders so the apache process

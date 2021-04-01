@@ -39,8 +39,8 @@ from django.contrib.auth.views import (
 )
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect,
     HttpResponseNotFound,
+    HttpResponseRedirect
 )
 from django.shortcuts import (
     get_object_or_404,
@@ -520,6 +520,12 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
+
+        page_user = self.object  # type: User
+        request_user = self.request.user  # type: User
+        same_gym_id = request_user.userprofile.gym_id == page_user.userprofile.gym_id
+        context['enable_login_button'] = request_user.has_perm('gym.gym_trainer') and same_gym_id
+        context['gym_name'] = request_user.userprofile.gym.name
         return context
 
 

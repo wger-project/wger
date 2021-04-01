@@ -88,10 +88,11 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
 
 class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
-    View to delete an existing license
+    View to delete an existing setting unit
     """
 
     model = RepetitionUnit
+    fields = ['name']
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.delete_repetitionunit'
 

@@ -469,6 +469,26 @@
 {#         #}
 {% block options %}
 {% if perms.gym.gym_trainer %}
-    <a href="{% url 'core:user:trainer-login' current_user.pk %}" class="btn btn-success btn-sm">{% trans "Log in as this user" %}</a>
+
+    <style>
+        .btn.btn-sm.btn-secondary {
+            background: #EEE;
+            color: #AAA;
+            cursor: not-allowed;
+        }
+    </style>
+
+    <a
+       {% if enable_login_button %}
+        href="{% url 'core:user:trainer-login' current_user.pk %}"
+        class="btn btn-sm btn-success"
+       {% else %}
+        href="#"
+        title="{% trans 'Admin login is only available for users in' %} &ldquo;{{gym_name}}&rdquo;"
+        class="btn btn-sm btn-secondary"
+       {% endif %}
+    >
+       {% trans "Log in as this user" %}
+    </a>
 {% endif %}
 {% endblock %}

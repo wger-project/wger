@@ -227,7 +227,7 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     @property
     def get_languages(self):
         """
-        Returns the languages from the exercises tha tuse this base
+        Returns the languages from the exercises that use this base
         """
         return [exercise.language for exercise in self.exercises.all()]
 
@@ -417,6 +417,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Set author and status
         This is only used when creating exercises (via web or API)
         """
+
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
@@ -426,8 +427,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_author = request.user.username
 
             subject = _('New user submitted exercise')
+
             message = _('The user {0} submitted a new exercise "{1}".').format(
-                request.user.username, self.name)
+                request.user.username, self.name_original)
             mail.mail_admins(str(subject),
                              str(message),
                              fail_silently=True)
@@ -447,6 +449,11 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
 
     objects = SubmissionManager()
     """Custom manager"""
+
+    uuid = models.UUIDField(default=uuid.uuid4,
+                            editable=False,
+                            verbose_name='UUID')
+    """Globally unique ID, to identify the image across installations"""
 
     exercise = models.ForeignKey(ExerciseBase,
                                  verbose_name=_('Exercise'),

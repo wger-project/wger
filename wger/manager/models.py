@@ -42,13 +42,13 @@ from wger.core.models import (
     WeightUnit
 )
 from wger.exercises.models import Exercise
-from wger.manager.helpers import reps_smart_text
 from wger.utils.cache import (
     cache_mapper,
     reset_workout_canonical_form,
     reset_workout_log
 )
 from wger.utils.fields import Html5DateField
+from wger.utils.helpers import normalize_decimal
 
 
 logger = logging.getLogger(__name__)
@@ -459,7 +459,6 @@ class Day(models.Model):
 
         for set_obj in self.set_set.select_related():
             exercise_tmp = []
-            has_setting_tmp = True
 
             for exercise in set_obj.exercises:
                 setting_tmp = []
@@ -483,10 +482,7 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list, out = reps_smart_text(setting_tmp, set_obj)
-
-                # Flag indicating whether all exercises have settings
-                has_setting_tmp = True if len(setting_tmp) > 0 else False
+                setting_text = set_obj.reps_smart_text(exercise)
 
                 # Exercise comments
                 comment_list = []
@@ -509,37 +505,32 @@ class Day(models.Model):
                 # Put it all together
                 exercise_tmp.append({'obj': exercise,
                                      'setting_obj_list': setting_tmp,
-                                     'setting_list': setting_list,
-                                     'has_weight': has_weight,
-
                                      'setting_text': setting_text,
-                                     'settings_calculated': out['list'],
+                                     'has_weight': has_weight,
                                      'comment_list': comment_list,
                                      'image_list': exercise_images_tmp})
 
             # If it's a superset, check that all exercises have the same repetitions.
             # If not, just take the smallest number and drop the rest, because otherwise
             # it doesn't make sense
-            if len(exercise_tmp) > 1:
-                common_reps = 100
-                for exercise in exercise_tmp:
-                    if len(exercise['setting_list']) < common_reps:
-                        common_reps = len(exercise['setting_list'])
 
-                for exercise in exercise_tmp:
-                    if len(exercise['setting_list']) > common_reps:
-                        exercise['setting_list'].pop(-1)
-                        exercise['setting_obj_list'].pop(-1)
-                        setting_text, setting_list, weight_list,\
-                            reps_list, repetition_units, weight_units = \
-                            reps_smart_text(exercise['setting_obj_list'], set_obj)
-                        exercise['setting_text'] = setting_text
-                        exercise['repetition_units'] = repetition_units
+            # if len(exercise_tmp) > 1:
+            #     common_reps = 100
+            #     for exercise in exercise_tmp:
+            #         if len(exercise['setting_list']) < common_reps:
+            #             common_reps = len(exercise['setting_list'])
+
+            #     for exercise in exercise_tmp:
+            #         if len(exercise['setting_list']) > common_reps:
+            #             exercise['setting_list'].pop(-1)
+            #             exercise['setting_obj_list'].pop(-1)
+            #             setting_text, setting_list = set_obj.reps_smart_text(exercise)
+            #             exercise['setting_text'] = setting_text
 
             canonical_repr.append({'obj': set_obj,
                                    'exercise_list': exercise_tmp,
                                    'is_superset': True if len(exercise_tmp) > 1 else False,
-                                   'has_settings': has_setting_tmp,
+                                   'settings_computed': set_obj.compute_settings,
                                    'muscles': {
                                        'back': muscles_back,
                                        'front': muscles_front,
@@ -554,8 +545,7 @@ class Day(models.Model):
 
         return {'obj': self,
                 'days_of_week': {
-                    'text': ', '.join([str(_(i.day_of_week))
-                                       for i in tmp_days_of_week]),
+                    'text': ', '.join([str(_(i.day_of_week)) for i in tmp_days_of_week]),
                     'day_list': tmp_days_of_week},
                 'muscles': {
                     'back': muscles_back,
@@ -619,6 +609,141 @@ class Set(models.Model):
     def exercises(self) -> typing.List[Exercise]:
         """Returns the exercises for this set"""
         return list(dict.fromkeys([s.exercise for s in self.setting_set.all()]))
+
+    @property
+    def compute_settings(self):  # -> typing.List[Setting]:
+        """
+        Compute the synthetic settings for this set.
+
+        If we have super sets the result will be an interleaved list of
+        settings so the result are the exercises that have to be done, in
+        order, e.g.:
+
+        * Exercise 1, 10 reps, 50 kg
+        * Exercise 2, 8 reps,  10 kg
+        * Exercise 1, 10 reps, 50 kg
+        * Exercise 2, 8 reps,  10 kg
+        """
+        setting_lists = []
+        for exercise in self.exercises:
+            setting_lists.append(self.computed_settings_exercise(exercise))
+
+        # Interleave all lists
+        return [val for tup in zip(*setting_lists) for val in tup]
+
+    def computed_settings_exercise(self, exercise: Exercise):  # -> typing.List[Setting]
+        """
+        Returns a computed list of settings
+
+        If a set has only one set
+        """
+        settings = self.setting_set.filter(exercise=exercise)
+
+        if settings.count() == 0:
+            return[]
+        elif settings.count() == 1:
+            setting = settings.first()
+            return [setting] * self.sets
+        else:
+            return list(settings.all())
+
+    def reps_smart_text(self, exercise: Exercise):
+        """
+        "Smart" textual representation
+
+        This is a human representation of the settings, in a way that humans
+        would also write: e.g. "8 8 10 10" but "4 x 10" and not "10 10 10 10".
+        This helper also takes care to process, hide or show the different repetition
+        and weight units as appropriate, e.g. "8 x 2 Plates", "10, 20, 30, ∞"
+
+        :param exercise:
+        :return setting_text, setting_list:
+        """
+
+        def get_rir_representation(setting):
+            """
+            Returns the representation for the Reps-In-Reserve for a setting
+            """
+
+            if setting.rir:
+                rir = f"{setting.rir} RiR"
+            else:
+                rir = ""
+            return rir
+
+        def get_reps_reprentation(setting, rep_unit):
+            """
+            Returns the representation for the repetitions for a setting
+
+            This is basically just to allow for a special representation for the
+            "Until Failure" unit
+            """
+            if setting.repetition_unit_id != 2:
+                reps = "{0} {1}".format(setting.reps, rep_unit).strip()
+            else:
+                reps = '∞'
+            return reps
+
+        def get_weight_unit_reprentation(setting):
+            """
+            Returns the representation for the weight unit for a setting
+
+            This is basically just to allow for a special representation for the
+            "Repetition" and "Until Failure" unit
+            """
+            if setting.repetition_unit.id not in (1, 2):
+                rep_unit = _(setting.repetition_unit.name)
+            else:
+                rep_unit = ''
+            return rep_unit
+
+        def normalize_weight(setting):
+            """
+            The weight can be None, or a decimal. In that case, normalize so
+            that we don't return e.g. '15.00', but always '15', independently of
+            the database used.
+            """
+            if setting.weight:
+                weight = normalize_decimal(setting.weight)
+            else:
+                weight = setting.weight
+            return weight
+
+        def get_setting_text(current_setting, multi=False):
+            """Gets the repetition text for a complete setting"""
+            rep_unit = get_weight_unit_reprentation(current_setting)
+            reps = get_reps_reprentation(current_setting, rep_unit)
+            weight_unit = settings[0].weight_unit.name
+            weight = normalize_weight(current_setting)
+            rir = get_rir_representation(current_setting)
+            out = '{0} × {1}'.format(self.sets, reps).strip() if not multi else reps
+            if weight:
+                rir_text = f', {rir}' if rir else ''
+                out += f' ({weight} {weight_unit}{rir_text})'
+            else:
+                out += ' ({0})'.format(rir) if rir else ''
+
+            return out
+
+        settings = self.setting_set.filter(exercise=exercise)
+        setting_text = ''
+
+        # Only one setting entry, this is a "compact" representation such as e.g.
+        # 4x10 or similar
+        if len(settings) == 1:
+            setting = settings[0]
+            setting_text = get_setting_text(setting)
+
+        # There's more than one setting, each set can have a different combination
+        # of repetitions, weight, etc. e.g. 10, 8, 8, 12
+        elif len(settings) > 1:
+            tmp_reps_text = []
+            for setting in settings:
+                tmp_reps_text.append(get_setting_text(setting, multi=True))
+
+            setting_text = ' – '.join(tmp_reps_text)
+
+        return setting_text
 
 
 class Setting(models.Model):
@@ -687,7 +812,7 @@ class Setting(models.Model):
         """
         Return a more human-readable representation
         """
-        return "settings for exercise {0} in set {1}".format(self.exercise.id, self.set.id)
+        return f"setting {self.id} for exercise {self.exercise_id} in set {self.set_id}"
 
     def save(self, *args, **kwargs):
         """

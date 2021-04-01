@@ -88,10 +88,11 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
 
 class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
-    View to delete an existing license
+    View to delete an existing weight unit
     """
 
     model = WeightUnit
+    fields = ['name']
     success_url = reverse_lazy('core:weight-unit:list')
     permission_required = 'core.delete_weightunit'
 
