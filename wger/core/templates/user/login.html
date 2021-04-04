@@ -9,7 +9,22 @@
 
 {% block content %}
     {% crispy form %}
+    {% block social_content %}
+ <div class="row">
+     <div class="col-md-8 mx-auto social-container my-2 order-md-1 ">
+
+             <a class="btn btn-primary mb-2" href="{% url 'social:begin' 'facebook' %}">Login with Facebook
+             </a>
+             <a class="btn btn-info mb-2" href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+             <a class="btn btn-warning mb-2" href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+        
+     </div>
+ </div>
+ </div>
+ {% endblock %}
 {% endblock %}
+
+
 
 
 {% block sidebar %}

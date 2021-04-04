@@ -18,8 +18,6 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
-
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -86,8 +84,9 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
+    #social Authentication
+    'social_django',
 )
-
 
 MIDDLEWARE = (
     'corsheaders.middleware.CorsMiddleware',
@@ -106,15 +105,18 @@ MIDDLEWARE = (
 
     # Send an appropriate Header so search engines don't index pages
     'wger.utils.middleware.RobotsExclusionMiddleware',
-
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    'wger.utils.helpers.EmailAuthBackend'
 )
 
 TEMPLATES = [
@@ -134,6 +136,10 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
 
+                #Social_Django
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
                 # Breadcrumbs
                 'django.template.context_processors.request'
             ],
@@ -141,7 +147,8 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug': False
+            'debug':
+            False
         },
     },
 ]
@@ -157,20 +164,19 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-
 #
 # Email
 #
 EMAIL_SUBJECT_PREFIX = '[wger] '
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
 #
 # Login
 #
 LOGIN_URL = '/user/login'
-LOGIN_REDIRECT_URL = '/'
-
+LOGIN_REDIRECT_URL = '/dashboard'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = '/user/login'
 
 #
 # Internationalization
@@ -190,32 +196,29 @@ TIME_ZONE = 'UTC'
 
 # Restrict the available languages
 LANGUAGES = (
-            ('en', 'English'),
-            ('de', 'German'),
-            ('bg', 'Bulgarian'),
-            ('es', 'Spanish'),
-            ('ru', 'Russian'),
-            ('nl', 'Dutch'),
-            ('pt', 'Portuguese'),
-            ('el', 'Greek'),
-            ('cs', 'Czech'),
-            ('sv', 'Swedish'),
-            ('no', 'Norwegian'),
-            ('fr', 'French'),
-            ('it', 'Italian'),
-            ('pl', 'Polish'),
-            ('uk', 'Ukrainian'),
-            ('tr', 'Turkish'),
+    ('en', 'English'),
+    ('de', 'German'),
+    ('bg', 'Bulgarian'),
+    ('es', 'Spanish'),
+    ('ru', 'Russian'),
+    ('nl', 'Dutch'),
+    ('pt', 'Portuguese'),
+    ('el', 'Greek'),
+    ('cs', 'Czech'),
+    ('sv', 'Swedish'),
+    ('no', 'Norwegian'),
+    ('fr', 'French'),
+    ('it', 'Italian'),
+    ('pl', 'Polish'),
+    ('uk', 'Ukrainian'),
+    ('tr', 'Turkish'),
 )
 
 # Default language code for this installation.
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (
-    os.path.join(SITE_ROOT, 'locale'),
-)
-
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 
 #
 # Logging
@@ -244,12 +247,10 @@ LOGGING = {
     }
 }
 
-
 #
 # ReCaptcha
 #
 RECAPTCHA_USE_SSL = True
-
 
 #
 # Cache
@@ -272,20 +273,43 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #
 THUMBNAIL_ALIASES = {
     '': {
-        'micro': {'size': (30, 30)},
-        'micro_cropped': {'size': (30, 30), 'crop': 'smart'},
-
-        'thumbnail': {'size': (80, 80)},
-        'thumbnail_cropped': {'size': (80, 80), 'crop': 'smart'},
-
-        'small': {'size': (200, 200)},
-        'small_cropped': {'size': (200, 200), 'crop': 'smart'},
-
-        'medium': {'size': (400, 400)},
-        'medium_cropped': {'size': (400, 400), 'crop': 'smart'},
-
-        'large': {'size': (800, 800), 'quality': 90},
-        'large_cropped': {'size': (800, 800), 'crop': 'smart', 'quality': 90},
+        'micro': {
+            'size': (30, 30)
+        },
+        'micro_cropped': {
+            'size': (30, 30),
+            'crop': 'smart'
+        },
+        'thumbnail': {
+            'size': (80, 80)
+        },
+        'thumbnail_cropped': {
+            'size': (80, 80),
+            'crop': 'smart'
+        },
+        'small': {
+            'size': (200, 200)
+        },
+        'small_cropped': {
+            'size': (200, 200),
+            'crop': 'smart'
+        },
+        'medium': {
+            'size': (400, 400)
+        },
+        'medium_cropped': {
+            'size': (400, 400),
+            'crop': 'smart'
+        },
+        'large': {
+            'size': (800, 800),
+            'quality': 90
+        },
+        'large_cropped': {
+            'size': (800, 800),
+            'crop': 'smart',
+            'quality': 90
+        },
     },
 }
 
@@ -307,13 +331,23 @@ if USE_S3:
     COMPRESS_URL = STATIC_URL
     COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     COMPRESS_OFFLINE = True
-    COMPRESS_OFFLINE_CONTEXT = [
-        {'request': {'user_agent': {'is_mobile': True}}, 'STATIC_URL': STATIC_URL},
-        {'request': {'user_agent': {'is_mobile': False}}, 'STATIC_URL': STATIC_URL}
-    ]
+    COMPRESS_OFFLINE_CONTEXT = [{
+        'request': {
+            'user_agent': {
+                'is_mobile': True
+            }
+        },
+        'STATIC_URL': STATIC_URL
+    }, {
+        'request': {
+            'user_agent': {
+                'is_mobile': False
+            }
+        },
+        'STATIC_URL': STATIC_URL
+    }]
 else:
     STATIC_URL = '/static/'
-
 
 #
 # Django compressor
@@ -321,10 +355,8 @@ else:
 
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
-COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.rCSSMinFilter'
-)
+COMPRESS_CSS_FILTERS = ('compressor.filters.css_default.CssAbsoluteFilter',
+                        'compressor.filters.cssmin.rCSSMinFilter')
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
     'compressor.filters.template.TemplateFilter',
@@ -335,25 +367,28 @@ COMPRESS_ROOT = STATIC_ROOT
 # Django Rest Framework
 #
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20,
-    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE':
+    20,
+    'PAGINATE_BY_PARAM':
+    'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT':
+    'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
-                                'rest_framework.filters.OrderingFilter'),
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.ScopedRateThrottle'
-    ],
+    'DEFAULT_FILTER_BACKENDS':
+    ('django_filters.rest_framework.DjangoFilterBackend',
+     'rest_framework.filters.OrderingFilter'),
+    'DEFAULT_THROTTLE_CLASSES':
+    ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
         'login': '3/min'
     }
 }
-
 
 #
 # CORS headers: allow all hosts to access the API
@@ -364,25 +399,27 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (
-    re.compile(r'^/favicon\.ico$'),
-)
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
 
 #
 # Password rules
 #
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -401,3 +438,12 @@ WGER_SETTINGS = {
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False
 }
+
+SOCIAL_AUTH_FACEBOOK_KEY = "961524321254840"
+SOCIAL_AUTH_FACEBOOK_SECRET = 'ce5af1f199d033cb3a946544fa91962f'
+
+SOCIAL_AUTH_GITHUB_KEY = 'c0c53a42aa56aa6a233f'
+SOCIAL_AUTH_GITHUB_SECRET = '3123c7edbf6931b9022764f57f46501a7ae7b68c'
+
+SOCIAL_AUTH_TWITTER_KEY = 'OggysVyw1nkH6p5VQCWXH1wFT'
+SOCIAL_AUTH_TWITTER_SECRET = 'BPnLkLT2UJP2TWBxNu9IJSP8Y6SQKpDEDMUJ6RA0LgOPJZIHZ6'
