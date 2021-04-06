@@ -19,6 +19,7 @@
 import json
 
 # Django
+from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404
 
 # Third Party
@@ -242,6 +243,23 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(Day, 'exerciseday')]
+
+    @action(detail=True)
+    def computed_settings(self, request, pk):
+        """Returns the synthetic settings for this set"""
+
+        out = SettingSerializer(self.get_object().compute_settings, many=True).data
+        return Response({'results': out})
+
+    @action(detail=True)
+    def smart_text(self, request, pk):
+        """Returns the smart text representation for the reps"""
+
+        try:
+            exercise = get_object_or_404(Exercise, pk=int(self.request.GET.get('exercise')))
+        except ValueError:
+            return HttpResponseNotFound()
+        return Response({'results': self.get_object().reps_smart_text(exercise=exercise)})
 
 
 class SettingViewSet(WgerOwnerObjectModelViewSet):
