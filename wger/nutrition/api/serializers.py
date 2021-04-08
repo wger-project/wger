@@ -88,7 +88,8 @@ class IngredientSerializer(serializers.ModelSerializer):
                   'fibres',
                   'sodium',
                   'license',
-                  'license_author']
+                  'license_author',
+                  'language']
 
 
 class IngredientInfoSerializer(serializers.ModelSerializer):
@@ -115,7 +116,8 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
                   'sodium',
                   'license',
                   'license_author',
-                  'ingredientweightunit_set']
+                  'ingredientweightunit_set',
+                  'language']
 
 
 class MealItemSerializer(serializers.ModelSerializer):
