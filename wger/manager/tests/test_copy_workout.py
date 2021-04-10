@@ -46,8 +46,8 @@ class CopyWorkoutTestCase(WgerTestCase):
 
         # Copy the workout
         count_before = Workout.objects.count()
-        response = self.client.post(reverse('manager:workout:copy', kwargs={'pk': '3'}),
-                                    {'comment': 'A copied workout'})
+        self.client.post(reverse('manager:workout:copy', kwargs={'pk': '3'}),
+                         {'comment': 'A copied workout'})
         count_after = Workout.objects.count()
 
         if not owner:
@@ -55,7 +55,6 @@ class CopyWorkoutTestCase(WgerTestCase):
         else:
             self.assertGreater(count_after, count_before)
             self.assertEqual(count_after, 4)
-
             self.assertTemplateUsed('workout/view.html')
 
         # Test accessing the copied workout
@@ -66,14 +65,14 @@ class CopyWorkoutTestCase(WgerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
 
-            original = Workout.objects.get(pk=3)
-            copy = Workout.objects.get(pk=4)
+            workout_original = Workout.objects.get(pk=3)
+            workout_copy = Workout.objects.get(pk=4)
 
-            days_original = original.day_set.all()
-            days_copy = copy.day_set.all()
+            days_original = workout_original.day_set.all()
+            days_copy = workout_copy.day_set.all()
 
             # Test that the different attributes and objects are correctly copied over
-            for i in range(0, original.day_set.count()):
+            for i in range(0, workout_original.day_set.count()):
                 self.assertEqual(days_original[i].description, days_copy[i].description)
 
                 for j in range(0, days_original[i].day.count()):

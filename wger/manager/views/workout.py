@@ -35,6 +35,7 @@ from django.urls import (
     reverse,
     reverse_lazy
 )
+from django.utils.text import slugify
 from django.utils.translation import (
     ugettext as _,
     ugettext_lazy
@@ -43,6 +44,10 @@ from django.views.generic import (
     DeleteView,
     UpdateView
 )
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # wger
 from wger.core.models import (
@@ -136,7 +141,7 @@ def copy_workout(request, pk):
         if workout_form.is_valid():
 
             # Copy workout
-            days = workout.day_set.all()
+            days_original = workout.day_set.all()
 
             workout_copy = workout
             workout_copy.pk = None
@@ -145,7 +150,7 @@ def copy_workout(request, pk):
             workout_copy.save()
 
             # Copy the days
-            for day in days:
+            for day in days_original:
                 sets = day.set_set.all()
 
                 day_copy = day
@@ -182,6 +187,13 @@ def copy_workout(request, pk):
                                                 kwargs={'pk': workout.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
+        workout_form.helper = FormHelper()
+        workout_form.helper.form_id = slugify(request.path)
+        workout_form.helper.form_method = 'post'
+        workout_form.helper.form_action = request.path
+        workout_form.helper.add_input(
+            Submit('submit', _('Save'), css_class='btn-success btn-block'))
+        workout_form.helper.form_class = 'wger-form'
 
         template_data = {}
         template_data.update(csrf(request))
