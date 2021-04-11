@@ -764,7 +764,7 @@ class Setting(models.Model):
     """
 
     reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(600)],
-                               verbose_name=_('Amount'))
+                               verbose_name=_('Reps'))
     """
     Amount of repetitions, minutes, etc. for a set.
 

@@ -216,6 +216,9 @@ LOCALE_PATHS = (
     os.path.join(SITE_ROOT, 'locale'),
 )
 
+# Primary keys are AutoFields
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 #
 # Logging
