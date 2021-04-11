@@ -157,6 +157,7 @@ class WorkoutLogFormHelper(FormHelper):
         super().__init__(*args, **kwargs)
         self.form_method = 'post'
         self.layout = Layout(
+            'id',
             Row(
                 Column('reps', css_class='form-group col-2 mb-0'),
                 Column('repetition_unit', css_class='form-group col-3 mb-0'),
