@@ -77,7 +77,7 @@ class UserPreferencesForm(forms.ModelForm):
     last_name = forms.CharField(label=_('Last name'),
                                 required=False)
     email = EmailField(label=_("Email"),
-                       help_text=_("Used for password resets and, optionally, email reminders."),
+                       help_text=_("Used for password resets and, optionally, e-mail reminders."),
                        required=False)
 
     class Meta:
@@ -142,12 +142,12 @@ class UserEmailForm(forms.ModelForm):
 
     def clean_email(self):
         """
-        Email must be unique system wide
+        E-mail must be unique system wide
 
-        However, this check should only be performed when the user changes his
-        email, otherwise the uniqueness check will because it will find one user
-        (the current one) using the same email. Only when the user changes it, do
-        we want to check that nobody else has that email
+        However, this check should only be performed when the user changes
+        e-mail address, otherwise the uniqueness check will because it will find one user
+        (the current one) using the same e-mail. Only when the user changes it, do
+        we want to check that nobody else has that e-mail address.
         """
 
         email = self.cleaned_data["email"]
@@ -160,7 +160,7 @@ class UserEmailForm(forms.ModelForm):
         except User.DoesNotExist:
             return email
 
-        raise ValidationError(_("This email is already used."))
+        raise ValidationError(_("This e-mail address is already in use."))
 
 
 class UserPersonalInformationForm(UserEmailForm):
@@ -206,12 +206,12 @@ class PasswordConfirmationForm(Form):
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
     """
-    Registration form with recaptcha field
+    Registration form with reCAPTCHA field
     """
 
     captcha = ReCaptchaField(widget=ReCaptchaV3,
                              label='reCaptcha',
-                             help_text=_('Form is secured with reCaptcha'))
+                             help_text=_('The form is secured with reCAPTCHA'))
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -232,7 +232,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
 
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     """
-    Registration form without captcha field
+    Registration form without CAPTCHA field
     """
 
     def __init__(self, *args, **kwargs):
@@ -258,7 +258,7 @@ class FeedbackRegisteredForm(forms.Form):
     contact = forms.CharField(max_length=50,
                               min_length=10,
                               label=_('Contact'),
-                              help_text=_('Some way of answering you (email, etc.)'),
+                              help_text=_('Some way of answering you (e-mail, etc.)'),
                               required=False)
 
     comment = forms.CharField(max_length=500,
@@ -271,8 +271,8 @@ class FeedbackRegisteredForm(forms.Form):
 
 class FeedbackAnonymousForm(FeedbackRegisteredForm):
     """
-    Feedback form used for anonymous users (has additionally a reCaptcha field)
+    Feedback form used for anonymous users (has additionally a reCAPTCHA field)
     """
     captcha = ReCaptchaField(widget=ReCaptchaV3,
                              label='reCaptcha',
-                             help_text=_('Form is secured with reCaptcha'))
+                             help_text=_('The form is secured with reCAPTCHA'))
