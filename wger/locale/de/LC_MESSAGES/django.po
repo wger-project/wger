@@ -12,14 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-11 20:48+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: German (http://www.transifex.com/rge/wger-workout-manager/language/de/)\n"
+"PO-Revision-Date: 2021-04-11 20:21+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: wger/config/models.py:54 wger/core/templates/navigation.html:41
 #: wger/exercises/templates/exercise/overview.html:11 wger/manager/forms.py:99
@@ -309,7 +310,7 @@ msgstr "Ungültiges Passwort"
 
 #: wger/core/forms.py:214 wger/core/forms.py:278
 msgid "Form is secured with reCaptcha"
-msgstr ""
+msgstr "Formular ist mit reCaptcha gesichert"
 
 #: wger/core/forms.py:229 wger/core/forms.py:250
 #: wger/core/templates/navigation.html:165
@@ -599,6 +600,9 @@ msgid ""
 "    browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr ""
+"Du bist als Benutzer \"%(current_user)s\" auf der Website unterwegs, alle "
+"Aktionen werden mit ihren Daten durchgeführt.\n"
+"    "
 
 #: wger/core/templates/base.html:16 wger/core/templates/base_wide.html:14
 #, python-format
@@ -1975,6 +1979,8 @@ msgstr "Muskel hinzufügen"
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"Keine Übungen für diesen Muskel. Füge eine Übung hinzu oder bearbeite sie "
+"und stelle den Muskel ein."
 
 #: wger/exercises/views/categories.py:69
 msgid "Add category"
@@ -1997,6 +2003,7 @@ msgstr "Gerät löschen?"
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
+"%(name_original)s ist zu ähnlich zur bestehenden Übung \"%(exercise_name)s\""
 
 #: wger/exercises/views/exercises.py:232
 #: wger/software/templates/contribute.html:37
@@ -3136,7 +3143,7 @@ msgstr "Kreuze die Checkbox an wenn du diesem Plan eine Zielmenge an Kalorien ge
 
 #: wger/nutrition/models.py:274
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Zutatenkategorien"
 
 #: wger/nutrition/models.py:325
 msgid "In kcal per 100g"
@@ -3185,11 +3192,11 @@ msgstr "Natrium"
 
 #: wger/nutrition/models.py:396
 msgid "Link to product"
-msgstr ""
+msgstr "Link zum Produkt"
 
 #: wger/nutrition/models.py:414
 msgid "Brand name of product"
-msgstr ""
+msgstr "Markenname des Produkts"
 
 #: wger/nutrition/models.py:473
 #, python-brace-format
@@ -3340,7 +3347,7 @@ msgstr "Makronährstoffe"
 #: wger/nutrition/templates/plan/view.html:64
 #: wger/nutrition/templates/plan/view.html:216
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: wger/nutrition/templates/ingredient/view.html:101
 #: wger/nutrition/templates/ingredient/view.html:117
