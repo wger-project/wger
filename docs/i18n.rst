@@ -21,7 +21,7 @@ subfolder, not the root one)::
 
 and finally you can compile them with::
 
-    django-admin compilemessages --all
+    django-admin compilemessages
 
 
 Adding new languages
