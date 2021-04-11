@@ -299,29 +299,15 @@ class SetEditEditTestCase(WgerTestCase):
 
         # Try to edit the object
         response = self.client.post(reverse('manager:set:edit', kwargs={'pk': 3}),
-                                    {'exercise2-TOTAL_FORMS': 4,
+                                    {'exercise2-TOTAL_FORMS': 1,
                                      'exercise2-INITIAL_FORMS': 1,
-                                     'exercise2-MAX_NUM_FORMS': 1000,
+                                     'exercise2-MAX_NUM_FORMS': 1,
+                                     'exercise2-MIN_NUM_FORMS': 1,
                                      'exercise2-0-reps': 5,
                                      'exercise2-0-id': 3,
-                                     'exercise2-0-repetition_unit': 1,
-                                     'exercise2-0-weight_unit': 1,
-                                     'exercise2-0-DELETE': False,
-                                     'exercise2-1-reps': 13,
-                                     'exercise2-1-id': '',
-                                     'exercise2-1-repetition_unit': 1,
-                                     'exercise2-1-weight_unit': 1,
-                                     'exercise2-2-DELETE': False,
-                                     'exercise2-2-reps': 13,
-                                     'exercise2-2-id': '',
-                                     'exercise2-2-repetition_unit': 1,
-                                     'exercise2-2-weight_unit': 1,
-                                     'exercise2-2-DELETE': False,
-                                     'exercise2-3-reps': 13,
-                                     'exercise2-3-id': '',
-                                     'exercise2-3-repetition_unit': 1,
-                                     'exercise2-3-weight_unit': 1,
-                                     'exercise2-3-DELETE': False})
+                                     'exercise2-0-repetition_unit': 2,
+                                     'exercise2-0-weight_unit': 3,
+                                     'exercise2-0-rir': '1.5'})
 
         entry_after = Set.objects.get(pk=3)
 
@@ -337,12 +323,12 @@ class SetEditEditTestCase(WgerTestCase):
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
 
-            # Settings were updated and a new one created
+            # Setting was updated
             setting = Setting.objects.get(pk=3)
             self.assertEqual(setting.reps, 5)
-
-            setting = Setting.objects.get(pk=4)
-            self.assertEqual(setting.reps, 13)
+            self.assertEqual(setting.repetition_unit_id, 2)
+            self.assertEqual(setting.weight_unit_id, 3)
+            self.assertEqual(setting.rir, '1.5')
 
         self.post_test_hook()
 
