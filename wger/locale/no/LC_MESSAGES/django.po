@@ -12,14 +12,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-11 20:48+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Norwegian (http://www.transifex.com/rge/wger-workout-manager/language/no/)\n"
+"PO-Revision-Date: 2021-04-12 08:29+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
+"web/nb_NO/>\n"
+"Language: no\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: no\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: wger/config/models.py:54 wger/core/templates/navigation.html:41
 #: wger/exercises/templates/exercise/overview.html:11 wger/manager/forms.py:99
@@ -308,8 +310,9 @@ msgid "Invalid password"
 msgstr "Ugyldig passord"
 
 #: wger/core/forms.py:214 wger/core/forms.py:278
+#, fuzzy
 msgid "Form is secured with reCaptcha"
-msgstr ""
+msgstr "Skjemaet er sikret med reCAPTCHA"
 
 #: wger/core/forms.py:229 wger/core/forms.py:250
 #: wger/core/templates/navigation.html:165
@@ -593,12 +596,16 @@ msgid "Something happened that caused an error."
 msgstr "Noe skjedde som forårsaket en feil."
 
 #: wger/core/templates/base.html:12 wger/core/templates/base_wide.html:10
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You are\n"
 "    browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
 msgstr ""
+"Du\n"
+" besøker siden som brukeren «%(current_user)s». Alle handlinger utføres på "
+"vedkommendes data.\n"
+"    "
 
 #: wger/core/templates/base.html:16 wger/core/templates/base_wide.html:14
 #, python-format
@@ -1533,7 +1540,7 @@ msgstr "Inkluder i inaktiv oversikt"
 
 #: wger/core/templates/user/overview.html:487
 msgid "Admin login is only available for users in"
-msgstr ""
+msgstr "Administratorinnlogging er kun tilgjengelig for brukere i"
 
 #: wger/core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1972,9 +1979,10 @@ msgid "Add muscle"
 msgstr "Legg til muskel"
 
 #: wger/exercises/templates/muscles/overview.html:81
+#, fuzzy
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
-msgstr ""
+msgstr "Ingen øvelser for denne muskelen. Legg til en øvelse og angi muskelen."
 
 #: wger/exercises/views/categories.py:69
 msgid "Add category"
@@ -1993,10 +2001,10 @@ msgid "Delete equipment?"
 msgstr "Slett utstyr?"
 
 #: wger/exercises/views/exercises.py:218
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
+msgstr "%(name_original)s er for likt eksisterende øvelse «%(exercise_name)s»"
 
 #: wger/exercises/views/exercises.py:232
 #: wger/software/templates/contribute.html:37
@@ -3136,7 +3144,7 @@ msgstr "Kryss av i boksen hvis du ønsker å markere denne planen som et mål me
 
 #: wger/nutrition/models.py:274
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Ingredienskategorier"
 
 #: wger/nutrition/models.py:325
 msgid "In kcal per 100g"
@@ -3185,11 +3193,11 @@ msgstr "Natrium"
 
 #: wger/nutrition/models.py:396
 msgid "Link to product"
-msgstr ""
+msgstr "Lenke til produkt"
 
 #: wger/nutrition/models.py:414
 msgid "Brand name of product"
-msgstr ""
+msgstr "Merkenavn for produkt"
 
 #: wger/nutrition/models.py:473
 #, python-brace-format
@@ -3340,7 +3348,7 @@ msgstr "Makronæringsstoffer"
 #: wger/nutrition/templates/plan/view.html:64
 #: wger/nutrition/templates/plan/view.html:216
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: wger/nutrition/templates/ingredient/view.html:101
 #: wger/nutrition/templates/ingredient/view.html:117
@@ -4027,7 +4035,7 @@ msgstr "Bruk lenken for å opprette"
 
 #: wger/weight/templates/overview.html:34
 msgid "height in cm"
-msgstr ""
+msgstr "høyde i cm"
 
 #: wger/weight/templates/overview.html:38
 msgid "Last 3 months"
