@@ -33,6 +33,7 @@ from django.utils.translation import ugettext as _
 
 # Third Party
 from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 from crispy_forms.bootstrap import (
     Accordion,
     AccordionGroup
@@ -205,15 +206,28 @@ class PasswordConfirmationForm(Form):
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
     """
-    Registration form
+    Registration form with recaptcha field
     """
 
-    # Manually set the language to 'en', otherwise the language used seems to
-    # randomly one of the application languages. This also appears to happen
-    # only on wger.de, perhaps because there the application is behind a reverse
-    # proxy. See  #281.
-    captcha = ReCaptchaField(label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'))
+    captcha = ReCaptchaField(widget=ReCaptchaV3,
+                             label='reCaptcha',
+                             help_text=_('Form is secured with reCaptcha'))
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            'username',
+            'email',
+            Row(
+                Column('password1', css_class='form-group col-6 mb-0'),
+                Column('password2', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'captcha',
+            ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+        )
 
 
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
@@ -259,5 +273,6 @@ class FeedbackAnonymousForm(FeedbackRegisteredForm):
     """
     Feedback form used for anonymous users (has additionally a reCaptcha field)
     """
-    captcha = ReCaptchaField(label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
+    captcha = ReCaptchaField(widget=ReCaptchaV3,
+                             label='reCaptcha',
+                             help_text=_('Form is secured with reCaptcha'))

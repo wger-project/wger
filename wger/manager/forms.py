@@ -37,7 +37,6 @@ from django.utils.translation import (
 )
 
 # Third Party
-from captcha.fields import ReCaptchaField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Column,
@@ -65,11 +64,6 @@ from wger.utils.widgets import (
     ExerciseAjaxSelect,
     TranslatedSelectMultiple
 )
-
-
-class DemoUserForm(Form):
-    captcha = ReCaptchaField(label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
 
 
 class WorkoutForm(ModelForm):

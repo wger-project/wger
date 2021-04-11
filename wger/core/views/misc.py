@@ -31,9 +31,14 @@ from django.urls import (
     reverse,
     reverse_lazy
 )
+from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # wger
 from wger.core.demo import (
@@ -178,10 +183,6 @@ class FeedbackClass(FormView):
         """
         context = super(FeedbackClass, self).get_context_data(**kwargs)
         context['title'] = _('Feedback')
-        # TODO: change template so it iterates through form and not formfields
-        context['form_fields'] = context['form']
-        context['submit_text'] = _('Send')
-        context['contribute_url'] = reverse('software:contribute')
         return context
 
     def get_form_class(self):
@@ -194,16 +195,23 @@ class FeedbackClass(FormView):
         else:
             return FeedbackRegisteredForm
 
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+
+        form = super(FeedbackClass, self).get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.form_id = slugify(self.request.path)
+        form.helper.add_input(Submit('submit', _('Submit'), css_class='btn-success btn-block'))
+        form.helper.form_class = 'wger-form'
+        return form
+
     def form_valid(self, form):
         """
         Send the feedback to the administrators
         """
         messages.success(self.request, _('Your feedback was successfully sent. Thank you!'))
 
-        context = {}
-        context['user'] = self.request.user
-        context['form_data'] = form.cleaned_data
-
+        context = {'user': self.request.user, 'form_data': form.cleaned_data}
         subject = 'New feedback'
         message = render_to_string('user/email_feedback.html', context)
         mail.mail_admins(subject, message)

@@ -42,7 +42,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'wger-django-secret-key')
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
-NOCAPTCHA = os.environ.get('NOCAPTCHA', '')
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be
