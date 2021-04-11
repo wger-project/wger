@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import copy
 import datetime
 import logging
 import uuid
@@ -143,7 +144,7 @@ def copy_workout(request, pk):
             # Copy workout
             days_original = workout.day_set.all()
 
-            workout_copy = workout
+            workout_copy = copy.copy(workout)
             workout_copy.pk = None
             workout_copy.comment = workout_form.cleaned_data['comment']
             workout_copy.user = request.user
@@ -152,9 +153,9 @@ def copy_workout(request, pk):
             # Copy the days
             for day in days_original:
                 sets = day.set_set.all()
-
-                day_copy = day
                 days_of_week = [i for i in day.day.all()]
+
+                day_copy = copy.copy(day)
                 day_copy.pk = None
                 day_copy.training = workout_copy
                 day_copy.save()
@@ -164,27 +165,20 @@ def copy_workout(request, pk):
 
                 # Copy the sets
                 for current_set in sets:
-                    current_set_id = current_set.id
-                    exercises = current_set.exercises
-
-                    current_set_copy = current_set
+                    current_set_copy = copy.copy(current_set)
                     current_set_copy.pk = None
                     current_set_copy.exerciseday = day_copy
                     current_set_copy.save()
 
-                    # Go through the exercises
-                    for exercise in exercises:
-                        settings = exercise.setting_set.filter(set_id=current_set_id)
-
-                        # Copy the settings
-                        for setting in settings:
-                            setting_copy = setting
-                            setting_copy.pk = None
-                            setting_copy.set = current_set_copy
-                            setting_copy.save()
+                    # Copy the settings
+                    for current_setting in current_set.setting_set.all():
+                        setting_copy = copy.copy(current_setting)
+                        setting_copy.pk = None
+                        setting_copy.set = current_set_copy
+                        setting_copy.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                                kwargs={'pk': workout.id}))
+                                                kwargs={'pk': workout_copy.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
         workout_form.helper = FormHelper()
