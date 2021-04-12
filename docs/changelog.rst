@@ -54,6 +54,7 @@ Upgrade steps from 1.9:
 
 🧰 Maintenance:
 
+* Moved translations to weblate `#266`_
 * Improved docker and docker-compose images `#340`_
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
 * Use yarn to download CSS/JS libraries
@@ -88,6 +89,7 @@ Upgrade steps from 1.9:
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246
+.. _#266: https://github.com/wger-project/wger/issues/266
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
