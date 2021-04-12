@@ -12,5 +12,4 @@ wheel
 coverage
 django-debug-toolbar
 tblib
-transifex-client
 isort
