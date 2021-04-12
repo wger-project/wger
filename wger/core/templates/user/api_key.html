@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% trans "API key" %}{% endblock %}
+{% block title %}{% translate "API key" %}{% endblock %}
 
 
 {% block content %}
 {% with url='/api/v2/' %}
-<p>{% blocktrans %}Generate an API key if you want to interact with wger via
+<p>{% blocktranslate %}Generate an API key if you want to interact with wger via
 the <a href="{{url}}" rel="nofollow">REST API</a> it provides (for
 public resources such as the exercises or ingredients, you don't need to provide
-anything). You must pass this information in the header in the format shown below.{% endblocktrans %}
+anything). You must pass this information in the header in the format shown below.{% endblocktranslate %}
 {% endwith %}
 
-<p>{% blocktrans %}For security reasons, you should only access the API via HTTPS.{% endblocktrans %}</p>
+<p>{% blocktranslate %}For security reasons, you should only access the API via HTTPS.{% endblocktranslate %}</p>
 <div class="card mb-4 {% if token %}text-white bg-success{% else %}bg-light{% endif %}" >
     <div class="card-header">
-        {% trans "Your API key" %}
+        {% translate "Your API key" %}
     </div>
     <div class="card-body">
         {% if token %}
             <strong>{{token.key}}</strong>
         {% else %}
-            <em>{% trans "You have no API key yet" %}</em>
+            <em>{% translate "You have no API key yet" %}</em>
         {% endif %}
     </div>
 </div>
@@ -41,17 +41,17 @@ curl -X GET https://wger.de/api/v2/workout/ \
 
 
 {% block sidebar %}
-<h4>{% trans "Options" %}</h4>
+<h4>{% translate "Options" %}</h4>
 
 <p>
 {% if token %}
-    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-light">{% trans 'Delete current API key and generate new one' %}</a>
+    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-light">{% translate 'Delete current API key and generate new one' %}</a>
 {% else %}
-    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-light">{% trans 'Generate new API key' %}</a>
+    <a href="{% url 'core:user:api-key' %}?new_key=true" class="btn btn-block btn-light">{% translate 'Generate new API key' %}</a>
 {% endif %}
 </p>
 
 <p>
-    <a href="{% url 'software:api' %}" class="btn btn-block btn-light">{% trans 'Documentation' %}</a>
+    <a href="{% url 'software:api' %}" class="btn btn-block btn-light">{% translate 'Documentation' %}</a>
 </p>
 {% endblock %}

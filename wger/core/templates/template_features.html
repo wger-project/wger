@@ -59,7 +59,7 @@
     <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     {% endcompress %}
 
-    <title>wger Workout Manager - {% trans "Features" %}</title>
+    <title>wger Workout Manager - {% translate "Features" %}</title>
 </head>
 
 <body id="page-top" class="index">
@@ -80,10 +80,10 @@
             <div class="col-md-4">
                 <ul class="list-inline quicklinks">
                     <li class="list-inline-item">
-                        <a href="{% url 'software:contribute' %}" class="text-muted small">{% trans "Contribute!" %}</a>
+                        <a href="{% url 'software:contribute' %}" class="text-muted small">{% translate "Contribute!" %}</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{% url 'core:contact' %}" class="text-muted small">{% trans "Get in touch" %}</a>
+                        <a href="{% url 'core:contact' %}" class="text-muted small">{% translate "Get in touch" %}</a>
                     </li>
                 </ul>
             </div>
@@ -100,7 +100,7 @@
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://www.transifex.com/rge/wger-workout-manager/" title="{% trans 'Translate' %}">
+                        <a href="https://www.transifex.com/rge/wger-workout-manager/" title="{% translate 'Translate' %}">
                             <span class="{% fa_class 'globe' %}"></span>
                         </a>
                     </li>
@@ -118,11 +118,11 @@
             <div class="col-md-4 text-lg-right">
                 <ul class="list-inline quicklinks">
                     <li class="list-inline-item">
-                        <a href="{% url 'core:about' %}" class="text-muted small">{% trans "About" %}</a>
+                        <a href="{% url 'core:about' %}" class="text-muted small">{% translate "About" %}</a>
                     </li>
 
                     <li class="list-inline-item">
-                        <a href="{% url 'software:tos' %}" class="text-muted small">{% trans "Terms of service" %}</a>
+                        <a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a>
                     </li>
                 </ul>
             </div>

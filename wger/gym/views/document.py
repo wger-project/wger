@@ -26,8 +26,8 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -91,7 +91,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
     model = UserDocument
     fields = ['document', 'name', 'note']
-    title = ugettext_lazy('Add note')
+    title = gettext_lazy('Add note')
     permission_required = 'gym.add_userdocument'
     member = None
 

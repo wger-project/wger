@@ -18,8 +18,8 @@
 <table class="table">
 <thead>
     <tr>
-        <th>{% trans "Language short name" %}</th>
-        <th>{% trans "Language full name" %}</th>
+        <th>{% translate "Language short name" %}</th>
+        <th>{% translate "Language full name" %}</th>
     </tr>
 </thead>
 <tbody>
@@ -31,17 +31,17 @@
 </table>
 
 
-<h4>{% trans "Configuration" %}</h4>
-<p>{% blocktrans %}Use the configuration to select in what languages the
+<h4>{% translate "Configuration" %}</h4>
+<p>{% blocktranslate %}Use the configuration to select in what languages the
 exercises and ingredients will be shown for the current language (for example
 the exercises should be shown in languages A, B and C; the ingredients only
-in A).{% endblocktrans %}</p>
+in A).{% endblocktranslate %}</p>
 
 <table class="table">
 <thead>
     <tr>
-        <th>{% trans "Language full name" %}</th>
-        <th>{% trans "Show" %}</th>
+        <th>{% translate "Language full name" %}</th>
+        <th>{% translate "Show" %}</th>
     </tr>
 </thead>
 <tbody>
@@ -88,17 +88,17 @@ in A).{% endblocktrans %}</p>
     <div class="btn-group">
         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
-            {% trans "Options" %}
+            {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
             <a href="{% url 'core:language:edit' view_language.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'edit' %}"></span>
-                {% trans "Edit" %}
+                {% translate "Edit" %}
             </a>
             <div role="separator" class="dropdown-divider"></div>
             <a href="{% url 'core:language:delete' view_language.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete" %}
+                {% translate "Delete" %}
             </a>
         </div>
     </div>

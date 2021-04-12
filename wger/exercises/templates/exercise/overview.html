@@ -8,7 +8,7 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Exercises" %}{% endblock %}
+{% block title %}{% translate "Exercises" %}{% endblock %}
 
 
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
     <div class="card">
         <div class="card-header" id="header-{{item.grouper.id}}">
             <button class="btn  btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{item.grouper.id}}" aria-expanded="true" aria-controls="collapse-{{equipment.pk}}">
-                {% trans item.grouper.name %}
+                {% translate item.grouper.name %}
             </button>
         </div>
         <div class="collapse" id="collapse-{{item.grouper.id}}" data-parent="#exerciseAccordion">
@@ -60,7 +60,7 @@ $(document).ready(function() {
                                  style="width: 50px;"
                                  src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
                             {% else %}
-                                <img alt="{% trans 'Placeholder image for exercise' %}"
+                                <img alt="{% translate 'Placeholder image for exercise' %}"
                                      class="mr-3"
                                      style="width: 50px;"
                                      src="{% static 'images/icons/image-placeholder.svg' %}">
@@ -71,9 +71,9 @@ $(document).ready(function() {
 
                                     {{ exercise.equipment.all|join:", " }}
                                     <!--
-                                    {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
+                                    {% translate "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
                                     <br>
-                                    {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
+                                    {% translate "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
                                     -->
                                 </span>
                              </div>
@@ -85,7 +85,7 @@ $(document).ready(function() {
         </div>
     </div>
     {% empty %}
-        <p>{% trans "No categories." %} {% trans "Use link to create one" %}</p>
+        <p>{% translate "No categories." %} {% translate "Use link to create one" %}</p>
     {% endfor %}
 </div>
 {% endcache %}
@@ -96,12 +96,12 @@ $(document).ready(function() {
         Side bar
 -->
 {% block sidebar %}
-<h4>{% trans "Search" %}</h4>
+<h4>{% translate "Search" %}</h4>
     <input name="term"
            type="search"
            id="exercise-search"
            class="ajax-form-element form-control"
-           placeholder="{% trans 'exercise name' %}">
+           placeholder="{% translate 'exercise name' %}">
 {% endblock %}
 
 
@@ -109,13 +109,13 @@ $(document).ready(function() {
 {% block options %}
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
         <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
-            {% trans "Add new exercise" %}
+            {% translate "Add new exercise" %}
         </a>
     {% else %}
         <a href="#" class="btn btn-success btn-sm disabled">
-            {% trans "Add new exercise" %}<br>
+            {% translate "Add new exercise" %}<br>
             <small>
-            {% trans "Only registered users can do this" %}
+            {% translate "Only registered users can do this" %}
             </small>
         </a>
     {% endif %}

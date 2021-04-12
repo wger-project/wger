@@ -24,22 +24,22 @@ $(document).ready(function() {
 
 {% if ingredient.status == ingredient.STATUS_PENDING %}
 <div class="alert">
-<h4>{% trans "Ingredient is pending review" %}</h4>
-<p>{% blocktrans %}This user submitted ingredient is pending a decision to be
+<h4>{% translate "Ingredient is pending review" %}</h4>
+<p>{% blocktranslate %}This user submitted ingredient is pending a decision to be
 included in the database. Till then, it will not be shown in the overview or
-the search.{% endblocktrans %}
-{% if perms.nutrition.add_ingredient %}{% trans "Please select one of the options below." %}{% endif %}
+the search.{% endblocktranslate %}
+{% if perms.nutrition.add_ingredient %}{% translate "Please select one of the options below." %}{% endif %}
 </p>
 
 {% if perms.nutrition.add_ingredient %}
 <div class="btn-group btn-group-justified" role="group">
     <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-light">
         <span class="{% fa_class 'check' %}"></span>
-        {% trans "Accept" %}
+        {% translate "Accept" %}
     </a>
     <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-light">
         <span class="{% fa_class 'times' %}"></span>
-        {% trans "Decline" %}
+        {% translate "Decline" %}
     </a>
 </div>
 {% endif %} {# end check permissions #}
@@ -68,53 +68,53 @@ the search.{% endblocktrans %}
     <thead>
         <tr>
             <th colspan="2">
-                {% trans "Macronutrients" %}
+                {% translate "Macronutrients" %}
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{% trans "Energy" %}</td>
+            <td>{% translate "Energy" %}</td>
             <td itemprop="calories" class="text-right">
-                <span id="value-energy">{{ingredient.energy|floatformat:1}}</span> {% trans "kcal" %} /
-                <span id="value-energy-kjoule">{{ingredient.energy_kilojoule|floatformat:1}}</span> {% trans "kJ" %}
+                <span id="value-energy">{{ingredient.energy|floatformat:1}}</span> {% translate "kcal" %} /
+                <span id="value-energy-kjoule">{{ingredient.energy_kilojoule|floatformat:1}}</span> {% translate "kJ" %}
             </td>
         </tr>
         <tr>
-            <td>{% trans "Protein" %}</td>
+            <td>{% translate "Protein" %}</td>
             <td itemprop="proteinContent" class="text-right">
-                <span id="value-protein">{{ingredient.protein|floatformat:1}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                <span id="value-protein">{{ingredient.protein|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
-            <td>{% trans "Carbohydrates" %}</td>
+            <td>{% translate "Carbohydrates" %}</td>
             <td itemprop="carbohydrateContent" class="text-right">
-                <span id="value-carbohydrates">{{ingredient.carbohydrates|floatformat}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                <span id="value-carbohydrates">{{ingredient.carbohydrates|floatformat}}</span> {% translate "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
-            <td class="pl-5">{% trans "Sugar content in carbohydrates" %}</td>
+            <td class="pl-5">{% translate "Sugar content in carbohydrates" %}</td>
             <td itemprop="sugarContent" class="text-right">
                 {% if ingredient.carbohydrates_sugar %}
-                    <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar|floatformat:1}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                    <span id="value-carbohydrates-sugar">{{ingredient.carbohydrates_sugar|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
-                    {% trans "n.A." %}
+                    {% translate "n.A." %}
                 {% endif %}
             </td>
         </tr>
         <tr>
-            <td>{% trans "Fat" %}</td>
+            <td>{% translate "Fat" %}</td>
             <td itemprop="fatContent" class="text-right">
-                <span id="value-fat">{{ingredient.fat|floatformat:1}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                <span id="value-fat">{{ingredient.fat|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
             </td>
         </tr>
         <tr>
-            <td class="pl-5">{% trans "Saturated fat content in fats" %}</td>
+            <td class="pl-5">{% translate "Saturated fat content in fats" %}</td>
             <td itemprop="saturatedFatContent" class="text-right">
                 {% if ingredient.fat_saturated %}
-                    <span id="value-fat-saturated">{{ingredient.fat_saturated|floatformat:1}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                    <span id="value-fat-saturated">{{ingredient.fat_saturated|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
-                    {% trans "n.A." %}
+                    {% translate "n.A." %}
                 {% endif %}
             </td>
         </tr>
@@ -125,28 +125,28 @@ the search.{% endblocktrans %}
     <thead>
         <tr>
             <th colspan="2">
-                {% trans "Others" %}
+                {% translate "Others" %}
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{% trans "Fibres" %}</td>
+            <td>{% translate "Fibres" %}</td>
             <td itemprop="fiberContent" class="text-right">
                 {% if ingredient.fibres %}
-                    <span id="value-fibres">{{ingredient.fibres|floatformat:1}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                    <span id="value-fibres">{{ingredient.fibres|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
-                    {% trans "n.A." %}
+                    {% translate "n.A." %}
                 {% endif %}
             </td>
         </tr>
         <tr>
-            <td>{% trans "Sodium" %}</td>
+            <td>{% translate "Sodium" %}</td>
             <td itemprop="sodiumContent" class="text-right">
                 {% if ingredient.sodium %}
-                    <span id="value-sodium">{{ingredient.sodium|floatformat:1}}</span> {% trans "g" context "weight unit, i.e. grams" %}
+                    <span id="value-sodium">{{ingredient.sodium|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
-                    {% trans "n.A." %}
+                    {% translate "n.A." %}
                 {% endif %}
             </td>
         </tr>
@@ -162,19 +162,19 @@ the search.{% endblocktrans %}
 
 {% if ingredient.status == ingredient.INGREDIENT_STATUS_ACCEPTED %}
 <div class="alert" style="margin-top:1em;">
-<h4>{% trans "User submitted ingredient" %}</h4>
+<h4>{% translate "User submitted ingredient" %}</h4>
 {% with username=ingredient.user.username %}
-<p>{% blocktrans %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktrans %}
+<p>{% blocktranslate %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktranslate %}
 {% endwith %}
 </div>
 {% endif %}
 
 
 {% if perms.nutrition.delete_ingredient %}
-<h4>{% trans "Weight units" %}</h4>
+<h4>{% translate "Weight units" %}</h4>
 <p>
     <a href="{% url 'nutrition:unit_ingredient:add' ingredient.id %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add new weight unit" %}
+        {% translate "Add new weight unit" %}
     </a>
 </p>
 
@@ -182,7 +182,7 @@ the search.{% endblocktrans %}
     <table class="table">
     <thead>
         <tr>
-            <th>{% trans "Name" %}</th>
+            <th>{% translate "Name" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -195,8 +195,8 @@ the search.{% endblocktrans %}
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
-                        <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                        <a href="{% url 'nutrition:unit_ingredient:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                        <a href="{% url 'nutrition:unit_ingredient:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
                     </div>
                 </div>
             </td>
@@ -223,20 +223,20 @@ the search.{% endblocktrans %}
     <div class="btn-group">
         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
-            {% trans "Options" %}
+            {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
             <a href="{% url 'nutrition:ingredient:edit' ingredient.id %}"
-               title="{% trans 'Edit ingredient' %}"
+               title="{% translate 'Edit ingredient' %}"
                class="dropdown-item">
                 <span class="{% fa_class 'edit' %}"></span>
-                {% trans 'Edit ingredient' %}
+                {% translate 'Edit ingredient' %}
             </a>
             <div role="separator" class="dropdown-divider"></div>
             <a href="{% url 'nutrition:ingredient:delete' ingredient.id %}"
-               title="{% trans 'Delete ingredient' %}" class="wger-modal-dialog dropdown-item" >
+               title="{% translate 'Delete ingredient' %}" class="wger-modal-dialog dropdown-item" >
                 <span class="{% fa_class 'trash' %}"></span>
-                {% trans 'Delete' %}
+                {% translate 'Delete' %}
             </a>
         </div>
     </div>

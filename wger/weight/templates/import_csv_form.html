@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 {% load i18n crispy_forms_tags %}
 
-{% block title %}{% trans "Import weight logs" %}{% endblock %}
+{% block title %}{% translate "Import weight logs" %}{% endblock %}
 
 {% block content %}
 <form action="{{request.get_full_path}}" method="post">
     {% crispy form %}
-    <input type="submit" name="submit" value="{% trans 'Submit' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+    <input type="submit" name="submit" value="{% translate 'Submit' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 {% endblock %}
 
 
 {% block sidebar %}
-<p>{% blocktrans %}Use this import field to import your weight logs into Workout
-Manager.{% endblocktrans %}</p>
+<p>{% blocktranslate %}Use this import field to import your weight logs into Workout
+Manager.{% endblocktranslate %}</p>
 
-<p>{% blocktrans %}You can copy and paste from your spreadsheet into the text input,
+<p>{% blocktranslate %}You can copy and paste from your spreadsheet into the text input,
 the system will try to guess the format to import. The only things to consider is
 that the first column is the <strong>date</strong>, the second the <strong>weight</strong>.
 All further columns are ignored. There is a 1000 row limit.
-{% endblocktrans %}</p>
+{% endblocktranslate %}</p>
 
-<p>{% blocktrans %}If there are errors, you can correct or discard them in a
-second step.{% endblocktrans %}</p>
+<p>{% blocktranslate %}If there are errors, you can correct or discard them in a
+second step.{% endblocktranslate %}</p>
 
 {% endblock %}

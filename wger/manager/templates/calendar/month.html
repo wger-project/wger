@@ -7,10 +7,10 @@
 {#           #}
 {% block opengraph %}
     {{ block.super }}
-    <meta property="og:title" content="{% trans 'Calendar' %}">
+    <meta property="og:title" content="{% translate 'Calendar' %}">
 
     {% with username=owner_user.username %}
-        <meta property="og:description" content="{% blocktrans %}Calendar for {{username}}{% endblocktrans %}">
+        <meta property="og:description" content="{% blocktranslate %}Calendar for {{username}}{% endblocktranslate %}">
     {% endwith %}
 {% endblock %}
 
@@ -18,7 +18,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% trans "Calendar" %}{% endblock %}
+{% block title %}{% translate "Calendar" %}{% endblock %}
 
 
 {#        #}
@@ -50,7 +50,7 @@ $(document).ready(function() {
         <h3>
             {{date}}
             <small>
-                <a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% trans 'Detail page' %}</a>
+                <a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% translate 'Detail page' %}</a>
             </small>
         </h3>
 
@@ -71,10 +71,10 @@ $(document).ready(function() {
                             <li class="list-group-item">
                                 {{log.reps}}
                                 {% if not log.repetition_unit.is_repetition %}
-                                    {% trans log.repetition_unit.name %}
+                                    {% translate log.repetition_unit.name %}
                                 {% endif %}
                                 ×
-                                {{log.weight}} {% trans log.weight_unit.name %}
+                                {{log.weight}} {% translate log.weight_unit.name %}
 
                                 {% if is_owner %}
                                     <div class="dropdown float-right">
@@ -82,11 +82,11 @@ $(document).ready(function() {
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                                             <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                                {% trans 'Edit' %}
+                                                {% translate 'Edit' %}
                                             </a>
                                             <div class="dropdown-divider"></div>
                                             <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                                {% trans 'Delete' %}
+                                                {% translate 'Delete' %}
                                             </a>
                                         </div>
                                     </div>
@@ -112,38 +112,38 @@ $(document).ready(function() {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{% trans 'Add log to day' %}</h4>
+                <h4 class="modal-title">{% translate 'Add log to day' %}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 {% if current_workout %}
-                <p>{% blocktrans %}Click to add weight logs to a training
-day in your current workout:{% endblocktrans %} <strong>{{current_workout}}</strong></p>
+                <p>{% blocktranslate %}Click to add weight logs to a training
+day in your current workout:{% endblocktranslate %} <strong>{{current_workout}}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
                     <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-light">{{day.description}}</a>
                 {% endfor %}
 
                 {% else %}
-                <p><em>{% trans "No workouts found." %}</em></p>
+                <p><em>{% translate "No workouts found." %}</em></p>
                 <p>
                 <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-light">
                     <span class="{% fa_class 'plus' %}"></span>
-                    {% trans "Add one now." %}
+                    {% translate "Add one now." %}
                 </a>
                 </p>
                 {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
             </div>
         </div>
     </div>
 </div>
 
-<h4>{% trans 'Info' %}</h4>
-<p>{% blocktrans %}The coloured days in the calendar have weight logs,
-you can click on them to see the details.{% endblocktrans %}</p>
+<h4>{% translate 'Info' %}</h4>
+<p>{% blocktranslate %}The coloured days in the calendar have weight logs,
+you can click on them to see the details.{% endblocktranslate %}</p>
 
 <p>
     <span style="background-color: #C9302C; display: inline;">&nbsp;</span> {{ impressions.0.1 }}<br>
@@ -154,7 +154,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
 <p>
     <a href="{% url 'manager:workout:calendar' owner_user %}">
         <span class="{% fa_class 'calendar' %}"></span>
-        {% trans "Go to current month" %}</a>
+        {% translate "Go to current month" %}</a>
 </p>
 
 
@@ -185,7 +185,7 @@ you can click on them to see the details.{% endblocktrans %}</p>
 {% block options %}
 {% if is_owner %}
     <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
-        {% trans "Add new log" %}
+        {% translate "Add new log" %}
     </a>
 {% endif %}
 {% endblock %}

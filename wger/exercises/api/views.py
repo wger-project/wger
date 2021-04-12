@@ -19,7 +19,7 @@
 import logging
 
 # Django
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # Third Party
 from easy_thumbnails.alias import aliases

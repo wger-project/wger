@@ -51,8 +51,8 @@ from django.urls import (
 )
 from django.utils.cache import patch_vary_headers
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -229,7 +229,7 @@ class ExercisesEditAddView(WgerFormMixin):
     """
     model = Exercise
     sidebar = 'exercise/form.html'
-    title = ugettext_lazy('Add exercise')
+    title = gettext_lazy('Add exercise')
     custom_js = 'wgerInitTinymce();'
     clean_html = ('description', )
 
@@ -397,8 +397,8 @@ class ExerciseDeleteView(WgerDeleteMixin,
     fields = ('description',
               'name_original')
     success_url = reverse_lazy('exercise:exercise:overview')
-    delete_message_extra = ugettext_lazy('This will delete the exercise from all workouts.')
-    messages = ugettext_lazy('Successfully deleted')
+    delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
     def get_context_data(self, **kwargs):

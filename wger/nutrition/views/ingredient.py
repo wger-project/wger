@@ -35,8 +35,8 @@ from django.shortcuts import (
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -135,7 +135,7 @@ class IngredientDeleteView(WgerDeleteMixin,
               'sodium')
     template_name = 'delete.html'
     success_url = reverse_lazy('nutrition:ingredient:list')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'nutrition.delete_ingredient'
 
     # Send some additional data to the template
@@ -172,7 +172,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
     template_name = 'form.html'
     model = Ingredient
     form_class = IngredientForm
-    title = ugettext_lazy('Add a new ingredient')
+    title = gettext_lazy('Add a new ingredient')
 
     def form_valid(self, form):
 

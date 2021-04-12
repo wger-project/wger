@@ -27,8 +27,8 @@ from django.shortcuts import (
 )
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -106,7 +106,7 @@ class DayCreateView(DayView, CreateView):
     Generic view to add a new exercise day
     """
 
-    title = ugettext_lazy('Add workout day')
+    title = gettext_lazy('Add workout day')
     owner_object = {'pk': 'workout_pk', 'class': Workout}
 
     def form_valid(self, form):

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load i18n crispy_forms_tags %}
 
-{% block title %}{% trans "Preview imported CSV entries" %}{% endblock %}
+{% block title %}{% translate "Preview imported CSV entries" %}{% endblock %}
 
 
 
 {% block content %}
-<h4>{% trans "Successfully converted values" %}</h4>
-<div class="alert alert-success">{% trans "The following values could be converted." %}</div>
+<h4>{% translate "Successfully converted values" %}</h4>
+<div class="alert alert-success">{% translate "The following values could be converted." %}</div>
 <table class="table">
 <tr>
-    <th>{% trans "Date" %}</th>
-    <th>{% trans "Weight" %}</th>
+    <th>{% translate "Date" %}</th>
+    <th>{% translate "Weight" %}</th>
 </tr>
 {% for entry in weight_list %}
     <tr>
@@ -23,24 +23,24 @@
 
 
 
-<h4>{% trans "Errors" %}</h4>
+<h4>{% translate "Errors" %}</h4>
 
 {% if error_list %}
-    <div class="alert alert-danger">{% trans "The following values could not be converted." %}</div>
+    <div class="alert alert-danger">{% translate "The following values could not be converted." %}</div>
 
-    <p>{% blocktrans %}These values could not be converted to a weight log entry.
+    <p>{% blocktranslate %}These values could not be converted to a weight log entry.
     The reasons for this could be anything from an unrecognised date or number
     format, a problem with the encoding or something else. Please check that
     there are no obvious errors in the list (and correct them if there are!)
-    and try to import the list again.{% endblocktrans %}</p>
+    and try to import the list again.{% endblocktranslate %}</p>
 
-    <p>{% blocktrans %}Remember that the expected structure is <strong>date</strong>
-    on the first columns and <strong>weight</strong> on the second.{% endblocktrans %}</p>
+    <p>{% blocktranslate %}Remember that the expected structure is <strong>date</strong>
+    on the first columns and <strong>weight</strong> on the second.{% endblocktranslate %}</p>
 
     <table class="table">
     <tr>
-        <th>{% trans "Date" %}</th>
-        <th>{% trans "Weight" %}</th>
+        <th>{% translate "Date" %}</th>
+        <th>{% translate "Weight" %}</th>
     </tr>
     {% for entry in error_list %}
         <tr>
@@ -51,30 +51,30 @@
 </table>
 
 {% else %}
-    <p>{% blocktrans %}There were no errors, all entries could be converted!{% endblocktrans %}</p>
+    <p>{% blocktranslate %}There were no errors, all entries could be converted!{% endblocktranslate %}</p>
 {% endif %}
 
 
-<h2>{% trans "Import all successfully converted entries" %}</h2>
-<p>{% blocktrans %}Continue here if you want to import into your weight log all
+<h2>{% translate "Import all successfully converted entries" %}</h2>
+<p>{% blocktranslate %}Continue here if you want to import into your weight log all
 entries that were successfully converted. All entries that produced an error
 will simply be ignored. It's up to you to decide whether they are useful
-(unrecognised entries) or not (e.g. headers, comments, etc.).{% endblocktrans %}</p>
+(unrecognised entries) or not (e.g. headers, comments, etc.).{% endblocktranslate %}</p>
 
 <form action="{{request.get_full_path}}" method="post">
 
     <input type="hidden" name="{{ stage_field }}" value="2" />
     <input type="hidden" name="{{ hash_field }}" value="{{ hash_value }}" />
     {% crispy form %}
-    <input type="submit" name="submit" value="{% trans 'Import' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+    <input type="submit" name="submit" value="{% translate 'Import' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 
 
 
-<h2>{% trans "Or try it again" %}</h2>
+<h2>{% translate "Or try it again" %}</h2>
 
-<p>{% blocktrans %}You can correct the list here and re-submit it as often as
-you want.{% endblocktrans %}</p>
+<p>{% blocktranslate %}You can correct the list here and re-submit it as often as
+you want.{% endblocktranslate %}</p>
 
 <form action="{{request.get_full_path}}"
       method="post"
@@ -82,7 +82,7 @@ you want.{% endblocktrans %}</p>
 
     <input type="hidden" name="{{ stage_field }}" value="1" />
     {% crispy form %}
-    <input type="submit" name="submit" value="{% trans 'Re-Submit' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+    <input type="submit" name="submit" value="{% translate 'Re-Submit' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 
 {% endblock %}

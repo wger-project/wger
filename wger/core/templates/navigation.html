@@ -19,42 +19,42 @@
                         <a href="{% url 'manager:workout:overview' %}"
                            rel="nofollow"
                            class="dropdown-toggle nav-link"
-                           data-toggle="dropdown">{% trans "Training" %} <b class="caret"></b></a>
+                           data-toggle="dropdown">{% translate "Training" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'manager:workout:overview' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>
                                 {% endif %}
-                                {% trans "Workouts" %}
+                                {% translate "Workouts" %}
                             </a></li>
                             <li><a class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>
                                 {% endif %}
-                                {% trans "Workouts schedules" %}
+                                {% translate "Workouts schedules" %}
                             </a></li>
                             {% if user.is_authenticated %}
-                                <li><a class="dropdown-item" href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% trans "Calendar" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% translate "Calendar" %}</a></li>
                             {% endif %}
 
                             <li class="dropdown-divider"></li>
-                            <li class="dropdown-header">{% trans "Exercises" %}</li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% trans "by category" context "as in sorted by category" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:muscle:overview' %}">{% trans "by muscle" context "as in sorted by muscle" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:equipment:overview' %}">{% trans "by equipment" context "as in sorted by equipment" %}</a></li>
+                            <li class="dropdown-header">{% translate "Exercises" %}</li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "by category" context "as in sorted by category" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:muscle:overview' %}">{% translate "by muscle" context "as in sorted by muscle" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:equipment:overview' %}">{% translate "by equipment" context "as in sorted by equipment" %}</a></li>
 
                             {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
                             <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:add' %}">{% trans "Add new exercise" %}</a><li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:add' %}">{% translate "Add new exercise" %}</a><li>
                             {% endif %}
 
                             {% if perms.exercises %}
                             <li class="dropdown-divider"></li>
-                            <li class="dropdown-header">{% trans "Administration" %}</li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:pending' %}">{% trans "Exercises pending review" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:equipment:list' %}">{% trans "Equipment" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:muscle:admin-list' %}">{% trans "Muscles" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:category:list' %}">{% trans "Categories" %}</a></li>
+                            <li class="dropdown-header">{% translate "Administration" %}</li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:pending' %}">{% translate "Exercises pending review" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:equipment:list' %}">{% translate "Equipment" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:muscle:admin-list' %}">{% translate "Muscles" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:category:list' %}">{% translate "Categories" %}</a></li>
                             {% endif %}
                         </ul>
                     </li>
@@ -69,10 +69,10 @@
                         <a href="{% url 'weight:overview' user.username %}"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown"
-                           rel="nofollow">{% trans "Body weight" %} <b class="caret"></b></a>
+                           rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'weight:overview' user.username %}" rel="nofollow">{% trans "Weight overview" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% trans "Add weight entry" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'weight:overview' user.username %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
                         </ul>
                     </li>
                     {% endif %}
@@ -86,32 +86,32 @@
                         <a href="{% url 'nutrition:plan:overview' %}"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown"
-                           rel="nofollow">{% trans "Nutrition" %} <b class="caret"></b></a>
+                           rel="nofollow">{% translate "Nutrition" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
-                                    {% trans "Nutrition plans" %}
+                                    {% translate "Nutrition plans" %}
                             </a></li>
                             <li><a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>
                                 {% endif %}
-                                {% trans "BMI calculator" %}
+                                {% translate "BMI calculator" %}
                             </a></li>
                             <li><a class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>
                                 {% endif %}
-                                {% trans "Daily calories calculator" %}
+                                {% translate "Daily calories calculator" %}
                             </a></li>
-                            <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">{% trans "Ingredient overview" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">{% translate "Ingredient overview" %}</a></li>
                             {% if perms.nutrition %}
                                 <li class="dropdown-divider"></li>
-                                <li class="dropdown-header">{% trans "Administration" %}</li>
-                                <li><a class="dropdown-item" href="{% url 'nutrition:weight_unit:list' %}">{% trans "Ingredient weight units" %}</a></li>
-                                <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:pending' %}">{% trans "Ingredients pending review" %}</a></li>
+                                <li class="dropdown-header">{% translate "Administration" %}</li>
+                                <li><a class="dropdown-item" href="{% url 'nutrition:weight_unit:list' %}">{% translate "Ingredient weight units" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'nutrition:ingredient:pending' %}">{% translate "Ingredients pending review" %}</a></li>
                             {% endif %}
                         </ul>
                     </li>
@@ -124,30 +124,30 @@
                     <li class="nav-item dropdown {% if active_tab == 'software' %}active{% endif %}">
                         <a href=""
                            class="dropdown-toggle nav-link"
-                           data-toggle="dropdown">{% trans "About this software" %} <b class="caret"></b></a>
+                           data-toggle="dropdown">{% translate "About this software" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'software:contribute' %}">{% trans "Contribute!" %} </a></li>
-                            <li><a class="dropdown-item" href="{% url 'software:issues' %}">{% trans "Problems and wishes" %} </a></li>
-                            <li><a class="dropdown-item" href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'software:contribute' %}">{% translate "Contribute!" %} </a></li>
+                            <li><a class="dropdown-item" href="{% url 'software:issues' %}">{% translate "Problems and wishes" %} </a></li>
+                            <li><a class="dropdown-item" href="{% url 'core:contact' %}">{% translate "Get in touch" %}</a></li>
                             <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'software:api' %}">{% trans "REST API" %} </a></li>
-                            <li><a class="dropdown-item" href="{% url 'software:license' %}">{% trans "License" %} </a></li>
+                            <li><a class="dropdown-item" href="{% url 'software:api' %}">{% translate "REST API" %} </a></li>
+                            <li><a class="dropdown-item" href="{% url 'software:license' %}">{% translate "License" %} </a></li>
                             <li>
                                 <a  class="dropdown-item" href="https://wger.readthedocs.io/">
                                     <span class="{% fa_class 'external-link-alt' %}"></span>
-                                    {% trans "Developer documentation" %}
+                                    {% translate "Developer documentation" %}
                                 </a>
                             </li>
                             <li>
                                 <a  class="dropdown-item" href="https://github.com/wger-project/wger">
                                     <span class="{% fa_class 'external-link-alt' %}"></span>
-                                    {% trans "Get the code" %} (Github)
+                                    {% translate "Get the code" %} (Github)
                                 </a>
                             </li>
                             <li>
                                 <a  class="dropdown-item" href="https://www.transifex.com/rge/wger-workout-manager/">
                                     <span class="{% fa_class 'external-link-alt' %}"></span>
-                                    {% trans "Translate with Transifex" %}
+                                    {% translate "Translate with Transifex" %}
                                 </a>
                             </li>
                         </ul>
@@ -162,13 +162,13 @@
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                {% trans "Login" %} / {% trans "Register" %}
+                                {% translate "Login" %} / {% translate "Register" %}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'core:user:login' %}">{% trans "Login" %}</a></li>
-                                <li><a class="dropdown-item" href="{% url 'core:user:registration' %}">{% trans "Register" %}</a></li>
-                                <li><a class="dropdown-item" href="{% url 'core:user:password_reset' %}">{% trans "Reset password" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'core:user:login' %}">{% translate "Login" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'core:user:registration' %}">{% translate "Register" %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'core:user:password_reset' %}">{% translate "Reset password" %}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -181,14 +181,14 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'core:user:preferences' %}">{% trans "My preferences" %}</a>
+                                    <a class="dropdown-item" href="{% url 'core:user:preferences' %}">{% translate "My preferences" %}</a>
                                 </li>
                                 {% if not trainer_identity %}
                                 <li class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" href="{% url 'core:user:logout' %}">
                                         <span class="{% fa_class 'sign-out-alt' %}"></span>
-                                        {% trans "Logout" %}
+                                        {% translate "Logout" %}
                                     </a>
                                 </li>
                                 {% endif %}
@@ -198,22 +198,22 @@
                                 {#                #}
                                 {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                     <li class="dropdown-divider"></li>
-                                    <li class="dropdown-header">{% trans "Administration" %}</li>
+                                    <li class="dropdown-header">{% translate "Administration" %}</li>
                                     {% if perms.core.change_language %}
-                                        <li><a class="dropdown-item" href="{% url 'core:language:overview' %}">{% trans "Languages" %} </a></li>
+                                        <li><a class="dropdown-item" href="{% url 'core:language:overview' %}">{% translate "Languages" %} </a></li>
                                     {% endif %}
                                     {% if perms.core.change_license %}
-                                        <li><a class="dropdown-item" href="{% url 'core:license:list' %}">{% trans "Licenses" %} </a></li>
+                                        <li><a class="dropdown-item" href="{% url 'core:license:list' %}">{% translate "Licenses" %} </a></li>
                                     {% endif %}
                                     {% if perms.core.change_repetitionunit %}
-                                        <li><a class="dropdown-item" href="{% url 'core:repetition-unit:list' %}">{% trans "Repetition units" %} </a></li>
+                                        <li><a class="dropdown-item" href="{% url 'core:repetition-unit:list' %}">{% translate "Repetition units" %} </a></li>
                                     {% endif %}
                                     {% if perms.core.change_weightunit %}
-                                        <li><a class="dropdown-item" href="{% url 'core:weight-unit:list' %}">{% trans "Weight units" %} </a></li>
+                                        <li><a class="dropdown-item" href="{% url 'core:weight-unit:list' %}">{% translate "Weight units" %} </a></li>
                                     {% endif %}
                                     {% if perms.gym.manage_gyms %}
-                                        <li><a class="dropdown-item" href="{% url 'core:user:list' %}">{% trans "User list" %} </a></li>
-                                        <li><a class="dropdown-item" href="{% url 'gym:gym:list' %}">{% trans "Gyms" %} </a></li>
+                                        <li><a class="dropdown-item" href="{% url 'core:user:list' %}">{% translate "User list" %} </a></li>
+                                        <li><a class="dropdown-item" href="{% url 'gym:gym:list' %}">{% translate "Gyms" %} </a></li>
                                     {% endif  %}
 
                                     {# it's not possible to group expressions '(a or b) and c' #}

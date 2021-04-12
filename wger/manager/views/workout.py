@@ -38,8 +38,8 @@ from django.urls import (
 )
 from django.utils.text import slugify
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DeleteView,
@@ -219,7 +219,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     model = Workout
     fields = ('comment',)
     success_url = reverse_lazy('manager:workout:overview')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)

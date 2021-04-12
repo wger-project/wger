@@ -29,7 +29,7 @@ from django.forms import (
     PasswordInput,
     widgets
 )
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # Third Party
 from captcha.fields import ReCaptchaField

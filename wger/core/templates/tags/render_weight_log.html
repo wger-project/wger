@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr>
-                <td class="text-right">{% trans "Reps" %}</td>
+                <td class="text-right">{% translate "Reps" %}</td>
                 <td></td>
                 <td style="padding:0px;">
                     {% trans_weight_unit 'kg' user %}
@@ -27,7 +27,7 @@
                 <td style="padding:0px;">
                     {{entry.weight}}
                     {% if entry.rir %}
-                        {{ entry.rir }} {% trans "RiR" %}
+                        {{ entry.rir }} {% translate "RiR" %}
                     {% endif %}
                 </td>
             </tr>

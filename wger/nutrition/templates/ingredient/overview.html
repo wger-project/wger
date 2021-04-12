@@ -26,7 +26,7 @@
     </script>
 {% endblock %}
 
-{% block title %}{% trans "Ingredient overview" %}{% endblock %}
+{% block title %}{% translate "Ingredient overview" %}{% endblock %}
 
 
 {% block content %}
@@ -42,7 +42,7 @@
         <p>
             <a href="{% url 'nutrition:ingredient:add' %}"
                class="btn btn-light btn-block">
-                {% trans "No ingredients." %} {% trans "Add one now." %}
+                {% translate "No ingredients." %} {% translate "Add one now." %}
             </a>
         </p>
     {% endif %}
@@ -54,7 +54,7 @@
 
 {% block sidebar %}
 
-    <h4>{% trans "Search" %}</h4>
+    <h4>{% translate "Search" %}</h4>
     <form action="{% url 'ingredient-search' %}"
           method="get"
           id="search_form">
@@ -63,7 +63,7 @@
                type="search"
                id="ingredient-search"
                class="ajax-form-element form-control"
-               placeholder="{% trans 'ingredient name' %}"
+               placeholder="{% translate 'ingredient name' %}"
                style="width:100%;">
     </form>
 {% endblock %}
@@ -76,13 +76,13 @@
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
         <a href="{% url 'nutrition:ingredient:add' %}"
            class="btn btn-success btn-sm">
-            {% trans "Add ingredient" %}
+            {% translate "Add ingredient" %}
         </a>
     {% else %}
         <a href="#" class="btn btn-success btn-sm disabled">
-            {% trans "Add ingredient" %}<br>
+            {% translate "Add ingredient" %}<br>
             <small>
-                {% trans "Only registered users can do this" %}
+                {% translate "Only registered users can do this" %}
             </small>
         </a>
     {% endif %}

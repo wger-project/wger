@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras crispy_forms_tags %}
 
-{% block title %}{% trans "Preferences" %}{% endblock %}
+{% block title %}{% translate "Preferences" %}{% endblock %}
 
 {% block header %}
 {% endblock %}
@@ -25,21 +25,21 @@
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
-            {% trans "Options" %}
+            {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
             <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
                 <span class="{% fa_class 'key' %}"></span>
-                {% trans "Change password" %}
+                {% translate "Change password" %}
             </a>
             <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
                 <span class="{% fa_class 'globe' %}"></span>
-                {% trans "API key" %}
+                {% translate "API key" %}
             </a>
             <div role="separator" class="dropdown-divider"></div>
             <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete account" %}
+                {% translate "Delete account" %}
             </a>
         </div>
     </div>

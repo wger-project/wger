@@ -35,8 +35,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -274,7 +274,7 @@ class ScheduleCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
     model = Schedule
     fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
-    title = ugettext_lazy('Create schedule')
+    title = gettext_lazy('Create schedule')
 
     def form_valid(self, form):
         """set the submitter"""
@@ -293,7 +293,7 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     model = Schedule
     fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         """

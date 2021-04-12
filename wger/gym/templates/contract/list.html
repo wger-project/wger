@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
-{% block title %}{% trans "Contracts" %}{% endblock %}
+{% block title %}{% translate "Contracts" %}{% endblock %}
 
 
 {% block breadcrumbs %}
@@ -28,12 +28,12 @@
                     {% if perms.gym.change_contract %}
                     <li>
                         <a href="{% url 'gym:contract:edit' contract.pk %}">
-                            {% trans 'Edit' %}
+                            {% translate 'Edit' %}
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'gym:contract:view' contract.pk %}">
-                            {% trans 'Show' %}
+                            {% translate 'Show' %}
                         </a>
                     </li>
                     {% endif %}
@@ -57,7 +57,7 @@
         </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </div>
@@ -69,5 +69,5 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'gym:contract:add' member.pk %}" class="wger-modal-dialog btn btn-sm btn-success">{% trans "Add" %}</a>
+    <a href="{% url 'gym:contract:add' member.pk %}" class="wger-modal-dialog btn btn-sm btn-success">{% translate "Add" %}</a>
 {% endblock %}

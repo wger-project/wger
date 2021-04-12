@@ -4,7 +4,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% trans "Weight overview" %}{% endblock %}
+{% block title %}{% translate "Weight overview" %}{% endblock %}
 
 {#        #}
 {# Header #}
@@ -24,20 +24,20 @@
 
 {% if not min_date %}
 <p>
-    {% trans "There is no chart here because there are no weight entries." %}
-    {% trans "Use link to add one." %}
+    {% translate "There is no chart here because there are no weight entries." %}
+    {% translate "Use link to add one." %}
 </p>
 {% endif %}
 
 <div id="weight_diagram"></div>
 <br>
-<input id="height" placeholder="{% trans "height in cm" %}" type="number">
+<input id="height" placeholder="{% translate "height in cm" %}" type="number">
 <input id="enable_bmi" type="button" value="BMI">
 
 <div class="btn-group modify-time-period-controls float-right" role="group" aria-label="..." style="padding-bottom: 1em;">
-    <button type="button" class="btn btn-light" data-time_period="90">{% trans "Last 3 months" %}</button>
-    <button type="button" class="btn btn-light" data-time_period="365">{% trans "Last 12 months" %}</button>
-    <button type="button" class="btn btn-light active" data-time_period="all">{% trans "No filter" %}</button>
+    <button type="button" class="btn btn-light" data-time_period="90">{% translate "Last 3 months" %}</button>
+    <button type="button" class="btn btn-light" data-time_period="365">{% translate "Last 12 months" %}</button>
+    <button type="button" class="btn btn-light active" data-time_period="all">{% translate "No filter" %}</button>
 </div>
 
 
@@ -45,10 +45,10 @@
 {% if last_five_weight_entries_details %}
 <table class="table">
     <tr>
-        <th>{% trans 'Date' %}</th>
-        <th>{% trans 'Weight' %}</th>
-        <th>{% trans 'Change' context "Noun, not verb" %}</th>
-        <th>{% trans 'Days' %}</th>
+        <th>{% translate 'Date' %}</th>
+        <th>{% translate 'Weight' %}</th>
+        <th>{% translate 'Change' context "Noun, not verb" %}</th>
+        <th>{% translate 'Days' %}</th>
     </tr>
     {% for entry_detail in last_five_weight_entries_details %}
         <tr>
@@ -80,12 +80,12 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupWorkout">
                             <a href="{% url 'weight:edit' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
                                <span class="{% fa_class 'edit' %}"></span>
-                               {% trans "Edit weight" %}
+                               {% translate "Edit weight" %}
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="{% url 'weight:delete' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
                                 <span class="{% fa_class 'trash' %}"></span>
-                                {% trans "Delete" %}
+                                {% translate "Delete" %}
                             </a>
                         </div>
                     </div>
@@ -117,23 +117,23 @@
     <div class="btn-group" role="group">
         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
-            {% trans "Options" %}
+            {% translate "Options" %}
         </button>
 
         <div class="dropdown-menu">
             <a href="{% url 'weight:export-csv' %}" target="_blank" class="dropdown-item">
                 <span class="{% fa_class 'download' %}"></span>
-                {% trans "Export as CSV" %}
+                {% translate "Export as CSV" %}
             </a>
             <a href="{% url 'weight:import-csv' %}" class="dropdown-item">
                 <span class="{% fa_class 'upload' %}"></span>
-                {% trans "Import from spreadsheet" %}
+                {% translate "Import from spreadsheet" %}
             </a>
         </div>
     </div>
 </div>
 <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-    {% trans "Add" %}
+    {% translate "Add" %}
 </a>
 {% endif %}
 {% endblock %}

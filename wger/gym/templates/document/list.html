@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
-{% block title %}{% trans "Documents" %}{% endblock %}
+{% block title %}{% translate "Documents" %}{% endblock %}
 
 
 {% block breadcrumbs %}
@@ -29,13 +29,13 @@
                 <li>
                     <a href="{{ document.document.url }}" download="{{ document.original_name }}">
                         <span class="glyphicon glyphicon-download"></span>
-                        {% trans 'Download' %}
+                        {% translate 'Download' %}
                     </a>
                 </li>
                 {% if perms.gym.change_userdocument %}
                 <li>
                     <a href="{% url 'gym:document:edit' document.pk %}">
-                        {% trans 'Edit' %}
+                        {% translate 'Edit' %}
                     </a>
                 </li>
                 {% endif %}
@@ -43,7 +43,7 @@
                 {% if perms.gym.delete_userdocument %}
                 <li>
                     <a href="{% url 'gym:document:delete' document.pk %}"  class="wger-modal-dialog">
-                        {% trans 'Delete' %}
+                        {% translate 'Delete' %}
                     </a>
                 </li>
                 {% endif %}
@@ -60,7 +60,7 @@
     </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -75,7 +75,7 @@
 {% block options %}
 {% if perms.gym.add_userdocument %}
    <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-sm btn-success">
-       {% trans "Add" %}
+       {% translate "Add" %}
    </a>
 {% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% trans "Languages" %}{% endblock %}
+{% block title %}{% translate "Languages" %}{% endblock %}
 
 
 {% block content %}
@@ -13,7 +13,7 @@
             </a>
         {% empty %}
             <a href="{% url 'core:language:add' %}" class="list-group-item">
-            {% trans "Nothing found." %}<br>{% trans "Add one now." %}
+            {% translate "Nothing found." %}<br>{% translate "Add one now." %}
             </a>
         {% endfor %}
     </div>
@@ -26,6 +26,6 @@
 {#         #}
 {% block options %}
     <a href="{% url 'core:language:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add" %}
+        {% translate "Add" %}
     </a>
 {% endblock %}

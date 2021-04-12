@@ -24,7 +24,7 @@ from django.http import (
     HttpResponseRedirect
 )
 from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
     UpdateView
@@ -52,7 +52,7 @@ class MealCreateView(WgerFormMixin, CreateView):
 
     model = Meal
     fields = ['time']
-    title = ugettext_lazy('Add new meal')
+    title = gettext_lazy('Add new meal')
     owner_object = {'pk': 'plan_pk', 'class': NutritionPlan}
 
     def form_valid(self, form):
@@ -77,7 +77,7 @@ class MealEditView(WgerFormMixin, UpdateView):
 
     model = Meal
     fields = ['time']
-    title = ugettext_lazy('Edit meal')
+    title = gettext_lazy('Edit meal')
 
     def get_success_url(self):
         return self.object.plan.get_absolute_url()

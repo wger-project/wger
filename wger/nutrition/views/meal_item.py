@@ -25,7 +25,7 @@ from django.http import (
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
     UpdateView
@@ -109,7 +109,7 @@ class MealItemEditView(WgerFormMixin, UpdateView):
     model = MealItem
     form_class = MealItemForm
     custom_js = 'wgerInitIngredientAutocompleter();'
-    title = ugettext_lazy('Edit meal item')
+    title = gettext_lazy('Edit meal item')
 
     def get_success_url(self):
         return reverse('nutrition:plan:view', kwargs={'id': self.object.meal.plan.id})

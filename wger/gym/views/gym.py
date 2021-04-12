@@ -44,8 +44,8 @@ from django.urls import (
 )
 from django.utils.text import slugify
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -161,7 +161,7 @@ class GymAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Cre
 
     model = Gym
     fields = ['name', 'phone', 'email', 'owner', 'zip_code', 'city', 'street']
-    title = ugettext_lazy('Add new gym')
+    title = gettext_lazy('Add new gym')
     permission_required = 'gym.add_gym'
 
 
@@ -329,7 +329,7 @@ class GymAddUserView(WgerFormMixin,
     """
 
     model = User
-    title = ugettext_lazy('Add user to gym')
+    title = gettext_lazy('Add user to gym')
     success_url = reverse_lazy('gym:gym:new-user-data')
     permission_required = ('gym.manage_gym', 'gym.manage_gyms')
     form_class = GymUserAddForm
@@ -425,7 +425,7 @@ class GymUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
 
     model = Gym
     fields = ['name', 'phone', 'email', 'owner', 'zip_code', 'city', 'street']
-    title = ugettext_lazy('Edit gym')
+    title = gettext_lazy('Edit gym')
     permission_required = 'gym.change_gym'
 
     def dispatch(self, request, *args, **kwargs):

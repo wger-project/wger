@@ -1,24 +1,24 @@
 {% extends "base_wide.html" %}
 {% load i18n wger_extras %}
 
-{% block title%}{% trans "Get in touch" %}{% endblock %}
+{% block title%}{% translate "Get in touch" %}{% endblock %}
 
 
 {% block content %}
 <div class="row">
     <div class="col-sm-6">
-<p>{% blocktrans %}Thank you for your interest. Feel free to use any of the
+<p>{% blocktranslate %}Thank you for your interest. Feel free to use any of the
 ways below to send feedback you have about any aspect of the site. For
 support, say hi
 <a href="{{discord}}">on the discord channel</a>, to report
 a bug, consider doing it through the <a href="{{issues}}">issue tracker</a>
-.{% endblocktrans %}</p>
+.{% endblocktranslate %}</p>
     </div>
 
     <div class="col-sm-6">
         <div class="alert alert-block alert-wger-green">
-            {% blocktrans %}If you want to further help and improve this project,
-you might also be interested <a href="{{contribute}}">in contributing</a>.{% endblocktrans %}
+            {% blocktranslate %}If you want to further help and improve this project,
+you might also be interested <a href="{{contribute}}">in contributing</a>.{% endblocktranslate %}
         </div>
     </div>
 
@@ -26,34 +26,34 @@ you might also be interested <a href="{{contribute}}">in contributing</a>.{% end
 
 <div class="row">
     <div class="col-md-4">
-        <h4>{% trans "Feedback form" %}</h4>
-        <p>{% blocktrans %}A simple contact form. Remember that
-if you want an answer, you need to include some way to contact you.{% endblocktrans %}</p>
+        <h4>{% translate "Feedback form" %}</h4>
+        <p>{% blocktranslate %}A simple contact form. Remember that
+if you want an answer, you need to include some way to contact you.{% endblocktranslate %}</p>
     </div>
 
     <div class="col-md-4">
-        <h4>{% trans "Twitter" %}</h4>
-        <p>{% blocktrans %}We are also on twitter. Write us and tell us what
-you think! Except patches, don't send patches via twitter.{% endblocktrans %}</p>
+        <h4>{% translate "Twitter" %}</h4>
+        <p>{% blocktranslate %}We are also on twitter. Write us and tell us what
+you think! Except patches, don't send patches via twitter.{% endblocktranslate %}</p>
     </div>
 
 
     <div class="col-md-4">
-        <h4>{% trans "Discord" %}</h4>
-        <p>{% blocktrans %}Use the public group to get support for your
+        <h4>{% translate "Discord" %}</h4>
+        <p>{% blocktranslate %}Use the public group to get support for your
 local wger installation, discuss issues or your new idea, etc.
-(no registration needed){% endblocktrans %}</p>
+(no registration needed){% endblocktranslate %}</p>
     </div>
 
     <div class="col-md-4">
-        <a class="btn btn-light btn-block" href="{{feedback}}">{% trans "Open feedback form" %}</a>
+        <a class="btn btn-light btn-block" href="{{feedback}}">{% translate "Open feedback form" %}</a>
     </div>
     <div class="col-md-4">
         <a href="https://twitter.com/wger_project"
-           class="btn btn-light btn-block twitter-mention-button">{% trans "tweet to @wger_project" %}</a>
+           class="btn btn-light btn-block twitter-mention-button">{% translate "tweet to @wger_project" %}</a>
     </div>
     <div class="col-md-4">
-        <a href="{{discord}}" class="btn btn-light btn-block">{% trans "Go to the discord server" %}</a>
+        <a href="{{discord}}" class="btn btn-light btn-block">{% translate "Go to the discord server" %}</a>
     </div>
 </div>
 

@@ -3,43 +3,43 @@
 {% load i18n %}
 
 
-{% block title %}{% trans "Reporting a problem" %}{% endblock %}
+{% block title %}{% translate "Reporting a problem" %}{% endblock %}
 
 {% block content %}
 
-<p>{% blocktrans %}
+<p>{% blocktranslate %}
 No software is perfect. For some severe errors, an email will be automatically sent, but
 not always, so I depend on you reporting everything that didn't behave as expected.
 Please describe in as much detail as you can what you were doing when the error
 happened.
-{% endblocktrans %}</p>
+{% endblocktranslate %}</p>
 
 
 
 <p>
 <a class="btn btn-primary"
-   href="https://github.com/wger-project/wger/issues">{% trans "report problem to the issue tracker" %} »</a>
+   href="https://github.com/wger-project/wger/issues">{% translate "report problem to the issue tracker" %} »</a>
 </p>
 
 
-<h3>{% trans "Enhancements" %}</h3>
+<h3>{% translate "Enhancements" %}</h3>
 
-<p>{% blocktrans %}
+<p>{% blocktranslate %}
 The issue tracker can also be used to document enhancements to the software.
 If you have some suggestions or think a feature is missing, feel
 free to open a ticket. This can be anything from a slight change to a whole
 new section of the site. Please keep in mind that not all wishes can be
-implemented.{% endblocktrans %}</p>
+implemented.{% endblocktranslate %}</p>
 
 <p>
 <a class="btn btn-primary"
-   href="https://github.com/wger-project/wger/issues">{% trans "report wish to the issue tracker" %} »</a>
+   href="https://github.com/wger-project/wger/issues">{% translate "report wish to the issue tracker" %} »</a>
 </p>
 {% endblock %}
 
 {% block sidebar %}
-<h4>{% trans "No Github account?" %}</h4>
-<p>{% blocktrans %}Filing an issue requires a github account, if you don't
+<h4>{% translate "No Github account?" %}</h4>
+<p>{% blocktranslate %}Filing an issue requires a github account, if you don't
 have one and don't want to register, you can also send it to
-<a href="https://groups.google.com/group/wger">the mailing list</a>.{% endblocktrans %}</p>
+<a href="https://groups.google.com/group/wger">the mailing list</a>.{% endblocktranslate %}</p>
 {% endblock %}

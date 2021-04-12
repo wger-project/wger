@@ -33,8 +33,8 @@ from django.http import (
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -67,7 +67,7 @@ class WeightAddView(WgerFormMixin, CreateView):
     """
     model = WeightEntry
     form_class = WeightForm
-    title = ugettext_lazy('Add weight entry')
+    title = gettext_lazy('Add weight entry')
 
     def get_initial(self):
         """
@@ -121,7 +121,7 @@ class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     model = WeightEntry
     fields = ('weight',)
 
-    messages = ugettext_lazy('Successfully deleted.')
+    messages = gettext_lazy('Successfully deleted.')
 
     def get_context_data(self, **kwargs):
         context = super(WeightDeleteView, self).get_context_data(**kwargs)

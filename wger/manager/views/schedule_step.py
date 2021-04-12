@@ -26,8 +26,8 @@ from django.forms import (
 )
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -57,7 +57,7 @@ class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
 
     model = ScheduleStep
     fields = ('schedule', 'workout', 'duration', 'order')
-    title = ugettext_lazy('Add workout')
+    title = gettext_lazy('Add workout')
 
     def get_form_class(self):
         """
@@ -96,7 +96,7 @@ class StepEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
     """
 
     model = ScheduleStep
-    title = ugettext_lazy('Edit workout')
+    title = gettext_lazy('Edit workout')
 
     def get_form_class(self):
         """
@@ -126,7 +126,7 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
 
     model = ScheduleStep
     fields = ('workout', 'duration', 'order')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_success_url(self):
         return reverse('manager:schedule:view', kwargs={'pk': self.object.schedule.id})

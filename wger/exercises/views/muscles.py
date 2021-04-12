@@ -24,8 +24,8 @@ from django.contrib.auth.mixins import (
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -83,7 +83,7 @@ class MuscleAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
     model = Muscle
     fields = ['name', 'is_front']
     success_url = reverse_lazy('exercise:muscle:admin-list')
-    title = ugettext_lazy('Add muscle')
+    title = gettext_lazy('Add muscle')
     permission_required = 'exercises.add_muscle'
 
 
@@ -115,7 +115,7 @@ class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMi
     fields = ('name', 'is_front')
     success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.delete_muscle'
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         """

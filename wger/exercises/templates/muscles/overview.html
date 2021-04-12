@@ -4,7 +4,7 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Muscle overview" %}{% endblock %}
+{% block title %}{% translate "Muscle overview" %}{% endblock %}
 
 
 {% block header %}
@@ -58,7 +58,7 @@
                                     style="width: 50px;"
                                     src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
                                 {% else %}
-                                    <img alt="{% trans 'Placeholder image for exercise' %}"
+                                    <img alt="{% translate 'Placeholder image for exercise' %}"
                                         class="mr-3"
                                         style="width: 50px;"
                                         src="{% static 'images/icons/image-placeholder.svg' %}">
@@ -66,11 +66,11 @@
                                 <div class="media-body">
                                     <p class="media-heading h5">{{ exercise.name }}</p>
                                     <span class="text-muted small">
-                                        {% trans exercise.category.name %}
+                                        {% translate exercise.category.name %}
                                         <!--
-                                        {% trans "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
+                                        {% translate "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
                                         <br>
-                                        {% trans "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
+                                        {% translate "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
                                         -->
                                     </span>
                                 </div>
@@ -78,7 +78,7 @@
                         </a>
                         {% endif %}
                         {% empty %}
-                            {% trans "No exercises for this muscle. Add or edit an exercise and set the muscle." %}
+                            {% translate "No exercises for this muscle. Add or edit an exercise and set the muscle." %}
                         {% endfor %}
                     {% endfor %}
                 </div>
@@ -105,13 +105,13 @@
 {% block options %}
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
         <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
-            {% trans "Add new exercise" %}
+            {% translate "Add new exercise" %}
         </a>
     {% else %}
         <a href="#" class="btn btn-success btn-sm disabled">
-            {% trans "Add new exercise" %}<br>
+            {% translate "Add new exercise" %}<br>
             <small>
-            {% trans "Only registered users can do this" %}
+            {% translate "Only registered users can do this" %}
             </small>
         </a>
     {% endif %}

@@ -23,7 +23,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import UpdateView
 
 # wger
@@ -44,7 +44,7 @@ class LanguageConfigUpdateView(WgerFormMixin,
     model = LanguageConfig
     fields = ['show']
     permission_required = 'config.change_languageconfig'
-    title = ugettext_lazy('Edit')
+    title = gettext_lazy('Edit')
 
     def get_success_url(self):
         """

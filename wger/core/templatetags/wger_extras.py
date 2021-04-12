@@ -23,7 +23,7 @@ from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     pgettext,
-    ugettext_lazy as _
+    gettext_lazy as _
 )
 
 # wger

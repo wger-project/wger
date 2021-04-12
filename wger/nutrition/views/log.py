@@ -28,7 +28,7 @@ from django.shortcuts import (
     render
 )
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
     DeleteView
@@ -209,7 +209,7 @@ class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     Delete a nutrition diary entry
     """
     model = LogItem
-    title = ugettext_lazy('Delete?')
+    title = gettext_lazy('Delete?')
     form_action_urlname = 'nutrition:log:delete'
     login_required = True
     fields = ["comment", ]

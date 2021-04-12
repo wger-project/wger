@@ -121,7 +121,7 @@
                     <div class="modal-body" id="ajax-info-content">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -136,17 +136,17 @@
         {# {% if not user.is_authenticated or user.userprofile.is_temporary %} #}
         {% if user.is_authenticated and user.userprofile.is_temporary %}
             <div class="alert alert-warning text-center" role="alert">
-                {% trans "You are using a guest account, data entered will be deleted after a week." %}
+                {% translate "You are using a guest account, data entered will be deleted after a week." %}
                 {% if not has_demo_data %}
                     <br>
                     <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-link btn-sm">
-                        {% trans "Create some demo entries" %}
+                        {% translate "Create some demo entries" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                 {% else %}
                     <br>
                     <a href="{% url 'core:user:registration' %}" class="btn btn-link btn-sm">
-                        {% trans "Register" %}
+                        {% translate "Register" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                 {% endif %}
@@ -176,8 +176,8 @@
                   <img src="{% static flagname %}"
                          width="18"
                          height="11"
-                         alt="{% trans language.full_name %}"
-                         title="{% trans language.full_name %}"
+                         alt="{% translate language.full_name %}"
+                         title="{% translate language.full_name %}"
                          style="">
                     {{language.full_name}} <span class="caret"></span>
                   {% endwith %}
@@ -189,7 +189,7 @@
                     <div class="dropdown-divider"></div>
                     <a href="https://www.transifex.com/rge/wger-workout-manager/" class="dropdown-item" target="_blank">
                         <span class="{% fa_class 'plus' %}"></span>
-                        {% trans "Translate" %}
+                        {% translate "Translate" %}
                     </a>
                 </div>
             </div>
@@ -197,16 +197,16 @@
         {% endif %}
 
         <ul class="list-unstyled mb-0 pt-2">
-            <li><a href="{% url 'core:about' %}" class="text-muted small">{% trans "About" %}</a></li>
-            <li><a href="{% url 'software:tos' %}" class="text-muted small">{% trans "Terms of service" %}</a></li>
+            <li><a href="{% url 'core:about' %}" class="text-muted small">{% translate "About" %}</a></li>
+            <li><a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a></li>
         </ul>
             <!--
             <a href="https://github.com/wger-project/wger" class="no-hover">
                 <img src="{% static 'images/agpl-v3.svg' %}"
                      width="57"
                      height="20"
-                     alt="{% trans 'Released under the Affero GPL' %}"
-                     title="{% trans 'Released under the Affero GPL' %}"></a>
+                     alt="{% translate 'Released under the Affero GPL' %}"
+                     title="{% translate 'Released under the Affero GPL' %}"></a>
             <em class="text-muted small">{{version}}</em> -->
 
     </div>

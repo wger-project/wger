@@ -35,8 +35,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DeleteView,
@@ -106,7 +106,7 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
               'weight',
               'weight_unit')
     success_url = reverse_lazy('manager:workout:calendar')
-    title = ugettext_lazy('Delete workout log')
+    title = gettext_lazy('Delete workout log')
 
 
 def add(request, pk):

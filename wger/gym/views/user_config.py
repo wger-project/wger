@@ -24,7 +24,7 @@ from django.contrib.auth.mixins import (
 )
 from django.http import HttpResponseForbidden
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import UpdateView
 
 # wger
@@ -43,7 +43,7 @@ class ConfigUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     model = GymUserConfig
     fields = ['include_inactive']
     permission_required = 'gym.change_gymuserconfig'
-    title = ugettext_lazy('Configuration')
+    title = gettext_lazy('Configuration')
 
     def dispatch(self, request, *args, **kwargs):
         """

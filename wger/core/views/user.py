@@ -53,8 +53,8 @@ from django.urls import (
 )
 from django.utils import translation
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DetailView,
@@ -413,7 +413,7 @@ class UserEditView(WgerFormMixin,
     """
 
     model = User
-    title = ugettext_lazy('Edit user')
+    title = gettext_lazy('Edit user')
     permission_required = ('gym.manage_gym', 'gym.manage_gyms')
     form_class = UserPersonalInformationForm
 
@@ -568,7 +568,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class WgerPasswordChangeView(PasswordChangeView):
     template_name = 'form.html'
     success_url = reverse_lazy('core:user:preferences')
-    title = ugettext_lazy("Change password")
+    title = gettext_lazy("Change password")
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordChangeView, self).get_form(form_class)

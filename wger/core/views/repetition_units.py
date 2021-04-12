@@ -25,8 +25,8 @@ from django.contrib.auth.mixins import (
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -62,7 +62,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
     model = RepetitionUnit
     fields = ['name']
-    title = ugettext_lazy('Add')
+    title = gettext_lazy('Add')
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.add_repetitionunit'
 

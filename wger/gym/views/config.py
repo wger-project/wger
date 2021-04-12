@@ -24,7 +24,7 @@ from django.contrib.auth.mixins import (
 )
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import UpdateView
 
 # wger

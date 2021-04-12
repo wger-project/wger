@@ -32,8 +32,8 @@ from django.forms import (
     widgets
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 
 # Third Party
@@ -221,13 +221,13 @@ class WorkoutScheduleDownloadForm(Form):
     Form for the workout schedule download
     """
     pdf_type = ChoiceField(
-        label=ugettext_lazy("Type"),
-        choices=(("log", ugettext_lazy("Log")),
-                 ("table", ugettext_lazy("Table")))
+        label=gettext_lazy("Type"),
+        choices=(("log", gettext_lazy("Log")),
+                 ("table", gettext_lazy("Table")))
     )
-    images = BooleanField(label=ugettext_lazy("with images"),
+    images = BooleanField(label=gettext_lazy("with images"),
                           required=False)
-    comments = BooleanField(label=ugettext_lazy("with comments"),
+    comments = BooleanField(label=gettext_lazy("with comments"),
                             required=False)
 
     def __init__(self):

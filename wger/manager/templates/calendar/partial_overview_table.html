@@ -2,35 +2,35 @@
 
 <div class="btn-group btn-group-justified" role="group">
     <a href="{{value.workout.get_absolute_url}}" class="btn btn-link">{{ value.workout }}</a>
-    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-link">{% trans "Log overview" %}</a>
+    <a href="{% url 'manager:log:log' value.workout.id %}" class="btn btn-link">{% translate "Log overview" %}</a>
 
     {% if is_owner %}
         {% if value.session %}
             <div class="btn-group">
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% trans "Workout session" %}
+                        {% translate "Workout session" %}
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu">
                         <a href="{% url 'manager:session:edit' value.session.pk %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'edit-o' %}"></span>
-                            {% trans "Edit" %}
+                            {% translate "Edit" %}
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="{% url 'manager:session:delete' value.session.pk %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'trash' %}"></span>
-                            {% trans "Delete" %}
+                            {% translate "Delete" %}
                         </a>
                         <a href="{% url 'manager:session:delete' value.session.pk 'logs' %}" class="wger-modal-dialog dropdown-item">
                             <span class="{% fa_class 'trash' %}"></span>
-                            {% trans "Delete with logs" %}
+                            {% translate "Delete with logs" %}
                         </a>
                     </div>
                 </div>
             </div>
         {% else %}
-            <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-light btn-block wger-modal-dialog">{% trans "Add workout impression" %}</a>
+            <a href="{% url 'manager:session:add' value.workout.id date|date:'Y' date|date:'m' date|date:'d' %}" class="btn btn-light btn-block wger-modal-dialog">{% translate "Add workout impression" %}</a>
         {% endif %}
     {% endif %}
 </div>
@@ -39,7 +39,7 @@
 {% if value.session %}
 <table class="table" style="margin-top: 2em;">
     <tr>
-        <th style="width: 30%">{% trans "Time" %}</th>
+        <th style="width: 30%">{% translate "Time" %}</th>
         <td>
             {% if value.session.time_start %}
                 {{value.session.time_start|time:"H:i"}} - {{value.session.time_end|time:"H:i"}}
@@ -49,11 +49,11 @@
         </td>
     </tr>
     <tr>
-        <th>{% trans "General impression" %}</th>
-        <td>{% trans value.session.get_impression_display %}</td>
+        <th>{% translate "General impression" %}</th>
+        <td>{% translate value.session.get_impression_display %}</td>
     </tr>
     <tr>
-        <th>{% trans "Notes" %}</th>
+        <th>{% translate "Notes" %}</th>
         <td>{{value.session.notes|default:'-/-'}}</td>
     </tr>
 </table>

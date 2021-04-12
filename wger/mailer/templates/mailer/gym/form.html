@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n django_bootstrap_breadcrumbs crispy_forms_tags %}
 
-{% block title %}{% trans 'Email' %} - {{ gym }}{% endblock %}
+{% block title %}{% translate 'Email' %} - {{ gym }}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
@@ -20,15 +20,15 @@
       method="post"
       class="wger-form">
     {% crispy form %}
-    <input type="submit" name="submit" value="{% trans 'Generate preview' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+    <input type="submit" name="submit" value="{% translate 'Generate preview' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
 </form>
 {% endblock %}
 
 {% block sidebar %}
-    <h4>{% trans "Steps" %}</h4>
+    <h4>{% translate "Steps" %}</h4>
     <ol>
-        <li>{% trans "Fill in the form" %}</li>
-        <li>{% trans "You will receive a preview email for you to review" %}</li>
-        <li>{% trans "You can update and correct the content as often as you need before sending the emails" %}</li>
+        <li>{% translate "Fill in the form" %}</li>
+        <li>{% translate "You will receive a preview email for you to review" %}</li>
+        <li>{% translate "You can update and correct the content as often as you need before sending the emails" %}</li>
     </ol>
 {% endblock %}

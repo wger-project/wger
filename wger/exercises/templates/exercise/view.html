@@ -45,27 +45,27 @@ $(document).ready(function() {
 {% if exercise.status == exercise.STATUS_PENDING %}
 <div class="card text-white bg-dark mb-4">
     <div class="card-header">
-        {% trans "Exercise is pending review" %}
+        {% translate "Exercise is pending review" %}
     </div>
     <div class="card-body">
-        <p>{% blocktrans %}This user submitted exercise is pending a decision to be
-        included in the database.{% endblocktrans %}
-        {% trans "Till then, it will not be shown in the overview or the search."  %}
-        {% if perms.exercises.add_exercise %}{% trans "Please select one of the options below." %}{% endif %}
+        <p>{% blocktranslate %}This user submitted exercise is pending a decision to be
+        included in the database.{% endblocktranslate %}
+        {% translate "Till then, it will not be shown in the overview or the search."  %}
+        {% if perms.exercises.add_exercise %}{% translate "Please select one of the options below." %}{% endif %}
         </p>
 
         {% if perms.exercises.add_exercise %}
             <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-secondary">
                 <span class="{% fa_class 'check' %}"></span>
-                {% trans "Accept" %}
+                {% translate "Accept" %}
             </a>
             <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-secondary">
                 <span class="{% fa_class 'times' %}"></span>
-                {% trans "Decline" %}
+                {% translate "Decline" %}
             </a>
             <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog btn btn-secondary">
                 <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete" %}
+                {% translate "Delete" %}
             </a>
         {% endif %} {# end check permissions #}
     </div>
@@ -73,19 +73,19 @@ $(document).ready(function() {
 {% endif %} {# end exercise is pending review #}
 
 
-<h5 class="mt-4">{% trans "Category" %}:</h5>
-{% trans exercise.category.name %}
+<h5 class="mt-4">{% translate "Category" %}:</h5>
+{% translate exercise.category.name %}
 
 {% if exercise.equipment.all %}
-    <h5 class="mt-4">{% trans "Equipment" %}:</h5>
+    <h5 class="mt-4">{% translate "Equipment" %}:</h5>
     {% for equipment in exercise.equipment.all %}
-        {% trans equipment.name %}
+        {% translate equipment.name %}
         {% if not forloop.last %}, {% endif %}
     {% endfor %}
 {% endif %}
 
 
-<h5 class="mt-4">{% trans "Description" %}:</h5>
+<h5 class="mt-4">{% translate "Description" %}:</h5>
 {{ exercise.description|safe }}
 
 
@@ -93,7 +93,7 @@ $(document).ready(function() {
 {# Images #}
 {% with images=exercise.images.accepted %}
 {% if images or perms.exercises.change_exerciseimage  %}
-    <h5 class="mt-4">{% trans "Images" %}:</h5>
+    <h5 class="mt-4">{% translate "Images" %}:</h5>
     <div class="row row-cols-2 row-cols-md-3">
     {% with other_images=images %}
     {% for image in other_images %}
@@ -134,7 +134,7 @@ $(document).ready(function() {
     {% if perms.exercises.change_exerciseimage %}
         <p>
             <a href="{% url 'exercise:image:add' exercise.id %}" >
-                {% trans "Add new image" %}
+                {% translate "Add new image" %}
             </a>
         </p>
     {% endif %}
@@ -144,15 +144,15 @@ $(document).ready(function() {
 {% if perms.exercises.change_exerciseimage %}
 {% with images=exercise.images.pending %}
 {% if images %}
-<h5 class="mt-4">{% trans "Images pending review" %}</h5>
+<h5 class="mt-4">{% translate "Images pending review" %}</h5>
 <div class="card-deck">
     {% for image in images %}
         <div class="card">
                 <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
                 <div class="card-body">
-                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-light btn-sm">{% trans "Accept" %}</a>
-                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-light btn-sm">{% trans "Decline" %}</a>
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% trans "Delete" %}</a>
+                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-light btn-sm">{% translate "Accept" %}</a>
+                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-light btn-sm">{% translate "Decline" %}</a>
+                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% translate "Delete" %}</a>
                  </div>
             </div>
         </div>
@@ -166,7 +166,7 @@ $(document).ready(function() {
 {# Comments #}
 {% with comments=exercise.exercisecomment_set.all %}
 {% if comments or perms.exercises.change_exercisecomment %}
-    <h5 class="mt-4">{% trans "Comments for this exercise" %}:</h5>
+    <h5 class="mt-4">{% translate "Comments for this exercise" %}:</h5>
     <ul>
     {% for comment in comments %}
         <li>
@@ -178,12 +178,12 @@ $(document).ready(function() {
                 <div class="dropdown-menu">
                     <a href="{% url 'exercise:comment:edit' comment.id %}" class="dropdown-item wger-modal-dialog">
                         <span class="{% fa_class 'edit' %}"></span>
-                        {% trans 'Edit' %}
+                        {% translate 'Edit' %}
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'exercise:comment:delete' comment.id %}" class="dropdown-item">
                         <span class="{% fa_class 'trash' %}"></span>
-                        {% trans 'Delete' %}
+                        {% translate 'Delete' %}
                     </a>
                 </div>
             </span>
@@ -194,7 +194,7 @@ $(document).ready(function() {
     {% if perms.exercises.change_exercisecomment %}
         <p>
             <a href="{% url 'exercise:comment:add' exercise.id %}" class="wger-modal-dialog">
-                {% trans "Add new comment" %}
+                {% translate "Add new comment" %}
             </a>
         </p>
     {% endif %}
@@ -206,17 +206,17 @@ $(document).ready(function() {
 
 {% cache cache_timeout exercise-detail-muscles cache_vary_on %}
 {% if muscles_main_front or muscles_main_back %}
-    <h5 class="mt-4">{% trans "Muscles" %}:</h5>
+    <h5 class="mt-4">{% translate "Muscles" %}:</h5>
     <p>
-        {% trans "The diagram shows the most used muscles on this exercise" %}
+        {% translate "The diagram shows the most used muscles on this exercise" %}
     </p>
     <p>
         <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
-        {% trans "Main muscles" %}
+        {% translate "Main muscles" %}
     </p>
     <p>
         <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
-        {% trans "Secondary muscles" %}
+        {% translate "Secondary muscles" %}
     </p>
 
     <div class="row ">
@@ -249,12 +249,12 @@ $(document).ready(function() {
 {% endcache %}
 
 {% if logs %}
-    <h5 class="mt-4">{% trans "Weight log" %}:</h5>
+    <h5 class="mt-4">{% translate "Weight log" %}:</h5>
     {% render_weight_log logs svg_uuid user %}
 {% endif %}
 
 {% if exercise.variations %}
-    <h5 class="mt-4">{% trans "Exercise Variations" %}:</h5>
+    <h5 class="mt-4">{% translate "Exercise Variations" %}:</h5>
         <ul>
         {% for variation in exercise.variations %}
             <li>
@@ -271,11 +271,11 @@ $(document).ready(function() {
 {#          #}
 {% block sidebar %}
 {% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
-<h5>{% trans "Options" %}</h5>
+<h5>{% translate "Options" %}</h5>
 <p>
     <a href="{% url 'exercise:exercise:correct' exercise.id %}">
         <span class="{% fa_class 'edit' %}"></span>
-        {% trans "Submit a correction" %}
+        {% translate "Submit a correction" %}
     </a>
 </p>
 {% endif %}
@@ -294,17 +294,17 @@ $(document).ready(function() {
     <div class="btn-group">
         <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
-            {% trans "Options" %}
+            {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
             <a href="{% url 'exercise:exercise:edit' exercise.id %}" class="dropdown-item">
                 <span class="{% fa_class 'edit' %}"></span>
-                {% trans "Edit" %}
+                {% translate "Edit" %}
             </a>
             <div role="separator" class="dropdown-divider"></div>
             <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
-                {% trans "Delete" %}
+                {% translate "Delete" %}
             </a>
             </li>
         </div>

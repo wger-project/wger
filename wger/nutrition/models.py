@@ -40,7 +40,7 @@ from django.utils import (
     translation
 )
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import Language

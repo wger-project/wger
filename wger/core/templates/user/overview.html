@@ -22,19 +22,19 @@
 
 {% if perms.gym.gym_trainer %}
 
-<h4>{% trans "Workouts" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Workouts" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% trans "Overview" %}</a>
-<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% trans "Add workout" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% translate "Add workout" %}</a>
 {% endif %}
 
 <table class="table">
 <thead>
 <tr>
-    <th style="width: 25%;">{% trans "Date" %}</th>
-    <th>{% trans "Description" %}</th>
-    <th>{% trans "Number of logs (days)" %}</th>
-    <th>{% trans "Last activity" %}</th>
+    <th style="width: 25%;">{% translate "Date" %}</th>
+    <th>{% translate "Description" %}</th>
+    <th>{% translate "Number of logs (days)" %}</th>
+    <th>{% translate "Last activity" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -55,7 +55,7 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="2">{% trans "No workouts found." %}</td>
+    <td colspan="2">{% translate "No workouts found." %}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -65,18 +65,18 @@
 
 
 
-<h4>{% trans "Log" %} <small>({% blocktrans with number=10 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Log" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-light btn-sm">{% trans "Calendar" %}</a>
+<a href="{{trainer_login}}?next={% url 'manager:workout:calendar' %}" class="btn btn-light btn-sm">{% translate "Calendar" %}</a>
 {% endif %}
 
 <table class="table">
 <thead>
 <tr>
-    <th style="width: 25%;">{% trans "Date" %}</th>
-    <th>{% trans "General impression" %}</th>
-    <th>{% trans "Notes" %}</th>
-    <th>{% trans "Time" %}</th>
+    <th style="width: 25%;">{% translate "Date" %}</th>
+    <th>{% translate "General impression" %}</th>
+    <th>{% translate "Notes" %}</th>
+    <th>{% translate "Time" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -101,7 +101,7 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="3">{% trans "Nothing found" %}</td>
+    <td colspan="3">{% translate "Nothing found" %}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -109,16 +109,16 @@
 
 
 
-<h4>{% trans "Weight" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Weight" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-light btn-sm">{% trans "Weight overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-light btn-sm">{% translate "Weight overview" %}</a>
 {% endif %}
 
 <table class="table">
 <thead>
 <tr>
-    <th style="width: 25%;">{% trans "Date" %}</th>
-    <th>{% trans "Weight" %}</th>
+    <th style="width: 25%;">{% translate "Date" %}</th>
+    <th>{% translate "Weight" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -133,7 +133,7 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="3">{% trans "Nothing found" %}</td>
+    <td colspan="3">{% translate "Nothing found" %}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -141,21 +141,21 @@
 
 
 
-<h4>{% trans "Nutrition plans" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Nutrition plans" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-light btn-sm">{% trans "Overview" %}</a>
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-light btn-sm">{% trans "Add nutrition plan" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
+    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-light btn-sm">{% translate "Add nutrition plan" %}</a>
 {% endif %}
 
 <table class="table">
 <thead>
 <tr>
-    <th style="width: 25%;">{% trans "Date" %}</th>
-    <th>{% trans "Description" %}</th>
-    <th>{% trans "Energy" %}</th>
-    <th>{% trans "Protein" %}</th>
-    <th>{% trans "Carbohydrates" %}</th>
-    <th>{% trans "Fat" %}</th>
+    <th style="width: 25%;">{% translate "Date" %}</th>
+    <th>{% translate "Description" %}</th>
+    <th>{% translate "Energy" %}</th>
+    <th>{% translate "Protein" %}</th>
+    <th>{% translate "Carbohydrates" %}</th>
+    <th>{% translate "Fat" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -168,7 +168,7 @@
         <a href="{{trainer_login}}?next={{ nutrition_plan.get_absolute_url }}">{{nutrition_plan}}</a>
     </td>
     <td>
-        {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% trans "kcal" %}
+        {{nutrition_plan.get_nutritional_values.total.energy|floatformat}} {% translate "kcal" %}
     </td>
     <td>
         {{nutrition_plan.get_nutritional_values.total.protein|floatformat}} {% trans_weight_unit 'g' current_user %}
@@ -183,7 +183,7 @@
 {% empty %}
 <tr>
     <td colspan="6">
-        {% trans "Nothing found" %}
+        {% translate "Nothing found" %}
     </td>
 </tr>
 {% endfor %}
@@ -199,23 +199,23 @@
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
 <div class="btn-group float-right">
     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
+        {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'core:user:edit' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}</a>
+        <a href="{% url 'core:user:edit' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
         <div class="dropdown-divider"></div>
             {% if current_user.is_active %}
-            <a href="{% url 'core:user:deactivate' current_user.pk %}" class="dropdown-item">{% trans "Deactivate user"%}</a>
+            <a href="{% url 'core:user:deactivate' current_user.pk %}" class="dropdown-item">{% translate "Deactivate user"%}</a>
         {% else %}
-            <a href="{% url 'core:user:activate' current_user.pk %}" class="dropdown-item">{% trans "Activate user"%}</a>
+            <a href="{% url 'core:user:activate' current_user.pk %}" class="dropdown-item">{% translate "Activate user"%}</a>
         {% endif %}
-        <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal" class="dropdown-item">{% trans "Reset user password" %}</a>
+        <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal" class="dropdown-item">{% translate "Reset user password" %}</a>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         {% if current_user.userprofile.gym %}
-            <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Roles"%}</a>
+            <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Roles"%}</a>
         {% endif %}
         {% endif %}
-        <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Delete"%}</a>
+        <a href="{% url 'core:user:delete' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Delete"%}</a>
     </div>
 </div>
 
@@ -223,15 +223,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{% trans 'Password reset confirmation' %}</h4>
+                <h4 class="modal-title">{% translate 'Password reset confirmation' %}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <p>{% trans 'Do you really want to change this user&#39;s password?' %}</p>
+                <p>{% translate 'Do you really want to change this user&#39;s password?' %}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans 'No' %}</button>
-                <button type="button" class="btn btn-success">{% trans 'Yes' %}</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">{% translate 'No' %}</button>
+                <button type="button" class="btn btn-success">{% translate 'Yes' %}</button>
             </div>
         </div>
     </div>
@@ -252,23 +252,23 @@
 </script>
 
 {% endif %}
-<h4>{% trans "Details" %}</h4>
+<h4>{% translate "Details" %}</h4>
 
 <table class="table">
     <tr>
-        <td>{% trans "Nr." %}</td>
+        <td>{% translate "Nr." %}</td>
         <td>{{current_user.pk}}</td>
     </tr>
     <tr>
-        <td>{% trans "Name" %}</td>
+        <td>{% translate "Name" %}</td>
         <td>{{current_user.first_name}}</td>
     </tr>
     <tr>
-        <td>{% trans "Last name" %}</td>
+        <td>{% translate "Last name" %}</td>
         <td>{{current_user.last_name}}</td>
     </tr>
     <tr>
-        <td>{% trans "Email" %}</td>
+        <td>{% translate "Email" %}</td>
         <td>
             {% if current_user.email %}
                 <a href="mailto:{{current_user.email}}">{{current_user.email}}</a>
@@ -278,11 +278,11 @@
         </td>
     </tr>
     <tr>
-        <td>{% trans "Phone" %}</td>
+        <td>{% translate "Phone" %}</td>
         <td> {{ current_user.userprofile.address.phone|default:'-/-' }}</td>
     </tr>
     <tr>
-        <td>{% trans "Address" %}</td>
+        <td>{% translate "Address" %}</td>
         <td>
             {% if not current_user.userprofile.address.zip_code and not current_user.userprofile.address.city and not current_user.userprofile.address.street%}
                 -/-
@@ -293,21 +293,21 @@
         </td>
     </tr>
     <tr>
-        <td>{% trans "Registered" %}</td>
+        <td>{% translate "Registered" %}</td>
         <td>{{current_user.date_joined}}</td>
     </tr>
     <tr>
-        <td>{% trans "Last login" %}</td>
+        <td>{% translate "Last login" %}</td>
         <td>{{current_user.last_login}}</td>
     </tr>
 {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
     <tr {% if not current_user.is_active %}class="danger"{% endif%}>
-        <td>{% trans "Status" %}</td>
+        <td>{% translate "Status" %}</td>
         <td>
             {% if current_user.is_active %}
-                {% trans "Active" %}
+                {% translate "Active" %}
             {% else %}
-                {% trans "Inactive" %}
+                {% translate "Inactive" %}
             {% endif %}
         </td>
     </tr>
@@ -320,15 +320,15 @@
 {% if perms.gym.add_contract %}
 <div class="btn-group float-right">
     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
+        {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'gym:contract:list' current_user.id %}" class="dropdown-item">{% trans "Overview"%}</a>
-        <a href="{% url 'gym:contract:add' current_user.pk %}" class="dropdown-item">{% trans "Add"%}</a>
+        <a href="{% url 'gym:contract:list' current_user.id %}" class="dropdown-item">{% translate "Overview"%}</a>
+        <a href="{% url 'gym:contract:add' current_user.pk %}" class="dropdown-item">{% translate "Add"%}</a>
     </div>
 </div>
 
-<h4>{% trans "Contracts" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Contracts" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 <table class="table">
     {% for contract in contracts %}
     <tr>
@@ -345,7 +345,7 @@
     {% empty %}
     <tr>
         <td>
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </td>
     </tr>
     {% endfor %}
@@ -359,15 +359,15 @@
 {% if perms.gym.add_adminusernote %}
 <div class="btn-group float-right">
     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
+        {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'gym:admin_note:list' current_user.pk %}" class="dropdown-item">{% trans "Overview" %}</a>
-        <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Add"%}</a>
+        <a href="{% url 'gym:admin_note:list' current_user.pk %}" class="dropdown-item">{% translate "Overview" %}</a>
+        <a href="{% url 'gym:admin_note:add' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Add"%}</a>
     </div>
 </div>
 
-<h4>{% trans "Notes" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Notes" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 <table class="table">
     {% for note in admin_notes %}
     <tr>
@@ -381,7 +381,7 @@
     {% empty %}
     <tr>
         <td>
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </td>
     </tr>
     {% endfor %}
@@ -395,22 +395,22 @@
 {% if perms.gym.add_userdocument %}
 <div class="btn-group float-right">
     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
+        {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'gym:document:list' current_user.pk %}" class="dropdown-item">{% trans "Overview" %}</a>
-        <a href="{% url 'gym:document:add' current_user.pk %}" class="dropdown-item">{% trans "Add"%}</a>
+        <a href="{% url 'gym:document:list' current_user.pk %}" class="dropdown-item">{% translate "Overview" %}</a>
+        <a href="{% url 'gym:document:add' current_user.pk %}" class="dropdown-item">{% translate "Add"%}</a>
     </div>
 </div>
 
-<h4>{% trans "Documents" %} <small>({% blocktrans with number=5 %}last {{ number }}{% endblocktrans %})</small></h4>
+<h4>{% translate "Documents" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 <table class="table">
     {% for document in current_user.userdocument_member.all %}
     <tr>
         <td>
             <a href="{{ document.document.url }}"
                class="btn btn-light btn-sm"
-               title="{% trans 'Download' %}"
+               title="{% translate 'Download' %}"
                download="{{ document.original_name }}">
                 <span class="glyphicon glyphicon-download"></span>
             </a>
@@ -425,7 +425,7 @@
     {% empty %}
     <tr>
         <td>
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </td>
     </tr>
     {% endfor %}
@@ -440,18 +440,18 @@
 {% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
 <div class="btn-group float-right">
     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
+        {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}</a>
+        <a href="{% url 'gym:user_config:edit' current_user.gymuserconfig.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
     </div>
 </div>
 {% endif %}
 
-<h4>{% trans "Configuration" %}</h4>
+<h4>{% translate "Configuration" %}</h4>
 <table class="table">
     <tr>
-        <td>{% trans 'Include in inactive overview' %}</td>
+        <td>{% translate 'Include in inactive overview' %}</td>
         <td style="text-align: right;">
             {% if current_user.gymuserconfig.include_inactive %}
                 <span class="{% fa_class 'check' %}"></span>
@@ -488,7 +488,7 @@
         class="btn btn-sm btn-secondary"
        {% endif %}
     >
-       {% trans "Log in as this user" %}
+       {% translate "Log in as this user" %}
     </a>
 {% endif %}
 {% endblock %}

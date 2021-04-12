@@ -6,7 +6,7 @@
         Title
 -->
 
-{% block title %}{% with day_name=day.description %}{% blocktrans %}Add exercises to day "{{day_name}}"{% endblocktrans %}{% endwith %}{% endblock %}
+{% block title %}{% with day_name=day.description %}{% blocktranslate %}Add exercises to day "{{day_name}}"{% endblocktranslate %}{% endwith %}{% endblock %}
 
 
 <!--
@@ -49,11 +49,11 @@ function wgerCustomPageInit()
 
     <div class="form-group">
         <label class="control-label">
-            {% trans "Repetitions" %}
+            {% translate "Repetitions" %}
         </label>
-        <span class="form-text">{% blocktrans %}If you do the same repetitions for all sets,
+        <span class="form-text">{% blocktranslate %}If you do the same repetitions for all sets,
 you can just enter one value: e.g. for 4 sets just enter one "10" for the repetitions, this
-automatically becomes "4 x 10".{% endblocktrans %}</span>
+automatically becomes "4 x 10".{% endblocktranslate %}</span>
     </div>
     <div class="form-group">
         <div id="formsets">
@@ -65,7 +65,7 @@ automatically becomes "4 x 10".{% endblocktrans %}</span>
 
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary btn-success btn-block" value="{% trans 'Save' %}">
+        <input type="submit" class="btn btn-primary btn-success btn-block" value="{% translate 'Save' %}">
     </div>
 </form>
 {% endblock %}

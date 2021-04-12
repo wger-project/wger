@@ -4,7 +4,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% trans "Nutrition diary" %} - {{ log_data.0.planned_calories|floatformat:0 }} {% trans "kcal" %}{% endblock %}
+{% block title %}{% translate "Nutrition diary" %} - {{ log_data.0.planned_calories|floatformat:0 }} {% translate "kcal" %}{% endblock %}
 
 
 
@@ -27,9 +27,9 @@
 <table class="table table-condensed">
     <thead>
         <tr>
-            <th>{% trans "Date" %}</th>
-            <th class="align-right">{% trans "Logged" %}</th>
-            <th class="align-right">{% trans "Difference" %}</th>
+            <th>{% translate "Date" %}</th>
+            <th class="align-right">{% translate "Logged" %}</th>
+            <th class="align-right">{% translate "Difference" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -41,7 +41,7 @@
                     </a>
                 </td>
                 <td class="align-right">
-                    {{ entry.logged_calories|floatformat:0 }} {% trans "kcal" %}
+                    {{ entry.logged_calories|floatformat:0 }} {% translate "kcal" %}
                 </td>
                 <td class="align-right">
                     {{ entry.difference|floatformat:0 }}
@@ -50,7 +50,7 @@
         {% empty %}
              <tr>
                 <td colspan="4">
-                    <em>{% trans "nothing found" %}</em>
+                    <em>{% translate "nothing found" %}</em>
                 </td>
             </tr>
         {% endfor %}

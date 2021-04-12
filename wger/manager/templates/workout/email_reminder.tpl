@@ -1,18 +1,18 @@
 {% spaceless %}{% load i18n %}
 {% if expired %}
-    {% blocktrans %}Your current workout '{{workout}}' expired {{days}} days ago.{% endblocktrans %}
+    {% blocktranslate %}Your current workout '{{workout}}' expired {{days}} days ago.{% endblocktranslate %}
 {% else %}
-    {% blocktrans %}Your current workout '{{workout}}' is about to expire in {{days}} days.{% endblocktrans %}
+    {% blocktranslate %}Your current workout '{{workout}}' is about to expire in {{days}} days.{% endblocktranslate %}
 {% endif %}
 {% endspaceless %}
 
-{% blocktrans %}You will regularly receive such reminders till you add a new workout.
+{% blocktranslate %}You will regularly receive such reminders till you add a new workout.
 Alternatively you can add workouts to a loop schedule, such schedules
-never produce reminders.{% endblocktrans %}
-{% blocktrans %}If you don't want to ever receive email reminders, deactivate the
-option in your settings.{% endblocktrans %}
+never produce reminders.{% endblocktranslate %}
+{% blocktranslate %}If you don't want to ever receive email reminders, deactivate the
+option in your settings.{% endblocktranslate %}
 
-— {% blocktrans %}The {{ site }} team{% endblocktrans %}
+— {% blocktranslate %}The {{ site }} team{% endblocktranslate %}
 
 
 * https://{{site}}{{workout.get_absolute_url}}

@@ -34,8 +34,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DeleteView,
@@ -118,7 +118,7 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     model = NutritionPlan
     fields = ('description', 'has_goal_calories')
     success_url = reverse_lazy('nutrition:plan:overview')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         """

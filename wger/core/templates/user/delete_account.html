@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras crispy_forms_tags %}
 
-{% block title %}{% trans "Delete account" %}{% endblock %}
+{% block title %}{% translate "Delete account" %}{% endblock %}
 
 
 {% block header %}
@@ -14,14 +14,14 @@
         <div class="card-header">
             <h4 class="card-title">
                 <span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
-                {% trans "Are you sure?" %}
+                {% translate "Are you sure?" %}
             </h4>
         </div>
         <div class="card-body">
             {% with username=user_delete|format_username %}
-            <p class="card-text">{% blocktrans %}This action will delete the user account "{{username}}".
+            <p class="card-text">{% blocktranslate %}This action will delete the user account "{{username}}".
 It will also  irrevocably remove all the data associated with it (workouts, logs, etc.)
-and can't be undone. {% endblocktrans %}{% endwith %}</p>
+and can't be undone. {% endblocktranslate %}{% endwith %}</p>
         </div>
     </div>
     <div class="mt-2"></div>

@@ -26,8 +26,8 @@ from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -57,7 +57,7 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
 
     model = ContractOption
     fields = ('name', 'description')
-    title = ugettext_lazy('Add option')
+    title = gettext_lazy('Add option')
     permission_required = 'gym.add_contractoption'
     member = None
 

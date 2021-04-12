@@ -24,8 +24,8 @@ from django.contrib.auth.mixins import (
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -66,7 +66,7 @@ class ExerciseCategoryAddView(WgerFormMixin,
     model = ExerciseCategory
     fields = ['name']
     success_url = reverse_lazy('exercise:category:list')
-    title = ugettext_lazy('Add category')
+    title = gettext_lazy('Add category')
     permission_required = 'exercises.add_exercisecategory'
 
     def form_valid(self, form):
@@ -111,8 +111,8 @@ class ExerciseCategoryDeleteView(WgerDeleteMixin,
     model = ExerciseCategory
     fields = ('name',)
     success_url = reverse_lazy('exercise:category:list')
-    delete_message_extra = ugettext_lazy('This will also delete all exercises in this category.')
-    messages = ugettext_lazy('Successfully deleted')
+    delete_message_extra = gettext_lazy('This will also delete all exercises in this category.')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercisecategory'
 
     # Send some additional data to the template

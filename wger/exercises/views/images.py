@@ -27,8 +27,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -64,7 +64,7 @@ class ExerciseImageEditView(WgerFormMixin,
     """
 
     model = ExerciseImage
-    title = ugettext_lazy('Edit exercise image')
+    title = gettext_lazy('Edit exercise image')
     permission_required = 'exercises.change_exerciseimage'
     form_class = ExerciseImageForm
 
@@ -87,7 +87,7 @@ class ExerciseImageAddView(WgerFormMixin,
     """
 
     model = ExerciseImage
-    title = ugettext_lazy('Add new image')
+    title = gettext_lazy('Add new image')
     permission_required = 'exercises.add_exerciseimage'
     form_class = ExerciseImageForm
 
@@ -120,7 +120,7 @@ class ExerciseImageDeleteView(WgerDeleteMixin,
 
     model = ExerciseImage
     fields = ('image', 'is_main')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exerciseimage'
 
     def get_success_url(self):

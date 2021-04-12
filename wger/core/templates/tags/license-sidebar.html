@@ -1,8 +1,8 @@
 {% load i18n static %}
 
-<h4>{% trans "Free license" %}</h4>
+<h4>{% translate "Free license" %}</h4>
 <p>
-    {% trans "This content is available under the following license:" %}
+    {% translate "This content is available under the following license:" %}
     <strong>{{license}}</strong>
     {% if author %}
         – {{author}}
@@ -10,6 +10,6 @@
 
     {% if license.url %}
         <br>
-        <a rel="license" href="{{license.url}}">{% trans "Click here for more information" %}</a>
+        <a rel="license" href="{{license.url}}">{% translate "Click here for more information" %}</a>
     {% endif %}
 </p>

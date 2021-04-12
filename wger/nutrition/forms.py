@@ -21,8 +21,8 @@ import logging
 from django import forms
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 
 # Third Party
@@ -55,11 +55,11 @@ class UnitChooserForm(forms.Form):
     A small form to select an amount and a unit for an ingredient
     """
     amount = forms.DecimalField(decimal_places=2,
-                                label=ugettext_lazy("Amount"),
+                                label=gettext_lazy("Amount"),
                                 max_digits=5,
                                 localize=True)
     unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
-                                  label=ugettext_lazy("Unit"),
+                                  label=gettext_lazy("Unit"),
                                   empty_label="g",
                                   required=False)
 
@@ -214,7 +214,7 @@ class MealItemForm(forms.ModelForm):
                                         widget=forms.HiddenInput)
 
     ingredient_searchfield = forms.CharField(required=False,
-                                             label=ugettext_lazy("Ingredient"))
+                                             label=gettext_lazy("Ingredient"))
 
     class Meta:
         model = MealItem

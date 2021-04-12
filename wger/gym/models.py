@@ -23,8 +23,8 @@ from django.contrib.auth.models import User
 from django.db import models as m
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext,
-    ugettext_lazy as _
+    gettext,
+    gettext_lazy as _
 )
 
 # wger
@@ -139,7 +139,7 @@ class GymConfig(m.Model):
         """
         Return a more human-readable representation
         """
-        return ugettext('Configuration for {}'.format(self.gym.name))
+        return gettext('Configuration for {}'.format(self.gym.name))
 
     def get_owner_object(self):
         """

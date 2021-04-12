@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{% trans "Share this page" %}</h4>
+                <h4 class="modal-title">{% translate "Share this page" %}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
@@ -15,18 +15,18 @@
 
                 {% if owner_user %}
                 <div class="noRoAccess {% if user.is_authenticated and is_owner and owner_user.userprofile.ro_access %}d-none{% endif %}">
-                    <p>{% blocktrans %}Before you share links on social media you need to allow external access.{% endblocktrans %}</p>
+                    <p>{% blocktranslate %}Before you share links on social media you need to allow external access.{% endblocktranslate %}</p>
                     <p>
                         <a href="{% url 'core:user:preferences' %}" id="toggle-ro-access" class="btn btn-success btn-sm">
                             <span class="{% fa_class 'check' %}"></span>
-                            {% trans "That's done here" %}
+                            {% translate "That's done here" %}
                         </a>
                     </p>
                 </div>
                 {% endif %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
             </div>
         </div>
     </div>

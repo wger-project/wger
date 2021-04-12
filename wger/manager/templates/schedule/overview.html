@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{% trans "Your schedules" %}{% endblock %}
+{% block title %}{% translate "Your schedules" %}{% endblock %}
 
 
 {% block header %}
@@ -16,7 +16,7 @@
 
                 {% if schedule.is_active %}
                 <span class="badge badge-pill badge-primary float-right">
-                    {% trans "active" %}
+                    {% translate "active" %}
                 </span>
                 {% endif %}
 
@@ -25,7 +25,7 @@
             </a>
         {% empty %}
             <a href="{% url 'manager:schedule:add' %}" class="list-group-item wger-modal-dialog">
-            {% trans "No schedules found." %}<br>{% trans "Add one now." %}
+            {% translate "No schedules found." %}<br>{% translate "Add one now." %}
             </a>
         {% endfor %}
     </div>
@@ -33,21 +33,21 @@
 
 
 {% block sidebar %}
-<p>{% blocktrans %}Schedules are collections of workouts that you do in
-succession.{% endblocktrans %}</p>
+<p>{% blocktranslate %}Schedules are collections of workouts that you do in
+succession.{% endblocktranslate %}</p>
 
-<p>{% blocktrans %}You can indicate how long you want to do each workout
+<p>{% blocktranslate %}You can indicate how long you want to do each workout
 before jumping to the next. It is also possible to create a loop, so you
-always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.{% endblocktrans %}</p>
+always do the same workouts in succession, e.g. A > B > C > A > B > C and so on.{% endblocktranslate %}</p>
 
-<p>{% blocktrans %}The currently active schedule will remain active (and be
+<p>{% blocktranslate %}The currently active schedule will remain active (and be
 shown e.g. in your dashboard) till it reaches the last workout or till you
-deactivate it, if it is a loop.{% endblocktrans %}</p>
+deactivate it, if it is a loop.{% endblocktranslate %}</p>
 {% endblock %}
 
 
 {% block options %}
     <a href="{% url 'manager:schedule:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add schedule" %}
+        {% translate "Add schedule" %}
     </a>
 {% endblock %}

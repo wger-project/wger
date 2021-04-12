@@ -21,7 +21,7 @@ from calendar import HTMLCalendar
 
 # Django
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # Third Party
 from reportlab.lib import colors

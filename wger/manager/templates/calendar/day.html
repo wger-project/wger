@@ -6,10 +6,10 @@
 {#           #}
 {% block opengraph %}
     {{ block.super }}
-    <meta property="og:title" content="{% trans 'Workout log' %}">
+    <meta property="og:title" content="{% translate 'Workout log' %}">
 
     {% with username=owner_user.username %}
-        <meta property="og:description" content="{% blocktrans %}Workout log for {{username}} for {{date}}{% endblocktrans %}">
+        <meta property="og:description" content="{% blocktranslate %}Workout log for {{username}} for {{date}}{% endblocktranslate %}">
     {% endwith %}
 {% endblock %}
 
@@ -28,7 +28,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% trans "Workout log" %} – {{date}}{% endblock %}
+{% block title %}{% translate "Workout log" %} – {{date}}{% endblock %}
 
 
 {#         #}
@@ -50,10 +50,10 @@
                 <td>
                     {{log.reps}}
                     {% if not log.repetition_unit.is_repetition %}
-                        {% trans log.repetition_unit.name %}
+                        {% translate log.repetition_unit.name %}
                     {% endif %}
                     ×
-                    {{log.weight}} {% trans log.weight_unit.name %}
+                    {{log.weight}} {% translate log.weight_unit.name %}
 
                     {% if is_owner %}
                     <span class="dropdown">
@@ -62,11 +62,11 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                    {% trans 'Edit' %}
+                                    {% translate 'Edit' %}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                    {% trans 'Delete' %}
+                                    {% translate 'Delete' %}
                                 </a>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
         {% endfor %}
     {% endfor %}
 {% else %}
-    {% trans "Nothing found" %}
+    {% translate "Nothing found" %}
 {% endif %}
 {% endblock %}
 

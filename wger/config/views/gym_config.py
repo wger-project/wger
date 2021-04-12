@@ -19,7 +19,7 @@ import logging
 
 # Django
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import UpdateView
 
 # wger
@@ -38,7 +38,7 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
     fields = ['default_gym']
     permission_required = 'config.change_gymconfig'
     success_url = reverse_lazy('gym:gym:list')
-    title = ugettext_lazy('Edit')
+    title = gettext_lazy('Edit')
 
     def get_object(self):
         """

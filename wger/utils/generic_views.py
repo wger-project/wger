@@ -26,7 +26,7 @@ from django.http import (
 )
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import ModelFormMixin
 
@@ -138,7 +138,7 @@ class WgerFormMixin(ModelFormMixin):
     the model doesn't provide a get_owner_object() method
     """
 
-    submit_text = ugettext_lazy('Save')
+    submit_text = gettext_lazy('Save')
     """
     Text used in the submit button, default _('save')
     """
@@ -251,7 +251,7 @@ class WgerDeleteMixin(ModelFormMixin):
     form_action_urlname = ''
     title = ''
     delete_message_extra = ''
-    delete_message = ugettext_lazy('Yes, delete')
+    delete_message = gettext_lazy('Yes, delete')
     template_name = 'delete.html'
     messages = ''
 

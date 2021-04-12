@@ -28,16 +28,16 @@ $(document).ready(function() {
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDay{{day.obj.id}}">
                     <a href="{% url 'manager:day:log' day.obj.id %}" class="dropdown-item">
                         <span class="{% fa_class 'chart-line' %}"></span>
-                        {% trans 'Add weight log' %}
+                        {% translate 'Add weight log' %}
                     </a>
                     <a href="{% url 'manager:day:edit' day.obj.id %}" class="wger-modal-dialog dropdown-item">
                         <span class="{% fa_class 'edit' %}"></span>
-                        {% trans 'Edit' %}
+                        {% translate 'Edit' %}
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'manager:day:delete' day.obj.id %}" class="dropdown-item">
                         <span class="{% fa_class 'trash' %}"></span>
-                        {% trans 'Delete' %}
+                        {% translate 'Delete' %}
                     </a>
 
                 </div>
@@ -60,12 +60,12 @@ $(document).ready(function() {
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuSet{{set.obj.id}}">
                             <a href="{% url 'manager:set:edit' set.obj.id %}" class="wger-modal-dialog dropdown-item">
                                <span class="{% fa_class 'edit' %}"></span>
-                               {% trans 'Edit' %}
+                               {% translate 'Edit' %}
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="{% url 'manager:set:delete' set.obj.id %}" class="dropdown-item">
                                 <span class="{% fa_class 'trash' %}"></span>
-                                {% trans 'Delete' %}
+                                {% translate 'Delete' %}
                             </a>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ $(document).ready(function() {
                                     {% else %}
                                     <img class="img-fluid"
                                          src="{% static 'images/icons/image-placeholder.svg' %}"
-                                         alt="{% trans 'Placeholder image for exercise' %}"
+                                         alt="{% translate 'Placeholder image for exercise' %}"
                                          style="opacity: 0.4;">
                                     {% endif %}
                                 </a>
@@ -109,9 +109,9 @@ $(document).ready(function() {
                                 {% if editable %}
                                 {% if not exercise.setting_obj_list %}
                                 <p>
-                                    {% trans "This exercise has no repetitions." %}<br>
+                                    {% translate "This exercise has no repetitions." %}<br>
                                     <a href="{% url 'manager:set:edit' set.obj.id %}" class="wger-modal-dialog">
-                                        {% trans "Edit them now."%}
+                                        {% translate "Edit them now."%}
                                     </a>
                                 </p>
                                 {% endif %}
@@ -136,7 +136,7 @@ $(document).ready(function() {
         <tr>
             <td colspan="2" class="py-0">
                 <a href="{% url 'manager:set:add' day.obj.id %}"
-                   class="wger-modal-dialog btn btn-link btn-block">{% trans "Add exercises to this workout day" %}</a>
+                   class="wger-modal-dialog btn btn-link btn-block">{% translate "Add exercises to this workout day" %}</a>
             </td>
         </tr>
         {% endif %}
