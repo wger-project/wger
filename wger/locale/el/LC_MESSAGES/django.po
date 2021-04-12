@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Greek (http://www.transifex.com/rge/wger-workout-manager/"
-"language/el/)\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Michalis <michalisntovas@yahoo.gr>\n"
+"Language-Team: Greek <https://hosted.weblate.org/projects/wger/web/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -223,7 +223,7 @@ msgstr "Άδειο placeholder ημερολογίου"
 #: core/templates/navigation.html:169 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
-msgstr "Είσοδος"
+msgstr "Σύνδεση"
 
 #: core/forms.py:75 core/forms.py:167 gym/views/export.py:61
 #: gym/views/gym.py:210
