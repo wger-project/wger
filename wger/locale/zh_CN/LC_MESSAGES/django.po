@@ -15,15 +15,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/rge/wger-workout-"
-"manager/language/zh_CN/)\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -1131,7 +1132,7 @@ msgstr "感谢使用我们的网站！"
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr " %(site_name)s 团队"
+msgstr "%(site_name)s 团队"
 
 #: core/templates/tags/license-sidebar.html:3
 msgid "Free license"
