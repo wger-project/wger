@@ -15,10 +15,9 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Russian (http://www.transifex.com/rge/wger-workout-manager/"
-"language/ru/)\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -114,10 +114,10 @@ msgid ""
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
 msgstr ""
-" \n"
-"Используйте настройки, чтобы выбрать языки на которых упражнения и "
-"ингредиенты будут показаны (например упражнения должны быть показаны на "
-"языках A, B и C; а ингредиенты только на А)."
+"Используйте настройки, чтобы выбрать языки на которых\n"
+"упражнения и ингредиенты будут показаны\n"
+"(например упражнения должны быть показаны на языках\n"
+"A, B и C; а ингредиенты только на А)."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
@@ -504,7 +504,7 @@ msgstr "Свободное время"
 
 #: core/models.py:309 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
-msgstr " Общая суточная калорийность"
+msgstr "Общая суточная калорийность"
 
 #: core/models.py:310
 msgid "Total caloric intake, including e.g. any surplus"
@@ -812,7 +812,7 @@ msgstr "Ничего не найдено"
 
 #: core/templates/misc/about.html:4
 msgid "About us"
-msgstr "О  нас"
+msgstr "О нас"
 
 #: core/templates/misc/about.html:8
 msgid "Responsible for the content of this site as per German law §5 TMG:"
@@ -1928,9 +1928,7 @@ msgstr "Добавить новый комментарий"
 
 #: exercises/templates/exercise/view.html:211
 msgid "The diagram shows the most used muscles on this exercise"
-msgstr ""
-" \t\n"
-"Диаграмма показывает самые используемые мышцы в этом упражнении "
+msgstr "Диаграмма показывает самые используемые мышцы в этом упражнении"
 
 #: exercises/templates/exercise/view.html:252
 #: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
@@ -3148,7 +3146,6 @@ msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
-" \n"
 "Дополнительные калории для добавления к базовой ставке (для вычитывания, "
 "введите отрицательное число)"
 
@@ -3398,7 +3395,7 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:139
 #: nutrition/templates/ingredient/view.html:149
 msgid "n.A."
-msgstr " не имеется в наличии"
+msgstr "не имеется в наличии"
 
 #: nutrition/templates/ingredient/view.html:128
 #: nutrition/templates/log/detail.html:119
@@ -3794,7 +3791,6 @@ msgid ""
 "of exercises and\n"
 "ingredients, all released under a free license."
 msgstr ""
-" \n"
 "Цель - создать удивительный и гибкий фитнес-менеджер, наряду с всесторонним "
 "и полным списком упражнений и\n"
 "ингредиентов, выпущеный под свободной лицензией."
@@ -3998,12 +3994,13 @@ msgstr ""
 "groups.google.com/group/wger\">список рассылки</a>."
 
 #: software/templates/license.html:10
+#, fuzzy
 msgid ""
 "wger Workout Manager is Free/Libre Open Source\n"
 "Software (FLOSS)."
 msgstr ""
-"wger Workout Manager - это Free/Libre Open Source\n"
-"Программное обеспечение  (FLOSS)."
+"wger Workout Manager - это Свободное программное\n"
+"обеспечение."
 
 #: software/templates/license.html:22
 msgid ""
@@ -4178,7 +4175,6 @@ msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
-" \n"
 "Вы можете скорректировать список здесь и повторно представить его так часто, "
 "как вы хотите."
 
