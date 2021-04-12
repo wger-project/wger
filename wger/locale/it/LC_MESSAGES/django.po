@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Italian (http://www.transifex.com/rge/wger-workout-manager/"
-"language/it/)\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Stefano Rossi <stefanorossi.ti@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -251,11 +251,9 @@ msgid "Email"
 msgstr "Email"
 
 #: core/forms.py:80
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Usato per il reset della password e, opzionalmente, per i promemoria via "
+"Usato per reimpostare la password e, opzionalmente, per i promemoria via "
 "email."
 
 #: core/forms.py:105
@@ -285,10 +283,8 @@ msgstr ""
 "email."
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "L'indirizzo di mail è già in uso"
+msgstr "Questo indirizzo email è già in uso"
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -305,7 +301,7 @@ msgstr "Password non valida"
 
 #: core/forms.py:214 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Quest formulario è protetto con reCAPTCHA"
 
 #: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
 #: core/templates/navigation.html:170 core/templates/template.html:149
@@ -319,10 +315,8 @@ msgid "Contact"
 msgstr "Contatto"
 
 #: core/forms.py:261
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Per contattarti ( email, etc )"
+msgstr "Un modo per contattarti (email, etc)"
 
 #: core/forms.py:267 exercises/models.py:573 manager/models.py:805
 #: nutrition/models.py:865
@@ -616,6 +610,10 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Tu sei\n"
+" visitando il sito come \"%(current_user)s\", tutte le azioni sono "
+"memorizzate per questo utente.\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -1516,7 +1514,7 @@ msgstr "Includi in una panoramica inattiva"
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "Accesso amministratore disponibile per %(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1978,6 +1976,8 @@ msgstr "Aggiungi muscolo"
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"Nessun esercizio per questo muscolo. Aggiungi un esercizio e imposta il "
+"muscolo."
 
 #: exercises/views/categories.py:69
 msgid "Add category"
@@ -1999,7 +1999,7 @@ msgstr "Cancella attrezzatura?"
 #, python-format
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
+msgstr "%(name_original)s è troppo simile a \"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:232 software/templates/contribute.html:37
 msgid "Add exercise"
@@ -2346,11 +2346,11 @@ msgstr "Modifica palestra"
 
 #: i18n.tpl:2
 msgid "/*/*"
-msgstr ""
+msgstr "/*/*"
 
 #: i18n.tpl:3
 msgid "231"
-msgstr ""
+msgstr "231"
 
 #: i18n.tpl:4
 msgid "Abs"
@@ -2438,7 +2438,7 @@ msgstr "Brachiale"
 
 #: i18n.tpl:25
 msgid "Erector spinae"
-msgstr ""
+msgstr "Erector spinae"
 
 #: i18n.tpl:26
 msgid "Gastrocnemius"
@@ -3231,7 +3231,7 @@ msgstr ""
 
 #: nutrition/models.py:274
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Categorie ingredienti"
 
 #: nutrition/models.py:325
 msgid "In kcal per 100g"
@@ -3271,11 +3271,11 @@ msgstr "Sodio"
 
 #: nutrition/models.py:396
 msgid "Link to product"
-msgstr ""
+msgstr "Collega al prodotto"
 
 #: nutrition/models.py:414
 msgid "Brand name of product"
-msgstr ""
+msgstr "Nome del produttore"
 
 #: nutrition/models.py:473
 #, python-brace-format
@@ -3284,6 +3284,9 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"L'energia totale ({energy}kcal) non è la somma approssimata dell'energia "
+"delle proteine, carboidrati e grasso. ({energy_calculated} kcal +/- "
+"{energy_approx}%)"
 
 #: nutrition/models.py:553 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
@@ -3447,7 +3450,7 @@ msgstr "Macronutrienti"
 #: nutrition/templates/ingredient/view.html:80
 #: nutrition/templates/plan/view.html:64 nutrition/templates/plan/view.html:216
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:101
 #: nutrition/templates/ingredient/view.html:117
@@ -3813,14 +3816,6 @@ msgstr ""
 "migliorato,basta dire!"
 
 #: software/templates/contribute.html:44
-#, fuzzy
-#| msgid ""
-#| "Do you want to use wger in your own language?\n"
-#| "Do you think the current translation could be improved?\n"
-#| "The translations are easily managed and edited online, if you are "
-#| "interested,\n"
-#| "go to the transifex site, request access and we will set everything\n"
-#| "up. "
 msgid ""
 "Do you want to use wger in your own language?\n"
 "Do you think the current translation could be improved?\n"
@@ -3832,7 +3827,7 @@ msgstr ""
 "Pensi che la traduzione attuale possa essere migliorata?\n"
 "Le traduzioni sono facilmente gestibili e modificate online, se sei "
 "interessato,\n"
-"vai al sito transifex, richiedi l'accesso e imposteremo il tutto."
+"visita il link e comincia a tradurre."
 
 #: software/templates/contribute.html:53
 msgid "Code"
@@ -4311,7 +4306,7 @@ msgstr "Usa il link per aggiungerne uno."
 
 #: weight/templates/overview.html:34
 msgid "height in cm"
-msgstr ""
+msgstr "altezza in cm"
 
 #: weight/templates/overview.html:38
 msgid "Last 3 months"
