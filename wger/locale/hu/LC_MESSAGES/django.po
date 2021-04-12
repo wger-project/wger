@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
 "PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Last-Translator: László Mócsy <studiolamax@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/wger/web/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Nyelvek"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr ""
+msgstr "Nincs találat."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:145
 #: core/templates/index.html:197 manager/templates/calendar/month.html:132
@@ -238,10 +238,11 @@ msgstr "Email"
 #: core/forms.py:80
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
+"Jelszó visszaállításokhoz és opcionálisan, e-mail emlékeztetőkhöz használják."
 
 #: core/forms.py:105
 msgid "Personal data"
-msgstr ""
+msgstr "Személyes adat"
 
 #: core/forms.py:111
 msgid "Workout reminders"
@@ -262,12 +263,11 @@ msgstr "Mentés"
 #: core/forms.py:136
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
+"Jelszó visszaállításokhoz és opcionálisan, e-mail emlékeztetőkhöz használják."
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Az emailcím már használatban van."
+msgstr "Ez az e-mail cím már használatban van."
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -284,7 +284,7 @@ msgstr "Érvénytelen jelszó"
 
 #: core/forms.py:214 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Ez az űrlap reCAPTCHA-val van biztosítva"
 
 #: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
 #: core/templates/navigation.html:170 core/templates/template.html:149
@@ -298,10 +298,8 @@ msgid "Contact"
 msgstr "Kapcsolat"
 
 #: core/forms.py:261
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Valami elérhetőség, hogy válaszolni tudjunk: (email, stb.)"
+msgstr "Néhány elérhetőség, hogy válaszolni tudjunk: (e-mail, stb.)"
 
 #: core/forms.py:267 exercises/models.py:573 manager/models.py:805
 #: nutrition/models.py:865
@@ -356,7 +354,7 @@ msgstr ""
 
 #: core/models.py:160
 msgid "Also use ingredients in English"
-msgstr ""
+msgstr "Használjon hozzávalókat Angolul is"
 
 #: core/models.py:161
 msgid ""
@@ -486,7 +484,7 @@ msgstr "Súly egység"
 
 #: core/models.py:326
 msgid "Allow external access"
-msgstr ""
+msgstr "Külső hozzáférés engedélyezése"
 
 #: core/models.py:327
 msgid ""
