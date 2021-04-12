@@ -6,15 +6,16 @@
 # Radim Lipovčan <radim@lipovcan.cz>, 2020
 # rge <roland@geider.net>, 2016
 # rge <roland@geider.net>, 2016
-# Tomáš Zmek <perteus@gmail.com>, 2016
-# Tomáš Zmek <perteus@gmail.com>, 2016,2018
+# Zrnek <perteus@gmail.com>, 2016
+# Zrnek <perteus@gmail.com>, 2016,2018
+# Zrnek <perteus@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-11 20:48+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
+"PO-Revision-Date: 2021-04-11 21:39+0000\n"
+"Last-Translator: Zrnek <perteus@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/rge/wger-workout-manager/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -310,7 +311,7 @@ msgstr "Chybné heslo"
 
 #: wger/core/forms.py:214 wger/core/forms.py:278
 msgid "Form is secured with reCaptcha"
-msgstr ""
+msgstr "Zabezpečeno reCaptcha"
 
 #: wger/core/forms.py:229 wger/core/forms.py:250
 #: wger/core/templates/navigation.html:165
@@ -599,7 +600,7 @@ msgid ""
 "You are\n"
 "    browsing the site as the user \"%(current_user)s\", all actions are performed on their data.\n"
 "    "
-msgstr ""
+msgstr "Prohlížíš web\njako uživatel \"%(current_user)s\". Všechny akce jsou prováděny na jeho datech."
 
 #: wger/core/templates/base.html:16 wger/core/templates/base_wide.html:14
 #, python-format
@@ -1534,7 +1535,7 @@ msgstr "Zahrnout v přehledu neaktivních"
 
 #: wger/core/templates/user/overview.html:487
 msgid "Admin login is only available for users in"
-msgstr ""
+msgstr "Admin přihlášení je povoleno pouze pro uživatele v"
 
 #: wger/core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1975,7 +1976,7 @@ msgstr "Přidat sval"
 #: wger/exercises/templates/muscles/overview.html:81
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
-msgstr ""
+msgstr "Pro tento sval není nastavený žádný cvik. Přidejte, nebo upravte cvik a nastavte mu i sval."
 
 #: wger/exercises/views/categories.py:69
 msgid "Add category"
@@ -1997,7 +1998,7 @@ msgstr "Smazat nářadí?"
 #, python-format
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
+msgstr "%(name_original)sje příliš podobné již existujícímu cvičení \"%(exercise_name)s\""
 
 #: wger/exercises/views/exercises.py:232
 #: wger/software/templates/contribute.html:37
@@ -3139,7 +3140,7 @@ msgstr "Zaškrtněnte toto políčko, pokud chcete tento plán označit jako cí
 
 #: wger/nutrition/models.py:274
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Kategorie přísad"
 
 #: wger/nutrition/models.py:325
 msgid "In kcal per 100g"
@@ -3188,11 +3189,11 @@ msgstr "Sodík"
 
 #: wger/nutrition/models.py:396
 msgid "Link to product"
-msgstr ""
+msgstr "Odkaz na produkt"
 
 #: wger/nutrition/models.py:414
 msgid "Brand name of product"
-msgstr ""
+msgstr "Značka produktu"
 
 #: wger/nutrition/models.py:473
 #, python-brace-format
@@ -3343,7 +3344,7 @@ msgstr "Makroživiny"
 #: wger/nutrition/templates/plan/view.html:64
 #: wger/nutrition/templates/plan/view.html:216
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: wger/nutrition/templates/ingredient/view.html:101
 #: wger/nutrition/templates/ingredient/view.html:117
@@ -4030,7 +4031,7 @@ msgstr "Pro přidání použijte odkaz."
 
 #: wger/weight/templates/overview.html:34
 msgid "height in cm"
-msgstr ""
+msgstr "výška v cm"
 
 #: wger/weight/templates/overview.html:38
 msgid "Last 3 months"
