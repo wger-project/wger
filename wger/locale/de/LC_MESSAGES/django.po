@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
 "PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -245,8 +245,6 @@ msgid "Email"
 msgstr "Email"
 
 #: core/forms.py:80
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
 "Wird für das Zurücksetzen von Passwörter und, optional, für e-Mail-"
@@ -279,8 +277,6 @@ msgstr ""
 "Erinnerungen verwendet."
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
 msgstr "Diese Emailadresse wird bereits verwendet."
 
@@ -298,10 +294,8 @@ msgid "Invalid password"
 msgstr "Ungültiges Passwort"
 
 #: core/forms.py:214 core/forms.py:278
-#, fuzzy
-#| msgid "Form is secured with reCaptcha"
 msgid "The form is secured with reCAPTCHA"
-msgstr "Formular ist mit reCaptcha gesichert"
+msgstr "Das Formular ist mit reCaptcha gesichert"
 
 #: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
 #: core/templates/navigation.html:170 core/templates/template.html:149
@@ -315,8 +309,6 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: core/forms.py:261
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Eine Möglichkeit, dich zu erreichen (Email, etc.)"
 
@@ -1509,7 +1501,7 @@ msgstr "In Inaktivübersicht aufnehmen"
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "Admin-Login ist nur für Benutzer in %(gym_name)s verfügbar"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -3279,6 +3271,9 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"Die Gesamtenergie ({energy}kcal) ist nicht die ungefähre Summe der Energie "
+"aus Eiweiß, Kohlenhydraten und Fett ({energy_calculated}kcal "
+"+/-{energy_approx}%)"
 
 #: nutrition/models.py:553 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
@@ -3799,14 +3794,6 @@ msgstr ""
 "irgendein Detail fehlt oder verbessert werden könnte, sag Bescheid!"
 
 #: software/templates/contribute.html:44
-#, fuzzy
-#| msgid ""
-#| "Do you want to use wger in your own language?\n"
-#| "Do you think the current translation could be improved?\n"
-#| "The translations are easily managed and edited online, if you are "
-#| "interested,\n"
-#| "go to the transifex site, request access and we will set everything\n"
-#| "up. "
 msgid ""
 "Do you want to use wger in your own language?\n"
 "Do you think the current translation could be improved?\n"
@@ -3817,8 +3804,7 @@ msgstr ""
 "Willst du wger in deiner Muttersprache benutzen? Denkst du dass die\n"
 "aktuelle Übersetzung verbessert werden könnte? Die Übersetzungen können\n"
 "komfortabel online verwaltet und editiert werden. Wenn du interessiert\n"
-"bist, gehe zur transifex Seite, trete in das Team ein und wir werden\n"
-"alle nötige aufsetzen."
+"bist, besuche den Link und fang an zu übersetzten."
 
 #: software/templates/contribute.html:53
 msgid "Code"
