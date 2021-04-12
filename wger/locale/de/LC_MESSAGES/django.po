@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 20:21+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -847,9 +847,9 @@ msgid ""
 "."
 msgstr ""
 "Danke für dein Interesse. Du kannst gerne eine der folgenden Möglichkeiten "
-"benutzen um Feedback zu geben.  Für Support sag hallo <a href=\"%(discord)s"
-"\"> auf dem Discord-Server </a>, um einen Fehler zu berichten, öffne ein "
-"Ticke im<a href=\"%(issues)s\">-Issue-Tracker </a>."
+"benutzen um Feedback zu geben. Für Support sag hallo <a href=\"%(discord)s\""
+">auf dem Discord-Server</a>, um einen Fehler zu berichten, öffne ein Ticke "
+"im<a href=\"%(issues)s\">-Issue-Tracker </a>."
 
 #: core/templates/misc/contact.html:20
 #, python-format
@@ -1793,7 +1793,7 @@ msgstr "Nur registrierte Benutzer dürfen das"
 msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
-msgstr "Die Übung  '%(exercise)s' wurde erfolgreich zur Datenbank hinzugefügt"
+msgstr "Die Übung '%(exercise)s' wurde erfolgreich zur Datenbank hinzugefügt"
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
@@ -1809,7 +1809,7 @@ msgstr ""
 msgid "Thank you for contributing and making this site better!"
 msgstr ""
 "Danke fürs Mitmachen und diese Seite besser zu machen!\n"
-"   das wger.de Team"
+"das wger.de Team"
 
 #: exercises/templates/exercise/email_new.tpl:9
 #: manager/templates/workout/email_reminder.tpl:15
