@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
 "PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Last-Translator: Zrnek <perteus@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -498,7 +498,7 @@ msgstr "Celkové denní kalorie"
 
 #: core/models.py:310
 msgid "Total caloric intake, including e.g. any surplus"
-msgstr "Celkový energetický příjem, který zahrnuje třeba jakýkoliv přebytek. "
+msgstr "Celkový energetický příjem, který zahrnuje třeba jakýkoliv přebytek."
 
 #: core/models.py:320 nutrition/models.py:638 nutrition/models.py:818
 #: nutrition/models.py:880
@@ -587,7 +587,7 @@ msgstr "Stránka nenalezena"
 
 #: core/templates/404.html:7
 msgid "The page you requested does not exist."
-msgstr "Požadovaná stránka neexistuje"
+msgstr "Požadovaná stránka neexistuje."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
@@ -2309,7 +2309,7 @@ msgstr "Přidat poznámku"
 #: gym/views/contract_option.py:160 gym/views/contract_type.py:160
 #, python-brace-format
 msgid "Delete {0}"
-msgstr "Smazat {0}?"
+msgstr "Smazat {0}"
 
 #: gym/views/contract_type.py:60
 msgid "Add contract type"
@@ -2329,11 +2329,11 @@ msgstr "Upravit posilovnu"
 
 #: i18n.tpl:2
 msgid "/*/*"
-msgstr ""
+msgstr "/*/*"
 
 #: i18n.tpl:3
 msgid "231"
-msgstr ""
+msgstr "231"
 
 #: i18n.tpl:4
 msgid "Abs"
@@ -2421,7 +2421,7 @@ msgstr "Hluboký sval paže"
 
 #: i18n.tpl:25
 msgid "Erector spinae"
-msgstr ""
+msgstr "Vzpřimovač trupu"
 
 #: i18n.tpl:26
 msgid "Gastrocnemius"
@@ -3259,6 +3259,8 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"Celková energie ({energy}kcal) není přibližná energie, kterou poskytují "
+"bílkoviny, sacharidy a tuky ({energy_calculated}kcal +/-{energy_approx}%)"
 
 #: nutrition/models.py:553 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
@@ -3291,7 +3293,7 @@ msgstr "Výsledek"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Vaše BMI je:"
+msgstr "Vaše BMI je: "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
