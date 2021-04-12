@@ -484,7 +484,7 @@
         class="btn btn-sm btn-success"
        {% else %}
         href="#"
-        title="{% trans 'Admin login is only available for users in' %} &ldquo;{{gym_name}}&rdquo;"
+        title="{% blocktranslate %}Admin login is only available for users in {{gym_name}}{% endblocktranslate %}"
         class="btn btn-sm btn-secondary"
        {% endif %}
     >
