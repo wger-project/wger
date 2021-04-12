@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
 "PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Michalis <michalisntovas@yahoo.gr>\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/wger/web/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -1102,12 +1102,14 @@ msgid "Password reset successful"
 msgstr "Επιτυχής αλλαγή κωδικού"
 
 #: core/templates/registration/password_reset_done.html:8
+#, fuzzy
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
-"Σας έχουμε στείλει οδηγίες για να ρυθμίσετε τον κωδικό σας στην διεύθυνση  e-"
-"mail που μας έχετε υποβάλλει. Θα πρέπει να τις παραλάβετε σύντομα."
+"Σας έχουμε στείλει οδηγίες για να ρυθμίσετε τον κωδικό σας στην διεύθυνση "
+"ηλεκτρονικό ταχυδρομείο που μας έχετε υποβάλλει. Θα πρέπει να τις παραλάβετε "
+"σύντομα."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
