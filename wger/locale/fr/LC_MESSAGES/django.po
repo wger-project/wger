@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: French (http://www.transifex.com/rge/wger-workout-manager/"
-"language/fr/)\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -1266,7 +1266,7 @@ msgid "API key"
 msgstr "Clé API"
 
 #: core/templates/user/api_key.html:9
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Generate an API key if you want to interact with wger via\n"
 "the <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> it provides (for\n"
@@ -1275,11 +1275,11 @@ msgid ""
 "anything). You must pass this information in the header in the format shown "
 "below."
 msgstr ""
-"Générer une clé API si vous voulez interagir avec wger via l' <a href="
-"\"%(url)s\" rel=\"nofollow\"> API REST</a>  fournit (pour les ressources "
+"Générer une clé API si vous voulez interagir avec wger via l' <a href=\""
+"%(url)s\" rel=\"nofollow\">API REST</a> fournit (pour les ressources "
 "publiques tels que les exercices ou les ingrédients, vous n’avez pas besoin "
-"de fournir quoi que ce soit). Vous devez transmettre ces informations dans "
-"l’en-tête dans le format indiqué ci-dessous."
+"de fournir quoi que ce soit). Vous devez transmettre ces informations dans l"
+"’en-tête dans le format indiqué ci-dessous."
 
 #: core/templates/user/api_key.html:15
 msgid "For security reasons, you should only access the API via HTTPS."
@@ -2971,7 +2971,7 @@ msgstr ""
 #: manager/templates/workout/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr "Votre entraînement actuel  %(workout)s expire dans  %(days)s jours."
+msgstr "Votre entraînement actuel «%(workout)s» expire dans %(days)s jours."
 
 #: manager/templates/workout/email_reminder.tpl:9
 msgid ""
@@ -2999,8 +2999,7 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
-"Votre dernière entrée de poids date du  %(date)s ( il y a  %(days)s "
-"jours ).\n"
+"Votre dernière entrée de poids date du %(date)s ( il y a %(days)s jours ).\n"
 "S’il vous plaît cliquez sur le lien pour accéder à l’application et entrer "
 "un nouveau."
 
@@ -3366,9 +3365,9 @@ msgid ""
 "be used automatically. Otherwise the weight you enter here will be saved\n"
 "in a new entry."
 msgstr ""
-"Utilisez le formulaire pour calculer votre IMC (indice de masse "
-"corporelle).\n"
-"Si vous avez entré des données dans la section poids,  la dernière entrée "
+"Utilisez le formulaire pour calculer votre IMC (indice de masse corporelle)."
+"\n"
+"Si vous avez entré des données dans la section poids, la dernière entrée "
 "sera utilisée automatiquement. Dans le cas contraire, le poids que vous "
 "entrez ici sera sauvegardé dans une nouvelle entrée."
 
@@ -3933,7 +3932,7 @@ msgid ""
 "nutritional values (total energy, protein, carbohydrates, and so on) about "
 "the whole plan as well as the indivual meals."
 msgstr ""
-"Créez votre plan d’alimentation personnel en créant des  repas avec des "
+"Créez votre plan d’alimentation personnel en créant des repas avec des "
 "ingrédients différents autant que vous le souhaitez. L’application calculera "
 "les valeurs nutritionnelles (total énergétique, protéines, les glucides et "
 "ainsi de suite) sur l’ensemble du plan ainsi que les repas individuels."
@@ -3965,7 +3964,7 @@ msgstr "Parmi beaucoup d’autres"
 
 #: software/templates/features.html:133
 msgid "Weight tracker"
-msgstr " Traqueur de Poids"
+msgstr "Traqueur de Poids"
 
 #: software/templates/features.html:137
 msgid ""
@@ -4121,8 +4120,8 @@ msgid ""
 "<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>."
 msgstr ""
 "Une copie du texte de la licence figure dans chaque versions de wger Workout "
-"Manager  (LICENSE.txt) et peut être lu en ligne sur le site Web du <a "
-"href='https://www.gnu.org/licenses/agpl-3.0.en.html'> projet GNU</a>."
+"Manager (LICENSE.txt) et peut être lu en ligne sur le site Web du <a "
+"href='https://www.gnu.org/licenses/agpl-3.0.en.html'>projet GNU</a>."
 
 #: utils/generic_views.py:254
 msgid "Yes, delete"
