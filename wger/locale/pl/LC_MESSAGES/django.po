@@ -14,10 +14,9 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Polish (http://www.transifex.com/rge/wger-workout-manager/"
-"language/pl/)\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -1106,7 +1106,7 @@ msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
-"Wysłaliśmy dalsze instrukcje zmian hasła  na podany adres e-mail. Powinieneś "
+"Wysłaliśmy dalsze instrukcje zmian hasła na podany adres e-mail. Powinieneś "
 "otrzymać go wkrótce."
 
 #: core/templates/registration/password_reset_email.html:2
@@ -1116,7 +1116,7 @@ msgid ""
 "user account at %(site_name)s."
 msgstr ""
 "Otrzymałeś tego e-maila, ponieważ poprosiłeś o zmianę hasła dla Twojego "
-"konta użytkownika na  %(site_name)s."
+"konta użytkownika na %(site_name)s."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -1133,7 +1133,7 @@ msgstr "Dziękujemy za korzystanie z naszej strony!"
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr "Zespół  %(site_name)s "
+msgstr "Zespół %(site_name)s"
 
 #: core/templates/tags/license-sidebar.html:3
 msgid "Free license"
@@ -1298,7 +1298,7 @@ msgstr "Zapomniałeś hasła?"
 #: core/templates/user/overview.html:406
 #, python-format
 msgid "last %(number)s"
-msgstr "ostatnie  %(number)s "
+msgstr "ostatnie %(number)s"
 
 #: core/templates/user/overview.html:27 core/templates/user/overview.html:146
 #: core/templates/user/overview.html:326 core/templates/user/overview.html:365
@@ -1780,7 +1780,7 @@ msgstr "Dziękujemy za pomoc w rozwijaniu strony!"
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr "Zespół  %(site)s"
+msgstr "Zespół %(site)s"
 
 #: exercises/templates/exercise/form.html:4
 msgid "Submitting an exercise"
@@ -2164,7 +2164,7 @@ msgstr "Typy kontraktów"
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
 msgstr ""
-"Następujacy członkowie nie odwiedzili siłowni od ostatnich  %(weeks)s tygodni"
+"Następujacy członkowie nie odwiedzili siłowni od ostatnich %(weeks)s tygodni"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
@@ -2679,12 +2679,12 @@ msgstr "Log treningowy"
 #: manager/templates/calendar/day.html:12
 #, python-format
 msgid "Workout log for %(username)s for %(date)s"
-msgstr "Log treningowy dla %(username)s dla  %(date)s"
+msgstr "Log treningowy dla %(username)s dla %(date)s"
 
 #: manager/templates/calendar/month.html:13
 #, python-format
 msgid "Calendar for %(username)s"
-msgstr "Kalendarz dla  %(username)s "
+msgstr "Kalendarz dla %(username)s"
 
 #: manager/templates/calendar/month.html:53
 msgid "Detail page"
@@ -2763,7 +2763,7 @@ msgid ""
 "on."
 msgstr ""
 "Możesz ustalić jak długo chcesz wykonywać dany trening przed przejściem do "
-"następnego. Można także zapętlać treningi, dzięki czemu  będziesz mógł "
+"następnego. Można także zapętlać treningi, dzięki czemu będziesz mógł "
 "wykonywać te same treningi w danej kolejności, np. A > B > C > A > B > C itd."
 
 #: manager/templates/schedule/overview.html:43
@@ -2899,12 +2899,12 @@ msgstr ""
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(workout)s' expired %(days)s days ago."
-msgstr "Twój aktualny trening \" %(workout)s\" wygasł  %(days)s dni temu."
+msgstr "Twój aktualny trening \" %(workout)s\" wygasł %(days)s dni temu."
 
 #: manager/templates/workout/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr "Twój aktualny trening \" %(workout)s\" wygaśnie w ciągu  %(days)s dni."
+msgstr "Twój aktualny trening \"%(workout)s\" wygaśnie w ciągu %(days)s dni."
 
 #: manager/templates/workout/email_reminder.tpl:9
 msgid ""
