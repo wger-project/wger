@@ -11,12 +11,12 @@ wger uses django's translation infrastructure, but there are a couple of things
 that need to be considered. First you need to extract some translatable strings
 from the database such as exercise categories and muscle names::
 
-    python ../manage.py extract-i18n
+    python manage.py extract-i18n
 
 Then, update your po files with the usual django command (run this in the wger
-subfolder, not the root one)::
+sub folder, not the root one)::
 
-    django-admin makemessages --locale en --extension py,html,tpl
+    django-admin makemessages --all --extension py,html,tpl
 
 
 and finally you can compile them with::
