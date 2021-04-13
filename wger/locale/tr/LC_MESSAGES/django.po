@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Turkish (http://www.transifex.com/rge/wger-workout-manager/"
-"language/tr/)\n"
+"PO-Revision-Date: 2021-04-13 16:40+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -244,11 +244,9 @@ msgid "Email"
 msgstr "E-posta"
 
 #: core/forms.py:80
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Şifre sıfırlamaları ve isteğe bağlı olarak e-posta hatırlatıcıları için "
+"Parola sıfırlamaları ve isteğe bağlı olarak e-posta hatırlatıcıları için "
 "kullanılır."
 
 #: core/forms.py:105
@@ -274,31 +272,29 @@ msgstr "Kaydet"
 #: core/forms.py:136
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Şifre sıfırlamaları ve isteğe bağlı olarak e-posta hatırlatıcıları için "
+"Parola sıfırlamaları ve isteğe bağlı olarak e-posta hatırlatıcıları için "
 "kullanılır."
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Bu e-posta zaten kullanılıyor."
+msgstr "Bu e-posta adresi zaten kullanılıyor."
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 #: core/forms.py:186
 msgid "Please enter your current password."
-msgstr "Lütfen mevcut şifrenizi girin."
+msgstr "Lütfen geçerli parolanızı girin."
 
 #: core/forms.py:203
 msgid "Invalid password"
-msgstr "Geçersiz şifre"
+msgstr "Geçersiz parola"
 
 #: core/forms.py:214 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Form reCAPTCHA ile güvence altına alındı"
 
 #: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
 #: core/templates/navigation.html:170 core/templates/template.html:149
@@ -312,8 +308,6 @@ msgid "Contact"
 msgstr "İletişim"
 
 #: core/forms.py:261
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Size cevap vermenin bir yolu (e-posta vb.)"
 
@@ -605,6 +599,10 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Siteye\n"
+"    \"%(current_user)s\" kullanıcısı olarak göz atıyorsunuz, tüm işlemler "
+"onların verileri üzerinde gerçekleştirilir.\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -1077,7 +1075,7 @@ msgstr "Çevirmek"
 
 #: core/templates/navigation.html:171 core/templates/user/login.html:28
 msgid "Reset password"
-msgstr "Şifreyi yenile"
+msgstr "Parolayı sıfırla"
 
 #: core/templates/navigation.html:184
 msgid "My preferences"
@@ -1111,11 +1109,11 @@ msgstr "Spor salonları"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr "Şifre sıfırlama tamamlandı"
+msgstr "Parola sıfırlama tamamlandı"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Şifreniz ayarlanmıştır. Devam edebilir ve şimdi giriş yapabilirsiniz."
+msgstr "Parolanız ayarlandı.  Devam edebilir ve şimdi oturum açabilirsiniz."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
@@ -1123,15 +1121,15 @@ msgstr "Oturum aç"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr "Şifre sıfırlama başarılı"
+msgstr "Parola sıfırlama başarılı"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
-"Gönderdiğiniz e-posta adresine şifrenizi ayarlamanız için talimatları size e-"
-"postayla gönderdik. Kısa süre içinde almalısın."
+"Gönderdiğiniz e-posta adresine parolanızı ayarlamanız için talimatları size "
+"e-postayla gönderdik. Kısa süre içinde almalısınız."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -1144,7 +1142,7 @@ msgstr ""
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr "Lütfen aşağıdaki sayfaya gidin ve yeni bir şifre seçin:"
+msgstr "Lütfen aşağıdaki sayfaya gidin ve yeni bir parola seçin:"
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
@@ -1420,7 +1418,7 @@ msgstr "Kullanıcıyı etkinleştir"
 
 #: core/templates/user/overview.html:212
 msgid "Reset user password"
-msgstr "Kullanıcı şifresini sıfırlayın"
+msgstr "Kullanıcı parolasını sıfırla"
 
 #: core/templates/user/overview.html:215 gym/templates/gym/member_list.html:30
 msgid "Roles"
@@ -1428,11 +1426,11 @@ msgstr "Roller"
 
 #: core/templates/user/overview.html:226
 msgid "Password reset confirmation"
-msgstr "Şifre sıfırlama onayı"
+msgstr "Parola sıfırlama onayı"
 
 #: core/templates/user/overview.html:230
 msgid "Do you really want to change this user&#39;s password?"
-msgstr "Bu kullanıcının şifresini gerçekten değiştirmek istiyor musunuz?"
+msgstr "Bu kullanıcının parolasını gerçekten değiştirmek istiyor musunuz?"
 
 #: core/templates/user/overview.html:233
 msgid "No"
@@ -1517,7 +1515,7 @@ msgstr "Tercihler"
 
 #: core/templates/user/preferences.html:33 core/views/user.py:571
 msgid "Change password"
-msgstr "Şifre değiştir"
+msgstr "Parola değiştir"
 
 #: core/templatetags/wger_extras.py:210
 msgid "kg"
@@ -2287,9 +2285,10 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Lütfen kullanıcı şifresini bir yere yazın veya dışa aktarılanları kaydedin\n"
-"tüm kullanıcı verilerini içeren ve güvenli bir yerde saklayın. Şifre\n"
-"daha sonra kurtarılamaz."
+"Lütfen kullanıcı parolasını bir yere yazın veya tüm kullanıcı\n"
+"verilerini içeren dışa aktarılan dosyayı kaydedin ve güvenli bir yerde "
+"saklayın.\n"
+"Parola daha sonra kurtarılamaz."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -2300,7 +2299,7 @@ msgid ""
 "This user's password has been reset. Please notify the user of their new "
 "password."
 msgstr ""
-"Bu kullanıcının şifresi sıfırlandı. Lütfen yeni şifresini kullanıcıya "
+"Bu kullanıcının parolası sıfırlandı. Lütfen kullanıcıya yeni parolasını "
 "bildirin."
 
 #: gym/views/admin_notes.py:94 gym/views/document.py:94
