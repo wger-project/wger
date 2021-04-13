@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-13 16:40+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -108,10 +108,11 @@ msgid ""
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
 msgstr ""
-"Yapılandırmayı kullanarak hangi dillerde\n"
-"mevcut dil için alıştırmalar ve malzemeler gösterilecektir (örneğin\n"
-"egzersizler A, B ve C dillerinde gösterilmelidir; sadece malzemeler\n"
-"içinde)."
+"Geçerli dil için egzersizlerin ve bileşenlerin hangi\n"
+"dillerde gösterileceğini seçmek için yapılandırmayı kullanın (örneğin, "
+"egzersizler\n"
+"A, B ve C dillerinde gösterilmelidir; bileşenler yalnızca A "
+"dilindegösterilmelidir)."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
@@ -773,7 +774,7 @@ msgstr "Kilo"
 
 #: core/templates/index.html:215
 msgid "Your current weight is: "
-msgstr "Mevcut kilonuz:"
+msgstr "Şu anki kilonuz: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:75
 #: weight/views.py:70
@@ -817,7 +818,7 @@ msgstr "Alman yasaları §5 TMG uyarınca bu sitenin içeriğinden sorumlu:"
 
 #: core/templates/misc/about.html:16
 msgid "GNUPG-Key:"
-msgstr "GNUPG-Key:"
+msgstr "GNUPG-Anahtarı:"
 
 #: core/templates/misc/contact.html:4 core/templates/navigation.html:131
 #: core/templates/template_features.html:86
@@ -846,13 +847,14 @@ msgstr ""
 "."
 
 #: core/templates/misc/contact.html:20
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you want to further help and improve this project,\n"
 "you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
 msgstr ""
-"Bu projeye daha fazla yardım etmek ve geliştirmek istiyorsanız,\n"
-"'a katkıda bulunmakla da <a href=\"%(contribute)s\">ilginizi çekebilir</a>."
+"Bu projeye daha fazla yardım etmek ve onu iyileştirmek\n"
+"istiyorsanız, <a href=\"%(contribute)s\">katkıda bulunmak</a> da ilginizi "
+"çekebilir."
 
 #: core/templates/misc/contact.html:29
 msgid "Feedback form"
@@ -889,8 +891,9 @@ msgid ""
 "local wger installation, discuss issues or your new idea, etc.\n"
 "(no registration needed)"
 msgstr ""
-"Yerel wger kurulumu için destek almak için genel grubu kullanın, sorunları "
-"veya yeni fikrinizi tartışın vb. (kayıt gerekmez)"
+"Yerel wger kurulumunuz için destek almak, sorunları\n"
+"veya yeni fikrinizi tartışmak vb. için genel grubu kullanın\n"
+"(kayıt gerekmez)"
 
 #: core/templates/misc/contact.html:49
 msgid "Open feedback form"
@@ -1071,7 +1074,7 @@ msgstr "Kodu alın"
 #: core/templates/template_features.html:103
 #: software/templates/contribute.html:43 software/templates/contribute.html:50
 msgid "Translate"
-msgstr "Çevirmek"
+msgstr "Çevir"
 
 #: core/templates/navigation.html:171 core/templates/user/login.html:28
 msgid "Reset password"
@@ -1304,10 +1307,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Bu işlem, \"%(username)s\" kullanıcı hesabını siler.\n"
-"Ayrıca kendisiyle ilişkili tüm verileri (egzersizler, günlükler vb.) Geri "
-"alınamaz bir şekilde kaldıracaktır.\n"
-"ve geri alınamaz."
+"Bu işlem, \"%(username)s\" kullanıcı hesabını silecektir.\n"
+"Ayrıca onunla ilişkili tüm verileri (egzersizler, günlükler vb.) iptal "
+"edilemez bir\n"
+"şekilde kaldıracaktır ve geri alınamaz. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1504,6 +1507,8 @@ msgstr "Etkin olmayan genel bakışa ekle"
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr ""
+"Yönetici oturumu yalnızca %(gym_name)s içindeki kullanıcılar tarafından "
+"kullanılabilir"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1937,7 +1942,7 @@ msgstr "Yeni yorum ekle"
 
 #: exercises/templates/exercise/view.html:211
 msgid "The diagram shows the most used muscles on this exercise"
-msgstr "Şema, bu egzersizde en çok kullanılan kasları göstermektedir."
+msgstr "Şema, bu egzersizde en çok kullanılan kasları göstermektedir"
 
 #: exercises/templates/exercise/view.html:252
 #: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
@@ -1966,6 +1971,8 @@ msgstr "Kas ekleyin"
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"Bu kas için egzersiz yok. Bir egzersiz ekleyin veya düzenleyin ve kası "
+"ayarlayın."
 
 #: exercises/views/categories.py:69
 msgid "Add category"
@@ -1988,6 +1995,7 @@ msgstr "Ekipman silinsin mi?"
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
+"%(name_original)s, mevcut \"%(exercise_name)s\" egzersizine çok benziyor"
 
 #: exercises/views/exercises.py:232 software/templates/contribute.html:37
 msgid "Add exercise"
@@ -2045,7 +2053,7 @@ msgstr ""
 
 #: gym/forms.py:105
 msgid "A user with that username already exists."
-msgstr "Bir kullanıcı bu ismi zaten kulanıyor."
+msgstr "Bu kullanıcı adına sahip bir kullanıcı zaten var."
 
 #: gym/management/commands/inactive-members.py:97 gym/models.py:123
 msgid "Reminder of inactive members"
@@ -2337,11 +2345,11 @@ msgstr "Spor salonunu düzenle"
 
 #: i18n.tpl:2
 msgid "/*/*"
-msgstr ""
+msgstr "/*/*"
 
 #: i18n.tpl:3
 msgid "231"
-msgstr ""
+msgstr "231"
 
 #: i18n.tpl:4
 msgid "Abs"
@@ -2429,7 +2437,7 @@ msgstr "Brachialis"
 
 #: i18n.tpl:25
 msgid "Erector spinae"
-msgstr ""
+msgstr "Erector spinae"
 
 #: i18n.tpl:26
 msgid "Gastrocnemius"
@@ -2538,7 +2546,7 @@ msgid ""
 "the emails"
 msgstr ""
 "E-postaları göndermeden önce içeriği ihtiyaç duyduğunuz sıklıkta "
-"güncelleyebilir ve düzeltebilirsiniz."
+"güncelleyebilir ve düzeltebilirsiniz"
 
 #: mailer/templates/mailer/gym/preview.html:22
 msgid "Current version"
@@ -2837,7 +2845,7 @@ msgid ""
 "deactivate it"
 msgstr ""
 "Bu program bir döngüdür ve siz devre dışı bırakana kadar yukarıdaki "
-"antrenmanlardan geçecektir."
+"antrenmanlardan geçecektir"
 
 #: manager/templates/schedule/view.html:106 manager/views/schedule.py:165
 #: manager/views/schedule.py:230
@@ -3221,7 +3229,7 @@ msgstr ""
 
 #: nutrition/models.py:274
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "İçerik Kategorileri"
 
 #: nutrition/models.py:325
 msgid "In kcal per 100g"
@@ -3261,11 +3269,11 @@ msgstr "Sodyum"
 
 #: nutrition/models.py:396
 msgid "Link to product"
-msgstr ""
+msgstr "Ürün bağlantısı"
 
 #: nutrition/models.py:414
 msgid "Brand name of product"
-msgstr ""
+msgstr "Ürünün marka adı"
 
 #: nutrition/models.py:473
 #, python-brace-format
@@ -3274,6 +3282,9 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"Toplam enerji ({energy}kcal); protein, karbonhidratlar ve yağ tarafından "
+"sağlanan enerjinin yaklaşık toplamı değildir ({energy_calculated}kcal "
+"+/-{energy_approx}%)"
 
 #: nutrition/models.py:553 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
@@ -3306,7 +3317,7 @@ msgstr "Sonuçlar"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "BMI'niz:"
+msgstr "BMI değeriniz: "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3438,7 +3449,7 @@ msgstr "Makrobesinler"
 #: nutrition/templates/ingredient/view.html:80
 #: nutrition/templates/plan/view.html:64 nutrition/templates/plan/view.html:216
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:101
 #: nutrition/templates/ingredient/view.html:117
@@ -3623,7 +3634,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Temel metabolizma hızınız:"
+msgstr "Temel metabolizma hızınız: "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -3641,7 +3652,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Günlük aktiviteler için faktör:"
+msgstr "Günlük aktiviteler için faktör: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
@@ -3745,11 +3756,12 @@ msgid ""
 "article</a> which summarizes they way open source projects work very well. "
 msgstr ""
 "wger Workout Manager, gönüllüler tarafından oluşturulmuştur,\n"
-"geliştirme süreci, ilgilenen herkes için açık ve serbestçe erişilebilir.\n"
-"Özgür yazılım dünyasında yeniyseniz,\n"
-"bak <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\"> buna\n"
-"açık kaynaklı projelerin çok iyi çalıştığını özetleyen </a> makalesi."
+"geliştirme süreci, ilgilenen herkes için açık ve serbestçe erişilebilirdir.\n"
+"Özgür yazılım dünyasında yeniyseniz, açık kaynaklı projelerin çok iyi "
+"çalıştığını\n"
+"özetleyen <a href=\"http://schlitt.info/opensource/blog/"
+"0541_10_golden_rules_for_starting_with_open_source.html\">bu\n"
+"makaleye</a> bir göz atmanızı tavsiye ederiz. "
 
 #: software/templates/contribute.html:16
 msgid ""
@@ -3758,8 +3770,7 @@ msgid ""
 "project. "
 msgstr ""
 "Her türlü katkı takdir edilir ve memnuniyetle karşılanır.\n"
-"Bu fırsatı kullanın ve yönünü etkileyin.\n"
-"proje."
+"Bu fırsatı kullanın ve projenin yönünü etkileyin. "
 
 #: software/templates/contribute.html:23
 msgid "Use the site"
@@ -3773,11 +3784,11 @@ msgid ""
 "sound\n"
 "like much, but is incredibly important!"
 msgstr ""
-"Sadece siteyi kullanın ve arkadaşlarınıza söyleyin\n"
-"ne kadar kullanışlı! ;). Özellikle beğendiğiniz bir şey bulduğunuzda,\n"
-"bazı iyileştirmelere ihtiyaç duyabilir veya işe yaramazsa, bize söyleyin! Bu "
-"kulağa gelmeyebilir\n"
-"çok gibi, ama inanılmaz derecede önemli!"
+"Yalnızca siteyi kullanın ve arkadaşlarınıza bunun\n"
+"ne kadar kullanışlı olduğunu söyleyin! ;). Özellikle beğendiğiniz,\n"
+"iyileştirmeye ihtiyaç duyabilecek veya çalışmayan bir şey bulduğunuzda bize "
+"söyleyin!\n"
+"Kulağa fazla bir şey gibi gelmeyebilir ama inanılmaz derecede önemlidir!"
 
 #: software/templates/contribute.html:31
 msgid "Submit exercises"
@@ -3796,14 +3807,6 @@ msgstr ""
 "çok kısa veya başka bir ayrıntı eksik veya iyileştirilebilir, söyle!"
 
 #: software/templates/contribute.html:44
-#, fuzzy
-#| msgid ""
-#| "Do you want to use wger in your own language?\n"
-#| "Do you think the current translation could be improved?\n"
-#| "The translations are easily managed and edited online, if you are "
-#| "interested,\n"
-#| "go to the transifex site, request access and we will set everything\n"
-#| "up. "
 msgid ""
 "Do you want to use wger in your own language?\n"
 "Do you think the current translation could be improved?\n"
@@ -3811,12 +3814,10 @@ msgid ""
 "interested,\n"
 "visit the link and start translating."
 msgstr ""
-"Wger'ı kendi dilinizde kullanmak ister misiniz?\n"
-"Mevcut çevirinin iyileştirilebileceğini düşünüyor musunuz?\n"
-"Çeviriler, ilgileniyorsanız çevrimiçi olarak kolayca yönetilir ve "
-"düzenlenir,\n"
-"transifex sitesine gidin, erişim talep edin ve her şeyi ayarlayalım\n"
-"yukarı."
+"wger'ı kendi dilinizde kullanmak mı istiyorsunuz?\n"
+"Mevcut çevirinin iyileştirilebileceğini mi düşünüyorsunuz?\n"
+"Çeviriler çevrim içi olarak kolayca yönetilir ve düzenlenir, eğer\n"
+"ilgileniyorsanız bağlantıyı ziyaret edin ve çeviriye başlayın."
 
 #: software/templates/contribute.html:53
 msgid "Code"
@@ -3856,8 +3857,8 @@ msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts. "
 msgstr ""
-"wger Workout Manager, egzersizlerinizi ve antrenmanlarınızı yöneten "
-"ücretsiz, açık kaynaklı bir web uygulamasıdır."
+"wger Workout Manager, egzersizlerinizi ve antrenmanlarınızı yöneten özgür, "
+"açık kaynaklı bir web uygulamasıdır. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -4292,7 +4293,7 @@ msgstr "Bir tane eklemek için bağlantıyı kullanın."
 
 #: weight/templates/overview.html:34
 msgid "height in cm"
-msgstr ""
+msgstr "cm cinsinden boy"
 
 #: weight/templates/overview.html:38
 msgid "Last 3 months"
