@@ -112,7 +112,7 @@ class EmailListFormPreview(FormPreview):
             if admin.email:
                 mail.send_mail(form.cleaned_data['subject'],
                                form.cleaned_data['body'],
-                               settings.DEFAULT_FROM_EMAIL,
+                               settings.WGER_SETTINGS['EMAIL_FROM'],
                                [admin.email],
                                fail_silently=False)
         return context

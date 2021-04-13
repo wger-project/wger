@@ -36,7 +36,7 @@ class Command(BaseCommand):
             for email in CronEntry.objects.all()[:100]:
                 mail.send_mail(email.log.subject,
                                email.log.body,
-                               settings.DEFAULT_FROM_EMAIL,
+                               settings.WGER_SETTINGS['EMAIL_FROM'],
                                [email.email],
                                fail_silently=True)
                 email.delete()

@@ -76,6 +76,7 @@ if os.environ.get("ENABLE_EMAIL"):
 
 # Sender address used for sent emails
 WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{os.environ.get("FROM_EMAIL")}>'
+DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 
 # Management
 if os.environ.get("ALLOW_REGISTRATION") == 'False':
