@@ -10,13 +10,13 @@ assignees: ''
 
 ## Steps to Reproduce
 
-<!-- Please include as many steps to reproduce so that we can reproduce the problem. -->
+<!-- Please include as many steps to reproduce so that we can replicate the problem. -->
 
 1. ... <!-- describe how to reproduce the problem -->
 2. ...
 3. ... 
 
-**Expected results:** <!-- what did you expected to see? -->
+**Expected results:** <!-- what did you expect to see? -->
 
 **Actual results:** <!-- what did you see? -->
 
