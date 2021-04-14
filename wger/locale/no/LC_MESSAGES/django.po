@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-12 08:29+0000\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
 "web/nb_NO/>\n"
@@ -53,7 +53,7 @@ msgstr "Språk"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr "Fant ingenting"
+msgstr "Resultatløst."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:145
 #: core/templates/index.html:197 manager/templates/calendar/month.html:132
@@ -112,9 +112,9 @@ msgid ""
 "in A)."
 msgstr ""
 "Bruk konfigurasjonen til å velge hvilke språk øvelsene og ingrediensene skal "
-"vises med. \n"
+"vises med.\n"
 "(for eksempel:\n"
-"Øvelsene skal bli vist i språk A, B og C; ingrediensene bare i A).  "
+"Øvelsene skal bli vist i språk A, B og C; ingrediensene bare i A)."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
@@ -247,8 +247,6 @@ msgid "Email"
 msgstr "E-post"
 
 #: core/forms.py:80
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr "Brukes for passordtilbakestillinger og eventuelt e-postpåminnelser."
 
@@ -277,10 +275,8 @@ msgid "Used for password resets and, optionally, email reminders."
 msgstr "Brukes for passordtilbakestillinger og eventuelt e-postpåminnelser."
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Denne e-posten er allerede i bruk. "
+msgstr "Denne e-posten er allerede i bruk."
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -289,14 +285,13 @@ msgstr "Passord"
 
 #: core/forms.py:186
 msgid "Please enter your current password."
-msgstr "Vennligst skriv inn ditt nåværende passord"
+msgstr "Skriv inn ditt nåværende passord."
 
 #: core/forms.py:203
 msgid "Invalid password"
 msgstr "Ugyldig passord"
 
 #: core/forms.py:214 core/forms.py:278
-#, fuzzy
 msgid "The form is secured with reCAPTCHA"
 msgstr "Skjemaet er sikret med reCAPTCHA"
 
@@ -312,8 +307,6 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: core/forms.py:261
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "En måte å svare deg på (e-post, etc.)"
 
@@ -401,7 +394,7 @@ msgstr "Påminnelse før utløp"
 
 #: core/models.py:175
 msgid "The number of days you want to be reminded before a workout expires."
-msgstr "Antall dager før en trenings utløp du vil motta varsel"
+msgstr "Antall dager i forveien å varsle om at en trening utløper."
 
 #: core/models.py:179
 msgid "Default duration of workouts"
@@ -856,7 +849,8 @@ msgid ""
 "you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
 msgstr ""
 "Hvis du ønsker å ytterligere hjelpe og forbedre dette prosjektet,\n"
-"kan det hende du også er interessert <a href=\"%(contribute)s\"> i å bidra."
+"kan det hende du også er interessert i å <a href=\"%(contribute)s\""
+">bidra</a>."
 
 #: core/templates/misc/contact.html:29
 msgid "Feedback form"
@@ -1197,7 +1191,7 @@ msgstr "Denne øvelsen har ingen repetisjoner."
 
 #: core/templates/tags/render_day.html:114
 msgid "Edit them now."
-msgstr "Rediger dem nå"
+msgstr "Rediger dem nå."
 
 #: core/templates/tags/render_day.html:139
 msgid "Add exercises to this workout day"
@@ -1278,7 +1272,7 @@ msgstr "Du har ingen API koder enda"
 
 #: core/templates/user/api_key.html:48
 msgid "Delete current API key and generate new one"
-msgstr "Slett gjeldende API kode og generer en ny."
+msgstr "Slett gjeldende API-kode og generer en ny."
 
 #: core/templates/user/api_key.html:50
 msgid "Generate new API key"
@@ -1305,9 +1299,9 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Denne handlingen vil slette brukerkontoen \"%(username)s\".\n"
-"Det vil også også fjerne alle data knyttet til den (trening, logger, osv)\n"
-"og kan ikke omgjøres."
+"Denne handlingen vil slette brukerkontoen «%(username)s».\n"
+"Det vil også fjerne alle data knyttet til den (trening, logger, osv)\n"
+"og kan ikke omgjøres. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1501,10 +1495,9 @@ msgid "Include in inactive overview"
 msgstr "Inkluder i inaktiv oversikt"
 
 #: core/templates/user/overview.html:487
-#, fuzzy, python-format
-#| msgid "Admin login is only available for users in"
+#, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr "Administratorinnlogging er kun tilgjengelig for brukere i"
+msgstr "Administratorinnlogging er kun tilgjengelig for brukere i %(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1731,7 +1724,7 @@ msgstr "Brukeren {0} sendte inn et nytt bilde \"{1}\" for øvelsen {2}."
 
 #: exercises/models.py:574
 msgid "A comment about how to correctly do this exercise."
-msgstr "En kommentar for hvordan denne øvelsen utføres korrekt"
+msgstr "En kommentar for hvordan denne øvelsen utføres korrekt."
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1786,8 +1779,8 @@ msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Din øvelse '%(exercise)s' ble vellykket lagt til i \n"
-"databasen"
+"Din øvelse «%(exercise)s» ble lagt til i\n"
+"databasen."
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
@@ -2331,11 +2324,11 @@ msgstr "Rediger treningsstudio"
 
 #: i18n.tpl:2
 msgid "/*/*"
-msgstr ""
+msgstr "/*/*"
 
 #: i18n.tpl:3
 msgid "231"
-msgstr ""
+msgstr "231"
 
 #: i18n.tpl:4
 msgid "Abs"
@@ -2423,7 +2416,7 @@ msgstr "Brachialis"
 
 #: i18n.tpl:25
 msgid "Erector spinae"
-msgstr ""
+msgstr "Den store ryggstrekkeren"
 
 #: i18n.tpl:26
 msgid "Gastrocnemius"
@@ -2812,8 +2805,8 @@ msgid ""
 "deactivate it, if it is a loop."
 msgstr ""
 "Den aktive planen vil forbli aktiv (og være\n"
-"vist f.eks i dashbordet) til den når den siste treningen eller till du\n"
-"deaktiverer det, hvis det er en loop"
+"å finne f.eks i oversikten) til den når den siste treningen eller till du\n"
+"deaktiverer det, hvis det er en gjentagelse."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
@@ -2886,7 +2879,7 @@ msgstr "Eksporter kalender fil"
 
 #: manager/templates/schedule/view.html:235
 msgid "Export this schedule as a calendar file."
-msgstr "Eksporter denne timeplanen som en kalender fil"
+msgstr "Eksporter denne timeplanen som kalenderfil."
 
 #: manager/templates/schedule/view.html:236
 #: manager/templates/workout/view.html:118
@@ -2943,13 +2936,12 @@ msgstr "Oppdater"
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(workout)s' expired %(days)s days ago."
-msgstr ""
-"Din gjendele trening '%(workout)s' har utløpet for %(days)s dager siden"
+msgstr "Din gjendele trening «%(workout)s» utløpte for %(days)s dager siden."
 
 #: manager/templates/workout/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr "Din gjeldene trening '%(workout)s' vil utløpe om %(days)s dager"
+msgstr "Din gjeldene trening '%(workout)s' vil utløpe om %(days)s dager."
 
 #: manager/templates/workout/email_reminder.tpl:9
 msgid ""
@@ -3096,7 +3088,7 @@ msgstr "Bildene viser kombinerte muskler som trenes av øvelsene på trening."
 
 #: manager/templates/workout/view.html:117
 msgid "Export this workout as a calendar file."
-msgstr "Eksporter denne treningsøkten som en kalender fil"
+msgstr "Eksporter denne treningsøkten som kalenderfil."
 
 #: manager/templates/workout/view.html:184
 msgid "Logs"
@@ -3262,10 +3254,12 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"Total energi ({energy}kcal) er ikke anslagsvis sum av energi som stammer fra "
+"protein, karbohydrater og fett ({energy_calculated}kcal +/-{energy_approx}%)"
 
 #: nutrition/models.py:553 nutrition/views/ingredient.py:219
 msgid "Ingredient was successfully added to the general database"
-msgstr "Ingrediens ble vellykket lagt til i databasen"
+msgstr "Ingrediens ble lagt til i databasen"
 
 #: nutrition/models.py:576
 msgid "New user submitted ingredient"
@@ -3345,11 +3339,11 @@ msgstr ""
 "i en ny oppføring."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
-msgstr "Din ingrediens '%(ingredient)s'  ble vellykket lagt til i databasen."
+msgstr "Din ingrediens '%(ingredient)s' ble lagt til i databasen."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
@@ -3524,7 +3518,7 @@ msgstr "Ingen elementer for dette måltidet."
 
 #: nutrition/templates/plan/view.html:162
 msgid "No meals for this plan."
-msgstr "Ingen måltider for denne planen"
+msgstr "Ingen måltider for denne planen."
 
 #: nutrition/templates/plan/view.html:173
 msgid "Log this Plan"
@@ -3735,10 +3729,9 @@ msgstr ""
 "utviklingsprosessen er åpen og fritt tilgjengelig for alle som er "
 "interessert.\n"
 "Hvis du er ny på fri programvare verden, anbefaler vi å ta en\n"
-"titt på <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">denne "
-"artikkelen</a> som oppsummerer veien åpen kildekode-prosjekter fungerer "
-"veldig bra."
+"titt på <a href=\"http://schlitt.info/opensource/blog/"
+"0541_10_golden_rules_for_starting_with_open_source.html\">denne artikkelen</"
+"a> som oppsummerer måten friprog-prosjekter fungerer veldig bra. "
 
 #: software/templates/contribute.html:16
 msgid ""
@@ -3785,14 +3778,6 @@ msgstr ""
 "er for korte eller annen detalj mangler eller kan forbedres, fortell oss!"
 
 #: software/templates/contribute.html:44
-#, fuzzy
-#| msgid ""
-#| "Do you want to use wger in your own language?\n"
-#| "Do you think the current translation could be improved?\n"
-#| "The translations are easily managed and edited online, if you are "
-#| "interested,\n"
-#| "go to the transifex site, request access and we will set everything\n"
-#| "up. "
 msgid ""
 "Do you want to use wger in your own language?\n"
 "Do you think the current translation could be improved?\n"
@@ -3804,8 +3789,7 @@ msgstr ""
 "Tror du dagens oversettelse kan forbedres?\n"
 "Oversettelsene er enkel å håndtere og redigeres på nettet, hvis du er "
 "interessert,\n"
-"gå til transifex området, be om tilgang og vi vil sette alt\n"
-"opp for deg."
+"besøk lenken og begynn å oversette."
 
 #: software/templates/contribute.html:53
 msgid "Code"
@@ -4084,10 +4068,10 @@ msgid ""
 "without restrictions."
 msgstr ""
 "wger Workout Manager er utgitt under <strong>Affero GNU\n"
-"General Public License (AGPL) Versjon 3 +</ strong> og kan (i henhold til "
+"General Public License (AGPL) Versjon 3 +</strong> og kan (i henhold til "
 "vilkårene\n"
-"av lisensen) anvendes, modifiseres og distribueres (også med "
-"modifikasjoner)\n"
+"av lisensen) anvendes, modifiseres og distribueres (også med modifikasjoner)"
+"\n"
 "uten restriksjoner."
 
 #: software/templates/license.html:29
@@ -4165,20 +4149,20 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
-"Du kan kopiere og lime inn ditt regneark i tekst feltet,\n"
+"Du kan kopiere og lime inn ditt regneark i tekstfeltet,\n"
 "systemet vil prøve å gjette format for å importere. Det eneste du bør "
 "vurdere er\n"
-"at den første kolonnen er <strong>dato</ strong>, den andre er "
-"<strong>vekt</ strong>.\n"
-"Alle ytterligere kolonner ignoreres. Det er en grense på 1000 rad rader.\n"
+"at den første kolonnen er <strong>dato</strong>, den andre er "
+"<strong>vekt</strong>.\n"
+"Alle ytterligere kolonner ignoreres. Det er en grense på 1000 rader.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
-"Om det er feil, kan du korrigere eller ignorere de i \n"
-"neste steg"
+"Om det er feil, kan du korrigere eller ignorere de i\n"
+"neste steg."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
@@ -4218,12 +4202,13 @@ msgstr ""
 "og prøver å importere listen igjen."
 
 #: weight/templates/import_csv_preview.html:37
+#, fuzzy
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
-"Husk at forventet struktur er <strong>dato</ strong>\n"
-"på de første søyler og <strong>vekt</ strong> på den andre."
+"Husk at forventet formatering er <strong>dato</strong>\n"
+"på de første søylene og <strong>vekt</strong> på den andre."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
@@ -4246,7 +4231,7 @@ msgstr ""
 "feil\n"
 "vil bli ignorert. Det er opp til deg å avgjøre om de er brukende\n"
 "(ukjente oppføringer) eller ikke (for eksempel overskrifter, kommentarer, "
-"etc.)"
+"etc.)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -4274,7 +4259,7 @@ msgstr "Det er ingen diagram her fordi det er ingen vektoppføring opprettet."
 
 #: weight/templates/overview.html:28
 msgid "Use link to add one."
-msgstr "Bruk lenken for å opprette"
+msgstr "Bruk lenken for å opprette en."
 
 #: weight/templates/overview.html:34
 msgid "height in cm"
