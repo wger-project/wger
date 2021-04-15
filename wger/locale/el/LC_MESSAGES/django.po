@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-04-17 13:26+0000\n"
+"Last-Translator: Eugenia Russell <eugenia.russell2019@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/wger/web/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -275,8 +275,8 @@ msgstr "Αποθήκευση"
 #: core/forms.py:136
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Χρησιμοποιείται για ανάκτηση κωδικού και κατα περίπτωση, υπενθυμίσεις "
-"μηνυμάτων"
+"Χρησιμοποιείται για επαναφορά κωδικού πρόσβασης και, προαιρετικά, "
+"υπενθυμίσεις ηλεκτρονικού ταχυδρομείου."
 
 #: core/forms.py:163
 #, fuzzy
@@ -764,7 +764,7 @@ msgstr "Βάρος"
 
 #: core/templates/index.html:215
 msgid "Your current weight is: "
-msgstr "Το τρέχων βάρος σας είναι:"
+msgstr "Το τρέχων βάρος σας είναι: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:75
 #: weight/views.py:70
@@ -1543,7 +1543,7 @@ msgstr "Επιτυχής διαγραφή"
 #: nutrition/views/plan.py:128 nutrition/views/unit.py:114
 #, python-brace-format
 msgid "Delete {0}?"
-msgstr "Διαγραφή {0}"
+msgstr "Διαγραφή {0};"
 
 #: core/views/languages.py:111 core/views/license.py:84
 #: core/views/repetition_units.py:85 core/views/user.py:446
