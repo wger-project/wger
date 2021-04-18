@@ -54,6 +54,7 @@ Developers
 * Will Pearson - https://github.com/qagoose
 * Brad Johnson - https://github.com/bradsk88
 * Sidrah Madiha Siddiqui https://github.com/Sidrah-Madiha
+* Calvin Walden - https://github.com/calvinrw
 
 Translators
 -----------
