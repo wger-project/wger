@@ -160,7 +160,9 @@ In order to use a real email server, another backend listed in `Django's documen
    EMAIL_USE_SSL = False
    DEFAULT_FROM_EMAIL = 'wger Workout Manager <wger@example.com>'
 
-Email settings can be tested using the password reset function in the login page, provided an account with an email address has been created.
+Django provides a ``sendtestemail`` command via ``manage.py`` to test email settings::
+
+  python manage.py sendtestemail user@example.com
 
 .. _`Django's documentation`: https://docs.djangoproject.com/en/dev/topics/email/#email-backends
 
