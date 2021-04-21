@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-04-22 06:32+0000\n"
+"Last-Translator: abraham <acastrovargas@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -222,7 +222,7 @@ msgstr "Mi programa de rutinas"
 
 #: core/demo.py:389 core/demo.py:404
 msgid "Empty placeholder schedule"
-msgstr ""
+msgstr "Programación de marcador posición vacía"
 
 #: core/forms.py:63 core/templates/navigation.html:165
 #: core/templates/navigation.html:169 core/templates/user/login.html:4
@@ -250,12 +250,10 @@ msgid "Email"
 msgstr "Email"
 
 #: core/forms.py:80
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Se usa para restablecer constraseñas y, opcionalmente, para enviar avisos "
-"por correo electrónico."
+"Se usa para restablecer contraseñas y opcionalmente para enviar avisos por "
+"correo electrónico."
 
 #: core/forms.py:105
 msgid "Personal data"
@@ -284,8 +282,6 @@ msgstr ""
 "por correo electrónico."
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
 msgstr "Esta dirección de correo ya está en uso."
 
@@ -304,7 +300,7 @@ msgstr "Contraseña incorrecta"
 
 #: core/forms.py:214 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "El Formulario está asegurado por recaptcha"
 
 #: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
 #: core/templates/navigation.html:170 core/templates/template.html:149
@@ -318,10 +314,8 @@ msgid "Contact"
 msgstr "Contacto"
 
 #: core/forms.py:261
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Alguna manera de responderte (correo electrónico, etc.)."
+msgstr "Alguna manera de responderte (correo electrónico u otros.)."
 
 #: core/forms.py:267 exercises/models.py:573 manager/models.py:805
 #: nutrition/models.py:865
@@ -664,6 +658,9 @@ msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
 msgstr ""
+"Haga clic para agregar una entrada a su diario de nutrición de hoy. Puede "
+"registrar una comida como la definió o ingresar cualquier número de entradas "
+"personalizadas."
 
 #: core/templates/index.html:65 core/templates/index.html:169
 #: core/templates/user/overview.html:171
@@ -705,6 +702,8 @@ msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
 msgstr ""
+"El entrenamiento actual se selecciona de su programa activo o, si no tiene "
+"uno, simplemente por fecha."
 
 #: core/templates/index.html:140 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -877,7 +876,7 @@ msgstr ""
 
 #: core/templates/misc/contact.html:42
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: core/templates/misc/contact.html:43
 msgid ""
@@ -894,11 +893,11 @@ msgstr "Abre formulário de sugerencias"
 
 #: core/templates/misc/contact.html:53
 msgid "tweet to @wger_project"
-msgstr ""
+msgstr "tweet a @wger_project"
 
 #: core/templates/misc/contact.html:56
 msgid "Go to the discord server"
-msgstr ""
+msgstr "Ir a servidor de discord"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -927,7 +926,7 @@ msgstr ""
 
 #: core/templates/navigation.html:22
 msgid "Training"
-msgstr ""
+msgstr "Entrenamiento"
 
 #: core/templates/navigation.html:28 core/templates/user/overview.html:25
 #: software/templates/features.html:72
@@ -1504,6 +1503,8 @@ msgstr "Incluir en lista de inactivos"
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr ""
+"El inicio de sesión de administrador solo está disponible para usuarios en "
+"%(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1963,6 +1964,8 @@ msgstr "Añadir músculo"
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"No hay ejercicios para este músculo. Agregue o edite un ejercicio y "
+"configure el músculo."
 
 #: exercises/views/categories.py:69
 msgid "Add category"
@@ -2391,7 +2394,7 @@ msgstr "Kettlebell"
 
 #: i18n.tpl:17
 msgid "Pull-up bar"
-msgstr ""
+msgstr "Barra hacia arriba"
 
 #: i18n.tpl:18
 msgid "SZ-Bar"
@@ -2423,7 +2426,7 @@ msgstr "Braquial anterior"
 
 #: i18n.tpl:25
 msgid "Erector spinae"
-msgstr ""
+msgstr "rector de columna"
 
 #: i18n.tpl:26
 msgid "Gastrocnemius"
@@ -2852,7 +2855,11 @@ msgid_plural ""
 "%(weeks)s Weeks\n"
 "                    "
 msgstr[0] ""
+"Semana\n"
+"                    "
 msgstr[1] ""
+"Semanas\n"
+"                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
@@ -3026,6 +3033,10 @@ msgid ""
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
 msgstr ""
+"Tenga en cuenta que solo las entradas con una unidad de peso (kg o lb) y\n"
+"se grafican las repeticiones, otras combinaciones como el tiempo o hasta el "
+"fallo\n"
+"se ignoran aquí."
 
 #: manager/templates/workout/overview.html:5
 msgid "Your workouts"
@@ -3114,7 +3125,7 @@ msgstr "Añadir día de entrenamiento"
 #: manager/views/log.py:92
 #, python-format
 msgid "Edit log entry for %s"
-msgstr ""
+msgstr "Editar entrada de registro para %s"
 
 #: manager/views/log.py:109
 msgid "Delete workout log"
@@ -3149,7 +3160,7 @@ msgstr "Nueva impresión de entrenamiento para el {0}"
 
 #: manager/views/workout_session.py:157
 msgid "This will delete all weight logs for this day as well."
-msgstr ""
+msgstr "Esto también eliminará todos los registros de peso de este día."
 
 #: nutrition/forms.py:116
 msgid "Calculate"
