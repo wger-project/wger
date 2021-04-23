@@ -48,7 +48,7 @@
                             <li><a class="dropdown-item" href="{% url 'exercise:exercise:add' %}">{% translate "Add new exercise" %}</a><li>
                             {% endif %}
 
-                            {% if perms.exercises %}
+                            {% if user.userprofile.has_exercise_permission %}
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Administration" %}</li>
                             <li><a class="dropdown-item" href="{% url 'exercise:exercise:pending' %}">{% translate "Exercises pending review" %}</a></li>
@@ -196,7 +196,7 @@
                                 {#                #}
                                 {# Administration #}
                                 {#                #}
-                                {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
+                                {% if user.userprofile.has_exercise_permission or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                     <li class="dropdown-divider"></li>
                                     <li class="dropdown-header">{% translate "Administration" %}</li>
                                     {% if perms.core.change_language %}
