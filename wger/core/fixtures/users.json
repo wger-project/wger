@@ -46,8 +46,8 @@
     },
     {
         "pk": 1,
-	"model": "core.usercache",
-	"fields": {
+	      "model": "core.usercache",
+	      "fields": {
             "last_activity": null,
             "user_id": 1
         }
