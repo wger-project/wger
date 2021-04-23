@@ -21,12 +21,12 @@ import decimal
 # Django
 from django.contrib.auth.models import (
     Permission,
-    User
+    User,
 )
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator
+    MinValueValidator,
 )
 from django.db import models
 from django.db.models import IntegerField
@@ -224,28 +224,27 @@ by the US Department of Agriculture. It is extremely complete, with around
     @property
     def is_trustworthy(self):
         """
-        Trustworthy if they've had an account for more than three weeks. More trustworthiness
-        criteria could be added in future.
+        Returns true for trustworthy if they've had an account for more than three weeks.
+        More trustworthiness criteria could be added in future.
         """
-        days_since_joined = datetime.date.today() - self.user.date_joined.date()
 
-        if days_since_joined.days > 21:
+        days_since_joined = datetime.date.today() - self.user.date_joined.date()
+        days_in_three_weeks = 21
+
+        if days_since_joined.days > days_in_three_weeks:
             # perms will be updated only once, after they hit three week mark
             image_perm = Permission.objects.get(codename='add_exerciseimage')
             self.user.user_permissions.add(image_perm)
 
-        return days_since_joined.days > 21
+        return days_since_joined.days > days_in_three_weeks
 
     @property
     def has_exercise_permission(self):
-        """
-        Returns true if user has all the exercise permissions and not just one.
-        """
-        if self.user.groups.filter(name='admin').exists() or \
-           self.user.groups.filter(name='exercises_editor').exists():
+        """Returns true if user has all the exercise permissions and not just one."""
+        if self.user.groups.filter(name='admin').exists() or self.user.groups.filter(
+                name='exercises_editor').exists():
             return True
-        else:
-            return False
+        return False
 
     #
     # User statistics
