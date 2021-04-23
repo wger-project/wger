@@ -55,6 +55,8 @@ Developers
 * Brad Johnson - https://github.com/bradsk88
 * Sidrah Madiha Siddiqui https://github.com/Sidrah-Madiha
 * Calvin Walden - https://github.com/calvinrw
+* Emma Muth - https://github.com/emmaamuth
+* Sophia Reed - https://github.com/sophialr
 
 Translators
 -----------
