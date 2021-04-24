@@ -457,7 +457,9 @@ if hasattr(args, 'number_weight'):
         # Bulk-create the weight entries
         WeightEntry.objects.bulk_create(new_entries)
 
+#
 # Nutrition Generator
+#
 if hasattr(args, 'number_nutrition_plans'):
     print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_plans))
 
@@ -501,9 +503,11 @@ if hasattr(args, 'number_nutrition_plans'):
                     meal_item.save()
                 order = order + 1
 
-# Nutrition logs Generator
+#
+# Nutrition diary Generator
+#
 if hasattr(args, 'number_nutrition_logs'):
-    print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_logs))
+    print("** Generating {0} nutrition diary entries per user".format(args.number_nutrition_logs))
 
     if args.add_to_user:
         userlist = [User.objects.get(pk=args.add_to_user)]
