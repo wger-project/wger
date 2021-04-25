@@ -166,6 +166,24 @@ Django provides a ``sendtestemail`` command via ``manage.py`` to test email sett
 
 .. _`Django's documentation`: https://docs.djangoproject.com/en/dev/topics/email/#email-backends
 
+.. _site-settings:
+
+Site Settings
+-------------
+
+Some wger features make use of Django's site name and domain settings in the ``contrib.sites`` framework. These should be set through the Python shell::
+
+   python manage.py shell
+   >>> from django.contrib.sites.models import Site
+   >>> site = Site.objects.get(pk=1)
+   >>> site.domain = 'wger.example.com'
+   >>> site.name = 'example.com wger Workout Manager'
+   >>> site.save()
+
+where ``wger.example.com`` is the domain of the wger instance. This assumes that wger is using the default site ID of 1. If a different site ID is being used, it must be specified in ``settings.py``::
+
+  SITE_ID = 2
+
 .. _other-changes:
 
 Other changes
