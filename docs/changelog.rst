@@ -60,7 +60,7 @@ Upgrade steps from 1.9:
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
-* Others: `#450`_ (thanks `@Rkamath2`_), `#631`_ (thanks `@harlenesamra`_),
+* Others: `#450`_ (thanks `@Rkamath2`_), `#631`_ (thanks `@harlenesamra`_), `#664`_ (thanks `@calvinrw`_),
 
 .. _@Svn-Sp: https://github.com/Svn-Sp
 .. _@louiCoder: https://github.com/louiCoder
@@ -86,6 +86,7 @@ Upgrade steps from 1.9:
 .. _@jeevikaghosh: https://github.com/jeevikaghosh
 .. _@bradsk88: https://github.com/bradsk88
 .. _@Sidrah-Madiha: https://github.com/Sidrah-Madiha
+.. _@calvinrw : https://github.com/calvinrw
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246
@@ -129,6 +130,7 @@ Upgrade steps from 1.9:
 .. _#642: https://github.com/wger-project/wger/issues/642
 .. _#648: https://github.com/wger-project/wger/issues/648
 .. _#650: https://github.com/wger-project/wger/issues/650
+.. _#664: https://github.com/wger-project/wger/issues/664
 
 
 
