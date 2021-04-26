@@ -101,7 +101,7 @@ $(document).ready(function() {
         <div class="col mb-4">
         <div class="card h-100">
             <a href="{{ image.image.url }}" title="Image for {{exercise}}">
-                <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}">
+                <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}" alt="">
             </a>
             <div class="card-body text-center">
                 {% if perms.exercises.change_exerciseimage %}
@@ -115,7 +115,7 @@ $(document).ready(function() {
 
                 {% if image.is_main %}
                 <p class="card-text text-wger-green">
-                    <span class="{% fa_class 'medal' %}"></span></a>
+                    <span class="{% fa_class 'medal' %}"></span>
                 </p>
                 {% endif %}
             </div>
@@ -148,7 +148,7 @@ $(document).ready(function() {
 <div class="card-deck">
     {% for image in images %}
         <div class="card">
-                <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}">
+                <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}" alt="">
                 <div class="card-body">
                     <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-light btn-sm">{% translate "Accept" %}</a>
                     <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-light btn-sm">{% translate "Decline" %}</a>
@@ -157,7 +157,6 @@ $(document).ready(function() {
             </div>
         </div>
     {% endfor %}
-</div>
 {% endif %}
 {% endwith %}
 {% endif %}  {# end check permission #}
@@ -211,11 +210,11 @@ $(document).ready(function() {
         {% translate "The diagram shows the most used muscles on this exercise" %}
     </p>
     <p>
-        <div style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></div>
+        <span style="width:1em;height:1em;background-color:#cc0000;float:left;margin-right:0.5em;"></span>
         {% translate "Main muscles" %}
     </p>
     <p>
-        <div style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></div>
+        <span style="width:1em;height:1em;background-color:#f57900;float:left;margin-right:0.5em;"></span>
         {% translate "Secondary muscles" %}
     </p>
 
@@ -306,7 +305,6 @@ $(document).ready(function() {
                 <span class="{% fa_class 'trash' %}"></span>
                 {% translate "Delete" %}
             </a>
-            </li>
         </div>
     </div>
 </div>
