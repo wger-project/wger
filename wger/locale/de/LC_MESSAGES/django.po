@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2021-04-28 21:32+0000\n"
+"Last-Translator: mondstern <mondstern@snopyta.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -51,7 +51,7 @@ msgstr "Sprachen"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr "Nichts gefunden"
+msgstr "Nichts gefunden."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:145
 #: core/templates/index.html:197 manager/templates/calendar/month.html:132
@@ -109,9 +109,10 @@ msgid ""
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
 msgstr ""
-"Benutze die Konfiguration um auszuwählen, in welchen Sprachen die Übungen "
-"und Zutaten für die gerade ausgewählte Sprache dargestellt werden sollen. (z."
-"B. können die Übungen in Sprachen A, B und C, die Zutaten nur in A angezeigt "
+"Benutze die Konfiguration um auszuwählen, in welchen Sprachen die \n"
+"Übungen und Zutaten für die gerade ausgewählte Sprache dargestellt werden "
+"sollen. (z.B. \n"
+"können die Übungen in Sprachen A, B und C, die Zutaten nur in A angezeigt "
 "werden)."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
@@ -287,7 +288,7 @@ msgstr "Passwort"
 
 #: core/forms.py:186
 msgid "Please enter your current password."
-msgstr "Bitte dein aktuelles Passwort eingeben"
+msgstr "Bitte dein aktuelles Passwort eingeben."
 
 #: core/forms.py:203
 msgid "Invalid password"
@@ -431,7 +432,7 @@ msgstr "Pausen im Studiomodus benutzen"
 
 #: core/models.py:205
 msgid "Check to activate timer pauses between exercises."
-msgstr "Auswählen, um Pausen zwischen den Übungen zu aktivieren"
+msgstr "Auswählen, um Pausen zwischen den Übungen zu aktivieren."
 
 #: core/models.py:212
 msgid "Default duration of workout pauses"
@@ -1264,7 +1265,7 @@ msgstr ""
 #: core/templates/user/api_key.html:15
 msgid "For security reasons, you should only access the API via HTTPS."
 msgstr ""
-"Aus Sicherheitsgründen sollten Sie die API nur via HTTPS Verbindung benutzen"
+"Aus Sicherheitsgründen sollten Sie die API nur via HTTPS Verbindung benutzen."
 
 #: core/templates/user/api_key.html:18
 msgid "Your API key"
@@ -1785,7 +1786,7 @@ msgstr "Nur registrierte Benutzer dürfen das"
 msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
-msgstr "Die Übung '%(exercise)s' wurde erfolgreich zur Datenbank hinzugefügt"
+msgstr "Die Übung '%(exercise)s' wurde erfolgreich zur Datenbank hinzugefügt."
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
@@ -1799,9 +1800,7 @@ msgstr ""
 #: exercises/templates/exercise/email_new.tpl:8
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
-msgstr ""
-"Danke fürs Mitmachen und diese Seite besser zu machen!\n"
-"das wger.de Team"
+msgstr "Danke fürs Mitmachen und diese Seite besser zu machen!"
 
 #: exercises/templates/exercise/email_new.tpl:9
 #: manager/templates/workout/email_reminder.tpl:15
@@ -2164,7 +2163,7 @@ msgstr "Zahlungsart"
 
 #: gym/models.py:543
 msgid "How often the amount will be charged to the member"
-msgstr "Wie oft wird der Mitgliedsbeitrag abgebucht/verrechnet. "
+msgstr "Wie oft wird der Mitgliedsbeitrag abgebucht/verrechnet"
 
 #: gym/models.py:548 gym/templates/contract/view.html:24
 msgid "Contract is active"
@@ -2619,9 +2618,9 @@ msgid ""
 "shown e.g. on your dashboard). All other schedules will then be marked as "
 "inactive"
 msgstr ""
-"Setze das Häkchen, wenn du diesen Zeitplan als aktiv markieren willst\n"
-" (wird dann z.B. auf der Statseite angezeigt). Alle andere Zeitpläne werden\n"
-" dann deaktiviert."
+"Setze das Häkchen, wenn du diesen Zeitplan als aktiv markieren willst (wird "
+"dann z.B. auf der Statseite angezeigt). Alle andere Zeitpläne werden dann "
+"deaktiviert"
 
 #: manager/models.py:257 manager/templates/schedule/view.html:84
 msgid "Is a loop"
@@ -2658,7 +2657,7 @@ msgid ""
 "parts are trained (e.g. \"Arms and abs\")"
 msgstr ""
 "Eine kurze Beschreibung wie an diesem Tag trainiert wird (z.B. \"Drücktag\") "
-"oder welche Körperteile trainiert werden (z.B. \"Arme und Bauch\") "
+"oder welche Körperteile trainiert werden (z.B. \"Arme und Bauch\")"
 
 #: manager/models.py:400
 msgid "Day"
@@ -2863,7 +2862,9 @@ msgid_plural ""
 msgstr[0] ""
 "%(weeks)s Woche\n"
 "                    "
-msgstr[1] "%(weeks)s Wochen"
+msgstr[1] ""
+"%(weeks)s Wochen\n"
+"                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
@@ -3010,7 +3011,7 @@ msgstr "Logbucheintrag zu diesem Tag hinzufügen"
 
 #: manager/templates/workout/log.html:81
 msgid "No weight entries here."
-msgstr "Keine Gewichtseinträge gefunden"
+msgstr "Keine Gewichtseinträge gefunden."
 
 #: manager/templates/workout/log.html:89
 msgid "No exercises for this day."
@@ -3107,7 +3108,7 @@ msgstr ""
 
 #: manager/templates/workout/view.html:117
 msgid "Export this workout as a calendar file."
-msgstr "Diesen Trainingsplan als Kalenderdatei exportieren"
+msgstr "Diesen Trainingsplan als Kalenderdatei exportieren."
 
 #: manager/templates/workout/view.html:184
 msgid "Logs"
@@ -3123,7 +3124,7 @@ msgstr "Trainingsplan bearbeiten"
 
 #: manager/templates/workout/view.html:221
 msgid "Make a copy of this workout"
-msgstr "Eine Kopie des Trainingsplans machen."
+msgstr "Eine Kopie des Trainingsplans machen"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3306,7 +3307,7 @@ msgstr "Ergebnisse"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Dein BMI ist:"
+msgstr "Dein BMI ist: "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3361,7 +3362,9 @@ msgstr ""
 msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
-msgstr "Die Zutat '%(ingredient)s' wurde erfolgreich zur Datenbank hinzugefügt"
+msgstr ""
+"Die Zutat '%(ingredient)s' wurde erfolgreich zur Datenbank \n"
+"hinzugefügt."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
@@ -3399,7 +3402,7 @@ msgstr ""
 
 #: nutrition/templates/ingredient/overview.html:45
 msgid "No ingredients."
-msgstr "Keine Zutaten"
+msgstr "Keine Zutaten."
 
 #: nutrition/templates/ingredient/overview.html:66
 msgid "ingredient name"
@@ -3532,7 +3535,7 @@ msgstr "Keine Zutaten für diese Mahlzeit."
 
 #: nutrition/templates/plan/view.html:162
 msgid "No meals for this plan."
-msgstr "Keine Mahlzeiten für diesen Ernährungsplan"
+msgstr "Keine Mahlzeiten für diesen Ernährungsplan."
 
 #: nutrition/templates/plan/view.html:173
 msgid "Log this Plan"
@@ -3594,7 +3597,7 @@ msgstr "Ernährungplan bearbeiten"
 
 #: nutrition/templates/plan/view.html:387
 msgid "Make a copy of this nutrition plan"
-msgstr "Eine Kopie des Ernährungplanes machen."
+msgstr "Eine Kopie des Ernährungplanes machen"
 
 #: nutrition/templates/plan/view.html:392
 msgid "Delete nutrition plan"
@@ -3618,7 +3621,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Dein Grundumsatz ist:"
+msgstr "Dein Grundumsatz ist: "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -3637,7 +3640,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "PAL-Faktor:"
+msgstr "PAL-Faktor: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
@@ -3755,9 +3758,9 @@ msgid ""
 "Use this opportunity and influence the direction of the\n"
 "project. "
 msgstr ""
-"Jede Form der Mitarbeit ist willkommen und wird sehr geschätzt. \n"
-"Nutze diese Möglichkeit und beinflusse die Richtung in der das \n"
-"Projekt gehen wird."
+"Jede Form der Mitarbeit ist willkommen und wird sehr geschätzt.\n"
+"Nutze diese Möglichkeit und beinflusse die Richtung in der das\n"
+"Projekt gehen wird. "
 
 #: software/templates/contribute.html:23
 msgid "Use the site"
@@ -3919,7 +3922,7 @@ msgid ""
 "You can also enter notes and a general impression (great, neutral, etc.)"
 msgstr ""
 "Du kannst auch Notizen und einen allgemeinen Eindruck (gut, neutral, etc.) "
-"eingeben."
+"eingeben"
 
 #: software/templates/features.html:121
 msgid "Among many others"
