@@ -1,9 +1,9 @@
 Changelog
 =========
 
-2.0 - IN DEVELOPMENT
+2.0
 --------------------
-**2021-xx-xx**
+**2021-05-01**
 
 Upgrade steps from 1.9:
 
