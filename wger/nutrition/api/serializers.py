@@ -160,15 +160,18 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     meal = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredient = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
+    weight_unit = serializers.PrimaryKeyRelatedField(read_only=True)
+    weight_unit_obj = IngredientWeightUnitSerializer(source='weight_unit', read_only=True)
 
     class Meta:
         model = MealItem
         depth = 1
         fields = ['id',
                   'meal',
-                  'ingredient_obj',
                   'ingredient',
+                  'ingredient_obj',
                   'weight_unit',
+                  'weight_unit_obj',
                   'order',
                   'amount']
 
