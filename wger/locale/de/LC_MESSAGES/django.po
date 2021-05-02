@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-28 21:32+0000\n"
+"PO-Revision-Date: 2021-05-03 13:32+0000\n"
 "Last-Translator: mondstern <mondstern@snopyta.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
@@ -2335,11 +2335,11 @@ msgstr "Studio bearbeiten"
 
 #: i18n.tpl:2
 msgid "/*/*"
-msgstr ""
+msgstr "/*/*"
 
 #: i18n.tpl:3
 msgid "231"
-msgstr ""
+msgstr "231"
 
 #: i18n.tpl:4
 msgid "Abs"
@@ -3023,8 +3023,10 @@ msgid ""
 "only. Click on an exercise to see all the historical data for\n"
 "it."
 msgstr ""
-"Diese Seite zeigt nur die Gewichtseinträge für die Übungen in diesem "
-"Trainingsplan. Klicke auf eine Übung um die komplette Historie zu sehen."
+"Diese Seite zeigt nur die Gewichtseinträge für die Übungen \n"
+"in diesem Trainingsplan. Klicke auf eine Übung um die komplette Historie zu "
+"\n"
+"sehen."
 
 #: manager/templates/workout/log.html:106
 msgid ""
@@ -3032,8 +3034,9 @@ msgid ""
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
 msgstr ""
-"Falls an einem Tag es mehr als ein Eintrag gibt mit der selben Anzahl an "
-"Wiederholungen, aber verschiedene Gewichte, wird nur der Eintrag mit dem "
+"Falls an einem Tag es mehr als ein Eintrag gibt mit der \n"
+"selben Anzahl an Wiederholungen, aber verschiedene Gewichte, wird nur der "
+"Eintrag mit dem \n"
 "höheren Gewicht in das Diagramm eingefügt."
 
 #: manager/templates/workout/log.html:110
@@ -3042,9 +3045,10 @@ msgid ""
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
 msgstr ""
-"Beachte, dass nur Einträge mit einer Gewichtseinheit (kg oder lb) und "
+"Beachte, dass nur Einträge mit einer Gewichtseinheit (kg oder lb) und \n"
 "Wiederholungen gezeichnet werden, andere Kombinationen wie Zeit oder bis zum "
-"Ausfall werden hier ignoriert."
+"Ausfall \n"
+"werden hier ignoriert."
 
 #: manager/templates/workout/overview.html:5
 msgid "Your workouts"
@@ -3214,8 +3218,7 @@ msgid ""
 "calories. You can use the calculator or enter the value yourself."
 msgstr ""
 "Kreuze die Checkbox an wenn du diesem Plan eine Zielmenge an Kalorien geben "
-"willst. Du kannst\n"
-"den Rechner benutzen oder diese Menge direkt eingeben."
+"willst. Du kannst den Rechner benutzen oder diese Menge direkt eingeben."
 
 #: nutrition/models.py:274
 msgid "Ingredient Categories"
@@ -3352,10 +3355,10 @@ msgid ""
 "be used automatically. Otherwise the weight you enter here will be saved\n"
 "in a new entry."
 msgstr ""
-"Benutze das Formular um dein BMI (Body Mass Index) zu berechnen.\n"
-"Wenn du bereits Gewichtseinträge gemacht hattest, wird der letzte "
-"verwendet.\n"
-"Ansonsten wird der neu eingegebene Wert gespeichert."
+"Benutze das Formular um dein BMI (Body Mass Index)\n"
+"zu berechnen. Wenn du bereits Gewichtseinträge gemacht hattest, wird \n"
+"der letzte verwendet. Ansonsten wird der \n"
+"neu eingegebene Wert gespeichert."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -3371,8 +3374,8 @@ msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
-"Sie ist jetzt in der Zutatenübersicht verfügbar und kann \n"
-"zu Ernährungspläne hinzugefügt werden. Du kannst sie unter der folgenden \n"
+"Sie ist jetzt in der Zutatenübersicht verfügbar und kann zu \n"
+"Ernährungspläne hinzugefügt werden. Du kannst sie unter der folgenden "
 "Adresse erreichen:"
 
 #: nutrition/templates/ingredient/form.html:4
@@ -3383,7 +3386,9 @@ msgstr "Eine Zutat einreichen"
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr "Danke, dass du eine Zutat eingereicht hast. Das schätzen wir sehr!"
+msgstr ""
+"Danke, dass du eine Zutat eingereicht hast. Das schätzen wir \n"
+"sehr!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -3897,6 +3902,10 @@ msgid ""
 "distance you want to do them. You can also combine different workouts into a "
 "schedule."
 msgstr ""
+"Sie können flexible Trainingsroutinen für alle Ziele erstellen und "
+"verwalten. Wählen Sie genau aus, welche Übungen Sie ausführen und wie viele "
+"Wiederholungen, Zeit oder Entfernung Sie ausführen möchten. Sie können auch "
+"verschiedene Workouts zu einem Zeitplan kombinieren."
 
 #: software/templates/features.html:89
 msgid ""
@@ -3905,6 +3914,10 @@ msgid ""
 "nutritional values (total energy, protein, carbohydrates, and so on) about "
 "the whole plan as well as the indivual meals."
 msgstr ""
+"Erstellen Sie Ihren persönlichen Diätplan, indem Sie so viele Mahlzeiten mit "
+"so vielen verschiedenen Zutaten wie nötig zu schaffen. Die Anwendung "
+"berechnet die Nährwerte (Gesamtenergie, Eiweiß, Kohlenhydrate usw.) für den "
+"gesamten Plan sowie für die einzelnen Mahlzeiten."
 
 #: software/templates/features.html:102
 msgid "Diary"
@@ -3916,6 +3929,10 @@ msgid ""
 "diagrams that let you see at a glance how well you are doing. The raw "
 "numbers are of course still accessible."
 msgstr ""
+"Geben Sie die Gewichte und Wiederholungen ein, die Sie für jede Übung "
+"durchgeführt haben, um Diagramme zu erstellen, mit denen Sie auf einen Blick "
+"sehen können, wie gut Sie sich verhalten. Die rohen Zahlen sind natürlich "
+"noch zugänglich."
 
 #: software/templates/features.html:109
 msgid ""
@@ -3959,6 +3976,9 @@ msgid ""
 "can choose when creating a workout. You can view them by category and "
 "equipment used or muscles trained."
 msgstr ""
+"Die Übungsdatenbank enthält mehr als hundert Übungen, aus denen Du beim "
+"Erstellen eines Trainings auswählen können. Du kannst sie nach Kategorie und "
+"verwendeter Ausrüstung oder trainierten Muskeln anzeigen."
 
 #: software/templates/features.html:190
 msgid "Gym management"
@@ -3970,6 +3990,9 @@ msgid ""
 "attendance. You can manage the members' contracts, keep notes and upload any "
 "files you might need."
 msgstr ""
+"Verwende die Anwendung für Dein Fitnessstudio, um die Mitglieder, ihr "
+"Training und ihre Teilnahme zu verwalten. Du kannst die Verträge der "
+"Mitglieder verwalten, Notizen machen und alle benötigten Dateien hochladen."
 
 #: software/templates/features.html:213
 msgid ""
@@ -4077,6 +4100,10 @@ msgid ""
 "Manager release (LICENSE.txt) and can be read online on the website of\n"
 "<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>."
 msgstr ""
+"Eine Kopie des Lizenztextes ist in jeder wger Workout\n"
+"Manager-Version (LICENSE.txt) und kann online gelesen werden auf der Website "
+"von\n"
+"<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>des GNU-Projekts</a>."
 
 #: utils/generic_views.py:254
 msgid "Yes, delete"
@@ -4256,7 +4283,7 @@ msgstr "Benutze den Verweis zum Hinzufügen."
 
 #: weight/templates/overview.html:34
 msgid "height in cm"
-msgstr ""
+msgstr "Höhe in cm"
 
 #: weight/templates/overview.html:38
 msgid "Last 3 months"
