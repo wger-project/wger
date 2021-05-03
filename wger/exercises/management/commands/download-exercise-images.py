@@ -105,7 +105,7 @@ class Command(BaseCommand):
                 self.stdout.write(f'Processing image {image_uuid}')
 
                 try:
-                    exercise_base = ExerciseBase.objects.get(id=image_data['exercise'])
+                    exercise_base = ExerciseBase.objects.get(id=image_data['exercise_base'])
                 except ExerciseBase.DoesNotExist:
                     self.stdout.write('    Remote exercise base not found in local DB, skipping...')
                     continue
