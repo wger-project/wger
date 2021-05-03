@@ -19,11 +19,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='exercisebase',
             name='license_author',
-            field=models.CharField(blank=True, help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.', max_length=50, null=True, verbose_name='Author'),
+            field=models.CharField(blank=True,
+                                   help_text='If you are not the author, enter the name or source '
+                                             'here. This is needed for some licenses e.g. the '
+                                             'CC-BY-SA.',
+                                   max_length=50,
+                                   null=True,
+                                   verbose_name='Author'),
         ),
         migrations.AlterField(
             model_name='exercisebase',
             name='variations',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='exercises.variation', verbose_name='Variations'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='exercises.variation',
+                                    verbose_name='Variations'),
         ),
     ]
