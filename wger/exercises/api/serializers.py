@@ -62,7 +62,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
         model = ExerciseImage
         fields = ['id',
                   'uuid',
-                  'exercise',
+                  'exercise_base',
                   'image',
                   'is_main',
                   'status']
@@ -120,6 +120,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
         fields = ("id",
                   "uuid",
                   "name",
+                  "exercise_base",
                   "status",
                   "description",
                   "creation_date",

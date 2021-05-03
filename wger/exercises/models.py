@@ -455,9 +455,9 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                             verbose_name='UUID')
     """Globally unique ID, to identify the image across installations"""
 
-    exercise = models.ForeignKey(ExerciseBase,
-                                 verbose_name=_('Exercise'),
-                                 on_delete=models.CASCADE)
+    exercise_base = models.ForeignKey(ExerciseBase,
+                                      verbose_name=_('Exercise'),
+                                      on_delete=models.CASCADE)
     """The exercise the image belongs to"""
 
     image = models.ImageField(verbose_name=_('Image'),

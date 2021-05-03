@@ -88,6 +88,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('uuid',
                         'creation_date',
+                        'exercise_base',
                         'description',
                         'language',
                         'status',
@@ -242,7 +243,7 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('is_main',
                         'status',
-                        'exercise',
+                        'exercise_base',
                         'license',
                         'license_author')
 
