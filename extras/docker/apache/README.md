@@ -23,7 +23,7 @@ play around. To start it:
 
 ```docker run -ti --name wger.apache --publish 8000:80 wger/apache```
 
-Then just open <http://localhost:8000> and log in as: **admin**, password **admin**
+Then just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
 To stop the container:
 

@@ -19,3 +19,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "/extras/docker/development/"
+    schedule:
+      interval: "daily"

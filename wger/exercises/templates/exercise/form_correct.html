@@ -1,10 +1,10 @@
 {% load i18n %}
 
 {% if not perms.exercises %}
-<h4>{% trans "Correcting an exercise" %}</h4>
-<p><strong>{% blocktrans %}Thank you for correcting and improving this exercise.
-This is much appreciated!{% endblocktrans %}</strong></p>
+<h4>{% translate "Correcting an exercise" %}</h4>
+<p><strong>{% blocktranslate %}Thank you for correcting and improving this exercise.
+This is much appreciated!{% endblocktranslate %}</strong></p>
 
-<p>{% blocktrans %}After you submit the form, the administrators will be notified.
-Once the changes are reviewed the exercise will be updated.{% endblocktrans %}</p>
+<p>{% blocktranslate %}After you submit the form, the administrators will be notified.
+Once the changes are reviewed the exercise will be updated.{% endblocktranslate %}</p>
 {% endif %}

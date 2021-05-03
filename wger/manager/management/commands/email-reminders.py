@@ -24,7 +24,7 @@ from django.core import mail
 from django.core.management.base import BaseCommand
 from django.template import loader
 from django.utils import translation
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import UserProfile

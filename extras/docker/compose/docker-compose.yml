@@ -17,7 +17,7 @@ services:
       - cache
 
   db:
-    image: postgres:12.0-alpine
+    image: postgres:12-alpine
     volumes:
       - wger-postgres-data:/var/lib/postgresql/data/
     expose:

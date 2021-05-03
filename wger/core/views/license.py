@@ -24,8 +24,8 @@ from django.contrib.auth.mixins import (
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -62,7 +62,7 @@ class LicenseAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin,
     model = License
     fields = ['full_name', 'short_name', 'url']
     success_url = reverse_lazy('core:license:list')
-    title = ugettext_lazy('Add')
+    title = gettext_lazy('Add')
     permission_required = 'core.add_license'
 
 

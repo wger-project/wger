@@ -34,13 +34,16 @@ wger bootstrap
 # Collect static files
 if [[ "$DJANGO_DEBUG" == "False" ]];
 then
+    echo "Running in production mode, running collectstatic now"
     python3 manage.py collectstatic --no-input
 fi
 
 # Run the server
 if [[ "$WGER_USE_GUNICORN" == "True" ]];
 then
+    echo "Using gunicorn..."
     gunicorn wger.wsgi:application --reload --bind 0.0.0.0:8000
 else
+    echo "Using django's development server..."
     python3 manage.py runserver 0.0.0.0:8000
 fi

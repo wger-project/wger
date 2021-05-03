@@ -32,3 +32,5 @@ dictionary in your settings file. Currently the following options are supported:
   but only the keys you need, e.g. ``WGER_SETTINGS['foo'] = 'bar'``. This avoids
   problems when new keys are added in the global settings.
 
+Set the URL for your site in the table ``django_site``. This is ony used e.g. in
+the password reset emails.

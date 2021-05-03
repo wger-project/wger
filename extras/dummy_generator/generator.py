@@ -320,7 +320,6 @@ if hasattr(args, 'number_workouts'):
 
                     day_set = Set(exerciseday=day, sets=sets, order=order)
                     day_set.save()
-                    day_set.exercises.add(exercise)
 
                     setting = Setting(set=day_set, exercise=exercise, reps=reps, order=order)
                     setting.save()
@@ -458,7 +457,9 @@ if hasattr(args, 'number_weight'):
         # Bulk-create the weight entries
         WeightEntry.objects.bulk_create(new_entries)
 
+#
 # Nutrition Generator
+#
 if hasattr(args, 'number_nutrition_plans'):
     print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_plans))
 
@@ -471,7 +472,7 @@ if hasattr(args, 'number_nutrition_plans'):
     ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
 
     # Total meals per plan
-    total_meals = 4
+    TOTAL_MEALS = 4
 
     for user in userlist:
         print('   - generating for {0}'.format(user.username))
@@ -489,8 +490,11 @@ if hasattr(args, 'number_nutrition_plans'):
 
             # Add meals to plan
             order = 1
-            for j in range(0, total_meals):
-                meal = Meal(plan=nutrition_plan, order=order)
+            for j in range(0, TOTAL_MEALS):
+                meal = Meal(plan=nutrition_plan,
+                            order=order,
+                            time=datetime.time(hour=random.randint(0, 23),
+                                               minute=random.randint(0, 59)))
                 meal.save()
                 for k in range(0, random.randint(1, 5)):
                     ingredient = random.choice(ingredient_list)
@@ -499,9 +503,11 @@ if hasattr(args, 'number_nutrition_plans'):
                     meal_item.save()
                 order = order + 1
 
-# Nutrition logs Generator
+#
+# Nutrition diary Generator
+#
 if hasattr(args, 'number_nutrition_logs'):
-    print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_logs))
+    print("** Generating {0} nutrition diary entries per user".format(args.number_nutrition_logs))
 
     if args.add_to_user:
         userlist = [User.objects.get(pk=args.add_to_user)]

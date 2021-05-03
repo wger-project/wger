@@ -1,11 +1,10 @@
 #
 # A wger installation under apache with WSGI
 #
-# Note: you MUST build this image from the projec's root!
+# Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
 #
 # Please consult the documentation for usage
-# docker build --tag wger/apache .
 # docker run -ti --name wger.apache --publish 8000:80 wger/apache
 #
 # To stop the container:
@@ -86,7 +85,9 @@ RUN . /home/wger/venv/bin/activate \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap
+    && wger bootstrap \
+    && wger load-online-fixtures \
+    && python3 manage.py download-exercise-images
 
 
 # Change permissions of some files and folders so the apache process
@@ -100,6 +101,7 @@ RUN mkdir -p ~/static/CACHE ~/media \
 USER root
 RUN apt-get remove build-essential -y \
     && apt autoremove -y \
-    && chown www-data:www-data -R /home/wger/db
+    && chown :www-data -R /home/wger/db \
+    && chmod g+w /home/wger/db /home/wger/db/database.sqlite
 
 ENTRYPOINT ["/home/wger/entrypoint.sh"]

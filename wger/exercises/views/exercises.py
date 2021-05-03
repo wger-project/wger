@@ -26,6 +26,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.core import mail
+from django.core.exceptions import ValidationError
 from django.forms import (
     CharField,
     CheckboxSelectMultiple,
@@ -50,8 +51,8 @@ from django.urls import (
 )
 from django.utils.cache import patch_vary_headers
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -70,15 +71,19 @@ from crispy_forms.layout import (
 # wger
 from wger.config.models import LanguageConfig
 from wger.exercises.models import (
+    Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     Muscle
 )
 from wger.manager.models import WorkoutLog
+from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin
 )
+from wger.utils.helpers import levenshtein
 from wger.utils.language import (
     load_item_languages,
     load_language
@@ -111,7 +116,7 @@ class ExerciseListView(ListView):
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         return Exercise.objects.accepted() \
             .filter(language__in=languages) \
-            .order_by('category__id') \
+            .order_by('exercise_base__category__id') \
             .select_related()
 
     def get_context_data(self, **kwargs):
@@ -157,6 +162,66 @@ def view(request, id, slug=None):
     return render(request, 'exercise/view.html', template_data)
 
 
+class ExerciseForm(ModelForm):
+    # Redefine some fields here to set some properties
+    # (some of this could be done with a crispy form helper and would be
+    # a cleaner solution)
+    category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
+                                widget=Select())
+    muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
+                                       widget=CheckboxSelectMultiple(),
+                                       required=False)
+
+    muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
+                                                 widget=CheckboxSelectMultiple(),
+                                                 required=False)
+
+    equipment = ModelMultipleChoiceField(queryset=Equipment.objects.all(),
+                                         widget=CheckboxSelectMultiple(),
+                                         required=False)
+
+    description = CharField(label=_('Description'),
+                            widget=Textarea,
+                            required=False)
+
+    class Meta:
+        model = Exercise
+        widgets = {'equipment': TranslatedSelectMultiple()}
+        fields = ['name_original',
+                  'category',
+                  'description',
+                  'muscles',
+                  'muscles_secondary',
+                  'equipment',
+                  'license',
+                  'license_author']
+
+    class Media:
+        js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
+
+    def clean_name_original(self):
+        """
+        Throws a validation error if the newly submitted name is too similar to
+        an existing exercise's name
+        """
+        name_original = self.cleaned_data['name_original']
+
+        if not self.instance.id:
+            language = load_language()
+            exercises = Exercise.objects.accepted() \
+                .filter(language=language)
+            for exercise in exercises:
+                exercise_name = str(exercise)
+                min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
+                if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
+                    raise ValidationError(
+                        _('%(name_original)s is too similar to existing exercise '
+                          '"%(exercise_name)s"'),
+                        params={'name_original': name_original, 'exercise_name': exercise_name},
+                    )
+        return name_original
+
+
 class ExercisesEditAddView(WgerFormMixin):
     """
     Generic view to subclass from for exercise adding and editing, since they
@@ -164,49 +229,22 @@ class ExercisesEditAddView(WgerFormMixin):
     """
     model = Exercise
     sidebar = 'exercise/form.html'
-    title = ugettext_lazy('Add exercise')
+    title = gettext_lazy('Add exercise')
     custom_js = 'wgerInitTinymce();'
     clean_html = ('description', )
 
     def get_form_class(self):
-
-        class ExerciseForm(ModelForm):
-            # Redefine some fields here to set some properties
-            # (some of this could be done with a crispy form helper and would be
-            # a cleaner solution)
-            category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                        widget=Select())
-            muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                               widget=CheckboxSelectMultiple(),
-                                               required=False)
-
-            muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                         widget=CheckboxSelectMultiple(),
-                                                         required=False)
-
-            description = CharField(label=_('Description'),
-                                    widget=Textarea,
-                                    required=False)
-
-            class Meta:
-                model = Exercise
-                widgets = {'equipment': TranslatedSelectMultiple()}
-                fields = ['name_original',
-                          'category',
-                          'description',
-                          'muscles',
-                          'muscles_secondary',
-                          'equipment',
-                          'license',
-                          'license_author']
-
-            class Media:
-                js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
-
         return ExerciseForm
 
     def get_form(self, form_class=None):
         form = super(ExercisesEditAddView, self).get_form(form_class)
+        exercise = self.get_form_kwargs()['instance']
+        if exercise is not None:
+            form.fields['category'].initial = exercise.exercise_base.category
+            form.fields['equipment'].initial = exercise.exercise_base.equipment.all()
+            form.fields['muscles'].initial = exercise.exercise_base.muscles.all()
+            form.fields['muscles_secondary'].initial = \
+                exercise.exercise_base.muscles_secondary.all()
         form.helper.layout = Layout(
             "name_original",
             "description",
@@ -225,6 +263,16 @@ class ExercisesEditAddView(WgerFormMixin):
         )
         return form
 
+    def form_valid(self, form):
+        exercise_base = Exercise.objects.filter(name=form.instance.name)[0].exercise_base
+        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+        return super(ExercisesEditAddView, self).form_valid(form)
+
 
 class ExerciseUpdateView(ExercisesEditAddView,
                          LoginRequiredMixin,
@@ -238,7 +286,6 @@ class ExerciseUpdateView(ExercisesEditAddView,
     def get_context_data(self, **kwargs):
         context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object.name)
-
         return context
 
 
@@ -253,6 +300,35 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
+
+        # Try retrieving a base exercise first
+        existing = ExerciseBase.objects.filter(
+            category=ExerciseCategory.objects.get(name=form.cleaned_data['category']))
+        for elem in form.cleaned_data['equipment'].all():
+            existing = existing.filter(equipment=elem)
+        for elem in form.cleaned_data['muscles'].all():
+            existing = existing.filter(muscles=elem)
+        for elem in form.cleaned_data['muscles_secondary'].all():
+            existing = existing.filter(muscles_secondary=elem)
+
+        # Create a new exercise base
+        if not existing:
+            exercise_base = ExerciseBase.objects.create(
+                category=form.cleaned_data['category'],
+                license=form.cleaned_data['license'],
+                license_author=form.cleaned_data['license_author']
+            )
+
+            exercise_base.equipment.set(form.cleaned_data['equipment'].all())
+            exercise_base.muscles.set(form.cleaned_data['muscles'].all())
+            exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+            exercise_base.save()
+        else:
+            exercise_base = existing.first()
+
+        form.instance.exercise_base = exercise_base
+        form.instance.save()
+
         return super(ExerciseAddView, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
@@ -318,15 +394,11 @@ class ExerciseDeleteView(WgerDeleteMixin,
     """
 
     model = Exercise
-    fields = ('category',
-              'description',
-              'name_original',
-              'muscles',
-              'muscles_secondary',
-              'equipment')
+    fields = ('description',
+              'name_original')
     success_url = reverse_lazy('exercise:exercise:overview')
-    delete_message_extra = ugettext_lazy('This will delete the exercise from all workouts.')
-    messages = ugettext_lazy('Successfully deleted')
+    delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exercise'
 
     def get_context_data(self, **kwargs):

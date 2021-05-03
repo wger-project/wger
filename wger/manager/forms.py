@@ -28,15 +28,15 @@ from django.forms import (
     IntegerField,
     ModelChoiceField,
     ModelForm,
+    ModelMultipleChoiceField,
     widgets
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 
 # Third Party
-from captcha.fields import ReCaptchaField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Column,
@@ -52,6 +52,7 @@ from wger.core.models import (
 )
 from wger.exercises.models import Exercise
 from wger.manager.models import (
+    RIR_OPTIONS,
     Day,
     Set,
     Setting,
@@ -63,11 +64,6 @@ from wger.utils.widgets import (
     ExerciseAjaxSelect,
     TranslatedSelectMultiple
 )
-
-
-class DemoUserForm(Form):
-    captcha = ReCaptchaField(label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
 
 
 class WorkoutForm(ModelForm):
@@ -89,19 +85,27 @@ class DayForm(ModelForm):
         widgets = {'day': TranslatedSelectMultiple()}
 
 
+class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
+    """Ordered multiple choice field"""
+    def clean(self, value):
+        int_list = [int(i) for i in value]
+        qs = super(OrderedModelMultipleChoiceField, self).clean(int_list)
+        return sorted(qs, key=lambda x: int_list.index(x.pk))
+
+
 class SetForm(ModelForm):
+
+    exercises = OrderedModelMultipleChoiceField(queryset=Exercise.objects.all(),
+                                                label=_('Exercises'),
+                                                required=False,
+                                                widget=ExerciseAjaxSelect,
+                                                help_text=_('You can search for more than one '
+                                                            'exercise, they will be grouped '
+                                                            'together for a superset.'))
+
     class Meta:
         model = Set
         exclude = ('order', 'exerciseday')
-        widgets = {'exercises': ExerciseAjaxSelect(), }
-
-    # We need to overwrite the init method here because otherwise Django
-    # will output a default help text, regardless of the widget used
-    # https://code.djangoproject.com/ticket/9321
-    def __init__(self, *args, **kwargs):
-        super(SetForm, self).__init__(*args, **kwargs)
-        self.fields['exercises'].help_text = _('You can search for more than one exercise, '
-                                               'they will be grouped together for a superset.')
 
 
 class SettingForm(ModelForm):
@@ -114,7 +118,10 @@ class WorkoutLogForm(ModelForm):
     """
     Helper form for a WorkoutLog.
 
-    These fields are re-defined here only to make them optional
+    These fields are re-defined here only to make them optional. Otherwise
+    all the entries in the formset would be required, which is not really what
+    we want. This form is one prime candidate to rework with some modern JS
+    framework, there is a ton of ugly logic like this just to make it work.
     """
     repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
                                        label=_('Unit'),
@@ -130,6 +137,9 @@ class WorkoutLogForm(ModelForm):
     weight = DecimalField(label=_('Weight'),
                           initial=0,
                           required=False)
+    rir = ChoiceField(label=_('RiR'),
+                      choices=RIR_OPTIONS,
+                      required=False)
 
     class Meta:
         model = WorkoutLog
@@ -141,11 +151,13 @@ class WorkoutLogFormHelper(FormHelper):
         super().__init__(*args, **kwargs)
         self.form_method = 'post'
         self.layout = Layout(
+            'id',
             Row(
-                Column('reps', css_class='form-group col-md-2 col-3 mb-0'),
-                Column('repetition_unit', css_class='form-group col-md-4 col-3 mb-0'),
-                Column('weight', css_class='form-group col-md-2 col-3 mb-0'),
-                Column('weight_unit', css_class='form-group col-md-4 col-3 mb-0'),
+                Column('reps', css_class='form-group col-2 mb-0'),
+                Column('repetition_unit', css_class='form-group col-3 mb-0'),
+                Column('weight', css_class='form-group col-2 mb-0'),
+                Column('weight_unit', css_class='form-group col-3 mb-0'),
+                Column('rir', css_class='form-group col-2 mb-0'),
                 css_class='form-row'
             ),
         )
@@ -209,13 +221,13 @@ class WorkoutScheduleDownloadForm(Form):
     Form for the workout schedule download
     """
     pdf_type = ChoiceField(
-        label=ugettext_lazy("Type"),
-        choices=(("log", ugettext_lazy("Log")),
-                 ("table", ugettext_lazy("Table")))
+        label=gettext_lazy("Type"),
+        choices=(("log", gettext_lazy("Log")),
+                 ("table", gettext_lazy("Table")))
     )
-    images = BooleanField(label=ugettext_lazy("with images"),
+    images = BooleanField(label=gettext_lazy("with images"),
                           required=False)
-    comments = BooleanField(label=ugettext_lazy("with comments"),
+    comments = BooleanField(label=gettext_lazy("with comments"),
                             required=False)
 
     def __init__(self):

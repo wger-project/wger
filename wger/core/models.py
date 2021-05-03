@@ -28,7 +28,7 @@ from django.core.validators import (
 from django.db import models
 from django.db.models import IntegerField
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.gym.models import Gym
@@ -339,6 +339,23 @@ by the US Department of Agriculture. It is extremely complete, with around
                                                                MaxValueValidator(30)],
                                                    default=0)
     """Number of Days for email weight reminder"""
+
+    #
+    # API
+    #
+    added_by = models.ForeignKey(User,
+                                 editable=False,
+                                 null=True,
+                                 related_name='added_by',
+                                 on_delete=models.CASCADE)
+    """User that originally registered this user via REST API"""
+
+    can_add_user = models.BooleanField(default=False,
+                                       editable=False)
+    """
+    Flag to indicate whether the (app) user can register other users on his
+    behalf over the REST API
+    """
 
     @property
     def weight(self):

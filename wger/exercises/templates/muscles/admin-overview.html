@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% trans "Muscle overview" %}{% endblock %}
+{% block title %}{% translate "Muscle overview" %}{% endblock %}
 
 
 {% block content %}
@@ -13,15 +13,15 @@
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'exercise:muscle:edit' muscle.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
-                <a href="{% url 'exercise:muscle:delete' muscle.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                <a href="{% url 'exercise:muscle:edit' muscle.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                <a href="{% url 'exercise:muscle:delete' muscle.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
             </div>
         </div>
         {{ muscle }}
     </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -33,7 +33,7 @@
 {% block options %}
 {% if perms.exercises.add_equipment %}
     <a href="{% url 'exercise:muscle:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add muscle" %}
+        {% translate "Add muscle" %}
     </a>
 {% endif %}
 {% endblock %}

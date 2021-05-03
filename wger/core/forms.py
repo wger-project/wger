@@ -29,10 +29,11 @@ from django.forms import (
     PasswordInput,
     widgets
 )
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # Third Party
 from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 from crispy_forms.bootstrap import (
     Accordion,
     AccordionGroup
@@ -76,7 +77,7 @@ class UserPreferencesForm(forms.ModelForm):
     last_name = forms.CharField(label=_('Last name'),
                                 required=False)
     email = EmailField(label=_("Email"),
-                       help_text=_("Used for password resets and, optionally, email reminders."),
+                       help_text=_("Used for password resets and, optionally, e-mail reminders."),
                        required=False)
 
     class Meta:
@@ -141,12 +142,12 @@ class UserEmailForm(forms.ModelForm):
 
     def clean_email(self):
         """
-        Email must be unique system wide
+        E-mail must be unique system wide
 
-        However, this check should only be performed when the user changes his
-        email, otherwise the uniqueness check will because it will find one user
-        (the current one) using the same email. Only when the user changes it, do
-        we want to check that nobody else has that email
+        However, this check should only be performed when the user changes
+        e-mail address, otherwise the uniqueness check will because it will find one user
+        (the current one) using the same e-mail. Only when the user changes it, do
+        we want to check that nobody else has that e-mail address.
         """
 
         email = self.cleaned_data["email"]
@@ -159,7 +160,7 @@ class UserEmailForm(forms.ModelForm):
         except User.DoesNotExist:
             return email
 
-        raise ValidationError(_("This email is already used."))
+        raise ValidationError(_("This e-mail address is already in use."))
 
 
 class UserPersonalInformationForm(UserEmailForm):
@@ -205,20 +206,33 @@ class PasswordConfirmationForm(Form):
 
 class RegistrationForm(UserCreationForm, UserEmailForm):
     """
-    Registration form
+    Registration form with reCAPTCHA field
     """
 
-    # Manually set the language to 'en', otherwise the language used seems to
-    # randomly one of the application languages. This also appears to happen
-    # only on wger.de, perhaps because there the application is behind a reverse
-    # proxy. See  #281.
-    captcha = ReCaptchaField(label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'))
+    captcha = ReCaptchaField(widget=ReCaptchaV3,
+                             label='reCaptcha',
+                             help_text=_('The form is secured with reCAPTCHA'))
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            'username',
+            'email',
+            Row(
+                Column('password1', css_class='form-group col-6 mb-0'),
+                Column('password2', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'captcha',
+            ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+        )
 
 
 class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
     """
-    Registration form without captcha field
+    Registration form without CAPTCHA field
     """
 
     def __init__(self, *args, **kwargs):
@@ -244,7 +258,7 @@ class FeedbackRegisteredForm(forms.Form):
     contact = forms.CharField(max_length=50,
                               min_length=10,
                               label=_('Contact'),
-                              help_text=_('Some way of answering you (email, etc.)'),
+                              help_text=_('Some way of answering you (e-mail, etc.)'),
                               required=False)
 
     comment = forms.CharField(max_length=500,
@@ -257,7 +271,8 @@ class FeedbackRegisteredForm(forms.Form):
 
 class FeedbackAnonymousForm(FeedbackRegisteredForm):
     """
-    Feedback form used for anonymous users (has additionally a reCaptcha field)
+    Feedback form used for anonymous users (has additionally a reCAPTCHA field)
     """
-    captcha = ReCaptchaField(label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
+    captcha = ReCaptchaField(widget=ReCaptchaV3,
+                             label='reCaptcha',
+                             help_text=_('The form is secured with reCAPTCHA'))

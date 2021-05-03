@@ -26,8 +26,8 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -50,8 +50,10 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = Contract
-    fields = '__all__'
-    title = ugettext_lazy('Add contract')
+    fields = ['contract_type', 'options', 'amount', 'payment', 'is_active',
+              'date_start', 'date_end', 'email', 'zip_code', 'city', 'street',
+              'phone', 'profession', 'note']
+    title = gettext_lazy('Add contract')
     permission_required = 'gym.add_contract'
     member = None
 
@@ -130,7 +132,9 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = Contract
-    fields = '__all__'
+    fields = ['contract_type', 'options', 'amount', 'payment', 'is_active',
+              'date_start', 'date_end', 'email', 'zip_code', 'city', 'street',
+              'phone', 'profession', 'note']
     permission_required = 'gym.change_contract'
 
     def dispatch(self, request, *args, **kwargs):

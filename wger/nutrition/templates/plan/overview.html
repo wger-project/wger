@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{% trans "Your nutrition plans" %}{% endblock %}
+{% block title %}{% translate "Your nutrition plans" %}{% endblock %}
 
 
 {% block content %}
@@ -14,13 +14,13 @@
             <p class="list-group-item-heading h5">{{plan}}</p>
             <p class="list-group-item-text">
                 {{ plan.creation_date }} –
-                {{ plan.get_nutritional_values.total.energy|floatformat }} {% trans "kcal" %}
+                {{ plan.get_nutritional_values.total.energy|floatformat }} {% translate "kcal" %}
             </p>
         </a>
     {% empty %}
         <a href="{% url 'nutrition:plan:add' %}" class="list-group-item">
-        {% trans "No nutrition plans." %}<br>
-        {% trans "Add one now." %}
+        {% translate "No nutrition plans." %}<br>
+        {% translate "Add one now." %}
         </a>
     {% endfor %}
 </div>
@@ -33,6 +33,6 @@
 {#         #}
 {% block options %}
     <a href="{% url 'nutrition:plan:add' %}" class="btn btn-success btn-sm">
-        {% trans "Add nutrition plan" %}
+        {% translate "Add nutrition plan" %}
     </a>
 {% endblock %}

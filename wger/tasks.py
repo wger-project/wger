@@ -19,6 +19,7 @@ import logging
 import os
 import pathlib
 import sys
+import tempfile
 
 # Django
 import django
@@ -29,10 +30,12 @@ from django.core.management import (
 from django.utils.crypto import get_random_string
 
 # Third Party
+import requests
 from invoke import task
 
 
 logger = logging.getLogger(__name__)
+FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
 
 @task(help={'address': 'Address to bind to. Default: localhost',
@@ -125,14 +128,13 @@ def create_settings(context,
     with open(settings_template, 'r') as settings_file:
         settings_content = settings_file.read()
 
-    # The environment variable is set by travis during testing
     if database_type == 'postgresql':
         dbengine = 'postgresql_psycopg2'
-        dbname = 'test_wger'
-        dbuser = 'postgres'
-        dbpassword = ''
-        dbhost = '127.0.0.1'
-        dbport = ''
+        dbname = 'wger'
+        dbuser = 'wger'
+        dbpassword = 'wger'
+        dbhost = 'localhost'
+        dbport = 5432
     elif database_type == 'sqlite3':
         dbengine = 'sqlite3'
         dbname = dbpath_value
@@ -182,7 +184,7 @@ def create_or_reset_admin(context, settings_path=None):
     from wger.manager.models import User
     try:
         User.objects.get(username="admin")
-        print("*** Password for user admin was reset to 'admin'")
+        print("*** Password for user admin was reset to 'adminadmin'")
     except User.DoesNotExist:
         print("*** Created default admin user")
 
@@ -215,48 +217,65 @@ def load_fixtures(context, settings_path=None):
     # Find the path to the settings and setup the django environment
     setup_django_environment(settings_path)
 
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
     # Gym
-    path = os.path.join(current_dir, 'gym', 'fixtures/')
-    call_command("loaddata", path + "gym.json")
+    call_command("loaddata", "gym.json")
 
     # Core
-    path = os.path.join(current_dir, 'core', 'fixtures/')
-    call_command("loaddata", path + "languages.json")
-    call_command("loaddata", path + "groups.json")
-    call_command("loaddata", path + "users.json")
-    call_command("loaddata", path + "licenses.json")
-    call_command("loaddata", path + "days_of_week.json")
-    call_command("loaddata", path + "setting_repetition_units.json")
-    call_command("loaddata", path + "setting_weight_units.json")
+    call_command("loaddata", "languages.json")
+    call_command("loaddata", "groups.json")
+    call_command("loaddata", "users.json")
+    call_command("loaddata", "licenses.json")
+    call_command("loaddata", "days_of_week.json")
+    call_command("loaddata", "setting_repetition_units.json")
+    call_command("loaddata", "setting_weight_units.json")
 
     # Config
-    path = os.path.join(current_dir, 'config', 'fixtures/')
-    call_command("loaddata", path + "language_config.json")
-    call_command("loaddata", path + "gym_config.json")
+    call_command("loaddata", "language_config.json")
+    call_command("loaddata", "gym_config.json")
 
     # Manager
-    # path = os.path.join(current_dir, 'manager', 'fixtures/')
 
     # Exercises
-    path = os.path.join(current_dir, 'exercises', 'fixtures/')
-    call_command("loaddata", path + "equipment.json")
-    call_command("loaddata", path + "muscles.json")
-    call_command("loaddata", path + "categories.json")
-    call_command("loaddata", path + "exercises.json")
-
-    # Nutrition
-    path = os.path.join(current_dir, 'nutrition', 'fixtures/')
-    call_command("loaddata", path + "ingredients.json")
-    call_command("loaddata", path + "weight_units.json")
-    call_command("loaddata", path + "ingredient_units.json")
+    call_command("loaddata", "equipment.json")
+    call_command("loaddata", "muscles.json")
+    call_command("loaddata", "categories.json")
+    call_command("loaddata", "exercise-base-data.json")
+    call_command("loaddata", "exercises.json")
 
     # Gym
-    path = os.path.join(current_dir, 'gym', 'fixtures/')
-    call_command("loaddata", path + "gym.json")
-    call_command("loaddata", path + "gym-config.json")
-    call_command("loaddata", path + "gym-adminconfig.json")
+    call_command("loaddata", "gym.json")
+    call_command("loaddata", "gym-config.json")
+    call_command("loaddata", "gym-adminconfig.json")
+
+
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
+                             'default'})
+def load_online_fixtures(context, settings_path=None):
+    """
+    Downloads fixtures from server and installs them (at the moment only ingredients)
+    """
+
+    # Find the path to the settings and setup the django environment
+    setup_django_environment(settings_path)
+
+    # Prepare the download
+    for name in ('ingredients', 'weight_units', 'ingredient_units'):
+        url = f'{FIXTURE_URL}{name}.json.zip'
+
+        print(f'Downloading fixture data from {url}...')
+        response = requests.get(url, stream=True)
+        size = int(response.headers["content-length"]) / (1024 * 1024)
+        print(f'-> fixture size: {size:.3} MB')
+
+        # Save to temporary file and load the data
+        f = tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip')
+        print(f'-> saving to temp file {f.name}')
+        f.write(response.content)
+        f.close()
+        call_command("loaddata", f.name)
+        print('-> removing temp file')
+        print('')
+        os.unlink(f.name)
 
 
 @task

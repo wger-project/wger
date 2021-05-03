@@ -7,8 +7,8 @@
 {#           #}
 {% block opengraph %}
     {{ block.super }}
-    <meta property="og:title" content="{% trans 'Weight log' %}">
-    <meta property="og:description" content="{% trans 'Weight log' %} / {{ workout }} / {{ owner_user.username }}">
+    <meta property="og:title" content="{% translate 'Weight log' %}">
+    <meta property="og:description" content="{% translate 'Weight log' %} / {{ workout }} / {{ owner_user.username }}">
 {% endblock %}
 
 
@@ -26,7 +26,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% trans "Weight log for workout" %}{% endblock %}
+{% block title %}{% translate "Weight log for workout" %}{% endblock %}
 
 
 {#        #}
@@ -42,7 +42,7 @@
 {% block content %}
 {% if workout.comment %}
 <p>
-    <strong>{% trans "Goal" %}:</strong> {{workout.comment}}
+    <strong>{% translate "Goal" %}:</strong> {{workout.comment}}
 </p>
 {% endif %}
 
@@ -52,7 +52,7 @@
     {% if is_owner %}
     <p>
         <a href="{% url 'manager:day:log' day.obj.id %}" class="btn btn-success btn-sm">
-            {% trans 'Add weight log to this day' %}
+            {% translate 'Add weight log to this day' %}
         </a>
     </p>
     {% endif %}
@@ -78,7 +78,7 @@
 
 
             {% else %}
-                <p><em>{% trans "No weight entries here." %}</em></p>
+                <p><em>{% translate "No weight entries here." %}</em></p>
             {% endif %}
 
         {% endwith %}
@@ -86,7 +86,7 @@
 
     {% empty%}
     <p>
-        <em>{% trans "No exercises for this day." %}</em>
+        <em>{% translate "No exercises for this day." %}</em>
     </p>
     {% endfor %}
     {% endfor %}
@@ -98,16 +98,16 @@
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-<h4>{% trans "Notes" %}</h4>
-<p>{% blocktrans %}This page shows the weight logs belonging to this workout
+<h4>{% translate "Notes" %}</h4>
+<p>{% blocktranslate %}This page shows the weight logs belonging to this workout
 only. Click on an exercise to see all the historical data for
-it.{% endblocktrans %}</p>
+it.{% endblocktranslate %}</p>
 
-<p>{% blocktrans %}If on a single day there is more than one entry with the
+<p>{% blocktranslate %}If on a single day there is more than one entry with the
 same number of repetitions, but different weights, only the entry with the
-higher weight is shown in the diagram.{% endblocktrans %}</p>
+higher weight is shown in the diagram.{% endblocktranslate %}</p>
 
-<p>{% blocktrans %}Note that only entries with a weight unit (kg or lb) and
+<p>{% blocktranslate %}Note that only entries with a weight unit (kg or lb) and
 repetitions are charted, other combinations such as time or until failure
-are ignored here.{% endblocktrans %}</p>
+are ignored here.{% endblocktranslate %}</p>
 {% endblock %}

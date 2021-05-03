@@ -88,7 +88,8 @@ If using sqlite, create a folder for it (must be writable by the apache user)::
 
   mkdir db
   touch db/database.sqlite
-  chmod -R o+w db
+  chown :www-data -R /home/wger/db
+  chmod g+w /home/wger/db /home/wger/db/database.sqlite
 
 Application
 -----------
@@ -138,8 +139,50 @@ The bootstrap command will also create a default administrator user (you probabl
 want to change the password as soon as you log in):
 
 * **username**: admin
-* **password**: admin
+* **password**: adminadmin
 
+.. _email:
+
+Email
+-----
+
+The application is configured to use Django's console email backend by default, which causes messages intended to be sent via email to be written to ``stdout``.
+
+In order to use a real email server, another backend listed in `Django's documentation`_ can be configured instead. Parameters for the backend are set as variables in ``settings.py``. For example, the following allows an SMTP server at ``smtp.example.com`` to be used::
+
+   Email_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+   ENABLE_EMAIL = True
+   EMAIL_HOST = 'smtp.example.com'
+   EMAIL_PORT = 587
+   EMAIL_HOST_USER = 'wger@example.com'
+   EMAIL_HOST_PASSWORD = 'example_password'
+   EMAIL_USE_TLS = True
+   EMAIL_USE_SSL = False
+   DEFAULT_FROM_EMAIL = 'wger Workout Manager <wger@example.com>'
+
+Django provides a ``sendtestemail`` command via ``manage.py`` to test email settings::
+
+  python manage.py sendtestemail user@example.com
+
+.. _`Django's documentation`: https://docs.djangoproject.com/en/dev/topics/email/#email-backends
+
+.. _site-settings:
+
+Site Settings
+-------------
+
+Some wger features make use of Django's site name and domain settings in the ``contrib.sites`` framework. These should be set through the Python shell::
+
+   python manage.py shell
+   >>> from django.contrib.sites.models import Site
+   >>> site = Site.objects.get(pk=1)
+   >>> site.domain = 'wger.example.com'
+   >>> site.name = 'example.com wger Workout Manager'
+   >>> site.save()
+
+where ``wger.example.com`` is the domain of the wger instance. This assumes that wger is using the default site ID of 1. If a different site ID is being used, it must be specified in ``settings.py``::
+
+  SITE_ID = 2
 
 .. _other-changes:
 

@@ -27,8 +27,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -81,7 +81,7 @@ class WeightUnitCreateView(WgerFormMixin,
 
     model = WeightUnit
     fields = ['name']
-    title = ugettext_lazy('Add new weight unit')
+    title = gettext_lazy('Add new weight unit')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
@@ -104,7 +104,7 @@ class WeightUnitDeleteView(WgerDeleteMixin,
     fields = ['name']
     success_url = reverse_lazy('nutrition:weight_unit:list')
     permission_required = 'nutrition.delete_ingredientweightunit'
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         """

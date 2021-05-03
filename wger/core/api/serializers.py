@@ -17,9 +17,11 @@
 
 # Django
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 
 # Third Party
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 # wger
 from wger.core.models import (
@@ -38,7 +40,33 @@ class UserprofileSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ['user',
+                  'gym',
+                  'is_temporary',
+                  'show_comments',
+                  'show_english_ingredients',
+                  'workout_reminder_active',
+                  'workout_reminder',
+                  'workout_duration',
+                  'last_workout_notification',
+                  'notification_language',
+                  'timer_active',
+                  'timer_active',
+                  'age',
+                  'birthdate',
+                  'height',
+                  'gender',
+                  'sleep_hours',
+                  'work_hours',
+                  'work_intensity',
+                  'sport_hours',
+                  'sport_intensity',
+                  'freetime_hours',
+                  'freetime_intensity',
+                  'calories',
+                  'weight_unit',
+                  'ro_access',
+                  'num_days_weight_reminder']
 
 
 class UsernameSerializer(serializers.Serializer):
@@ -58,13 +86,37 @@ class UserApiSerializer(serializers.ModelSerializer):
         fields = ['username', 'password']
 
 
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        required=False,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+    username = serializers.CharField(required=True,
+                                     validators=[UniqueValidator(queryset=User.objects.all())])
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+    def create(self, validated_data):
+        user = User.objects.create(username=validated_data['username'])
+        user.set_password(validated_data['password'])
+        if validated_data.get('email'):
+            user.email = validated_data['email']
+        user.save()
+
+        return user
+
+
 class LanguageSerializer(serializers.ModelSerializer):
     """
     Language serializer
     """
     class Meta:
         model = Language
-        fields = '__all__'
+        fields = ['short_name',
+                  'full_name']
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):
@@ -73,7 +125,7 @@ class DaysOfWeekSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = DaysOfWeek
-        fields = '__all__'
+        fields = ['day_of_week']
 
 
 class LicenseSerializer(serializers.ModelSerializer):
@@ -82,7 +134,10 @@ class LicenseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = License
-        fields = '__all__'
+        fields = ['id',
+                  'full_name',
+                  'short_name',
+                  'url']
 
 
 class RepetitionUnitSerializer(serializers.ModelSerializer):
@@ -91,7 +146,8 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = RepetitionUnit
-        fields = '__all__'
+        fields = ['id',
+                  'name']
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
@@ -100,4 +156,4 @@ class WeightUnitSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = WeightUnit
-        fields = '__all__'
+        fields = ['id', 'name']

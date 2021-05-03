@@ -2,18 +2,19 @@
 # Docker image for wger development:
 #
 # This image uses a virtual environment, which is not necessary in a docker
-# image and is more or less intented to check that the installation instructions
-# for a local develoment are up-to-date
+# image and is more or less intended to check that the installation instructions
+# for a local development are up-to-date
 #
 # Please consult the documentation for usage
 #
-# Note: you MUST build this image from the projec's root!
+# Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/development/Dockerfile --tag wger/devel .
 #
 # Run the container:
 # docker run -ti --publish 8000:8000 --name wger.devel  wger/devel
 # (in docker) source ~/venv/bin/activate
 # (in docker) python manage.py download-exercise-images (optional, may take some time)
+# (in docker) wger load-online-fixtures (optional, may take some time)
 # (in docker) python manage.py runserver 0.0.0.0:8000
 #
 # Alternatively, you can bind the local checkout into the container:
@@ -67,7 +68,8 @@ RUN . /home/wger/venv/bin/activate \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
-    && wger bootstrap
+    && wger bootstrap \
+    && wger load-online-fixtures
 
 # Download the exercise images
 RUN mkdir ~/media \

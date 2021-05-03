@@ -194,7 +194,7 @@ LANGUAGES = (
             ('de', 'German'),
             ('bg', 'Bulgarian'),
             ('es', 'Spanish'),
-            ('r', 'Russian'),
+            ('ru', 'Russian'),
             ('nl', 'Dutch'),
             ('pt', 'Portuguese'),
             ('el', 'Greek'),
@@ -202,6 +202,10 @@ LANGUAGES = (
             ('sv', 'Swedish'),
             ('no', 'Norwegian'),
             ('fr', 'French'),
+            ('it', 'Italian'),
+            ('pl', 'Polish'),
+            ('uk', 'Ukrainian'),
+            ('tr', 'Turkish'),
 )
 
 # Default language code for this installation.
@@ -211,6 +215,9 @@ LANGUAGE_CODE = 'en'
 LOCALE_PATHS = (
     os.path.join(SITE_ROOT, 'locale'),
 )
+
+# Primary keys are AutoFields
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 #

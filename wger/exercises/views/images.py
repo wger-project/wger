@@ -27,8 +27,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -64,12 +64,12 @@ class ExerciseImageEditView(WgerFormMixin,
     """
 
     model = ExerciseImage
-    title = ugettext_lazy('Edit exercise image')
+    title = gettext_lazy('Edit exercise image')
     permission_required = 'exercises.change_exerciseimage'
     form_class = ExerciseImageForm
 
     def get_success_url(self):
-        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise_base.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -87,17 +87,19 @@ class ExerciseImageAddView(WgerFormMixin,
     """
 
     model = ExerciseImage
-    title = ugettext_lazy('Add new image')
+    title = gettext_lazy('Add new image')
     permission_required = 'exercises.add_exerciseimage'
     form_class = ExerciseImageForm
 
     def form_valid(self, form):
-        form.instance.exercise = Exercise.objects.get(pk=self.kwargs['exercise_pk'])
+        """Set the exercise base and the author"""
+        exercise = get_object_or_404(Exercise, pk=self.kwargs['exercise_pk'])
+        form.instance.exercise_base = exercise.exercise_base
         form.instance.set_author(self.request)
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.kwargs['exercise_pk']})
 
     def get_context_data(self, **kwargs):
         """
@@ -118,7 +120,7 @@ class ExerciseImageDeleteView(WgerDeleteMixin,
 
     model = ExerciseImage
     fields = ('image', 'is_main')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'exercises.delete_exerciseimage'
 
     def get_success_url(self):
@@ -147,7 +149,7 @@ def accept(request, pk):
     image.save()
     # image.send_email(request)
 
-    return HttpResponseRedirect(image.exercise.get_absolute_url())
+    return HttpResponseRedirect(reverse('exercise:exercise:overview'))
 
 
 @permission_required('exercises.change_exerciseimage')
@@ -160,4 +162,4 @@ def decline(request, pk):
     image.save()
     # image.send_email(request)
 
-    return HttpResponseRedirect(image.exercise.get_absolute_url())
+    return HttpResponseRedirect(reverse('exercise:exercise:overview'))

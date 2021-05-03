@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{% trans "Your workouts" %}{% endblock %}
+{% block title %}{% translate "Your workouts" %}{% endblock %}
 
 
 {% block content %}
@@ -13,7 +13,7 @@
 
                 {% if workout == current_workout %}
                 <span class="badge badge-primary float-right">
-                    <em>{% trans "active" %}</em>
+                    <em>{% translate "active" %}</em>
                 </span>
                 {% endif %}
 
@@ -22,7 +22,7 @@
             </a>
         {% empty %}
             <a href="{% url 'manager:workout:add' %}" class="list-group-item">
-            {% trans "No workouts found." %}<br>{% trans "Add one now." %}
+            {% translate "No workouts found." %}<br>{% translate "Add one now." %}
             </a>
         {% endfor %}
     </div>
@@ -31,6 +31,6 @@
 
 {% block options %}
 <a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
-    {% trans "Add workout" %}
+    {% translate "Add workout" %}
 </a>
 {% endblock %}

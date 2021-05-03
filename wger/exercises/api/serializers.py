@@ -21,6 +21,7 @@ from rest_framework import serializers
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
@@ -28,13 +29,19 @@ from wger.exercises.models import (
 )
 
 
-class ExerciseSerializer(serializers.ModelSerializer):
+class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
     Exercise serializer
     """
     class Meta:
-        model = Exercise
-        fields = '__all__'
+        model = ExerciseBase
+        fields = ['id',
+                  'uuid',
+                  'category',
+                  'muscles',
+                  'muscles_secondary',
+                  'equipment',
+                  'creation_date']
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
@@ -43,26 +50,8 @@ class EquipmentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Equipment
-        fields = '__all__'
-
-
-class ExerciseInfoSerializer(serializers.ModelSerializer):
-    """
-    Equipment serializer
-    """
-    class Meta:
-        model = Exercise
-        depth = 3
-        fields = ("name", "category", "description", "muscles", "muscles_secondary", "equipment")
-
-
-class ExerciseCategorySerializer(serializers.ModelSerializer):
-    """
-    ExerciseCategory serializer
-    """
-    class Meta:
-        model = ExerciseCategory
-        fields = '__all__'
+        fields = ['id',
+                  'name']
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
@@ -71,7 +60,12 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseImage
-        fields = '__all__'
+        fields = ['id',
+                  'uuid',
+                  'exercise_base',
+                  'image',
+                  'is_main',
+                  'status']
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
@@ -80,7 +74,19 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ExerciseComment
-        fields = '__all__'
+        fields = ['id',
+                  'exercise',
+                  'comment']
+
+
+class ExerciseCategorySerializer(serializers.ModelSerializer):
+    """
+    ExerciseCategory serializer
+    """
+    class Meta:
+        model = ExerciseCategory
+        fields = ['id',
+                  'name']
 
 
 class MuscleSerializer(serializers.ModelSerializer):
@@ -89,4 +95,73 @@ class MuscleSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Muscle
-        fields = '__all__'
+        fields = ['id',
+                  'name',
+                  'is_front',
+                  'image_url_main',
+                  'image_url_secondary']
+
+
+class ExerciseSerializer(serializers.ModelSerializer):
+    """
+    Exercise serializer
+
+    The fields from the new ExerciseBase are retrieved here as to retain
+    compatibility with the old model where all the fields where in Exercise.
+    """
+    category = serializers.PrimaryKeyRelatedField(read_only=True)
+    muscles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    equipment = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Exercise
+        fields = ("id",
+                  "uuid",
+                  "name",
+                  "exercise_base",
+                  "status",
+                  "description",
+                  "creation_date",
+                  "category",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author",
+                  "variations")
+
+
+class ExerciseInfoSerializer(serializers.ModelSerializer):
+    """
+    Exercise info serializer
+    """
+
+    images = ExerciseImageSerializer(many=True, read_only=True)
+    comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+    category = ExerciseCategorySerializer(read_only=True)
+    muscles = MuscleSerializer(many=True, read_only=True)
+    muscles_secondary = MuscleSerializer(many=True, read_only=True)
+    equipment = EquipmentSerializer(many=True, read_only=True)
+    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Exercise
+        depth = 1
+        fields = ["id",
+                  "name",
+                  "uuid",
+                  "description",
+                  "creation_date",
+                  "category",
+                  "muscles",
+                  "muscles_secondary",
+                  "equipment",
+                  "language",
+                  "license",
+                  "license_author",
+                  "images",
+                  "comments",
+                  "variations"]

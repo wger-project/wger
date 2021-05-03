@@ -39,6 +39,7 @@ from django.contrib.auth.views import (
 )
 from django.http import (
     HttpResponseForbidden,
+    HttpResponseNotFound,
     HttpResponseRedirect
 )
 from django.shortcuts import (
@@ -52,8 +53,8 @@ from django.urls import (
 )
 from django.utils import translation
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DetailView,
@@ -175,10 +176,6 @@ def trainer_login(request, user_pk):
     user = get_object_or_404(User, pk=user_pk)
     orig_user_pk = request.user.pk
 
-    # Changing only between the same gym
-    if request.user.userprofile.gym != user.userprofile.gym:
-        return HttpResponseForbidden()
-
     # No changing if identity is not set
     if not request.user.has_perm('gym.gym_trainer') \
             and not request.session.get('trainer.identity'):
@@ -190,6 +187,13 @@ def trainer_login(request, user_pk):
                  or user.has_perm('gym.manage_gym')
                  or user.has_perm('gym.manage_gyms')):
         return HttpResponseForbidden()
+
+    # Changing is only allowed between the same gym
+    if request.user.userprofile.gym != user.userprofile.gym:
+        return HttpResponseNotFound(
+            'There are no users in gym "{}" with user ID "{}".'.format(
+                request.user.userprofile.gym, user_pk,
+            ))
 
     # Check if we're switching back to our original account
     own = False
@@ -285,7 +289,6 @@ def registration(request):
 
     template_data['form'] = form
     template_data['title'] = _('Register')
-    template_data['extend_template'] = 'base.html'
 
     return render(request, 'form.html', template_data)
 
@@ -410,7 +413,7 @@ class UserEditView(WgerFormMixin,
     """
 
     model = User
-    title = ugettext_lazy('Edit user')
+    title = gettext_lazy('Edit user')
     permission_required = ('gym.manage_gym', 'gym.manage_gyms')
     form_class = UserPersonalInformationForm
 
@@ -517,6 +520,12 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
+
+        page_user = self.object  # type: User
+        request_user = self.request.user  # type: User
+        same_gym_id = request_user.userprofile.gym_id == page_user.userprofile.gym_id
+        context['enable_login_button'] = request_user.has_perm('gym.gym_trainer') and same_gym_id
+        context['gym_name'] = request_user.userprofile.gym.name
         return context
 
 
@@ -559,7 +568,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class WgerPasswordChangeView(PasswordChangeView):
     template_name = 'form.html'
     success_url = reverse_lazy('core:user:preferences')
-    title = ugettext_lazy("Change password")
+    title = gettext_lazy("Change password")
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordChangeView, self).get_form(form_class)
@@ -576,16 +585,12 @@ class WgerPasswordChangeView(PasswordChangeView):
         )
         return form
 
-    def get_context_data(self, **kwargs):
-        context = super(WgerPasswordChangeView, self).get_context_data(**kwargs)
-        context['extend_template'] = 'base.html'
-        return context
-
 
 class WgerPasswordResetView(PasswordResetView):
     template_name = 'form.html'
     email_template_name = 'registration/password_reset_email.html'
     success_url = reverse_lazy('core:user:password_reset_done')
+    from_email = settings.WGER_SETTINGS['EMAIL_FROM']
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordResetView, self).get_form(form_class)
@@ -594,14 +599,10 @@ class WgerPasswordResetView(PasswordResetView):
         form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         return form
 
-    def get_context_data(self, **kwargs):
-        context = super(WgerPasswordResetView, self).get_context_data(**kwargs)
-        context['extend_template'] = 'base.html'
-        return context
-
 
 class WgerPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'form.html'
+    success_url = reverse_lazy('core:user:login')
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
@@ -609,8 +610,3 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         form.helper.form_class = 'wger-form'
         form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         return form
-
-    def get_context_data(self, **kwargs):
-        context = super(WgerPasswordResetConfirmView, self).get_context_data(**kwargs)
-        context['extend_template'] = 'base.html'
-        return context

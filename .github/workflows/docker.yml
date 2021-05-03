@@ -24,13 +24,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build base image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: extras/docker/base/Dockerfile
-          push: true
-          tags: wger/base:latest,wger/base:2.0-dev
+      #- name: Build base image
+      #  uses: docker/build-push-action@v2
+      #  with:
+      #    context: .
+      #    file: extras/docker/base/Dockerfile
+      #    push: true
+      #    tags: wger/base:latest,wger/base:2.0-dev
 
       - name: Build apache image
         uses: docker/build-push-action@v2

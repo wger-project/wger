@@ -4,7 +4,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% trans "Nutrition diary" %} - {{ date }}{% endblock %}
+{% block title %}{% translate "Nutrition diary" %} - {{ date }}{% endblock %}
 
 
 
@@ -28,17 +28,17 @@
     <table class="table table-condensed">
     <thead>
         <tr>
-            <th>{% trans "Macronutrients" %}</th>
-            <th class="align-right">{% trans "Planned" %}</th>
-            <th class="align-right">{% trans "Logged" %}</th>
-            <th class="align-right">{% trans "Difference" %}</th>
+            <th>{% translate "Macronutrients" %}</th>
+            <th class="align-right">{% translate "Planned" %}</th>
+            <th class="align-right">{% translate "Logged" %}</th>
+            <th class="align-right">{% translate "Difference" %}</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{% trans "Energy" %}</td>
-            <td class="align-right">{{ nutritional_data.total.energy|floatformat:0 }} {% trans "kcal" %}</td>
-            <td class="align-right">{{ log_summary.energy|floatformat:0 }} {% trans "kcal" %}</td>
+            <td>{% translate "Energy" %}</td>
+            <td class="align-right">{{ nutritional_data.total.energy|floatformat:0 }} {% translate "kcal" %}</td>
+            <td class="align-right">{{ log_summary.energy|floatformat:0 }} {% translate "kcal" %}</td>
             <td class="align-right">
                 {% with diff=nutritional_data.total.energy|minus:log_summary.energy %}
                     {% if diff|is_positive %}
@@ -49,7 +49,7 @@
             </td>
         </tr>
         <tr>
-            <td>{% trans "Protein" %}</td>
+            <td>{% translate "Protein" %}</td>
             <td class="align-right">{{ nutritional_data.total.protein|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.protein|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -62,7 +62,7 @@
             </td>
         </tr>
         <tr>
-            <td>{% trans "Carbohydrates" %}</td>
+            <td>{% translate "Carbohydrates" %}</td>
             <td class="align-right">{{ nutritional_data.total.carbohydrates|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.carbohydrates|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -75,7 +75,7 @@
             </td>
         </tr>
         <tr>
-            <td class="pl-4">{% trans "Sugar content in carbohydrates" %}</td>
+            <td class="pl-4">{% translate "Sugar content in carbohydrates" %}</td>
             <td class="align-right">{{ nutritional_data.total.carbohydrates_sugar|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.carbohydrates_sugar|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -88,7 +88,7 @@
             </td>
         </tr>
         <tr>
-            <td>{% trans "Fat" %}</td>
+            <td>{% translate "Fat" %}</td>
             <td class="align-right">{{ nutritional_data.total.fat|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.fat|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -101,7 +101,7 @@
             </td>
         </tr>
         <tr>
-            <td class="pl-4">{% trans "Saturated fat content in fats" %}</td>
+            <td class="pl-4">{% translate "Saturated fat content in fats" %}</td>
             <td class="align-right">{{ nutritional_data.total.fat_saturated|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.fat_saturated|floatformat:1 }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -116,10 +116,10 @@
 
 
         <tr>
-            <th colspan="4">{% trans "Others" %}</th>
+            <th colspan="4">{% translate "Others" %}</th>
         </tr>
         <tr>
-            <td>{% trans "Fibres" %}</td>
+            <td>{% translate "Fibres" %}</td>
             <td class="align-right">{{ nutritional_data.total.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.fibres|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -132,7 +132,7 @@
             </td>
         </tr>
         <tr>
-            <td>{% trans "Sodium" %}</td>
+            <td>{% translate "Sodium" %}</td>
             <td class="align-right">{{ nutritional_data.total.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">{{ log_summary.sodium|floatformat }} {% trans_weight_unit 'g' owner_user %}</td>
             <td class="align-right">
@@ -147,13 +147,13 @@
     </tbody>
 </table>
 
-<h3>{% trans "Entries" %}</h3>
+<h3>{% translate "Entries" %}</h3>
 <table class="table table-condensed">
     <thead>
         <tr>
-            <th>{% trans "Time" %}</th>
-            <th>{% trans "Ingredient" %}</th>
-            <th class="align-right">{% trans "Energy" %}</th>
+            <th>{% translate "Time" %}</th>
+            <th>{% translate "Ingredient" %}</th>
+            <th class="align-right">{% translate "Energy" %}</th>
             {% if is_owner %}
                 <th></th>
             {% endif %}
@@ -167,24 +167,24 @@
             {% if entry.weight_unit %}
                 {{ entry.amount|floatformat:"0" }} × {{ entry.weight_unit.unit.name }}
             {% else %}
-                {{ entry.amount|floatformat:"0" }}{% trans "g" %}
+                {{ entry.amount|floatformat:"0" }}{% translate "g" %}
             {% endif %}
             {{ entry.ingredient }}
             <p class="small text-muted">
-                {% trans "Protein" %}: {{entry.get_nutritional_values.protein|floatformat:"1"}} <br>
-                {% trans "Carbohydrates" %}: {{entry.get_nutritional_values.carbohydrates|floatformat:"1"}} ({{entry.get_nutritional_values.carbohydrates_sugar|floatformat:"1"}})<br>
-                {% trans "Fat" %}: {{entry.get_nutritional_values.fat|floatformat:"1"}} ({{entry.get_nutritional_values.fat|floatformat:"1"}})<br>
+                {% translate "Protein" %}: {{entry.get_nutritional_values.protein|floatformat:"1"}} <br>
+                {% translate "Carbohydrates" %}: {{entry.get_nutritional_values.carbohydrates|floatformat:"1"}} ({{entry.get_nutritional_values.carbohydrates_sugar|floatformat:"1"}})<br>
+                {% translate "Fat" %}: {{entry.get_nutritional_values.fat|floatformat:"1"}} ({{entry.get_nutritional_values.fat|floatformat:"1"}})<br>
                 {% if entry.get_nutritional_values.fibres %}
-                    {% trans "Fibres" %}: {{entry.get_nutritional_values.fibres|floatformat:"1"}}<br>
+                    {% translate "Fibres" %}: {{entry.get_nutritional_values.fibres|floatformat:"1"}}<br>
                 {% endif %}
                 {% if entry.get_nutritional_values.sodium %}
-                    {% trans "Sodium" %}: {{entry.get_nutritional_values.sodium|floatformat:"1"}}<br>
+                    {% translate "Sodium" %}: {{entry.get_nutritional_values.sodium|floatformat:"1"}}<br>
                 {% endif %}
             </p>
         </td>
 
         <td class="align-right">
-            {{ entry.get_nutritional_values.energy|floatformat:0 }} {% trans "kcal" %}
+            {{ entry.get_nutritional_values.energy|floatformat:0 }} {% translate "kcal" %}
         </td>
         {% if is_owner %}
         <td>
@@ -194,7 +194,7 @@
                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     <li>
                         <a href="{% url 'nutrition:log:delete' entry.pk %}" class="wger-modal-dialog dropdown-item">
-                            {% trans 'Delete' %}
+                            {% translate 'Delete' %}
                         </a>
                     </li>
                 </ul>

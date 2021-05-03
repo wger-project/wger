@@ -1,0 +1,4363 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 503c1deac2ae4f6e4b07271635937f42_11988b1 <6739e8e0b5e8a59fa257ec04a7e9ae17_482758>, 2018
+# Agostino Lecci, 2015
+# lediable <hiretto@gmail.com>, 2016
+# rge <roland@geider.net>, 2014
+# Roberta Guarino <roberta.guarino@outlook.com>, 2017
+# Sergio  Oliva <oliser67@hotmail.com>, 2013
+# Sergio Zampello <seriotv88@gmail.com>, 2018
+# Stefano Rossi <stefanorossi.ti@gmail.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: wger Workout Manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-12 11:09+0200\n"
+"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"Last-Translator: Stefano Rossi <stefanorossi.ti@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.6-dev\n"
+
+#: config/models.py:54 core/templates/navigation.html:41
+#: exercises/templates/exercise/overview.html:11 manager/forms.py:99
+#: manager/models.py:756
+msgid "Exercises"
+msgstr "Esercizi"
+
+#: config/models.py:55
+msgid "Ingredients"
+msgstr "Ingredienti"
+
+#: config/models.py:121 gym/templates/gym/list.html:50
+msgid "Default gym"
+msgstr "Palestra di default"
+
+#: config/models.py:122
+msgid ""
+"Select the default gym for this installation. This will assign all new "
+"registered users to this gym and update all existing users without a gym."
+msgstr ""
+"Seleziona la palestra di default per questa installazione. Questa palestra "
+"sarà assegnata a tutti i nuovi utenti e a tutti gli utenti già registrati "
+"che non ne hanno una. "
+
+#: config/templates/language/overview.html:4 core/templates/navigation.html:203
+msgid "Languages"
+msgstr "Lingue"
+
+#: config/templates/language/overview.html:16
+msgid "Nothing found."
+msgstr "nessun riscontro"
+
+#: config/templates/language/overview.html:16 core/templates/index.html:145
+#: core/templates/index.html:197 manager/templates/calendar/month.html:132
+#: manager/templates/schedule/overview.html:28
+#: manager/templates/schedule/view.html:146
+#: manager/templates/workout/overview.html:25
+#: nutrition/templates/ingredient/overview.html:45
+#: nutrition/templates/plan/overview.html:23
+#: nutrition/templates/plan/view.html:140
+#: nutrition/templates/plan/view.html:143
+#: nutrition/templates/plan/view.html:163
+msgid "Add one now."
+msgstr "Aggiungine uno adesso."
+
+#: config/templates/language/overview.html:29
+#: core/templates/license/list.html:38 core/templates/misc/license/list.html:41
+#: core/templates/repetition_unit/list.html:41
+#: core/templates/user/overview.html:327 core/templates/user/overview.html:366
+#: core/templates/user/overview.html:402
+#: core/templates/weight_unit/list.html:41 core/views/languages.py:73
+#: core/views/license.py:65 core/views/repetition_units.py:65
+#: core/views/weight_units.py:65
+#: exercises/templates/categories/admin-overview.html:36
+#: gym/templates/admin_notes/list.html:67 gym/templates/contract/list.html:72
+#: gym/templates/contract_option/list.html:70
+#: gym/templates/contract_type/list.html:70 gym/templates/document/list.html:78
+#: gym/templates/gym/member_list.html:211
+#: gym/templates/gym/member_list.html:244
+#: gym/templates/gym/member_list.html:281
+#: mailer/templates/mailer/gym/overview.html:43
+#: weight/templates/overview.html:136
+msgid "Add"
+msgstr "Aggiungi"
+
+#: config/templates/language/view.html:21 core/models.py:47
+msgid "Language short name"
+msgstr "Nome breve Lingua"
+
+#: config/templates/language/view.html:22
+#: config/templates/language/view.html:43 core/models.py:51
+msgid "Language full name"
+msgstr "Nome completo Lingua"
+
+#: config/templates/language/view.html:34 core/templates/user/overview.html:451
+#: gym/views/admin_config.py:44 gym/views/admin_config.py:58
+#: gym/views/user_config.py:46
+msgid "Configuration"
+msgstr "Configurazione"
+
+#: config/templates/language/view.html:35
+msgid ""
+"Use the configuration to select in what languages the\n"
+"exercises and ingredients will be shown for the current language (for "
+"example\n"
+"the exercises should be shown in languages A, B and C; the ingredients only\n"
+"in A)."
+msgstr ""
+"Usa la configurazione per selezionare in quali lingue\n"
+"gli esercizi e gli ingredienti saranno mostrati per la lingua corrente (per "
+"esempio\n"
+"gli esercizi dovrebbero essere mostrati nelle lingue A, B e C; gli "
+"ingredienti solo\n"
+"in A)."
+
+#: config/templates/language/view.html:44 gym/templates/contract/list.html:36
+msgid "Show"
+msgstr "Mostra"
+
+#: config/templates/language/view.html:91 core/templates/user/api_key.html:44
+#: core/templates/user/preferences.html:28
+#: exercises/templates/exercise/view.html:274
+#: exercises/templates/exercise/view.html:297 gym/models.py:525
+#: gym/templates/contract/view.html:41 gym/templates/contract/view.html:106
+#: gym/templates/gym/member_list.html:248
+#: manager/templates/schedule/view.html:281
+#: manager/templates/workout/view.html:202
+#: nutrition/templates/ingredient/view.html:226
+#: nutrition/templates/plan/view.html:373 weight/templates/overview.html:120
+msgid "Options"
+msgstr "Opzioni"
+
+#: config/templates/language/view.html:96 config/views/gym_config.py:41
+#: config/views/language_config.py:47 core/templates/license/list.html:16
+#: core/templates/misc/license/list.html:17
+#: core/templates/repetition_unit/list.html:17
+#: core/templates/tags/render_day.html:35
+#: core/templates/tags/render_day.html:63 core/templates/user/overview.html:205
+#: core/templates/user/overview.html:446
+#: core/templates/weight_unit/list.html:17
+#: exercises/templates/categories/admin-overview.html:16
+#: exercises/templates/equipment/admin-overview.html:16
+#: exercises/templates/exercise/view.html:181
+#: exercises/templates/exercise/view.html:302
+#: exercises/templates/muscles/admin-overview.html:16
+#: exercises/views/comments.py:62 gym/templates/admin_notes/list.html:32
+#: gym/templates/contract/list.html:31 gym/templates/contract/view.html:107
+#: gym/templates/contract_option/list.html:31
+#: gym/templates/contract_type/list.html:31 gym/templates/document/list.html:38
+#: gym/templates/gym/list.html:19 gym/templates/gym/list.html:43
+#: gym/templates/gym/member_list.html:87 gym/templates/gym/member_list.html:140
+#: gym/templates/gym/member_list.html:176
+#: manager/templates/calendar/day.html:65
+#: manager/templates/calendar/month.html:85
+#: manager/templates/calendar/partial_overview_table.html:18
+#: manager/templates/schedule/view.html:121
+#: nutrition/templates/ingredient/view.html:198
+#: nutrition/templates/plan/view.html:91 nutrition/templates/plan/view.html:116
+#: nutrition/templates/units/list.html:18
+msgid "Edit"
+msgstr "Modifica"
+
+#: config/templates/language/view.html:101 core/forms.py:194
+#: core/templates/license/list.html:17 core/templates/misc/license/list.html:20
+#: core/templates/repetition_unit/list.html:18
+#: core/templates/tags/render_day.html:40
+#: core/templates/tags/render_day.html:68 core/templates/user/overview.html:218
+#: core/templates/weight_unit/list.html:18
+#: exercises/templates/categories/admin-overview.html:17
+#: exercises/templates/equipment/admin-overview.html:17
+#: exercises/templates/exercise/view.html:68
+#: exercises/templates/exercise/view.html:155
+#: exercises/templates/exercise/view.html:186
+#: exercises/templates/exercise/view.html:307
+#: exercises/templates/muscles/admin-overview.html:17
+#: gym/templates/admin_notes/list.html:40
+#: gym/templates/contract_option/list.html:39
+#: gym/templates/contract_type/list.html:39 gym/templates/document/list.html:46
+#: gym/templates/gym/list.html:20 manager/templates/calendar/day.html:69
+#: manager/templates/calendar/month.html:89
+#: manager/templates/calendar/partial_overview_table.html:23
+#: manager/templates/schedule/view.html:125
+#: manager/templates/workout/view.html:227
+#: nutrition/templates/ingredient/view.html:199
+#: nutrition/templates/ingredient/view.html:239
+#: nutrition/templates/log/detail.html:197
+#: nutrition/templates/plan/view.html:96 nutrition/templates/plan/view.html:121
+#: nutrition/templates/units/list.html:20 weight/templates/overview.html:88
+msgid "Delete"
+msgstr "Elimina"
+
+#: core/demo.py:86
+msgid "Sample workout"
+msgstr "Esempio di allenamento"
+
+#: core/demo.py:90
+msgid "Sample day"
+msgstr "Esempio di giorno"
+
+#: core/demo.py:94
+msgid "Another sample day"
+msgstr "Altro esempio di giorno"
+
+#: core/demo.py:209
+msgid "Sample nutrional plan"
+msgstr "Esempio di piano nutrizionale"
+
+#: core/demo.py:341 core/demo.py:343 core/demo.py:345
+#, python-brace-format
+msgid "Placeholder workout nr {0} for schedule"
+msgstr "Segnaposto allenamento nr {0} per il programma"
+
+#: core/demo.py:350
+msgid "My cool workout schedule"
+msgstr "Il mio programma di allenamento"
+
+#: core/demo.py:389 core/demo.py:404
+msgid "Empty placeholder schedule"
+msgstr "Programma segnaposto vuoto"
+
+#: core/forms.py:63 core/templates/navigation.html:165
+#: core/templates/navigation.html:169 core/templates/user/login.html:4
+#: software/templates/features.html:43
+msgid "Login"
+msgstr "Entra"
+
+#: core/forms.py:75 core/forms.py:167 gym/views/export.py:61
+#: gym/views/gym.py:210
+msgid "First name"
+msgstr "Nome"
+
+#: core/forms.py:77 core/forms.py:169 core/templates/user/overview.html:267
+#: gym/views/export.py:62 gym/views/gym.py:210
+msgid "Last name"
+msgstr "Cognome"
+
+#: core/forms.py:79 core/forms.py:135 core/templates/user/overview.html:271
+#: gym/models.py:62 gym/models.py:569 gym/templates/contract/view.html:77
+#: gym/templates/gym/member_list.html:104 gym/templates/gym/new_user.html:30
+#: gym/views/export.py:60 mailer/templates/mailer/gym/form.html:4
+#: mailer/templates/mailer/gym/overview.html:4
+#: mailer/templates/mailer/gym/preview.html:4
+msgid "Email"
+msgstr "Email"
+
+#: core/forms.py:80
+msgid "Used for password resets and, optionally, e-mail reminders."
+msgstr ""
+"Usato per reimpostare la password e, opzionalmente, per i promemoria via "
+"email."
+
+#: core/forms.py:105
+msgid "Personal data"
+msgstr "Dati personali"
+
+#: core/forms.py:111
+msgid "Workout reminders"
+msgstr "Promemoria allenamento"
+
+#: core/forms.py:120
+msgid "Other settings"
+msgstr "Altre impostazioni"
+
+#: core/forms.py:130 core/views/user.py:584 core/views/user.py:598
+#: core/views/user.py:610 gym/forms.py:71 manager/templates/log/add.html:65
+#: manager/templates/set/add.html:68 manager/templates/workout/timer.html:371
+#: manager/templates/workout/timer.html:512 manager/views/workout.py:189
+#: utils/generic_views.py:141
+msgid "Save"
+msgstr "Salva"
+
+#: core/forms.py:136
+msgid "Used for password resets and, optionally, email reminders."
+msgstr ""
+"Usato per il reset della password e, opzionalmente, per i promemoria via "
+"email."
+
+#: core/forms.py:163
+msgid "This e-mail address is already in use."
+msgstr "Questo indirizzo email è già in uso"
+
+#: core/forms.py:184 gym/templates/gym/new_user.html:26
+#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
+msgid "Password"
+msgstr "Password"
+
+#: core/forms.py:186
+msgid "Please enter your current password."
+msgstr "per favore inserisca la sua password attuale."
+
+#: core/forms.py:203
+msgid "Invalid password"
+msgstr "Password non valida"
+
+#: core/forms.py:214 core/forms.py:278
+msgid "The form is secured with reCAPTCHA"
+msgstr "Quest formulario è protetto con reCAPTCHA"
+
+#: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
+#: core/templates/navigation.html:170 core/templates/template.html:149
+#: core/templates/user/login.html:20 core/views/user.py:291
+#: software/templates/features.html:38
+msgid "Register"
+msgstr "Registrati"
+
+#: core/forms.py:260
+msgid "Contact"
+msgstr "Contatto"
+
+#: core/forms.py:261
+msgid "Some way of answering you (e-mail, etc.)"
+msgstr "Un modo per contattarti (email, etc)"
+
+#: core/forms.py:267 exercises/models.py:573 manager/models.py:805
+#: nutrition/models.py:865
+msgid "Comment"
+msgstr "Commento"
+
+#: core/forms.py:268
+msgid "What do you want to say?"
+msgstr "Che cosa vuoi dire?"
+
+#: core/models.py:94
+#, python-format
+msgid "%(birthdate)s is not a valid birthdate"
+msgstr "%(birthdate)s non è un compleanno valido"
+
+#: core/models.py:103
+msgid "Male"
+msgstr "Maschio"
+
+#: core/models.py:104
+msgid "Female"
+msgstr "Femmina"
+
+#: core/models.py:111
+msgid "Low"
+msgstr "Basso"
+
+#: core/models.py:112
+msgid "Medium"
+msgstr "Medio"
+
+#: core/models.py:113
+msgid "High"
+msgstr "Alto"
+
+#: core/models.py:119
+msgid "Metric (kilogram)"
+msgstr "Metrico (kilogrammi)"
+
+#: core/models.py:120
+msgid "Imperial (pound)"
+msgstr "Imperiali (libbra)"
+
+#: core/models.py:149
+msgid "Show exercise comments"
+msgstr "Mostra commenti agli esercizi"
+
+#: core/models.py:150
+msgid "Check to show exercise comments on the workout view"
+msgstr ""
+"Spunta per vedere i commenti sugli esercizi nel programma di allenamento"
+
+#: core/models.py:160
+msgid "Also use ingredients in English"
+msgstr "Usa anche gli ingredienti in inglese"
+
+#: core/models.py:161
+msgid ""
+"Check to also show ingredients in English while creating\n"
+"a nutritional plan. These ingredients are extracted from a list provided\n"
+"by the US Department of Agriculture. It is extremely complete, with around\n"
+"7000 entries, but can be somewhat overwhelming and make the search difficult."
+msgstr ""
+"Verifica anche di mostrare gli ingredienti in Inglese durante la creazione\n"
+"di un piano nutrizionale. Questi ingredienti sono estratti da un elenco "
+"fornito\n"
+"dal Dipartimento dell'Agricoltura degli Stati Uniti. È estremamente "
+"completo, con in giro\n"
+"7000 voci, ma può essere alquanto travolgente e rendere la ricerca difficile."
+
+#: core/models.py:167
+msgid "Activate workout reminders"
+msgstr "Attiva i promemoria per l'allenamento"
+
+#: core/models.py:168
+msgid ""
+"Check to activate automatic reminders for workouts. You need to provide a "
+"valid email for this to work."
+msgstr ""
+"Spunta per attivare i promemoria automatici per gli allenamenti. Devi "
+"inserire una email valida perché funzioni."
+
+#: core/models.py:174
+msgid "Remind before expiration"
+msgstr "Ricorda prima della scadenza"
+
+#: core/models.py:175
+msgid "The number of days you want to be reminded before a workout expires."
+msgstr ""
+"Il numero di giorni che si desidera essere informati prima che un "
+"allenamento scada."
+
+#: core/models.py:179
+msgid "Default duration of workouts"
+msgstr "errore durata di allenamento"
+
+#: core/models.py:180
+msgid ""
+"Default duration in weeks of workouts not in a schedule. Used for email "
+"workout reminders."
+msgstr ""
+"Durata predefinita in settimane di allenamenti non in programma. Utilizzato "
+"per i promemoria dell'allenamento tramite email."
+
+#: core/models.py:196
+msgid "Notification language"
+msgstr "Lingua di notifica"
+
+#: core/models.py:197
+msgid ""
+"Language to use when sending you email notifications, e.g. email reminders "
+"for workouts. This does not affect the language used on the website."
+msgstr ""
+"lingua da usare quando ti inviamo le email di notifica,ad esempio il "
+"promemoria per l'allenamento. Questo non modifica il linguaggio usato nel "
+"sito web"
+
+#: core/models.py:204
+msgid "Use pauses in workout timer"
+msgstr "Utilizza le pause nel timer dell'allenamento"
+
+#: core/models.py:205
+msgid "Check to activate timer pauses between exercises."
+msgstr "Seleziona per attivare le pause del timer tra gli esercizi."
+
+#: core/models.py:212
+msgid "Default duration of workout pauses"
+msgstr "errore durata pausa di allenamento"
+
+#: core/models.py:213
+msgid ""
+"Default duration in seconds of pauses used by the timer in the gym mode."
+msgstr ""
+"Durata in secondi predefinita per le pause usate dal timer nella modalità "
+"palestra"
+
+#: core/models.py:224 gym/views/export.py:64
+msgid "Age"
+msgstr "Età"
+
+#: core/models.py:237 nutrition/forms.py:95
+msgid "Height (cm)"
+msgstr "Altezza (cm)"
+
+#: core/models.py:250
+msgid "Hours of sleep"
+msgstr "Ore di sonno"
+
+#: core/models.py:251
+msgid "The average hours of sleep per day"
+msgstr "La media delle ore di sonno giornaliere"
+
+#: core/models.py:258
+msgid "Work"
+msgstr "Lavoro"
+
+#: core/models.py:259 core/models.py:293
+msgid "Average hours per day"
+msgstr "Media ore per giorno"
+
+#: core/models.py:266 core/models.py:283 core/models.py:300
+msgid "Physical intensity"
+msgstr "Intensità fisica"
+
+#: core/models.py:267 core/models.py:284 core/models.py:301
+msgid "Approximately"
+msgstr "Circa"
+
+#: core/models.py:275
+msgid "Sport"
+msgstr "Sport"
+
+#: core/models.py:276
+msgid "Average hours per week"
+msgstr "Media ore per settimana"
+
+#: core/models.py:292
+msgid "Free time"
+msgstr "Tempo libero"
+
+#: core/models.py:309 nutrition/templates/rate/form.html:66
+msgid "Total daily calories"
+msgstr "Totale giornaliero calorico"
+
+#: core/models.py:310
+msgid "Total caloric intake, including e.g. any surplus"
+msgstr "Totale calorico, incluso es. qualsiasi eccesso calorico"
+
+#: core/models.py:320 nutrition/models.py:638 nutrition/models.py:818
+#: nutrition/models.py:880
+msgid "Weight unit"
+msgstr "Unità"
+
+#: core/models.py:326
+msgid "Allow external access"
+msgstr "Permetti accessi esterni"
+
+#: core/models.py:327
+msgid ""
+"Allow external users to access your workouts and logs in a read-only mode. "
+"You need to set this before you can share links e.g. to social media."
+msgstr ""
+"Consenti agli utenti esterni di accedere ai tuoi allenamenti e registri in "
+"modalità di sola lettura. È necessario impostarlo prima di poter condividere "
+"i collegamenti, ad es. sui social media."
+
+#: core/models.py:333
+msgid "Automatic reminders for weight entries"
+msgstr "Promemoria automatici per voci sul peso"
+
+#: core/models.py:335
+msgid "Number of days after the last weight entry (enter 0 to deactivate)"
+msgstr ""
+"Numero di giorni dopo l'ultimo inserimento del peso (immettere 0 per "
+"disattivare)"
+
+#: core/models.py:396
+msgid "The sum of all hours has to be 24"
+msgstr "La somma di tutte le ore deve essere 24"
+
+#: core/models.py:552
+msgid "Day of the week"
+msgstr "Giorno della settimana"
+
+#: core/models.py:573
+msgid "Full name"
+msgstr "Nome completo"
+
+#: core/models.py:574
+msgid ""
+"If a license has been localized, e.g. the Creative Commons licenses for the "
+"different countries, add them as separate entries here."
+msgstr ""
+"Se una licenza è stata localizzata, ad es. le licenze Creative Commons per i "
+"diversi paesi, aggiungili come voci separate qui."
+
+#: core/models.py:580
+msgid "Short name, e.g. CC-BY-SA 3"
+msgstr "Nome corto, e.g. CC-BY-SA 3"
+
+#: core/models.py:583 nutrition/models.py:395
+msgid "Link"
+msgstr "Link"
+
+#: core/models.py:584
+msgid "Link to license text or other information"
+msgstr "Link al testo della licenza o altre informazioni"
+
+#: core/models.py:626 core/models.py:665 core/templates/user/overview.html:263
+#: core/views/user.py:561 exercises/models.py:62 exercises/models.py:101
+#: exercises/models.py:127 exercises/models.py:249 exercises/models.py:253
+#: exercises/templates/exercise/pending.html:15 gym/models.py:53
+#: gym/models.py:335 gym/models.py:387 gym/models.py:436
+#: gym/templates/contract/view.html:50 gym/templates/gym/member_list.html:28
+#: gym/templates/gym/member_list.html:96 gym/views/gym.py:152
+#: manager/models.py:239 nutrition/models.py:270 nutrition/models.py:321
+#: nutrition/models.py:610 nutrition/templates/ingredient/pending.html:15
+#: nutrition/templates/ingredient/view.html:185
+msgid "Name"
+msgstr "Nome"
+
+#: core/templates/403.html:4
+msgid "Forbidden!"
+msgstr "Proibito!"
+
+#: core/templates/403.html:7
+msgid "Something happened that is not allowed."
+msgstr "È successo qualcosa che non è permesso."
+
+#: core/templates/404.html:4
+msgid "Page not found"
+msgstr "Pagina non trovata"
+
+#: core/templates/404.html:7
+msgid "The page you requested does not exist."
+msgstr "La pagina richiesta non esiste."
+
+#: core/templates/500.html:4 core/templates/template_no_context.html:36
+msgid "An error occurred"
+msgstr "Qualcosa è andato storto"
+
+#: core/templates/500.html:7
+msgid "Something happened that caused an error."
+msgstr "È successo qualcosa che ha causato un errore."
+
+#: core/templates/base.html:12 core/templates/base_wide.html:10
+#, python-format
+msgid ""
+"You are\n"
+"    browsing the site as the user \"%(current_user)s\", all actions are "
+"performed on their data.\n"
+"    "
+msgstr ""
+"Tu sei\n"
+" visitando il sito come \"%(current_user)s\", tutte le azioni sono "
+"memorizzate per questo utente.\n"
+"    "
+
+#: core/templates/base.html:16 core/templates/base_wide.html:14
+#, python-format
+msgid "Back to \"%(target)s\""
+msgstr "Ritorna a \"%(target)s\""
+
+#: core/templates/base.html:42 core/templates/base_wide.html:40
+msgid "Share"
+msgstr "Condividi"
+
+#: core/templates/delete.html:15
+msgid "Are you sure you want to delete this? This action cannot be undone."
+msgstr "Sei sicuro di volerlo eliminare? Questa azione sarà permanente."
+
+#: core/templates/index.html:4 manager/templates/workout/timer.html:506
+msgid "Dashboard"
+msgstr "Pagina principale"
+
+#: core/templates/index.html:29 manager/templates/calendar/month.html:115
+msgid "Add log to day"
+msgstr "Aggiungi registro al giorno"
+
+#: core/templates/index.html:33 manager/templates/calendar/month.html:120
+msgid ""
+"Click to add weight logs to a training\n"
+"day in your current workout:"
+msgstr ""
+"Fare clic per aggiungere i registri del peso a un giorno di\n"
+"allenamento nel tuo allenamento attuale:"
+
+#: core/templates/index.html:41 core/templates/index.html:81
+#: core/templates/misc/fragments/shariff_modal.html:29
+#: core/templates/template.html:124 manager/templates/calendar/month.html:138
+#: manager/templates/schedule/view.html:246
+#: manager/templates/schedule/view.html:266
+#: manager/templates/workout/timer.html:449
+#: manager/templates/workout/timer.html:476
+#: manager/templates/workout/view.html:128
+#: manager/templates/workout/view.html:177
+msgid "Close"
+msgstr "Chiudi"
+
+#: core/templates/index.html:52 core/templates/index.html:201
+msgid "Add new diary entry"
+msgstr "Aggiungi nuovo record nel diario"
+
+#: core/templates/index.html:57
+msgid ""
+"Click to add an entry to your nutrition diary for today. You can either log "
+"a meal as you defined it, or entry any number of custom entries."
+msgstr ""
+"Clicca aggiungi per inserire informazioni al tuo diario di oggi. Puoi "
+"inserire un pasto predefinito, o inserire qualsiasi numero di informazioni "
+"personalizzate."
+
+#: core/templates/index.html:65 core/templates/index.html:169
+#: core/templates/user/overview.html:171
+#: nutrition/templates/ingredient/view.html:79
+#: nutrition/templates/log/detail.html:40
+#: nutrition/templates/log/detail.html:41
+#: nutrition/templates/log/detail.html:187
+#: nutrition/templates/log/overview.html:7
+#: nutrition/templates/log/overview.html:44
+#: nutrition/templates/plan/overview.html:17
+#: nutrition/templates/plan/view.html:64 nutrition/templates/plan/view.html:215
+#: nutrition/templates/plan/view.html:271
+#: nutrition/templates/plan/view.html:291
+#: nutrition/templates/plan/view.html:331
+#: nutrition/templates/plan/view.html:341
+msgid "kcal"
+msgstr "kcal"
+
+#: core/templates/index.html:77 nutrition/templates/plan/view.html:316
+msgid "Add custom diary entry"
+msgstr "Aggiungi record personalizzato"
+
+#: core/templates/index.html:92 core/templates/index.html:100
+#: manager/models.py:103 manager/models.py:393 manager/models.py:857
+#: manager/models.py:980 manager/templates/schedule/view.html:105
+#: manager/templates/workout/view.html:11
+#: manager/templates/workout/view.html:19 manager/views/pdf.py:84
+#: manager/views/pdf.py:155 manager/views/schedule.py:151
+#: manager/views/schedule.py:216
+msgid "Workout"
+msgstr "Allenamento"
+
+#: core/templates/index.html:126
+msgid "This workout is part of a schedule:"
+msgstr "Questo allenamento fa parte del programma:"
+
+#: core/templates/index.html:131
+msgid ""
+"The current workout is selected from your active schedule or, if you don't "
+"have one, simply by date."
+msgstr ""
+"L'allenamento è selezionato dalla pianificazione attiva. Oppure, se non ne "
+"hai una, dalla data. "
+
+#: core/templates/index.html:140 manager/templates/calendar/month.html:188
+msgid "Add new log"
+msgstr "Aggiorna diario di allenamento"
+
+#: core/templates/index.html:145 core/templates/user/overview.html:58
+#: manager/templates/calendar/month.html:128
+#: manager/templates/schedule/view.html:146
+#: manager/templates/workout/overview.html:25
+msgid "No workouts found."
+msgstr "Nessun allenamento trovato"
+
+#: core/templates/index.html:155 nutrition/models.py:115
+#: nutrition/models.py:673 nutrition/models.py:811 nutrition/models.py:854
+#: nutrition/templates/plan/view.html:11 nutrition/templates/plan/view.html:19
+msgid "Nutrition plan"
+msgstr "Piano nutrizionale"
+
+#: core/templates/index.html:167 core/templates/user/overview.html:155
+#: nutrition/models.py:324 nutrition/templates/ingredient/view.html:77
+#: nutrition/templates/log/detail.html:39
+#: nutrition/templates/log/detail.html:156
+#: nutrition/templates/plan/view.html:55 nutrition/templates/plan/view.html:214
+#: nutrition/templates/plan/view.html:326
+#: nutrition/templates/plan/view.html:330 nutrition/views/plan.py:360
+msgid "Energy"
+msgstr "Energie"
+
+#: core/templates/index.html:173 core/templates/user/overview.html:156
+#: nutrition/models.py:329 nutrition/templates/ingredient/view.html:84
+#: nutrition/templates/log/detail.html:52
+#: nutrition/templates/log/detail.html:174
+#: nutrition/templates/plan/view.html:56 nutrition/templates/plan/view.html:221
+#: nutrition/views/plan.py:362
+msgid "Protein"
+msgstr "Proteine"
+
+#: core/templates/index.html:179 core/templates/user/overview.html:157
+#: nutrition/models.py:336 nutrition/templates/ingredient/view.html:90
+#: nutrition/templates/log/detail.html:65
+#: nutrition/templates/log/detail.html:175
+#: nutrition/templates/plan/view.html:57 nutrition/templates/plan/view.html:227
+#: nutrition/views/plan.py:366
+msgid "Carbohydrates"
+msgstr "Carboidrati"
+
+#: core/templates/index.html:185 core/templates/user/overview.html:158
+#: nutrition/models.py:352 nutrition/templates/ingredient/view.html:106
+#: nutrition/templates/log/detail.html:91
+#: nutrition/templates/log/detail.html:176
+#: nutrition/templates/plan/view.html:58 nutrition/templates/plan/view.html:239
+#: nutrition/views/plan.py:376
+msgid "Fat"
+msgstr "Grassi"
+
+#: core/templates/index.html:197 nutrition/templates/plan/overview.html:22
+msgid "No nutrition plans."
+msgstr "Nessun piano nutrizionale trovato"
+
+#: core/templates/index.html:211 core/templates/user/overview.html:112
+#: core/templates/user/overview.html:121 manager/forms.py:137
+#: manager/helpers.py:85 manager/models.py:775 manager/models.py:879
+#: manager/templates/log/add.html:54 manager/templates/set/formset.html:12
+#: manager/templates/workout/timer.html:312
+#: manager/templates/workout/timer.html:315 weight/models.py:33
+#: weight/templates/import_csv_preview.html:14
+#: weight/templates/import_csv_preview.html:43
+#: weight/templates/overview.html:49 weight/views.py:151
+msgid "Weight"
+msgstr "Peso"
+
+#: core/templates/index.html:215
+msgid "Your current weight is: "
+msgstr "Il tuo peso corporeo è:"
+
+#: core/templates/index.html:248 core/templates/navigation.html:75
+#: weight/views.py:70
+msgid "Add weight entry"
+msgstr "Aggiungi peso corporeo"
+
+#: core/templates/license/list.html:4 core/templates/misc/license/list.html:4
+msgid "License list"
+msgstr "Elenco delle licenze"
+
+#: core/templates/license/list.html:24 core/templates/misc/license/list.html:28
+#: core/templates/repetition_unit/list.html:26
+#: core/templates/user/overview.html:104 core/templates/user/overview.html:136
+#: core/templates/user/overview.html:186 core/templates/user/overview.html:348
+#: core/templates/user/overview.html:384 core/templates/user/overview.html:428
+#: core/templates/weight_unit/list.html:26
+#: exercises/templates/categories/admin-overview.html:24
+#: exercises/templates/equipment/admin-overview.html:24
+#: exercises/templates/exercise/pending.html:30
+#: exercises/templates/muscles/admin-overview.html:24
+#: gym/templates/admin_notes/list.html:52 gym/templates/contract/list.html:60
+#: gym/templates/contract_option/list.html:56
+#: gym/templates/contract_type/list.html:56 gym/templates/document/list.html:63
+#: gym/templates/gym/list.html:27 gym/templates/gym/member_list.html:229
+#: gym/templates/gym/member_list.html:262
+#: gym/templates/gym/member_list.html:299
+#: mailer/templates/mailer/gym/overview.html:30
+#: manager/templates/calendar/day.html:83
+#: nutrition/templates/ingredient/pending.html:30
+#: nutrition/templates/units/list.html:27
+msgid "Nothing found"
+msgstr "Trovato niente"
+
+#: core/templates/misc/about.html:4
+msgid "About us"
+msgstr "Chi siamo"
+
+#: core/templates/misc/about.html:8
+msgid "Responsible for the content of this site as per German law §5 TMG:"
+msgstr ""
+"Responsabile per il contenuto di questo sito secondo la legge Tedesca §5 TMG:"
+
+#: core/templates/misc/about.html:16
+msgid "GNUPG-Key:"
+msgstr "GNUPG-Key:"
+
+#: core/templates/misc/contact.html:4 core/templates/navigation.html:131
+#: core/templates/template_features.html:86
+#: software/templates/contribute.html:28
+msgid "Get in touch"
+msgstr "Contatti"
+
+#: core/templates/misc/contact.html:10
+#, python-format
+msgid ""
+"Thank you for your interest. Feel free to use any of the\n"
+"ways below to send feedback you have about any aspect of the site. For\n"
+"support, say hi\n"
+"<a href=\"%(discord)s\">on the discord channel</a>, to report\n"
+"a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</"
+"a>\n"
+"."
+msgstr ""
+"Grazie per l'interesse. Sentiti libero di usare qualsiasi dei simboli: \n"
+"qui sotto per inviarci le tue opinioni su qualsiasi aspetto del sito. Per \n"
+" supporto, contattaci \n"
+"<a href=\"%(discord)s\">Canale Discord</a>, per segnalare\n"
+"un bug, considera farlo tramite il <a href=\"%(issues)s\"> bug tracker </a>"
+
+#: core/templates/misc/contact.html:20
+#, python-format
+msgid ""
+"If you want to further help and improve this project,\n"
+"you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
+msgstr ""
+"Se vuoi aiutare ulteriormente e migliorare questo progetto,\n"
+"potresti anche essere interessato a <a href=\"%(contribute)s\">contribuire</"
+"a>."
+
+#: core/templates/misc/contact.html:29
+msgid "Feedback form"
+msgstr "Modulo di feedback"
+
+#: core/templates/misc/contact.html:30
+msgid ""
+"A simple contact form. Remember that\n"
+"if you want an answer, you need to include some way to contact you."
+msgstr ""
+"Un semplice modulo di contatto. Ricordatelo\n"
+"se vuoi una risposta, devi includere un modo per contattarti."
+
+#: core/templates/misc/contact.html:35
+msgid "Twitter"
+msgstr "Twitter"
+
+#: core/templates/misc/contact.html:36
+msgid ""
+"We are also on twitter. Write us and tell us what\n"
+"you think! Except patches, don't send patches via twitter."
+msgstr ""
+"Siamo anche su Twitter. Scrivici e dicci cosa\n"
+"ne pensi! Tranne le patch, non inviare le patch tramite Twitter."
+
+#: core/templates/misc/contact.html:42
+msgid "Discord"
+msgstr "Discord"
+
+#: core/templates/misc/contact.html:43
+msgid ""
+"Use the public group to get support for your\n"
+"local wger installation, discuss issues or your new idea, etc.\n"
+"(no registration needed)"
+msgstr ""
+"Usa il gruppo pubblico per ottenere supporto per la tua\n"
+"installazione di wger locale, discutere problemi o la tua nuova idea, ecc.\n"
+"(nessuna registrazione necessaria)"
+
+#: core/templates/misc/contact.html:49
+msgid "Open feedback form"
+msgstr "Modulo di feedback aperto"
+
+#: core/templates/misc/contact.html:53
+msgid "tweet to @wger_project"
+msgstr "tweet a @wger_project"
+
+#: core/templates/misc/contact.html:56
+msgid "Go to the discord server"
+msgstr "Vai al canale Discord"
+
+#: core/templates/misc/fragments/shariff_modal.html:6
+msgid "Share this page"
+msgstr "Condividi questa pagina"
+
+#: core/templates/misc/fragments/shariff_modal.html:18
+msgid ""
+"Before you share links on social media you need to allow external access."
+msgstr ""
+"Prima di condividere link sui social media devi consentire l'accesso esterno."
+
+#: core/templates/misc/fragments/shariff_modal.html:22
+#: nutrition/templates/plan/view.html:351
+#: nutrition/templates/plan/view.html:359
+msgid "That's done here"
+msgstr "Fallo qui"
+
+#: core/templates/misc/license/list.html:45
+msgid ""
+"If a license has been localized, e.g. the Creative Commons\n"
+"licenses for the different countries, add them as separate entries here."
+msgstr ""
+"Se una licenza è stata localizzata, ad es. la Creative Commons\n"
+"licenze per i diversi paesi, aggiungili come voci separate qui"
+
+#: core/templates/navigation.html:22
+msgid "Training"
+msgstr "Allenamento"
+
+#: core/templates/navigation.html:28 core/templates/user/overview.html:25
+#: software/templates/features.html:72
+msgid "Workouts"
+msgstr "Allenamento"
+
+#: core/templates/navigation.html:34
+msgid "Workouts schedules"
+msgstr "Programma allenamenti"
+
+#: core/templates/navigation.html:37 core/templates/user/overview.html:70
+#: manager/templates/calendar/month.html:10
+#: manager/templates/calendar/month.html:21
+#: software/templates/features.html:152
+msgid "Calendar"
+msgstr "Calendario"
+
+#: core/templates/navigation.html:42
+msgctxt "as in sorted by category"
+msgid "by category"
+msgstr "per categoria"
+
+#: core/templates/navigation.html:43
+msgctxt "as in sorted by muscle"
+msgid "by muscle"
+msgstr "per muscolo"
+
+#: core/templates/navigation.html:44
+msgctxt "as in sorted by equipment"
+msgid "by equipment"
+msgstr "per equipaggiamento"
+
+#: core/templates/navigation.html:48
+#: exercises/templates/equipment/overview.html:109
+#: exercises/templates/equipment/overview.html:113
+#: exercises/templates/exercise/overview.html:112
+#: exercises/templates/exercise/overview.html:116
+#: exercises/templates/muscles/overview.html:108
+#: exercises/templates/muscles/overview.html:112
+msgid "Add new exercise"
+msgstr "Aggiungi un nuovo esercizio"
+
+#: core/templates/navigation.html:53 core/templates/navigation.html:112
+#: core/templates/navigation.html:201
+msgid "Administration"
+msgstr "Amministrazione"
+
+#: core/templates/navigation.html:54
+#: exercises/templates/exercise/pending.html:6
+msgid "Exercises pending review"
+msgstr "Esercizi in attesa di revisione"
+
+#: core/templates/navigation.html:55 exercises/models.py:212
+#: exercises/templates/exercise/view.html:80
+msgid "Equipment"
+msgstr "Attrezzatura"
+
+#: core/templates/navigation.html:56 exercises/templates/exercise/view.html:209
+msgid "Muscles"
+msgstr "Muscoli"
+
+#: core/templates/navigation.html:57
+#: exercises/templates/categories/admin-overview.html:4
+msgid "Categories"
+msgstr "Categorie"
+
+#: core/templates/navigation.html:72
+msgid "Body weight"
+msgstr "Peso corporeo"
+
+#: core/templates/navigation.html:74 core/templates/user/overview.html:114
+#: weight/templates/overview.html:7
+msgid "Weight overview"
+msgstr "Panoramica peso corporeo"
+
+#: core/templates/navigation.html:89 software/templates/features.html:87
+msgid "Nutrition"
+msgstr "Piano nutrizionale"
+
+#: core/templates/navigation.html:95 core/templates/user/overview.html:144
+msgid "Nutrition plans"
+msgstr "Piani nutrizionali"
+
+#: core/templates/navigation.html:101 nutrition/templates/bmi/form.html:50
+msgid "BMI calculator"
+msgstr "Calcolatore"
+
+#: core/templates/navigation.html:107 nutrition/templates/rate/form.html:17
+msgid "Daily calories calculator"
+msgstr "Calcolo calorie giornaliere"
+
+#: core/templates/navigation.html:109
+#: nutrition/templates/ingredient/overview.html:29
+msgid "Ingredient overview"
+msgstr "Panoramica alimenti"
+
+#: core/templates/navigation.html:113 nutrition/templates/units/list.html:6
+msgid "Ingredient weight units"
+msgstr "Unità di peso ingrediente"
+
+#: core/templates/navigation.html:114
+#: nutrition/templates/ingredient/pending.html:6
+msgid "Ingredients pending review"
+msgstr "Ingredienti in attesa di revisione"
+
+#: core/templates/navigation.html:127
+msgid "About this software"
+msgstr "Informazioni"
+
+#: core/templates/navigation.html:129 core/templates/template_features.html:83
+#: software/templates/contribute.html:6
+msgid "Contribute!"
+msgstr "Contribuisci!"
+
+#: core/templates/navigation.html:130
+msgid "Problems and wishes"
+msgstr "Problemi e desideri"
+
+#: core/templates/navigation.html:133 software/templates/features.html:209
+msgid "REST API"
+msgstr "REST API"
+
+#: core/templates/navigation.html:134 software/templates/license.html:7
+#: utils/models.py:39
+msgid "License"
+msgstr "Licenza"
+
+#: core/templates/navigation.html:138
+msgid "Developer documentation"
+msgstr "Documentazione dello sviluppatore"
+
+#: core/templates/navigation.html:144 software/templates/contribute.html:59
+msgid "Get the code"
+msgstr "Ottieni il codice"
+
+#: core/templates/navigation.html:150 core/templates/template.html:192
+#: core/templates/template_features.html:103
+#: software/templates/contribute.html:43 software/templates/contribute.html:50
+msgid "Translate"
+msgstr "Traduci"
+
+#: core/templates/navigation.html:171 core/templates/user/login.html:28
+msgid "Reset password"
+msgstr "Reimposta la password"
+
+#: core/templates/navigation.html:184
+msgid "My preferences"
+msgstr "Preferenze"
+
+#: core/templates/navigation.html:191
+msgid "Logout"
+msgstr "Esci"
+
+#: core/templates/navigation.html:206
+msgid "Licenses"
+msgstr "Licenza"
+
+#: core/templates/navigation.html:209
+#: core/templates/repetition_unit/list.html:4
+msgid "Repetition units"
+msgstr "Unità di ripetizione"
+
+#: core/templates/navigation.html:212 core/templates/weight_unit/list.html:4
+#: nutrition/templates/ingredient/view.html:174
+msgid "Weight units"
+msgstr "Unità peso"
+
+#: core/templates/navigation.html:215 core/templates/user/list.html:4
+msgid "User list"
+msgstr "Lista utenti"
+
+#: core/templates/navigation.html:216
+msgid "Gyms"
+msgstr "Palestre"
+
+#: core/templates/registration/password_reset_complete.html:4
+msgid "Password reset complete"
+msgstr "reimpostazione password completata"
+
+#: core/templates/registration/password_reset_complete.html:8
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+"la tua password è stata impostata. Puoi andare avanti e fare il log in."
+
+#: core/templates/registration/password_reset_complete.html:10
+msgid "Log in"
+msgstr "Entra"
+
+#: core/templates/registration/password_reset_done.html:4
+msgid "Password reset successful"
+msgstr "Reset password riuscito"
+
+#: core/templates/registration/password_reset_done.html:8
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted. You should be receiving it shortly."
+msgstr ""
+"Abbiamo inviato per e-mail le istruzioni per l'impostazione della password "
+"all'indirizzo e-mail che hai inviato. Dovresti riceverlo a breve."
+
+#: core/templates/registration/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this e-mail because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Hai ricevuto questa e-mail perché hai richiesto una reimpostazione della "
+"password per il tuo account utente all'indirizzo %(site_name)s."
+
+#: core/templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Vai alla pagina seguente e scegli una nuova password:"
+
+#: core/templates/registration/password_reset_email.html:9
+msgid "Your username, in case you've forgotten:"
+msgstr "Il tuo nome utente, nel caso tu abbia dimenticato:"
+
+#: core/templates/registration/password_reset_email.html:11
+msgid "Thanks for using our site!"
+msgstr "Grazie per aver usato il nostro sito!"
+
+#: core/templates/registration/password_reset_email.html:13
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Il %(site_name)s team"
+
+#: core/templates/tags/license-sidebar.html:3
+msgid "Free license"
+msgstr "licenza gratuita"
+
+#: core/templates/tags/license-sidebar.html:5
+msgid "This content is available under the following license:"
+msgstr "Questo contenuto è disponibile attraverso la seguente licenza:"
+
+#: core/templates/tags/license-sidebar.html:13
+msgid "Click here for more information"
+msgstr "Clicka qui per avere più informazioni"
+
+#: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
+msgid "previous"
+msgstr "precedente"
+
+#: core/templates/tags/pagination.html:31
+#: core/templates/tags/pagination.html:35
+msgid "next"
+msgstr "successivo"
+
+#: core/templates/tags/render_day.html:31
+msgid "Add weight log"
+msgstr "Aggiungi record peso"
+
+#: core/templates/tags/render_day.html:97
+#: exercises/templates/equipment/overview.html:59
+#: exercises/templates/exercise/overview.html:63
+#: exercises/templates/muscles/overview.html:61
+msgid "Placeholder image for exercise"
+msgstr "Immagine segnaposto per l'esercizio"
+
+#: core/templates/tags/render_day.html:112
+msgid "This exercise has no repetitions."
+msgstr "questo esercizio non ha ripetizioni"
+
+#: core/templates/tags/render_day.html:114
+msgid "Edit them now."
+msgstr "Modificali"
+
+#: core/templates/tags/render_day.html:139
+msgid "Add exercises to this workout day"
+msgstr "Aggiungi esercizi per questo giorno di allenamento"
+
+#: core/templates/tags/render_weight_log.html:17 manager/helpers.py:85
+#: manager/models.py:767 manager/templates/set/formset.html:10
+msgid "Reps"
+msgstr "Ripetizioni"
+
+#: core/templates/tags/render_weight_log.html:30 manager/forms.py:140
+#: manager/models.py:791 manager/models.py:892
+#: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
+msgid "RiR"
+msgstr "RiR"
+
+#: core/templates/template.html:139
+msgid ""
+"You are using a guest account, data entered will be deleted after a week."
+msgstr ""
+"Stai usando un account ospite, i dati inseriti verranno cancellati dopo una "
+"settimana."
+
+#: core/templates/template.html:143
+msgid "Create some demo entries"
+msgstr "Crea alcune voci demo"
+
+#: core/templates/template.html:200 core/templates/template_features.html:121
+#: core/templates/template_no_context.html:88
+msgid "About"
+msgstr "Informazioni"
+
+#: core/templates/template.html:201 core/templates/template_features.html:125
+#: core/templates/template_no_context.html:89 software/templates/tos.html:7
+msgid "Terms of service"
+msgstr "Termini di servizio"
+
+#: core/templates/template.html:208 core/templates/template.html:209
+#: software/templates/license.html:18 software/templates/license.html:19
+msgid "Released under the Affero GPL"
+msgstr "Rilasciato sotto la GPL Affero"
+
+#: core/templates/template_features.html:62 software/templates/features.html:9
+#: software/templates/features.html:120
+msgid "Features"
+msgstr "Caratteristiche"
+
+#: core/templates/user/api_key.html:4 core/templates/user/preferences.html:37
+msgid "API key"
+msgstr "API key"
+
+#: core/templates/user/api_key.html:9
+#, python-format
+msgid ""
+"Generate an API key if you want to interact with wger via\n"
+"the <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> it provides (for\n"
+"public resources such as the exercises or ingredients, you don't need to "
+"provide\n"
+"anything). You must pass this information in the header in the format shown "
+"below."
+msgstr ""
+"Genera una chiave API se vuoi interagire con wger tramite\n"
+"<a href=\"%(url)s\" rel=\"nofollow\">l'API REST</a> che fornisce (per\n"
+"risorse pubbliche come gli esercizi o gli ingredienti, non è necessario "
+"fornire\n"
+"nulla). Devi passare queste informazioni nell'intestazione nel formato "
+"mostrato di seguito."
+
+#: core/templates/user/api_key.html:15
+msgid "For security reasons, you should only access the API via HTTPS."
+msgstr "Per motivi di sicurezza, dovresti accedere all'API tramite HTTPS."
+
+#: core/templates/user/api_key.html:18
+msgid "Your API key"
+msgstr "La tua chiave API"
+
+#: core/templates/user/api_key.html:24
+msgid "You have no API key yet"
+msgstr "Non hai ancora una chiave API"
+
+#: core/templates/user/api_key.html:48
+msgid "Delete current API key and generate new one"
+msgstr "Elimina la chiave API corrente e generane una nuova"
+
+#: core/templates/user/api_key.html:50
+msgid "Generate new API key"
+msgstr "Genera una nuova chiave API"
+
+#: core/templates/user/api_key.html:55
+msgid "Documentation"
+msgstr "Documentazione"
+
+#: core/templates/user/delete_account.html:4
+#: core/templates/user/preferences.html:42
+msgid "Delete account"
+msgstr "Cancella account"
+
+#: core/templates/user/delete_account.html:17
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: core/templates/user/delete_account.html:22
+#, python-format
+msgid ""
+"This action will delete the user account \"%(username)s\".\n"
+"It will also  irrevocably remove all the data associated with it (workouts, "
+"logs, etc.)\n"
+"and can't be undone. "
+msgstr ""
+"Questa azione eliminerà l'account utente \"%(username)s\".\n"
+"Rimuoverà anche irrevocabilmente tutti i dati ad esso associati "
+"(allenamenti, registri, ecc.)\n"
+"e non può essere annullato."
+
+#: core/templates/user/login.html:16
+msgid "No account?"
+msgstr "Nessun account?"
+
+#: core/templates/user/login.html:24
+msgid "Forgot password?"
+msgstr "Password dimenticata?"
+
+#: core/templates/user/overview.html:25 core/templates/user/overview.html:68
+#: core/templates/user/overview.html:112 core/templates/user/overview.html:144
+#: core/templates/user/overview.html:331 core/templates/user/overview.html:370
+#: core/templates/user/overview.html:406
+#, python-format
+msgid "last %(number)s"
+msgstr "ultimo %(number)s"
+
+#: core/templates/user/overview.html:27 core/templates/user/overview.html:146
+#: core/templates/user/overview.html:326 core/templates/user/overview.html:365
+#: core/templates/user/overview.html:401 gym/templates/gym/member_list.html:210
+#: gym/templates/gym/member_list.html:243
+#: gym/templates/gym/member_list.html:280
+msgid "Overview"
+msgstr "Panoramica"
+
+#: core/templates/user/overview.html:28
+#: manager/templates/schedule/view.html:164
+#: manager/templates/workout/overview.html:34 manager/views/schedule_step.py:60
+msgid "Add workout"
+msgstr "Aggiungi allenamento"
+
+#: core/templates/user/overview.html:34 core/templates/user/overview.html:76
+#: core/templates/user/overview.html:120 core/templates/user/overview.html:153
+#: exercises/models.py:257 manager/helpers.py:84 manager/models.py:890
+#: manager/models.py:986 nutrition/models.py:313 nutrition/models.py:314
+#: nutrition/models.py:401 nutrition/templates/log/overview.html:30
+#: nutrition/templates/plan/view.html:277 weight/models.py:32
+#: weight/templates/import_csv_preview.html:13
+#: weight/templates/import_csv_preview.html:42
+#: weight/templates/overview.html:48 weight/views.py:151
+msgid "Date"
+msgstr "Data"
+
+#: core/templates/user/overview.html:35 core/templates/user/overview.html:154
+#: exercises/models.py:244 exercises/templates/exercise/view.html:88
+#: exercises/views/exercises.py:183 gym/models.py:393 gym/models.py:442
+#: manager/models.py:83 manager/models.py:395 nutrition/models.py:97
+msgid "Description"
+msgstr "Descrizione"
+
+#: core/templates/user/overview.html:36
+msgid "Number of logs (days)"
+msgstr "Numero di log (giorni)"
+
+#: core/templates/user/overview.html:37 core/views/user.py:562
+#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:152
+msgid "Last activity"
+msgstr "Ultima attività"
+
+#: core/templates/user/overview.html:68 manager/forms.py:225
+#: manager/templates/workout/view.html:147
+msgid "Log"
+msgstr "Diario"
+
+#: core/templates/user/overview.html:77 manager/models.py:1000
+#: manager/templates/calendar/partial_overview_table.html:52
+msgid "General impression"
+msgstr "Impressioni generali"
+
+#: core/templates/user/overview.html:78 core/templates/user/overview.html:370
+#: manager/models.py:991
+#: manager/templates/calendar/partial_overview_table.html:56
+#: manager/templates/workout/log.html:101
+msgid "Notes"
+msgstr "Note"
+
+#: core/templates/user/overview.html:79
+#: manager/templates/calendar/partial_overview_table.html:42
+#: manager/templates/workout/timer.html:500
+#: nutrition/templates/log/detail.html:154
+msgid "Time"
+msgstr "Tempo"
+
+#: core/templates/user/overview.html:147
+#: nutrition/templates/plan/overview.html:36
+msgid "Add nutrition plan"
+msgstr "Aggiungi piano nutrizionale"
+
+#: core/templates/user/overview.html:202 core/templates/user/overview.html:323
+#: core/templates/user/overview.html:362 core/templates/user/overview.html:398
+#: core/templates/user/overview.html:443 gym/templates/gym/list.html:40
+#: gym/templates/gym/member_list.html:84 gym/templates/gym/member_list.html:137
+#: gym/templates/gym/member_list.html:173
+#: gym/templates/gym/member_list.html:207
+#: gym/templates/gym/member_list.html:240
+#: gym/templates/gym/member_list.html:277
+#: manager/templates/schedule/view.html:103
+msgid "Actions"
+msgstr "Azioni"
+
+#: core/templates/user/overview.html:208
+msgid "Deactivate user"
+msgstr "Disattiva utente"
+
+#: core/templates/user/overview.html:210
+msgid "Activate user"
+msgstr "Attiva utente"
+
+#: core/templates/user/overview.html:212
+msgid "Reset user password"
+msgstr "Reset password utente"
+
+#: core/templates/user/overview.html:215 gym/templates/gym/member_list.html:30
+msgid "Roles"
+msgstr "Ruoli"
+
+#: core/templates/user/overview.html:226
+msgid "Password reset confirmation"
+msgstr "Reset password confermato"
+
+#: core/templates/user/overview.html:230
+msgid "Do you really want to change this user&#39;s password?"
+msgstr "Vuoi veramente cambiare la password di questo user&#39;s?"
+
+#: core/templates/user/overview.html:233
+msgid "No"
+msgstr "No"
+
+#: core/templates/user/overview.html:234
+msgid "Yes"
+msgstr "Si"
+
+#: core/templates/user/overview.html:255 gym/templates/gym/member_list.html:93
+msgid "Details"
+msgstr "Dettagli"
+
+#: core/templates/user/overview.html:259 gym/views/export.py:57
+#: manager/helpers.py:85 manager/templates/schedule/view.html:101
+#: nutrition/templates/plan/view.html:73 nutrition/views/plan.py:283
+#: nutrition/views/plan.py:289
+msgid "Nr."
+msgstr "Numero"
+
+#: core/templates/user/overview.html:281 gym/models.py:56 gym/models.py:592
+#: gym/templates/contract/view.html:75 gym/templates/gym/member_list.html:100
+#: gym/views/export.py:68
+msgid "Phone"
+msgstr "Numero"
+
+#: core/templates/user/overview.html:285 gym/templates/contract/view.html:87
+#: gym/templates/gym/member_list.html:118
+msgid "Address"
+msgstr "Via"
+
+#: core/templates/user/overview.html:296
+msgid "Registered"
+msgstr "Registrato"
+
+#: core/templates/user/overview.html:300
+msgid "Last login"
+msgstr "Ultimo login"
+
+#: core/templates/user/overview.html:305
+msgid "Status"
+msgstr "Stato"
+
+#: core/templates/user/overview.html:308
+msgid "Active"
+msgstr "Attivo"
+
+#: core/templates/user/overview.html:310
+msgid "Inactive"
+msgstr "Inattivo"
+
+#: core/templates/user/overview.html:331 gym/templates/contract/list.html:4
+#: gym/templates/gym/member_list.html:202
+msgid "Contracts"
+msgstr "Contratti"
+
+#: core/templates/user/overview.html:406 gym/templates/document/list.html:4
+msgid "Documents"
+msgstr "Documenti"
+
+#: core/templates/user/overview.html:413 gym/templates/document/list.html:32
+#: manager/forms.py:237 manager/templates/workout/view.html:172
+msgid "Download"
+msgstr "Scarica"
+
+#: core/templates/user/overview.html:454 gym/models.py:210
+msgid "Include in inactive overview"
+msgstr "Includi in una panoramica inattiva"
+
+#: core/templates/user/overview.html:487
+#, python-format
+msgid "Admin login is only available for users in %(gym_name)s"
+msgstr "Accesso amministratore disponibile per %(gym_name)s"
+
+#: core/templates/user/overview.html:491
+msgid "Log in as this user"
+msgstr "Entra come questo utente"
+
+#: core/templates/user/preferences.html:4
+msgid "Preferences"
+msgstr "Preferenze"
+
+#: core/templates/user/preferences.html:33 core/views/user.py:571
+msgid "Change password"
+msgstr "Cambia password"
+
+#: core/templatetags/wger_extras.py:210
+msgid "kg"
+msgstr "kg"
+
+#: core/templatetags/wger_extras.py:212
+#: nutrition/templates/ingredient/view.html:86
+#: nutrition/templates/ingredient/view.html:92
+#: nutrition/templates/ingredient/view.html:99
+#: nutrition/templates/ingredient/view.html:108
+#: nutrition/templates/ingredient/view.html:115
+#: nutrition/templates/ingredient/view.html:137
+#: nutrition/templates/ingredient/view.html:147
+msgctxt "weight unit, i.e. grams"
+msgid "g"
+msgstr "g"
+
+#: core/templatetags/wger_extras.py:215
+msgid "lb"
+msgstr "lb"
+
+#: core/templatetags/wger_extras.py:217
+msgctxt "weight unit, i.e. ounces"
+msgid "oz"
+msgstr "oz"
+
+#: core/views/languages.py:85 exercises/views/categories.py:115
+#: exercises/views/equipment.py:107 exercises/views/exercises.py:401
+#: exercises/views/images.py:123 exercises/views/muscles.py:118
+#: manager/views/schedule.py:296 manager/views/schedule_step.py:129
+#: manager/views/workout.py:222 manager/views/workout_session.py:140
+#: nutrition/views/ingredient.py:138 nutrition/views/plan.py:121
+#: nutrition/views/unit.py:107
+msgid "Successfully deleted"
+msgstr "Eliminato con successo"
+
+#: core/views/languages.py:93 core/views/license.py:103
+#: core/views/repetition_units.py:115 core/views/weight_units.py:115
+#: exercises/views/categories.py:121 exercises/views/exercises.py:409
+#: exercises/views/muscles.py:125 gym/views/admin_notes.py:197
+#: gym/views/document.py:207 gym/views/gym.py:474 manager/views/schedule.py:303
+#: manager/views/schedule_step.py:139 manager/views/workout.py:226
+#: manager/views/workout_session.py:155 nutrition/views/ingredient.py:145
+#: nutrition/views/plan.py:128 nutrition/views/unit.py:114
+#, python-brace-format
+msgid "Delete {0}?"
+msgstr "Elimina {0}?"
+
+#: core/views/languages.py:111 core/views/license.py:84
+#: core/views/repetition_units.py:85 core/views/user.py:446
+#: core/views/weight_units.py:85 exercises/views/categories.py:93
+#: exercises/views/equipment.py:84 exercises/views/exercises.py:288
+#: exercises/views/muscles.py:105 gym/views/admin_notes.py:161
+#: gym/views/config.py:68 gym/views/contract.py:158
+#: gym/views/contract_option.py:123 gym/views/contract_type.py:123
+#: gym/views/document.py:171 gym/views/gym.py:449 manager/views/day.py:100
+#: manager/views/schedule.py:320 manager/views/workout.py:240
+#: nutrition/views/ingredient.py:164 nutrition/views/plan.py:145
+#: nutrition/views/unit.py:138
+#, python-brace-format
+msgid "Edit {0}"
+msgstr "Modifica {0}"
+
+#: core/views/misc.py:93
+msgid ""
+"We have created sample workout, workout schedules, weight logs, (body) "
+"weight and nutrition plan entries so you can better see what  this site can "
+"do. Feel free to edit or delete them!"
+msgstr ""
+"Abbiamo creato un esempio di allenamento, programmi di allenamento, registri "
+"di pesatura, peso corporeo e voci del piano nutrizionale in modo da poter "
+"vedere meglio ciò che questo sito può fare. Sentiti libero di modificarli o "
+"cancellarli!"
+
+#: core/views/misc.py:146
+msgid "Rest day"
+msgstr "Giorno di riposo"
+
+#: core/views/misc.py:185
+msgid "Feedback"
+msgstr "Feedback"
+
+#: core/views/misc.py:204 weight/templates/import_csv_form.html:9
+msgid "Submit"
+msgstr "Invia"
+
+#: core/views/misc.py:212
+msgid "Your feedback was successfully sent. Thank you!"
+msgstr "Il tuo feedback è stato mandato con successo. Grazie!"
+
+#: core/views/user.py:156
+#, python-brace-format
+msgid "Account \"{0}\" was successfully deleted"
+msgstr "L'account \"{0}\" è stato eliminato con successo"
+
+#: core/views/user.py:285
+msgid "You were successfully registered"
+msgstr "Ti sei registrato con successo"
+
+#: core/views/user.py:335
+msgid "Settings successfully updated"
+msgstr "Impostazioni aggiornate con successo"
+
+#: core/views/user.py:370
+msgid "The user was successfully deactivated"
+msgstr "Utente è stato disattivato con successo"
+
+#: core/views/user.py:403
+msgid "The user was successfully activated"
+msgstr "Utente è stato attivato con successo"
+
+#: core/views/user.py:416
+msgid "Edit user"
+msgstr "Modifica utente"
+
+#: core/views/user.py:559 gym/templates/gym/member_list.html:26
+#: gym/views/gym.py:152
+msgid "ID"
+msgstr "ID"
+
+#: core/views/user.py:560 gym/forms.py:86 gym/templates/contract/view.html:55
+#: gym/templates/gym/member_list.html:27 gym/views/export.py:59
+#: gym/views/gym.py:152 gym/views/gym.py:210
+msgid "Username"
+msgstr "Nome utente"
+
+#: core/views/user.py:563 gym/templates/gym/new_user.html:34
+#: gym/views/export.py:58 gym/views/gym.py:210
+msgid "Gym"
+msgstr "Palestra"
+
+#: exercises/models.py:63
+msgid "In latin, e.g. \"Pectoralis major\""
+msgstr "In latino es. \"Pectoralis major\""
+
+#: exercises/models.py:131
+msgid "Exercise Categories"
+msgstr "Categorie esercizi"
+
+#: exercises/models.py:197 exercises/templates/exercise/view.html:76
+#: nutrition/models.py:408
+msgid "Category"
+msgstr "Categoria"
+
+#: exercises/models.py:202
+msgid "Primary muscles"
+msgstr "Muscoli primari"
+
+#: exercises/models.py:206 exercises/templates/equipment/overview.html:71
+#: exercises/templates/exercise/overview.html:76
+#: exercises/templates/exercise/view.html:219
+#: exercises/templates/muscles/overview.html:73
+msgid "Secondary muscles"
+msgstr "Muscoli secondari"
+
+#: exercises/models.py:217
+msgid "Variations"
+msgstr "Variazioni"
+
+#: exercises/models.py:264 nutrition/models.py:91 nutrition/models.py:309
+#: nutrition/models.py:606
+msgid "Language"
+msgstr "Lingua"
+
+#: exercises/models.py:402 exercises/views/exercises.py:439
+msgid "Exercise was successfully added to the general database"
+msgstr "L'esercizio è stato aggiunto con successo al database generale"
+
+#: exercises/models.py:429
+msgid "New user submitted exercise"
+msgstr "Un nuovo utente ha inserito un esercizio"
+
+#: exercises/models.py:431
+#, python-brace-format
+msgid "The user {0} submitted a new exercise \"{1}\"."
+msgstr "L'utente {0} ha inserito un nuovo esercizio \"{1}\"."
+
+#: exercises/models.py:459 exercises/models.py:569 manager/forms.py:133
+#: manager/helpers.py:85 manager/models.py:854
+msgid "Exercise"
+msgstr "Esercizio"
+
+#: exercises/models.py:463
+msgid "Image"
+msgstr "Immagine"
+
+#: exercises/models.py:464
+msgid "Only PNG and JPEG formats are supported"
+msgstr "Sono supportati solo i formati PNG e JPEG"
+
+#: exercises/models.py:468
+msgid "Main picture"
+msgstr "Immagine principale"
+
+#: exercises/models.py:470
+msgid ""
+"Tick the box if you want to set this image as the main one for the exercise "
+"(will be shown e.g. in the search). The first image is automatically marked "
+"by the system."
+msgstr ""
+"Spunta la casella se vuoi impostare questa immagine come principale per "
+"l'esercizio (verrà mostrata ad es. Nella ricerca). La prima immagine viene "
+"automaticamente contrassegnata dal sistema."
+
+#: exercises/models.py:554
+msgid "New user submitted image"
+msgstr "Nuovo utente immagine inviata"
+
+#: exercises/models.py:555
+#, python-brace-format
+msgid "The user {0} submitted a new image \"{1}\" for exercise {2}."
+msgstr ""
+"L'utente {0} ha inviato una nuova immagine \"{1}\" per l'esercizio {2}."
+
+#: exercises/models.py:574
+msgid "A comment about how to correctly do this exercise."
+msgstr "Un commento su come eseguire correttamente l'esercizio"
+
+#: exercises/templates/equipment/admin-overview.html:4
+msgid "Equipment list"
+msgstr "Lista attrezzatura"
+
+#: exercises/templates/equipment/admin-overview.html:37
+#: exercises/views/equipment.py:95
+msgid "Add new equipment"
+msgstr "Aggiungi nuova attrezzatura"
+
+#: exercises/templates/equipment/overview.html:11
+msgid "Equipment overview"
+msgstr "Prospetto dell'attrezzatura"
+
+#: exercises/templates/equipment/overview.html:69
+#: exercises/templates/exercise/overview.html:74
+#: exercises/templates/exercise/view.html:215
+#: exercises/templates/muscles/overview.html:71
+msgid "Main muscles"
+msgstr "Muscoli principali"
+
+#: exercises/templates/equipment/overview.html:79
+msgid ""
+"No exercises for this equipment. Add or edit an exercise and set the "
+"equipment."
+msgstr ""
+"Nessun esercizio per questa attrezzatura. Aggiungere o modificare un "
+"esercizio ed imposta l'attrezzatura."
+
+#: exercises/templates/equipment/overview.html:96
+#: exercises/templates/exercise/overview.html:99
+#: nutrition/templates/ingredient/overview.html:57
+msgid "Search"
+msgstr "Ricerca"
+
+#: exercises/templates/equipment/overview.html:101
+#: exercises/templates/exercise/overview.html:104
+msgid "exercise name"
+msgstr "Nome esercizio"
+
+#: exercises/templates/equipment/overview.html:115
+#: exercises/templates/exercise/overview.html:118
+#: exercises/templates/muscles/overview.html:114
+#: nutrition/templates/ingredient/overview.html:85
+#: software/templates/contribute.html:39
+msgid "Only registered users can do this"
+msgstr "Soli gli utenti registrato possono fare questo"
+
+#: exercises/templates/exercise/email_new.tpl:1
+#, python-format
+msgid ""
+"Your exercise '%(exercise)s' was successfully added to the general\n"
+"database."
+msgstr ""
+"Il tuo esercizio '%(exercise)s' è stato aggiunto con successo al database\n"
+"generale. "
+
+#: exercises/templates/exercise/email_new.tpl:4
+msgid ""
+"It is now available on the exercise and muscle overview and can be\n"
+"added to workouts. You can access it on this address:"
+msgstr ""
+"È ora disponibile sull'esercizio e la panoramica muscolare e può essere\n"
+"aggiunto agli allenamenti. Puoi accedervi da questo indirizzo:"
+
+#: exercises/templates/exercise/email_new.tpl:8
+#: nutrition/templates/ingredient/email_new.tpl:8
+msgid "Thank you for contributing and making this site better!"
+msgstr "Grazie per avere contribuito e reso questo sito migliore!"
+
+#: exercises/templates/exercise/email_new.tpl:9
+#: manager/templates/workout/email_reminder.tpl:15
+#: manager/templates/workout/email_weight_reminder.tpl:12
+#: nutrition/templates/ingredient/email_new.tpl:9
+#, python-format
+msgid "The %(site)s team"
+msgstr "Il %(site)s team"
+
+#: exercises/templates/exercise/form.html:4
+msgid "Submitting an exercise"
+msgstr "Inserendo un esercizio"
+
+#: exercises/templates/exercise/form.html:5
+msgid ""
+"Thank you for submitting an exercise. This is much\n"
+"appreciated!"
+msgstr "Grazie per aver inserito un esercizio. "
+
+#: exercises/templates/exercise/form.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once it is reviewed, it will be added to the database. Till this happens,\n"
+"it will not be visible in the overview or the search. In case you added your "
+"email\n"
+"when you registered, you will get notified when the process is completed "
+"successfully."
+msgstr ""
+"Dopo aver inviato il modulo, gli amministratori verranno avvisati.\n"
+"Una volta esaminato, verrà aggiunto al database. Fin quando questo non "
+"succede,\n"
+"non sarà visibile nella panoramica o nella ricerca. Nel caso in cui hai "
+"aggiunto la tua email\n"
+"quando ti sei registrato, riceverai una notifica quando il processo è "
+"completato con successo."
+
+#: exercises/templates/exercise/form_correct.html:4
+msgid "Correcting an exercise"
+msgstr "Correggere un esercizio"
+
+#: exercises/templates/exercise/form_correct.html:5
+msgid ""
+"Thank you for correcting and improving this exercise.\n"
+"This is much appreciated!"
+msgstr ""
+"Grazie per aver corretto e migliorato questo esercizio.\n"
+"Lo apprezziamo molto!"
+
+#: exercises/templates/exercise/form_correct.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once the changes are reviewed the exercise will be updated."
+msgstr ""
+"Dopo aver inviato il modulo, gli amministratori verranno avvisati.\n"
+"Una volta che le modifiche sono state riviste, l'esercizio verrà aggiornato."
+
+#: exercises/templates/exercise/overview.html:88
+msgid "No categories."
+msgstr "Nessuna categoria."
+
+#: exercises/templates/exercise/overview.html:88
+msgid "Use link to create one"
+msgstr "Usa l'indirizzo per crearne una"
+
+#: exercises/templates/exercise/pending.html:14
+#: nutrition/templates/ingredient/pending.html:14
+msgid "Submission date"
+msgstr "Data di inserimento"
+
+#: exercises/templates/exercise/pending.html:16 gym/forms.py:58
+#: gym/templates/gym/email_inactive_members.html:4
+#: gym/templates/gym/new_user.html:22
+#: gym/templates/gym/reset_user_password.html:20 manager/models.py:88
+#: manager/models.py:230 manager/models.py:850 manager/models.py:971
+#: nutrition/models.py:87 nutrition/templates/ingredient/pending.html:16
+#: weight/models.py:38
+msgid "User"
+msgstr "Utente"
+
+#: exercises/templates/exercise/view.html:48
+msgid "Exercise is pending review"
+msgstr "L'esercizio è in attesa di revisione"
+
+#: exercises/templates/exercise/view.html:51
+msgid ""
+"This user submitted exercise is pending a decision to be\n"
+"        included in the database."
+msgstr ""
+"L'esercizio presentato dall'utente è in attesa di decisione\n"
+"         incluso nel database."
+
+#: exercises/templates/exercise/view.html:53
+msgid "Till then, it will not be shown in the overview or the search."
+msgstr "Fino ad allora, non sarà mostrato nel prospetto o nella ricerca"
+
+#: exercises/templates/exercise/view.html:54
+#: nutrition/templates/ingredient/view.html:31
+msgid "Please select one of the options below."
+msgstr "Per favore seleziona una delle opzione specificate"
+
+#: exercises/templates/exercise/view.html:60
+#: exercises/templates/exercise/view.html:153
+#: nutrition/templates/ingredient/view.html:38
+msgid "Accept"
+msgstr "Accetta"
+
+#: exercises/templates/exercise/view.html:64
+#: exercises/templates/exercise/view.html:154
+#: nutrition/templates/ingredient/view.html:42
+msgid "Decline"
+msgstr "Rifiuta"
+
+#: exercises/templates/exercise/view.html:96
+msgid "Images"
+msgstr "Immagini"
+
+#: exercises/templates/exercise/view.html:137 exercises/views/images.py:90
+msgid "Add new image"
+msgstr "Aggiungi nuova immagine"
+
+#: exercises/templates/exercise/view.html:147
+msgid "Images pending review"
+msgstr "Immagini in attesa di revisione"
+
+#: exercises/templates/exercise/view.html:169
+msgid "Comments for this exercise"
+msgstr "Commenti all'esercizio"
+
+#: exercises/templates/exercise/view.html:197
+msgid "Add new comment"
+msgstr "Aggiungi un nuovo commento"
+
+#: exercises/templates/exercise/view.html:211
+msgid "The diagram shows the most used muscles on this exercise"
+msgstr "Il diagramma mostra i muscoli più usati durante l'esercizio"
+
+#: exercises/templates/exercise/view.html:252
+#: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
+msgid "Weight log"
+msgstr "Diario dei pesi"
+
+#: exercises/templates/exercise/view.html:257
+msgid "Exercise Variations"
+msgstr "Variazioni esercizio"
+
+#: exercises/templates/exercise/view.html:278
+msgid "Submit a correction"
+msgstr "Invia una correzione"
+
+#: exercises/templates/muscles/admin-overview.html:4
+#: exercises/templates/muscles/overview.html:7
+msgid "Muscle overview"
+msgstr "Prospetto dei muscoli"
+
+#: exercises/templates/muscles/admin-overview.html:36
+#: exercises/views/muscles.py:86
+msgid "Add muscle"
+msgstr "Aggiungi muscolo"
+
+#: exercises/templates/muscles/overview.html:81
+msgid ""
+"No exercises for this muscle. Add or edit an exercise and set the muscle."
+msgstr ""
+"Nessun esercizio per questo muscolo. Aggiungi un esercizio e imposta il "
+"muscolo."
+
+#: exercises/views/categories.py:69
+msgid "Add category"
+msgstr "Aggiungi categoria"
+
+#: exercises/views/categories.py:114
+msgid "This will also delete all exercises in this category."
+msgstr "Saranno cancellati tutti gli esercizi della categoria."
+
+#: exercises/views/comments.py:79
+msgid "Add exercise comment"
+msgstr "Aggiungi commento esercizio"
+
+#: exercises/views/equipment.py:108 exercises/views/equipment.py:119
+msgid "Delete equipment?"
+msgstr "Cancella attrezzatura?"
+
+#: exercises/views/exercises.py:218
+#, python-format
+msgid ""
+"%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
+msgstr "%(name_original)s è troppo simile a \"%(exercise_name)s\""
+
+#: exercises/views/exercises.py:232 software/templates/contribute.html:37
+msgid "Add exercise"
+msgstr "Aggiungi esercizio"
+
+#: exercises/views/exercises.py:349
+msgid "Thank you. Once the changes are reviewed the exercise will be updated."
+msgstr ""
+"Grazie. Una volta che le modifiche sono state riviste, l'esercizio verrà "
+"aggiornato."
+
+#: exercises/views/exercises.py:362
+#, python-brace-format
+msgid "Correct {0}"
+msgstr "Corretto {0}"
+
+#: exercises/views/exercises.py:400
+msgid "This will delete the exercise from all workouts."
+msgstr "L'esercizio sarà eliminato da tutti gli allenamenti."
+
+#: exercises/views/exercises.py:452
+msgid "Exercise was successfully marked as rejected"
+msgstr "L'esercizio è stato contrassegnato con successo come respinto"
+
+#: exercises/views/images.py:67
+msgid "Edit exercise image"
+msgstr "Modifica immagine esercizio"
+
+#: exercises/views/images.py:138
+msgid "Delete exercise image?"
+msgstr "Cancella immagine esercizio?"
+
+#: gym/forms.py:60 gym/templates/gym/member_list.html:44
+msgid "Trainer"
+msgstr "Allenatore"
+
+#: gym/forms.py:62
+msgid "Gym administrator"
+msgstr "Amministratore della palestra"
+
+#: gym/forms.py:64 gym/templates/gym/member_list.html:52
+msgid "General manager"
+msgstr "Direttore generale"
+
+#: gym/forms.py:89
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Necessario. 30 caratteri o meno. Lettere, cifre e solo @/./+/-/_"
+
+#: gym/forms.py:92
+msgid "This value may contain only letters, numbers and @/.//-/_ characters."
+msgstr "Questo valore può contenere solo lettere, numeri e caratteri @/.//-/_"
+
+#: gym/forms.py:105
+msgid "A user with that username already exists."
+msgstr "Un utente con quel nome utente esiste già."
+
+#: gym/management/commands/inactive-members.py:97 gym/models.py:123
+msgid "Reminder of inactive members"
+msgstr "Promemoria di membri inattivi"
+
+#: gym/models.py:41
+msgid "Trainer: can see the users for a gym"
+msgstr "Allenatore: può vedere gli utenti per una palestra"
+
+#: gym/models.py:42
+msgid "Admin: can manage users for a gym"
+msgstr "Amministratore: può gestire gli utenti per una palestra"
+
+#: gym/models.py:43
+msgid "Admin: can administrate the different gyms"
+msgstr "Amministratore: puoi amministrare le diverse palestre"
+
+#: gym/models.py:67 gym/templates/gym/member_list.html:114
+msgid "Owner"
+msgstr "Proprietario"
+
+#: gym/models.py:73 gym/models.py:574 gym/views/export.py:65
+msgid "ZIP code"
+msgstr "Codice postale"
+
+#: gym/models.py:79 gym/models.py:580 gym/views/export.py:66
+msgid "City"
+msgstr "Città"
+
+#: gym/models.py:85 gym/models.py:586 gym/views/export.py:67
+msgid "Street"
+msgstr "Via"
+
+#: gym/models.py:124
+msgid ""
+"Number of weeks since the last time a user logged his presence to be "
+"considered inactive"
+msgstr ""
+"Numero di settimane dall'ultima volta in cui un utente ha registrato la sua "
+"presenza per essere considerato inattivo"
+
+#: gym/models.py:131 gym/templates/gym/member_list.html:152
+msgid "Show name in header"
+msgstr "Mostra nome nell'intestazione"
+
+#: gym/models.py:132
+msgid "Show the name of the gym in the site header"
+msgstr "Mostra il nome della palestra nell'intestazione del sito"
+
+#: gym/models.py:142
+msgid "Configuration for {}"
+msgstr "Configurazione per {}"
+
+#: gym/models.py:185 gym/templates/gym/member_list.html:184
+msgid "Overview of inactive members"
+msgstr "Panoramica dei membri inattivi"
+
+#: gym/models.py:186
+msgid "Receive email overviews of inactive members"
+msgstr "Ricevi panoramiche e-mail dei membri inattivi"
+
+#: gym/models.py:211
+msgid "Include this user in the email list with inactive members"
+msgstr "Includi questo utente nell'elenco e-mail dei membri inattivi"
+
+#: gym/models.py:263 gym/models.py:342 gym/models.py:606
+#: gym/templates/contract/view.html:96
+msgid "Note"
+msgstr "Note"
+
+#: gym/models.py:322
+msgid "Document"
+msgstr "Documento"
+
+#: gym/models.py:336
+msgid "Will use file name if nothing provided"
+msgstr "Userà il nome del file se non viene fornito nulla"
+
+#: gym/models.py:475
+msgid "Yearly"
+msgstr "Annuale"
+
+#: gym/models.py:476
+msgid "Half yearly"
+msgstr "Semestrale"
+
+#: gym/models.py:477
+msgid "Monthly"
+msgstr "Mensile"
+
+#: gym/models.py:478
+msgid "Biweekly"
+msgstr "Bisettimanalmente"
+
+#: gym/models.py:479
+msgid "Weekly"
+msgstr "Settimanale"
+
+#: gym/models.py:480
+msgid "Daily"
+msgstr "Giornaliero"
+
+#: gym/models.py:518 gym/templates/contract/view.html:34
+msgid "Contract type"
+msgstr "Tipo di contratto"
+
+#: gym/models.py:531 gym/templates/contract/view.html:59
+#: manager/templates/log/add.html:52 nutrition/forms.py:58
+#: nutrition/models.py:644 nutrition/models.py:828 nutrition/models.py:890
+msgid "Amount"
+msgstr "Quantità"
+
+#: gym/models.py:539 gym/templates/contract/view.html:63
+msgid "Payment type"
+msgstr "Tipo di pagamento"
+
+#: gym/models.py:543
+msgid "How often the amount will be charged to the member"
+msgstr "Quante volte l'importo verrà addebitato al membro"
+
+#: gym/models.py:548 gym/templates/contract/view.html:24
+msgid "Contract is active"
+msgstr "Contratto è attivo"
+
+#: gym/models.py:554 gym/templates/contract/view.html:69 manager/models.py:245
+#: manager/templates/schedule/view.html:70
+msgid "Start date"
+msgstr "Data di partenza"
+
+#: gym/models.py:562 gym/templates/contract/view.html:71
+msgid "End date"
+msgstr "Data fine"
+
+#: gym/models.py:598 gym/templates/contract/view.html:92
+msgid "Profession"
+msgstr "Professione"
+
+#: gym/templates/admin_notes/list.html:4
+msgid "User notes"
+msgstr "Note utente"
+
+#: gym/templates/contract/view.html:4
+msgid "Contract"
+msgstr "Contratto"
+
+#: gym/templates/contract_option/list.html:4
+msgid "Contract options"
+msgstr "Opzioni contratto"
+
+#: gym/templates/contract_type/list.html:4
+msgid "Contract types"
+msgstr "Tipi di contratto"
+
+#: gym/templates/gym/email_inactive_members.html:2
+#, python-format
+msgid ""
+"The following users have not visited the gym in the last %(weeks)s weeks"
+msgstr ""
+"I seguenti utenti non hanno visitato la palestra nelle ultime %(weeks)s "
+"settimane"
+
+#: gym/templates/gym/list.html:6
+msgid "Gym list"
+msgstr "Lista palestre"
+
+#: gym/templates/gym/list.html:47
+msgid "Global gym configuration"
+msgstr "Configurazione globale"
+
+#: gym/templates/gym/list.html:64 gym/views/gym.py:164
+msgid "Add new gym"
+msgstr "Aggiungi nuova palestra"
+
+#: gym/templates/gym/member_list.html:22
+msgid "Administrators and trainers"
+msgstr "Amministratori e istruttori"
+
+#: gym/templates/gym/member_list.html:48
+msgid "Gym manager"
+msgstr "Responsabile della palestra"
+
+#: gym/templates/gym/member_list.html:69
+msgid "This gym has no administrators or trainers"
+msgstr "Questa palestra non ha amministratori o allenatori"
+
+#: gym/templates/gym/member_list.html:88
+msgid "Export"
+msgstr "Esporta"
+
+#: gym/templates/gym/member_list.html:125
+msgid "Members"
+msgstr "Membri"
+
+#: gym/templates/gym/member_list.html:145
+msgid "Gym configuration"
+msgstr "Configurazione della palestra"
+
+#: gym/templates/gym/member_list.html:148
+msgid "Inactive members"
+msgstr "Membri inattivi"
+
+#: gym/templates/gym/member_list.html:149
+msgid "weeks"
+msgstr "settimane"
+
+#: gym/templates/gym/member_list.html:181
+msgid "My configuration"
+msgstr "La mia configurazione"
+
+#: gym/templates/gym/member_list.html:215
+msgid "Types"
+msgstr "Tipi"
+
+#: gym/templates/gym/member_list.html:285
+msgid "Emails"
+msgstr "Emails"
+
+#: gym/templates/gym/member_list.html:315
+msgid "Add member"
+msgstr "Aggiungi membro"
+
+#: gym/templates/gym/new_user.html:38
+msgid "Date of Birth"
+msgstr "Data di nascita"
+
+#: gym/templates/gym/new_user.html:48 manager/templates/calendar/month.html:144
+#: manager/templates/log/add.html:75 manager/templates/workout/timer.html:443
+#: manager/templates/workout/timer.html:470
+#: nutrition/templates/rate/form.html:120
+msgid "Info"
+msgstr "Info"
+
+#: gym/templates/gym/new_user.html:50
+msgid ""
+"Please write down the user password or save the exported\n"
+"file, which contains all the user data, and keep it in a safe place. The "
+"password\n"
+"cannot be recovered later."
+msgstr ""
+"Annotare la password dell'utente o salvare l'esportazione\n"
+"file, che contiene tutti i dati dell'utente e conservarlo in un luogo "
+"sicuro. La password\n"
+"non può essere recuperata in seguito."
+
+#: gym/templates/gym/new_user.html:57
+msgid "Export user data"
+msgstr "Esporta dati utente"
+
+#: gym/templates/gym/reset_user_password.html:32
+msgid ""
+"This user's password has been reset. Please notify the user of their new "
+"password."
+msgstr ""
+"La password di questo utente è stata ripristinata. Si prega di avvisare "
+"l'utente della sua nuova password."
+
+#: gym/views/admin_notes.py:94 gym/views/document.py:94
+msgid "Add note"
+msgstr "Aggiungi nota"
+
+#: gym/views/contract.py:56
+msgid "Add contract"
+msgstr "Aggiungi contratto"
+
+#: gym/views/contract_option.py:60
+msgid "Add option"
+msgstr "Aggiungi opzione"
+
+#: gym/views/contract_option.py:160 gym/views/contract_type.py:160
+#, python-brace-format
+msgid "Delete {0}"
+msgstr "Elimina {0}"
+
+#: gym/views/contract_type.py:60
+msgid "Add contract type"
+msgstr "Aggiunti tipo del contratto"
+
+#: gym/views/export.py:63
+msgid "Gender"
+msgstr "Sesso"
+
+#: gym/views/gym.py:332
+msgid "Add user to gym"
+msgstr "Aggiungi membro alla palestra"
+
+#: gym/views/gym.py:428
+msgid "Edit gym"
+msgstr "Modifica palestra"
+
+#: i18n.tpl:2
+msgid "/*/*"
+msgstr "/*/*"
+
+#: i18n.tpl:3
+msgid "231"
+msgstr "231"
+
+#: i18n.tpl:4
+msgid "Abs"
+msgstr "Addome"
+
+#: i18n.tpl:5
+msgid "Arms"
+msgstr "Braccia"
+
+#: i18n.tpl:6
+msgid "Back"
+msgstr "Dorso"
+
+#: i18n.tpl:7
+msgid "Calves"
+msgstr "Polpacci"
+
+#: i18n.tpl:8
+msgid "Chest"
+msgstr "Petto"
+
+#: i18n.tpl:9
+msgid "Legs"
+msgstr "Gambe"
+
+#: i18n.tpl:10
+msgid "Shoulders"
+msgstr "Spalle"
+
+#: i18n.tpl:11
+msgid "Barbell"
+msgstr "Bilanciere"
+
+#: i18n.tpl:12
+msgid "Bench"
+msgstr "Panca Orizzontale"
+
+#: i18n.tpl:13
+msgid "Dumbbell"
+msgstr "Manubrio"
+
+#: i18n.tpl:14
+msgid "Gym mat"
+msgstr "Tappetino"
+
+#: i18n.tpl:15
+msgid "Incline bench"
+msgstr "Panca inclinata"
+
+#: i18n.tpl:16
+msgid "Kettlebell"
+msgstr "Kettlebell"
+
+#: i18n.tpl:17
+msgid "Pull-up bar"
+msgstr "Spalliera"
+
+#: i18n.tpl:18
+msgid "SZ-Bar"
+msgstr "Bilanaciere Obliquo SZ"
+
+#: i18n.tpl:19
+msgid "Swiss Ball"
+msgstr "Palla Da Ginnastica"
+
+#: i18n.tpl:20
+msgid "none (bodyweight exercise)"
+msgstr "nessuno (esercizio a corpo libero)"
+
+#: i18n.tpl:21
+msgid "Anterior deltoid"
+msgstr "Deltoide anteriore"
+
+#: i18n.tpl:22
+msgid "Biceps brachii"
+msgstr "Bicipite brachiale"
+
+#: i18n.tpl:23
+msgid "Biceps femoris"
+msgstr "Bicipite femorale"
+
+#: i18n.tpl:24
+msgid "Brachialis"
+msgstr "Brachiale"
+
+#: i18n.tpl:25
+msgid "Erector spinae"
+msgstr "Erector spinae"
+
+#: i18n.tpl:26
+msgid "Gastrocnemius"
+msgstr "Gastrocnemio"
+
+#: i18n.tpl:27
+msgid "Gluteus maximus"
+msgstr "Grande gluteo"
+
+#: i18n.tpl:28
+msgid "Latissimus dorsi"
+msgstr "Latissimus dorsi"
+
+#: i18n.tpl:29
+msgid "Obliquus externus abdominis"
+msgstr "Obliqui esterni addominali"
+
+#: i18n.tpl:30
+msgid "Pectoralis major"
+msgstr "Grande pettorale"
+
+#: i18n.tpl:31
+msgid "Quadriceps femoris"
+msgstr "Quadricipite femorale"
+
+#: i18n.tpl:32
+msgid "Rectus abdominis"
+msgstr "Retto addominale"
+
+#: i18n.tpl:33
+msgid "Serratus anterior"
+msgstr "Serratore anteriore"
+
+#: i18n.tpl:34
+msgid "Soleus"
+msgstr "Soleo"
+
+#: i18n.tpl:35
+msgid "Trapezius"
+msgstr "Trapezio"
+
+#: i18n.tpl:36
+msgid "Triceps brachii"
+msgstr "Tricipite brachiale"
+
+#: i18n.tpl:37
+msgid "Kilometers"
+msgstr "Kilometri"
+
+#: i18n.tpl:38
+msgid "Miles"
+msgstr "Miglia"
+
+#: i18n.tpl:39
+msgid "Minutes"
+msgstr "Minuti"
+
+#: i18n.tpl:40 manager/forms.py:135 manager/models.py:868
+#: manager/templates/set/add.html:52 manager/templates/workout/timer.html:302
+#: manager/templates/workout/timer.html:305
+msgid "Repetitions"
+msgstr "Ripetizioni"
+
+#: i18n.tpl:41
+msgid "Seconds"
+msgstr "Secondi"
+
+#: i18n.tpl:42
+msgid "Until Failure"
+msgstr "Fino al Fallimento"
+
+#: mailer/forms.py:35 mailer/templates/mailer/gym/preview.html:32
+msgctxt "As in \"email subject\""
+msgid "Subject"
+msgstr "Soggetto"
+
+#: mailer/forms.py:36 mailer/templates/mailer/gym/preview.html:40
+msgctxt "As in \"content of an email\""
+msgid "Content"
+msgstr "Contenuto"
+
+#: mailer/templates/mailer/gym/form.html:23
+msgid "Generate preview"
+msgstr "Genera anteprima"
+
+#: mailer/templates/mailer/gym/form.html:28
+#: mailer/templates/mailer/gym/preview.html:62
+#: manager/templates/workout/view.html:84
+msgid "Steps"
+msgstr "Passi"
+
+#: mailer/templates/mailer/gym/form.html:30
+#: mailer/templates/mailer/gym/preview.html:64
+msgid "Fill in the form"
+msgstr "Riempi il form"
+
+#: mailer/templates/mailer/gym/form.html:31
+#: mailer/templates/mailer/gym/preview.html:65
+msgid "You will receive a preview email for you to review"
+msgstr "Riceverai un'e-mail di anteprima per la tua revisione"
+
+#: mailer/templates/mailer/gym/form.html:32
+#: mailer/templates/mailer/gym/preview.html:66
+msgid ""
+"You can update and correct the content as often as you need before sending "
+"the emails"
+msgstr ""
+"È possibile aggiornare e correggere il contenuto tutte le volte che è "
+"necessario prima di inviare le e-mail"
+
+#: mailer/templates/mailer/gym/preview.html:22
+msgid "Current version"
+msgstr "Versione attuale"
+
+#: mailer/templates/mailer/gym/preview.html:47
+msgid "Send emails"
+msgstr "Invia email"
+
+#: mailer/templates/mailer/gym/preview.html:51
+#: mailer/templates/mailer/gym/preview.html:56
+msgid "Correction"
+msgstr "Correzione"
+
+#: manager/forms.py:77
+msgid "The goal or description of the new workout."
+msgstr "Lo scopo o la descrizione del nuovo allenamento"
+
+#: manager/forms.py:102
+msgid ""
+"You can search for more than one exercise, they will be grouped together for "
+"a superset."
+msgstr ""
+"Puoi cercare più di un esercizio, saranno raggruppati in una superserie"
+
+#: manager/forms.py:127 manager/forms.py:130 manager/models.py:759
+#: manager/models.py:784 manager/models.py:861 manager/models.py:883
+#: manager/templates/log/add.html:53 manager/templates/log/add.html:55
+#: manager/templates/set/formset.html:11 manager/templates/set/formset.html:13
+#: nutrition/forms.py:62
+msgid "Unit"
+msgstr "Unità"
+
+#: manager/forms.py:224
+msgid "Type"
+msgstr "Tipo"
+
+#: manager/forms.py:226 manager/templates/workout/view.html:153
+msgid "Table"
+msgstr "Tabella"
+
+#: manager/forms.py:228 manager/templates/workout/view.html:159
+msgid "with images"
+msgstr "con immagini"
+
+#: manager/forms.py:230 manager/templates/workout/view.html:165
+msgid "with comments"
+msgstr "con commenti"
+
+#: manager/management/commands/email-reminders.py:121
+msgid "Workout will expire soon"
+msgstr "L'allenamento scadrà presto"
+
+#: manager/models.py:82 nutrition/models.py:94
+msgid "Creation date"
+msgstr "Data di creazione"
+
+#: manager/models.py:86
+msgid ""
+"A short description or goal of the workout. For example 'Focus on back' or "
+"'Week 1 of program xy'."
+msgstr ""
+"Una breve descrizione o scopo dell'allenamento. Per esempio \"Dedicato al "
+"dorso\" o \"Settimana 1 del programma xy\""
+
+#: manager/models.py:241
+msgid "Name or short description of the schedule. For example 'Program XYZ'."
+msgstr ""
+"Nome o breve descrizione della programmazione. Per esempio \"Programma XYZ\""
+
+#: manager/models.py:249 manager/templates/schedule/view.html:74
+msgid "Schedule active"
+msgstr "Programmazione attiva"
+
+#: manager/models.py:251
+msgid ""
+"Tick the box if you want to mark this schedule as your active one (will be "
+"shown e.g. on your dashboard). All other schedules will then be marked as "
+"inactive"
+msgstr ""
+"Segna la casella se vuoi segnalare la programmazione come attiva (sarà "
+"mostrata ad esempio sul tuo cruscotto. Tutte le altre programmazioni sarà "
+"poste a non attive"
+
+#: manager/models.py:257 manager/templates/schedule/view.html:84
+msgid "Is a loop"
+msgstr "È un ciclo"
+
+#: manager/models.py:259
+msgid ""
+"Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
+"B, C, and so on)"
+msgstr ""
+"Spunta la casella se vuoi ripetere le pianificazioni in un ciclo (ad esempio "
+"A, B, C, A, B, C e così via)"
+
+#: manager/models.py:338
+msgid "schedule"
+msgstr "Programmazione"
+
+#: manager/models.py:345
+msgid "Duration"
+msgstr "Durata"
+
+#: manager/models.py:346
+msgid "The duration in weeks"
+msgstr "Durata in settimane"
+
+#: manager/models.py:351 manager/models.py:571 manager/models.py:802
+#: nutrition/models.py:676 nutrition/models.py:823
+msgid "Order"
+msgstr "Ordine"
+
+#: manager/models.py:396
+msgid ""
+"A description of what is done on this day (e.g. \"Pull day\") or what body "
+"parts are trained (e.g. \"Arms and abs\")"
+msgstr ""
+"Una descrizione di quello che verrà fatto in questa giornata (es. \"Leg day"
+"\") o quale parte del corpo verrà allenata ( es. \"Braccia e addome\")"
+
+#: manager/models.py:400
+msgid "Day"
+msgstr "Giorno"
+
+#: manager/models.py:567
+msgid "Exercise day"
+msgstr "Giorno di allenamento"
+
+#: manager/models.py:573
+msgid "Number of sets"
+msgstr "Numero di serie"
+
+#: manager/models.py:754
+msgid "Sets"
+msgstr "Serie"
+
+#: manager/models.py:965
+msgid "Bad"
+msgstr "Cattivo"
+
+#: manager/models.py:966
+msgid "Neutral"
+msgstr "Neutrale"
+
+#: manager/models.py:967
+msgid "Good"
+msgstr "Buono"
+
+#: manager/models.py:994
+msgid "Any notes you might want to save about this workout session."
+msgstr ""
+"Eventuali note che potresti voler salvare su questa sessione di allenamento."
+
+#: manager/models.py:1004
+msgid ""
+"Your impression about this workout session. Did you exercise as well as you "
+"could?"
+msgstr ""
+"La tua impressione su questa sessione di allenamento. Ti sei allenato al "
+"meglio?"
+
+#: manager/models.py:1010
+msgid "Start time"
+msgstr "Inizio"
+
+#: manager/models.py:1017
+msgid "Finish time"
+msgstr "Fine"
+
+#: manager/models.py:1043
+msgid "If you enter a time, you must enter both start and end time."
+msgstr ""
+"Se inserisci un'ora, devi inserire sia l'ora di inizio che quella di fine."
+
+#: manager/models.py:1046
+msgid "The start time cannot be after the end time."
+msgstr "L'ora di inizio non può essere successiva all'ora di fine."
+
+#: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
+msgid "Workout log"
+msgstr "Registro di allenamento"
+
+#: manager/templates/calendar/day.html:12
+#, python-format
+msgid "Workout log for %(username)s for %(date)s"
+msgstr "Registro di allenamento per %(username)sper %(date)s"
+
+#: manager/templates/calendar/month.html:13
+#, python-format
+msgid "Calendar for %(username)s"
+msgstr "Calendario per %(username)s"
+
+#: manager/templates/calendar/month.html:53
+msgid "Detail page"
+msgstr "Pagina di dettaglio"
+
+#: manager/templates/calendar/month.html:145
+msgid ""
+"The coloured days in the calendar have weight logs,\n"
+"you can click on them to see the details."
+msgstr ""
+"I giorni colorati nel calendario hanno i log del peso,\n"
+"puoi cliccare su di essi per vedere i dettagli."
+
+#: manager/templates/calendar/month.html:157
+msgid "Go to current month"
+msgstr "Vai al mese attuale"
+
+#: manager/templates/calendar/partial_overview_table.html:5
+msgid "Log overview"
+msgstr "Panoramica del registro"
+
+#: manager/templates/calendar/partial_overview_table.html:12
+msgid "Workout session"
+msgstr "Sessione di allenamento"
+
+#: manager/templates/calendar/partial_overview_table.html:27
+msgid "Delete with logs"
+msgstr "Elimina con i registri"
+
+#: manager/templates/calendar/partial_overview_table.html:33
+msgid "Add workout impression"
+msgstr "Aggiungi impressioni dell'allenamento"
+
+#: manager/templates/log/add.html:20
+msgid "New weight log"
+msgstr "Nuovo registro pesi"
+
+#: manager/templates/log/add.html:76
+msgid ""
+"A new workout session (impression, notes, time) will\n"
+"be created if there isn't already one for the selected date. If there is, "
+"it\n"
+"will simply be edited. Weight entries are always added."
+msgstr ""
+"Una nuova sessione di allenamento (impressione, note, tempo) verrà\n"
+"creata se non ce n'è già una per la data selezionata. Se c'è,\n"
+"sarà semplicemente modificata. Le voci di peso vengono sempre aggiunte."
+
+#: manager/templates/schedule/overview.html:5
+msgid "Your schedules"
+msgstr "Le tue programmazioni"
+
+#: manager/templates/schedule/overview.html:19
+#: manager/templates/schedule/view.html:134
+#: manager/templates/schedule/view.html:190
+#: manager/templates/workout/overview.html:16
+msgid "active"
+msgstr "attivo"
+
+#: manager/templates/schedule/overview.html:28
+msgid "No schedules found."
+msgstr "Nessuna programmazione trovata."
+
+#: manager/templates/schedule/overview.html:36
+msgid ""
+"Schedules are collections of workouts that you do in\n"
+"succession."
+msgstr ""
+"I programmi sono raccolte di allenamenti che fai in\n"
+"successione."
+
+#: manager/templates/schedule/overview.html:39
+msgid ""
+"You can indicate how long you want to do each workout\n"
+"before jumping to the next. It is also possible to create a loop, so you\n"
+"always do the same workouts in succession, e.g. A > B > C > A > B > C and so "
+"on."
+msgstr ""
+"Puoi indicare per quanto tempo vuoi fare ogni allenamento\n"
+"prima di saltare al prossimo. È anche possibile creare un ciclo, quindi tu\n"
+"fai sempre gli stessi allenamenti in successione, ad es. A> B> C> A> B> C e "
+"così via."
+
+#: manager/templates/schedule/overview.html:43
+msgid ""
+"The currently active schedule will remain active (and be\n"
+"shown e.g. in your dashboard) till it reaches the last workout or till you\n"
+"deactivate it, if it is a loop."
+msgstr ""
+"Il programma attualmente attivo rimarrà attivo (e sarà\n"
+"mostrato ad es. nella tua bacheca) fino a quando non raggiunge l'ultimo "
+"allenamento o fin quando te\n"
+"non lo disattivi, se è un ciclo."
+
+#: manager/templates/schedule/overview.html:51
+msgid "Add schedule"
+msgstr "Aggiungi programmazione"
+
+#: manager/templates/schedule/view.html:10
+msgid "Schedule"
+msgstr "Programmazione"
+
+#: manager/templates/schedule/view.html:88
+msgid ""
+"This schedule is a loop and will go through the workouts above till you "
+"deactivate it"
+msgstr ""
+"Questo programma è un ciclo e passerà attraverso gli allenamenti che vedi "
+"sopra fino a quando non lo disattivi"
+
+#: manager/templates/schedule/view.html:106 manager/views/schedule.py:165
+#: manager/views/schedule.py:230
+msgid "Weeks"
+msgstr "Settimane"
+
+#: manager/templates/schedule/view.html:118
+msgid "Move me"
+msgstr "Spostami"
+
+#: manager/templates/schedule/view.html:158
+msgid "Start schedule"
+msgstr "Inizia programmazione"
+
+#: manager/templates/schedule/view.html:183
+#, python-format
+msgid ""
+"%(weeks)s Week\n"
+"                    "
+msgid_plural ""
+"%(weeks)s Weeks\n"
+"                    "
+msgstr[0] "%(weeks)s Settimana"
+msgstr[1] "%(weeks)s Settimane"
+
+#: manager/templates/schedule/view.html:220
+msgid "Adding workouts"
+msgstr "Aggiungi allenamenti"
+
+#: manager/templates/schedule/view.html:222
+msgid ""
+"Add as many workouts to the schedule as you want. You can\n"
+"edit the order by dragging and dropping them. It's also possible to add one "
+"workout more\n"
+"than once."
+msgstr ""
+"Aggiungi tutti gli allenamenti alla pianificazione che desideri. Puoi\n"
+"modifica l'ordine trascinandoli e rilasciandoli. È anche possibile "
+"aggiungere un allenamento più\n"
+"di una volta."
+
+#: manager/templates/schedule/view.html:231
+#: manager/templates/schedule/view.html:241
+#: manager/templates/schedule/view.html:286
+#: manager/templates/workout/view.html:113
+#: manager/templates/workout/view.html:123
+#: manager/templates/workout/view.html:217
+msgid "Export calendar file"
+msgstr "Esporta il file del calendario"
+
+#: manager/templates/schedule/view.html:235
+msgid "Export this schedule as a calendar file."
+msgstr "Esporta questo programma come un file di calendario."
+
+#: manager/templates/schedule/view.html:236
+#: manager/templates/workout/view.html:118
+msgid ""
+"You can then import the file it into your calendar\n"
+"application for example google calendar, outlook or iCal. This will create\n"
+"an appointment for each training day with the appropriate exercises."
+msgstr ""
+"È quindi possibile importare il file nella tua applicazione\n"
+"calendario come ad esempio Google Calendar, Outlook o iCal. Questo creerà\n"
+"un appuntamento per ogni giornata di allenamento con gli esercizi "
+"appropriati."
+
+#: manager/templates/schedule/view.html:256
+#: manager/templates/schedule/view.html:290
+#: manager/templates/workout/view.html:138
+#: manager/templates/workout/view.html:213
+#: nutrition/templates/plan/view.html:378
+msgid "Download as PDF"
+msgstr "Scarica come PDF"
+
+#: manager/templates/schedule/view.html:295
+msgid "Edit schedule"
+msgstr "Modifica programma"
+
+#: manager/templates/schedule/view.html:300
+msgid "Delete schedule"
+msgstr "Elimina programma"
+
+#: manager/templates/set/add.html:9
+#, python-format
+msgid "Add exercises to day \"%(day_name)s\""
+msgstr "Aggiungi esercizi al giorno \"%(day_name)s\""
+
+#: manager/templates/set/add.html:54
+msgid ""
+"If you do the same repetitions for all sets,\n"
+"you can just enter one value: e.g. for 4 sets just enter one \"10\" for the "
+"repetitions, this\n"
+"automatically becomes \"4 x 10\"."
+msgstr ""
+"Se fai le stesse ripetizioni per tutti i set,\n"
+"puoi inserire solo un valore: ad es. per 4 set basta inserire un \"10\" per "
+"le ripetizioni, questo\n"
+"diventa automaticamente \"4 x 10\"."
+
+#: manager/templates/set/edit.html:10
+msgid "Edit set"
+msgstr "Modifica serie"
+
+#: manager/templates/set/edit.html:25
+msgid "Update"
+msgstr "Aggiorna"
+
+#: manager/templates/workout/email_reminder.tpl:3
+#, python-format
+msgid "Your current workout '%(workout)s' expired %(days)s days ago."
+msgstr "Il tuo attuale allenamento '%(workout)s' è scaduto %(days)s giorni fa."
+
+#: manager/templates/workout/email_reminder.tpl:5
+#, python-format
+msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
+msgstr ""
+"Il tuo attuale allenamento '%(workout)s' è in procinto di scadere in "
+"%(days)s giorni."
+
+#: manager/templates/workout/email_reminder.tpl:9
+msgid ""
+"You will regularly receive such reminders till you add a new workout.\n"
+"Alternatively you can add workouts to a loop schedule, such schedules\n"
+"never produce reminders."
+msgstr ""
+"Riceverai regolarmente tali promemoria finché non aggiungerai un nuovo "
+"allenamento.\n"
+"In alternativa è possibile aggiungere allenamenti a un programma ciclico, "
+"tali programmi\n"
+"non produrranno mai promemoria."
+
+#: manager/templates/workout/email_reminder.tpl:12
+#: manager/templates/workout/email_weight_reminder.tpl:9
+msgid ""
+"If you don't want to ever receive email reminders, deactivate the\n"
+"option in your settings."
+msgstr ""
+"Se non si desidera ricevere mai promemoria via email, disattivare l'\n"
+"opzione nelle tue impostazioni."
+
+#: manager/templates/workout/email_weight_reminder.tpl:3
+#, python-format
+msgid ""
+"Your last weight entry is from %(date)s (%(days)s days ago).\n"
+"Please click the link to access the application and enter a new one."
+msgstr ""
+"L'ultima immissione di peso proviene da %(date)s (%(days)s giorni fa)\n"
+"Fare clic sul collegamento per accedere all'applicazione e inserirne uno "
+"nuovo."
+
+#: manager/templates/workout/email_weight_reminder.tpl:8
+msgid ""
+"You will regularly receive such reminders till you enter your current weight."
+msgstr ""
+"Riceverai regolarmente tali promemoria finché non inserisci il peso corrente."
+
+#: manager/templates/workout/log.html:29
+msgid "Weight log for workout"
+msgstr "Registro di peso per allenamento"
+
+#: manager/templates/workout/log.html:45 nutrition/templates/plan/view.html:339
+msgid "Goal"
+msgstr "Obiettivo"
+
+#: manager/templates/workout/log.html:55
+msgid "Add weight log to this day"
+msgstr "Aggiungi peso registrato di oggi"
+
+#: manager/templates/workout/log.html:81
+msgid "No weight entries here."
+msgstr "Nessuna voce di peso qui."
+
+#: manager/templates/workout/log.html:89
+msgid "No exercises for this day."
+msgstr "Nessun esercizio per questo giorno."
+
+#: manager/templates/workout/log.html:102
+msgid ""
+"This page shows the weight logs belonging to this workout\n"
+"only. Click on an exercise to see all the historical data for\n"
+"it."
+msgstr ""
+"Questa pagina mostra i registri del peso che appartengono solo a questo\n"
+"allenamento. Fai clic su un esercizio per visualizzare tutti i dati storici."
+
+#: manager/templates/workout/log.html:106
+msgid ""
+"If on a single day there is more than one entry with the\n"
+"same number of repetitions, but different weights, only the entry with the\n"
+"higher weight is shown in the diagram."
+msgstr ""
+"Se in un solo giorno c'è più di una voce con il\n"
+"stesso numero di ripetizioni, ma diversi pesi, solo la voce con il\n"
+"il peso più elevato è mostrato nel diagramma."
+
+#: manager/templates/workout/log.html:110
+msgid ""
+"Note that only entries with a weight unit (kg or lb) and\n"
+"repetitions are charted, other combinations such as time or until failure\n"
+"are ignored here."
+msgstr ""
+"Si noti che solo le voci con un'unità di peso (kg o lb) e\n"
+"le ripetizioni sono tracciate, altre combinazioni come il tempo o fino al "
+"fallimento\n"
+"sono ignorati qui."
+
+#: manager/templates/workout/overview.html:5
+msgid "Your workouts"
+msgstr "Il tuo allenamento"
+
+#: manager/templates/workout/timer.html:260
+msgid "Your workout today"
+msgstr "Il tuo allenamento di oggi"
+
+#: manager/templates/workout/timer.html:271
+msgid "Start!"
+msgstr "Inizio!"
+
+#: manager/templates/workout/timer.html:357
+msgid "reps"
+msgstr "ripetizioni"
+
+#: manager/templates/workout/timer.html:366
+#: manager/templates/workout/timer.html:415
+msgid "Skip"
+msgstr "Salta"
+
+#: manager/templates/workout/timer.html:390
+msgid "Pause!"
+msgstr "Pausa!"
+
+#: manager/templates/workout/timer.html:428
+msgid "Workout complete!"
+msgstr "Allenamento completo!"
+
+#: manager/templates/workout/view.html:68
+msgid "Add training day"
+msgstr "Aggiungi giorno di allenamento"
+
+#: manager/templates/workout/view.html:72
+msgid "Show/Hide exercise comments"
+msgstr "Mostra/nascondi commenti per gli esercizi"
+
+#: manager/templates/workout/view.html:87
+msgid "Add training days"
+msgstr "Aggiungi giorni di allenamento"
+
+#: manager/templates/workout/view.html:88
+msgid "Add workout sets to days"
+msgstr "Aggiungi set allenamento a giorni"
+
+#: manager/templates/workout/view.html:89
+msgid "Set the repetitions for each set"
+msgstr "Imposta le ripetizioni per ciascun set"
+
+#: manager/templates/workout/view.html:93
+msgid "Muscles trained"
+msgstr "Muscoli allenati"
+
+#: manager/templates/workout/view.html:96
+msgid ""
+"Images show combined muscles as trained by the exercises on the workout."
+msgstr ""
+"Le immagini mostrano i muscoli combinati come allenati dagli esercizi "
+"sull'allenamento."
+
+#: manager/templates/workout/view.html:117
+msgid "Export this workout as a calendar file."
+msgstr "Esporta questo allenamento come un file di calendario."
+
+#: manager/templates/workout/view.html:184
+msgid "Logs"
+msgstr "Records"
+
+#: manager/templates/workout/view.html:186
+msgid "View logs"
+msgstr "Guarda records"
+
+#: manager/templates/workout/view.html:208 manager/views/schedule_step.py:99
+msgid "Edit workout"
+msgstr "Modifica allenamento"
+
+#: manager/templates/workout/view.html:221
+msgid "Make a copy of this workout"
+msgstr "Fai una copia di questo allenamento"
+
+#: manager/views/day.py:109
+msgid "Add workout day"
+msgstr "Aggiungi giorno di allenamento"
+
+#: manager/views/log.py:92
+#, python-format
+msgid "Edit log entry for %s"
+msgstr "Modifica la voce del registro per %s"
+
+#: manager/views/log.py:109
+msgid "Delete workout log"
+msgstr "Elimina registro allenamento"
+
+#: manager/views/pdf.py:86 manager/views/pdf.py:157
+#, python-format
+msgid "Workout for %s"
+msgstr "Allenamento per %s"
+
+#: manager/views/schedule.py:277
+msgid "Create schedule"
+msgstr "Crea programmazione"
+
+#: manager/views/workout.py:194
+msgid "Copy workout"
+msgstr "Copia allenamento"
+
+#: manager/views/workout.py:197
+msgid "Copy"
+msgstr "Copia"
+
+#: manager/views/workout_session.py:70
+#, python-brace-format
+msgid "Edit workout impression for {0}"
+msgstr "Modifica impressione allenamento per {0}"
+
+#: manager/views/workout_session.py:114
+#, python-brace-format
+msgid "New workout impression for the {0}"
+msgstr "Nuova impressione allenamento per {0}"
+
+#: manager/views/workout_session.py:157
+msgid "This will delete all weight logs for this day as well."
+msgstr "Questo cancellerà anche tutti i log del peso per questo giorno."
+
+#: nutrition/forms.py:116
+msgid "Calculate"
+msgstr "Calcola"
+
+#: nutrition/forms.py:185 nutrition/templates/rate/form.html:76
+msgid "Basic caloric intake"
+msgstr "Assunzione calorica di base"
+
+#: nutrition/forms.py:186
+msgid "Your basic caloric intake as calculated for your data"
+msgstr "Il tuo apporto calorico di base calcolato per i tuoi dati"
+
+#: nutrition/forms.py:190
+msgid "Additional calories"
+msgstr "Calorie aggiuntive"
+
+#: nutrition/forms.py:191
+msgid ""
+"Additional calories to add to the base rate (to substract, enter a negative "
+"number)"
+msgstr ""
+"Calorie aggiuntive da aggiungere alla tariffa base (per sottrarre, inserire "
+"un numero negativo)"
+
+#: nutrition/forms.py:217 nutrition/models.py:635 nutrition/models.py:815
+#: nutrition/models.py:873 nutrition/templates/log/detail.html:155
+msgid "Ingredient"
+msgstr "Alimenti"
+
+#: nutrition/models.py:98
+msgid ""
+"A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
+"summer\""
+msgstr ""
+"Una descrizione dell'obiettivo del piano, ad es. \"Guadagna massa\" o "
+"\"Preparati per l'estate\""
+
+#: nutrition/models.py:100
+msgid "Use daily calories"
+msgstr "Usa calorie giornaliere"
+
+#: nutrition/models.py:102
+msgid ""
+"Tick the box if you want to mark this plan as having a goal amount of "
+"calories. You can use the calculator or enter the value yourself."
+msgstr ""
+"Spunta la casella se vuoi contrassegnare questo piano come se avesse una "
+"quantità di calorie da raggiungere. Puoi usare la calcolatrice o inserire il "
+"valore tu stesso."
+
+#: nutrition/models.py:274
+msgid "Ingredient Categories"
+msgstr "Categorie ingredienti"
+
+#: nutrition/models.py:325
+msgid "In kcal per 100g"
+msgstr "In kcal per 100g"
+
+#: nutrition/models.py:330 nutrition/models.py:337 nutrition/models.py:346
+#: nutrition/models.py:353 nutrition/models.py:362 nutrition/models.py:371
+#: nutrition/models.py:380
+msgid "In g per 100g of product"
+msgstr "In g per 100 g di prodotto"
+
+#: nutrition/models.py:345 nutrition/templates/ingredient/view.html:96
+#: nutrition/templates/log/detail.html:78
+#: nutrition/templates/plan/view.html:233 nutrition/views/plan.py:373
+msgid "Sugar content in carbohydrates"
+msgstr "Zuccheri contenuti nei carboidrati"
+
+#: nutrition/models.py:361 nutrition/templates/ingredient/view.html:112
+#: nutrition/templates/log/detail.html:104
+#: nutrition/templates/plan/view.html:245 nutrition/views/plan.py:380
+msgid "Saturated fat content in fats"
+msgstr "Grassi saturi contenuti nei grassi"
+
+#: nutrition/models.py:370 nutrition/templates/ingredient/view.html:134
+#: nutrition/templates/log/detail.html:122
+#: nutrition/templates/log/detail.html:178
+#: nutrition/templates/plan/view.html:256 nutrition/views/plan.py:383
+msgid "Fibres"
+msgstr "Fibre"
+
+#: nutrition/models.py:379 nutrition/templates/ingredient/view.html:144
+#: nutrition/templates/log/detail.html:135
+#: nutrition/templates/log/detail.html:181
+#: nutrition/templates/plan/view.html:262 nutrition/views/plan.py:385
+msgid "Sodium"
+msgstr "Sodio"
+
+#: nutrition/models.py:396
+msgid "Link to product"
+msgstr "Collega al prodotto"
+
+#: nutrition/models.py:414
+msgid "Brand name of product"
+msgstr "Nome del produttore"
+
+#: nutrition/models.py:473
+#, python-brace-format
+msgid ""
+"The total energy ({energy}kcal) is not the approximate sum of the energy "
+"provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
+"{energy_approx}%)"
+msgstr ""
+"L'energia totale ({energy}kcal) non è la somma approssimata dell'energia "
+"delle proteine, carboidrati e grasso. ({energy_calculated} kcal +/- "
+"{energy_approx}%)"
+
+#: nutrition/models.py:553 nutrition/views/ingredient.py:219
+msgid "Ingredient was successfully added to the general database"
+msgstr "L'ingrediente è stato aggiunto con successo al database generale"
+
+#: nutrition/models.py:576
+msgid "New user submitted ingredient"
+msgstr "Nuovo ingrediente presentato dall'utente"
+
+#: nutrition/models.py:577
+#, python-brace-format
+msgid "The user {0} submitted a new ingredient \"{1}\"."
+msgstr "L'utente {0} ha inviato un nuovo ingrediente \"{1}\"."
+
+#: nutrition/models.py:640
+msgid "Amount in grams"
+msgstr "Quantità in grammi"
+
+#: nutrition/models.py:645
+msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
+msgstr "Importo unitario, ad es. \"1 tazza\" o \"1/2 cucchiaio\""
+
+#: nutrition/models.py:681
+msgid "Time (approx)"
+msgstr "Orario (approssimativo)"
+
+#: nutrition/templates/bmi/form.html:62
+msgid "Results"
+msgstr "Risultati"
+
+#: nutrition/templates/bmi/form.html:63
+msgid "Your BMI is: "
+msgstr "Il tuo BMI è"
+
+#: nutrition/templates/bmi/form.html:71
+msgid "Legend"
+msgstr "Leggenda"
+
+#: nutrition/templates/bmi/form.html:75
+msgid "Adipositas III"
+msgstr "Obesità III"
+
+#: nutrition/templates/bmi/form.html:79
+msgid "Adipositas II"
+msgstr "Obesità II"
+
+#: nutrition/templates/bmi/form.html:83
+msgid "Adipositas I"
+msgstr "Obesità I"
+
+#: nutrition/templates/bmi/form.html:87
+msgid "Overweight"
+msgstr "Sovrappeso"
+
+#: nutrition/templates/bmi/form.html:91
+msgid "Normal weight"
+msgstr "Normopeso"
+
+#: nutrition/templates/bmi/form.html:95
+msgid "Slight underweight"
+msgstr "Leggermente sottopeso"
+
+#: nutrition/templates/bmi/form.html:99
+msgid "Moderate underweight"
+msgstr "Moderatamente sottopeso"
+
+#: nutrition/templates/bmi/form.html:103
+msgid "Strong underweight"
+msgstr "Fortemente sottopeso"
+
+#: nutrition/templates/bmi/form.html:117
+msgid ""
+"Use the form to calculate your BMI (Body Mass Index).\n"
+"If you have entered data in the weight section, the last entry will\n"
+"be used automatically. Otherwise the weight you enter here will be saved\n"
+"in a new entry."
+msgstr ""
+"Usa questo strumento per calcolare il tuo indice di massa corporea (BMI).\n"
+"Se sono stati immessi dati nella sezione relativa al peso, verrà "
+"automaticamente utilizzata l'ultima voce inserita.\n"
+"Altrimenti il peso che inserisci qui verrà salvato\n"
+"in una nuova voce."
+
+#: nutrition/templates/ingredient/email_new.tpl:1
+#, python-format
+msgid ""
+"Your ingredient '%(ingredient)s' was successfully added to the general\n"
+"database."
+msgstr ""
+"Il tuo ingrediente '%(ingredient)s' è stato aggiunto con successo al "
+"database\n"
+"generale."
+
+#: nutrition/templates/ingredient/email_new.tpl:4
+msgid ""
+"It is now available on the ingredient overview and can be\n"
+"added to nutrition plans. You can access it on this address:"
+msgstr ""
+"È ora disponibile nella panoramica degli ingredienti e può essere\n"
+"aggiunto a piani nutrizionali. Puoi accedervi da questo indirizzo:"
+
+#: nutrition/templates/ingredient/form.html:4
+msgid "Submitting an ingredient"
+msgstr "Invio di un ingrediente"
+
+#: nutrition/templates/ingredient/form.html:5
+msgid ""
+"Thank you for submitting an ingredient. This is much\n"
+"appreciated!"
+msgstr "Grazie per aver inviato un ingrediente. L'apprezziamo molto!"
+
+#: nutrition/templates/ingredient/form.html:8
+msgid ""
+"After you submit the form, the administrators will be notified.\n"
+"Once it is reviewed, it will be added to the database. Till this happens,\n"
+"it will not be visible in the overview or the search. In case you added your "
+"email\n"
+"when you registered, you will get notified when the process is completed "
+"sucessfully."
+msgstr ""
+"Una volta compilato il modulo, sarà inviata una notifica agli "
+"amministratori. Una volta revisionato, sarà inserito nel database. Fino ad "
+"allora, non sarà visibile nel prospetto o nella ricerca. Nel caso tu abbia "
+"inserito la tua email durante la registrazione, ti verrà inviata una "
+"notifica quando il processo sarà completato con successo"
+
+#: nutrition/templates/ingredient/overview.html:45
+msgid "No ingredients."
+msgstr "Nessun ingrediente"
+
+#: nutrition/templates/ingredient/overview.html:66
+msgid "ingredient name"
+msgstr "Nome alimento"
+
+#: nutrition/templates/ingredient/overview.html:79
+#: nutrition/templates/ingredient/overview.html:83
+msgid "Add ingredient"
+msgstr "Aggiungi ingrediente"
+
+#: nutrition/templates/ingredient/view.html:27
+msgid "Ingredient is pending review"
+msgstr "L'ingrediente è in attesa di revisione"
+
+#: nutrition/templates/ingredient/view.html:28
+msgid ""
+"This user submitted ingredient is pending a decision to be\n"
+"included in the database. Till then, it will not be shown in the overview "
+"or\n"
+"the search."
+msgstr ""
+"Questo ingrediente presentato dall'utente è in attesa di decisione\n"
+"incluso nel database. Fino ad allora, non sarà mostrato nella panoramica o\n"
+"la ricerca."
+
+#: nutrition/templates/ingredient/view.html:71
+#: nutrition/templates/log/detail.html:31
+#: nutrition/templates/plan/view.html:200 nutrition/views/plan.py:356
+msgid "Macronutrients"
+msgstr "Macronutrienti"
+
+#: nutrition/templates/ingredient/view.html:80
+#: nutrition/templates/plan/view.html:64 nutrition/templates/plan/view.html:216
+msgid "kJ"
+msgstr "kJ"
+
+#: nutrition/templates/ingredient/view.html:101
+#: nutrition/templates/ingredient/view.html:117
+#: nutrition/templates/ingredient/view.html:139
+#: nutrition/templates/ingredient/view.html:149
+msgid "n.A."
+msgstr "n.D."
+
+#: nutrition/templates/ingredient/view.html:128
+#: nutrition/templates/log/detail.html:119
+#: nutrition/templates/plan/view.html:253
+msgid "Others"
+msgstr "Altri"
+
+#: nutrition/templates/ingredient/view.html:165
+msgid "User submitted ingredient"
+msgstr "L'ingrediente presentato dall'utente"
+
+#: nutrition/templates/ingredient/view.html:167
+#, python-format
+msgid "This exercise was submitted by <strong>%(username)s</strong>."
+msgstr "Questo esercizio è stato inserito da <strong>%(username)s</strong>."
+
+#: nutrition/templates/ingredient/view.html:177
+#: nutrition/templates/units/list.html:44 nutrition/views/unit.py:84
+msgid "Add new weight unit"
+msgstr "Aggiungi una nuova unità di peso"
+
+#: nutrition/templates/ingredient/view.html:230
+#: nutrition/templates/ingredient/view.html:233
+msgid "Edit ingredient"
+msgstr "Modifica ingrediente"
+
+#: nutrition/templates/ingredient/view.html:237
+msgid "Delete ingredient"
+msgstr "Cancella ingrediente"
+
+#: nutrition/templates/log/detail.html:7
+#: nutrition/templates/log/overview.html:7
+#: nutrition/templates/plan/view.html:271
+msgid "Nutrition diary"
+msgstr "Diario nutrizionale"
+
+#: nutrition/templates/log/detail.html:32
+msgid "Planned"
+msgstr "Pianificato"
+
+#: nutrition/templates/log/detail.html:33
+#: nutrition/templates/log/overview.html:31
+#: nutrition/templates/plan/view.html:278
+msgid "Logged"
+msgstr "Registrato"
+
+#: nutrition/templates/log/detail.html:34
+#: nutrition/templates/log/overview.html:32
+#: nutrition/templates/plan/view.html:279
+msgid "Difference"
+msgstr "Differenza"
+
+#: nutrition/templates/log/detail.html:150
+msgid "Entries"
+msgstr "Dati"
+
+#: nutrition/templates/log/detail.html:170
+msgid "g"
+msgstr "g"
+
+#: nutrition/templates/log/overview.html:53
+#: nutrition/templates/plan/view.html:300
+msgid "nothing found"
+msgstr "Nessun risultato"
+
+#: nutrition/templates/plan/overview.html:5
+msgid "Your nutrition plans"
+msgstr "Il tuo piano nutrizionale"
+
+#: nutrition/templates/plan/view.html:53
+msgid "Meal"
+msgstr "Pasto"
+
+#: nutrition/templates/plan/view.html:54
+msgid "Contents"
+msgstr "Contenuti"
+
+#: nutrition/templates/plan/view.html:83
+msgid "Log this meal"
+msgstr "Registra questo pasto"
+
+#: nutrition/templates/plan/view.html:87
+msgid "Add ingredient to meal"
+msgstr "Aggiungi ingredienti al pasto"
+
+#: nutrition/templates/plan/view.html:142
+msgid "No items for this meal."
+msgstr "Nessun alimento per questo pasto."
+
+#: nutrition/templates/plan/view.html:162
+msgid "No meals for this plan."
+msgstr "Nessun pasto per questo piano nutrizionale."
+
+#: nutrition/templates/plan/view.html:173
+msgid "Log this Plan"
+msgstr "Aggiungi la pianificazione"
+
+#: nutrition/templates/plan/view.html:179
+msgid "Add a new meal"
+msgstr "Aggiungi un nuovo pasto."
+
+#: nutrition/templates/plan/view.html:189 nutrition/views/plan.py:354
+msgid "Nutritional data"
+msgstr "Dati nutrizionali"
+
+#: nutrition/templates/plan/view.html:192
+#, python-format
+msgid "Based on the weight entry dated %(date)s (%(weight)s)"
+msgstr "Basato sui dati del peso datato%(date)s (%(weight)s)"
+
+#: nutrition/templates/plan/view.html:201 nutrition/views/plan.py:357
+msgid "Total"
+msgstr "Totale"
+
+#: nutrition/templates/plan/view.html:202 nutrition/views/plan.py:358
+msgid "Percent of energy"
+msgstr "Percentuale di energia"
+
+#: nutrition/templates/plan/view.html:205 nutrition/views/plan.py:359
+msgid "g per body kg"
+msgstr "g per peso in kg"
+
+#: nutrition/templates/plan/view.html:207
+msgid "oz per body lb"
+msgstr "oz per corpo lb"
+
+#: nutrition/templates/plan/view.html:307
+msgid "View complete nutrition log"
+msgstr "Mostra tutte le registrazioni nutrizionali"
+
+#: nutrition/templates/plan/view.html:349
+msgid ""
+"You have selected that this nutritional plan has a\n"
+"    goal amount of calories. Use the calculator or enter the value yourself."
+msgstr ""
+"Hai selezionato che questo piano nutrizionale ha un\n"
+"     obbiettivo sulla quantità di calorie. Usa la calcolatrice o inserisci "
+"il valore tu stesso."
+
+#: nutrition/templates/plan/view.html:358
+msgid ""
+"If you find the ingredient list too short, you might want to activate the "
+"preference to also show English ingredients."
+msgstr ""
+"Se trovi che la lista degli ingredienti è troppo corta, potresti voler "
+"attivare la preferenza per mostrare anche gli ingredienti Inglesi."
+
+#: nutrition/templates/plan/view.html:383
+msgid "Edit nutrition plan"
+msgstr "Modifica piano nutrizionale"
+
+#: nutrition/templates/plan/view.html:387
+msgid "Make a copy of this nutrition plan"
+msgstr "Fai una copia di questo piano nutrizionale"
+
+#: nutrition/templates/plan/view.html:392
+msgid "Delete nutrition plan"
+msgstr "Cancella piano nutrizionale"
+
+#: nutrition/templates/rate/form.html:25
+msgid "Basal metabolic rate"
+msgstr "Metabolismo basale"
+
+#: nutrition/templates/rate/form.html:26
+msgid ""
+"The basal metabolic rate is the amount of energy expended daily\n"
+"at rest. This is the minimum energy needed for the body to function, without "
+"any\n"
+"additional physical activity."
+msgstr ""
+"Il tasso metabolico basale è la quantità di energia spesa ogni giorno\n"
+"a riposo. Questa è l'energia minima necessaria affinché il corpo funzioni, "
+"senza alcuna\n"
+"attività fisica aggiuntiva."
+
+#: nutrition/templates/rate/form.html:37
+msgid "Your basic metabolic rate is: "
+msgstr "Il tuo metabolismo basale è:"
+
+#: nutrition/templates/rate/form.html:47
+msgid "Physical activities"
+msgstr "Attività fisiche"
+
+#: nutrition/templates/rate/form.html:48
+msgid ""
+"The physical activity level (PAL) is a factor used to to express\n"
+"the additional physical activity and is used to calculate the total energy\n"
+"required per day."
+msgstr ""
+"Il livello di attività fisica (PAL) è un fattore utilizzato per esprimere\n"
+"l'attività fisica aggiuntiva e viene utilizzata per calcolare l'energia "
+"totale\n"
+"richiesta al giorno."
+
+#: nutrition/templates/rate/form.html:59
+msgid "Factor for daily activities: "
+msgstr "Fattore per le attività quotidiane:"
+
+#: nutrition/templates/rate/form.html:67
+msgid ""
+"The base caloric intake is the amount of calories your metabolism\n"
+"needs based on your level of physical activity."
+msgstr ""
+"L'apporto calorico di base è la quantità di calorie del tuo bisogno\n"
+"metabolico in base al tuo livello di attività fisica."
+
+#: nutrition/templates/rate/form.html:81
+msgid "Calculate basic caloric intake"
+msgstr "Calcola l'apporto calorico di base"
+
+#: nutrition/templates/rate/form.html:88
+msgid ""
+"The total calories are the actual total calories per day. This\n"
+"might include e.g. a surplus or deficit if you are bulking or cutting. "
+"Alternatively\n"
+"you might just enter yourself the amount of calories if you know the value."
+msgstr ""
+"Le calorie totali sono le calorie totali effettive al giorno. Questo\n"
+"potrebbe includere per es. un surplus o un deficit se si sta prendendo massa "
+"o se la si sta perdendo. In alternativa\n"
+"potresti semplicemente inserire te stesso la quantità di calorie se conosci "
+"il valore."
+
+#: nutrition/templates/rate/form.html:102
+msgid "Transfer basic intake to total daily calories"
+msgstr "Trasferire l'assunzione di base al totale delle calorie giornaliere"
+
+#: nutrition/templates/rate/form.html:106
+msgid "Add additional calories to total daily calories"
+msgstr "Aggiungere ulteriori calorie al totale delle calorie giornaliere"
+
+#: nutrition/templates/rate/form.html:110
+msgid "Save total calories to profile"
+msgstr "Salva le calorie totali nel profilo"
+
+#: nutrition/templates/rate/form.html:121
+msgid ""
+"Please note that these calculations can only be an\n"
+"approximation. If you base your nutrition plan on these values, observe\n"
+"yourself for some weeks and change the total amount if needed."
+msgstr ""
+"Si prega di notare che questi calcoli possono essere solo un\n"
+"approssimazione. Se basi il tuo piano nutrizionale su questi valori, "
+"osserva\n"
+"te stesso per alcune settimane e modificare l'importo totale, se necessario."
+
+#: nutrition/views/ingredient.py:175
+msgid "Add a new ingredient"
+msgstr "Aggiungi un nuovo ingrediente"
+
+#: nutrition/views/ingredient.py:232
+msgid "Ingredient was successfully marked as rejected"
+msgstr "L'ingrediente è stato contrassegnato con successo come rifiutato"
+
+#: nutrition/views/log.py:212 nutrition/views/unit_ingredient.py:134
+msgid "Delete?"
+msgstr "Elimina?"
+
+#: nutrition/views/meal.py:55
+msgid "Add new meal"
+msgstr "Aggiungi un nuovo pasto"
+
+#: nutrition/views/meal.py:80
+msgid "Edit meal"
+msgstr "Modifica pasto"
+
+#: nutrition/views/meal_item.py:112
+msgid "Edit meal item"
+msgstr "Modifica l'articolo del pasto"
+
+#: nutrition/views/plan.py:261
+msgid "Nutritional plan"
+msgstr "Piano nutrizionale"
+
+#: nutrition/views/plan.py:263
+#, python-format
+msgid "Nutritional plan for %s"
+msgstr "Piano nutrizionale per %s"
+
+#: nutrition/views/plan.py:330
+msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
+msgstr "<i>Questo è un piano vuoto, cosa ti aspettavi dal PDF?</i>"
+
+#: nutrition/views/unit_ingredient.py:68
+msgid "Add a new weight unit"
+msgstr "Aggiungi una nuova unità di peso"
+
+#: nutrition/views/unit_ingredient.py:103
+msgid "Edit a weight unit to ingredient connection"
+msgstr "Modifica un'unità di peso collegato all'ingrediente"
+
+#: software/templates/contribute.html:9
+msgid ""
+"wger Workout Manager is build by volunteers,\n"
+"the development process is open and freely accessible to anybody "
+"interested.\n"
+"If you are new to the free software world, we recommend to take a\n"
+"look <a href=\"http://schlitt.info/opensource/"
+"blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+"article</a> which summarizes they way open source projects work very well. "
+msgstr ""
+"wger Workout Manager è realizzato da volontari,\n"
+"il processo di sviluppo è aperto e liberamente accessibile a chiunque sia "
+"interessato.\n"
+"Se sei nuovo nel mondo del software libero, ti consigliamo di prendere "
+"visione\n"
+"di <a href=\"http://schlitt.info/opensource/"
+"blog/0541_10_golden_rules_for_starting_with_open_source.html\">questo\n"
+"articolo</a> che riassume in che modo i progetti open source funzionano "
+"molto bene."
+
+#: software/templates/contribute.html:16
+msgid ""
+"Any kind of contribution is appreciated and welcome.\n"
+"Use this opportunity and influence the direction of the\n"
+"project. "
+msgstr ""
+"Qualsiasi tipo di contributo è apprezzato e benvenuto.\n"
+"Usa questa opportunità e influenza la direzione del\n"
+"progetto."
+
+#: software/templates/contribute.html:23
+msgid "Use the site"
+msgstr "Usa il sito"
+
+#: software/templates/contribute.html:24
+msgid ""
+"Simply use the site and tell your friends\n"
+"how useful it is! ;) . When you find something that you specially liked,\n"
+"could need some improvements or just doesn't work, tell us! This might not "
+"sound\n"
+"like much, but is incredibly important!"
+msgstr ""
+"Usa semplicemente il sito e dillo ai tuoi amici\n"
+"quanto è utile! ;). Quando trovi qualcosa che ti è particolarmente "
+"piaciuto,\n"
+"potrebbe aver bisogno di miglioramenti o semplicemente non funziona, dicci! "
+"Questo potrebbe non essere\n"
+"molto, ma è incredibilmente importante!"
+
+#: software/templates/contribute.html:31
+msgid "Submit exercises"
+msgstr "Invia esercizi"
+
+#: software/templates/contribute.html:32
+msgid ""
+"Submit those cool exercises that you absolutely\n"
+"love and do every week but are not in the list yet. If you think some "
+"description\n"
+"is too short or some other detail is missing or could be improved, tell!"
+msgstr ""
+"Invia quei fantastici esercizi che assolutamente\n"
+"ami e che fai ogni settimana ma non sono ancora nella lista. Se pensi che "
+"qualche descrizione\n"
+"sia troppo corta o manca qualche altro dettaglio o potrebbe essere "
+"migliorato,basta dire!"
+
+#: software/templates/contribute.html:44
+msgid ""
+"Do you want to use wger in your own language?\n"
+"Do you think the current translation could be improved?\n"
+"The translations are easily managed and edited online, if you are "
+"interested,\n"
+"visit the link and start translating."
+msgstr ""
+"Vuoi usare il wger nella tua lingua?\n"
+"Pensi che la traduzione attuale possa essere migliorata?\n"
+"Le traduzioni sono facilmente gestibili e modificate online, se sei "
+"interessato,\n"
+"visita il link e comincia a tradurre."
+
+#: software/templates/contribute.html:53
+msgid "Code"
+msgstr "Codice"
+
+#: software/templates/contribute.html:54
+msgid ""
+"Obviously, you are highly encouraged to clone the\n"
+"repo and start hacking! Once you are ready, send a pull request and we\n"
+"will show the world. Take a look at the developer guide for more details\n"
+"on this."
+msgstr ""
+"Ovviamente, sei fortemente incoraggiato a clonare il\n"
+"repo e ad iniziare l'hacking! Una volta che sei pronto, invia una richiesta "
+"di pull e noi\n"
+"ti mostreremo il mondo. Dai un'occhiata alla guida per gli sviluppatori per "
+"maggiori dettagli\n"
+"su questo."
+
+#: software/templates/contribute.html:66
+msgid "Our goal"
+msgstr "Il nostro obbiettivo"
+
+#: software/templates/contribute.html:69
+msgid ""
+"The goal is to build an awesome\n"
+"and flexible fitness manager, along with a comprehensive and complete list "
+"of exercises and\n"
+"ingredients, all released under a free license."
+msgstr ""
+"L'obiettivo è costruire un fantastico\n"
+"e flessibile gestore di fitness, insieme a un elenco comprensivo e completo "
+"di esercizi e\n"
+"ingredienti, tutti rilasciati con una licenza gratuita."
+
+#: software/templates/features.html:12
+msgid ""
+"wger Workout Manager is a free, open source web application that manages "
+"your exercises and workouts. "
+msgstr ""
+"wger Workout Manager è un'applicazione web gratuita e open source che "
+"gestisce i tuoi esercizi e allenamenti."
+
+#: software/templates/features.html:24
+msgid "Welcome to wger"
+msgstr "Benvenuto su wger"
+
+#: software/templates/features.html:25
+msgid "Your body."
+msgstr "Il tuo corpo."
+
+#: software/templates/features.html:26
+msgid "Your workouts."
+msgstr "I tuoi allenamenti."
+
+#: software/templates/features.html:27
+msgid "Your data."
+msgstr "I tuoi dati."
+
+#: software/templates/features.html:28
+msgid "Your progress."
+msgstr "I tuoi progressi."
+
+#: software/templates/features.html:31
+msgid "Try it now"
+msgstr "Provalo adesso"
+
+#: software/templates/features.html:55
+msgid "Your advantages"
+msgstr "Vantaggi"
+
+#: software/templates/features.html:57
+msgid ""
+"wger Workout Manager is a free, open source web application that manages "
+"your exercises, workouts and nutrition. It started as a pet project of mine "
+"to replace my growing collection of different spreadsheets, but it has "
+"become something other people could also find useful."
+msgstr ""
+"wger Workout Manager è un'applicazione web gratuita e open source che "
+"gestisce esercizi, allenamenti e nutrizione. È iniziato come un mio progetto "
+"per animali domestici in sostituzione della mia crescente collezione di "
+"fogli di lavoro diversi, ma è diventato qualcosa che altre persone "
+"potrebbero trovare utili."
+
+#: software/templates/features.html:74
+msgid ""
+"You can create and manage flexible workout routines for any goals you have. "
+"Select exactly which exercises you'll do and how many repetitions, time or "
+"distance you want to do them. You can also combine different workouts into a "
+"schedule."
+msgstr ""
+"Puoi creare e gestire routine di allenamento flessibili per qualsiasi "
+"obiettivo tu abbia. Seleziona nei minimi dettagli gli esercizi, quante "
+"ripetizioni, tempo o distanza vuoi fare. Puoi anche combinare allenamenti "
+"diversi in un programma."
+
+#: software/templates/features.html:89
+msgid ""
+"Create your personal diet plan by creating as many meals with as many "
+"different ingredients as you need. The application will calculate the "
+"nutritional values (total energy, protein, carbohydrates, and so on) about "
+"the whole plan as well as the indivual meals."
+msgstr ""
+"Crea il tuo programma di dieta personale creando tanti pasti con tanti "
+"ingredienti diversi di cui hai bisogno. L'applicazione calcolerà i valori "
+"nutrizionali (energia totale, proteine, carboidrati e così via) sull'intero "
+"piano e sui pasti individuali."
+
+#: software/templates/features.html:102
+msgid "Diary"
+msgstr "Diario"
+
+#: software/templates/features.html:104
+msgid ""
+"Enter the weights and repetitions you did for each exercise to generate "
+"diagrams that let you see at a glance how well you are doing. The raw "
+"numbers are of course still accessible."
+msgstr ""
+"Inserisci i pesi e le ripetizioni che hai fatto per ogni esercizio per "
+"generare diagrammi che ti permettano di vedere a colpo d'occhio quanto bene "
+"stai facendo. I numeri grezzi sono ovviamente ancora accessibili."
+
+#: software/templates/features.html:109
+msgid ""
+"You can also enter notes and a general impression (great, neutral, etc.)"
+msgstr ""
+"Puoi anche inserire note e un'impressione generale (ottima, neutra, ecc.)"
+
+#: software/templates/features.html:121
+msgid "Among many others"
+msgstr "Tra le principali"
+
+#: software/templates/features.html:133
+msgid "Weight tracker"
+msgstr "Traccia il tuo peso"
+
+#: software/templates/features.html:137
+msgid ""
+"Keep track of your progress with the body weight chart. This makes it easy "
+"to see if you are reaching your goals or need to adjust something."
+msgstr ""
+"Tieni traccia dei tuoi progressi con la tabella del peso corporeo. In questo "
+"modo è facile capire se stai raggiungendo i tuoi obiettivi o hai bisogno di "
+"aggiustare qualcosa."
+
+#: software/templates/features.html:156
+msgid ""
+"Get an overview of how and when you trained as well as how you personally "
+"felt you performed. Access all your individual diary entries with one click."
+msgstr ""
+"Ottieni una panoramica di come e quando ti sei allenato e di come ti sei "
+"sentito personalmente durante la tua prestazione . Accedi a tutte le voci "
+"del tuo diario individuale con un clic."
+
+#: software/templates/features.html:171
+msgid "Exercise database"
+msgstr "Database di esercizi"
+
+#: software/templates/features.html:175
+msgid ""
+"The exercise database contains more than hundred exercises from which you "
+"can choose when creating a workout. You can view them by category and "
+"equipment used or muscles trained."
+msgstr ""
+"Il database degli esercizi contiene più di cento esercizi dai quali è "
+"possibile scegliere quando si crea un allenamento. È possibile visualizzarli "
+"per categoria e attrezzature utilizzate o muscoli allenati."
+
+#: software/templates/features.html:190
+msgid "Gym management"
+msgstr "Gestione della palestra"
+
+#: software/templates/features.html:194
+msgid ""
+"Use the application for your gym to manage its members, their workouts and "
+"attendance. You can manage the members' contracts, keep notes and upload any "
+"files you might need."
+msgstr ""
+"Usa l'applicazione per la tua palestra per gestire i suoi membri, i loro "
+"allenamenti e la frequenza. È possibile gestire i contratti dei membri, "
+"conservare note e caricare qualsiasi file necessario."
+
+#: software/templates/features.html:213
+msgid ""
+"wger provides a REST API with full read and write access to all data so you "
+"can integrate your own application and tools."
+msgstr ""
+"wger fornisce un'API REST con accesso completo in lettura e scrittura a "
+"tutti i dati in modo da poter integrare la propria applicazione e i propri "
+"strumenti."
+
+#: software/templates/features.html:223
+#, python-format
+msgid "100%% Free <br>and <br>Open Source"
+msgstr "100%% Gratuito <br>e <br>Open Source"
+
+#: software/templates/issues.html:6
+msgid "Reporting a problem"
+msgstr "Segnala un problema"
+
+#: software/templates/issues.html:10
+msgid ""
+"\n"
+"No software is perfect. For some severe errors, an email will be "
+"automatically sent, but\n"
+"not always, so I depend on you reporting everything that didn't behave as "
+"expected.\n"
+"Please describe in as much detail as you can what you were doing when the "
+"error\n"
+"happened.\n"
+msgstr ""
+"\n"
+"Nessun software è perfetto. Per alcuni errori gravi, verrà inviata "
+"automaticamente un'email, ma\n"
+"non sempre, quindi io dipendo da te riportando tutto ciò che non si è "
+"comportato come previsto.\n"
+"Per favore descrivi nel modo più dettagliato possibile ciò che stavi facendo "
+"quando l'errore\n"
+"è accaduto.\n"
+
+#: software/templates/issues.html:21
+msgid "report problem to the issue tracker"
+msgstr "segnala un problema nel tracker dei problemi"
+
+#: software/templates/issues.html:25
+msgid "Enhancements"
+msgstr "Miglioramenti"
+
+#: software/templates/issues.html:27
+msgid ""
+"\n"
+"The issue tracker can also be used to document enhancements to the "
+"software.\n"
+"If you have some suggestions or think a feature is missing, feel\n"
+"free to open a ticket. This can be anything from a slight change to a whole\n"
+"new section of the site. Please keep in mind that not all wishes can be\n"
+"implemented."
+msgstr ""
+"\n"
+"Il tracker dei problemi può anche essere utilizzato per documentare "
+"miglioramenti al software.\n"
+"Se hai qualche suggerimento o pensi che manchi una funzionalità, sentiti\n"
+"libero di aprire un ticket. Questo può essere qualsiasi cosa, da un leggero "
+"cambiamento a tutta\n"
+"una nuova sezione del sito. Si prega di tenere presente che non tutti i "
+"desideri possono essere\n"
+"implementati."
+
+#: software/templates/issues.html:36
+msgid "report wish to the issue tracker"
+msgstr "segnala il tuo desiderio al tracker dei problemi"
+
+#: software/templates/issues.html:41
+msgid "No Github account?"
+msgstr "Nessun account Github?"
+
+#: software/templates/issues.html:42
+msgid ""
+"Filing an issue requires a github account, if you don't\n"
+"have one and don't want to register, you can also send it to\n"
+"<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
+msgstr ""
+"Presentare un problema richiede un account github, se non ne\n"
+"hai uno e non vuoi registrarti, puoi anche inviarlo alla\n"
+"<a href=\"https://groups.google.com/group/wger\">mailing list</a>."
+
+#: software/templates/license.html:10
+msgid ""
+"wger Workout Manager is Free/Libre Open Source\n"
+"Software (FLOSS)."
+msgstr ""
+"wger Workout Manager è Gratuito / Libre Open Source\n"
+"Software (FLOSS)."
+
+#: software/templates/license.html:22
+msgid ""
+"wger Workout Manager is released under the <strong>Affero GNU\n"
+"General Public License (AGPL)  Version 3+</strong> and can (under the "
+"conditions\n"
+"of the license) be used, modified and distributed (also with modifications)\n"
+"without restrictions."
+msgstr ""
+"wger Workout Manager è rilasciato sotto <strong>Affero GNU\n"
+"General Public License (AGPL) Versione 3+</strong> e può (in base alle "
+"condizioni\n"
+"della licenza) essere utilizzato, modificato e distribuito (anche con "
+"modifiche)\n"
+"senza restrizioni."
+
+#: software/templates/license.html:29
+msgid ""
+"A copy the license text is contained in every wger Workout\n"
+"Manager release (LICENSE.txt) and can be read online on the website of\n"
+"<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>."
+msgstr ""
+"Una copia del testo della licenza è contenuta in ogni allenamento di wger\n"
+"Release Manager (LICENSE.txt) e può essere letto online sul sito Web del\n"
+"<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>progetto GNU</a>."
+
+#: utils/generic_views.py:254
+msgid "Yes, delete"
+msgstr "Si, cancella"
+
+#: utils/models.py:44
+msgid "Author"
+msgstr "Autore"
+
+#: utils/models.py:48
+msgid ""
+"If you are not the author, enter the name or source here. This is needed for "
+"some licenses e.g. the CC-BY-SA."
+msgstr ""
+"Se non sei l'autore, inserisci qui il nome o la fonte. Questo è necessario "
+"per alcune licenze, ad es. il CC-BY-SA."
+
+#: utils/models.py:71
+msgid "Pending"
+msgstr "In attesa"
+
+#: utils/models.py:72
+msgid "Accepted"
+msgstr "Accettato"
+
+#: utils/models.py:73
+msgid "Declined"
+msgstr "Rifiutato"
+
+#: weight/forms.py:51
+msgid "Input"
+msgstr "Immisione"
+
+#: weight/forms.py:52
+msgid "Date format"
+msgstr "Formato data"
+
+#: weight/management/commands/email-weight-reminder.py:80
+msgid "You have to enter your weight"
+msgstr "Devi inserire il tuo peso"
+
+#: weight/models.py:54
+msgid "Weight entry"
+msgstr "Voce del peso"
+
+#: weight/templates/import_csv_form.html:4
+msgid "Import weight logs"
+msgstr "Importa i registri del peso"
+
+#: weight/templates/import_csv_form.html:15
+msgid ""
+"Use this import field to import your weight logs into Workout\n"
+"Manager."
+msgstr ""
+"Usa questo campo di importazione per importare i tuoi log dei pesi nel "
+"Manager\n"
+"dell'Allenamento."
+
+#: weight/templates/import_csv_form.html:18
+msgid ""
+"You can copy and paste from your spreadsheet into the text input,\n"
+"the system will try to guess the format to import. The only things to "
+"consider is\n"
+"that the first column is the <strong>date</strong>, the second the "
+"<strong>weight</strong>.\n"
+"All further columns are ignored. There is a 1000 row limit.\n"
+msgstr ""
+"Puoi copiare e incollare dal tuo foglio di calcolo nell'input del testo,\n"
+"il sistema proverà a indovinare il formato da importare. Le uniche cose da "
+"considerare sono\n"
+"che la prima colonna è la <strong>data</strong>, la seconda il <strong>peso</"
+"strong>.\n"
+"Tutte le ulteriori colonne vengono ignorate. C'è un limite di 1000 righe.\n"
+
+#: weight/templates/import_csv_form.html:24
+msgid ""
+"If there are errors, you can correct or discard them in a\n"
+"second step."
+msgstr ""
+"Se ci sono errori, puoi correggerli o scartarli in un\n"
+"secondo momento."
+
+#: weight/templates/import_csv_preview.html:4
+msgid "Preview imported CSV entries"
+msgstr "Anteprima delle voci CSV importate"
+
+#: weight/templates/import_csv_preview.html:9
+msgid "Successfully converted values"
+msgstr "Valori convertiti con successo"
+
+#: weight/templates/import_csv_preview.html:10
+msgid "The following values could be converted."
+msgstr "I seguenti valori potrebbero essere convertiti."
+
+#: weight/templates/import_csv_preview.html:26
+msgid "Errors"
+msgstr "Errori"
+
+#: weight/templates/import_csv_preview.html:29
+msgid "The following values could not be converted."
+msgstr "I seguenti valori non possono essere convertiti."
+
+#: weight/templates/import_csv_preview.html:31
+msgid ""
+"These values could not be converted to a weight log entry.\n"
+"    The reasons for this could be anything from an unrecognised date or "
+"number\n"
+"    format, a problem with the encoding or something else. Please check "
+"that\n"
+"    there are no obvious errors in the list (and correct them if there "
+"are!)\n"
+"    and try to import the list again."
+msgstr ""
+"Questi valori non possono essere convertiti in una voce del registro peso.\n"
+"     Le ragioni per questo potrebbero essere qualsiasi cosa da una data o un "
+"formato numerico non riconosciuto,\n"
+" un problema con la codifica o qualcos'altro. Si prega di controllare che\n"
+"     non ci siano errori evidenti nella lista (correggili se ci sono!)\n"
+"     e prova a importare di nuovo l'elenco."
+
+#: weight/templates/import_csv_preview.html:37
+msgid ""
+"Remember that the expected structure is <strong>date</strong>\n"
+"    on the first columns and <strong>weight</strong> on the second."
+msgstr ""
+"Ricorda che la struttura prevista è <strong>data</strong>\n"
+"     sulle prime colonne e <strong>peso</strong> sulle seconde."
+
+#: weight/templates/import_csv_preview.html:54
+msgid "There were no errors, all entries could be converted!"
+msgstr "Non ci sono stati errori, tutte le voci potrebbero essere convertite!"
+
+#: weight/templates/import_csv_preview.html:58
+msgid "Import all successfully converted entries"
+msgstr "Importa tutte le voci convertite correttamente"
+
+#: weight/templates/import_csv_preview.html:59
+msgid ""
+"Continue here if you want to import into your weight log all\n"
+"entries that were successfully converted. All entries that produced an "
+"error\n"
+"will simply be ignored. It's up to you to decide whether they are useful\n"
+"(unrecognised entries) or not (e.g. headers, comments, etc.)."
+msgstr ""
+"Continua qui se vuoi importare tutto nel tuo registro dei pesi\n"
+"le voci che sono state convertite con successo. Tutte le voci che hanno "
+"prodotto un errore\n"
+"saranno semplicemente ignorate. Sta a te decidere se sono utili\n"
+"(voci non riconosciute) o meno (ad esempio intestazioni, commenti, ecc.)."
+
+#: weight/templates/import_csv_preview.html:69
+msgid "Import"
+msgstr "Importa"
+
+#: weight/templates/import_csv_preview.html:74
+msgid "Or try it again"
+msgstr "O riprova ancora"
+
+#: weight/templates/import_csv_preview.html:76
+msgid ""
+"You can correct the list here and re-submit it as often as\n"
+"you want."
+msgstr ""
+"È possibile correggere l'elenco qui e inviarlo di nuovo tutte le volte\n"
+"che vuoi"
+
+#: weight/templates/import_csv_preview.html:85
+msgid "Re-Submit"
+msgstr "Re-Invia"
+
+#: weight/templates/overview.html:27
+msgid "There is no chart here because there are no weight entries."
+msgstr "Non ci sono grafici qui perché non ci sono voci di peso."
+
+#: weight/templates/overview.html:28
+msgid "Use link to add one."
+msgstr "Usa il link per aggiungerne uno."
+
+#: weight/templates/overview.html:34
+msgid "height in cm"
+msgstr "altezza in cm"
+
+#: weight/templates/overview.html:38
+msgid "Last 3 months"
+msgstr "Ultimi 3 mesi"
+
+#: weight/templates/overview.html:39
+msgid "Last 12 months"
+msgstr "Ultimi 12 mesi"
+
+#: weight/templates/overview.html:40
+msgid "No filter"
+msgstr "Nessun filtro"
+
+#: weight/templates/overview.html:50
+msgctxt "Noun, not verb"
+msgid "Change"
+msgstr "Variazione"
+
+#: weight/templates/overview.html:51
+msgid "Days"
+msgstr "Giorni"
+
+#: weight/templates/overview.html:83
+msgid "Edit weight"
+msgstr "Modifica il peso"
+
+#: weight/templates/overview.html:126
+msgid "Export as CSV"
+msgstr "Esporta come CSV"
+
+#: weight/templates/overview.html:130
+msgid "Import from spreadsheet"
+msgstr "Importa da foglio di calcolo"
+
+#: weight/views.py:105
+#, python-format
+msgid "Edit weight entry for the %s"
+msgstr "Modifica l'inserimento di peso per %s "
+
+#: weight/views.py:124
+msgid "Successfully deleted."
+msgstr "Cancellato con successo"
+
+#: weight/views.py:128
+#, python-format
+msgid "Delete weight entry for the %s"
+msgstr "Cancellato il peso inserito di %s"
+
+#~ msgid "Translate with Transifex"
+#~ msgstr "Traduci con Transifex"
+
+#~ msgid ""
+#~ "The total energy ({self.energy}kcal) is not the approximate sum of the "
+#~ msgstr "L'energia totale ({self.energy}kcal) non è la somma approssimata di"

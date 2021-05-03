@@ -1,0 +1,1 @@
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.orig_value|date:'Y-m-d' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>

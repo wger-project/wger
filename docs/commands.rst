@@ -8,7 +8,7 @@ running application (to e.g. delete guest users, send emails, etc.).
 Administration Commands
 -----------------------
 
-The application provides several administration and bootstraping commands that
+The application provides several administration and bootstrapping commands that
 can be passed to the ``wger`` command::
 
     wger <command>
@@ -25,7 +25,7 @@ arguments::
     create-settings         Creates a local settings file
     load-fixtures           Loads all fixtures
     migrate-db              Run all database migrations
-    start                   Start the application using django's built in webserver
+    start                   Start the application using django's built-in webserver
 
 You can also get help on a specific command with ``wger --help <command>``.
 

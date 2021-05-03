@@ -29,8 +29,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -137,7 +137,7 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     model = WorkoutSession
     fields = ('date', 'notes', 'impression', 'time_start', 'time_end')
     success_url = reverse_lazy('manager:workout:overview')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def delete(self, request, *args, **kwargs):
         """

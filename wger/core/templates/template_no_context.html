@@ -33,7 +33,7 @@
 
     {% block header %}{% endblock %}
 
-    <title>{% trans "An error occurred" %}</title>
+    <title>{% translate "An error occurred" %}</title>
 </head>
 
 <body>
@@ -85,8 +85,8 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="list-unstyled mb-0 pt-2">
-                    <li><a href="{% url 'core:about' %}" class="text-muted small">{% trans "About" %}</a></li>
-                    <li><a href="{% url 'software:tos' %}" class="text-muted small">{% trans "Terms of service" %}</a></li>
+                    <li><a href="{% url 'core:about' %}" class="text-muted small">{% translate "About" %}</a></li>
+                    <li><a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a></li>
                 </ul>
             </div>
         </div>

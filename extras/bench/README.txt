@@ -9,7 +9,7 @@ package manager) if you want to create plots. It requires a running web test
 server (you can edit which one in the .conf file)
 
 WARNING: You should *not* run this script against a server that is not under
-your responsablity as it can result a DOS in bench mode.
+your responsibility as it can result a DOS in bench mode.
 
 For more information on configuration, options, etc. refer to the funkload
 documentation page: http://funkload.nuxeo.org

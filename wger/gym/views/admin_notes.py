@@ -26,8 +26,8 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -90,8 +90,8 @@ class AddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Create
     """
 
     model = AdminUserNote
-    fields = '__all__'
-    title = ugettext_lazy('Add note')
+    fields = ['note']
+    title = gettext_lazy('Add note')
     permission_required = 'gym.add_adminusernote'
     member = None
 
@@ -130,7 +130,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
     """
 
     model = AdminUserNote
-    fields = '__all__'
+    fields = ['note']
     permission_required = 'gym.change_adminusernote'
 
     def get_success_url(self):

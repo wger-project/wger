@@ -24,7 +24,7 @@ from django.forms import (
     Textarea,
     widgets
 )
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 # Third Party
 from crispy_forms.helper import FormHelper

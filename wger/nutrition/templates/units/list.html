@@ -3,7 +3,7 @@
 {% load static %}
 {% load wger_extras %}
 
-{% block title %}{% trans "Ingredient weight units" %}{% endblock %}
+{% block title %}{% translate "Ingredient weight units" %}{% endblock %}
 
 
 {% block content %}
@@ -15,16 +15,16 @@
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'nutrition:weight_unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
+                <a href="{% url 'nutrition:weight_unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
                 <div class="dropdown-divider"></div>
-                <a href="{% url 'nutrition:weight_unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                <a href="{% url 'nutrition:weight_unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
             </div>
         </div>
         {{unit.name}}
     </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -41,6 +41,6 @@
 {#         #}
 {% block options %}
     <a href="{% url 'nutrition:weight_unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add new weight unit" %}
+        {% translate "Add new weight unit" %}
     </a>
 {% endblock %}

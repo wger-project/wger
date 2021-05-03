@@ -32,7 +32,7 @@ invoke_cmd = 'invoke '
 
 
 def main():
-    # Change the working directory so that invoke can find the tasks fiel
+    # Change the working directory so that invoke can find the tasks file
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     args = sys.argv[1:]

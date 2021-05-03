@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras django_bootstrap_breadcrumbs %}
 
-{% block title %}{% trans "User notes" %}{% endblock %}
+{% block title %}{% translate "User notes" %}{% endblock %}
 
 
 
@@ -29,7 +29,7 @@
                 {% if perms.gym.change_adminusernote %}
                 <li>
                     <a href="{% url 'gym:admin_note:edit' note.pk %}" class="wger-modal-dialog">
-                        {% trans 'Edit' %}
+                        {% translate 'Edit' %}
                     </a>
                 </li>
                 {% endif %}
@@ -37,7 +37,7 @@
                 {% if perms.gym.delete_adminusernote %}
                 <li>
                     <a href="{% url 'gym:admin_note:delete' note.pk %}" class="wger-modal-dialog">
-                        {% trans 'Delete' %}
+                        {% translate 'Delete' %}
                     </a>
                 <li>
                 {% endif %}
@@ -49,7 +49,7 @@
     </li>
     {% empty %}
     <li class="list-group-item">
-        {% trans "Nothing found" %}
+        {% translate "Nothing found" %}
     </li>
     {% endfor %}
 </ul>
@@ -64,7 +64,7 @@
 {% block options %}
 {% if perms.gym.add_adminusernote %}
     <a href="{% url 'gym:admin_note:add' member.pk %}" class="wger-modal-dialog btn btn-success btn-sm">
-        {% trans "Add" %}
+        {% translate "Add" %}
     </a>
 {% endif %}
 {% endblock %}

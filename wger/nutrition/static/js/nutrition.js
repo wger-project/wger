@@ -33,6 +33,7 @@ function updateIngredientValue(url) {
 
     // Replace the nutritional values
     $('#value-energy').html(parseFloat(data.energy).toFixed(2));
+    $('#value-energy-kjoule').html(parseFloat(data.energy * 4.184).toFixed(2));
     $('#value-protein').html(parseFloat(data.protein).toFixed(2));
     $('#value-carbohydrates').html(parseFloat(data.carbohydrates).toFixed(2));
     $('#value-carbohydrates-sugar').html(parseFloat(data.carbohydrates_sugar).toFixed(2));

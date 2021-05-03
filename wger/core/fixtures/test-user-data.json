@@ -498,12 +498,14 @@
             "workout_reminder": 20,
             "workout_duration": 8,
             "notification_language": 1,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 1,
             "weight_unit": "kg",
             "ro_access": true,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -529,12 +531,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":3
+            "num_days_weight_reminder": 3,
+            "added_by": null,
+            "can_add_user": true
         }
     },
     {
@@ -563,7 +567,9 @@
             "gym": 2,
             "weight_unit": "kg",
             "ro_access": true,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -589,12 +595,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	         "timer_pause": 90,
+	         "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": 2,
+            "can_add_user": false
         }
     },
     {
@@ -620,12 +628,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	         "timer_active": true,
+  	        "timer_pause": 90,
+  	        "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": 2,
+            "can_add_user": false
         }
     },
     {
@@ -651,12 +661,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	         "timer_pause": 90,
+	          "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -682,12 +694,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 2,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 2,
             "weight_unit": "lb",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -713,12 +727,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 2,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 2,
             "weight_unit": "lb",
             "ro_access": true,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -744,12 +760,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -775,12 +793,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -806,12 +826,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 2,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 2,
             "weight_unit": "lb",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -837,12 +859,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 1,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 1,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -868,12 +892,14 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
-	        "timer_active": true,
-	        "timer_pause": 90,
-	        "gym": 2,
+	          "timer_active": true,
+	          "timer_pause": 90,
+	          "gym": 2,
             "weight_unit": "lb",
             "ro_access": true,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
         {
@@ -904,7 +930,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -935,7 +963,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -966,7 +996,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -997,7 +1029,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1028,7 +1062,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1059,7 +1095,9 @@
             "is_temporary": false,
             "weight_unit": "lb",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1090,7 +1128,9 @@
             "is_temporary": false,
             "weight_unit": "lb",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1121,7 +1161,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1152,7 +1194,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1183,7 +1227,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
     {
@@ -1214,7 +1260,9 @@
             "is_temporary": false,
             "weight_unit": "kg",
             "ro_access": false,
-            "num_days_weight_reminder":0
+            "num_days_weight_reminder": 0,
+            "added_by": null,
+            "can_add_user": false
         }
     },
         {

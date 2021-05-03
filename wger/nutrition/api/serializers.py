@@ -22,11 +22,191 @@ from rest_framework import serializers
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
+    LogItem,
     Meal,
     MealItem,
     NutritionPlan,
     WeightUnit
 )
+
+
+class IngredientWeightUnitSerializer(serializers.ModelSerializer):
+    """
+    IngredientWeightUnit serializer
+    """
+
+    class Meta:
+        model = IngredientWeightUnit
+        fields = ['id',
+                  'amount',
+                  'gram',
+                  'ingredient',
+                  'unit']
+
+
+class IngredientWeightUnitInfoSerializer(serializers.ModelSerializer):
+    """
+    IngredientWeightUnit info serializer
+    """
+
+    class Meta:
+        model = IngredientWeightUnit
+        depth = 1
+        fields = ['gram',
+                  'amount',
+                  'unit']
+
+
+class WeightUnitSerializer(serializers.ModelSerializer):
+    """
+    WeightUnit serializer
+    """
+
+    class Meta:
+        model = WeightUnit
+        fields = ['language',
+                  'name']
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    """
+    Ingredient serializer
+    """
+
+    class Meta:
+        model = Ingredient
+        fields = ['id',
+                  'name',
+                  'creation_date',
+                  'update_date',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author',
+                  'language']
+
+
+class IngredientInfoSerializer(serializers.ModelSerializer):
+    """
+    Ingredient info serializer
+    """
+
+    ingredientweightunit_set = IngredientWeightUnitInfoSerializer(many=True)
+
+    class Meta:
+        model = Ingredient
+        depth = 1
+        fields = ['id',
+                  'name',
+                  'creation_date',
+                  'update_date',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author',
+                  'ingredientweightunit_set',
+                  'language']
+
+
+class MealItemSerializer(serializers.ModelSerializer):
+    """
+    MealItem serializer
+    """
+    meal = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
+                                              queryset=Meal.objects.all())
+
+    class Meta:
+        model = MealItem
+        fields = ['id',
+                  'meal',
+                  'ingredient',
+                  'weight_unit',
+                  'order',
+                  'amount']
+
+
+class LogItemSerializer(serializers.ModelSerializer):
+    """
+    LogItem serializer
+    """
+
+    class Meta:
+        model = LogItem
+        fields = ['id',
+                  'plan',
+                  'ingredient',
+                  'weight_unit',
+                  'datetime',
+                  'amount']
+
+
+class MealItemInfoSerializer(serializers.ModelSerializer):
+    """
+    Meal Item info serializer
+    """
+
+    meal = serializers.PrimaryKeyRelatedField(read_only=True)
+    ingredient = serializers.PrimaryKeyRelatedField(read_only=True)
+    ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
+    weight_unit = serializers.PrimaryKeyRelatedField(read_only=True)
+    weight_unit_obj = IngredientWeightUnitSerializer(source='weight_unit', read_only=True)
+
+    class Meta:
+        model = MealItem
+        depth = 1
+        fields = ['id',
+                  'meal',
+                  'ingredient',
+                  'ingredient_obj',
+                  'weight_unit',
+                  'weight_unit_obj',
+                  'order',
+                  'amount']
+
+
+class MealSerializer(serializers.ModelSerializer):
+    """
+    Meal serializer
+    """
+    plan = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
+                                              queryset=NutritionPlan.objects.all())
+
+    class Meta:
+        model = Meal
+        fields = ['id',
+                  'plan',
+                  'order',
+                  'time']
+
+
+class MealInfoSerializer(serializers.ModelSerializer):
+    """
+    Meal info serializer
+    """
+
+    meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
+    plan = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Meal
+        fields = ['id',
+                  'plan',
+                  'order',
+                  'time',
+                  'meal_items',
+                  'get_nutritional_values']
 
 
 class NutritionPlanSerializer(serializers.ModelSerializer):
@@ -39,55 +219,19 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
         exclude = ('user',)
 
 
-class IngredientWeightUnitSerializer(serializers.ModelSerializer):
+class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     """
-    IngredientWeightUnit serializer
+    Nutritional plan info serializer
     """
+
+    meals = MealInfoSerializer(source='meal_set', many=True)
 
     class Meta:
-        model = IngredientWeightUnit
-        fields = '__all__'
-
-
-class WeightUnitSerializer(serializers.ModelSerializer):
-    """
-    WeightUnit serializer
-    """
-
-    class Meta:
-        model = WeightUnit
-        fields = '__all__'
-
-
-class MealItemSerializer(serializers.ModelSerializer):
-    """
-    MealItem serializer
-    """
-    meal = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
-                                              queryset=Meal.objects.all())
-
-    class Meta:
-        model = MealItem
-        fields = '__all__'
-
-
-class MealSerializer(serializers.ModelSerializer):
-    """
-    Meal serializer
-    """
-    plan = serializers.PrimaryKeyRelatedField(label='Nutrition plan',
-                                              queryset=NutritionPlan.objects.all())
-
-    class Meta:
-        model = Meal
-        fields = '__all__'
-
-
-class IngredientSerializer(serializers.ModelSerializer):
-    """
-    Ingredient serializer
-    """
-
-    class Meta:
-        model = Ingredient
-        fields = '__all__'
+        model = NutritionPlan
+        depth = 1
+        fields = ['id',
+                  'language',
+                  'creation_date',
+                  'description',
+                  'get_nutritional_values',
+                  'meals']

@@ -26,7 +26,7 @@ from django.http import (
 )
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import ModelFormMixin
 
@@ -138,7 +138,7 @@ class WgerFormMixin(ModelFormMixin):
     the model doesn't provide a get_owner_object() method
     """
 
-    submit_text = ugettext_lazy('Save')
+    submit_text = gettext_lazy('Save')
     """
     Text used in the submit button, default _('save')
     """
@@ -164,10 +164,6 @@ class WgerFormMixin(ModelFormMixin):
 
         # Custom JS code on form (autocompleter, editor, etc.)
         context['custom_js'] = self.custom_js
-
-        # Template to extend. For AJAX requests we don't need the rest of the
-        # template, only the form
-        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
 
         return context
 
@@ -255,7 +251,7 @@ class WgerDeleteMixin(ModelFormMixin):
     form_action_urlname = ''
     title = ''
     delete_message_extra = ''
-    delete_message = ugettext_lazy('Yes, delete')
+    delete_message = gettext_lazy('Yes, delete')
     template_name = 'delete.html'
     messages = ''
 
@@ -272,10 +268,6 @@ class WgerDeleteMixin(ModelFormMixin):
 
         # Additional delete message
         context['delete_message'] = self.delete_message_extra
-
-        # Template to extend. For AJAX requests we don't need the rest of the
-        # template, only the form
-        context['extend_template'] = 'base_empty.html' if self.request.is_ajax() else 'base.html'
 
         return context
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% trans "License list" %}{% endblock %}
+{% block title %}{% translate "License list" %}{% endblock %}
 
 
 {% block content %}
@@ -13,15 +13,15 @@
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <div class="dropdown-menu" role="menu">
-                <a href="{% url 'core:license:edit' license.id %}" class="dropdown-item wger-modal-dialog">{% trans 'Edit' %}</a>
-                <a href="{% url 'core:license:delete' license.id %}" class="dropdown-item wger-modal-dialog">{% trans 'Delete' %}</a>
+                <a href="{% url 'core:license:edit' license.id %}" class="dropdown-item wger-modal-dialog">{% translate 'Edit' %}</a>
+                <a href="{% url 'core:license:delete' license.id %}" class="dropdown-item wger-modal-dialog">{% translate 'Delete' %}</a>
             </div>
         </div>
         {{license}}
     </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -35,7 +35,7 @@
 {% block options %}
 {% if perms.core.add_license %}
     <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add" %}
+        {% translate "Add" %}
     </a>
 {% endif %}
 {% endblock %}

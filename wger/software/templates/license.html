@@ -4,30 +4,30 @@
 {% load wger_extras %}
 
 
-{% block title %}{% trans "License" %}{% endblock %}
+{% block title %}{% translate "License" %}{% endblock %}
 
 {% block content %}
-<p>{% blocktrans %}wger Workout Manager is Free/Libre Open Source
-Software (FLOSS).{% endblocktrans %}</p>
+<p>{% blocktranslate %}wger Workout Manager is Free/Libre Open Source
+Software (FLOSS).{% endblocktranslate %}</p>
 
 <div class="row">
     <div class="col-md-2 text-center">
         <img src="{% static 'images/agpl-v3.svg' %}"
              width="88"
              height="31"
-             alt="{% trans 'Released under the Affero GPL' %}"
-             title="{% trans 'Released under the Affero GPL' %}">
+             alt="{% translate 'Released under the Affero GPL' %}"
+             title="{% translate 'Released under the Affero GPL' %}">
     </div>
     <div class="col-md-10">
-        <p>{% blocktrans %}wger Workout Manager is released under the <strong>Affero GNU
+        <p>{% blocktranslate %}wger Workout Manager is released under the <strong>Affero GNU
 General Public License (AGPL)  Version 3+</strong> and can (under the conditions
 of the license) be used, modified and distributed (also with modifications)
-without restrictions.{% endblocktrans %}</p>
+without restrictions.{% endblocktranslate %}</p>
     </div>
 </div>
 
-<p>{% blocktrans %}A copy the license text is contained in every wger Workout
+<p>{% blocktranslate %}A copy the license text is contained in every wger Workout
 Manager release (LICENSE.txt) and can be read online on the website of
-<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>.{% endblocktrans %}</p>
+<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>.{% endblocktranslate %}</p>
 
 {% endblock %}

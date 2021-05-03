@@ -24,8 +24,8 @@ from django.contrib.auth.mixins import (
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -69,8 +69,8 @@ class LanguageCreateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
     """
 
     model = Language
-    fields = '__all__'
-    title = ugettext_lazy('Add')
+    fields = ['short_name', 'full_name']
+    title = gettext_lazy('Add')
     permission_required = 'core.add_language'
 
 
@@ -80,9 +80,9 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
     """
 
     model = Language
-    fields = '__all__'
+    fields = ['short_name', 'full_name']
     success_url = reverse_lazy('core:language:overview')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
     permission_required = 'core.delete_language'
 
     def get_context_data(self, **kwargs):
@@ -100,7 +100,7 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = Language
-    fields = '__all__'
+    fields = ['short_name', 'full_name']
     permission_required = 'core.change_language'
 
     def get_context_data(self, **kwargs):

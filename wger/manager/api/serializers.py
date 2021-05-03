@@ -19,11 +19,7 @@
 from rest_framework import serializers
 
 # wger
-from wger.core.api.serializers import (
-    DaysOfWeekSerializer,
-    RepetitionUnitSerializer,
-    WeightUnitSerializer
-)
+from wger.core.api.serializers import DaysOfWeekSerializer
 from wger.exercises.api.serializers import (
     ExerciseSerializer,
     MuscleSerializer
@@ -54,9 +50,13 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     """
     Workout session serializer
     """
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True, default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = WorkoutSession
-        exclude = ('user',)
+        fields = ['id', 'user', 'workout', 'date', 'notes', 'impression', 'time_start', 'time_end']
 
 
 class WorkoutLogSerializer(serializers.ModelSerializer):
@@ -74,7 +74,10 @@ class ScheduleStepSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = ScheduleStep
-        fields = '__all__'
+        fields = ['id',
+                  'schedule',
+                  'workout',
+                  'duration']
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -93,7 +96,7 @@ class DaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Day
-        fields = '__all__'
+        fields = ['id', 'training', 'description', 'day']
 
 
 class SetSerializer(serializers.ModelSerializer):
@@ -103,7 +106,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
-        fields = '__all__'
+        fields = ['id', 'exerciseday', 'sets', 'order']
 
 
 class SettingSerializer(serializers.ModelSerializer):
@@ -112,7 +115,8 @@ class SettingSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Setting
-        fields = '__all__'
+        fields = ['id', 'set', 'exercise', 'repetition_unit', 'reps',
+                  'weight', 'weight_unit', 'rir', 'order', 'comment']
 
 
 #
@@ -128,19 +132,26 @@ class MusclesCanonicalFormSerializer(serializers.Serializer):
     backsecondary = serializers.ListField(child=MuscleSerializer())
 
 
+class WorkoutCanonicalFormExerciseImagesListSerializer(serializers.Serializer):
+    """
+    Serializer for settings in the canonical form of a workout
+    """
+    image = serializers.ReadOnlyField()
+    is_main = serializers.ReadOnlyField()
+
+
 class WorkoutCanonicalFormExerciseListSerializer(serializers.Serializer):
     """
     Serializer for settings in the canonical form of a workout
     """
     setting_obj_list = SettingSerializer(many=True)
     setting_list = serializers.ReadOnlyField()
+    setting_text = serializers.ReadOnlyField()
     reps_list = serializers.ReadOnlyField()
     has_weight = serializers.ReadOnlyField()
     weight_list = serializers.ReadOnlyField()
-    setting_text = serializers.ReadOnlyField()
-    repetition_units = RepetitionUnitSerializer(many=True)
-    weight_units = WeightUnitSerializer(many=True)
     comment_list = serializers.ReadOnlyField()
+    image_list = WorkoutCanonicalFormExerciseImagesListSerializer(many=True)
     obj = ExerciseSerializer()
 
 
@@ -150,8 +161,8 @@ class WorkoutCanonicalFormExerciseSerializer(serializers.Serializer):
     """
     obj = SetSerializer()
     exercise_list = WorkoutCanonicalFormExerciseListSerializer(many=True)
-    has_settings = serializers.BooleanField()
     is_superset = serializers.BooleanField()
+    settings_computed = SettingSerializer(many=True)
     muscles = MusclesCanonicalFormSerializer()
 
 

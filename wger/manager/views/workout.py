@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import copy
 import datetime
 import logging
 import uuid
@@ -35,14 +36,19 @@ from django.urls import (
     reverse,
     reverse_lazy
 )
+from django.utils.text import slugify
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DeleteView,
     UpdateView
 )
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 # wger
 from wger.core.models import (
@@ -136,20 +142,20 @@ def copy_workout(request, pk):
         if workout_form.is_valid():
 
             # Copy workout
-            days = workout.day_set.all()
+            days_original = workout.day_set.all()
 
-            workout_copy = workout
+            workout_copy = copy.copy(workout)
             workout_copy.pk = None
             workout_copy.comment = workout_form.cleaned_data['comment']
             workout_copy.user = request.user
             workout_copy.save()
 
             # Copy the days
-            for day in days:
+            for day in days_original:
                 sets = day.set_set.all()
-
-                day_copy = day
                 days_of_week = [i for i in day.day.all()]
+
+                day_copy = copy.copy(day)
                 day_copy.pk = None
                 day_copy.training = workout_copy
                 day_copy.save()
@@ -159,32 +165,29 @@ def copy_workout(request, pk):
 
                 # Copy the sets
                 for current_set in sets:
-                    current_set_id = current_set.id
-                    exercises = current_set.exercises.all()
-
-                    current_set_copy = current_set
+                    current_set_copy = copy.copy(current_set)
                     current_set_copy.pk = None
                     current_set_copy.exerciseday = day_copy
                     current_set_copy.save()
 
-                    # Exercises has Many2Many relationship
-                    current_set_copy.exercises.set(exercises)
-
-                    # Go through the exercises
-                    for exercise in exercises:
-                        settings = exercise.setting_set.filter(set_id=current_set_id)
-
-                        # Copy the settings
-                        for setting in settings:
-                            setting_copy = setting
-                            setting_copy.pk = None
-                            setting_copy.set = current_set_copy
-                            setting_copy.save()
+                    # Copy the settings
+                    for current_setting in current_set.setting_set.all():
+                        setting_copy = copy.copy(current_setting)
+                        setting_copy.pk = None
+                        setting_copy.set = current_set_copy
+                        setting_copy.save()
 
             return HttpResponseRedirect(reverse('manager:workout:view',
-                                                kwargs={'pk': workout.id}))
+                                                kwargs={'pk': workout_copy.id}))
     else:
         workout_form = WorkoutCopyForm({'comment': workout.comment})
+        workout_form.helper = FormHelper()
+        workout_form.helper.form_id = slugify(request.path)
+        workout_form.helper.form_method = 'post'
+        workout_form.helper.form_action = request.path
+        workout_form.helper.add_input(
+            Submit('submit', _('Save'), css_class='btn-success btn-block'))
+        workout_form.helper.form_class = 'wger-form'
 
         template_data = {}
         template_data.update(csrf(request))
@@ -192,7 +195,6 @@ def copy_workout(request, pk):
         template_data['form'] = workout_form
         template_data['form_fields'] = [workout_form['comment']]
         template_data['submit_text'] = _('Copy')
-        template_data['extend_template'] = 'base_empty.html' if request.is_ajax() else 'base.html'
 
         return render(request, 'form.html', template_data)
 
@@ -217,7 +219,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     model = Workout
     fields = ('comment',)
     success_url = reverse_lazy('manager:workout:overview')
-    messages = ugettext_lazy('Successfully deleted')
+    messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):
         context = super(WorkoutDeleteView, self).get_context_data(**kwargs)

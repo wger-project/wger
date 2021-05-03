@@ -41,6 +41,12 @@ class MuscleRepresentationTestCase(WgerTestCase):
         """
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
+        # Check image URL properties
+        self.assertIn("images/muscles/main/muscle-2.svg",
+                      Muscle.objects.get(pk=2).image_url_main)
+        self.assertIn("images/muscles/secondary/muscle-1.svg",
+                      Muscle.objects.get(pk=1).image_url_secondary)
+
 
 class MuscleAdminOverviewTest(WgerAccessTestCase):
     """
@@ -148,3 +154,14 @@ class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = False
     data = {'name': 'The name',
             'is_front': True}
+
+    def test_get_detail(self):
+        super().test_get_detail()
+
+        # Check that image URLs are present in response
+        response = self.client.get(self.url_detail)
+        response_object = response.json()
+        self.assertIn("images/muscles/main/muscle-1.svg",
+                      response_object["image_url_main"])
+        self.assertIn("images/muscles/secondary/muscle-1.svg",
+                      response_object["image_url_secondary"])

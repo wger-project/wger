@@ -28,7 +28,7 @@ from django.forms import (
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -65,7 +65,7 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
     """
 
     model = IngredientWeightUnit
-    title = ugettext_lazy('Add a new weight unit')
+    title = gettext_lazy('Add a new weight unit')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
@@ -100,7 +100,7 @@ class WeightUnitIngredientUpdateView(WgerFormMixin,
     """
 
     model = IngredientWeightUnit
-    title = ugettext_lazy('Edit a weight unit to ingredient connection')
+    title = gettext_lazy('Edit a weight unit to ingredient connection')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
@@ -131,7 +131,7 @@ class WeightUnitIngredientDeleteView(WgerDeleteMixin,
 
     model = IngredientWeightUnit
     fields = ('unit', 'gram', 'amount')
-    title = ugettext_lazy('Delete?')
+    title = gettext_lazy('Delete?')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):

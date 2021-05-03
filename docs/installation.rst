@@ -14,7 +14,7 @@ slightly different) you will need to change the steps as appropriate.
 The application is compatible and regularly tested with
 
 * sqlite, postgres
-* python 3.6, 3.7 and 3.8
+* python 3.6, 3.7, 3.8, 3.9 and pypy3
 
 After installation you might also want to take a look at the :ref:`other-changes` section for other
 changes you might want to do to your local instance such as Terms of Service or

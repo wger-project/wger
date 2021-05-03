@@ -1,15 +1,15 @@
 {% spaceless %}{% load i18n %}
 
-{% blocktrans %}Your last weight entry is from {{date}} ({{days}} days ago).
-Please click the link to access the application and enter a new one.{% endblocktrans %}
+{% blocktranslate %}Your last weight entry is from {{date}} ({{days}} days ago).
+Please click the link to access the application and enter a new one.{% endblocktranslate %}
 
 {% endspaceless %}
 
-{% blocktrans %}You will regularly receive such reminders till you enter your current weight.{% endblocktrans %}
-{% blocktrans %}If you don't want to ever receive email reminders, deactivate the
-option in your settings.{% endblocktrans %}
+{% blocktranslate %}You will regularly receive such reminders till you enter your current weight.{% endblocktranslate %}
+{% blocktranslate %}If you don't want to ever receive email reminders, deactivate the
+option in your settings.{% endblocktranslate %}
 
-— {% blocktrans %}The {{ site }} team{% endblocktrans %}
+— {% blocktranslate %}The {{ site }} team{% endblocktranslate %}
 
 
 * https://{{site}}{% url 'weight:overview' user.username %}

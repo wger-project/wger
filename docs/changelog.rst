@@ -1,51 +1,131 @@
 Changelog
 =========
 
-2.0 - IN DEVELOPMENT
-**2020-xx-xx**
+2.1 - IN DEVELOPMENT
+--------------------
+**2021-XX-XX**
 
-Upgrade steps from 1.9:
-
-* Update python libraries ``pip install -r requirements.txt``
-* Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
-* Update CSS and JS libraries ``yarn install``
-* Compile the CSS ``yarn build:css:sass``
-* Run migrations ``python manage.py migrate``
-* Update static files (only production): ``python manage.py collectstatic``
-* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings instead of create_settings)
-
+Upgrade steps from 2.0:
+* Update python libraries ``pip3 install -r requirements.txt``
+* Run migrations ``python3 manage.py migrate``
 
 🚀 Features:
 
-* Add nutrition diary to log the daily calories actually taken `#284`_ `#501`_ (thanks `@WalkingPizza`_)
-`#506`_ (thanks `@oconnelc`_)
-* Improved user experience, on desktop and mobile `#337`_
-* Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
+*
 
 
 🐛 Bug Fixes:
 
-* `#499`_, `#505`_, `#504`_, `#511`_, `#516`_, `#522`_
+*
+
+🧰 Maintenance:
+
+*
+
+
+2.0
+--------------------
+**2021-05-01**
+
+Upgrade steps from 1.9:
+
+* Update python libraries ``pip3 install -r requirements.txt``
+* Install ``yarn`` and ``sass`` (e.g. ``sudo npm install -g yarn sass``)
+* Update CSS and JS libraries ``yarn install``
+* Compile the CSS ``yarn build:css:sass``
+* Run migrations ``python3 manage.py migrate``
+* Update data ``python3 manage.py loaddata licenses.json languages.json language_config.json``
+* Load new ingredients (note that this will overwrite any ingredients that you
+  might have added) ``wger load-online-fixtures``
+* Update static files (only production): ``python3 manage.py collectstatic``
+* Subcommands for ``wger`` now use dashes in their names (i.e. create-settings
+  instead of create_settings)
+
+
+🚀 Features:
+
+* Add nutrition diary to log the daily calories actually taken `#284`_, `#501`_
+  and `#506`_ (thanks `@WalkingPizza`_ and `@oconnelc`_)
+* Support for reps-in-reserve (RiR) in workout plans and logs `#479`_
+  (thanks `@SkyNetIndustry`_)
+* Improved user experience, on desktop and mobile `#337`_
+* Around 70000 new ingredients with Open Food Facts import with more to come `#422`_
+  (thanks `@harlenesamra`_, `@nikithamurikinati`_ and `@jcho1`_)
+* Group common exercise information such as muscles, etc. for more easy translations,
+  data management, etc. `#448`_ (thanks `@nikithamurikinati`_, `@harlenesamra`_,
+  `@jcho17`_, `@vaheeshta`_ and `@jeevikaghosh`_)
+* Group similar exercises such as wide grip, reverse, etc. `#555`_
+  (thanks `@ryowright`_)
+* Improved info endpoints for exercises and ingredients, this saves additional
+  API calls `#411`_
+* Show BMI on weight graph `#462`_ (thanks `@Svn-Sp`_)
+* Allow user to edit and delete body weight entries `#478`_ (thanks `@beingbiplov`_)
+* Show kJoules as well as kcal in nutritional plan `#568`_  (thanks `@nopinter`_ and `@derekli17`_)
+* Check name similarity when adding exercises to avoid duplicates `#551`_
+  (thanks `@lydiaxing`_, `@eq8913`_, `@Hita-K`_)
+* Return the muscle background images in the REST API `#547`_ (thanks `@gengkev`_)
+
+
+🐛 Bug Fixes:
+
+* `#368`_, `#379`_, `#426`_ (thanks `@austin-leung`_), `#499`_, `#505`_, `#504`_,
+  `#511`_, `#516`_, `#522`_, `#554`_ and `#560`_ (thanks `@sandilsranasinghe`_),
+  `#564`_, `#565`_, `#615`_, `#560`_ (thanks `@bradsk88`_), `#617`_ (thanks `@Sidrah-Madiha`_),
+  `#636`_, `#640`_, `#642`_, `#648`_, `#650`_
 
 
 🧰 Maintenance:
 
+* Moved translations to weblate `#266`_
 * Improved docker and docker-compose images `#340`_
 * Updated many libraries to last version (bootstrap, font awesome, etc.)
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
+* Others: `#450`_ (thanks `@Rkamath2`_), `#631`_ (thanks `@harlenesamra`_), `#664`_ (thanks `@calvinrw`_),
 
 .. _@Svn-Sp: https://github.com/Svn-Sp
 .. _@louiCoder: https://github.com/louiCoder
 .. _@WalkingPizza: https://github.com/WalkingPizza
 .. _@oconnelc: https://github.com/oconnelc
+.. _@beingbiplov: https://github.com/beingbiplov
+.. _@sandilsranasinghe: https://github.com/sandilsranasinghe
+.. _@Rkamath2: https://github.com/Rkamath2
+.. _@SkyNetIndustry: https://github.com/SkyNetIndustry
+.. _@ryowright: https://github.com/ryowright
+.. _@austin-leung: https://github.com/austin-leung
+.. _@harlenesamra: https://github.com/harlenesamra
+.. _@lydiaxing: https://github.com/lydiaxing
+.. _@eq8913: https://github.com/eq8913
+.. _@Hita-K: https://github.com/Hita-K
+.. _@derekli17: https://github.com/derekli17
+.. _@nopinter: https://github.com/nopinter
+.. _@gengkev: https://github.com/gengkev
+.. _@nikithamurikinati: https://github.com/nikithamurikinati
+.. _@jcho1: https://github.com/jcho1
+.. _@jcho17: https://github.com/jcho17
+.. _@vaheeshta: https://github.com/vaheeshta
+.. _@jeevikaghosh: https://github.com/jeevikaghosh
+.. _@bradsk88: https://github.com/bradsk88
+.. _@Sidrah-Madiha: https://github.com/Sidrah-Madiha
+.. _@calvinrw : https://github.com/calvinrw
+
 
 .. _#246: https://github.com/wger-project/wger/issues/246
+.. _#266: https://github.com/wger-project/wger/issues/266
 .. _#284: https://github.com/wger-project/wger/issues/284
 .. _#337: https://github.com/wger-project/wger/issues/337
 .. _#340: https://github.com/wger-project/wger/issues/340
+.. _#368: https://github.com/wger-project/wger/issues/368
+.. _#379: https://github.com/wger-project/wger/issues/379
+.. _#411: https://github.com/wger-project/wger/issues/411
+.. _#422: https://github.com/wger-project/wger/issues/422
+.. _#426: https://github.com/wger-project/wger/issues/426
+.. _#448: https://github.com/wger-project/wger/issues/448
+.. _#450: https://github.com/wger-project/wger/issues/450
 .. _#462: https://github.com/wger-project/wger/issues/462
+.. _#478: https://github.com/wger-project/wger/issues/478
+.. _#479: https://github.com/wger-project/wger/issues/479
 .. _#494: https://github.com/wger-project/wger/issues/494
 .. _#499: https://github.com/wger-project/wger/issues/499
 .. _#501: https://github.com/wger-project/wger/issues/501
@@ -55,6 +135,24 @@ Upgrade steps from 1.9:
 .. _#511: https://github.com/wger-project/wger/issues/511
 .. _#516: https://github.com/wger-project/wger/issues/516
 .. _#522: https://github.com/wger-project/wger/issues/522
+.. _#547: https://github.com/wger-project/wger/issues/547
+.. _#550: https://github.com/wger-project/wger/issues/550
+.. _#551: https://github.com/wger-project/wger/issues/551
+.. _#554: https://github.com/wger-project/wger/issues/554
+.. _#555: https://github.com/wger-project/wger/issues/555
+.. _#560: https://github.com/wger-project/wger/issues/560
+.. _#564: https://github.com/wger-project/wger/issues/564
+.. _#565: https://github.com/wger-project/wger/issues/565
+.. _#568: https://github.com/wger-project/wger/issues/568
+.. _#615: https://github.com/wger-project/wger/issues/615
+.. _#617: https://github.com/wger-project/wger/issues/617
+.. _#631: https://github.com/wger-project/wger/issues/631
+.. _#636: https://github.com/wger-project/wger/issues/636
+.. _#640: https://github.com/wger-project/wger/issues/640
+.. _#642: https://github.com/wger-project/wger/issues/642
+.. _#648: https://github.com/wger-project/wger/issues/648
+.. _#650: https://github.com/wger-project/wger/issues/650
+.. _#664: https://github.com/wger-project/wger/issues/664
 
 
 

@@ -257,7 +257,7 @@ $(document).ready(function () {
 <div id="timer-container" style="position: relative; margin:0px; padding: 0px;">
 <ul id="workout-timer">
 <li class="timer-step" id="div-warmup" data-number="0">
-    <h2>{% trans "Your workout today" %}</h2>
+    <h2>{% translate "Your workout today" %}</h2>
 
     <div class="filler_div">
         {% for set in canonical_day.set_list %}
@@ -268,7 +268,7 @@ $(document).ready(function () {
     </div>
 
     <a class="next bottom_button wide_link btn btn-primary"
-       href="#">{% trans "Start!" %}</a>
+       href="#">{% translate "Start!" %}</a>
 </li>
 
 {% for step in step_list %}
@@ -299,20 +299,20 @@ $(document).ready(function () {
                        type="hidden">
             <div class="row">
                 <div class="col-xs-6">
-                    <label for="id-reps-{{step.current_step}}">{% trans "Repetitions" %}:</label>
+                    <label for="id-reps-{{step.current_step}}">{% translate "Repetitions" %}:</label>
                     <input name="reps"
                            id="id-reps-{{step.current_step}}"
-                           placeholder="{% trans 'Repetitions' %}"
+                           placeholder="{% translate 'Repetitions' %}"
                            value="{{step.reps}}"
                            type="number"
                            autocomplete="off"
                            class="form-control">
                 </div>
                 <div class="col-xs-6">
-                    <label for="id-weight-{{step.current_step}}">{% trans "Weight" %}:</label>
+                    <label for="id-weight-{{step.current_step}}">{% translate "Weight" %}:</label>
                     <input name="weight"
                            id="id-weight-{{step.current_step}}"
-                           placeholder="{% trans 'Weight' %}"
+                           placeholder="{% translate 'Weight' %}"
                            value="{{step.weight|unlocalize}}"
                            type="number"
                            autocomplete="off"
@@ -324,7 +324,7 @@ $(document).ready(function () {
                      <select name="repetition_unit" id="id-repetition-unit-{{step.current_step}}" class="form-control">
                          {% for unit in repetition_units %}
                              <option value="{{ unit.pk }}" {% if unit.pk == step.rep_unit.pk %}selected="selected"{% endif %}>
-                                {% trans unit.name %}
+                                {% translate unit.name %}
                              </option>
                          {% endfor %}
                     </select>
@@ -333,7 +333,7 @@ $(document).ready(function () {
                     <select name="weight_unit" id="id-weight-unit-{{step.current_step}}" class="form-control">
                          {% for unit in weight_units %}
                              <option value="{{ unit.pk }}" {% if unit.pk == step.weight_unit.pk %}selected="selected"{% endif %}>
-                                {% trans unit.name %}
+                                {% translate unit.name %}
                              </option>
                          {% endfor %}
                     </select>
@@ -354,7 +354,7 @@ $(document).ready(function () {
                     {% if step.unit.id != 1 %}
                         {{ step.unit }}
                     {% else %}
-                        {% trans "reps" %}
+                        {% translate "reps" %}
                     {% endif %}
                 {% endif %}
                 </h2>
@@ -363,12 +363,12 @@ $(document).ready(function () {
             <div class="row bottom_buttons">
                 <div class="col-xs-6">
                     <a class="next wide_link btn btn-light"
-                       href="#"><!-- {% trans "Skip" %}--> <span class="glyphicon glyphicon-forward"></span>
+                       href="#"><!-- {% translate "Skip" %}--> <span class="glyphicon glyphicon-forward"></span>
                     </a>
                 </div>
                 <div class="col-xs-6">
                     <a class="next save_log wide_link btn btn-success"
-                       href="#">{% trans "Save" %} <span class="glyphicon glyphicon-save"></span></a>
+                       href="#">{% translate "Save" %} <span class="glyphicon glyphicon-save"></span></a>
                 </div>
             </div>
 
@@ -387,7 +387,7 @@ $(document).ready(function () {
             data-time="{{step.time}}"
             data-step="{{step.current_step}}"
             data-number="{{step.step_nr}}">
-            <h2>{% trans "Pause!" %}</h2>
+            <h2>{% translate "Pause!" %}</h2>
 
             <div style="width: 96%; text-align: center;">
             <canvas id="canvas-div-{{step.current_step}}" width="150" height="150"></canvas>
@@ -412,7 +412,7 @@ $(document).ready(function () {
 
 
             <a class="next bottom_button wide_link btn btn-light"
-               href="#">{% trans "Skip" %} <span class="glyphicon glyphicon-forward"></span></a>
+               href="#">{% translate "Skip" %} <span class="glyphicon glyphicon-forward"></span></a>
 
             <div id="progress-{{step.current_step}}" class="progress-bar">
                 <span style="width: {{step.step_percent|stringformat:'f'}}%;"></span>
@@ -425,7 +425,7 @@ $(document).ready(function () {
 {# last page #}
 {#           #}
 <li class="timer-step" id="workout-complete">
-    <h2>{% trans "Workout complete!" %}</h2>
+    <h2>{% translate "Workout complete!" %}</h2>
 
     <div class="filler_div">
         <form action="{{ form_action }}" id="session-form">
@@ -440,13 +440,13 @@ $(document).ready(function () {
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">{% trans "Info" %}</h4>
+                            <h4 class="modal-title">{% translate "Info" %}</h4>
                         </div>
                         <div class="modal-body">
-                            {% trans session_form.notes.help_text %}
+                            {% translate session_form.notes.help_text %}
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+                          <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
                         </div>
                     </div>
                 </div>
@@ -458,7 +458,7 @@ $(document).ready(function () {
                    data-toggle="modal">
                     <span class="glyphicon glyphicon-asterisk"></span>
                    </a>
-                {% trans session_form.notes.label %}
+                {% translate session_form.notes.label %}
             </label>
             {{ session_form.notes|form_field_add_css:'form-control' }}
 
@@ -467,13 +467,13 @@ $(document).ready(function () {
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">{% trans "Info" %}</h4>
+                            <h4 class="modal-title">{% translate "Info" %}</h4>
                         </div>
                         <div class="modal-body">
-                            {% trans session_form.impression.help_text %}
+                            {% translate session_form.impression.help_text %}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+                            <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
                         </div>
                     </div>
                 </div>
@@ -484,7 +484,7 @@ $(document).ready(function () {
                    data-toggle="modal">
                     <span class="glyphicon glyphicon-asterisk"></span>
                    </a>
-                {% trans session_form.impression.label %}
+                {% translate session_form.impression.label %}
             </label>
             {{ session_form.impression|form_field_add_css:'form-control' }}
 
@@ -497,19 +497,19 @@ $(document).ready(function () {
     </div>
 
     <div class="sub_header">
-        <h2><strong>{% trans "Time" %}:</strong> <span id="total_time">MM:SS</span></h2>
+        <h2><strong>{% translate "Time" %}:</strong> <span id="total_time">MM:SS</span></h2>
     </div>
 
     <div class="row bottom_buttons">
         <div class="col-xs-6">
             <a href="{% url 'core:dashboard' %}"
-               class="wide_link btn btn-light">{% trans "Dashboard" %}</a>
+               class="wide_link btn btn-light">{% translate "Dashboard" %}</a>
         </div>
         <div class="col-xs-6">
             <a href=""
                id="save_button_form"
                class="wide_link btn btn-success">
-                {% trans "Save" %}
+                {% translate "Save" %}
                 <span class="glyphicon glyphicon-save"></span>
             </a>
         </div>

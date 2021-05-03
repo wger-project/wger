@@ -35,8 +35,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     DeleteView,
@@ -45,6 +45,10 @@ from django.views.generic import (
 )
 
 # wger
+from wger.core.models import (
+    RepetitionUnit,
+    WeightUnit
+)
 from wger.manager.forms import (
     HelperWorkoutSessionForm,
     WorkoutLogForm,
@@ -102,7 +106,7 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
               'weight',
               'weight_unit')
     success_url = reverse_lazy('manager:workout:calendar')
-    title = ugettext_lazy('Delete workout log')
+    title = gettext_lazy('Delete workout log')
 
 
 def add(request, pk):
@@ -128,7 +132,7 @@ def add(request, pk):
     form_to_exercise = {}
 
     for exercise_set in day.set_set.all():
-        for exercise in exercise_set.exercises.all():
+        for exercise in exercise_set.exercises:
 
             # Maximum possible values
             total_sets += int(exercise_set.sets)
@@ -189,8 +193,18 @@ def add(request, pk):
             # Log entries (only the ones with actual content)
             instances = [i for i in formset.save(commit=False) if i.reps]
             for instance in instances:
+
+                # Set the weight unit in kg
+                if not hasattr(instance, 'weight_unit'):
+                    instance.weight_unit = WeightUnit.objects.get(pk=1)
+
+                # Set the unit in reps
+                if not hasattr(instance, 'repetition_unit'):
+                    instance.repetition_unit = RepetitionUnit.objects.get(pk=1)
+
                 if not instance.weight:
                     instance.weight = 0
+
                 instance.user = request.user
                 instance.workout = day.training
                 instance.date = log_date
@@ -220,15 +234,13 @@ def add(request, pk):
         form_id_to = max(exercise_list[exercise]['form_ids'])
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
 
-    context = {}
-    context['day'] = day
-    context['exercises'] = exercise_list
-    context['formset'] = formset
-    context['helper'] = WorkoutLogFormHelper()
-    context['session_form'] = session_form
-    context['form'] = session_form
-    context['extend_template'] = 'base.html'
-    context['form_action'] = request.path
+    context = {'day': day,
+               'exercises': exercise_list,
+               'formset': formset,
+               'helper': WorkoutLogFormHelper(),
+               'session_form': session_form,
+               'form': session_form,
+               'form_action': request.path}
 
     return render(request, 'log/add.html', context)
 
@@ -262,17 +274,10 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     exercise_log[exercise_id] = []
 
                     # Filter the logs for user and exclude all units that are not weight
-                    #
-                    # TODO: add the repetition_unit to the filter. For some reason (bug
-                    #       in django? DB problems?) when adding the filter there, the
-                    #       execution time explodes. The weight unit filter works as
-                    #       expected. Also, adding the unit IDs to the exclude list
-                    #       also has the disadvantage that if new ones are added in a
-                    #       local instance, they could "slip" through.
                     logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
                                                                       weight_unit__in=(1, 2),
-                                                                      workout=self.object) \
-                        .exclude(repetition_unit_id__in=(2, 3, 4, 5, 6, 7, 8))
+                                                                      repetition_unit=1,
+                                                                      workout=self.object)
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise_list['obj'].id].append(entry_log)

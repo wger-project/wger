@@ -3,7 +3,7 @@
 {% load static %}
 {% load wger_extras %}
 
-{% block title %}{% trans "Gym list" %}{% endblock %}
+{% block title %}{% translate "Gym list" %}{% endblock %}
 
 
 {% block content %}
@@ -16,15 +16,15 @@
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
-                <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
             </div>
         </div>
         <a href="{% url 'gym:gym:user-list' gym.pk %}">{{gym}}</a>
     </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -37,17 +37,17 @@
 {% if perms.config.change_gymconfig %}
 <div class="btn-group float-right">
     <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-        {% trans "Actions" %} <span class="caret"></span>
+        {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
-        <a href="{% url 'config:gym_config:edit' %}" class="wger-modal-dialog dropdown-item">{% trans "Edit"%}</a>
+        <a href="{% url 'config:gym_config:edit' %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
     </div>
 </div>
 {% endif %}
-<h4>{% trans "Global gym configuration" %}</h4>
+<h4>{% translate "Global gym configuration" %}</h4>
 <table class="table">
     <tr>
-        <th>{% trans "Default gym" %}</th>
+        <th>{% translate "Default gym" %}</th>
         <td>{{ global_gym_config.default_gym|default:"-/-" }}</td>
     </tr>
 </table>
@@ -61,7 +61,7 @@
 {% block options %}
 {% if perms.gym.add_gym %}
     <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% trans "Add new gym" %}
+        {% translate "Add new gym" %}
    </a>
 {% endif %}
 {% endblock %}

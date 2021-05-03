@@ -14,6 +14,8 @@
 
 # Standard Library
 import logging
+from decimal import Decimal
+from typing import List
 
 # Django
 from django.core.cache import cache
@@ -50,8 +52,7 @@ class SetAddTestCase(WgerAddTestCase):
     url = reverse_lazy('manager:set:add', kwargs={'day_pk': 5})
     user_success = 'test'
     user_fail = 'admin'
-    data = {'exercises': [1, ],
-            'exercise_list': 1,  # Only for mobile version
+    data = {'exercise_list': 1,  # Only for mobile version
             'sets': 4,
             'exercise1-TOTAL_FORMS': 4,
             'exercise1-INITIAL_FORMS': 0,
@@ -94,8 +95,7 @@ class SetAddTestCase(WgerAddTestCase):
         # POST the data
         self.user_login('test')
         exercises_id = [1, 2]
-        post_data = {'exercises': exercises_id,
-                     'exercise_list': 1,  # Only for mobile version
+        post_data = {'exercise_list': 1,  # Only for mobile version
                      'sets': 4,
 
                      'exercise1-TOTAL_FORMS': 4,
@@ -136,7 +136,7 @@ class SetAddTestCase(WgerAddTestCase):
         exercise1 = Exercise.objects.get(pk=1)
 
         # Check that everything got where it's supposed to
-        for exercise in set_obj.exercises.all():
+        for exercise in set_obj.exercises:
             self.assertIn(exercise.id, exercises_id)
 
         settings = Setting.objects.filter(set=set_obj)
@@ -299,29 +299,15 @@ class SetEditEditTestCase(WgerTestCase):
 
         # Try to edit the object
         response = self.client.post(reverse('manager:set:edit', kwargs={'pk': 3}),
-                                    {'exercise2-TOTAL_FORMS': 4,
+                                    {'exercise2-TOTAL_FORMS': 1,
                                      'exercise2-INITIAL_FORMS': 1,
-                                     'exercise2-MAX_NUM_FORMS': 1000,
+                                     'exercise2-MAX_NUM_FORMS': 1,
+                                     'exercise2-MIN_NUM_FORMS': 1,
                                      'exercise2-0-reps': 5,
                                      'exercise2-0-id': 3,
-                                     'exercise2-0-repetition_unit': 1,
-                                     'exercise2-0-weight_unit': 1,
-                                     'exercise2-0-DELETE': False,
-                                     'exercise2-1-reps': 13,
-                                     'exercise2-1-id': '',
-                                     'exercise2-1-repetition_unit': 1,
-                                     'exercise2-1-weight_unit': 1,
-                                     'exercise2-2-DELETE': False,
-                                     'exercise2-2-reps': 13,
-                                     'exercise2-2-id': '',
-                                     'exercise2-2-repetition_unit': 1,
-                                     'exercise2-2-weight_unit': 1,
-                                     'exercise2-2-DELETE': False,
-                                     'exercise2-3-reps': 13,
-                                     'exercise2-3-id': '',
-                                     'exercise2-3-repetition_unit': 1,
-                                     'exercise2-3-weight_unit': 1,
-                                     'exercise2-3-DELETE': False})
+                                     'exercise2-0-repetition_unit': 2,
+                                     'exercise2-0-weight_unit': 3,
+                                     'exercise2-0-rir': '1.5'})
 
         entry_after = Set.objects.get(pk=3)
 
@@ -337,12 +323,12 @@ class SetEditEditTestCase(WgerTestCase):
             response = self.client.get(response['Location'])
             self.assertEqual(response.status_code, 200)
 
-            # Settings were updated and a new one created
+            # Setting was updated
             setting = Setting.objects.get(pk=3)
             self.assertEqual(setting.reps, 5)
-
-            setting = Setting.objects.get(pk=4)
-            self.assertEqual(setting.reps, 13)
+            self.assertEqual(setting.repetition_unit_id, 2)
+            self.assertEqual(setting.weight_unit_id, 3)
+            self.assertEqual(setting.rir, '1.5')
 
         self.post_test_hook()
 
@@ -421,6 +407,106 @@ class SettingWorkoutCacheTestCase(WgerTestCase):
         self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
+class SetSmartReprTestCase(WgerTestCase):
+    """Tests the "smart text representation" for sets"""
+
+    def test_smart_repr_one_setting(self):
+        """
+        Tests the representation with one setting
+        """
+        set_obj = Set.objects.get(pk=1)
+
+        setting_text = set_obj.reps_smart_text(set_obj.exercises[0])
+        self.assertEqual(setting_text, '2 × 8 (3 RiR)')
+
+    def test_smart_repr_custom_setting(self):
+        """
+        Tests the representation with several settings
+        """
+        set_obj = Set(exerciseday_id=1, order=1, sets=4)
+        set_obj.save()
+        setting1 = Setting(set=set_obj,
+                           exercise_id=1,
+                           repetition_unit_id=1,
+                           reps=8,
+                           weight=Decimal(90),
+                           weight_unit_id=1,
+                           rir='3',
+                           order=1)
+        setting1.save()
+        setting2 = Setting(set=set_obj,
+                           exercise_id=1,
+                           repetition_unit_id=1,
+                           reps=10,
+                           weight=Decimal(80),
+                           weight_unit_id=1,
+                           rir='2.5',
+                           order=2)
+        setting2.save()
+        setting3 = Setting(set=set_obj,
+                           exercise_id=1,
+                           repetition_unit_id=1,
+                           reps=10,
+                           weight=Decimal(80),
+                           weight_unit_id=1,
+                           rir='2',
+                           order=3)
+        setting3.save()
+        setting4 = Setting(set=set_obj,
+                           exercise_id=1,
+                           repetition_unit_id=1,
+                           reps=12,
+                           weight=Decimal(80),
+                           weight_unit_id=1,
+                           rir='1',
+                           order=4)
+        setting4.save()
+
+        setting_text = set_obj.reps_smart_text(Exercise.objects.get(pk=1))
+        self.assertEqual(setting_text,
+                         '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – '
+                         '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)')
+
+    def test_synthetic_settings(self):
+        set_obj = Set(exerciseday_id=1, order=1, sets=4)
+        set_obj.save()
+        setting1 = Setting(set=set_obj,
+                           exercise_id=1,
+                           repetition_unit_id=1,
+                           reps=8,
+                           weight=Decimal(90),
+                           weight_unit_id=1,
+                           rir='3',
+                           order=1)
+        setting1.save()
+        setting2 = Setting(set=set_obj,
+                           exercise_id=3,
+                           repetition_unit_id=1,
+                           reps=10,
+                           weight=Decimal(80),
+                           weight_unit_id=1,
+                           rir='2.5',
+                           order=2)
+        setting2.save()
+        settings: List[Setting] = set_obj.compute_settings
+
+        # Check that there are 2 x 4 entries (2 Exercises x 4 Sets)
+        self.assertEqual(len(settings), 8)
+
+        # Check interleaved settings
+        for i in range(0, len(settings)):
+            if (i % 2) == 0:
+                self.assertEqual(settings[i].exercise_id, 1)
+                self.assertEqual(settings[i].reps, 8)
+                self.assertEqual(settings[i].weight, Decimal(90))
+                self.assertEqual(settings[i].rir, '3')
+            else:
+                self.assertEqual(settings[i].exercise_id, 3)
+                self.assertEqual(settings[i].reps, 10)
+                self.assertEqual(settings[i].weight, Decimal(80))
+                self.assertEqual(settings[i].rir, '2.5')
+
+
 class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the set overview resource
@@ -429,5 +515,4 @@ class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = Set
     private_resource = True
     data = {'exerciseday': 5,
-            'sets': 4,
-            'exercises': [1, 2, 3]}
+            'sets': 4}

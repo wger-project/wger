@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras %}
 
-{% block title %}{% trans "Weight units" %}{% endblock %}
+{% block title %}{% translate "Weight units" %}{% endblock %}
 
 
 {% block content %}
@@ -14,8 +14,8 @@
                 <span class="{% fa_class 'cog' %}"></span>
             </button>
             <div class="dropdown-menu" role="menu">
-                    <a href="{% url 'core:weight-unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Edit' %}</a>
-                    <a href="{% url 'core:weight-unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% trans 'Delete' %}</a>
+                    <a href="{% url 'core:weight-unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                    <a href="{% url 'core:weight-unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
             </div>
         </div>
         {% endif %}
@@ -23,7 +23,7 @@
     </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -38,7 +38,7 @@
 {% block options %}
 {% if perms.core.add_license %}
    <a href="{% url 'core:weight-unit:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-   {% trans "Add" %}
+   {% translate "Add" %}
    </a>
 {% endif %}
 {% endblock %}

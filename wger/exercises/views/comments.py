@@ -26,7 +26,7 @@ from django.contrib.auth.mixins import (
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
     UpdateView
@@ -59,7 +59,7 @@ class ExerciseCommentEditView(WgerFormMixin,
 
     model = ExerciseComment
     form_class = CommentForm
-    title = ugettext_lazy('Edit')
+    title = gettext_lazy('Edit')
     permission_required = 'exercises.change_exercisecomment'
 
     def get_success_url(self):
@@ -76,7 +76,7 @@ class ExerciseCommentAddView(WgerFormMixin,
 
     model = ExerciseComment
     form_class = CommentForm
-    title = ugettext_lazy('Add exercise comment')
+    title = gettext_lazy('Add exercise comment')
     permission_required = 'exercises.add_exercisecomment'
 
     def form_valid(self, form):

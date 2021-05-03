@@ -6,6 +6,13 @@
     </label>
     {{ formset.management_form }}
 
+    <div class="row">
+        <div class="col-2">{% translate "Reps" %}</div>
+        <div class="col-3">{% translate "Unit" %}</div>
+        <div class="col-2">{% translate "Weight" %}</div>
+        <div class="col-3">{% translate "Unit" %}</div>
+        <div class="col-2">{% translate "RiR" %}</div>
+    </div>
     {% for field in formset %}
         {% crispy field helper %}
     {% endfor %}

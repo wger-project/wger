@@ -29,6 +29,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
+    MinLengthValidator,
     MinValueValidator
 )
 from django.db import models
@@ -39,7 +40,7 @@ from django.utils import (
     translation
 )
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import Language
@@ -91,7 +92,7 @@ class NutritionPlan(models.Model):
                                  editable=False,
                                  on_delete=models.CASCADE)
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    description = models.CharField(max_length=(80),
+    description = models.CharField(max_length=80,
                                    blank=True,
                                    verbose_name=_('Description'),
                                    help_text=_('A description of the goal of the plan, e.g. '
@@ -150,6 +151,7 @@ class NutritionPlan(models.Model):
                     result['total'][key] += values[key]
 
             energy = result['total']['energy']
+            result['total']['energy_kilojoule'] = result['total']['energy'] * Decimal(4.184)
 
             # In percent
             if energy:
@@ -260,13 +262,37 @@ class NutritionPlan(models.Model):
         return result
 
 
+class IngredientCategory(models.Model):
+    """
+    Model for an Ingredient category
+    """
+    name = models.CharField(max_length=100,
+                            verbose_name=_('Name'))
+
+    # Metaclass to set some other properties
+    class Meta:
+        verbose_name_plural = _("Ingredient Categories")
+        ordering = ["name", ]
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return self.name
+
+    def get_owner_object(self):
+        """
+        Category has no owner information
+        """
+        return False
+
+
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
     objects = SubmissionManager()
     """Custom manager"""
-
 
     ENERGY_APPROXIMATION = 15
     """
@@ -278,6 +304,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     class Meta:
         ordering = ["name", ]
 
+    # Meta data
     language = models.ForeignKey(Language,
                                  verbose_name=_('Language'),
                                  editable=False,
@@ -289,8 +316,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    blank=True,
                                    editable=False)
 
+    # Product infos
     name = models.CharField(max_length=200,
-                            verbose_name=_('Name'), )
+                            verbose_name=_('Name'),
+                            validators=[MinLengthValidator(3)])
 
     energy = models.IntegerField(verbose_name=_('Energy'),
                                  help_text=_('In kcal per 100g'))
@@ -352,16 +381,58 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                  validators=[MinValueValidator(0),
                                              MaxValueValidator(100)])
 
+    code = models.CharField(max_length=200,
+                            null=True,
+                            blank=True,
+                            db_index=True)
+    """Internal ID of the source database, e.g. a barcode or similar"""
+
+    source_name = models.CharField(max_length=200,
+                                   null=True,
+                                   blank=True)
+    """Name of the source, such as Open Food Facts"""
+
+    source_url = models.URLField(verbose_name=_('Link'),
+                                 help_text=_('Link to product'),
+                                 blank=True,
+                                 null=True)
+    """URL of the product at the source"""
+
+    last_imported = models.DateTimeField(_('Date'), auto_now_add=True, null=True, blank=True)
+
+    common_name = models.CharField(max_length=200,
+                                   null=True,
+                                   blank=True)
+
+    category = models.ForeignKey(IngredientCategory,
+                                 verbose_name=_('Category'),
+                                 on_delete=models.CASCADE,
+                                 null=True,
+                                 blank=True)
+
+    brand = models.CharField(max_length=200,
+                             verbose_name=_('Brand name of product'),
+                             null=True,
+                             blank=True)
+
     #
     # Django methods
     #
 
     def get_absolute_url(self):
         """
-        Returns the canonical URL to view this object
+        Returns the canonical URL to view this object.
+
+        Since some names consist of only non-ascii characters (e.g. 감자깡), the
+        resulting slug would be empty and no URL would match. In that case, use
+        the regular URL with only the ID.
         """
-        return reverse('nutrition:ingredient:view',
-                       kwargs={'id': self.id, 'slug': slugify(self.name)})
+        slug = slugify(self.name)
+        if not slug:
+            return reverse('nutrition:ingredient:view', kwargs={'id': self.id})
+        else:
+            return reverse('nutrition:ingredient:view',
+                           kwargs={'id': self.id, 'slug': slug})
 
     def clean(self):
         """
@@ -398,8 +469,12 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             energy_lower = self.energy * (1 - (self.ENERGY_APPROXIMATION / Decimal(100.0)))
 
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
-                raise ValidationError(_('Total energy is not the approximate sum of the energy '
-                                        'provided by protein, carbohydrates and fat.'))
+                raise ValidationError(
+                    _('The total energy ({energy}kcal) is not the approximate sum of the '
+                      'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal '
+                      '+/-{energy_approx}%)'.format(energy=self.energy,
+                                                    energy_calculated=energy_calculated,
+                                                    energy_approx=self.ENERGY_APPROXIMATION)))
 
     def save(self, *args, **kwargs):
         """
@@ -510,6 +585,16 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Ingredient has no owner information
         """
         return False
+
+    @property
+    def energy_kilojoule(self):
+        """
+        returns kilojoules for current ingredient, 0 if energy is uninitialized
+        """
+        if self.energy:
+            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+        else:
+            return 0
 
 
 class WeightUnit(models.Model):
@@ -629,6 +714,8 @@ class Meal(models.Model):
             for key in nutritional_info.keys():
                 nutritional_info[key] += values[key]
 
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
+
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
             nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
@@ -680,12 +767,11 @@ class BaseMealItem(object):
         nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
         nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
         nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
+        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
             nutritional_info['carbohydrates_sugar'] += \
                 self.ingredient.carbohydrates_sugar * item_weight / 100
-
-        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
 
         if self.ingredient.fat_saturated:
             nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * item_weight / 100
@@ -706,6 +792,8 @@ class BaseMealItem(object):
 
                 # Everything else, to ounces
                 nutritional_info[key] = AbstractWeight(value, 'g').oz
+
+        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
 
         # Only 2 decimal places, anything else doesn't make sense
         for i in nutritional_info:
@@ -764,7 +852,6 @@ class LogItem(BaseMealItem, models.Model):
 
     plan = models.ForeignKey(NutritionPlan,
                              verbose_name=_('Nutrition plan'),
-                             editable=False,
                              on_delete=models.CASCADE)
     """
     The plan this log belongs to

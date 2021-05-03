@@ -27,8 +27,8 @@ from django.urls import (
     reverse_lazy
 )
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 from django.views.generic import (
     CreateView,
@@ -61,7 +61,7 @@ class EquipmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
 
     model = Equipment
-    fields = '__all__'
+    fields = ['name']
     template_name = 'equipment/admin-overview.html'
     context_object_name = 'equipment_list'
     paginate_by = PAGINATION_OBJECTS_PER_PAGE
@@ -92,7 +92,7 @@ class EquipmentAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
 
     model = Equipment
     fields = ['name']
-    title = ugettext_lazy('Add new equipment')
+    title = gettext_lazy('Add new equipment')
     permission_required = 'exercises.add_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
@@ -104,15 +104,15 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
 
     model = Equipment
     fields = ('name',)
-    messages = ugettext_lazy('Successfully deleted')
-    title = ugettext_lazy('Delete equipment?')
+    messages = gettext_lazy('Successfully deleted')
+    title = gettext_lazy('Delete equipment?')
     permission_required = 'exercises.delete_equipment'
     success_url = reverse_lazy('exercise:equipment:list')
 
     def get_context_data(self, **kwargs):
-        '''
+        """
         Send some additional data to the template
-        '''
+        """
         pk = self.kwargs['pk']
         context = super(EquipmentDeleteView, self).get_context_data(**kwargs)
 

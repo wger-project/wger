@@ -245,7 +245,7 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = WorkoutSession
     private_resource = True
     data = {'workout': 3,
-            'date': datetime.date(2014, 1, 30),
+            'date': datetime.date(2014, 1, 25),
             'notes': 'My new insights',
             'impression': '3',
             'time_start': datetime.time(10, 0),

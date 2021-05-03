@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load wger_extras i18n django_bootstrap_breadcrumbs %}
 
-{% block title %}{% trans "Email" %}{% endblock %}
+{% block title %}{% translate "Email" %}{% endblock %}
 
 {% block breadcrumbs %}
     {{ block.super }}
@@ -27,7 +27,7 @@
         </li>
     {% empty %}
         <li class="list-group-item">
-            {% trans "Nothing found" %}
+            {% translate "Nothing found" %}
         </li>
     {% endfor %}
 </ul>
@@ -40,6 +40,6 @@
 {#         #}
 {% block options %}
     <a href="{% url 'email:email:add-gym' gym.pk %}" class="btn btn-sm btn-success">
-        {% trans "Add" %}
+        {% translate "Add" %}
     </a>
 {% endblock %}

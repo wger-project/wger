@@ -27,10 +27,11 @@ from django.core import mail
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils import translation
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
@@ -67,6 +68,16 @@ class Muscle(models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = ["name", ]
+
+    # Image to use when displaying this as a main muscle in an exercise
+    @property
+    def image_url_main(self):
+        return static(f"images/muscles/main/muscle-{self.id}.svg")
+
+    # Image to use when displaying this as a secondary muscle in an exercise
+    @property
+    def image_url_secondary(self):
+        return static(f"images/muscles/secondary/muscle-{self.id}.svg")
 
     def __str__(self):
         """
@@ -153,30 +164,38 @@ class ExerciseCategory(models.Model):
         super(ExerciseCategory, self).delete(*args, **kwargs)
 
 
-class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class Variation(models.Model):
     """
-    Model for an exercise
+    Variation ids for exercises
+    """
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f'Variation {self.id}'
+
+    def get_owner_object(self):
+        """
+        Variation has no owner information
+        """
+        return False
+
+
+class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+    """
+    Model for an exercise base
     """
 
     objects = SubmissionManager()
     """Custom manager"""
 
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    """Globally unique ID, to identify the base across installations"""
+
     category = models.ForeignKey(ExerciseCategory,
                                  verbose_name=_('Category'),
                                  on_delete=models.CASCADE)
-    description = models.TextField(max_length=2000,
-                                   verbose_name=_('Description'),
-                                   validators=[MinLengthValidator(40)])
-    """Description on how to perform the exercise"""
-
-    name = models.CharField(max_length=200,
-                            verbose_name=_('Name'))
-    """The exercise's name, with correct upercase"""
-
-    name_original = models.CharField(max_length=200,
-                                     verbose_name=_('Name'),
-                                     default='')
-    """The exercise's name, as entered by the user"""
 
     muscles = models.ManyToManyField(Muscle,
                                      blank=True,
@@ -185,7 +204,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     muscles_secondary = models.ManyToManyField(Muscle,
                                                verbose_name=_('Secondary muscles'),
-                                               related_name='secondary_muscles',
+                                               related_name='secondary_muscles_base',
                                                blank=True)
     """Secondary muscles trained by the exercise"""
 
@@ -193,6 +212,47 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                        verbose_name=_('Equipment'),
                                        blank=True)
     """Equipment needed by this exercise"""
+
+    variations = models.ForeignKey(Variation,
+                                   verbose_name=_('Variations'),
+                                   on_delete=models.CASCADE,
+                                   null=True,
+                                   blank=True)
+    """Variations of this exercise"""
+
+    #
+    # Own methods
+    #
+
+    @property
+    def get_languages(self):
+        """
+        Returns the languages from the exercises that use this base
+        """
+        return [exercise.language for exercise in self.exercises.all()]
+
+
+class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+    """
+    Model for an exercise
+    """
+
+    objects = SubmissionManager()
+    """Custom manager"""
+
+    description = models.TextField(max_length=2000,
+                                   verbose_name=_('Description'),
+                                   validators=[MinLengthValidator(40)])
+    """Description on how to perform the exercise"""
+
+    name = models.CharField(max_length=200,
+                            verbose_name=_('Name'))
+    """The exercise's name, with correct uppercase"""
+
+    name_original = models.CharField(max_length=200,
+                                     verbose_name=_('Name'),
+                                     default='')
+    """The exercise's name, as entered by the user"""
 
     creation_date = models.DateField(_('Date'),
                                      auto_now_add=True,
@@ -206,10 +266,15 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """The exercise's language"""
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    """Globally unique ID, to identify the exercise across installations"""
 
-    """
-    Globally unique ID, to identify the exercise across installations
-    """
+    exercise_base = models.ForeignKey(ExerciseBase,
+                                      verbose_name='ExerciseBase',
+                                      on_delete=models.CASCADE,
+                                      default=None,
+                                      null=True,
+                                      related_name='exercises')
+    """ Refers to the base exercise with non translated information """
 
     #
     # Django methods
@@ -238,8 +303,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
-        for set in self.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training_id)
+        for setting in self.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
     def delete(self, *args, **kwargs):
         """
@@ -253,8 +318,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
-        for set in self.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training.pk)
+        for setting in self.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Exercise, self).delete(*args, **kwargs)
 
@@ -265,15 +330,49 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return self.name
 
     #
+    # Properties to expose the info from the exercise base
+    #
+    @property
+    def category(self):
+        return self.exercise_base.category
+
+    @property
+    def muscles(self):
+        return self.exercise_base.muscles
+
+    @property
+    def muscles_secondary(self):
+        return self.exercise_base.muscles_secondary
+
+    @property
+    def equipment(self):
+        return self.exercise_base.equipment
+
+    @property
+    def images(self):
+        return self.exercise_base.exerciseimage_set
+
+    @property
+    def variations(self):
+        """
+        Returns the variations for this exercise in the same language
+        """
+        out = []
+        if self.exercise_base.variations:
+            for variation in self.exercise_base.variations.exercisebase_set.all():
+                for exercise in variation.exercises.filter(language=self.language).accepted():
+                    out.append(exercise)
+        return out
+
+    #
     # Own methods
     #
-
     @property
     def main_image(self):
         """
         Return the main image for the exercise or None if nothing is found
         """
-        return self.exerciseimage_set.accepted().filter(is_main=True).first()
+        return self.images.accepted().filter(is_main=True).first()
 
     @property
     def description_clean(self):
@@ -316,9 +415,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     def set_author(self, request):
         """
         Set author and status
-
         This is only used when creating exercises (via web or API)
         """
+
         if request.user.has_perm('exercises.add_exercise'):
             self.status = self.STATUS_ACCEPTED
             if not self.license_author:
@@ -328,8 +427,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 self.license_author = request.user.username
 
             subject = _('New user submitted exercise')
+
             message = _('The user {0} submitted a new exercise "{1}".').format(
-                request.user.username, self.name)
+                request.user.username, self.name_original)
             mail.mail_admins(str(subject),
                              str(message),
                              fail_silently=True)
@@ -339,7 +439,7 @@ def exercise_image_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "exercise-images/{0}/{1}".format(instance.exercise.id, filename)
+    return "exercise-images/{0}/{1}".format(instance.exercise_base.id, filename)
 
 
 class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
@@ -350,9 +450,14 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     objects = SubmissionManager()
     """Custom manager"""
 
-    exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'),
-                                 on_delete=models.CASCADE)
+    uuid = models.UUIDField(default=uuid.uuid4,
+                            editable=False,
+                            verbose_name='UUID')
+    """Globally unique ID, to identify the image across installations"""
+
+    exercise_base = models.ForeignKey(ExerciseBase,
+                                      verbose_name=_('Exercise'),
+                                      on_delete=models.CASCADE)
     """The exercise the image belongs to"""
 
     image = models.ImageField(verbose_name=_('Image'),
@@ -380,13 +485,15 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         Only one image can be marked as main picture at a time
         """
         if self.is_main:
-            ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
+            ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.accepted().filter(exercise=self.exercise).count() == 0 \
+            if ExerciseImage.objects.accepted()\
+                .filter(exercise_base=self.exercise_base).count() == 0 \
                or not ExerciseImage.objects.accepted() \
-                            .filter(exercise=self.exercise, is_main=True)\
-                            .count():
+                    .filter(exercise_base=self.exercise_base, is_main=True)\
+                    .count():
+
                 self.is_main = True
 
         #
@@ -415,14 +522,14 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.accepted() \
-                .filter(exercise=self.exercise, is_main=True).count() \
+                .filter(exercise_base=self.exercise_base, is_main=True).count() \
            and ExerciseImage.objects.accepted() \
-                .filter(exercise=self.exercise) \
+                .filter(exercise_base=self.exercise_base) \
                 .filter(is_main=False) \
                 .count():
 
             image = ExerciseImage.objects.accepted() \
-                .filter(exercise=self.exercise, is_main=False)[0]
+                .filter(exercise_base=self.exercise_base, is_main=False)[0]
             image.is_main = True
             image.save()
 
@@ -435,7 +542,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     def set_author(self, request):
         """
         Set author and status
-
         This is only used when creating images (via web or API)
         """
         if request.user.has_perm('exercises.add_exerciseimage'):
@@ -479,8 +585,8 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for set in self.exercise.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training_id)
+        for setting in self.exercise.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
         super(ExerciseComment, self).save(*args, **kwargs)
 
@@ -488,8 +594,8 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for set in self.exercise.set_set.all():
-            reset_workout_canonical_form(set.exerciseday.training.pk)
+        for setting in self.exercise.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(ExerciseComment, self).delete(*args, **kwargs)
 

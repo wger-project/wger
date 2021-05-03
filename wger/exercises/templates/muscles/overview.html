@@ -4,7 +4,7 @@
 <!--
         Title
 -->
-{% block title %}{% trans "Muscle overview" %}{% endblock %}
+{% block title %}{% translate "Muscle overview" %}{% endblock %}
 
 
 {% block header %}
@@ -47,35 +47,39 @@
                         {% render_muscles muscle %}
                     </div>
 
-                    {% for exercise in muscle.exercise_set.all %}
-                    {% if exercise.language in active_languages %}
-                    <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                        <div class="media">
-                            {% if exercise.main_image %}
-                                <img alt="{{ exercise.name }}"
-                                 class="mr-3"
-                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                            {% else %}
-                                <img alt="{% trans 'Placeholder image for exercise' %}"
-                                     class="mr-3"
-                                     src="{% static 'images/icons/image-placeholder.svg' %}">
-                            {% endif %}
-                            <div class="media-body">
-                                <p class="media-heading h5">{{ exercise.name }}</p>
-                                <span class="text-muted small">
-                                    {% trans exercise.category.name %}
-                                    <!--
-                                    {% trans "Main muscles" %}: {{ exercise.muscles.all|join:", " }}
-                                    <br>
-                                    {% trans "Secondary muscles" %}: {{ exercise.muscles_secondary.all|join:", " }}
-                                    -->
-                                </span>
-                             </div>
-                        </div>
-                    </a>
-                    {% endif %}
-                    {% empty %}
-                        {% trans "No exercises for this equipment. Add or edit an exercise and set the equipment." %}
+                    {% for exercise_base in muscle.exercisebase_set.accepted %}
+                        {% for exercise in exercise_base.exercises.accepted %}
+                        {% if exercise.language in active_languages %}
+                        <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
+                            <div class="media">
+                                {% if exercise.main_image %}
+                                    <img alt="{{ exercise.name }}"
+                                    class="mr-3"
+                                    style="width: 50px;"
+                                    src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
+                                {% else %}
+                                    <img alt="{% translate 'Placeholder image for exercise' %}"
+                                        class="mr-3"
+                                        style="width: 50px;"
+                                        src="{% static 'images/icons/image-placeholder.svg' %}">
+                                {% endif %}
+                                <div class="media-body">
+                                    <p class="media-heading h5">{{ exercise.name }}</p>
+                                    <span class="text-muted small">
+                                        {% translate exercise.category.name %}
+                                        <!--
+                                        {% translate "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
+                                        <br>
+                                        {% translate "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
+                                        -->
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% empty %}
+                            {% translate "No exercises for this muscle. Add or edit an exercise and set the muscle." %}
+                        {% endfor %}
                     {% endfor %}
                 </div>
             </div>
@@ -101,13 +105,13 @@
 {% block options %}
     {% if user.is_authenticated and not user.userprofile.is_temporary %}
         <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
-            {% trans "Add new exercise" %}
+            {% translate "Add new exercise" %}
         </a>
     {% else %}
         <a href="#" class="btn btn-success btn-sm disabled">
-            {% trans "Add new exercise" %}<br>
+            {% translate "Add new exercise" %}<br>
             <small>
-            {% trans "Only registered users can do this" %}
+            {% translate "Only registered users can do this" %}
             </small>
         </a>
     {% endif %}

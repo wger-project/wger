@@ -29,7 +29,7 @@ def processor(request):
     language = load_language()
     full_path = request.get_full_path()
     i18n_path = {}
-    static_path = static('images/logos/logo-marketplace-256.png')
+    static_path = static('images/logos/logo-social.png')
 
     for lang in settings.LANGUAGES:
         i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
@@ -56,6 +56,7 @@ def processor(request):
 
         # Translation links
         'i18n_path': i18n_path,
+        'is_api_path': '/api/' in request.build_absolute_uri(),
 
         # Flag for guest users
         'has_demo_data': request.session.get('has_demo_data', False),
@@ -71,6 +72,9 @@ def processor(request):
 
         # current gym, if available
         'custom_header': get_custom_header(request),
+
+        # Template to extend in forms, kinda ugly
+        'extend_template': 'base_empty.html' if request.is_ajax() else 'base.html'
     }
 
     # Pseudo-intelligent navigation here

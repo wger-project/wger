@@ -21,8 +21,8 @@ import logging
 from django import forms
 from django.urls import reverse
 from django.utils.translation import (
-    ugettext as _,
-    ugettext_lazy
+    gettext as _,
+    gettext_lazy
 )
 
 # Third Party
@@ -55,11 +55,11 @@ class UnitChooserForm(forms.Form):
     A small form to select an amount and a unit for an ingredient
     """
     amount = forms.DecimalField(decimal_places=2,
-                                label=ugettext_lazy("Amount"),
+                                label=gettext_lazy("Amount"),
                                 max_digits=5,
                                 localize=True)
     unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
-                                  label=ugettext_lazy("Unit"),
+                                  label=gettext_lazy("Unit"),
                                   empty_label="g",
                                   required=False)
 
@@ -214,7 +214,7 @@ class MealItemForm(forms.ModelForm):
                                         widget=forms.HiddenInput)
 
     ingredient_searchfield = forms.CharField(required=False,
-                                             label=ugettext_lazy("Ingredient"))
+                                             label=gettext_lazy("Ingredient"))
 
     class Meta:
         model = MealItem
@@ -259,3 +259,51 @@ class MealLogItemForm(MealItemForm):
         fields = ['ingredient',
                   'weight_unit',
                   'amount']
+
+
+class IngredientForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = ['name',
+                  'brand',
+                  'energy',
+                  'protein',
+                  'carbohydrates',
+                  'carbohydrates_sugar',
+                  'fat',
+                  'fat_saturated',
+                  'fibres',
+                  'sodium',
+                  'license',
+                  'license_author']
+        widgets = {'category': forms.TextInput}
+
+    def __init__(self, *args, **kwargs):
+        super(IngredientForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-6 mb-0'),
+                Column('brand', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'energy',
+            'protein',
+            Row(
+                Column('carbohydrates', css_class='form-group col-6 mb-0'),
+                Column('carbohydrates_sugar', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('fat', css_class='form-group col-6 mb-0'),
+                Column('fat_saturated', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+            'fibres',
+            'sodium',
+            Row(
+                Column('license', css_class='form-group col-6 mb-0'),
+                Column('license_author', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            ),
+        )
