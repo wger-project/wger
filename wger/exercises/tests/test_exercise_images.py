@@ -43,7 +43,7 @@ class MainImageTestCase(WgerTestCase):
             if not db_filename:
                 db_filename = filename
             image = ExerciseImage()
-            image.exercise = exercise.exercise_base
+            image.exercise_base = exercise.exercise_base
             image.status = ExerciseImage.STATUS_ACCEPTED
             image.image.save(
                 db_filename,

@@ -69,7 +69,7 @@ class ExerciseImageEditView(WgerFormMixin,
     form_class = ExerciseImageForm
 
     def get_success_url(self):
-        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise_base.id})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):
@@ -94,7 +94,7 @@ class ExerciseImageAddView(WgerFormMixin,
     def form_valid(self, form):
         """Set the exercise base and the author"""
         exercise = get_object_or_404(Exercise, pk=self.kwargs['exercise_pk'])
-        form.instance.exercise = exercise.exercise_base
+        form.instance.exercise_base = exercise.exercise_base
         form.instance.set_author(self.request)
         return super(ExerciseImageAddView, self).form_valid(form)
 

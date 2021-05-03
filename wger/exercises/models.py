@@ -439,7 +439,7 @@ def exercise_image_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "exercise-images/{0}/{1}".format(instance.exercise.id, filename)
+    return "exercise-images/{0}/{1}".format(instance.exercise_base.id, filename)
 
 
 class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
@@ -485,13 +485,15 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         Only one image can be marked as main picture at a time
         """
         if self.is_main:
-            ExerciseImage.objects.filter(exercise=self.exercise).update(is_main=False)
+            ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.accepted().filter(exercise=self.exercise).count() == 0 \
+            if ExerciseImage.objects.accepted()\
+                .filter(exercise_base=self.exercise_base).count() == 0 \
                or not ExerciseImage.objects.accepted() \
-                            .filter(exercise=self.exercise, is_main=True)\
-                            .count():
+                    .filter(exercise_base=self.exercise_base, is_main=True)\
+                    .count():
+
                 self.is_main = True
 
         #
@@ -520,14 +522,14 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.accepted() \
-                .filter(exercise=self.exercise, is_main=True).count() \
+                .filter(exercise_base=self.exercise_base, is_main=True).count() \
            and ExerciseImage.objects.accepted() \
-                .filter(exercise=self.exercise) \
+                .filter(exercise_base=self.exercise_base) \
                 .filter(is_main=False) \
                 .count():
 
             image = ExerciseImage.objects.accepted() \
-                .filter(exercise=self.exercise, is_main=False)[0]
+                .filter(exercise_base=self.exercise_base, is_main=False)[0]
             image.is_main = True
             image.save()
 
