@@ -61,7 +61,8 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     serializer_class = WorkoutSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('comment',
+    filterset_fields = ('name',
+                        'description',
                         'creation_date')
 
     def get_queryset(self):

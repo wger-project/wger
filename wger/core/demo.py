@@ -83,7 +83,7 @@ def create_demo_entries(user):
     #
     setting_list = []
     weight_log = []
-    workout = Workout(user=user, comment=_('Sample workout'))
+    workout = Workout(user=user, name=_('Sample workout'))
     workout.save()
     monday = DaysOfWeek.objects.get(pk=1)
     wednesday = DaysOfWeek.objects.get(pk=3)
@@ -338,11 +338,11 @@ def create_demo_entries(user):
     #
 
     # create some empty workouts to fill the list
-    workout2 = Workout(user=user, comment=_('Placeholder workout nr {0} for schedule').format(1))
+    workout2 = Workout(user=user, name=_('Placeholder workout nr {0} for schedule').format(1))
     workout2.save()
-    workout3 = Workout(user=user, comment=_('Placeholder workout nr {0} for schedule').format(2))
+    workout3 = Workout(user=user, name=_('Placeholder workout nr {0} for schedule').format(2))
     workout3.save()
-    workout4 = Workout(user=user, comment=_('Placeholder workout nr {0} for schedule').format(3))
+    workout4 = Workout(user=user, name=_('Placeholder workout nr {0} for schedule').format(3))
     workout4.save()
 
     schedule = Schedule()

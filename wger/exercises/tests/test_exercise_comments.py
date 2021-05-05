@@ -77,7 +77,7 @@ class ExercisecommentsTestCase(WgerTestCase):
 
         # Comments are loaded
         comments = exercise_1.exercisecomment_set.all()
-        comment_1 = comments[0]
+        comment_1: ExerciseComment = comments[0]
         self.assertEqual(comment_1.id, 1)
         self.assertEqual(comment_1.comment, "test 123")
         self.assertEqual(len(comments), 1)

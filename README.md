@@ -11,6 +11,7 @@ For a live system, refer to the project's site: <https://wger.de/>
 
 ![Workout plan](https://raw.githubusercontent.com/wger-project/wger/master/wger/software/static/images/workout.png)
 
+
 ## Installation
 
 These are the basic steps to install and run the application locally on a Linux

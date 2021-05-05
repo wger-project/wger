@@ -80,11 +80,17 @@ class Workout(models.Model):
         ordering = ["-creation_date", ]
 
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    comment = models.CharField(verbose_name=_('Description'),
-                               max_length=100,
-                               blank=True,
-                               help_text=_("A short description or goal of the workout. For "
-                                           "example 'Focus on back' or 'Week 1 of program xy'."))
+    name = models.CharField(verbose_name=_('Name'),
+                            max_length=100,
+                            blank=True,
+                            help_text=_("The name of the workout"))
+    description = models.TextField(verbose_name=_('Description'),
+                                   max_length=1000,
+                                   blank=True,
+                                   help_text=_("A short description or goal of the workout. For "
+                                               "example 'Focus on back' or 'Week 1 of program "
+                                               "xy'."))
+
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
 
     def get_absolute_url(self):
@@ -97,8 +103,8 @@ class Workout(models.Model):
         """
         Return a more human-readable representation
         """
-        if self.comment:
-            return "{0}".format(self.comment)
+        if self.name:
+            return self.name
         else:
             return "{0} ({1})".format(_('Workout'), self.creation_date)
 
@@ -361,7 +367,7 @@ class ScheduleStep(models.Model):
         """
         Return a more human-readable representation
         """
-        return self.workout.comment
+        return self.workout.name
 
     def get_dates(self):
         """

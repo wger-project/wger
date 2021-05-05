@@ -3,27 +3,30 @@
         "pk": 1,
         "model": "manager.workout",
         "fields": {
-            "comment": "A test workout",
+            "name": "A test workout",
             "user": 1,
-            "creation_date": "2012-11-01"
+            "creation_date": "2012-11-01",
+            "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna"
         }
     },
     {
         "pk": 2,
         "model": "manager.workout",
         "fields": {
-            "comment": "Another test workout",
+            "name": "Another test workout",
             "user": 1,
-            "creation_date": "2012-11-10"
+            "creation_date": "2012-11-10",
+            "description": "The wild boar (Sus scrofa), also known as the \"wild swine\", \"common wild pig\", or simply \"wild pig\", is a suid native to much of Eurasia and North Africa"
         }
     },
     {
         "pk": 3,
         "model": "manager.workout",
         "fields": {
-            "comment": "My test workout",
+            "name": "My test workout",
             "user": 2,
-            "creation_date": "2012-11-20"
+            "creation_date": "2012-11-20",
+            "description": ""
         }
     },
 

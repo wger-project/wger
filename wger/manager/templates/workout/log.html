@@ -40,12 +40,6 @@
 {# Content #}
 {#         #}
 {% block content %}
-{% if workout.comment %}
-<p>
-    <strong>{% translate "Goal" %}:</strong> {{workout.comment}}
-</p>
-{% endif %}
-
 {% for day in workout.canonical_representation.day_list %}
     <h4>{{ day.obj.description }}</h4>
 
