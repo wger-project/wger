@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% translate "Gallery" %}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+    <div class="card-columns">
+    {% for image in images %}
+        <div class="card">
+        <a href="{% url 'gallery:images:delete' image.pk %}">
+            <img class="card-img-top" src="{{ image.image.url  }}" class="img-thumbnail" alt="{{ image.description }}">
+        </a>
+
+        </div>
+    {% endfor %}
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block options %}
+<a href="{% url 'gallery:images:add' %}" class="btn btn-success btn-sm">
+    {% translate "Add image" %}
+</a>
+{% endblock %}

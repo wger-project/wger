@@ -113,6 +113,7 @@ urlpatterns = i18n_patterns(
     path('software/', include(('wger.software.urls', 'software'), namespace='software')),
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
+    path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
     path('email', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path('sitemap-<section>.xml',
