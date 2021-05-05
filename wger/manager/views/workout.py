@@ -146,7 +146,7 @@ def copy_workout(request, pk):
 
             workout_copy = copy.copy(workout)
             workout_copy.pk = None
-            workout_copy.comment = workout_form.cleaned_data['comment']
+            workout_copy.name = workout_form.cleaned_data['name']
             workout_copy.user = request.user
             workout_copy.save()
 
@@ -180,7 +180,7 @@ def copy_workout(request, pk):
             return HttpResponseRedirect(reverse('manager:workout:view',
                                                 kwargs={'pk': workout_copy.id}))
     else:
-        workout_form = WorkoutCopyForm({'comment': workout.comment})
+        workout_form = WorkoutCopyForm({'name': workout.name, 'description': workout.description})
         workout_form.helper = FormHelper()
         workout_form.helper.form_id = slugify(request.path)
         workout_form.helper.form_method = 'post'
@@ -193,7 +193,7 @@ def copy_workout(request, pk):
         template_data.update(csrf(request))
         template_data['title'] = _('Copy workout')
         template_data['form'] = workout_form
-        template_data['form_fields'] = [workout_form['comment']]
+        template_data['form_fields'] = [workout_form['name']]
         template_data['submit_text'] = _('Copy')
 
         return render(request, 'form.html', template_data)
@@ -217,7 +217,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = Workout
-    fields = ('comment',)
+    fields = ('name',)
     success_url = reverse_lazy('manager:workout:overview')
     messages = gettext_lazy('Successfully deleted')
 

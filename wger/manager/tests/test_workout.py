@@ -150,7 +150,7 @@ class EditWorkoutTestCase(WgerEditTestCase):
     pk = 3
     user_success = 'test'
     user_fail = 'admin'
-    data = {'comment': 'A new comment'}
+    data = {'name': 'A new comment'}
 
 
 class WorkoutOverviewTestCase(WgerTestCase):
@@ -192,7 +192,7 @@ class WorkoutModelTestCase(WgerTestCase):
         self.assertEqual('{0}'.format(workout),
                          '{0} ({1})'.format('Workout', datetime.date.today()))
 
-        workout.comment = 'my description'
+        workout.name = 'my description'
         self.assertEqual('{0}'.format(workout), 'my description')
 
 
@@ -204,4 +204,4 @@ class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = Workout
     private_resource = True
     special_endpoints = ('canonical_representation',)
-    data = {'comment': 'A new comment'}
+    data = {'name': 'A new comment'}

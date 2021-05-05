@@ -73,9 +73,14 @@ class WorkoutForm(ModelForm):
 
 
 class WorkoutCopyForm(Form):
-    comment = CharField(max_length=100,
-                        help_text=_('The goal or description of the new workout.'),
-                        required=False)
+    name = CharField(max_length=100,
+                     help_text=_('The name of the workout'),
+                     required=False)
+    description = CharField(max_length=1000,
+                            help_text=_("A short description or goal of the workout. For "
+                                        "example 'Focus on back' or 'Week 1 of program xy'."),
+                            widget=widgets.Textarea,
+                            required=False)
 
 
 class DayForm(ModelForm):
@@ -111,7 +116,7 @@ class SetForm(ModelForm):
 class SettingForm(ModelForm):
     class Meta:
         model = Setting
-        exclude = ('set', 'exercise', 'order', 'comment')
+        exclude = ('set', 'exercise', 'order', 'name')
 
 
 class WorkoutLogForm(ModelForm):

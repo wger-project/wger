@@ -20,7 +20,16 @@ Upgrade steps from 2.0:
 
 🧰 Maintenance:
 
-*
+* Changes to the REST API:
+  + /exerciseimage/
+    - ``exercise`` was renamed to  ``exercise_base`` (was pointing there anyway)
+  + /workout/
+    - ``comment`` was renamed to name
+    - field ``description`` was added, for longer descriptions
+* `#666`_,
+
+.. _#666: https://github.com/wger-project/wger/issues/666
+
 
 
 2.0
@@ -108,7 +117,7 @@ Upgrade steps from 1.9:
 .. _@jeevikaghosh: https://github.com/jeevikaghosh
 .. _@bradsk88: https://github.com/bradsk88
 .. _@Sidrah-Madiha: https://github.com/Sidrah-Madiha
-.. _@calvinrw : https://github.com/calvinrw
+.. _@calvinrw: https://github.com/calvinrw
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246

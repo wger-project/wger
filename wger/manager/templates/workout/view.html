@@ -16,7 +16,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% translate "Workout" %} – {{ workout.creation_date }}{% endblock %}
+{% block title %}{% translate "Workout" %}{% endblock %}
 
 
 {#        #}
@@ -52,8 +52,12 @@ $(document).ready(function () {
 {% block content %}
 
 
-{% if workout.comment %}
-    <h4>{{workout.comment}}</h4>
+{% if workout.name %}
+    <h4>{{workout.name }}</h4>
+{% endif %}
+
+{% if workout.description %}
+    <p>{{ workout.description }}</p>
 {% endif %}
 
 {% for day in workout.canonical_representation.day_list %}

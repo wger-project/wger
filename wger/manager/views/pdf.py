@@ -93,11 +93,14 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Set the title
-    p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
-                  {'description': workout},
+    p = Paragraph(f'<para align="center"><strong>{workout.name}</strong></para>',
                   styleSheet["HeaderBold"])
     elements.append(p)
-    elements.append(Spacer(10 * cm, 1.5 * cm))
+    elements.append(Spacer(10 * cm, 0.5 * cm))
+    if workout.description:
+        p = Paragraph(f'<para align="center">{workout.description}</para>')
+        elements.append(p)
+        elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
     for day in workout.canonical_representation['day_list']:
