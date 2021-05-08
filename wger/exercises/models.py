@@ -439,7 +439,7 @@ def exercise_image_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "exercise-images/{0}/{1}".format(instance.exercise_base.id, filename)
+    return "exercise-images/{0}/{1}".format(instance.uuid, filename)
 
 
 class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
