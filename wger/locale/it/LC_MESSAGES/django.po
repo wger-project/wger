@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Stefano Rossi <stefanorossi.ti@gmail.com>\n"
+"PO-Revision-Date: 2021-05-09 09:11+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -47,7 +47,7 @@ msgid ""
 msgstr ""
 "Seleziona la palestra di default per questa installazione. Questa palestra "
 "sarà assegnata a tutti i nuovi utenti e a tutti gli utenti già registrati "
-"che non ne hanno una. "
+"che non ne hanno una."
 
 #: config/templates/language/overview.html:4 core/templates/navigation.html:203
 msgid "Languages"
@@ -55,7 +55,7 @@ msgstr "Lingue"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr "nessun riscontro"
+msgstr "Niente trovato."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:145
 #: core/templates/index.html:197 manager/templates/calendar/month.html:132
@@ -248,13 +248,13 @@ msgstr "Cognome"
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: core/forms.py:80
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
 "Usato per reimpostare la password e, opzionalmente, per i promemoria via "
-"email."
+"e-mail."
 
 #: core/forms.py:105
 msgid "Personal data"
@@ -279,12 +279,12 @@ msgstr "Salva"
 #: core/forms.py:136
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
-"Usato per il reset della password e, opzionalmente, per i promemoria via "
-"email."
+"Usato per reimpostare la password e, opzionalmente, per i promemoria via "
+"e-mail."
 
 #: core/forms.py:163
 msgid "This e-mail address is already in use."
-msgstr "Questo indirizzo email è già in uso"
+msgstr "Questo indirizzo e-mail è già in uso"
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -293,7 +293,7 @@ msgstr "Password"
 
 #: core/forms.py:186
 msgid "Please enter your current password."
-msgstr "per favore inserisca la sua password attuale."
+msgstr "Si prega di inserire la tua password attuale."
 
 #: core/forms.py:203
 msgid "Invalid password"
@@ -316,7 +316,7 @@ msgstr "Contatto"
 
 #: core/forms.py:261
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Un modo per contattarti (email, etc)"
+msgstr "Un modo per contattarti (e-mail, ecc.)"
 
 #: core/forms.py:267 exercises/models.py:573 manager/models.py:805
 #: nutrition/models.py:865
@@ -397,7 +397,7 @@ msgid ""
 "valid email for this to work."
 msgstr ""
 "Spunta per attivare i promemoria automatici per gli allenamenti. Devi "
-"inserire una email valida perché funzioni."
+"inserire una e-mail valida perché funzioni."
 
 #: core/models.py:174
 msgid "Remind before expiration"
@@ -419,7 +419,7 @@ msgid ""
 "workout reminders."
 msgstr ""
 "Durata predefinita in settimane di allenamenti non in programma. Utilizzato "
-"per i promemoria dell'allenamento tramite email."
+"per i promemoria dell'allenamento tramite e-mail."
 
 #: core/models.py:196
 msgid "Notification language"
@@ -430,7 +430,7 @@ msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
-"lingua da usare quando ti inviamo le email di notifica,ad esempio il "
+"lingua da usare quando ti inviamo le e-mail di notifica,ad esempio il "
 "promemoria per l'allenamento. Questo non modifica il linguaggio usato nel "
 "sito web"
 
@@ -611,14 +611,14 @@ msgid ""
 "    "
 msgstr ""
 "Tu sei\n"
-" visitando il sito come \"%(current_user)s\", tutte le azioni sono "
-"memorizzate per questo utente.\n"
+" visitando il sito come «%(current_user)s», tutte le azioni sono memorizzate "
+"per questo utente.\n"
 "    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
 msgid "Back to \"%(target)s\""
-msgstr "Ritorna a \"%(target)s\""
+msgstr "Ritorna a «%(target)s»"
 
 #: core/templates/base.html:42 core/templates/base_wide.html:40
 msgid "Share"
@@ -850,9 +850,10 @@ msgid ""
 msgstr ""
 "Grazie per l'interesse. Sentiti libero di usare qualsiasi dei simboli: \n"
 "qui sotto per inviarci le tue opinioni su qualsiasi aspetto del sito. Per \n"
-" supporto, contattaci \n"
+" avere aiuto, contattaci \n"
 "<a href=\"%(discord)s\">Canale Discord</a>, per segnalare\n"
-"un bug, considera farlo tramite il <a href=\"%(issues)s\"> bug tracker </a>"
+"un errore, considera farlo tramite il <a href=\"%(issues)s\">tracker degli "
+"errori</a>"
 
 #: core/templates/misc/contact.html:20
 #, python-format
@@ -861,8 +862,7 @@ msgid ""
 "you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
 msgstr ""
 "Se vuoi aiutare ulteriormente e migliorare questo progetto,\n"
-"potresti anche essere interessato a <a href=\"%(contribute)s\">contribuire</"
-"a>."
+"potresti anche aver voglia di <a href=\"%(contribute)s\">contribuire</a>."
 
 #: core/templates/misc/contact.html:29
 msgid "Feedback form"
@@ -1205,7 +1205,7 @@ msgstr "questo esercizio non ha ripetizioni"
 
 #: core/templates/tags/render_day.html:114
 msgid "Edit them now."
-msgstr "Modificali"
+msgstr "Modificali ora."
 
 #: core/templates/tags/render_day.html:139
 msgid "Add exercises to this workout day"
@@ -1315,10 +1315,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Questa azione eliminerà l'account utente \"%(username)s\".\n"
-"Rimuoverà anche irrevocabilmente tutti i dati ad esso associati "
-"(allenamenti, registri, ecc.)\n"
-"e non può essere annullato."
+"Questa azione eliminerà l'account utente «%(username)s».\n"
+"Rimuoverà anche irrevocabilmente tutti i dati ad esso associati ("
+"allenamenti, registri, ecc.)\n"
+"e non può essere annullato. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1620,7 +1620,7 @@ msgstr "Il tuo feedback è stato mandato con successo. Grazie!"
 #: core/views/user.py:156
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
-msgstr "L'account \"{0}\" è stato eliminato con successo"
+msgstr "L'account «{0}» è stato eliminato con successo"
 
 #: core/views/user.py:285
 msgid "You were successfully registered"
@@ -1660,7 +1660,7 @@ msgstr "Palestra"
 
 #: exercises/models.py:63
 msgid "In latin, e.g. \"Pectoralis major\""
-msgstr "In latino es. \"Pectoralis major\""
+msgstr "In latino es. «Pectoralis major»"
 
 #: exercises/models.py:131
 msgid "Exercise Categories"
@@ -1702,7 +1702,7 @@ msgstr "Un nuovo utente ha inserito un esercizio"
 #: exercises/models.py:431
 #, python-brace-format
 msgid "The user {0} submitted a new exercise \"{1}\"."
-msgstr "L'utente {0} ha inserito un nuovo esercizio \"{1}\"."
+msgstr "L'utente {0} ha inserito un nuovo esercizio «{1}»."
 
 #: exercises/models.py:459 exercises/models.py:569 manager/forms.py:133
 #: manager/helpers.py:85 manager/models.py:854
@@ -1738,8 +1738,7 @@ msgstr "Nuovo utente immagine inviata"
 #: exercises/models.py:555
 #, python-brace-format
 msgid "The user {0} submitted a new image \"{1}\" for exercise {2}."
-msgstr ""
-"L'utente {0} ha inviato una nuova immagine \"{1}\" per l'esercizio {2}."
+msgstr "L'utente {0} ha inviato una nuova immagine «{1}» per l'esercizio {2}."
 
 #: exercises/models.py:574
 msgid "A comment about how to correctly do this exercise."
@@ -1845,7 +1844,7 @@ msgstr ""
 "Una volta esaminato, verrà aggiunto al database. Fin quando questo non "
 "succede,\n"
 "non sarà visibile nella panoramica o nella ricerca. Nel caso in cui hai "
-"aggiunto la tua email\n"
+"aggiunto la tua e-mail\n"
 "quando ti sei registrato, riceverai una notifica quando il processo è "
 "completato con successo."
 
@@ -1999,7 +1998,7 @@ msgstr "Cancella attrezzatura?"
 #, python-format
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr "%(name_original)s è troppo simile a \"%(exercise_name)s\""
+msgstr "%(name_original)s è troppo simile a «%(exercise_name)s»"
 
 #: exercises/views/exercises.py:232 software/templates/contribute.html:37
 msgid "Add exercise"
@@ -2270,7 +2269,7 @@ msgstr "Tipi"
 
 #: gym/templates/gym/member_list.html:285
 msgid "Emails"
-msgstr "Emails"
+msgstr "E-mail"
 
 #: gym/templates/gym/member_list.html:315
 msgid "Add member"
@@ -2513,7 +2512,7 @@ msgstr "Fino al Fallimento"
 #: mailer/forms.py:35 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
 msgid "Subject"
-msgstr "Soggetto"
+msgstr "Oggetto"
 
 #: mailer/forms.py:36 mailer/templates/mailer/gym/preview.html:40
 msgctxt "As in \"content of an email\""
@@ -2538,7 +2537,7 @@ msgstr "Riempi il form"
 #: mailer/templates/mailer/gym/form.html:31
 #: mailer/templates/mailer/gym/preview.html:65
 msgid "You will receive a preview email for you to review"
-msgstr "Riceverai un'e-mail di anteprima per la tua revisione"
+msgstr "Riceverai un'e-mail di anteprima per la controllare"
 
 #: mailer/templates/mailer/gym/form.html:32
 #: mailer/templates/mailer/gym/preview.html:66
@@ -2555,7 +2554,7 @@ msgstr "Versione attuale"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr "Invia email"
+msgstr "Invia e-mail"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2610,13 +2609,13 @@ msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
 msgstr ""
-"Una breve descrizione o scopo dell'allenamento. Per esempio \"Dedicato al "
-"dorso\" o \"Settimana 1 del programma xy\""
+"Una breve descrizione o scopo dell'allenamento. Per esempio «Dedicato al "
+"dorso» o «Settimana 1 del programma xy»."
 
 #: manager/models.py:241
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
 msgstr ""
-"Nome o breve descrizione della programmazione. Per esempio \"Programma XYZ\""
+"Nome o breve descrizione della programmazione. Per esempio «Programma XYZ»."
 
 #: manager/models.py:249 manager/templates/schedule/view.html:74
 msgid "Schedule active"
@@ -2666,8 +2665,8 @@ msgid ""
 "A description of what is done on this day (e.g. \"Pull day\") or what body "
 "parts are trained (e.g. \"Arms and abs\")"
 msgstr ""
-"Una descrizione di quello che verrà fatto in questa giornata (es. \"Leg day"
-"\") o quale parte del corpo verrà allenata ( es. \"Braccia e addome\")"
+"Una descrizione di quello che verrà fatto in questa giornata (es. «Giorno "
+"pull») o quale parte del corpo verrà allenata ( es. «Braccia e addome»)"
 
 #: manager/models.py:400
 msgid "Day"
@@ -2934,7 +2933,7 @@ msgstr "Elimina programma"
 #: manager/templates/set/add.html:9
 #, python-format
 msgid "Add exercises to day \"%(day_name)s\""
-msgstr "Aggiungi esercizi al giorno \"%(day_name)s\""
+msgstr "Aggiungi esercizi al giorno «%(day_name)s»"
 
 #: manager/templates/set/add.html:54
 msgid ""
@@ -2944,9 +2943,9 @@ msgid ""
 "automatically becomes \"4 x 10\"."
 msgstr ""
 "Se fai le stesse ripetizioni per tutti i set,\n"
-"puoi inserire solo un valore: ad es. per 4 set basta inserire un \"10\" per "
-"le ripetizioni, questo\n"
-"diventa automaticamente \"4 x 10\"."
+"puoi inserire solo un valore: ad es. per 4 set basta inserire un «10» per le "
+"ripetizioni, questo\n"
+"diventa automaticamente «4 × 10»."
 
 #: manager/templates/set/edit.html:10
 msgid "Edit set"
@@ -2986,8 +2985,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Se non si desidera ricevere mai promemoria via email, disattivare l'\n"
-"opzione nelle tue impostazioni."
+"Se non si desidera ricevere mai promemoria via e-mail, disattivare\n"
+"l'opzione nelle tue impostazioni."
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -3213,8 +3212,8 @@ msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
 msgstr ""
-"Una descrizione dell'obiettivo del piano, ad es. \"Guadagna massa\" o "
-"\"Preparati per l'estate\""
+"Una descrizione dell'obiettivo del piano, ad es. «Guadagna massa» o «"
+"Preparati per l'estate»"
 
 #: nutrition/models.py:100
 msgid "Use daily calories"
@@ -3235,7 +3234,7 @@ msgstr "Categorie ingredienti"
 
 #: nutrition/models.py:325
 msgid "In kcal per 100g"
-msgstr "In kcal per 100g"
+msgstr "In kcal/100 g"
 
 #: nutrition/models.py:330 nutrition/models.py:337 nutrition/models.py:346
 #: nutrition/models.py:353 nutrition/models.py:362 nutrition/models.py:371
@@ -3284,7 +3283,7 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
-"L'energia totale ({energy}kcal) non è la somma approssimata dell'energia "
+"L'energia totale ({energy} kcal) non è la somma approssimata dell'energia "
 "delle proteine, carboidrati e grasso. ({energy_calculated} kcal +/- "
 "{energy_approx}%)"
 
@@ -3299,7 +3298,7 @@ msgstr "Nuovo ingrediente presentato dall'utente"
 #: nutrition/models.py:577
 #, python-brace-format
 msgid "The user {0} submitted a new ingredient \"{1}\"."
-msgstr "L'utente {0} ha inviato un nuovo ingrediente \"{1}\"."
+msgstr "L'utente {0} ha inviato un nuovo ingrediente «{1}»."
 
 #: nutrition/models.py:640
 msgid "Amount in grams"
@@ -3307,7 +3306,7 @@ msgstr "Quantità in grammi"
 
 #: nutrition/models.py:645
 msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
-msgstr "Importo unitario, ad es. \"1 tazza\" o \"1/2 cucchiaio\""
+msgstr "Importo unitario, ad es. «1 tazza» o «1/2 cucchiaio»"
 
 #: nutrition/models.py:681
 msgid "Time (approx)"
@@ -3319,7 +3318,7 @@ msgstr "Risultati"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Il tuo BMI è"
+msgstr "Il tuo IMC è "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3410,7 +3409,7 @@ msgstr ""
 "Una volta compilato il modulo, sarà inviata una notifica agli "
 "amministratori. Una volta revisionato, sarà inserito nel database. Fino ad "
 "allora, non sarà visibile nel prospetto o nella ricerca. Nel caso tu abbia "
-"inserito la tua email durante la registrazione, ti verrà inviata una "
+"inserito la tua e-mail durante la registrazione, ti verrà inviata una "
 "notifica quando il processo sarà completato con successo"
 
 #: nutrition/templates/ingredient/overview.html:45
@@ -3762,12 +3761,12 @@ msgstr ""
 "wger Workout Manager è realizzato da volontari,\n"
 "il processo di sviluppo è aperto e liberamente accessibile a chiunque sia "
 "interessato.\n"
-"Se sei nuovo nel mondo del software libero, ti consigliamo di prendere "
+"Se sei nuovo/a nel mondo del software libero, ti consigliamo di prendere "
 "visione\n"
-"di <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">questo\n"
-"articolo</a> che riassume in che modo i progetti open source funzionano "
-"molto bene."
+"di <a href=\"http://schlitt.info/opensource/blog/"
+"0541_10_golden_rules_for_starting_with_open_source.html\">questo\n"
+"articolo</a> che riassume in che modo i progetti con codice sorgente aperto "
+"funzionano molto bene. "
 
 #: software/templates/contribute.html:16
 msgid ""
@@ -4022,7 +4021,7 @@ msgstr ""
 #: software/templates/features.html:223
 #, python-format
 msgid "100%% Free <br>and <br>Open Source"
-msgstr "100%% Gratuito <br>e <br>Open Source"
+msgstr "100%% gratuito <br>e <br>aperto"
 
 #: software/templates/issues.html:6
 msgid "Reporting a problem"
@@ -4041,7 +4040,7 @@ msgid ""
 msgstr ""
 "\n"
 "Nessun software è perfetto. Per alcuni errori gravi, verrà inviata "
-"automaticamente un'email, ma\n"
+"automaticamente un'e-mail, ma\n"
 "non sempre, quindi io dipendo da te riportando tutto ciò che non si è "
 "comportato come previsto.\n"
 "Per favore descrivi nel modo più dettagliato possibile ciò che stavi facendo "
@@ -4090,17 +4089,17 @@ msgid ""
 "have one and don't want to register, you can also send it to\n"
 "<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
 msgstr ""
-"Presentare un problema richiede un account github, se non ne\n"
+"Presentare un problema richiede un account Github, se non ne\n"
 "hai uno e non vuoi registrarti, puoi anche inviarlo alla\n"
-"<a href=\"https://groups.google.com/group/wger\">mailing list</a>."
+"<a href=\"https://groups.google.com/group/wger\">lista di diffusione</a>."
 
 #: software/templates/license.html:10
 msgid ""
 "wger Workout Manager is Free/Libre Open Source\n"
 "Software (FLOSS)."
 msgstr ""
-"wger Workout Manager è Gratuito / Libre Open Source\n"
-"Software (FLOSS)."
+"wger Workout Manager è un software\n"
+"libero e gratuito."
 
 #: software/templates/license.html:22
 msgid ""
@@ -4129,7 +4128,7 @@ msgstr ""
 
 #: utils/generic_views.py:254
 msgid "Yes, delete"
-msgstr "Si, cancella"
+msgstr "Sì, elimina"
 
 #: utils/models.py:44
 msgid "Author"
