@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:28+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-05-09 09:11+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -47,7 +47,7 @@ msgid ""
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
 "Selecione a academia padrão para essa instalação. Isto atribuirá todos os "
-"novos usuários registrados e os usuários sem academia à essa academia."
+"novos utilizadores registados e os utilizadores sem academia à essa academia."
 
 #: config/templates/language/overview.html:4 core/templates/navigation.html:203
 msgid "Languages"
@@ -277,7 +277,7 @@ msgstr "Salvar"
 
 #: core/forms.py:136
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "Usada para ressetar senha e email de lembretes opcionais "
+msgstr "Usada para redefinir a palavra-passe e email de lembretes opcionais"
 
 #: core/forms.py:163
 #, fuzzy
@@ -1093,7 +1093,7 @@ msgstr "Unidade de peso"
 
 #: core/templates/navigation.html:215 core/templates/user/list.html:4
 msgid "User list"
-msgstr "Lista de Usuários"
+msgstr "Lista de utilizadores"
 
 #: core/templates/navigation.html:216
 msgid "Gyms"
@@ -1101,12 +1101,12 @@ msgstr "Academias"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr "Reset da senha completo"
+msgstr "Redefinição da palavra-passe completa"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
 msgstr ""
-"Sua senha ainda não foi definida. Você deve ir adiante e logar-se agora"
+"A sua palavra-passe ainda não foi definida. Deve ir adiante e logar-se agora"
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
@@ -1114,15 +1114,15 @@ msgstr "Entrar"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr "Redefinição da senha realizada com sucesso"
+msgstr "Redefinição da palavra-passe realizada com sucesso"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
-"Nós enviamos um e-mail com instruções para definição da sua senha no "
-"endereço de e-mail informado por você. Você deve recenê-lo em breve."
+"Enviamos um e-mail com instruções para definição da sua palavra-passe no "
+"endereço de e-mail informado por você. Deve recebê-lo em breve."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -1130,8 +1130,8 @@ msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
-"Você está recebendo este e-mail pois você requisitou a redefinição da senha "
-"do seu usuário no %(site_name)s."
+"Recebeu este e-mail por requisitar a redefinição da palavra-passe da sua "
+"conta de utilizador no %(site_name)s."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -1139,7 +1139,7 @@ msgstr "Por favor vá para seguinte página e escolha uma nova senha:"
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
-msgstr "Seu usuário, caso você tenha esquecido:"
+msgstr "Seu utilizador, caso você tenha esquecido:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
@@ -1284,7 +1284,7 @@ msgstr "Documentação"
 #: core/templates/user/delete_account.html:4
 #: core/templates/user/preferences.html:42
 msgid "Delete account"
-msgstr "Excluir conta"
+msgstr "Apagar conta"
 
 #: core/templates/user/delete_account.html:17
 msgid "Are you sure?"
@@ -1298,10 +1298,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Esta ação irá apagar a conta do usuário \"%(username)s\".\n"
-"Isso irá irrevogavelmente remover todos os dados associados com esta conta "
-"(treinos, registros, etc.)\n"
-"e não poderá ser desfeito."
+"Esta ação irá apagar a conta do utilizador \"%(username)s\".\n"
+"Isso irá irrevogavelmente remover todos os dados associados com esta conta ("
+"treinos, registros, etc.)\n"
+"e não poderá ser desfeito. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1404,15 +1404,15 @@ msgstr "Ações"
 
 #: core/templates/user/overview.html:208
 msgid "Deactivate user"
-msgstr "Usuário desativado"
+msgstr "Utilizador desativado"
 
 #: core/templates/user/overview.html:210
 msgid "Activate user"
-msgstr "Usuário ativo"
+msgstr "Utilizador ativo"
 
 #: core/templates/user/overview.html:212
 msgid "Reset user password"
-msgstr "Redefinir a senha de usuário"
+msgstr "Redefinir a senha de utilizador"
 
 #: core/templates/user/overview.html:215 gym/templates/gym/member_list.html:30
 msgid "Roles"
@@ -1420,11 +1420,11 @@ msgstr "Papéis"
 
 #: core/templates/user/overview.html:226
 msgid "Password reset confirmation"
-msgstr "Confirmação de reset da senha"
+msgstr "Confirmação de redefinição da palavra-passe"
 
 #: core/templates/user/overview.html:230
 msgid "Do you really want to change this user&#39;s password?"
-msgstr "Você realmente deseja alterar a senha deste usuário&#39; ?"
+msgstr "Você realmente deseja alterar a senha deste utilizador&#39; ?"
 
 #: core/templates/user/overview.html:233
 msgid "No"
@@ -1466,7 +1466,7 @@ msgstr "Último Login"
 
 #: core/templates/user/overview.html:305
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: core/templates/user/overview.html:308
 msgid "Active"
@@ -1501,7 +1501,7 @@ msgstr ""
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
-msgstr "Logado como este usuário"
+msgstr "Logado como este utilizador"
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
@@ -1544,7 +1544,7 @@ msgstr "oz"
 #: nutrition/views/ingredient.py:138 nutrition/views/plan.py:121
 #: nutrition/views/unit.py:107
 msgid "Successfully deleted"
-msgstr "Excluído com sucesso"
+msgstr "Apagado com sucesso"
 
 #: core/views/languages.py:93 core/views/license.py:103
 #: core/views/repetition_units.py:115 core/views/weight_units.py:115
@@ -1614,15 +1614,15 @@ msgstr "Configurações atualizadas com sucesso"
 
 #: core/views/user.py:370
 msgid "The user was successfully deactivated"
-msgstr "O usuário foi desativado com sucesso"
+msgstr "O utilizador foi desativado com sucesso"
 
 #: core/views/user.py:403
 msgid "The user was successfully activated"
-msgstr "O usuário foi ativado com sucesso"
+msgstr "O utilizador foi ativado com sucesso"
 
 #: core/views/user.py:416
 msgid "Edit user"
-msgstr "Editar usuário"
+msgstr "Editar utilizador"
 
 #: core/views/user.py:559 gym/templates/gym/member_list.html:26
 #: gym/views/gym.py:152
@@ -1633,7 +1633,7 @@ msgstr "Identificação"
 #: gym/templates/gym/member_list.html:27 gym/views/export.py:59
 #: gym/views/gym.py:152 gym/views/gym.py:210
 msgid "Username"
-msgstr "usuário"
+msgstr "utilizador"
 
 #: core/views/user.py:563 gym/templates/gym/new_user.html:34
 #: gym/views/export.py:58 gym/views/gym.py:210
@@ -1679,12 +1679,12 @@ msgstr "Exercício foi adicionado com sucesso ao banco de dados geral"
 
 #: exercises/models.py:429
 msgid "New user submitted exercise"
-msgstr "Novo exercício submetido pelo usuário"
+msgstr "Novo exercício submetido pelo utilizador"
 
 #: exercises/models.py:431
 #, python-brace-format
 msgid "The user {0} submitted a new exercise \"{1}\"."
-msgstr "O usuário {0} submete um novo exercício \"{1}\"."
+msgstr "O utilizador {0} submete um novo exercício \"{1}\"."
 
 #: exercises/models.py:459 exercises/models.py:569 manager/forms.py:133
 #: manager/helpers.py:85 manager/models.py:854
@@ -1715,7 +1715,7 @@ msgstr ""
 
 #: exercises/models.py:554
 msgid "New user submitted image"
-msgstr "Nova imagem submetido por usuário"
+msgstr "Nova imagem submetido por utilizador"
 
 #: exercises/models.py:555
 #, python-brace-format
@@ -1771,7 +1771,7 @@ msgstr "nome do exercício"
 #: nutrition/templates/ingredient/overview.html:85
 #: software/templates/contribute.html:39
 msgid "Only registered users can do this"
-msgstr "Somente usuários cadastrados podem fazer isto"
+msgstr "Somente utilizadores cadastrados podem fazer isto"
 
 #: exercises/templates/exercise/email_new.tpl:1
 #, python-format
@@ -1873,7 +1873,7 @@ msgstr "Data de submissão"
 #: nutrition/models.py:87 nutrition/templates/ingredient/pending.html:16
 #: weight/models.py:38
 msgid "User"
-msgstr "Usuário"
+msgstr "Utilizador"
 
 #: exercises/templates/exercise/view.html:48
 msgid "Exercise is pending review"
@@ -1884,7 +1884,7 @@ msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "        included in the database."
 msgstr ""
-"Esse exercício enviado pelo usuário está pendendo uma decisão para\n"
+"Esse exercício enviado pelo utilizador está pendendo uma decisão para\n"
 "ser incluído no banco de dados."
 
 #: exercises/templates/exercise/view.html:53
@@ -1966,7 +1966,7 @@ msgstr "Adicionar categoria"
 
 #: exercises/views/categories.py:114
 msgid "This will also delete all exercises in this category."
-msgstr "Isto irá, também, excluir todos os exercícios nesta categoria."
+msgstr "Isto irá, também, apagar todos os exercícios nesta categoria."
 
 #: exercises/views/comments.py:79
 msgid "Add exercise comment"
@@ -1974,7 +1974,7 @@ msgstr "Adicionar comentário do exercício"
 
 #: exercises/views/equipment.py:108 exercises/views/equipment.py:119
 msgid "Delete equipment?"
-msgstr "Excluir equipamento?"
+msgstr "Apagar equipamento?"
 
 #: exercises/views/exercises.py:218
 #, python-format
@@ -1997,7 +1997,7 @@ msgstr "Correções {0}"
 
 #: exercises/views/exercises.py:400
 msgid "This will delete the exercise from all workouts."
-msgstr "Isto irá excluir o exercício de todos os treinos."
+msgstr "Isto irá apagar o exercício de todos os treinos."
 
 #: exercises/views/exercises.py:452
 msgid "Exercise was successfully marked as rejected"
@@ -2009,7 +2009,7 @@ msgstr "Editar imagem do exercício"
 
 #: exercises/views/images.py:138
 msgid "Delete exercise image?"
-msgstr "Excluir imagem do exercício?"
+msgstr "Apagar imagem do exercício?"
 
 #: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2034,7 +2034,7 @@ msgstr ""
 
 #: gym/forms.py:105
 msgid "A user with that username already exists."
-msgstr "Já existe um usuário com este login"
+msgstr "Já existe um utilizador com este login"
 
 #: gym/management/commands/inactive-members.py:97 gym/models.py:123
 msgid "Reminder of inactive members"
@@ -2042,11 +2042,11 @@ msgstr "Lembrete de membros inativos"
 
 #: gym/models.py:41
 msgid "Trainer: can see the users for a gym"
-msgstr "Treinador: pode ver o usuário por academia"
+msgstr "Treinador: pode ver o utilizador por academia"
 
 #: gym/models.py:42
 msgid "Admin: can manage users for a gym"
-msgstr "Admin: pode gerenciar usuários por academia"
+msgstr "Admin: pode gerenciar utilizadores por academia"
 
 #: gym/models.py:43
 msgid "Admin: can administrate the different gyms"
@@ -2073,8 +2073,8 @@ msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
 msgstr ""
-"Número de semanas desde a última vez que um usuário registrou a sua presença "
-"para ser considerado inativo"
+"Número de semanas desde a última vez que um utilizador registrou a sua "
+"presença para ser considerado inativo"
 
 #: gym/models.py:131 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
@@ -2098,7 +2098,7 @@ msgstr "Receber e-mail com a visão geral dos membros inativos"
 
 #: gym/models.py:211
 msgid "Include this user in the email list with inactive members"
-msgstr "Inclua este usuário na lista de e-mail com os membros inativos"
+msgstr "Inclua este utilizador na lista de e-mail com os membros inativos"
 
 #: gym/models.py:263 gym/models.py:342 gym/models.py:606
 #: gym/templates/contract/view.html:96
@@ -2111,7 +2111,7 @@ msgstr "Documento"
 
 #: gym/models.py:336
 msgid "Will use file name if nothing provided"
-msgstr "Será usado o nome do arquivo se nada for informado"
+msgstr "Será usado o nome do ficheiro se nada for informado"
 
 #: gym/models.py:475
 msgid "Yearly"
@@ -2153,7 +2153,7 @@ msgstr "Tipo de pagamento"
 
 #: gym/models.py:543
 msgid "How often the amount will be charged to the member"
-msgstr "Com que frequência o montante deverá ser cobrado do usuário"
+msgstr "Com que frequência o montante deverá ser cobrado do utilizador"
 
 #: gym/models.py:548 gym/templates/contract/view.html:24
 msgid "Contract is active"
@@ -2174,7 +2174,7 @@ msgstr "Profissão"
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
-msgstr "Notas de usuário"
+msgstr "Notas de utilizador"
 
 #: gym/templates/contract/view.html:4
 msgid "Contract"
@@ -2193,7 +2193,7 @@ msgstr "Tipos de contrato"
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
 msgstr ""
-"Os seguintes usuários não tem visitado a academia nas últimas %(weeks)s "
+"Os seguintes utilizadores não tem visitado a academia nas últimas %(weeks)s "
 "semanas"
 
 #: gym/templates/gym/list.html:6
@@ -2274,22 +2274,22 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Por favor anote a senha do usuário ou salve o arquivo\n"
-"exportado, que contém todos os dados do usuário, e mantenha-o em um lugar "
-"seguro. A senha\n"
+"Por favor, anote a palavra-passe do utilizador ou salve o ficheiro\n"
+"exportado, que contém todos os dados do utilizador, e mantenha-o num lugar "
+"seguro. A palavra-passe\n"
 "não poderá ser recuperada posteriormente."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
-msgstr "Exporte dados do usuário"
+msgstr "Exporte dados do utilizador"
 
 #: gym/templates/gym/reset_user_password.html:32
 msgid ""
 "This user's password has been reset. Please notify the user of their new "
 "password."
 msgstr ""
-"A senha desse usuário foi redefinida. Por favor notifique o usuário da sua "
-"nova senha."
+"A palavra-passe desse utilizador foi redefinida. Por favor, notifique o "
+"utilizador da sua nova senha."
 
 #: gym/views/admin_notes.py:94 gym/views/document.py:94
 msgid "Add note"
@@ -2318,7 +2318,7 @@ msgstr "Gênero"
 
 #: gym/views/gym.py:332
 msgid "Add user to gym"
-msgstr "Adicionar usuário à academia"
+msgstr "Adicionar utilizador à academia"
 
 #: gym/views/gym.py:428
 msgid "Edit gym"
@@ -2877,11 +2877,11 @@ msgstr ""
 #: manager/templates/workout/view.html:123
 #: manager/templates/workout/view.html:217
 msgid "Export calendar file"
-msgstr "Exportar arquivo de calendário"
+msgstr "Exportar ficheiro de calendário"
 
 #: manager/templates/schedule/view.html:235
 msgid "Export this schedule as a calendar file."
-msgstr "Exporte este cronograma com um arquivo de calendário."
+msgstr "Exporte este cronograma com um ficheiro de calendário."
 
 #: manager/templates/schedule/view.html:236
 #: manager/templates/workout/view.html:118
@@ -2890,9 +2890,9 @@ msgid ""
 "application for example google calendar, outlook or iCal. This will create\n"
 "an appointment for each training day with the appropriate exercises."
 msgstr ""
-"Você pode então importar o arquivo em seu aplicativo\n"
-"de calendário, como por exemplo o google calendar, outlook ou iCal. Isto irá "
-"criar\n"
+"Pode então importar o ficheiro na sua aplicação\n"
+"de calendário, como, por exemplo o google calendar, outlook ou iCal. Isto "
+"irá criar\n"
 "um apontamento para cada dia de treino com os exercícios apropriados."
 
 #: manager/templates/schedule/view.html:256
@@ -2909,7 +2909,7 @@ msgstr "Editar cronograma"
 
 #: manager/templates/schedule/view.html:300
 msgid "Delete schedule"
-msgstr "Excluir cronograma"
+msgstr "Apagar cronograma"
 
 #: manager/templates/set/add.html:9
 #, python-format
@@ -3092,7 +3092,7 @@ msgstr ""
 
 #: manager/templates/workout/view.html:117
 msgid "Export this workout as a calendar file."
-msgstr "Exporte este treino como um arquivo de calendário"
+msgstr "Exporte este treino como um ficheiro de calendário"
 
 #: manager/templates/workout/view.html:184
 msgid "Logs"
@@ -3266,12 +3266,12 @@ msgstr "Ingrediente foi adicionado ao banco de dados geral com sucesso"
 
 #: nutrition/models.py:576
 msgid "New user submitted ingredient"
-msgstr "Novo ingrediente submetido por usuário"
+msgstr "Novo ingrediente submetido por utilizador"
 
 #: nutrition/models.py:577
 #, python-brace-format
 msgid "The user {0} submitted a new ingredient \"{1}\"."
-msgstr "O usuário {0} submeteu um novo ingrediente \"{1}\""
+msgstr "O utilizador {0} submeteu um novo ingrediente \"{1}\""
 
 #: nutrition/models.py:640
 msgid "Amount in grams"
@@ -3411,8 +3411,8 @@ msgid ""
 "or\n"
 "the search."
 msgstr ""
-"Este usuário submeteu um ingrediente que está com decisão pendente sobre a "
-"inclusão no banco de dados. Até então, não será mostrado na visão geral ou "
+"Este utilizador submeteu um ingrediente que está com decisão pendente sobre "
+"a inclusão no banco de dados. Até então, não será mostrado na visão geral ou "
 "na busca."
 
 #: nutrition/templates/ingredient/view.html:71
@@ -3441,7 +3441,7 @@ msgstr "Outros"
 
 #: nutrition/templates/ingredient/view.html:165
 msgid "User submitted ingredient"
-msgstr "Usuário submeteu um ingrediente"
+msgstr "Utilizador submeteu um ingrediente"
 
 #: nutrition/templates/ingredient/view.html:167
 #, python-format
@@ -3460,7 +3460,7 @@ msgstr "Edite ingrediente"
 
 #: nutrition/templates/ingredient/view.html:237
 msgid "Delete ingredient"
-msgstr "Excluir ingrediente"
+msgstr "Apagar ingrediente"
 
 #: nutrition/templates/log/detail.html:7
 #: nutrition/templates/log/overview.html:7
@@ -3588,7 +3588,7 @@ msgstr "Faça uma cópia deste plano de nutrição"
 
 #: nutrition/templates/plan/view.html:392
 msgid "Delete nutrition plan"
-msgstr "Excluir plano de nutrição"
+msgstr "Apagar plano de nutrição"
 
 #: nutrition/templates/rate/form.html:25
 msgid "Basal metabolic rate"
@@ -3684,7 +3684,7 @@ msgstr "Ingrediente foi marcado como rejeitado com sucesso"
 
 #: nutrition/views/log.py:212 nutrition/views/unit_ingredient.py:134
 msgid "Delete?"
-msgstr "Excluir?"
+msgstr "Apagar?"
 
 #: nutrition/views/meal.py:55
 msgid "Add new meal"
@@ -3981,9 +3981,9 @@ msgid ""
 "attendance. You can manage the members' contracts, keep notes and upload any "
 "files you might need."
 msgstr ""
-"Use o aplicativo para sua academia gerenciar os seus alunos, seus treinos e "
-"frequências. Você pode gerenciar os contratos dos alunos, manter anotações e "
-"salvar quaisquer arquivos que você possa necessitar."
+"Use a aplicação para a sua academia gerir os seus alunos, os treinos e "
+"frequências deles. Pode gerir os contratos dos alunos, manter anotações e "
+"salvar quaisquer ficheiros que possa necessitar."
 
 #: software/templates/features.html:213
 msgid ""
@@ -4101,7 +4101,7 @@ msgstr ""
 
 #: utils/generic_views.py:254
 msgid "Yes, delete"
-msgstr "Sim, exclua"
+msgstr "Sim, apagar"
 
 #: utils/models.py:44
 msgid "Author"
