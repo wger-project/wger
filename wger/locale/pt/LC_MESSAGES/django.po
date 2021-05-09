@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-05-09 09:11+0000\n"
+"PO-Revision-Date: 2021-05-09 17:20+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
@@ -1488,7 +1488,7 @@ msgstr "Documentos"
 #: core/templates/user/overview.html:413 gym/templates/document/list.html:32
 #: manager/forms.py:237 manager/templates/workout/view.html:172
 msgid "Download"
-msgstr "Download"
+msgstr "Descarregar"
 
 #: core/templates/user/overview.html:454 gym/models.py:210
 msgid "Include in inactive overview"
@@ -2046,7 +2046,7 @@ msgstr "Treinador: pode ver o utilizador por academia"
 
 #: gym/models.py:42
 msgid "Admin: can manage users for a gym"
-msgstr "Admin: pode gerenciar utilizadores por academia"
+msgstr "Admin: pode gerir utilizadores por academia"
 
 #: gym/models.py:43
 msgid "Admin: can administrate the different gyms"
@@ -2551,8 +2551,8 @@ msgid ""
 "You can search for more than one exercise, they will be grouped together for "
 "a superset."
 msgstr ""
-"Você pode pesquisar para mais de um exercício, eles irão ser agrupados "
-"juntos em um super conjunto."
+"Pode pesquisar para mais de um exercício, eles irão ser agrupados juntos num "
+"superconjunto."
 
 #: manager/forms.py:127 manager/forms.py:130 manager/models.py:759
 #: manager/models.py:784 manager/models.py:861 manager/models.py:883
@@ -2952,9 +2952,9 @@ msgid ""
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
 "never produce reminders."
 msgstr ""
-"Você irá receber regularmente lembretes até você adicionar um novo treino.\n"
-"Alternativamente você pode adicionar treinos à um cronograma recorrente, "
-"sendo que tais cronogramas não produzem lembretes."
+"Irá receber regularmente lembretes até adicionar um novo treino.\n"
+"Alternativamente pode adicionar treinos a um cronograma recorrente, a ser "
+"que tais cronogramas não produzem lembretes."
 
 #: manager/templates/workout/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -3007,8 +3007,8 @@ msgid ""
 "only. Click on an exercise to see all the historical data for\n"
 "it."
 msgstr ""
-"Esta página mostra o log de peso referente à este treino\n"
-"somente. Click em um exercício para ver todo o histórico\n"
+"Esta página mostra o log de peso referente a este treino\n"
+"somente. Clique num exercício para ver todo o histórico\n"
 "dele."
 
 #: manager/templates/workout/log.html:106
@@ -3017,8 +3017,8 @@ msgid ""
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
 msgstr ""
-"Se em um dia houver mais de um refistro com o\n"
-"mesmo número de repetições, mas com diferentes pesos, somente o registro\n"
+"Se num dia houver mais que um registo com o\n"
+"mesmo número de repetições, mas com diferentes pesos, somente o registo\n"
 "com o maior peso é mostrado no diagrama."
 
 #: manager/templates/workout/log.html:110
@@ -3548,7 +3548,7 @@ msgstr "Total"
 
 #: nutrition/templates/plan/view.html:202 nutrition/views/plan.py:358
 msgid "Percent of energy"
-msgstr "Porcentagem de energia"
+msgstr "Percentagem de energia"
 
 #: nutrition/templates/plan/view.html:205 nutrition/views/plan.py:359
 msgid "g per body kg"
@@ -3845,8 +3845,8 @@ msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts. "
 msgstr ""
-"wger Workout Manager é uma aplicação web gratuita em código aberto que "
-"gerencia seus exercícios e treinos. "
+"wger Workout Manager é uma aplicação web gratuita em código aberto que gira "
+"os seus exercícios e treinos. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -3883,10 +3883,11 @@ msgid ""
 "to replace my growing collection of different spreadsheets, but it has "
 "become something other people could also find useful."
 msgstr ""
-"O wger ​​Workout Manager é uma aplicação web gratuita e de código aberto que "
-"gerencia seus exercícios, exercícios e nutrição. Começou como um projeto de "
-"meu animal de estimação para substituir minha crescente coleção de planilhas "
-"diferentes, mas tornou-se algo que outras pessoas também poderiam achar útil."
+"O wger Workout Manager é uma aplicação web gratuita e de código aberto que "
+"gira os seus exercícios, exercícios e nutrição. Começou como um projeto do "
+"meu animal de estimação para substituir a minha crescente coleção de "
+"planilhas diferentes, mas tornou-se algo que outras pessoas também poderiam "
+"achar útil."
 
 #: software/templates/features.html:74
 msgid ""
@@ -3895,10 +3896,10 @@ msgid ""
 "distance you want to do them. You can also combine different workouts into a "
 "schedule."
 msgstr ""
-"Você pode criar e gerenciar rotinas de treino flexíveis para quaisquer "
-"objetivos que você tenha. Selecione exatamente quais exercícios você fará e "
-"quantas repetições, horas ou distância você deseja fazer. Você também pode "
-"combinar diferentes exercícios em uma programação."
+"Pode criar e gerir rotinas de treino flexíveis para quaisquer objetivos que "
+"tenha. Selecione exatamente quais exercícios fará e quantas repetições, "
+"horas ou distância deseja fazer. Também pode combinar diferentes exercícios "
+"numa programação."
 
 #: software/templates/features.html:89
 msgid ""
@@ -3973,7 +3974,7 @@ msgstr ""
 
 #: software/templates/features.html:190
 msgid "Gym management"
-msgstr "Gerenciamento de academia"
+msgstr "Gestão de academia"
 
 #: software/templates/features.html:194
 msgid ""
