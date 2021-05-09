@@ -1,13 +1,14 @@
-from django.forms import ModelForm, DateField
-
-from wger.gallery.models import Image
-from wger.utils.constants import DATE_FORMATS
-from wger.utils.widgets import Html5DateInput
+# Django
 from django.forms import (
     DateField,
     ModelForm,
     widgets
 )
+
+# wger
+from wger.gallery.models import Image
+from wger.utils.constants import DATE_FORMATS
+from wger.utils.widgets import Html5DateInput
 
 
 class ImageForm(ModelForm):

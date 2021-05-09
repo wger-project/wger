@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load wger_extras %}
 {% load i18n %}
 {% load static %}
 
@@ -7,13 +8,24 @@
 
 {% block content %}
     <div class="container">
-    <div class="card-columns">
+    <div class="row card-columns" >
     {% for image in images %}
-        <div class="card">
-        <a href="{% url 'gallery:images:delete' image.pk %}">
-            <img class="card-img-top" src="{{ image.image.url  }}" class="img-thumbnail" alt="{{ image.description }}">
-        </a>
-
+        <div class="card w-25">
+            <a href="{% url 'gallery:images:edit' image.pk %}">
+                <img class="card-img-top" src="{{ image.image.url  }}" class="img-thumbnail" alt="{{ image.description }}" >
+            </a>
+            <div class="card-body">
+                <p class="card-title">{{ image.date }}</p>
+                    <a href="{% url 'gallery:images:delete' image.id %}">
+                        <span class="{% fa_class 'trash' %}"></span>
+                    </a>
+                <!--
+                <p>
+                    #{{ image.id }}
+                    {{ image.description }}
+                </p>
+                -->
+            </div>
         </div>
     {% endfor %}
     </div>

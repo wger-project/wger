@@ -1,1 +1,2 @@
-from .image import Image
+# Local
+from .image import Image  # noqa: F401

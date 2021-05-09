@@ -13,21 +13,22 @@
 # GNU General Public License for more details.
 # You should have received a copy of the GNU Affero General Public License
 #
-# Django
+# Standard Library
 from datetime import datetime
 
+# Django
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
-    PermissionRequiredMixin
-)
-from django.http import HttpResponseForbidden
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import (
+    reverse,
+    reverse_lazy
+)
 from django.utils.translation import gettext_lazy as _, gettext_lazy
 from django.views.generic import (
+    CreateView,
     DeleteView,
-    UpdateView, CreateView
+    UpdateView
 )
 
 # wger
@@ -49,6 +50,7 @@ def overview(request):
     context = {'images': images}
 
     return render(request, 'images/overview.html', context)
+
 
 class ImageAddView(WgerFormMixin, CreateView):
     """
@@ -77,41 +79,29 @@ class ImageAddView(WgerFormMixin, CreateView):
 
     def get_success_url(self):
         """
-        Return to overview with username
+        Return to overview
         """
         return reverse('gallery:images:overview')
 
 
-class ImageUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ImageUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
-    View to update an existing gym
+    Generic view to edit an existing weight entry
     """
-
     model = Image
-    fields = ['image', 'date', 'description']
-    title = gettext_lazy('Edit')
-    permission_required = 'gym.change_gym'
-
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Only managers for this gym and general managers can edit the gym
-        """
-        if not request.user.is_authenticated:
-            return HttpResponseForbidden()
-
-        if request.user.has_perm('gym.manage_gym') \
-                and not request.user.has_perm('gym.manage_gyms'):
-            if request.user.userprofile.gym_id != int(self.kwargs['pk']):
-                return HttpResponseForbidden()
-        return super(ImageUpdateView, self).dispatch(request, *args, **kwargs)
+    form_class = ImageForm
 
     def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
         context = super(ImageUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _('Edit {0}').format(self.object)
+        context['title'] = _('Edit')
+
         return context
+
+    def get_success_url(self):
+        """
+        Return to overview
+        """
+        return reverse('gallery:images:overview')
 
 
 class ImageDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):

@@ -16,20 +16,22 @@
 
 # Standard Library
 import datetime
-
-# Django
+import pathlib
 import uuid
 
+# Django
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-def gallery_image_upload_dir(instance, filename):
+def gallery_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "gallery/{0}/{1}".format(instance.user.id, uuid.uuid4())
+    return "gallery/{0}/{1}.{2}".format(instance.user.id,
+                                        uuid.uuid4(),
+                                        pathlib.Path(filename).suffix)
 
 
 class Image(models.Model):
@@ -46,7 +48,7 @@ class Image(models.Model):
 
     image = models.ImageField(verbose_name=_('Image'),
                               help_text=_('Only PNG and JPEG formats are supported'),
-                              upload_to=gallery_image_upload_dir)
+                              upload_to=gallery_upload_dir)
 
     description = models.TextField(verbose_name=_('Description'),
                                    max_length=1000,
