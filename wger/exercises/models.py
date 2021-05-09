@@ -18,6 +18,7 @@
 # Standard Library
 import logging
 import uuid
+import pathlib
 
 # Django
 from django.conf import settings
@@ -439,7 +440,7 @@ def exercise_image_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "exercise-images/{0}/{1}".format(instance.uuid, filename)
+    return "exercise-images/{0}/{1}{2}".format(instance.exercise_base.id, instance.uuid, pathlib.Path(filename).suffix)
 
 
 class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
