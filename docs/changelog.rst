@@ -26,10 +26,12 @@ Upgrade steps from 2.0:
   + /workout/
     - ``comment`` was renamed to name
     - field ``description`` was added, for longer descriptions
-* `#666`_,
+* `#666`_, `#656`_ (thanks `@jackmulligan-ire`_),
 
+.. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
 
+.. _@jackmulligan-ire: https://github.com/jackmulligan-ire
 
 
 2.0
