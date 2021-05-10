@@ -35,7 +35,7 @@ class MainImageTestCase(WgerTestCase):
     Tests the methods to make sure there is always a main image per picture
     """
 
-    def save_image(self, exercise, filename, db_filename=None):
+    def save_image(self, exercise, filename, db_filename=None) -> int:
         """
         Helper function to save an image to an exercise
         """

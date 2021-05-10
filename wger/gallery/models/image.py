@@ -31,8 +31,8 @@ def gallery_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     return "gallery/{0}/{1}{2}".format(instance.user.id,
-                                        uuid.uuid4(),
-                                        pathlib.Path(filename).suffix)
+                                       uuid.uuid4(),
+                                       pathlib.Path(filename).suffix)
 
 
 class Image(models.Model):
@@ -63,7 +63,6 @@ class Image(models.Model):
                                    max_length=1000,
                                    blank=True)
 
-
     def get_owner_object(self):
         """
         Returns the object that has owner information
@@ -73,6 +72,7 @@ class Image(models.Model):
     @property
     def is_landscape(self):
         return self.width > self.height
+
 
 @receiver(models.signals.post_delete, sender=Image)
 def auto_delete_file_on_delete(sender, instance: Image, **kwargs):
@@ -107,4 +107,3 @@ def auto_delete_file_on_change(sender, instance: Image, **kwargs):
         path = pathlib.Path(old_file.path)
         if path.is_file():
             path.unlink()
-
