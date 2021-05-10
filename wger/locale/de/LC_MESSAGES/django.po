@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-05-09 09:11+0000\n"
+"PO-Revision-Date: 2021-05-11 09:34+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
@@ -894,7 +894,7 @@ msgstr ""
 
 #: core/templates/misc/contact.html:49
 msgid "Open feedback form"
-msgstr "Öffne Feedbackformular"
+msgstr "Rückmeldungsformular öffnen"
 
 #: core/templates/misc/contact.html:53
 msgid "tweet to @wger_project"
@@ -1083,7 +1083,7 @@ msgstr "Meine Einstellungen"
 
 #: core/templates/navigation.html:191
 msgid "Logout"
-msgstr "Ausloggen"
+msgstr "Abmelden"
 
 #: core/templates/navigation.html:206
 msgid "Licenses"
@@ -1117,7 +1117,7 @@ msgstr "Dein Passwort wurde zurückgesetzt. Du kannst dich nun anmelden."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
-msgstr "Einloggen"
+msgstr "Anmelden"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
@@ -1150,7 +1150,7 @@ msgstr "Dein Benutzername, falls du ihn vergessen hast:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
-msgstr "Vielen Dank, dass du unsere Webseite benutzt!"
+msgstr "Vielen Dank, dass du unsere Website benutzt!"
 
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
@@ -1359,7 +1359,7 @@ msgstr "Beschreibung"
 
 #: core/templates/user/overview.html:36
 msgid "Number of logs (days)"
-msgstr "Anzahl der Logs (Tage)"
+msgstr "Anzahl der Protokolle (Tage)"
 
 #: core/templates/user/overview.html:37 core/views/user.py:562
 #: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:152
@@ -2275,7 +2275,7 @@ msgstr "Geburtsdatum"
 #: manager/templates/workout/timer.html:470
 #: nutrition/templates/rate/form.html:120
 msgid "Info"
-msgstr "Info"
+msgstr "Infos"
 
 #: gym/templates/gym/new_user.html:50
 msgid ""
@@ -3768,7 +3768,7 @@ msgstr ""
 
 #: software/templates/contribute.html:23
 msgid "Use the site"
-msgstr "Benutze die Seite"
+msgstr "Benutze die Website"
 
 #: software/templates/contribute.html:24
 msgid ""
@@ -3778,7 +3778,7 @@ msgid ""
 "sound\n"
 "like much, but is incredibly important!"
 msgstr ""
-"Benutze einfach die Seite und erzähle deinen Freunden wie nützlich sie "
+"Benutze einfach die Website und erzähle deinen Freunden wie nützlich sie "
 "ist! ;)\n"
 "Wenn du etwas findest was dir besonders gefallen hat, verbessert werden\n"
 "könnte oder gar nicht funktioniert, sag Bescheid! Das klingt vielleicht "
@@ -3946,7 +3946,7 @@ msgstr "Neben vielen anderen"
 
 #: software/templates/features.html:133
 msgid "Weight tracker"
-msgstr "Gewichtsmanager"
+msgstr "Gewichtsverwaltungsprogramm"
 
 #: software/templates/features.html:137
 msgid ""
