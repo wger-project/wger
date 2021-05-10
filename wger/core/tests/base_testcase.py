@@ -207,7 +207,10 @@ class WgerTestCase(BaseTestCase, TestCase):
 
         # Uploaded image or file, compare the filename
         elif current_field_class in ('ImageFieldFile', 'FieldFile'):
-            self.assertEqual(os.path.basename(field.name), os.path.basename(value.name))
+
+            # We can only compare the extensions, since the names can be changed
+            # Ideally we would check that the byte length is the same
+            self.assertEqual(pathlib.Path(field.name).suffix, pathlib.Path(value.name).suffix)
 
         # Other objects (from foreign keys), check the ID
         else:
