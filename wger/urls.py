@@ -34,6 +34,7 @@ from rest_framework import routers
 from wger.core.api import views as core_api_views
 from wger.exercises.api import views as exercises_api_views
 from wger.exercises.sitemap import ExercisesSitemap
+from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
@@ -94,6 +95,9 @@ router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='meal
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
 
+# Gallery app
+router.register(r'gallery', gallery_api_views.ImageViewSet, basename='gallery')
+
 #
 # Sitemaps
 #
@@ -113,6 +117,7 @@ urlpatterns = i18n_patterns(
     path('software/', include(('wger.software.urls', 'software'), namespace='software')),
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
+    path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
     path('email', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path('sitemap-<section>.xml',

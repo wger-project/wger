@@ -119,7 +119,8 @@ class BaseTestCase(object):
                 'test-nutrition-diary',
                 'test-workout-data',
                 'test-workout-session',
-                'test-schedules')
+                'test-schedules',
+                'test-gallery-images')
     current_user = 'anonymous'
     current_password = ''
 

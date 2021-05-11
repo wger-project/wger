@@ -15,30 +15,43 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import logging
+
 # Third Party
 from rest_framework import viewsets
+from rest_framework.parsers import (
+    FormParser,
+    MultiPartParser
+)
+from rest_framework.permissions import IsAuthenticated
 
 # wger
-from wger.weight.api.serializers import WeightEntrySerializer
-from wger.weight.models import WeightEntry
+from wger.gallery.api.serializers import ImageSerializer
+from wger.gallery.models import Image
 
 
-class WeightEntryViewSet(viewsets.ModelViewSet):
+logger = logging.getLogger(__name__)
+
+
+class ImageViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for nutrition plan objects
+    API endpoint for gallery image
     """
-    serializer_class = WeightEntrySerializer
-
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]
+    serializer_class = ImageSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ('date',
-                        'weight')
+    filterset_fields = ['id',
+                        'date',
+                        'description']
 
     def get_queryset(self):
         """
         Only allow access to appropriate objects
         """
-        return WeightEntry.objects.filter(user=self.request.user)
+        return Image.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         """

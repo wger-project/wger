@@ -26,7 +26,8 @@
     "jquery": "^3.6.0",
     "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
     "shariff": "^3.2.1",
-    "tinymce": "^5.8.0"
+    "tinymce": "^5.8.0",
+    "masonry-layout": "^4.2.2"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css"

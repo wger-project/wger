@@ -1,0 +1,38 @@
+[
+  {
+    "pk": 1,
+    "model": "gallery.image",
+    "fields": {
+      "user": 1,
+      "date": "2021-05-01",
+      "description": "",
+      "image": "gallery/1/protestschwein.jpg",
+      "width": 500,
+      "height": 332
+    }
+  },
+  {
+    "pk": 2,
+    "model": "gallery.image",
+    "fields": {
+      "user": 1,
+      "date": "2021-03-10",
+      "description": "The Shiba Inu (柴犬) is a breed of hunting dog from Japan",
+      "image": "gallery/1/wildschwein.jpg",
+      "width": 482,
+      "height": 320
+    }
+  },
+  {
+    "pk": 3,
+    "model": "gallery.image",
+    "fields": {
+      "user": 2,
+      "date": "2021-05-10",
+      "description": "",
+      "image": "gallery/2/wildschwein.jpg",
+      "width": 482,
+      "height": 320
+    }
+  }
+]

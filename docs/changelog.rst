@@ -8,10 +8,11 @@ Changelog
 Upgrade steps from 2.0:
 * Update python libraries ``pip3 install -r requirements.txt``
 * Run migrations ``python3 manage.py migrate``
+* Update CSS and JS libraries ``yarn install``
 
 🚀 Features:
 
-*
+* New gallery where users can upload pictures to track their progress `#572`_,
 
 
 🐛 Bug Fixes:
@@ -28,6 +29,7 @@ Upgrade steps from 2.0:
     - field ``description`` was added, for longer descriptions
 * `#666`_, `#656`_ (thanks `@jackmulligan-ire`_),
 
+.. _#572: https://github.com/wger-project/wger/issues/572
 .. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
 

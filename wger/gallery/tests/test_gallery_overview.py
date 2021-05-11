@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,33 +13,31 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
-# Third Party
-from rest_framework import viewsets
+# Django
+from django.urls import reverse
 
 # wger
-from wger.weight.api.serializers import WeightEntrySerializer
-from wger.weight.models import WeightEntry
+from wger.core.tests.base_testcase import WgerTestCase
 
 
-class WeightEntryViewSet(viewsets.ModelViewSet):
+class GalleryAccessTestCase(WgerTestCase):
     """
-    API endpoint for nutrition plan objects
+    Gallery tests
     """
-    serializer_class = WeightEntrySerializer
 
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = ('date',
-                        'weight')
+    def test_access_overview(self):
+        """
+        Test accessing the gallery overview
+        """
 
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        return WeightEntry.objects.filter(user=self.request.user)
+        self.user_login('admin')
+        response = self.client.get(reverse('gallery:images:overview'))
+        self.assertEqual(response.status_code, 200)
 
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
+        self.user_login('test')
+        response = self.client.get(reverse('gallery:images:overview'))
+        self.assertEqual(response.status_code, 200)
+
+        self.user_logout()
+        response = self.client.get(reverse('gallery:images:overview'))
+        self.assertEqual(response.status_code, 302)
