@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-05-11 09:34+0000\n"
+"PO-Revision-Date: 2021-05-13 23:33+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
@@ -1798,8 +1798,8 @@ msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Il tuo esercizio '%(exercise)s' è stato aggiunto con successo al database\n"
-"generale. "
+"Il tuo esercizio «%(exercise)s» è stato aggiunto con successo al database\n"
+"generale."
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
@@ -3069,7 +3069,7 @@ msgstr "Inizio!"
 
 #: manager/templates/workout/timer.html:357
 msgid "reps"
-msgstr "ripetizioni"
+msgstr "rip."
 
 #: manager/templates/workout/timer.html:366
 #: manager/templates/workout/timer.html:415
