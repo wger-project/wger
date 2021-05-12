@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-05-11 09:34+0000\n"
+"PO-Revision-Date: 2021-05-13 23:33+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
@@ -642,9 +642,7 @@ msgstr "Ajouter un journal au jour"
 msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
-msgstr ""
-"Cliquer pour ajouter un journal de poids à un jour\n"
-"d'entraînement de votre séance courante:"
+msgstr "Cliquer pour ajouter un journal de poids à un jour :"
 
 #: core/templates/index.html:41 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:29
@@ -887,8 +885,8 @@ msgid ""
 "We are also on twitter. Write us and tell us what\n"
 "you think! Except patches, don't send patches via twitter."
 msgstr ""
-"Retrouvez-nous sur twitter. Ecrivez-nous et dites-nous\n"
-"ce que vous pensez du site! Mais pas de patch, n'envoyez pas de patchs par "
+"Retrouvez-nous sur twitter. Écrivez-nous et dites-nous\n"
+"ce que vous pensez du site ! Mais pas de patch, n’envoyez pas de patchs par "
 "twitter."
 
 #: core/templates/misc/contact.html:42
@@ -1242,7 +1240,7 @@ msgstr "Créer des entrées de démo"
 #: core/templates/template.html:200 core/templates/template_features.html:121
 #: core/templates/template_no_context.html:88
 msgid "About"
-msgstr "A propos"
+msgstr "À propos"
 
 #: core/templates/template.html:201 core/templates/template_features.html:125
 #: core/templates/template_no_context.html:89 software/templates/tos.html:7
@@ -1806,7 +1804,8 @@ msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Votre exercice '%(exercise)s' a été rajouté avec succès à la base de donnée."
+"Votre exercice « %(exercise)s » a été rajouté avec succès à la base de "
+"donnée."
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
@@ -1814,12 +1813,12 @@ msgid ""
 "added to workouts. You can access it on this address:"
 msgstr ""
 "Il est maintenant disponible dans la vue d'ensemble des exercices et peut "
-"être ajouter à des séances. Vous pouvez y accéder à cette adresse:"
+"être ajouter à des séances. Vous pouvez y accéder à cette adresse :"
 
 #: exercises/templates/exercise/email_new.tpl:8
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
-msgstr "Merci de votre contribution et de rendre ce site meilleur!"
+msgstr "Merci de votre contribution et de rendre ce site meilleur !"
 
 #: exercises/templates/exercise/email_new.tpl:9
 #: manager/templates/workout/email_reminder.tpl:15
@@ -1838,8 +1837,9 @@ msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
 msgstr ""
-"Merci d'avoir proposé un exercice. Cela nous\n"
-"aide beaucoup!"
+"Merci d'avoir proposé un exercice.\n"
+"Ceci nous\n"
+"aide beaucoup !"
 
 #: exercises/templates/exercise/form.html:8
 msgid ""
@@ -1867,7 +1867,7 @@ msgid ""
 "Thank you for correcting and improving this exercise.\n"
 "This is much appreciated!"
 msgstr ""
-"Merci pour avoir corrigé et amélioré cet exercice. Cela nous aide beaucoup!"
+"Merci pour avoir corrigé et amélioré cet exercice. Ceci nous aide beaucoup !"
 
 #: exercises/templates/exercise/form_correct.html:8
 msgid ""
@@ -2466,7 +2466,7 @@ msgstr "Grand dorsal"
 
 #: i18n.tpl:29
 msgid "Obliquus externus abdominis"
-msgstr "Grand oblique de l'abdomen "
+msgstr "Grand oblique de l’abdomen"
 
 #: i18n.tpl:30
 msgid "Pectoralis major"
@@ -2482,7 +2482,7 @@ msgstr "Muscle droit de l'abdomen"
 
 #: i18n.tpl:33
 msgid "Serratus anterior"
-msgstr "Muscle dentelé antérieur "
+msgstr "Muscle dentelé antérieur"
 
 #: i18n.tpl:34
 msgid "Soleus"
@@ -2885,8 +2885,12 @@ msgid ""
 msgid_plural ""
 "%(weeks)s Weeks\n"
 "                    "
-msgstr[0] "%(weeks)s semaine"
-msgstr[1] "Semaines %(weeks)s"
+msgstr[0] ""
+"%(weeks)s semaine\n"
+"                    "
+msgstr[1] ""
+"%(weeks)s semaines\n"
+"                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
@@ -3079,7 +3083,7 @@ msgstr "Commencez !"
 
 #: manager/templates/workout/timer.html:357
 msgid "reps"
-msgstr "répétitions"
+msgstr "réps"
 
 #: manager/templates/workout/timer.html:366
 #: manager/templates/workout/timer.html:415
@@ -3328,7 +3332,7 @@ msgstr "Résultats"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Votre IMC est:"
+msgstr "Votre IMC est : "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3644,7 +3648,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Votre taux métabolique est de:"
+msgstr "Votre taux métabolique est de : "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -4250,7 +4254,7 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr "Il n'y a pas d'erreur, toutes les entrées peuvent être converties!"
+msgstr "Il n'y a pas d'erreur, toutes les entrées peuvent être converties !"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
