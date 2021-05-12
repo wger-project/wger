@@ -131,7 +131,7 @@ class Command(BaseCommand):
                 img_temp.write(retrieved_image.content)
                 img_temp.flush()
 
-                image.exercise = exercise_base
+                image.exercise_base = exercise_base
                 image.is_main = image_data['is_main']
                 image.status = image_data['status']
                 image.image.save(
