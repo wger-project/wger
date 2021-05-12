@@ -9,6 +9,8 @@ Upgrade steps from 2.0:
 * Update python libraries ``pip3 install -r requirements.txt``
 * Run migrations ``python3 manage.py migrate``
 * Update CSS and JS libraries ``yarn install``
+* Compile the CSS ``yarn build:css:sass``
+* Update static files (only production): ``python3 manage.py collectstatic``
 
 🚀 Features:
 
