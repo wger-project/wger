@@ -142,7 +142,7 @@ class UserAPILoginView(viewsets.ViewSet):
 
 class UserAPIRegistrationViewSet(viewsets.ViewSet):
     """
-    API endpoint for api user objects
+    API endpoint
     """
     permission_classes = (AllowRegisterUser, )
     serializer_class = UserRegistrationSerializer
@@ -158,6 +158,8 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        user.userprofile.added_by = request.user
+        user.userprofile.save()
         token = create_token(user)
 
         return Response({'message': 'api user successfully registered',
