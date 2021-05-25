@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       #- name: Build base image
-      #  uses: docker/build-push-action@v2
+      #  uses: docker/build-push-action@v2.4.0
       #  with:
       #    context: .
       #    file: extras/docker/base/Dockerfile
@@ -33,7 +33,7 @@ jobs:
       #    tags: wger/base:latest,wger/base:2.0-dev
 
       - name: Build apache image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2.4.0
         with:
           context: .
           file: extras/docker/apache/Dockerfile
@@ -41,7 +41,7 @@ jobs:
           tags: wger/apache:latest,wger/apache:2.0-dev
 
       - name: Build dev image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2.4.0
         with:
           context: .
           file: extras/docker/development/Dockerfile
