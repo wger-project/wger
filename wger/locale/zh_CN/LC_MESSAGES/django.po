@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-05-27 16:04+0000\n"
+"Last-Translator: 猫猫头 <914766662@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -277,10 +277,8 @@ msgid "Used for password resets and, optionally, email reminders."
 msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 
 #: core/forms.py:163
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "这个邮件地址已经注册过了。"
+msgstr "这个邮件地址已经被注册过了。"
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -882,8 +880,9 @@ msgid "tweet to @wger_project"
 msgstr "发推给@wger_project"
 
 #: core/templates/misc/contact.html:56
+#, fuzzy
 msgid "Go to the discord server"
-msgstr ""
+msgstr "前往Discord服务器"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
