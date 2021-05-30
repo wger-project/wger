@@ -17,8 +17,8 @@
 
 # Standard Library
 import logging
-import uuid
 import pathlib
+import uuid
 
 # Django
 from django.conf import settings
@@ -36,6 +36,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
+from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
@@ -221,6 +222,9 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                    blank=True)
     """Variations of this exercise"""
 
+    history = HistoricalRecords()
+    """Edit history"""
+
     #
     # Own methods
     #
@@ -276,6 +280,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                       null=True,
                                       related_name='exercises')
     """ Refers to the base exercise with non translated information """
+
+    history = HistoricalRecords()
+    """Edit history"""
 
     #
     # Django methods
@@ -576,6 +583,9 @@ class ExerciseComment(models.Model):
     comment = models.CharField(max_length=200,
                                verbose_name=_('Comment'),
                                help_text=_('A comment about how to correctly do this exercise.'))
+
+    history = HistoricalRecords()
+    """Edit history"""
 
     def __str__(self):
         """

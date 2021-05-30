@@ -25,7 +25,7 @@ from django.urls import (
     reverse,
     reverse_lazy
 )
-from django.utils.translation import gettext_lazy as _, gettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -59,7 +59,7 @@ class ImageAddView(WgerFormMixin, CreateView):
     """
     model = Image
     form_class = ImageForm
-    title = gettext_lazy('Add')
+    title = _('Add')
 
     def get_initial(self):
         """

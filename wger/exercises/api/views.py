@@ -164,8 +164,8 @@ def search(request):
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES,
                                         language_code=request.GET.get('language', None))
         exercises = (Exercise.objects.filter(name__icontains=q)
+                     .accepted()
                      .filter(language__in=languages)
-                     .filter(status=Exercise.STATUS_ACCEPTED)
                      .order_by('exercise_base__category__name', 'name')
                      .distinct())
 

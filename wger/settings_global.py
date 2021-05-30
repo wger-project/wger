@@ -87,6 +87,9 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
+
+    # History keeping
+    'simple_history',
 )
 
 
@@ -111,6 +114,9 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
+    # History keeping
+    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (

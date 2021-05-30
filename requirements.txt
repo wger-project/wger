@@ -9,6 +9,7 @@ django-formtools~=2.3
 django-recaptcha~=2.0.6
 Django~=3.2
 django-crispy-forms~=1.11
+django-simple-history~=3.0
 django_compressor~=2.4
 django_extensions~=3.1
 django-storages~=1.11
