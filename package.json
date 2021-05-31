@@ -1,6 +1,6 @@
 {
   "name": "wger",
-  "version": "2.0.dev1",
+  "version": "2.1.0-dev1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "directories": {
     "doc": "docs"
@@ -30,7 +30,8 @@
     "masonry-layout": "^4.2.2"
   },
   "scripts": {
-    "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css"
+    "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css",
+    "build:angular": "cd angular && ng build --configuration production --output-path ../wger/core/static/angular --output-hashing none"
   },
   "engines": {
     "yarn": ">= 1.0.0"

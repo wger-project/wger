@@ -1,10 +1,9 @@
 import {Environment} from './environment.interface';
 
-/*
+/**
  * During development it is often easier to develop only in an angular context
  * while during production, it is not necessary to set a host
  */
-
 export const environment: Environment = {
   production: false,
   name: 'dev',

@@ -3,12 +3,14 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {ExerciseComponent} from './exercise/exercise.component';
+import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
+import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExerciseComponent
+    ExerciseDetailComponent,
+    ExerciseListComponent
   ],
   imports: [
     BrowserModule,
