@@ -293,7 +293,7 @@ function wgerInitCaloriesCalculator() {
     }).done(function (userprofile) {
       var totalCalories = $('#id_calories')[0].value;
       $.ajax({
-        url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
+        url: '/api/v2/userprofile/' + userprofile.results[0].user + '/',
         type: 'PATCH',
         data: { calories: totalCalories }
       });
