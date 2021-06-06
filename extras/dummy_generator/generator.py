@@ -289,7 +289,7 @@ if hasattr(args, 'number_workouts'):
             uid = str(uuid.uuid4()).split('-')
             start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
             workout = Workout(user=user,
-                              comment='Dummy workout - {0}'.format(uid[1]),
+                              name='Dummy workout - {0}'.format(uid[1]),
                               creation_date=start_date)
             workout.save()
 
