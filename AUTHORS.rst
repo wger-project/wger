@@ -56,6 +56,8 @@ Developers
 * Sidrah Madiha Siddiqui https://github.com/Sidrah-Madiha
 * Calvin Walden - https://github.com/calvinrw
 * Jack Mulligan - https://github.com/jackmulligan-ire
+* Emma Muth - https://github.com/emmaamuth
+* Sophia Reed - https://github.com/sophialr
 
 Translators
 -----------

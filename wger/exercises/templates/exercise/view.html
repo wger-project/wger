@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 {# Images #}
 {% with images=exercise.images.accepted %}
-{% if images or perms.exercises.change_exerciseimage  %}
+{% if images or perms.exercises.change_exerciseimage or user.userprofile.is_trustworthy %}
     <h5 class="mt-4">{% translate "Images" %}:</h5>
     <div class="row row-cols-2 row-cols-md-3">
     {% with other_images=images %}
@@ -131,7 +131,7 @@ $(document).ready(function() {
     {% endwith %}
     </div>
 
-    {% if perms.exercises.change_exerciseimage %}
+    {% if perms.exercises.change_exerciseimage or perms.exercises.add_exerciseimage or user.userprofile.is_trustworthy %}
         <p>
             <a href="{% url 'exercise:image:add' exercise.id %}" >
                 {% translate "Add new image" %}
