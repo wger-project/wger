@@ -578,7 +578,6 @@ class ExerciseComment(models.Model):
     """
     exercise = models.ForeignKey(Exercise,
                                  verbose_name=_('Exercise'),
-                                 editable=False,
                                  on_delete=models.CASCADE)
     comment = models.CharField(max_length=200,
                                verbose_name=_('Comment'),
@@ -593,7 +592,7 @@ class ExerciseComment(models.Model):
         """
         return self.comment
 
-    def save(self, *args, **kwargs):
+    def save22(self, *args, **kwargs):
         """
         Reset cached workouts
         """

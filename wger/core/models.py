@@ -231,16 +231,12 @@ by the US Department of Agriculture. It is extremely complete, with around
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
         days_in_three_weeks = 21
 
-        if days_since_joined.days > days_in_three_weeks:
-            # perms will be updated only once, after they hit three week mark
-            image_perm = Permission.objects.get(codename='add_exerciseimage')
-            self.user.user_permissions.add(image_perm)
-
         return days_since_joined.days > days_in_three_weeks
 
     @property
     def has_exercise_permission(self):
         """Returns true if user has all the exercise permissions and not just one."""
+        # TODO: check if this can be removed / refactored
         if self.user.groups.filter(name='admin').exists() or self.user.groups.filter(
                 name='exercises_editor').exists():
             return True

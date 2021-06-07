@@ -36,7 +36,9 @@ from rest_framework.permissions import (
 from rest_framework.response import Response
 
 # wger
+from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.config.models import LanguageConfig
+from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
     ExerciseBaseSerializer,
@@ -79,14 +81,14 @@ class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
                         'equipment')
 
 
-class ExerciseViewSet(viewsets.ModelViewSet):
+class ExerciseViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.accepted()
     serializer_class = ExerciseSerializer
-    permission_classes = (AllowAny, )  # TODO: use trustworthiness attribute / permission
+    permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('uuid',
                         'creation_date',
@@ -278,13 +280,14 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ('name',)
 
 
-class ExerciseImageViewSet(viewsets.ModelViewSet):
+class ExerciseImageViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise image objects
     """
+
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('is_main',
                         'status',
@@ -322,11 +325,12 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         obj.save()
 
 
-class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
+class ExerciseCommentViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise comment objects
     """
     serializer_class = ExerciseCommentSerializer
+    permission_classes = (CanEditExercises,)
     ordering_fields = '__all__'
     filterset_fields = ('comment',
                         'exercise')
