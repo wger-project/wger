@@ -29,7 +29,10 @@ from rest_framework.decorators import (
     action,
     api_view
 )
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticatedOrReadOnly
+)
 from rest_framework.response import Response
 
 # wger
@@ -47,15 +50,14 @@ from wger.exercises.api.serializers import (
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     Muscle
 )
-from wger.utils.language import (
-    load_item_languages,
-    load_language
-)
+from wger.utils.language import load_item_languages
+from wger.utils.models import AbstractSubmissionModel
 from wger.utils.permissions import CreateOnlyPermission
 
 
@@ -77,14 +79,14 @@ class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
                         'equipment')
 
 
-class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
+class ExerciseViewSet(viewsets.ModelViewSet):
     """
     API endpoint for exercise objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.accepted()
     serializer_class = ExerciseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    permission_classes = (AllowAny, )  # TODO: use trustworthiness attribute / permission
     ordering_fields = '__all__'
     filterset_fields = ('uuid',
                         'creation_date',
@@ -96,13 +98,56 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
 
     def perform_create(self, serializer):
         """
-        Set author and status
+        New exercise
         """
-        language = load_language()
-        obj = serializer.save(language=language)
-        # Todo is it right to call set author after save?
-        obj.set_author(self.request)
-        obj.save()
+
+        # Exercise Base
+        base = ExerciseBase(category=serializer.validated_data['category'],
+                            variations=None)
+        base.save()
+        base.muscles.set(serializer.validated_data['muscles'])
+        base.muscles_secondary.set(serializer.validated_data['muscles_secondary'])
+        base.equipment.set(serializer.validated_data['equipment'])
+        base.save()
+
+        # Exercise
+        exercise = Exercise(name_original=serializer.validated_data['name'],
+                            description=serializer.validated_data['description'],
+                            exercise_base=base,
+                            language=serializer.validated_data['language'],
+                            status=AbstractSubmissionModel.STATUS_ACCEPTED)
+        exercise.save()
+        serializer.validated_data['id'] = exercise.id
+        serializer.validated_data['uuid'] = exercise.uuid
+        serializer.validated_data['exercise_base'] = exercise.exercise_base
+
+    def perform_update(self, serializer):
+        """
+        Update exercise
+        """
+        exercise = serializer.instance
+        base = exercise.exercise_base
+        for attr, value in serializer.validated_data.items():
+            if(attr == 'name'):
+                exercise.name_original = value
+
+            if (attr == 'description'):
+                exercise.description = value
+
+            if (attr == 'category'):
+                base.category = value
+
+            if (attr == 'muscles'):
+                base.muscles.set(value)
+
+            if (attr == 'muscles_secondary'):
+                base.muscles_secondary.set(value)
+
+            if (attr == 'equipment'):
+                base.equipment.set(value)
+
+        base.save()
+        exercise.save()
 
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""

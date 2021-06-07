@@ -25,7 +25,8 @@ from wger.exercises.models import (
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
-    Muscle
+    Muscle,
+    Variation
 )
 
 
@@ -109,11 +110,15 @@ class ExerciseSerializer(serializers.ModelSerializer):
     The fields from the new ExerciseBase are retrieved here as to retain
     compatibility with the old model where all the fields where in Exercise.
     """
-    category = serializers.PrimaryKeyRelatedField(read_only=True)
-    muscles = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    equipment = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
+    muscles = serializers.PrimaryKeyRelatedField(many=True,
+                                                 queryset=Muscle.objects.all())
+    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True,
+                                                           queryset=Muscle.objects.all())
+    equipment = serializers.PrimaryKeyRelatedField(many=True,
+                                                   queryset=Equipment.objects.all())
+    variations = serializers.PrimaryKeyRelatedField(many=True,
+                                                    queryset=Variation.objects.all())
 
     class Meta:
         model = Exercise
