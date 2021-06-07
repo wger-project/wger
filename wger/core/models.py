@@ -255,7 +255,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                        validators=[MinValueValidator(10), MaxValueValidator(100)])
     """The user's age"""
 
-    birthdate = models.DateField(verbose_name=('Date of Birth'),
+    birthdate = models.DateField(verbose_name=_('Date of Birth'),
                                  blank=False,
                                  null=True,
                                  validators=[birthdate_validator])
