@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Confirmation</title>
+</head>
+<body>
+<h1>You are almost there, {{ user.username }}!</h1><br>
+<h2>Please click <a href="{{ link }}">here</a> to confirm your account</h2>
+<h2>The token expires on {{ expiry|time:"TIME_FORMAT" }}</h2>
+</body>
+</html>

@@ -29,5 +29,5 @@ class CanEditExercises(BasePermission):
         if request.user.is_anonymous:
             return False
 
-        return request.user.userprofile.is_trustworthy or\
-               request.user.has_perm('exercises.add_exercise')
+        return (request.user.userprofile.is_trustworthy
+                or request.user.has_perm('exercises.add_exercise'))

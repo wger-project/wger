@@ -29,15 +29,12 @@ from rest_framework.decorators import (
     action,
     api_view
 )
-from rest_framework.permissions import (
-    AllowAny,
-    IsAuthenticatedOrReadOnly
-)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 # wger
-from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.config.models import LanguageConfig
+from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
     EquipmentSerializer,

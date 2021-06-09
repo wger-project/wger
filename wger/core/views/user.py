@@ -72,6 +72,7 @@ from crispy_forms.layout import (
     Row,
     Submit
 )
+from django_email_verification import send_email
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -610,3 +611,11 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         form.helper.form_class = 'wger-form'
         form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         return form
+
+
+@login_required
+def confirm_email(request):
+    if not request.user.userprofile.email_verified:
+        send_email(request.user)
+
+    return HttpResponseRedirect(reverse('software:features'))

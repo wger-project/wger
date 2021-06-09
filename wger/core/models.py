@@ -19,14 +19,11 @@ import datetime
 import decimal
 
 # Django
-from django.contrib.auth.models import (
-    Permission,
-    User,
-)
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator,
+    MinValueValidator
 )
 from django.db import models
 from django.db.models import IntegerField
@@ -139,6 +136,9 @@ class UserProfile(models.Model):
     The gym this user belongs to, if any
     """
 
+    email_verified = models.BooleanField(default=False)
+    """Flag indicating whether the user's email has been verified"""
+
     is_temporary = models.BooleanField(default=False,
                                        editable=False)
     """
@@ -205,16 +205,19 @@ by the US Department of Agriculture. It is extremely complete, with around
                                               on_delete=models.CASCADE)
 
     @property
-    def is_trustworthy(self):
+    def is_trustworthy(self) -> bool:
         """
-        Returns true for trustworthy if they've had an account for more than three weeks.
-        More trustworthiness criteria could be added in future.
+        Flag indicating whether the user "is trustworthy" and can submit or edit exercises
+
+        At the moment the criteria are:
+        - the account has existed for 3 weeks
+        - the email address has been verified
         """
 
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
-        days_in_three_weeks = 21
+        minimum_account_age = 21
 
-        return days_since_joined.days > days_in_three_weeks
+        return days_since_joined.days > minimum_account_age and self.email_verified
 
     @property
     def has_exercise_permission(self):

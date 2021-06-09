@@ -102,15 +102,12 @@ class UserPreferencesForm(forms.ModelForm):
                      Row(Column('first_name', css_class='form-group col-6 mb-0'),
                          Column('last_name', css_class='form-group col-6 mb-0'),
                          css_class='form-row'),
-                     HTML("<hr>"),
-            ),
-
+                     HTML("<hr>")),
             Fieldset(_("Workout reminders"),
                      'workout_reminder_active',
                      'workout_reminder',
                      'workout_duration',
-                     HTML("<hr>")
-            ),
+                     HTML("<hr>")),
             Fieldset(_("Other settings"),
                      "ro_access",
                      "notification_language",
@@ -118,8 +115,7 @@ class UserPreferencesForm(forms.ModelForm):
                      "show_comments",
                      "show_english_ingredients",
                      "num_days_weight_reminder",
-                     "birthdate",
-            ),
+                     "birthdate"),
 
             ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
