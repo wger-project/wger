@@ -626,5 +626,7 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
 def confirm_email(request):
     if not request.user.userprofile.email_verified:
         send_email(request.user)
+        messages.success(request,
+                         _('Verification email sent to %(email)s') % {'email': request.user.email})
 
-    return HttpResponseRedirect(reverse('software:features'))
+    return HttpResponseRedirect(reverse('core:dashboard'))
