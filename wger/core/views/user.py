@@ -322,9 +322,18 @@ def preferences(request):
 
     # Process the email form
     if request.method == 'POST':
+        user_email = request.user.email
         email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
 
         if email_form.is_valid() and redirect:
+
+            # If the user changes the email, it is no longer verified
+            if user_email != email_form.instance.email:
+                logger.debug('resetting verified flag')
+                request.user.userprofile.email_verified = False
+                request.user.userprofile.save()
+
+            # Save as normal
             email_form.save()
             redirect = True
         else:
