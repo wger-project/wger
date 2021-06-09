@@ -34,14 +34,12 @@ from django.utils.translation import gettext as _
 # Third Party
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
-from crispy_forms.bootstrap import (
-    Accordion,
-    AccordionGroup
-)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
+    HTML,
     ButtonHolder,
     Column,
+    Fieldset,
     Layout,
     Row,
     Submit
@@ -101,32 +99,35 @@ class UserPreferencesForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            Accordion(
-                AccordionGroup(_("Personal data"),
-                               'email',
-                               Row(Column('first_name', css_class='form-group col-6 mb-0'),
-                                   Column('last_name', css_class='form-group col-6 mb-0'),
-                                   css_class='form-row'),
-                               ),
-                AccordionGroup(_("Workout reminders"),
-                               'workout_reminder_active',
-                               'workout_reminder',
-                               'workout_duration',
-                               ),
-                AccordionGroup(f"{_('Gym mode')} ({_('mobile version only')})",
-                               "timer_active",
-                               "timer_pause"
-                               ),
-                AccordionGroup(_("Other settings"),
-                               "ro_access",
-                               "notification_language",
-                               "weight_unit",
-                               "show_comments",
-                               "show_english_ingredients",
-                               "num_days_weight_reminder",
-                               "birthdate",
-                               )
+            Fieldset(_("Personal data"),
+                     'email',
+                     Row(Column('first_name', css_class='form-group col-6 mb-0'),
+                         Column('last_name', css_class='form-group col-6 mb-0'),
+                         css_class='form-row'),
+                     HTML("<hr>"),
             ),
+
+            Fieldset(_("Workout reminders"),
+                     'workout_reminder_active',
+                     'workout_reminder',
+                     'workout_duration',
+                     HTML("<hr>")
+            ),
+            Fieldset(f"{_('Gym mode')} ({_('mobile version only')})",
+                     "timer_active",
+                     "timer_pause",
+                     HTML("<hr>")
+            ),
+            Fieldset(_("Other settings"),
+                     "ro_access",
+                     "notification_language",
+                     "weight_unit",
+                     "show_comments",
+                     "show_english_ingredients",
+                     "num_days_weight_reminder",
+                     "birthdate",
+            ),
+
             ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
 
