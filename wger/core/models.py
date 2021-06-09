@@ -204,23 +204,6 @@ by the US Department of Agriculture. It is extremely complete, with around
                                               default=2,
                                               on_delete=models.CASCADE)
 
-    timer_active = models.BooleanField(verbose_name=_('Use pauses in workout timer'),
-                                       help_text=_('Check to activate timer pauses between '
-                                                   'exercises.'),
-                                       default=True)
-    """
-    Switch to activate pauses in the gym view
-    """
-
-    timer_pause = IntegerField(verbose_name=_('Default duration of workout pauses'),
-                               help_text=_('Default duration in seconds of pauses used by '
-                                           'the timer in the gym mode.'),
-                               default=90,
-                               validators=[MinValueValidator(10), MaxValueValidator(400)])
-    """
-    Default duration of workout pauses in the gym view
-    """
-
     @property
     def is_trustworthy(self):
         """

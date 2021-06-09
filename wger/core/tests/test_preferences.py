@@ -58,8 +58,6 @@ class PreferencesTestCase(WgerTestCase):
                                      'workout_reminder': '30',
                                      'workout_duration': 12,
                                      'notification_language': 2,
-                                     'timer_active': False,
-                                     'timer_pause': 100,
                                      'num_days_weight_reminder': 10,
                                      'weight_unit': 'kg',
                                      'birthdate': '02/25/1987'})
@@ -82,8 +80,6 @@ class PreferencesTestCase(WgerTestCase):
                                      'workout_reminder': 22,
                                      'workout_duration': 10,
                                      'notification_language': 2,
-                                     'timer_active': True,
-                                     'timer_pause': 40,
                                      'num_days_weight_reminder': 10,
                                      'weight_unit': 'lb',
                                      'birthdate': '02/25/1987'})

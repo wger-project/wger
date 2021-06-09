@@ -28,6 +28,7 @@ from django.contrib.sitemaps.views import (
 from django.urls import path
 
 # Third Party
+from django_email_verification import urls as email_urls
 from rest_framework import routers
 
 # wger
@@ -154,6 +155,8 @@ urlpatterns += [
     # Others
     path('api/v2/version/', core_api_views.ApplicationVersionView.as_view({
         'get': 'get'}), name='app_version'),
+
+    path('email/', include(email_urls)),
 
 ]
 

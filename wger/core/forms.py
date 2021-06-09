@@ -87,8 +87,6 @@ class UserPreferencesForm(forms.ModelForm):
                   'workout_duration',
                   'notification_language',
                   'weight_unit',
-                  'timer_active',
-                  'timer_pause',
                   'ro_access',
                   'num_days_weight_reminder',
                   'birthdate'
@@ -111,11 +109,6 @@ class UserPreferencesForm(forms.ModelForm):
                      'workout_reminder_active',
                      'workout_reminder',
                      'workout_duration',
-                     HTML("<hr>")
-            ),
-            Fieldset(f"{_('Gym mode')} ({_('mobile version only')})",
-                     "timer_active",
-                     "timer_pause",
                      HTML("<hr>")
             ),
             Fieldset(_("Other settings"),

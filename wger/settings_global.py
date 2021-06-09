@@ -90,6 +90,9 @@ INSTALLED_APPS = (
 
     # History keeping
     'simple_history',
+
+    # Django email verification
+    'django_email_verification',
 )
 
 
@@ -171,6 +174,24 @@ STATICFILES_FINDERS = (
 EMAIL_SUBJECT_PREFIX = '[wger] '
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
+#
+# Django email verification
+#
+
+def email_verified_callback(user):
+    user.userprofile.email_verified = True
+    user.userprofile.save()
+
+
+EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_FROM_ADDRESS = 'noreply@wger.de'
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'email_verification/email_body.html'
+EMAIL_MAIL_PLAIN = 'email_verification/email_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'https://wger.de/'
 
 #
 # Login
