@@ -101,3 +101,6 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             }
         }
     }
+
+# The site's domain as used by the email verification workflow
+EMAIL_PAGE_DOMAIN = 'http://localhost/'

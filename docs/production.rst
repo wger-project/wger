@@ -184,6 +184,18 @@ where ``wger.example.com`` is the domain of the wger instance. This assumes that
 
   SITE_ID = 2
 
+
+To verify the user's email and allow them to submit and edit exercises, the domain
+is configured differently. You will want to set::
+
+    EMAIL_PAGE_DOMAIN = 'https://wger.de/'
+
+in the settings (as well as a properly configured email backend). Consult the documentation
+for the `django-email-verification`_ app for more details
+
+.. _`django-email-verification`: https://pypi.org/project/django-email-verification/
+
+
 .. _other-changes:
 
 Other changes

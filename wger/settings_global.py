@@ -176,24 +176,6 @@ EMAIL_SUBJECT_PREFIX = '[wger] '
 
 
 #
-# Django email verification
-#
-
-def email_verified_callback(user):
-    user.userprofile.email_verified = True
-    user.userprofile.save()
-
-
-EMAIL_VERIFIED_CALLBACK = email_verified_callback
-EMAIL_FROM_ADDRESS = 'noreply@wger.de'
-EMAIL_MAIL_SUBJECT = 'Confirm your email'
-EMAIL_MAIL_HTML = 'email_verification/email_body.html'
-EMAIL_MAIL_PLAIN = 'email_verification/email_body.txt'
-EMAIL_TOKEN_LIFE = 60 * 60
-EMAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'https://wger.de/'
-
-#
 # Login
 #
 LOGIN_URL = '/user/login'
@@ -432,3 +414,21 @@ WGER_SETTINGS = {
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False
 }
+
+
+#
+# Django email verification
+#
+def email_verified_callback(user):
+    user.userprofile.email_verified = True
+    user.userprofile.save()
+
+
+EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'email_verification/email_body.html'
+EMAIL_MAIL_PLAIN = 'email_verification/email_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'https://wger.de/'
