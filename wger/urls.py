@@ -80,6 +80,7 @@ router.register(r'equipment', exercises_api_views.EquipmentViewSet, basename='ap
 router.register(r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, basename='exercisecategory')
 router.register(r'exerciseimage', exercises_api_views.ExerciseImageViewSet, basename='exerciseimage')
 router.register(r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, basename='exercisecomment')
+router.register(r'exercisealias', exercises_api_views.ExerciseAliasViewSet, basename='exercisealias')
 router.register(r'muscle', exercises_api_views.MuscleViewSet, basename='muscle')
 
 # Nutrition app

@@ -29,11 +29,12 @@
 {# Header #}
 {#        #}
 {% block header %}
-<script>
-$(document).ready(function() {
-    wgerDrawWeightLogChart({{json|safe}}, "{{svg_uuid}}");
-});
-</script>
+    <link rel="stylesheet" type="text/css" href="{% static 'angular/styles.css' %}">
+
+    <script src="{% static 'angular/runtime.js' %}" defer></script>
+    <script src="{% static 'angular/polyfills.js' %}" defer></script>
+    <script src="{% static 'angular/main.js' %}" defer></script>
+
 {% endblock %}
 
 
@@ -41,7 +42,7 @@ $(document).ready(function() {
 {# Content #}
 {#         #}
 {% block content %}
-
+    <app-root></app-root>
 {% if exercise.status == exercise.STATUS_PENDING %}
 <div class="card text-white bg-dark mb-4">
     <div class="card-header">

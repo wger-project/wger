@@ -19,6 +19,7 @@
 import logging
 
 # Django
+from django.db.models import Q
 from django.utils.translation import gettext as _
 
 # Third Party
@@ -38,6 +39,7 @@ from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
+    ExerciseAliasSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
@@ -49,6 +51,7 @@ from wger.exercises.api.serializers import (
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseAlias,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
@@ -207,7 +210,8 @@ def search(request):
     if q:
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES,
                                         language_code=request.GET.get('language', None))
-        exercises = (Exercise.objects.filter(name__icontains=q)
+        name_lookup = Q(name__icontains=q) | Q(exercisealias__alias__icontains=q)
+        exercises = (Exercise.objects.filter(name_lookup)
                      .accepted()
                      .filter(language__in=languages)
                      .order_by('exercise_base__category__name', 'name')
@@ -340,6 +344,18 @@ class ExerciseCommentViewSet(CreateUpdateModelViewSet):
             exercises = Exercise.objects.filter(language=language)
             qs = ExerciseComment.objects.filter(exercise__in=exercises)
         return qs
+
+
+class ExerciseAliasViewSet(CreateUpdateModelViewSet):
+    """
+    API endpoint for exercise aliases objects
+    """
+    serializer_class = ExerciseAliasSerializer
+    queryset = ExerciseAlias.objects.all()
+    permission_classes = (CanEditExercises,)
+    ordering_fields = '__all__'
+    filterset_fields = ('alias',
+                        'exercise')
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):

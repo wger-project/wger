@@ -592,7 +592,7 @@ class ExerciseComment(models.Model):
         """
         return self.comment
 
-    def save22(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         """
         Reset cached workouts
         """
@@ -609,6 +609,41 @@ class ExerciseComment(models.Model):
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(ExerciseComment, self).delete(*args, **kwargs)
+
+    def get_owner_object(self):
+        """
+        Comment has no owner information
+        """
+        return False
+
+
+class ExerciseAlias(models.Model):
+    """
+    Model for an exercise (name)alias
+    """
+    exercise = models.ForeignKey(Exercise,
+                                 verbose_name=_('Exercise'),
+                                 on_delete=models.CASCADE)
+    alias = models.CharField(max_length=200,
+                             verbose_name=_('Alias for an exercise'),)
+
+    history = HistoricalRecords()
+    """Edit history"""
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return self.alias
+
+    def delete(self, *args, **kwargs):
+        """
+        Reset cached workouts
+        """
+        for setting in self.exercise.setting_set.all():
+            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
+
+        super(ExerciseAlias, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         """
