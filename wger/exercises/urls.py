@@ -30,9 +30,17 @@ from wger.exercises.views import (
     equipment,
     exercises,
     images,
-    muscles
+    muscles,
+    history
 )
 
+
+# sub patterns for history
+patterns_history = [
+    path('overview/',
+         history.overview,
+         name='overview'),
+]
 
 # sub patterns for muscles
 patterns_muscle = [
@@ -162,5 +170,6 @@ urlpatterns = [
     path('comment/', include((patterns_comment, 'comment'), namespace="comment")),
     path('category/', include((patterns_category, 'category'), namespace="category")),
     path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
+    path('history/', include((patterns_history, 'history'), namespace="history")),
     path('', include((patterns_exercise, 'exercise'), namespace="exercise")),
 ]
