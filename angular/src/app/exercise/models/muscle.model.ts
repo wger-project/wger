@@ -2,15 +2,11 @@ import {Injectable} from '@angular/core';
 import {Adapter} from '../../core/adapter';
 
 export class Muscle {
-  id: number;
-  name: string;
-  isFront: boolean;
-
-  constructor(id: number, name: string, isFront: boolean) {
-    this.id = id;
-    this.name = name;
-    this.isFront = isFront;
-  }
+  constructor(
+    public id: number,
+    public name: string,
+    public isFront: boolean
+  ) { }
 
 }
 

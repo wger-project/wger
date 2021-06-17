@@ -30,7 +30,9 @@ export class ExerciseService {
               private muscleAdapter: MuscleAdapter,
               private equipmentAdapter: EquipmentAdapter,
               private exerciseImageAdapter: ExerciseImageAdapter,
-              ) {  }
+              ) {
+    this.loadBaseData();
+  }
 
   loadBaseData(): void {
     // Load all categories
@@ -57,9 +59,15 @@ export class ExerciseService {
 
 
   async loadExercises(): Promise<Exercise[]> {
-    const data = await this.http.get<any>(this.exerciseInfoUrl, {params: {limit: 50}}).toPromise();
+    const data = await this.http.get<any>(this.exerciseInfoUrl, {params: {limit: 10}}).toPromise();
+
+    //console.log(data.results);
 
     for (const exerciseData of data.results) {
+
+
+      //console.log(exerciseData);
+
       // Exercise itself
       const exercise = this.exerciseAdapter.fromJson(exerciseData);
 
@@ -69,14 +77,17 @@ export class ExerciseService {
       // Muscles
       for (const muscleData of exerciseData.muscles) {
         exercise.muscles.push(this.muscleAdapter.fromJson(muscleData));
+        //exercise.addMuscle(this.muscleAdapter.fromJson(muscleData));
       }
       for (const muscleData of exerciseData.muscles_secondary) {
         exercise.musclesSecondary.push(this.muscleAdapter.fromJson(muscleData));
+        //exercise.addMuscleSecondary(this.muscleAdapter.fromJson(muscleData));
       }
 
       // Equipment
       for (const equipmentData of exerciseData.equipment) {
         exercise.equipment.push(this.equipmentAdapter.fromJson(equipmentData));
+        //exercise.addEquipment(this.equipmentAdapter.fromJson(equipmentData));
       }
 
       // Images
@@ -84,8 +95,7 @@ export class ExerciseService {
         exercise.images.push(this.exerciseImageAdapter.fromJson(imageData));
       }
 
-
-      console.log(exercise);
+      // console.log(exercise);
       this.exercises.push(exercise);
     }
 

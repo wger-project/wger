@@ -3,16 +3,12 @@ import {Adapter} from '../../core/adapter';
 import {Muscle} from './muscle.model';
 
 export class ExerciseImage{
-  id: number;
-  uuid: string;
-  url: string;
-  isMain: boolean;
 
-  constructor(id: number, uuid: string, url: string, isMain: boolean) {
-    this.id = id;
-    this.uuid = uuid;
-    this.url = url;
-    this.isMain = isMain;
+  constructor(
+    public id: number,
+    public uuid: string,
+    public url: string,
+    public isMain: boolean) {
   }
 }
 

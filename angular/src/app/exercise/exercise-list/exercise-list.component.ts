@@ -17,13 +17,12 @@ export class ExerciseListComponent implements OnInit {
   }
 
   async getExercises(): Promise<void> {
-
     this.exercises = await this.exerciseService.loadExercises();
   }
 
   async loadExercise(id: number): Promise<void> {
 
     const tmp = await this.exerciseService.getExercise(id);
-    console.log(tmp);
+    //console.log(tmp);
   }
 }

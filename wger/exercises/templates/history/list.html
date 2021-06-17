@@ -53,9 +53,9 @@
                             {% if entry.delta %}
                             {% for change in entry.delta.changes %}
                                 <tr>
-                                <td>{{ change.field }}</td>
-                                <td>{{ change.old }}</td>
-                                <td>{{ change.new }}</td>
+                                    <td>{{ change.field }}</td>
+                                    <td>{{ change.old }}</td>
+                                    <td>{{ change.new }}</td>
                                 </tr>
                             {% endfor %}
                             {% endif %}

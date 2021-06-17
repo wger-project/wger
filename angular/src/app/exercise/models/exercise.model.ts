@@ -1,3 +1,21 @@
+/*
+ * This file is part of wger Workout Manager <https://github.com/wger-project>.
+ * Copyright (C) 2020, 2021 wger Team
+ *
+ * wger Workout Manager is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * wger Workout Manager is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import {Injectable} from '@angular/core';
 import {Adapter} from '../../core/adapter';
 import {Category} from './category.model';
@@ -6,11 +24,6 @@ import {ExerciseImage} from './image.model';
 import {Muscle} from './muscle.model';
 
 export class Exercise {
-  id: number;
-  uuid: string;
-  name: string;
-  date: Date;
-  description: string;
   category!: Category;
   categoryId: number;
   muscles: Muscle[] = [];
@@ -24,11 +37,11 @@ export class Exercise {
   licenseAuthor: string;
   variations: number[];
 
-  constructor(id: number,
-              uuid: string,
-              name: string,
-              date: Date,
-              description: string,
+  constructor(public id: number,
+              public uuid: string,
+              public name: string,
+              public date: Date,
+              public description: string,
               category: number,
               muscles: number[],
               musclesSecondary: number[],
@@ -36,11 +49,6 @@ export class Exercise {
               license: number,
               licenseAuthor: string,
               variations: number[]) {
-    this.id = id;
-    this.uuid = uuid;
-    this.name = name;
-    this.date = date;
-    this.description = description;
     this.categoryId = category;
     this.musclesIds = muscles;
     this.musclesSecondaryIds = musclesSecondary;
@@ -50,6 +58,7 @@ export class Exercise {
     this.variations = variations;
   }
 }
+
 
 @Injectable({
   providedIn: 'root',
