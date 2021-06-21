@@ -37,7 +37,7 @@ RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_de
 ########
 # Final
 ########
-FROM wger/base:2.0-dev
+FROM wger/base:2.1-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
 ARG DOCKER_DIR=./extras/docker/apache
