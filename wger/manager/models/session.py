@@ -1,54 +1,31 @@
-# -*- coding: utf-8 -*-
-
-# This file is part of wger Workout Manager.
+#  This file is part of wger Workout Manager <https://github.com/wger-project>.
+#  Copyright (C) 2013 - 2021 wger Team
 #
-# wger Workout Manager is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+#  wger Workout Manager is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
 #
-# wger Workout Manager is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+#  wger Workout Manager is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
-# along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-
-# Standard Library
-import datetime
-import logging
-import typing
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
 from django.contrib.auth.models import User
-from django.core.cache import cache
-from django.core.exceptions import (
-    ObjectDoesNotExist,
-    ValidationError,
-)
-from django.core.validators import (
-    MaxValueValidator,
-    MinValueValidator,
-)
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.core.models import (
-    DaysOfWeek,
-    RepetitionUnit,
-    WeightUnit,
-)
-from wger.exercises.models import Exercise
-from wger.utils.cache import (
-    cache_mapper,
-    reset_workout_canonical_form,
-    reset_workout_log,
-)
+from wger.utils.cache import reset_workout_log
 from wger.utils.fields import Html5DateField
-from wger.utils.helpers import normalize_decimal
+
+# Local
+from .workout import Workout
 
 
 class WorkoutSession(models.Model):

@@ -197,7 +197,8 @@ class Migration(migrations.Migration):
                 (
                     'document',
                     models.FileField(
-                        upload_to=wger.gym.models.gym_document_upload_dir, verbose_name='Document'
+                        upload_to=wger.gym.models.user_document.gym_document_upload_dir,
+                        verbose_name='Document'
                     )
                 ),
                 ('original_name', models.CharField(max_length=128, editable=False)),

@@ -1,18 +1,18 @@
-# -*- coding: utf-8 -*-
-
-# This file is part of wger Workout Manager.
+#  This file is part of wger Workout Manager <https://github.com/wger-project>.
+#  Copyright (C) 2013 - 2021 wger Team
 #
-# wger Workout Manager is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+#  wger Workout Manager is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
 #
-# wger Workout Manager is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+#  wger Workout Manager is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU Affero General Public License
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
 import datetime
@@ -27,7 +27,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.db.models import IntegerField
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
@@ -36,49 +35,8 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
 
-
-class Language(models.Model):
-    """
-    Language of an item (exercise, workout, etc.)
-    """
-
-    # e.g. 'de'
-    short_name = models.CharField(max_length=2, verbose_name=_('Language short name'))
-
-    # e.g. 'Deutsch'
-    full_name = models.CharField(max_length=30, verbose_name=_('Language full name'))
-
-    class Meta:
-        """
-        Set Meta options
-        """
-        ordering = [
-            "full_name",
-        ]
-
-    #
-    # Django methods
-    #
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return f"{self.full_name} ({self.short_name})"
-
-    def get_absolute_url(self):
-        """
-        Returns the canonical URL to view a language
-        """
-        return reverse('core:language:view', kwargs={'pk': self.id})
-
-    #
-    # Own methods
-    #
-    def get_owner_object(self):
-        """
-        Muscle has no owner information
-        """
-        return False
+# Local
+from .language import Language
 
 
 def birthdate_validator(birthdate):
@@ -577,186 +535,3 @@ by the US Department of Agriculture. It is extremely complete, with around
         Returns the object that has owner information
         """
         return self
-
-
-class UserCache(models.Model):
-    """
-    A table used to cache expensive queries or similar
-    """
-
-    user = models.OneToOneField(User, editable=False, on_delete=models.CASCADE)
-    """
-    The user
-    """
-
-    last_activity = models.DateField(null=True)
-    """
-    The user's last activity.
-
-    Values for this entry are saved by signals as calculated by the
-    get_user_last_activity helper function.
-    """
-
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return f"Cache for user {self.user}"
-
-
-class DaysOfWeek(models.Model):
-    """
-    Model for the days of the week
-
-    This model is needed so that 'Day' can have multiple days of the week selected
-    """
-
-    day_of_week = models.CharField(max_length=9, verbose_name=_('Day of the week'))
-
-    class Meta:
-        """
-        Order by day-ID, this is needed for some DBs
-        """
-        ordering = [
-            "pk",
-        ]
-
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return self.day_of_week
-
-
-class License(models.Model):
-    """
-    License for an item (exercise, ingredient, etc.)
-    """
-
-    full_name = models.CharField(
-        max_length=60,
-        verbose_name=_('Full name'),
-        help_text=_(
-            'If a license has been localized, e.g. the Creative '
-            'Commons licenses for the different countries, add '
-            'them as separate entries here.'
-        )
-    )
-    """Full name"""
-
-    short_name = models.CharField(max_length=15, verbose_name=_('Short name, e.g. CC-BY-SA 3'))
-    """Short name, e.g. CC-BY-SA 3"""
-
-    url = models.URLField(
-        verbose_name=_('Link'),
-        help_text=_('Link to license text or other information'),
-        blank=True,
-        null=True
-    )
-    """URL to full license text or other information"""
-
-    class Meta:
-        """
-        Set Meta options
-        """
-        ordering = [
-            "full_name",
-        ]
-
-    #
-    # Django methods
-    #
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return f"{self.full_name} ({self.short_name})"
-
-    #
-    # Own methods
-    #
-    def get_owner_object(self):
-        """
-        License has no owner information
-        """
-        return None
-
-
-class RepetitionUnit(models.Model):
-    """
-    Setting unit, used in combination with an amount such as '10 reps', '5 km'
-    """
-
-    class Meta:
-        """
-        Set Meta options
-        """
-        ordering = [
-            "name",
-        ]
-
-    name = models.CharField(max_length=100, verbose_name=_('Name'))
-
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return self.name
-
-    #
-    # Own methods
-    #
-    def get_owner_object(self):
-        """
-        Unit has no owner information
-        """
-        return None
-
-    @property
-    def is_repetition(self):
-        """
-        Checks that the repetition unit is a repetition proper
-
-        This is done basically to not litter the code with magic IDs
-        """
-        return self.id == 1
-
-
-class WeightUnit(models.Model):
-    """
-    Weight unit, used in combination with an amount such as '10 kg', '5 plates'
-    """
-
-    class Meta:
-        """
-        Set Meta options
-        """
-        ordering = [
-            "name",
-        ]
-
-    name = models.CharField(max_length=100, verbose_name=_('Name'))
-
-    def __str__(self):
-        """
-        Return a more human-readable representation
-        """
-        return self.name
-
-    #
-    # Own methods
-    #
-    def get_owner_object(self):
-        """
-        Unit has no owner information
-        """
-        return None
-
-    @property
-    def is_weight(self):
-        """
-        Checks that the unit is a weight proper
-
-        This is done basically to not litter the code with magic IDs
-        """
-        return self.id in (1, 2)

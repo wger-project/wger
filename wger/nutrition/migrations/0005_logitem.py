@@ -67,6 +67,6 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['datetime'],
             },
-            bases=(wger.nutrition.models.BaseMealItem, models.Model),
+            bases=(wger.nutrition.helpers.BaseMealItem, models.Model),
         ),
     ]

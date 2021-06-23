@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='birthdate',
             field=models.DateField(
                 null=True,
-                validators=[wger.core.models.birthdate_validator],
+                validators=[wger.core.models.profile.birthdate_validator],
                 verbose_name='Date of Birth'
             ),
         ),

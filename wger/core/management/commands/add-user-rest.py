@@ -1,10 +1,6 @@
 # Django
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-
-# wger
-from wger.core.models import User
-
-
 """
 Custom command permitting users to create user accounts
 """

@@ -54,11 +54,11 @@ from reportlab.platypus import (
 )
 
 # wger
-from wger.nutrition.models import (
+from wger.nutrition.consts import (
     MEALITEM_WEIGHT_GRAM,
     MEALITEM_WEIGHT_UNIT,
-    NutritionPlan,
 )
+from wger.nutrition.models import NutritionPlan
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
@@ -75,7 +75,6 @@ from wger.utils.pdf import (
     row_color,
     styleSheet,
 )
-
 
 logger = logging.getLogger(__name__)
 

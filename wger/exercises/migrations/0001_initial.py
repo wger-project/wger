@@ -156,7 +156,7 @@ class Migration(migrations.Migration):
                     'image',
                     models.ImageField(
                         help_text='Only PNG and JPEG formats are supported',
-                        upload_to=wger.exercises.models.exercise_image_upload_dir,
+                        upload_to=wger.exercises.models.image.exercise_image_upload_dir,
                         verbose_name='Image'
                     )
                 ),

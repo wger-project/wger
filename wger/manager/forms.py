@@ -50,8 +50,8 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import Exercise
+from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
-    RIR_OPTIONS,
     Day,
     Set,
     Setting,
