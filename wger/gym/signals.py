@@ -14,11 +14,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.db.models.signals import (
     post_delete,
-    post_save
+    post_save,
 )
 from django.dispatch import receiver
 
@@ -26,7 +25,7 @@ from django.dispatch import receiver
 from wger.gym.models import (
     Gym,
     GymConfig,
-    UserDocument
+    UserDocument,
 )
 
 

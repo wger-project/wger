@@ -20,7 +20,7 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
@@ -30,7 +30,6 @@ from django.views.generic import UpdateView
 # wger
 from wger.gym.models import GymConfig
 from wger.utils.generic_views import WgerFormMixin
-
 
 logger = logging.getLogger(__name__)
 

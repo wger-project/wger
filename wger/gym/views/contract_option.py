@@ -20,32 +20,31 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.gym.models import (
     ContractOption,
-    Gym
+    Gym,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
-
 
 logger = logging.getLogger(__name__)
 

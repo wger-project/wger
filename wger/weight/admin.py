@@ -18,5 +18,4 @@ from django.contrib import admin
 # wger
 from wger.weight.models import WeightEntry
 
-
 admin.site.register(WeightEntry)

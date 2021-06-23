@@ -19,19 +19,19 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.management.base import (
     BaseCommand,
-    CommandError
+    CommandError,
 )
 
 # wger
 from wger.core.models import Language
 from wger.manager.models import (
     Workout,
-    WorkoutLog
+    WorkoutLog,
 )
 from wger.utils.cache import (
     delete_template_fragment_cache,
     reset_workout_canonical_form,
-    reset_workout_log
+    reset_workout_log,
 )
 
 
@@ -45,32 +45,39 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
 
-        parser.add_argument('--clear-template',
-                            action='store_true',
-                            dest='clear_template',
-                            default=False,
-                            help='Clear only template caches')
+        parser.add_argument(
+            '--clear-template',
+            action='store_true',
+            dest='clear_template',
+            default=False,
+            help='Clear only template caches'
+        )
 
-        parser.add_argument('--clear-workout-cache',
-                            action='store_true',
-                            dest='clear_workout',
-                            default=False,
-                            help='Clear only the workout canonical view')
+        parser.add_argument(
+            '--clear-workout-cache',
+            action='store_true',
+            dest='clear_workout',
+            default=False,
+            help='Clear only the workout canonical view'
+        )
 
-        parser.add_argument('--clear-all',
-                            action='store_true',
-                            dest='clear_all',
-                            default=False,
-                            help='Clear ALL cached entries')
+        parser.add_argument(
+            '--clear-all',
+            action='store_true',
+            dest='clear_all',
+            default=False,
+            help='Clear ALL cached entries'
+        )
 
     def handle(self, **options):
         """
         Process the options
         """
 
-        if (not options['clear_template']
-                and not options['clear_workout']
-                and not options['clear_all']):
+        if (
+            not options['clear_template'] and not options['clear_workout']
+            and not options['clear_all']
+        ):
             raise CommandError('Please select what cache you need to delete, see help')
 
         # Exercises, cached template fragments
@@ -86,16 +93,16 @@ class Command(BaseCommand):
 
                     if int(options['verbosity']) >= 3:
                         self.stdout.write(f"  Year {entry.year}")
-                    for month in WorkoutLog.objects.filter(user=user,
-                                                           date__year=entry.year).dates('date',
-                                                                                        'month'):
+                    for month in WorkoutLog.objects.filter(user=user, date__year=entry.year
+                                                           ).dates('date', 'month'):
                         if int(options['verbosity']) >= 3:
                             self.stdout.write(f"    Month {entry.month}")
                         reset_workout_log(user.id, entry.year, entry.month)
-                        for day in WorkoutLog.objects.filter(user=user,
-                                                             date__year=entry.year,
-                                                             date__month=month.month).dates('date',
-                                                                                            'day'):
+                        for day in WorkoutLog.objects.filter(
+                            user=user,
+                            date__year=entry.year,
+                            date__month=month.month,
+                        ).dates('date', 'day'):
                             if int(options['verbosity']) >= 3:
                                 self.stdout.write(f"      Day {day.day}")
                             reset_workout_log(user.id, entry.year, entry.month, day)

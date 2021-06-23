@@ -25,7 +25,6 @@ from rest_framework.authtoken.models import Token
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 
-
 logger = logging.getLogger(__name__)
 
 

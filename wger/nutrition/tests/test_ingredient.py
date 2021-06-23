@@ -29,11 +29,11 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.nutrition.models import (
     Ingredient,
-    Meal
+    Meal,
 )
 from wger.utils.constants import NUTRITION_TAB
 
@@ -68,17 +68,19 @@ class EditIngredientTestCase(WgerEditTestCase):
     object_class = Ingredient
     url = 'nutrition:ingredient:edit'
     pk = 1
-    data = {'name': 'A new name',
-            'sodium': 2,
-            'energy': 200,
-            'fat': 10,
-            'carbohydrates_sugar': 5,
-            'fat_saturated': 3.14,
-            'fibres': 2.1,
-            'protein': 20,
-            'carbohydrates': 10,
-            'license': 2,
-            'license_author': 'me!'}
+    data = {
+        'name': 'A new name',
+        'sodium': 2,
+        'energy': 200,
+        'fat': 10,
+        'carbohydrates_sugar': 5,
+        'fat_saturated': 3.14,
+        'fibres': 2.1,
+        'protein': 20,
+        'carbohydrates': 10,
+        'license': 2,
+        'license_author': 'me!'
+    }
 
     def post_test_hook(self):
         """
@@ -97,17 +99,19 @@ class AddIngredientTestCase(WgerAddTestCase):
     object_class = Ingredient
     url = 'nutrition:ingredient:add'
     user_fail = False
-    data = {'name': 'A new ingredient',
-            'sodium': 2,
-            'energy': 200,
-            'fat': 10,
-            'carbohydrates_sugar': 5,
-            'fat_saturated': 3.14,
-            'fibres': 2.1,
-            'protein': 20,
-            'carbohydrates': 10,
-            'license': 2,
-            'license_author': 'me!'}
+    data = {
+        'name': 'A new ingredient',
+        'sodium': 2,
+        'energy': 200,
+        'fat': 10,
+        'carbohydrates_sugar': 5,
+        'fat_saturated': 3.14,
+        'fibres': 2.1,
+        'protein': 20,
+        'carbohydrates': 10,
+        'license': 2,
+        'license_author': 'me!'
+    }
 
     def post_test_hook(self):
         """
@@ -126,17 +130,19 @@ class IngredientNameShortTestCase(WgerTestCase):
     """
     Tests that ingredient cannot have name with length less than 3
     """
-    data = {'name': 'Ui',
-            'sodium': 2,
-            'energy': 200,
-            'fat': 10,
-            'carbohydrates_sugar': 5,
-            'fat_saturated': 3.14,
-            'fibres': 2.1,
-            'protein': 20,
-            'carbohydrates': 10,
-            'license': 2,
-            'license_author': 'me!'}
+    data = {
+        'name': 'Ui',
+        'sodium': 2,
+        'energy': 200,
+        'fat': 10,
+        'carbohydrates_sugar': 5,
+        'fat_saturated': 3.14,
+        'fibres': 2.1,
+        'protein': 20,
+        'carbohydrates': 10,
+        'license': 2,
+        'license_author': 'me!'
+    }
 
     def test_add_ingredient_short_name(self):
         """
@@ -159,8 +165,9 @@ class IngredientNameShortTestCase(WgerTestCase):
         """
         self.user_login('admin')
 
-        response = self.client.post(reverse('nutrition:ingredient:edit',
-                                    kwargs={'pk': '1'}), self.data)
+        response = self.client.post(
+            reverse('nutrition:ingredient:edit', kwargs={'pk': '1'}), self.data
+        )
         self.assertEqual(response.status_code, 200)
 
         ingredient = Ingredient.objects.get(pk=1)
@@ -274,42 +281,56 @@ class IngredientValuesTestCase(WgerTestCase):
         """
 
         # Get the nutritional values in 1 gram of product
-        response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
-                                   {'amount': 1,
-                                    'ingredient': 1,
-                                    'unit': ''})
+        response = self.client.get(
+            reverse('api-ingredient-get-values', kwargs={'pk': 1}), {
+                'amount': 1,
+                'ingredient': 1,
+                'unit': ''
+            }
+        )
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 9)
-        self.assertEqual(result, {'sodium': '0.01',
-                                  'energy': '1.76',
-                                  'energy_kilojoule': '7.36',
-                                  'fat': '0.08',
-                                  'carbohydrates_sugar': '0.00',
-                                  'fat_saturated': '0.03',
-                                  'fibres': '0.00',
-                                  'protein': '0.26',
-                                  'carbohydrates': '0.00'})
+        self.assertEqual(
+            result, {
+                'sodium': '0.01',
+                'energy': '1.76',
+                'energy_kilojoule': '7.36',
+                'fat': '0.08',
+                'carbohydrates_sugar': '0.00',
+                'fat_saturated': '0.03',
+                'fibres': '0.00',
+                'protein': '0.26',
+                'carbohydrates': '0.00'
+            }
+        )
 
         # Get the nutritional values in 1 unit of product
-        response = self.client.get(reverse('api-ingredient-get-values', kwargs={'pk': 1}),
-                                   {'amount': 1,
-                                    'ingredient': 1,
-                                    'unit': 2})
+        response = self.client.get(
+            reverse('api-ingredient-get-values', kwargs={'pk': 1}), {
+                'amount': 1,
+                'ingredient': 1,
+                'unit': 2
+            }
+        )
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 9)
-        self.assertEqual(result, {'sodium': '0.61',
-                                  'energy': '196.24',
-                                  'energy_kilojoule': '821.07',
-                                  'fat': '9.13',
-                                  'carbohydrates_sugar': '0.00',
-                                  'fat_saturated': '3.62',
-                                  'fibres': '0.00',
-                                  'protein': '28.58',
-                                  'carbohydrates': '0.14'})
+        self.assertEqual(
+            result, {
+                'sodium': '0.61',
+                'energy': '196.24',
+                'energy_kilojoule': '821.07',
+                'fat': '9.13',
+                'carbohydrates_sugar': '0.00',
+                'fat_saturated': '3.62',
+                'fibres': '0.00',
+                'protein': '28.58',
+                'carbohydrates': '0.14'
+            }
+        )
 
     def test_calculate_value_anonymous(self):
         """
@@ -331,6 +352,7 @@ class IngredientTestCase(WgerTestCase):
     """
     Tests other ingredient functions
     """
+
     def test_compare(self):
         """
         Tests the custom compare method based on values
@@ -406,5 +428,4 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = Ingredient
     private_resource = False
-    data = {'language': 1,
-            'license': 2}
+    data = {'language': 1, 'license': 2}

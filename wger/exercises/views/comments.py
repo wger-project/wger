@@ -21,7 +21,7 @@ import logging
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -29,30 +29,30 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.exercises.forms import CommentForm
 from wger.exercises.models import (
     Exercise,
-    ExerciseComment
+    ExerciseComment,
 )
 from wger.utils.generic_views import WgerFormMixin
 
-
 logger = logging.getLogger(__name__)
-
 
 # ************************
 #    Exercise comments
 # ************************
 
 
-class ExerciseCommentEditView(WgerFormMixin,
-                              LoginRequiredMixin,
-                              PermissionRequiredMixin,
-                              UpdateView):
+class ExerciseCommentEditView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to update an existing exercise comment
     """
@@ -66,10 +66,12 @@ class ExerciseCommentEditView(WgerFormMixin,
         return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise.id})
 
 
-class ExerciseCommentAddView(WgerFormMixin,
-                             LoginRequiredMixin,
-                             PermissionRequiredMixin,
-                             CreateView):
+class ExerciseCommentAddView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
     """
     Generic view to add a new exercise comment
     """

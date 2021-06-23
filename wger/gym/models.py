@@ -24,7 +24,7 @@ from django.db import models as m
 from django.urls import reverse
 from django.utils.translation import (
     gettext,
-    gettext_lazy as _
+    gettext_lazy as _,
 )
 
 # wger
@@ -42,50 +42,63 @@ class Gym(m.Model):
             ("manage_gym", _("Admin: can manage users for a gym")),
             ("manage_gyms", _("Admin: can administrate the different gyms")),
         )
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
     objects = GymManager()
     """
     Custom Gym Query Manager
     """
 
-    name = m.CharField(max_length=60,
-                       verbose_name=_('Name'))
+    name = m.CharField(max_length=60, verbose_name=_('Name'))
     """Gym name"""
 
-    phone = m.CharField(verbose_name=_('Phone'),
-                        max_length=20,
-                        blank=True,
-                        null=True)
+    phone = m.CharField(
+        verbose_name=_('Phone'),
+        max_length=20,
+        blank=True,
+        null=True,
+    )
     """Phone number"""
 
-    email = m.EmailField(verbose_name=_('Email'),
-                         blank=True,
-                         null=True)
+    email = m.EmailField(
+        verbose_name=_('Email'),
+        blank=True,
+        null=True,
+    )
     """Email"""
 
-    owner = m.CharField(verbose_name=_('Owner'),
-                        max_length=100,
-                        blank=True,
-                        null=True)
+    owner = m.CharField(
+        verbose_name=_('Owner'),
+        max_length=100,
+        blank=True,
+        null=True,
+    )
     """Gym owner"""
 
-    zip_code = m.CharField(_('ZIP code'),
-                           max_length=10,
-                           blank=True,
-                           null=True)
+    zip_code = m.CharField(
+        _('ZIP code'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
     """ZIP code"""
 
-    city = m.CharField(_('City'),
-                       max_length=30,
-                       blank=True,
-                       null=True)
+    city = m.CharField(
+        _('City'),
+        max_length=30,
+        blank=True,
+        null=True,
+    )
     """City"""
 
-    street = m.CharField(_('Street'),
-                         max_length=30,
-                         blank=True,
-                         null=True)
+    street = m.CharField(
+        _('Street'),
+        max_length=30,
+        blank=True,
+        null=True,
+    )
     """Street"""
 
     def __str__(self):
@@ -112,25 +125,33 @@ class GymConfig(m.Model):
     Configuration options for a gym
     """
 
-    gym = m.OneToOneField(Gym,
-                          related_name='config',
-                          editable=False,
-                          on_delete=m.CASCADE)
+    gym = m.OneToOneField(
+        Gym,
+        related_name='config',
+        editable=False,
+        on_delete=m.CASCADE,
+    )
     """
     Gym this configuration belongs to
     """
 
-    weeks_inactive = m.PositiveIntegerField(verbose_name=_('Reminder of inactive members'),
-                                            help_text=_('Number of weeks since the last time a '
-                                            'user logged his presence to be considered inactive'),
-                                            default=4)
+    weeks_inactive = m.PositiveIntegerField(
+        verbose_name=_('Reminder of inactive members'),
+        help_text=_(
+            'Number of weeks since the last time a '
+            'user logged his presence to be considered inactive'
+        ),
+        default=4
+    )
     """
     Reminder of inactive members
     """
 
-    show_name = m.BooleanField(verbose_name=_('Show name in header'),
-                               help_text=_('Show the name of the gym in the site header'),
-                               default=False)
+    show_name = m.BooleanField(
+        verbose_name=_('Show name in header'),
+        help_text=_('Show the name of the gym in the site header'),
+        default=False,
+    )
     """
     Show name of the current user's gym in the header, instead of 'wger'
     """
@@ -156,16 +177,20 @@ class AbstractGymUserConfigModel(m.Model):
     class Meta:
         abstract = True
 
-    gym = m.ForeignKey(Gym,
-                       editable=False,
-                       on_delete=m.CASCADE)
+    gym = m.ForeignKey(
+        Gym,
+        editable=False,
+        on_delete=m.CASCADE,
+    )
     """
     Gym this configuration belongs to
     """
 
-    user = m.OneToOneField(User,
-                           editable=False,
-                           on_delete=m.CASCADE)
+    user = m.OneToOneField(
+        User,
+        editable=False,
+        on_delete=m.CASCADE,
+    )
     """
     User this configuration belongs to
     """
@@ -182,9 +207,11 @@ class GymAdminConfig(AbstractGymUserConfigModel, m.Model):
         Only one entry per user and gym
         """
 
-    overview_inactive = m.BooleanField(verbose_name=_('Overview of inactive members'),
-                                       help_text=_('Receive email overviews of inactive members'),
-                                       default=True)
+    overview_inactive = m.BooleanField(
+        verbose_name=_('Overview of inactive members'),
+        help_text=_('Receive email overviews of inactive members'),
+        default=True,
+    )
     """
     Reminder of inactive members
     """
@@ -207,10 +234,12 @@ class GymUserConfig(AbstractGymUserConfigModel, m.Model):
         Only one entry per user and gym
         """
 
-    include_inactive = m.BooleanField(verbose_name=_('Include in inactive overview'),
-                                      help_text=_('Include this user in the email list with '
-                                      'inactive members'),
-                                      default=True)
+    include_inactive = m.BooleanField(
+        verbose_name=_('Include in inactive overview'),
+        help_text=_('Include this user in the email list with '
+                    'inactive members'),
+        default=True,
+    )
     """
     Include user in inactive overview
     """
@@ -232,20 +261,26 @@ class AdminUserNote(m.Model):
         """
         Order by time
         """
-        ordering = ["-timestamp_created", ]
+        ordering = [
+            "-timestamp_created",
+        ]
 
-    user = m.ForeignKey(User,
-                        editable=False,
-                        related_name='adminusernote_user',
-                        on_delete=m.CASCADE)
+    user = m.ForeignKey(
+        User,
+        editable=False,
+        related_name='adminusernote_user',
+        on_delete=m.CASCADE,
+    )
     """
     User this note belongs to
     """
 
-    member = m.ForeignKey(User,
-                          editable=False,
-                          related_name='adminusernote_member',
-                          on_delete=m.CASCADE)
+    member = m.ForeignKey(
+        User,
+        editable=False,
+        related_name='adminusernote_member',
+        on_delete=m.CASCADE,
+    )
     """
     Gym member this note refers to
     """
@@ -277,9 +312,11 @@ def gym_document_upload_dir(instance, filename):
     """
     Returns the upload target for documents
     """
-    return "gym/documents/{0}/{1}/{2}".format(instance.member.userprofile.gym.id,
-                                              instance.member.id,
-                                              uuid.uuid4())
+    return "gym/documents/{0}/{1}/{2}".format(
+        instance.member.userprofile.gym.id,
+        instance.member.id,
+        uuid.uuid4(),
+    )
 
 
 class UserDocument(m.Model):
@@ -291,20 +328,21 @@ class UserDocument(m.Model):
         """
         Order by time
         """
-        ordering = ["-timestamp_created", ]
+        ordering = [
+            "-timestamp_created",
+        ]
 
-    user = m.ForeignKey(User,
-                        editable=False,
-                        related_name='userdocument_user',
-                        on_delete=m.CASCADE)
+    user = m.ForeignKey(User, editable=False, related_name='userdocument_user', on_delete=m.CASCADE)
     """
     User this note belongs to
     """
 
-    member = m.ForeignKey(User,
-                          editable=False,
-                          related_name='userdocument_member',
-                          on_delete=m.CASCADE)
+    member = m.ForeignKey(
+        User,
+        editable=False,
+        related_name='userdocument_member',
+        on_delete=m.CASCADE,
+    )
     """
     Gym member this note refers to
     """
@@ -319,29 +357,31 @@ class UserDocument(m.Model):
     Last time when this document was edited
     """
 
-    document = m.FileField(verbose_name=_('Document'),
-                           upload_to=gym_document_upload_dir)
+    document = m.FileField(verbose_name=_('Document'), upload_to=gym_document_upload_dir)
     """
     Uploaded document
     """
 
-    original_name = m.CharField(max_length=128,
-                                editable=False)
+    original_name = m.CharField(max_length=128, editable=False)
     """
     Original document name when uploaded
     """
 
-    name = m.CharField(max_length=60,
-                       verbose_name=_('Name'),
-                       help_text=_('Will use file name if nothing provided'),
-                       blank=True)
+    name = m.CharField(
+        max_length=60,
+        verbose_name=_('Name'),
+        help_text=_('Will use file name if nothing provided'),
+        blank=True,
+    )
     """
     Name or description
     """
 
-    note = m.TextField(verbose_name=_('Note'),
-                       blank=True,
-                       null=True)
+    note = m.TextField(
+        verbose_name=_('Note'),
+        blank=True,
+        null=True,
+    )
     """
     Note with additional information
     """
@@ -375,24 +415,25 @@ class ContractType(m.Model):
         """
         Order by name
         """
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
-    gym = m.ForeignKey(Gym,
-                       editable=False,
-                       on_delete=m.CASCADE)
+    gym = m.ForeignKey(Gym, editable=False, on_delete=m.CASCADE)
     """
     The gym this contract type belongs to
     """
 
-    name = m.CharField(verbose_name=_('Name'),
-                       max_length=25)
+    name = m.CharField(verbose_name=_('Name'), max_length=25)
     """
     The contract type's short name
     """
 
-    description = m.TextField(verbose_name=_('Description'),
-                              blank=True,
-                              null=True)
+    description = m.TextField(
+        verbose_name=_('Description'),
+        blank=True,
+        null=True,
+    )
     """
     Free text field for additional information
     """
@@ -424,24 +465,25 @@ class ContractOption(m.Model):
         """
         Order by name
         """
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
-    gym = m.ForeignKey(Gym,
-                       editable=False,
-                       on_delete=m.CASCADE)
+    gym = m.ForeignKey(Gym, editable=False, on_delete=m.CASCADE)
     """
     The gym this contract option belongs to
     """
 
-    name = m.CharField(verbose_name=_('Name'),
-                       max_length=25)
+    name = m.CharField(verbose_name=_('Name'), max_length=25)
     """
     The contract options short name
     """
 
-    description = m.TextField(verbose_name=_('Description'),
-                              blank=True,
-                              null=True)
+    description = m.TextField(
+        verbose_name=_('Description'),
+        blank=True,
+        null=True,
+    )
     """
     Free text field for additional information
     """
@@ -484,20 +526,26 @@ class Contract(m.Model):
         """
         Order by time
         """
-        ordering = ["-date_start", ]
+        ordering = [
+            "-date_start",
+        ]
 
-    user = m.ForeignKey(User,
-                        editable=False,
-                        related_name='contract_user',
-                        on_delete=m.CASCADE)
+    user = m.ForeignKey(
+        User,
+        editable=False,
+        related_name='contract_user',
+        on_delete=m.CASCADE,
+    )
     """
     User that originally created the contract
     """
 
-    member = m.ForeignKey(User,
-                          editable=False,
-                          related_name='contract_member',
-                          on_delete=m.CASCADE)
+    member = m.ForeignKey(
+        User,
+        editable=False,
+        related_name='contract_member',
+        on_delete=m.CASCADE,
+    )
     """
     Gym member this contract refers to
     """
@@ -512,100 +560,125 @@ class Contract(m.Model):
     Last time when the contract was edited
     """
 
-    contract_type = m.ForeignKey(ContractType,
-                                 blank=True,
-                                 null=True,
-                                 verbose_name=_('Contract type'),
-                                 on_delete=m.CASCADE)
+    contract_type = m.ForeignKey(
+        ContractType,
+        blank=True,
+        null=True,
+        verbose_name=_('Contract type'),
+        on_delete=m.CASCADE,
+    )
     """
     Optional type of contract
     """
 
-    options = m.ManyToManyField(ContractOption,
-                                verbose_name=_('Options'),
-                                blank=True)
+    options = m.ManyToManyField(
+        ContractOption,
+        verbose_name=_('Options'),
+        blank=True,
+    )
     """
     Options for the contract
     """
 
-    amount = m.DecimalField(verbose_name=_('Amount'),
-                            decimal_places=2,
-                            max_digits=12,
-                            default=0)
+    amount = m.DecimalField(
+        verbose_name=_('Amount'),
+        decimal_places=2,
+        max_digits=12,
+        default=0,
+    )
     """
     The amount to pay
     """
 
-    payment = m.CharField(verbose_name=_('Payment type'),
-                          max_length=2,
-                          choices=AMOUNT_TYPE,
-                          default=AMOUNT_TYPE_MONTHLY,
-                          help_text=_('How often the amount will be charged to the member'))
+    payment = m.CharField(
+        verbose_name=_('Payment type'),
+        max_length=2,
+        choices=AMOUNT_TYPE,
+        default=AMOUNT_TYPE_MONTHLY,
+        help_text=_('How often the amount will be charged to the member')
+    )
     """
     How often the amount will be charged to the member
     """
 
-    is_active = m.BooleanField(verbose_name=_('Contract is active'),
-                               default=True)
+    is_active = m.BooleanField(verbose_name=_('Contract is active'), default=True)
     """
     Flag showing whether the contract is currently active
     """
 
-    date_start = m.DateField(verbose_name=_('Start date'),
-                             default=datetime.date.today,
-                             blank=True,
-                             null=True)
+    date_start = m.DateField(
+        verbose_name=_('Start date'),
+        default=datetime.date.today,
+        blank=True,
+        null=True,
+    )
     """
     The date when the contract starts
     """
 
-    date_end = m.DateField(verbose_name=_('End date'),
-                           blank=True,
-                           null=True)
+    date_end = m.DateField(
+        verbose_name=_('End date'),
+        blank=True,
+        null=True,
+    )
     """
     The date when the contract ends
     """
 
-    email = m.EmailField(verbose_name=_('Email'),
-                         blank=True,
-                         null=True)
+    email = m.EmailField(
+        verbose_name=_('Email'),
+        blank=True,
+        null=True,
+    )
     """The member's email"""
 
-    zip_code = m.CharField(_('ZIP code'),
-                           max_length=10,
-                           blank=True,
-                           null=True)
+    zip_code = m.CharField(
+        _('ZIP code'),
+        max_length=10,
+        blank=True,
+        null=True,
+    )
     """ZIP code"""
 
-    city = m.CharField(_('City'),
-                       max_length=30,
-                       blank=True,
-                       null=True)
+    city = m.CharField(
+        _('City'),
+        max_length=30,
+        blank=True,
+        null=True,
+    )
     """City"""
 
-    street = m.CharField(_('Street'),
-                         max_length=30,
-                         blank=True,
-                         null=True)
+    street = m.CharField(
+        _('Street'),
+        max_length=30,
+        blank=True,
+        null=True,
+    )
     """Street"""
 
-    phone = m.CharField(verbose_name=_('Phone'),
-                        max_length=20,
-                        blank=True,
-                        null=True)
+    phone = m.CharField(
+        verbose_name=_('Phone'),
+        max_length=20,
+        blank=True,
+        null=True,
+    )
     """Phone number"""
 
-    profession = m.CharField(verbose_name=_('Profession'),
-                             max_length=50,
-                             blank=True,
-                             null=True)
+    profession = m.CharField(
+        verbose_name=_('Profession'),
+        max_length=50,
+        blank=True,
+        null=True,
+    )
     """
     The member's profession
     """
 
-    note = m.TextField(verbose_name=_('Note'),
-                       blank=True,
-                       null=True)
+    note = m.TextField(
+        verbose_name=_('Note'),
+        blank=True,
+        null=True,
+    )
     """
     Free text note with additional information
     """

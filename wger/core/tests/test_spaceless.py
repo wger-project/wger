@@ -18,12 +18,11 @@ import logging
 # Django
 from django.template import (
     Context,
-    Template
+    Template,
 )
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-
 
 logger = logging.getLogger(__name__)
 
@@ -37,8 +36,10 @@ class SpacelessTestCase(WgerTestCase):
         """
         Tests the custom spaceless template tag
         """
-        t = Template('{% load wger_extras %}'
-                     '{% spaceless_config %}<p>A text</p>   <p>more</p>{% endspaceless_config %}')
+        t = Template(
+            '{% load wger_extras %}'
+            '{% spaceless_config %}<p>A text</p>   <p>more</p>{% endspaceless_config %}'
+        )
         context = Context()
 
         with self.settings(WGER_SETTINGS={'REMOVE_WHITESPACE': True}):

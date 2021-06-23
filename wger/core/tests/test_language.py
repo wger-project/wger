@@ -26,7 +26,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 
 
@@ -67,8 +67,7 @@ class CreateLanguageTestCase(WgerAddTestCase):
 
     object_class = Language
     url = 'core:language:add'
-    data = {'short_name': 'dk',
-            'full_name': 'Dansk'}
+    data = {'short_name': 'dk', 'full_name': 'Dansk'}
 
 
 class EditLanguageTestCase(WgerEditTestCase):
@@ -79,8 +78,7 @@ class EditLanguageTestCase(WgerEditTestCase):
     object_class = Language
     url = 'core:language:edit'
     pk = 1
-    data = {'short_name': 'dk',
-            'full_name': 'Dansk'}
+    data = {'short_name': 'dk', 'full_name': 'Dansk'}
 
 
 class DeleteLanguageTestCase(WgerDeleteTestCase):

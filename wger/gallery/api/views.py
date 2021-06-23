@@ -22,14 +22,13 @@ import logging
 from rest_framework import viewsets
 from rest_framework.parsers import (
     FormParser,
-    MultiPartParser
+    MultiPartParser,
 )
 from rest_framework.permissions import IsAuthenticated
 
 # wger
 from wger.gallery.api.serializers import ImageSerializer
 from wger.gallery.models import Image
-
 
 logger = logging.getLogger(__name__)
 
@@ -43,9 +42,11 @@ class ImageViewSet(viewsets.ModelViewSet):
     serializer_class = ImageSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = ['id',
-                        'date',
-                        'description']
+    filterset_fields = [
+        'id',
+        'date',
+        'description',
+    ]
 
     def get_queryset(self):
         """

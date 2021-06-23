@@ -24,11 +24,11 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import (
     Equipment,
-    Exercise
+    Exercise,
 )
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 

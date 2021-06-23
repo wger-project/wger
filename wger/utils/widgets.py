@@ -10,7 +10,6 @@
 # wger Workout Manager is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 
-
 # Standard Library
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -28,23 +27,22 @@ from django.forms.widgets import (
     DateInput,
     Select,
     SelectMultiple,
-    TextInput
+    TextInput,
 )
 from django.utils.encoding import force_text
 from django.utils.html import (
     conditional_escape,
-    escape
+    escape,
 )
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-
 logger = logging.getLogger(__name__)
-
 
 #
 # Date and time related fields
 #
+
 
 class Html5DateInput(DateInput):
     """
@@ -91,6 +89,7 @@ class Html5FormTimeField(fields.TimeField):
 # Number related fields
 #
 
+
 class Html5NumberInput(TextInput):
     """
     Custom Input class that is rendered with an HTML5 type="number"
@@ -115,10 +114,10 @@ class ExerciseAjaxSelect(SelectMultiple):
         if value is None:
             value = []
 
-        output = ['<div>',
-                  '<input type="text" id="exercise-search" class="form-control">',
-                  '</div>',
-                  '<div id="exercise-search-log">']
+        output = [
+            '<div>', '<input type="text" id="exercise-search" class="form-control">', '</div>',
+            '<div id="exercise-search-log">'
+        ]
 
         options = self.render_options(choices, value)
         if options:
@@ -149,9 +148,11 @@ class ExerciseAjaxSelect(SelectMultiple):
                         </a> %(value)s
                         <input type="hidden" name="exercises" value="%(id)s">
                     </div>
-            """ % {'value': conditional_escape(force_text(option_label)),
-                   'id': escape(option_value),
-                   'div_id': uuid.uuid4()}
+            """ % {
+                'value': conditional_escape(force_text(option_label)),
+                'id': escape(option_value),
+                'div_id': uuid.uuid4()
+            }
 
         else:
             return ''
@@ -186,11 +187,8 @@ class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
         else:
             choice = (choice[0], _(choice[1]))
 
-        super(CheckboxChoiceInputTranslatedOriginal, self).__init__(name,
-                                                                    value,
-                                                                    attrs,
-                                                                    choice,
-                                                                    index)
+        super(CheckboxChoiceInputTranslatedOriginal,
+              self).__init__(name, value, attrs, choice, index)
 
 
 class CheckboxFieldRendererTranslated(CheckboxSelectMultiple):
@@ -233,6 +231,5 @@ class TranslatedSelect(Select):
     """
 
     def render_option(self, selected_choices, option_value, option_label):
-        return super(TranslatedSelect, self).render_option(selected_choices,
-                                                           option_value,
-                                                           _(option_label))
+        return super(TranslatedSelect,
+                     self).render_option(selected_choices, option_value, _(option_label))

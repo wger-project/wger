@@ -16,14 +16,14 @@
 from django.contrib.auth.models import User
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 
 # wger
 from wger.core.tests.base_testcase import (
     WgerAccessTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 
 
@@ -32,20 +32,24 @@ class StatusUserTestCase(WgerTestCase):
     Test activating and deactivating users
     """
 
-    user_success = ('general_manager1',
-                    'general_manager2',
-                    'manager1',
-                    'manager2',
-                    'trainer1',
-                    'trainer2',
-                    'trainer3')
+    user_success = (
+        'general_manager1',
+        'general_manager2',
+        'manager1',
+        'manager2',
+        'trainer1',
+        'trainer2',
+        'trainer3',
+    )
 
-    user_fail = ('member1',
-                 'member2',
-                 'member3',
-                 'member4',
-                 'manager3',
-                 'trainer4')
+    user_fail = (
+        'member1',
+        'member2',
+        'member3',
+        'member4',
+        'manager3',
+        'trainer4',
+    )
 
     def activate(self, fail=False):
         """
@@ -140,20 +144,26 @@ class EditUserTestCase(WgerEditTestCase):
     object_class = User
     url = 'core:user:edit'
     pk = 2
-    data = {'email': 'another.email@example.com',
-            'first_name': 'Name',
-            'last_name': 'Last name'}
-    user_success = ('admin',
-                    'general_manager1',
-                    'general_manager2',
-                    'manager1',
-                    'manager2')
-    user_fail = ('member1',
-                 'member2',
-                 'manager3',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4')
+    data = {
+        'email': 'another.email@example.com',
+        'first_name': 'Name',
+        'last_name': 'Last name',
+    }
+    user_success = (
+        'admin',
+        'general_manager1',
+        'general_manager2',
+        'manager1',
+        'manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'manager3',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+    )
 
 
 class EditUserTestCase2(WgerEditTestCase):
@@ -164,18 +174,24 @@ class EditUserTestCase2(WgerEditTestCase):
     object_class = User
     url = 'core:user:edit'
     pk = 19
-    data = {'email': 'another.email@example.com',
-            'first_name': 'Name',
-            'last_name': 'Last name'}
-    user_success = ('admin',
-                    'general_manager1',
-                    'general_manager2',
-                    'manager3')
-    user_fail = ('member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4')
+    data = {
+        'email': 'another.email@example.com',
+        'first_name': 'Name',
+        'last_name': 'Last name',
+    }
+    user_success = (
+        'admin',
+        'general_manager1',
+        'general_manager2',
+        'manager3',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+    )
 
 
 class UserListTestCase(WgerAccessTestCase):
@@ -184,17 +200,21 @@ class UserListTestCase(WgerAccessTestCase):
     """
 
     url = 'core:user:list'
-    user_success = ('admin',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('member1',
-                 'member2',
-                 'manager1',
-                 'manager2',
-                 'manager3',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4')
+    user_success = (
+        'admin',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'manager1',
+        'manager2',
+        'manager3',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+    )
 
 
 class UserDetailPageTestCase(WgerAccessTestCase):
@@ -203,16 +223,20 @@ class UserDetailPageTestCase(WgerAccessTestCase):
     """
 
     url = reverse_lazy('core:user:overview', kwargs={'pk': 2})
-    user_success = ('trainer1',
-                    'trainer2',
-                    'manager1',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('trainer4',
-                 'trainer5',
-                 'manager3',
-                 'member1',
-                 'member2')
+    user_success = (
+        'trainer1',
+        'trainer2',
+        'manager1',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'trainer4',
+        'trainer5',
+        'manager3',
+        'member1',
+        'member2',
+    )
 
 
 class UserDetailPageTestCase2(WgerAccessTestCase):
@@ -221,13 +245,17 @@ class UserDetailPageTestCase2(WgerAccessTestCase):
     """
 
     url = reverse_lazy('core:user:overview', kwargs={'pk': 19})
-    user_success = ('trainer4',
-                    'trainer5',
-                    'manager3',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('trainer1',
-                 'trainer2',
-                 'manager1',
-                 'member1',
-                 'member2')
+    user_success = (
+        'trainer4',
+        'trainer5',
+        'manager3',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'trainer1',
+        'trainer2',
+        'manager1',
+        'member1',
+        'member2',
+    )

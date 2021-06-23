@@ -9,9 +9,12 @@ class ImageSerializer(serializers.ModelSerializer):
     """
     Exercise serializer
     """
+
     class Meta:
         model = Image
-        fields = ['id',
-                  'date',
-                  'image',
-                  'description']
+        fields = [
+            'id',
+            'date',
+            'image',
+            'description',
+        ]

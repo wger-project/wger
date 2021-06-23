@@ -22,7 +22,7 @@ from wger.core.models import RepetitionUnit
 from wger.exercises.models import (
     Equipment,
     ExerciseCategory,
-    Muscle
+    Muscle,
 )
 
 

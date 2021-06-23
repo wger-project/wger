@@ -16,7 +16,7 @@
 # Django
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 
 # wger
@@ -25,11 +25,11 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.nutrition.models import (
     IngredientWeightUnit,
-    WeightUnit
+    WeightUnit,
 )
 
 
@@ -51,11 +51,12 @@ class AddWeightUnitIngredientTestCase(WgerAddTestCase):
     """
 
     object_class = IngredientWeightUnit
-    url = reverse_lazy('nutrition:unit_ingredient:add',
-                       kwargs={'ingredient_pk': 1})
-    data = {'unit': 5,
-            'gram': 123,
-            'amount': 1}
+    url = reverse_lazy('nutrition:unit_ingredient:add', kwargs={'ingredient_pk': 1})
+    data = {
+        'unit': 5,
+        'gram': 123,
+        'amount': 1,
+    }
 
 
 class DeleteWeightUnitIngredientTestCase(WgerDeleteTestCase):
@@ -76,9 +77,11 @@ class EditWeightUnitTestCase(WgerEditTestCase):
     object_class = IngredientWeightUnit
     url = 'nutrition:unit_ingredient:edit'
     pk = 1
-    data = {'unit': 5,
-            'gram': 10,
-            'amount': 0.3}
+    data = {
+        'unit': 5,
+        'gram': 10,
+        'amount': 0.3,
+    }
 
 
 class WeightUnitFormTestCase(WgerTestCase):
@@ -91,8 +94,9 @@ class WeightUnitFormTestCase(WgerTestCase):
         Tests the form in the add view
         """
         self.user_login('admin')
-        response = self.client.get(reverse('nutrition:unit_ingredient:add',
-                                           kwargs={'ingredient_pk': 1}))
+        response = self.client.get(
+            reverse('nutrition:unit_ingredient:add', kwargs={'ingredient_pk': 1})
+        )
 
         choices = [text for value, text in response.context['form']['unit'].field.choices]
         for unit in WeightUnit.objects.all():
@@ -106,8 +110,7 @@ class WeightUnitFormTestCase(WgerTestCase):
         Tests that the form in the edit view only shows weight units in the user's language
         """
         self.user_login('admin')
-        response = self.client.get(reverse('nutrition:unit_ingredient:edit',
-                                           kwargs={'pk': 1}))
+        response = self.client.get(reverse('nutrition:unit_ingredient:edit', kwargs={'pk': 1}))
 
         choices = [text for value, text in response.context['form']['unit'].field.choices]
         for unit in WeightUnit.objects.all():
@@ -124,8 +127,10 @@ class WeightUnitToIngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = IngredientWeightUnit
     private_resource = False
-    data = {'amount': '1',
-            'gram': 240,
-            'id': 1,
-            'ingredient': '1',
-            'unit': '1'}
+    data = {
+        'amount': '1',
+        'gram': 240,
+        'id': 1,
+        'ingredient': '1',
+        'unit': '1',
+    }

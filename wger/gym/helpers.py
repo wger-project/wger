@@ -17,7 +17,7 @@
 # wger
 from wger.manager.models import (
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 
 

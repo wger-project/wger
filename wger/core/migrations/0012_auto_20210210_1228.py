@@ -16,11 +16,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='added_by',
-            field=models.ForeignKey(editable=False,
-                                    null=True,
-                                    on_delete=django.db.models.deletion.CASCADE,
-                                    related_name='added_by',
-                                    to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='added_by',
+                to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
             model_name='userprofile',

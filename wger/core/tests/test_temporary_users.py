@@ -24,7 +24,7 @@ from django.urls import reverse
 # wger
 from wger.core.demo import (
     create_demo_entries,
-    create_temporary_user
+    create_temporary_user,
 )
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
@@ -32,11 +32,11 @@ from wger.manager.models import (
     Schedule,
     ScheduleStep,
     Workout,
-    WorkoutLog
+    WorkoutLog,
 )
 from wger.nutrition.models import (
     Meal,
-    NutritionPlan
+    NutritionPlan,
 )
 from wger.weight.models import WeightEntry
 
@@ -58,11 +58,15 @@ class DemoUserTestCase(WgerTestCase):
         Tests that the helper function creates demo data (workout, etc.)
         for the demo users
         """
-        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True,
-                                          'REMOVE_WHITESPACE': False,
-                                          'ALLOW_REGISTRATION': True,
-                                          'ALLOW_GUEST_USERS': False,
-                                          'TWITTER': False}):
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': True,
+                'REMOVE_WHITESPACE': False,
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': False,
+                'TWITTER': False,
+            }
+        ):
             self.assertEqual(self.count_temp_users(), 1)
             self.client.get(reverse('core:dashboard'))
             self.assertEqual(self.count_temp_users(), 1)
@@ -109,9 +113,9 @@ class DemoUserTestCase(WgerTestCase):
         temp = []
         for i in range(1, 5):
             creation_date = datetime.date.today() - datetime.timedelta(days=i)
-            entry = WeightEntry(user=user,
-                                weight=80 + 0.5 * i + random.randint(1, 3),
-                                date=creation_date)
+            entry = WeightEntry(
+                user=user, weight=80 + 0.5 * i + random.randint(1, 3), date=creation_date
+            )
             temp.append(entry)
         WeightEntry.objects.bulk_create(temp)
         create_demo_entries(user)
@@ -168,13 +172,12 @@ class DemoUserTestCase(WgerTestCase):
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('manager:workout:overview')),
-                            demo_notice_text)
-        self.assertContains(self.client.get(reverse('exercise:exercise:overview')),
-                            demo_notice_text)
+        self.assertContains(self.client.get(reverse('manager:workout:overview')), demo_notice_text)
+        self.assertContains(
+            self.client.get(reverse('exercise:exercise:overview')), demo_notice_text
+        )
         self.assertContains(self.client.get(reverse('exercise:muscle:overview')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('nutrition:plan:overview')),
-                            demo_notice_text)
+        self.assertContains(self.client.get(reverse('nutrition:plan:overview')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)
 

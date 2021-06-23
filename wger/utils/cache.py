@@ -19,7 +19,6 @@ import logging
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 
-
 logger = logging.getLogger(__name__)
 
 

@@ -18,7 +18,7 @@ import datetime
 # wger
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
-    WgerDeleteTestCase
+    WgerDeleteTestCase,
 )
 from wger.gallery.models import Image
 
@@ -31,10 +31,12 @@ class AddGalleryImageTestCase(WgerAddTestCase):
     object_class = Image
     url = 'gallery:images:add'
     user_fail = False
-    data = {'date': datetime.date(2021, 5, 1),
-            'user': 1,
-            'description': 'Everything going well',
-            'image': open('wger/exercises/tests/protestschwein.jpg', 'rb')}
+    data = {
+        'date': datetime.date(2021, 5, 1),
+        'user': 1,
+        'description': 'Everything going well',
+        'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
+    }
 
 
 class DeleteGalleryImageTestCase(WgerDeleteTestCase):

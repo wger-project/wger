@@ -22,7 +22,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
@@ -80,8 +80,7 @@ class WeightUnitOverviewTestCase(WgerTestCase):
 
         # Add more ingredient units so we can test the pagination
         self.user_login('admin')
-        data = {"name": "A new, cool unit",
-                "language": 2}
+        data = {"name": "A new, cool unit", "language": 2}
         for i in range(0, 50):
             self.client.post(reverse('nutrition:weight_unit:add'), data)
 

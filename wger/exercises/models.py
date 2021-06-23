@@ -17,8 +17,8 @@
 
 # Standard Library
 import logging
-import uuid
 import pathlib
+import uuid
 
 # Django
 from django.conf import settings
@@ -41,15 +41,14 @@ import bleach
 from wger.core.models import Language
 from wger.utils.cache import (
     delete_template_fragment_cache,
-    reset_workout_canonical_form
+    reset_workout_canonical_form,
 )
 from wger.utils.helpers import smart_capitalize
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
-    AbstractSubmissionModel
+    AbstractSubmissionModel,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -59,16 +58,20 @@ class Muscle(models.Model):
     Muscle an exercise works out
     """
 
-    name = models.CharField(max_length=50,
-                            verbose_name=_('Name'),
-                            help_text=_('In latin, e.g. "Pectoralis major"'))
+    name = models.CharField(
+        max_length=50,
+        verbose_name=_('Name'),
+        help_text=_('In latin, e.g. "Pectoralis major"'),
+    )
 
     # Whether to use the front or the back image for background
     is_front = models.BooleanField(default=1)
 
     # Metaclass to set some other properties
     class Meta:
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
     # Image to use when displaying this as a main muscle in an exercise
     @property
@@ -98,14 +101,18 @@ class Equipment(models.Model):
     Equipment used or needed by an exercise
     """
 
-    name = models.CharField(max_length=50,
-                            verbose_name=_('Name'))
+    name = models.CharField(
+        max_length=50,
+        verbose_name=_('Name'),
+    )
 
     class Meta:
         """
         Set default ordering
         """
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
     def __str__(self):
         """
@@ -124,13 +131,17 @@ class ExerciseCategory(models.Model):
     """
     Model for an exercise category
     """
-    name = models.CharField(max_length=100,
-                            verbose_name=_('Name'),)
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_('Name'),
+    )
 
     # Metaclass to set some other properties
     class Meta:
         verbose_name_plural = _("Exercise Categories")
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
     def __str__(self):
         """
@@ -194,31 +205,41 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
     """Globally unique ID, to identify the base across installations"""
 
-    category = models.ForeignKey(ExerciseCategory,
-                                 verbose_name=_('Category'),
-                                 on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        ExerciseCategory,
+        verbose_name=_('Category'),
+        on_delete=models.CASCADE,
+    )
 
-    muscles = models.ManyToManyField(Muscle,
-                                     blank=True,
-                                     verbose_name=_('Primary muscles'))
+    muscles = models.ManyToManyField(
+        Muscle,
+        blank=True,
+        verbose_name=_('Primary muscles'),
+    )
     """Main muscles trained by the exercise"""
 
-    muscles_secondary = models.ManyToManyField(Muscle,
-                                               verbose_name=_('Secondary muscles'),
-                                               related_name='secondary_muscles_base',
-                                               blank=True)
+    muscles_secondary = models.ManyToManyField(
+        Muscle,
+        verbose_name=_('Secondary muscles'),
+        related_name='secondary_muscles_base',
+        blank=True,
+    )
     """Secondary muscles trained by the exercise"""
 
-    equipment = models.ManyToManyField(Equipment,
-                                       verbose_name=_('Equipment'),
-                                       blank=True)
+    equipment = models.ManyToManyField(
+        Equipment,
+        verbose_name=_('Equipment'),
+        blank=True,
+    )
     """Equipment needed by this exercise"""
 
-    variations = models.ForeignKey(Variation,
-                                   verbose_name=_('Variations'),
-                                   on_delete=models.CASCADE,
-                                   null=True,
-                                   blank=True)
+    variations = models.ForeignKey(
+        Variation,
+        verbose_name=_('Variations'),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
     """Variations of this exercise"""
 
     #
@@ -241,40 +262,53 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     objects = SubmissionManager()
     """Custom manager"""
 
-    description = models.TextField(max_length=2000,
-                                   verbose_name=_('Description'),
-                                   validators=[MinLengthValidator(40)])
+    description = models.TextField(
+        max_length=2000,
+        verbose_name=_('Description'),
+        validators=[MinLengthValidator(40)],
+    )
     """Description on how to perform the exercise"""
 
-    name = models.CharField(max_length=200,
-                            verbose_name=_('Name'))
+    name = models.CharField(max_length=200, verbose_name=_('Name'))
     """The exercise's name, with correct uppercase"""
 
-    name_original = models.CharField(max_length=200,
-                                     verbose_name=_('Name'),
-                                     default='')
+    name_original = models.CharField(
+        max_length=200,
+        verbose_name=_('Name'),
+        default='',
+    )
     """The exercise's name, as entered by the user"""
 
-    creation_date = models.DateField(_('Date'),
-                                     auto_now_add=True,
-                                     null=True,
-                                     blank=True)
+    creation_date = models.DateField(
+        _('Date'),
+        auto_now_add=True,
+        null=True,
+        blank=True,
+    )
     """The submission date"""
 
-    language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'),
-                                 on_delete=models.CASCADE)
+    language = models.ForeignKey(
+        Language,
+        verbose_name=_('Language'),
+        on_delete=models.CASCADE,
+    )
     """The exercise's language"""
 
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name='UUID',
+    )
     """Globally unique ID, to identify the exercise across installations"""
 
-    exercise_base = models.ForeignKey(ExerciseBase,
-                                      verbose_name='ExerciseBase',
-                                      on_delete=models.CASCADE,
-                                      default=None,
-                                      null=True,
-                                      related_name='exercises')
+    exercise_base = models.ForeignKey(
+        ExerciseBase,
+        verbose_name='ExerciseBase',
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        related_name='exercises',
+    )
     """ Refers to the base exercise with non translated information """
 
     #
@@ -282,7 +316,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     class Meta:
         base_manager_name = 'objects'
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
     def get_absolute_url(self):
         """
@@ -404,14 +440,15 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             context = {
                 'exercise': self.name,
                 'url': url,
-                'site': Site.objects.get_current().domain
+                'site': Site.objects.get_current().domain,
             }
             message = render_to_string('exercise/email_new.tpl', context)
-            mail.send_mail(subject,
-                           message,
-                           settings.WGER_SETTINGS['EMAIL_FROM'],
-                           [user.email],
-                           fail_silently=True)
+            mail.send_mail(
+                subject,
+                message,
+                settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
+                fail_silently=True
+            )
 
     def set_author(self, request):
         """
@@ -429,11 +466,13 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
             subject = _('New user submitted exercise')
 
-            message = _('The user {0} submitted a new exercise "{1}".').format(
-                request.user.username, self.name_original)
-            mail.mail_admins(str(subject),
-                             str(message),
-                             fail_silently=True)
+            message = _('The user {0} submitted a new exercise "{1}".'
+                        ).format(request.user.username, self.name_original)
+            mail.mail_admins(
+                str(subject),
+                str(message),
+                fail_silently=True,
+            )
 
 
 def exercise_image_upload_dir(instance, filename):
@@ -452,27 +491,37 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     objects = SubmissionManager()
     """Custom manager"""
 
-    uuid = models.UUIDField(default=uuid.uuid4,
-                            editable=False,
-                            verbose_name='UUID')
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name='UUID',
+    )
     """Globally unique ID, to identify the image across installations"""
 
-    exercise_base = models.ForeignKey(ExerciseBase,
-                                      verbose_name=_('Exercise'),
-                                      on_delete=models.CASCADE)
+    exercise_base = models.ForeignKey(
+        ExerciseBase,
+        verbose_name=_('Exercise'),
+        on_delete=models.CASCADE,
+    )
     """The exercise the image belongs to"""
 
-    image = models.ImageField(verbose_name=_('Image'),
-                              help_text=_('Only PNG and JPEG formats are supported'),
-                              upload_to=exercise_image_upload_dir)
+    image = models.ImageField(
+        verbose_name=_('Image'),
+        help_text=_('Only PNG and JPEG formats are supported'),
+        upload_to=exercise_image_upload_dir,
+    )
     """Uploaded image"""
 
-    is_main = models.BooleanField(verbose_name=_('Main picture'),
-                                  default=False,
-                                  help_text=_("Tick the box if you want to set this image as the "
-                                              "main one for the exercise (will be shown e.g. in "
-                                              "the search). The first image is automatically "
-                                              "marked by the system."))
+    is_main = models.BooleanField(
+        verbose_name=_('Main picture'),
+        default=False,
+        help_text=_(
+            "Tick the box if you want to set this image as the "
+            "main one for the exercise (will be shown e.g. in "
+            "the search). The first image is automatically "
+            "marked by the system."
+        )
+    )
     """A flag indicating whether the image is the exercise's main image"""
 
     class Meta:
@@ -556,26 +605,30 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                 self.license_author = request.user.username
 
             subject = _('New user submitted image')
-            message = _('The user {0} submitted a new image "{1}" for exercise {2}.').format(
-                request.user.username,
-                self.name,
-                self.exercise)
-            mail.mail_admins(str(subject),
-                             str(message),
-                             fail_silently=True)
+            message = _('The user {0} submitted a new image "{1}" for exercise {2}.'
+                        ).format(request.user.username, self.name, self.exercise)
+            mail.mail_admins(
+                str(subject),
+                str(message),
+                fail_silently=True,
+            )
 
 
 class ExerciseComment(models.Model):
     """
     Model for an exercise comment
     """
-    exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'),
-                                 editable=False,
-                                 on_delete=models.CASCADE)
-    comment = models.CharField(max_length=200,
-                               verbose_name=_('Comment'),
-                               help_text=_('A comment about how to correctly do this exercise.'))
+    exercise = models.ForeignKey(
+        Exercise,
+        verbose_name=_('Exercise'),
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    comment = models.CharField(
+        max_length=200,
+        verbose_name=_('Comment'),
+        help_text=_('A comment about how to correctly do this exercise.')
+    )
 
     def __str__(self):
         """

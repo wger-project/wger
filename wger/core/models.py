@@ -23,7 +23,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator
+    MinValueValidator,
 )
 from django.db import models
 from django.db.models import IntegerField
@@ -43,18 +43,18 @@ class Language(models.Model):
     """
 
     # e.g. 'de'
-    short_name = models.CharField(max_length=2,
-                                  verbose_name=_('Language short name'))
+    short_name = models.CharField(max_length=2, verbose_name=_('Language short name'))
 
     # e.g. 'Deutsch'
-    full_name = models.CharField(max_length=30,
-                                 verbose_name=_('Language full name'))
+    full_name = models.CharField(max_length=30, verbose_name=_('Language full name'))
 
     class Meta:
         """
         Set Meta options
         """
-        ordering = ["full_name", ]
+        ordering = [
+            "full_name",
+        ]
 
     #
     # Django methods
@@ -117,27 +117,30 @@ class UserProfile(models.Model):
     UNITS_LB = 'lb'
     UNITS = (
         (UNITS_KG, _('Metric (kilogram)')),
-        (UNITS_LB, _('Imperial (pound)'))
+        (UNITS_LB, _('Imperial (pound)')),
     )
 
-    user = models.OneToOneField(User,
-                                editable=False,
-                                on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User,
+        editable=False,
+        on_delete=models.CASCADE,
+    )
     """
     The user
     """
 
-    gym = models.ForeignKey(Gym,
-                            editable=False,
-                            null=True,
-                            blank=True,
-                            on_delete=models.SET_NULL)
+    gym = models.ForeignKey(
+        Gym,
+        editable=False,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
     """
     The gym this user belongs to, if any
     """
 
-    is_temporary = models.BooleanField(default=False,
-                                       editable=False)
+    is_temporary = models.BooleanField(default=False, editable=False)
     """
     Flag to mark a temporary user (demo account)
     """
@@ -146,10 +149,12 @@ class UserProfile(models.Model):
     # User preferences
     #
 
-    show_comments = models.BooleanField(verbose_name=_('Show exercise comments'),
-                                        help_text=_('Check to show exercise comments on the '
-                                                    'workout view'),
-                                        default=True)
+    show_comments = models.BooleanField(
+        verbose_name=_('Show exercise comments'),
+        help_text=_('Check to show exercise comments on the '
+                    'workout view'),
+        default=True,
+    )
     """
     Show exercise comments on workout view
     """
@@ -158,33 +163,44 @@ class UserProfile(models.Model):
     # (obviously this is only meaningful if the user has a language other than english)
     show_english_ingredients = models.BooleanField(
         verbose_name=_('Also use ingredients in English'),
-        help_text=_("""Check to also show ingredients in English while creating
+        help_text=_(
+            """Check to also show ingredients in English while creating
 a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
-7000 entries, but can be somewhat overwhelming and make the search difficult."""),
-        default=True)
+7000 entries, but can be somewhat overwhelming and make the search difficult."""
+        ),
+        default=True
+    )
 
-    workout_reminder_active = models.BooleanField(verbose_name=_('Activate workout reminders'),
-                                                  help_text=_('Check to activate automatic '
-                                                              'reminders for workouts. You need '
-                                                              'to provide a valid email for this '
-                                                              'to work.'),
-                                                  default=False)
+    workout_reminder_active = models.BooleanField(
+        verbose_name=_('Activate workout reminders'),
+        help_text=_(
+            'Check to activate automatic '
+            'reminders for workouts. You need '
+            'to provide a valid email for this '
+            'to work.'
+        ),
+        default=False
+    )
 
-    workout_reminder = IntegerField(verbose_name=_('Remind before expiration'),
-                                    help_text=_('The number of days you want to be reminded '
-                                                'before a workout expires.'),
-                                    default=14,
-                                    validators=[MinValueValidator(1), MaxValueValidator(30)])
-    workout_duration = IntegerField(verbose_name=_('Default duration of workouts'),
-                                    help_text=_('Default duration in weeks of workouts not '
-                                                'in a schedule. Used for email workout '
-                                                'reminders.'),
-                                    default=12,
-                                    validators=[MinValueValidator(1), MaxValueValidator(30)])
-    last_workout_notification = models.DateField(editable=False,
-                                                 blank=False,
-                                                 null=True)
+    workout_reminder = IntegerField(
+        verbose_name=_('Remind before expiration'),
+        help_text=_('The number of days you want to be reminded '
+                    'before a workout expires.'),
+        default=14,
+        validators=[MinValueValidator(1), MaxValueValidator(30)]
+    )
+    workout_duration = IntegerField(
+        verbose_name=_('Default duration of workouts'),
+        help_text=_(
+            'Default duration in weeks of workouts not '
+            'in a schedule. Used for email workout '
+            'reminders.'
+        ),
+        default=12,
+        validators=[MinValueValidator(1), MaxValueValidator(30)]
+    )
+    last_workout_notification = models.DateField(editable=False, blank=False, null=True)
     """
     The last time the user got a workout reminder email
 
@@ -192,28 +208,36 @@ by the US Department of Agriculture. It is extremely complete, with around
     send users an email once per week
     """
 
-    notification_language = models.ForeignKey(Language,
-                                              verbose_name=_('Notification language'),
-                                              help_text=_('Language to use when sending you email '
-                                                          'notifications, e.g. email reminders for '
-                                                          'workouts. This does not affect the '
-                                                          'language used on the website.'),
-                                              default=2,
-                                              on_delete=models.CASCADE)
+    notification_language = models.ForeignKey(
+        Language,
+        verbose_name=_('Notification language'),
+        help_text=_(
+            'Language to use when sending you email '
+            'notifications, e.g. email reminders for '
+            'workouts. This does not affect the '
+            'language used on the website.'
+        ),
+        default=2,
+        on_delete=models.CASCADE
+    )
 
-    timer_active = models.BooleanField(verbose_name=_('Use pauses in workout timer'),
-                                       help_text=_('Check to activate timer pauses between '
-                                                   'exercises.'),
-                                       default=True)
+    timer_active = models.BooleanField(
+        verbose_name=_('Use pauses in workout timer'),
+        help_text=_('Check to activate timer pauses between '
+                    'exercises.'),
+        default=True
+    )
     """
     Switch to activate pauses in the gym view
     """
 
-    timer_pause = IntegerField(verbose_name=_('Default duration of workout pauses'),
-                               help_text=_('Default duration in seconds of pauses used by '
-                                           'the timer in the gym mode.'),
-                               default=90,
-                               validators=[MinValueValidator(10), MaxValueValidator(400)])
+    timer_pause = IntegerField(
+        verbose_name=_('Default duration of workout pauses'),
+        help_text=_('Default duration in seconds of pauses used by '
+                    'the timer in the gym mode.'),
+        default=90,
+        validators=[MinValueValidator(10), MaxValueValidator(400)]
+    )
     """
     Default duration of workout pauses in the gym view
     """
@@ -221,137 +245,168 @@ by the US Department of Agriculture. It is extremely complete, with around
     #
     # User statistics
     #
-    age = IntegerField(verbose_name=_('Age'),
-                       blank=False,
-                       null=True,
-                       validators=[MinValueValidator(10), MaxValueValidator(100)])
+    age = IntegerField(
+        verbose_name=_('Age'),
+        blank=False,
+        null=True,
+        validators=[MinValueValidator(10), MaxValueValidator(100)]
+    )
     """The user's age"""
 
-    birthdate = models.DateField(verbose_name=('Date of Birth'),
-                                 blank=False,
-                                 null=True,
-                                 validators=[birthdate_validator])
-
+    birthdate = models.DateField(
+        verbose_name=('Date of Birth'),
+        blank=False,
+        null=True,
+        validators=[birthdate_validator],
+    )
     """The user's date of birth"""
 
-    height = IntegerField(verbose_name=_('Height (cm)'),
-                          blank=False,
-                          validators=[MinValueValidator(140), MaxValueValidator(230)],
-                          null=True)
+    height = IntegerField(
+        verbose_name=_('Height (cm)'),
+        blank=False,
+        validators=[MinValueValidator(140), MaxValueValidator(230)],
+        null=True
+    )
     """The user's height"""
 
-    gender = models.CharField(max_length=1,
-                              choices=GENDER,
-                              default=GENDER_MALE,
-                              blank=False,
-                              null=True)
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER,
+        default=GENDER_MALE,
+        blank=False,
+        null=True,
+    )
     """Gender"""
 
-    sleep_hours = IntegerField(verbose_name=_('Hours of sleep'),
-                               help_text=_('The average hours of sleep per day'),
-                               default=7,
-                               blank=False,
-                               null=True,
-                               validators=[MinValueValidator(4), MaxValueValidator(10)])
+    sleep_hours = IntegerField(
+        verbose_name=_('Hours of sleep'),
+        help_text=_('The average hours of sleep per day'),
+        default=7,
+        blank=False,
+        null=True,
+        validators=[MinValueValidator(4), MaxValueValidator(10)]
+    )
     """The average hours of sleep per day"""
 
-    work_hours = IntegerField(verbose_name=_('Work'),
-                              help_text=_('Average hours per day'),
-                              default=8,
-                              blank=False,
-                              null=True,
-                              validators=[MinValueValidator(1), MaxValueValidator(15)])
+    work_hours = IntegerField(
+        verbose_name=_('Work'),
+        help_text=_('Average hours per day'),
+        default=8,
+        blank=False,
+        null=True,
+        validators=[MinValueValidator(1), MaxValueValidator(15)]
+    )
     """The average hours at work per day"""
 
-    work_intensity = models.CharField(verbose_name=_('Physical intensity'),
-                                      help_text=_('Approximately'),
-                                      max_length=1,
-                                      choices=INTENSITY,
-                                      default=INTENSITY_LOW,
-                                      blank=False,
-                                      null=True)
+    work_intensity = models.CharField(
+        verbose_name=_('Physical intensity'),
+        help_text=_('Approximately'),
+        max_length=1,
+        choices=INTENSITY,
+        default=INTENSITY_LOW,
+        blank=False,
+        null=True
+    )
     """Physical intensity of work"""
 
-    sport_hours = IntegerField(verbose_name=_('Sport'),
-                               help_text=_('Average hours per week'),
-                               default=3,
-                               blank=False,
-                               null=True,
-                               validators=[MinValueValidator(1), MaxValueValidator(30)])
+    sport_hours = IntegerField(
+        verbose_name=_('Sport'),
+        help_text=_('Average hours per week'),
+        default=3,
+        blank=False,
+        null=True,
+        validators=[MinValueValidator(1), MaxValueValidator(30)]
+    )
     """The average hours performing sports per week"""
 
-    sport_intensity = models.CharField(verbose_name=_('Physical intensity'),
-                                       help_text=_('Approximately'),
-                                       max_length=1,
-                                       choices=INTENSITY,
-                                       default=INTENSITY_MEDIUM,
-                                       blank=False,
-                                       null=True)
+    sport_intensity = models.CharField(
+        verbose_name=_('Physical intensity'),
+        help_text=_('Approximately'),
+        max_length=1,
+        choices=INTENSITY,
+        default=INTENSITY_MEDIUM,
+        blank=False,
+        null=True
+    )
     """Physical intensity of sport activities"""
 
-    freetime_hours = IntegerField(verbose_name=_('Free time'),
-                                  help_text=_('Average hours per day'),
-                                  default=8,
-                                  blank=False,
-                                  null=True,
-                                  validators=[MinValueValidator(1), MaxValueValidator(15)])
+    freetime_hours = IntegerField(
+        verbose_name=_('Free time'),
+        help_text=_('Average hours per day'),
+        default=8,
+        blank=False,
+        null=True,
+        validators=[MinValueValidator(1), MaxValueValidator(15)]
+    )
     """The average hours of free time per day"""
 
-    freetime_intensity = models.CharField(verbose_name=_('Physical intensity'),
-                                          help_text=_('Approximately'),
-                                          max_length=1,
-                                          choices=INTENSITY,
-                                          default=INTENSITY_LOW,
-                                          blank=False,
-                                          null=True)
+    freetime_intensity = models.CharField(
+        verbose_name=_('Physical intensity'),
+        help_text=_('Approximately'),
+        max_length=1,
+        choices=INTENSITY,
+        default=INTENSITY_LOW,
+        blank=False,
+        null=True
+    )
     """Physical intensity during free time"""
 
-    calories = IntegerField(verbose_name=_('Total daily calories'),
-                            help_text=_('Total caloric intake, including e.g. any surplus'),
-                            default=2500,
-                            blank=False,
-                            null=True,
-                            validators=[MinValueValidator(1500), MaxValueValidator(5000)])
+    calories = IntegerField(
+        verbose_name=_('Total daily calories'),
+        help_text=_('Total caloric intake, including e.g. any surplus'),
+        default=2500,
+        blank=False,
+        null=True,
+        validators=[MinValueValidator(1500), MaxValueValidator(5000)]
+    )
     """Basic caloric intake based on physical activity"""
 
     #
     # Others
     #
-    weight_unit = models.CharField(verbose_name=_('Weight unit'),
-                                   max_length=2,
-                                   choices=UNITS,
-                                   default=UNITS_KG)
+    weight_unit = models.CharField(
+        verbose_name=_('Weight unit'),
+        max_length=2,
+        choices=UNITS,
+        default=UNITS_KG,
+    )
     """Preferred weight unit"""
 
-    ro_access = models.BooleanField(verbose_name=_('Allow external access'),
-                                    help_text=_('Allow external users to access your workouts and '
-                                                'logs in a read-only mode. You need to set this '
-                                                'before you can share links e.g. to social media.'),
-                                    default=False)
+    ro_access = models.BooleanField(
+        verbose_name=_('Allow external access'),
+        help_text=_(
+            'Allow external users to access your workouts and '
+            'logs in a read-only mode. You need to set this '
+            'before you can share links e.g. to social media.'
+        ),
+        default=False
+    )
     """Allow anonymous read-only access"""
 
-    num_days_weight_reminder = models.IntegerField(verbose_name=_('Automatic reminders for weight '
-                                                                  'entries'),
-                                                   help_text=_('Number of days after the last '
-                                                               'weight entry (enter 0 to '
-                                                               'deactivate)'),
-                                                   validators=[MinValueValidator(0),
-                                                               MaxValueValidator(30)],
-                                                   default=0)
+    num_days_weight_reminder = models.IntegerField(
+        verbose_name=_('Automatic reminders for weight '
+                       'entries'),
+        help_text=_('Number of days after the last '
+                    'weight entry (enter 0 to '
+                    'deactivate)'),
+        validators=[MinValueValidator(0), MaxValueValidator(30)],
+        default=0
+    )
     """Number of Days for email weight reminder"""
 
     #
     # API
     #
-    added_by = models.ForeignKey(User,
-                                 editable=False,
-                                 null=True,
-                                 related_name='added_by',
-                                 on_delete=models.CASCADE)
+    added_by = models.ForeignKey(
+        User,
+        editable=False,
+        null=True,
+        related_name='added_by',
+        on_delete=models.CASCADE,
+    )
     """User that originally registered this user via REST API"""
 
-    can_add_user = models.BooleanField(default=False,
-                                       editable=False)
+    can_add_user = models.BooleanField(default=False, editable=False)
     """
     Flag to indicate whether the (app) user can register other users on his
     behalf over the REST API
@@ -374,10 +429,12 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         Return the address as saved in the current contract (user's gym)
         """
-        out = {'zip_code': '',
-               'city': '',
-               'street': '',
-               'phone': ''}
+        out = {
+            'zip_code': '',
+            'city': '',
+            'street': '',
+            'phone': '',
+        }
         if self.user.contract_member.exists():
             last_contract = self.user.contract_member.last()
             out['zip_code'] = last_contract.zip_code
@@ -391,8 +448,10 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         Make sure the total amount of hours is 24
         """
-        if ((self.sleep_hours and self.freetime_hours and self.work_hours)
-                and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
+        if (
+            (self.sleep_hours and self.freetime_hours and self.work_hours)
+            and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24
+        ):
             raise ValidationError(_('The sum of all hours has to be 24'))
 
     def __str__(self):
@@ -436,10 +495,12 @@ by the US Department of Agriculture. It is extremely complete, with around
         weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
 
         try:
-            rate = ((10 * weight)  # in kg
-                    + (decimal.Decimal(6.25) * self.height)  # in cm
-                    - (5 * self.age)  # in years
-                    + factor)
+            rate = (
+                (10 * weight)  # in kg
+                + (decimal.Decimal(6.25) * self.height)  # in cm
+                - (5 * self.age)  # in years
+                + factor
+            )
         # Any of the entries is missing
         except TypeError:
             rate = 0
@@ -492,10 +553,12 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         Create a new weight entry as needed
         """
-        if (not WeightEntry.objects.filter(user=self.user).exists()
-            or (datetime.date.today()
-                - WeightEntry.objects.filter(user=self.user).latest().date
-                > datetime.timedelta(days=3))):
+        if (
+            not WeightEntry.objects.filter(user=self.user).exists() or (
+                datetime.date.today() - WeightEntry.objects.filter(user=self.user).latest().date >
+                datetime.timedelta(days=3)
+            )
+        ):
             entry = WeightEntry()
             entry.weight = weight
             entry.user = self.user
@@ -548,14 +611,15 @@ class DaysOfWeek(models.Model):
     This model is needed so that 'Day' can have multiple days of the week selected
     """
 
-    day_of_week = models.CharField(max_length=9,
-                                   verbose_name=_('Day of the week'))
+    day_of_week = models.CharField(max_length=9, verbose_name=_('Day of the week'))
 
     class Meta:
         """
         Order by day-ID, this is needed for some DBs
         """
-        ordering = ["pk", ]
+        ordering = [
+            "pk",
+        ]
 
     def __str__(self):
         """
@@ -569,28 +633,35 @@ class License(models.Model):
     License for an item (exercise, ingredient, etc.)
     """
 
-    full_name = models.CharField(max_length=60,
-                                 verbose_name=_('Full name'),
-                                 help_text=_('If a license has been localized, e.g. the Creative '
-                                             'Commons licenses for the different countries, add '
-                                             'them as separate entries here.'))
+    full_name = models.CharField(
+        max_length=60,
+        verbose_name=_('Full name'),
+        help_text=_(
+            'If a license has been localized, e.g. the Creative '
+            'Commons licenses for the different countries, add '
+            'them as separate entries here.'
+        )
+    )
     """Full name"""
 
-    short_name = models.CharField(max_length=15,
-                                  verbose_name=_('Short name, e.g. CC-BY-SA 3'))
+    short_name = models.CharField(max_length=15, verbose_name=_('Short name, e.g. CC-BY-SA 3'))
     """Short name, e.g. CC-BY-SA 3"""
 
-    url = models.URLField(verbose_name=_('Link'),
-                          help_text=_('Link to license text or other information'),
-                          blank=True,
-                          null=True)
+    url = models.URLField(
+        verbose_name=_('Link'),
+        help_text=_('Link to license text or other information'),
+        blank=True,
+        null=True
+    )
     """URL to full license text or other information"""
 
     class Meta:
         """
         Set Meta options
         """
-        ordering = ["full_name", ]
+        ordering = [
+            "full_name",
+        ]
 
     #
     # Django methods
@@ -620,10 +691,11 @@ class RepetitionUnit(models.Model):
         """
         Set Meta options
         """
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
-    name = models.CharField(max_length=100,
-                            verbose_name=_('Name'))
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
 
     def __str__(self):
         """
@@ -659,10 +731,11 @@ class WeightUnit(models.Model):
         """
         Set Meta options
         """
-        ordering = ["name", ]
+        ordering = [
+            "name",
+        ]
 
-    name = models.CharField(max_length=100,
-                            verbose_name=_('Name'))
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
 
     def __str__(self):
         """

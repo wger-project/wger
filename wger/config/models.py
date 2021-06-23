@@ -26,18 +26,17 @@ from django.utils.translation import gettext_lazy as _
 # wger
 from wger.core.models import (
     Language,
-    UserProfile
+    UserProfile,
 )
 from wger.gym.helpers import is_any_gym_admin
 from wger.gym.models import (
     Gym,
-    GymUserConfig
+    GymUserConfig,
 )
 from wger.utils.cache import (
     cache_mapper,
-    delete_template_fragment_cache
+    delete_template_fragment_cache,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -55,24 +54,29 @@ class LanguageConfig(models.Model):
         (SHOW_ITEM_INGREDIENTS, _('Ingredients')),
     )
 
-    language = models.ForeignKey(Language,
-                                 related_name='language_source',
-                                 editable=False,
-                                 on_delete=models.CASCADE)
-    language_target = models.ForeignKey(Language,
-                                        related_name='language_target',
-                                        editable=False,
-                                        on_delete=models.CASCADE)
-    item = models.CharField(max_length=2,
-                            choices=SHOW_ITEM_LIST,
-                            editable=False)
+    language = models.ForeignKey(
+        Language,
+        related_name='language_source',
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    language_target = models.ForeignKey(
+        Language,
+        related_name='language_target',
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    item = models.CharField(max_length=2, choices=SHOW_ITEM_LIST, editable=False)
     show = models.BooleanField(default=1)
 
     class Meta:
         """
         Set some other properties
         """
-        ordering = ["item", "language_target", ]
+        ordering = [
+            "item",
+            "language_target",
+        ]
 
     def __str__(self):
         """
@@ -117,15 +121,19 @@ class GymConfig(models.Model):
     TODO: close registration (users can only become members thorough an admin)
     """
 
-    default_gym = models.ForeignKey(Gym,
-                                    verbose_name=_('Default gym'),
-                                    help_text=_('Select the default gym for this installation. '
-                                                'This will assign all new registered users to this '
-                                                'gym and update all existing users without a '
-                                                'gym.'),
-                                    null=True,
-                                    blank=True,
-                                    on_delete=models.CASCADE)
+    default_gym = models.ForeignKey(
+        Gym,
+        verbose_name=_('Default gym'),
+        help_text=_(
+            'Select the default gym for this installation. '
+            'This will assign all new registered users to this '
+            'gym and update all existing users without a '
+            'gym.'
+        ),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE
+    )
     """
     Default gym for the wger installation
     """

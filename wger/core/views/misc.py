@@ -29,7 +29,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
@@ -43,18 +43,17 @@ from crispy_forms.layout import Submit
 # wger
 from wger.core.demo import (
     create_demo_entries,
-    create_temporary_user
+    create_temporary_user,
 )
 from wger.core.forms import (
     FeedbackAnonymousForm,
-    FeedbackRegisteredForm
+    FeedbackRegisteredForm,
 )
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 from wger.nutrition.models import NutritionPlan
 from wger.weight.helpers import get_last_entries
 from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 
@@ -79,8 +78,12 @@ def demo_entries(request):
     if not settings.WGER_SETTINGS['ALLOW_GUEST_USERS']:
         return HttpResponseRedirect(reverse('software:features'))
 
-    if (((not request.user.is_authenticated or request.user.userprofile.is_temporary)
-         and not request.session['has_demo_data'])):
+    if (
+        (
+            (not request.user.is_authenticated or request.user.userprofile.is_temporary)
+            and not request.session['has_demo_data']
+        )
+    ):
         # If we reach this from a page that has no user created by the
         # middleware, do that now
         if not request.user.is_authenticated:
@@ -90,10 +93,15 @@ def demo_entries(request):
         # OK, continue
         create_demo_entries(request.user)
         request.session['has_demo_data'] = True
-        messages.success(request, _('We have created sample workout, workout schedules, weight '
-                                    'logs, (body) weight and nutrition plan entries so you can '
-                                    'better see what  this site can do. Feel free to edit or '
-                                    'delete them!'))
+        messages.success(
+            request,
+            _(
+                'We have created sample workout, workout schedules, weight '
+                'logs, (body) weight and nutrition plan entries so you can '
+                'better see what  this site can do. Feel free to edit or '
+                'delete them!'
+            )
+        )
     return HttpResponseRedirect(reverse('core:dashboard'))
 
 
@@ -156,12 +164,17 @@ def dashboard(request):
 
 
 class ContactClassView(TemplateView):
+
     def get_context_data(self, **kwargs):
         context = super(ContactClassView, self).get_context_data(**kwargs)
-        context.update({'discord': 'https://discord.gg/rPWFv6W',
-                        'contribute': reverse('software:contribute'),
-                        'issues': reverse('software:issues'),
-                        'feedback': reverse('core:feedback')})
+        context.update(
+            {
+                'discord': 'https://discord.gg/rPWFv6W',
+                'contribute': reverse('software:contribute'),
+                'issues': reverse('software:issues'),
+                'feedback': reverse('core:feedback')
+            }
+        )
         return context
 
 

@@ -21,17 +21,17 @@ import logging
 # Django
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
-    DeleteView
+    DeleteView,
 )
 
 # wger
@@ -39,14 +39,13 @@ from wger.nutrition.forms import MealLogItemForm
 from wger.nutrition.models import (
     LogItem,
     Meal,
-    NutritionPlan
+    NutritionPlan,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
-    WgerPermissionMixin
+    WgerPermissionMixin,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -67,15 +66,16 @@ def overview(request, pk):
     log_data = []
     planned_calories = plan.get_nutritional_values()['total']['energy']
     for item in plan.get_log_overview():
-        log_data.append({'date': item['date'],
-                         'planned_calories': planned_calories,
-                         'logged_calories': item['energy'],
-                         'difference': item['energy'] - planned_calories})
+        log_data.append(
+            {
+                'date': item['date'],
+                'planned_calories': planned_calories,
+                'logged_calories': item['energy'],
+                'difference': item['energy'] - planned_calories
+            }
+        )
 
-    context = {'plan': plan,
-               'show_shariff': is_owner,
-               'is_owner': is_owner,
-               'log_data': log_data}
+    context = {'plan': plan, 'show_shariff': is_owner, 'is_owner': is_owner, 'log_data': log_data}
 
     return render(request, 'log/overview.html', context)
 
@@ -97,19 +97,27 @@ def detail(request, pk, year, month, day):
         date = datetime.date(year=int(year), month=int(month), day=int(day))
     except ValueError:
         date = datetime.date.today()
-        return HttpResponseRedirect(reverse('nutrition:log:detail',
-                                            kwargs={'pk': pk,
-                                                    'year': date.year,
-                                                    'month': date.month,
-                                                    'day': date.day}))
+        return HttpResponseRedirect(
+            reverse(
+                'nutrition:log:detail',
+                kwargs={
+                    'pk': pk,
+                    'year': date.year,
+                    'month': date.month,
+                    'day': date.day
+                }
+            )
+        )
 
-    context = {'plan': plan,
-               'date': date,
-               'show_shariff': is_owner,
-               'is_owner': is_owner,
-               'log_summary': plan.get_log_summary(date),
-               'log_entries': plan.get_log_entries(date),
-               'nutritional_data': plan.get_nutritional_values()}
+    context = {
+        'plan': plan,
+        'date': date,
+        'show_shariff': is_owner,
+        'is_owner': is_owner,
+        'log_summary': plan.get_log_summary(date),
+        'log_entries': plan.get_log_entries(date),
+        'nutritional_data': plan.get_nutritional_values()
+    }
 
     return render(request, 'log/detail.html', context)
 
@@ -129,11 +137,17 @@ def log_meal(request, meal_pk):
 
     _logMealPlan([meal])
     date = datetime.date.today()
-    return HttpResponseRedirect(reverse('nutrition:log:detail',
-                                        kwargs={'pk': meal.plan_id,
-                                                'year': date.year,
-                                                'month': date.month,
-                                                'day': date.day}))
+    return HttpResponseRedirect(
+        reverse(
+            'nutrition:log:detail',
+            kwargs={
+                'pk': meal.plan_id,
+                'year': date.year,
+                'month': date.month,
+                'day': date.day
+            }
+        )
+    )
 
 
 def log_plan(request, plan_pk):
@@ -157,10 +171,12 @@ def _logMealPlan(meals):
 
     for meal in meals:
         for item in meal.mealitem_set.select_related():
-            log_item = LogItem(plan=item.meal.plan,
-                               ingredient=item.ingredient,
-                               weight_unit=item.weight_unit,
-                               amount=item.amount)
+            log_item = LogItem(
+                plan=item.meal.plan,
+                ingredient=item.ingredient,
+                weight_unit=item.weight_unit,
+                amount=item.amount
+            )
             log_item.save()
 
 
@@ -212,13 +228,20 @@ class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     title = gettext_lazy('Delete?')
     form_action_urlname = 'nutrition:log:delete'
     login_required = True
-    fields = ["comment", ]
+    fields = [
+        "comment",
+    ]
 
     def get_success_url(self):
         """
         Return to the nutrition diary detail page
         """
-        return reverse('nutrition:log:detail', kwargs={'pk': self.object.plan.pk,
-                                                       'year': self.object.datetime.year,
-                                                       'month': self.object.datetime.month,
-                                                       'day': self.object.datetime.day})
+        return reverse(
+            'nutrition:log:detail',
+            kwargs={
+                'pk': self.object.plan.pk,
+                'year': self.object.datetime.year,
+                'month': self.object.datetime.month,
+                'day': self.object.datetime.day
+            }
+        )

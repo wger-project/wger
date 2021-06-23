@@ -34,8 +34,10 @@ class FeedbackTestCase(WgerTestCase):
         """
         response = self.client.get(reverse('core:feedback'))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse('core:feedback'),
-                                    {'comment': 'A very long and interesting comment'})
+        response = self.client.post(
+            reverse('core:feedback'),
+            {'comment': 'A very long and interesting comment'},
+        )
         if logged_in:
             self.assertEqual(response.status_code, 302)
             self.assertEqual(len(mail.outbox), 1)
@@ -52,9 +54,12 @@ class FeedbackTestCase(WgerTestCase):
             self.assertEqual(len(mail.outbox), 0)
 
             # Correctly filled in reCaptcha
-            response = self.client.post(reverse('core:feedback'),
-                                        {'comment': 'A very long and interesting comment',
-                                         'g-recaptcha-response': 'PASSED'})
+            response = self.client.post(
+                reverse('core:feedback'), {
+                    'comment': 'A very long and interesting comment',
+                    'g-recaptcha-response': 'PASSED'
+                }
+            )
 
             self.assertEqual(response.status_code, 302)
             self.assertEqual(len(mail.outbox), 1)

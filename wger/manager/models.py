@@ -25,11 +25,11 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.core.exceptions import (
     ObjectDoesNotExist,
-    ValidationError
+    ValidationError,
 )
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator
+    MinValueValidator,
 )
 from django.db import models
 from django.urls import reverse
@@ -39,30 +39,31 @@ from django.utils.translation import gettext_lazy as _
 from wger.core.models import (
     DaysOfWeek,
     RepetitionUnit,
-    WeightUnit
+    WeightUnit,
 )
 from wger.exercises.models import Exercise
 from wger.utils.cache import (
     cache_mapper,
     reset_workout_canonical_form,
-    reset_workout_log
+    reset_workout_log,
 )
 from wger.utils.fields import Html5DateField
 from wger.utils.helpers import normalize_decimal
 
-
 logger = logging.getLogger(__name__)
 
-RIR_OPTIONS = [(None, '------'),
-               ('0', 0),
-               ('0.5', 0.5),
-               ('1', 1),
-               ('1.5', 1.5),
-               ('2', 2),
-               ('2.5', 2.5),
-               ('3', 3),
-               ('3.5', 3.5),
-               ('4', 4)]
+RIR_OPTIONS = [
+    (None, '------'),
+    ('0', 0),
+    ('0.5', 0.5),
+    ('1', 1),
+    ('1.5', 1.5),
+    ('2', 2),
+    ('2.5', 2.5),
+    ('3', 3),
+    ('3.5', 3.5),
+    ('4', 4),
+]
 
 
 #
@@ -77,19 +78,27 @@ class Workout(models.Model):
         """
         Meta class to set some other properties
         """
-        ordering = ["-creation_date", ]
+        ordering = [
+            "-creation_date",
+        ]
 
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
-    name = models.CharField(verbose_name=_('Name'),
-                            max_length=100,
-                            blank=True,
-                            help_text=_("The name of the workout"))
-    description = models.TextField(verbose_name=_('Description'),
-                                   max_length=1000,
-                                   blank=True,
-                                   help_text=_("A short description or goal of the workout. For "
-                                               "example 'Focus on back' or 'Week 1 of program "
-                                               "xy'."))
+    name = models.CharField(
+        verbose_name=_('Name'),
+        max_length=100,
+        blank=True,
+        help_text=_("The name of the workout"),
+    )
+    description = models.TextField(
+        verbose_name=_('Description'),
+        max_length=1000,
+        blank=True,
+        help_text=_(
+            "A short description or goal of the workout. For "
+            "example 'Focus on back' or 'Week 1 of program "
+            "xy'."
+        ),
+    )
 
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
 
@@ -168,12 +177,16 @@ class Workout(models.Model):
 
                 day_canonical_repr.append(canonical_repr_day)
 
-            workout_canonical_form = {'obj': self,
-                                      'muscles': {'front': muscles_front,
-                                                  'back': muscles_back,
-                                                  'frontsecondary': muscles_front_secondary,
-                                                  'backsecondary': muscles_back_secondary},
-                                      'day_list': day_canonical_repr}
+            workout_canonical_form = {
+                'obj': self,
+                'muscles': {
+                    'front': muscles_front,
+                    'back': muscles_back,
+                    'frontsecondary': muscles_front_secondary,
+                    'backsecondary': muscles_back_secondary
+                },
+                'day_list': day_canonical_repr
+            }
             # Save to cache
             cache.set(cache_mapper.get_workout_canonical(self.pk), workout_canonical_form)
 
@@ -232,38 +245,49 @@ class Schedule(models.Model):
     objects = ScheduleManager()
     """Custom manager"""
 
-    user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             editable=False,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        editable=False,
+        on_delete=models.CASCADE,
+    )
     """
     The user this schedule belongs to. This could be accessed through a step
     that points to a workout, that points to a user, but this is more straight
     forward and performant
     """
 
-    name = models.CharField(verbose_name=_('Name'),
-                            max_length=100,
-                            help_text=_("Name or short description of the schedule. "
-                                        "For example 'Program XYZ'."))
+    name = models.CharField(
+        verbose_name=_('Name'),
+        max_length=100,
+        help_text=_("Name or short description of the schedule. "
+                    "For example 'Program XYZ'."),
+    )
     """Name or short description of the schedule."""
 
-    start_date = Html5DateField(verbose_name=_('Start date'),
-                                default=datetime.date.today)
+    start_date = Html5DateField(verbose_name=_('Start date'), default=datetime.date.today)
     """The start date of this schedule"""
 
-    is_active = models.BooleanField(verbose_name=_('Schedule active'),
-                                    default=True,
-                                    help_text=_("Tick the box if you want to mark this schedule "
-                                                "as your active one (will be shown e.g. on your "
-                                                "dashboard). All other schedules will then be "
-                                                "marked as inactive"))
+    is_active = models.BooleanField(
+        verbose_name=_('Schedule active'),
+        default=True,
+        help_text=_(
+            "Tick the box if you want to mark this schedule "
+            "as your active one (will be shown e.g. on your "
+            "dashboard). All other schedules will then be "
+            "marked as inactive"
+        ),
+    )
     """A flag indicating whether the schedule is active (needed for dashboard)"""
 
-    is_loop = models.BooleanField(verbose_name=_('Is a loop'),
-                                  default=False,
-                                  help_text=_("Tick the box if you want to repeat the schedules "
-                                              "in a loop (i.e. A, B, C, A, B, C, and so on)"))
+    is_loop = models.BooleanField(
+        verbose_name=_('Is a loop'),
+        default=False,
+        help_text=_(
+            "Tick the box if you want to repeat the schedules "
+            "in a loop (i.e. A, B, C, A, B, C, and so on)"
+        ),
+    )
     """A flag indicating whether the schedule should act as a loop"""
 
     def __str__(self):
@@ -338,24 +362,25 @@ class ScheduleStep(models.Model):
         """
         Set default ordering
         """
-        ordering = ["order", ]
+        ordering = [
+            "order",
+        ]
 
-    schedule = models.ForeignKey(Schedule,
-                                 verbose_name=_('schedule'),
-                                 on_delete=models.CASCADE)
+    schedule = models.ForeignKey(Schedule, verbose_name=_('schedule'), on_delete=models.CASCADE)
     """The schedule is step belongs to"""
 
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
     """The workout this step manages"""
 
-    duration = models.IntegerField(verbose_name=_('Duration'),
-                                   help_text=_('The duration in weeks'),
-                                   default=4,
-                                   validators=[MinValueValidator(1), MaxValueValidator(25)])
+    duration = models.IntegerField(
+        verbose_name=_('Duration'),
+        help_text=_('The duration in weeks'),
+        default=4,
+        validators=[MinValueValidator(1), MaxValueValidator(25)],
+    )
     """The duration in weeks"""
 
-    order = models.IntegerField(verbose_name=_('Order'),
-                                default=1)
+    order = models.IntegerField(verbose_name=_('Order'), default=1)
 
     def get_owner_object(self):
         """
@@ -395,15 +420,17 @@ class Day(models.Model):
     Model for a training day
     """
 
-    training = models.ForeignKey(Workout,
-                                 verbose_name=_('Workout'), on_delete=models.CASCADE)
-    description = models.CharField(max_length=100,
-                                   verbose_name=_('Description'),
-                                   help_text=_('A description of what is done on this day (e.g. '
-                                               '"Pull day") or what body parts are trained (e.g. '
-                                               '"Arms and abs")'))
-    day = models.ManyToManyField(DaysOfWeek,
-                                 verbose_name=_('Day'))
+    training = models.ForeignKey(Workout, verbose_name=_('Workout'), on_delete=models.CASCADE)
+    description = models.CharField(
+        max_length=100,
+        verbose_name=_('Description'),
+        help_text=_(
+            'A description of what is done on this day (e.g. '
+            '"Pull day") or what body parts are trained (e.g. '
+            '"Arms and abs")'
+        ),
+    )
+    day = models.ManyToManyField(DaysOfWeek, verbose_name=_('Day'))
 
     def __str__(self):
         """
@@ -504,17 +531,24 @@ class Day(models.Model):
 
                 # Collect exercise images
                 for image in exercise.images.all():
-                    exercise_images_tmp.append({'image': image.image.url,
-                                                'is_main': image.is_main,
-                                                })
+                    exercise_images_tmp.append(
+                        {
+                            'image': image.image.url,
+                            'is_main': image.is_main,
+                        }
+                    )
 
                 # Put it all together
-                exercise_tmp.append({'obj': exercise,
-                                     'setting_obj_list': setting_tmp,
-                                     'setting_text': setting_text,
-                                     'has_weight': has_weight,
-                                     'comment_list': comment_list,
-                                     'image_list': exercise_images_tmp})
+                exercise_tmp.append(
+                    {
+                        'obj': exercise,
+                        'setting_obj_list': setting_tmp,
+                        'setting_text': setting_text,
+                        'has_weight': has_weight,
+                        'comment_list': comment_list,
+                        'image_list': exercise_images_tmp
+                    }
+                )
 
             # If it's a superset, check that all exercises have the same repetitions.
             # If not, just take the smallest number and drop the rest, because otherwise
@@ -533,33 +567,40 @@ class Day(models.Model):
             #             setting_text, setting_list = set_obj.reps_smart_text(exercise)
             #             exercise['setting_text'] = setting_text
 
-            canonical_repr.append({'obj': set_obj,
-                                   'exercise_list': exercise_tmp,
-                                   'is_superset': True if len(exercise_tmp) > 1 else False,
-                                   'settings_computed': set_obj.compute_settings,
-                                   'muscles': {
-                                       'back': muscles_back,
-                                       'front': muscles_front,
-                                       'frontsecondary': muscles_front_secondary,
-                                       'backsecondary': muscles_front_secondary
-                                   }})
+            canonical_repr.append(
+                {
+                    'obj': set_obj,
+                    'exercise_list': exercise_tmp,
+                    'is_superset': True if len(exercise_tmp) > 1 else False,
+                    'settings_computed': set_obj.compute_settings,
+                    'muscles': {
+                        'back': muscles_back,
+                        'front': muscles_front,
+                        'frontsecondary': muscles_front_secondary,
+                        'backsecondary': muscles_front_secondary
+                    }
+                }
+            )
 
         # Days of the week
         tmp_days_of_week = []
         for day_of_week in self.day.select_related():
             tmp_days_of_week.append(day_of_week)
 
-        return {'obj': self,
-                'days_of_week': {
-                    'text': ', '.join([str(_(i.day_of_week)) for i in tmp_days_of_week]),
-                    'day_list': tmp_days_of_week},
-                'muscles': {
-                    'back': muscles_back,
-                    'front': muscles_front,
-                    'frontsecondary': muscles_front_secondary,
-                    'backsecondary': muscles_front_secondary
-                },
-                'set_list': canonical_repr}
+        return {
+            'obj': self,
+            'days_of_week': {
+                'text': ', '.join([str(_(i.day_of_week)) for i in tmp_days_of_week]),
+                'day_list': tmp_days_of_week
+            },
+            'muscles': {
+                'back': muscles_back,
+                'front': muscles_front,
+                'frontsecondary': muscles_front_secondary,
+                'backsecondary': muscles_front_secondary
+            },
+            'set_list': canonical_repr
+        }
 
 
 class Set(models.Model):
@@ -569,19 +610,27 @@ class Set(models.Model):
     DEFAULT_SETS = 4
     MAX_SETS = 10
 
-    exerciseday = models.ForeignKey(Day,
-                                    verbose_name=_('Exercise day'),
-                                    on_delete=models.CASCADE)
-    order = models.IntegerField(blank=True,
-                                null=True,
-                                verbose_name=_('Order'))
-    sets = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(MAX_SETS)],
-                               verbose_name=_('Number of sets'),
-                               default=DEFAULT_SETS)
+    exerciseday = models.ForeignKey(
+        Day,
+        verbose_name=_('Exercise day'),
+        on_delete=models.CASCADE,
+    )
+    order = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name=_('Order'),
+    )
+    sets = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(MAX_SETS)],
+        verbose_name=_('Number of sets'),
+        default=DEFAULT_SETS,
+    )
 
     # Metaclass to set some other properties
     class Meta:
-        ordering = ["order", ]
+        ordering = [
+            "order",
+        ]
 
     def __str__(self):
         """
@@ -646,7 +695,7 @@ class Set(models.Model):
         settings = self.setting_set.filter(exercise=exercise)
 
         if settings.count() == 0:
-            return[]
+            return []
         elif settings.count() == 1:
             setting = settings.first()
             return [setting] * self.sets
@@ -758,19 +807,21 @@ class Setting(models.Model):
     """
 
     set = models.ForeignKey(Set, verbose_name=_('Sets'), on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercises'),
-                                 on_delete=models.CASCADE)
-    repetition_unit = models.ForeignKey(RepetitionUnit,
-                                        verbose_name=_('Unit'),
-                                        default=1,
-                                        on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'), on_delete=models.CASCADE)
+    repetition_unit = models.ForeignKey(
+        RepetitionUnit,
+        verbose_name=_('Unit'),
+        default=1,
+        on_delete=models.CASCADE,
+    )
     """
     The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
     """
 
-    reps = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(600)],
-                               verbose_name=_('Reps'))
+    reps = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(600)],
+        verbose_name=_('Reps'),
+    )
     """
     Amount of repetitions, minutes, etc. for a set.
 
@@ -778,37 +829,40 @@ class Setting(models.Model):
     kept for compatibility reasons (specially for the REST API).
     """
 
-    weight = models.DecimalField(verbose_name=_('Weight'),
-                                 max_digits=6,
-                                 decimal_places=2,
-                                 blank=True,
-                                 null=True,
-                                 validators=[MinValueValidator(0), MaxValueValidator(1500)])
+    weight = models.DecimalField(
+        verbose_name=_('Weight'),
+        max_digits=6,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0), MaxValueValidator(1500)]
+    )
     """Planed weight for the repetitions"""
 
-    weight_unit = models.ForeignKey(WeightUnit,
-                                    verbose_name=_('Unit'),
-                                    default=1,
-                                    on_delete=models.CASCADE)
+    weight_unit = models.ForeignKey(
+        WeightUnit,
+        verbose_name=_('Unit'),
+        default=1,
+        on_delete=models.CASCADE,
+    )
     """
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
     """
 
-    rir = models.CharField(verbose_name=_('RiR'),
-                           max_length=3,
-                           blank=True,
-                           null=True,
-                           choices=RIR_OPTIONS)
+    rir = models.CharField(
+        verbose_name=_('RiR'),
+        max_length=3,
+        blank=True,
+        null=True,
+        choices=RIR_OPTIONS,
+    )
     """
     Reps in reserve, RiR. The amount of reps that could realistically still be
     done in the set.
     """
 
-    order = models.IntegerField(blank=True,
-                                verbose_name=_('Order'))
-    comment = models.CharField(max_length=100,
-                               blank=True,
-                               verbose_name=_('Comment'))
+    order = models.IntegerField(blank=True, verbose_name=_('Order'))
+    comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
 
     # Metaclass to set some other properties
     class Meta:
@@ -852,27 +906,37 @@ class WorkoutLog(models.Model):
     A log entry for an exercise
     """
 
-    user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             editable=False,
-                             on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'),
-                                 on_delete=models.CASCADE)
-    workout = models.ForeignKey(Workout,
-                                verbose_name=_('Workout'),
-                                on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    exercise = models.ForeignKey(
+        Exercise,
+        verbose_name=_('Exercise'),
+        on_delete=models.CASCADE,
+    )
+    workout = models.ForeignKey(
+        Workout,
+        verbose_name=_('Workout'),
+        on_delete=models.CASCADE,
+    )
 
-    repetition_unit = models.ForeignKey(RepetitionUnit,
-                                        verbose_name=_('Unit'),
-                                        default=1,
-                                        on_delete=models.CASCADE)
+    repetition_unit = models.ForeignKey(
+        RepetitionUnit,
+        verbose_name=_('Unit'),
+        default=1,
+        on_delete=models.CASCADE,
+    )
     """
     The unit of the log. This can be e.g. a repetition, a minute, etc.
     """
 
-    reps = models.IntegerField(verbose_name=_('Repetitions'),
-                               validators=[MinValueValidator(0)])
+    reps = models.IntegerField(
+        verbose_name=_('Repetitions'),
+        validators=[MinValueValidator(0)],
+    )
     """
     Amount of repetitions, minutes, etc.
 
@@ -880,26 +944,32 @@ class WorkoutLog(models.Model):
     kept for compatibility reasons (specially for the REST API).
     """
 
-    weight = models.DecimalField(decimal_places=2,
-                                 max_digits=5,
-                                 verbose_name=_('Weight'),
-                                 validators=[MinValueValidator(0)])
+    weight = models.DecimalField(
+        decimal_places=2,
+        max_digits=5,
+        verbose_name=_('Weight'),
+        validators=[MinValueValidator(0)],
+    )
 
-    weight_unit = models.ForeignKey(WeightUnit,
-                                    verbose_name=_('Unit'),
-                                    default=1,
-                                    on_delete=models.CASCADE)
+    weight_unit = models.ForeignKey(
+        WeightUnit,
+        verbose_name=_('Unit'),
+        default=1,
+        on_delete=models.CASCADE,
+    )
     """
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
     """
 
     date = Html5DateField(verbose_name=_('Date'))
 
-    rir = models.CharField(verbose_name=_('RiR'),
-                           max_length=3,
-                           blank=True,
-                           null=True,
-                           choices=RIR_OPTIONS)
+    rir = models.CharField(
+        verbose_name=_('RiR'),
+        max_length=3,
+        blank=True,
+        null=True,
+        choices=RIR_OPTIONS,
+    )
     """
     Reps in reserve, RiR. The amount of reps that could realistically still be
     done in the set.
@@ -913,9 +983,7 @@ class WorkoutLog(models.Model):
         """
         Return a more human-readable representation
         """
-        return "Log entry: {0} - {1} kg on {2}".format(self.reps,
-                                                       self.weight,
-                                                       self.date)
+        return "Log entry: {0} - {1} kg on {2}".format(self.reps, self.weight, self.date)
 
     def get_owner_object(self):
         """
@@ -973,18 +1041,22 @@ class WorkoutSession(models.Model):
         (IMPRESSION_GOOD, _('Good')),
     )
 
-    user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+    )
     """
     The user the workout session belongs to
 
     See note in weight.models.WeightEntry about why this is not editable=False
     """
 
-    workout = models.ForeignKey(Workout,
-                                verbose_name=_('Workout'),
-                                on_delete=models.CASCADE)
+    workout = models.ForeignKey(
+        Workout,
+        verbose_name=_('Workout'),
+        on_delete=models.CASCADE,
+    )
     """
     The workout the session belongs to
     """
@@ -994,35 +1066,37 @@ class WorkoutSession(models.Model):
     The date the workout session was performed
     """
 
-    notes = models.TextField(verbose_name=_('Notes'),
-                             null=True,
-                             blank=True,
-                             help_text=_('Any notes you might want to save about this workout '
-                                         'session.'))
+    notes = models.TextField(
+        verbose_name=_('Notes'),
+        null=True,
+        blank=True,
+        help_text=_('Any notes you might want to save about this workout '
+                    'session.')
+    )
     """
     User notes about the workout
     """
 
-    impression = models.CharField(verbose_name=_('General impression'),
-                                  max_length=2,
-                                  choices=IMPRESSION,
-                                  default=IMPRESSION_NEUTRAL,
-                                  help_text=_('Your impression about this workout session. '
-                                              'Did you exercise as well as you could?'))
+    impression = models.CharField(
+        verbose_name=_('General impression'),
+        max_length=2,
+        choices=IMPRESSION,
+        default=IMPRESSION_NEUTRAL,
+        help_text=_(
+            'Your impression about this workout session. '
+            'Did you exercise as well as you could?'
+        )
+    )
     """
     The user's general impression of workout
     """
 
-    time_start = models.TimeField(verbose_name=_('Start time'),
-                                  blank=True,
-                                  null=True)
+    time_start = models.TimeField(verbose_name=_('Start time'), blank=True, null=True)
     """
     Time the workout session started
     """
 
-    time_end = models.TimeField(verbose_name=_('Finish time'),
-                                blank=True,
-                                null=True)
+    time_end = models.TimeField(verbose_name=_('Finish time'), blank=True, null=True)
     """
     Time the workout session ended
     """
@@ -1037,7 +1111,9 @@ class WorkoutSession(models.Model):
         """
         Set other properties
         """
-        ordering = ["date", ]
+        ordering = [
+            "date",
+        ]
         unique_together = ("date", "user")
 
     def clean(self):

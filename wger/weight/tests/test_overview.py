@@ -21,7 +21,6 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -34,8 +33,9 @@ class WeightOverviewTestCase(WgerTestCase):
         """
         Helper function to test the weight overview page
         """
-        response = self.client.get(reverse('weight:overview',
-                                           kwargs={'username': self.current_user}))
+        response = self.client.get(
+            reverse('weight:overview', kwargs={'username': self.current_user})
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_weight_overview_loged_in(self):

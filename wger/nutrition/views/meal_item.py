@@ -21,24 +21,23 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.nutrition.forms import MealItemForm
 from wger.nutrition.models import (
     Meal,
-    MealItem
+    MealItem,
 )
 from wger.utils.generic_views import WgerFormMixin
-
 
 logger = logging.getLogger(__name__)
 

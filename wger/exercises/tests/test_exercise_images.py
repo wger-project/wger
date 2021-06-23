@@ -22,11 +22,11 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import (
     Exercise,
-    ExerciseImage
+    ExerciseImage,
 )
 
 
@@ -45,10 +45,7 @@ class MainImageTestCase(WgerTestCase):
             image = ExerciseImage()
             image.exercise_base = exercise.exercise_base
             image.status = ExerciseImage.STATUS_ACCEPTED
-            image.image.save(
-                db_filename,
-                File(inFile)
-            )
+            image.image.save(db_filename, File(inFile))
             image.save()
             return image.pk
 
@@ -116,9 +113,11 @@ class AddExerciseImageTestCase(WgerAddTestCase):
     object_class = ExerciseImage
     url = reverse('exercise:image:add', kwargs={'exercise_pk': 1})
     user_fail = False
-    data = {'is_main': True,
-            'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
-            'license': 1}
+    data = {
+        'is_main': True,
+        'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
+        'license': 1
+    }
 
 
 class EditExerciseImageTestCase(WgerEditTestCase):
@@ -129,8 +128,7 @@ class EditExerciseImageTestCase(WgerEditTestCase):
     object_class = ExerciseImage
     url = 'exercise:image:edit'
     pk = 2
-    data = {'is_main': True,
-            'license': 1}
+    data = {'is_main': True, 'license': 1}
 
 
 class DeleteExerciseImageTestCase(WgerDeleteTestCase):
@@ -144,9 +142,11 @@ class DeleteExerciseImageTestCase(WgerDeleteTestCase):
 
 
 # TODO: add POST and DELETE tests
-class ExerciseImagesApiTestCase(api_base_test.BaseTestCase,
-                                api_base_test.ApiBaseTestCase,
-                                api_base_test.ApiGetTestCase):
+class ExerciseImagesApiTestCase(
+    api_base_test.BaseTestCase,
+    api_base_test.ApiBaseTestCase,
+    api_base_test.ApiGetTestCase,
+):
     """
     Tests the exercise image resource
     """

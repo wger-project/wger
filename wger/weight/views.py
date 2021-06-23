@@ -24,22 +24,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import (
     Max,
-    Min
+    Min,
 )
 from django.http import (
     HttpResponse,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # Third Party
@@ -50,13 +50,12 @@ from rest_framework.response import Response
 # wger
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.helpers import check_access
 from wger.weight import helpers
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 
@@ -76,8 +75,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         Read the comment on weight/models.py WeightEntry about why we need
         to pass the user here.
         """
-        return {'user': self.request.user,
-                'date': datetime.date.today()}
+        return {'user': self.request.user, 'date': datetime.date.today()}
 
     def form_valid(self, form):
         """
@@ -119,7 +117,7 @@ class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = WeightEntry
-    fields = ('weight',)
+    fields = ('weight', )
 
     messages = gettext_lazy('Successfully deleted.')
 
@@ -207,16 +205,14 @@ def get_weight_data(request, username=None):
     date_max = request.GET.get('date_max', True)
 
     if date_min and date_max:
-        weights = WeightEntry.objects.filter(user=user,
-                                             date__range=(date_min, date_max))
+        weights = WeightEntry.objects.filter(user=user, date__range=(date_min, date_max))
     else:
         weights = WeightEntry.objects.filter(user=user)
 
     chart_data = []
 
     for i in weights:
-        chart_data.append({'date': i.date,
-                           'weight': i.weight})
+        chart_data.append({'date': i.date, 'weight': i.weight})
 
     # Return the results to the client
     return Response(chart_data)
@@ -231,17 +227,21 @@ class WeightCsvImportFormPreview(FormPreview):
         Context for template rendering.
         """
 
-        return {'form': form,
-                'stage_field': self.unused_name('stage'),
-                'state': self.state}
+        return {
+            'form': form,
+            'stage_field': self.unused_name('stage'),
+            'state': self.state,
+        }
 
     def process_preview(self, request, form, context):
-        context['weight_list'], context['error_list'] = helpers.parse_weight_csv(request,
-                                                                                 form.cleaned_data)
+        context['weight_list'], context['error_list'] = helpers.parse_weight_csv(
+            request, form.cleaned_data
+        )
         return context
 
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(reverse('weight:overview',
-                                            kwargs={'username': request.user.username}))
+        return HttpResponseRedirect(
+            reverse('weight:overview', kwargs={'username': request.user.username})
+        )

@@ -21,14 +21,13 @@ import logging
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import UpdateView
 
 # wger
 from wger.gym.models import GymAdminConfig
 from wger.utils.generic_views import WgerFormMixin
-
 
 logger = logging.getLogger(__name__)
 

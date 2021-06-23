@@ -31,12 +31,15 @@ class ExercisesCorrectionTestCase(WgerTestCase):
         Helper function
         """
         description = 'a nice, long and accurate description for the exercise'
-        response = self.client.post(reverse('exercise:exercise:correct', kwargs={'pk': 1}),
-                                    {'name_original': 'my test exercise',
-                                     'license': 2,
-                                     'description': description,
-                                     'muscles': [3],
-                                     'category': 3})
+        response = self.client.post(
+            reverse('exercise:exercise:correct', kwargs={'pk': 1}), {
+                'name_original': 'my test exercise',
+                'license': 2,
+                'description': description,
+                'muscles': [3],
+                'category': 3
+            }
+        )
 
         if fail:
             self.assertEqual(response.status_code, 403)

@@ -22,7 +22,7 @@ from django import forms
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 
 # Third Party
@@ -33,7 +33,7 @@ from crispy_forms.layout import (
     Column,
     Layout,
     Row,
-    Submit
+    Submit,
 )
 
 # wger
@@ -42,10 +42,9 @@ from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     LogItem,
-    MealItem
+    MealItem,
 )
 from wger.utils.widgets import Html5NumberInput
-
 
 logger = logging.getLogger(__name__)
 
@@ -54,14 +53,15 @@ class UnitChooserForm(forms.Form):
     """
     A small form to select an amount and a unit for an ingredient
     """
-    amount = forms.DecimalField(decimal_places=2,
-                                label=gettext_lazy("Amount"),
-                                max_digits=5,
-                                localize=True)
-    unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
-                                  label=gettext_lazy("Unit"),
-                                  empty_label="g",
-                                  required=False)
+    amount = forms.DecimalField(
+        decimal_places=2, label=gettext_lazy("Amount"), max_digits=5, localize=True
+    )
+    unit = forms.ModelChoiceField(
+        queryset=IngredientWeightUnit.objects.none(),
+        label=gettext_lazy("Unit"),
+        empty_label="g",
+        required=False
+    )
 
     def __init__(self, *args, **kwargs):
         super(UnitChooserForm, self).__init__(*args, **kwargs)
@@ -76,7 +76,8 @@ class UnitChooserForm(forms.Form):
             ingredient_id = -1
 
         self.fields['unit'].queryset = IngredientWeightUnit.objects.filter(
-            ingredient_id=ingredient_id).select_related()
+            ingredient_id=ingredient_id
+        ).select_related()
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -90,11 +91,15 @@ class UnitChooserForm(forms.Form):
 
 
 class BmiForm(forms.ModelForm):
-    height = forms.DecimalField(widget=Html5NumberInput(),
-                                max_value=999,
-                                label=_('Height (cm)'))
-    weight = forms.DecimalField(widget=Html5NumberInput(),
-                                max_value=999)
+    height = forms.DecimalField(
+        widget=Html5NumberInput(),
+        max_value=999,
+        label=_('Height (cm)'),
+    )
+    weight = forms.DecimalField(
+        widget=Html5NumberInput(),
+        max_value=999,
+    )
 
     class Meta:
         model = UserProfile
@@ -112,8 +117,7 @@ class BmiForm(forms.ModelForm):
                 Column('height', css_class='form-group col-6 mb-0'),
                 Column('weight', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
-            ),
-            ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
+            ), ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
         )
 
 
@@ -134,7 +138,7 @@ class BmrForm(forms.ModelForm):
             "age",
             "height",
             "gender",
-            "weight"
+            "weight",
         )
         self.helper.form_tag = False
 
@@ -143,15 +147,18 @@ class PhysicalActivitiesForm(forms.ModelForm):
     """
     Form for the additional physical activities
     """
+
     class Meta:
         model = UserProfile
-        fields = ('sleep_hours',
-                  'work_hours',
-                  'work_intensity',
-                  'sport_hours',
-                  'sport_intensity',
-                  'freetime_hours',
-                  'freetime_intensity')
+        fields = (
+            'sleep_hours',
+            'work_hours',
+            'work_intensity',
+            'sport_hours',
+            'sport_intensity',
+            'freetime_hours',
+            'freetime_intensity',
+        )
 
     def __init__(self, *args, **kwargs):
         super(PhysicalActivitiesForm, self).__init__(*args, **kwargs)
@@ -182,22 +189,28 @@ class DailyCaloriesForm(forms.ModelForm):
     Form for the total daily calories needed
     """
 
-    base_calories = forms.IntegerField(label=_('Basic caloric intake'),
-                                       help_text=_('Your basic caloric intake as calculated for '
-                                                   'your data'),
-                                       required=False,
-                                       widget=Html5NumberInput())
-    additional_calories = forms.IntegerField(label=_('Additional calories'),
-                                             help_text=_('Additional calories to add to the base '
-                                                         'rate (to substract, enter a negative '
-                                                         'number)'),
-                                             initial=0,
-                                             required=False,
-                                             widget=Html5NumberInput())
+    base_calories = forms.IntegerField(
+        label=_('Basic caloric intake'),
+        help_text=_('Your basic caloric intake as calculated for '
+                    'your data'),
+        required=False,
+        widget=Html5NumberInput()
+    )
+    additional_calories = forms.IntegerField(
+        label=_('Additional calories'),
+        help_text=_(
+            'Additional calories to add to the base '
+            'rate (to substract, enter a negative '
+            'number)'
+        ),
+        initial=0,
+        required=False,
+        widget=Html5NumberInput()
+    )
 
     class Meta:
         model = UserProfile
-        fields = ('calories',)
+        fields = ('calories', )
 
     def __init__(self, *args, **kwargs):
         super(DailyCaloriesForm, self).__init__(*args, **kwargs)
@@ -207,20 +220,18 @@ class DailyCaloriesForm(forms.ModelForm):
 
 
 class MealItemForm(forms.ModelForm):
-    weight_unit = forms.ModelChoiceField(queryset=IngredientWeightUnit.objects.none(),
-                                         empty_label="g",
-                                         required=False)
-    ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(),
-                                        widget=forms.HiddenInput)
+    weight_unit = forms.ModelChoiceField(
+        queryset=IngredientWeightUnit.objects.none(),
+        empty_label="g",
+        required=False,
+    )
+    ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(), widget=forms.HiddenInput)
 
-    ingredient_searchfield = forms.CharField(required=False,
-                                             label=gettext_lazy("Ingredient"))
+    ingredient_searchfield = forms.CharField(required=False, label=gettext_lazy("Ingredient"))
 
     class Meta:
         model = MealItem
-        fields = ['ingredient',
-                  'weight_unit',
-                  'amount']
+        fields = ['ingredient', 'weight_unit', 'amount']
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
@@ -241,9 +252,7 @@ class MealItemForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'ingredient',
-            'ingredient_searchfield',
-            HTML('<div id="ingredient_name"></div>'),
+            'ingredient', 'ingredient_searchfield', HTML('<div id="ingredient_name"></div>'),
             Row(
                 Column('amount', css_class='form-group col-6 mb-0'),
                 Column('weight_unit', css_class='form-group col-6 mb-0'),
@@ -256,26 +265,31 @@ class MealLogItemForm(MealItemForm):
 
     class Meta:
         model = LogItem
-        fields = ['ingredient',
-                  'weight_unit',
-                  'amount']
+        fields = [
+            'ingredient',
+            'weight_unit',
+            'amount',
+        ]
 
 
 class IngredientForm(forms.ModelForm):
+
     class Meta:
         model = Ingredient
-        fields = ['name',
-                  'brand',
-                  'energy',
-                  'protein',
-                  'carbohydrates',
-                  'carbohydrates_sugar',
-                  'fat',
-                  'fat_saturated',
-                  'fibres',
-                  'sodium',
-                  'license',
-                  'license_author']
+        fields = [
+            'name',
+            'brand',
+            'energy',
+            'protein',
+            'carbohydrates',
+            'carbohydrates_sugar',
+            'fat',
+            'fat_saturated',
+            'fibres',
+            'sodium',
+            'license',
+            'license_author',
+        ]
         widgets = {'category': forms.TextInput}
 
     def __init__(self, *args, **kwargs):

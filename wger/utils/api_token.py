@@ -18,7 +18,6 @@ import logging
 # Third Party
 from rest_framework.authtoken.models import Token
 
-
 logger = logging.getLogger(__name__)
 
 

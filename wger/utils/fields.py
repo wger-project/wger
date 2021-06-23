@@ -21,9 +21,8 @@ from django.db import models
 # wger
 from wger.utils.widgets import (
     Html5FormDateField,
-    Html5FormTimeField
+    Html5FormTimeField,
 )
-
 
 logger = logging.getLogger(__name__)
 

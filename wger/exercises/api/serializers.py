@@ -25,7 +25,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
-    Muscle
+    Muscle,
 )
 
 
@@ -33,73 +33,88 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
     Exercise serializer
     """
+
     class Meta:
         model = ExerciseBase
-        fields = ['id',
-                  'uuid',
-                  'category',
-                  'muscles',
-                  'muscles_secondary',
-                  'equipment',
-                  'creation_date']
+        fields = [
+            'id',
+            'uuid',
+            'category',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'creation_date',
+        ]
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
     """
     Equipment serializer
     """
+
     class Meta:
         model = Equipment
-        fields = ['id',
-                  'name']
+        fields = [
+            'id',
+            'name',
+        ]
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
+
     class Meta:
         model = ExerciseImage
-        fields = ['id',
-                  'uuid',
-                  'exercise_base',
-                  'image',
-                  'is_main',
-                  'status']
+        fields = [
+            'id',
+            'uuid',
+            'exercise_base',
+            'image',
+            'is_main',
+            'status',
+        ]
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
     """
     ExerciseComment serializer
     """
+
     class Meta:
         model = ExerciseComment
-        fields = ['id',
-                  'exercise',
-                  'comment']
+        fields = [
+            'id',
+            'exercise',
+            'comment',
+        ]
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     ExerciseCategory serializer
     """
+
     class Meta:
         model = ExerciseCategory
-        fields = ['id',
-                  'name']
+        fields = ['id', 'name']
 
 
 class MuscleSerializer(serializers.ModelSerializer):
     """
     Muscle serializer
     """
+
     class Meta:
         model = Muscle
-        fields = ['id',
-                  'name',
-                  'is_front',
-                  'image_url_main',
-                  'image_url_secondary']
+        fields = [
+            'id',
+            'name',
+            'is_front',
+            'image_url_main',
+            'image_url_secondary',
+        ]
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -117,21 +132,23 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = ("id",
-                  "uuid",
-                  "name",
-                  "exercise_base",
-                  "status",
-                  "description",
-                  "creation_date",
-                  "category",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
-                  "language",
-                  "license",
-                  "license_author",
-                  "variations")
+        fields = (
+            "id",
+            "uuid",
+            "name",
+            "exercise_base",
+            "status",
+            "description",
+            "creation_date",
+            "category",
+            "muscles",
+            "muscles_secondary",
+            "equipment",
+            "language",
+            "license",
+            "license_author",
+            "variations",
+        )
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):
@@ -150,18 +167,20 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         depth = 1
-        fields = ["id",
-                  "name",
-                  "uuid",
-                  "description",
-                  "creation_date",
-                  "category",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
-                  "language",
-                  "license",
-                  "license_author",
-                  "images",
-                  "comments",
-                  "variations"]
+        fields = [
+            "id",
+            "name",
+            "uuid",
+            "description",
+            "creation_date",
+            "category",
+            "muscles",
+            "muscles_secondary",
+            "equipment",
+            "language",
+            "license",
+            "license_author",
+            "images",
+            "comments",
+            "variations",
+        ]

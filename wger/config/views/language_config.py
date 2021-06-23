@@ -20,7 +20,7 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy
@@ -30,14 +30,15 @@ from django.views.generic import UpdateView
 from wger.config.models import LanguageConfig
 from wger.utils.generic_views import WgerFormMixin
 
-
 logger = logging.getLogger(__name__)
 
 
-class LanguageConfigUpdateView(WgerFormMixin,
-                               LoginRequiredMixin,
-                               PermissionRequiredMixin,
-                               UpdateView):
+class LanguageConfigUpdateView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to edit a language config
     """

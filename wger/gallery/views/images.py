@@ -23,13 +23,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
-from django.utils.translation import gettext_lazy as _, gettext_lazy
+from django.utils.translation import (
+    gettext_lazy,
+    gettext_lazy as _,
+)
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
@@ -37,7 +40,7 @@ from wger.gallery.forms import ImageForm
 from wger.gallery.models.image import Image
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 
 
@@ -68,8 +71,7 @@ class ImageAddView(WgerFormMixin, CreateView):
         Read the comment on weight/models.py WeightEntry about why we need
         to pass the user here.
         """
-        return {'user': self.request.user,
-                'date': datetime.today()}
+        return {'user': self.request.user, 'date': datetime.today()}
 
     def form_valid(self, form):
         """

@@ -19,7 +19,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import (
     MaxValueValidator,
-    MinValueValidator
+    MinValueValidator,
 )
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -30,13 +30,17 @@ class WeightEntry(models.Model):
     Model for a weight point
     """
     date = models.DateField(verbose_name=_('Date'))
-    weight = models.DecimalField(verbose_name=_('Weight'),
-                                 max_digits=5,
-                                 decimal_places=2,
-                                 validators=[MinValueValidator(30), MaxValueValidator(600)])
-    user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             on_delete=models.CASCADE)
+    weight = models.DecimalField(
+        verbose_name=_('Weight'),
+        max_digits=5,
+        decimal_places=2,
+        validators=[MinValueValidator(30), MaxValueValidator(600)]
+    )
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+    )
     """
     The user the weight entry belongs to.
 
@@ -52,7 +56,9 @@ class WeightEntry(models.Model):
         Metaclass to set some other properties
         """
         verbose_name = _('Weight entry')
-        ordering = ["date", ]
+        ordering = [
+            "date",
+        ]
         get_latest_by = "date"
         unique_together = ("date", "user")
 

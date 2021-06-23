@@ -21,7 +21,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 
 # wger
@@ -30,16 +30,14 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.manager.models import (
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 from wger.utils.cache import cache_mapper
-
-
 """
 Tests for workout sessions
 """
@@ -51,10 +49,15 @@ class AddWorkoutSessionTestCase(WgerAddTestCase):
     """
 
     object_class = WorkoutSession
-    url = reverse_lazy('manager:session:add', kwargs={'workout_pk': 1,
-                                                      'year': datetime.date.today().year,
-                                                      'month': datetime.date.today().month,
-                                                      'day': datetime.date.today().day})
+    url = reverse_lazy(
+        'manager:session:add',
+        kwargs={
+            'workout_pk': 1,
+            'year': datetime.date.today().year,
+            'month': datetime.date.today().month,
+            'day': datetime.date.today().day
+        }
+    )
     data = {
         'user': 1,
         'workout': 1,
@@ -98,8 +101,10 @@ class WorkoutSessionModelTestCase(WgerTestCase):
         session = WorkoutSession()
         session.workout = Workout.objects.get(pk=1)
         session.date = datetime.date.today()
-        self.assertEqual('{0}'.format(session),
-                         '{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today()))
+        self.assertEqual(
+            '{0}'.format(session),
+            '{0} - {1}'.format(Workout.objects.get(pk=1), datetime.date.today())
+        )
 
 
 class DeleteTestWorkoutTestCase(WgerDeleteTestCase):
@@ -121,15 +126,23 @@ class WorkoutSessionDeleteLogsTestCase(WgerTestCase):
         self.user_login('admin')
 
         session = WorkoutSession.objects.get(pk=1)
-        count_before = WorkoutLog.objects.filter(user__username=session.user.username,
-                                                 date=session.date).count()
+        count_before = WorkoutLog.objects.filter(
+            user__username=session.user.username,
+            date=session.date,
+        ).count()
         self.assertEqual(count_before, 1)
 
-        response = self.client.post(reverse('manager:session:delete',
-                                            kwargs={'pk': 1, 'logs': 'logs'}))
+        response = self.client.post(
+            reverse('manager:session:delete', kwargs={
+                'pk': 1,
+                'logs': 'logs'
+            })
+        )
         self.assertEqual(response.status_code, 302)
-        count_after = WorkoutLog.objects.filter(user__username=session.user.username,
-                                                date=session.date).count()
+        count_after = WorkoutLog.objects.filter(
+            user__username=session.user.username,
+            date=session.date,
+        ).count()
         self.assertEqual(count_after, 0)
 
 
@@ -244,9 +257,11 @@ class WorkoutSessionApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = WorkoutSession
     private_resource = True
-    data = {'workout': 3,
-            'date': datetime.date(2014, 1, 25),
-            'notes': 'My new insights',
-            'impression': '3',
-            'time_start': datetime.time(10, 0),
-            'time_end': datetime.time(13, 0)}
+    data = {
+        'workout': 3,
+        'date': datetime.date(2014, 1, 25),
+        'notes': 'My new insights',
+        'impression': '3',
+        'time_start': datetime.time(10, 0),
+        'time_end': datetime.time(13, 0)
+    }

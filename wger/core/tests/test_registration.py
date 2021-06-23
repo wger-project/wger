@@ -22,10 +22,9 @@ from django.urls import reverse
 # wger
 from wger.core.forms import (
     RegistrationForm,
-    RegistrationFormNoCaptcha
+    RegistrationFormNoCaptcha,
 )
 from wger.core.tests.base_testcase import WgerTestCase
-
 
 logger = logging.getLogger(__name__)
 
@@ -40,19 +39,27 @@ class RegistrationTestCase(WgerTestCase):
         Tests that the correct form is used depending on global
         configuration settings
         """
-        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': True,
-                                          'REMOVE_WHITESPACE': False,
-                                          'ALLOW_REGISTRATION': True,
-                                          'ALLOW_GUEST_USERS': True,
-                                          'TWITTER': False}):
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': True,
+                'REMOVE_WHITESPACE': False,
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'TWITTER': False,
+            }
+        ):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIsInstance(response.context['form'], RegistrationForm)
 
-        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False,
-                                          'REMOVE_WHITESPACE': False,
-                                          'ALLOW_REGISTRATION': True,
-                                          'ALLOW_GUEST_USERS': True,
-                                          'TWITTER': False}):
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': False,
+                'REMOVE_WHITESPACE': False,
+                'ALLOW_REGISTRATION': True,
+                'ALLOW_GUEST_USERS': True,
+                'TWITTER': False,
+            }
+        ):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIsInstance(response.context['form'], RegistrationFormNoCaptcha)
 
@@ -63,11 +70,13 @@ class RegistrationTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
 
         # Fill in the registration form
-        registration_data = {'username': 'myusername',
-                             'password1': 'quai8fai7Zae',
-                             'password2': 'quai8fai7Zae',
-                             'email': 'not an email',
-                             'g-recaptcha-response': 'PASSED', }
+        registration_data = {
+            'username': 'myusername',
+            'password1': 'quai8fai7Zae',
+            'password2': 'quai8fai7Zae',
+            'email': 'not an email',
+            'g-recaptcha-response': 'PASSED',
+        }
         count_before = User.objects.count()
 
         # Wrong email
@@ -103,21 +112,27 @@ class RegistrationTestCase(WgerTestCase):
         Test that with deactivated registration no users can register
         """
 
-        with self.settings(WGER_SETTINGS={'USE_RECAPTCHA': False,
-                                          'REMOVE_WHITESPACE': False,
-                                          'ALLOW_GUEST_USERS': True,
-                                          'ALLOW_REGISTRATION': False}):
+        with self.settings(
+            WGER_SETTINGS={
+                'USE_RECAPTCHA': False,
+                'REMOVE_WHITESPACE': False,
+                'ALLOW_GUEST_USERS': True,
+                'ALLOW_REGISTRATION': False,
+            }
+        ):
 
             # Fetch the registration page
             response = self.client.get(reverse('core:user:registration'))
             self.assertEqual(response.status_code, 302)
 
             # Fill in the registration form
-            registration_data = {'username': 'myusername',
-                                 'password1': 'Xee4fuev1ohj',
-                                 'password2': 'Xee4fuev1ohj',
-                                 'email': 'my.email@example.com',
-                                 'g-recaptcha-response': 'PASSED', }
+            registration_data = {
+                'username': 'myusername',
+                'password1': 'Xee4fuev1ohj',
+                'password2': 'Xee4fuev1ohj',
+                'email': 'my.email@example.com',
+                'g-recaptcha-response': 'PASSED',
+            }
             count_before = User.objects.count()
 
             response = self.client.post(reverse('core:user:registration'), registration_data)

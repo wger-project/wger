@@ -21,13 +21,13 @@ import os
 from django.conf import settings
 from django.core.exceptions import (
     ImproperlyConfigured,
-    ValidationError
+    ValidationError,
 )
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import (
     BaseCommand,
-    CommandError
+    CommandError,
 )
 from django.core.validators import URLValidator
 
@@ -39,9 +39,8 @@ from requests.utils import default_user_agent
 from wger import get_version
 from wger.exercises.models import (
     ExerciseBase,
-    ExerciseImage
+    ExerciseImage,
 )
-
 
 IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
 
@@ -54,20 +53,24 @@ class Command(BaseCommand):
     be modified via the GUI.
     """
 
-    help = ('Download exercise images from wger.de and update the local database\n'
-            '\n'
-            'ATTENTION: The script will download the images from the server and add them\n'
-            '           to your local exercises. The exercises are identified by\n'
-            '           their UUID field, if you manually edited or changed it\n'
-            '           the script will not be able to match them.')
+    help = (
+        'Download exercise images from wger.de and update the local database\n'
+        '\n'
+        'ATTENTION: The script will download the images from the server and add them\n'
+        '           to your local exercises. The exercises are identified by\n'
+        '           their UUID field, if you manually edited or changed it\n'
+        '           the script will not be able to match them.'
+    )
 
     def add_arguments(self, parser):
-        parser.add_argument('--remote-url',
-                            action='store',
-                            dest='remote_url',
-                            default='https://wger.de',
-                            help='Remote URL to fetch the exercises from (default: '
-                                 'https://wger.de)')
+        parser.add_argument(
+            '--remote-url',
+            action='store',
+            dest='remote_url',
+            default='https://wger.de',
+            help='Remote URL to fetch the exercises from (default: '
+            'https://wger.de)'
+        )
 
     def handle(self, **options):
 

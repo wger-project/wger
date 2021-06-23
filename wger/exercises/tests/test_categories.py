@@ -24,7 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import ExerciseCategory
 
@@ -48,17 +48,19 @@ class CategoryOverviewTestCase(WgerAccessTestCase):
     url = 'exercise:category:list'
     anonymous_fail = True
     user_success = 'admin'
-    user_fail = ('manager1',
-                 'manager2'
-                 'general_manager1',
-                 'manager3',
-                 'manager4',
-                 'test',
-                 'member1',
-                 'member2',
-                 'member3',
-                 'member4',
-                 'member5')
+    user_fail = (
+        'manager1',
+        'manager2'
+        'general_manager1',
+        'manager3',
+        'manager4',
+        'test',
+        'member1',
+        'member2',
+        'member3',
+        'member4',
+        'member5',
+    )
 
 
 class DeleteExerciseCategoryTestCase(WgerDeleteTestCase):

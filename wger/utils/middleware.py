@@ -11,7 +11,6 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
 """
 Custom middleware
 """
@@ -29,11 +28,9 @@ from django.utils.functional import SimpleLazyObject
 # wger
 from wger.core.demo import create_temporary_user
 
-
 logger = logging.getLogger(__name__)
 
-
-SPECIAL_PATHS = ('dashboard',)
+SPECIAL_PATHS = ('dashboard', )
 
 
 def check_current_request(request):
@@ -84,6 +81,7 @@ class WgerAuthenticationMiddleware(MiddlewareMixin):
     a new user with a temporary flag if the user hits certain URLs that need
     a logged in user
     """
+
     def process_request(self, request):
         assert hasattr(request, 'session'), "The Django authentication middleware requires "
         "session middleware to be installed. Edit your MIDDLEWARE_CLASSES setting to insert"
@@ -97,6 +95,7 @@ class RobotsExclusionMiddleware(MiddlewareMixin):
     Simple middleware that sends the "X-Robots-Tag" tag for the URLs used in
     our WgerAuthenticationMiddleware so that those pages are not indexed.
     """
+
     def process_response(self, request, response):
         # Don't set it if it's already in the response
         if check_current_request(request) and response.get('X-Robots-Tag', None) is None:

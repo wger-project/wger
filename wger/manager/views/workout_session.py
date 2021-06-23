@@ -22,20 +22,20 @@ import logging
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import (
     HttpResponseBadRequest,
-    HttpResponseForbidden
+    HttpResponseForbidden,
 )
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
@@ -43,16 +43,14 @@ from wger.manager.forms import WorkoutSessionForm
 from wger.manager.models import (
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 
-
 logger = logging.getLogger(__name__)
-
 """
 Workout session
 """
@@ -88,9 +86,11 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
         could be created
         """
         try:
-            date = datetime.date(int(self.kwargs['year']),
-                                 int(self.kwargs['month']),
-                                 int(self.kwargs['day']))
+            date = datetime.date(
+                int(self.kwargs['year']),
+                int(self.kwargs['month']),
+                int(self.kwargs['day']),
+            )
         except ValueError:
             date = None
 

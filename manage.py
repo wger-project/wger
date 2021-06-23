@@ -9,7 +9,7 @@ from django.core.management import execute_from_command_line
 # wger
 from wger.tasks import (
     get_path,
-    setup_django_environment
+    setup_django_environment,
 )
 
 

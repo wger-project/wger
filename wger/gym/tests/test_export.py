@@ -44,8 +44,9 @@ class GymMembersCsvExportTestCase(WgerTestCase):
             today = datetime.date.today()
             filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.\
                 format(t=today, gym=gym.id)
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename={0}'.format(filename))
+            self.assertEqual(
+                response['Content-Disposition'], 'attachment; filename={0}'.format(filename)
+            )
             self.assertGreaterEqual(len(response.content), 1000)
             self.assertLessEqual(len(response.content), 1300)
 
@@ -63,14 +64,16 @@ class GymMembersCsvExportTestCase(WgerTestCase):
         Test the CSV export by unauthorized users
         """
 
-        for username in ('manager3',
-                         'manager4',
-                         'test',
-                         'member1',
-                         'member2',
-                         'member3',
-                         'member4',
-                         'member5'):
+        for username in (
+            'manager3',
+            'manager4',
+            'test',
+            'member1',
+            'member2',
+            'member3',
+            'member4',
+            'member5',
+        ):
             self.user_login(username)
             self.export_csv(fail=True)
 

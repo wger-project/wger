@@ -1,4 +1,3 @@
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -19,7 +18,6 @@ from django.contrib import admin
 # wger
 from wger.core.models import UserProfile
 from wger.manager import models as manager_models
-
 
 admin.site.register(manager_models.Workout)
 admin.site.register(manager_models.Set)

@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
@@ -25,7 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import Muscle
 
@@ -42,10 +41,11 @@ class MuscleRepresentationTestCase(WgerTestCase):
         self.assertEqual("{0}".format(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
         # Check image URL properties
-        self.assertIn("images/muscles/main/muscle-2.svg",
-                      Muscle.objects.get(pk=2).image_url_main)
-        self.assertIn("images/muscles/secondary/muscle-1.svg",
-                      Muscle.objects.get(pk=1).image_url_secondary)
+        self.assertIn("images/muscles/main/muscle-2.svg", Muscle.objects.get(pk=2).image_url_main)
+        self.assertIn(
+            "images/muscles/secondary/muscle-1.svg",
+            Muscle.objects.get(pk=1).image_url_secondary
+        )
 
 
 class MuscleAdminOverviewTest(WgerAccessTestCase):
@@ -55,17 +55,19 @@ class MuscleAdminOverviewTest(WgerAccessTestCase):
     url = 'exercise:muscle:admin-list'
     anonymous_fail = True
     user_success = 'admin'
-    user_fail = ('manager1',
-                 'manager2'
-                 'general_manager1',
-                 'manager3',
-                 'manager4',
-                 'test',
-                 'member1',
-                 'member2',
-                 'member3',
-                 'member4',
-                 'member5')
+    user_fail = (
+        'manager1',
+        'manager2'
+        'general_manager1',
+        'manager3',
+        'manager4',
+        'test',
+        'member1',
+        'member2',
+        'member3',
+        'member4',
+        'member5',
+    )
 
 
 class MusclesShareButtonTestCase(WgerTestCase):
@@ -95,8 +97,7 @@ class AddMuscleTestCase(WgerAddTestCase):
 
     object_class = Muscle
     url = 'exercise:muscle:add'
-    data = {'name': 'A new muscle',
-            'is_front': True}
+    data = {'name': 'A new muscle', 'is_front': True}
 
 
 class EditMuscleTestCase(WgerEditTestCase):
@@ -107,8 +108,7 @@ class EditMuscleTestCase(WgerEditTestCase):
     object_class = Muscle
     url = 'exercise:muscle:edit'
     pk = 1
-    data = {'name': 'The new name',
-            'is_front': True}
+    data = {'name': 'The new name', 'is_front': True}
 
 
 class DeleteMuscleTestCase(WgerDeleteTestCase):
@@ -152,8 +152,7 @@ class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Muscle
     private_resource = False
-    data = {'name': 'The name',
-            'is_front': True}
+    data = {'name': 'The name', 'is_front': True}
 
     def test_get_detail(self):
         super().test_get_detail()
@@ -161,7 +160,7 @@ class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
         # Check that image URLs are present in response
         response = self.client.get(self.url_detail)
         response_object = response.json()
-        self.assertIn("images/muscles/main/muscle-1.svg",
-                      response_object["image_url_main"])
-        self.assertIn("images/muscles/secondary/muscle-1.svg",
-                      response_object["image_url_secondary"])
+        self.assertIn("images/muscles/main/muscle-1.svg", response_object["image_url_main"])
+        self.assertIn(
+            "images/muscles/secondary/muscle-1.svg", response_object["image_url_secondary"]
+        )
