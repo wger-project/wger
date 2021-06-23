@@ -21,10 +21,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.urls import (
-    reverse,
-    reverse_lazy,
-)
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
@@ -59,7 +56,7 @@ class ImageAddView(WgerFormMixin, CreateView):
     """
     model = Image
     form_class = ImageForm
-    title = gettext_lazy('Add')
+    title = _('Add')
 
     def get_initial(self):
         """
@@ -111,7 +108,7 @@ class ImageDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
 
     model = Image
     fields = ['image', 'date', 'description']
-    success_url = reverse_lazy('gallery:images:overview')
+    success_url = _('gallery:images:overview')
 
     def get_context_data(self, **kwargs):
         """
