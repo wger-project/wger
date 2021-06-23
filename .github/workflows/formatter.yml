@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Get dependencies
-        run: pip install yapf
+        run: pip install yapf isort
 
       - name: Format the code with yapf
         run: yapf --recursive --in-place wger
