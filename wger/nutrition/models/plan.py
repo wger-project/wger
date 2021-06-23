@@ -33,6 +33,7 @@ from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 

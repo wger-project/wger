@@ -29,6 +29,7 @@ from wger.gym.models import (
     GymUserConfig,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -19,7 +19,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 
-
 class ScheduleManager(models.Manager):
     """
     Custom manager for workout schedules

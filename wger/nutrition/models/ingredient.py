@@ -51,6 +51,7 @@ from wger.utils.models import (
 from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
 
+
 logger = logging.getLogger(__name__)
 
 
