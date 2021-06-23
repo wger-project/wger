@@ -194,7 +194,7 @@ def create_or_reset_admin(context, settings_path=None):
 
     # can't be imported in global scope as it already requires
     # the settings module during import
-    # wger
+    # Django
     from django.contrib.auth.models import User
     try:
         User.objects.get(username="admin")
@@ -349,11 +349,9 @@ def database_exists():
     # can't be imported in global scope as they already require
     # the settings module during import
     # Django
+    from django.contrib.auth.models import User
     from django.core.exceptions import ImproperlyConfigured
     from django.db import DatabaseError
-
-    # wger
-    from django.contrib.auth.models import User
 
     try:
         # TODO: Use another model, the User could be deactivated
