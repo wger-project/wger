@@ -1,0 +1,36 @@
+name: Automatic formatting
+
+on:
+  push:
+    branches:
+      - "master"
+
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get dependencies
+        run: pip install yapf
+
+      - name: Format the code with yapf
+        run: yapf --recursive --in-place wger
+
+      - name: Sort the imports with isort
+        run: isort .
+
+      - name: Push a commit with the changed files
+
+        # Needed if no files were changed
+        continue-on-error: true
+
+        run: |
+          git config user.name Github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Automatic linting"
+          git push
