@@ -16,20 +16,16 @@ MANAGERS = ADMINS
 # The email address that error messages (and only error messages, such as
 # internal server errors) come from, such as those sent to ADMINS and MANAGERS.
 
-DATABASES = {
-    {
-        'default': {
-            {
-                'ENGINE': 'django.db.backends.{dbengine}',
-                'NAME': '{dbname}',
-                'USER': '{dbuser}',
-                'PASSWORD': '{dbpassword}',
-                'HOST': '{dbhost}',
-                'PORT': '{dbport}',
-            }
-        }
-    }
-}
+DATABASES = {{
+    'default': {{
+        'ENGINE': 'django.db.backends.{dbengine}',
+        'NAME': '{dbname}',
+        'USER': '{dbuser}',
+        'PASSWORD': '{dbpassword}',
+        'HOST': '{dbhost}',
+        'PORT': '{dbport}',
+    }}
+}}  # yapf: disable
 
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = 'Europe/Berlin'
