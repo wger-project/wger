@@ -21,7 +21,10 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy,
+)
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     CreateView,
