@@ -31,6 +31,7 @@ from django.utils.translation import gettext as _
 # wger
 from wger.gym.models import Gym
 
+
 logger = logging.getLogger(__name__)
 
 

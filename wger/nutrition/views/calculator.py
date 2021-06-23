@@ -31,6 +31,7 @@ from wger.nutrition.forms import (
     PhysicalActivitiesForm,
 )
 
+
 logger = logging.getLogger(__name__)
 """
 Protein calculator views

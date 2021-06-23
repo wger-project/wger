@@ -20,6 +20,8 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import License
+
+
 """
 Abstract model classes
 """

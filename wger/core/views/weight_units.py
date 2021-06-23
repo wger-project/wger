@@ -42,6 +42,7 @@ from wger.utils.generic_views import (
     WgerFormMixin,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

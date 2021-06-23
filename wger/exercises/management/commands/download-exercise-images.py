@@ -42,6 +42,7 @@ from wger.exercises.models import (
     ExerciseImage,
 )
 
+
 IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
 
 

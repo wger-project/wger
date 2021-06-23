@@ -24,6 +24,7 @@ from django.urls import path
 from wger.weight import views
 from wger.weight.forms import WeightCsvImportForm
 
+
 urlpatterns = [
     path(
         'add/',

@@ -26,6 +26,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 

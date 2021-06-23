@@ -58,6 +58,7 @@ from wger.utils.permissions import (
     WgerPermission,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

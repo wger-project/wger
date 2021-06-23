@@ -50,6 +50,7 @@ from wger.utils.models import (
     AbstractSubmissionModel,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

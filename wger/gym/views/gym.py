@@ -80,6 +80,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import password_generator
 
+
 logger = logging.getLogger(__name__)
 
 

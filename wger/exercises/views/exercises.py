@@ -91,6 +91,7 @@ from wger.utils.language import (
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
 
+
 logger = logging.getLogger(__name__)
 
 

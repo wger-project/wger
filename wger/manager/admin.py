@@ -19,6 +19,7 @@ from django.contrib import admin
 from wger.core.models import UserProfile
 from wger.manager import models as manager_models
 
+
 admin.site.register(manager_models.Workout)
 admin.site.register(manager_models.Set)
 admin.site.register(manager_models.Day)

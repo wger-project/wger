@@ -33,6 +33,7 @@ from django.utils.translation import activate
 # wger
 from wger.utils.constants import TWOPLACES
 
+
 STATUS_CODES_FAIL = (302, 403, 404)
 
 

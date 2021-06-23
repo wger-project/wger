@@ -47,6 +47,7 @@ from wger.nutrition.models import (
 from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -19,6 +19,7 @@ from decimal import Decimal
 # wger
 from wger.utils.constants import FOURPLACES
 
+
 logger = logging.getLogger(__name__)
 """
 Weight unit classes

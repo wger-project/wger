@@ -55,6 +55,7 @@ from wger.nutrition.models import NutritionPlan
 from wger.weight.helpers import get_last_entries
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 

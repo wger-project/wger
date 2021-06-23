@@ -38,6 +38,7 @@ from wger.utils.cache import (
     delete_template_fragment_cache,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

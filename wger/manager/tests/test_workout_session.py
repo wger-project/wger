@@ -38,6 +38,8 @@ from wger.manager.models import (
     WorkoutSession,
 )
 from wger.utils.cache import cache_mapper
+
+
 """
 Tests for workout sessions
 """

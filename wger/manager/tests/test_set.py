@@ -39,6 +39,7 @@ from wger.manager.models import (
 )
 from wger.utils.cache import cache_mapper
 
+
 logger = logging.getLogger(__name__)
 
 

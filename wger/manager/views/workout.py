@@ -73,6 +73,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import make_token
 
+
 logger = logging.getLogger(__name__)
 
 

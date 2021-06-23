@@ -46,6 +46,7 @@ from wger.utils.constants import (
     HTML_TAG_WHITELIST,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

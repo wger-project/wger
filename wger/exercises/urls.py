@@ -33,6 +33,7 @@ from wger.exercises.views import (
     muscles,
 )
 
+
 # sub patterns for muscles
 patterns_muscle = [
     path(

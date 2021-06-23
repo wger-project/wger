@@ -33,6 +33,7 @@ from django.utils.crypto import get_random_string
 import requests
 from invoke import task
 
+
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 

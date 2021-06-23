@@ -33,6 +33,7 @@ from wger.nutrition.models import (
     NutritionPlan,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -28,6 +28,7 @@ from django.utils.functional import SimpleLazyObject
 # wger
 from wger.core.demo import create_temporary_user
 
+
 logger = logging.getLogger(__name__)
 
 SPECIAL_PATHS = ('dashboard', )

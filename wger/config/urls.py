@@ -25,6 +25,7 @@ from wger.config.views import (
     language_config,
 )
 
+
 # sub patterns for language configs
 patterns_language_config = [
     path('<int:pk>/edit', language_config.LanguageConfigUpdateView.as_view(), name='edit'),

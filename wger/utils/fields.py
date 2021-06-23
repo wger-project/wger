@@ -24,6 +24,7 @@ from wger.utils.widgets import (
     Html5FormTimeField,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -32,6 +32,7 @@ from wger.utils.constants import (
     PAGINATION_PAGES_AROUND_CURRENT,
 )
 
+
 register = template.Library()
 
 

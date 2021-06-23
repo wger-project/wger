@@ -35,6 +35,7 @@ from wger.utils.constants import DATE_FORMATS
 from wger.utils.widgets import Html5DateInput
 from wger.weight.models import WeightEntry
 
+
 CSV_DATE_FORMAT = (
     ('%d.%m.%Y', 'DD.MM.YYYY (30.01.2012)'),
     ('%d.%m.%y', 'DD.MM.YY (30.01.12)'),

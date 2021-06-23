@@ -31,6 +31,7 @@ from django.views.generic import UpdateView
 from wger.gym.models import GymUserConfig
 from wger.utils.generic_views import WgerFormMixin
 
+
 logger = logging.getLogger(__name__)
 
 

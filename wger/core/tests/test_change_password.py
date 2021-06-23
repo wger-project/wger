@@ -22,6 +22,7 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 
+
 logger = logging.getLogger(__name__)
 
 

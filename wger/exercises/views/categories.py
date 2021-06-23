@@ -42,6 +42,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.language import load_language
 
+
 logger = logging.getLogger(__name__)
 
 

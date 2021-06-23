@@ -26,6 +26,7 @@ from wger.utils.helpers import (
     next_weekday,
 )
 
+
 # TODO: parse the generated calendar files with the icalendar library
 
 

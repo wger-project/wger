@@ -58,6 +58,7 @@ from wger.utils.language import (
 )
 from wger.utils.permissions import CreateOnlyPermission
 
+
 logger = logging.getLogger(__name__)
 
 

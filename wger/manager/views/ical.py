@@ -44,6 +44,7 @@ from wger.utils.helpers import (
     next_weekday,
 )
 
+
 logger = logging.getLogger(__name__)
 """
 Exports workouts and schedules as an iCal file that can be imported to a

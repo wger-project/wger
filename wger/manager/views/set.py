@@ -47,6 +47,7 @@ from wger.manager.models import (
     Setting,
 )
 
+
 logger = logging.getLogger(__name__)
 
 # ************************

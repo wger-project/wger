@@ -47,6 +47,7 @@ from wger.utils.generic_views import (
     WgerPermissionMixin,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

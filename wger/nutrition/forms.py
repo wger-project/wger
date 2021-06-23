@@ -46,6 +46,7 @@ from wger.nutrition.models import (
 )
 from wger.utils.widgets import Html5NumberInput
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -30,6 +30,7 @@ from rest_framework.permissions import IsAuthenticated
 from wger.gallery.api.serializers import ImageSerializer
 from wger.gallery.models import Image
 
+
 logger = logging.getLogger(__name__)
 
 

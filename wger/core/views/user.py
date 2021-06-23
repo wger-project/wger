@@ -103,6 +103,7 @@ from wger.utils.generic_views import (
 )
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -18,4 +18,5 @@
 # wger
 from wger import get_version
 
+
 VERSION = get_version()

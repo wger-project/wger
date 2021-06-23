@@ -35,6 +35,7 @@ from django.utils.http import (
     urlsafe_base64_encode,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

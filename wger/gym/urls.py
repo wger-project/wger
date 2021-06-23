@@ -32,6 +32,7 @@ from wger.gym.views import (
     user_config,
 )
 
+
 # 'sub patterns' for gyms
 patterns_gym = [
     path(

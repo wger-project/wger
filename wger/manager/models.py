@@ -50,6 +50,7 @@ from wger.utils.cache import (
 from wger.utils.fields import Html5DateField
 from wger.utils.helpers import normalize_decimal
 
+
 logger = logging.getLogger(__name__)
 
 RIR_OPTIONS = [

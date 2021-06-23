@@ -55,6 +55,7 @@ from wger.utils.models import (
 from wger.utils.units import AbstractWeight
 from wger.weight.models import WeightEntry
 
+
 MEALITEM_WEIGHT_GRAM = '1'
 MEALITEM_WEIGHT_UNIT = '2'
 

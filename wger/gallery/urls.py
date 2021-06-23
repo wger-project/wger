@@ -21,6 +21,7 @@ from django.urls import path
 # wger
 from wger.gallery.views import images
 
+
 # 'sub patterns' for gyms
 patterns_images = [
     path(
