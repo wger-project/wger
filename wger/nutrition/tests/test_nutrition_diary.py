@@ -26,11 +26,11 @@ from wger.core.tests.base_testcase import (
     WgerAccessTestCase,
     WgerAddTestCase,
     WgerDeleteTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.nutrition.models import (
     LogItem,
-    NutritionPlan
+    NutritionPlan,
 )
 
 
@@ -43,15 +43,17 @@ class DiaryOverviewAccessTest(WgerAccessTestCase):
     """
     url = reverse('nutrition:log:overview', kwargs={'pk': 1})
     user_success = 'test'
-    user_fail = ('admin',
-                 'member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3',
-                 'general_manager1',
-                 'general_manager2')
+    user_fail = (
+        'admin',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+        'general_manager1',
+        'general_manager2',
+    )
 
 
 class DiaryOverview2AccessTest(WgerAccessTestCase):
@@ -61,58 +63,58 @@ class DiaryOverview2AccessTest(WgerAccessTestCase):
     url = reverse('nutrition:log:overview', kwargs={'pk': 2})
     user_fail = None
     anonymous_fail = False
-    user_success = ('admin',
-                    'test',
-                    'member1',
-                    'member2',
-                    'trainer2',
-                    'trainer3',
-                    'trainer4',
-                    'manager3',
-                    'general_manager1',
-                    'general_manager2')
+    user_success = (
+        'admin',
+        'test',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+        'general_manager1',
+        'general_manager2',
+    )
 
 
 class DiaryDetailAccessTest(WgerAccessTestCase):
     """
     Tests accessing a nutrition overview page
     """
-    url = reverse('nutrition:log:detail', kwargs={'pk': 1,
-                                                  'year': 2016,
-                                                  'month': 5,
-                                                  'day': 15})
+    url = reverse('nutrition:log:detail', kwargs={'pk': 1, 'year': 2016, 'month': 5, 'day': 15})
     user_success = 'test'
-    user_fail = ('admin',
-                 'member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3',
-                 'general_manager1',
-                 'general_manager2')
+    user_fail = (
+        'admin',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+        'general_manager1',
+        'general_manager2',
+    )
 
 
 class DiaryDetail2AccessTest(WgerAccessTestCase):
     """
     Tests accessing a nutrition overview page (read access activated)
     """
-    url = reverse('nutrition:log:detail', kwargs={'pk': 2,
-                                                  'year': 2016,
-                                                  'month': 5,
-                                                  'day': 15})
+    url = reverse('nutrition:log:detail', kwargs={'pk': 2, 'year': 2016, 'month': 5, 'day': 15})
     user_fail = None
     anonymous_fail = False
-    user_success = ('admin',
-                    'test',
-                    'member1',
-                    'member2',
-                    'trainer2',
-                    'trainer3',
-                    'trainer4',
-                    'manager3',
-                    'general_manager1',
-                    'general_manager2')
+    user_success = (
+        'admin',
+        'test',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+        'general_manager1',
+        'general_manager2',
+    )
 
 
 class NutritionDiaryTestCase(WgerTestCase):
@@ -124,26 +126,32 @@ class NutritionDiaryTestCase(WgerTestCase):
         plan = NutritionPlan.objects.get(pk=1)
 
         # No entries for date
-        self.assertEqual(plan.get_log_summary(datetime.date(2016, 1, 12)),
-                         {'energy': 0,
-                          'protein': 0,
-                          'carbohydrates': 0,
-                          'carbohydrates_sugar': 0,
-                          'fat': 0,
-                          'fat_saturated': 0,
-                          'fibres': 0,
-                          'sodium': 0})
+        self.assertEqual(
+            plan.get_log_summary(datetime.date(2016, 1, 12)), {
+                'energy': 0,
+                'protein': 0,
+                'carbohydrates': 0,
+                'carbohydrates_sugar': 0,
+                'fat': 0,
+                'fat_saturated': 0,
+                'fibres': 0,
+                'sodium': 0
+            }
+        )
 
         # Entries found
-        self.assertEqual(plan.get_log_summary(datetime.date(2016, 5, 15)),
-                         {'energy': Decimal('653.80'),
-                          'protein': Decimal('19.22'),
-                          'carbohydrates': Decimal('109.99'),
-                          'carbohydrates_sugar': Decimal('107.72'),
-                          'fat': Decimal('9.32'),
-                          'fat_saturated': Decimal('2.43'),
-                          'fibres': Decimal('0.00'),
-                          'sodium': Decimal('5.09')})
+        self.assertEqual(
+            plan.get_log_summary(datetime.date(2016, 5, 15)), {
+                'energy': Decimal('653.80'),
+                'protein': Decimal('19.22'),
+                'carbohydrates': Decimal('109.99'),
+                'carbohydrates_sugar': Decimal('107.72'),
+                'fat': Decimal('9.32'),
+                'fat_saturated': Decimal('2.43'),
+                'fibres': Decimal('0.00'),
+                'sodium': Decimal('5.09')
+            }
+        )
 
     def test_log_meal(self):
         """
@@ -189,8 +197,7 @@ class NutritionDiaryTestCase(WgerTestCase):
         LogItem.objects.all().delete()
         self.assertFalse(LogItem.objects.filter(plan=plan))
         self.user_login('test')
-        response = self.client.get(
-            reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
+        response = self.client.get(reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(LogItem.objects.filter(plan=plan).count(), 3)
 
@@ -201,8 +208,7 @@ class NutritionDiaryTestCase(WgerTestCase):
         plan = NutritionPlan.objects.get(pk=1)
         LogItem.objects.all().delete()
         self.assertFalse(LogItem.objects.filter(plan=plan))
-        response = self.client.get(
-            reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
+        response = self.client.get(reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
         self.assertEqual(response.status_code, 403)
         self.assertEqual(LogItem.objects.filter(plan=plan).count(), 0)
 
@@ -214,8 +220,7 @@ class NutritionDiaryTestCase(WgerTestCase):
         LogItem.objects.all().delete()
         self.assertFalse(LogItem.objects.filter(plan=plan))
         self.user_login('admin')
-        response = self.client.get(
-            reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
+        response = self.client.get(reverse('nutrition:log:log_plan', kwargs={"plan_pk": 1}))
 
         self.assertEqual(response.status_code, 403)
         self.assertEqual(LogItem.objects.filter(plan=plan).count(), 0)
@@ -230,9 +235,11 @@ class AddMealItemUnitTestCase(WgerAddTestCase):
     user_fail = 'admin'
     object_class = LogItem
     url = reverse('nutrition:log:add', kwargs={'plan_pk': 1})
-    data = {'amount': 1,
-            'ingredient': 1,
-            'weight_unit': 1}
+    data = {
+        'amount': 1,
+        'ingredient': 1,
+        'weight_unit': 1,
+    }
 
 
 class DeleteLogEntryTestCase(WgerDeleteTestCase):
@@ -244,12 +251,14 @@ class DeleteLogEntryTestCase(WgerDeleteTestCase):
     url = 'nutrition:log:delete'
     pk = 2
     user_success = 'test'
-    user_fail = ('admin',
-                 'member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3',
-                 'general_manager1',
-                 'general_manager2')
+    user_fail = (
+        'admin',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+        'general_manager1',
+        'general_manager2',
+    )

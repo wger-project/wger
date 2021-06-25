@@ -72,15 +72,18 @@ class Command(BaseCommand):
         # Compose and send the email
         translation.activate(user.userprofile.notification_language.short_name)
 
-        context = {'site': Site.objects.get_current(),
-                   'date': last_entry,
-                   'days': datediff,
-                   'user': user}
+        context = {
+            'site': Site.objects.get_current(),
+            'date': last_entry,
+            'days': datediff,
+            'user': user
+        }
 
         subject = _('You have to enter your weight')
         message = loader.render_to_string('workout/email_weight_reminder.tpl', context)
-        mail.send_mail(subject,
-                       message,
-                       settings.WGER_SETTINGS['EMAIL_FROM'],
-                       [user.email],
-                       fail_silently=True)
+        mail.send_mail(
+            subject,
+            message,
+            settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
+            fail_silently=True
+        )

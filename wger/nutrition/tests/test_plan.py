@@ -21,7 +21,7 @@ from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.nutrition.models import NutritionPlan
 
@@ -131,6 +131,7 @@ class PlanDailyCaloriesTestCase(WgerTestCase):
     """
     Tests the handling of the daily calories in the plan page
     """
+
     def test_overview_no_calories(self):
         """
         Tests the overview page with no daily calories set
@@ -186,6 +187,5 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = NutritionPlan
     private_resource = True
-    special_endpoints = ('nutritional_values',)
-    data = {'description': 'The description',
-            'language': 1}
+    special_endpoints = ('nutritional_values', )
+    data = {'description': 'The description', 'language': 1}

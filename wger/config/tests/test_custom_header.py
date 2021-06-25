@@ -41,23 +41,27 @@ class GymNameHeaderTestCase(WgerTestCase):
         # Gym 1, custom header activated
         gym = Gym.objects.get(pk=1)
         self.assertTrue(gym.config.show_name)
-        for username in ('test',
-                         'member1',
-                         'member2',
-                         'member3',
-                         'member4',
-                         'member5'):
+        for username in (
+            'test',
+            'member1',
+            'member2',
+            'member3',
+            'member4',
+            'member5',
+        ):
             self.user_login(username)
             self.check_header(gym=gym.name)
 
         # Gym 2, custom header deactivated
         gym = Gym.objects.get(pk=2)
         self.assertFalse(gym.config.show_name)
-        for username in ('trainer4',
-                         'trainer5',
-                         'demo',
-                         'member6',
-                         'member7',):
+        for username in (
+            'trainer4',
+            'trainer5',
+            'demo',
+            'member6',
+            'member7',
+        ):
             self.user_login(username)
             self.check_header(gym=None)
 

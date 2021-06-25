@@ -15,7 +15,7 @@
 # Standard Library
 from datetime import (
     datetime,
-    timedelta
+    timedelta,
 )
 
 # Django
@@ -29,6 +29,7 @@ from wger.weight.models import WeightEntry
 
 
 class EmailWeightReminderTestCase(WgerTestCase):
+
     def test_without_email(self):
         user = User.objects.get(pk=2)
         user.email = ''

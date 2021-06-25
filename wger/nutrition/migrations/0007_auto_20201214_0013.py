@@ -15,8 +15,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IngredientCategory',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True,
-                                        serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    )
+                ),
                 ('name', models.CharField(max_length=100, verbose_name='Name')),
             ],
             options={
@@ -27,8 +31,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ingredient',
             name='brand',
-            field=models.CharField(blank=True, max_length=200, null=True,
-                                   verbose_name='Brand name of product'),
+            field=models.CharField(
+                blank=True, max_length=200, null=True, verbose_name='Brand name of product'
+            ),
         ),
         migrations.AddField(
             model_name='ingredient',
@@ -38,8 +43,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ingredient',
             name='common_name',
-            field=models.CharField(blank=True, max_length=200, null=True,
-                                   verbose_name='Common name of product'),
+            field=models.CharField(
+                blank=True, max_length=200, null=True, verbose_name='Common name of product'
+            ),
         ),
         migrations.AddField(
             model_name='ingredient',
@@ -49,27 +55,35 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ingredient',
             name='source_name',
-            field=models.CharField(blank=True, max_length=200, null=True,
-                                   verbose_name='Source Name'),
+            field=models.CharField(
+                blank=True, max_length=200, null=True, verbose_name='Source Name'
+            ),
         ),
         migrations.AddField(
             model_name='ingredient',
             name='source_url',
-            field=models.URLField(blank=True, help_text='Link to product', null=True,
-                                  verbose_name='Link'),
+            field=models.URLField(
+                blank=True, help_text='Link to product', null=True, verbose_name='Link'
+            ),
         ),
         migrations.AlterField(
             model_name='ingredient',
             name='name',
-            field=models.CharField(max_length=200,
-                                   validators=[django.core.validators.MinLengthValidator(3)],
-                                   verbose_name='Name'),
+            field=models.CharField(
+                max_length=200,
+                validators=[django.core.validators.MinLengthValidator(3)],
+                verbose_name='Name'
+            ),
         ),
         migrations.AddField(
             model_name='ingredient',
             name='category',
-            field=models.ForeignKey(blank=True, null=True,
-                                    on_delete=django.db.models.deletion.CASCADE,
-                                    to='nutrition.ingredientcategory', verbose_name='Category'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='nutrition.ingredientcategory',
+                verbose_name='Category'
+            ),
         ),
     ]

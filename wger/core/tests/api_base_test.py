@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.contrib.auth.models import User
 
@@ -103,6 +102,7 @@ class ApiGetTestCase(object):
     """
     Base test case for testing GET access to the API
     """
+
     def test_ordering(self):
         """
         Test that ordering the resource works
@@ -303,8 +303,10 @@ class ApiPatchTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
-            self.assertIn(response.status_code,
-                          (status.HTTP_403_FORBIDDEN, status.HTTP_404_NOT_FOUND))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_403_FORBIDDEN, status.HTTP_404_NOT_FOUND),
+            )
         else:
             # Anonymous user
             response = self.client.patch(self.url_detail, data=self.data)
@@ -402,8 +404,10 @@ class ApiPutTestCase(object):
                 # print(f'201: {self.url_detail}')
                 obj = self.resource.objects.get(pk=response.data['id'])
                 obj2 = self.resource.objects.get(pk=self.pk)
-                self.assertNotEqual(obj.get_owner_object().user.username,
-                                    obj2.get_owner_object().user.username)
+                self.assertNotEqual(
+                    obj.get_owner_object().user.username,
+                    obj2.get_owner_object().user.username,
+                )
                 self.assertEqual(obj.get_owner_object().user.username, self.user_fail)
                 self.assertEqual(count_before + 1, count_after)
 
@@ -576,14 +580,15 @@ class ApiDeleteTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ApiBaseResourceTestCase(BaseTestCase,
-                              ApiBaseTestCase,
-
-                              ApiGetTestCase,
-                              ApiPostTestCase,
-                              ApiDeleteTestCase,
-                              ApiPutTestCase,
-                              ApiPatchTestCase):
+class ApiBaseResourceTestCase(
+    BaseTestCase,
+    ApiBaseTestCase,
+    ApiGetTestCase,
+    ApiPostTestCase,
+    ApiDeleteTestCase,
+    ApiPutTestCase,
+    ApiPatchTestCase,
+):
     """
     Base test case for the REST API
 

@@ -22,14 +22,14 @@ import logging
 from django.contrib.sites.models import Site
 from django.http import (
     HttpResponse,
-    HttpResponseForbidden
+    HttpResponseForbidden,
 )
 from django.shortcuts import get_object_or_404
 
 # Third Party
 from icalendar import (
     Calendar,
-    Event
+    Event,
 )
 from icalendar.tools import UIDGenerator
 
@@ -37,17 +37,15 @@ from icalendar.tools import UIDGenerator
 from wger import get_version
 from wger.manager.models import (
     Schedule,
-    Workout
+    Workout,
 )
 from wger.utils.helpers import (
     check_token,
-    next_weekday
+    next_weekday,
 )
 
 
 logger = logging.getLogger(__name__)
-
-
 """
 Exports workouts and schedules as an iCal file that can be imported to a
 calendaring application.

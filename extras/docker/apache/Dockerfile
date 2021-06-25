@@ -17,7 +17,8 @@
 ##########
 # Builder
 ##########
-FROM ubuntu:20.04 as builder
+FROM ubuntu:21.04 as builder
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -36,7 +37,7 @@ RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_de
 ########
 # Final
 ########
-FROM wger/base:2.0-dev
+FROM wger/base:2.1-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
 ARG DOCKER_DIR=./extras/docker/apache
@@ -49,6 +50,7 @@ RUN apt-get update \
     apache2 \
     cron \
     libapache2-mod-wsgi-py3 \
+    python3-wheel \
   && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
@@ -81,7 +83,6 @@ WORKDIR /home/wger/src
 RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
-    && pip install wheel \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \

@@ -21,7 +21,7 @@ from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.template import (
     Context,
-    Template
+    Template,
 )
 from django.urls import reverse
 
@@ -30,12 +30,12 @@ from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
     WgerDeleteTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import (
     Exercise,
     ExerciseCategory,
-    Muscle
+    Muscle,
 )
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import WORKOUT_TAB
@@ -244,13 +244,16 @@ class ExercisesTestCase(WgerTestCase):
 
         # Add an exercise
         count_before = Exercise.objects.count()
-        response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'name_original': random_string(),
-                                     'license': 1,
-                                     'exercise_base': {
-                                         'category': 2,
-                                         'muscles': [1, 2]}
-                                     })
+        response = self.client.post(
+            reverse('exercise:exercise:add'), {
+                'name_original': random_string(),
+                'license': 1,
+                'exercise_base': {
+                    'category': 2,
+                    'muscles': [1, 2]
+                }
+            }
+        )
         count_after = Exercise.objects.count()
         self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
@@ -280,11 +283,14 @@ class ExercisesTestCase(WgerTestCase):
         to an existing exercise fails
         """
         count_before = Exercise.objects.count()
-        response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 2,
-                                     'name_original': 'Squats',
-                                     'license': 1,
-                                     'muscles': [1, 2]})
+        response = self.client.post(
+            reverse('exercise:exercise:add'), {
+                'category': 2,
+                'name_original': 'Squats',
+                'license': 1,
+                'muscles': [1, 2]
+            }
+        )
         count_after = Exercise.objects.count()
         self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
@@ -300,12 +306,15 @@ class ExercisesTestCase(WgerTestCase):
         count_before = Exercise.objects.count()
         description = 'a nice, long and accurate description for the exercise'
         name_original = random_string()
-        response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'name_original': name_original,
-                                     'license': 1,
-                                     'description': description,
-                                     'category': 2,
-                                     'muscles': [1, 2]})
+        response = self.client.post(
+            reverse('exercise:exercise:add'), {
+                'name_original': name_original,
+                'license': 1,
+                'description': description,
+                'category': 2,
+                'muscles': [1, 2]
+            }
+        )
         count_after = Exercise.objects.count()
         self.assertEqual(response.status_code, 302)
         new_location = response['Location']
@@ -333,46 +342,54 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(exercise_1.name, name_original)
 
         # Wrong category - adding
-        response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 111,
-                                     'name_original': random_string(),
-                                     'license': 1,
-                                     'category': 111,
-                                     'muscles': [1, 2]
-                                     })
+        response = self.client.post(
+            reverse('exercise:exercise:add'), {
+                'category': 111,
+                'name_original': random_string(),
+                'license': 1,
+                'category': 111,
+                'muscles': [1, 2]
+            }
+        )
         self.assertTrue(response.context['form'].errors['category'])
 
         # Wrong category - editing
-        response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
-                                    {'category': 111,
-                                     'name_original': random_string(),
-                                     'license': 1,
-                                     'category': 111,
-                                     'muscles': [1, 2]
-                                     })
+        response = self.client.post(
+            reverse('exercise:exercise:edit', kwargs={'pk': '1'}), {
+                'category': 111,
+                'name_original': random_string(),
+                'license': 1,
+                'category': 111,
+                'muscles': [1, 2]
+            }
+        )
         if admin:
             self.assertTrue(response.context['form'].errors['category'])
         else:
             self.assertIn(response.status_code, STATUS_CODES_FAIL)
 
         # No muscles - adding
-        response = self.client.post(reverse('exercise:exercise:add'),
-                                    {'category': 1,
-                                     'name_original': random_string(),
-                                     'license': 1,
-                                     'category': 1,
-                                     'muscles': []
-                                     })
+        response = self.client.post(
+            reverse('exercise:exercise:add'), {
+                'category': 1,
+                'name_original': random_string(),
+                'license': 1,
+                'category': 1,
+                'muscles': []
+            }
+        )
         self.assertEqual(response.status_code, 302)
 
         # No muscles - editing
-        response = self.client.post(reverse('exercise:exercise:edit', kwargs={'pk': '1'}),
-                                    {'category': 1,
-                                     'name_original': random_string(),
-                                     'license': 1,
-                                     'category': 1,
-                                     'muscles': []
-                                     })
+        response = self.client.post(
+            reverse('exercise:exercise:edit', kwargs={'pk': '1'}), {
+                'category': 1,
+                'name_original': random_string(),
+                'license': 1,
+                'category': 1,
+                'muscles': []
+            }
+        )
         if admin:
             self.assertEqual(response.status_code, 302)
         else:
@@ -399,8 +416,7 @@ class ExercisesTestCase(WgerTestCase):
         """
 
         # 1 hit, "Very cool exercise"
-        response = self.client.get(reverse('exercise-search'),
-                                   {'term': 'cool'})
+        response = self.client.get(reverse('exercise-search'), {'term': 'cool'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result), 1)
@@ -411,8 +427,7 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
 
         # 0 hits, "Pending exercise"
-        response = self.client.get(reverse('exercise-search'),
-                                   {'term': 'Pending'})
+        response = self.client.get(reverse('exercise-search'), {'term': 'Pending'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 0)
@@ -533,10 +548,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=2)})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles %}'
-        )
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/', rendered_template)
@@ -547,12 +559,8 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when giben main muscles and empty secondary ones
         """
 
-        context = Context({"muscles": Muscle.objects.get(pk=2),
-                           "muscles_sec": []})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles muscles_sec %}'
-        )
+        context = Context({"muscles": Muscle.objects.get(pk=2), "muscles_sec": []})
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/', rendered_template)
@@ -564,10 +572,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=1)})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles_sec=muscles %}'
-        )
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles_sec=muscles %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/', rendered_template)
@@ -578,12 +583,8 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when given secondary muscles and empty main ones
         """
 
-        context = Context({'muscles_sec': Muscle.objects.get(pk=1),
-                           'muscles': []})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles muscles_sec %}'
-        )
+        context = Context({'muscles_sec': Muscle.objects.get(pk=1), 'muscles': []})
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/', rendered_template)
@@ -594,12 +595,8 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when given a list for secondary muscles and empty main ones
         """
 
-        context = Context({'muscles_sec': Muscle.objects.filter(is_front=True),
-                           'muscles': []})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles muscles_sec %}'
-        )
+        context = Context({'muscles_sec': Muscle.objects.filter(is_front=True), 'muscles': []})
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/muscle-2.svg', rendered_template)
@@ -612,12 +609,13 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when given a list for main and secondary muscles
         """
 
-        context = Context({'muscles_sec': Muscle.objects.filter(id__in=[5, 6]),
-                           'muscles': Muscle.objects.filter(id__in=[1, 4])})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles muscles_sec %}'
+        context = Context(
+            {
+                'muscles_sec': Muscle.objects.filter(id__in=[5, 6]),
+                'muscles': Muscle.objects.filter(id__in=[1, 4])
+            }
         )
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/muscle-2.svg', rendered_template)
@@ -633,12 +631,8 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when given empty input
         """
 
-        context = Context({'muscles': [],
-                           'muscles_sec': []})
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles muscles muscles_sec %}'
-        )
+        context = Context({'muscles': [], 'muscles_sec': []})
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertEqual(rendered_template, "\n\n")
 
@@ -647,10 +641,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when given no parameters
         """
 
-        template = Template(
-            '{% load wger_extras %}'
-            '{% render_muscles %}'
-        )
+        template = Template('{% load wger_extras %}' '{% render_muscles %}')
         rendered_template = template.render(Context({}))
         self.assertEqual(rendered_template, "\n\n")
 
@@ -692,9 +683,9 @@ class WorkoutCacheTestCase(WgerTestCase):
 
 
 # TODO: fix test, all registered users can upload exercises
-class ExerciseApiTestCase(api_base_test.BaseTestCase,
-                          api_base_test.ApiBaseTestCase,
-                          api_base_test.ApiGetTestCase):
+class ExerciseApiTestCase(
+    api_base_test.BaseTestCase, api_base_test.ApiBaseTestCase, api_base_test.ApiGetTestCase
+):
     """
     Tests the exercise overview resource
     """
@@ -703,9 +694,9 @@ class ExerciseApiTestCase(api_base_test.BaseTestCase,
     private_resource = False
 
 
-class ExerciseInfoApiTestCase(api_base_test.BaseTestCase,
-                              api_base_test.ApiBaseTestCase,
-                              api_base_test.ApiGetTestCase):
+class ExerciseInfoApiTestCase(
+    api_base_test.BaseTestCase, api_base_test.ApiBaseTestCase, api_base_test.ApiGetTestCase
+):
     """
     Tests the exercise info resource
     """

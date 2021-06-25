@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   web:
-    image: wger/devel:2.0-dev
+    image: wger/devel:2.1-dev
     volumes:
       - type: bind
         source: ../../../

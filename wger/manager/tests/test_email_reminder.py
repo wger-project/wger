@@ -25,7 +25,7 @@ from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
     Schedule,
-    Workout
+    Workout,
 )
 
 

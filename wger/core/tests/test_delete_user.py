@@ -44,8 +44,10 @@ class DeleteUserTestCase(WgerTestCase):
 
         # Wrong user password
         if not fail:
-            response = self.client.post(reverse('core:user:delete'),
-                                        {'password': 'not the user password'})
+            response = self.client.post(
+                reverse('core:user:delete'),
+                {'password': 'not the user password'},
+            )
             self.assertEqual(response.status_code, 200)
             self.assertEqual(User.objects.filter(username='test').count(), 1)
 
@@ -83,22 +85,27 @@ class DeleteUserByAdminTestCase(WgerTestCase):
         response = self.client.get(reverse('core:user:delete', kwargs={'user_pk': 2}))
         self.assertEqual(User.objects.filter(username='test').count(), 1)
         if fail:
-            self.assertIn(response.status_code, (302, 403),
-                          f'Unexpected status code for user {self.current_user}')
+            self.assertIn(
+                response.status_code, (302, 403),
+                f'Unexpected status code for user {self.current_user}'
+            )
         else:
-            self.assertEqual(response.status_code, 200,
-                             f'Unexpected status code for user {self.current_user}')
+            self.assertEqual(
+                response.status_code, 200, f'Unexpected status code for user {self.current_user}'
+            )
 
         # Wrong admin password
         if not fail:
-            response = self.client.post(reverse('core:user:delete', kwargs={'user_pk': 2}),
-                                        {'password': 'blargh'})
+            response = self.client.post(
+                reverse('core:user:delete', kwargs={'user_pk': 2}), {'password': 'blargh'}
+            )
             self.assertEqual(response.status_code, 200)
             self.assertEqual(User.objects.filter(username='test').count(), 1)
 
         # Correct user password
-        response = self.client.post(reverse('core:user:delete', kwargs={'user_pk': 2}),
-                                    {'password': self.current_password})
+        response = self.client.post(
+            reverse('core:user:delete', kwargs={'user_pk': 2}), {'password': self.current_password}
+        )
         if fail:
             self.assertIn(response.status_code, (302, 403))
             self.assertEqual(User.objects.filter(username='test').count(), 1)

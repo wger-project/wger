@@ -21,44 +21,45 @@ import logging
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.exercises.forms import ExerciseImageForm
 from wger.exercises.models import (
     Exercise,
-    ExerciseImage
+    ExerciseImage,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 
 
 logger = logging.getLogger(__name__)
-
 """
 Exercise images
 """
 
 
-class ExerciseImageEditView(WgerFormMixin,
-                            LoginRequiredMixin,
-                            PermissionRequiredMixin,
-                            UpdateView):
+class ExerciseImageEditView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to update an existing exercise image
     """
@@ -78,10 +79,12 @@ class ExerciseImageEditView(WgerFormMixin,
         return context
 
 
-class ExerciseImageAddView(WgerFormMixin,
-                           LoginRequiredMixin,
-                           PermissionRequiredMixin,
-                           CreateView):
+class ExerciseImageAddView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
     """
     Generic view to add a new exercise image
     """
@@ -110,10 +113,12 @@ class ExerciseImageAddView(WgerFormMixin,
         return context
 
 
-class ExerciseImageDeleteView(WgerDeleteMixin,
-                              LoginRequiredMixin,
-                              PermissionRequiredMixin,
-                              DeleteView):
+class ExerciseImageDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
     """
     Generic view to delete an existing exercise image
     """

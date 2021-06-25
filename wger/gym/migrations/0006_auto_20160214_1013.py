@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# flake8: noqa
+
 from django.db import migrations, models
 
 
@@ -9,9 +9,10 @@ def update_permission_names(apps, schema_editor):
     """
     Permission = apps.get_model("auth", "Permission")
 
-    for name in ['Trainer, can see the users for a gym',
-                 'Admin, can manage users for a gym',
-                 'Admin, can administrate the different gyms']:
+    for name in [
+        'Trainer, can see the users for a gym', 'Admin, can manage users for a gym',
+        'Admin, can administrate the different gyms'
+    ]:
 
         permissions = Permission.objects.filter(name=name)
         if permissions.exists():

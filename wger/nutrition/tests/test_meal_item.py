@@ -20,7 +20,7 @@ from django.urls import reverse
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
-    WgerEditTestCase
+    WgerEditTestCase,
 )
 from wger.nutrition.models import MealItem
 
@@ -33,9 +33,11 @@ class EditMealItemUnitTestCase(WgerEditTestCase):
     object_class = MealItem
     url = 'nutrition:meal_item:edit'
     pk = 4
-    data = {'amount': 1,
-            'ingredient': 1,
-            'weight_unit': 1}
+    data = {
+        'amount': 1,
+        'ingredient': 1,
+        'weight_unit': 1,
+    }
 
 
 class EditMealItemWeightTestCase(WgerEditTestCase):
@@ -46,8 +48,7 @@ class EditMealItemWeightTestCase(WgerEditTestCase):
     object_class = MealItem
     url = 'nutrition:meal_item:edit'
     pk = 4
-    data = {'amount': 100,
-            'ingredient': 1}
+    data = {'amount': 100, 'ingredient': 1}
 
 
 class AddMealItemUnitTestCase(WgerAddTestCase):
@@ -57,9 +58,11 @@ class AddMealItemUnitTestCase(WgerAddTestCase):
 
     object_class = MealItem
     url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
-    data = {'amount': 1,
-            'ingredient': 1,
-            'weight_unit': 1}
+    data = {
+        'amount': 1,
+        'ingredient': 1,
+        'weight_unit': 1,
+    }
 
 
 class AddMealItemWeightTestCase(WgerAddTestCase):
@@ -69,8 +72,7 @@ class AddMealItemWeightTestCase(WgerAddTestCase):
 
     object_class = MealItem
     url = reverse('nutrition:meal_item:add', kwargs={'meal_id': 3})
-    data = {'amount': 100,
-            'ingredient': 1}
+    data = {'amount': 100, 'ingredient': 1}
 
 
 class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
@@ -80,7 +82,9 @@ class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 10
     resource = MealItem
     private_resource = True
-    special_endpoints = ('nutritional_values',)
-    data = {'meal': 2,
-            'amount': 100,
-            'ingredient': 1}
+    special_endpoints = ('nutritional_values', )
+    data = {
+        'meal': 2,
+        'amount': 100,
+        'ingredient': 1,
+    }

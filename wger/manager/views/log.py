@@ -24,35 +24,35 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms.models import modelformset_factory
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     DeleteView,
     DetailView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.core.models import (
     RepetitionUnit,
-    WeightUnit
+    WeightUnit,
 )
 from wger.manager.forms import (
     HelperWorkoutSessionForm,
     WorkoutLogForm,
-    WorkoutLogFormHelper
+    WorkoutLogFormHelper,
 )
 from wger.manager.helpers import WorkoutCalendar
 from wger.manager.models import (
@@ -60,16 +60,16 @@ from wger.manager.models import (
     Schedule,
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.helpers import check_access
 from wger.weight.helpers import (
     group_log_entries,
-    process_log_entries
+    process_log_entries,
 )
 
 
@@ -99,12 +99,14 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
     """
 
     model = WorkoutLog
-    fields = ('exercise',
-              'workout',
-              'repetition_unit',
-              'reps',
-              'weight',
-              'weight_unit')
+    fields = (
+        'exercise',
+        'workout',
+        'repetition_unit',
+        'reps',
+        'weight',
+        'weight_unit',
+    )
     success_url = reverse_lazy('manager:workout:calendar')
     title = gettext_lazy('Delete workout log')
 
@@ -141,9 +143,11 @@ def add(request, pk):
             form_id_range = range(counter_before, counter + 1)
 
             # Add to list
-            exercise_list[exercise.id] = {'obj': exercise,
-                                          'sets': int(exercise_set.sets),
-                                          'form_ids': form_id_range}
+            exercise_list[exercise.id] = {
+                'obj': exercise,
+                'sets': int(exercise_set.sets),
+                'form_ids': form_id_range
+            }
 
             counter += 1
             # Helper mapping form-ID <--> Exercise
@@ -151,10 +155,9 @@ def add(request, pk):
                 form_to_exercise[id] = exercise
 
     # Define the formset here because now we know the value to pass to 'extra'
-    WorkoutLogFormSet = modelformset_factory(WorkoutLog,
-                                             form=WorkoutLogForm,
-                                             exclude=('date', 'workout'),
-                                             extra=total_sets)
+    WorkoutLogFormSet = modelformset_factory(
+        WorkoutLog, form=WorkoutLogForm, exclude=('date', 'workout'), extra=total_sets
+    )
     # Process the request
     if request.method == 'POST':
 
@@ -215,9 +218,15 @@ def add(request, pk):
         # Initialise the formset with a queryset that won't return any objects
         # (we only add new logs here and that seems to be the fastest way)
         user_weight_unit = 1 if request.user.userprofile.use_metric else 2
-        formset = WorkoutLogFormSet(queryset=WorkoutLog.objects.none(),
-                                    initial=[{'weight_unit': user_weight_unit,
-                                              'repetition_unit': 1} for x in range(0, total_sets)])
+        formset = WorkoutLogFormSet(
+            queryset=WorkoutLog.objects.none(),
+            initial=[
+                {
+                    'weight_unit': user_weight_unit,
+                    'repetition_unit': 1
+                } for x in range(0, total_sets)
+            ]
+        )
 
         # Depending on whether there is already a workout session for today, update
         # the current one or create a new one (this will be the most usual case)
@@ -234,13 +243,15 @@ def add(request, pk):
         form_id_to = max(exercise_list[exercise]['form_ids'])
         exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
 
-    context = {'day': day,
-               'exercises': exercise_list,
-               'formset': formset,
-               'helper': WorkoutLogFormHelper(),
-               'session_form': session_form,
-               'form': session_form,
-               'form_action': request.path}
+    context = {
+        'day': day,
+        'exercises': exercise_list,
+        'formset': formset,
+        'helper': WorkoutLogFormHelper(),
+        'session_form': session_form,
+        'form': session_form,
+        'form_action': request.path
+    }
 
     return render(request, 'log/add.html', context)
 
@@ -274,10 +285,12 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     exercise_log[exercise_id] = []
 
                     # Filter the logs for user and exclude all units that are not weight
-                    logs = exercise_list['obj'].workoutlog_set.filter(user=self.owner_user,
-                                                                      weight_unit__in=(1, 2),
-                                                                      repetition_unit=1,
-                                                                      workout=self.object)
+                    logs = exercise_list['obj'].workoutlog_set.filter(
+                        user=self.owner_user,
+                        weight_unit__in=(1, 2),
+                        repetition_unit=1,
+                        workout=self.object
+                    )
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
                         exercise_log[exercise_list['obj'].id].append(entry_log)

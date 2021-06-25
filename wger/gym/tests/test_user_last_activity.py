@@ -23,7 +23,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.helpers import get_user_last_activity
 from wger.manager.models import (
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 
 

@@ -20,7 +20,7 @@ from django.urls import reverse
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.manager.models import Day
 from wger.utils.cache import cache_mapper
@@ -47,8 +47,7 @@ class AddWorkoutDayTestCase(WgerAddTestCase):
     url = reverse('manager:day:add', kwargs={'workout_pk': 3})
     user_success = 'test'
     user_fail = 'admin'
-    data = {'description': 'a new day',
-            'day': [1, 4]}
+    data = {'description': 'a new day', 'day': [1, 4]}
 
 
 class DeleteWorkoutDayTestCase(WgerTestCase):
@@ -81,7 +80,7 @@ class DeleteWorkoutDayTestCase(WgerTestCase):
         Test deleting a day as an anonymous user
         """
 
-        self. delete_day(fail=True)
+        self.delete_day(fail=True)
 
     def test_delete_workout_owner(self):
         """
@@ -110,8 +109,7 @@ class EditWorkoutDayTestCase(WgerEditTestCase):
     pk = 5
     user_success = 'test'
     user_fail = 'admin'
-    data = {'description': 'a different description',
-            'day': [1, 4]}
+    data = {'description': 'a different description', 'day': [1, 4]}
 
 
 class RenderWorkoutDayTestCase(WgerTestCase):

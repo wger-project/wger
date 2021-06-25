@@ -18,7 +18,7 @@
 # Third Party
 from rest_framework import (
     exceptions,
-    viewsets
+    viewsets,
 )
 
 
@@ -26,6 +26,7 @@ class WgerOwnerObjectModelViewSet(viewsets.ModelViewSet):
     """
     Custom viewset that makes sure the user can only create objects for himself
     """
+
     def create(self, request, *args, **kwargs):
         """
         Check for creation (PUT, POST)

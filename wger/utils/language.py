@@ -28,7 +28,6 @@ from wger.utils.cache import cache_mapper
 
 logger = logging.getLogger(__name__)
 
-
 # ************************
 # Language functions
 # ************************

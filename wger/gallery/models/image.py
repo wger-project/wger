@@ -30,28 +30,35 @@ def gallery_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "gallery/{0}/{1}{2}".format(instance.user.id,
-                                       uuid.uuid4(),
-                                       pathlib.Path(filename).suffix)
+    return "gallery/{0}/{1}{2}".format(
+        instance.user.id,
+        uuid.uuid4(),
+        pathlib.Path(filename).suffix,
+    )
 
 
 class Image(models.Model):
 
     class Meta:
-        ordering = ["-date", ]
+        ordering = [
+            "-date",
+        ]
 
-    date = models.DateField(_('Date'),
-                            default=datetime.datetime.now)
+    date = models.DateField(_('Date'), default=datetime.datetime.now)
 
-    user = models.ForeignKey(User,
-                             verbose_name=_('User'),
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+    )
 
-    image = models.ImageField(verbose_name=_('Image'),
-                              help_text=_('Only PNG and JPEG formats are supported'),
-                              upload_to=gallery_upload_dir,
-                              height_field='height',
-                              width_field='width')
+    image = models.ImageField(
+        verbose_name=_('Image'),
+        help_text=_('Only PNG and JPEG formats are supported'),
+        upload_to=gallery_upload_dir,
+        height_field='height',
+        width_field='width',
+    )
 
     height = models.IntegerField(editable=False)
     """Height of the image"""
@@ -59,9 +66,11 @@ class Image(models.Model):
     width = models.IntegerField(editable=False)
     """Width of the image"""
 
-    description = models.TextField(verbose_name=_('Description'),
-                                   max_length=1000,
-                                   blank=True)
+    description = models.TextField(
+        verbose_name=_('Description'),
+        max_length=1000,
+        blank=True,
+    )
 
     def get_owner_object(self):
         """

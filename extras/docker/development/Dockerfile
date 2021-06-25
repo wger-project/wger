@@ -12,7 +12,8 @@
 ##########
 # Builder
 ##########
-FROM ubuntu:20.04 as builder
+FROM ubuntu:21.04 as builder
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -32,7 +33,7 @@ RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_prod.txt
 ########
 # Final
 ########
-FROM wger/base:2.0-dev
+FROM wger/base:2.1-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/development
 EXPOSE 8000

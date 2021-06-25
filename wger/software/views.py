@@ -30,6 +30,8 @@ def features(request):
     Render the features page
     """
 
-    context = {'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
-               'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']}
+    context = {
+        'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
+        'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']
+    }
     return render(request, 'features.html', context)

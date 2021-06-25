@@ -26,7 +26,7 @@ from django.core.cache import cache
 from django.test import TestCase
 from django.urls import (
     NoReverseMatch,
-    reverse
+    reverse,
 )
 from django.utils.translation import activate
 
@@ -73,15 +73,19 @@ def delete_testcase_add_methods(cls):
     """
 
     for user in get_user_list(cls.user_fail):
+
         def test_unauthorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
+
         setattr(cls, f'test_unauthorized_{user}', test_unauthorized)
 
     for user in get_user_list(cls.user_success):
+
         def test_authorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
+
         setattr(cls, f'test_authorized_{user}', test_authorized)
 
 
@@ -93,34 +97,36 @@ class BaseTestCase(object):
     REST API tests
     """
 
-    fixtures = ('days_of_week',
-                'gym_config',
-                'groups',
-                'setting_repetition_units',
-                'setting_weight_units',
-                'test-languages',
-                'test-licenses',
-                'test-gyms',
-                'test-gymsconfig',
-                'test-user-data',
-                'test-gym-adminconfig.json',
-                'test-gym-userconfig.json',
-                'test-admin-user-notes',
-                'test-gym-user-documents',
-                'test-contracts',
-                'test-apikeys',
-                'test-weight-data',
-                'test-equipment',
-                'test-exercises',
-                'test-exercise-images',
-                'test-weight-units',
-                'test-ingredients',
-                'test-nutrition-data',
-                'test-nutrition-diary',
-                'test-workout-data',
-                'test-workout-session',
-                'test-schedules',
-                'test-gallery-images')
+    fixtures = (
+        'days_of_week',
+        'gym_config',
+        'groups',
+        'setting_repetition_units',
+        'setting_weight_units',
+        'test-languages',
+        'test-licenses',
+        'test-gyms',
+        'test-gymsconfig',
+        'test-user-data',
+        'test-gym-adminconfig.json',
+        'test-gym-userconfig.json',
+        'test-admin-user-notes',
+        'test-gym-user-documents',
+        'test-contracts',
+        'test-apikeys',
+        'test-weight-data',
+        'test-equipment',
+        'test-exercises',
+        'test-exercise-images',
+        'test-weight-units',
+        'test-ingredients',
+        'test-nutrition-data',
+        'test-nutrition-diary',
+        'test-workout-data',
+        'test-workout-session',
+        'test-schedules',
+        'test-gallery-images',
+    )
     current_user = 'anonymous'
     current_password = ''
 
@@ -268,9 +274,9 @@ class WgerDeleteTestCase(WgerTestCase):
         else:
             self.assertEqual(response.status_code, 302)
             self.assertEqual(count_before - 1, count_after)
-            self.assertRaises(self.object_class.DoesNotExist,
-                              self.object_class.objects.get,
-                              pk=self.pk)
+            self.assertRaises(
+                self.object_class.DoesNotExist, self.object_class.objects.get, pk=self.pk
+            )
 
             # TODO: the redirection page might not have a language prefix (e.g. /user/login
             #       instead of /en/user/login) so there is an additional redirect

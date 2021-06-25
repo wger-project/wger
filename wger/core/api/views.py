@@ -24,7 +24,7 @@ from django.contrib.auth.models import User
 # Third Party
 from rest_framework import (
     status,
-    viewsets
+    viewsets,
 )
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
@@ -42,7 +42,7 @@ from wger.core.api.serializers import (
     UsernameSerializer,
     UserprofileSerializer,
     UserRegistrationSerializer,
-    WeightUnitSerializer
+    WeightUnitSerializer,
 )
 from wger.core.models import (
     DaysOfWeek,
@@ -50,12 +50,12 @@ from wger.core.models import (
     License,
     RepetitionUnit,
     UserProfile,
-    WeightUnit
+    WeightUnit,
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import (
     UpdateOnlyPermission,
-    WgerPermission
+    WgerPermission,
 )
 
 
@@ -97,7 +97,7 @@ class ApplicationVersionView(viewsets.ViewSet):
     """
     Returns the application's version
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny, )
 
     def get(self, request):
         return Response(get_version())
@@ -107,7 +107,7 @@ class UserAPILoginView(viewsets.ViewSet):
     """
     API endpoint for api user objects
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny, )
     queryset = User.objects.all()
     serializer_class = UserApiSerializer
     throttle_scope = 'login'
@@ -127,17 +127,20 @@ class UserAPILoginView(viewsets.ViewSet):
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             logger.info(f"Tried logging via API with unknown user: '{username}'")
-            return Response({'detail': 'Username or password unknown'},
-                            status=status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {'detail': 'Username or password unknown'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
         if user.check_password(password):
             token = create_token(user)
-            return Response({'token': token.key},
-                            status=status.HTTP_200_OK)
+            return Response({'token': token.key}, status=status.HTTP_200_OK)
         else:
             logger.info(f"User '{username}' tried logging via API with a wrong password")
-            return Response({'detail': 'Username or password unknown'},
-                            status=status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {'detail': 'Username or password unknown'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
 
 class UserAPIRegistrationViewSet(viewsets.ViewSet):
@@ -162,9 +165,13 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         user.userprofile.save()
         token = create_token(user)
 
-        return Response({'message': 'api user successfully registered',
-                         'token': token.key},
-                        status=status.HTTP_201_CREATED)
+        return Response(
+            {
+                'message': 'api user successfully registered',
+                'token': token.key
+            },
+            status=status.HTTP_201_CREATED
+        )
 
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
@@ -174,8 +181,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('full_name',
-                        'short_name')
+    filterset_fields = ('full_name', 'short_name')
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
@@ -195,9 +201,11 @@ class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = License.objects.all()
     serializer_class = LicenseSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('full_name',
-                        'short_name',
-                        'url')
+    filterset_fields = (
+        'full_name',
+        'short_name',
+        'url',
+    )
 
 
 class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):

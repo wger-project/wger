@@ -21,7 +21,7 @@ import logging
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import UpdateView
 

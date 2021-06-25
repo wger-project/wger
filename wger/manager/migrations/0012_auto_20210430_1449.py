@@ -10,32 +10,37 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='workout',
-            old_name='comment',
-            new_name='name'
-        ),
+        migrations.RenameField(model_name='workout', old_name='comment', new_name='name'),
         migrations.AddField(
             model_name='workout',
             name='description',
-            field=models.TextField(blank=True,
-                                   help_text="A short description or goal of the workout. For "
-                                             "example 'Focus on back' or 'Week 1 of program xy'.",
-                                   max_length=1000, verbose_name='Description'),
+            field=models.TextField(
+                blank=True,
+                help_text="A short description or goal of the workout. For "
+                "example 'Focus on back' or 'Week 1 of program xy'.",
+                max_length=1000,
+                verbose_name='Description'
+            ),
         ),
         migrations.AlterField(
             model_name='workout',
             name='name',
-            field=models.CharField(blank=True,
-                                   help_text='The name of the workout',
-                                   max_length=100,
-                                   verbose_name='Name'),
+            field=models.CharField(
+                blank=True,
+                help_text='The name of the workout',
+                max_length=100,
+                verbose_name='Name'
+            ),
         ),
         migrations.AlterField(
             model_name='setting',
             name='reps',
-            field=models.IntegerField(validators=[django.core.validators.MinValueValidator(0),
-                                                  django.core.validators.MaxValueValidator(600)],
-                                      verbose_name='Reps'),
+            field=models.IntegerField(
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(600)
+                ],
+                verbose_name='Reps'
+            ),
         ),
     ]

@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-05-13 23:33+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2021-06-18 08:48+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.7\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -284,7 +284,7 @@ msgstr ""
 
 #: core/forms.py:163
 msgid "This e-mail address is already in use."
-msgstr "Questo indirizzo e-mail è già in uso"
+msgstr "Questo indirizzo e-mail è già in uso."
 
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
@@ -430,9 +430,9 @@ msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
-"lingua da usare quando ti inviamo le e-mail di notifica,ad esempio il "
+"Lingua da usare quando ti inviamo le e-mail di notifica, ad esempio il "
 "promemoria per l'allenamento. Questo non modifica il linguaggio usato nel "
-"sito web"
+"sito web."
 
 #: core/models.py:204
 msgid "Use pauses in workout timer"
@@ -451,7 +451,7 @@ msgid ""
 "Default duration in seconds of pauses used by the timer in the gym mode."
 msgstr ""
 "Durata in secondi predefinita per le pause usate dal timer nella modalità "
-"palestra"
+"palestra."
 
 #: core/models.py:224 gym/views/export.py:64
 msgid "Age"
@@ -721,7 +721,7 @@ msgstr "Aggiorna diario di allenamento"
 #: manager/templates/schedule/view.html:146
 #: manager/templates/workout/overview.html:25
 msgid "No workouts found."
-msgstr "Nessun allenamento trovato"
+msgstr "Nessun allenamento trovato."
 
 #: core/templates/index.html:155 nutrition/models.py:115
 #: nutrition/models.py:673 nutrition/models.py:811 nutrition/models.py:854
@@ -768,7 +768,7 @@ msgstr "Grassi"
 
 #: core/templates/index.html:197 nutrition/templates/plan/overview.html:22
 msgid "No nutrition plans."
-msgstr "Nessun piano nutrizionale trovato"
+msgstr "Nessun piano nutrizionale trovato."
 
 #: core/templates/index.html:211 core/templates/user/overview.html:112
 #: core/templates/user/overview.html:121 manager/forms.py:137
@@ -784,7 +784,7 @@ msgstr "Peso"
 
 #: core/templates/index.html:215
 msgid "Your current weight is: "
-msgstr "Il tuo peso corporeo è:"
+msgstr "Il tuo peso corporeo è: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:75
 #: weight/views.py:70
@@ -848,9 +848,9 @@ msgid ""
 "a>\n"
 "."
 msgstr ""
-"Grazie per l'interesse. Sentiti libero di usare qualsiasi dei simboli: \n"
-"qui sotto per inviarci le tue opinioni su qualsiasi aspetto del sito. Per \n"
-" avere aiuto, contattaci \n"
+"Grazie per l'interesse. Sentiti libero di usare qualsiasi dei metodi qui "
+"sotto per inviarci le tue opinioni su qualsiasi aspetto del sito. Per avere "
+"aiuto, contattaci sul\n"
 "<a href=\"%(discord)s\">Canale Discord</a>, per segnalare\n"
 "un errore, considera farlo tramite il <a href=\"%(issues)s\">tracker degli "
 "errori</a>"
@@ -937,7 +937,7 @@ msgid ""
 "licenses for the different countries, add them as separate entries here."
 msgstr ""
 "Se una licenza è stata localizzata, ad es. la Creative Commons\n"
-"licenze per i diversi paesi, aggiungili come voci separate qui"
+"licenze per i diversi paesi, aggiungili come voci separate qui."
 
 #: core/templates/navigation.html:22
 msgid "Training"
@@ -1202,7 +1202,7 @@ msgstr "Immagine segnaposto per l'esercizio"
 
 #: core/templates/tags/render_day.html:112
 msgid "This exercise has no repetitions."
-msgstr "questo esercizio non ha ripetizioni"
+msgstr "Questo esercizio non ha ripetizioni."
 
 #: core/templates/tags/render_day.html:114
 msgid "Edit them now."
@@ -1743,7 +1743,7 @@ msgstr "L'utente {0} ha inviato una nuova immagine «{1}» per l'esercizio {2}."
 
 #: exercises/models.py:574
 msgid "A comment about how to correctly do this exercise."
-msgstr "Un commento su come eseguire correttamente l'esercizio"
+msgstr "Un commento su come eseguire correttamente l'esercizio."
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1830,7 +1830,7 @@ msgstr "Inserendo un esercizio"
 msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
-msgstr "Grazie per aver inserito un esercizio. "
+msgstr "Grazie per aver inserito un esercizio. Lo apprezziamo davvero!"
 
 #: exercises/templates/exercise/form.html:8
 msgid ""
@@ -1906,12 +1906,12 @@ msgstr ""
 
 #: exercises/templates/exercise/view.html:53
 msgid "Till then, it will not be shown in the overview or the search."
-msgstr "Fino ad allora, non sarà mostrato nel prospetto o nella ricerca"
+msgstr "Fino ad allora, non sarà mostrato nel prospetto o nella ricerca."
 
 #: exercises/templates/exercise/view.html:54
 #: nutrition/templates/ingredient/view.html:31
 msgid "Please select one of the options below."
-msgstr "Per favore seleziona una delle opzione specificate"
+msgstr "Per favore seleziona una delle opzione specificate."
 
 #: exercises/templates/exercise/view.html:60
 #: exercises/templates/exercise/view.html:153
@@ -2564,14 +2564,13 @@ msgstr "Correzione"
 
 #: manager/forms.py:77
 msgid "The goal or description of the new workout."
-msgstr "Lo scopo o la descrizione del nuovo allenamento"
+msgstr "Lo scopo o la descrizione del nuovo allenamento."
 
 #: manager/forms.py:102
 msgid ""
 "You can search for more than one exercise, they will be grouped together for "
 "a superset."
-msgstr ""
-"Puoi cercare più di un esercizio, saranno raggruppati in una superserie"
+msgstr "Puoi cercare più di un esercizio, saranno raggruppati in un Superset."
 
 #: manager/forms.py:127 manager/forms.py:130 manager/models.py:759
 #: manager/models.py:784 manager/models.py:861 manager/models.py:883
@@ -2871,8 +2870,12 @@ msgid ""
 msgid_plural ""
 "%(weeks)s Weeks\n"
 "                    "
-msgstr[0] "%(weeks)s Settimana"
-msgstr[1] "%(weeks)s Settimane"
+msgstr[0] ""
+"%(weeks)s Settimana\n"
+"                    "
+msgstr[1] ""
+"%(weeks)s Settimane\n"
+"                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
@@ -3032,7 +3035,8 @@ msgid ""
 "it."
 msgstr ""
 "Questa pagina mostra i registri del peso che appartengono solo a questo\n"
-"allenamento. Fai clic su un esercizio per visualizzare tutti i dati storici."
+"allenamento. \n"
+"Fai clic su un esercizio per visualizzare tutti i dati storici."
 
 #: manager/templates/workout/log.html:106
 msgid ""
@@ -3040,9 +3044,9 @@ msgid ""
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
 msgstr ""
-"Se in un solo giorno c'è più di una voce con il\n"
+"Se in un solo giorno c'è più di una voce con lo\n"
 "stesso numero di ripetizioni, ma diversi pesi, solo la voce con il\n"
-"il peso più elevato è mostrato nel diagramma."
+" peso più elevato sarà mostrato nel diagramma."
 
 #: manager/templates/workout/log.html:110
 msgid ""
@@ -3396,7 +3400,9 @@ msgstr "Invio di un ingrediente"
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr "Grazie per aver inviato un ingrediente. L'apprezziamo molto!"
+msgstr ""
+"Grazie per aver inviato un ingrediente. \n"
+"L'apprezziamo molto!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -3408,14 +3414,16 @@ msgid ""
 "sucessfully."
 msgstr ""
 "Una volta compilato il modulo, sarà inviata una notifica agli "
-"amministratori. Una volta revisionato, sarà inserito nel database. Fino ad "
-"allora, non sarà visibile nel prospetto o nella ricerca. Nel caso tu abbia "
-"inserito la tua e-mail durante la registrazione, ti verrà inviata una "
-"notifica quando il processo sarà completato con successo"
+"amministratori. \n"
+"Una volta revisionato, sarà inserito nel database. Fino ad allora, non sarà "
+"visibile nel prospetto o nella ricerca. \n"
+"Nel caso tu abbia inserito la tua e-mail durante la registrazione, \n"
+"ti verrà inviata una notifica quando il processo sarà completato con "
+"successo."
 
 #: nutrition/templates/ingredient/overview.html:45
 msgid "No ingredients."
-msgstr "Nessun ingrediente"
+msgstr "Nessun ingrediente."
 
 #: nutrition/templates/ingredient/overview.html:66
 msgid "ingredient name"

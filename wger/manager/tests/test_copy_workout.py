@@ -46,8 +46,10 @@ class CopyWorkoutTestCase(WgerTestCase):
 
         # Copy the workout
         count_before = Workout.objects.count()
-        self.client.post(reverse('manager:workout:copy', kwargs={'pk': '3'}),
-                         {'name': 'A copied workout'})
+        self.client.post(
+            reverse('manager:workout:copy', kwargs={'pk': '3'}),
+            {'name': 'A copied workout'},
+        )
         count_after = Workout.objects.count()
 
         if not owner:

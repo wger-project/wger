@@ -22,28 +22,28 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db import models
 from django.forms import (
     ModelChoiceField,
-    ModelForm
+    ModelForm,
 )
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.manager.models import (
     Schedule,
     ScheduleStep,
-    Workout
+    Workout,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 
 

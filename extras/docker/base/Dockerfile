@@ -8,7 +8,7 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:20.04
+FROM ubuntu:21.04
 
 LABEL maintainer="Roland Geider <roland@geider.net>"
 

@@ -30,7 +30,7 @@ from wger.core.models import (
     License,
     RepetitionUnit,
     UserProfile,
-    WeightUnit
+    WeightUnit,
 )
 
 
@@ -86,11 +86,14 @@ class UserApiSerializer(serializers.ModelSerializer):
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
-        required=False,
-        validators=[UniqueValidator(queryset=User.objects.all())]
+        required=False, validators=[
+            UniqueValidator(queryset=User.objects.all()),
+        ]
     )
-    username = serializers.CharField(required=True,
-                                     validators=[UniqueValidator(queryset=User.objects.all())])
+    username = serializers.CharField(
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())],
+    )
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
 
     class Meta:
@@ -111,16 +114,17 @@ class LanguageSerializer(serializers.ModelSerializer):
     """
     Language serializer
     """
+
     class Meta:
         model = Language
-        fields = ['short_name',
-                  'full_name']
+        fields = ['short_name', 'full_name']
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):
     """
     DaysOfWeek serializer
     """
+
     class Meta:
         model = DaysOfWeek
         fields = ['day_of_week']
@@ -130,28 +134,32 @@ class LicenseSerializer(serializers.ModelSerializer):
     """
     License serializer
     """
+
     class Meta:
         model = License
-        fields = ['id',
-                  'full_name',
-                  'short_name',
-                  'url']
+        fields = [
+            'id',
+            'full_name',
+            'short_name',
+            'url',
+        ]
 
 
 class RepetitionUnitSerializer(serializers.ModelSerializer):
     """
     Repetition unit serializer
     """
+
     class Meta:
         model = RepetitionUnit
-        fields = ['id',
-                  'name']
+        fields = ['id', 'name']
 
 
 class WeightUnitSerializer(serializers.ModelSerializer):
     """
     Weight unit serializer
     """
+
     class Meta:
         model = WeightUnit
         fields = ['id', 'name']

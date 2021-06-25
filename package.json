@@ -1,6 +1,6 @@
 {
   "name": "wger",
-  "version": "2.1.0-dev1",
+  "version": "2.1.dev1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
   "directories": {
     "doc": "docs"
@@ -16,18 +16,19 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "yarn": "^1.22.5",
     "Sortable": "RubaXa/Sortable#1.13.0",
-    "bootstrap": "twbs/bootstrap#4.x",
-    "components-font-awesome": "components/font-awesome#5.15.3",
-    "d3": "mbostock-bower/d3-bower#>=5",
-    "datatables": "DataTables/DataTables#1.10.x",
+    "bootstrap": "4.6.0",
+    "components-font-awesome": "5.9.0",
+    "d3": "^7.0.0",
+    "datatables": "^1.10.18",
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.6.0",
-    "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
+    "masonry-layout": "^4.2.2",
+    "metrics-graphics": "^2.15.6",
+    "popper.js": "^1.16.1",
     "shariff": "^3.2.1",
-    "tinymce": "^5.8.1",
-    "masonry-layout": "^4.2.2"
+    "tinymce": "^5.8.2",
+    "yarn": "^1.22.5"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css",

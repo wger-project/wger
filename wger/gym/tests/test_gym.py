@@ -24,7 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerEditTestCase,
     WgerTestCase,
-    delete_testcase_add_methods
+    delete_testcase_add_methods,
 )
 from wger.gym.models import Gym
 
@@ -47,15 +47,19 @@ class GymOverviewTest(WgerAccessTestCase):
     """
     url = 'gym:gym:list'
     anonymous_fail = True
-    user_success = ('admin',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3')
+    user_success = (
+        'admin',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+    )
 
 
 class GymUserOverviewTest(WgerAccessTestCase):
@@ -64,16 +68,20 @@ class GymUserOverviewTest(WgerAccessTestCase):
     """
     url = reverse_lazy('gym:gym:user-list', kwargs={'pk': 1})
     anonymous_fail = True
-    user_success = ('admin',
-                    'trainer2',
-                    'trainer3',
-                    'manager1',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('member1',
-                 'member2',
-                 'trainer4',
-                 'manager3')
+    user_success = (
+        'admin',
+        'trainer2',
+        'trainer3',
+        'manager1',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'trainer4',
+        'manager3',
+    )
 
 
 class AddGymTestCase(WgerAddTestCase):
@@ -83,15 +91,16 @@ class AddGymTestCase(WgerAddTestCase):
     object_class = Gym
     url = 'gym:gym:add'
     data = {'name': 'The name here'}
-    user_success = ('admin',
-                    'general_manager1')
-    user_fail = ('member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager1',
-                 'manager3')
+    user_success = ('admin', 'general_manager1')
+    user_fail = (
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager1',
+        'manager3',
+    )
 
 
 class DeleteGymTestCase(WgerDeleteTestCase):
@@ -102,16 +111,20 @@ class DeleteGymTestCase(WgerDeleteTestCase):
     pk = 2
     object_class = Gym
     url = 'gym:gym:delete'
-    user_success = ('admin',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager1',
-                 'manager3')
+    user_success = (
+        'admin',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager1',
+        'manager3',
+    )
 
 
 delete_testcase_add_methods(DeleteGymTestCase)
@@ -126,16 +139,20 @@ class EditGymTestCase(WgerEditTestCase):
     url = 'gym:gym:edit'
     pk = 1
     data = {'name': 'A different name'}
-    user_success = ('admin',
-                    'manager1',
-                    'general_manager1',
-                    'general_manager2')
-    user_fail = ('member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3')
+    user_success = (
+        'admin',
+        'manager1',
+        'general_manager1',
+        'general_manager2',
+    )
+    user_fail = (
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+    )
 
 
 class GymTestCase(WgerTestCase):

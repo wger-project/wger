@@ -21,7 +21,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 
 
@@ -55,14 +55,16 @@ class AddTestCase(WgerAddTestCase):
     url = 'core:repetition-unit:add'
     data = {'name': 'Furlongs'}
     user_success = 'admin',
-    user_fail = ('general_manager1',
-                 'general_manager2',
-                 'member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3')
+    user_fail = (
+        'general_manager1',
+        'general_manager2',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+    )
 
 
 class DeleteTestCase(WgerDeleteTestCase):
@@ -74,14 +76,16 @@ class DeleteTestCase(WgerDeleteTestCase):
     object_class = RepetitionUnit
     url = 'core:repetition-unit:delete'
     user_success = 'admin',
-    user_fail = ('general_manager1',
-                 'general_manager2',
-                 'member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3')
+    user_fail = (
+        'general_manager1',
+        'general_manager2',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+    )
 
 
 class EditTestCase(WgerEditTestCase):
@@ -94,14 +98,16 @@ class EditTestCase(WgerEditTestCase):
     url = 'core:repetition-unit:edit'
     data = {'name': 'Furlongs'}
     user_success = 'admin',
-    user_fail = ('general_manager1',
-                 'general_manager2',
-                 'member1',
-                 'member2',
-                 'trainer2',
-                 'trainer3',
-                 'trainer4',
-                 'manager3')
+    user_fail = (
+        'general_manager1',
+        'general_manager2',
+        'member1',
+        'member2',
+        'trainer2',
+        'trainer3',
+        'trainer4',
+        'manager3',
+    )
 
 
 class ApiTestCase(api_base_test.ApiBaseResourceTestCase):

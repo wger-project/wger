@@ -11,7 +11,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
-    HTTP_403_FORBIDDEN
+    HTTP_403_FORBIDDEN,
 )
 
 # wger
@@ -43,8 +43,10 @@ class CreateUserCommand(WgerTestCase):
         self.assertTrue(user.userprofile.can_add_user)
 
         call_command('add-user-rest', 'test', disable=True, stdout=self.out, no_color=True)
-        self.assertEqual('test is now DISABLED from adding users via the API\n',
-                         self.out.getvalue())
+        self.assertEqual(
+            'test is now DISABLED from adding users via the API\n',
+            self.out.getvalue(),
+        )
 
         user = User.objects.get(username='test')
         self.assertFalse(user.userprofile.can_add_user)
@@ -65,11 +67,14 @@ class CreateUserCommand(WgerTestCase):
         token = Token.objects.get(user=user)
         count_before = User.objects.count()
 
-        response = self.client.post(reverse('api_register'),
-                                    {'username': 'restapi',
-                                     'email': 'abc@cde.fg',
-                                     'password': 'AekaiLe0ga'},
-                                    Authorization=f'Token {token.key}')
+        response = self.client.post(
+            reverse('api_register'), {
+                'username': 'restapi',
+                'email': 'abc@cde.fg',
+                'password': 'AekaiLe0ga'
+            },
+            Authorization=f'Token {token.key}'
+        )
         count_after = User.objects.count()
         self.assertEqual(response.status_code, HTTP_201_CREATED)
 
@@ -87,10 +92,13 @@ class CreateUserCommand(WgerTestCase):
         token = Token.objects.get(user=user)
         count_before = User.objects.count()
 
-        response = self.client.post(reverse('api_register'),
-                                    {'username': 'restapi',
-                                     'password': 'AekaiLe0ga'},
-                                    Authorization=f'Token {token.key}')
+        response = self.client.post(
+            reverse('api_register'), {
+                'username': 'restapi',
+                'password': 'AekaiLe0ga'
+            },
+            Authorization=f'Token {token.key}'
+        )
         count_after = User.objects.count()
         self.assertEqual(response.status_code, HTTP_201_CREATED)
 
@@ -106,10 +114,13 @@ class CreateUserCommand(WgerTestCase):
         self.user_login('admin')
         count_before = User.objects.count()
 
-        response = self.client.post(reverse('api_register'),
-                                    {'username': 'restapi',
-                                     'email': 'abc@cde.fg',
-                                     'password': 'AekaiLe0ga'})
+        response = self.client.post(
+            reverse('api_register'), {
+                'username': 'restapi',
+                'email': 'abc@cde.fg',
+                'password': 'AekaiLe0ga'
+            }
+        )
         count_after = User.objects.count()
 
         self.assertEqual(response.status_code, HTTP_403_FORBIDDEN)
@@ -122,9 +133,11 @@ class CreateUserCommand(WgerTestCase):
         user = User.objects.get(username='test')
         token = Token.objects.get(user=user)
 
-        response = self.client.post(reverse('api_register'),
-                                    {'password': 'AekaiLe0ga'},
-                                    Authorization=f'Token {token.key}')
+        response = self.client.post(
+            reverse('api_register'),
+            {'password': 'AekaiLe0ga'},
+            Authorization=f'Token {token.key}',
+        )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
 
@@ -135,11 +148,14 @@ class CreateUserCommand(WgerTestCase):
         user = User.objects.get(username='test')
         token = Token.objects.get(user=user)
 
-        response = self.client.post(reverse('api_register'),
-                                    {'username': 'restapi',
-                                     'email': 'example.com',
-                                     'password': 'AekaiLe0ga'},
-                                    Authorization=f'Token {token.key}')
+        response = self.client.post(
+            reverse('api_register'), {
+                'username': 'restapi',
+                'email': 'example.com',
+                'password': 'AekaiLe0ga'
+            },
+            Authorization=f'Token {token.key}'
+        )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
 
@@ -150,10 +166,13 @@ class CreateUserCommand(WgerTestCase):
         user = User.objects.get(username='test')
         token = Token.objects.get(user=user)
 
-        response = self.client.post(reverse('api_register'),
-                                    {'username': 'restapi',
-                                     'email': 'admin@example.com',
-                                     'password': 'AekaiLe0ga'},
-                                    Authorization=f'Token {token.key}')
+        response = self.client.post(
+            reverse('api_register'), {
+                'username': 'restapi',
+                'email': 'admin@example.com',
+                'password': 'AekaiLe0ga'
+            },
+            Authorization=f'Token {token.key}'
+        )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)

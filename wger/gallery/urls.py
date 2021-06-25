@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.conf.urls import include
 from django.urls import path
@@ -25,20 +24,27 @@ from wger.gallery.views import images
 
 # 'sub patterns' for gyms
 patterns_images = [
-    path('overview',
-         images.overview,
-         name='overview'),
-    path('<int:pk>/edit',
-         images.ImageUpdateView.as_view(),
-         name='edit'),
-    path('add',
-         images.ImageAddView.as_view(),
-         name='add'),
-    path('<int:pk>/delete',
-         images.ImageDeleteView.as_view(),
-         name='delete'),
+    path(
+        'overview',
+        images.overview,
+        name='overview',
+    ),
+    path(
+        '<int:pk>/edit',
+        images.ImageUpdateView.as_view(),
+        name='edit',
+    ),
+    path(
+        'add',
+        images.ImageAddView.as_view(),
+        name='add',
+    ),
+    path(
+        '<int:pk>/delete',
+        images.ImageDeleteView.as_view(),
+        name='delete',
+    ),
 ]
-
 
 #
 # All patterns for this app

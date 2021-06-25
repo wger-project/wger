@@ -34,6 +34,10 @@ from django.utils.translation import gettext as _
 # Third Party
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
+from crispy_forms.bootstrap import (
+    Accordion,
+    AccordionGroup,
+)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -122,9 +126,11 @@ class UserPreferencesForm(forms.ModelForm):
 
 
 class UserEmailForm(forms.ModelForm):
-    email = EmailField(label=_("Email"),
-                       help_text=_("Used for password resets and, optionally, email reminders."),
-                       required=False)
+    email = EmailField(
+        label=_("Email"),
+        help_text=_("Used for password resets and, optionally, email reminders."),
+        required=False
+    )
 
     class Meta:
         model = User
@@ -154,10 +160,8 @@ class UserEmailForm(forms.ModelForm):
 
 
 class UserPersonalInformationForm(UserEmailForm):
-    first_name = forms.CharField(label=_('First name'),
-                                 required=False)
-    last_name = forms.CharField(label=_('Last name'),
-                                required=False)
+    first_name = forms.CharField(label=_('First name'), required=False)
+    last_name = forms.CharField(label=_('Last name'), required=False)
 
     class Meta:
         model = User
@@ -171,9 +175,11 @@ class PasswordConfirmationForm(Form):
     This can be used to make sure the user really wants to perform a dangerous
     action. The form must be initialised with a user object.
     """
-    password = CharField(label=_("Password"),
-                         widget=PasswordInput,
-                         help_text=_('Please enter your current password.'))
+    password = CharField(
+        label=_("Password"),
+        widget=PasswordInput,
+        help_text=_('Please enter your current password.')
+    )
 
     def __init__(self, user, data=None):
         self.user = user
@@ -199,23 +205,23 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
     Registration form with reCAPTCHA field
     """
 
-    captcha = ReCaptchaField(widget=ReCaptchaV3,
-                             label='reCaptcha',
-                             help_text=_('The form is secured with reCAPTCHA'))
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV3,
+        label='reCaptcha',
+        help_text=_('The form is secured with reCAPTCHA'),
+    )
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            'username',
-            'email',
+            'username', 'email',
             Row(
                 Column('password1', css_class='form-group col-6 mb-0'),
                 Column('password2', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
-            ),
-            'captcha',
+            ), 'captcha',
             ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
         )
 
@@ -230,14 +236,12 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            'username',
-            'email',
+            'username', 'email',
             Row(
                 Column('password1', css_class='form-group col-6 mb-0'),
                 Column('password2', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
-            ),
-            ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+            ), ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
         )
 
 
@@ -245,24 +249,30 @@ class FeedbackRegisteredForm(forms.Form):
     """
     Feedback form used for logged in users
     """
-    contact = forms.CharField(max_length=50,
-                              min_length=10,
-                              label=_('Contact'),
-                              help_text=_('Some way of answering you (e-mail, etc.)'),
-                              required=False)
+    contact = forms.CharField(
+        max_length=50,
+        min_length=10,
+        label=_('Contact'),
+        help_text=_('Some way of answering you (e-mail, etc.)'),
+        required=False
+    )
 
-    comment = forms.CharField(max_length=500,
-                              min_length=10,
-                              widget=widgets.Textarea,
-                              label=_('Comment'),
-                              help_text=_('What do you want to say?'),
-                              required=True)
+    comment = forms.CharField(
+        max_length=500,
+        min_length=10,
+        widget=widgets.Textarea,
+        label=_('Comment'),
+        help_text=_('What do you want to say?'),
+        required=True
+    )
 
 
 class FeedbackAnonymousForm(FeedbackRegisteredForm):
     """
     Feedback form used for anonymous users (has additionally a reCAPTCHA field)
     """
-    captcha = ReCaptchaField(widget=ReCaptchaV3,
-                             label='reCaptcha',
-                             help_text=_('The form is secured with reCAPTCHA'))
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV3,
+        label='reCaptcha',
+        help_text=_('The form is secured with reCAPTCHA'),
+    )

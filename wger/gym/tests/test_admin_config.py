@@ -26,10 +26,12 @@ class EditConfigTestCase(WgerEditTestCase):
     url = 'gym:admin_config:edit'
     pk = 1
     user_success = 'admin'
-    user_fail = ('member1',
-                 'manager1',
-                 'manager2',
-                 'trainer4',
-                 'general_manager1',
-                 'general_manager2')
+    user_fail = (
+        'member1',
+        'manager1',
+        'manager2',
+        'trainer4',
+        'general_manager1',
+        'general_manager2',
+    )
     data = {'overview_inactive': False}

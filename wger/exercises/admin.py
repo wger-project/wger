@@ -21,7 +21,7 @@ from wger.exercises.models import (
     Exercise,
     ExerciseCategory,
     ExerciseComment,
-    Muscle
+    Muscle,
 )
 
 

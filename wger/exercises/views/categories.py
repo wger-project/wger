@@ -20,25 +20,25 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.exercises.models import ExerciseCategory
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.language import load_language
 
@@ -55,10 +55,12 @@ class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, List
     template_name = 'categories/admin-overview.html'
 
 
-class ExerciseCategoryAddView(WgerFormMixin,
-                              LoginRequiredMixin,
-                              PermissionRequiredMixin,
-                              CreateView):
+class ExerciseCategoryAddView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
     """
     Generic view to add a new exercise category
     """
@@ -74,10 +76,12 @@ class ExerciseCategoryAddView(WgerFormMixin,
         return super(ExerciseCategoryAddView, self).form_valid(form)
 
 
-class ExerciseCategoryUpdateView(WgerFormMixin,
-                                 LoginRequiredMixin,
-                                 PermissionRequiredMixin,
-                                 UpdateView):
+class ExerciseCategoryUpdateView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to update an existing exercise category
     """
@@ -100,16 +104,18 @@ class ExerciseCategoryUpdateView(WgerFormMixin,
         return super(ExerciseCategoryUpdateView, self).form_valid(form)
 
 
-class ExerciseCategoryDeleteView(WgerDeleteMixin,
-                                 LoginRequiredMixin,
-                                 PermissionRequiredMixin,
-                                 DeleteView):
+class ExerciseCategoryDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
     """
     Generic view to delete an existing exercise category
     """
 
     model = ExerciseCategory
-    fields = ('name',)
+    fields = ('name', )
     success_url = reverse_lazy('exercise:category:list')
     delete_message_extra = gettext_lazy('This will also delete all exercises in this category.')
     messages = gettext_lazy('Successfully deleted')

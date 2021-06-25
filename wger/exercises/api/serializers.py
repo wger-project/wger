@@ -27,7 +27,7 @@ from wger.exercises.models import (
     ExerciseComment,
     ExerciseImage,
     Muscle,
-    Variation
+    Variation,
 )
 
 
@@ -60,25 +60,31 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
+
     class Meta:
         model = ExerciseImage
-        fields = ['id',
-                  'uuid',
-                  'exercise_base',
-                  'image',
-                  'is_main',
-                  'status']
+        fields = [
+            'id',
+            'uuid',
+            'exercise_base',
+            'image',
+            'is_main',
+            'status',
+        ]
 
 
 class ExerciseCommentSerializer(serializers.ModelSerializer):
     """
     ExerciseComment serializer
     """
+
     class Meta:
         model = ExerciseComment
-        fields = ['id',
-                  'exercise',
-                  'comment']
+        fields = [
+            'id',
+            'exercise',
+            'comment',
+        ]
 
 
 class ExerciseAliasSerializer(serializers.ModelSerializer):
@@ -106,23 +112,26 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     ExerciseCategory serializer
     """
+
     class Meta:
         model = ExerciseCategory
-        fields = ['id',
-                  'name']
+        fields = ['id', 'name']
 
 
 class MuscleSerializer(serializers.ModelSerializer):
     """
     Muscle serializer
     """
+
     class Meta:
         model = Muscle
-        fields = ['id',
-                  'name',
-                  'is_front',
-                  'image_url_main',
-                  'image_url_secondary']
+        fields = [
+            'id',
+            'name',
+            'is_front',
+            'image_url_main',
+            'image_url_secondary',
+        ]
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
@@ -144,21 +153,23 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = ("id",
-                  "uuid",
-                  "name",
-                  "exercise_base",
-                  "status",
-                  "description",
-                  "creation_date",
-                  "category",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
-                  "language",
-                  "license",
-                  "license_author",
-                  "variations")
+        fields = (
+            "id",
+            "uuid",
+            "name",
+            "exercise_base",
+            "status",
+            "description",
+            "creation_date",
+            "category",
+            "muscles",
+            "muscles_secondary",
+            "equipment",
+            "language",
+            "license",
+            "license_author",
+            "variations",
+        )
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):

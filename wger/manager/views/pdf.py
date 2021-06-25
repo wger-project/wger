@@ -20,7 +20,7 @@ import logging
 # Django
 from django.http import (
     HttpResponse,
-    HttpResponseForbidden
+    HttpResponseForbidden,
 )
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -31,7 +31,7 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
-    Spacer
+    Spacer,
 )
 
 # wger
@@ -41,7 +41,7 @@ from wger.utils.helpers import check_token
 from wger.utils.pdf import (
     get_logo,
     render_footer,
-    styleSheet
+    styleSheet,
 )
 
 
@@ -74,16 +74,18 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     response = HttpResponse(content_type='application/pdf')
 
     # Create the PDF object, using the response object as its "file."
-    doc = SimpleDocTemplate(response,
-                            pagesize=A4,
-                            # pagesize = landscape(A4),
-                            leftMargin=cm,
-                            rightMargin=cm,
-                            topMargin=0.5 * cm,
-                            bottomMargin=0.5 * cm,
-                            title=_('Workout'),
-                            author='wger Workout Manager',
-                            subject=_('Workout for %s') % request.user.username)
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=A4,
+        # pagesize = landscape(A4),
+        leftMargin=cm,
+        rightMargin=cm,
+        topMargin=0.5 * cm,
+        bottomMargin=0.5 * cm,
+        title=_('Workout'),
+        author='wger Workout Manager',
+        subject=_('Workout for %s') % request.user.username
+    )
 
     # container for the 'Flowable' objects
     elements = []
@@ -93,8 +95,9 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Set the title
-    p = Paragraph(f'<para align="center"><strong>{workout.name}</strong></para>',
-                  styleSheet["HeaderBold"])
+    p = Paragraph(
+        f'<para align="center"><strong>{workout.name}</strong></para>', styleSheet["HeaderBold"]
+    )
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
     if workout.description:
@@ -124,7 +127,6 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     """
     Generates a PDF with the contents of the workout, without table for logs
     """
-
     """
     Generates a PDF with the contents of the given workout
     See also
@@ -149,15 +151,17 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     response = HttpResponse(content_type='application/pdf')
 
     # Create the PDF object, using the response object as its "file."
-    doc = SimpleDocTemplate(response,
-                            pagesize=A4,
-                            leftMargin=cm,
-                            rightMargin=cm,
-                            topMargin=0.5 * cm,
-                            bottomMargin=0.5 * cm,
-                            title=_('Workout'),
-                            author='wger Workout Manager',
-                            subject=_('Workout for %s') % request.user.username)
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=A4,
+        leftMargin=cm,
+        rightMargin=cm,
+        topMargin=0.5 * cm,
+        bottomMargin=0.5 * cm,
+        title=_('Workout'),
+        author='wger Workout Manager',
+        subject=_('Workout for %s') % request.user.username
+    )
 
     # container for the 'Flowable' objects
     elements = []
@@ -167,9 +171,10 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Set the title
-    p = Paragraph('<para align="center"><strong>%(description)s</strong></para>' %
-                  {'description': workout},
-                  styleSheet["HeaderBold"])
+    p = Paragraph(
+        '<para align="center"><strong>%(description)s</strong></para>' % {'description': workout},
+        styleSheet["HeaderBold"]
+    )
     elements.append(p)
     elements.append(Spacer(10 * cm, 1.5 * cm))
 

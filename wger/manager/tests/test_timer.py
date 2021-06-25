@@ -28,7 +28,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import Exercise
 from wger.manager.models import (
     Workout,
-    WorkoutSession
+    WorkoutSession,
 )
 
 
@@ -81,16 +81,20 @@ class WorkoutTimerTestCase(WgerTestCase):
             self.assertEqual(current_step['exercise'], Exercise.objects.get(pk=2))
             self.assertEqual(current_step['reps'], 10)
             self.assertEqual(current_step['step_nr'], list_length - len(step_list))
-            self.assertEqual(math.floor(current_step['step_percent']),
-                             math.floor(current_step['step_nr'] * (100.0 / list_length)))
+            self.assertEqual(
+                math.floor(current_step['step_percent']),
+                math.floor(current_step['step_nr'] * (100.0 / list_length))
+            )
             self.assertEqual(current_step['type'], 'exercise')
             self.assertEqual(current_step['weight'], Decimal(15))
 
             if pause_active:
                 current_step = step_list.pop()
                 self.assertEqual(current_step['step_nr'], list_length - len(step_list))
-                self.assertEqual(math.floor(current_step['step_percent']),
-                                 math.floor(current_step['step_nr'] * (100.0 / list_length)))
+                self.assertEqual(
+                    math.floor(current_step['step_percent']),
+                    math.floor(current_step['step_nr'] * (100.0 / list_length))
+                )
                 self.assertEqual(current_step['time'], pause_seconds)
                 self.assertEqual(current_step['type'], 'pause')
 
@@ -98,16 +102,20 @@ class WorkoutTimerTestCase(WgerTestCase):
             self.assertEqual(current_step['exercise'], Exercise.objects.get(pk=2))
             self.assertEqual(current_step['reps'], 10)
             self.assertEqual(current_step['step_nr'], list_length - len(step_list))
-            self.assertEqual(math.floor(current_step['step_percent']),
-                             math.floor(current_step['step_nr'] * (100.0 / list_length)))
+            self.assertEqual(
+                math.floor(current_step['step_percent']),
+                math.floor(current_step['step_nr'] * (100.0 / list_length))
+            )
             self.assertEqual(current_step['type'], 'exercise')
             self.assertEqual(current_step['weight'], Decimal(15))
 
             if pause_active:
                 current_step = step_list.pop()
                 self.assertEqual(current_step['step_nr'], list_length - len(step_list))
-                self.assertEqual(math.floor(current_step['step_percent']),
-                                 math.floor(current_step['step_nr'] * (100.0 / list_length)))
+                self.assertEqual(
+                    math.floor(current_step['step_percent']),
+                    math.floor(current_step['step_nr'] * (100.0 / list_length))
+                )
                 self.assertEqual(current_step['time'], pause_seconds)
                 self.assertEqual(current_step['type'], 'pause')
 
@@ -115,8 +123,10 @@ class WorkoutTimerTestCase(WgerTestCase):
             self.assertEqual(current_step['exercise'], Exercise.objects.get(pk=2))
             self.assertEqual(current_step['reps'], 10)
             self.assertEqual(current_step['step_nr'], list_length - len(step_list))
-            self.assertEqual(math.floor(current_step['step_percent']),
-                             math.floor(current_step['step_nr'] * (100.0 / list_length)))
+            self.assertEqual(
+                math.floor(current_step['step_percent']),
+                math.floor(current_step['step_nr'] * (100.0 / list_length))
+            )
             self.assertEqual(current_step['type'], 'exercise')
             self.assertEqual(current_step['weight'], Decimal(15))
 

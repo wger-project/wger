@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.contrib.auth.models import User
 

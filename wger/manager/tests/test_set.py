@@ -21,7 +21,7 @@ from typing import List
 from django.core.cache import cache
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 
 # wger
@@ -29,13 +29,13 @@ from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
     WgerAddTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import Exercise
 from wger.manager.models import (
     Day,
     Set,
-    Setting
+    Setting,
 )
 from wger.utils.cache import cache_mapper
 
@@ -52,7 +52,54 @@ class SetAddTestCase(WgerAddTestCase):
     url = reverse_lazy('manager:set:add', kwargs={'day_pk': 5})
     user_success = 'test'
     user_fail = 'admin'
-    data = {'exercise_list': 1,  # Only for mobile version
+    data = {
+        'exercise_list': 1,  # Only for mobile version
+        'sets': 4,
+        'exercise1-TOTAL_FORMS': 4,
+        'exercise1-INITIAL_FORMS': 0,
+        'exercise1-MAX_NUM_FORMS': 1000,
+        'exercise1-0-reps': 10,
+        'exercise1-0-repetition_unit': 1,
+        'exercise1-0-weight_unit': 1,
+        'exercise1-1-reps': 12,
+        'exercise1-1-repetition_unit': 1,
+        'exercise1-1-weight_unit': 1,
+        'exercise1-2-reps': 10,
+        'exercise1-2-repetition_unit': 1,
+        'exercise1-2-weight_unit': 1,
+        'exercise1-3-reps': 12,
+        'exercise1-3-repetition_unit': 1,
+        'exercise1-3-weight_unit': 1,
+    }
+    data_ignore = (
+        'exercise1-TOTAL_FORMS',
+        'exercise1-INITIAL_FORMS',
+        'exercise1-MAX_NUM_FORMS',
+        'exercise_list',
+        'exercise1-0-reps',
+        'exercise1-0-repetition_unit',
+        'exercise1-0-weight_unit',
+        'exercise1-1-reps',
+        'exercise1-1-repetition_unit',
+        'exercise1-1-weight_unit',
+        'exercise1-2-reps',
+        'exercise1-2-repetition_unit',
+        'exercise1-2-weight_unit',
+        'exercise1-3-reps',
+        'exercise1-3-repetition_unit',
+        'exercise1-3-weight_unit',
+    )
+
+    def test_add_set(self, fail=False):
+        """
+        Tests adding a set and corresponding settings at the same time
+        """
+
+        # POST the data
+        self.user_login('test')
+        exercises_id = [1, 2]
+        post_data = {
+            'exercise_list': 1,  # Only for mobile version
             'sets': 4,
             'exercise1-TOTAL_FORMS': 4,
             'exercise1-INITIAL_FORMS': 0,
@@ -69,66 +116,22 @@ class SetAddTestCase(WgerAddTestCase):
             'exercise1-3-reps': 12,
             'exercise1-3-repetition_unit': 1,
             'exercise1-3-weight_unit': 1,
-            }
-    data_ignore = ('exercise1-TOTAL_FORMS',
-                   'exercise1-INITIAL_FORMS',
-                   'exercise1-MAX_NUM_FORMS',
-                   'exercise_list',
-                   'exercise1-0-reps',
-                   'exercise1-0-repetition_unit',
-                   'exercise1-0-weight_unit',
-                   'exercise1-1-reps',
-                   'exercise1-1-repetition_unit',
-                   'exercise1-1-weight_unit',
-                   'exercise1-2-reps',
-                   'exercise1-2-repetition_unit',
-                   'exercise1-2-weight_unit',
-                   'exercise1-3-reps',
-                   'exercise1-3-repetition_unit',
-                   'exercise1-3-weight_unit')
-
-    def test_add_set(self, fail=False):
-        """
-        Tests adding a set and corresponding settings at the same time
-        """
-
-        # POST the data
-        self.user_login('test')
-        exercises_id = [1, 2]
-        post_data = {'exercise_list': 1,  # Only for mobile version
-                     'sets': 4,
-
-                     'exercise1-TOTAL_FORMS': 4,
-                     'exercise1-INITIAL_FORMS': 0,
-                     'exercise1-MAX_NUM_FORMS': 1000,
-                     'exercise1-0-reps': 10,
-                     'exercise1-0-repetition_unit': 1,
-                     'exercise1-0-weight_unit': 1,
-                     'exercise1-1-reps': 12,
-                     'exercise1-1-repetition_unit': 1,
-                     'exercise1-1-weight_unit': 1,
-                     'exercise1-2-reps': 10,
-                     'exercise1-2-repetition_unit': 1,
-                     'exercise1-2-weight_unit': 1,
-                     'exercise1-3-reps': 12,
-                     'exercise1-3-repetition_unit': 1,
-                     'exercise1-3-weight_unit': 1,
-
-                     'exercise2-TOTAL_FORMS': 4,
-                     'exercise2-INITIAL_FORMS': 0,
-                     'exercise2-MAX_NUM_FORMS': 1000,
-                     'exercise2-0-reps': 8,
-                     'exercise2-0-repetition_unit': 1,
-                     'exercise2-0-weight_unit': 1,
-                     'exercise2-1-reps': 10,
-                     'exercise2-1-repetition_unit': 2,
-                     'exercise2-1-weight_unit': 2,
-                     'exercise2-2-reps': 8,
-                     'exercise2-2-repetition_unit': 1,
-                     'exercise2-2-weight_unit': 1,
-                     'exercise2-3-reps': 10,
-                     'exercise2-3-repetition_unit': 2,
-                     'exercise2-3-weight_unit': 2}
+            'exercise2-TOTAL_FORMS': 4,
+            'exercise2-INITIAL_FORMS': 0,
+            'exercise2-MAX_NUM_FORMS': 1000,
+            'exercise2-0-reps': 8,
+            'exercise2-0-repetition_unit': 1,
+            'exercise2-0-weight_unit': 1,
+            'exercise2-1-reps': 10,
+            'exercise2-1-repetition_unit': 2,
+            'exercise2-1-weight_unit': 2,
+            'exercise2-2-reps': 8,
+            'exercise2-2-repetition_unit': 1,
+            'exercise2-2-weight_unit': 1,
+            'exercise2-3-reps': 10,
+            'exercise2-3-repetition_unit': 2,
+            'exercise2-3-weight_unit': 2,
+        }
         response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}), post_data)
         self.assertEqual(response.status_code, 302)
 
@@ -205,9 +208,11 @@ class TestSetOrderTestCase(WgerTestCase):
         Helper function that adds a set to a day
         """
         nr_sets = 4
-        post_data = {'exercises': exercises_id,
-                     'exercise_list': exercises_id[0],  # Only for mobile version,
-                     'sets': nr_sets}
+        post_data = {
+            'exercises': exercises_id,
+            'exercise_list': exercises_id[0],  # Only for mobile version,
+            'sets': nr_sets,
+        }
         for exercise_id in exercises_id:
             post_data['exercise{0}-TOTAL_FORMS'.format(exercise_id)] = nr_sets
             post_data['exercise{0}-INITIAL_FORMS'.format(exercise_id)] = 0
@@ -217,8 +222,7 @@ class TestSetOrderTestCase(WgerTestCase):
                 post_data['exercise{0}-{1}-weight_unit'.format(exercise_id, set_nr)] = 1
                 post_data['exercise{0}-{1}-reps'.format(exercise_id, set_nr)] = 8
 
-        response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}),
-                                    post_data)
+        response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}), post_data)
 
         return response
 
@@ -231,7 +235,7 @@ class TestSetOrderTestCase(WgerTestCase):
         order = ()
 
         for day_set in day.set_set.select_related():
-            order += (day_set.id,)
+            order += (day_set.id, )
 
         return order
 
@@ -247,7 +251,7 @@ class TestSetOrderTestCase(WgerTestCase):
         for i in range(0, 7):
             self.add_set([exercises[i]])
             prev = self.get_order()
-            orig += (i + 4,)
+            orig += (i + 4, )
             self.assertEqual(orig, prev)
 
 
@@ -262,8 +266,12 @@ class TestSetAddFormset(WgerTestCase):
         Helper function
         """
         exercise = Exercise.objects.get(pk=1)
-        response = self.client.get(reverse('manager:set:get-formset',
-                                   kwargs={'exercise_pk': 1, 'reps': 4}))
+        response = self.client.get(
+            reverse('manager:set:get-formset', kwargs={
+                'exercise_pk': 1,
+                'reps': 4
+            })
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['exercise'], exercise)
@@ -298,16 +306,19 @@ class SetEditEditTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 200)
 
         # Try to edit the object
-        response = self.client.post(reverse('manager:set:edit', kwargs={'pk': 3}),
-                                    {'exercise2-TOTAL_FORMS': 1,
-                                     'exercise2-INITIAL_FORMS': 1,
-                                     'exercise2-MAX_NUM_FORMS': 1,
-                                     'exercise2-MIN_NUM_FORMS': 1,
-                                     'exercise2-0-reps': 5,
-                                     'exercise2-0-id': 3,
-                                     'exercise2-0-repetition_unit': 2,
-                                     'exercise2-0-weight_unit': 3,
-                                     'exercise2-0-rir': '1.5'})
+        response = self.client.post(
+            reverse('manager:set:edit', kwargs={'pk': 3}), {
+                'exercise2-TOTAL_FORMS': 1,
+                'exercise2-INITIAL_FORMS': 1,
+                'exercise2-MAX_NUM_FORMS': 1,
+                'exercise2-MIN_NUM_FORMS': 1,
+                'exercise2-0-reps': 5,
+                'exercise2-0-id': 3,
+                'exercise2-0-repetition_unit': 2,
+                'exercise2-0-weight_unit': 3,
+                'exercise2-0-rir': '1.5',
+            }
+        )
 
         entry_after = Set.objects.get(pk=3)
 
@@ -425,68 +436,82 @@ class SetSmartReprTestCase(WgerTestCase):
         """
         set_obj = Set(exerciseday_id=1, order=1, sets=4)
         set_obj.save()
-        setting1 = Setting(set=set_obj,
-                           exercise_id=1,
-                           repetition_unit_id=1,
-                           reps=8,
-                           weight=Decimal(90),
-                           weight_unit_id=1,
-                           rir='3',
-                           order=1)
+        setting1 = Setting(
+            set=set_obj,
+            exercise_id=1,
+            repetition_unit_id=1,
+            reps=8,
+            weight=Decimal(90),
+            weight_unit_id=1,
+            rir='3',
+            order=1,
+        )
         setting1.save()
-        setting2 = Setting(set=set_obj,
-                           exercise_id=1,
-                           repetition_unit_id=1,
-                           reps=10,
-                           weight=Decimal(80),
-                           weight_unit_id=1,
-                           rir='2.5',
-                           order=2)
+        setting2 = Setting(
+            set=set_obj,
+            exercise_id=1,
+            repetition_unit_id=1,
+            reps=10,
+            weight=Decimal(80),
+            weight_unit_id=1,
+            rir='2.5',
+            order=2,
+        )
         setting2.save()
-        setting3 = Setting(set=set_obj,
-                           exercise_id=1,
-                           repetition_unit_id=1,
-                           reps=10,
-                           weight=Decimal(80),
-                           weight_unit_id=1,
-                           rir='2',
-                           order=3)
+        setting3 = Setting(
+            set=set_obj,
+            exercise_id=1,
+            repetition_unit_id=1,
+            reps=10,
+            weight=Decimal(80),
+            weight_unit_id=1,
+            rir='2',
+            order=3,
+        )
         setting3.save()
-        setting4 = Setting(set=set_obj,
-                           exercise_id=1,
-                           repetition_unit_id=1,
-                           reps=12,
-                           weight=Decimal(80),
-                           weight_unit_id=1,
-                           rir='1',
-                           order=4)
+        setting4 = Setting(
+            set=set_obj,
+            exercise_id=1,
+            repetition_unit_id=1,
+            reps=12,
+            weight=Decimal(80),
+            weight_unit_id=1,
+            rir='1',
+            order=4,
+        )
         setting4.save()
 
         setting_text = set_obj.reps_smart_text(Exercise.objects.get(pk=1))
-        self.assertEqual(setting_text,
-                         '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – '
-                         '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)')
+        self.assertEqual(
+            setting_text,
+            '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – '
+            '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)',
+        )
 
     def test_synthetic_settings(self):
         set_obj = Set(exerciseday_id=1, order=1, sets=4)
         set_obj.save()
-        setting1 = Setting(set=set_obj,
-                           exercise_id=1,
-                           repetition_unit_id=1,
-                           reps=8,
-                           weight=Decimal(90),
-                           weight_unit_id=1,
-                           rir='3',
-                           order=1)
+        setting1 = Setting(
+            set=set_obj,
+            exercise_id=1,
+            repetition_unit_id=1,
+            reps=8,
+            weight=Decimal(90),
+            weight_unit_id=1,
+            rir='3',
+            order=1,
+        )
         setting1.save()
-        setting2 = Setting(set=set_obj,
-                           exercise_id=3,
-                           repetition_unit_id=1,
-                           reps=10,
-                           weight=Decimal(80),
-                           weight_unit_id=1,
-                           rir='2.5',
-                           order=2)
+        setting2 = Setting(
+            set=set_obj,
+            exercise_id=3,
+            repetition_unit_id=1,
+            reps=10,
+            weight=Decimal(80),
+            weight_unit_id=1,
+            rir='2.5',
+            order=2,
+        )
         setting2.save()
         settings: List[Setting] = set_obj.compute_settings
 
@@ -514,5 +539,4 @@ class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 3
     resource = Set
     private_resource = True
-    data = {'exerciseday': 5,
-            'sets': 4}
+    data = {'exerciseday': 5, 'sets': 4}

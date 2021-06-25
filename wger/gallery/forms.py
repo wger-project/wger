@@ -2,7 +2,7 @@
 from django.forms import (
     DateField,
     ModelForm,
-    widgets
+    widgets,
 )
 
 # wger

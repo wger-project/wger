@@ -20,7 +20,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core import mail
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -33,7 +33,7 @@ from formtools.preview import FormPreview
 from wger.gym.models import Gym
 from wger.mailer.models import (
     CronEntry,
-    Log
+    Log,
 )
 
 
@@ -110,11 +110,12 @@ class EmailListFormPreview(FormPreview):
         """
         for admin in Gym.objects.get_admins(self.gym.pk):
             if admin.email:
-                mail.send_mail(form.cleaned_data['subject'],
-                               form.cleaned_data['body'],
-                               settings.WGER_SETTINGS['EMAIL_FROM'],
-                               [admin.email],
-                               fail_silently=False)
+                mail.send_mail(
+                    form.cleaned_data['subject'],
+                    form.cleaned_data['body'],
+                    settings.WGER_SETTINGS['EMAIL_FROM'], [admin.email],
+                    fail_silently=False
+                )
         return context
 
     def done(self, request, cleaned_data):

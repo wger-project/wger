@@ -32,14 +32,14 @@ from reportlab.platypus import (
     ListFlowable,
     ListItem,
     Paragraph,
-    Table
+    Table,
 )
 
 # wger
 from wger.utils.pdf import (
     header_colour,
     row_color,
-    styleSheet
+    styleSheet,
 )
 
 
@@ -72,10 +72,12 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
     set_count = 1
     day_markers.append(len(data))
 
-    p = Paragraph('<para align="center">%(days)s: %(description)s</para>' %
-                  {'days': day['days_of_week']['text'],
-                   'description': day['obj'].description},
-                  styleSheet["SubHeader"])
+    p = Paragraph(
+        '<para align="center">%(days)s: %(description)s</para>' % {
+            'days': day['days_of_week']['text'],
+            'description': day['obj'].description
+        }, styleSheet["SubHeader"]
+    )
 
     data.append([p])
 
@@ -104,8 +106,10 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             # Collect a list of the exercise comments
             item_list = [Paragraph('', styleSheet["Small"])]
             if comments:
-                item_list = [ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
-                             for i in exercise['comment_list']]
+                item_list = [
+                    ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
+                    for i in exercise['comment_list']
+                ]
 
             # Add the exercise's main image
             image = Paragraph('', styleSheet["Small"])
@@ -124,40 +128,42 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
                     image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
-            exercise_content = [Paragraph(exercise['obj'].name, styleSheet["Small"]),
-                                image,
-                                ListFlowable(item_list,
-                                             bulletType='bullet',
-                                             leftIndent=5,
-                                             spaceBefore=7,
-                                             bulletOffsetY=-3,
-                                             bulletFontSize=3,
-                                             start='square')]
+            exercise_content = [
+                Paragraph(exercise['obj'].name, styleSheet["Small"]), image,
+                ListFlowable(
+                    item_list,
+                    bulletType='bullet',
+                    leftIndent=5,
+                    spaceBefore=7,
+                    bulletOffsetY=-3,
+                    bulletFontSize=3,
+                    start='square'
+                )
+            ]
 
-            data.append([f"#{set_count}",
-                         exercise_content,
-                         setting_out]
-                        + [''] * nr_of_weeks)
+            data.append([f"#{set_count}", exercise_content, setting_out] + [''] * nr_of_weeks)
         set_count += 1
 
-    table_style = [('FONT', (0, 0), (-1, -1), 'OpenSans'),
-                   ('FONTSIZE', (0, 0), (-1, -1), 8),
-                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-                   ('LEFTPADDING', (0, 0), (-1, -1), 2),
-                   ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-                   ('TOPPADDING', (0, 0), (-1, -1), 3),
-                   ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
-                   ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+    table_style = [
+        ('FONT', (0, 0), (-1, -1), 'OpenSans'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 2),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2),
+        ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
 
-                   # Header
-                   ('BACKGROUND', (0, 0), (-1, 0), header_colour),
-                   ('BOX', (0, 0), (-1, -1), 1.25, colors.black),
-                   ('BOX', (0, 1), (-1, -1), 1.25, colors.black),
-                   ('SPAN', (0, 0), (-1, 0)),
+        # Header
+        ('BACKGROUND', (0, 0), (-1, 0), header_colour),
+        ('BOX', (0, 0), (-1, -1), 1.25, colors.black),
+        ('BOX', (0, 1), (-1, -1), 1.25, colors.black),
+        ('SPAN', (0, 0), (-1, 0)),
 
-                   # Cell with 'date'
-                   ('SPAN', (0, 1), (2, 1)),
-                   ('ALIGN', (0, 1), (2, 1), 'RIGHT')]
+        # Cell with 'date'
+        ('SPAN', (0, 1), (2, 1)),
+        ('ALIGN', (0, 1), (2, 1), 'RIGHT')
+    ]
 
     # Combine the cells for exercises on the same superset
     for marker in group_exercise_marker:
@@ -194,6 +200,7 @@ class WorkoutCalendar(HTMLCalendar):
     A calendar renderer, see this blog entry for details:
     * http://uggedal.com/journal/creating-a-flexible-monthly-calendar-in-django/
     """
+
     def __init__(self, workout_logs, *args, **kwargs):
         super(WorkoutCalendar, self).__init__(*args, **kwargs)
         self.workout_logs = workout_logs
@@ -236,11 +243,11 @@ class WorkoutCalendar(HTMLCalendar):
         url = reverse('manager:log:log', kwargs={'pk': entry['workout'].id})
         formatted_date = date_obj.strftime('%Y-%m-%d')
         body = []
-        body.append('<a href="{0}" '
-                    'data-log="log-{1}" '
-                    'class="btn btn-block {2} calendar-link">'.format(url,
-                                                                      formatted_date,
-                                                                      background_css))
+        body.append(
+            '<a href="{0}" '
+            'data-log="log-{1}" '
+            'class="btn btn-block {2} calendar-link">'.format(url, formatted_date, background_css)
+        )
         body.append(repr(day))
         body.append('</a>')
         return self.day_cell(cssclass, '{0}'.format(''.join(body)))

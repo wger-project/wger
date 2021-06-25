@@ -20,21 +20,21 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
@@ -42,7 +42,7 @@ from wger.nutrition.models import WeightUnit
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.language import load_language
 
@@ -71,10 +71,12 @@ class WeightUnitListView(PermissionRequiredMixin, ListView):
         return WeightUnit.objects.filter(language=load_language())
 
 
-class WeightUnitCreateView(WgerFormMixin,
-                           LoginRequiredMixin,
-                           PermissionRequiredMixin,
-                           CreateView):
+class WeightUnitCreateView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
     """
     Generic view to add a new weight unit for ingredients
     """
@@ -92,10 +94,12 @@ class WeightUnitCreateView(WgerFormMixin,
         return super(WeightUnitCreateView, self).form_valid(form)
 
 
-class WeightUnitDeleteView(WgerDeleteMixin,
-                           LoginRequiredMixin,
-                           PermissionRequiredMixin,
-                           DeleteView):
+class WeightUnitDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
     """
     Generic view to delete a weight unit
     """
@@ -115,10 +119,12 @@ class WeightUnitDeleteView(WgerDeleteMixin,
         return context
 
 
-class WeightUnitUpdateView(WgerFormMixin,
-                           LoginRequiredMixin,
-                           PermissionRequiredMixin,
-                           UpdateView):
+class WeightUnitUpdateView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to update an weight unit
     """

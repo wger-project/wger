@@ -56,6 +56,7 @@ Developers
 * Sidrah Madiha Siddiqui https://github.com/Sidrah-Madiha
 * Calvin Walden - https://github.com/calvinrw
 * Jack Mulligan - https://github.com/jackmulligan-ire
+* Kristopher Newsome - https://github.com/sysadmin75
 * Emma Muth - https://github.com/emmaamuth
 * Sophia Reed - https://github.com/sophialr
 

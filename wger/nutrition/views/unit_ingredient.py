@@ -20,11 +20,11 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.forms import (
     ModelChoiceField,
-    ModelForm
+    ModelForm,
 )
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -32,34 +32,35 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
-    WeightUnit
+    WeightUnit,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
 
-
 # ************************
 # Weight units to ingredient functions
 # ************************
 
 
-class WeightUnitIngredientCreateView(WgerFormMixin,
-                                     LoginRequiredMixin,
-                                     PermissionRequiredMixin,
-                                     CreateView):
+class WeightUnitIngredientCreateView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
     """
     Generic view to add a new weight unit to ingredient entry
     """
@@ -91,10 +92,12 @@ class WeightUnitIngredientCreateView(WgerFormMixin,
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientUpdateView(WgerFormMixin,
-                                     LoginRequiredMixin,
-                                     PermissionRequiredMixin,
-                                     UpdateView):
+class WeightUnitIngredientUpdateView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to update an weight unit to ingredient entry
     """
@@ -121,10 +124,12 @@ class WeightUnitIngredientUpdateView(WgerFormMixin,
         return IngredientWeightUnitForm
 
 
-class WeightUnitIngredientDeleteView(WgerDeleteMixin,
-                                     LoginRequiredMixin,
-                                     PermissionRequiredMixin,
-                                     DeleteView):
+class WeightUnitIngredientDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
     """
     Generic view to delete a weight unit to ingredient entry
     """
