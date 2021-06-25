@@ -38,33 +38,36 @@ class UserprofileSerializer(serializers.ModelSerializer):
     """
     Workout session serializer
     """
+
     class Meta:
         model = UserProfile
-        fields = ['user',
-                  'gym',
-                  'is_temporary',
-                  'show_comments',
-                  'show_english_ingredients',
-                  'workout_reminder_active',
-                  'workout_reminder',
-                  'workout_duration',
-                  'last_workout_notification',
-                  'notification_language',
-                  'age',
-                  'birthdate',
-                  'height',
-                  'gender',
-                  'sleep_hours',
-                  'work_hours',
-                  'work_intensity',
-                  'sport_hours',
-                  'sport_intensity',
-                  'freetime_hours',
-                  'freetime_intensity',
-                  'calories',
-                  'weight_unit',
-                  'ro_access',
-                  'num_days_weight_reminder']
+        fields = [
+            'user',
+            'gym',
+            'is_temporary',
+            'show_comments',
+            'show_english_ingredients',
+            'workout_reminder_active',
+            'workout_reminder',
+            'workout_duration',
+            'last_workout_notification',
+            'notification_language',
+            'age',
+            'birthdate',
+            'height',
+            'gender',
+            'sleep_hours',
+            'work_hours',
+            'work_intensity',
+            'sport_hours',
+            'sport_intensity',
+            'freetime_hours',
+            'freetime_intensity',
+            'calories',
+            'weight_unit',
+            'ro_access',
+            'num_days_weight_reminder',
+        ]
 
 
 class UsernameSerializer(serializers.Serializer):

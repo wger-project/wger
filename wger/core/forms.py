@@ -18,7 +18,7 @@
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
-    UserCreationForm
+    UserCreationForm,
 )
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -27,7 +27,7 @@ from django.forms import (
     EmailField,
     Form,
     PasswordInput,
-    widgets
+    widgets,
 )
 from django.utils.translation import gettext as _
 
@@ -46,7 +46,7 @@ from crispy_forms.layout import (
     Fieldset,
     Layout,
     Row,
-    Submit
+    Submit,
 )
 
 # wger
@@ -74,54 +74,43 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserPreferencesForm(forms.ModelForm):
-    first_name = forms.CharField(label=_('First name'),
-                                 required=False)
-    last_name = forms.CharField(label=_('Last name'),
-                                required=False)
-    email = EmailField(label=_("Email"),
-                       help_text=_("Used for password resets and, optionally, e-mail reminders."),
-                       required=False)
+    first_name = forms.CharField(label=_('First name'), required=False)
+    last_name = forms.CharField(label=_('Last name'), required=False)
+    email = EmailField(
+        label=_("Email"),
+        help_text=_("Used for password resets and, optionally, e-mail reminders."),
+        required=False
+    )
 
     class Meta:
         model = UserProfile
-        fields = ('show_comments',
-                  'show_english_ingredients',
-                  'workout_reminder_active',
-                  'workout_reminder',
-                  'workout_duration',
-                  'notification_language',
-                  'weight_unit',
-                  'ro_access',
-                  'num_days_weight_reminder',
-                  'birthdate'
-                  )
+        fields = (
+            'show_comments', 'show_english_ingredients', 'workout_reminder_active',
+            'workout_reminder', 'workout_duration', 'notification_language', 'weight_unit',
+            'ro_access', 'num_days_weight_reminder', 'birthdate'
+        )
 
     def __init__(self, *args, **kwargs):
         super(UserPreferencesForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            Fieldset(_("Personal data"),
-                     'email',
-                     Row(Column('first_name', css_class='form-group col-6 mb-0'),
-                         Column('last_name', css_class='form-group col-6 mb-0'),
-                         css_class='form-row'),
-                     HTML("<hr>")),
-            Fieldset(_("Workout reminders"),
-                     'workout_reminder_active',
-                     'workout_reminder',
-                     'workout_duration',
-                     HTML("<hr>")),
-            Fieldset(_("Other settings"),
-                     "ro_access",
-                     "notification_language",
-                     "weight_unit",
-                     "show_comments",
-                     "show_english_ingredients",
-                     "num_days_weight_reminder",
-                     "birthdate"),
-
-            ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+            Fieldset(
+                _("Personal data"), 'email',
+                Row(
+                    Column('first_name', css_class='form-group col-6 mb-0'),
+                    Column('last_name', css_class='form-group col-6 mb-0'),
+                    css_class='form-row'
+                ), HTML("<hr>")
+            ),
+            Fieldset(
+                _("Workout reminders"), 'workout_reminder_active', 'workout_reminder',
+                'workout_duration', HTML("<hr>")
+            ),
+            Fieldset(
+                _("Other settings"), "ro_access", "notification_language", "weight_unit",
+                "show_comments", "show_english_ingredients", "num_days_weight_reminder", "birthdate"
+            ), ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
 
 

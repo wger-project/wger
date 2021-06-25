@@ -15,87 +15,16 @@
 
 # Standard Library
 import logging
-import uuid
 
 # Django
-from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
-    PermissionRequiredMixin
-)
-from django.core import mail
-from django.core.exceptions import ValidationError
-from django.forms import (
-    CharField,
-    CheckboxSelectMultiple,
-    ModelChoiceField,
-    ModelForm,
-    ModelMultipleChoiceField,
-    Select,
-    Textarea
-)
-from django.http import (
-    HttpResponseForbidden,
-    HttpResponseRedirect
-)
-from django.shortcuts import (
-    get_object_or_404,
-    render
-)
-from django.template.loader import render_to_string
-from django.urls import (
-    reverse,
-    reverse_lazy
-)
-from django.utils.cache import patch_vary_headers
-from django.utils.translation import (
-    gettext as _,
-    gettext_lazy
-)
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    ListView,
-    UpdateView
-)
-
-# Third Party
-from crispy_forms.layout import (
-    Column,
-    Layout,
-    Row
-)
+from django.shortcuts import render
 
 # wger
-from django.views.generic.base import TemplateResponseMixin
-
-from wger.config.models import LanguageConfig
-from wger.exercises.models import (
-    Equipment,
-    Exercise,
-    ExerciseBase,
-    ExerciseCategory,
-    Muscle
-)
-from wger.manager.models import WorkoutLog
-from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
-from wger.utils.generic_views import (
-    WgerDeleteMixin,
-    WgerFormMixin
-)
-from wger.utils.helpers import levenshtein
-from wger.utils.language import (
-    load_item_languages,
-    load_language
-)
-from wger.utils.widgets import TranslatedSelectMultiple
-from wger.weight.helpers import process_log_entries
+from wger.exercises.models import Exercise
 
 
 logger = logging.getLogger(__name__)
-
 
 
 @permission_required('exercises.change_exercise')
@@ -109,9 +38,7 @@ def overview(request):
     history = Exercise.history.all()
     for entry in history:
         if entry.prev_record:
-            out.append({'record': entry,
-                        'delta':  entry.diff_against(entry.prev_record)})
-
+            out.append({'record': entry, 'delta': entry.diff_against(entry.prev_record)})
 
     context['history'] = out
 

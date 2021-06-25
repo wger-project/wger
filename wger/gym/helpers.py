@@ -14,12 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# wger
-from wger.manager.models import (
-    WorkoutLog,
-    WorkoutSession,
-)
-
 
 def get_user_last_activity(user):
     """
@@ -29,6 +23,11 @@ def get_user_last_activity(user):
     :param user: user object
     :return: a date or None if nothing was found
     """
+    # wger
+    from wger.manager.models import (
+        WorkoutLog,
+        WorkoutSession,
+    )
 
     last_activity = None
 

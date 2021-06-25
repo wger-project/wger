@@ -35,25 +35,28 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
     Exercise serializer
     """
+
     class Meta:
         model = ExerciseBase
-        fields = ['id',
-                  'uuid',
-                  'category',
-                  'muscles',
-                  'muscles_secondary',
-                  'equipment',
-                  'creation_date']
+        fields = [
+            'id',
+            'uuid',
+            'category',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'creation_date',
+        ]
 
 
 class EquipmentSerializer(serializers.ModelSerializer):
     """
     Equipment serializer
     """
+
     class Meta:
         model = Equipment
-        fields = ['id',
-                  'name']
+        fields = ['id', 'name']
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):
@@ -91,21 +94,20 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
     """
     ExerciseAlias serializer
     """
+
     class Meta:
         model = ExerciseAlias
-        fields = ['id',
-                  'exercise',
-                  'alias']
+        fields = ['id', 'exercise', 'alias']
 
 
 class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
     """
     Exercise alias serializer for info endpoint
     """
+
     class Meta:
         model = ExerciseAlias
-        fields = ['id',
-                  'alias']
+        fields = ['id', 'alias']
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
@@ -142,14 +144,10 @@ class ExerciseSerializer(serializers.ModelSerializer):
     compatibility with the old model where all the fields where in Exercise.
     """
     category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
-    muscles = serializers.PrimaryKeyRelatedField(many=True,
-                                                 queryset=Muscle.objects.all())
-    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True,
-                                                           queryset=Muscle.objects.all())
-    equipment = serializers.PrimaryKeyRelatedField(many=True,
-                                                   queryset=Equipment.objects.all())
-    variations = serializers.PrimaryKeyRelatedField(many=True,
-                                                    queryset=Variation.objects.all())
+    muscles = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
+    muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
+    equipment = serializers.PrimaryKeyRelatedField(many=True, queryset=Equipment.objects.all())
+    variations = serializers.PrimaryKeyRelatedField(many=True, queryset=Variation.objects.all())
 
     class Meta:
         model = Exercise
@@ -189,19 +187,21 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         depth = 1
-        fields = ["id",
-                  "name",
-                  "aliases",
-                  "uuid",
-                  "description",
-                  "creation_date",
-                  "category",
-                  "muscles",
-                  "muscles_secondary",
-                  "equipment",
-                  "language",
-                  "license",
-                  "license_author",
-                  "images",
-                  "comments",
-                  "variations"]
+        fields = [
+            "id",
+            "name",
+            "aliases",
+            "uuid",
+            "description",
+            "creation_date",
+            "category",
+            "muscles",
+            "muscles_secondary",
+            "equipment",
+            "language",
+            "license",
+            "license_author",
+            "images",
+            "comments",
+            "variations",
+        ]

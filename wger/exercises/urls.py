@@ -29,17 +29,15 @@ from wger.exercises.views import (
     comments,
     equipment,
     exercises,
+    history,
     images,
     muscles,
-    history,
 )
 
 
 # sub patterns for history
 patterns_history = [
-    path('overview/',
-         history.overview,
-         name='overview'),
+    path('overview/', history.overview, name='overview'),
 ]
 
 # sub patterns for muscles

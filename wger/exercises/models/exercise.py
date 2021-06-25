@@ -32,10 +32,9 @@ from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
-
-# wger
 from simple_history.models import HistoricalRecords
 
+# wger
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
 from wger.utils.cache import (

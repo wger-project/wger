@@ -201,8 +201,9 @@ by the US Department of Agriculture. It is extremely complete, with around
     def has_exercise_permission(self):
         """Returns true if user has all the exercise permissions and not just one."""
         # TODO: check if this can be removed / refactored
-        if self.user.groups.filter(name='admin').exists() or self.user.groups.filter(
-                name='exercises_editor').exists():
+        if self.user.groups.filter(name='admin'
+                                   ).exists() or self.user.groups.filter(name='exercises_editor'
+                                                                         ).exists():
             return True
         return False
 

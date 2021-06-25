@@ -24,17 +24,19 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.utils.cache import reset_workout_canonical_form
 
+# Local
 from .exercise import Exercise
+
 
 class ExerciseAlias(models.Model):
     """
     Model for an exercise (name)alias
     """
-    exercise = models.ForeignKey(Exercise,
-                                 verbose_name=_('Exercise'),
-                                 on_delete=models.CASCADE)
-    alias = models.CharField(max_length=200,
-                             verbose_name=_('Alias for an exercise'),)
+    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'), on_delete=models.CASCADE)
+    alias = models.CharField(
+        max_length=200,
+        verbose_name=_('Alias for an exercise'),
+    )
 
     history = HistoricalRecords()
     """Edit history"""

@@ -15,12 +15,12 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Local
-from .alias import ExerciseAlias
 from .base import ExerciseBase
 from .category import ExerciseCategory
 from .comment import ExerciseComment
 from .equipment import Equipment
 from .exercise import Exercise
+from .exercise_alias import ExerciseAlias
 from .image import ExerciseImage
 from .muscle import Muscle
 from .variation import Variation

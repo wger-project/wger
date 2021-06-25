@@ -111,8 +111,7 @@ class ExerciseViewSet(CreateUpdateModelViewSet):
         """
 
         # Exercise Base
-        base = ExerciseBase(category=serializer.validated_data['category'],
-                            variations=None)
+        base = ExerciseBase(category=serializer.validated_data['category'], variations=None)
         base.save()
         base.muscles.set(serializer.validated_data['muscles'])
         base.muscles_secondary.set(serializer.validated_data['muscles_secondary'])
@@ -120,11 +119,13 @@ class ExerciseViewSet(CreateUpdateModelViewSet):
         base.save()
 
         # Exercise
-        exercise = Exercise(name_original=serializer.validated_data['name'],
-                            description=serializer.validated_data['description'],
-                            exercise_base=base,
-                            language=serializer.validated_data['language'],
-                            status=AbstractSubmissionModel.STATUS_ACCEPTED)
+        exercise = Exercise(
+            name_original=serializer.validated_data['name'],
+            description=serializer.validated_data['description'],
+            exercise_base=base,
+            language=serializer.validated_data['language'],
+            status=AbstractSubmissionModel.STATUS_ACCEPTED
+        )
         exercise.save()
         serializer.validated_data['id'] = exercise.id
         serializer.validated_data['uuid'] = exercise.uuid
@@ -137,7 +138,7 @@ class ExerciseViewSet(CreateUpdateModelViewSet):
         exercise = serializer.instance
         base = exercise.exercise_base
         for attr, value in serializer.validated_data.items():
-            if(attr == 'name'):
+            if (attr == 'name'):
                 exercise.name_original = value
 
             if (attr == 'description'):
@@ -215,14 +216,15 @@ def search(request):
     json_response = {}
 
     if q:
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES,
-                                        language_code=request.GET.get('language', None))
+        languages = load_item_languages(
+            LanguageConfig.SHOW_ITEM_EXERCISES, language_code=request.GET.get('language', None)
+        )
         name_lookup = Q(name__icontains=q) | Q(exercisealias__alias__icontains=q)
-        exercises = (Exercise.objects.filter(name_lookup)
-                     .accepted()
-                     .filter(language__in=languages)
-                     .order_by('exercise_base__category__name', 'name')
-                     .distinct())
+        exercises = (
+            Exercise.objects.filter(name_lookup).accepted().filter(
+                language__in=languages
+            ).order_by('exercise_base__category__name', 'name').distinct()
+        )
 
         for exercise in exercises:
             if exercise.main_image:
@@ -342,7 +344,7 @@ class ExerciseCommentViewSet(CreateUpdateModelViewSet):
     API endpoint for exercise comment objects
     """
     serializer_class = ExerciseCommentSerializer
-    permission_classes = (CanEditExercises,)
+    permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('comment', 'exercise')
 
@@ -362,10 +364,9 @@ class ExerciseAliasViewSet(CreateUpdateModelViewSet):
     """
     serializer_class = ExerciseAliasSerializer
     queryset = ExerciseAlias.objects.all()
-    permission_classes = (CanEditExercises,)
+    permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
-    filterset_fields = ('alias',
-                        'exercise')
+    filterset_fields = ('alias', 'exercise')
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):

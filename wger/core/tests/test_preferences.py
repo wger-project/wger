@@ -50,17 +50,20 @@ class PreferencesTestCase(WgerTestCase):
         self.assertTemplateUsed('preferences.html')
 
         # Change some preferences
-        response = self.client.post(reverse('core:user:preferences'),
-                                    {'show_comments': True,
-                                     'show_english_ingredients': True,
-                                     'email': 'my-new-email@example.com',
-                                     'workout_reminder_active': True,
-                                     'workout_reminder': '30',
-                                     'workout_duration': 12,
-                                     'notification_language': 2,
-                                     'num_days_weight_reminder': 10,
-                                     'weight_unit': 'kg',
-                                     'birthdate': '02/25/1987',})
+        response = self.client.post(
+            reverse('core:user:preferences'), {
+                'show_comments': True,
+                'show_english_ingredients': True,
+                'email': 'my-new-email@example.com',
+                'workout_reminder_active': True,
+                'workout_reminder': '30',
+                'workout_duration': 12,
+                'notification_language': 2,
+                'num_days_weight_reminder': 10,
+                'weight_unit': 'kg',
+                'birthdate': '02/25/1987',
+            }
+        )
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
@@ -72,17 +75,20 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(User.objects.get(username='test').email, 'my-new-email@example.com')
 
         # Change some preferences
-        response = self.client.post(reverse('core:user:preferences'),
-                                    {'show_comments': False,
-                                     'show_english_ingredients': True,
-                                     'email': '',
-                                     'workout_reminder_active': True,
-                                     'workout_reminder': 22,
-                                     'workout_duration': 10,
-                                     'notification_language': 2,
-                                     'num_days_weight_reminder': 10,
-                                     'weight_unit': 'lb',
-                                     'birthdate': '02/25/1987',})
+        response = self.client.post(
+            reverse('core:user:preferences'), {
+                'show_comments': False,
+                'show_english_ingredients': True,
+                'email': '',
+                'workout_reminder_active': True,
+                'workout_reminder': 22,
+                'workout_duration': 10,
+                'notification_language': 2,
+                'num_days_weight_reminder': 10,
+                'weight_unit': 'lb',
+                'birthdate': '02/25/1987',
+            }
+        )
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
