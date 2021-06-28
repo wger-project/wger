@@ -46,6 +46,7 @@ from wger.exercises.api.serializers import (
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
     ExerciseSerializer,
+    ExerciseVariationSerializer,
     MuscleSerializer,
 )
 from wger.exercises.models import (
@@ -57,6 +58,7 @@ from wger.exercises.models import (
     ExerciseComment,
     ExerciseImage,
     Muscle,
+    Variation,
 )
 from wger.utils.language import (
     load_item_languages,
@@ -367,6 +369,15 @@ class ExerciseAliasViewSet(CreateUpdateModelViewSet):
     permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('alias', 'exercise')
+
+
+class ExerciseVariationViewSet(CreateUpdateModelViewSet):
+    """
+    API endpoint for exercise variation objects
+    """
+    serializer_class = ExerciseVariationSerializer
+    queryset = Variation.objects.all()
+    permission_classes = (CanEditExercises, )
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):

@@ -100,6 +100,18 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
         fields = ['id', 'exercise', 'alias']
 
 
+class ExerciseVariationSerializer(serializers.ModelSerializer):
+    """
+    Exercise variation serializer
+    """
+
+    class Meta:
+        model = Variation
+        fields = [
+            'id',
+        ]
+
+
 class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
     """
     Exercise alias serializer for info endpoint

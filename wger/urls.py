@@ -81,22 +81,51 @@ router.register(
 )
 
 # Exercises app
-router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, basename='exerciseinfo')
-router.register(r'exercise', exercises_api_views.ExerciseViewSet, basename='exercise')
-router.register(r'equipment', exercises_api_views.EquipmentViewSet, basename='api')
 router.register(
-    r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, basename='exercisecategory'
+    r'exerciseinfo',
+    exercises_api_views.ExerciseInfoViewset,
+    basename='exerciseinfo',
 )
 router.register(
-    r'exerciseimage', exercises_api_views.ExerciseImageViewSet, basename='exerciseimage'
+    r'exercise',
+    exercises_api_views.ExerciseViewSet,
+    basename='exercise',
 )
 router.register(
-    r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, basename='exercisecomment'
+    r'equipment',
+    exercises_api_views.EquipmentViewSet,
+    basename='api',
 )
 router.register(
-    r'exercisealias', exercises_api_views.ExerciseAliasViewSet, basename='exercisealias'
+    r'exercisecategory',
+    exercises_api_views.ExerciseCategoryViewSet,
+    basename='exercisecategory',
 )
-router.register(r'muscle', exercises_api_views.MuscleViewSet, basename='muscle')
+router.register(
+    r'exerciseimage',
+    exercises_api_views.ExerciseImageViewSet,
+    basename='exerciseimage',
+)
+router.register(
+    r'exercisecomment',
+    exercises_api_views.ExerciseCommentViewSet,
+    basename='exercisecomment',
+)
+router.register(
+    r'exercisealias',
+    exercises_api_views.ExerciseAliasViewSet,
+    basename='exercisealias',
+)
+router.register(
+    r'muscle',
+    exercises_api_views.MuscleViewSet,
+    basename='muscle',
+)
+router.register(
+    r'variation',
+    exercises_api_views.ExerciseVariationViewSet,
+    basename='variation',
+)
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='api-ingredient')
