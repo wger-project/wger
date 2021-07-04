@@ -117,4 +117,11 @@ export class ExerciseService {
   getEquipmentById(id: number): Equipment {
     return this.equipment.find(value => value.id === id)!;
   }
+
+  updateExercise(data: any) {
+
+  }
+  addExercise(data: any) {
+
+  }
 }
