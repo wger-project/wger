@@ -1,3 +1,4 @@
+import {HttpHeaders} from '@angular/common/http';
 import {Environment} from './environment.interface';
 
 /**
@@ -7,7 +8,11 @@ import {Environment} from './environment.interface';
 export const environment: Environment = {
   production: false,
   name: 'dev',
-  apiUrl: 'http://localhost:8000/api/v2/'
+  apiUrl: 'http://localhost:8000/api/v2/',
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    Authorization: 'Token d2e9db08e3c1eea2adb62e60e75fa8922af8bbd5'
+  }),
 };
 
 /*

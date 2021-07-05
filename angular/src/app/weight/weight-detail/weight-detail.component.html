@@ -1,1 +1,6 @@
-<li class="list-group-item">{{entry.date}} - {{entry.weight}}</li>
+<li class="list-group-item">
+  {{entry.date}} - {{entry.weight}}
+  <button class="btn btn-danger" (click)="deleteEntry()">
+    Delete
+  </button>
+</li>

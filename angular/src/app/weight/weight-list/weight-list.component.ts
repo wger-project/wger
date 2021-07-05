@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WeightEntry} from '../../exercise/models/weight/weight.model';
+import {WeightEntry} from '../models/weight.model';
 import {WeightService} from '../weight.service';
 
 @Component({

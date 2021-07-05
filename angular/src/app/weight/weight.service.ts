@@ -1,8 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {WeightAdapter, WeightEntry} from '../exercise/models/weight/weight.model';
+import {WeightAdapter, WeightEntry} from './models/weight.model';
 
 
 @Injectable({
@@ -15,21 +14,14 @@ export class WeightService {
 
   constructor(private http: HttpClient,
               private weightAdapter: WeightAdapter,
-              ) {
+  ) {
   }
 
 
-
   async loadWeightEntries(): Promise<WeightEntry[]> {
-    const data = await this.http.get<any>(this.weightEntryUrl, {params: {limit: 10}, headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: 'Token d2e9db08e3c1eea2adb62e60e75fa8922af8bbd5'
-      })}).toPromise();
-
+    const data = await this.http.get<any>(this.weightEntryUrl, {params: {limit: 10}, headers: environment.headers}).toPromise();
 
     for (const weightData of data.results) {
-      console.log(weightData);
-
       this.entries.push(this.weightAdapter.fromJson(weightData));
     }
 
@@ -39,7 +31,27 @@ export class WeightService {
   updateWeightEntry(data: any) {
 
   }
+
   addWeightEntry(data: any) {
 
+  }
+
+  /**
+   * Deletes the weight entry with the given ID
+   *
+   * @param id: ID of the weight entry
+   */
+  deleteWeightEntry(id: number) {
+
+    this.http.delete<any>(this.weightEntryUrl + '/' + id + '/', {
+      headers: environment.headers
+    }).subscribe();
+
+
+    this.entries.forEach((value: WeightEntry, index: number) => {
+      if (value.id == id) {
+        this.entries.splice(index, 1);
+      }
+    });
   }
 }

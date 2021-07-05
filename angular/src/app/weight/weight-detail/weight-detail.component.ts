@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WeightEntry} from '../../exercise/models/weight/weight.model';
+import {WeightEntry} from '../models/weight.model';
+import {WeightService} from '../weight.service';
 
 @Component({
   selector: 'app-weight-detail',
@@ -10,9 +11,18 @@ export class WeightDetailComponent implements OnInit {
 
   @Input() entry!: WeightEntry;
 
-  constructor() { }
+  constructor(private weightService: WeightService) {
+  }
 
   ngOnInit(): void {
   }
+
+  /**
+   * Deletes this weight entry
+   */
+  deleteEntry() {
+    this.weightService.deleteWeightEntry(this.entry.id);
+  }
+
 
 }
