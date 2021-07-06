@@ -1,0 +1,28 @@
+<form [formGroup]="group" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input
+        type="date"
+        id="date"
+        formControlName="date"
+        class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="weight">Weight</label>
+      <input
+        type="text"
+        id="weight"
+        formControlName="weight"
+        class="form-control">
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="group.invalid">Save
+    </button>
+  </div>
+</form>

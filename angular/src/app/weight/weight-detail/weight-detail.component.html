@@ -1,6 +1,11 @@
 <li class="list-group-item">
-  {{entry.date}} - {{entry.weight}}
   <button class="btn btn-danger" (click)="deleteEntry()">
     Delete
   </button>
+  <button class="btn btn-primary" (click)="toggleForm()">Edit</button>
+
+  <div *ngIf="!showForm">
+    {{entry.date}} - {{entry.weight}}
+  </div>
+  <app-weight-edit *ngIf="showForm" [weight]="entry"></app-weight-edit>
 </li>

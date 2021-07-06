@@ -3,3 +3,6 @@
     class="list-group">
     <app-weight-detail [entry]="entry"></app-weight-detail>
 </ul>
+
+<button class="btn btn-primary" (click)="toggleForm()">Add entry</button>
+<app-weight-edit *ngIf="showForm"></app-weight-edit>

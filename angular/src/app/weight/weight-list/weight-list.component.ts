@@ -9,11 +9,16 @@ import {WeightService} from '../weight.service';
 })
 export class WeightListComponent implements OnInit {
   weightEntries: WeightEntry[] = [];
+  showForm = false;
 
   constructor(private service: WeightService) { }
 
   ngOnInit(): void {
     this.getWeightEntries();
+  }
+
+  toggleForm() {
+    this.showForm = !this.showForm;
   }
 
   async getWeightEntries(): Promise<void> {

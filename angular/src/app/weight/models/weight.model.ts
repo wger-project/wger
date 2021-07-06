@@ -22,9 +22,9 @@ import {Adapter} from '../../core/adapter';
 export class WeightEntry {
 
   constructor(
-    public id: number,
     public date: Date,
-    public weight: number
+    public weight: number,
+    public id?: number,
   ) { }
 }
 
@@ -34,9 +34,9 @@ export class WeightEntry {
 export class WeightAdapter implements Adapter<WeightEntry> {
   fromJson(item: any): WeightEntry {
     return new WeightEntry(
-      item.id,
       item.date,
-      item.weight
+      item.weight,
+      item.id,
     );
   }
 

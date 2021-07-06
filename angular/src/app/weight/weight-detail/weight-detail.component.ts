@@ -10,6 +10,7 @@ import {WeightService} from '../weight.service';
 export class WeightDetailComponent implements OnInit {
 
   @Input() entry!: WeightEntry;
+  showForm = false;
 
   constructor(private weightService: WeightService) {
   }
@@ -17,11 +18,15 @@ export class WeightDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
   /**
    * Deletes this weight entry
    */
   deleteEntry() {
-    this.weightService.deleteWeightEntry(this.entry.id);
+    this.weightService.deleteWeightEntry(this.entry.id!);
   }
 
 

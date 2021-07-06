@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {WeightAdapter, WeightEntry} from './models/weight.model';
@@ -8,7 +8,7 @@ import {WeightAdapter, WeightEntry} from './models/weight.model';
   providedIn: 'root',
 })
 export class WeightService {
-  weightEntryUrl = environment.apiUrl + 'weightentry';
+  weightEntryUrl = environment.apiUrl + 'weightentry/';
 
   entries: WeightEntry[] = [];
 
@@ -17,23 +17,44 @@ export class WeightService {
   ) {
   }
 
+  sortEntries() {
+    this.entries.sort((a, b) => (a.date > b.date ? -1 : 1));
+  }
+
 
   async loadWeightEntries(): Promise<WeightEntry[]> {
-    const data = await this.http.get<any>(this.weightEntryUrl, {params: {limit: 10}, headers: environment.headers}).toPromise();
+    const data = await this.http.get<any>(this.weightEntryUrl, {params: {limit: 500}, headers: environment.headers}).toPromise();
 
     for (const weightData of data.results) {
       this.entries.push(this.weightAdapter.fromJson(weightData));
     }
-
+    this.sortEntries();
     return this.entries;
   }
 
-  updateWeightEntry(data: any) {
-
+  /**
+   * Updates an existing weight entry
+   *
+   * @param weight a [WeightEntry] instance
+   */
+  updateWeightEntry(weight: WeightEntry) {
+    this.http.patch<any>(this.weightEntryUrl + weight.id + '/', this.weightAdapter.toJson(weight), {
+      headers: environment.headers
+    }).subscribe(value => { });
   }
 
-  addWeightEntry(data: any) {
-
+  /**
+   * Inserts a new weight entry into the database
+   *
+   * @param data: the weight entry data
+   */
+  addWeightEntry(data: {weight: number, date: Date}) {
+    this.http.post<any>(this.weightEntryUrl, data, {
+      headers: environment.headers
+    }).subscribe(value => {
+      this.entries.push(this.weightAdapter.fromJson(value));
+      this.sortEntries();
+    });
   }
 
   /**
@@ -43,7 +64,7 @@ export class WeightService {
    */
   deleteWeightEntry(id: number) {
 
-    this.http.delete<any>(this.weightEntryUrl + '/' + id + '/', {
+    this.http.delete<any>(this.weightEntryUrl + id + '/', {
       headers: environment.headers
     }).subscribe();
 
