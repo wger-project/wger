@@ -32,6 +32,7 @@ export class WeightService {
     return this.entries;
   }
 
+
   /**
    * Updates an existing weight entry
    *

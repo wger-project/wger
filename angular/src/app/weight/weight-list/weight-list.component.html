@@ -1,8 +1,19 @@
 
+<div class="row">
+  <div class="col-12">
+  <app-weight-chart></app-weight-chart>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
 <ul *ngFor="let entry of weightEntries"
     class="list-group">
     <app-weight-detail [entry]="entry"></app-weight-detail>
 </ul>
+</div>
+</div>
 
 <button class="btn btn-primary" (click)="toggleForm()">Add entry</button>
 <app-weight-edit *ngIf="showForm"></app-weight-edit>

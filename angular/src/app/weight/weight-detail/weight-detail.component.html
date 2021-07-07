@@ -5,7 +5,7 @@
   <button class="btn btn-primary" (click)="toggleForm()">Edit</button>
 
   <div *ngIf="!showForm">
-    {{entry.date}} - {{entry.weight}}
+    {{entry.date | date:'shortDate'}} - {{entry.weight}}
   </div>
   <app-weight-edit *ngIf="showForm" [weight]="entry"></app-weight-edit>
 </li>

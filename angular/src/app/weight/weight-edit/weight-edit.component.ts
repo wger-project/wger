@@ -31,7 +31,7 @@ export class WeightEditComponent implements OnInit {
   private initForm() {
 
     this.group = this.formBuilder.group({
-      date: [this.weight!.date, Validators.required],
+      date: [this.weight!.date.toISOString().split('T')[0], Validators.required],
       weight: [
         this.weight!.weight,
         [Validators.required, Validators.min(30), Validators.max(300)],

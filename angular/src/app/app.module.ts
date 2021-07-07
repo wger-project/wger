@@ -20,6 +20,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import {AppComponent} from './app.component';
 import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
@@ -28,6 +30,8 @@ import { ExerciseEditComponent } from './exercise/exercise-edit/exercise-edit.co
 import {ExerciseService} from './exercise/exercise.service';
 import {WeightListComponent} from './weight/weight-list/weight-list.component';
 import { WeightDetailComponent } from './weight/weight-detail/weight-detail.component';
+import { WeightEditComponent } from './weight/weight-edit/weight-edit.component';
+import { WeightChartComponent } from './weight/weight-chart/weight-chart.component';
 
 @NgModule({
   declarations: [
@@ -37,12 +41,16 @@ import { WeightDetailComponent } from './weight/weight-detail/weight-detail.comp
     ExerciseEditComponent,
 
     WeightListComponent,
-    WeightDetailComponent
+    WeightDetailComponent,
+    WeightEditComponent,
+    WeightChartComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [ExerciseService],
   bootstrap: [AppComponent]

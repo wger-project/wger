@@ -15,10 +15,12 @@
     "@angular/common": "~12.0.2",
     "@angular/compiler": "~12.0.2",
     "@angular/core": "~12.0.2",
+    "@angular/cdk": "~12.0.2",
     "@angular/forms": "~12.0.2",
     "@angular/platform-browser": "~12.0.2",
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
+    "@swimlane/ngx-charts": "^18.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
