@@ -14,7 +14,8 @@ Upgrade steps from 2.0:
 
 🚀 Features:
 
-* New gallery where users can upload pictures to track their progress `#572`_,
+* New gallery where users can upload pictures to track their progress `#572`_
+* Custom measurements such as biceps size or body fat `#133`_
 
 
 🐛 Bug Fixes:
@@ -31,6 +32,7 @@ Upgrade steps from 2.0:
     - field ``description`` was added, for longer descriptions
 * `#666`_, `#656`_ (thanks `@jackmulligan-ire`_),
 
+.. _#133: https://github.com/wger-project/wger/issues/133
 .. _#572: https://github.com/wger-project/wger/issues/572
 .. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
