@@ -17,6 +17,12 @@ export class WeightService {
   ) {
   }
 
+  /**
+   * Sorts weight entries by date.
+   *
+   * While they are already sorted server side, this is necessary, e.g. when
+   * adding or deleting
+   */
   sortEntries() {
     this.entries.sort((a, b) => (a.date > b.date ? -1 : 1));
   }
@@ -41,7 +47,8 @@ export class WeightService {
   updateWeightEntry(weight: WeightEntry) {
     this.http.patch<any>(this.weightEntryUrl + weight.id + '/', this.weightAdapter.toJson(weight), {
       headers: environment.headers
-    }).subscribe(value => { });
+    }).subscribe(value => {
+    });
   }
 
   /**
@@ -49,7 +56,7 @@ export class WeightService {
    *
    * @param data: the weight entry data
    */
-  addWeightEntry(data: {weight: number, date: Date}) {
+  addWeightEntry(data: { weight: number, date: Date }) {
     this.http.post<any>(this.weightEntryUrl, data, {
       headers: environment.headers
     }).subscribe(value => {
@@ -68,7 +75,6 @@ export class WeightService {
     this.http.delete<any>(this.weightEntryUrl + id + '/', {
       headers: environment.headers
     }).subscribe();
-
 
     this.entries.forEach((value: WeightEntry, index: number) => {
       if (value.id == id) {

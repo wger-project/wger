@@ -34,7 +34,10 @@ export class WeightChartComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    // TODO: only load service data once
     await this.service.loadWeightEntries();
+
     const out: {name: Date, value: number}[] = this.service.entries.map(entry => {
       return {name: entry.date, value: entry.weight};
     });

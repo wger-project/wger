@@ -32,6 +32,7 @@ import {WeightListComponent} from './weight/weight-list/weight-list.component';
 import { WeightDetailComponent } from './weight/weight-detail/weight-detail.component';
 import { WeightEditComponent } from './weight/weight-edit/weight-edit.component';
 import { WeightChartComponent } from './weight/weight-chart/weight-chart.component';
+import {WeightService} from './weight/weight.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,10 @@ import { WeightChartComponent } from './weight/weight-chart/weight-chart.compone
     NgxChartsModule,
     BrowserAnimationsModule
   ],
-  providers: [ExerciseService],
+  providers: [
+    ExerciseService,
+    WeightService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

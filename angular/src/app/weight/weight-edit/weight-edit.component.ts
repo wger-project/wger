@@ -21,7 +21,7 @@ export class WeightEditComponent implements OnInit {
   ngOnInit(): void {
 
     if(!this.weight) {
-      console.log("thi weight is not defined");
+      console.log("this weight is not defined");
       this.weight = new WeightEntry(new Date(), 0);
     }
 
