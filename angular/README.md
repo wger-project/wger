@@ -20,6 +20,13 @@ or in this folder:
 ng build --configuration production --output-path ../wger/core/static/angular --watch --output-hashing none
 ```
 
+## i18n
+
+```bash
+ng extract-i18n --output-path src/locale/
+```
+
+
 ## Updating angular
 
 Update angular to a new version with
@@ -27,3 +34,4 @@ Update angular to a new version with
 ```bash
 ng update @angular/core @angular/cli
 ```
+

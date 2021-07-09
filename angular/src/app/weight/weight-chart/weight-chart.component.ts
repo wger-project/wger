@@ -41,7 +41,6 @@ export class WeightChartComponent implements OnInit {
     const out: {name: Date, value: number}[] = this.service.entries.map(entry => {
       return {name: entry.date, value: entry.weight};
     });
-    console.log(out);
     this.data = [{
       name: 'Weight',
       series: out

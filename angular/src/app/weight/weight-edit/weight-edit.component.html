@@ -2,7 +2,7 @@
 
   <div class="form-row">
     <div class="col">
-          <label for="date">Date</label>
+          <label for="date" i18n>Date</label>
           <input
             type="date"
             id="date"
@@ -11,7 +11,7 @@
         </div>
 
       <div class="col">
-          <label for="weight">Weight</label>
+          <label for="weight" i18n>Weight</label>
           <input
             type="text"
             id="weight"
@@ -24,8 +24,7 @@
       <button
         type="submit"
         class="btn btn-success"
-        [disabled]="group.invalid">Save
-      </button>
+        [disabled]="group.invalid" i18n>Save</button>
     </div>
   </div>
 
