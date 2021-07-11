@@ -194,31 +194,6 @@ def overview(request, username=None):
     return render(request, 'overview.html', template_data)
 
 
-@api_view(['GET'])
-def get_weight_data(request, username=None):
-    """
-    Process the data to pass it to the JS libraries to generate an SVG image
-    """
-
-    is_owner, user = check_access(request.user, username)
-
-    date_min = request.GET.get('date_min', False)
-    date_max = request.GET.get('date_max', True)
-
-    if date_min and date_max:
-        weights = WeightEntry.objects.filter(user=user, date__range=(date_min, date_max))
-    else:
-        weights = WeightEntry.objects.filter(user=user)
-
-    chart_data = []
-
-    for i in weights:
-        chart_data.append({'date': i.date, 'weight': i.weight})
-
-    # Return the results to the client
-    return Response(chart_data)
-
-
 class WeightCsvImportFormPreview(FormPreview):
     preview_template = 'import_csv_preview.html'
     form_template = 'import_csv_form.html'

@@ -56,17 +56,4 @@ urlpatterns = [
         views.overview,
         name='overview',
     ),
-    # url(r'^overview/$',
-    #     views.overview,
-    #     name='overview'),
-    url(
-        r'^api/get_weight_data/(?P<username>[\w.@+-]+)$',  # JS
-        views.get_weight_data,
-        name='weight-data',
-    ),
-    path(
-        'api/get_weight_data/',  # JS
-        views.get_weight_data,
-        name='weight-data',
-    ),
 ]
