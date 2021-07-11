@@ -1,19 +1,40 @@
-
 <div class="row">
   <div class="col-12">
-  <app-weight-chart></app-weight-chart>
+    <app-weight-chart></app-weight-chart>
   </div>
 </div>
 
-
 <div class="row">
   <div class="col-12">
-  <ul *ngFor="let entry of weightEntries"
-      class="list-group">
+    <ul *ngFor="let entry of weightEntries | slice: (page-1) * pageSize : page * pageSize"
+        class="list-group">
       <app-weight-detail [entry]="entry"></app-weight-detail>
-  </ul>
-</div>
+    </ul>
+
+    <ngb-pagination
+      [collectionSize]="weightEntries.length"
+      [pageSize]="pageSize"
+      [(page)]="page"
+      [boundaryLinks]="true"
+      [ellipses]="true"
+      [maxSize]="maxPageShown"
+      class="d-flex justify-content-center mt-2"></ngb-pagination>
+  </div>
 </div>
 
-<button class="btn btn-primary" (click)="toggleForm()" i18n>Add entry</button>
-<app-weight-edit *ngIf="showForm"></app-weight-edit>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" i18n>Add entry</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-weight-edit></app-weight-edit>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)" i18n>Add entry</button>

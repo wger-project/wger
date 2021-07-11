@@ -21,37 +21,41 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbDropdownModule, NgbModalModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import {AppComponent} from './app.component';
 import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
-import { ExerciseListComponent } from './exercise/exercise-list/exercise-list.component';
-import { ExerciseEditComponent } from './exercise/exercise-edit/exercise-edit.component';
+import {ExerciseEditComponent} from './exercise/exercise-edit/exercise-edit.component';
+import {ExerciseListComponent} from './exercise/exercise-list/exercise-list.component';
 import {ExerciseService} from './exercise/exercise.service';
+import {WeightChartComponent} from './weight/weight-chart/weight-chart.component';
+import {WeightDetailComponent} from './weight/weight-detail/weight-detail.component';
+import {WeightEditComponent} from './weight/weight-edit/weight-edit.component';
 import {WeightListComponent} from './weight/weight-list/weight-list.component';
-import { WeightDetailComponent } from './weight/weight-detail/weight-detail.component';
-import { WeightEditComponent } from './weight/weight-edit/weight-edit.component';
-import { WeightChartComponent } from './weight/weight-chart/weight-chart.component';
 import {WeightService} from './weight/weight.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExerciseDetailComponent,
-    ExerciseListComponent,
     ExerciseEditComponent,
+    ExerciseListComponent,
 
-    WeightListComponent,
+    WeightChartComponent,
     WeightDetailComponent,
     WeightEditComponent,
-    WeightChartComponent
+    WeightListComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    NgbDropdownModule,
+    NgbModalModule,
+    NgbPaginationModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    ReactiveFormsModule,
   ],
   providers: [
     ExerciseService,

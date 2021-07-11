@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {WeightEntry} from '../models/weight.model';
+import {WeightEditComponent} from '../weight-edit/weight-edit.component';
 import {WeightService} from '../weight.service';
 
 @Component({
@@ -18,8 +20,6 @@ export class WeightChartComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = false;
   showXAxisLabel: boolean = false;
-  //xAxisLabel: string = 'Date';
-  //yAxisLabel: string = 'Weight';
   timeline: boolean = true;
   autoScale = true;
 
@@ -29,20 +29,25 @@ export class WeightChartComponent implements OnInit {
 
   data : any
 
+  selectedEntry?: WeightEntry;
 
-  constructor(private service: WeightService) {
-  }
+  @ViewChild(WeightEditComponent)
+  edit!: WeightEditComponent;
+
+  constructor(
+    private service: WeightService,
+  ) { }
 
   async ngOnInit(): Promise<void> {
 
     // TODO: only load service data once
     await this.service.loadWeightEntries();
 
-    const out: {name: Date, value: number}[] = this.service.entries.map(entry => {
-      return {name: entry.date, value: entry.weight};
+    const out = this.service.entries.map(entry => {
+      return {name: entry.date, value: entry.weight, id: entry.id};
     });
     this.data = [{
-      name: 'Weight',
+      name: $localize`Weight`,
       series: out
     }];
 
@@ -50,7 +55,13 @@ export class WeightChartComponent implements OnInit {
 
 
   onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+
+    const entry = this.service.findById(data.id);
+    if(entry === undefined) {
+      return;
+    }
+    this.selectedEntry = entry;
+    console.log(`Loaded entry ${entry.id}`);
   }
 
   onActivate(data: any): void {

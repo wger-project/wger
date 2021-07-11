@@ -82,4 +82,15 @@ export class WeightService {
       }
     });
   }
+
+  /**
+   * Finds an entry by its ID
+   *
+   * @param id: ID of the weight entry
+   */
+  findById(id: number) {
+    return this.entries.find(value => value.id == id);
+  }
+
+
 }
