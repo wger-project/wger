@@ -10,6 +10,8 @@ import {WeightService} from '../weight.service';
 export class WeightDetailComponent implements OnInit {
 
   @Input() entry!: WeightEntry;
+  @Input() weightDiff?: number;
+  @Input() dayDiff?: number;
   showForm = false;
 
   constructor(private weightService: WeightService) {

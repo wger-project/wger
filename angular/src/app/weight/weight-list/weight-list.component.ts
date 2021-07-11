@@ -9,7 +9,7 @@ import {WeightService} from '../weight.service';
   styleUrls: ['./weight-list.component.css']
 })
 export class WeightListComponent implements OnInit {
-  weightEntries: WeightEntry[] = [];
+  weightEntries: { entry: WeightEntry, weightDiff: number, dayDiff: number }[] = [];
 
   /**
   Starting page for the pagination
@@ -32,11 +32,27 @@ export class WeightListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getWeightEntries();
+    this.processWeightEntries();
   }
 
-  async getWeightEntries(): Promise<void> {
-    this.weightEntries = await this.service.loadWeightEntries();
+  /**
+   * Processes the
+   */
+  async processWeightEntries(): Promise<void> {
+    const entries = await this.service.loadWeightEntries();
+    const nrOfEntries = entries.length;
+
+    entries.forEach((currentEntry, index) => {
+
+      // Newest entries are the first
+      const prevIndex = index + 1;
+
+      const weightDiff = prevIndex < nrOfEntries ? currentEntry.weight - entries[prevIndex].weight  : 0;
+      const dayDiff = prevIndex < nrOfEntries ? (currentEntry.date.getTime() - entries[prevIndex].date.getTime()) / (1000 * 3600 * 24) : 0;
+
+      this.weightEntries.push({entry: currentEntry, weightDiff: weightDiff, dayDiff: dayDiff});
+    });
+
   }
 
   open(content: any) {

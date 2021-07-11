@@ -13,10 +13,18 @@
     </div>
 
     <div class="col-3">
-      +/-
+      <div *ngIf="weightDiff !== null">
+        {{weightDiff}}
+      </div>
     </div>
 
-    <div class="col-3">
+    <div class="col-2">
+      <div *ngIf="dayDiff !== null">
+        {{dayDiff}}
+      </div>
+    </div>
+
+    <div class="col-1">
       <div ngbDropdown class="text-right">
         <button class="btn btn-link" id="dropdownBasic1" ngbDropdownToggle></button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
