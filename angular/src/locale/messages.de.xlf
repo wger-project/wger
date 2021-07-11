@@ -1,55 +1,328 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
-    <body>
-      <trans-unit id="7022070615528435141" datatype="html">
-        <source>Delete</source>
-        <target>Löschen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/weight/weight-detail/weight-detail.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7585826646011739428" datatype="html">
-        <source>Edit</source>
-        <target>Bearbeiten</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/weight/weight-detail/weight-detail.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3973931101896534797" datatype="html">
-        <source>Date</source>
-        <target>Datum</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/weight/weight-edit/weight-edit.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5848348023107769657" datatype="html">
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US">
+  <file id="ngi18n" original="ng.template">
+    <unit id="ngb.alert.close">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/alert/alert.ts:58,61</note>
+      </notes>
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.slide-number">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/carousel/carousel.ts:114,118</note>
+        <note category="description">Currently selected slide number read by screen reader</note>
+      </notes>
+      <segment>
+        <source> Slide <ph id="0" equiv="INTERPOLATION" disp="OnHover$ = new"/> of <ph id="1" equiv="INTERPOLATION_1" disp=";
+  private _pa"/> </source>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.previous">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/carousel/carousel.ts:132,134</note>
+      </notes>
+      <segment>
+        <source>Previous</source>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.next">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/carousel/carousel.ts:147,152</note>
+      </notes>
+      <segment>
+        <source>Next</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.select-month">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts:44,49</note>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts:49,50</note>
+      </notes>
+      <segment>
+        <source>Select month</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.select-year">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts:59,63</note>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts:74</note>
+      </notes>
+      <segment>
+        <source>Select year</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.previous-month">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts:24,27</note>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts:35,36</note>
+      </notes>
+      <segment>
+        <source>Previous month</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.next-month">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts:47,50</note>
+        <note category="location">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts:60,64</note>
+      </notes>
+      <segment>
+        <source>Next month</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.first">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:182,183</note>
+      </notes>
+      <segment>
+        <source>««</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.previous">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:186,190</note>
+      </notes>
+      <segment>
+        <source>«</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.next">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:194,195</note>
+      </notes>
+      <segment>
+        <source>»</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.last">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:201,204</note>
+      </notes>
+      <segment>
+        <source>»»</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.first-aria">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:208,209</note>
+      </notes>
+      <segment>
+        <source>First</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.previous-aria">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:215,216</note>
+      </notes>
+      <segment>
+        <source>Previous</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.next-aria">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:226,228</note>
+      </notes>
+      <segment>
+        <source>Next</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.last-aria">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/pagination/pagination.ts:232,233</note>
+      </notes>
+      <segment>
+        <source>Last</source>
+      </segment>
+    </unit>
+    <unit id="ngb.progressbar.value">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/progressbar/progressbar.ts:32,38</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="; }
+
+  /**
+   *"/></source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.HH">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:40,41</note>
+      </notes>
+      <segment>
+        <source>HH</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.hours">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:46,47</note>
+      </notes>
+      <segment>
+        <source>Hours</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.MM">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:51,54</note>
+      </notes>
+      <segment>
+        <source>MM</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.minutes">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:58,59</note>
+      </notes>
+      <segment>
+        <source>Minutes</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-hours">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:63,64</note>
+      </notes>
+      <segment>
+        <source>Increment hours</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-hours">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:69,70</note>
+      </notes>
+      <segment>
+        <source>Decrement hours</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-minutes">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:76,78</note>
+      </notes>
+      <segment>
+        <source>Increment minutes</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-minutes">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:82,84</note>
+      </notes>
+      <segment>
+        <source>Decrement minutes</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.SS">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:87,88</note>
+      </notes>
+      <segment>
+        <source>SS</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.seconds">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:92,93</note>
+      </notes>
+      <segment>
+        <source>Seconds</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-seconds">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:100,101</note>
+      </notes>
+      <segment>
+        <source>Increment seconds</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-seconds">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:106,110</note>
+      </notes>
+      <segment>
+        <source>Decrement seconds</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.AM">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:115,121</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="NgbTime;
+
+  pr"/></source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.PM">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts:123,131</note>
+      </notes>
+      <segment>
+        <source><ph id="0" equiv="INTERPOLATION" disp="t() meridian: b"/></source>
+      </segment>
+    </unit>
+    <unit id="ngb.toast.close-aria">
+      <notes>
+        <note category="location">node_modules/@ng-bootstrap/src/toast/toast.ts:78,85</note>
+      </notes>
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
+    <unit id="5848348023107769657">
+      <notes>
+        <note category="location">src/app/weight/weight-chart/weight-chart.component.ts:50</note>
+        <note category="location">src/app/weight/weight-edit/weight-edit.component.html:14</note>
+      </notes>
+      <segment>
         <source>Weight</source>
         <target>Gewicht</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/weight/weight-edit/weight-edit.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3768927257183755959" datatype="html">
+      </segment>
+    </unit>
+    <unit id="7585826646011739428">
+      <notes>
+        <note category="location">src/app/weight/weight-detail/weight-detail.component.html:23</note>
+      </notes>
+      <segment>
+        <source>Edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="7022070615528435141">
+      <notes>
+        <note category="location">src/app/weight/weight-detail/weight-detail.component.html:24</note>
+      </notes>
+      <segment>
+        <source>Delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="3973931101896534797">
+      <notes>
+        <note category="location">src/app/weight/weight-edit/weight-edit.component.html:5</note>
+      </notes>
+      <segment>
+        <source>Date</source>
+        <target>Datum</target>
+      </segment>
+    </unit>
+    <unit id="3768927257183755959">
+      <notes>
+        <note category="location">src/app/weight/weight-edit/weight-edit.component.html:26</note>
+      </notes>
+      <segment>
         <source>Save</source>
         <target>Speichern</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/weight/weight-edit/weight-edit.component.html</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2540594807548326286" datatype="html">
+      </segment>
+    </unit>
+    <unit id="2540594807548326286">
+      <notes>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:27</note>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:40</note>
+      </notes>
+      <segment>
         <source>Add entry</source>
         <target>Eintrag hinzufügen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/weight/weight-list/weight-list.component.html</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
   </file>
 </xliff>
