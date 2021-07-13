@@ -147,7 +147,7 @@ class NutritionPlan(models.Model):
 
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
-            if weight_entry:
+            if weight_entry and weight_entry.weight:
                 for key in result['per_kg'].keys():
                     result['per_kg'][key] = result['total'][key] / weight_entry.weight
 
