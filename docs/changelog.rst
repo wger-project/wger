@@ -14,7 +14,8 @@ Upgrade steps from 2.0:
 
 🚀 Features:
 
-* New gallery where users can upload pictures to track their progress `#572`_,
+* New gallery where users can upload pictures to track their progress `#572`_
+* Add comment filed to set for user notes `#702`_
 
 
 🐛 Bug Fixes:
@@ -29,11 +30,14 @@ Upgrade steps from 2.0:
   + /workout/
     - ``comment`` was renamed to name
     - field ``description`` was added, for longer descriptions
+  + /set/
+    - field ``comment`` added, for user notes
 * `#666`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
 
 .. _#572: https://github.com/wger-project/wger/issues/572
 .. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
+.. _#702: https://github.com/wger-project/wger/issues/702
 .. _#716: https://github.com/wger-project/wger/issues/716
 
 .. _@jackmulligan-ire: https://github.com/jackmulligan-ire

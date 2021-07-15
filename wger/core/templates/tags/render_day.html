@@ -93,6 +93,9 @@
                 {% endif %}
             </td>
             <td style="border-left-width: 0px;">
+                {% if set.obj.comment %}
+                    <p class="text-muted">{{ set.obj.comment }}</p>
+                {% endif %}
                 <div class="exercise-list">
                     {% for exercise in set.exercise_list %}
                         <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">

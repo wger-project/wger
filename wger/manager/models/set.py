@@ -57,6 +57,8 @@ class Set(models.Model):
         default=DEFAULT_SETS,
     )
 
+    comment = models.CharField(max_length=200, verbose_name=_('Comment'), blank=True)
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [

@@ -106,7 +106,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
-        fields = ['id', 'exerciseday', 'sets', 'order']
+        fields = ['id', 'exerciseday', 'sets', 'order', 'comment']
 
 
 class SettingSerializer(serializers.ModelSerializer):
