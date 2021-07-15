@@ -36,7 +36,10 @@ export class WeightListComponent implements OnInit {
   }
 
   /**
-   * Processes the
+   * Processes the weight entries and calculates the difference in days beween
+   * entries.
+   *
+   * This could potentially be moved to the model
    */
   async processWeightEntries(): Promise<void> {
     const entries = await this.service.loadWeightEntries();

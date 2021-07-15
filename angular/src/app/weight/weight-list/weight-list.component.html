@@ -9,33 +9,18 @@
     <ul class="list-group">
       <li class="list-group-item">
         <div class="row">
-          <div class="col-3">
-            <div i18n>
-              Date
-            </div>
-          </div>
-
-          <div class="col-3" i18n>
-            Gewicht
-          </div>
-
-          <div class="col-3" i18n>
-            Change
-          </div>
-
-          <div class="col-2" i18n>
-            Days
-          </div>
-
-          <div class="col-1">
-          </div>
+          <div class="col-3 font-weight-bold" i18n>Date</div>
+          <div class="col-3 font-weight-bold" i18n>Weight</div>
+          <div class="col-3 font-weight-bold" i18n>Change</div>
+          <div class="col-2 font-weight-bold" i18n>Days</div>
+          <div class="col-1"></div>
         </div>
       </li>
-        <app-weight-detail
-          [entry]="entry.entry"
-          [dayDiff]="entry.dayDiff"
-          [weightDiff]="entry.weightDiff"
-          *ngFor="let entry of weightEntries | slice: (page-1) * pageSize : page * pageSize" ></app-weight-detail>
+      <app-weight-detail
+        [entry]="entry.entry"
+        [dayDiff]="entry.dayDiff"
+        [weightDiff]="entry.weightDiff"
+        *ngFor="let entry of weightEntries | slice: (page-1) * pageSize : page * pageSize"></app-weight-detail>
     </ul>
 
     <ngb-pagination
@@ -52,7 +37,7 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title" i18n>Add entry</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -60,7 +45,7 @@
     <app-weight-edit (closeEdit)="onFormCancelled()"></app-weight-edit>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" i18n>Close</button>
   </div>
 </ng-template>
 

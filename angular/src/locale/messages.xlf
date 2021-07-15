@@ -272,6 +272,7 @@
       <notes>
         <note category="location">src/app/weight/weight-chart/weight-chart.component.ts:50</note>
         <note category="location">src/app/weight/weight-edit/weight-edit.component.html:14</note>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:13</note>
       </notes>
       <segment>
         <source>Weight</source>
@@ -279,7 +280,7 @@
     </unit>
     <unit id="7585826646011739428">
       <notes>
-        <note category="location">src/app/weight/weight-detail/weight-detail.component.html:23</note>
+        <note category="location">src/app/weight/weight-detail/weight-detail.component.html:27</note>
       </notes>
       <segment>
         <source>Edit</source>
@@ -287,7 +288,7 @@
     </unit>
     <unit id="7022070615528435141">
       <notes>
-        <note category="location">src/app/weight/weight-detail/weight-detail.component.html:24</note>
+        <note category="location">src/app/weight/weight-detail/weight-detail.component.html:28</note>
       </notes>
       <segment>
         <source>Delete</source>
@@ -296,6 +297,7 @@
     <unit id="3973931101896534797">
       <notes>
         <note category="location">src/app/weight/weight-edit/weight-edit.component.html:5</note>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:12</note>
       </notes>
       <segment>
         <source>Date</source>
@@ -309,13 +311,45 @@
         <source>Save</source>
       </segment>
     </unit>
+    <unit id="2159130950882492111">
+      <notes>
+        <note category="location">src/app/weight/weight-edit/weight-edit.component.html:31</note>
+      </notes>
+      <segment>
+        <source>Cancel</source>
+      </segment>
+    </unit>
+    <unit id="1230154438678955604">
+      <notes>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:14</note>
+      </notes>
+      <segment>
+        <source>Change</source>
+      </segment>
+    </unit>
+    <unit id="840951359074313455">
+      <notes>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:15</note>
+      </notes>
+      <segment>
+        <source>Days</source>
+      </segment>
+    </unit>
     <unit id="2540594807548326286">
       <notes>
-        <note category="location">src/app/weight/weight-list/weight-list.component.html:27</note>
-        <note category="location">src/app/weight/weight-list/weight-list.component.html:40</note>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:39</note>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:52</note>
       </notes>
       <segment>
         <source>Add entry</source>
+      </segment>
+    </unit>
+    <unit id="7819314041543176992">
+      <notes>
+        <note category="location">src/app/weight/weight-list/weight-list.component.html:48</note>
+      </notes>
+      <segment>
+        <source>Close</source>
       </segment>
     </unit>
   </file>
