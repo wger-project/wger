@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <app-weight-edit *ngIf="showForm" [weight]="entry"></app-weight-edit>
+  <app-weight-edit *ngIf="showForm" [weight]="entry" (closeEdit)="onFormCancelled()"></app-weight-edit>
 
 
 </li>

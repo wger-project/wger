@@ -25,6 +25,15 @@ export class WeightDetailComponent implements OnInit {
   }
 
   /**
+   * The form should be closed
+   */
+  onFormCancelled() {
+    this.showForm = false;
+  }
+
+
+
+  /**
    * Deletes this weight entry
    */
   deleteEntry() {

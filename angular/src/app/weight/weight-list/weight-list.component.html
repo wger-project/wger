@@ -57,11 +57,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-weight-edit></app-weight-edit>
+    <app-weight-edit (closeEdit)="onFormCancelled()"></app-weight-edit>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
   </div>
 </ng-template>
 
-<button class="btn btn-primary" (click)="open(content)" i18n>Add entry</button>
+<button class="btn btn-primary" (click)="openModal(content)" i18n>Add entry</button>

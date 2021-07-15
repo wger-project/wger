@@ -55,11 +55,18 @@ export class WeightListComponent implements OnInit {
 
   }
 
-  open(content: any) {
+  openModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       console.log(`Closed with: ${result}`);
     }, (reason) => {
       console.log(`Dismissed`);
     });
+  }
+
+  /**
+   * The form should be closed
+   */
+  onFormCancelled() {
+    this.modalService.dismissAll();
   }
 }

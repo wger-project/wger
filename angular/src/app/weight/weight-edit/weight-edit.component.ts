@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {WeightEntry} from '../models/weight.model';
 import {WeightService} from '../weight.service';
@@ -10,6 +10,7 @@ import {WeightService} from '../weight.service';
 })
 export class WeightEditComponent implements OnInit {
 
+  @Output() closeEdit = new EventEmitter<void>();
   @Input() weight?: WeightEntry;
 
   group!: FormGroup;
@@ -57,6 +58,7 @@ export class WeightEditComponent implements OnInit {
       this.service.addWeightEntry(this.group.value);
     }
 
+    this.closeEdit.emit();
     this.group.reset();
   }
 

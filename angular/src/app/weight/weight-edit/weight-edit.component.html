@@ -24,4 +24,9 @@
       type="submit"
       class="btn btn-success mt-2"
       [disabled]="group.invalid" i18n>Save</button>
+    <button
+      type="submit"
+      class="btn btn-secondary mt-2 ml-2"
+      i18n
+      (click)="closeEdit.emit()">Cancel</button>
 </form>
