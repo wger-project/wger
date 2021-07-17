@@ -92,6 +92,8 @@ def overview(request):
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
     template_data['workouts'] = workouts
     template_data['current_workout'] = current_workout
+    template_data['title'] = _('Your workouts')
+    template_data['template_overview'] = False
 
     return render(request, 'workout/overview.html', template_data)
 
@@ -148,6 +150,8 @@ def copy_workout(request, pk):
             workout_copy.pk = None
             workout_copy.name = workout_form.cleaned_data['name']
             workout_copy.user = request.user
+            workout_copy.is_template = False
+            workout_copy.is_public = False
             workout_copy.save()
 
             # Copy the days
@@ -177,9 +181,7 @@ def copy_workout(request, pk):
                         setting_copy.set = current_set_copy
                         setting_copy.save()
 
-            return HttpResponseRedirect(
-                reverse('manager:workout:view', kwargs={'pk': workout_copy.id})
-            )
+            return HttpResponseRedirect(workout_copy.get_absolute_url())
     else:
         workout_form = WorkoutCopyForm({'name': workout.name, 'description': workout.description})
         workout_form.helper = FormHelper()

@@ -22,6 +22,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
+from wger.manager.managers import WorkoutManager, WorkoutTemplateManager, WorkoutAndTemplateManager
 from wger.utils.cache import (
     cache_mapper,
     reset_workout_canonical_form,
@@ -32,6 +33,10 @@ class Workout(models.Model):
     """
     Model for a training schedule
     """
+
+    objects = WorkoutManager()
+    templates = WorkoutTemplateManager()
+    both = WorkoutAndTemplateManager()
 
     class Meta:
         """

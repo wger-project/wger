@@ -56,6 +56,30 @@ patterns_log = [
     )
 ]
 
+# sub patterns for templates
+patterns_templates = [
+    path(
+        'overview',
+        workout.template_overview,
+        name='overview',
+    ),
+    path(
+        'public',
+        workout.public_template_overview,
+        name='public',
+    ),
+    path(
+        '<int:pk>/view/',
+        workout.template_view,
+        name='view',
+    ),
+    path(
+        '<int:pk>/make-workout/',
+        workout.make_workout,
+        name='make-workout',
+    ),
+]
+
 # sub patterns for workouts
 patterns_workout = [
     path(
@@ -347,6 +371,7 @@ patterns_step = [
 
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace="workout")),
+    path('templates/', include((patterns_templates, 'templates'), namespace="templates")),
     path('log/', include((patterns_log, 'log'), namespace="log")),
     path('day/', include((patterns_day, 'day'), namespace="day")),
     path('set/', include((patterns_set, 'set'), namespace="set")),
