@@ -22,7 +22,11 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.manager.managers import WorkoutManager, WorkoutTemplateManager, WorkoutAndTemplateManager
+from wger.manager.managers import (
+    WorkoutAndTemplateManager,
+    WorkoutManager,
+    WorkoutTemplateManager,
+)
 from wger.utils.cache import (
     cache_mapper,
     reset_workout_canonical_form,
@@ -67,17 +71,13 @@ class Workout(models.Model):
         verbose_name=_('Workout template'),
         default=False,
         null=False,
-        help_text=_(
-            ""
-        ),
+        help_text=_(""),
     )
     is_public = models.BooleanField(
         verbose_name=_('Public template'),
         default=False,
         null=False,
-        help_text=_(
-            ""
-        ),
+        help_text=_(""),
     )
 
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
@@ -86,7 +86,10 @@ class Workout(models.Model):
         """
         Returns the canonical URL to view a workout
         """
-        return reverse('manager:templates:view' if self.is_template else 'manager:workout:view', kwargs={'pk': self.id})
+        return reverse(
+            'manager:templates:view' if self.is_template else 'manager:workout:view',
+            kwargs={'pk': self.id}
+        )
 
     def __str__(self):
         """

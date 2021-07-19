@@ -73,6 +73,7 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import make_token
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -102,10 +103,13 @@ def template_overview(request):
     """
 
     """
-    return render(request, 'workout/overview.html',
-                  {'workouts': Workout.templates.filter(user=request.user),
-                   'title': _('Your templates'),
-                   'template_overview': True})
+    return render(
+        request, 'workout/overview.html', {
+            'workouts': Workout.templates.filter(user=request.user),
+            'title': _('Your templates'),
+            'template_overview': True
+        }
+    )
 
 
 @login_required
@@ -113,10 +117,13 @@ def public_template_overview(request):
     """
 
     """
-    return render(request, 'workout/overview.html',
-                  {'workouts': Workout.templates.filter(is_public=True),
-                   'title': _('Public templates'),
-                   'template_overview': True})
+    return render(
+        request, 'workout/overview.html', {
+            'workouts': Workout.templates.filter(is_public=True),
+            'title': _('Public templates'),
+            'template_overview': True
+        }
+    )
 
 
 def view(request, pk):
@@ -266,7 +273,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = Workout
-    fields = ('name',)
+    fields = ('name', )
     success_url = reverse_lazy('manager:workout:overview')
     messages = gettext_lazy('Successfully deleted')
 
