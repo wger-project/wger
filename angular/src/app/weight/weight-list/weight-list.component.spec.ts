@@ -1,20 +1,24 @@
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {WeightService} from '../weight.service';
 
-import { ExerciseListComponent } from './weight-list.component';
+import { WeightListComponent } from './weight-list.component';
 
 describe('ExerciseListComponent', () => {
-  let component: ExerciseListComponent;
-  let fixture: ComponentFixture<ExerciseListComponent>;
+  let component: WeightListComponent;
+  let fixture: ComponentFixture<WeightListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExerciseListComponent ]
+      declarations: [ WeightListComponent ],
+      providers: [WeightService],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExerciseListComponent);
+    fixture = TestBed.createComponent(WeightListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

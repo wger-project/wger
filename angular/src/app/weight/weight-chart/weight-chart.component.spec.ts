@@ -1,4 +1,7 @@
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {WeightService} from '../weight.service';
 
 import { WeightChartComponent } from './weight-chart.component';
 
@@ -8,7 +11,9 @@ describe('WeightChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WeightChartComponent ]
+      declarations: [ WeightChartComponent ],
+      imports: [HttpClientTestingModule],
+      providers: [WeightService]
     })
     .compileComponents();
   });
