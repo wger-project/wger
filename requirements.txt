@@ -16,9 +16,7 @@ easy-thumbnails~=2.7
 icalendar==4.0.7
 invoke~=1.6
 pillow~=8.3
-python-mimeparse
 reportlab==3.5.68
-matplotlib>=3.1
 requests
 setuptools>=18.5
 sphinx
