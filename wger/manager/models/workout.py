@@ -63,6 +63,22 @@ class Workout(models.Model):
             "xy'."
         ),
     )
+    is_template = models.BooleanField(
+        verbose_name=_('Workout template'),
+        default=False,
+        null=False,
+        help_text=_(
+            ""
+        ),
+    )
+    is_public = models.BooleanField(
+        verbose_name=_('Public template'),
+        default=False,
+        null=False,
+        help_text=_(
+            ""
+        ),
+    )
 
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
 
@@ -70,7 +86,7 @@ class Workout(models.Model):
         """
         Returns the canonical URL to view a workout
         """
-        return reverse('manager:workout:view', kwargs={'pk': self.id})
+        return reverse('manager:templates:view' if self.is_template else 'manager:workout:view', kwargs={'pk': self.id})
 
     def __str__(self):
         """

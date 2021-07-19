@@ -73,7 +73,6 @@ from wger.utils.generic_views import (
 )
 from wger.utils.helpers import make_token
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -96,6 +95,28 @@ def overview(request):
     template_data['template_overview'] = False
 
     return render(request, 'workout/overview.html', template_data)
+
+
+@login_required
+def template_overview(request):
+    """
+
+    """
+    return render(request, 'workout/overview.html',
+                  {'workouts': Workout.templates.filter(user=request.user),
+                   'title': _('Your templates'),
+                   'template_overview': True})
+
+
+@login_required
+def public_template_overview(request):
+    """
+
+    """
+    return render(request, 'workout/overview.html',
+                  {'workouts': Workout.templates.filter(is_public=True),
+                   'title': _('Public templates'),
+                   'template_overview': True})
 
 
 def view(request, pk):
@@ -124,17 +145,31 @@ def view(request, pk):
     return render(request, 'workout/view.html', template_data)
 
 
+def template_view(request, pk):
+    """
+    Show the template with the given ID
+    """
+    context = {}
+    template = get_object_or_404(Workout.templates, pk=pk)
+    user = template.user
+
+    context['workout'] = template
+    context['muscles'] = template.canonical_representation['muscles']
+    context['is_owner'] = False
+    context['owner_user'] = user
+
+    return render(request, 'workout/template_view.html', context)
+
+
 @login_required
 def copy_workout(request, pk):
     """
     Makes a copy of a workout
     """
 
-    workout = get_object_or_404(Workout, pk=pk)
-    user = workout.user
-    is_owner = request.user == user
+    workout = get_object_or_404(Workout.both, pk=pk)
 
-    if not is_owner and not user.userprofile.ro_access:
+    if not workout.is_public and request.user != workout.user:
         return HttpResponseForbidden()
 
     # Process request
@@ -156,19 +191,16 @@ def copy_workout(request, pk):
 
             # Copy the days
             for day in days_original:
-                sets = day.set_set.all()
-                days_of_week = [i for i in day.day.all()]
-
                 day_copy = copy.copy(day)
                 day_copy.pk = None
                 day_copy.training = workout_copy
                 day_copy.save()
-                for i in days_of_week:
+                for i in day.day.all():
                     day_copy.day.add(i)
                 day_copy.save()
 
                 # Copy the sets
-                for current_set in sets:
+                for current_set in day.set_set.all():
                     current_set_copy = copy.copy(current_set)
                     current_set_copy.pk = None
                     current_set_copy.exerciseday = day_copy
@@ -203,6 +235,19 @@ def copy_workout(request, pk):
         return render(request, 'form.html', template_data)
 
 
+def make_workout(request, pk):
+    workout = get_object_or_404(Workout.both, pk=pk)
+
+    if request.user != workout.user:
+        return HttpResponseForbidden()
+
+    workout.is_template = False
+    workout.is_public = False
+    workout.save()
+
+    return HttpResponseRedirect(workout.get_absolute_url())
+
+
 @login_required
 def add(request):
     """
@@ -221,7 +266,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = Workout
-    fields = ('name', )
+    fields = ('name',)
     success_url = reverse_lazy('manager:workout:overview')
     messages = gettext_lazy('Successfully deleted')
 
