@@ -3,3 +3,6 @@ contact_links:
   - name: Get in touch with the community
     url: https://discord.gg/rPWFv6W
     about: Hop on the Discord server if you want to discuss new features or problem with us
+  - name: Just have a question?
+    url: https://github.com/wger-project/wger/discussions
+    about: Open a new discussion
