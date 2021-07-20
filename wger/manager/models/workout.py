@@ -23,10 +23,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.manager.helpers import MusclesHelper
-from wger.utils.cache import (
-    cache_mapper,
-    reset_workout_canonical_form,
-)
 
 
 class Workout(models.Model):
@@ -76,20 +72,6 @@ class Workout(models.Model):
             return self.name
         else:
             return "{0} ({1})".format(_('Workout'), self.creation_date)
-
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-        reset_workout_canonical_form(self.id)
-        super(Workout, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-        reset_workout_canonical_form(self.id)
-        super(Workout, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         """

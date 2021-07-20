@@ -42,13 +42,8 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import Exercise
-from wger.utils.cache import (
-    cache_mapper,
-    reset_workout_canonical_form,
-    reset_workout_log,
-)
+from wger.utils.cache import reset_workout_log
 from wger.utils.fields import Html5DateField
-from wger.utils.helpers import normalize_decimal
 
 
 class WorkoutSession(models.Model):

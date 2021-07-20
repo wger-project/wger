@@ -20,7 +20,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import DaysOfWeek
-from wger.utils.cache import reset_workout_canonical_form
 
 # Local
 from ..helpers import MusclesHelper
@@ -63,22 +62,6 @@ class Day(models.Model):
         to order the days in the template
         """
         return self.day.all()[0].pk
-
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        reset_workout_canonical_form(self.training_id)
-        super(Day, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        reset_workout_canonical_form(self.training_id)
-        super(Day, self).delete(*args, **kwargs)
 
     @property
     def muscles(self) -> MusclesHelper:

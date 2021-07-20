@@ -18,9 +18,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# wger
-from wger.utils.cache import reset_workout_canonical_form
-
 # Local
 from .exercise import Exercise
 
@@ -46,24 +43,6 @@ class ExerciseComment(models.Model):
         Return a more human-readable representation
         """
         return self.comment
-
-    def save(self, *args, **kwargs):
-        """
-        Reset cached workouts
-        """
-        for setting in self.exercise.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training_id)
-
-        super(ExerciseComment, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset cached workouts
-        """
-        for setting in self.exercise.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
-
-        super(ExerciseComment, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         """
