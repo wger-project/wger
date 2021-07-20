@@ -13,34 +13,33 @@
     })
 </script>
 
-<table class="table table-bordered workout-table" id="table-day-{{ day.obj.id }}"
-       data-id="{{ day.obj.id }}">
+<table class="table table-bordered workout-table"
+       id="table-day-{{ day.id }}"
+       data-id="{{ day.id }}">
     <thead class="thead-light">
-    <tr id="day-{{ day.obj.id }}">
+    <tr id="day-{{ day.id }}">
         <th colspan="2">
-
-
             {% if editable %}
                 <div class="float-right">
                     <div class="dropdown">
                         <button class="btn btn-sm dropdown-toggle " type="button"
-                                id="dropdownMenuDay{{ day.obj.id }}" data-toggle="dropdown"
+                                id="dropdownMenuDay{{ day.id }}" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                             <span class="{% fa_class 'cog' %}"></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"
-                             aria-labelledby="dropdownMenuDay{{ day.obj.id }}">
-                            <a href="{% url 'manager:day:log' day.obj.id %}" class="dropdown-item">
+                             aria-labelledby="dropdownMenuDay{{ day.id }}">
+                            <a href="{% url 'manager:day:log' day.id %}" class="dropdown-item">
                                 <span class="{% fa_class 'chart-line' %}"></span>
                                 {% translate 'Add weight log' %}
                             </a>
-                            <a href="{% url 'manager:day:edit' day.obj.id %}"
+                            <a href="{% url 'manager:day:edit' day.id %}"
                                class="wger-modal-dialog dropdown-item">
                                 <span class="{% fa_class 'edit' %}"></span>
                                 {% translate 'Edit' %}
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="{% url 'manager:day:delete' day.obj.id %}"
+                            <a href="{% url 'manager:day:delete' day.id %}"
                                class="dropdown-item">
                                 <span class="{% fa_class 'trash' %}"></span>
                                 {% translate 'Delete' %}
@@ -51,32 +50,32 @@
                 </div>
             {% endif %}
 
-            <h4>{{ day.obj.description }}</h4>
+            <h4>{{ day.description }}</h4>
             {{ day.days_of_week.text }}
         </th>
     </tr>
     </thead>
     <tbody>
-    {% for set in day.set_list %}
-        <tr data-id="{{ set.obj.id }}" id="set-{{ set.obj.id }}">
+    {% for set_data in day.sets %}
+        <tr data-id="{{ set_data.set.id }}" id="set-{{ set_data.set.id }}">
             <td style="width: 15%;border-right-width: 0;">
                 <span>#{{ forloop.counter }}</span>
 
                 {% if editable %}
                     <div class="dropdown float-right">
                         <button class="btn btn-link btn-sm btn-block dropdown-toggle " type="button"
-                                id="dropdownMenuSet{{ set.obj.id }}" data-toggle="dropdown"
+                                id="dropdownMenuSet{{ set_data.set.id }}" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"
-                             aria-labelledby="dropdownMenuSet{{ set.obj.id }}">
-                            <a href="{% url 'manager:set:edit' set.obj.id %}"
+                             aria-labelledby="dropdownMenuSet{{ set_data.set.id }}">
+                            <a href="{% url 'manager:set:edit' set_data.set.id %}"
                                class="wger-modal-dialog dropdown-item">
                                 <span class="{% fa_class 'edit' %}"></span>
                                 {% translate 'Edit' %}
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="{% url 'manager:set:delete' set.obj.id %}"
+                            <a href="{% url 'manager:set:delete' set_data.set.id %}"
                                class="dropdown-item">
                                 <span class="{% fa_class 'trash' %}"></span>
                                 {% translate 'Delete' %}
@@ -93,20 +92,21 @@
                 {% endif %}
             </td>
             <td style="border-left-width: 0px;">
-                {% if set.obj.comment %}
-                    <p class="text-muted">{{ set.obj.comment }}</p>
+                {% if set_data.set.comment %}
+                    <p class="text-muted">{{ set_data.set.comment }}</p>
                 {% endif %}
                 <div class="exercise-list">
-                    {% for exercise in set.exercise_list %}
-                        <div id="exercise-{{ exercise.obj.id }}" class="ajax-set-edit-target">
+
+                    {% for exercise_data in set_data.exercises %}
+                        <div id="exercise-{{ exercise_data.exercise.id }}" class="ajax-set-edit-target">
                             <div class="media">
 
                                 <div style="width: 64px; height: 64px;">
-                                    <a href="{{ exercise.obj.get_absolute_url }}">
-                                        {% if exercise.obj.main_image %}
+                                    <a href="{{ exercise_data.exercise.get_absolute_url }}">
+                                        {% if exercise_data.main_image %}
                                             <img class="img-fluid"
-                                                 src="{{ exercise.obj.main_image.image|thumbnail_url:'small' }}"
-                                                 alt="{{ exercise.obj }}"
+                                                 src="{{ exercise_data.main_image.image|thumbnail_url:'small' }}"
+                                                 alt="{{ exercise_data }}"
                                                  style="max-width: 100%; max-height: 100%;">
                                         {% else %}
                                             <img class="img-fluid"
@@ -119,24 +119,26 @@
 
                                 <div class="media-body ml-2">
                                     <p class="media-heading h5">
-                                        {{ exercise.obj.name }}
+                                        {{ exercise_data.exercise.name }}
                                     </p>
-                                    <p>{{ exercise.setting_text }}</p>
+                                    <p>
+                                        {{ exercise_data.setting_text }}
+                                    </p>
 
                                     {% if editable %}
-                                        {% if not exercise.setting_obj_list %}
+                                        {% if not exercise_data.settings %}
                                             <p>
                                                 {% translate "This exercise has no repetitions." %}<br>
-                                                <a href="{% url 'manager:set:edit' set.obj.id %}"
+                                                <a href="{% url 'manager:set:edit' set_data.set.id %}"
                                                    class="wger-modal-dialog">
                                                     {% translate "Edit them now." %}
                                                 </a>
                                             </p>
                                         {% endif %}
 
-                                        {% if exercise.comment_list %}
+                                        {% if exercise_data.exercise.comment_set.all %}
                                             <p class="text-muted exercise-comments">
-                                                {% for comment in exercise.comment_list %}
+                                                {% for comment in exercise_data.exercise.comment_set.all %}
                                                     {{ comment }}<br>
                                                 {% endfor %}
                                             </p>
@@ -153,7 +155,7 @@
     {% if editable %}
         <tr>
             <td colspan="2" class="py-0">
-                <a href="{% url 'manager:set:add' day.obj.id %}"
+                <a href="{% url 'manager:set:add' day.id %}"
                    class="wger-modal-dialog btn btn-link btn-block">{% translate "Add exercises to this workout day" %}</a>
             </td>
         </tr>

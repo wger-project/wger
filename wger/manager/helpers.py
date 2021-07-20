@@ -18,6 +18,7 @@
 # Standard Library
 import datetime
 from calendar import HTMLCalendar
+from typing import List
 
 # Django
 from django.urls import reverse
@@ -36,6 +37,7 @@ from reportlab.platypus import (
 )
 
 # wger
+from wger.exercises.models import Muscle
 from wger.utils.pdf import (
     header_colour,
     row_color,
@@ -275,3 +277,34 @@ class WorkoutCalendar(HTMLCalendar):
         Renders a day cell
         """
         return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
+
+
+class MusclesHelper:
+    """
+    Helper container for trained muscles in a workout plan, day, etc.
+    """
+    front: List[Muscle]
+    back: List[Muscle]
+    front_secondary: List[Muscle]
+    back_secondary: List[Muscle]
+
+    def __init__(self):
+        self.front = []
+        self.front_secondary = []
+        self.back = []
+        self.back_secondary = []
+
+    def __add__(self, other):
+        for attr in ['front', 'front_secondary', 'back', 'back_secondary']:
+            for m in getattr(other, attr):
+                self.add(m)
+
+        return self
+
+    def add(self, muscle: Muscle, main=True):
+        target = 'front' if muscle.is_front else 'back'
+        suffix = '_secondary' if not main else ''
+        muscles: List = getattr(self, target + suffix)
+
+        if not muscle in muscles:
+            muscles.append(muscle)

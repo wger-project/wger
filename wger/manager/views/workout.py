@@ -112,7 +112,6 @@ def view(request, pk):
     uid, token = make_token(user)
 
     template_data['workout'] = workout
-    template_data['muscles'] = canonical['muscles']
     template_data['uid'] = uid
     template_data['token'] = token
     template_data['is_owner'] = is_owner
