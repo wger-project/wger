@@ -28,7 +28,6 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import Exercise
-from wger.utils.cache import reset_workout_canonical_form
 
 # Local
 from ..consts import RIR_OPTIONS
@@ -112,21 +111,12 @@ class Setting(models.Model):
         """
         Reset cache
         """
-        reset_workout_canonical_form(self.set.exerciseday.training_id)
 
         # If the user selected "Until Failure", do only 1 "repetition",
         # everythin else doesn't make sense.
         if self.repetition_unit == 2:
             self.reps = 1
         super(Setting, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset cache
-        """
-
-        reset_workout_canonical_form(self.set.exerciseday.training_id)
-        super(Setting, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         """
