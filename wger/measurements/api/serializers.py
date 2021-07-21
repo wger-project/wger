@@ -18,6 +18,7 @@ class UnitSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'unit'
         ]
 
 

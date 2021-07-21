@@ -48,6 +48,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     filterset_fields = [
         'id',
         'name',
+        'unit'
     ]
 
     def get_queryset(self):
