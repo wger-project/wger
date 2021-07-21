@@ -171,7 +171,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
-        for day in step.workout.canonical_representation['day_list']:
+        for day in step.workout.day_set.all():
             elements.append(
                 render_workout_day(day, images=images, comments=comments, nr_of_weeks=7)
             )
@@ -241,7 +241,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
-        for day in step.workout.canonical_representation['day_list']:
+        for day in step.workout.day_set.all():
             elements.append(
                 render_workout_day(
                     day,

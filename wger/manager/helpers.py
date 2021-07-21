@@ -76,8 +76,8 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
     p = Paragraph(
         '<para align="center">%(days)s: %(description)s</para>' % {
-            'days': day['days_of_week']['text'],
-            'description': day['obj'].description
+            'days':  ', '.join([str(_(i.day_of_week)) for i in day.day.all()]),
+            'description': day.description
         }, styleSheet["SubHeader"]
     )
 
@@ -90,33 +90,30 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
     # Sets
     exercise_start = len(data)
-    for set in day['set_list']:
-        group_exercise_marker[set['obj'].id] = {'start': len(data), 'end': len(data)}
+    for set_obj in day.set_set.all():
+        group_exercise_marker[set_obj.id] = {'start': len(data), 'end': len(data)}
 
         # Exercises
-        for exercise in set['exercise_list']:
-            group_exercise_marker[set['obj'].id]['end'] = len(data)
+        for exercise in set_obj.exercises:
+            group_exercise_marker[set_obj.id]['end'] = len(data)
 
             # Process the settings
-            if exercise['has_weight']:
-                setting_out = []
-                for i in exercise['setting_text'].split('–'):
-                    setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
-            else:
-                setting_out = Paragraph(exercise['setting_text'], styleSheet["Small"])
+            setting_out = []
+            for i in set_obj.reps_smart_text(exercise).split('–'):
+                setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
 
             # Collect a list of the exercise comments
             item_list = [Paragraph('', styleSheet["Small"])]
             if comments:
                 item_list = [
                     ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
-                    for i in exercise['comment_list']
+                    for i in exercise.exercisecomment_set.all()
                 ]
 
             # Add the exercise's main image
             image = Paragraph('', styleSheet["Small"])
             if images:
-                if exercise['obj'].main_image:
+                if exercise.main_image:
 
                     # Make the images somewhat larger when printing only the workout and not
                     # also the columns for weight logs
@@ -125,13 +122,13 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
                     else:
                         image_size = 1.5
 
-                    image = Image(exercise['obj'].main_image.image)
+                    image = Image(exercise.main_image.image)
                     image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
                     image.drawWidth = image_size * cm
 
             # Put the name and images and comments together
             exercise_content = [
-                Paragraph(exercise['obj'].name, styleSheet["Small"]), image,
+                Paragraph(exercise.name, styleSheet["Small"]), image,
                 ListFlowable(
                     item_list,
                     bulletType='bullet',

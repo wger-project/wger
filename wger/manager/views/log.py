@@ -275,17 +275,17 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
         # Prepare the entries for rendering and the D3 chart
         workout_log = {}
 
-        for day_list in self.object.canonical_representation['day_list']:
-            day_id = day_list['obj'].id
+        for day_obj in self.object.day_set.all():
+            day_id = day_obj.id
             workout_log[day_id] = {}
-            for set_list in day_list['set_list']:
+            for set_obj in day_obj.set_set.all():
                 exercise_log = {}
-                for exercise_list in set_list['exercise_list']:
-                    exercise_id = exercise_list['obj'].id
+                for exercise_obj in set_obj.exercises:
+                    exercise_id = exercise_obj.id
                     exercise_log[exercise_id] = []
 
                     # Filter the logs for user and exclude all units that are not weight
-                    logs = exercise_list['obj'].workoutlog_set.filter(
+                    logs = exercise_obj.workoutlog_set.filter(
                         user=self.owner_user,
                         weight_unit__in=(1, 2),
                         repetition_unit=1,
@@ -293,7 +293,7 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     )
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
-                        exercise_log[exercise_list['obj'].id].append(entry_log)
+                        exercise_log[exercise_obj.id].append(entry_log)
 
                     if exercise_log:
                         workout_log[day_id][exercise_id] = {}
