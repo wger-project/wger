@@ -65,15 +65,16 @@ class Workout(models.Model):
     )
     is_template = models.BooleanField(
         verbose_name=_('Workout template'),
+        help_text=_('Marking a workout as a template will freeze it and allow you to '
+                    'make copies of it'),
         default=False,
         null=False,
-        help_text=_(""),
     )
     is_public = models.BooleanField(
         verbose_name=_('Public template'),
+        help_text=_('A public template will be available to other users'),
         default=False,
         null=False,
-        help_text=_(""),
     )
 
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
