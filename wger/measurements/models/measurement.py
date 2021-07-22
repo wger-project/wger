@@ -53,13 +53,7 @@ class Measurement(models.Model):
             "-date",
         ]
 
-    user = models.ForeignKey(
-        User,
-        verbose_name=_('User'),
-        on_delete=models.CASCADE,
-    )
-
-    unit = models.ForeignKey(
+    category = models.ForeignKey(
         Category,
         verbose_name=_('User'),
         on_delete=models.CASCADE,
@@ -90,4 +84,4 @@ class Measurement(models.Model):
         """
         Returns the object that has owner information
         """
-        return self
+        return self.category

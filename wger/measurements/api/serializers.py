@@ -31,7 +31,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
         model = Measurement
         fields = [
             'id',
-            'unit',
+            'category',
             'date',
             'value',
             'notes',

@@ -74,7 +74,7 @@ class MeasurementViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = [
         'id',
-        'unit',
+        'category',
         'date',
         'value',
     ]
@@ -83,10 +83,4 @@ class MeasurementViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
-        return Measurement.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
+        return Measurement.objects.filter(category__user=self.request.user)

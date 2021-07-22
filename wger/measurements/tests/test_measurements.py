@@ -27,4 +27,8 @@ class MeasurementsApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Measurement
     private_resource = True
-    data = {"unit": 2, "date": "2021-08-12", "value": 99.99}
+    data = {
+        'category': 2,
+        'date': '2021-08-12',
+        'value': 99.99,
+    }
