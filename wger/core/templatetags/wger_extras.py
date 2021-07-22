@@ -14,10 +14,12 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from collections import Iterable
+
 # Django
 from django import template
 from django.conf import settings
-from django.db.models import QuerySet
 from django.templatetags.static import static
 from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
@@ -27,6 +29,7 @@ from django.utils.translation import (
 )
 
 # wger
+from wger.manager.models import Day
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT,
@@ -49,12 +52,12 @@ def get_current_settings(exercise, set_id):
 
 
 @register.inclusion_tag('tags/render_day.html')
-def render_day(day, editable=True):
+def render_day(day: Day, editable=True):
     """
     Renders a day as it will be displayed in the workout overview
     """
     return {
-        'day': day.canonical_representation,
+        'day': day,
         'workout': day.training,
         'editable': editable,
     }
@@ -118,27 +121,28 @@ def render_muscles(muscles=None, muscles_sec=None):
     """
     Renders the given muscles
     """
+    out = {"backgrounds": []}
     if not muscles and not muscles_sec:
-        return {"empty": True}
+        return out
 
     out_main = []
     if muscles:
-        out_main = muscles if isinstance(muscles, (list, tuple, QuerySet)) else [muscles]
+        out_main = muscles if isinstance(muscles, Iterable) else [muscles]
 
-    out_sec = []
+    out_secondary = []
     if muscles_sec:
-        out_sec = muscles_sec if isinstance(muscles_sec, (list, tuple, QuerySet)) else [muscles_sec]
+        out_secondary = muscles_sec if isinstance(muscles_sec, Iterable) else [muscles_sec]
 
-    try:
+    if out_main:
         front_back = "front" if out_main[0].is_front else "back"
-    except IndexError:
-        front_back = "front" if out_sec[0].is_front else "back"
+    else:
+        front_back = "front" if out_secondary[0].is_front else "back"
 
-    backgrounds = [i.image_url_main for i in out_main] \
-        + [i.image_url_secondary for i in out_sec] \
+    out['backgrounds'] = [i.image_url_main for i in out_main] \
+        + [i.image_url_secondary for i in out_secondary] \
         + [static(f"images/muscles/muscular_system_{front_back}.svg")]
 
-    return {"backgrounds": backgrounds, "empty": False}
+    return out
 
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)

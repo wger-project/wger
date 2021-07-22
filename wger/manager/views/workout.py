@@ -108,11 +108,9 @@ def view(request, pk):
     if not is_owner and not user.userprofile.ro_access:
         return HttpResponseForbidden()
 
-    canonical = workout.canonical_representation
     uid, token = make_token(user)
 
     template_data['workout'] = workout
-    template_data['muscles'] = canonical['muscles']
     template_data['uid'] = uid
     template_data['token'] = token
     template_data['is_owner'] = is_owner

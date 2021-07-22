@@ -20,9 +20,9 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import DaysOfWeek
-from wger.utils.cache import reset_workout_canonical_form
 
 # Local
+from ..helpers import MusclesHelper
 from .workout import Workout
 
 
@@ -63,155 +63,45 @@ class Day(models.Model):
         """
         return self.day.all()[0].pk
 
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
+    @property
+    def muscles(self) -> MusclesHelper:
+        """All trained muscles by the exercises in this day"""
+        out = MusclesHelper()
 
-        reset_workout_canonical_form(self.training_id)
-        super(Day, self).save(*args, **kwargs)
+        for set_obj in self.set_set.all():
+            for exercise in set_obj.exercises:
+                for muscle in exercise.muscles.all():
+                    out.add(muscle)
 
-    def delete(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
+                for muscle in exercise.muscles_secondary.all():
+                    out.add(muscle, False)
 
-        reset_workout_canonical_form(self.training_id)
-        super(Day, self).delete(*args, **kwargs)
+        return out
 
     @property
-    def canonical_representation(self):
-        """
-        Return the canonical representation for this day
+    def sets(self):
 
-        This is extracted from the workout representation because that one is cached
-        and this isn't.
-        """
-        for i in self.training.canonical_representation['day_list']:
-            if int(i['obj'].pk) == int(self.pk):
-                return i
-
-    def get_canonical_representation(self):
-        """
-        Creates a canonical representation for this day
-        """
         # Local
         from .setting import Setting
 
-        canonical_repr = []
-        muscles_front = []
-        muscles_back = []
-        muscles_front_secondary = []
-        muscles_back_secondary = []
-
+        out = []
         for set_obj in self.set_set.select_related():
-            exercise_tmp = []
 
+            set_data = {
+                'exercises': [],
+                'set': set_obj,
+            }
             for exercise in set_obj.exercises:
-                setting_tmp = []
-                exercise_images_tmp = []
-
-                # Muscles for this set
-                for muscle in exercise.muscles.all():
-                    if muscle.is_front and muscle not in muscles_front:
-                        muscles_front.append(muscle)
-                    elif not muscle.is_front and muscle not in muscles_back:
-                        muscles_back.append(muscle)
-
-                for muscle in exercise.muscles_secondary.all():
-                    if muscle.is_front and muscle not in muscles_front:
-                        muscles_front_secondary.append(muscle)
-                    elif not muscle.is_front and muscle.id not in muscles_back:
-                        muscles_back_secondary.append(muscle)
-
-                for setting in Setting.objects.filter(set=set_obj,
-                                                      exercise=exercise).order_by('order', 'id'):
-                    setting_tmp.append(setting)
-
-                # "Smart" textual representation
-                setting_text = set_obj.reps_smart_text(exercise)
-
-                # Exercise comments
-                comment_list = []
-                for i in exercise.exercisecomment_set.all():
-                    comment_list.append(i.comment)
-
-                # Flag indicating whether any of the settings has saved weight
-                has_weight = False
-                for i in setting_tmp:
-                    if i.weight:
-                        has_weight = True
-                        break
-
-                # Collect exercise images
-                for image in exercise.images.all():
-                    exercise_images_tmp.append(
-                        {
-                            'image': image.image.url,
-                            'is_main': image.is_main,
-                        }
-                    )
-
-                # Put it all together
-                exercise_tmp.append(
-                    {
-                        'obj': exercise,
-                        'setting_obj_list': setting_tmp,
-                        'setting_text': setting_text,
-                        'has_weight': has_weight,
-                        'comment_list': comment_list,
-                        'image_list': exercise_images_tmp
-                    }
-                )
-
-            # If it's a superset, check that all exercises have the same repetitions.
-            # If not, just take the smallest number and drop the rest, because otherwise
-            # it doesn't make sense
-
-            # if len(exercise_tmp) > 1:
-            #     common_reps = 100
-            #     for exercise in exercise_tmp:
-            #         if len(exercise['setting_list']) < common_reps:
-            #             common_reps = len(exercise['setting_list'])
-
-            #     for exercise in exercise_tmp:
-            #         if len(exercise['setting_list']) > common_reps:
-            #             exercise['setting_list'].pop(-1)
-            #             exercise['setting_obj_list'].pop(-1)
-            #             setting_text, setting_list = set_obj.reps_smart_text(exercise)
-            #             exercise['setting_text'] = setting_text
-
-            canonical_repr.append(
-                {
-                    'obj': set_obj,
-                    'exercise_list': exercise_tmp,
-                    'is_superset': True if len(exercise_tmp) > 1 else False,
-                    'settings_computed': set_obj.compute_settings,
-                    'muscles': {
-                        'back': muscles_back,
-                        'front': muscles_front,
-                        'frontsecondary': muscles_front_secondary,
-                        'backsecondary': muscles_front_secondary
-                    }
+                exercise_data = {
+                    'exercise':
+                    exercise,
+                    'setting_text':
+                    set_obj.reps_smart_text(exercise),
+                    'settings':
+                    Setting.objects.filter(set=set_obj, exercise=exercise).order_by('order', 'id'),
                 }
-            )
+                set_data['exercises'].append(exercise_data)
 
-        # Days of the week
-        tmp_days_of_week = []
-        for day_of_week in self.day.select_related():
-            tmp_days_of_week.append(day_of_week)
+            out.append(set_data)
 
-        return {
-            'obj': self,
-            'days_of_week': {
-                'text': ', '.join([str(_(i.day_of_week)) for i in tmp_days_of_week]),
-                'day_list': tmp_days_of_week
-            },
-            'muscles': {
-                'back': muscles_back,
-                'front': muscles_front,
-                'frontsecondary': muscles_front_secondary,
-                'backsecondary': muscles_front_secondary
-            },
-            'set_list': canonical_repr
-        }
+        return out

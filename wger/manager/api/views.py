@@ -35,7 +35,6 @@ from wger.manager.api.serializers import (
     ScheduleStepSerializer,
     SetSerializer,
     SettingSerializer,
-    WorkoutCanonicalFormSerializer,
     WorkoutLogSerializer,
     WorkoutSerializer,
     WorkoutSessionSerializer,
@@ -74,17 +73,6 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         Set the owner
         """
         serializer.save(user=self.request.user)
-
-    @action(detail=True)
-    def canonical_representation(self, request, pk):
-        """
-        Output the canonical representation of a workout
-
-        This is basically the same form as used in the application
-        """
-
-        out = WorkoutCanonicalFormSerializer(self.get_object().canonical_representation).data
-        return Response(out)
 
     @action(detail=True)
     def log_data(self, request, pk):
