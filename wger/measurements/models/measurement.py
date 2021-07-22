@@ -49,6 +49,7 @@ from wger.measurements.models import Category
 class Measurement(models.Model):
 
     class Meta:
+        unique_together = ('date', 'category')
         ordering = [
             "-date",
         ]
