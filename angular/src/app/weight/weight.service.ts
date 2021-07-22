@@ -1,6 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
+import {AuthService} from '../core/auth.service';
 import {WeightAdapter, WeightEntry} from './models/weight.model';
 
 
@@ -14,8 +15,11 @@ export class WeightService {
 
   constructor(private http: HttpClient,
               private weightAdapter: WeightAdapter,
+              private authService: AuthService,
   ) {
+
   }
+
 
   /**
    * Sorts weight entries by date.
@@ -29,7 +33,9 @@ export class WeightService {
 
 
   async loadWeightEntries(): Promise<WeightEntry[]> {
-    const data = await this.http.get<any>(this.weightEntryUrl, {params: {limit: 500}, headers: environment.headers}).toPromise();
+
+    const data = await this.http.get<any>(this.weightEntryUrl,
+      {params: {limit: 500}, headers: this.authService.headers}).toPromise();
 
     for (const weightData of data.results) {
       this.entries.push(this.weightAdapter.fromJson(weightData));
@@ -45,8 +51,9 @@ export class WeightService {
    * @param weight a [WeightEntry] instance
    */
   updateWeightEntry(weight: WeightEntry) {
-    this.http.patch<any>(this.weightEntryUrl + weight.id + '/', this.weightAdapter.toJson(weight), {
-      headers: environment.headers
+    this.http.patch<any>(this.weightEntryUrl + weight.id + '/',
+      this.weightAdapter.toJson(weight), {
+      headers: this.authService.headers
     }).subscribe(value => {
     });
   }
@@ -58,7 +65,7 @@ export class WeightService {
    */
   addWeightEntry(data: { weight: number, date: Date }) {
     this.http.post<any>(this.weightEntryUrl, data, {
-      headers: environment.headers
+      headers: this.authService.headers
     }).subscribe(value => {
       this.entries.push(this.weightAdapter.fromJson(value));
       this.sortEntries();
@@ -73,7 +80,7 @@ export class WeightService {
   deleteWeightEntry(id: number) {
 
     this.http.delete<any>(this.weightEntryUrl + id + '/', {
-      headers: environment.headers
+      headers: this.authService.headers
     }).subscribe();
 
     this.entries.forEach((value: WeightEntry, index: number) => {
