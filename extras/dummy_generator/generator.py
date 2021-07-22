@@ -321,7 +321,7 @@ if hasattr(args, 'number_workouts'):
     if args.add_to_user:
         userlist = [User.objects.get(pk=args.add_to_user)]
     else:
-        userlist = [i for i in User.objects.all()]
+        userlist = User.objects.all()
 
     for user in userlist:
         print('   - generating for {0}'.format(user.username))
@@ -487,7 +487,7 @@ if hasattr(args, 'number_weight'):
     if args.add_to_user:
         userlist = [User.objects.get(pk=args.add_to_user)]
     else:
-        userlist = [i for i in User.objects.all()]
+        userlist = User.objects.all()
 
     for user in userlist:
         new_entries = []
@@ -568,7 +568,7 @@ if hasattr(args, 'number_nutrition_plans'):
     if args.add_to_user:
         userlist = [User.objects.get(pk=args.add_to_user)]
     else:
-        userlist = [i for i in User.objects.all()]
+        userlist = User.objects.all()
 
     # Load all ingredients to a list
     ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
@@ -622,7 +622,7 @@ if hasattr(args, 'number_nutrition_logs'):
     if args.add_to_user:
         userlist = [User.objects.get(pk=args.add_to_user)]
     else:
-        userlist = [i for i in User.objects.all()]
+        userlist = User.objects.all()
 
     # Load all ingredients to a list
     ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
