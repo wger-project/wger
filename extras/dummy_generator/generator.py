@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -40,18 +39,14 @@ django.setup()
 from django.contrib.auth.models import User
 
 # wger
-from wger.measurements.models import (
-    Measurement,
-    Category
-)
 from wger.core.models import (
     DaysOfWeek,
-    Language
+    Language,
 )
 from wger.exercises.models import Exercise
 from wger.gym.models import (
     Gym,
-    GymUserConfig
+    GymUserConfig,
 )
 from wger.manager.models import (
     Day,
@@ -61,14 +56,18 @@ from wger.manager.models import (
     Setting,
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
+)
+from wger.measurements.models import (
+    Category,
+    Measurement,
 )
 from wger.nutrition.models import (
     Ingredient,
     LogItem,
     Meal,
     MealItem,
-    NutritionPlan
+    NutritionPlan,
 )
 from wger.weight.models import WeightEntry
 
@@ -78,101 +77,135 @@ subparsers = parser.add_subparsers(help='The kind of entries you want to generat
 
 # User options
 user_parser = subparsers.add_parser('users', help='Create users')
-user_parser.add_argument('number_users',
-                         action='store',
-                         help='Number of users to create',
-                         type=int)
-user_parser.add_argument('--add-to-gym',
-                         action='store',
-                         default='auto',
-                         help='Gym to assign the users to. Allowed values: auto, none, <gym_id>. '
-                              'Default: auto')
-user_parser.add_argument('--country',
-                         action='store',
-                         default='germany',
-                         help='What country the generated users should belong to. Default: Germany',
-                         choices=['germany', 'ukraine', 'spain', 'usa'])
+user_parser.add_argument('number_users', action='store', help='Number of users to create', type=int)
+user_parser.add_argument(
+    '--add-to-gym',
+    action='store',
+    default='auto',
+    help='Gym to assign the users to. Allowed values: auto, none, <gym_id>. '
+    'Default: auto'
+)
+user_parser.add_argument(
+    '--country',
+    action='store',
+    default='germany',
+    help='What country the generated users should belong to. Default: Germany',
+    choices=['germany', 'ukraine', 'spain', 'usa']
+)
 
 # Workout options
 workouts_parser = subparsers.add_parser('workouts', help='Create workouts')
-workouts_parser.add_argument('number_workouts',
-                             action='store',
-                             help='Number of workouts to create *per user*',
-                             type=int)
-workouts_parser.add_argument('--add-to-user',
-                             action='store',
-                             help='Add to the specified user-ID, not all existing users')
+workouts_parser.add_argument(
+    'number_workouts',
+    action='store',
+    help='Number of workouts to create *per user*',
+    type=int,
+)
+workouts_parser.add_argument(
+    '--add-to-user',
+    action='store',
+    help='Add to the specified user-ID, not all existing users',
+)
 
 # Gym options
 gym_parser = subparsers.add_parser('gyms', help='Create gyms')
-gym_parser.add_argument('number_gyms',
-                        action='store',
-                        help='Number of gyms to create',
-                        type=int)
+gym_parser.add_argument(
+    'number_gyms',
+    action='store',
+    help='Number of gyms to create',
+    type=int,
+)
 # Log options
 logs_parser = subparsers.add_parser('logs', help='Create logs')
-logs_parser.add_argument('number_logs',
-                         action='store',
-                         help='Number of logs to create per user and workout',
-                         type=int)
+logs_parser.add_argument(
+    'number_logs',
+    action='store',
+    help='Number of logs to create per user and workout',
+    type=int,
+)
 
 # Session options
 session_parser = subparsers.add_parser('sessions', help='Create sessions')
-session_parser.add_argument('impression_sessions',
-                            action='store',
-                            help='Impression for the sessions, default: random',
-                            default='random',
-                            choices=['random', 'good', 'neutral', 'bad'])
+session_parser.add_argument(
+    'impression_sessions',
+    action='store',
+    help='Impression for the sessions, default: random',
+    default='random',
+    choices=['random', 'good', 'neutral', 'bad']
+)
 
 # Weight options
 weight_parser = subparsers.add_parser('weight', help='Create weight entries')
-weight_parser.add_argument('number_weight',
-                           action='store',
-                           help='Number of weight entries to create per user',
-                           type=int)
-weight_parser.add_argument('--add-to-user',
-                           action='store',
-                           help='Add to the specified user-ID, not all existing users')
-weight_parser.add_argument('--base-weight',
-                           action='store',
-                           help='Default weight for the entry generation, default = 80',
-                           type=int,
-                           default=80)
+weight_parser.add_argument(
+    'number_weight',
+    action='store',
+    help='Number of weight entries to create per user',
+    type=int,
+)
+weight_parser.add_argument(
+    '--add-to-user',
+    action='store',
+    help='Add to the specified user-ID, not all existing users',
+)
+weight_parser.add_argument(
+    '--base-weight',
+    action='store',
+    help='Default weight for the entry generation, default = 80',
+    type=int,
+    default=80,
+)
 
 # Measurement options
 measurement_parser = subparsers.add_parser('measurement', help='Create measurement entries')
-measurement_parser.add_argument('number_measurement',
-                           action='store',
-                           help='Number of measurement entries to create per user',
-                           type=int)
-measurement_parser.add_argument('--add-to-user',
-                           action='store',
-                           help='Add to the specified user-ID, not all existing users')
+measurement_parser.add_argument(
+    'number_measurement',
+    action='store',
+    help='Number of measurement entries to create per user',
+    type=int
+)
+measurement_parser.add_argument(
+    '--add-to-user',
+    action='store',
+    help='Add to the specified user-ID, not all existing users',
+)
 
 # Nutrition options
-nutrition_parser = subparsers.add_parser('nutrition', help='Creates a meal plan')
-nutrition_parser.add_argument('number_nutrition_plans',
-                              action='store',
-                              help='Number of meal plans to create',
-                              type=int)
-nutrition_parser.add_argument('--add-to-user',
-                              action='store',
-                              help='Add to the specified user-ID, not all existing users')
+nutrition_parser = subparsers.add_parser(
+    'nutrition',
+    help='Creates a meal plan',
+)
+nutrition_parser.add_argument(
+    'number_nutrition_plans',
+    action='store',
+    help='Number of meal plans to create',
+    type=int,
+)
+nutrition_parser.add_argument(
+    '--add-to-user',
+    action='store',
+    help='Add to the specified user-ID, not all existing users',
+)
 
 # Nutrition diary options
 nutrition_parser = subparsers.add_parser('nutrition-diary', help='Creates a meal plan')
-nutrition_parser.add_argument('number_nutrition_logs',
-                              action='store',
-                              help='Number of nutrition diary logs to create',
-                              type=int)
-nutrition_parser.add_argument('--number-diary-dates',
-                              action='store',
-                              help='Number of dates in which to create logs (default: 30)',
-                              default=30,
-                              type=int)
-nutrition_parser.add_argument('--add-to-user',
-                              action='store',
-                              help='Add to the specified user-ID, not all existing users')
+nutrition_parser.add_argument(
+    'number_nutrition_logs',
+    action='store',
+    help='Number of nutrition diary logs to create',
+    type=int
+)
+nutrition_parser.add_argument(
+    '--number-diary-dates',
+    action='store',
+    help='Number of dates in which to create logs (default: 30)',
+    default=30,
+    type=int
+)
+nutrition_parser.add_argument(
+    '--add-to-user',
+    action='store',
+    help='Add to the specified user-ID, not all existing users',
+)
 
 args = parser.parse_args()
 # print(args)
@@ -211,16 +244,12 @@ if hasattr(args, 'number_users'):
         gender = name_data[1]
         surname = random.choice(last_names)
 
-        username = slugify('{0}, {1} {2}'.format(name,
-                                                 surname[0],
-                                                 str(uid).split('-')[1]))
+        username = slugify('{0}, {1} {2}'.format(name, surname[0], str(uid).split('-')[1]))
         email = '{0}@example.com'.format(username)
         password = username
 
         try:
-            user = User.objects.create_user(username,
-                                            email,
-                                            password)
+            user = User.objects.create_user(username, email, password)
             user.first_name = name
             user.last_name = surname
             user.save()
@@ -302,9 +331,11 @@ if hasattr(args, 'number_workouts'):
 
             uid = str(uuid.uuid4()).split('-')
             start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
-            workout = Workout(user=user,
-                              name='Dummy workout - {0}'.format(uid[1]),
-                              creation_date=start_date)
+            workout = Workout(
+                user=user,
+                name='Dummy workout - {0}'.format(uid[1]),
+                creation_date=start_date,
+            )
             workout.save()
 
             # Select a random number of workout days
@@ -326,7 +357,7 @@ if hasattr(args, 'number_workouts'):
                 # Select a random number of exercises
                 nr_of_exercises = random.randint(3, 10)
                 random.shuffle(exercise_list)
-                day_exercises = exercise_list[0: nr_of_exercises]
+                day_exercises = exercise_list[0:nr_of_exercises]
                 order = 1
                 for exercise in day_exercises:
                     reps = random.choice([1, 3, 5, 8, 10, 12, 15])
@@ -386,12 +417,14 @@ if hasattr(args, 'number_logs'):
                         for reps in (8, 10, 12):
                             for i in range(1, args.number_logs):
                                 date = datetime.date.today() - datetime.timedelta(weeks=i)
-                                log = WorkoutLog(user=user,
-                                                 exercise=setting.exercise,
-                                                 workout=workout,
-                                                 reps=reps,
-                                                 weight=50 - reps + random.randint(1, 10),
-                                                 date=date)
+                                log = WorkoutLog(
+                                    user=user,
+                                    exercise=setting.exercise,
+                                    workout=workout,
+                                    reps=reps,
+                                    weight=50 - reps + random.randint(1, 10),
+                                    date=date
+                                )
                                 weight_log.append(log)
 
         # Bulk-create the logs
@@ -432,9 +465,13 @@ if hasattr(args, 'impression_sessions'):
                 elif args.impression_sessions == 'bad':
                     session.impression = WorkoutSession.IMPRESSION_BAD
                 else:
-                    session.impression = random.choice([WorkoutSession.IMPRESSION_GOOD,
-                                                        WorkoutSession.IMPRESSION_NEUTRAL,
-                                                        WorkoutSession.IMPRESSION_BAD])
+                    session.impression = random.choice(
+                        [
+                            WorkoutSession.IMPRESSION_GOOD,
+                            WorkoutSession.IMPRESSION_NEUTRAL,
+                            WorkoutSession.IMPRESSION_BAD,
+                        ]
+                    )
 
                 session_list.append(session)
 
@@ -463,9 +500,11 @@ if hasattr(args, 'number_weight'):
 
             creation_date = datetime.date.today() - datetime.timedelta(days=i)
             if creation_date not in existing_entries:
-                entry = WeightEntry(user=user,
-                                    weight=args.base_weight + 0.5 * i + random.randint(1, 3),
-                                    date=creation_date)
+                entry = WeightEntry(
+                    user=user,
+                    weight=args.base_weight + 0.5 * i + random.randint(1, 3),
+                    date=creation_date
+                )
                 new_entries.append(entry)
 
         # Bulk-create the weight entries
@@ -499,16 +538,22 @@ if hasattr(args, 'number_measurement'):
         for measurement_cat in random.choices(units, k=4):
             print(measurement_cat)
 
-            cat = Category(name=measurement_cat['name'], unit=measurement_cat['unit'], user=user,)
+            cat = Category(
+                name=measurement_cat['name'],
+                unit=measurement_cat['unit'],
+                user=user,
+            )
             cat.save()
 
             for i in range(1, args.number_measurement):
                 creation_date = datetime.date.today() - datetime.timedelta(days=i)
 
                 if creation_date not in existing_entries:
-                    measurement = Measurement(category=cat,
-                                              value=BASE_VALUE + 0.5 * i + random.randint(-20, 10),
-                                              date=creation_date,)
+                    measurement = Measurement(
+                        category=cat,
+                        value=BASE_VALUE + 0.5 * i + random.randint(-20, 10),
+                        date=creation_date,
+                    )
                     new_entries.append(measurement)
 
     # Bulk-create the entries
@@ -538,9 +583,11 @@ if hasattr(args, 'number_nutrition_plans'):
         for i in range(0, args.number_nutrition_plans):
             uid = str(uuid.uuid4()).split('-')
             start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
-            nutrition_plan = NutritionPlan(language=Language.objects.all()[1],
-                                           description='Dummy nutrition plan - {0}'.format(uid[1]),
-                                           creation_date=start_date)
+            nutrition_plan = NutritionPlan(
+                language=Language.objects.all()[1],
+                description='Dummy nutrition plan - {0}'.format(uid[1]),
+                creation_date=start_date,
+            )
             nutrition_plan.user = user
 
             nutrition_plan.save()
@@ -548,15 +595,21 @@ if hasattr(args, 'number_nutrition_plans'):
             # Add meals to plan
             order = 1
             for j in range(0, TOTAL_MEALS):
-                meal = Meal(plan=nutrition_plan,
-                            order=order,
-                            time=datetime.time(hour=random.randint(0, 23),
-                                               minute=random.randint(0, 59)))
+                meal = Meal(
+                    plan=nutrition_plan,
+                    order=order,
+                    time=datetime.time(hour=random.randint(0, 23), minute=random.randint(0, 59))
+                )
                 meal.save()
                 for k in range(0, random.randint(1, 5)):
                     ingredient = random.choice(ingredient_list)
-                    meal_item = MealItem(meal=meal, ingredient=ingredient, weight_unit=None,
-                                         order=order, amount=random.randint(10, 250))
+                    meal_item = MealItem(
+                        meal=meal,
+                        ingredient=ingredient,
+                        weight_unit=None,
+                        order=order,
+                        amount=random.randint(10, 250)
+                    )
                     meal_item.save()
                 order = order + 1
 
@@ -581,14 +634,18 @@ if hasattr(args, 'number_nutrition_logs'):
         # Add diary entries
         for plan in NutritionPlan.objects.filter(user=user):
             for i in range(0, args.number_diary_dates):
-                date = timezone.now() - datetime.timedelta(days=random.randint(0, 100),
-                                                           hours=random.randint(0, 12),
-                                                           minutes=random.randint(0, 59))
+                date = timezone.now() - datetime.timedelta(
+                    days=random.randint(0, 100),
+                    hours=random.randint(0, 12),
+                    minutes=random.randint(0, 59)
+                )
                 for j in range(0, args.number_nutrition_logs):
                     ingredient = random.choice(ingredient_list)
-                    log = LogItem(plan=plan,
-                                  datetime=date,
-                                  ingredient=ingredient,
-                                  weight_unit=None,
-                                  amount=random.randint(10, 300))
+                    log = LogItem(
+                        plan=plan,
+                        datetime=date,
+                        ingredient=ingredient,
+                        weight_unit=None,
+                        amount=random.randint(10, 300)
+                    )
                     log.save()
