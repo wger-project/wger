@@ -40,6 +40,10 @@ django.setup()
 from django.contrib.auth.models import User
 
 # wger
+from wger.measurements.models import (
+    Measurement,
+    Category
+)
 from wger.core.models import (
     DaysOfWeek,
     Language
@@ -134,6 +138,16 @@ weight_parser.add_argument('--base-weight',
                            help='Default weight for the entry generation, default = 80',
                            type=int,
                            default=80)
+
+# Measurement options
+measurement_parser = subparsers.add_parser('measurement', help='Create measurement entries')
+measurement_parser.add_argument('number_measurement',
+                           action='store',
+                           help='Number of measurement entries to create per user',
+                           type=int)
+measurement_parser.add_argument('--add-to-user',
+                           action='store',
+                           help='Add to the specified user-ID, not all existing users')
 
 # Nutrition options
 nutrition_parser = subparsers.add_parser('nutrition', help='Creates a meal plan')
@@ -456,6 +470,49 @@ if hasattr(args, 'number_weight'):
 
         # Bulk-create the weight entries
         WeightEntry.objects.bulk_create(new_entries)
+
+#
+# Measurement entry generator
+#
+if hasattr(args, 'number_measurement'):
+    print("** Generating {0} measurement entries per user".format(args.number_measurement))
+
+    # Load units
+    units = []
+    with open(os.path.join('csv', 'measurement_categories.csv')) as category_file:
+        category_reader = csv.reader(category_file)
+        for row in category_reader:
+            units.append({'name': row[0], 'unit': row[1]})
+
+    # User list
+    if args.add_to_user:
+        userlist = [User.objects.get(pk=args.add_to_user)]
+    else:
+        userlist = User.objects.all()
+
+    new_entries = []
+    for user in userlist:
+        BASE_VALUE = random.randint(80, 100)
+        print('   - generating measurements for {0}'.format(user.username))
+        existing_entries = [i.date for i in Measurement.objects.filter(category__user=user)]
+
+        for measurement_cat in random.choices(units, k=4):
+            print(measurement_cat)
+
+            cat = Category(name=measurement_cat['name'], unit=measurement_cat['unit'], user=user,)
+            cat.save()
+
+            for i in range(1, args.number_measurement):
+                creation_date = datetime.date.today() - datetime.timedelta(days=i)
+
+                if creation_date not in existing_entries:
+                    measurement = Measurement(category=cat,
+                                              value=BASE_VALUE + 0.5 * i + random.randint(-20, 10),
+                                              date=creation_date,)
+                    new_entries.append(measurement)
+
+    # Bulk-create the entries
+    Measurement.objects.bulk_create(new_entries)
 
 #
 # Nutrition Generator

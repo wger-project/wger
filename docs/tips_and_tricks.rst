@@ -91,6 +91,7 @@ as 10 nutrition diary entries per day::
   python generator.py weight 100
   python generator.py nutrition 20
   python generator.py nutrition-diary 10
+  python generator.py measurement 20
 
 .. note::
    All generated users have their username as password.
