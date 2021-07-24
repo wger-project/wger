@@ -56,6 +56,10 @@ class Day(models.Model):
         return self.training
 
     @property
+    def days_txt(self):
+        return  ', '.join([str(_(i.day_of_week)) for i in self.day.all()])
+
+    @property
     def get_first_day_id(self):
         """
         Return the PK of the first day of the week, this is used in the template
