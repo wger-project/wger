@@ -36,10 +36,7 @@ import bleach
 # wger
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import (
-    delete_template_fragment_cache,
-    reset_workout_canonical_form,
-)
+from wger.utils.cache import delete_template_fragment_cache
 from wger.utils.helpers import smart_capitalize
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
@@ -133,10 +130,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
-        # Cached workouts
-        for setting in self.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training_id)
-
     def delete(self, *args, **kwargs):
         """
         Reset all cached infos
@@ -147,10 +140,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
-
-        # Cached workouts
-        for setting in self.setting_set.all():
-            reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Exercise, self).delete(*args, **kwargs)
 

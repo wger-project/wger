@@ -360,64 +360,6 @@ class SetEditEditTestCase(WgerTestCase):
         self.edit_set(fail=False)
 
 
-class SetWorkoutCacheTestCase(WgerTestCase):
-    """
-    Workout cache test case
-    """
-
-    def test_canonical_form_cache_save(self):
-        """
-        Tests the workout cache when saving
-        """
-        set = Set.objects.get(pk=1)
-        set.exerciseday.training.canonical_representation
-        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
-
-        set.save()
-        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
-
-    def test_canonical_form_cache_delete(self):
-        """
-        Tests the workout cache when deleting
-        """
-        set = Set.objects.get(pk=1)
-        set.exerciseday.training.canonical_representation
-        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
-
-        set.delete()
-        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(set.exerciseday.training_id)))
-
-
-class SettingWorkoutCacheTestCase(WgerTestCase):
-    """
-    Workout cache test case
-    """
-
-    def test_canonical_form_cache_save(self):
-        """
-        Tests the workout cache when saving
-        """
-        setting = Setting.objects.get(pk=1)
-        workout_id = setting.set.exerciseday.training_id
-        setting.set.exerciseday.training.canonical_representation
-        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-        setting.save()
-        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-    def test_canonical_form_cache_delete(self):
-        """
-        Tests the workout cache when deleting
-        """
-        setting = Setting.objects.get(pk=1)
-        workout_id = setting.set.exerciseday.training_id
-        setting.set.exerciseday.training.canonical_representation
-        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-        setting.delete()
-        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-
 class SetSmartReprTestCase(WgerTestCase):
     """Tests the "smart text representation" for sets"""
 
