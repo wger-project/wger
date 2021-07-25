@@ -57,7 +57,7 @@ class Day(models.Model):
 
     @property
     def days_txt(self):
-        return  ', '.join([str(_(i.day_of_week)) for i in self.day.all()])
+        return ', '.join([str(_(i.day_of_week)) for i in self.day.all()])
 
     @property
     def get_first_day_id(self):
