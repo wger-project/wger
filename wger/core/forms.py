@@ -40,11 +40,13 @@ from crispy_forms.bootstrap import (
 )
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
+    HTML,
     ButtonHolder,
     Column,
+    Fieldset,
     Layout,
     Row,
-    Submit, Fieldset, HTML,
+    Submit,
 )
 
 # wger
