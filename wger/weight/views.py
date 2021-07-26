@@ -89,7 +89,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         """
         Return to overview with username
         """
-        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+        return reverse('weight:overview')
 
 
 class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
@@ -109,7 +109,7 @@ class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         """
         Return to overview with username
         """
-        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+        return reverse('weight:overview')
 
 
 class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
@@ -131,7 +131,7 @@ class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
         """
         Return to overview with username
         """
-        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+        return reverse('weight:overview')
 
 
 @login_required
@@ -164,7 +164,11 @@ def overview(request, username=None):
     Shows a plot with the weight data
     """
     is_owner, user = check_access(request.user, username)
-    context = {'is_owner': is_owner, 'owner_user': user, 'show_shariff': False,}
+    context = {
+        'is_owner': is_owner,
+        'owner_user': user,
+        'show_shariff': False,
+    }
     return render(request, 'overview.html', context)
 
 
@@ -192,6 +196,4 @@ class WeightCsvImportFormPreview(FormPreview):
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(
-            reverse('weight:overview', kwargs={'username': request.user.username})
-        )
+        return HttpResponseRedirect(reverse('weight:overview'))

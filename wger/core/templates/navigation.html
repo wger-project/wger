@@ -36,7 +36,7 @@
                             {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% translate "Calendar" %}</a></li>
                             {% endif %}
-                        
+
                             <li><a class="dropdown-item" href="{% url 'gallery:images:overview' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>
@@ -73,12 +73,12 @@
                     {#            #}
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
-                        <a href="{% url 'weight:overview' user.username %}"
+                        <a href="{% url 'weight:overview' %}"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown"
                            rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'weight:overview' user.username %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'weight:overview' %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
                         </ul>
                     </li>

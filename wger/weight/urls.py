@@ -52,7 +52,7 @@ urlpatterns = [
         name='import-csv',
     ),
     url(
-        r'^overview/(?P<username>[\w.@+-]+)$',
+        'overview',
         views.overview,
         name='overview',
     ),

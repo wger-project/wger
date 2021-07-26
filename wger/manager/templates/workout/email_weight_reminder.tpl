@@ -12,6 +12,6 @@ option in your settings.{% endblocktranslate %}
 — {% blocktranslate %}The {{ site }} team{% endblocktranslate %}
 
 
-* https://{{site}}{% url 'weight:overview' user.username %}
+* https://{{site}}{% url 'weight:overview' %}
 * https://{{site}}{% url 'weight:add' %}
 * https://{{site}}{% url 'core:user:preferences' %}

@@ -149,7 +149,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
-        reverse('weight:overview', kwargs={'username': 'test'})
+        reverse('weight:overview')
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
