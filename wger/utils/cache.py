@@ -31,6 +31,10 @@ def delete_template_fragment_cache(fragment_name='', vary_on=None):
     cache.delete(make_template_fragment_key(fragment_name, out))
 
 
+def reset_workout_canonical_form(workout_id):
+    cache.delete(cache_mapper.get_workout_canonical(workout_id))
+
+
 def reset_workout_log(user_pk, year, month, day=None):
     """
     Resets the cached workout logs
@@ -52,6 +56,7 @@ class CacheKeyMapper(object):
     LANGUAGE_CACHE_KEY = 'language-{0}'
     LANGUAGE_CONFIG_CACHE_KEY = 'language-config-{0}-{1}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
+    WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
     WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
     NUTRITION_CACHE_KEY = 'nutrition-cache-log-{0}'
 
@@ -83,6 +88,12 @@ class CacheKeyMapper(object):
         Return the ingredient cache key
         """
         return self.INGREDIENT_CACHE_KEY.format(self.get_pk(param))
+
+    def get_workout_canonical(self, param):
+        """
+        Return the workout canonical representation
+        """
+        return self.WORKOUT_CANONICAL_REPRESENTATION.format(self.get_pk(param))
 
     def get_workout_log_list(self, hash_value):
         """

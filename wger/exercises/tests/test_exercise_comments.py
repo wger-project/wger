@@ -118,6 +118,42 @@ class ExercisecommentsTestCase(WgerTestCase):
         self.exercise_delete_comment(fail=False)
 
 
+class WorkoutCacheTestCase(WgerTestCase):
+    """
+    Workout cache test case
+    """
+
+    def test_canonical_form_cache_save(self):
+        """
+        Tests the workout cache when saving
+        """
+        comment = ExerciseComment.objects.get(pk=1)
+        for setting in comment.exercise.setting_set.all():
+            setting.set.exerciseday.training.canonical_representation
+            workout_id = setting.set.exerciseday.training_id
+            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+            comment.save()
+            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+    def test_canonical_form_cache_delete(self):
+        """
+        Tests the workout cache when deleting
+        """
+        comment = ExerciseComment.objects.get(pk=1)
+
+        workout_ids = []
+        for setting in comment.exercise.setting_set.all():
+            workout_id = setting.set.exerciseday.training_id
+            workout_ids.append(workout_id)
+            setting.set.exerciseday.training.canonical_representation
+            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+        comment.delete()
+        for workout_id in workout_ids:
+            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
+
+
 class ExerciseCommentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the exercise comment overview resource

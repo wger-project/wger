@@ -205,4 +205,5 @@ class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 3
     resource = Workout
     private_resource = True
+    special_endpoints = ('canonical_representation', )
     data = {'name': 'A new comment'}

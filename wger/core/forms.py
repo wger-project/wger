@@ -44,7 +44,7 @@ from crispy_forms.layout import (
     Column,
     Layout,
     Row,
-    Submit,
+    Submit, Fieldset, HTML,
 )
 
 # wger
@@ -90,8 +90,6 @@ class UserPreferencesForm(forms.ModelForm):
             'workout_duration',
             'notification_language',
             'weight_unit',
-            'timer_active',
-            'timer_pause',
             'ro_access',
             'num_days_weight_reminder',
             'birthdate',
@@ -102,35 +100,30 @@ class UserPreferencesForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            Accordion(
-                AccordionGroup(
-                    _("Personal data"),
-                    'email',
-                    Row(
-                        Column('first_name', css_class='form-group col-6 mb-0'),
-                        Column('last_name', css_class='form-group col-6 mb-0'),
-                        css_class='form-row'
-                    ),
-                ),
-                AccordionGroup(
-                    _("Workout reminders"),
-                    'workout_reminder_active',
-                    'workout_reminder',
-                    'workout_duration',
-                ),
-                AccordionGroup(
-                    f"{_('Gym mode')} ({_('mobile version only')})", "timer_active", "timer_pause"
-                ),
-                AccordionGroup(
-                    _("Other settings"),
-                    "ro_access",
-                    "notification_language",
-                    "weight_unit",
-                    "show_comments",
-                    "show_english_ingredients",
-                    "num_days_weight_reminder",
-                    "birthdate",
-                )
+            Fieldset(
+                _("Personal data"), 'email',
+                Row(
+                    Column('first_name', css_class='form-group col-6 mb-0'),
+                    Column('last_name', css_class='form-group col-6 mb-0'),
+                    css_class='form-row'
+                ), HTML("<hr>")
+            ),
+            Fieldset(
+                _("Workout reminders"),
+                'workout_reminder_active',
+                'workout_reminder',
+                'workout_duration',
+                HTML("<hr>"),
+            ),
+            Fieldset(
+                _("Other settings"),
+                "ro_access",
+                "notification_language",
+                "weight_unit",
+                "show_comments",
+                "show_english_ingredients",
+                "num_days_weight_reminder",
+                "birthdate",
             ), ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
 
