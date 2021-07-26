@@ -210,6 +210,12 @@ LANGUAGE_CODE = 'en'
 # All translation files are in one place
 LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 
+# Available locales for angular app
+LANGUAGES_ANGULAR = (
+    'en',
+    'de',
+)
+
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
