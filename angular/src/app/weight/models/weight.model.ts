@@ -35,7 +35,7 @@ export class WeightAdapter implements Adapter<WeightEntry> {
   fromJson(item: any): WeightEntry {
     return new WeightEntry(
       new Date(item.date),
-      item.weight,
+      parseFloat(item.weight),
       item.id,
     );
   }

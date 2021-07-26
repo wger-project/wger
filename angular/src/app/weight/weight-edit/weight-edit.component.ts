@@ -11,7 +11,7 @@ import {WeightService} from '../weight.service';
 export class WeightEditComponent implements OnInit {
 
   @Output() closeEdit = new EventEmitter<void>();
-  @Input() weight?: WeightEntry;
+  @Input() weight!: WeightEntry;
 
   group!: FormGroup;
 
@@ -25,7 +25,6 @@ export class WeightEditComponent implements OnInit {
       console.log("this weight is not defined");
       this.weight = new WeightEntry(new Date(), 0);
     }
-
     this.initForm();
   }
 
@@ -46,13 +45,9 @@ export class WeightEditComponent implements OnInit {
       return;
     }
 
-    this.weight!.weight = this.group.value.weight;
-    this.weight!.date = this.group.value.date;
-
-
     if(this.weight?.id) {
       console.log('editing weight entry ' + this.weight.id);
-      this.service.updateWeightEntry(this.weight);
+      this.service.updateWeightEntry(this.group.value, this.weight.id);
     } else {
       console.log('adding new weight entry');
       this.service.addWeightEntry(this.group.value);

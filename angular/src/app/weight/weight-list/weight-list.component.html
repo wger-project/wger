@@ -20,11 +20,11 @@
         [entry]="entry.entry"
         [dayDiff]="entry.dayDiff"
         [weightDiff]="entry.weightDiff"
-        *ngFor="let entry of weightEntries | slice: (page-1) * pageSize : page * pageSize"></app-weight-detail>
+        *ngFor="let entry of weightEntriesProcessed | slice: (page-1) * pageSize : page * pageSize"></app-weight-detail>
     </ul>
 
     <ngb-pagination
-      [collectionSize]="weightEntries.length"
+      [collectionSize]="weightEntriesProcessed.length"
       [pageSize]="pageSize"
       [(page)]="page"
       [boundaryLinks]="true"

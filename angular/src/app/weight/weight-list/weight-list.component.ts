@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Subscription} from 'rxjs';
 import {WeightEntry} from '../models/weight.model';
 import {WeightService} from '../weight.service';
 
@@ -8,11 +9,13 @@ import {WeightService} from '../weight.service';
   templateUrl: './weight-list.component.html',
   styleUrls: ['./weight-list.component.css']
 })
-export class WeightListComponent implements OnInit {
-  weightEntries: { entry: WeightEntry, weightDiff: number, dayDiff: number }[] = [];
+export class WeightListComponent implements OnInit, OnDestroy {
+  weightEntriesProcessed: { entry: WeightEntry, weightDiff: number, dayDiff: number }[] = [];
+  private weightEntries: WeightEntry[] = [];
+  private subscription!: Subscription;
 
   /**
-  Starting page for the pagination
+   Starting page for the pagination
    */
   page = 1;
 
@@ -29,33 +32,43 @@ export class WeightListComponent implements OnInit {
   constructor(
     private service: WeightService,
     private modalService: NgbModal
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.processWeightEntries();
+    this.service.loadWeightEntries();
+    this.subscription = this.service.weightChanged.subscribe(
+      (newEntries: WeightEntry[]) => {
+        this.weightEntries = newEntries;
+        this.processWeightEntries();
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   /**
-   * Processes the weight entries and calculates the difference in days beween
+   * Processes the weight entries and calculates the difference in days between
    * entries.
    *
    * This could potentially be moved to the model
    */
-  async processWeightEntries(): Promise<void> {
-    const entries = await this.service.loadWeightEntries();
-    const nrOfEntries = entries.length;
-
-    entries.forEach((currentEntry, index) => {
+  processWeightEntries(): void {
+    this.weightEntriesProcessed = [];
+    const nrOfEntries = this.weightEntries.length;
+    this.weightEntries.forEach((currentEntry, index) => {
 
       // Newest entries are the first
       const prevIndex = index + 1;
 
-      const weightDiff = prevIndex < nrOfEntries ? currentEntry.weight - entries[prevIndex].weight  : 0;
-      const dayDiff = prevIndex < nrOfEntries ? (currentEntry.date.getTime() - entries[prevIndex].date.getTime()) / (1000 * 3600 * 24) : 0;
+      // Calculate the difference to the entry before
+      const weightDiff = prevIndex < nrOfEntries ? currentEntry.weight - this.weightEntries[prevIndex].weight : 0;
+      const dayDiff = prevIndex < nrOfEntries ? (currentEntry.date.getTime() - this.weightEntries[prevIndex].date.getTime()) / (1000 * 3600 * 24) : 0;
 
-      this.weightEntries.push({entry: currentEntry, weightDiff: weightDiff, dayDiff: dayDiff});
+      this.weightEntriesProcessed.push({entry: currentEntry, weightDiff: weightDiff, dayDiff: dayDiff});
     });
-
   }
 
   openModal(content: any) {

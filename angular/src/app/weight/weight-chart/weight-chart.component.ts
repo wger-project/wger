@@ -1,4 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Subscription} from 'rxjs';
 import {WeightEntry} from '../models/weight.model';
 import {WeightEditComponent} from '../weight-edit/weight-edit.component';
 import {WeightService} from '../weight.service';
@@ -8,11 +9,10 @@ import {WeightService} from '../weight.service';
   templateUrl: './weight-chart.component.html',
   styleUrls: ['./weight-chart.component.css']
 })
-export class WeightChartComponent implements OnInit {
+export class WeightChartComponent implements OnInit, OnDestroy {
 
+  // Chart options
   view: [number, number] = [700, 300];
-
-  // options
   legend: boolean = false;
   showLabels: boolean = true;
   animations: boolean = true;
@@ -22,14 +22,15 @@ export class WeightChartComponent implements OnInit {
   showXAxisLabel: boolean = false;
   timeline: boolean = true;
   autoScale = true;
-
   colorScheme = {
-    domain: ['#266dd3', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['#266dd3']
   };
 
-  data : any
+  data: any;
+  private weightEntries: WeightEntry[] = [];
 
   selectedEntry?: WeightEntry;
+  private subscription!: Subscription;
 
   @ViewChild(WeightEditComponent)
   edit!: WeightEditComponent;
@@ -38,19 +39,30 @@ export class WeightChartComponent implements OnInit {
     private service: WeightService,
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    this.subscription = this.service.weightChanged.subscribe(
+      (newEntries: WeightEntry[]) => {
+        this.weightEntries = newEntries;
+        this.processData();
+      }
+    );
 
-    // TODO: only load service data once
-    await this.service.loadWeightEntries();
 
-    const out = this.service.entries.map(entry => {
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  private processData() {
+    const out = this.weightEntries.map(entry => {
       return {name: entry.date, value: entry.weight, id: entry.id};
     });
     this.data = [{
       name: $localize`Weight`,
       series: out
     }];
-
   }
 
 
@@ -71,5 +83,6 @@ export class WeightChartComponent implements OnInit {
   onDeactivate(data: any): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
+
 
 }

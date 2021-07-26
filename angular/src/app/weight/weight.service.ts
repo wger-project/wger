@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {AuthService} from '../core/auth.service';
 import {WeightAdapter, WeightEntry} from './models/weight.model';
@@ -10,14 +11,19 @@ import {WeightAdapter, WeightEntry} from './models/weight.model';
 })
 export class WeightService {
   weightEntryUrl = environment.apiUrl + 'weightentry/';
+  weightChanged = new Subject<WeightEntry[]>();
 
-  entries: WeightEntry[] = [];
+  private entries: WeightEntry[] = [];
 
   constructor(private http: HttpClient,
               private weightAdapter: WeightAdapter,
               private authService: AuthService,
   ) {
 
+  }
+
+  get weightEntries() {
+    return this.entries.slice();
   }
 
 
@@ -32,29 +38,38 @@ export class WeightService {
   }
 
 
-  async loadWeightEntries(): Promise<WeightEntry[]> {
+  loadWeightEntries(): WeightEntry[] {
 
-    const data = await this.http.get<any>(this.weightEntryUrl,
-      {params: {limit: 500}, headers: this.authService.headers}).toPromise();
+    const data = this.http.get<any>(this.weightEntryUrl,
+      {params: {limit: 500}, headers: this.authService.headers}).subscribe(data => {
+      for (const weightData of data.results) {
+        this.entries.push(this.weightAdapter.fromJson(weightData));
+      }
+      this.sortEntries();
+      this.weightChanged.next(this.weightEntries);
+    });
 
-    for (const weightData of data.results) {
-      this.entries.push(this.weightAdapter.fromJson(weightData));
-    }
-    this.sortEntries();
-    return this.entries;
+    return this.weightEntries;
   }
 
 
   /**
    * Updates an existing weight entry
    *
-   * @param weight a [WeightEntry] instance
+   * @param weightData: weight entry data object
+   * @param id: id of the weight entry data to update
    */
-  updateWeightEntry(weight: WeightEntry) {
-    this.http.patch<any>(this.weightEntryUrl + weight.id + '/',
-      this.weightAdapter.toJson(weight), {
-      headers: this.authService.headers
-    }).subscribe(value => {
+  updateWeightEntry(weightData: any, id: number) {
+
+    this.http.patch<any>(this.weightEntryUrl + id + '/',
+      weightData, {
+        headers: this.authService.headers
+      }).subscribe(value => {
+
+      const index = this.findIndexById(id);
+      this.entries[index] = this.weightAdapter.fromJson(value);
+      this.sortEntries();
+      this.weightChanged.next(this.weightEntries);
     });
   }
 
@@ -69,6 +84,7 @@ export class WeightService {
     }).subscribe(value => {
       this.entries.push(this.weightAdapter.fromJson(value));
       this.sortEntries();
+      this.weightChanged.next(this.weightEntries);
     });
   }
 
@@ -78,15 +94,16 @@ export class WeightService {
    * @param id: ID of the weight entry
    */
   deleteWeightEntry(id: number) {
-
     this.http.delete<any>(this.weightEntryUrl + id + '/', {
       headers: this.authService.headers
-    }).subscribe();
+    }).subscribe(value => {
+      this.entries.forEach((value: WeightEntry, index: number) => {
+        if (value.id == id) {
+          this.entries.splice(index, 1);
+        }
+      });
 
-    this.entries.forEach((value: WeightEntry, index: number) => {
-      if (value.id == id) {
-        this.entries.splice(index, 1);
-      }
+      this.weightChanged.next(this.weightEntries);
     });
   }
 
@@ -99,5 +116,13 @@ export class WeightService {
     return this.entries.find(value => value.id == id);
   }
 
+  /**
+   * Finds the index of a weight entry by its ID
+   *
+   * @param id: ID of the weight entry
+   */
+  findIndexById(id: number) {
+    return this.entries.findIndex(value => value.id == id);
+  }
 
 }
