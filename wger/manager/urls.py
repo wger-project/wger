@@ -163,11 +163,6 @@ patterns_workout = [
         pdf.workout_view,
         name='pdf-table',
     ),
-    path(
-        '<int:day_pk>/timer',
-        workout.timer,
-        name='timer',
-    ),
 ]
 
 # sub patterns for workout sessions

@@ -51,21 +51,14 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 # wger
-from wger.core.models import (
-    RepetitionUnit,
-    WeightUnit,
-)
 from wger.manager.forms import (
     WorkoutCopyForm,
     WorkoutForm,
-    WorkoutSessionHiddenFieldsForm,
 )
 from wger.manager.models import (
-    Day,
     Schedule,
     Workout,
     WorkoutLog,
-    WorkoutSession,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
@@ -270,119 +263,3 @@ class LastWeightHelper:
             self.last_weight_list[key] = weight
 
         return self.last_weight_list.get(key)
-
-
-@login_required
-def timer(request, day_pk):
-    """
-    The timer view ("gym mode") for a workout
-    """
-
-    day = get_object_or_404(Day, pk=day_pk, training__user=request.user)
-    canonical_day = day.canonical_representation
-    context = {}
-    step_list = []
-    last_log = LastWeightHelper(request.user)
-
-    # Go through the workout day and create the individual 'pages'
-    for set_dict in canonical_day['set_list']:
-
-        if not set_dict['is_superset']:
-            for exercise_dict in set_dict['exercise_list']:
-                exercise = exercise_dict['obj']
-                for key, element in enumerate(exercise_dict['reps_list']):
-                    reps = exercise_dict['reps_list'][key]
-                    rep_unit = exercise_dict['repetition_units'][key]
-                    weight_unit = exercise_dict['weight_units'][key]
-                    default_weight = last_log.get_last_weight(
-                        exercise, reps, exercise_dict['weight_list'][key]
-                    )
-
-                    step_list.append(
-                        {
-                            'current_step': uuid.uuid4().hex,
-                            'step_percent': 0,
-                            'step_nr': len(step_list) + 1,
-                            'exercise': exercise,
-                            'type': 'exercise',
-                            'reps': reps,
-                            'rep_unit': rep_unit,
-                            'weight': default_weight,
-                            'weight_unit': weight_unit
-                        }
-                    )
-                    if request.user.userprofile.timer_active:
-                        step_list.append(
-                            {
-                                'current_step': uuid.uuid4().hex,
-                                'step_percent': 0,
-                                'step_nr': len(step_list) + 1,
-                                'type': 'pause',
-                                'time': request.user.userprofile.timer_pause
-                            }
-                        )
-
-        # Supersets need extra work to group the exercises and reps together
-        else:
-            total_reps = len(set_dict['exercise_list'][0]['reps_list'])
-            for i in range(0, total_reps):
-                for exercise_dict in set_dict['exercise_list']:
-                    reps = exercise_dict['reps_list'][i]
-                    rep_unit = exercise_dict['repetition_units'][i]
-                    weight_unit = exercise_dict['weight_units'][i]
-                    default_weight = exercise_dict['weight_list'][i]
-                    exercise = exercise_dict['obj']
-
-                    step_list.append(
-                        {
-                            'current_step': uuid.uuid4().hex,
-                            'step_percent': 0,
-                            'step_nr': len(step_list) + 1,
-                            'exercise': exercise,
-                            'type': 'exercise',
-                            'reps': reps,
-                            'rep_unit': rep_unit,
-                            'weight_unit': weight_unit,
-                            'weight': last_log.get_last_weight(exercise, reps, default_weight)
-                        }
-                    )
-
-                if request.user.userprofile.timer_active:
-                    step_list.append(
-                        {
-                            'current_step': uuid.uuid4().hex,
-                            'step_percent': 0,
-                            'step_nr': len(step_list) + 1,
-                            'type': 'pause',
-                            'time': 90
-                        }
-                    )
-
-    # Remove the last pause step as it is not needed. If the list is empty,
-    # because the user didn't add any repetitions to any exercise, do nothing
-    try:
-        step_list.pop()
-    except IndexError:
-        pass
-
-    # Go through the page list and calculate the correct value for step_percent
-    for i, s in enumerate(step_list):
-        step_list[i]['step_percent'] = (i + 1) * 100.0 / len(step_list)
-
-    # Depending on whether there is already a workout session for today, update
-    # the current one or create a new one (this will be the most usual case)
-    if WorkoutSession.objects.filter(user=request.user, date=datetime.date.today()).exists():
-        session = WorkoutSession.objects.get(user=request.user, date=datetime.date.today())
-        session_form = WorkoutSessionHiddenFieldsForm(instance=session)
-    else:
-        session_form = WorkoutSessionHiddenFieldsForm()
-
-    # Render template
-    context['day'] = day
-    context['step_list'] = step_list
-    context['canonical_day'] = canonical_day
-    context['workout'] = day.training
-    context['session_form'] = session_form
-    context['weight_units'] = WeightUnit.objects.all()
-    context['repetition_units'] = RepetitionUnit.objects.all()
-    return render(request, 'workout/timer.html', context)

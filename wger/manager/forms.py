@@ -268,19 +268,3 @@ class WorkoutScheduleDownloadForm(Form):
                 css_id="download-pdf-button-schedule"
             )
         )
-
-
-class WorkoutSessionHiddenFieldsForm(ModelForm):
-    """
-    Workout Session form used in the timer view
-    """
-
-    class Meta:
-        model = WorkoutSession
-        exclude = []
-        widgets = {
-            'time_start': widgets.HiddenInput(),
-            'time_end': widgets.HiddenInput(),
-            'user': widgets.HiddenInput(),
-            'notes': widgets.Textarea(attrs={'rows': 3})
-        }

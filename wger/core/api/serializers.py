@@ -52,8 +52,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'workout_duration',
             'last_workout_notification',
             'notification_language',
-            'timer_active',
-            'timer_active',
             'age',
             'birthdate',
             'height',
