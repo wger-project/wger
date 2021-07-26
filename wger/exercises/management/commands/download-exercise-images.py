@@ -96,12 +96,6 @@ class Command(BaseCommand):
             self.stdout.write('')
             self.stdout.write(f'*** Page {page}')
             self.stdout.write('')
-            page += 1
-
-            if result['next']:
-                result = requests.get(result['next'], headers=headers).json()
-            else:
-                all_images_processed = True
 
             for image_data in result['results']:
                 image_uuid = image_data['uuid']
@@ -144,3 +138,9 @@ class Command(BaseCommand):
                 )
                 image.save()
                 self.stdout.write(self.style.SUCCESS('    successfully saved'))
+
+            if result['next']:
+                page += 1
+                result = requests.get(result['next'], headers=headers).json()
+            else:
+                all_images_processed = True
