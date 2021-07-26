@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US">
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
   <file id="ngi18n" original="ng.template">
     <unit id="ngb.alert.close">
       <notes>
@@ -270,7 +270,7 @@
     </unit>
     <unit id="5848348023107769657">
       <notes>
-        <note category="location">src/app/weight/weight-chart/weight-chart.component.ts:50</note>
+        <note category="location">src/app/weight/weight-chart/weight-chart.component.ts:63</note>
         <note category="location">src/app/weight/weight-edit/weight-edit.component.html:14</note>
         <note category="location">src/app/weight/weight-list/weight-list.component.html:13</note>
       </notes>

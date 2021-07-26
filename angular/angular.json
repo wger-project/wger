@@ -18,7 +18,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "en",
         "locales": {
           "de": "src/locale/messages.de.xlf"
         }
@@ -47,7 +47,7 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "localize": ["de"]
+            "localize": ["en"]
           },
           "configurations": {
             "production": {
