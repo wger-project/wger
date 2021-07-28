@@ -135,7 +135,6 @@ class WorkoutTemplateDetailPageTestCase(WgerTestCase):
         response = self.client.get(reverse('manager:template:view', kwargs={'pk': 3}))
         self.assertEqual(response.status_code, 404)
 
-
     def test_access_detail_for_template(self):
         """
         Test accessing the template view for a template
@@ -155,7 +154,6 @@ class WorkoutTemplateDetailPageTestCase(WgerTestCase):
         self.user_login('admin')
         response = self.client.get(reverse('manager:template:view', kwargs={'pk': 3}))
         self.assertEqual(response.status_code, 403)
-
 
     def test_access_detail_for_public_template(self):
         """
