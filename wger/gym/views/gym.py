@@ -23,35 +23,35 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.contrib.auth.models import (
     Group,
-    User
+    User,
 )
 from django.http.response import (
     HttpResponse,
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.text import slugify
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # Third Party
@@ -62,21 +62,21 @@ from crispy_forms.layout import Submit
 from wger.config.models import GymConfig as GlobalGymConfig
 from wger.gym.forms import (
     GymUserAddForm,
-    GymUserPermissionForm
+    GymUserPermissionForm,
 )
 from wger.gym.helpers import (
     get_permission_list,
-    is_any_gym_admin
+    is_any_gym_admin,
 )
 from wger.gym.models import (
     Gym,
     GymAdminConfig,
-    GymUserConfig
+    GymUserConfig,
 )
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
+    WgerMultiplePermissionRequiredMixin,
 )
 from wger.utils.helpers import password_generator
 
@@ -124,21 +124,24 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         """
         Return a list with the users, not really a queryset.
         """
-        out = {'admins': [],
-               'members': []}
+        out = {'admins': [], 'members': []}
 
         for u in Gym.objects.get_members(self.kwargs['pk']).select_related('usercache'):
-            out['members'].append({'obj': u,
-                                   'last_log': u.usercache.last_activity})
+            out['members'].append({'obj': u, 'last_log': u.usercache.last_activity})
 
         # admins list
         for u in Gym.objects.get_admins(self.kwargs['pk']):
-            out['admins'].append({'obj': u,
-                                  'perms': {'manage_gym': u.has_perm('gym.manage_gym'),
-                                            'manage_gyms': u.has_perm('gym.manage_gyms'),
-                                            'gym_trainer': u.has_perm('gym.gym_trainer'),
-                                            'any_admin': is_any_gym_admin(u)}
-                                  })
+            out['admins'].append(
+                {
+                    'obj': u,
+                    'perms': {
+                        'manage_gym': u.has_perm('gym.manage_gym'),
+                        'manage_gyms': u.has_perm('gym.manage_gyms'),
+                        'gym_trainer': u.has_perm('gym.gym_trainer'),
+                        'any_admin': is_any_gym_admin(u)
+                    }
+                }
+            )
         return out
 
     def get_context_data(self, **kwargs):
@@ -149,8 +152,11 @@ class GymUserListView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, L
         context['gym'] = Gym.objects.get(pk=self.kwargs['pk'])
         context['admin_count'] = len(context['object_list']['admins'])
         context['user_count'] = len(context['object_list']['members'])
-        context['user_table'] = {'keys': [_('ID'), _('Username'), _('Name'), _('Last activity')],
-                                 'users': context['object_list']['members']}
+        context['user_table'] = {
+            'keys': [_('ID'), _('Username'), _('Name'),
+                     _('Last activity')],
+            'users': context['object_list']['members']
+        }
         return context
 
 
@@ -180,8 +186,10 @@ def gym_new_user_info(request):
             and not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    context = {'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
-               'password': request.session['gym.user']['password']}
+    context = {
+        'new_user': get_object_or_404(User, pk=request.session['gym.user']['user_pk']),
+        'password': request.session['gym.user']['password']
+    }
     return render(request, 'gym/new_user.html', context)
 
 
@@ -208,16 +216,18 @@ def gym_new_user_info_export(request):
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
     writer.writerow([_('Username'), _('First name'), _('Last name'), _('Gym'), _('Password')])
-    writer.writerow([new_username,
-                     new_user.first_name,
-                     new_user.last_name,
-                     new_user.userprofile.gym.name,
-                     password])
+    writer.writerow(
+        [
+            new_username, new_user.first_name, new_user.last_name, new_user.userprofile.gym.name,
+            password
+        ]
+    )
 
     # Send the data to the browser
     today = datetime.date.today()
-    filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-{user}.csv'.format(t=today,
-                                                                                user=new_username)
+    filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-{user}.csv'.format(
+        t=today, user=new_username
+    )
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response
@@ -245,8 +255,7 @@ def reset_user_password(request, user_pk):
     user.set_password(password)
     user.save()
 
-    context = {'mod_user': user,
-               'password': password}
+    context = {'mod_user': user, 'password': password}
     return render(request, 'gym/reset_user_password.html', context)
 
 
@@ -270,8 +279,7 @@ def gym_permissions_user_edit(request, user_pk):
     form_group_permission = get_permission_list(user)
 
     if request.method == 'POST':
-        form = GymUserPermissionForm(available_roles=form_group_permission,
-                                     data=request.POST)
+        form = GymUserPermissionForm(available_roles=form_group_permission, data=request.POST)
 
         if form.is_valid():
 
@@ -291,8 +299,9 @@ def gym_permissions_user_edit(request, user_pk):
             if 'manager' in form.cleaned_data['role']:
                 member.groups.add(Group.objects.get(name='general_gym_manager'))
 
-            return HttpResponseRedirect(reverse('gym:gym:user-list',
-                                                kwargs={'pk': member.userprofile.gym.pk}))
+            return HttpResponseRedirect(
+                reverse('gym:gym:user-list', kwargs={'pk': member.userprofile.gym.pk})
+            )
     else:
         initial_data = {}
         if member.groups.filter(name='gym_member').exists():
@@ -307,23 +316,24 @@ def gym_permissions_user_edit(request, user_pk):
         if member.groups.filter(name='general_gym_manager').exists():
             initial_data['manager'] = True
 
-        form = GymUserPermissionForm(initial={'role': initial_data},
-                                     available_roles=form_group_permission)
+        form = GymUserPermissionForm(
+            initial={'role': initial_data}, available_roles=form_group_permission
+        )
 
     # Set form action to absolute path
     form.helper.form_action = request.path
 
-    context = {'title': member.get_full_name(),
-               'form': form,
-               'submit_text': 'Save'}
+    context = {'title': member.get_full_name(), 'form': form, 'submit_text': 'Save'}
 
     return render(request, 'form.html', context)
 
 
-class GymAddUserView(WgerFormMixin,
-                     LoginRequiredMixin,
-                     WgerMultiplePermissionRequiredMixin,
-                     CreateView):
+class GymAddUserView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    WgerMultiplePermissionRequiredMixin,
+    CreateView,
+):
     """
     View to add a user to a new gym
     """
@@ -364,8 +374,9 @@ class GymAddUserView(WgerFormMixin,
         """
         Set available user permissions
         """
-        form = self.form_class(available_roles=get_permission_list(self.request.user),
-                               **self.get_form_kwargs())
+        form = self.form_class(
+            available_roles=get_permission_list(self.request.user), **self.get_form_kwargs()
+        )
         form.helper = FormHelper()
         form.helper.form_id = slugify(self.request.path)
         form.helper.form_method = 'post'
@@ -380,9 +391,9 @@ class GymAddUserView(WgerFormMixin,
         """
         gym = Gym.objects.get(pk=self.kwargs['gym_pk'])
         password = password_generator()
-        user = User.objects.create_user(form.cleaned_data['username'],
-                                        form.cleaned_data['email'],
-                                        password)
+        user = User.objects.create_user(
+            form.cleaned_data['username'], form.cleaned_data['email'], password
+        )
         user.first_name = form.cleaned_data['first_name']
         user.last_name = form.cleaned_data['last_name']
         form.instance = user
@@ -402,8 +413,7 @@ class GymAddUserView(WgerFormMixin,
         if 'manager' in form.cleaned_data['role']:
             user.groups.add(Group.objects.get(name='general_gym_manager'))
 
-        self.request.session['gym.user'] = {'user_pk': user.pk,
-                                            'password': password}
+        self.request.session['gym.user'] = {'user_pk': user.pk, 'password': password}
 
         # Create config
         if is_any_gym_admin(user):
@@ -456,13 +466,15 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin
     """
 
     model = Gym
-    fields = ('name',
-              'phone',
-              'email',
-              'owner',
-              'zip_code',
-              'city',
-              'street')
+    fields = (
+        'name',
+        'phone',
+        'email',
+        'owner',
+        'zip_code',
+        'city',
+        'street',
+    )
     success_url = reverse_lazy('gym:gym:list')
     permission_required = 'gym.delete_gym'
 

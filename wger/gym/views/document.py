@@ -20,27 +20,27 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.gym.models import UserDocument
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 
 
@@ -147,8 +147,7 @@ class UpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, Upd
         """
         Redirect back to user page
         """
-        return reverse('gym:document:list', kwargs={'user_pk':
-                                                    self.object.member.pk})
+        return reverse('gym:document:list', kwargs={'user_pk': self.object.member.pk})
 
     def dispatch(self, request, *args, **kwargs):
         """

@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.urls import reverse
 
@@ -77,10 +76,11 @@ class DashboardTestCase(WgerTestCase):
         #
         # 3. Add a weight entry
         #
-        self.client.post(reverse('weight:add'),
-                         {'weight': 100,
-                          'date': '2012-01-01',
-                          'user': 1},)
+        self.client.post(reverse('weight:add'), {
+            'weight': 100,
+            'date': '2012-01-01',
+            'user': 1,
+        })
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)

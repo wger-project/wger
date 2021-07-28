@@ -21,13 +21,13 @@ import os
 from django.conf import settings
 from django.core.exceptions import (
     ImproperlyConfigured,
-    ValidationError
+    ValidationError,
 )
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import (
     BaseCommand,
-    CommandError
+    CommandError,
 )
 from django.core.validators import URLValidator
 
@@ -39,7 +39,7 @@ from requests.utils import default_user_agent
 from wger import get_version
 from wger.exercises.models import (
     ExerciseBase,
-    ExerciseImage
+    ExerciseImage,
 )
 
 
@@ -54,20 +54,24 @@ class Command(BaseCommand):
     be modified via the GUI.
     """
 
-    help = ('Download exercise images from wger.de and update the local database\n'
-            '\n'
-            'ATTENTION: The script will download the images from the server and add them\n'
-            '           to your local exercises. The exercises are identified by\n'
-            '           their UUID field, if you manually edited or changed it\n'
-            '           the script will not be able to match them.')
+    help = (
+        'Download exercise images from wger.de and update the local database\n'
+        '\n'
+        'ATTENTION: The script will download the images from the server and add them\n'
+        '           to your local exercises. The exercises are identified by\n'
+        '           their UUID field, if you manually edited or changed it\n'
+        '           the script will not be able to match them.'
+    )
 
     def add_arguments(self, parser):
-        parser.add_argument('--remote-url',
-                            action='store',
-                            dest='remote_url',
-                            default='https://wger.de',
-                            help='Remote URL to fetch the exercises from (default: '
-                                 'https://wger.de)')
+        parser.add_argument(
+            '--remote-url',
+            action='store',
+            dest='remote_url',
+            default='https://wger.de',
+            help='Remote URL to fetch the exercises from (default: '
+            'https://wger.de)'
+        )
 
     def handle(self, **options):
 
@@ -92,12 +96,6 @@ class Command(BaseCommand):
             self.stdout.write('')
             self.stdout.write(f'*** Page {page}')
             self.stdout.write('')
-            page += 1
-
-            if result['next']:
-                result = requests.get(result['next'], headers=headers).json()
-            else:
-                all_images_processed = True
 
             for image_data in result['results']:
                 image_uuid = image_data['uuid']
@@ -131,7 +129,7 @@ class Command(BaseCommand):
                 img_temp.write(retrieved_image.content)
                 img_temp.flush()
 
-                image.exercise = exercise_base
+                image.exercise_base = exercise_base
                 image.is_main = image_data['is_main']
                 image.status = image_data['status']
                 image.image.save(
@@ -140,3 +138,9 @@ class Command(BaseCommand):
                 )
                 image.save()
                 self.stdout.write(self.style.SUCCESS('    successfully saved'))
+
+            if result['next']:
+                page += 1
+                result = requests.get(result['next'], headers=headers).json()
+            else:
+                all_images_processed = True

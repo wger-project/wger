@@ -8,10 +8,15 @@ Changelog
 Upgrade steps from 2.0:
 * Update python libraries ``pip3 install -r requirements.txt``
 * Run migrations ``python3 manage.py migrate``
+* Update CSS and JS libraries ``yarn install``
+* Compile the CSS ``yarn build:css:sass``
+* Update static files (only production): ``python3 manage.py collectstatic``
 
 🚀 Features:
 
-*
+* New gallery where users can upload pictures to track their progress `#572`_
+* Add templates / centrally managed workouts (thanks `@qwert45hi`_) `#639`_
+* Add comment filed to set for user notes `#702`_
 
 
 🐛 Bug Fixes:
@@ -20,7 +25,25 @@ Upgrade steps from 2.0:
 
 🧰 Maintenance:
 
-*
+* Changes to the REST API:
+  + /exerciseimage/
+    - ``exercise`` was renamed to  ``exercise_base`` (was pointing there anyway)
+  + /workout/
+    - ``comment`` was renamed to name
+    - field ``description`` was added, for longer descriptions
+  + /set/
+    - field ``comment`` added, for user notes
+* `#666`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
+
+.. _#572: https://github.com/wger-project/wger/issues/572
+.. _#639: https://github.com/wger-project/wger/issues/639
+.. _#656: https://github.com/wger-project/wger/issues/656
+.. _#666: https://github.com/wger-project/wger/issues/666
+.. _#702: https://github.com/wger-project/wger/issues/702
+.. _#716: https://github.com/wger-project/wger/issues/716
+
+.. _@qwert45hi: https://github.com/qwert45hi
+.. _@jackmulligan-ire: https://github.com/jackmulligan-ire
 
 
 2.0
@@ -108,7 +131,7 @@ Upgrade steps from 1.9:
 .. _@jeevikaghosh: https://github.com/jeevikaghosh
 .. _@bradsk88: https://github.com/bradsk88
 .. _@Sidrah-Madiha: https://github.com/Sidrah-Madiha
-.. _@calvinrw : https://github.com/calvinrw
+.. _@calvinrw: https://github.com/calvinrw
 
 
 .. _#246: https://github.com/wger-project/wger/issues/246

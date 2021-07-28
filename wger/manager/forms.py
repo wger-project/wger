@@ -13,7 +13,6 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-
 """
 This file contains forms used in the application
 """
@@ -29,11 +28,11 @@ from django.forms import (
     ModelChoiceField,
     ModelForm,
     ModelMultipleChoiceField,
-    widgets
+    widgets,
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 
 # Third Party
@@ -42,51 +41,74 @@ from crispy_forms.layout import (
     Column,
     Layout,
     Row,
-    Submit
+    Submit,
 )
 
 # wger
 from wger.core.models import (
     RepetitionUnit,
-    WeightUnit
+    WeightUnit,
 )
 from wger.exercises.models import Exercise
+from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
-    RIR_OPTIONS,
     Day,
     Set,
     Setting,
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 from wger.utils.widgets import (
     ExerciseAjaxSelect,
-    TranslatedSelectMultiple
+    TranslatedSelectMultiple,
 )
 
 
 class WorkoutForm(ModelForm):
+
     class Meta:
         model = Workout
-        exclude = ('user',)
+        fields = (
+            'name',
+            'description',
+        )
+
+
+class WorkoutMakeTemplateForm(ModelForm):
+
+    class Meta:
+        model = Workout
+        fields = (
+            'is_template',
+            'is_public',
+        )
 
 
 class WorkoutCopyForm(Form):
-    comment = CharField(max_length=100,
-                        help_text=_('The goal or description of the new workout.'),
-                        required=False)
+    name = CharField(max_length=100, help_text=_('The name of the workout'), required=False)
+    description = CharField(
+        max_length=1000,
+        help_text=_(
+            "A short description or goal of the workout. For "
+            "example 'Focus on back' or 'Week 1 of program xy'."
+        ),
+        widget=widgets.Textarea,
+        required=False
+    )
 
 
 class DayForm(ModelForm):
+
     class Meta:
         model = Day
-        exclude = ('training',)
+        exclude = ('training', )
         widgets = {'day': TranslatedSelectMultiple()}
 
 
 class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
     """Ordered multiple choice field"""
+
     def clean(self, value):
         int_list = [int(i) for i in value]
         qs = super(OrderedModelMultipleChoiceField, self).clean(int_list)
@@ -95,13 +117,17 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 
 class SetForm(ModelForm):
 
-    exercises = OrderedModelMultipleChoiceField(queryset=Exercise.objects.all(),
-                                                label=_('Exercises'),
-                                                required=False,
-                                                widget=ExerciseAjaxSelect,
-                                                help_text=_('You can search for more than one '
-                                                            'exercise, they will be grouped '
-                                                            'together for a superset.'))
+    exercises = OrderedModelMultipleChoiceField(
+        queryset=Exercise.objects.all(),
+        label=_('Exercises'),
+        required=False,
+        widget=ExerciseAjaxSelect,
+        help_text=_(
+            'You can search for more than one '
+            'exercise, they will be grouped '
+            'together for a superset.'
+        )
+    )
 
     class Meta:
         model = Set
@@ -109,9 +135,10 @@ class SetForm(ModelForm):
 
 
 class SettingForm(ModelForm):
+
     class Meta:
         model = Setting
-        exclude = ('set', 'exercise', 'order', 'comment')
+        exclude = ('set', 'exercise', 'order', 'name')
 
 
 class WorkoutLogForm(ModelForm):
@@ -123,23 +150,35 @@ class WorkoutLogForm(ModelForm):
     we want. This form is one prime candidate to rework with some modern JS
     framework, there is a ton of ugly logic like this just to make it work.
     """
-    repetition_unit = ModelChoiceField(queryset=RepetitionUnit.objects.all(),
-                                       label=_('Unit'),
-                                       required=False)
-    weight_unit = ModelChoiceField(queryset=WeightUnit.objects.all(),
-                                   label=_('Unit'),
-                                   required=False)
-    exercise = ModelChoiceField(queryset=Exercise.objects.all(),
-                                label=_('Exercise'),
-                                required=False)
-    reps = IntegerField(label=_('Repetitions'),
-                        required=False)
-    weight = DecimalField(label=_('Weight'),
-                          initial=0,
-                          required=False)
-    rir = ChoiceField(label=_('RiR'),
-                      choices=RIR_OPTIONS,
-                      required=False)
+    repetition_unit = ModelChoiceField(
+        queryset=RepetitionUnit.objects.all(),
+        label=_('Unit'),
+        required=False,
+    )
+    weight_unit = ModelChoiceField(
+        queryset=WeightUnit.objects.all(),
+        label=_('Unit'),
+        required=False,
+    )
+    exercise = ModelChoiceField(
+        queryset=Exercise.objects.all(),
+        label=_('Exercise'),
+        required=False,
+    )
+    reps = IntegerField(
+        label=_('Repetitions'),
+        required=False,
+    )
+    weight = DecimalField(
+        label=_('Weight'),
+        initial=0,
+        required=False,
+    )
+    rir = ChoiceField(
+        label=_('RiR'),
+        choices=RIR_OPTIONS,
+        required=False,
+    )
 
     class Meta:
         model = WorkoutLog
@@ -147,6 +186,7 @@ class WorkoutLogForm(ModelForm):
 
 
 class WorkoutLogFormHelper(FormHelper):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.form_method = 'post'
@@ -171,6 +211,7 @@ class HelperWorkoutSessionForm(ModelForm):
     """
     A helper form used in the workout log view
     """
+
     class Meta:
         model = WorkoutSession
         exclude = ('user', 'workout')
@@ -198,6 +239,7 @@ class WorkoutSessionForm(ModelForm):
     """
     Workout Session form
     """
+
     class Meta:
         model = WorkoutSession
         exclude = ('user', 'workout', 'date')
@@ -222,31 +264,20 @@ class WorkoutScheduleDownloadForm(Form):
     """
     pdf_type = ChoiceField(
         label=gettext_lazy("Type"),
-        choices=(("log", gettext_lazy("Log")),
-                 ("table", gettext_lazy("Table")))
+        choices=(("log", gettext_lazy("Log")), ("table", gettext_lazy("Table")))
     )
-    images = BooleanField(label=gettext_lazy("with images"),
-                          required=False)
-    comments = BooleanField(label=gettext_lazy("with comments"),
-                            required=False)
+    images = BooleanField(label=gettext_lazy("with images"), required=False)
+    comments = BooleanField(label=gettext_lazy("with comments"), required=False)
 
     def __init__(self):
         super(WorkoutScheduleDownloadForm, self).__init__()
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.add_input(Submit('submit', _("Download"),
-                                     css_class='btn-success btn-block',
-                                     css_id="download-pdf-button-schedule"))
-
-
-class WorkoutSessionHiddenFieldsForm(ModelForm):
-    """
-    Workout Session form used in the timer view
-    """
-    class Meta:
-        model = WorkoutSession
-        exclude = []
-        widgets = {'time_start': widgets.HiddenInput(),
-                   'time_end': widgets.HiddenInput(),
-                   'user': widgets.HiddenInput(),
-                   'notes': widgets.Textarea(attrs={'rows': 3})}
+        self.helper.add_input(
+            Submit(
+                'submit',
+                _("Download"),
+                css_class='btn-success btn-block',
+                css_id="download-pdf-button-schedule"
+            )
+        )

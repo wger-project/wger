@@ -101,8 +101,10 @@ class Command(BaseCommand):
                         'user_list_no_activity': user_list_no_activity
                     }
                     message = render_to_string('gym/email_inactive_members.html', context)
-                    mail.send_mail(subject,
-                                   message,
-                                   settings.WGER_SETTINGS['EMAIL_FROM'],
-                                   [trainer.email],
-                                   fail_silently=True)
+                    mail.send_mail(
+                        subject,
+                        message,
+                        settings.WGER_SETTINGS['EMAIL_FROM'],
+                        [trainer.email],
+                        fail_silently=True,
+                    )

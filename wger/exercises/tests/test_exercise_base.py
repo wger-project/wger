@@ -33,11 +33,13 @@ class ExerciseBaseTestCase(WgerTestCase):
         """
         exercise = Exercise.objects.get(pk=1)
         base = exercise.exercise_base
-        self. assertEqual(base.category, exercise.category)
-        self. assertListEqual(self.get_ids(base.equipment), self.get_ids(exercise.equipment))
-        self. assertListEqual(self.get_ids(base.muscles), self.get_ids(exercise.muscles))
-        self. assertListEqual(self.get_ids(base.muscles_secondary),
-                              self.get_ids(exercise.muscles_secondary))
+        self.assertEqual(base.category, exercise.category)
+        self.assertListEqual(self.get_ids(base.equipment), self.get_ids(exercise.equipment))
+        self.assertListEqual(self.get_ids(base.muscles), self.get_ids(exercise.muscles))
+        self.assertListEqual(
+            self.get_ids(base.muscles_secondary),
+            self.get_ids(exercise.muscles_secondary),
+        )
 
     def test_variations(self):
         """Test that the variations are correctly returned"""

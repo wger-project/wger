@@ -23,7 +23,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.core import mail
 from django.core.exceptions import ValidationError
@@ -34,38 +34,38 @@ from django.forms import (
     ModelForm,
     ModelMultipleChoiceField,
     Select,
-    Textarea
+    Textarea,
 )
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.template.loader import render_to_string
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.cache import patch_vary_headers
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # Third Party
 from crispy_forms.layout import (
     Column,
     Layout,
-    Row
+    Row,
 )
 
 # wger
@@ -75,18 +75,18 @@ from wger.exercises.models import (
     Exercise,
     ExerciseBase,
     ExerciseCategory,
-    Muscle
+    Muscle,
 )
 from wger.manager.models import WorkoutLog
 from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.helpers import levenshtein
 from wger.utils.language import (
     load_item_languages,
-    load_language
+    load_language,
 )
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
@@ -166,38 +166,47 @@ class ExerciseForm(ModelForm):
     # Redefine some fields here to set some properties
     # (some of this could be done with a crispy form helper and would be
     # a cleaner solution)
-    category = ModelChoiceField(queryset=ExerciseCategory.objects.all(),
-                                widget=Select())
-    muscles = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                       widget=CheckboxSelectMultiple(),
-                                       required=False)
+    category = ModelChoiceField(queryset=ExerciseCategory.objects.all(), widget=Select())
+    muscles = ModelMultipleChoiceField(
+        queryset=Muscle.objects.all(),
+        widget=CheckboxSelectMultiple(),
+        required=False,
+    )
 
-    muscles_secondary = ModelMultipleChoiceField(queryset=Muscle.objects.all(),
-                                                 widget=CheckboxSelectMultiple(),
-                                                 required=False)
+    muscles_secondary = ModelMultipleChoiceField(
+        queryset=Muscle.objects.all(),
+        widget=CheckboxSelectMultiple(),
+        required=False,
+    )
 
-    equipment = ModelMultipleChoiceField(queryset=Equipment.objects.all(),
-                                         widget=CheckboxSelectMultiple(),
-                                         required=False)
+    equipment = ModelMultipleChoiceField(
+        queryset=Equipment.objects.all(),
+        widget=CheckboxSelectMultiple(),
+        required=False,
+    )
 
-    description = CharField(label=_('Description'),
-                            widget=Textarea,
-                            required=False)
+    description = CharField(
+        label=_('Description'),
+        widget=Textarea,
+        required=False,
+    )
 
     class Meta:
         model = Exercise
         widgets = {'equipment': TranslatedSelectMultiple()}
-        fields = ['name_original',
-                  'category',
-                  'description',
-                  'muscles',
-                  'muscles_secondary',
-                  'equipment',
-                  'license',
-                  'license_author']
+        fields = [
+            'name_original',
+            'category',
+            'description',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'license',
+            'license_author',
+        ]
 
     class Media:
-        js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js',)
+        js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js', )
 
     def clean_name_original(self):
         """
@@ -215,9 +224,14 @@ class ExerciseForm(ModelForm):
                 min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
                 if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
                     raise ValidationError(
-                        _('%(name_original)s is too similar to existing exercise '
-                          '"%(exercise_name)s"'),
-                        params={'name_original': name_original, 'exercise_name': exercise_name},
+                        _(
+                            '%(name_original)s is too similar to existing exercise '
+                            '"%(exercise_name)s"'
+                        ),
+                        params={
+                            'name_original': name_original,
+                            'exercise_name': exercise_name
+                        },
                     )
         return name_original
 
@@ -274,10 +288,12 @@ class ExercisesEditAddView(WgerFormMixin):
         return super(ExercisesEditAddView, self).form_valid(form)
 
 
-class ExerciseUpdateView(ExercisesEditAddView,
-                         LoginRequiredMixin,
-                         PermissionRequiredMixin,
-                         UpdateView):
+class ExerciseUpdateView(
+    ExercisesEditAddView,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
     """
     Generic view to update an existing exercise
     """
@@ -303,7 +319,8 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
 
         # Try retrieving a base exercise first
         existing = ExerciseBase.objects.filter(
-            category=ExerciseCategory.objects.get(name=form.cleaned_data['category']))
+            category=ExerciseCategory.objects.get(name=form.cleaned_data['category'])
+        )
         for elem in form.cleaned_data['equipment'].all():
             existing = existing.filter(equipment=elem)
         for elem in form.cleaned_data['muscles'].all():
@@ -376,26 +393,30 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
             'user': self.request.user
         }
         message = render_to_string('exercise/email_correction.tpl', context)
-        mail.mail_admins(str(subject),
-                         str(message),
-                         fail_silently=True)
+        mail.mail_admins(
+            str(subject),
+            str(message),
+            fail_silently=True,
+        )
 
         messages.success(self.request, self.messages)
-        return HttpResponseRedirect(reverse('exercise:exercise:view',
-                                            kwargs={'id': self.object.id}))
+        return HttpResponseRedirect(
+            reverse('exercise:exercise:view', kwargs={'id': self.object.id})
+        )
 
 
-class ExerciseDeleteView(WgerDeleteMixin,
-                         LoginRequiredMixin,
-                         PermissionRequiredMixin,
-                         DeleteView):
+class ExerciseDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
     """
     Generic view to delete an existing exercise
     """
 
     model = Exercise
-    fields = ('description',
-              'name_original')
+    fields = ('description', 'name_original')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
     messages = gettext_lazy('Successfully deleted')

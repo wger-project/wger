@@ -42,10 +42,9 @@ class GymUserPermissionForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('role',)
+        fields = ('role', )
 
-    role = forms.MultipleChoiceField(choices=ROLES,
-                                     initial=USER)
+    role = forms.MultipleChoiceField(choices=ROLES, initial=USER)
 
     def __init__(self, available_roles=None, *args, **kwargs):
         """
@@ -63,9 +62,11 @@ class GymUserPermissionForm(forms.ModelForm):
         if 'manager' in available_roles:
             field_choices.append((self.MANAGER, _('General manager')))
 
-        self.fields['role'] = forms.MultipleChoiceField(choices=field_choices,
-                                                        initial=User,
-                                                        widget=BootstrapSelectMultiple())
+        self.fields['role'] = forms.MultipleChoiceField(
+            choices=field_choices,
+            initial=User,
+            widget=BootstrapSelectMultiple(),
+        )
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
@@ -81,16 +82,26 @@ class GymUserAddForm(GymUserPermissionForm, UserPersonalInformationForm):
     class Meta:
         model = User
         widgets = {'role': BootstrapSelectMultiple()}
-        fields = ('first_name', 'last_name', 'username', 'email', 'role',)
+        fields = (
+            'first_name',
+            'last_name',
+            'username',
+            'email',
+            'role',
+        )
 
-    username = forms.RegexField(label=_("Username"),
-                                max_length=30,
-                                regex=r'^[\w.@+-]+$',
-                                help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                                            "@/./+/-/_ only."),
-                                error_messages={
-                                'invalid': _("This value may contain only letters, numbers and "
-                                             "@/.//-/_ characters.")})
+    username = forms.RegexField(
+        label=_("Username"),
+        max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text=_("Required. 30 characters or fewer. Letters, digits and "
+                    "@/./+/-/_ only."),
+        error_messages={
+            'invalid':
+            _("This value may contain only letters, numbers and "
+              "@/.//-/_ characters.")
+        },
+    )
 
     def clean_username(self):
         """

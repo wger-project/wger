@@ -20,18 +20,18 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
@@ -39,7 +39,7 @@ from wger.config.models import LanguageConfig
 from wger.exercises.models import Muscle
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.language import load_item_languages
 

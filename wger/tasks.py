@@ -25,7 +25,7 @@ import tempfile
 import django
 from django.core.management import (
     call_command,
-    execute_from_command_line
+    execute_from_command_line,
 )
 from django.utils.crypto import get_random_string
 
@@ -38,14 +38,23 @@ logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
 
-@task(help={'address': 'Address to bind to. Default: localhost',
-            'port': 'Port to use. Default: 8000',
-            'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default',
-            'extra-args': 'Additional arguments to pass to the builtin server. Pass as string: '
-                          '"--arg1 --arg2=value". Default: none'})
-def start(context, address='localhost', port=8000, browser=False, settings_path=None,
-          extra_args=''):
+@task(
+    help={
+        'address':
+        'Address to bind to. Default: localhost',
+        'port':
+        'Port to use. Default: 8000',
+        'settings-path':
+        'Path to settings file (absolute path). Leave empty for '
+        'default',
+        'extra-args':
+        'Additional arguments to pass to the builtin server. Pass as string: '
+        '"--arg1 --arg2=value". Default: none'
+    }
+)
+def start(
+    context, address='localhost', port=8000, browser=False, settings_path=None, extra_args=''
+):
     """
     Start the application using django's built in webserver
     """
@@ -61,13 +70,15 @@ def start(context, address='localhost', port=8000, browser=False, settings_path=
     execute_from_command_line(argv)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default',
-            'database-path': 'Path to sqlite database (absolute path). Leave empty '
-                             'for default'})
-def bootstrap(context,
-              settings_path=None,
-              database_path=None):
+@task(
+    help={
+        'settings-path': 'Path to settings file (absolute path). Leave empty for '
+        'default',
+        'database-path': 'Path to sqlite database (absolute path). Leave empty '
+        'for default'
+    }
+)
+def bootstrap(context, settings_path=None, database_path=None):
     """
     Performs all steps necessary to bootstrap the application
     """
@@ -93,18 +104,20 @@ def bootstrap(context,
     context.run("yarn build:css:sass")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default',
-            'database-path': 'Path to sqlite database (absolute path). Leave empty '
-                             'for default',
-            'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: '
-                             'sqlite3',
-            'key-length': 'Length of the generated secret key. Default: 50'})
-def create_settings(context,
-                    settings_path=None,
-                    database_path=None,
-                    database_type='sqlite3',
-                    key_length=50):
+@task(
+    help={
+        'settings-path': 'Path to settings file (absolute path). Leave empty for '
+        'default',
+        'database-path': 'Path to sqlite database (absolute path). Leave empty '
+        'for default',
+        'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: '
+        'sqlite3',
+        'key-length': 'Length of the generated secret key. Default: 50'
+    }
+)
+def create_settings(
+    context, settings_path=None, database_path=None, database_type='sqlite3', key_length=50
+):
     """
     Creates a local settings file
     """
@@ -147,16 +160,18 @@ def create_settings(context,
     # from django.core.management.commands.startproject
     secret_key = get_random_string(key_length, 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
 
-    settings_content = settings_content.format(dbname=dbname,
-                                               dbpath=dbpath_value,
-                                               dbengine=dbengine,
-                                               dbuser=dbuser,
-                                               dbpassword=dbpassword,
-                                               dbhost=dbhost,
-                                               dbport=dbport,
-                                               default_key=secret_key,
-                                               siteurl=url,
-                                               media_folder_path=media_folder_path)
+    settings_content = settings_content.format(
+        dbname=dbname,
+        dbpath=dbpath_value,
+        dbengine=dbengine,
+        dbuser=dbuser,
+        dbpassword=dbpassword,
+        dbhost=dbhost,
+        dbport=dbport,
+        default_key=secret_key,
+        siteurl=url,
+        media_folder_path=media_folder_path
+    )
 
     if not os.path.exists(settings_module):
         os.makedirs(settings_module)
@@ -168,8 +183,7 @@ def create_settings(context,
         settings_file.write(settings_content)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
 def create_or_reset_admin(context, settings_path=None):
     """
     Creates an admin user or resets the password for an existing one
@@ -180,8 +194,8 @@ def create_or_reset_admin(context, settings_path=None):
 
     # can't be imported in global scope as it already requires
     # the settings module during import
-    # wger
-    from wger.manager.models import User
+    # Django
+    from django.contrib.auth.models import User
     try:
         User.objects.get(username="admin")
         print("*** Password for user admin was reset to 'adminadmin'")
@@ -194,8 +208,7 @@ def create_or_reset_admin(context, settings_path=None):
     call_command("loaddata", path + "users.json")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
 def migrate_db(context, settings_path=None):
     """
     Run all database migrations
@@ -207,8 +220,7 @@ def migrate_db(context, settings_path=None):
     call_command("migrate")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
 def load_fixtures(context, settings_path=None):
     """
     Loads all fixtures
@@ -248,8 +260,7 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", "gym-adminconfig.json")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
@@ -298,6 +309,7 @@ def config_location(context):
 #       packaged has a different sys path than the local one)
 #
 
+
 def get_path(file="settings.py") -> pathlib.Path:
     """
     Return the path of the given file relatively to the wger source folder
@@ -337,11 +349,9 @@ def database_exists():
     # can't be imported in global scope as they already require
     # the settings module during import
     # Django
+    from django.contrib.auth.models import User
     from django.core.exceptions import ImproperlyConfigured
     from django.db import DatabaseError
-
-    # wger
-    from wger.manager.models import User
 
     try:
         # TODO: Use another model, the User could be deactivated

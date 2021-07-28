@@ -14,22 +14,25 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from collections import Iterable
+
 # Django
 from django import template
 from django.conf import settings
-from django.db.models import QuerySet
 from django.templatetags.static import static
 from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     gettext_lazy as _,
-    pgettext
+    pgettext,
 )
 
 # wger
+from wger.manager.models import Day
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
-    PAGINATION_PAGES_AROUND_CURRENT
+    PAGINATION_PAGES_AROUND_CURRENT,
 )
 
 
@@ -49,13 +52,15 @@ def get_current_settings(exercise, set_id):
 
 
 @register.inclusion_tag('tags/render_day.html')
-def render_day(day, editable=True):
+def render_day(day: Day, editable=True):
     """
     Renders a day as it will be displayed in the workout overview
     """
-    return {'day': day.canonical_representation,
-            'workout': day.training,
-            'editable': editable}
+    return {
+        'day': day,
+        'workout': day.training,
+        'editable': editable,
+    }
 
 
 @register.inclusion_tag('tags/pagination.html')
@@ -86,8 +91,7 @@ def pagination(paginator, page):
         page_range = paginator.page_range
 
     # Set the template variables
-    return {'page': page,
-            'page_range': page_range}
+    return {'page': page, 'page_range': page_range}
 
 
 @register.inclusion_tag('tags/render_weight_log.html')
@@ -96,9 +100,11 @@ def render_weight_log(log, div_uuid, user=None):
     Renders a weight log series
     """
 
-    return {'log': log,
-            'div_uuid': div_uuid,
-            'user': user}
+    return {
+        'log': log,
+        'div_uuid': div_uuid,
+        'user': user,
+    }
 
 
 @register.inclusion_tag('tags/license-sidebar.html')
@@ -107,8 +113,7 @@ def license_sidebar(license, author=None):
     Renders the license notice for exercises
     """
 
-    return {'license': license,
-            'author': author}
+    return {'license': license, 'author': author}
 
 
 @register.inclusion_tag('tags/muscles.html')
@@ -116,28 +121,28 @@ def render_muscles(muscles=None, muscles_sec=None):
     """
     Renders the given muscles
     """
+    out = {"backgrounds": []}
     if not muscles and not muscles_sec:
-        return {"empty": True}
+        return out
 
     out_main = []
     if muscles:
-        out_main = muscles if isinstance(muscles, (list, tuple, QuerySet)) else [muscles]
+        out_main = muscles if isinstance(muscles, Iterable) else [muscles]
 
-    out_sec = []
+    out_secondary = []
     if muscles_sec:
-        out_sec = muscles_sec if isinstance(muscles_sec, (list, tuple, QuerySet)) else [muscles_sec]
+        out_secondary = muscles_sec if isinstance(muscles_sec, Iterable) else [muscles_sec]
 
-    try:
+    if out_main:
         front_back = "front" if out_main[0].is_front else "back"
-    except IndexError:
-        front_back = "front" if out_sec[0].is_front else "back"
+    else:
+        front_back = "front" if out_secondary[0].is_front else "back"
 
-    backgrounds = [i.image_url_main for i in out_main] \
-        + [i.image_url_secondary for i in out_sec] \
+    out['backgrounds'] = [i.image_url_main for i in out_main] \
+        + [i.image_url_secondary for i in out_secondary] \
         + [static(f"images/muscles/muscular_system_{front_back}.svg")]
 
-    return {"backgrounds": backgrounds,
-            "empty": False}
+    return out
 
 
 @register.inclusion_tag('tags/language_select.html', takes_context=True)
@@ -146,9 +151,11 @@ def language_select(context, language):
     Renders a link to change the current language.
     """
 
-    return {'language_name': language[1],
-            'path': f'images/icons/flag-{language[0]}.svg',
-            'i18n_path': context['i18n_path'][language[0]]}
+    return {
+        'language_name': language[1],
+        'path': f'images/icons/flag-{language[0]}.svg',
+        'i18n_path': context['i18n_path'][language[0]]
+    }
 
 
 @register.filter
@@ -231,6 +238,7 @@ def format_username(user):
 
 
 class SpacelessNode(template.base.Node):
+
     def __init__(self, nodelist):
         self.nodelist = nodelist
 
@@ -247,6 +255,6 @@ def spaceless_config(parser, token):
     This is django's spaceless tag, copied here to use our configurable
     SpacelessNode
     """
-    nodelist = parser.parse(('endspaceless_config',))
+    nodelist = parser.parse(('endspaceless_config', ))
     parser.delete_first_token()
     return SpacelessNode(nodelist)

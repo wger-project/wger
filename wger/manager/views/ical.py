@@ -22,14 +22,14 @@ import logging
 from django.contrib.sites.models import Site
 from django.http import (
     HttpResponse,
-    HttpResponseForbidden
+    HttpResponseForbidden,
 )
 from django.shortcuts import get_object_or_404
 
 # Third Party
 from icalendar import (
     Calendar,
-    Event
+    Event,
 )
 from icalendar.tools import UIDGenerator
 
@@ -37,17 +37,15 @@ from icalendar.tools import UIDGenerator
 from wger import get_version
 from wger.manager.models import (
     Schedule,
-    Workout
+    Workout,
 )
 from wger.utils.helpers import (
     check_token,
-    next_weekday
+    next_weekday,
 )
 
 
 logger = logging.getLogger(__name__)
-
-
 """
 Exports workouts and schedules as an iCal file that can be imported to a
 calendaring application.
@@ -92,19 +90,19 @@ def get_events_workout(calendar, workout, duration, start_date=None):
     generator = UIDGenerator()
     site = Site.objects.get_current()
 
-    for day in workout.canonical_representation['day_list']:
+    for day in workout.day_set.all():
 
         # Make the description of the event with the day's exercises
         description_list = []
-        for set in day['set_list']:
-            for exercise in set['exercise_list']:
-                description_list.append(str(exercise['obj']))
-        description = ', '.join(description_list) if description_list else day['obj'].description
+        for set_obj in day.set_set.all():
+            for exercise in set_obj.exercises:
+                description_list.append(str(exercise))
+        description = ', '.join(description_list) if description_list else day.description
 
         # Make an event for each weekday
-        for weekday in day['days_of_week']['day_list']:
+        for weekday in day.day.all():
             event = Event()
-            event.add('summary', day['obj'].description)
+            event.add('summary', day.description)
             event.add('description', description)
             event.add('dtstart', next_weekday(start_date, weekday.id - 1))
             event.add('dtend', next_weekday(start_date, weekday.id - 1))

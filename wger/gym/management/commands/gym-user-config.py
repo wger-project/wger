@@ -23,7 +23,7 @@ from django.core.management.base import BaseCommand
 from wger.gym.helpers import is_any_gym_admin
 from wger.gym.models import (
     GymAdminConfig,
-    GymUserConfig
+    GymUserConfig,
 )
 
 

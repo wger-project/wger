@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# flake8: noqa
+
 from django.db import models, migrations
 
 
@@ -13,6 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='contract',
             name='amount',
-            field=models.DecimalField(default=0, verbose_name='Amount', max_digits=12, decimal_places=2),
+            field=models.DecimalField(
+                default=0, verbose_name='Amount', max_digits=12, decimal_places=2
+            ),
         ),
     ]

@@ -20,20 +20,24 @@ from django import forms
 # wger
 from wger.exercises.models import (
     ExerciseComment,
-    ExerciseImage
+    ExerciseImage,
 )
 
 
 class ExerciseImageForm(forms.ModelForm):
+
     class Meta:
         model = ExerciseImage
-        fields = ('image',
-                  'is_main',
-                  'license',
-                  'license_author')
+        fields = (
+            'image',
+            'is_main',
+            'license',
+            'license_author',
+        )
 
 
 class CommentForm(forms.ModelForm):
+
     class Meta:
         model = ExerciseComment
-        exclude = ('exercise',)
+        exclude = ('exercise', )

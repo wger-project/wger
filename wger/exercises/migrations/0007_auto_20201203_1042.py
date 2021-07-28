@@ -2,7 +2,6 @@
 
 from django.db import migrations
 
-
 exercise_variation_ids = [
     #
     # exercises in English
@@ -115,13 +114,22 @@ exercise_variation_ids = [
     [10, 12],
 
     # Latzug
-    [158, 226, 243, 244, ],
+    [
+        158,
+        226,
+        243,
+        244,
+    ],
 
     # Rudern
     [245, 59, 70, 224, 76],
 
     # Frontdrücken
-    [19, 153, 66, ],
+    [
+        19,
+        153,
+        66,
+    ],
 
     # Shrugs
     [8, 137, 67],

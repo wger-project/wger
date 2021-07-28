@@ -22,44 +22,44 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.core.cache import cache
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.urls import reverse_lazy
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
     ListView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
 from wger.nutrition.forms import (
     IngredientForm,
-    UnitChooserForm
+    UnitChooserForm,
 )
 from wger.nutrition.models import Ingredient
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.language import (
     load_ingredient_languages,
-    load_language
+    load_language,
 )
 
 
@@ -86,9 +86,7 @@ class IngredientListView(ListView):
         native language, see load_ingredient_languages)
         """
         languages = load_ingredient_languages(self.request)
-        return (Ingredient.objects.accepted()
-                                  .filter(language__in=languages)
-                                  .only('id', 'name'))
+        return (Ingredient.objects.accepted().filter(language__in=languages).only('id', 'name'))
 
     def get_context_data(self, **kwargs):
         """
@@ -107,32 +105,40 @@ def view(request, id, slug=None):
         ingredient = get_object_or_404(Ingredient, pk=id)
         cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
     template_data['ingredient'] = ingredient
-    template_data['form'] = UnitChooserForm(data={'ingredient_id': ingredient.id,
-                                                  'amount': 100,
-                                                  'unit': None})
+    template_data['form'] = UnitChooserForm(
+        data={
+            'ingredient_id': ingredient.id,
+            'amount': 100,
+            'unit': None
+        }
+    )
     template_data['show_shariff'] = True
 
     return render(request, 'ingredient/view.html', template_data)
 
 
-class IngredientDeleteView(WgerDeleteMixin,
-                           LoginRequiredMixin,
-                           PermissionRequiredMixin,
-                           DeleteView):
+class IngredientDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
     """
     Generic view to delete an existing ingredient
     """
 
     model = Ingredient
-    fields = ('name',
-              'energy',
-              'protein',
-              'carbohydrates',
-              'carbohydrates_sugar',
-              'fat',
-              'fat_saturated',
-              'fibres',
-              'sodium')
+    fields = (
+        'name',
+        'energy',
+        'protein',
+        'carbohydrates',
+        'carbohydrates_sugar',
+        'fat',
+        'fat_saturated',
+        'fibres',
+        'sodium',
+    )
     template_name = 'delete.html'
     success_url = reverse_lazy('nutrition:ingredient:list')
     messages = gettext_lazy('Successfully deleted')

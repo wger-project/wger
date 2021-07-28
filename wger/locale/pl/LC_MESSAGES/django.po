@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-06-03 21:32+0000\n"
+"Last-Translator: Henio Szewczyk <henryk.szewczyk09@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -113,9 +113,11 @@ msgid ""
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
 msgstr ""
-"Skonfiguruj by wybrać języki, w których zostaną wyświetlone ćwiczenia i "
-"składniki dla obecnie wybranego języka (przykładowo, ćwiczenia powinny być "
-"wyświetlane w językach A, B i C; składniki zaś tylko w A)."
+"Skonfiguruj by wybrać języki,\n"
+"w których zostaną wyświetlone ćwiczenia i składniki dla obecnie wybranego "
+"języka (przykładowo,\n"
+"ćwiczenia powinny być wyświetlane w językach A, B i C; składniki zaś tylko\n"
+"w A)."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
@@ -378,8 +380,12 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Zaznacz, aby podczas tworzenia planu żywieniowego wyświetlać także składniki "
-"w języku angielskim. "
+"Zaznacz, aby podczas tworzenia planu żywieniowego pokazać również składniki "
+"w języku angielskim.\n"
+"Te składniki są ekstrahowane z dostarczonej listy\n"
+"przez Departament Rolnictwa Stanów Zjednoczonych. Jest niezwykle kompletny, "
+"z około\n"
+"7000 wpisów, ale może być nieco przytłaczająca i utrudniać wyszukiwanie."
 
 #: core/models.py:167
 msgid "Activate workout reminders"
@@ -625,7 +631,8 @@ msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
 msgstr ""
-"Kliknij, aby dodać wartości ciężarów do dnia treningowego w obecnym treningu:"
+"Kliknij, aby dodać wartości ciężarów\n"
+"do dnia treningowego w obecnym treningu:"
 
 #: core/templates/index.html:41 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:29
@@ -664,7 +671,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:331
 #: nutrition/templates/plan/view.html:341
 msgid "kcal"
-msgstr "kcal"
+msgstr "kilokalorii"
 
 #: core/templates/index.html:77 nutrition/templates/plan/view.html:316
 msgid "Add custom diary entry"
@@ -692,7 +699,7 @@ msgstr ""
 
 #: core/templates/index.html:140 manager/templates/calendar/month.html:188
 msgid "Add new log"
-msgstr "Dodaj nowy log."
+msgstr "Dodaj nowy log"
 
 #: core/templates/index.html:145 core/templates/user/overview.html:58
 #: manager/templates/calendar/month.html:128
@@ -762,7 +769,7 @@ msgstr "Ciężar"
 
 #: core/templates/index.html:215
 msgid "Your current weight is: "
-msgstr "Twoja obecna waga:"
+msgstr "Twoja obecna waga: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:75
 #: weight/views.py:70
@@ -832,8 +839,8 @@ msgid ""
 "If you want to further help and improve this project,\n"
 "you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
 msgstr ""
-"Jeżeli chcesz, by ten projekt się rozwijał, <a href=\"%(contribute)s"
-"\">wspomóż go</a>."
+"Jeżeli chcesz, by ten projekt się rozwijał\n"
+"możesz być zainteresowany <a href=\"%(contribute)s\">wspieraniem go</a>."
 
 #: core/templates/misc/contact.html:29
 msgid "Feedback form"
@@ -844,8 +851,8 @@ msgid ""
 "A simple contact form. Remember that\n"
 "if you want an answer, you need to include some way to contact you."
 msgstr ""
-"Prosty formularz kontaktowy, Jeżeli oczekujesz odpowiedzi, pamiętaj o "
-"podaniu jakiejś formy kontaktowej."
+"Prosty formularz kontaktowy, Pamiętaj jednak,\n"
+"że jeśli oczekujesz odpowiedzi, musisz zostawić jakąś formę do kontaktu."
 
 #: core/templates/misc/contact.html:35
 msgid "Twitter"
@@ -855,7 +862,10 @@ msgstr "Twitter"
 msgid ""
 "We are also on twitter. Write us and tell us what\n"
 "you think! Except patches, don't send patches via twitter."
-msgstr "Jesteśmy także na Twitterze. Napisz do nas i powiedz co myślisz!"
+msgstr ""
+"Jesteśmy także na Twitterze.\n"
+"Napisz do nas i powiedz co myślisz! Z wyjątkiem łatek, nie wysyłaj łatek "
+"przez Twittera."
 
 #: core/templates/misc/contact.html:42
 msgid "Discord"
@@ -867,8 +877,9 @@ msgid ""
 "local wger installation, discuss issues or your new idea, etc.\n"
 "(no registration needed)"
 msgstr ""
-"Użyj grupy publicznej by otrymać wparcie w samodzielnej instalacji wger, "
-"problemach bądź realizacji Twoich pomysłów (rejestracja niewymagana)"
+"Użyj grupy publicznej by otrzymać wparcie w\n"
+"samodzielnej instalacji wger, problemach bądź realizacji Twoich pomysłów\n"
+"(rejestracja niewymagana)"
 
 #: core/templates/misc/contact.html:49
 msgid "Open feedback form"
@@ -904,8 +915,8 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "licenses for the different countries, add them as separate entries here."
 msgstr ""
-"Jeżeli licencje zostały przetłumaczone, np. licencja Creative Commons dla "
-"różnych krajów, dodaj je tutaj jako osobne wpisy."
+"Jeżeli licencje zostały przetłumaczone, np. licencja Creative Commons\n"
+"dla różnych krajów, dodaj je tutaj jako osobne wpisy."
 
 #: core/templates/navigation.html:22
 msgid "Training"
@@ -1061,7 +1072,7 @@ msgstr "Moje preferencje"
 
 #: core/templates/navigation.html:191
 msgid "Logout"
-msgstr "Logout"
+msgstr "Wyloguj"
 
 #: core/templates/navigation.html:206
 msgid "Licenses"
@@ -1235,10 +1246,11 @@ msgid ""
 "anything). You must pass this information in the header in the format shown "
 "below."
 msgstr ""
-"Wygeneruj klucz API jeżeli chcesz komunikować się z wger przez udostępnione "
-"<a href=\"%(url)s\" rel=\"nofollow\">REST API</a> (nie potrzebujesz go dla "
-"publicznych zasobów takich jak ćwiczenia lub składniki). Klucz musisz podać "
-"w nagłówku w formacie podanym poniżej."
+"Wygeneruj klucz API jeżeli chcesz komunikować się z wger przez udostępnione\n"
+"<a href=\"%(url)s\" rel=\"nofollow\">REST API</a>\n"
+"(nie potrzebujesz go dla publicznych zasobów takich jak ćwiczenia lub "
+"składniki).\n"
+"Klucz musisz podać w nagłówku w formacie podanym poniżej."
 
 #: core/templates/user/api_key.html:15
 msgid "For security reasons, you should only access the API via HTTPS."
@@ -1281,8 +1293,9 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Ta akcja usunie konto użytkownika \" %(username)s\". Usunie także "
-"bezpowrotnie wszelkie jego dane (treningi, logi, itd.)."
+"Ta akcja usunie konto użytkownika \" %(username)s\".\n"
+"Usunie także wszelkie jego dane (treningi, logi, itd.).\n"
+"ta czynność nie może zostać cofnięta "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1562,7 +1575,7 @@ msgid ""
 msgstr ""
 "Stworzyliśmy przykładowy trening, przykładowe harmonogramy, wpisy wagowe "
 "oraz plany żywieniowe i wagowe, byś mógł lepiej zobaczyć co można zrobić na "
-"stronie. Możesz je dowolnie edytować lub skasować."
+"stronie. Możesz je dowolnie edytować lub skasować!"
 
 #: core/views/misc.py:146
 msgid "Rest day"
@@ -1709,7 +1722,7 @@ msgstr "Komentarz jak poprawnie wykonywać to ćwiczenie."
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
-msgstr "Lista sprzętu."
+msgstr "Lista sprzętu"
 
 #: exercises/templates/equipment/admin-overview.html:37
 #: exercises/views/equipment.py:95
@@ -1759,15 +1772,16 @@ msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Twoje ćwiczenie \" %(exercise)s\" zostało pomyślnie dodane do bazy danych."
+"Twoje ćwiczenie \" %(exercise)s\" zostało pomyślnie dodane do\n"
+"bazy danych."
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
 "It is now available on the exercise and muscle overview and can be\n"
 "added to workouts. You can access it on this address:"
 msgstr ""
-"Jest teraz dostępne na rozpisce ćwiczeń i mięśni i może być dodane do "
-"treningów. Możesz się do niego dostać pod adresem:"
+"Jest teraz dostępne na rozpisce ćwiczeń i mięśni i może być\n"
+"dodane do treningów. Możesz się do niego dostać pod adresem:"
 
 #: exercises/templates/exercise/email_new.tpl:8
 #: nutrition/templates/ingredient/email_new.tpl:8
@@ -1790,7 +1804,9 @@ msgstr "Dodawanie ćwiczenia"
 msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
-msgstr "Dziękujemy za dodanie ćwiczenia!"
+msgstr ""
+"Dziękujemy za dodanie ćwiczenia! Bardzo to\n"
+"doceniamy!"
 
 #: exercises/templates/exercise/form.html:8
 msgid ""
@@ -1801,10 +1817,11 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "successfully."
 msgstr ""
-"Po wysłaniu formularza, powiadomieni zostaną administratorzy strony. Po "
-"akceptacji, wpis zostanie dodany do bazy danych. Zanim to nastąpi, nie "
-"będzie on widoczny w wynikach wyszukiwania. Jeżeli dodałeś swój adres e-"
-"mail, zostaniesz powiadomiony o zakończonej procedurze."
+"Po wysłaniu formularza, powiadomieni zostaną administratorzy strony.\n"
+"Po akceptacji, wpis zostanie dodany do bazy danych. Zanim to nastąpi,\n"
+"nie będzie on widoczny w wynikach wyszukiwania. Jeżeli dodałeś swój adres "
+"e-mail,\n"
+"zostaniesz powiadomiony o zakończonej procedurze."
 
 #: exercises/templates/exercise/form_correct.html:4
 msgid "Correcting an exercise"
@@ -1814,15 +1831,17 @@ msgstr "Poprawianie ćwiczenia"
 msgid ""
 "Thank you for correcting and improving this exercise.\n"
 "This is much appreciated!"
-msgstr "Dziękujemy za poprawienie i ulepszenie tego ćwiczenia!"
+msgstr ""
+"Dziękujemy za poprawienie i ulepszenie tego ćwiczenia!\n"
+"Doceniamy twoją pomoc!"
 
 #: exercises/templates/exercise/form_correct.html:8
 msgid ""
 "After you submit the form, the administrators will be notified.\n"
 "Once the changes are reviewed the exercise will be updated."
 msgstr ""
-"Po wysłaniu formularza, powiadomieni zostaną administratorzy strony. Gdy "
-"zmiany zostaną zaakceptowane, ćwiczenie zostanie zaktualizowane."
+"Po wysłaniu formularza, powiadomieni zostaną administratorzy strony.\n"
+"Gdy zmiany zostaną zaakceptowane, ćwiczenie zostanie zaktualizowane."
 
 #: exercises/templates/exercise/overview.html:88
 msgid "No categories."
@@ -1855,7 +1874,9 @@ msgstr "Ćwiczenie oczekuje na akceptację"
 msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "        included in the database."
-msgstr "To ćwiczenie przesłane przez użytkownika czeka na akceptację."
+msgstr ""
+"To ćwiczenie przesłane przez użytkownika czeka na\n"
+"dodanie do bazy danych."
 
 #: exercises/templates/exercise/view.html:53
 msgid "Till then, it will not be shown in the overview or the search."
@@ -1973,11 +1994,11 @@ msgstr "To usunie ćwiczenie ze wszystkich treningów."
 
 #: exercises/views/exercises.py:452
 msgid "Exercise was successfully marked as rejected"
-msgstr "Ćwiczenie zostało poprawnie oznaczone jako odrzucone."
+msgstr "Ćwiczenie zostało poprawnie oznaczone jako odrzucone"
 
 #: exercises/views/images.py:67
 msgid "Edit exercise image"
-msgstr "Edytuj obraz ćwiczenia."
+msgstr "Edytuj obraz ćwiczenia"
 
 #: exercises/views/images.py:138
 msgid "Delete exercise image?"
@@ -2188,7 +2209,7 @@ msgstr "Menadżer siłowni"
 
 #: gym/templates/gym/member_list.html:69
 msgid "This gym has no administrators or trainers"
-msgstr "Ta siłownia nie ma żadnych zarządcow ani trenerów."
+msgstr "Ta siłownia nie ma żadnych zarządcow ani trenerów"
 
 #: gym/templates/gym/member_list.html:88
 msgid "Export"
@@ -2244,9 +2265,9 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
-"Proszę zapisać hasło użytkownika bądź wyeksportowany plik, który zawiera "
-"jego dane, i przechować je w bezpiecznym miejscu. Hasło nie może zostać "
-"później odzyskane."
+"Proszę zapisać hasło użytkownika bądź wyeksportowany\n"
+"plik, który zawiera jego dane, i przechować je w bezpiecznym miejscu. Hasło\n"
+"nie może zostać później odzyskane."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
@@ -2577,7 +2598,7 @@ msgid ""
 msgstr ""
 "Zaznacz, jeżeli chcesz oznaczyć ten harmonogram jako aktywny (co zostanie "
 "odzwierciedlone w kokpicie). Inne harmonogramy zostaną oznaczone jako "
-"nieaktywne."
+"nieaktywne"
 
 #: manager/models.py:257 manager/templates/schedule/view.html:84
 msgid "Is a loop"
@@ -2695,8 +2716,8 @@ msgid ""
 "The coloured days in the calendar have weight logs,\n"
 "you can click on them to see the details."
 msgstr ""
-"Dni w kalendarzu wyróżnione kolorem mają uzupełnioną wagę, kliknij by "
-"zobaczyć szczegóły."
+"Dni w kalendarzu wyróżnione kolorem mają uzupełnioną wagę,\n"
+"kliknij by zobaczyć szczegóły."
 
 #: manager/templates/calendar/month.html:157
 msgid "Go to current month"
@@ -2729,9 +2750,10 @@ msgid ""
 "it\n"
 "will simply be edited. Weight entries are always added."
 msgstr ""
-"Nowa sesja treningowa (ocena, komentarz, czas) zostaną stworzone jeżeli nie "
-"ma jeszcze żadnej sesji dla wybranego dnia. W innym przypadku, trening "
-"będzie edytowany. Wartości ciężarów są zawsze dodawane."
+"Nowa sesja treningowa (ocena, komentarz, czas) zostaną\n"
+"stworzone jeżeli nie ma jeszcze żadnej sesji dla wybranego dnia. W innym "
+"przypadku,\n"
+"trening będzie edytowany. Wartości ciężarów są zawsze dodawane."
 
 #: manager/templates/schedule/overview.html:5
 msgid "Your schedules"
@@ -2753,7 +2775,8 @@ msgid ""
 "Schedules are collections of workouts that you do in\n"
 "succession."
 msgstr ""
-"Harmonogramy to kolekcje treningów, które wykonujesz w określonej kolejności."
+"Harmonogramy to kolekcje treningów, które wykonujesz w\n"
+"określonej kolejności."
 
 #: manager/templates/schedule/overview.html:39
 msgid ""
@@ -2762,9 +2785,10 @@ msgid ""
 "always do the same workouts in succession, e.g. A > B > C > A > B > C and so "
 "on."
 msgstr ""
-"Możesz ustalić jak długo chcesz wykonywać dany trening przed przejściem do "
-"następnego. Można także zapętlać treningi, dzięki czemu będziesz mógł "
-"wykonywać te same treningi w danej kolejności, np. A > B > C > A > B > C itd."
+"Możesz ustalić jak długo chcesz wykonywać dany trening\n"
+"przed przejściem do następnego. Można także zapętlać treningi, dzięki czemu\n"
+"będziesz mógł wykonywać te same treningi w danej kolejności, np. A > B > C > "
+"A > B > C itd."
 
 #: manager/templates/schedule/overview.html:43
 msgid ""
@@ -2772,9 +2796,10 @@ msgid ""
 "shown e.g. in your dashboard) till it reaches the last workout or till you\n"
 "deactivate it, if it is a loop."
 msgstr ""
-"Aktualnie aktywny harmonogram pozostanie aktywny (i będzie wyświetlany np. "
-"na kokpicie) dopóki nie dojdzie do ostatniego treningu, lub dopóki nie "
-"zostanie zdezaktywowany - jeżeli jest zapętlony."
+"Aktualnie aktywny harmonogram pozostanie aktywny (i będzie\n"
+"wyświetlany np. na kokpicie) dopóki nie dojdzie do ostatniego treningu, lub "
+"dopóki\n"
+"nie zostanie zdezaktywowany - jeżeli jest zapętlony."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
@@ -2790,7 +2815,7 @@ msgid ""
 "deactivate it"
 msgstr ""
 "Ten harmonogram jest zapętlony i będzie przechodził przez treningi aż do "
-"jego dezaktywacji."
+"jego dezaktywacji"
 
 #: manager/templates/schedule/view.html:106 manager/views/schedule.py:165
 #: manager/views/schedule.py:230
@@ -2813,10 +2838,18 @@ msgid ""
 msgid_plural ""
 "%(weeks)s Weeks\n"
 "                    "
-msgstr[0] "%(weeks)s tydzień"
-msgstr[1] "%(weeks)s tygodnie "
-msgstr[2] "%(weeks)sv tygodni"
-msgstr[3] "%(weeks)s tygodni "
+msgstr[0] ""
+"%(weeks)s tydzień\n"
+"                    "
+msgstr[1] ""
+"%(weeks)s tygodnie\n"
+"                    "
+msgstr[2] ""
+"%(weeks)sv tygodni\n"
+"                    "
+msgstr[3] ""
+"%(weeks)s tygodni\n"
+"                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
@@ -2829,8 +2862,9 @@ msgid ""
 "workout more\n"
 "than once."
 msgstr ""
-"Możesz dodać dowolną ilość treningów do harmonogramu. Możesz zmienić ich "
-"kolejność przeciągając je na liście. Trening można dodać wielokrotnie."
+"Możesz dodać dowolną ilość treningów do harmonogramu. Możesz\n"
+"zmienić ich kolejność przeciągając je na liście. Trening można dodać\n"
+"wielokrotnie."
 
 #: manager/templates/schedule/view.html:231
 #: manager/templates/schedule/view.html:241
@@ -2852,9 +2886,9 @@ msgid ""
 "application for example google calendar, outlook or iCal. This will create\n"
 "an appointment for each training day with the appropriate exercises."
 msgstr ""
-"Możesz później importować plik do swojego kalendarza, np. Google Calendar, "
-"Outlook albo iCal. To stworzy wydarzenie dla każdego treningu, z "
-"odpowiednimi ćwiczeniami."
+"Możesz później importować plik do swojego kalendarza,\n"
+"np. Google Calendar, Outlook albo iCal. To stworzy\n"
+"wydarzenie dla każdego treningu, z odpowiednimi ćwiczeniami."
 
 #: manager/templates/schedule/view.html:256
 #: manager/templates/schedule/view.html:290
@@ -2886,7 +2920,8 @@ msgid ""
 msgstr ""
 "Jeżeli robisz taką samą ilość powtórzeń dla wszystkich serii,\n"
 "możesz wpisać jedną wartość, np. dla 4 serii wpisz po prostu 10 powtórzeń, a "
-"zostanie to zapisane jako \"4 x 10\"."
+"zostanie\n"
+"to zapisane jako \"4 x 10\"."
 
 #: manager/templates/set/edit.html:10
 msgid "Edit set"
@@ -2913,8 +2948,10 @@ msgid ""
 "never produce reminders."
 msgstr ""
 "Będziesz regularnie otrzymywać takie przypomnienia dopóki nie dodasz nowego "
-"treningu. Alternatywnie możesz dodać treningi do zapętlonego harmonogramu, "
-"tego rodzaju harmonogramy nie generują przypomnień."
+"treningu.\n"
+"Alternatywnie możesz dodać treningi do zapętlonego harmonogramu, tego "
+"rodzaju harmonogramy\n"
+"nie generują przypomnień."
 
 #: manager/templates/workout/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2922,8 +2959,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Jeżeli nie chcesz już więcej otrzymywać powiadomień, deaktywuj je w "
-"ustawieniach."
+"Jeżeli nie chcesz już więcej otrzymywać powiadomień, deaktywuj je\n"
+"w ustawieniach."
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -2931,8 +2968,8 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
-"Twój ostatni wpis wagi jest z %(date)s (%(days)s dni temu). Kliknij na link "
-"by wejść do aplikacji i dodać nowy wpis."
+"Twój ostatni wpis wagi jest z %(date)s (%(days)s dni temu).\n"
+"Kliknij na link by wejść do aplikacji i dodać nowy wpis."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
@@ -2966,8 +3003,9 @@ msgid ""
 "only. Click on an exercise to see all the historical data for\n"
 "it."
 msgstr ""
-"Ta strona pokazuje wartości ciężarów przynależące tylko do tego treningu. "
-"Kliknij na ćwiczenie, by zobaczyć jego historię."
+"Ta strona pokazuje wartości ciężarów przynależące tylko do tego treningu.\n"
+"Kliknij na ćwiczenie, by zobaczyć jego\n"
+"historię."
 
 #: manager/templates/workout/log.html:106
 msgid ""
@@ -2975,9 +3013,9 @@ msgid ""
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
 msgstr ""
-"Jeżeli danego dnia jest więcej niż jeden wpis z taką samą liczbą powtórzeń, "
-"ale innymi ciężarami, tylko wpis z większymi ciężarami będzie pokazywany na "
-"diagramie."
+"Jeżeli danego dnia jest więcej niż jeden wpis z\n"
+"taką samą liczbą powtórzeń, ale innymi ciężarami, tylko wpis z\n"
+"większymi ciężarami będzie pokazywany na diagramie."
 
 #: manager/templates/workout/log.html:110
 msgid ""
@@ -2985,9 +3023,10 @@ msgid ""
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
 msgstr ""
-"Pamiętaj, że tylko wpisy z wpisanym ciężarem (kilogramy lub funty) i "
+"Pamiętaj, że tylko wpisy z wpisanym ciężarem (kilogramy lub funty) i\n"
 "powtórzenia są pokazywane na wykresach, inne, takie jak długość trwania "
-"ćwiczenia lub ćwiczenia wykonywane do porażki są ignorowane."
+"ćwiczenia lub ćwiczenia wykonywane do porażki\n"
+"są ignorowane."
 
 #: manager/templates/workout/overview.html:5
 msgid "Your workouts"
@@ -3247,7 +3286,7 @@ msgstr "Wyniki"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Twoje BMI:"
+msgstr "Twoje BMI to: "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3293,9 +3332,10 @@ msgid ""
 "in a new entry."
 msgstr ""
 "Użyj formularza by wyliczyć swoje BMI (Body Mass Index).\n"
-"Jeżeli wpisałeś swoją aktualną wagę, ostatni wpis zostanie wykorzystany "
-"automatycznie. W innym przypadku wpisana tutaj waga będzie dodana jako "
-"aktualna waga."
+"Jeżeli wpisałeś swoją aktualną wagę, ostatni wpis zostanie\n"
+"wykorzystany automatycznie. W innym przypadku wpisana tutaj waga będzie "
+"dodana\n"
+"jako aktualna waga."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -3303,16 +3343,16 @@ msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Twój składnik '%(ingredient)s' został poprawnie dodany do głównej bazy "
-"danych."
+"Twój składnik '%(ingredient)s' został poprawnie dodany do głównej\n"
+"bazy danych."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
-"Jest teraz dostępny na liście składników i może być dodawany do planów "
-"żywieniowych. Składnik jest dostępny pod adresem: "
+"Jest teraz dostępny na liście składników i może być\n"
+"dodawany do planów żywieniowych. Składnik jest dostępny pod adresem:"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
@@ -3322,7 +3362,9 @@ msgstr "Dodawanie składnika"
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr "Dziękujemy za dodanie składnika!"
+msgstr ""
+"Dziękujemy za dodanie składnika!\n"
+"Bardzo to doceniamy!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -3333,10 +3375,11 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
-"Po wysłaniu formularza, powiadomieni zostaną administratorzy strony. Po "
-"akceptacji, wpis zostanie dodany do bazy danych. Zanim to nastąpi, nie "
-"będzie on widoczny w wynikach wyszukiwania. Jeżeli dodałeś swój adres e-"
-"mail, zostaniesz powiadomiony o zakończonej procedurze."
+"Po wysłaniu formularza, powiadomieni zostaną administratorzy strony.\n"
+"Po akceptacji, wpis zostanie dodany do bazy danych. Zanim to nastąpi,\n"
+"nie będzie on widoczny w wynikach wyszukiwania. Jeżeli dodałeś swój adres "
+"e-mail,\n"
+"zostaniesz powiadomiony o zakończonej procedurze."
 
 #: nutrition/templates/ingredient/overview.html:45
 msgid "No ingredients."
@@ -3362,8 +3405,9 @@ msgid ""
 "or\n"
 "the search."
 msgstr ""
-"Ten składnik przesłany prze użytkownika czeka na umieszczenie w bazie "
-"danych. Do tego czasu, nie będzie on umieszczony w wynikach wyszukiwania."
+"Ten składnik przesłany prze użytkownika czeka na\n"
+"umieszczenie w bazie danych. Do tego czasu, nie będzie on umieszczony w\n"
+"wynikach wyszukiwania."
 
 #: nutrition/templates/ingredient/view.html:71
 #: nutrition/templates/log/detail.html:31
@@ -3517,8 +3561,8 @@ msgid ""
 "You have selected that this nutritional plan has a\n"
 "    goal amount of calories. Use the calculator or enter the value yourself."
 msgstr ""
-"Ustaliłeś, że ten plan żywieniowy ma określony cel kaloryczny. Użyj "
-"kalkulatora lub wpisz wartość samodzielnie."
+"Ustaliłeś, że ten plan żywieniowy ma\n"
+"określony cel kaloryczny. Użyj kalkulatora lub wpisz wartość samodzielnie."
 
 #: nutrition/templates/plan/view.html:358
 msgid ""
@@ -3551,9 +3595,10 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
-"Podstawowa przemiana materii to ilość energii wykorzystywana codziennie w "
-"stanie spoczynku. Jest to minimalna ilość energii potrzebna dla organizmu by "
-"funkcjonować, bez żadnego dodatkowego wysiłku fizycznego."
+"Podstawowa przemiana materii to ilość energii wykorzystywana codziennie\n"
+"w stanie spoczynku. Jest to minimalna ilość energii potrzebna dla organizmu "
+"by funkcjonować, bez żadnego\n"
+"dodatkowego wysiłku fizycznego."
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
@@ -3569,21 +3614,22 @@ msgid ""
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
 msgstr ""
-"Poziom aktywności fizycznej (PAL) jest współczynnikiem określającym "
+"Poziom aktywności fizycznej (PAL) jest współczynnikiem określającym\n"
 "dodatkową aktywność fizyczną i jest używany przy obliczaniu całkowitej "
-"energii potrzebnej w ciągu dnia."
+"energii\n"
+"potrzebnej w ciągu dnia."
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Współczynnik dla codziennych aktywności:"
+msgstr "Współczynnik dla codziennych aktywności: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
-"Podstawowe spożycie kalorii jest wartością określającą ile kalorii jest "
-"wymagananych przez Twój organizm na podstawie Twojej aktywności fizycznej."
+"Podstawowe spożycie kalorii jest wartością określającą ile kalorii\n"
+"jest wymaganych przez Twój organizm na podstawie Twojej aktywności fizycznej."
 
 #: nutrition/templates/rate/form.html:81
 msgid "Calculate basic caloric intake"
@@ -3596,10 +3642,10 @@ msgid ""
 "Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
-"Suma kalorii jest faktyczną pełną wartością kalorii na dzień. Może to "
-"uwzględniać surplus albo deficyt, w zależności od tego, czy chcesz nabrać "
-"masy mięśniowej, czy utracić tkankę tłuszczową. Alternatywnie możesz wpisać "
-"wartość samodzielnie."
+"Suma kalorii jest faktyczną pełną wartością kalorii na dzień. Może\n"
+"to uwzględniać surplus albo deficyt, w zależności od tego, czy chcesz nabrać "
+"masy mięśniowej, czy utracić tkankę tłuszczową. Alternatywnie\n"
+"możesz wpisać wartość samodzielnie."
 
 #: nutrition/templates/rate/form.html:102
 msgid "Transfer basic intake to total daily calories"
@@ -3619,9 +3665,11 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-"Pamiętaj, że te wyliczenia są wyłącznie przybliżone. Jeżeli opierasz swój "
-"plan żywieniowy na tych wartościach, obserwuj swój organizm przez kilka "
-"tygodni i w razie potrzeby dostosuj odpowiednie wartości."
+"Pamiętaj, że te wyliczenia są wyłącznie\n"
+"przybliżone. Jeżeli opierasz swój plan żywieniowy na tych wartościach, "
+"obserwuj\n"
+"swój organizm przez kilka tygodni i w razie potrzeby dostosuj odpowiednie "
+"wartości."
 
 #: nutrition/views/ingredient.py:175
 msgid "Add a new ingredient"
@@ -3629,7 +3677,7 @@ msgstr "Dodaj nowy składnik"
 
 #: nutrition/views/ingredient.py:232
 msgid "Ingredient was successfully marked as rejected"
-msgstr "Składnik został poprawnie oznaczony jako odrzucony."
+msgstr "Składnik został poprawnie oznaczony jako odrzucony"
 
 #: nutrition/views/log.py:212 nutrition/views/unit_ingredient.py:134
 msgid "Delete?"
@@ -3678,12 +3726,13 @@ msgid ""
 "blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
 "article</a> which summarizes they way open source projects work very well. "
 msgstr ""
-"wger jest budowany przez wolontariuszy, proces rozwoju jest otwarty i "
-"dostępny dla wszystkich zainteresowanych. \n"
+"wger jest budowany przez wolontariuszy,\n"
+"proces rozwoju jest otwarty i dostępny dla wszystkich zainteresowanych.\n"
 "Jeżeli jesteś nowy w świecie otwartego oprogramowania, polecamy zapoznać się "
-"z <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">tym "
-"artykułem</a>, który podsumowuje jak funkcjonują tego rodzaju projekty."
+"z\n"
+"<a href=\"http://schlitt.info/opensource/blog/"
+"0541_10_golden_rules_for_starting_with_open_source.html\">tym\n"
+"artykułem</a>, który podsumowuje jak funkcjonują tego rodzaju projekty. "
 
 #: software/templates/contribute.html:16
 msgid ""
@@ -3691,8 +3740,9 @@ msgid ""
 "Use this opportunity and influence the direction of the\n"
 "project. "
 msgstr ""
-"Dziękujemy za wszelki wkład w rozwój. Skorzystaj z tej okazji by wpłynąć na "
-"kierunek rozwoju projektu."
+"Dziękujemy za wszelki wkład w rozwój.\n"
+"Skorzystaj z tej okazji by wpłynąć na kierunek rozwoju \n"
+"projektu. "
 
 #: software/templates/contribute.html:23
 msgid "Use the site"
@@ -3706,10 +3756,12 @@ msgid ""
 "sound\n"
 "like much, but is incredibly important!"
 msgstr ""
-"Po prostu korzystaj ze strony i powiedz znajomym jak bardzo jest "
-"przydatna! ;) Jeżeli znajdziesz coś, co szczególnie polubisz, coś, co może "
-"wymagać codatkowej pracy albo coś, co po prostu nie działa, powiedz nam o "
-"tym! Brzmi jak niewiele, ale jest bardzo istotne dla dalszego rozwoju!"
+"Po prostu skorzystaj ze strony i powiedz znajomym\n"
+"jakie to przydatne! ;) . Kiedy znajdziesz coś, co szczególnie Ci się "
+"spodobało,\n"
+"może wymagać pewnych ulepszeń lub po prostu nie działa, powiedz nam! To może "
+"nie brzmieć\n"
+"lubi dużo, ale jest niesamowicie ważny!"
 
 #: software/templates/contribute.html:31
 msgid "Submit exercises"
@@ -3722,19 +3774,12 @@ msgid ""
 "description\n"
 "is too short or some other detail is missing or could be improved, tell!"
 msgstr ""
-"Dodaj fajne ćwiczenia, które uwielbiasz i robisz każdego tygodnia, ale "
-"których nie znalazłeś jeszcze na liście. Jeżeli uważasz, że opis któregoś z "
-"ćwiczeń jest zbyt krótki, albo czegoś mu brakuje, powiedz!"
+"Dodaj fajne ćwiczenia, które\n"
+"uwielbiasz i robisz każdego tygodnia, ale których nie znalazłeś jeszcze na "
+"liście. Jeżeli uważasz, że opis któregoś z ćwiczeń\n"
+"jest zbyt krótki, albo czegoś mu brakuje, powiedz!"
 
 #: software/templates/contribute.html:44
-#, fuzzy
-#| msgid ""
-#| "Do you want to use wger in your own language?\n"
-#| "Do you think the current translation could be improved?\n"
-#| "The translations are easily managed and edited online, if you are "
-#| "interested,\n"
-#| "go to the transifex site, request access and we will set everything\n"
-#| "up. "
 msgid ""
 "Do you want to use wger in your own language?\n"
 "Do you think the current translation could be improved?\n"
@@ -3745,8 +3790,9 @@ msgstr ""
 "Chcesz używać wgera w swoim języku ojczystym?\n"
 "Myślisz, że można poprawić obecne tłumaczenie?\n"
 "Tłumaczeniami można łatwo zarządzać i edytować je online, więc jeśli jesteś "
-"zainteresowany, wejdź na stronę transifex, poproś o dostęp, a my ustawimy "
-"wszystko dla Ciebie."
+"zainteresowany,\n"
+"wejdź na stronę transifex, poproś o dostęp, a my ustawimy wszystko dla "
+"Ciebie."
 
 #: software/templates/contribute.html:53
 msgid "Code"
@@ -3759,9 +3805,11 @@ msgid ""
 "will show the world. Take a look at the developer guide for more details\n"
 "on this."
 msgstr ""
-"Oczywiście, mocno zachęcamy do sklonowania repozytorium i modyfikacji! Gdy "
-"tylko uda Ci się coś dodać, wyślij pull requesta, a my pokażemy go światu. "
-"Przeczytaj poradnik programisty, by poznać szczegóły."
+"Oczywiście, mocno zachęcamy do sklonowania\n"
+"repozytorium i modyfikacji! Gdy tylko uda Ci się coś dodać, wyślij pull "
+"requesta, a my\n"
+"pokażemy go światu. Przeczytaj poradnik programisty, by poznać\n"
+"szczegóły."
 
 #: software/templates/contribute.html:66
 msgid "Our goal"
@@ -3774,17 +3822,18 @@ msgid ""
 "of exercises and\n"
 "ingredients, all released under a free license."
 msgstr ""
-"Celem jest zbudowanie świetnego i elastycznego programu do zarządzania "
-"treningiem, wraz z wyczerpującą listą ćwiczeń i składników żywieniowych, "
-"wszystko na wolnej licencji."
+"Celem jest zbudowanie świetnego\n"
+"i elastycznego programu do zarządzania treningiem, wraz z wyczerpującą listą "
+"ćwiczeń i\n"
+"składników żywieniowych, wszystko na wolnej licencji."
 
 #: software/templates/features.html:12
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts. "
 msgstr ""
-"wger Workout Manager to darmowa, wolnoźródłowa aplikacja do zarzadzania "
-"ćwiczeniami i treningami."
+"wger Workout Manager to darmowa, aplikacja open source do zarzadzania "
+"ćwiczeniami i treningami. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -3800,7 +3849,7 @@ msgstr "Twoje treningi."
 
 #: software/templates/features.html:27
 msgid "Your data."
-msgstr "Twoje dane"
+msgstr "Twoje dane."
 
 #: software/templates/features.html:28
 msgid "Your progress."
@@ -3893,7 +3942,7 @@ msgid ""
 "felt you performed. Access all your individual diary entries with one click."
 msgstr ""
 "Sprawdź jak i kiedy trenujesz, a także jak subiektywnie oceniasz swoje "
-"treningi. Masz dostęp do swoich wpisów treningowych za jednym kliknięciem"
+"treningi. Masz dostęp do swoich wpisów treningowych za jednym kliknięciem."
 
 #: software/templates/features.html:171
 msgid "Exercise database"
@@ -3907,7 +3956,7 @@ msgid ""
 msgstr ""
 "Baza ćwiczeń zawiera ponad sto ćwiczeń, spośród których możesz wybierać, by "
 "stworzyć swoje treningi. Możesz je także wylistować w zależności od "
-"wykorzystywanego sprzętu, bądź trenowanych mięśni"
+"wykorzystywanego sprzętu, bądź trenowanych mięśni."
 
 #: software/templates/features.html:190
 msgid "Gym management"
@@ -3921,7 +3970,7 @@ msgid ""
 msgstr ""
 "Wykorzystuj aplikację na swojej siłowni by zarządzać jej członkami, ich "
 "treningami i obecnością. Możesz zarządzać także ich kontraktami, dodawać "
-"notatki i umieszczać dowolne konieczne pliki"
+"notatki i umieszczać dowolne konieczne pliki."
 
 #: software/templates/features.html:213
 msgid ""
@@ -3929,7 +3978,7 @@ msgid ""
 "can integrate your own application and tools."
 msgstr ""
 "wger posiada REST API z odpowiednim zarządzaniem uprawnieniami, dzięki czemu "
-"możesz go zintegrować z własnymi aplikacjami i narzędziami"
+"możesz go zintegrować z własnymi aplikacjami i narzędziami."
 
 #: software/templates/features.html:223
 #, python-format
@@ -3953,9 +4002,10 @@ msgid ""
 msgstr ""
 "\n"
 "Nie ma idealnego oprogramowania. Wiele błędów jest raportowanych "
-"automatycznie, ale nie zawsze tak się dzieje, dlatego właśnie liczymy na "
-"Ciebie gdy coś nie zadziała poprawnie. \n"
-"Opisz w szczegółach co jest nie tak, a także co robiłeś gdy pojawił się "
+"automatycznie, ale\n"
+"nie zawsze tak się dzieje, dlatego właśnie liczymy na Ciebie gdy coś nie "
+"zadziała poprawnie. \n"
+"Opisz w szczegółach co jest nie tak, a także co robiłeś gdy pojawił się\n"
 "błąd.\n"
 
 #: software/templates/issues.html:21
@@ -3979,8 +4029,10 @@ msgstr ""
 "\n"
 "Issue tracker pozwala także na dokumentację ulepszeń oprogramowania.\n"
 "Jeżeli masz jakieś sugestie albo uważasz, że brakuje funkcjonalności, po "
-"prostu stwórz nowy wątek. Może to być cokolwiek, od drobnej zmiany aż do "
-"nowej sekcji strony. Pamiętaj, że nie wszystko może zostać zaimplementowane."
+"prostu\n"
+"stwórz nowy wątek. Może to być cokolwiek, od drobnej zmiany aż do nowej\n"
+"sekcji strony. Pamiętaj, że nie wszystko może zostać\n"
+"zaimplementowane."
 
 #: software/templates/issues.html:36
 msgid "report wish to the issue tracker"
@@ -3996,15 +4048,18 @@ msgid ""
 "have one and don't want to register, you can also send it to\n"
 "<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
 msgstr ""
-"Dodanie informacji o problemie wymaga konta w serwisie GitHub. Jeżeli go nie "
-"posiadasz i nie chcesz go zakładać, możesz również wysłać informację na <a "
-"href=\"https://groups.google.com/group/wger\">grupę dyskusyjną</a>."
+"Dodanie informacji o problemie wymaga konta w serwisie GitHub. Jeżeli go "
+"nie\n"
+"posiadasz i nie chcesz go zakładać, możesz również wysłać informację na\n"
+"<a href=\"https://groups.google.com/group/wger\">grupę dyskusyjną</a>."
 
 #: software/templates/license.html:10
 msgid ""
 "wger Workout Manager is Free/Libre Open Source\n"
 "Software (FLOSS)."
-msgstr "wger jest Darmowym i Wolnym Oprogramowaniem (FLOSS)."
+msgstr ""
+"wger jest Darmowym i Wolno Źródłowym\n"
+"Oprogramowaniem (FLOSS)."
 
 #: software/templates/license.html:22
 msgid ""
@@ -4014,10 +4069,11 @@ msgid ""
 "of the license) be used, modified and distributed (also with modifications)\n"
 "without restrictions."
 msgstr ""
-"wger jest publikowany na zasadach <strong>licencji Affero GNU General Public "
-"License (AGPS) Wersja 3+</strong> i może (zgodnie z warunkami licencji) być "
-"używany, modyfikowany i dystrybuowany (także z modyfikacjami) bez żadnych "
-"ograniczeń."
+"wger jest publikowany na zasadach <strong>licencji Affero GNU\n"
+"General Public License (AGPS) Wersja 3+</strong> i może (zgodnie z "
+"warunkami\n"
+"licencji) być używany, modyfikowany i dystrybuowany (także z modyfikacjami)\n"
+"bez żadnych ograniczeń."
 
 #: software/templates/license.html:29
 msgid ""
@@ -4025,9 +4081,9 @@ msgid ""
 "Manager release (LICENSE.txt) and can be read online on the website of\n"
 "<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>."
 msgstr ""
-"Kopia treści licencji jest zawarta w każdym wydaniu wgera (LICENSE.txt) i "
-"może być przeczytana online na stronie <a href='https://www.gnu.org/licenses/"
-"agpl-3.0.en.html'>GNU project</a>."
+"Kopia treści licencji jest zawarta w każdym wydaniu\n"
+"wgera (LICENSE.txt) i może być przeczytana online na stronie\n"
+"<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>GNU project</a>."
 
 #: utils/generic_views.py:254
 msgid "Yes, delete"
@@ -4081,7 +4137,9 @@ msgstr "Importuj wartości ciężarów"
 msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
-msgstr "Użyj tego pola by importować wartości ciężarów do Menadżera Treningów."
+msgstr ""
+"Użyj tego pola by importować wartości ciężarów do Menadżera\n"
+"Treningów."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -4092,18 +4150,19 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
-"Możesz kopiować ze swojego arkusza kalkulacyjnego do pól tekstowych, a "
-"system spróbuje odgadnąć poprawny format importowania. Proszę pamiętać, że "
-"pierwsza kolumna to <strong>data</strong>, a druga to <strong>ciężar</"
-"strong>. Pozostałe kolumny zostaną zignorowane. Występuje limit 1000 "
-"linijek.\n"
+"Możesz kopiować ze swojego arkusza kalkulacyjnego do pól tekstowych,\n"
+"a system spróbuje odgadnąć poprawny format importowania. Proszę pamiętać,\n"
+"że pierwsza kolumna to <strong>data</strong>, a druga to "
+"<strong>ciężar</strong>.\n"
+"Pozostałe kolumny zostaną zignorowane. Występuje limit 1000 linijek.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
-"Jeżeli pojawiły się błędy, możesz je poprawić bądź odrzucić w kolejnym kroku."
+"Jeżeli pojawiły się błędy, możesz je poprawić bądź odrzucić w\n"
+"kolejnym kroku."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
@@ -4136,10 +4195,12 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
-"Te wartości nie mogły zostać przekonwertowane. Powodem mogło być m.in. "
-"nierozpoznana data lub format wartości, także problem z kodowaniem bądź inne "
-"rzeczy. Proszę sprawdzić, czy nie ma oczywistych błędów na liście, możliwie "
-"poprawić i spróbować ponownie."
+"Te wartości nie mogły zostać przekonwertowane.\n"
+"Powodem mogło być m.in. nierozpoznana data lub format\n"
+"wartości, także problem z kodowaniem bądź inne rzeczy. Proszę sprawdzić, "
+"czy\n"
+"nie ma oczywistych błędów na liście, możliwie poprawić\n"
+"i spróbować ponownie."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
@@ -4165,10 +4226,10 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
-"Kontynuuj tutaj jeżeli chcesz importować wszystkie pomyślnie "
-"przekonwertowane wpisy. Wpisy z błędami będą ignorowane. Sam możesz "
-"zdecydować czy będą przydatne (niewykryte wpisy) czy nie (nagłówki, "
-"komentarze, itd.)."
+"Kontynuuj tutaj jeżeli chcesz importować wszystkie pomyślnie\n"
+"przekonwertowane wpisy. Wpisy z błędami\n"
+"będą ignorowane. Sam możesz zdecydować czy będą przydatne\n"
+"(niewykryte wpisy) czy nie (nagłówki, komentarze, itd.)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -4182,7 +4243,9 @@ msgstr "Lub spróbuj ponownie"
 msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
-msgstr "Możesz poprawiać i wysyłać listę tak często, jak Ci się podoba."
+msgstr ""
+"Możesz poprawiać i wysyłać listę tak często,\n"
+"jak Ci się podoba."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"

@@ -14,7 +14,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Standard Library
 import datetime
 
@@ -22,14 +21,14 @@ import datetime
 from django.contrib.auth.models import User
 from django.db.models.signals import (
     post_save,
-    pre_save
+    pre_save,
 )
 from django.dispatch import receiver
 
 # wger
 from wger.core.models import (
     UserCache,
-    UserProfile
+    UserProfile,
 )
 from wger.utils.helpers import disable_for_loaddata
 
@@ -61,8 +60,10 @@ def set_user_age(sender, instance, **kwargs):
     if instance.age is None and instance.birthdate is not None:
         today = datetime.date.today()
         birthday = instance.birthdate
-        instance.age = (today.year - birthday.year
-                        - ((today.month, today.day) < (birthday.month, birthday.day)))
+        instance.age = (
+            today.year - birthday.year -
+            ((today.month, today.day) < (birthday.month, birthday.day))
+        )
 
 
 post_save.connect(create_user_profile, sender=User)

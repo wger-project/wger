@@ -24,7 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.manager.models import ScheduleStep
 
@@ -68,8 +68,7 @@ class CreateScheduleStepTestCase(WgerAddTestCase):
     url = reverse_lazy('manager:step:add', kwargs={'schedule_pk': 1})
     user_success = 'test'
     user_fail = False
-    data = {'workout': 3,
-            'duration': 4}
+    data = {'workout': 3, 'duration': 4}
 
 
 class EditScheduleStepTestCase(WgerEditTestCase):
@@ -80,8 +79,7 @@ class EditScheduleStepTestCase(WgerEditTestCase):
     object_class = ScheduleStep
     url = 'manager:step:edit'
     pk = 2
-    data = {'workout': 1,
-            'duration': 8}
+    data = {'workout': 1, 'duration': 8}
 
 
 class DeleteScheduleStepTestCase(WgerDeleteTestCase):
@@ -101,6 +99,8 @@ class ScheduleStepApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = ScheduleStep
     private_resource = True
-    data = {'workout': '3',
-            'schedule': '1',
-            'duration': '8'}
+    data = {
+        'workout': '3',
+        'schedule': '1',
+        'duration': '8',
+    }

@@ -23,7 +23,7 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.http.response import (
     HttpResponse,
-    HttpResponseForbidden
+    HttpResponseForbidden,
 )
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
@@ -54,38 +54,46 @@ def users(request, gym_pk):
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response, delimiter='\t', quoting=csv.QUOTE_ALL)
 
-    writer.writerow([_('Nr.'),
-                     _('Gym'),
-                     _('Username'),
-                     _('Email'),
-                     _('First name'),
-                     _('Last name'),
-                     _('Gender'),
-                     _('Age'),
-                     _('ZIP code'),
-                     _('City'),
-                     _('Street'),
-                     _('Phone')])
+    writer.writerow(
+        [
+            _('Nr.'),
+            _('Gym'),
+            _('Username'),
+            _('Email'),
+            _('First name'),
+            _('Last name'),
+            _('Gender'),
+            _('Age'),
+            _('ZIP code'),
+            _('City'),
+            _('Street'),
+            _('Phone')
+        ]
+    )
     for user in Gym.objects.get_members(gym_pk):
         address = user.userprofile.address
-        writer.writerow([user.id,
-                         gym.name,
-                         user.username,
-                         user.email,
-                         user.first_name,
-                         user.last_name,
-                         user.userprofile.get_gender_display(),
-                         user.userprofile.age,
-                         address['zip_code'],
-                         address['city'],
-                         address['street'],
-                         address['phone']
-                         ])
+        writer.writerow(
+            [
+                user.id,
+                gym.name,
+                user.username,
+                user.email,
+                user.first_name,
+                user.last_name,
+                user.userprofile.get_gender_display(),
+                user.userprofile.age,
+                address['zip_code'],
+                address['city'],
+                address['street'],
+                address['phone'],
+            ]
+        )
 
     # Send the data to the browser
     today = datetime.date.today()
-    filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.format(t=today,
-                                                                                   gym=gym.id)
+    filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.format(
+        t=today, gym=gym.id
+    )
     response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
     response['Content-Length'] = len(response.content)
     return response

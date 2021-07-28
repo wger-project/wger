@@ -50,19 +50,20 @@ class PreferencesTestCase(WgerTestCase):
         self.assertTemplateUsed('preferences.html')
 
         # Change some preferences
-        response = self.client.post(reverse('core:user:preferences'),
-                                    {'show_comments': True,
-                                     'show_english_ingredients': True,
-                                     'email': 'my-new-email@example.com',
-                                     'workout_reminder_active': True,
-                                     'workout_reminder': '30',
-                                     'workout_duration': 12,
-                                     'notification_language': 2,
-                                     'timer_active': False,
-                                     'timer_pause': 100,
-                                     'num_days_weight_reminder': 10,
-                                     'weight_unit': 'kg',
-                                     'birthdate': '02/25/1987'})
+        response = self.client.post(
+            reverse('core:user:preferences'), {
+                'show_comments': True,
+                'show_english_ingredients': True,
+                'email': 'my-new-email@example.com',
+                'workout_reminder_active': True,
+                'workout_reminder': '30',
+                'workout_duration': 12,
+                'notification_language': 2,
+                'num_days_weight_reminder': 10,
+                'weight_unit': 'kg',
+                'birthdate': '02/25/1987',
+            }
+        )
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
@@ -74,19 +75,20 @@ class PreferencesTestCase(WgerTestCase):
         self.assertEqual(User.objects.get(username='test').email, 'my-new-email@example.com')
 
         # Change some preferences
-        response = self.client.post(reverse('core:user:preferences'),
-                                    {'show_comments': False,
-                                     'show_english_ingredients': True,
-                                     'email': '',
-                                     'workout_reminder_active': True,
-                                     'workout_reminder': 22,
-                                     'workout_duration': 10,
-                                     'notification_language': 2,
-                                     'timer_active': True,
-                                     'timer_pause': 40,
-                                     'num_days_weight_reminder': 10,
-                                     'weight_unit': 'lb',
-                                     'birthdate': '02/25/1987'})
+        response = self.client.post(
+            reverse('core:user:preferences'), {
+                'show_comments': False,
+                'show_english_ingredients': True,
+                'email': '',
+                'workout_reminder_active': True,
+                'workout_reminder': 22,
+                'workout_duration': 10,
+                'notification_language': 2,
+                'num_days_weight_reminder': 10,
+                'weight_unit': 'lb',
+                'birthdate': '02/25/1987',
+            }
+        )
 
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('core:user:preferences'))
@@ -102,19 +104,25 @@ class PreferencesTestCase(WgerTestCase):
 
         # Member2 has a contract
         user = User.objects.get(username='member2')
-        self.assertEqual(user.userprofile.address,
-                         {'phone': '01234-567890',
-                          'zip_code': '00000',
-                          'street': 'Gassenstr. 14',
-                          'city': 'The City'})
+        self.assertEqual(
+            user.userprofile.address, {
+                'phone': '01234-567890',
+                'zip_code': '00000',
+                'street': 'Gassenstr. 14',
+                'city': 'The City',
+            }
+        )
 
         # Test has no contracts
         user = User.objects.get(username='test')
-        self.assertEqual(user.userprofile.address,
-                         {'phone': '',
-                          'zip_code': '',
-                          'street': '',
-                          'city': ''})
+        self.assertEqual(
+            user.userprofile.address, {
+                'phone': '',
+                'zip_code': '',
+                'street': '',
+                'city': '',
+            }
+        )
 
 
 class UserBodyweightTestCase(WgerTestCase):
@@ -201,6 +209,7 @@ class PreferencesCalculationsTestCase(WgerTestCase):
     """
     Tests the different calculation method in the user profile
     """
+
     def test_last_weight_entry(self):
         """
         Tests that the last weight entry is correctly returned
@@ -235,9 +244,11 @@ class PreferencesCalculationsTestCase(WgerTestCase):
 
         user = User.objects.get(pk=2)
         bmi = user.userprofile.calculate_bmi()
-        self.assertEqual(bmi,
-                         user.userprofile.weight.quantize(TWOPLACES)
-                         / decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES))
+        self.assertEqual(
+            bmi,
+            user.userprofile.weight.quantize(TWOPLACES) /
+            decimal.Decimal(1.80 * 1.80).quantize(TWOPLACES)
+        )
 
     def test_basal_metabolic_rate(self):
         """
@@ -269,23 +280,31 @@ class PreferencesCalculationsTestCase(WgerTestCase):
         self.user_login('test')
         user = User.objects.get(pk=2)
 
-        self.assertEqual(user.userprofile.calculate_activities(),
-                         decimal.Decimal(1.57).quantize(TWOPLACES))
+        self.assertEqual(
+            user.userprofile.calculate_activities(),
+            decimal.Decimal(1.57).quantize(TWOPLACES)
+        )
 
         # Gender has no influence
         user.userprofile.gender = "2"
-        self.assertEqual(user.userprofile.calculate_activities(),
-                         decimal.Decimal(1.57).quantize(TWOPLACES))
+        self.assertEqual(
+            user.userprofile.calculate_activities(),
+            decimal.Decimal(1.57).quantize(TWOPLACES)
+        )
 
         # Change some of the parameters
         user.userprofile.work_intensity = '3'
-        self.assertEqual(user.userprofile.calculate_activities(),
-                         decimal.Decimal(1.80).quantize(TWOPLACES))
+        self.assertEqual(
+            user.userprofile.calculate_activities(),
+            decimal.Decimal(1.80).quantize(TWOPLACES)
+        )
 
         user.userprofile.work_intensity = '2'
         user.userprofile.sport_intensity = '2'
-        self.assertEqual(user.userprofile.calculate_activities(),
-                         decimal.Decimal(1.52).quantize(TWOPLACES))
+        self.assertEqual(
+            user.userprofile.calculate_activities(),
+            decimal.Decimal(1.52).quantize(TWOPLACES)
+        )
 
 
 # TODO: the user can't delete or create new profiles
@@ -302,6 +321,4 @@ class PreferencesCalculationsTestCase(WgerTestCase):
 #             'workout_reminder_active': True,
 #             'workout_reminder': 22,
 #             'workout_duration': 10,
-#             'notification_language': 2,
-#             'timer_active': True,
-#             'timer_pause': 40}
+#             'notification_language': 2}

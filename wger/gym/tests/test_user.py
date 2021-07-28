@@ -18,7 +18,7 @@ import datetime
 # Django
 from django.contrib.auth.models import (
     Permission,
-    User
+    User,
 )
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
@@ -28,7 +28,7 @@ from wger.core.models import UserProfile
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.gym.models import (
     Gym,
-    GymAdminConfig
+    GymAdminConfig,
 )
 
 
@@ -50,12 +50,15 @@ class GymAddUserTestCase(WgerTestCase):
         else:
             self.assertEqual(response.status_code, 200)
 
-        response = self.client.post(reverse('gym:gym:add-user', kwargs={'gym_pk': 1}),
-                                    {'first_name': 'Cletus',
-                                     'last_name': 'Spuckle',
-                                     'username': 'cletus',
-                                     'email': 'cletus@spuckle-megacorp.com',
-                                     'role': 'admin'})
+        response = self.client.post(
+            reverse('gym:gym:add-user', kwargs={'gym_pk': 1}), {
+                'first_name': 'Cletus',
+                'last_name': 'Spuckle',
+                'username': 'cletus',
+                'email': 'cletus@spuckle-megacorp.com',
+                'role': 'admin',
+            }
+        )
         count_after = User.objects.all().count()
         if fail:
             self.assertEqual(response.status_code, 403)
@@ -124,8 +127,9 @@ class GymAddUserTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'text/csv')
             today = datetime.date.today()
             filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-cletus.csv'.format(t=today)
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename={}'.format(filename))
+            self.assertEqual(
+                response['Content-Disposition'], 'attachment; filename={}'.format(filename)
+            )
             self.assertGreaterEqual(len(response.content), 90)
             self.assertLessEqual(len(response.content), 120)
 

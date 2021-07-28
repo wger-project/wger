@@ -8,7 +8,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import (
     Meal,
     MealItem,
-    NutritionPlan
+    NutritionPlan,
 )
 from wger.utils.cache import cache_mapper
 

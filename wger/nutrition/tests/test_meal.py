@@ -24,11 +24,11 @@ from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.nutrition.models import (
     Meal,
-    NutritionPlan
+    NutritionPlan,
 )
 
 
@@ -133,7 +133,9 @@ class MealApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 2
     resource = Meal
     private_resource = True
-    special_endpoints = ('nutritional_values',)
-    data = {'time': datetime.time(9, 2),
-            'plan': 4,
-            'order': 1}
+    special_endpoints = ('nutritional_values', )
+    data = {
+        'time': datetime.time(9, 2),
+        'plan': 4,
+        'order': 1,
+    }

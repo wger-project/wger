@@ -11,6 +11,13 @@ For a live system, refer to the project's site: <https://wger.de/>
 
 ![Workout plan](https://raw.githubusercontent.com/wger-project/wger/master/wger/software/static/images/workout.png)
 
+
+## Mobile app
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+      alt="Get it on Google Play"
+      height="80">](https://play.google.com/store/apps/details?id=de.wger.flutter)
+
+
 ## Installation
 
 These are the basic steps to install and run the application locally on a Linux

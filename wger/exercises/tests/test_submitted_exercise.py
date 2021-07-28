@@ -19,7 +19,7 @@ from django.urls import reverse
 # wger
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.exercises.models import Exercise
 

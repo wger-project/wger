@@ -22,7 +22,7 @@ from rest_framework import serializers
 from wger.core.api.serializers import DaysOfWeekSerializer
 from wger.exercises.api.serializers import (
     ExerciseSerializer,
-    MuscleSerializer
+    MuscleSerializer,
 )
 from wger.manager.models import (
     Day,
@@ -32,7 +32,7 @@ from wger.manager.models import (
     Setting,
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 
 
@@ -43,7 +43,27 @@ class WorkoutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Workout
-        exclude = ('user',)
+        fields = ('id', 'name', 'creation_date', 'description')
+
+
+class WorkoutTemplateSerializer(serializers.ModelSerializer):
+    """
+    Workout template serializer
+    """
+
+    class Meta:
+        model = Workout
+        fields = ('id', 'name', 'creation_date', 'description', 'is_public')
+
+
+class WorkoutAndTemplateSerializer(serializers.ModelSerializer):
+    """
+    Workout or template serializer
+    """
+
+    class Meta:
+        model = Workout
+        fields = ('id', 'name', 'creation_date', 'description', 'is_template', 'is_public')
 
 
 class WorkoutSessionSerializer(serializers.ModelSerializer):
@@ -63,30 +83,30 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
     """
     Workout session serializer
     """
+
     class Meta:
         model = WorkoutLog
-        exclude = ('user',)
+        exclude = ('user', )
 
 
 class ScheduleStepSerializer(serializers.ModelSerializer):
     """
     ScheduleStep serializer
     """
+
     class Meta:
         model = ScheduleStep
-        fields = ['id',
-                  'schedule',
-                  'workout',
-                  'duration']
+        fields = ['id', 'schedule', 'workout', 'duration']
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
     """
     Schedule serializer
     """
+
     class Meta:
         model = Schedule
-        exclude = ('user',)
+        exclude = ('user', )
 
 
 class DaySerializer(serializers.ModelSerializer):
@@ -106,17 +126,28 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
-        fields = ['id', 'exerciseday', 'sets', 'order']
+        fields = ['id', 'exerciseday', 'sets', 'order', 'comment']
 
 
 class SettingSerializer(serializers.ModelSerializer):
     """
     Workout setting serializer
     """
+
     class Meta:
         model = Setting
-        fields = ['id', 'set', 'exercise', 'repetition_unit', 'reps',
-                  'weight', 'weight_unit', 'rir', 'order', 'comment']
+        fields = [
+            'id',
+            'set',
+            'exercise',
+            'repetition_unit',
+            'reps',
+            'weight',
+            'weight_unit',
+            'rir',
+            'order',
+            'comment',
+        ]
 
 
 #
@@ -171,9 +202,7 @@ class DaysOfWeekCanonicalFormSerializer(serializers.Serializer):
     Serializer for a days of week in the canonical form of a workout
     """
     text = serializers.ReadOnlyField()
-    day_list = serializers.ListField(
-        child=DaysOfWeekSerializer()
-    )
+    day_list = serializers.ListField(child=DaysOfWeekSerializer())
 
 
 class DayCanonicalFormSerializer(serializers.Serializer):

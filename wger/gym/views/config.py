@@ -20,7 +20,7 @@ import logging
 # Django
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse

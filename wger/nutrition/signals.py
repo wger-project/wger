@@ -18,14 +18,14 @@
 from django.core.cache import cache
 from django.db.models.signals import (
     post_delete,
-    post_save
+    post_save,
 )
 
 # wger
 from wger.nutrition.models import (
     Meal,
     MealItem,
-    NutritionPlan
+    NutritionPlan,
 )
 from wger.utils.cache import cache_mapper
 

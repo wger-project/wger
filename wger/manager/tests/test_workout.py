@@ -23,7 +23,7 @@ from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.manager.models import Workout
 
@@ -150,7 +150,7 @@ class EditWorkoutTestCase(WgerEditTestCase):
     pk = 3
     user_success = 'test'
     user_fail = 'admin'
-    data = {'comment': 'A new comment'}
+    data = {'name': 'A new comment'}
 
 
 class WorkoutOverviewTestCase(WgerTestCase):
@@ -189,10 +189,12 @@ class WorkoutModelTestCase(WgerTestCase):
 
         workout = Workout()
         workout.creation_date = datetime.date.today()
-        self.assertEqual('{0}'.format(workout),
-                         '{0} ({1})'.format('Workout', datetime.date.today()))
+        self.assertEqual(
+            '{0}'.format(workout),
+            '{0} ({1})'.format('Workout', datetime.date.today()),
+        )
 
-        workout.comment = 'my description'
+        workout.name = 'my description'
         self.assertEqual('{0}'.format(workout), 'my description')
 
 
@@ -203,5 +205,5 @@ class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 3
     resource = Workout
     private_resource = True
-    special_endpoints = ('canonical_representation',)
-    data = {'comment': 'A new comment'}
+    special_endpoints = ('canonical_representation', )
+    data = {'name': 'A new comment'}

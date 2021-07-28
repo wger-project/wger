@@ -23,16 +23,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
-    UpdateView
+    UpdateView,
 )
 
 # wger
@@ -40,7 +40,7 @@ from wger.core.models import DaysOfWeek
 from wger.manager.forms import DayForm
 from wger.manager.models import (
     Day,
-    Workout
+    Workout,
 )
 from wger.utils.generic_views import WgerFormMixin
 

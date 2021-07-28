@@ -24,24 +24,24 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import (
     HttpResponse,
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     CreateView,
     DeleteView,
-    UpdateView
+    UpdateView,
 )
 
 # Third Party
@@ -50,7 +50,7 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (
     Paragraph,
     SimpleDocTemplate,
-    Spacer
+    Spacer,
 )
 
 # wger
@@ -59,15 +59,15 @@ from wger.manager.helpers import render_workout_day
 from wger.manager.models import Schedule
 from wger.utils.generic_views import (
     WgerDeleteMixin,
-    WgerFormMixin
+    WgerFormMixin,
 )
 from wger.utils.helpers import (
     check_token,
-    make_token
+    make_token,
 )
 from wger.utils.pdf import (
     render_footer,
-    styleSheet
+    styleSheet,
 )
 
 
@@ -81,9 +81,9 @@ def overview(request):
     """
 
     template_data = {}
-    template_data['schedules'] = (Schedule.objects
-                                  .filter(user=request.user)
-                                  .order_by('-is_active', '-start_date'))
+    template_data['schedules'] = (
+        Schedule.objects.filter(user=request.user).order_by('-is_active', '-start_date')
+    )
     return render(request, 'schedule/overview.html', template_data)
 
 
@@ -142,15 +142,17 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
     # Create the HttpResponse object with the appropriate PDF headers.
     # and use it to the create the PDF using it as a file like object
     response = HttpResponse(content_type='application/pdf')
-    doc = SimpleDocTemplate(response,
-                            pagesize=A4,
-                            leftMargin=cm,
-                            rightMargin=cm,
-                            topMargin=0.5 * cm,
-                            bottomMargin=0.5 * cm,
-                            title=_('Workout'),
-                            author='wger Workout Manager',
-                            subject='Schedule for {0}'.format(request.user.username))
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=A4,
+        leftMargin=cm,
+        rightMargin=cm,
+        topMargin=0.5 * cm,
+        bottomMargin=0.5 * cm,
+        title=_('Workout'),
+        author='wger Workout Manager',
+        subject='Schedule for {0}'.format(request.user.username)
+    )
 
     # container for the 'Flowable' objects
     elements = []
@@ -162,14 +164,17 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
-        p = Paragraph('<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
-                      styleSheet["HeaderBold"])
+        p = Paragraph(
+            '<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+            styleSheet["HeaderBold"],
+        )
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
-        for day in step.workout.canonical_representation['day_list']:
+        for day in step.workout.day_set.all():
             elements.append(
-                render_workout_day(day, images=images, comments=comments, nr_of_weeks=7))
+                render_workout_day(day, images=images, comments=comments, nr_of_weeks=7)
+            )
             elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info
@@ -207,15 +212,17 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
     # Create the HttpResponse object with the appropriate PDF headers.
     # and use it to the create the PDF using it as a file like object
     response = HttpResponse(content_type='application/pdf')
-    doc = SimpleDocTemplate(response,
-                            pagesize=A4,
-                            leftMargin=cm,
-                            rightMargin=cm,
-                            topMargin=0.5 * cm,
-                            bottomMargin=0.5 * cm,
-                            title=_('Workout'),
-                            author='wger Workout Manager',
-                            subject='Schedule for {0}'.format(request.user.username))
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=A4,
+        leftMargin=cm,
+        rightMargin=cm,
+        topMargin=0.5 * cm,
+        bottomMargin=0.5 * cm,
+        title=_('Workout'),
+        author='wger Workout Manager',
+        subject='Schedule for {0}'.format(request.user.username)
+    )
 
     # container for the 'Flowable' objects
     elements = []
@@ -227,15 +234,23 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
-        p = Paragraph('<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
-                      styleSheet["HeaderBold"])
+        p = Paragraph(
+            '<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+            styleSheet["HeaderBold"],
+        )
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
-        for day in step.workout.canonical_representation['day_list']:
+        for day in step.workout.day_set.all():
             elements.append(
-                render_workout_day(day, images=images, comments=comments, nr_of_weeks=7,
-                                   only_table=True))
+                render_workout_day(
+                    day,
+                    images=images,
+                    comments=comments,
+                    nr_of_weeks=7,
+                    only_table=True,
+                )
+            )
             elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Footer, date and info

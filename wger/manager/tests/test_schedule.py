@@ -27,12 +27,12 @@ from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
-    WgerTestCase
+    WgerTestCase,
 )
 from wger.manager.models import (
     Schedule,
     ScheduleStep,
-    Workout
+    Workout,
 )
 from wger.utils.helpers import make_token
 
@@ -111,8 +111,10 @@ class ScheduleRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Schedule.objects.get(pk=1)),
-                         'my cool schedule that i found on the internet')
+        self.assertEqual(
+            "{0}".format(Schedule.objects.get(pk=1)),
+            'my cool schedule that i found on the internet'
+        )
 
 
 class CreateScheduleTestCase(WgerAddTestCase):
@@ -124,10 +126,12 @@ class CreateScheduleTestCase(WgerAddTestCase):
     url = 'manager:schedule:add'
     user_success = 'test'
     user_fail = False
-    data = {'name': 'My cool schedule',
-            'start_date': datetime.date.today(),
-            'is_active': True,
-            'is_loop': True}
+    data = {
+        'name': 'My cool schedule',
+        'start_date': datetime.date.today(),
+        'is_active': True,
+        'is_loop': True
+    }
 
 
 class DeleteScheduleTestCase(WgerDeleteTestCase):
@@ -150,10 +154,12 @@ class EditScheduleTestCase(WgerEditTestCase):
     object_class = Schedule
     url = 'manager:schedule:edit'
     pk = 3
-    data = {'name': 'An updated name',
-            'start_date': datetime.date.today(),
-            'is_active': True,
-            'is_loop': True}
+    data = {
+        'name': 'An updated name',
+        'start_date': datetime.date.today(),
+        'is_active': True,
+        'is_loop': True
+    }
 
 
 class ScheduleTestCase(WgerTestCase):
@@ -494,15 +500,23 @@ class SchedulePdfExportTestCase(WgerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
-                                           kwargs={'pk': 1,
-                                                   'uidb64': uid,
-                                                   'token': token}))
+        response = self.client.get(
+            reverse(
+                'manager:schedule:pdf-{0}'.format(pdf_type),
+                kwargs={
+                    'pk': 1,
+                    'uidb64': uid,
+                    'token': token
+                }
+            )
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/pdf')
-        self.assertEqual(response['Content-Disposition'],
-                         'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type))
+        self.assertEqual(
+            response['Content-Disposition'],
+            'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type)
+        )
 
         # Approximate size only
         self.assertGreater(int(response['Content-Length']), 29000)
@@ -511,10 +525,16 @@ class SchedulePdfExportTestCase(WgerTestCase):
         # Wrong or expired token
         uid = 'MQ'
         token = '3xv-57ef74923091fe7f186e'
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
-                                           kwargs={'pk': 1,
-                                                   'uidb64': uid,
-                                                   'token': token}))
+        response = self.client.get(
+            reverse(
+                'manager:schedule:pdf-{0}'.format(pdf_type),
+                kwargs={
+                    'pk': 1,
+                    'uidb64': uid,
+                    'token': token
+                }
+            )
+        )
         self.assertEqual(response.status_code, 403)
 
     def export_pdf(self, fail=False, pdf_type="log"):
@@ -522,16 +542,19 @@ class SchedulePdfExportTestCase(WgerTestCase):
         Helper function to test exporting a workout as a pdf
         """
 
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
-                                           kwargs={'pk': 1}))
+        response = self.client.get(
+            reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 1})
+        )
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type))
+            self.assertEqual(
+                response['Content-Disposition'],
+                'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type)
+            )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
@@ -544,20 +567,28 @@ class SchedulePdfExportTestCase(WgerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
-                                           kwargs={'pk': 3,
-                                                   'images': 0,
-                                                   'comments': 1,
-                                                   'uidb64': uid,
-                                                   'token': token}))
+        response = self.client.get(
+            reverse(
+                'manager:schedule:pdf-{0}'.format(pdf_type),
+                kwargs={
+                    'pk': 3,
+                    'images': 0,
+                    'comments': 1,
+                    'uidb64': uid,
+                    'token': token
+                }
+            )
+        )
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type))
+            self.assertEqual(
+                response['Content-Disposition'],
+                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type)
+            )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
@@ -569,20 +600,28 @@ class SchedulePdfExportTestCase(WgerTestCase):
         """
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
-                                           kwargs={'pk': 3,
-                                                   'images': 1,
-                                                   'comments': 0,
-                                                   'uidb64': uid,
-                                                   'token': token}))
+        response = self.client.get(
+            reverse(
+                'manager:schedule:pdf-{0}'.format(pdf_type),
+                kwargs={
+                    'pk': 3,
+                    'images': 1,
+                    'comments': 0,
+                    'uidb64': uid,
+                    'token': token
+                }
+            )
+        )
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type))
+            self.assertEqual(
+                response['Content-Disposition'],
+                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type)
+            )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
@@ -595,20 +634,28 @@ class SchedulePdfExportTestCase(WgerTestCase):
 
         user = User.objects.get(username='test')
         uid, token = make_token(user)
-        response = self.client.get(reverse('manager:schedule:pdf-{0}'.format(pdf_type),
-                                           kwargs={'pk': 3,
-                                                   'images': 1,
-                                                   'comments': 1,
-                                                   'uidb64': uid,
-                                                   'token': token}))
+        response = self.client.get(
+            reverse(
+                'manager:schedule:pdf-{0}'.format(pdf_type),
+                kwargs={
+                    'pk': 3,
+                    'images': 1,
+                    'comments': 1,
+                    'uidb64': uid,
+                    'token': token
+                }
+            )
+        )
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
         else:
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response['Content-Type'], 'application/pdf')
-            self.assertEqual(response['Content-Disposition'],
-                             'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type))
+            self.assertEqual(
+                response['Content-Disposition'],
+                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type)
+            )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
@@ -663,6 +710,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         self.user_login('test')
         self.export_pdf_with_images_and_comments(fail=False)
         self.export_pdf_token()
+
 
 #   #####TABLE#####
 
@@ -724,7 +772,9 @@ class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Schedule
     private_resource = True
-    data = {'name': 'An updated name',
-            'start_date': datetime.date.today(),
-            'is_active': True,
-            'is_loop': True}
+    data = {
+        'name': 'An updated name',
+        'start_date': datetime.date.today(),
+        'is_active': True,
+        'is_loop': True
+    }

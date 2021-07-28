@@ -22,7 +22,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -36,14 +36,14 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
     Layout,
-    Submit
+    Submit,
 )
 
 # wger
 from wger.utils.constants import (
     HTML_ATTRIBUTES_WHITELIST,
     HTML_STYLES_WHITELIST,
-    HTML_TAG_WHITELIST
+    HTML_TAG_WHITELIST,
 )
 
 
@@ -91,8 +91,9 @@ class WgerPermissionMixin(object):
 
         if self.login_required or self.permission_required:
             if not request.user.is_authenticated:
-                return HttpResponseRedirect(reverse_lazy('core:user:login')
-                                            + '?next={0}'.format(request.path))
+                return HttpResponseRedirect(
+                    reverse_lazy('core:user:login') + '?next={0}'.format(request.path)
+                )
 
             if self.permission_required:
                 has_permission = False
@@ -183,7 +184,8 @@ class WgerFormMixin(ModelFormMixin):
         # For new objects, we have to manually load the owner object
         if self.owner_object:
             owner_object = self.owner_object['class'].objects.get(
-                pk=kwargs[self.owner_object['pk']])
+                pk=kwargs[self.owner_object['pk']]
+            )
         else:
             # On CreateViews we don't have an object, so just ignore it
             try:
@@ -234,11 +236,16 @@ class WgerFormMixin(ModelFormMixin):
         """
 
         for field in self.clean_html:
-            setattr(form.instance, field, bleach.clean(getattr(form.instance, field),
-                                                       tags=HTML_TAG_WHITELIST,
-                                                       attributes=HTML_ATTRIBUTES_WHITELIST,
-                                                       styles=HTML_STYLES_WHITELIST,
-                                                       strip=True))
+            setattr(
+                form.instance, field,
+                bleach.clean(
+                    getattr(form.instance, field),
+                    tags=HTML_TAG_WHITELIST,
+                    attributes=HTML_ATTRIBUTES_WHITELIST,
+                    styles=HTML_STYLES_WHITELIST,
+                    strip=True
+                )
+            )
 
         if self.get_messages():
             messages.success(self.request, self.get_messages())
@@ -280,9 +287,7 @@ class WgerDeleteMixin(ModelFormMixin):
         form.helper.form_method = 'post'
         form.helper.form_action = self.request.path
         form.helper.layout = Layout(
-            ButtonHolder(
-                Submit('submit', self.delete_message, css_class='btn-warning btn-block')
-            )
+            ButtonHolder(Submit('submit', self.delete_message, css_class='btn-warning btn-block'))
         )
         return form
 
@@ -327,6 +332,7 @@ class TextTemplateView(TemplateView):
     """
     A regular templateView that sets the mime type as text/plain
     """
+
     def dispatch(self, request, *args, **kwargs):
         resp = super().dispatch(request, args, kwargs)
         resp['Content-Type'] = 'text/plain'

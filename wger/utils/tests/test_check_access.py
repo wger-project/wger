@@ -15,7 +15,7 @@
 # Django
 from django.contrib.auth.models import (
     AnonymousUser,
-    User
+    User,
 )
 from django.http import Http404
 

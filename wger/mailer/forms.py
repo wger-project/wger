@@ -14,12 +14,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-
 # Django
 from django.forms import (
     CharField,
     Form,
-    Textarea
+    Textarea,
 )
 from django.utils.translation import pgettext
 

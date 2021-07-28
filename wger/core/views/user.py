@@ -23,44 +23,44 @@ from django.contrib import messages
 from django.contrib.auth import (
     authenticate,
     login as django_login,
-    logout as django_logout
+    logout as django_logout,
 )
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin
+    PermissionRequiredMixin,
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.views import (
     LoginView,
     PasswordChangeView,
     PasswordResetConfirmView,
-    PasswordResetView
+    PasswordResetView,
 )
 from django.http import (
     HttpResponseForbidden,
     HttpResponseNotFound,
-    HttpResponseRedirect
+    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
-    render
+    render,
 )
 from django.template.context_processors import csrf
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy,
 )
 from django.utils import translation
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy
+    gettext_lazy,
 )
 from django.views.generic import (
     DetailView,
     ListView,
     RedirectView,
-    UpdateView
+    UpdateView,
 )
 
 # Third Party
@@ -70,7 +70,7 @@ from crispy_forms.layout import (
     Column,
     Layout,
     Row,
-    Submit
+    Submit,
 )
 from rest_framework.authtoken.models import Token
 
@@ -82,24 +82,24 @@ from wger.core.forms import (
     RegistrationFormNoCaptcha,
     UserLoginForm,
     UserPersonalInformationForm,
-    UserPreferencesForm
+    UserPreferencesForm,
 )
 from wger.core.models import Language
 from wger.gym.models import (
     AdminUserNote,
     Contract,
-    GymUserConfig
+    GymUserConfig,
 )
 from wger.manager.models import (
     Workout,
     WorkoutLog,
-    WorkoutSession
+    WorkoutSession,
 )
 from wger.nutrition.models import NutritionPlan
 from wger.utils.api_token import create_token
 from wger.utils.generic_views import (
     WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
+    WgerMultiplePermissionRequiredMixin,
 )
 from wger.weight.models import WeightEntry
 
@@ -117,8 +117,7 @@ def login(request):
     form = UserLoginForm
     form.helper.form_action = reverse('core:user:login') + next_url
 
-    return LoginView.as_view(template_name='user/login.html',
-                             authentication_form=form)
+    return LoginView.as_view(template_name='user/login.html', authentication_form=form)
 
 
 @login_required()
@@ -152,8 +151,10 @@ def delete(request, user_pk=None):
         if form.is_valid():
 
             user.delete()
-            messages.success(request,
-                             _('Account "{0}" was successfully deleted').format(user.username))
+            messages.success(
+                request,
+                _('Account "{0}" was successfully deleted').format(user.username)
+            )
 
             if not user_pk:
                 django_logout(request)
@@ -162,8 +163,7 @@ def delete(request, user_pk=None):
                 gym_pk = request.user.userprofile.gym_id
                 return HttpResponseRedirect(reverse('gym:gym:user-list', kwargs={'pk': gym_pk}))
     form.helper.form_action = request.path
-    context = {'form': form,
-               'user_delete': user}
+    context = {'form': form, 'user_delete': user}
 
     return render(request, 'user/delete_account.html', context)
 
@@ -192,20 +192,23 @@ def trainer_login(request, user_pk):
     if request.user.userprofile.gym != user.userprofile.gym:
         return HttpResponseNotFound(
             'There are no users in gym "{}" with user ID "{}".'.format(
-                request.user.userprofile.gym, user_pk,
-            ))
+                request.user.userprofile.gym,
+                user_pk,
+            )
+        )
 
     # Check if we're switching back to our original account
     own = False
-    if (user.has_perm('gym.gym_trainer')
-            or user.has_perm('gym.manage_gym')
-            or user.has_perm('gym.manage_gyms')):
+    if (
+        user.has_perm('gym.gym_trainer') or user.has_perm('gym.manage_gym')
+        or user.has_perm('gym.manage_gyms')
+    ):
         own = True
 
     # Note: when logging without authenticating, it is necessary to set the
     # authentication backend
     if own:
-        del(request.session['trainer.identity'])
+        del (request.session['trainer.identity'])
     django_login(request, user, 'django.contrib.auth.backends.ModelBackend')
 
     if not own:
@@ -215,8 +218,9 @@ def trainer_login(request, user_pk):
         else:
             return HttpResponseRedirect(reverse('core:index'))
     else:
-        return HttpResponseRedirect(reverse('gym:gym:user-list',
-                                            kwargs={'pk': user.userprofile.gym_id}))
+        return HttpResponseRedirect(
+            reverse('gym:gym:user-list', kwargs={'pk': user.userprofile.gym_id})
+        )
 
 
 def logout(request):
@@ -258,9 +262,7 @@ def registration(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             email = form.cleaned_data['email']
-            user = User.objects.create_user(username,
-                                            email,
-                                            password)
+            user = User.objects.create_user(username, email, password)
             user.save()
 
             # Pre-set some values of the user's profile
@@ -313,9 +315,11 @@ def preferences(request):
             form.save()
             redirect = True
     else:
-        data = {'first_name': request.user.first_name,
-                'last_name': request.user.last_name,
-                'email': request.user.email}
+        data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email
+        }
 
         form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
 
@@ -338,9 +342,11 @@ def preferences(request):
         return render(request, 'user/preferences.html', template_data)
 
 
-class UserDeactivateView(LoginRequiredMixin,
-                         WgerMultiplePermissionRequiredMixin,
-                         RedirectView):
+class UserDeactivateView(
+    LoginRequiredMixin,
+    WgerMultiplePermissionRequiredMixin,
+    RedirectView,
+):
     """
     Deactivates a user
     """
@@ -371,9 +377,11 @@ class UserDeactivateView(LoginRequiredMixin,
         return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
-class UserActivateView(LoginRequiredMixin,
-                       WgerMultiplePermissionRequiredMixin,
-                       RedirectView):
+class UserActivateView(
+    LoginRequiredMixin,
+    WgerMultiplePermissionRequiredMixin,
+    RedirectView,
+):
     """
     Activates a previously deactivated user
     """
@@ -404,10 +412,12 @@ class UserActivateView(LoginRequiredMixin,
         return reverse('core:user:overview', kwargs=({'pk': pk}))
 
 
-class UserEditView(WgerFormMixin,
-                   LoginRequiredMixin,
-                   WgerMultiplePermissionRequiredMixin,
-                   UpdateView):
+class UserEditView(
+    WgerFormMixin,
+    LoginRequiredMixin,
+    WgerMultiplePermissionRequiredMixin,
+    UpdateView,
+):
     """
     View to update the personal information of an user by an admin
     """
@@ -509,9 +519,13 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         workouts = Workout.objects.filter(user=self.object).all()
         for workout in workouts:
             logs = WorkoutLog.objects.filter(workout=workout)
-            out.append({'workout': workout,
-                        'logs': logs.dates('date', 'day').count(),
-                        'last_log': logs.last()})
+            out.append(
+                {
+                    'workout': workout,
+                    'logs': logs.dates('date', 'day').count(),
+                    'last_log': logs.last()
+                }
+            )
         context['workouts'] = out
         context['weight_entries'] = WeightEntry.objects.filter(user=self.object)\
             .order_by('-date')[:5]
@@ -534,19 +548,17 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     Overview of all users in the instance
     """
     model = User
-    permission_required = ('gym.manage_gyms',)
+    permission_required = ('gym.manage_gyms', )
     template_name = 'user/list.html'
 
     def get_queryset(self):
         """
         Return a list with the users, not really a queryset.
         """
-        out = {'admins': [],
-               'members': []}
+        out = {'admins': [], 'members': []}
 
         for u in User.objects.select_related('usercache', 'userprofile__gym').all():
-            out['members'].append({'obj': u,
-                                   'last_log': u.usercache.last_activity})
+            out['members'].append({'obj': u, 'last_log': u.usercache.last_activity})
 
         return out
 
@@ -556,12 +568,16 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         """
         context = super(UserListView, self).get_context_data(**kwargs)
         context['show_gym'] = True
-        context['user_table'] = {'keys': [_('ID'),
-                                          _('Username'),
-                                          _('Name'),
-                                          _('Last activity'),
-                                          _('Gym')],
-                                 'users': context['object_list']['members']}
+        context['user_table'] = {
+            'keys': [
+                _('ID'),
+                _('Username'),
+                _('Name'),
+                _('Last activity'),
+                _('Gym'),
+            ],
+            'users': context['object_list']['members']
+        }
         return context
 
 
@@ -580,8 +596,7 @@ class WgerPasswordChangeView(PasswordChangeView):
                 Column('new_password1', css_class='form-group col-6 mb-0'),
                 Column('new_password2', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
-            ),
-            ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+            ), ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
         return form
 

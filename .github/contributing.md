@@ -15,8 +15,7 @@ in a pull request.
 ## Questions
 Are you just using the software and have a question or improvement?
 
-* Ask it on the [gitter channel](https://gitter.im/wger-project/wger),
-* the [discord server](https://discord.gg/rPWFv6W)
+* Ask on the [discord server](https://discord.gg/rPWFv6W)
 * or just [open an issue](https://github.com/wger-project/wger/issues)
 
 ## Issues
@@ -30,8 +29,8 @@ You want to contribute code? Awesome! Here are some tips:
 
 * Make sure the tests are running (``python3 manage.py test``)...
 * ... and if you write new code, write new tests
-* Lint the code with flake8 (``flake8 --config .github/linters/.flake8 ./wger``)
-and isort (``isort``) 
+* Your code will be automatically linted and formatted with yapf and isort
+  when it's merged.
 * You can expect a response from a maintainer within a week, if you
 haven’t heard anything by then, feel free to ping the thread.
 
