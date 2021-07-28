@@ -104,7 +104,7 @@ patterns_workout = [
     ),
     path(
         '<int:pk>/make-template',
-        workout.WorkoutMakeTemplateView.as_view(),
+        workout.WorkoutMarkAsTemplateView.as_view(),
         name='make-template',
     ),
     path(

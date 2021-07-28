@@ -16,9 +16,7 @@
 
 # Standard Library
 import copy
-import datetime
 import logging
-import uuid
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -178,9 +176,7 @@ def copy_workout(request, pk):
         if workout_form.is_valid():
 
             # Copy workout
-            days_original = workout.day_set.all()
-
-            workout_copy = copy.copy(workout)
+            workout_copy: Workout = copy.copy(workout)
             workout_copy.pk = None
             workout_copy.name = workout_form.cleaned_data['name']
             workout_copy.user = request.user
@@ -189,7 +185,7 @@ def copy_workout(request, pk):
             workout_copy.save()
 
             # Copy the days
-            for day in days_original:
+            for day in workout.day_set.all():
                 day_copy = copy.copy(day)
                 day_copy.pk = None
                 day_copy.training = workout_copy
@@ -289,7 +285,7 @@ class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         return context
 
 
-class WorkoutMakeTemplateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
+class WorkoutMarkAsTemplateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to update an existing workout routine
     """
@@ -298,7 +294,7 @@ class WorkoutMakeTemplateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     form_class = WorkoutMakeTemplateForm
 
     def get_context_data(self, **kwargs):
-        context = super(WorkoutMakeTemplateView, self).get_context_data(**kwargs)
+        context = super(WorkoutMarkAsTemplateView, self).get_context_data(**kwargs)
         context['title'] = _('Mark as template')
         return context
 
