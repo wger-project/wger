@@ -27,6 +27,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.exercises.models import Exercise
+from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.helpers import normalize_decimal
 
 # Local
@@ -76,10 +77,30 @@ class Set(models.Model):
         """
         return self.exerciseday.training
 
+    def save(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+
+        reset_workout_canonical_form(self.exerciseday.training_id)
+        super(Set, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+
+        reset_workout_canonical_form(self.exerciseday.training_id)
+        super(Set, self).delete(*args, **kwargs)
+
     @property
     def exercises(self) -> typing.List[Exercise]:
         """Returns the exercises for this set"""
-        return list(dict.fromkeys([s.exercise for s in self.setting_set.all()]))
+        out = list(dict.fromkeys([s.exercise for s in self.setting_set.select_related().all()]))
+        for exercise in out:
+            exercise.settings = self.reps_smart_text(exercise)
+
+        return out
 
     @property
     def compute_settings(self):  # -> typing.List[Setting]:
@@ -196,7 +217,7 @@ class Set(models.Model):
 
             return out
 
-        settings = self.setting_set.filter(exercise=exercise)
+        settings = self.setting_set.select_related().filter(exercise=exercise)
         setting_text = ''
 
         # Only one setting entry, this is a "compact" representation such as e.g.

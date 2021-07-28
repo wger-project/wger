@@ -69,7 +69,20 @@ class WorkoutForm(ModelForm):
 
     class Meta:
         model = Workout
-        exclude = ('user', )
+        fields = (
+            'name',
+            'description',
+        )
+
+
+class WorkoutMakeTemplateForm(ModelForm):
+
+    class Meta:
+        model = Workout
+        fields = (
+            'is_template',
+            'is_public',
+        )
 
 
 class WorkoutCopyForm(Form):
@@ -268,19 +281,3 @@ class WorkoutScheduleDownloadForm(Form):
                 css_id="download-pdf-button-schedule"
             )
         )
-
-
-class WorkoutSessionHiddenFieldsForm(ModelForm):
-    """
-    Workout Session form used in the timer view
-    """
-
-    class Meta:
-        model = WorkoutSession
-        exclude = []
-        widgets = {
-            'time_start': widgets.HiddenInput(),
-            'time_end': widgets.HiddenInput(),
-            'user': widgets.HiddenInput(),
-            'notes': widgets.Textarea(attrs={'rows': 3})
-        }

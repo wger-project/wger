@@ -36,12 +36,27 @@
                             {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'manager:workout:calendar' user.username %}" rel="nofollow">{% translate "Calendar" %}</a></li>
                             {% endif %}
-                        
+
                             <li><a class="dropdown-item" href="{% url 'gallery:images:overview' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>
                                 {% endif %}
                                 {% translate "Gallery" %}
+                            </a></li>
+
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-header">{% translate "Workout templates" %}</li>
+                            <li><a class="dropdown-item" href="{% url 'manager:template:overview' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% translate "Your templates" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'manager:template:public' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% translate "Public templates" %}
                             </a></li>
 
                             <li class="dropdown-divider"></li>

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load wger_extras %}
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% translate 'Workout template' %}">
+    <meta property="og:description" content="{{ workout }} / {{owner_user.username}}">
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% translate 'Workout template' %}{% endblock %}
+
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+
+
+{% if workout.name %}
+    <h4>{{workout.name }}</h4>
+{% endif %}
+
+{% if workout.description %}
+    <p>{{ workout.description }}</p>
+{% endif %}
+
+{% for day in workout.canonical_representation.day_list %}
+    <div id="div-day-{{ day.obj.id }}">
+        {% render_day day.obj is_owner %}
+    </div>
+{% endfor %}
+
+{% if is_owner %}
+<div class="col text-center">
+    <a href="{% url 'manager:template:make-workout' workout.id %}" class="btn btn-outline-primary">
+       {% translate "Mark as workout" %}
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+
+
+{#          #}
+{# Side bar #}
+{#          #}
+{% block sidebar %}
+<h4>{% translate "Muscles trained" %}</h4>
+
+<p>
+    {% translate "Images show combined muscles as trained by the exercises on the workout." %}
+</p>
+
+<div class="row">
+    <div class="col-6">
+        {% render_muscles muscles.front muscles.frontsecondary %}
+    </div>
+    <div class="col-6">
+        {% render_muscles muscles.back muscles.backsecondary %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<a href="{% url 'manager:workout:copy' workout.id %}" class="btn btn-success">
+   <span class="{% fa_class 'clone' %}"></span>
+   {% translate "Use this template" %}
+</a>
+
+{% endblock %}

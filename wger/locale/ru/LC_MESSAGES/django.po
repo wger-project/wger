@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-12 11:09+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-07-24 23:33+0000\n"
+"Last-Translator: Ryeori <gagawin99@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 
 #: config/models.py:54 core/templates/navigation.html:41
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:99
@@ -250,16 +250,12 @@ msgid "Email"
 msgstr "Электронный адрес"
 
 #: core/forms.py:80
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr ""
-"Необходимо для возобновлений пароля, и выборочно, напоминаний по электронной "
-"почте."
+msgstr "Используется для сброса пароля и опциональных уведомлений по e-mail."
 
 #: core/forms.py:105
 msgid "Personal data"
-msgstr ""
+msgstr "Персональные данные"
 
 #: core/forms.py:111
 msgid "Workout reminders"
@@ -292,7 +288,7 @@ msgstr "Этот электронный адрес уже используетс
 #: core/forms.py:184 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:210
 msgid "Password"
-msgstr "Пароль:"
+msgstr "Пароль"
 
 #: core/forms.py:186
 msgid "Please enter your current password."
@@ -304,7 +300,7 @@ msgstr "Неверный пароль"
 
 #: core/forms.py:214 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Данная форма защищена reCAPTCHA"
 
 #: core/forms.py:229 core/forms.py:250 core/templates/navigation.html:165
 #: core/templates/navigation.html:170 core/templates/template.html:149
@@ -335,7 +331,7 @@ msgstr "Что Вы имеете в виду?"
 #: core/models.py:94
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s это неверно указанная дата рождения"
 
 #: core/models.py:103
 msgid "Male"
@@ -385,9 +381,9 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Поставьте галочку, для того что-бы показать компоненты также на английском "
-"языке при создании программы питания. Названия этих ингредиентов взяты из "
-"списка установленном Департаментом Сельского Хозяйства США. Список довольно "
+"Поставьте галочку для того, чтобы показать ингредиенты на английском языке "
+"при создании плана питания. Названия этих ингредиентов взяты из списка "
+"установленном Департаментом Сельского Хозяйства США. Список довольно "
 "обширный (около 7000 записей), что может усложнить поиск."
 
 #: core/models.py:167
@@ -597,7 +593,7 @@ msgstr "Страница, на которую Вы подали запрос, н
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Произошла ошибка"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -682,7 +678,7 @@ msgstr "ккал"
 
 #: core/templates/index.html:77 nutrition/templates/plan/view.html:316
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Добавить пользовательскую запись в дневник"
 
 #: core/templates/index.html:92 core/templates/index.html:100
 #: manager/models.py:103 manager/models.py:393 manager/models.py:857
@@ -899,7 +895,7 @@ msgstr ""
 
 #: core/templates/misc/contact.html:56
 msgid "Go to the discord server"
-msgstr ""
+msgstr "Перейти в Discord сервер"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -948,17 +944,17 @@ msgstr "Календарь"
 #: core/templates/navigation.html:42
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "по категориям"
 
 #: core/templates/navigation.html:43
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "по мышечным группам"
 
 #: core/templates/navigation.html:44
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "по инвентарю"
 
 #: core/templates/navigation.html:48
 #: exercises/templates/equipment/overview.html:109
@@ -1075,7 +1071,7 @@ msgstr "Восстановить пароль"
 
 #: core/templates/navigation.html:184
 msgid "My preferences"
-msgstr "Мои предпочтения"
+msgstr "Мои настройки"
 
 #: core/templates/navigation.html:191
 msgid "Logout"
@@ -1509,7 +1505,7 @@ msgstr "Войти в систему как этот пользователь"
 
 #: core/templates/user/preferences.html:4
 msgid "Preferences"
-msgstr "Предпочтения"
+msgstr "Настройки"
 
 #: core/templates/user/preferences.html:33 core/views/user.py:571
 msgid "Change password"
@@ -3829,7 +3825,7 @@ msgstr "Попробуйте сейчас"
 
 #: software/templates/features.html:55
 msgid "Your advantages"
-msgstr ""
+msgstr "Ваши преимущества"
 
 #: software/templates/features.html:57
 msgid ""
@@ -4192,7 +4188,7 @@ msgstr "Используйте ссылку чтобы добавить ее."
 
 #: weight/templates/overview.html:34
 msgid "height in cm"
-msgstr ""
+msgstr "Высота в см"
 
 #: weight/templates/overview.html:38
 msgid "Last 3 months"
@@ -4234,7 +4230,7 @@ msgstr "Изменить запись веса для %s"
 
 #: weight/views.py:124
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Успешно удалено."
 
 #: weight/views.py:128
 #, python-format

@@ -35,9 +35,12 @@ from wger.manager.api.serializers import (
     ScheduleStepSerializer,
     SetSerializer,
     SettingSerializer,
+    WorkoutAndTemplateSerializer,
+    WorkoutCanonicalFormSerializer,
     WorkoutLogSerializer,
     WorkoutSerializer,
     WorkoutSessionSerializer,
+    WorkoutTemplateSerializer,
 )
 from wger.manager.models import (
     Day,
@@ -75,6 +78,17 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     @action(detail=True)
+    def canonical_representation(self, request, pk):
+        """
+        Output the canonical representation of a workout
+
+        This is basically the same form as used in the application
+        """
+
+        out = WorkoutCanonicalFormSerializer(self.get_object().canonical_representation).data
+        return Response(out)
+
+    @action(detail=True)
     def log_data(self, request, pk):
         """
         Returns processed log data for graphing
@@ -100,6 +114,72 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         for key, values in entry_logs.items():
             serialized_logs[str(key)] = [WorkoutLogSerializer(entry).data for entry in values]
         return Response({'chart_data': json.loads(chart_data), 'logs': serialized_logs})
+
+
+class UserWorkoutTemplateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for workout objects
+    """
+    serializer_class = WorkoutTemplateSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = ('name', 'description', 'creation_date')
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        return Workout.templates.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        """
+        Set the owner
+        """
+        serializer.save(user=self.request.user)
+
+
+class PublicWorkoutTemplateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for public workout templates objects
+    """
+    serializer_class = WorkoutSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = ('name', 'description', 'creation_date')
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        return Workout.templates.filter(is_public=True)
+
+    def perform_create(self, serializer):
+        """
+        Set the owner
+        """
+        serializer.save(user=self.request.user)
+
+
+class WorkoutAndTemplateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for workout objects
+    """
+    serializer_class = WorkoutAndTemplateSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = ('name', 'description', 'creation_date')
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        return Workout.both.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        """
+        Set the owner
+        """
+        serializer.save(user=self.request.user)
 
 
 class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
