@@ -95,7 +95,7 @@ class Workout(models.Model):
         Returns the canonical URL to view a workout
         """
         return reverse(
-            'manager:templates:view' if self.is_template else 'manager:workout:view',
+            'manager:template:view' if self.is_template else 'manager:workout:view',
             kwargs={'pk': self.id}
         )
 

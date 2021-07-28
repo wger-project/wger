@@ -78,16 +78,16 @@ def overview(request):
     An overview of all the user's workouts
     """
 
-    template_data = {}
+    context = {}
 
     workouts = Workout.objects.filter(user=request.user)
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-    template_data['workouts'] = workouts
-    template_data['current_workout'] = current_workout
-    template_data['title'] = _('Your workouts')
-    template_data['template_overview'] = False
+    context['workouts'] = workouts
+    context['current_workout'] = current_workout
+    context['title'] = _('Your workouts')
+    context['template_overview'] = False
 
-    return render(request, 'workout/overview.html', template_data)
+    return render(request, 'workout/overview.html', context)
 
 
 @login_required
@@ -142,19 +142,22 @@ def view(request, pk):
     return render(request, 'workout/view.html', template_data)
 
 
+@login_required()
 def template_view(request, pk):
     """
     Show the template with the given ID
     """
-    context = {}
     template = get_object_or_404(Workout.templates, pk=pk)
-    user = template.user
 
-    context['workout'] = template
-    context['muscles'] = template.canonical_representation['muscles']
-    context['is_owner'] = template.user == request.user
-    context['owner_user'] = user
+    if not template.is_public and request.user != template.user:
+        return HttpResponseForbidden()
 
+    context = {
+        'workout': template,
+        'muscles': template.canonical_representation['muscles'],
+        'is_owner': template.user == request.user,
+        'owner_user': template.user,
+    }
     return render(request, 'workout/template_view.html', context)
 
 
@@ -163,7 +166,6 @@ def copy_workout(request, pk):
     """
     Makes a copy of a workout
     """
-
     workout = get_object_or_404(Workout.both, pk=pk)
 
     if not workout.is_public and request.user != workout.user:

@@ -371,7 +371,7 @@ patterns_step = [
 
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace="workout")),
-    path('templates/', include((patterns_templates, 'templates'), namespace="templates")),
+    path('template/', include((patterns_templates, 'template'), namespace="template")),
     path('log/', include((patterns_log, 'log'), namespace="log")),
     path('day/', include((patterns_day, 'day'), namespace="day")),
     path('set/', include((patterns_set, 'set'), namespace="set")),
