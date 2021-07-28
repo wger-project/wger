@@ -157,6 +157,34 @@ class RenderWorkoutDayTestCase(WgerTestCase):
         self.render_day(fail=True)
 
 
+class WorkoutCacheTestCase(WgerTestCase):
+    """
+    Workout cache test case
+    """
+
+    def test_canonical_form_cache_save(self):
+        """
+        Tests the workout cache when saving
+        """
+        day = Day.objects.get(pk=1)
+        day.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+
+        day.save()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+
+    def test_canonical_form_cache_delete(self):
+        """
+        Tests the workout cache when deleting
+        """
+        day = Day.objects.get(pk=1)
+        day.canonical_representation
+        self.assertTrue(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+
+        day.delete()
+        self.assertFalse(cache.get(cache_mapper.get_workout_canonical(day.training_id)))
+
+
 class DayTestCase(WgerTestCase):
     """
     Other tests

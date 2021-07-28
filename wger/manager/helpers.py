@@ -76,7 +76,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
     p = Paragraph(
         '<para align="center">%(days)s: %(description)s</para>' % {
-            'days': ', '.join([str(_(i.day_of_week)) for i in day.day.all()]),
+            'days': day.days_txt,
             'description': day.description
         }, styleSheet["SubHeader"]
     )
