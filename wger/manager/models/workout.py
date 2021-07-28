@@ -79,7 +79,7 @@ class Workout(models.Model):
     )
     is_public = models.BooleanField(
         verbose_name=_('Public template'),
-        help_text=_('A public template is be available to other users'),
+        help_text=_('A public template is available to other users'),
         default=False,
         null=False,
     )
