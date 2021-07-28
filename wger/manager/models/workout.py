@@ -17,20 +17,20 @@
 # Django
 from django.contrib.auth.models import User
 from django.core.cache import cache
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.utils.cache import (
-    cache_mapper,
-    reset_workout_canonical_form,
-)
-from wger.manager.helpers import MusclesHelper
 from wger.manager.managers import (
     WorkoutAndTemplateManager,
     WorkoutManager,
     WorkoutTemplateManager,
+)
+from wger.utils.cache import (
+    cache_mapper,
+    reset_workout_canonical_form,
 )
 
 
@@ -70,19 +70,25 @@ class Workout(models.Model):
     )
     is_template = models.BooleanField(
         verbose_name=_('Workout template'),
-        help_text=_('Marking a workout as a template will freeze it and allow you to '
-                    'make copies of it'),
+        help_text=_(
+            'Marking a workout as a template will freeze it and allow you to '
+            'make copies of it'
+        ),
         default=False,
         null=False,
     )
     is_public = models.BooleanField(
         verbose_name=_('Public template'),
-        help_text=_('A public template will be available to other users'),
+        help_text=_('A public template is be available to other users'),
         default=False,
         null=False,
     )
 
-    user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+    )
 
     def get_absolute_url(self):
         """
@@ -101,6 +107,12 @@ class Workout(models.Model):
             return self.name
         else:
             return "{0} ({1})".format(_('Workout'), self.creation_date)
+
+    def clean(self):
+        if self.is_public and not self.is_template:
+            raise ValidationError(
+                _('You must mark this workout as a template before declaring it public')
+            )
 
     def save(self, *args, **kwargs):
         """

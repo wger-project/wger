@@ -54,6 +54,7 @@ from crispy_forms.layout import Submit
 from wger.manager.forms import (
     WorkoutCopyForm,
     WorkoutForm,
+    WorkoutMakeTemplateForm,
 )
 from wger.manager.models import (
     Schedule,
@@ -153,7 +154,7 @@ def template_view(request, pk):
 
     context['workout'] = template
     context['muscles'] = template.canonical_representation['muscles']
-    context['is_owner'] = False
+    context['is_owner'] = template.user == request.user
     context['owner_user'] = user
 
     return render(request, 'workout/template_view.html', context)
@@ -285,6 +286,20 @@ class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(WorkoutEditView, self).get_context_data(**kwargs)
         context['title'] = _('Edit {0}').format(self.object)
+        return context
+
+
+class WorkoutMakeTemplateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
+    """
+    Generic view to update an existing workout routine
+    """
+
+    model = Workout
+    form_class = WorkoutMakeTemplateForm
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutMakeTemplateView, self).get_context_data(**kwargs)
+        context['title'] = _('Mark as template')
         return context
 
 

@@ -47,9 +47,13 @@
     </div>
 {% endfor %}
 
-<a href="{% url 'manager:templates:make-workout' workout.id %}" class="btn btn-outline-info">
-   {% translate "Make workout" %}
-</a>
+{% if is_owner %}
+<div class="col text-center">
+    <a href="{% url 'manager:templates:make-workout' workout.id %}" class="btn btn-outline-primary">
+       {% translate "Mark as workout" %}
+    </a>
+</div>
+{% endif %}
 {% endblock %}
 
 

@@ -35,13 +35,12 @@ from wger.manager.api.serializers import (
     ScheduleStepSerializer,
     SetSerializer,
     SettingSerializer,
-    WorkoutCanonicalFormSerializer,
     WorkoutAndTemplateSerializer,
     WorkoutCanonicalFormSerializer,
     WorkoutLogSerializer,
     WorkoutSerializer,
     WorkoutSessionSerializer,
-    WorkoutTemplateSerializer
+    WorkoutTemplateSerializer,
 )
 from wger.manager.models import (
     Day,
