@@ -34,10 +34,6 @@ from django.utils.translation import gettext as _
 # Third Party
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
-from crispy_forms.bootstrap import (
-    Accordion,
-    AccordionGroup,
-)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
