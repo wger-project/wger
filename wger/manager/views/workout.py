@@ -299,34 +299,3 @@ class WorkoutMarkAsTemplateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         context = super(WorkoutMarkAsTemplateView, self).get_context_data(**kwargs)
         context['title'] = _('Mark as template')
         return context
-
-
-class LastWeightHelper:
-    """
-    Small helper class to retrieve the last workout log for a certain
-    user, exercise and repetition combination.
-    """
-    user = None
-    last_weight_list = {}
-
-    def __init__(self, user):
-        self.user = user
-
-    def get_last_weight(self, exercise, reps, default_weight):
-        """
-        Returns an emtpy string if no entry is found
-
-        :param exercise:
-        :param reps:
-        :param default_weight:
-        :return: WorkoutLog or '' if none is found
-        """
-        key = (self.user.pk, exercise.pk, reps, default_weight)
-        if self.last_weight_list.get(key) is None:
-            last_log = WorkoutLog.objects.filter(user=self.user, exercise=exercise,
-                                                 reps=reps).order_by('-date')
-            default_weight = '' if default_weight is None else default_weight
-            weight = last_log[0].weight if last_log.exists() else default_weight
-            self.last_weight_list[key] = weight
-
-        return self.last_weight_list.get(key)
