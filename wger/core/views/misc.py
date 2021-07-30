@@ -113,28 +113,28 @@ def dashboard(request):
     and the current weight
     """
 
-    template_data = {}
+    context = {}
 
     # Load the last workout, either from a schedule or a 'regular' one
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
 
-    template_data['current_workout'] = current_workout
-    template_data['schedule'] = schedule
+    context['current_workout'] = current_workout
+    context['schedule'] = schedule
 
     # Load the last nutritional plan, if one exists
     try:
         plan = NutritionPlan.objects.filter(user=request.user).latest('creation_date')
     except ObjectDoesNotExist:
         plan = False
-    template_data['plan'] = plan
+    context['plan'] = plan
 
     # Load the last logged weight entry, if one exists
     try:
         weight = WeightEntry.objects.filter(user=request.user).latest('date')
     except ObjectDoesNotExist:
         weight = False
-    template_data['weight'] = weight
-    template_data['last_weight_entries'] = get_last_entries(request.user)
+    context['weight'] = weight
+    context['last_weight_entries'] = get_last_entries(request.user)
 
     # Format a bit the days so it doesn't have to be done in the template
     used_days = {}
@@ -154,14 +154,14 @@ def dashboard(request):
         if not day_has_workout:
             week_day_result.append((_(week.day_of_week), _('Rest day'), False))
 
-    template_data['weekdays'] = week_day_result
+    context['weekdays'] = week_day_result
 
     if plan:
 
         # Load the nutritional info
-        template_data['nutritional_info'] = plan.get_nutritional_values()
+        context['nutritional_info'] = plan.get_nutritional_values()
 
-    return render(request, 'index.html', template_data)
+    return render(request, 'index.html', context)
 
 
 class ContactClassView(TemplateView):

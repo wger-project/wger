@@ -16,11 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import {APP_BASE_HREF} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
 import {NgbDropdownModule, NgbModalModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
@@ -34,6 +36,12 @@ import {WeightDetailComponent} from './weight/weight-detail/weight-detail.compon
 import {WeightEditComponent} from './weight/weight-edit/weight-edit.component';
 import {WeightListComponent} from './weight/weight-list/weight-list.component';
 import {WeightService} from './weight/weight.service';
+
+const appRoutes: Routes = [
+  {path: '', component: WeightListComponent},
+  {path: ':lang/dashboard', component: WeightChartComponent},
+  {path: ':lang/weight/overview', component: WeightListComponent},
+];
 
 @NgModule({
   declarations: [
@@ -56,11 +64,15 @@ import {WeightService} from './weight/weight.service';
     NgbPaginationModule,
     NgxChartsModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [
     ExerciseService,
     WeightService,
+    {provide: APP_BASE_HREF, useValue: '/'}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule { }

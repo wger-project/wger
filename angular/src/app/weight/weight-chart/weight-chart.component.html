@@ -1,20 +1,23 @@
 
-<ngx-charts-line-chart
-  *ngIf="data !== null"
+<!--[view]="view"-->
+<div #containerRef>
+  <ngx-charts-line-chart
+    *ngIf="data !== null"
 
-  [view]="view"
-  [scheme]="colorScheme"
-  [legend]="legend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxis]="xAxis"
-  [yAxis]="yAxis"
+    [view]="[containerRef.offsetWidth, 250]"
+    [scheme]="colorScheme"
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
 
-  [timeline]="timeline"
-  [results]="data"
-  [autoScale]="autoScale"
-  (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)"
->
-</ngx-charts-line-chart>
+    [timeline]="timeline"
+    [results]="data"
+    [autoScale]="autoScale"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+  >
+  </ngx-charts-line-chart>
+</div>
