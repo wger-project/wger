@@ -57,6 +57,7 @@ Developers
 * Calvin Walden - https://github.com/calvinrw
 * Jack Mulligan - https://github.com/jackmulligan-ire
 * Kristopher Newsome - https://github.com/sysadmin75
+* Leninux - https://github.com/RedRudeBoy
 
 Translators
 -----------

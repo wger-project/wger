@@ -96,7 +96,11 @@ class Set(models.Model):
     @property
     def exercises(self) -> typing.List[Exercise]:
         """Returns the exercises for this set"""
-        return list(dict.fromkeys([s.exercise for s in self.setting_set.all()]))
+        out = list(dict.fromkeys([s.exercise for s in self.setting_set.select_related().all()]))
+        for exercise in out:
+            exercise.settings = self.reps_smart_text(exercise)
+
+        return out
 
     @property
     def compute_settings(self):  # -> typing.List[Setting]:
@@ -213,7 +217,7 @@ class Set(models.Model):
 
             return out
 
-        settings = self.setting_set.filter(exercise=exercise)
+        settings = self.setting_set.select_related().filter(exercise=exercise)
         setting_text = ''
 
         # Only one setting entry, this is a "compact" representation such as e.g.

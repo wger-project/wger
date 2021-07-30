@@ -69,7 +69,20 @@ class WorkoutForm(ModelForm):
 
     class Meta:
         model = Workout
-        exclude = ('user', )
+        fields = (
+            'name',
+            'description',
+        )
+
+
+class WorkoutMakeTemplateForm(ModelForm):
+
+    class Meta:
+        model = Workout
+        fields = (
+            'is_template',
+            'is_public',
+        )
 
 
 class WorkoutCopyForm(Form):

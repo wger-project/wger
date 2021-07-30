@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{% translate "Your workouts" %}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 
 {% block content %}
@@ -21,16 +21,22 @@
                 <p class="list-group-item-text">{{ workout.creation_date }}</p>
             </a>
         {% empty %}
-            <a href="{% url 'manager:workout:add' %}" class="list-group-item">
-            {% translate "No workouts found." %}<br>{% translate "Add one now." %}
-            </a>
+            {% if template_overview %}
+                {% translate "No templates found." %}
+            {% else %}
+                <a href="{% url 'manager:workout:add' %}" class="list-group-item">
+                {% translate "No workouts found." %}<br>{% translate "Add one now." %}
+                </a>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
 
 
 {% block options %}
+{% if not template_overview %}
 <a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
     {% translate "Add workout" %}
 </a>
+{% endif %}
 {% endblock %}

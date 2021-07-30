@@ -15,6 +15,7 @@ Upgrade steps from 2.0:
 🚀 Features:
 
 * New gallery where users can upload pictures to track their progress `#572`_
+* Add templates / centrally managed workouts (thanks `@qwert45hi`_) `#639`_
 * Add comment filed to set for user notes `#702`_
 
 
@@ -35,11 +36,13 @@ Upgrade steps from 2.0:
 * `#666`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
 
 .. _#572: https://github.com/wger-project/wger/issues/572
+.. _#639: https://github.com/wger-project/wger/issues/639
 .. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
 .. _#702: https://github.com/wger-project/wger/issues/702
 .. _#716: https://github.com/wger-project/wger/issues/716
 
+.. _@qwert45hi: https://github.com/qwert45hi
 .. _@jackmulligan-ire: https://github.com/jackmulligan-ire
 
 

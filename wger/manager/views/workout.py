@@ -16,9 +16,7 @@
 
 # Standard Library
 import copy
-import datetime
 import logging
-import uuid
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -54,6 +52,7 @@ from crispy_forms.layout import Submit
 from wger.manager.forms import (
     WorkoutCopyForm,
     WorkoutForm,
+    WorkoutMakeTemplateForm,
 )
 from wger.manager.models import (
     Schedule,
@@ -79,14 +78,44 @@ def overview(request):
     An overview of all the user's workouts
     """
 
-    template_data = {}
+    context = {}
 
     workouts = Workout.objects.filter(user=request.user)
     (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-    template_data['workouts'] = workouts
-    template_data['current_workout'] = current_workout
+    context['workouts'] = workouts
+    context['current_workout'] = current_workout
+    context['title'] = _('Your workouts')
+    context['template_overview'] = False
 
-    return render(request, 'workout/overview.html', template_data)
+    return render(request, 'workout/overview.html', context)
+
+
+@login_required
+def template_overview(request):
+    """
+
+    """
+    return render(
+        request, 'workout/overview.html', {
+            'workouts': Workout.templates.filter(user=request.user),
+            'title': _('Your templates'),
+            'template_overview': True
+        }
+    )
+
+
+@login_required
+def public_template_overview(request):
+    """
+
+    """
+    return render(
+        request, 'workout/overview.html', {
+            'workouts': Workout.templates.filter(is_public=True),
+            'title': _('Public templates'),
+            'template_overview': True
+        }
+    )
 
 
 def view(request, pk):
@@ -113,17 +142,33 @@ def view(request, pk):
     return render(request, 'workout/view.html', template_data)
 
 
+@login_required()
+def template_view(request, pk):
+    """
+    Show the template with the given ID
+    """
+    template = get_object_or_404(Workout.templates, pk=pk)
+
+    if not template.is_public and request.user != template.user:
+        return HttpResponseForbidden()
+
+    context = {
+        'workout': template,
+        'muscles': template.canonical_representation['muscles'],
+        'is_owner': template.user == request.user,
+        'owner_user': template.user,
+    }
+    return render(request, 'workout/template_view.html', context)
+
+
 @login_required
 def copy_workout(request, pk):
     """
     Makes a copy of a workout
     """
+    workout = get_object_or_404(Workout.both, pk=pk)
 
-    workout = get_object_or_404(Workout, pk=pk)
-    user = workout.user
-    is_owner = request.user == user
-
-    if not is_owner and not user.userprofile.ro_access:
+    if not workout.is_public and request.user != workout.user:
         return HttpResponseForbidden()
 
     # Process request
@@ -133,29 +178,26 @@ def copy_workout(request, pk):
         if workout_form.is_valid():
 
             # Copy workout
-            days_original = workout.day_set.all()
-
-            workout_copy = copy.copy(workout)
+            workout_copy: Workout = copy.copy(workout)
             workout_copy.pk = None
             workout_copy.name = workout_form.cleaned_data['name']
             workout_copy.user = request.user
+            workout_copy.is_template = False
+            workout_copy.is_public = False
             workout_copy.save()
 
             # Copy the days
-            for day in days_original:
-                sets = day.set_set.all()
-                days_of_week = [i for i in day.day.all()]
-
+            for day in workout.day_set.all():
                 day_copy = copy.copy(day)
                 day_copy.pk = None
                 day_copy.training = workout_copy
                 day_copy.save()
-                for i in days_of_week:
+                for i in day.day.all():
                     day_copy.day.add(i)
                 day_copy.save()
 
                 # Copy the sets
-                for current_set in sets:
+                for current_set in day.set_set.all():
                     current_set_copy = copy.copy(current_set)
                     current_set_copy.pk = None
                     current_set_copy.exerciseday = day_copy
@@ -168,9 +210,7 @@ def copy_workout(request, pk):
                         setting_copy.set = current_set_copy
                         setting_copy.save()
 
-            return HttpResponseRedirect(
-                reverse('manager:workout:view', kwargs={'pk': workout_copy.id})
-            )
+            return HttpResponseRedirect(workout_copy.get_absolute_url())
     else:
         workout_form = WorkoutCopyForm({'name': workout.name, 'description': workout.description})
         workout_form.helper = FormHelper()
@@ -190,6 +230,19 @@ def copy_workout(request, pk):
         template_data['submit_text'] = _('Copy')
 
         return render(request, 'form.html', template_data)
+
+
+def make_workout(request, pk):
+    workout = get_object_or_404(Workout.both, pk=pk)
+
+    if request.user != workout.user:
+        return HttpResponseForbidden()
+
+    workout.is_template = False
+    workout.is_public = False
+    workout.save()
+
+    return HttpResponseRedirect(workout.get_absolute_url())
 
 
 @login_required
@@ -234,32 +287,15 @@ class WorkoutEditView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         return context
 
 
-class LastWeightHelper:
+class WorkoutMarkAsTemplateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
-    Small helper class to retrieve the last workout log for a certain
-    user, exercise and repetition combination.
+    Generic view to update an existing workout routine
     """
-    user = None
-    last_weight_list = {}
 
-    def __init__(self, user):
-        self.user = user
+    model = Workout
+    form_class = WorkoutMakeTemplateForm
 
-    def get_last_weight(self, exercise, reps, default_weight):
-        """
-        Returns an emtpy string if no entry is found
-
-        :param exercise:
-        :param reps:
-        :param default_weight:
-        :return: WorkoutLog or '' if none is found
-        """
-        key = (self.user.pk, exercise.pk, reps, default_weight)
-        if self.last_weight_list.get(key) is None:
-            last_log = WorkoutLog.objects.filter(user=self.user, exercise=exercise,
-                                                 reps=reps).order_by('-date')
-            default_weight = '' if default_weight is None else default_weight
-            weight = last_log[0].weight if last_log.exists() else default_weight
-            self.last_weight_list[key] = weight
-
-        return self.last_weight_list.get(key)
+    def get_context_data(self, **kwargs):
+        context = super(WorkoutMarkAsTemplateView, self).get_context_data(**kwargs)
+        context['title'] = _('Mark as template')
+        return context

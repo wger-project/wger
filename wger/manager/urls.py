@@ -56,6 +56,30 @@ patterns_log = [
     )
 ]
 
+# sub patterns for templates
+patterns_templates = [
+    path(
+        'overview',
+        workout.template_overview,
+        name='overview',
+    ),
+    path(
+        'public',
+        workout.public_template_overview,
+        name='public',
+    ),
+    path(
+        '<int:pk>/view',
+        workout.template_view,
+        name='view',
+    ),
+    path(
+        '<int:pk>/make-workout',
+        workout.make_workout,
+        name='make-workout',
+    ),
+]
+
 # sub patterns for workouts
 patterns_workout = [
     path(
@@ -69,22 +93,27 @@ patterns_workout = [
         name='add',
     ),
     path(
-        '<int:pk>/copy/',
+        '<int:pk>/copy',
         workout.copy_workout,
         name='copy',
     ),
     path(
-        '<int:pk>/edit/',
+        '<int:pk>/edit',
         workout.WorkoutEditView.as_view(),
         name='edit',
     ),
     path(
-        '<int:pk>/delete/',
+        '<int:pk>/make-template',
+        workout.WorkoutMarkAsTemplateView.as_view(),
+        name='make-template',
+    ),
+    path(
+        '<int:pk>/delete',
         workout.WorkoutDeleteView.as_view(),
         name='delete',
     ),
     path(
-        '<int:pk>/view/',
+        '<int:pk>/view',
         workout.view,
         name='view',
     ),
@@ -187,27 +216,27 @@ patterns_session = [
 # sub patterns for workout days
 patterns_day = [
     path(
-        '<int:pk>/edit/',
+        '<int:pk>/edit',
         login_required(day.DayEditView.as_view()),
         name='edit',
     ),
     path(
-        '<int:workout_pk>/day/add/',
+        '<int:workout_pk>/day/add',
         login_required(day.DayCreateView.as_view()),
         name='add',
     ),
     path(
-        '<int:pk>/delete/',
+        '<int:pk>/delete',
         day.delete,
         name='delete',
     ),
     path(
-        '<int:id>/view/',
+        '<int:id>/view',
         day.view,
         name='view',
     ),
     path(
-        '<int:pk>/log/add/',
+        '<int:pk>/log/add',
         log.add,
         name='log',
     ),
@@ -216,12 +245,12 @@ patterns_day = [
 # sub patterns for workout sets
 patterns_set = [
     path(
-        'day/<int:day_pk>/set/add/',
+        'day/<int:day_pk>/set/add',
         set.create,
         name='add',
     ),
     path(
-        'get-formset/<int:exercise_pk>/<int:reps>/',
+        'get-formset/<int:exercise_pk>/<int:reps>',
         set.get_formset,
         name='get-formset',
     ),  # Used by JS
@@ -231,7 +260,7 @@ patterns_set = [
         name='delete',
     ),
     path(
-        '<int:pk>/edit/',
+        '<int:pk>/edit',
         set.edit,
         name='edit',
     ),
@@ -250,7 +279,7 @@ patterns_schedule = [
         name='add',
     ),
     path(
-        '<int:pk>/view/',
+        '<int:pk>/view',
         schedule.view,
         name='view',
     ),
@@ -260,12 +289,12 @@ patterns_schedule = [
         name='start',
     ),
     path(
-        '<int:pk>/edit/',
+        '<int:pk>/edit',
         schedule.ScheduleEditView.as_view(),
         name='edit',
     ),
     path(
-        '<int:pk>/delete/',
+        '<int:pk>/delete',
         schedule.ScheduleDeleteView.as_view(),
         name='delete',
     ),
@@ -342,6 +371,7 @@ patterns_step = [
 
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace="workout")),
+    path('template/', include((patterns_templates, 'template'), namespace="template")),
     path('log/', include((patterns_log, 'log'), namespace="log")),
     path('day/', include((patterns_day, 'day'), namespace="day")),
     path('set/', include((patterns_set, 'set'), namespace="set")),
