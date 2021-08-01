@@ -20,13 +20,14 @@ from rest_framework import serializers
 
 # wger
 from wger.nutrition.models import (
+    Image,
     Ingredient,
     IngredientWeightUnit,
     LogItem,
     Meal,
     MealItem,
     NutritionPlan,
-    WeightUnit, Image,
+    WeightUnit,
 )
 
 

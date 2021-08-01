@@ -99,7 +99,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     )
     """Date when the ingredient was created"""
 
-
     update_date = models.DateField(
         _('Date'),
         auto_now=True,
@@ -450,7 +449,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF']:
             return
 
-        headers = {'User-agent': default_user_agent(f'wger/{get_version()} - https://github.com/wger-project/flutter')}
+        headers = {
+            'User-agent':
+            default_user_agent(f'wger/{get_version()} - https://github.com/wger-project')
+        }
 
         product_data = requests.get(self.source_url, headers=headers).json()
         image_url: Optional[str] = product_data['product'].get('image_front_url')
@@ -472,8 +474,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return
 
         #
-        image_data: dict = {'image': os.path.basename(image_url),
-                            'license_author': uploader_name,
-                            'size': len(downloaded_image.content)}
+        image_data: dict = {
+            'image': os.path.basename(image_url),
+            'license_author': uploader_name,
+            'size': len(downloaded_image.content)
+        }
 
         return Image.from_json(self, downloaded_image, image_data, headers, generate_uuid=True)

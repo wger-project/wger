@@ -31,6 +31,7 @@ from rest_framework.response import Response
 
 # wger
 from wger.nutrition.api.serializers import (
+    ImageSerializer,
     IngredientInfoSerializer,
     IngredientSerializer,
     IngredientWeightUnitSerializer,
@@ -39,17 +40,18 @@ from wger.nutrition.api.serializers import (
     MealSerializer,
     NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
-    WeightUnitSerializer, ImageSerializer,
+    WeightUnitSerializer,
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
+    Image,
     Ingredient,
     IngredientWeightUnit,
     LogItem,
     Meal,
     MealItem,
     NutritionPlan,
-    WeightUnit, Image,
+    WeightUnit,
 )
 from wger.utils.language import (
     load_ingredient_languages,

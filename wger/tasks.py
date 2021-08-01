@@ -52,9 +52,7 @@ FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
         '"--arg1 --arg2=value". Default: none'
     }
 )
-def start(
-    context, address='localhost', port=8000, settings_path=None, extra_args=''
-):
+def start(context, address='localhost', port=8000, settings_path=None, extra_args=''):
     """
     Start the application using django's built in webserver
     """
