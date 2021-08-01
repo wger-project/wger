@@ -26,6 +26,11 @@ dictionary in your settings file. Currently the following options are supported:
 **EMAIL_FROM**: Default `wger Workout Manager <wger@example.com>`
   The sender address used for sent emails by the system such as weight reminders
 
+**DOWNLOAD_FROM_OFF**: Default false. Whether to download missing ingredient
+  images from Open Food Facts. Please do not set to true. To download available
+  images, use the `download-ingredient-images` command, which downloads them
+  from a selected wger instance.
+
 
 .. note::
   If you want to override a default setting, don't overwrite all the dictionary

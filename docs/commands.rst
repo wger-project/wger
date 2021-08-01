@@ -226,9 +226,10 @@ management functions that are sometimes needed. Call them with
 ``python manage.py <command_name>``:
 
 **download-exercise-images**
-  synchronizes the exercise images from wger.de to the local installation. Read
-  its help text as it could save the wrong image to the wrong exercise should
-  different IDs match.
+  synchronizes the exercise images from wger.de to the local installation.
+
+**download-ingredient-images**
+  synchronizes the ingredient images from wger.de to the local installation.
 
 **redo-capitalize-names**
   re-calculates the capitalized exercise names. This command can be called if the

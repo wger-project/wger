@@ -69,7 +69,7 @@ function wgerInitIngredientAutocompleter() {
     paramName: 'term',
     minChars: 3,
     onSelect: function (suggestion) {
-      var ingredientId = suggestion.data.id;
+      const ingredientId = suggestion.data.id;
 
       // After clicking on a result set the value of the hidden field
 
