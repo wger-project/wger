@@ -207,6 +207,9 @@ the search.{% endblocktranslate %}
 {% endif %}
 {% endif %}
 
+{% if image %}
+    <img src="{{ image.image.url }}" class="img-fluid">
+{% endif %}
 {% license_sidebar ingredient.license ingredient.license_author %}
 
 {% endblock %}

@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Local
+from .image import Image
 from .ingredient import Ingredient
 from .ingredient_category import IngredientCategory
 from .ingredient_weight_unit import IngredientWeightUnit

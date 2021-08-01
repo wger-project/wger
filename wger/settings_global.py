@@ -428,5 +428,6 @@ WGER_SETTINGS = {
     'ALLOW_REGISTRATION': True,
     'ALLOW_GUEST_USERS': True,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
-    'TWITTER': False
+    'TWITTER': False,
+    'DOWNLOAD_FROM_OFF': False
 }

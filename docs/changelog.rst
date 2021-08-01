@@ -16,6 +16,7 @@ Upgrade steps from 2.0:
 
 * New gallery where users can upload pictures to track their progress `#572`_
 * Add templates / centrally managed workouts (thanks `@qwert45hi`_) `#639`_
+* Add ingredient images (thanks `@qwert45hi`_)
 * Add comment filed to set for user notes `#702`_
 
 

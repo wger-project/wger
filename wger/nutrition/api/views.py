@@ -39,7 +39,7 @@ from wger.nutrition.api.serializers import (
     MealSerializer,
     NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
-    WeightUnitSerializer,
+    WeightUnitSerializer, ImageSerializer,
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
@@ -49,7 +49,7 @@ from wger.nutrition.models import (
     Meal,
     MealItem,
     NutritionPlan,
-    WeightUnit,
+    WeightUnit, Image,
 )
 from wger.utils.language import (
     load_ingredient_languages,
@@ -175,6 +175,16 @@ def search(request):
         json_response['suggestions'] = results
 
     return Response(json_response)
+
+
+class ImageViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for ingredient images
+    """
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    ordering_fields = '__all__'
+    filterset_fields = ('uuid', 'source_url')
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):

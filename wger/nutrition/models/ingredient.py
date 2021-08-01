@@ -16,21 +16,29 @@
 
 # Standard Library
 import logging
+import os
+import pathlib
 from decimal import Decimal
 
 # Django
+import uuid as uuid
+
+import requests
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.core.validators import (
     MaxValueValidator,
     MinLengthValidator,
     MinValueValidator,
 )
 from django.db import models
+from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
@@ -38,7 +46,9 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.core.models import Language
+from requests.utils import default_user_agent
+
+from wger.core.models import Language, License
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.managers import SubmissionManager
@@ -50,7 +60,8 @@ from wger.utils.models import (
 # Local
 from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
-
+from .image import Image
+from ... import get_version
 
 logger = logging.getLogger(__name__)
 
@@ -82,13 +93,34 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateField(_('Date'), auto_now_add=True)
+    creation_date = models.DateField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """Date when the ingredient was created"""
+
+
     update_date = models.DateField(
         _('Date'),
         auto_now=True,
         blank=True,
         editable=False,
     )
+    """Last update time"""
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name='UUID',
+    )
+    """Globally unique ID, to identify the ingredient across installations"""
+
+    image = models.OneToOneField(
+        Image,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+    """Image for this ingredient"""
 
     # Product infos
     name = models.CharField(
@@ -228,9 +260,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         slug = slugify(self.name)
         if not slug:
-            return reverse('nutrition:ingredient:view', kwargs={'id': self.id})
+            return reverse('nutrition:ingredient:view', kwargs={'pk': self.id})
         else:
-            return reverse('nutrition:ingredient:view', kwargs={'id': self.id, 'slug': slug})
+            return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
 
     def clean(self):
         """
@@ -401,3 +433,47 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return Decimal(self.energy * 4.184).quantize(TWOPLACES)
         else:
             return 0
+
+    def get_image(self, request: HttpRequest):
+        """
+        TODO: write this
+        """
+        if self.image:
+            return self.image
+
+        if not request.user.is_authenticated:
+            return
+
+        if self.source_name != 'Open Food Facts':
+            return
+
+        if not settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF']:
+            return
+
+        headers = {'User-agent': default_user_agent(f'wger/{get_version()} - https://github.com/wger-project/flutter')}
+
+        product_data = requests.get(self.source_url, headers=headers).json()
+        image_url: Optional[str] = product_data['product'].get('image_front_url')
+        if not image_url:
+            return
+
+        image_data = product_data['product']['images']
+
+        # Parse the file name: https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg
+        downloaded_image: requests.Response = requests.get(image_url, headers=headers)
+        if downloaded_image.status_code != 200:
+            return
+
+        image_name: str = image_url.rpartition("/")[2].partition(".")[0]
+        try:
+            image_id: str = image_data[image_name]['imgid']
+            uploader_name: str = image_data[image_id]['uploader']
+        except KeyError:
+            return
+
+        #
+        image_data: dict = {'image': os.path.basename(image_url),
+                            'license_author': uploader_name,
+                            'size': len(downloaded_image.content)}
+
+        return Image.from_json(self, downloaded_image, image_data, headers, generate_uuid=True)
