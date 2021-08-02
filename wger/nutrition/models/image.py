@@ -85,7 +85,7 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
         )
 
         image.ingredient = connect_to
-        image.license = License.objects.get(pk=2)
+        image.license = License.objects.get(pk=1)
         image.license_author = json_data['license_author']
         image.size = json_data['size']
 
