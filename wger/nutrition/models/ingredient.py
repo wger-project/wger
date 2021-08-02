@@ -324,10 +324,21 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
         equal = True
         if isinstance(other, self.__class__):
-            for i in self._meta.fields:
+            for i in (
+                'carbohydrates',
+                'carbohydrates_sugar',
+                'creation_date',
+                'energy',
+                'fat',
+                'fat_saturated',
+                'fibres',
+                'name',
+                'protein',
+                'sodium',
+            ):
                 if (
-                    hasattr(self, i.name) and hasattr(other, i.name)
-                    and (getattr(self, i.name, None) != getattr(other, i.name, None))
+                    hasattr(self, i) and hasattr(other, i)
+                    and (getattr(self, i, None) != getattr(other, i, None))
                 ):
                     equal = False
         else:
