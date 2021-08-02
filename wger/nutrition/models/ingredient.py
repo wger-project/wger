@@ -17,21 +17,17 @@
 # Standard Library
 import logging
 import os
-import pathlib
+import uuid as uuid
 from decimal import Decimal
+from typing import Optional
 
 # Django
-import uuid as uuid
-
-import requests
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
 from django.core.validators import (
     MaxValueValidator,
     MinLengthValidator,
@@ -45,10 +41,12 @@ from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-# wger
+# Third Party
+import requests
 from requests.utils import default_user_agent
 
-from wger.core.models import Language, License
+# wger
+from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.managers import SubmissionManager
@@ -58,10 +56,11 @@ from wger.utils.models import (
 )
 
 # Local
-from ..consts import ENERGY_FACTOR
-from .ingredient_category import IngredientCategory
-from .image import Image
 from ... import get_version
+from ..consts import ENERGY_FACTOR
+from .image import Image
+from .ingredient_category import IngredientCategory
+
 
 logger = logging.getLogger(__name__)
 
@@ -113,13 +112,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         verbose_name='UUID',
     )
     """Globally unique ID, to identify the ingredient across installations"""
-
-    image = models.OneToOneField(
-        Image,
-        null=True,
-        on_delete=models.CASCADE,
-    )
-    """Image for this ingredient"""
 
     # Product infos
     name = models.CharField(
@@ -439,8 +431,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         If it is not available locally, it is fetched from Open Food Facts servers
         """
-        if self.image:
+        try:
             return self.image
+        except Ingredient.image.RelatedObjectDoesNotExist:
+            pass
 
         if not request.user.is_authenticated:
             return
@@ -455,6 +449,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return
 
         # Everything looks fine, go ahead
+        logger.info(f'Trying to fetch image from OFF for {self.name}')
         headers = {
             'User-agent':
             default_user_agent(f'wger/{get_version()} - https://github.com/wger-project')

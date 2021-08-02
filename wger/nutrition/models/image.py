@@ -48,6 +48,13 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
     )
     """Globally unique ID, to identify the image across installations"""
 
+    ingredient = models.OneToOneField(
+        'Ingredient',
+        null=True,
+        on_delete=models.CASCADE,
+    )
+    """Image for this ingredient"""
+
     image = models.ImageField(
         verbose_name=_('Image'),
         help_text=_('Only PNG and JPEG formats are supported'),
@@ -66,7 +73,12 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
 
     @classmethod
     def from_json(
-        cls, connect_to, retrieved_image, json_data: dict, headers, generate_uuid: bool = False
+        cls,
+        connect_to,
+        retrieved_image,
+        json_data: dict,
+        headers,
+        generate_uuid: bool = False,
     ):
         image: cls = super().from_json(
             connect_to, retrieved_image, json_data, headers, generate_uuid

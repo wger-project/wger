@@ -27,6 +27,7 @@ from django.utils.translation import gettext_lazy as _
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
 from wger.utils.cache import delete_template_fragment_cache
+from wger.utils.helpers import BaseImage
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
@@ -42,7 +43,7 @@ def exercise_image_upload_dir(instance, filename):
     return "exercise-images/{0}/{1}{2}".format(instance.exercise_base.id, instance.uuid, ext)
 
 
-class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model, BaseImage):
     """
     Model for an exercise image
     """
@@ -171,3 +172,24 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
                 str(message),
                 fail_silently=True,
             )
+
+    @classmethod
+    def from_json(
+        cls,
+        connect_to: ExerciseBase,
+        retrieved_image,
+        json_data: dict,
+        headers,
+        generate_uuid: bool = False
+    ):
+        image: cls = super().from_json(
+            connect_to, retrieved_image, json_data, headers, generate_uuid
+        )
+        image.exercise_base = connect_to
+        image.is_main = json_data['is_main']
+        image.status = json_data['status']
+
+        image.save_image(retrieved_image, json_data)
+
+        image.save()
+        return image

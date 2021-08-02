@@ -27,6 +27,8 @@ from functools import wraps
 # Django
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
@@ -273,3 +275,30 @@ def random_string(length=32):
     Generates a random string
     """
     return ''.join(random.choice(string.ascii_uppercase) for i in range(length))
+
+
+class BaseImage:
+
+    def save_image(self, retrieved_image, json_data: dict):
+        # Save the downloaded image
+        # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to
+        if os.name == 'nt':
+            img_temp = NamedTemporaryFile()
+        else:
+            img_temp = NamedTemporaryFile(delete=True)
+        img_temp.write(retrieved_image.content)
+        img_temp.flush()
+
+        self.image.save(
+            os.path.basename(json_data['image']),
+            File(img_temp),
+        )
+
+    @classmethod
+    def from_json(
+        cls, connect_to, retrieved_image, json_data: dict, headers, generate_uuid: bool = False
+    ):
+        image: cls = cls()
+        if not generate_uuid:
+            image.uuid = json_data['uuid']
+        return image

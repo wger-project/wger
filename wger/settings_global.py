@@ -20,6 +20,7 @@ import os
 import re
 import sys
 
+
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -431,7 +432,6 @@ WGER_SETTINGS = {
     'TWITTER': False,
     'DOWNLOAD_FROM_OFF': False
 }
-
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
