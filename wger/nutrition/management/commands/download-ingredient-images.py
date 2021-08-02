@@ -80,7 +80,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': default_user_agent(f'wger/{get_version()} + requests')}
+        headers = {'User-agent': f'wger/{get_version()} https://github.com/wger-project'}
 
         # Get all images
         page = 1

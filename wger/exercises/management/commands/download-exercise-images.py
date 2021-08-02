@@ -85,7 +85,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
+        headers = {'User-agent': default_user_agent(f'wger/{get_version()} + requests')}
 
         # Get all images
         page = 1
@@ -109,7 +109,7 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    image = ExerciseImage.objects.get(uuid=image_uuid)
+                    ExerciseImage.objects.get(uuid=image_uuid)
                     self.stdout.write('    Image already present locally, skipping...')
                     continue
                 except ExerciseImage.DoesNotExist:
