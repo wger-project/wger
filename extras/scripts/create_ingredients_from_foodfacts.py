@@ -23,6 +23,7 @@ django.setup()
 from django.conf import settings  # noqa: E402
 
 from wger.nutrition.models import Ingredient  # noqa: E402
+from wger.nutrition.models.ingredient import Source  # noqa: E402
 from wger.core.models import Language  # noqa: E402
 
 
@@ -149,7 +150,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     if common_name and len(common_name) > 200:
         continue
 
-    source_name = "Open Food Facts"
+    source_name = Source.OPEN_FOOD_FACTS
     source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
 
     ingredient_data = {
@@ -170,7 +171,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         'brand': brand,
         'status': 2,
         'license_id': 5,
-        'license_author': 'Open Food Facts',
+        'license_author': Source.OPEN_FOOD_FACTS,
     }
 
     # Add entries as new products

@@ -19,6 +19,7 @@ import logging
 import os
 import uuid as uuid
 from decimal import Decimal
+from enum import Enum
 from typing import Optional
 
 # Django
@@ -63,6 +64,10 @@ from .ingredient_category import IngredientCategory
 
 
 logger = logging.getLogger(__name__)
+
+class Source(Enum):
+    WGER = 'wger'
+    OPEN_FOOD_FACTS = 'Open Food Facts'
 
 
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
@@ -436,6 +441,11 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         else:
             return 0
 
+    @property
+    def off_link(self):
+        if self.source_name == Source.OPEN_FOOD_FACTS:
+            return f'https://world.openfoodfacts.org/product/{self.code}/'
+
     def get_image(self, request: HttpRequest):
         """
         Returns the ingredient image
@@ -450,7 +460,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not request.user.is_authenticated:
             return
 
-        if self.source_name != 'Open Food Facts':
+        if self.source_name != Source.OPEN_FOOD_FACTS:
             return
 
         if not settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF']:
@@ -460,7 +470,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return
 
         # Everything looks fine, go ahead
-        logger.info(f'Trying to fetch image from OFF for {self.name}')
+        logger.info(f'Trying to fetch image from OFF for {self.name} (UUID: {self.uuid})')
         headers = {
             'User-agent':
             default_user_agent(f'wger/{get_version()} - https://github.com/wger-project')
