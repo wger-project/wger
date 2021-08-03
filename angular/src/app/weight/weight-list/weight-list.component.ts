@@ -11,7 +11,6 @@ import {WeightService} from '../weight.service';
 })
 export class WeightListComponent implements OnInit, OnDestroy {
   weightEntriesProcessed: { entry: WeightEntry, weightDiff: number, dayDiff: number }[] = [];
-  private weightEntries: WeightEntry[] = [];
   private subscription!: Subscription;
 
   /**
@@ -38,8 +37,7 @@ export class WeightListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.service.weightChanged.subscribe(
       (newEntries: WeightEntry[]) => {
-        this.weightEntries = newEntries;
-        this.processWeightEntries();
+        this.processWeightEntries(newEntries);
       }
     );
   }
@@ -54,17 +52,17 @@ export class WeightListComponent implements OnInit, OnDestroy {
    *
    * This could potentially be moved to the model
    */
-  processWeightEntries(): void {
+  processWeightEntries(newEntries: WeightEntry[]): void {
     this.weightEntriesProcessed = [];
-    const nrOfEntries = this.weightEntries.length;
-    this.weightEntries.forEach((currentEntry, index) => {
+    const nrOfEntries = newEntries.length;
+    newEntries.forEach((currentEntry, index) => {
 
       // Newest entries are the first
       const prevIndex = index + 1;
 
       // Calculate the difference to the entry before
-      const weightDiff = prevIndex < nrOfEntries ? currentEntry.weight - this.weightEntries[prevIndex].weight : 0;
-      const dayDiff = prevIndex < nrOfEntries ? (currentEntry.date.getTime() - this.weightEntries[prevIndex].date.getTime()) / (1000 * 3600 * 24) : 0;
+      const weightDiff = prevIndex < nrOfEntries ? currentEntry.weight - newEntries[prevIndex].weight : 0;
+      const dayDiff = prevIndex < nrOfEntries ? (currentEntry.date.getTime() - newEntries[prevIndex].date.getTime()) / (1000 * 3600 * 24) : 0;
 
       this.weightEntriesProcessed.push({entry: currentEntry, weightDiff: weightDiff, dayDiff: dayDiff});
     });
