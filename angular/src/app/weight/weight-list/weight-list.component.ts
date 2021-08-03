@@ -36,7 +36,6 @@ export class WeightListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.service.loadWeightEntries();
     this.subscription = this.service.weightChanged.subscribe(
       (newEntries: WeightEntry[]) => {
         this.weightEntries = newEntries;

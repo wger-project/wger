@@ -40,8 +40,6 @@ export class WeightChartComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // TODO: only load weight entries once
-    this.service.loadWeightEntries();
     this.subscription = this.service.weightChanged.subscribe(
       (newEntries: WeightEntry[]) => {
         this.weightEntries = newEntries;

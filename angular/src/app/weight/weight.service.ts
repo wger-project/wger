@@ -19,7 +19,7 @@ export class WeightService {
               private weightAdapter: WeightAdapter,
               private authService: AuthService,
   ) {
-
+    this.loadWeightEntries();
   }
 
   get weightEntries() {
