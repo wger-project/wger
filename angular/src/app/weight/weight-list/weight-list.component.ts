@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 import {WeightEntry} from '../models/weight.model';
 import {WeightService} from '../weight.service';
@@ -30,7 +29,6 @@ export class WeightListComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: WeightService,
-    private modalService: NgbModal
   ) {
   }
 
@@ -47,8 +45,8 @@ export class WeightListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Processes the weight entries and calculates the difference in days between
-   * entries.
+   * Processes the weight entries and calculates the difference in weight and
+   * days between entries.
    *
    * This could potentially be moved to the model
    */
@@ -66,20 +64,5 @@ export class WeightListComponent implements OnInit, OnDestroy {
 
       this.weightEntriesProcessed.push({entry: currentEntry, weightDiff: weightDiff, dayDiff: dayDiff});
     });
-  }
-
-  openModal(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      console.log(`Closed with: ${result}`);
-    }, (reason) => {
-      console.log(`Dismissed`);
-    });
-  }
-
-  /**
-   * The form should be closed
-   */
-  onFormCancelled() {
-    this.modalService.dismissAll();
   }
 }

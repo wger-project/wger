@@ -33,20 +33,3 @@
       class="d-flex justify-content-center mt-2"></ngb-pagination>
   </div>
 </div>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title" i18n>Add entry</h4>
-    <button type="button" class="close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-weight-edit (closeEdit)="onFormCancelled()"></app-weight-edit>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" i18n>Close</button>
-  </div>
-</ng-template>
-
-<button class="btn btn-primary" (click)="openModal(content)" i18n>Add entry</button>

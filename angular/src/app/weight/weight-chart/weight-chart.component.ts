@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subscription} from 'rxjs';
 import {WeightEntry} from '../models/weight.model';
-import {WeightEditComponent} from '../weight-edit/weight-edit.component';
 import {WeightService} from '../weight.service';
 
 @Component({
@@ -27,17 +27,20 @@ export class WeightChartComponent implements OnInit, OnDestroy {
   };
 
   data: any;
+
   private weightEntries: WeightEntry[] = [];
 
-  selectedEntry?: WeightEntry;
+  selectedEntry!: WeightEntry;
+
   private subscription!: Subscription;
 
-  @ViewChild(WeightEditComponent)
-  edit!: WeightEditComponent;
+  @ViewChild('content') input!: ElementRef;
 
   constructor(
     private service: WeightService,
-  ) { }
+    private modalService: NgbModal,
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscription = this.service.weightChanged.subscribe(
@@ -46,8 +49,6 @@ export class WeightChartComponent implements OnInit, OnDestroy {
         this.processData();
       }
     );
-
-
   }
 
 
@@ -74,6 +75,7 @@ export class WeightChartComponent implements OnInit, OnDestroy {
     }
     this.selectedEntry = entry;
     console.log(`Loaded entry ${entry.id}`);
+    this.openModal(this.input);
   }
 
   onActivate(data: any): void {
@@ -84,5 +86,22 @@ export class WeightChartComponent implements OnInit, OnDestroy {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
+  /*
+   * Open the modal allowing editing the entry
+   */
+  openModal(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      console.log(`Closed with: ${result}`);
+    }, (reason) => {
+      console.log(`Dismissed`);
+    });
+  }
+
+  /**
+   * The form should be closed
+   */
+  onFormCancelled() {
+    this.modalService.dismissAll();
+  }
 
 }
