@@ -2,5 +2,5 @@ Run on angular root folder
 
 
 ```shell
-ng extract-i18n --format=xliff2 --output-path src/locale/
+ng extract-i18n --output-path src/locale/
 ```
