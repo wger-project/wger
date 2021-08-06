@@ -414,8 +414,7 @@ function getExerciseFormset(exerciseId) {
   setValue = $('#id_sets').val();
   if (setValue && parseInt(setValue, 10) && exerciseId && parseInt(exerciseId, 10)) {
     formsetUrl = '/' + getCurrentLanguage() +
-      '/workout/set/get-formset/' + exerciseId +
-      '/' + setValue + '/';
+      '/workout/set/get-formset/' + exerciseId + '/' + setValue;
 
     $.get(formsetUrl, function (data) {
       var $formsets;
@@ -442,8 +441,7 @@ function updateAllExerciseFormset() {
       promise = $().promise();
       if (exerciseId && parseInt(exerciseId, 10)) {
         formsetUrl = '/' + getCurrentLanguage() +
-          '/workout/set/get-formset/' + exerciseId +
-          '/' + setValue + '/';
+          '/workout/set/get-formset/' + exerciseId + '/' + setValue;
         promise.done(function () {
           promise = $.get(formsetUrl, function (data) {
             var $formsets;
@@ -523,7 +521,7 @@ function wgerInitEditSet() {
   $('#id_sets').on('input', function () {
     $('#id_sets_value').html($('#id_sets').val());
   });
-  
+
   $('#id_sets').on('pointerup', function () {
     updateAllExerciseFormset();
   });
