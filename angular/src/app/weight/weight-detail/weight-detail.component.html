@@ -10,7 +10,7 @@
 
     <div class="col-3">
       <div *ngIf="weightDiff !== null">
-        {{weightDiff}}
+        {{weightDiff | number : '1.1-2' }}
       </div>
     </div>
 
