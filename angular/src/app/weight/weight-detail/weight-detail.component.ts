@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WeightEntry} from '../models/weight.model';
 import {WeightService} from '../weight.service';
 
@@ -7,7 +7,7 @@ import {WeightService} from '../weight.service';
   templateUrl: './weight-detail.component.html',
   styleUrls: ['./weight-detail.component.css']
 })
-export class WeightDetailComponent implements OnInit {
+export class WeightDetailComponent {
 
   @Input() entry!: WeightEntry;
   @Input() weightDiff?: number;
@@ -15,9 +15,6 @@ export class WeightDetailComponent implements OnInit {
   showForm = false;
 
   constructor(private weightService: WeightService) {
-  }
-
-  ngOnInit(): void {
   }
 
   toggleForm() {

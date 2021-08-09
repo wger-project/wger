@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Exercise} from '../models/exercises/exercise.model';
 
 @Component({
@@ -6,15 +6,10 @@ import {Exercise} from '../models/exercises/exercise.model';
   templateUrl: './exercise-detail.component.html',
   styleUrls: ['./exercise-detail.component.css']
 })
-export class ExerciseDetailComponent implements OnInit {
+export class ExerciseDetailComponent {
 
   @Input() exercise!: Exercise;
 
   constructor() {
   }
-
-  ngOnInit(): void {
-  }
-
-
 }
