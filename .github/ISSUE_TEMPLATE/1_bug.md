@@ -14,7 +14,7 @@ assignees: ''
 
 1. ... <!-- describe how to reproduce the problem -->
 2. ...
-3. ... 
+3. ...
 
 **Expected results:** <!-- what did you expect to see? -->
 
@@ -27,7 +27,7 @@ assignees: ''
       Any logs you think would be useful (if you have a local instance)
 -->
 
-```
+```bash
 ```
 
 

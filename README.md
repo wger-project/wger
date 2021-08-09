@@ -1,6 +1,5 @@
-﻿<img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png" width="100" height="100" />
-
-# wger
+﻿# wger
+<img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png" width="100" height="100" />
 
 wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that help
 you manage your personal workouts, weight and diet plans and can also be used
@@ -54,7 +53,7 @@ it is only intended as an easy to setup demo
 #### Docker
 
 We provide a docker compose file that sets everything up for development and
-persists the database on a volume. From the root folder just call 
+persists the database on a volume. From the root folder just call
 
 ````shell script
 docker-compose -f extras/docker/compose/docker-compose.yml up

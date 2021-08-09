@@ -1,3 +1,5 @@
+# Extract locales from angular app
+
 Run on angular root folder
 
 
