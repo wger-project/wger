@@ -1,9 +1,8 @@
-name: Build and push Docker images
+name: Build and push base Docker images
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: '0 5 1 * *'
 
 jobs:
   path-context:
@@ -24,18 +23,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build apache image
+      - name: Build base image
         uses: docker/build-push-action@v2.6.1
         with:
           context: .
-          file: extras/docker/apache/Dockerfile
+          file: extras/docker/base/Dockerfile
           push: true
-          tags: wger/apache:latest,wger/apache:2.1-dev
-
-      - name: Build dev image
-        uses: docker/build-push-action@v2.6.1
-        with:
-          context: .
-          file: extras/docker/development/Dockerfile
-          push: true
-          tags: wger/devel:latest,wger/devel:2.1-dev
+          tags: wger/base:latest,wger/base:2.1-dev
