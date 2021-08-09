@@ -48,7 +48,6 @@ jobs:
       - name: Lint Code Base
         uses: docker://ghcr.io/github/super-linter:slim-v4
         env:
-          TYPESCRIPT_ES_CONFIG_FILE: angular/.eslintrc.json
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true
           VALIDATE_TYPESCRIPT_ES: true
