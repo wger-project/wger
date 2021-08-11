@@ -157,7 +157,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.HH" datatype="html">
         <source>HH</source>
-        <target state="needs-translation">HH</target>
+        <target state="translated">HH</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">40,41</context>
@@ -173,7 +173,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.MM" datatype="html">
         <source>MM</source>
-        <target state="needs-translation">MM</target>
+        <target state="translated">MM</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">51,54</context>
@@ -221,7 +221,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.SS" datatype="html">
         <source>SS</source>
-        <target state="needs-translation">SS</target>
+        <target state="translated">SS</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">87,88</context>
@@ -293,7 +293,7 @@
       </trans-unit>
       <trans-unit id="5848348023107769657" datatype="html">
         <source>Weight</source>
-        <target state="needs-translation">Vekt</target>
+        <target state="translated">Vekt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/weight/weight-chart/weight-chart.component.ts</context>
           <context context-type="linenumber">64</context>
