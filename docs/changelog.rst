@@ -33,12 +33,13 @@ Upgrade steps from 2.0:
     - field ``description`` was added, for longer descriptions
   + /set/
     - field ``comment`` added, for user notes
-* `#666`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
+* `#666`_, `#667`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
 
 .. _#572: https://github.com/wger-project/wger/issues/572
 .. _#639: https://github.com/wger-project/wger/issues/639
 .. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
+.. _#667: https://github.com/wger-project/wger/issues/667
 .. _#702: https://github.com/wger-project/wger/issues/702
 .. _#716: https://github.com/wger-project/wger/issues/716
 
