@@ -12,7 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.1.4",
-    "@angular/cdk": "~12.2.0",
+    "@angular/cdk": "~12.2.1",
     "@angular/common": "~12.1.4",
     "@angular/compiler": "~12.1.4",
     "@angular/core": "~12.1.4",
@@ -24,7 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@swimlane/ngx-charts": "^18.0.1",
     "rxjs": "~6.6.0",
-    "tslib": "^2.3.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
     "@angular/cli": "~12.2.1",
     "@angular/compiler-cli": "~12.1.4",
     "@types/jasmine": "~3.8.2",
-    "@types/node": "^16.6.0",
+    "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "4.29.0",
     "@typescript-eslint/parser": "4.29.1",
     "bootstrap": "^4.5.2",
