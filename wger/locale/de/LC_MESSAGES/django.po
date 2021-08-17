@@ -11,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-05-11 09:34+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"POT-Creation-Date: 2021-08-17 15:00+0200\n"
+"PO-Revision-Date: 2021-08-17 15:26+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -855,23 +855,19 @@ msgstr "Kalender"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galerie"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Training abgeschlossen!"
+msgstr "Trainingsvorlagen"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Deine Zeitpläne"
+msgstr "Ihre Vorlagen"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Öffentliche Vorlagen"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
@@ -1934,10 +1930,8 @@ msgid "Delete exercise image?"
 msgstr "Übungsbild wirklich löschten?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Neues Bild hinzufügen"
+msgstr "Bild hinzufügen"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2384,10 +2378,8 @@ msgid "Kilometers"
 msgstr "Kilometer"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Wdh."
+msgstr "Max. Wdh."
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2463,10 +2455,8 @@ msgid "Correction"
 msgstr "Korrektur"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Eine Kopie des Trainingsplans machen"
+msgstr "Der Name der Trainingseinheit"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2632,28 +2622,30 @@ msgstr "Erstellungsdatum"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Training abgeschlossen!"
+msgstr "Trainingsvorlage"
 
 #: manager/models/workout.py:74
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Wenn du ein Training als Vorlage markierst, wird es eingefroren und du "
+"kannst Kopien davon erstellen"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Öffentliche Vorlage"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Eine öffentliche Vorlage ist für andere Benutzer verfügbar"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
 msgstr ""
+"Du musst dieses Workout als Vorlage kennzeichnen, bevor du es als öffentlich "
+"markieren kannst"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2985,16 +2977,12 @@ msgstr ""
 "werden hier ignoriert."
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No schedules found."
 msgid "No templates found."
-msgstr "Keine Zeitpläne gefunden."
+msgstr "Keine Vorlagen gefunden."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
-msgstr "Eine Kopie des Trainingsplans machen"
+msgstr "Als Trainingsplan markieren"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
@@ -3010,10 +2998,8 @@ msgstr ""
 "werden."
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
-msgstr "Diese Seite teilen"
+msgstr "Diese Vorlage verwenden"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
@@ -3053,7 +3039,7 @@ msgstr "Trainingsplan bearbeiten"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Als Vorlage markieren"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3515,18 +3501,13 @@ msgid "Goal"
 msgstr "Ziel"
 
 #: nutrition/templates/plan/view.html:382
-#, fuzzy
-#| msgid ""
-#| "You have selected that this nutritional plan has a\n"
-#| "    goal amount of calories. Use the calculator or enter the value "
-#| "yourself."
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "            goal amount of calories. Use the calculator or enter the value\n"
 "            yourself."
 msgstr ""
-"Du hast angegeben, dass dieser Ernährungsplan eine Zielmenge an Kalorien "
-"hat.\n"
+"Du hast angegeben, dass dieser Ernährungsplan eine Zielmenge an Kalorien hat."
+"\n"
 "Benutze den Kalorienrechner oder gebe einen Wert ein."
 
 #: nutrition/templates/plan/view.html:392
