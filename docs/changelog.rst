@@ -26,6 +26,7 @@ Upgrade steps from 2.0:
 🧰 Maintenance:
 
 * Changes to the REST API:
+
   + /exerciseimage/
     - ``exercise`` was renamed to  ``exercise_base`` (was pointing there anyway)
   + /workout/
@@ -637,7 +638,7 @@ New features and bugfixes:
 New features and bugfixes:
 
   * Add option to copy (duplicate) workouts and nutritional plans
-  * Login without an account with [[https://login.persona.org/|mozilla's Persona]] (BrowserID)
+  * Login without an account with mozilla's Persona (BrowserID)
   * Better AJAX handling of the modal dialogs, less page reloads and redirects
   * Expand the list of ingredients in German
   * Add a pagination to ingredient list
