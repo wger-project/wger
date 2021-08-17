@@ -27,11 +27,6 @@ from wger.software import views
 
 urlpatterns = [
     path(
-        'issues',
-        TemplateView.as_view(template_name="issues.html"),
-        name='issues',
-    ),
-    path(
         'terms-of-service',
         TemplateView.as_view(template_name="tos.html"),
         name='tos',
@@ -42,19 +37,14 @@ urlpatterns = [
         name='features',
     ),
     path(
-        'license',
-        TemplateView.as_view(template_name="license.html"),
-        name='license',
-    ),
-    path(
         'code',
         RedirectView.as_view(permanent=True, url='https://github.com/wger-project/wger'),
         name='code',
     ),
     path(
-        'contribute',
-        TemplateView.as_view(template_name="contribute.html"),
-        name='contribute',
+        'about-us',
+        TemplateView.as_view(template_name="about_us.html"),
+        name='about-us',
     ),
     path(
         'api',

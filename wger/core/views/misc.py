@@ -163,25 +163,9 @@ def dashboard(request):
 
     return render(request, 'index.html', context)
 
-
-class ContactClassView(TemplateView):
-
-    def get_context_data(self, **kwargs):
-        context = super(ContactClassView, self).get_context_data(**kwargs)
-        context.update(
-            {
-                'discord': 'https://discord.gg/rPWFv6W',
-                'contribute': reverse('software:contribute'),
-                'issues': reverse('software:issues'),
-                'feedback': reverse('core:feedback')
-            }
-        )
-        return context
-
-
 class FeedbackClass(FormView):
     template_name = 'form.html'
-    success_url = reverse_lazy('core:contact')
+    success_url = reverse_lazy('software:about-us')
 
     def get_initial(self):
         """

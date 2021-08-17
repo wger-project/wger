@@ -251,14 +251,9 @@ urlpatterns = [
 
     # Others
     path(
-        'about',
+        'imprint',
         TemplateView.as_view(template_name="misc/about.html"),
-        name='about',
-    ),
-    path(
-        'contact',
-        misc.ContactClassView.as_view(template_name="misc/contact.html"),
-        name='contact',
+        name='imprint',
     ),
     path(
         'feedback',

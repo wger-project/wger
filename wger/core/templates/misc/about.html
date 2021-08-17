@@ -1,18 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{% translate "About us" %}{% endblock %}
+{% block title %}{% translate "Imprint" %}{% endblock %}
 
 {% block content %}
-<!--
-<p>{% translate "Responsible for the content of this site as per German law §5 TMG:" %}</p>
--->
-<p>
-Your name<br>
-Address<br>
-ZIP code<br>
-City<br>
-<a href="mailto:email@example.com">email@example.com</a>
-({%trans "GNUPG-Key:" %} <a href="http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x1234567890">1234567890</a>)
-</p>
 {% endblock %}
