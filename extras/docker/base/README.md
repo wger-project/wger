@@ -15,7 +15,6 @@ report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
 * discord: <https://discord.gg/rPWFv6W>
-* gitter: <https://gitter.im/wger-project/wger>
 * issue tracker: <https://github.com/wger-project/wger/issues>
 * twitter: <https://twitter.com/wger_project>
 
