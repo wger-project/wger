@@ -9,7 +9,7 @@ and stable state.
 Virtual environment
 ~~~~~~~~~~~~~~~~~~~
 
-::
+Create a new virtualenv::
 
   $ python3 -m venv venv-wger
   $ source venv-wger/bin/activate
@@ -17,17 +17,18 @@ Virtual environment
 
 Get the code
 ~~~~~~~~~~~~
-::
+
+Download the source code::
 
   $ git clone https://github.com/wger-project/wger.git src
   $ cd src
 
 Install Requirements
 ~~~~~~~~~~~~~~~~~~~~
-::
+
+Install python requirements::
 
   $ pip install -r requirements_dev.txt
-  $ npm install -g yarn sass
   $ python setup.py develop
 
 Install application
@@ -57,5 +58,4 @@ That's it. You can log in with the default administrator user:
 * **username**: admin
 * **password**: adminadmin
 
-You can start the application again with the django server with
-``python manage.py runserver``.
+You can reset the admin's password with ``wger create-or-reset-admin``
