@@ -163,6 +163,7 @@ def dashboard(request):
 
     return render(request, 'index.html', context)
 
+
 class FeedbackClass(FormView):
     template_name = 'form.html'
     success_url = reverse_lazy('software:about-us')
