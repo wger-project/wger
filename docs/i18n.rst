@@ -3,9 +3,11 @@
 Internationalization (i18n)
 ===========================
 
+Django
+------
 
 Updating the translation files
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 wger uses django's translation infrastructure, but there are a couple of things
 that need to be considered. First you need to extract some translatable strings
@@ -25,7 +27,7 @@ and finally you can compile them with::
 
 
 Adding new languages
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Besides adding the new translations to the locale folder, they have to be
 activated in the django settings file and in the application itself.
@@ -74,7 +76,7 @@ activated in the django settings file and in the application itself.
 
 
 Getting new languages
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 If you have a local installation and new languages arrive from upstream, you
 need to load the necessary data to the language tables in the database (note
@@ -86,3 +88,19 @@ up)::
 
 Please note that this will overwrite any changes you might have done from the
 language administration module.
+
+
+Angular
+-------
+
+There are translations for the angular side of things as well, they are located
+in the ``angular/src/locale`` folder.
+
+To extract new messages, run from the angular folder::
+
+  ng extract-i18n --output-path src/locale/
+
+
+Due to the way angular builds translated applications, it is necessary to keep
+a separate list of available languages in ``settings_global.py``. When the
+angular strings are translated into new languages, add their ISO code to ``LANGUAGES_ANGULAR``.
