@@ -214,6 +214,8 @@ LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 LANGUAGES_ANGULAR = (
     'en',
     'de',
+    'fr',
+    'no',
 )
 
 # Primary keys are AutoFields
