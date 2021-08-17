@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-17 15:00+0200\n"
+"POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2021-04-17 13:26+0000\n"
 "Last-Translator: David <david@davidmachiels.be>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
@@ -48,7 +48,7 @@ msgstr "Oefeningen"
 msgid "Ingredients"
 msgstr "Ingrediënten"
 
-#: config/templates/language/overview.html:4 core/templates/navigation.html:225
+#: config/templates/language/overview.html:4 core/templates/navigation.html:228
 msgid "Languages"
 msgstr "Talen"
 
@@ -225,8 +225,8 @@ msgstr "Mijn hip workoutschema"
 msgid "Empty placeholder schedule"
 msgstr "Leeg tijdelijk schema"
 
-#: core/forms.py:61 core/templates/navigation.html:187
-#: core/templates/navigation.html:191 core/templates/user/login.html:4
+#: core/forms.py:61 core/templates/navigation.html:190
+#: core/templates/navigation.html:194 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
 msgstr "Aanmelden"
@@ -303,8 +303,8 @@ msgstr "Ongeldig wachtwoord"
 msgid "The form is secured with reCAPTCHA"
 msgstr "Dit formulier is beveiligd met reCAPTCHA"
 
-#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:187
-#: core/templates/navigation.html:192 core/templates/template.html:150
+#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
+#: core/templates/navigation.html:195 core/templates/template.html:150
 #: core/templates/user/login.html:20 core/views/user.py:293
 #: software/templates/features.html:38
 msgid "Register"
@@ -803,104 +803,11 @@ msgstr "Licentielijst"
 msgid "Nothing found"
 msgstr "Niets gevonden"
 
-#: core/templates/misc/about.html:4
-msgid "About us"
-msgstr "Over ons"
-
-#: core/templates/misc/about.html:8
-msgid "Responsible for the content of this site as per German law §5 TMG:"
+#: core/templates/misc/about.html:4 core/templates/template.html:201
+#: core/templates/template_features.html:118
+#: core/templates/template_no_context.html:88
+msgid "Imprint"
 msgstr ""
-"Verantwoordelijke voor de inhoud van deze site volgens Duitse wet §5 TMG:"
-
-#: core/templates/misc/about.html:16
-msgid "GNUPG-Key:"
-msgstr "GNUPG-Sleutel:"
-
-#: core/templates/misc/contact.html:4 core/templates/navigation.html:153
-#: core/templates/template_features.html:86
-#: software/templates/contribute.html:28
-msgid "Get in touch"
-msgstr "Contacteer"
-
-#: core/templates/misc/contact.html:10
-#, python-format
-msgid ""
-"Thank you for your interest. Feel free to use any of the\n"
-"ways below to send feedback you have about any aspect of the site. For\n"
-"support, say hi\n"
-"<a href=\"%(discord)s\">on the discord channel</a>, to report\n"
-"a bug, consider doing it through the <a href=\"%(issues)s\">issue tracker</"
-"a>\n"
-"."
-msgstr ""
-"Bedankt voor je interesse. Voel je vrij om één\n"
-"van de manieren hieronder te gebruiken om feedback te sturen over eender "
-"welk aspect van de site.\n"
-"Voor ondersteuning kan je hallo zeggen in het <a href=\"%(discord)s"
-"\">Discord-kanaal</a>,\n"
-"om een fout te melden kan je dit doen in onze <a href=\"%(issues)s\">issue "
-"tracker</a>."
-
-#: core/templates/misc/contact.html:20
-#, python-format
-msgid ""
-"If you want to further help and improve this project,\n"
-"you might also be interested <a href=\"%(contribute)s\">in contributing</a>."
-msgstr ""
-"Als je dit project verder wil helpen en verbeteren,\n"
-"kan je mogelijk ook geïnteresserd zijn om <a href=\"%(contribute)s\">bij te "
-"dragen</a>."
-
-#: core/templates/misc/contact.html:29
-msgid "Feedback form"
-msgstr "Feedbackformulier"
-
-#: core/templates/misc/contact.html:30
-msgid ""
-"A simple contact form. Remember that\n"
-"if you want an answer, you need to include some way to contact you."
-msgstr ""
-"Een eenvoudig contactformulier. Onthoud dat,\n"
-"als je een antwoord wenst, je een manier moet invullen waarop we je kunnen "
-"contacteren."
-
-#: core/templates/misc/contact.html:35
-msgid "Twitter"
-msgstr "Twitter"
-
-#: core/templates/misc/contact.html:36
-msgid ""
-"We are also on twitter. Write us and tell us what\n"
-"you think! Except patches, don't send patches via twitter."
-msgstr ""
-"We zitten ook op twitter. Schrijf ons en vertel ons\n"
-"je mening! Behalve patches, verstuur geen patches via twitter."
-
-#: core/templates/misc/contact.html:42
-msgid "Discord"
-msgstr "Discord"
-
-#: core/templates/misc/contact.html:43
-msgid ""
-"Use the public group to get support for your\n"
-"local wger installation, discuss issues or your new idea, etc.\n"
-"(no registration needed)"
-msgstr ""
-"Gebruik de publieke groep om ondersteuning te vinden voor je\n"
-"lokale wger-installatie, fouten of je nieuwe idee te bespreken, etc.\n"
-"(geen registratie vereist)"
-
-#: core/templates/misc/contact.html:49
-msgid "Open feedback form"
-msgstr "Open feedbackformulier"
-
-#: core/templates/misc/contact.html:53
-msgid "tweet to @wger_project"
-msgstr "tweet naar @wger_project"
-
-#: core/templates/misc/contact.html:56
-msgid "Go to the discord server"
-msgstr "Ga naar Discord-server"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -994,7 +901,7 @@ msgid "Add new exercise"
 msgstr "Creëer oefening"
 
 #: core/templates/navigation.html:75 core/templates/navigation.html:134
-#: core/templates/navigation.html:223
+#: core/templates/navigation.html:226
 msgid "Administration"
 msgstr "Administratie"
 
@@ -1061,68 +968,62 @@ msgid "About this software"
 msgstr "Over deze software"
 
 #: core/templates/navigation.html:151 core/templates/template_features.html:83
-#: software/templates/contribute.html:6
-msgid "Contribute!"
-msgstr "Draag bij!"
+#: software/templates/about_us.html:5
+msgid "About us"
+msgstr "Over ons"
 
-#: core/templates/navigation.html:152
-msgid "Problems and wishes"
-msgstr "Problemen en wensen"
-
-#: core/templates/navigation.html:155 software/templates/features.html:209
+#: core/templates/navigation.html:153 software/templates/features.html:209
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:156 software/templates/license.html:7
-#: utils/models.py:40
+#: core/templates/navigation.html:157 utils/models.py:40
 msgid "License"
 msgstr "Licentie"
 
-#: core/templates/navigation.html:160
+#: core/templates/navigation.html:163
 msgid "Developer documentation"
 msgstr "Developer documentatie"
 
-#: core/templates/navigation.html:166 software/templates/contribute.html:59
+#: core/templates/navigation.html:169
 msgid "Get the code"
 msgstr "Download de code"
 
-#: core/templates/navigation.html:172 core/templates/template.html:193
-#: core/templates/template_features.html:103
-#: software/templates/contribute.html:43 software/templates/contribute.html:50
+#: core/templates/navigation.html:175 core/templates/template.html:193
+#: core/templates/template_features.html:100
 msgid "Translate"
 msgstr "Vertaal"
 
-#: core/templates/navigation.html:193 core/templates/user/login.html:28
+#: core/templates/navigation.html:196 core/templates/user/login.html:28
 msgid "Reset password"
 msgstr "Reset wachtwoord"
 
-#: core/templates/navigation.html:206
+#: core/templates/navigation.html:209
 msgid "My preferences"
 msgstr "Mijn voorkeuren"
 
-#: core/templates/navigation.html:213
+#: core/templates/navigation.html:216
 msgid "Logout"
 msgstr "Afmelden"
 
-#: core/templates/navigation.html:228
+#: core/templates/navigation.html:231
 msgid "Licenses"
 msgstr "Licenties"
 
-#: core/templates/navigation.html:231
+#: core/templates/navigation.html:234
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Herhalingen"
 
-#: core/templates/navigation.html:234 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:237 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:174
 msgid "Weight units"
 msgstr "Gewichteenheden"
 
-#: core/templates/navigation.html:237 core/templates/user/list.html:4
+#: core/templates/navigation.html:240 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Gebruikerslijst"
 
-#: core/templates/navigation.html:238
+#: core/templates/navigation.html:241
 msgid "Gyms"
 msgstr "Gyms"
 
@@ -1242,18 +1143,12 @@ msgstr ""
 msgid "Create some demo entries"
 msgstr "Maak wat demo-ingaven aan"
 
-#: core/templates/template.html:201 core/templates/template_features.html:121
-#: core/templates/template_no_context.html:88
-msgid "About"
-msgstr "Over"
-
-#: core/templates/template.html:202 core/templates/template_features.html:125
+#: core/templates/template.html:202 core/templates/template_features.html:122
 #: core/templates/template_no_context.html:89 software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Algemene voorwaarden"
 
 #: core/templates/template.html:209 core/templates/template.html:210
-#: software/templates/license.html:18 software/templates/license.html:19
 msgid "Released under the Affero GPL"
 msgstr "Uitgebracht onder de Affero GPL"
 
@@ -1612,15 +1507,15 @@ msgstr ""
 msgid "Rest day"
 msgstr "Rustdag"
 
-#: core/views/misc.py:199
+#: core/views/misc.py:184
 msgid "Feedback"
 msgstr "Feedback"
 
-#: core/views/misc.py:218 weight/templates/import_csv_form.html:9
+#: core/views/misc.py:203 weight/templates/import_csv_form.html:9
 msgid "Submit"
 msgstr "Insturen"
 
-#: core/views/misc.py:226
+#: core/views/misc.py:211
 msgid "Your feedback was successfully sent. Thank you!"
 msgstr "Je feedback werd met succes verzonden. Bedankt!"
 
@@ -1794,7 +1689,6 @@ msgstr "naam oefening"
 #: exercises/templates/exercise/overview.html:118
 #: exercises/templates/muscles/overview.html:114
 #: nutrition/templates/ingredient/overview.html:85
-#: software/templates/contribute.html:39
 msgid "Only registered users can do this"
 msgstr "Enkel geregistreerde gebruikers kunnen dit"
 
@@ -2008,7 +1902,7 @@ msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
 
-#: exercises/views/exercises.py:246 software/templates/contribute.html:37
+#: exercises/views/exercises.py:246
 msgid "Add exercise"
 msgstr "Creëer oefening"
 
@@ -3762,113 +3656,55 @@ msgstr "Voeg gewichteenheid toe"
 msgid "Edit a weight unit to ingredient connection"
 msgstr "Bewerk verbinding gewichteenheid en ingrediënt"
 
-#: software/templates/contribute.html:9
+#: software/templates/about_us.html:9
 msgid ""
-"wger Workout Manager is build by volunteers,\n"
-"the development process is open and freely accessible to anybody "
-"interested.\n"
-"If you are new to the free software world, we recommend to take a\n"
-"look <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
-"article</a> which summarizes they way open source projects work very well. "
+"Thank you for using wger! wger is a collaborative open source project, made "
+"by fitness enthusiasts from around the world."
 msgstr ""
-"wger Workout Manager is gebouwd door vrijwilligers. Het ontwikkelproces is "
-"transparant en vrij toegankelijk voor alle geïnteresseerden. Als je nieuw "
-"bent in de wereld van gratis software, raden we je aan een kijkje te nemen "
-"naar <a href=\"http://schlitt.info/opensource/"
-"blog/0541_10_golden_rules_for_starting_with_open_source.html\">dit artikel</"
-"a>\n"
-"waarin wordt samengevat hoe het ontwikkelen van een open-source project goed "
-"kan verlopen."
 
-#: software/templates/contribute.html:16
+#: software/templates/about_us.html:18
+msgid "Source code"
+msgstr ""
+
+#: software/templates/about_us.html:20
+msgid "Get the source code of this application and its server on github"
+msgstr ""
+
+#: software/templates/about_us.html:25
+msgid "Have a problem or idea?"
+msgstr ""
+
+#: software/templates/about_us.html:27
 msgid ""
-"Any kind of contribution is appreciated and welcome.\n"
-"Use this opportunity and influence the direction of the\n"
-"project. "
+"Get in touch if something didn't behave as expected or if there is a feature "
+"that you feel is missing."
 msgstr ""
-"Elke bijdrage wordt geapprecieerd en is welkom.\n"
-"Gebruik deze kans en beïnvloed de richting van het project."
 
-#: software/templates/contribute.html:23
-msgid "Use the site"
-msgstr "Gebruik de site"
-
-#: software/templates/contribute.html:24
-msgid ""
-"Simply use the site and tell your friends\n"
-"how useful it is! ;) . When you find something that you specially liked,\n"
-"could need some improvements or just doesn't work, tell us! This might not "
-"sound\n"
-"like much, but is incredibly important!"
+#: software/templates/about_us.html:32
+msgid "Say hi!"
 msgstr ""
-"Gebruik gewoonweg de site en vertel je vrienden\n"
-"hoe nuttig deze is! ;-). Wanneer je iets ontdekt dat je bijzonder leuk "
-"vond,\n"
-"dat wat verbetering nodig heeft of gewoon niet functioneert, vertel het ons! "
-"Dit klinkt misschien\n"
-"niet erg belangrijk, maar dat is het enorm!"
 
-#: software/templates/contribute.html:31
-msgid "Submit exercises"
-msgstr "Oefeningen indienen"
-
-#: software/templates/contribute.html:32
-msgid ""
-"Submit those cool exercises that you absolutely\n"
-"love and do every week but are not in the list yet. If you think some "
-"description\n"
-"is too short or some other detail is missing or could be improved, tell!"
+#: software/templates/about_us.html:34
+msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
-"Dien die coole oefeningen in waar je absoluut\n"
-"van houdt en die je elke week uitoefent, maar die nog niet op de lijst "
-"staan. Als je denkt dat een beschrijving\n"
-"te kort is of dat er een detail ontbreekt of verbeterd kan worden, vertel "
-"het ons!"
 
-#: software/templates/contribute.html:44
+#: software/templates/about_us.html:39
 #, fuzzy
-#| msgid ""
-#| "Do you want to use wger in your own language?\n"
-#| "Do you think the current translation could be improved?\n"
-#| "The translations are easily managed and edited online, if you are "
-#| "interested,\n"
-#| "go to the transifex site, request access and we will set everything\n"
-#| "up. "
+#| msgid "Translate"
+msgid "Translation"
+msgstr "Vertaal"
+
+#: software/templates/about_us.html:41
 msgid ""
-"Do you want to use wger in your own language?\n"
-"Do you think the current translation could be improved?\n"
-"The translations are easily managed and edited online, if you are "
-"interested,\n"
-"visit the link and start translating."
+"This application is translated on weblate. If you also want to help, click "
+"the link and start translating"
 msgstr ""
-"Wil je wger gebruiken in je eigen taal?\n"
-"Vind je dat de huidige vertaling kan worden verbeterd?\n"
-"De vertalingen worden en eenvoudig online bewerkt en beheerd. Als je\n"
-"interesse zou hebben, ga naar de transifex-site, vraag toegang aan wij\n"
-"zorgen voor de rest."
 
-#: software/templates/contribute.html:53
-msgid "Code"
-msgstr "Code"
-
-#: software/templates/contribute.html:54
-msgid ""
-"Obviously, you are highly encouraged to clone the\n"
-"repo and start hacking! Once you are ready, send a pull request and we\n"
-"will show the world. Take a look at the developer guide for more details\n"
-"on this."
-msgstr ""
-"Uiteraard moedigen we je graag aan de repository te klonen en te beginnen "
-"hacken!\n"
-"Wanneer je klaar bent stuur je een pull request en tonen we je werk aan de "
-"wereld. Bekijk de ontwikkelaarshandleiding voor meer informatie hierover."
-
-#: software/templates/contribute.html:66
+#: software/templates/about_us.html:50
 msgid "Our goal"
 msgstr "Ons doel"
 
-#: software/templates/contribute.html:69
+#: software/templates/about_us.html:53
 msgid ""
 "The goal is to build an awesome\n"
 "and flexible fitness manager, along with a comprehensive and complete list "
@@ -4007,105 +3843,6 @@ msgstr ""
 #, python-format
 msgid "100%% Free <br>and <br>Open Source"
 msgstr "100%%Gratis<br>en<br>Open Source"
-
-#: software/templates/issues.html:6
-msgid "Reporting a problem"
-msgstr "Een probleem melden"
-
-#: software/templates/issues.html:10
-msgid ""
-"\n"
-"No software is perfect. For some severe errors, an email will be "
-"automatically sent, but\n"
-"not always, so I depend on you reporting everything that didn't behave as "
-"expected.\n"
-"Please describe in as much detail as you can what you were doing when the "
-"error\n"
-"happened.\n"
-msgstr ""
-"\n"
-"Geen software is perfect. Voor bepaalde ernstige fouten zal automatisch een "
-"e-mail \n"
-"worden verstuurd, maar niet altijd, dus ik reken op jou om alles te "
-"rapporteren dat \n"
-"niet werkte zoals verwacht. Gelieve zo gedetailleerd mogelijk te beschrijven "
-"wat je aan,\n"
-"het doen was toen de fout zich voordeed.\n"
-
-#: software/templates/issues.html:21
-msgid "report problem to the issue tracker"
-msgstr "probleem melden aan de issue tracker"
-
-#: software/templates/issues.html:25
-msgid "Enhancements"
-msgstr "Verbeteringen"
-
-#: software/templates/issues.html:27
-msgid ""
-"\n"
-"The issue tracker can also be used to document enhancements to the "
-"software.\n"
-"If you have some suggestions or think a feature is missing, feel\n"
-"free to open a ticket. This can be anything from a slight change to a whole\n"
-"new section of the site. Please keep in mind that not all wishes can be\n"
-"implemented."
-msgstr ""
-"\n"
-"De issue tracker kan ook gebruikt worden om verbeteren aan de software in\n"
-"kaart te brengen. Als je suggesties hebt of vindt dat een functie ontbreekt "
-"kan je\n"
-"altijd een ticket openen. Dit kan over alles gaan, van de kleinste "
-"verandering tot\n"
-"een gans nieuwe sectie op de site. Houd in gedachte dat niet alle wensen "
-"kunnen\n"
-"worden geïmplementeerd."
-
-#: software/templates/issues.html:36
-msgid "report wish to the issue tracker"
-msgstr "wens rapporteren aan de issue tracker"
-
-#: software/templates/issues.html:41
-msgid "No Github account?"
-msgstr "Geen Github account?"
-
-#: software/templates/issues.html:42
-msgid ""
-"Filing an issue requires a github account, if you don't\n"
-"have one and don't want to register, you can also send it to\n"
-"<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
-msgstr ""
-"Een issue indienen vereist een github-account. Als je er geen hebt en\n"
-"niet wil registereren, kan je het ook insturen naar de <a href=\"https://"
-"groups.google.com/group/wger\">mailinglijst</a>."
-
-#: software/templates/license.html:10
-msgid ""
-"wger Workout Manager is Free/Libre Open Source\n"
-"Software (FLOSS)."
-msgstr ""
-"wger Workout Manager is Free/Libre Open Source\n"
-"Software (FLOSS)."
-
-#: software/templates/license.html:22
-msgid ""
-"wger Workout Manager is released under the <strong>Affero GNU\n"
-"General Public License (AGPL)  Version 3+</strong> and can (under the "
-"conditions\n"
-"of the license) be used, modified and distributed (also with modifications)\n"
-"without restrictions."
-msgstr ""
-"wger Workout Manager wordt uitgebracht onder de <strong>Affero GNU\n"
-"General Public License (AGPL)  Version 3+</strong> licentie en kan (onder "
-"de \n"
-"voorwaarden van de licentie) worden gebruikt, aangepast en verspreid \n"
-"(ook met aanpassingen) zonder restricties."
-
-#: software/templates/license.html:29
-msgid ""
-"A copy the license text is contained in every wger Workout\n"
-"Manager release (LICENSE.txt) and can be read online on the website of\n"
-"<a href='https://www.gnu.org/licenses/agpl-3.0.en.html'>the GNU project</a>."
-msgstr ""
 
 #: utils/generic_views.py:261
 msgid "Yes, delete"
@@ -4288,6 +4025,273 @@ msgstr "Met succes verwijderd."
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr "Verwijder gewichtsingave voor de %s"
+
+#~ msgid "Responsible for the content of this site as per German law §5 TMG:"
+#~ msgstr ""
+#~ "Verantwoordelijke voor de inhoud van deze site volgens Duitse wet §5 TMG:"
+
+#~ msgid "GNUPG-Key:"
+#~ msgstr "GNUPG-Sleutel:"
+
+#~ msgid "Get in touch"
+#~ msgstr "Contacteer"
+
+#~ msgid ""
+#~ "Thank you for your interest. Feel free to use any of the\n"
+#~ "ways below to send feedback you have about any aspect of the site. For\n"
+#~ "support, say hi\n"
+#~ "<a href=\"%(discord)s\">on the discord channel</a>, to report\n"
+#~ "a bug, consider doing it through the <a href=\"%(issues)s\">issue "
+#~ "tracker</a>\n"
+#~ "."
+#~ msgstr ""
+#~ "Bedankt voor je interesse. Voel je vrij om één\n"
+#~ "van de manieren hieronder te gebruiken om feedback te sturen over eender "
+#~ "welk aspect van de site.\n"
+#~ "Voor ondersteuning kan je hallo zeggen in het <a href=\"%(discord)s"
+#~ "\">Discord-kanaal</a>,\n"
+#~ "om een fout te melden kan je dit doen in onze <a href=\"%(issues)s"
+#~ "\">issue tracker</a>."
+
+#~ msgid ""
+#~ "If you want to further help and improve this project,\n"
+#~ "you might also be interested <a href=\"%(contribute)s\">in contributing</"
+#~ "a>."
+#~ msgstr ""
+#~ "Als je dit project verder wil helpen en verbeteren,\n"
+#~ "kan je mogelijk ook geïnteresserd zijn om <a href=\"%(contribute)s\">bij "
+#~ "te dragen</a>."
+
+#~ msgid "Feedback form"
+#~ msgstr "Feedbackformulier"
+
+#~ msgid ""
+#~ "A simple contact form. Remember that\n"
+#~ "if you want an answer, you need to include some way to contact you."
+#~ msgstr ""
+#~ "Een eenvoudig contactformulier. Onthoud dat,\n"
+#~ "als je een antwoord wenst, je een manier moet invullen waarop we je "
+#~ "kunnen contacteren."
+
+#~ msgid "Twitter"
+#~ msgstr "Twitter"
+
+#~ msgid ""
+#~ "We are also on twitter. Write us and tell us what\n"
+#~ "you think! Except patches, don't send patches via twitter."
+#~ msgstr ""
+#~ "We zitten ook op twitter. Schrijf ons en vertel ons\n"
+#~ "je mening! Behalve patches, verstuur geen patches via twitter."
+
+#~ msgid "Discord"
+#~ msgstr "Discord"
+
+#~ msgid ""
+#~ "Use the public group to get support for your\n"
+#~ "local wger installation, discuss issues or your new idea, etc.\n"
+#~ "(no registration needed)"
+#~ msgstr ""
+#~ "Gebruik de publieke groep om ondersteuning te vinden voor je\n"
+#~ "lokale wger-installatie, fouten of je nieuwe idee te bespreken, etc.\n"
+#~ "(geen registratie vereist)"
+
+#~ msgid "Open feedback form"
+#~ msgstr "Open feedbackformulier"
+
+#~ msgid "tweet to @wger_project"
+#~ msgstr "tweet naar @wger_project"
+
+#~ msgid "Go to the discord server"
+#~ msgstr "Ga naar Discord-server"
+
+#~ msgid "Contribute!"
+#~ msgstr "Draag bij!"
+
+#~ msgid "Problems and wishes"
+#~ msgstr "Problemen en wensen"
+
+#~ msgid "About"
+#~ msgstr "Over"
+
+#~ msgid ""
+#~ "wger Workout Manager is build by volunteers,\n"
+#~ "the development process is open and freely accessible to anybody "
+#~ "interested.\n"
+#~ "If you are new to the free software world, we recommend to take a\n"
+#~ "look <a href=\"http://schlitt.info/opensource/"
+#~ "blog/0541_10_golden_rules_for_starting_with_open_source.html\">this\n"
+#~ "article</a> which summarizes they way open source projects work very "
+#~ "well. "
+#~ msgstr ""
+#~ "wger Workout Manager is gebouwd door vrijwilligers. Het ontwikkelproces "
+#~ "is transparant en vrij toegankelijk voor alle geïnteresseerden. Als je "
+#~ "nieuw bent in de wereld van gratis software, raden we je aan een kijkje "
+#~ "te nemen naar <a href=\"http://schlitt.info/opensource/"
+#~ "blog/0541_10_golden_rules_for_starting_with_open_source.html\">dit "
+#~ "artikel</a>\n"
+#~ "waarin wordt samengevat hoe het ontwikkelen van een open-source project "
+#~ "goed kan verlopen."
+
+#~ msgid ""
+#~ "Any kind of contribution is appreciated and welcome.\n"
+#~ "Use this opportunity and influence the direction of the\n"
+#~ "project. "
+#~ msgstr ""
+#~ "Elke bijdrage wordt geapprecieerd en is welkom.\n"
+#~ "Gebruik deze kans en beïnvloed de richting van het project."
+
+#~ msgid "Use the site"
+#~ msgstr "Gebruik de site"
+
+#~ msgid ""
+#~ "Simply use the site and tell your friends\n"
+#~ "how useful it is! ;) . When you find something that you specially liked,\n"
+#~ "could need some improvements or just doesn't work, tell us! This might "
+#~ "not sound\n"
+#~ "like much, but is incredibly important!"
+#~ msgstr ""
+#~ "Gebruik gewoonweg de site en vertel je vrienden\n"
+#~ "hoe nuttig deze is! ;-). Wanneer je iets ontdekt dat je bijzonder leuk "
+#~ "vond,\n"
+#~ "dat wat verbetering nodig heeft of gewoon niet functioneert, vertel het "
+#~ "ons! Dit klinkt misschien\n"
+#~ "niet erg belangrijk, maar dat is het enorm!"
+
+#~ msgid "Submit exercises"
+#~ msgstr "Oefeningen indienen"
+
+#~ msgid ""
+#~ "Submit those cool exercises that you absolutely\n"
+#~ "love and do every week but are not in the list yet. If you think some "
+#~ "description\n"
+#~ "is too short or some other detail is missing or could be improved, tell!"
+#~ msgstr ""
+#~ "Dien die coole oefeningen in waar je absoluut\n"
+#~ "van houdt en die je elke week uitoefent, maar die nog niet op de lijst "
+#~ "staan. Als je denkt dat een beschrijving\n"
+#~ "te kort is of dat er een detail ontbreekt of verbeterd kan worden, vertel "
+#~ "het ons!"
+
+#, fuzzy
+#~| msgid ""
+#~| "Do you want to use wger in your own language?\n"
+#~| "Do you think the current translation could be improved?\n"
+#~| "The translations are easily managed and edited online, if you are "
+#~| "interested,\n"
+#~| "go to the transifex site, request access and we will set everything\n"
+#~| "up. "
+#~ msgid ""
+#~ "Do you want to use wger in your own language?\n"
+#~ "Do you think the current translation could be improved?\n"
+#~ "The translations are easily managed and edited online, if you are "
+#~ "interested,\n"
+#~ "visit the link and start translating."
+#~ msgstr ""
+#~ "Wil je wger gebruiken in je eigen taal?\n"
+#~ "Vind je dat de huidige vertaling kan worden verbeterd?\n"
+#~ "De vertalingen worden en eenvoudig online bewerkt en beheerd. Als je\n"
+#~ "interesse zou hebben, ga naar de transifex-site, vraag toegang aan wij\n"
+#~ "zorgen voor de rest."
+
+#~ msgid "Code"
+#~ msgstr "Code"
+
+#~ msgid ""
+#~ "Obviously, you are highly encouraged to clone the\n"
+#~ "repo and start hacking! Once you are ready, send a pull request and we\n"
+#~ "will show the world. Take a look at the developer guide for more details\n"
+#~ "on this."
+#~ msgstr ""
+#~ "Uiteraard moedigen we je graag aan de repository te klonen en te beginnen "
+#~ "hacken!\n"
+#~ "Wanneer je klaar bent stuur je een pull request en tonen we je werk aan "
+#~ "de wereld. Bekijk de ontwikkelaarshandleiding voor meer informatie "
+#~ "hierover."
+
+#~ msgid "Reporting a problem"
+#~ msgstr "Een probleem melden"
+
+#~ msgid ""
+#~ "\n"
+#~ "No software is perfect. For some severe errors, an email will be "
+#~ "automatically sent, but\n"
+#~ "not always, so I depend on you reporting everything that didn't behave as "
+#~ "expected.\n"
+#~ "Please describe in as much detail as you can what you were doing when the "
+#~ "error\n"
+#~ "happened.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Geen software is perfect. Voor bepaalde ernstige fouten zal automatisch "
+#~ "een e-mail \n"
+#~ "worden verstuurd, maar niet altijd, dus ik reken op jou om alles te "
+#~ "rapporteren dat \n"
+#~ "niet werkte zoals verwacht. Gelieve zo gedetailleerd mogelijk te "
+#~ "beschrijven wat je aan,\n"
+#~ "het doen was toen de fout zich voordeed.\n"
+
+#~ msgid "report problem to the issue tracker"
+#~ msgstr "probleem melden aan de issue tracker"
+
+#~ msgid "Enhancements"
+#~ msgstr "Verbeteringen"
+
+#~ msgid ""
+#~ "\n"
+#~ "The issue tracker can also be used to document enhancements to the "
+#~ "software.\n"
+#~ "If you have some suggestions or think a feature is missing, feel\n"
+#~ "free to open a ticket. This can be anything from a slight change to a "
+#~ "whole\n"
+#~ "new section of the site. Please keep in mind that not all wishes can be\n"
+#~ "implemented."
+#~ msgstr ""
+#~ "\n"
+#~ "De issue tracker kan ook gebruikt worden om verbeteren aan de software "
+#~ "in\n"
+#~ "kaart te brengen. Als je suggesties hebt of vindt dat een functie "
+#~ "ontbreekt kan je\n"
+#~ "altijd een ticket openen. Dit kan over alles gaan, van de kleinste "
+#~ "verandering tot\n"
+#~ "een gans nieuwe sectie op de site. Houd in gedachte dat niet alle wensen "
+#~ "kunnen\n"
+#~ "worden geïmplementeerd."
+
+#~ msgid "report wish to the issue tracker"
+#~ msgstr "wens rapporteren aan de issue tracker"
+
+#~ msgid "No Github account?"
+#~ msgstr "Geen Github account?"
+
+#~ msgid ""
+#~ "Filing an issue requires a github account, if you don't\n"
+#~ "have one and don't want to register, you can also send it to\n"
+#~ "<a href=\"https://groups.google.com/group/wger\">the mailing list</a>."
+#~ msgstr ""
+#~ "Een issue indienen vereist een github-account. Als je er geen hebt en\n"
+#~ "niet wil registereren, kan je het ook insturen naar de <a href=\"https://"
+#~ "groups.google.com/group/wger\">mailinglijst</a>."
+
+#~ msgid ""
+#~ "wger Workout Manager is Free/Libre Open Source\n"
+#~ "Software (FLOSS)."
+#~ msgstr ""
+#~ "wger Workout Manager is Free/Libre Open Source\n"
+#~ "Software (FLOSS)."
+
+#~ msgid ""
+#~ "wger Workout Manager is released under the <strong>Affero GNU\n"
+#~ "General Public License (AGPL)  Version 3+</strong> and can (under the "
+#~ "conditions\n"
+#~ "of the license) be used, modified and distributed (also with "
+#~ "modifications)\n"
+#~ "without restrictions."
+#~ msgstr ""
+#~ "wger Workout Manager wordt uitgebracht onder de <strong>Affero GNU\n"
+#~ "General Public License (AGPL)  Version 3+</strong> licentie en kan (onder "
+#~ "de \n"
+#~ "voorwaarden van de licentie) worden gebruikt, aangepast en verspreid \n"
+#~ "(ook met aanpassingen) zonder restricties."
 
 #~ msgid "Use pauses in workout timer"
 #~ msgstr "Gebruik pauzes in workout-timer"
