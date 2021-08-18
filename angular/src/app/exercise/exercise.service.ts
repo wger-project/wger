@@ -59,14 +59,11 @@ export class ExerciseService {
 
 
   async loadExercises(): Promise<Exercise[]> {
-    const data = await this.http.get<any>(this.exerciseInfoUrl, {params: {limit: 10}}).toPromise();
+    const data = await this.http.get<any>(this.exerciseInfoUrl, {params: {limit: 50}}).toPromise();
 
-    //console.log(data.results);
+    this.exercises = [];
 
     for (const exerciseData of data.results) {
-
-
-      //console.log(exerciseData);
 
       // Exercise itself
       const exercise = this.exerciseAdapter.fromJson(exerciseData);

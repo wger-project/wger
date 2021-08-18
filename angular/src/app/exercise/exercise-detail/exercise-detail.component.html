@@ -1,6 +1,8 @@
-
-<li class="list-group-item">
-  <b>{{ exercise.name }}</b> {{ exercise.category.name }}
-</li>
-
-
+<div class="card h-100">
+  <img src="https://www.edeka.de/media/01-rezeptbilder/rezeptbilder-i-p/rez-edeka-pizza-funghi-rezept-i-p-1-1.jpg" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{ exercise.name }}</h5>
+    <p class="card-text" *ngFor="let equipmentEntry of exercise.equipment">{{equipmentEntry.name}}</p>
+    <!--<p class="card-text" *ngFor="let image of exercise.images">{{image.url}}</p>-->
+  </div>
+</div>

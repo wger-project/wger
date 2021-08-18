@@ -1,7 +1,51 @@
-<p>exercise-list works!</p>
+<div class="row">
+  <div class="col-3">
+    <h1 i18n>Exercises</h1>
+  </div>
+  <div class="col-9">
 
-<ul *ngFor="let exercise of exercises"
-    class="list-group">
-    <app-exercise-detail [exercise]="exercise"></app-exercise-detail>
-    <app-exercise-edit [exercise]="exercise"></app-exercise-edit>
-</ul>
+    <form class="d-flex">
+      <input type="text" class="form-control" placeholder="Search">
+      <button type="submit" class="btn btn-primary ml-2">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-3">
+    <h5 i18n>Categories</h5>
+    <ul class="list-group">
+      <li *ngFor="let category of categories" class="list-group-item"> {{category.name}}</li>
+    </ul>
+
+    <h5 class="mt-3" i18n>Equipment</h5>
+    <ul class="list-group">
+      <li *ngFor="let equipment of equipment" class="list-group-item"> {{equipment.name}}</li>
+    </ul>
+
+  </div>
+  <div class="col-9">
+    <div class="row row-cols-3 row-cols-md-3">
+      <div *ngFor="let exercise of exercises | slice: (page-1) * pageSize : page * pageSize" class="col mt-4">
+        <app-exercise-detail [exercise]="exercise"></app-exercise-detail>
+      </div>
+    </div>
+
+    <div class="row ">
+      <div class="col-12">
+        <ngb-pagination
+          [(page)]="page"
+          [boundaryLinks]="true"
+          [collectionSize]="exercises.length"
+          [ellipses]="true"
+          [maxSize]="maxPageShown"
+          [pageSize]="pageSize"
+          class="d-flex justify-content-center mt-2"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
