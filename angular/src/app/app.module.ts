@@ -36,10 +36,12 @@ import {WeightDetailComponent} from './weight/weight-detail/weight-detail.compon
 import {WeightEditComponent} from './weight/weight-edit/weight-edit.component';
 import {WeightListComponent} from './weight/weight-list/weight-list.component';
 import {WeightService} from './weight/weight.service';
+import { ExercisePreviewComponent } from './exercise/exercise-preview/exercise-preview.component';
 
 const appRoutes: Routes = [
   {path: '', component: WeightListComponent},
   {path: ':lang/dashboard', component: WeightChartComponent},
+  {path: ':lang/exercise/overview', component: ExerciseListComponent},
   {path: ':lang/weight/overview', component: WeightListComponent},
 ];
 
@@ -54,6 +56,7 @@ const appRoutes: Routes = [
     WeightDetailComponent,
     WeightEditComponent,
     WeightListComponent,
+    ExercisePreviewComponent,
   ],
   imports: [
     BrowserAnimationsModule,

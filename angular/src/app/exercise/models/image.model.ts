@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Adapter} from '../../core/adapter';
-import {Muscle} from './muscle.model';
 
 export class ExerciseImage{
 
