@@ -41,10 +41,7 @@ class RobotsExclusionMiddlewareTestCase(WgerTestCase):
         response = self.client.get(reverse('core:feedback'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('core:about'))
-        self.assertFalse(response.get('X-Robots-Tag'))
-
-        response = self.client.get(reverse('core:contact'))
+        response = self.client.get(reverse('core:imprint'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_software(self):
@@ -52,8 +49,8 @@ class RobotsExclusionMiddlewareTestCase(WgerTestCase):
         Test the middleware on URLs from software app
         """
 
-        for i in ('features', 'issues', 'license', 'code', 'contribute'):
-            response = self.client.get(reverse('software:{0}'.format(i)))
+        for i in ('features', 'tos', 'about-us'):
+            response = self.client.get(reverse(f'software:{i}'))
             self.assertFalse(response.get('X-Robots-Tag'))
 
     def test_middleware_nutrition(self):

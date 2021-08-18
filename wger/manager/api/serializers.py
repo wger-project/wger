@@ -43,7 +43,27 @@ class WorkoutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Workout
-        exclude = ('user', )
+        fields = ('id', 'name', 'creation_date', 'description')
+
+
+class WorkoutTemplateSerializer(serializers.ModelSerializer):
+    """
+    Workout template serializer
+    """
+
+    class Meta:
+        model = Workout
+        fields = ('id', 'name', 'creation_date', 'description', 'is_public')
+
+
+class WorkoutAndTemplateSerializer(serializers.ModelSerializer):
+    """
+    Workout or template serializer
+    """
+
+    class Meta:
+        model = Workout
+        fields = ('id', 'name', 'creation_date', 'description', 'is_template', 'is_public')
 
 
 class WorkoutSessionSerializer(serializers.ModelSerializer):
@@ -106,7 +126,7 @@ class SetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Set
-        fields = ['id', 'exerciseday', 'sets', 'order']
+        fields = ['id', 'exerciseday', 'sets', 'order', 'comment']
 
 
 class SettingSerializer(serializers.ModelSerializer):

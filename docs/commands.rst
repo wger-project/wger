@@ -24,6 +24,7 @@ arguments::
     create-or-reset-admin   Creates an admin user or resets the password for an existing one
     create-settings         Creates a local settings file
     load-fixtures           Loads all fixtures
+    load-online-fixtures    Downloads fixtures from server and installs them (at the moment only ingredients)
     migrate-db              Run all database migrations
     start                   Start the application using django's built-in webserver
 
@@ -186,12 +187,12 @@ Usage::
 
 
 
-Load all fixtures
-~~~~~~~~~~~~~~~~~
+Load fixtures
+~~~~~~~~~~~~~
 
 Command: **load-fixtures**
 
-Loads all fixture file with the default data. This data includes all data necessary
+Loads all fixture files with the default data. This data includes all data necessary
 for the application to work such as:
 
 * exercises, muscles, equipment
@@ -199,6 +200,9 @@ for the application to work such as:
 * languages
 * permission groups
 * etc.
+
+Note that ingredients are not included and need to be installed separately with
+download-online-fixtures.
 
 This command is called internally when installing the application but you can use
 it to reset the data to the original state. Note: new entries or user entries such
@@ -215,7 +219,27 @@ Usage::
       -s STRING, --settings-path=STRING   Path to settings file (absolute path recommended). Leave empty for default
 
 
+Load online fixtures
+~~~~~~~~~~~~~~~~~~~~
 
+Command: **load-online-fixtures**
+
+Downloads ingredient and weight units fixtures and installs them. They are not
+included in the repository due to size.
+
+This command is called internally when installing the application but you can use
+it to reset the data to the original state. Note: new entries or user entries such
+as workouts are *not* reset with this, only the application data.
+
+Usage::
+
+    Usage: inv[oke] [--core-opts] load-online-fixtures [--options] [other tasks here ...]
+
+    Docstring:
+      Downloads fixtures from server and installs them (at the moment only ingredients)
+
+    Options:
+      -s STRING, --settings-path=STRING   Path to settings file (absolute path). Leave empty for default
 
 
 Management commands

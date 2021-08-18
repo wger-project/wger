@@ -60,9 +60,9 @@ $(document).ready(function () {
     <p>{{ workout.description }}</p>
 {% endif %}
 
-{% for day in workout.canonical_representation.day_list %}
-    <div id="div-day-{{ day.obj.id }}">
-        {% render_day day.obj is_owner %}
+{% for day in workout.day_set.all %}
+    <div id="div-day-{{ day.id }}">
+        {% render_day day is_owner %}
     </div>
 {% endfor %}
 
@@ -102,10 +102,10 @@ $(document).ready(function () {
 
 <div class="row">
     <div class="col-6">
-        {% render_muscles muscles.front muscles.frontsecondary %}
+        {% render_muscles workout.muscles.front workout.muscles.front_secondary %}
     </div>
     <div class="col-6">
-        {% render_muscles muscles.back muscles.backsecondary %}
+        {% render_muscles workout.muscles.back workout.muscles.back_secondary %}
     </div>
 </div>
 
@@ -220,9 +220,9 @@ an appointment for each training day with the appropriate exercises.{% endblockt
                <span class="{% fa_class 'calendar' %}"></span>
                {% translate "Export calendar file" %}
             </a>
-            <a href="{% url 'manager:workout:copy' workout.id %}" class="dropdown-item wger-modal-dialog">
+            <a href="{% url 'manager:workout:make-template' workout.id %}" class="dropdown-item wger-modal-dialog">
                <span class="{% fa_class 'clone' %}"></span>
-               {% translate "Make a copy of this workout" %}
+               {% translate "Mark as template" %}
             </a>
             {% if is_owner %}
                 <div class="dropdown-divider"></div>

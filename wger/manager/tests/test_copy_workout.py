@@ -29,20 +29,17 @@ logger = logging.getLogger(__name__)
 
 class CopyWorkoutTestCase(WgerTestCase):
     """
-    Tests copying a workout
+    Tests copying a workout or template
     """
 
-    def copy_workout(self, owner=False):
+    def copy_workout(self):
         """
         Helper function to test copying workouts
         """
 
         # Open the copy workout form
         response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
-        if not owner:
-            self.assertEqual(response.status_code, 404)
-        else:
-            self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         # Copy the workout
         count_before = Workout.objects.count()
@@ -52,47 +49,54 @@ class CopyWorkoutTestCase(WgerTestCase):
         )
         count_after = Workout.objects.count()
 
-        if not owner:
-            self.assertEqual(count_before, count_after)
-        else:
-            self.assertGreater(count_after, count_before)
-            self.assertEqual(count_after, 4)
-            self.assertTemplateUsed('workout/view.html')
+        self.assertGreater(count_after, count_before)
+        self.assertEqual(count_after, 4)
+        self.assertTemplateUsed('workout/view.html')
 
         # Test accessing the copied workout
         response = self.client.get(reverse('manager:workout:view', kwargs={'pk': 4}))
+        self.assertEqual(response.status_code, 200)
 
-        if not owner:
-            self.assertEqual(response.status_code, 404)
-        else:
-            self.assertEqual(response.status_code, 200)
+        workout_original = Workout.objects.get(pk=3)
+        workout_copy = Workout.objects.get(pk=4)
 
-            workout_original = Workout.objects.get(pk=3)
-            workout_copy = Workout.objects.get(pk=4)
+        days_original = workout_original.day_set.all()
+        days_copy = workout_copy.day_set.all()
 
-            days_original = workout_original.day_set.all()
-            days_copy = workout_copy.day_set.all()
+        # Test that the different attributes and objects are correctly copied over
+        for i in range(0, workout_original.day_set.count()):
+            self.assertEqual(days_original[i].description, days_copy[i].description)
 
-            # Test that the different attributes and objects are correctly copied over
-            for i in range(0, workout_original.day_set.count()):
-                self.assertEqual(days_original[i].description, days_copy[i].description)
+            for j in range(0, days_original[i].day.count()):
+                self.assertEqual(days_original[i].day.all()[j], days_copy[i].day.all()[j])
 
-                for j in range(0, days_original[i].day.count()):
-                    self.assertEqual(days_original[i].day.all()[j], days_copy[i].day.all()[j])
+            sets_original = days_original[i].set_set.all()
+            sets_copy = days_copy[i].set_set.all()
 
-                sets_original = days_original[i].set_set.all()
-                sets_copy = days_copy[i].set_set.all()
+            for j in range(days_original[i].set_set.count()):
 
-                for j in range(days_original[i].set_set.count()):
+                self.assertEqual(sets_original[j].sets, sets_copy[j].sets)
+                self.assertEqual(sets_original[j].order, sets_copy[j].order)
+                self.assertEqual(sets_original[j].comment, sets_copy[j].comment)
 
-                    self.assertEqual(sets_original[j].sets, sets_copy[j].sets)
-                    self.assertEqual(sets_original[j].order, sets_copy[j].order)
+                exercises_original = sets_original[j].exercises
+                exercises_copy = sets_copy[j].exercises
 
-                    exercises_original = sets_original[j].exercises
-                    exercises_copy = sets_copy[j].exercises
+                for k in range(len(sets_original[j].exercises)):
+                    self.assertEqual(exercises_original[k], exercises_copy[k])
 
-                    for k in range(len(sets_original[j].exercises)):
-                        self.assertEqual(exercises_original[k], exercises_copy[k])
+                settings_original = sets_original[j].setting_set.all()
+                settings_copy = sets_copy[j].setting_set.all()
+
+                for l in range(settings_original.count()):
+                    setting_copy = settings_copy[l]
+                    setting_orig = settings_original[l]
+
+                    self.assertEqual(setting_orig.repetition_unit, setting_copy.repetition_unit)
+                    self.assertEqual(setting_orig.weight_unit, setting_copy.weight_unit)
+                    self.assertEqual(setting_orig.reps, setting_copy.reps)
+                    self.assertEqual(setting_orig.weight, setting_copy.weight)
+                    self.assertEqual(setting_orig.rir, setting_copy.rir)
 
     def test_copy_workout_owner(self):
         """
@@ -100,27 +104,56 @@ class CopyWorkoutTestCase(WgerTestCase):
         """
 
         self.user_login('test')
-        self.copy_workout(owner=True)
+        self.copy_workout()
 
-    def test_copy_shared_not_allowed(self):
+    def test_copy_workout(self):
         """
-        Test copying a workout from another shared user where user does not share workouts
+        Test copying a workout (not template)
         """
-        profile = UserProfile.objects.get(user__username='test')
-        profile.ro_access = False
-        profile.save()
+        self.user_login('test')
+        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_copy_workout_other(self):
+        """
+        Test copying a workout (not template) from another user
+        """
+        self.user_login('admin')
+        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        self.assertEqual(response.status_code, 403)
+
+    def test_copy_template_no_public_other_user(self):
+        """
+        Test copying a workout template that is not marked as public and belongs to another user
+        """
+        workout = Workout.objects.get(pk=3)
+        workout.is_template = True
+        workout.save()
 
         self.user_login('admin')
         response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 403)
 
-    def test_copy_shared_allowed(self):
+    def test_copy_template_no_public_owner_user(self):
         """
-        Test copying a workout from another shared user where user does share workouts
+        Test copying a workout template that is not marked as public and belongs to the current user
         """
-        profile = UserProfile.objects.get(user__username='test')
-        profile.ro_access = True
-        profile.save()
+        workout = Workout.objects.get(pk=3)
+        workout.is_template = True
+        workout.save()
+
+        self.user_login('test')
+        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_copy_template_public_other_user(self):
+        """
+        Test copying a workout template that is marked as public and belongs to another user
+        """
+        workout = Workout.objects.get(pk=3)
+        workout.is_template = True
+        workout.is_public = True
+        workout.save()
 
         self.user_login('admin')
         response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))

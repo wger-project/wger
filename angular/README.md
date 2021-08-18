@@ -10,20 +10,31 @@ the compiled javascript is in `core/static/angular`.
 
 Compile angular code, in wger root folder:
 
-```bash
+```shell
 yarn build:angular
 ```
 
 or in this folder:
 
+```shell
+ng build --configuration production \
+  --output-path ../wger/core/static/angular \
+  --output-hashing none \
+  --localize
 ```
-ng build --configuration production --output-path ../wger/core/static/angular --watch --output-hashing none
+
+## i18n
+
+```shell
+ng extract-i18n --output-path src/locale/
 ```
+
 
 ## Updating angular
 
 Update angular to a new version with
 
-```bash
+```shell
 ng update @angular/core @angular/cli
 ```
+

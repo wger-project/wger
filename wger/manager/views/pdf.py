@@ -106,7 +106,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
         elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
-    for day in workout.canonical_representation['day_list']:
+    for day in workout.day_set.all():
         elements.append(render_workout_day(day, images=images, comments=comments))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 
@@ -179,7 +179,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     elements.append(Spacer(10 * cm, 1.5 * cm))
 
     # Iterate through the Workout and render the training days
-    for day in workout.canonical_representation['day_list']:
+    for day in workout.day_set.all():
         elements.append(render_workout_day(day, images=images, comments=comments, only_table=True))
         elements.append(Spacer(10 * cm, 0.5 * cm))
 

@@ -2,11 +2,11 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {WgerApiResponse} from '../core/wger-response.model';
-import {Category, CategoryAdapter} from './models/category.model';
-import {Equipment, EquipmentAdapter} from './models/equipment.model';
-import {Exercise, ExerciseAdapter} from './models/exercise.model';
-import {ExerciseImageAdapter} from './models/image.model';
-import {Muscle, MuscleAdapter} from './models/muscle.model';
+import {Category, CategoryAdapter} from './models/exercises/category.model';
+import {Equipment, EquipmentAdapter} from './models/exercises/equipment.model';
+import {Exercise, ExerciseAdapter} from './models/exercises/exercise.model';
+import {ExerciseImageAdapter} from './models/exercises/image.model';
+import {Muscle, MuscleAdapter} from './models/exercises/muscle.model';
 
 
 @Injectable({

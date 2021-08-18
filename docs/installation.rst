@@ -13,7 +13,7 @@ slightly different) you will need to change the steps as appropriate.
 
 The application is compatible and regularly tested with
 
-* sqlite, postgres
+* postgres
 * python 3.6, 3.7, 3.8, 3.9 and pypy3
 
 After installation you might also want to take a look at the :ref:`other-changes` section for other
@@ -29,6 +29,7 @@ contact page.
 These are the necessary packages for both development and production::
 
     sudo apt-get install nodejs npm git python3-dev python3-venv
+    sudo npm install -g yarn sass
 
 
 .. toctree::

@@ -1,4 +1,6 @@
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ExerciseService} from '../exercise.service';
 
 import { ExerciseListComponent } from './exercise-list.component';
 
@@ -8,7 +10,9 @@ describe('ExerciseListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExerciseListComponent ]
+      declarations: [ ExerciseListComponent ],
+      imports: [HttpClientTestingModule],
+      providers: [ExerciseService]
     })
     .compileComponents();
   });

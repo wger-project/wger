@@ -321,6 +321,4 @@ class PreferencesCalculationsTestCase(WgerTestCase):
 #             'workout_reminder_active': True,
 #             'workout_reminder': 22,
 #             'workout_duration': 10,
-#             'notification_language': 2,
-#             'timer_active': True,
-#             'timer_pause': 40}
+#             'notification_language': 2}

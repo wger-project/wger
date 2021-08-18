@@ -62,4 +62,22 @@ class ScheduleManager(models.Manager):
             except ObjectDoesNotExist:
                 active_workout = False
 
-        return (active_workout, schedule)
+        return active_workout, schedule
+
+
+class WorkoutManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_template=False)
+
+
+class WorkoutTemplateManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_template=True)
+
+
+class WorkoutAndTemplateManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset()

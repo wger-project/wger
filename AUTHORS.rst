@@ -59,6 +59,7 @@ Developers
 * Kristopher Newsome - https://github.com/sysadmin75
 * Emma Muth - https://github.com/emmaamuth
 * Sophia Reed - https://github.com/sophialr
+* Leninux - https://github.com/RedRudeBoy
 
 Translators
 -----------
