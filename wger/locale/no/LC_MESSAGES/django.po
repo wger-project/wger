@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"PO-Revision-Date: 2021-08-20 23:35+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/wger/"
 "web/nb_NO/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -846,7 +846,7 @@ msgstr "Kalender"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galleri"
 
 #: core/templates/navigation.html:48
 #, fuzzy
@@ -862,7 +862,7 @@ msgstr "Dine timeplaner"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Offentlige maler"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
@@ -1919,10 +1919,8 @@ msgid "Delete exercise image?"
 msgstr "Slett bilde for øvelsen?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Legg til nytt bilde"
+msgstr "Legg til bilde"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2367,10 +2365,8 @@ msgid "Kilometers"
 msgstr "Kilometer"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Repetisjoner"
+msgstr "Maks. repetisjoner"
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2446,10 +2442,8 @@ msgid "Correction"
 msgstr "Korreksjon"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Lag en kopi av denne treningsøkten"
+msgstr "Navnet på treningsøkten"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2611,28 +2605,28 @@ msgstr "Opprettelsesdato"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Treningsøkt fullført!"
+msgstr "Treningsøktmal"
 
 #: manager/models/workout.py:74
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Markering av treningsøkt som mal fryser den og tillater deg å lage kopier av "
+"den"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Offentlig mal"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "En offentlig mal er tilgjengelig for andre brukere"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
+msgstr "Du må markere denne treningsøkten som en mal før den offentliggjøres"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2958,16 +2952,12 @@ msgstr ""
 "blir ignorert her."
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No schedules found."
 msgid "No templates found."
-msgstr "Ingen timeplaner funnet."
+msgstr "Fant ingen maler."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
-msgstr "Lag en kopi av denne treningsøkten"
+msgstr "Marker som treningsøkt"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
@@ -2981,10 +2971,8 @@ msgid ""
 msgstr "Bildene viser kombinerte muskler som trenes av øvelsene på trening."
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
-msgstr "Del denne siden"
+msgstr "Bruk denne malen"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
@@ -3024,7 +3012,7 @@ msgstr "Endre treningsøkt"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Marker som mal"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3656,10 +3644,12 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Takk for at du bruker wger. wger er et fritt samarbeidsprosjekt, laget av "
+"treningsentusiaster fra hele verden."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Kildekode"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
@@ -3667,7 +3657,7 @@ msgstr ""
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Har du et problem eller en idé?"
 
 #: software/templates/about_us.html:27
 msgid ""
@@ -3677,17 +3667,15 @@ msgstr ""
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Si hei."
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
 
 #: software/templates/about_us.html:39
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Oversett"
+msgstr "Oversettelse"
 
 #: software/templates/about_us.html:41
 msgid ""
