@@ -28,7 +28,7 @@
   <div class="col-9">
     <div class="row row-cols-3 row-cols-md-3">
       <div *ngFor="let exercise of exercises | slice: (page-1) * pageSize : page * pageSize" class="col mt-4">
-        <app-exercise-detail [exercise]="exercise"></app-exercise-detail>
+        <app-exercise-preview [exercise]="exercise"></app-exercise-preview>
       </div>
     </div>
 
