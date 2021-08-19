@@ -1,1 +1,66 @@
-detail view
+<div class="row">
+  <div class="col-12">
+    <h1 i18n>{{ exercise.name }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <span class="badge bg-success">{{ exercise.category.name }}</span>
+
+  </div>
+  <div class="col-6">
+    edit link
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-9">
+    <h5 i18n>Starting position</h5>
+    <p>...</p>
+
+    <h5 i18n>Steps</h5>
+    <p [innerHTML]="exercise.description"></p>
+
+    <h5 i18n>Comments</h5>
+    <ul>
+      <li *ngFor="let comment of exercise.comments">{{ comment.comment }}</li>
+    </ul>
+
+
+    <h5 class="mt-3" i18n>Muscles</h5>
+    <div class="row">
+      <div class="col-5">
+        <img class="img-fluid"
+             src="https://www.edeka.de/media/01-rezeptbilder/rezeptbilder-i-p/rez-edeka-pizza-funghi-rezept-i-p-1-1.jpg"
+             alt="">
+      </div>
+      <div class="col-7">
+        <p>Primary muscles</p>
+        <ul>
+          <li *ngFor="let muscle of exercise.muscles">{{ muscle.name }}</li>
+        </ul>
+
+        <p>Secondary muscles</p>
+        <ul>
+          <li *ngFor="let muscle of exercise.musclesSecondary">{{ muscle.name }}</li>
+        </ul>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="col-3">
+    <img
+      *ngFor="let image of exercise.images"
+      src="{{ image.url }}"
+      class="img-fluid"
+      alt="...">
+  </div>
+</div>
+
+<hr>
+
+<h5 i18n>Variants</h5>

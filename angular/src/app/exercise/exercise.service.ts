@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {WgerApiResponse} from '../core/wger-response.model';
 import {Category, CategoryAdapter} from './models/exercises/category.model';
+import {CommentAdapter} from './models/exercises/comment.model';
 import {Equipment, EquipmentAdapter} from './models/exercises/equipment.model';
 import {Exercise, ExerciseAdapter} from './models/exercises/exercise.model';
 import {ExerciseImageAdapter} from './models/exercises/image.model';
@@ -30,6 +31,7 @@ export class ExerciseService {
               private muscleAdapter: MuscleAdapter,
               private equipmentAdapter: EquipmentAdapter,
               private exerciseImageAdapter: ExerciseImageAdapter,
+              private commentAdapter: CommentAdapter,
               ) {
     this.loadBaseData();
   }
@@ -57,14 +59,7 @@ export class ExerciseService {
     });
   }
 
-
-  async loadExercises(): Promise<Exercise[]> {
-    const data = await this.http.get<any>(this.exerciseInfoUrl, {params: {limit: 50}}).toPromise();
-
-    this.exercises = [];
-
-    for (const exerciseData of data.results) {
-
+  loadExerciseFromData(exerciseData: any): Exercise  {
       // Exercise itself
       const exercise = this.exerciseAdapter.fromJson(exerciseData);
 
@@ -73,27 +68,49 @@ export class ExerciseService {
 
       // Muscles
       for (const muscleData of exerciseData.muscles) {
-        exercise.muscles.push(this.muscleAdapter.fromJson(muscleData));
-        //exercise.addMuscle(this.muscleAdapter.fromJson(muscleData));
-      }
-      for (const muscleData of exerciseData.muscles_secondary) {
-        exercise.musclesSecondary.push(this.muscleAdapter.fromJson(muscleData));
-        //exercise.addMuscleSecondary(this.muscleAdapter.fromJson(muscleData));
-      }
+      exercise.muscles.push(this.muscleAdapter.fromJson(muscleData));
+      //exercise.addMuscle(this.muscleAdapter.fromJson(muscleData));
+    }
+    for (const muscleData of exerciseData.muscles_secondary) {
+      exercise.musclesSecondary.push(this.muscleAdapter.fromJson(muscleData));
+      //exercise.addMuscleSecondary(this.muscleAdapter.fromJson(muscleData));
+    }
 
-      // Equipment
-      for (const equipmentData of exerciseData.equipment) {
-        exercise.equipment.push(this.equipmentAdapter.fromJson(equipmentData));
-        //exercise.addEquipment(this.equipmentAdapter.fromJson(equipmentData));
-      }
+    // Equipment
+    for (const equipmentData of exerciseData.equipment) {
+      exercise.equipment.push(this.equipmentAdapter.fromJson(equipmentData));
+      //exercise.addEquipment(this.equipmentAdapter.fromJson(equipmentData));
+    }
 
-      // Images
-      for (const imageData of exerciseData.images) {
-        exercise.images.push(this.exerciseImageAdapter.fromJson(imageData));
-      }
+    // Images
+    for (const imageData of exerciseData.images) {
+      exercise.images.push(this.exerciseImageAdapter.fromJson(imageData));
+    }
 
-      // console.log(exercise);
-      this.exercises.push(exercise);
+    // Comments
+    for (const commentData of exerciseData.comments) {
+      exercise.comments.push(this.commentAdapter.fromJson(commentData));
+    }
+
+    return  exercise;
+}
+
+
+  /*
+   * Loads an exercise from the server by it's ID
+   */
+  async loadExerciseById(id: number): Promise<Exercise> {
+    const data = await this.http.get<any>(this.exerciseInfoUrl + '/' + id).toPromise();
+    return  this.loadExerciseFromData(data);
+  }
+
+  async loadExercises(): Promise<Exercise[]> {
+    const data = await this.http.get<any>(this.exerciseInfoUrl, {params: {limit: 50}}).toPromise();
+
+    this.exercises = [];
+
+    for (const exerciseData of data.results) {
+      this.exercises.push(this.loadExerciseFromData(exerciseData));
     }
 
     return this.exercises;

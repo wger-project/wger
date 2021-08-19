@@ -41,7 +41,13 @@ import { ExercisePreviewComponent } from './exercise/exercise-preview/exercise-p
 const appRoutes: Routes = [
   {path: '', component: WeightListComponent},
   {path: ':lang/dashboard', component: WeightChartComponent},
+
+  // Exercises
   {path: ':lang/exercise/overview', component: ExerciseListComponent},
+  {path: ':lang/exercise/:id/view', component: ExerciseDetailComponent},
+  {path: ':lang/exercise/:id/view/:slug', component: ExerciseDetailComponent},
+  
+  //  Weight
   {path: ':lang/weight/overview', component: WeightListComponent},
 ];
 

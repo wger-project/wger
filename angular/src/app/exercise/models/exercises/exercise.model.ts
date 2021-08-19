@@ -19,6 +19,7 @@
 import {Injectable} from '@angular/core';
 import {Adapter} from '../../../core/adapter';
 import {Category} from './category.model';
+import {Comment} from './comment.model';
 import {Equipment} from './equipment.model';
 import {ExerciseImage} from './image.model';
 import {Muscle} from './muscle.model';
@@ -33,6 +34,7 @@ export class Exercise {
   equipment: Equipment[] = [];
   equipmentIds: number[] = [];
   images: ExerciseImage[] = [];
+  comments: Comment[] = [];
   license: number;
   licenseAuthor: string;
   variations: number[];
