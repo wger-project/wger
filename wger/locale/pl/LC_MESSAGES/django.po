@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-06-03 21:32+0000\n"
-"Last-Translator: Henio Szewczyk <henryk.szewczyk09@gmail.com>\n"
+"PO-Revision-Date: 2021-08-20 23:35+0000\n"
+"Last-Translator: Jacob <dev.zomerfeld@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -260,7 +260,7 @@ msgstr "Używany do resetowania hasła i przypomnień."
 
 #: core/forms.py:102
 msgid "Personal data"
-msgstr ""
+msgstr "Dane personalne"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -302,7 +302,7 @@ msgstr "Hasło nieprawidłowe"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Formularz jest chroniony przez reCaptcha"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
@@ -361,7 +361,7 @@ msgstr "Link do treści licencji lub innych informacji"
 #: core/models/profile.py:52
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s jest niepoprawną datą urodzenia"
 
 #: core/models/profile.py:61
 msgid "Male"
@@ -580,7 +580,7 @@ msgstr "Żadana strona nie została odnaleziona."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Wystąpił błąd"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -594,6 +594,10 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Korzystasz ze strony jako \n"
+"\"%(current_user)s\", wszystkie zmiany, \n"
+"dokonywane są na jego danych.\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -636,13 +640,16 @@ msgstr "Zamknij"
 
 #: core/templates/index.html:54 core/templates/index.html:203
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Dodaj nowy wpis dziennika"
 
 #: core/templates/index.html:59
+#, fuzzy
 msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
 msgstr ""
+"Kliknij, aby dodać nowy wpis diety. Możesz dodać posiłek, który zdefinowano "
+"wcześniej lub dodać tak wiele pozycji, jak chcesz."
 
 #: core/templates/index.html:67 core/templates/index.html:171
 #: core/templates/user/overview.html:171
@@ -663,7 +670,7 @@ msgstr "kilokalorii"
 
 #: core/templates/index.html:79 nutrition/templates/plan/view.html:348
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Dodaj niestandardowy wpis"
 
 #: core/templates/index.html:94 core/templates/index.html:102
 #: manager/models/day.py:34 manager/models/log.py:56
@@ -827,7 +834,7 @@ msgstr ""
 
 #: core/templates/navigation.html:22
 msgid "Training"
-msgstr ""
+msgstr "Trening"
 
 #: core/templates/navigation.html:28 core/templates/user/overview.html:25
 #: software/templates/features.html:72
@@ -847,7 +854,7 @@ msgstr "Kalendarz"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galeria"
 
 #: core/templates/navigation.html:48
 #, fuzzy
@@ -863,22 +870,22 @@ msgstr "Twoje harmonogramy"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Publiczne szablony"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "po kategorii"
 
 #: core/templates/navigation.html:65
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "po parti mięśni"
 
 #: core/templates/navigation.html:66
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "po ekwipunku"
 
 #: core/templates/navigation.html:70
 #: exercises/templates/equipment/overview.html:109
@@ -916,7 +923,7 @@ msgstr "Kategorie"
 
 #: core/templates/navigation.html:94
 msgid "Body weight"
-msgstr ""
+msgstr "Waga ciała"
 
 #: core/templates/navigation.html:96 core/templates/user/overview.html:114
 #: weight/templates/overview.html:7
@@ -1090,7 +1097,7 @@ msgstr "następne"
 
 #: core/templates/tags/render_day.html:34
 msgid "Add weight log"
-msgstr ""
+msgstr "Dodaj wpis dot. wagi"
 
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
@@ -1119,8 +1126,9 @@ msgstr "Powtórzenia"
 #: core/templates/tags/render_weight_log.html:30 manager/forms.py:178
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
+#, fuzzy
 msgid "RiR"
-msgstr ""
+msgstr "RiR"
 
 #: core/templates/template.html:140
 msgid ""
@@ -1407,6 +1415,8 @@ msgstr "Uwzględnij w podglądzie nieaktywnych"
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr ""
+"Logowanie jako administrator dostępne jest tylko dla użytkowników w "
+"%(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1568,7 +1578,7 @@ msgstr "Mięśnie pomocnicze"
 
 #: exercises/models/base.py:79
 msgid "Variations"
-msgstr ""
+msgstr "Możliwości"
 
 #: exercises/models/category.py:37
 msgid "Exercise Categories"
@@ -1816,7 +1826,7 @@ msgstr "Odrzuć"
 
 #: exercises/templates/exercise/view.html:96
 msgid "Images"
-msgstr ""
+msgstr "Obrazy"
 
 #: exercises/templates/exercise/view.html:137 exercises/views/images.py:93
 msgid "Add new image"
@@ -1845,7 +1855,7 @@ msgstr "Wartości ciężarów"
 
 #: exercises/templates/exercise/view.html:256
 msgid "Exercise Variations"
-msgstr ""
+msgstr "Opcje treningów"
 
 #: exercises/templates/exercise/view.html:277
 msgid "Submit a correction"
@@ -1887,6 +1897,8 @@ msgstr "Usunąć sprzęt?"
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
+"nazwa %(name_original)s jest podobna do już istniejącego ćwiczenia o nazwie "
+"\"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:246
 msgid "Add exercise"
@@ -2056,11 +2068,11 @@ msgstr ""
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "Pokaż imię w nagłówku"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Pokaż nazwę sali treningowej w nagłówku strony"
 
 #: gym/models/gym_config.py:68
 msgid "Configuration for {}"
@@ -2171,7 +2183,7 @@ msgstr "Dodaj członka"
 
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Data urodzenia"
 
 #: gym/templates/gym/new_user.html:48 manager/templates/calendar/month.html:144
 #: manager/templates/log/add.html:75 nutrition/templates/rate/form.html:120
@@ -2405,7 +2417,7 @@ msgstr "Treść"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Pokaż podgląd"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2436,7 +2448,7 @@ msgstr "Aktualna wersja"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Wyślij e-maile"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2621,18 +2633,19 @@ msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Oznaczenie treningu jako szablon, zablokuje go i umożliwi jego kopiowanie"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Publiczny szablon"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Publiczny szablon dostępny jest dla innych użytkowników"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
+msgstr "Musisz oznaczyć trening jako szablon, żeby go upublicznić"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2870,7 +2883,7 @@ msgstr "Edytuj serię"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "Aktualizuj"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
@@ -3021,11 +3034,11 @@ msgstr "Eksportuj trening jako plik kalendarza."
 
 #: manager/templates/workout/view.html:188
 msgid "Logs"
-msgstr ""
+msgstr "Wpisy"
 
 #: manager/templates/workout/view.html:190
 msgid "View logs"
-msgstr ""
+msgstr "Pokaż wpisy"
 
 #: manager/templates/workout/view.html:212 manager/views/schedule_step.py:99
 msgid "Edit workout"
@@ -3033,7 +3046,7 @@ msgstr "Edytuj trening"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Oznacz jako szablon"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3157,11 +3170,11 @@ msgstr "Sód"
 
 #: nutrition/models/ingredient.py:183
 msgid "Link to product"
-msgstr ""
+msgstr "Podlinkuj produkt"
 
 #: nutrition/models/ingredient.py:212
 msgid "Brand name of product"
-msgstr ""
+msgstr "Nazwa marki produktu"
 
 #: nutrition/models/ingredient.py:272
 #, python-brace-format
@@ -3186,7 +3199,7 @@ msgstr "Użytkownik {0} dodał nowy składnik \"{1}\"."
 
 #: nutrition/models/ingredient_category.py:30
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Kategorie składników"
 
 #: nutrition/models/ingredient_weight_unit.py:49
 msgid "Amount in grams"
@@ -3356,7 +3369,7 @@ msgstr "Makroelementy"
 #: nutrition/templates/ingredient/view.html:80
 #: nutrition/templates/plan/view.html:62 nutrition/templates/plan/view.html:244
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:101
 #: nutrition/templates/ingredient/view.html:117
@@ -3398,27 +3411,27 @@ msgstr "Usuń składnik"
 #: nutrition/templates/log/overview.html:7
 #: nutrition/templates/plan/view.html:300
 msgid "Nutrition diary"
-msgstr ""
+msgstr "Dziennik diety"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
-msgstr ""
+msgstr "Zaplanowane"
 
 #: nutrition/templates/log/detail.html:33
 #: nutrition/templates/log/overview.html:31
 #: nutrition/templates/plan/view.html:308
 msgid "Logged"
-msgstr ""
+msgstr "Zapisane"
 
 #: nutrition/templates/log/detail.html:34
 #: nutrition/templates/log/overview.html:32
 #: nutrition/templates/plan/view.html:309
 msgid "Difference"
-msgstr ""
+msgstr "Różnice"
 
 #: nutrition/templates/log/detail.html:150
 msgid "Entries"
-msgstr ""
+msgstr "Wpisy"
 
 #: nutrition/templates/log/detail.html:170
 msgid "g"
@@ -3427,7 +3440,7 @@ msgstr "g"
 #: nutrition/templates/log/overview.html:53
 #: nutrition/templates/plan/view.html:330
 msgid "nothing found"
-msgstr ""
+msgstr "nic nie znaleziono"
 
 #: nutrition/templates/plan/overview.html:5
 msgid "Your nutrition plans"
@@ -3439,11 +3452,11 @@ msgstr "Zawartość"
 
 #: nutrition/templates/plan/view.html:79
 msgid "Log this meal"
-msgstr ""
+msgstr "Dodaj posiłek"
 
 #: nutrition/templates/plan/view.html:84
 msgid "Add ingredient to meal"
-msgstr ""
+msgstr "Dodaj składnik posiłku"
 
 #: nutrition/templates/plan/view.html:150
 msgid "No items for this meal."
@@ -3455,7 +3468,7 @@ msgstr "Brak posiłków dla tego planu."
 
 #: nutrition/templates/plan/view.html:200
 msgid "Log this Plan"
-msgstr ""
+msgstr "Dodaj ten plan"
 
 #: nutrition/templates/plan/view.html:206
 msgid "Add a new meal"
@@ -3641,12 +3654,12 @@ msgstr "Edytuj składnik posiłku"
 
 #: nutrition/views/plan.py:265
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Plan diety"
 
 #: nutrition/views/plan.py:267
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Plan dietetyczny dla %s"
 
 #: nutrition/views/plan.py:341
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
@@ -3665,10 +3678,12 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Dziękujemy za używanie wger! Wger jest projektem open-source stworzony przy "
+"współpracy entuzjastów fitnessu na całym świecie."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Kod źródłowy"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
@@ -3676,7 +3691,7 @@ msgstr ""
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Masz problem lub pomysł?"
 
 #: software/templates/about_us.html:27
 msgid ""
@@ -3686,7 +3701,7 @@ msgstr ""
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Przywitaj się!"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
@@ -4059,12 +4074,12 @@ msgstr "Edytuj ciężar dla %s"
 
 #: weight/views.py:123
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Usunięto."
 
 #: weight/views.py:127
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "Usuń wpis wagi dla %s"
 
 #~ msgid "Responsible for the content of this site as per German law §5 TMG:"
 #~ msgstr "Za treść tej strony odpowiada niemieckie prawo §5 TMG:"
