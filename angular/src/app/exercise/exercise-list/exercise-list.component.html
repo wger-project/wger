@@ -6,7 +6,7 @@
 
     <form class="d-flex">
       <input type="text" class="form-control" placeholder="Search">
-      <button type="submit" class="btn btn-primary ml-2">Submit</button>
+      <button type="submit" class="btn btn-primary">Add exercise</button>
     </form>
   </div>
 </div>
@@ -15,14 +15,22 @@
 <div class="row">
   <div class="col-3">
     <h5 i18n>Categories</h5>
-    <ul class="list-group">
-      <li *ngFor="let category of categories" class="list-group-item"> {{category.name}}</li>
-    </ul>
+    <div class="list-group">
+      <a class="list-group-item list-group-item-action active" i18n>All categories</a>
+      <a *ngFor="let category of categories" class="list-group-item list-group-item-action">{{category.name}}</a>
+    </div>
 
     <h5 class="mt-3" i18n>Equipment</h5>
-    <ul class="list-group">
-      <li *ngFor="let equipment of equipment" class="list-group-item"> {{equipment.name}}</li>
-    </ul>
+    <div class="list-group">
+      <div *ngFor="let equipment of equipment" class="list-group-item">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="equipment-{{equipment.id}}">
+          <label class="form-check-label" for="equipment-{{equipment.id}}">
+            {{equipment.name}}
+          </label>
+        </div>
+      </div>
+    </div>
 
   </div>
   <div class="col-9">

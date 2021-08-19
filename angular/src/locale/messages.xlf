@@ -249,6 +249,83 @@
           <context context-type="linenumber">78,85</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2079820911183014447" datatype="html">
+        <source>Starting position</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1534367694207535197" datatype="html">
+        <source>Steps</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3807699453257291879" datatype="html">
+        <source>Comments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6683174589423846748" datatype="html">
+        <source>Muscles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7781909188300244257" datatype="html">
+        <source>Primary muscles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4300464616073530652" datatype="html">
+        <source>Secondary muscles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8760380136442491374" datatype="html">
+        <source>Variants</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-detail/exercise-detail.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5815398842801469550" datatype="html">
+        <source>Exercises</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-list/exercise-list.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1902100407096396858" datatype="html">
+        <source>Categories</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-list/exercise-list.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3393133458004181121" datatype="html">
+        <source>All categories</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-list/exercise-list.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7595930936671323978" datatype="html">
+        <source>Equipment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/exercise/exercise-list/exercise-list.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2540594807548326286" datatype="html">
         <source>Add entry</source>
         <context-group purpose="location">

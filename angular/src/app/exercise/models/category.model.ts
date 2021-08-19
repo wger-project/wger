@@ -7,6 +7,10 @@ export class Category{
     public id: number,
     public name: string
   ) { }
+
+  toString() {
+    return this.name;
+  }
 }
 
 @Injectable({

@@ -59,6 +59,22 @@ export class Exercise {
     this.licenseAuthor = licenseAuthor;
     this.variations = variations;
   }
+
+  /*
+   * Returns the exercise's main image or, if not available, null
+   */
+  mainImage(returnPlaceholder=false): ExerciseImage|null {
+    for (let image of this.images) {
+      if (image.isMain) {
+        return image;
+      }
+    }
+    if(returnPlaceholder)
+    {
+      return new ExerciseImage(-1, '', 'http://localhost:8000/static/images/icons/image-placeholder.svg', true);
+    }
+    return  null;
+  }
 }
 
 

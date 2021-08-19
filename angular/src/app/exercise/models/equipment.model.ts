@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Adapter} from '../../core/adapter';
-import {Muscle} from './muscle.model';
 
 export class Equipment{
-
   constructor(
     public id: number,
     public name: string) { }
+
+  toString() {
+    return this.name;
+  }
 }
 
 @Injectable({

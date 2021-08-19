@@ -1,12 +1,16 @@
 <div class="card h-100">
+  <span class="position-absolute badge badge-dark" style="left: -1em; top: 1em;">
+    {{exercise.category}}
+    </span>
   <a routerLink="/de/exercise/{{exercise.id}}/view/">
-    <img class="card-img-top"
-         src="https://www.edeka.de/media/01-rezeptbilder/rezeptbilder-i-p/rez-edeka-pizza-funghi-rezept-i-p-1-1.jpg"
-         alt="">
+    <img
+      class="card-img-top p-2"
+      [src]="exercise.mainImage(true)!.url"
+      alt="">
   </a>
+
   <div class="card-body">
     <h5 class="card-title">{{ exercise.name }}</h5>
-    <p *ngFor="let equipmentEntry of exercise.equipment" class="card-text">{{equipmentEntry.name}}</p>
-    <!--<p class="card-text" *ngFor="let image of exercise.images">{{image.url}}</p>-->
+    <p>{{ exercise.equipment.join(', ')}}</p>
   </div>
 </div>
