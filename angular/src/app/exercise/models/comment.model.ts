@@ -17,37 +17,31 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Adapter} from '../../../core/adapter';
+import {Adapter} from '../../core/adapter';
 
-export class ExerciseImage{
+export class Comment {
 
   constructor(
     public id: number,
-    public uuid: string,
-    public url: string,
-    public isMain: boolean) {
-  }
+    public comment: string
+  ) { }
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class ExerciseImageAdapter implements Adapter<ExerciseImage> {
-  fromJson(item: any): ExerciseImage {
-    return new ExerciseImage(
+export class CommentAdapter implements Adapter<Comment> {
+  fromJson(item: any): Comment {
+    return new Comment(
       item.id,
-      item.uuid,
-      item.image,
-      item.is_main
+      item.comment
     );
   }
 
-  // TODO: when uploading an image we have to send the file
-  toJson(item: ExerciseImage): any {
+  toJson(item: Comment): any {
     return {
       id: item.id,
-      image: item.url,
-      is_front: item.isMain
+      name: item.comment,
     };
   }
 }

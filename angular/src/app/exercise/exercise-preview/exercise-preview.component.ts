@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Exercise} from '../models/exercises/exercise.model';
+import {Exercise} from '../models/exercise.model';
 
 @Component({
   selector: 'app-exercise-preview',

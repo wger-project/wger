@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ExerciseService} from '../exercise.service';
-import {Category} from '../models/exercises/category.model';
-import {Equipment} from '../models/exercises/equipment.model';
-import {Exercise} from '../models/exercises/exercise.model';
+import {Category} from '../models/category.model';
+import {Equipment} from '../models/equipment.model';
+import {Exercise} from '../models/exercise.model';
 
 @Component({
   selector: 'app-exercise-list',

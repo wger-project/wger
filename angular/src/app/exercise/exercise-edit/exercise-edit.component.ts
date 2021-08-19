@@ -19,10 +19,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ExerciseService} from '../exercise.service';
-import {Category} from '../models/exercises/category.model';
-import {Equipment} from '../models/exercises/equipment.model';
-import {Exercise} from '../models/exercises/exercise.model';
-import {Muscle} from '../models/exercises/muscle.model';
+import {Category} from '../models/category.model';
+import {Equipment} from '../models/equipment.model';
+import {Exercise} from '../models/exercise.model';
+import {Muscle} from '../models/muscle.model';
 
 @Component({
   selector: 'app-exercise-edit',

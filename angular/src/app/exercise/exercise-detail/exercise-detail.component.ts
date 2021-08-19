@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ExerciseService} from '../exercise.service';
-import {Exercise} from '../models/exercises/exercise.model';
+import {Exercise} from '../models/exercise.model';
 
 @Component({
   selector: 'app-exercise-detail',
