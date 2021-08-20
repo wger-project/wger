@@ -16,15 +16,26 @@
   <div class="col-3">
     <h5 i18n>Categories</h5>
     <div class="list-group">
-      <a class="list-group-item list-group-item-action active" i18n>All categories</a>
-      <a *ngFor="let category of categories" class="list-group-item list-group-item-action">{{category.name}}</a>
+      <a class="list-group-item list-group-item-action"
+         (click)="setSelectedCategory(null)"
+         [ngClass]="{'active': selectedCategory === null}"
+         i18n>All categories</a>
+      <a *ngFor="let category of categories"
+         class="list-group-item list-group-item-action"
+         (click)="setSelectedCategory(category.id)"
+         [ngClass]="{'active': selectedCategory === category.id}">{{category.name}}</a>
     </div>
 
     <h5 class="mt-3" i18n>Equipment</h5>
     <div class="list-group">
-      <div *ngFor="let equipment of equipment" class="list-group-item">
+      <div *ngFor="let equipment of equipment" class="list-group-item" [ngClass]="{'active': selectedEquipment.indexOf(equipment.id) !== -1}">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="equipment-{{equipment.id}}">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [checked]="selectedEquipment.indexOf(equipment.id) !== -1"
+            (click)="toggleSelectedEquipment(equipment.id)"
+            id="equipment-{{equipment.id}}">
           <label class="form-check-label" for="equipment-{{equipment.id}}">
             {{equipment.name}}
           </label>

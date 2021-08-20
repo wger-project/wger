@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ExerciseService} from '../exercise.service';
 import {Category} from '../models/category.model';
 import {Equipment} from '../models/equipment.model';
@@ -10,9 +10,13 @@ import {Exercise} from '../models/exercise.model';
   styleUrls: ['./exercise-list.component.css']
 })
 export class ExerciseListComponent implements OnInit {
+  allExercises: Exercise[] = [];
   exercises: Exercise[] = [];
   categories: Category[] = [];
   equipment: Equipment[] = [];
+
+  selectedCategory: number | null = null;
+  selectedEquipment: number[] = [];
 
   /**
    Starting page for the pagination
@@ -30,7 +34,8 @@ export class ExerciseListComponent implements OnInit {
    */
   maxPageShown = 7;
 
-  constructor(private exerciseService: ExerciseService) { }
+  constructor(private exerciseService: ExerciseService) {
+  }
 
   ngOnInit(): void {
     this.getExercises();
@@ -38,13 +43,54 @@ export class ExerciseListComponent implements OnInit {
     this.equipment = this.exerciseService.equipment;
   }
 
-  async getExercises(): Promise<void> {
-    this.exercises = await this.exerciseService.loadExercises();
+  /*
+   * Sets the given category ID as the currently selected one
+   */
+  setSelectedCategory(id: number | null) {
+    this.selectedCategory = id;
+    this.filterExercises();
   }
 
-  async loadExercise(id: number): Promise<void> {
+  /*
+   * Adds or removes the given equipment ID from the list of selected oness
+   */
+  toggleSelectedEquipment(id: number) {
+    const index = this.selectedEquipment.indexOf(id);
 
-    const tmp = await this.exerciseService.getExercise(id);
-    //console.log(tmp);
+    if (index < 0) {
+      this.selectedEquipment.push(id);
+    } else {
+      this.selectedEquipment.splice(index, 1);
+    }
+
+    this.filterExercises();
+  }
+
+  /*
+   * Loads initial exercise list from the server
+   */
+  async getExercises(): Promise<void> {
+    this.exercises = await this.exerciseService.loadExercises();
+    this.allExercises = this.exercises.slice();
+  }
+
+  /*
+   * Filter exercises based on the current selected equipments and category
+   */
+  filterExercises() {
+    let out = this.allExercises.slice();
+
+    if (this.selectedCategory != null) {
+      out = out.filter(exercise => exercise.category.id === this.selectedCategory);
+    }
+
+    if (this.selectedEquipment.length > 0) {
+      console.log('aaaaaaa');
+      for (let id of this.selectedEquipment) {
+        out = out.filter(exercise => exercise.equipment.find(equipment => equipment.id === id));
+      }
+    }
+
+    this.exercises = out;
   }
 }
