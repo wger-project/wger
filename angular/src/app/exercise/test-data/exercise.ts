@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {Category} from '../models/exercises/category.model';
-import {Exercise} from '../models/exercises/exercise.model';
+
+import {Category} from '../models/category.model';
+import {Exercise} from '../models/exercise.model';
 
 export const category1 = new Category(1, 'Arms');
 export const category2 = new Category(2, 'Back');
