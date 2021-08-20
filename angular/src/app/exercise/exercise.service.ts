@@ -31,7 +31,7 @@ export class ExerciseService {
               private equipmentAdapter: EquipmentAdapter,
               private exerciseImageAdapter: ExerciseImageAdapter,
               private commentAdapter: CommentAdapter,
-              ) {
+  ) {
     this.loadBaseData();
   }
 
@@ -58,15 +58,15 @@ export class ExerciseService {
     });
   }
 
-  loadExerciseFromData(exerciseData: any): Exercise  {
-      // Exercise itself
-      const exercise = this.exerciseAdapter.fromJson(exerciseData);
+  loadExerciseFromData(exerciseData: any): Exercise {
+    // Exercise itself
+    const exercise = this.exerciseAdapter.fromJson(exerciseData);
 
-      // Category
-      exercise.category = this.categoryAdapter.fromJson(exerciseData.category);
+    // Category
+    exercise.category = this.categoryAdapter.fromJson(exerciseData.category);
 
-      // Muscles
-      for (const muscleData of exerciseData.muscles) {
+    // Muscles
+    for (const muscleData of exerciseData.muscles) {
       exercise.muscles.push(this.muscleAdapter.fromJson(muscleData));
       //exercise.addMuscle(this.muscleAdapter.fromJson(muscleData));
     }
@@ -91,8 +91,8 @@ export class ExerciseService {
       exercise.comments.push(this.commentAdapter.fromJson(commentData));
     }
 
-    return  exercise;
-}
+    return exercise;
+  }
 
 
   /*
@@ -100,7 +100,7 @@ export class ExerciseService {
    */
   async loadExerciseById(id: number): Promise<Exercise> {
     const data = await this.http.get<any>(this.exerciseInfoUrl + '/' + id).toPromise();
-    return  this.loadExerciseFromData(data);
+    return this.loadExerciseFromData(data);
   }
 
   async loadExercises(): Promise<Exercise[]> {
@@ -132,9 +132,8 @@ export class ExerciseService {
   }
 
   updateExercise(data: any) {
-
   }
-  addExercise(data: any) {
 
+  addExercise(data: any) {
   }
 }
