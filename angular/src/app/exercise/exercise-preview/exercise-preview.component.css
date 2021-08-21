@@ -1,0 +1,24 @@
+/*
+ * https://stackoverflow.com/questions/47479477/responsive-card-image-with-fixed-height-in-bootstrap-4
+ */
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.wrapper img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}

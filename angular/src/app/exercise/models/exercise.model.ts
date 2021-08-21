@@ -37,7 +37,7 @@ export class Exercise {
   comments: Comment[] = [];
   license: number;
   licenseAuthor: string;
-  variations: number[];
+  variations: number[] = [];
 
   constructor(public id: number,
               public uuid: string,

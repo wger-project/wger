@@ -12,6 +12,7 @@ export class ExerciseDetailComponent implements OnInit{
 
   id?: number;
   exercise!: Exercise;
+  variations: Exercise[] = [];
 
   constructor(private exerciseService: ExerciseService,
               private route: ActivatedRoute) {
@@ -28,6 +29,9 @@ export class ExerciseDetailComponent implements OnInit{
 
     if(this.id != null) {
       this.exercise = await this.exerciseService.loadExerciseById(this.id);
+      for(let variation in this.exercise.variations) {
+        this.variations.push(await this.exerciseService.loadExerciseById(this.exercise.variations[variation]));
+      }
     }
   }
 }

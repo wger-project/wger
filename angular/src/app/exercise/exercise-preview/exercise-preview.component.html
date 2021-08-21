@@ -1,12 +1,14 @@
 <div class="card h-100">
-  <span class="position-absolute badge badge-dark" style="left: -1em; top: 1em;">
+  <span class="position-absolute badge badge-dark" style="left: -1em; top: 1em; z-index: 2;">
     {{exercise.category}}
     </span>
   <a routerLink="/de/exercise/{{exercise.id}}/view/">
+    <div class="wrapper">
     <img
       class="card-img-top p-2"
       [src]="exercise.mainImage(true)!.url"
       alt="">
+    </div>
   </a>
 
   <div class="card-body">

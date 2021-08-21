@@ -64,3 +64,10 @@
 <hr>
 
 <h5 i18n>Variants</h5>
+<div class="col-12">
+  <div class="row row-cols-4 row-cols-md-4">
+    <div *ngFor="let variation of variations" class="col mt-4">
+      <app-exercise-preview [exercise]="variation"></app-exercise-preview>
+    </div>
+  </div>
+</div>

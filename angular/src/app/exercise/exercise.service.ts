@@ -91,6 +91,9 @@ export class ExerciseService {
       exercise.comments.push(this.commentAdapter.fromJson(commentData));
     }
 
+    // Variations
+    exercise.variations = exerciseData.variations;
+
     return exercise;
   }
 
