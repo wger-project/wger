@@ -85,10 +85,9 @@ export class ExerciseListComponent implements OnInit {
     }
 
     if (this.selectedEquipment.length > 0) {
-      console.log('aaaaaaa');
-      for (let id of this.selectedEquipment) {
-        out = out.filter(exercise => exercise.equipment.find(equipment => equipment.id === id));
-      }
+      out = out.filter(exercise => exercise.equipment.findIndex(equipment =>
+        this.selectedEquipment.indexOf(equipment.id) !== -1
+      ) !== -1);
     }
 
     this.exercises = out;
