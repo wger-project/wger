@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~12.1.4",
     "@angular/router": "~12.1.4",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
-    "@swimlane/ngx-charts": "^18.0.1",
+    "@swimlane/ngx-charts": "^19.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
@@ -37,7 +37,7 @@
     "@angular/cli": "~12.2.2",
     "@angular/compiler-cli": "~12.1.4",
     "@types/jasmine": "~3.8.2",
-    "@types/node": "^16.6.2",
+    "@types/node": "^16.7.0",
     "@typescript-eslint/eslint-plugin": "4.29.2",
     "@typescript-eslint/parser": "4.29.2",
     "bootstrap": "^4.5.2",
