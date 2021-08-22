@@ -204,6 +204,7 @@ class MealSerializer(serializers.ModelSerializer):
             'plan',
             'order',
             'time',
+            'name'
         ]
 
 
@@ -222,6 +223,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
             'plan',
             'order',
             'time',
+            'name',
             'meal_items',
             'get_nutritional_values',
         ]
