@@ -68,7 +68,7 @@ def calculate_bmr(request):
     Currently only the Mifflin-St.Jeor-Formel is supported
     """
 
-    data = []
+    data = {}
 
     form = BmrForm(data=request.POST, instance=request.user.userprofile)
     if form.is_valid():
@@ -82,6 +82,10 @@ def calculate_bmr(request):
         data = json.dumps(result)
     else:
         logger.debug(form.errors)
+        data['bmr'] = str(form.errors)
+        data = json.dumps(data)
+        # print(form.errors)
+        # print(form.is_valid())
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')
@@ -93,7 +97,7 @@ def calculate_activities(request):
     Calculates the calories needed by additional physical activities
     """
 
-    data = []
+    data = {}
 
     form = PhysicalActivitiesForm(data=request.POST, instance=request.user.userprofile)
     if form.is_valid():
@@ -107,6 +111,8 @@ def calculate_activities(request):
 
     else:
         logger.debug(form.errors)
+        data['activities'] = str(form.errors)
+        data = json.dumps(data)
 
     # Return the results to the client
     return HttpResponse(data, 'application/json')
