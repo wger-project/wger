@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2021-08-25 21:34+0000\n"
-"Last-Translator: kvinto <badsystem@ukr.net>\n"
+"Last-Translator: Tymofii Lytvynenko <till.svit@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -283,10 +283,8 @@ msgstr ""
 "електронною поштою."
 
 #: core/forms.py:160
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Ця адреса електронної пошти вже використана."
+msgstr "Ця адреса електронної пошти вже використовується."
 
 #: core/forms.py:180 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
@@ -360,7 +358,7 @@ msgstr "Посилання на текст ліцензії чи іншу інф
 #: core/models/profile.py:52
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s це недійсно вказана дата народження"
 
 #: core/models/profile.py:61
 msgid "Male"
@@ -578,7 +576,7 @@ msgstr "Запитана вами сторінка не існує."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Сталася помилка"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -592,6 +590,10 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Ви\n"
+"    переглядаєте сайт як користувач \"%(current_user)s\", усі дії "
+"виконуються з їх даними.\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -634,13 +636,16 @@ msgstr "Закрити"
 
 #: core/templates/index.html:54 core/templates/index.html:203
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Додати новий запис щоденника"
 
 #: core/templates/index.html:59
 msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
 msgstr ""
+"Натисніть, щоб додати запис до свого щоденника харчування на сьогодні. Ви "
+"можете або записати їжу, як ви її визначили, або ввести будь-яку кількість "
+"власних записів."
 
 #: core/templates/index.html:67 core/templates/index.html:171
 #: core/templates/user/overview.html:171
@@ -661,7 +666,7 @@ msgstr "ккал"
 
 #: core/templates/index.html:79 nutrition/templates/plan/view.html:348
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Додати власний запис щоденника"
 
 #: core/templates/index.html:94 core/templates/index.html:102
 #: manager/models/day.py:34 manager/models/log.py:56
@@ -683,6 +688,8 @@ msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
 msgstr ""
+"Поточне тренування вибирається з вашого активного розкладу або, якщо у вас "
+"його немає, просто за датою."
 
 #: core/templates/index.html:142 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -796,7 +803,7 @@ msgstr "Нічого не знайдено"
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Відбиток"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -845,33 +852,29 @@ msgstr "Календар"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Галерея"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Тренування завершено!"
+msgstr "Шаблони тренувань"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Ваші програми"
+msgstr "Ваші шаблони"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Загальнодоступні шаблони"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "за категоріями"
 
 #: core/templates/navigation.html:65
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "за м'язовими групами"
 
 #: core/templates/navigation.html:66
 msgctxt "as in sorted by equipment"
