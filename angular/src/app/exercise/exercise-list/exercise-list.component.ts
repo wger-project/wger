@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
 import {ExerciseService} from '../exercise.service';
 import {Category} from '../models/category.model';
 import {Equipment} from '../models/equipment.model';
@@ -18,6 +19,8 @@ export class ExerciseListComponent implements OnInit {
   selectedCategory: number | null = null;
   selectedEquipment: number[] = [];
 
+  language: string = 'en';
+
   /**
    Starting page for the pagination
    */
@@ -34,13 +37,21 @@ export class ExerciseListComponent implements OnInit {
    */
   maxPageShown = 7;
 
-  constructor(private exerciseService: ExerciseService) {
-  }
+
+  constructor(private exerciseService: ExerciseService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getExercises();
     this.categories = this.exerciseService.categories;
     this.equipment = this.exerciseService.equipment;
+
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.language = params.lang;
+        }
+      );
   }
 
   /*

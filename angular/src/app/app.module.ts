@@ -23,10 +23,16 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
-import {NgbDropdownModule, NgbModalModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+  NgbDropdownModule,
+  NgbModalModule,
+  NgbPaginationModule
+} from '@ng-bootstrap/ng-bootstrap';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import {AppComponent} from './app.component';
+import {ExerciseAddComponent} from './exercise/exercise-add/exercise-add.component';
 import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
 import {ExerciseEditComponent} from './exercise/exercise-edit/exercise-edit.component';
 import {ExerciseListComponent} from './exercise/exercise-list/exercise-list.component';
@@ -45,8 +51,9 @@ const appRoutes: Routes = [
   // Exercises
   {path: ':lang/exercise/overview', component: ExerciseListComponent},
   {path: ':lang/exercise/:id/view', component: ExerciseDetailComponent},
+  {path: ':lang/exercise/add', component: ExerciseAddComponent},
   {path: ':lang/exercise/:id/view/:slug', component: ExerciseDetailComponent},
-  
+
   //  Weight
   {path: ':lang/weight/overview', component: WeightListComponent},
 ];
@@ -57,6 +64,7 @@ const appRoutes: Routes = [
     ExerciseDetailComponent,
     ExerciseEditComponent,
     ExerciseListComponent,
+    ExerciseAddComponent,
 
     WeightChartComponent,
     WeightDetailComponent,
@@ -68,10 +76,18 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+
+    // Angular bootstrap
     NgbDropdownModule,
     NgbModalModule,
     NgbPaginationModule,
+    NgbAccordionModule,
+    //NgbModule,
+
+
+    // Charts
     NgxChartsModule,
+
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
   ],
