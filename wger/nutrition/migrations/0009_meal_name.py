@@ -13,6 +13,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='meal',
             name='name',
-            field=models.CharField(blank=True, help_text='Give meals a textual description / name such as "Breakfast" or "after workout"', max_length=25, verbose_name='Name'),
+            field=models.CharField(
+                blank=True,
+                help_text=
+                'Give meals a textual description / name such as "Breakfast" or "after workout"',
+                max_length=25,
+                verbose_name='Name'
+            ),
         ),
     ]
