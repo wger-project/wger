@@ -60,6 +60,13 @@ class Meal(models.Model):
         blank=True,
         verbose_name=_('Time (approx)'),
     )
+    name = models.CharField(
+        max_length=25, 
+        blank=True,
+        verbose_name=_('Name'),
+        help_text=_(
+            'Give meals a textual description / name such as "Breakfast" or "after workout"'),
+        )
 
     def __str__(self):
         """
