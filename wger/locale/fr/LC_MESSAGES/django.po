@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-08-03 07:32+0000\n"
-"Last-Translator: Antoine Vibien <avibien@protonmail.ch>\n"
+"PO-Revision-Date: 2021-08-25 21:34+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.8-dev\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -3703,32 +3703,39 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Merci d’utiliser wger ! wger est un projet collaboratif à code source "
+"ouvert, réalisé par des passionnés de fitness du monde entier."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Code source"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
 msgstr ""
+"Récupérez le code source de cette application et de son serveur sur Github"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Vous avez un problème ou une idée ?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Contactez-nous si un élément ne s’est pas comporté comme prévu ou si une "
+"fonctionnalité vous semble manquer."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Dites-nous bonjour !"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
+"Si vous souhaitez discuter avec nous, rendez-vous sur le serveur Discord et "
+"contactez-nous"
 
 #: software/templates/about_us.html:39
 #, fuzzy
@@ -3741,6 +3748,8 @@ msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
+"Cette application est traduite sur Weblate. Si vous voulez aussi aider, "
+"cliquez sur le lien et commencez à traduire"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"
