@@ -63,17 +63,17 @@ export class Exercise {
   /*
    * Returns the exercise's main image or, if not available, null
    */
-  mainImage(returnPlaceholder=false): ExerciseImage|null {
-    for (let image of this.images) {
-      if (image.isMain) {
-        return image;
-      }
+  mainImage(returnPlaceholder = false): ExerciseImage | null {
+    const image = this.images.find(img => img.isMain);
+
+    if(image) {
+      return image;
     }
-    if(returnPlaceholder)
-    {
+
+    if (returnPlaceholder) {
       return new ExerciseImage(-1, '', 'http://localhost:8000/static/images/icons/image-placeholder.svg', true);
     }
-    return  null;
+    return null;
   }
 }
 
@@ -96,7 +96,7 @@ export class ExerciseAdapter implements Adapter<Exercise> {
       item.license,
       item.license_author,
       item.variations
-      );
+    );
   }
 
   /**

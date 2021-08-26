@@ -57,10 +57,20 @@
   </div>
   <div class="col-3">
     <img
-      *ngFor="let image of exercise.images"
-      src="{{ image.url }}"
+      src="{{ exercise.mainImage()!.url }}"
+      *ngIf="exercise.mainImage()"
       class="img-fluid"
       alt="...">
+    <div class="row">
+      <div class="col-6" *ngFor="let image of exercise.images">
+        <img
+          src="{{ image.url }}"
+          class="img-fluid"
+          alt="...">
+      </div>
+    </div>
+
+
   </div>
 </div>
 
