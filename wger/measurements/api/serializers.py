@@ -27,6 +27,15 @@ class MeasurementSerializer(serializers.ModelSerializer):
     Measurement serializer
     """
 
+    # Manually set the serializer to set the coerce_to_string option
+    value = serializers.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        min_value=0,
+        max_value=5000,
+        coerce_to_string=False,
+    )
+
     class Meta:
         model = Measurement
         fields = [
