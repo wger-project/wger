@@ -34,7 +34,7 @@ Install python requirements::
 Install application
 ~~~~~~~~~~~~~~~~~~~
 
-This will download the required JS and CSS libraries and create a SQlite
+This will download the required JS and CSS libraries and create an SQLite
 database and populate it with data on the first run::
 
 
@@ -42,14 +42,14 @@ database and populate it with data on the first run::
   $ wger bootstrap
   $ wger load-online-fixtures
 
-You can of course also use other databases such as postgres or mariaDB. Create
+You can of course also use other databases such as PostgreSQL or MariaDB. Create
 a database and user and edit the DATABASES settings before calling bootstrap.
 Take a look at the :ref:`prod_postgres` on apache on how that could look like.
 
 Start the server
 ----------------
 
-After the first run you can just use django's development server::
+After the first run you can just use Django's development server::
 
   $ python manage.py runserver
 
@@ -58,4 +58,4 @@ That's it. You can log in with the default administrator user:
 * **username**: admin
 * **password**: adminadmin
 
-You can reset the admin's password with ``wger create-or-reset-admin``
+You can reset the admin's password with ``wger create-or-reset-admin``.

@@ -12,8 +12,8 @@ These steps apply to all installation methods above.
 Upgrading the database
 ``````````````````````
 
-There are regularly changes and upgrades to the database schema (these may also
-come from new versions of django or the installed dependencies). If you start
+There are regular changes and upgrades to the database schema (these may also
+come from new versions of Django or the installed dependencies). If you start
 the development server and see a message that there are unapplied migrations,
 just do ``python manage.py migrate --all``.
 
@@ -70,7 +70,7 @@ To properly test the different parts of the application for usability or
 performance, it is often very useful to have some data to work with. For this
 reason, there is a dummy data generator script in
 extras/dummy_generator/generator.py. It allows you to generate entries for
-users, gyms, workouts and logs. For detailed usage options do::
+users, gyms, workouts, and logs. For detailed usage options do::
 
   python generator.py --help
 
@@ -93,7 +93,7 @@ as 10 nutrition diary entries per day::
   python generator.py nutrition-diary 10
 
 .. note::
-   All generated users have their username as password.
+   All generated users have their username as a password.
 
 .. note::
    While it is possible to generate hundreds of users, gyms are more restricted and
@@ -123,9 +123,9 @@ the core app::
 Using runserver_plus
 ~~~~~~~~~~~~~~~~~~~~
 
-During development you can use ``runserver_plus`` instead of the default django
+During development, you can use ``runserver_plus`` instead of the default Django
 server as you can use an interactive debugger directly from the browser if an
-exception occurs. It also accepts the same command line options. For this just
+exception occurs. It also accepts the same command-line options. For this just
 install the following packages::
 
     pip install django_extensions werkzeug
@@ -136,9 +136,9 @@ Contributing
 ------------
 
 * **Send pull requests**: for new code you want to share, please send pull
-  requests in github. Sending patches by email or attaching them to an issue
-  means a lot more of work. It's recommended that you work on a feature branch
-  when working on something, specially when it's something bigger. While many
+  requests in GitHub. Sending patches by email or attaching them to an issue
+  means a lot more work. It's recommended that you work on a feature branch
+  when working on something, especially when it's something bigger. While many
   people insist on rebasing before sending a pull request, it's not necessary.
 
 * **Run the tests**: wger is proud to have a test coverage of over 90%. When you
