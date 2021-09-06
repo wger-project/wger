@@ -59,6 +59,7 @@ Developers
 * Kristopher Newsome - https://github.com/sysadmin75
 * Leninux - https://github.com/RedRudeBoy
 * Ayush Kumar - https://github.com/gr8ayu
+* Gorkem Arslan - https://github.com/gorkemarslan
 
 Translators
 -----------

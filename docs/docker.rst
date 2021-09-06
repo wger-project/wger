@@ -30,8 +30,8 @@ Then just open http://localhost:8000 and log in as: **admin**, password **admina
 Development
 -----------
 
-This image installs the application using virtualenv, uses a sqlite database
-and serves it with django's development server.
+This image installs the application using virtualenv, uses an SQLite database
+and serves it with Django's development server.
 
 Get the image::
 
@@ -45,7 +45,7 @@ Run a container and start the application::
 
 Then just open http://localhost:8000 and log in as: **admin**, password **adminadmin**
 
-As an alternative you might want to map a local folder to the container.
+As an alternative, you might want to map a local folder to the container.
 This is interesting if e.g. you want to keep the wger source code on
 your host machine and use docker only to serve it. Then do this::
 

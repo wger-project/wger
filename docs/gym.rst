@@ -1,7 +1,7 @@
 .. _gym:
 
-Gym admnistration
-=================
+Gym administration
+==================
 
 wger has support for gym and member management, allowing e.g. trainers to follow
 the progress of their athletes and for the gym managers to keep track of the
@@ -17,7 +17,7 @@ to that gym.
 There are 3 groups used for the different administrative roles:
 
 * **general manager:** Can manage (add, edit, delete) the different gyms for the
-  installation as well as add gym managers, trainers and member, but is not
+  installation as well as add gym managers, trainers, and members but is not
   allowed to see the members' workout data.
 * **gym manager:** Can manage users for a single gym (editing, deactivating,
   adding contracts, etc.).
@@ -29,7 +29,7 @@ combine all three roles into one account.
 
 Except for general managers, administrative users belong to a single gym (the
 one they were created in) and can access only those members. This setting cannot
-be changed later. The user's gym appears in the top right menu.
+be changed later. The user's gym appears in the top-right menu.
 
 
 Member management
@@ -37,7 +37,7 @@ Member management
 You can add members to a gym by clicking the *Add member* button at the top of
 the member overview. After filling in the form, a password will be generated
 for the user. You should save this and give it to the user, as it is not possible
-to retrieve it later. Alternatively you can just instruct the new members to
+to retrieve it later. Alternatively, you can just instruct the new members to
 use the reset password links when logging in for the first time.
 
 An export of all gym members is available as well from the "actions" button on
@@ -114,10 +114,10 @@ This can be configured in the following ways:
 
 **user configuration**
   Individual users can be opt-out of being included in the reminder emails if
-  they don't want to use the log or any other reason.
+  they don't want to use the log for any other reason.
 
-Gym name in header
-~~~~~~~~~~~~~~~~~~
+Gym name in the header
+~~~~~~~~~~~~~~~~~~~~~~
 A checkbox to control whether the gym's name will appear in the header instead
-of the application's name for all logged in users of this gym. This applies to
-members, trainers and managers.
+of the application's name for all logged-in users of this gym. This applies to
+members, trainers, and managers.
