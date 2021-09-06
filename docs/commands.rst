@@ -122,7 +122,7 @@ will create the settings in the default locations::
 
 If you pass custom paths, it's recommended to use absolute paths::
 
-    wger create-settings --settings-path /path/to/development/wger/settings-test.py --database-path /path/to/development/wger/database-test.SQLite
+    wger create-settings --settings-path /path/to/development/wger/settings-test.py --database-path /path/to/development/wger/database-test.sqlite
 
 
 Usage::
