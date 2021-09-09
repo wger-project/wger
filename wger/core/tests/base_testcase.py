@@ -126,6 +126,8 @@ class BaseTestCase(object):
         'test-workout-session',
         'test-schedules',
         'test-gallery-images',
+        'test-measurement-categories',
+        'test-measurements',
     )
     current_user = 'anonymous'
     current_password = ''

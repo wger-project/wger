@@ -17,6 +17,7 @@ Upgrade steps from 2.0:
 * New gallery where users can upload pictures to track their progress `#572`_
 * Add templates / centrally managed workouts (thanks `@qwert45hi`_) `#639`_
 * Add comment filed to set for user notes `#702`_
+* Custom measurements such as biceps size or body fat `#133`_
 
 
 🐛 Bug Fixes:
@@ -36,6 +37,7 @@ Upgrade steps from 2.0:
     - field ``comment`` added, for user notes
 * `#666`_, `#667`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
 
+.. _#133: https://github.com/wger-project/wger/issues/133
 .. _#572: https://github.com/wger-project/wger/issues/572
 .. _#639: https://github.com/wger-project/wger/issues/639
 .. _#656: https://github.com/wger-project/wger/issues/656

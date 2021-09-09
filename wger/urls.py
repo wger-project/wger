@@ -36,6 +36,7 @@ from wger.exercises.api import views as exercises_api_views
 from wger.exercises.sitemap import ExercisesSitemap
 from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
+from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
@@ -128,6 +129,18 @@ router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='w
 
 # Gallery app
 router.register(r'gallery', gallery_api_views.ImageViewSet, basename='gallery')
+
+# Measurements app
+router.register(
+    r'measurement',
+    measurements_api_views.MeasurementViewSet,
+    basename='measurement',
+)
+router.register(
+    r'measurement-category',
+    measurements_api_views.CategoryViewSet,
+    basename='measurement-category',
+)
 
 #
 # Sitemaps
