@@ -32,6 +32,7 @@ from wger.measurements.models import (
     Measurement,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -44,11 +45,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = UnitSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = [
-        'id',
-        'name',
-        'unit'
-    ]
+    filterset_fields = ['id', 'name', 'unit']
 
     def get_queryset(self):
         """
