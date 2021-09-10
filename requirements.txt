@@ -3,7 +3,7 @@
 #
 
 # Application
-bleach~=4.0
+bleach~=4.1
 django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.3
 django-recaptcha~=2.0.6

@@ -1,0 +1,29 @@
+[
+    {
+        "pk": 1,
+        "model": "measurements.category",
+        "fields": {
+            "user": 2,
+            "name": "Biceps",
+            "unit": "cm"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "measurements.category",
+        "fields": {
+            "user": 2,
+            "name": "Body fat",
+            "unit": "%"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "measurements.category",
+        "fields": {
+            "user": 2,
+            "name": "The way I like it",
+            "unit": "rods to the hogshead"
+        }
+    }
+]

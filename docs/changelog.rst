@@ -17,6 +17,7 @@ Upgrade steps from 2.0:
 * New gallery where users can upload pictures to track their progress `#572`_
 * Add templates / centrally managed workouts (thanks `@qwert45hi`_) `#639`_
 * Add comment filed to set for user notes `#702`_
+* Custom measurements such as biceps size or body fat `#133`_
 
 
 🐛 Bug Fixes:
@@ -36,6 +37,7 @@ Upgrade steps from 2.0:
     - field ``comment`` added, for user notes
 * `#666`_, `#667`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
 
+.. _#133: https://github.com/wger-project/wger/issues/133
 .. _#572: https://github.com/wger-project/wger/issues/572
 .. _#639: https://github.com/wger-project/wger/issues/639
 .. _#656: https://github.com/wger-project/wger/issues/656
@@ -103,7 +105,7 @@ Upgrade steps from 1.9:
 
 * Moved translations to weblate `#266`_
 * Improved docker and docker-compose images `#340`_
-* Updated many libraries to last version (bootstrap, font awesome, etc.)
+* Updated many libraries to the last version (bootstrap, font awesome, etc.)
 * Use yarn to download CSS/JS libraries
 * Improvements to documentation (e.g. `#494`_)
 * Improved cache handling `#246`_ (thanks `@louiCoder`_)
@@ -203,7 +205,7 @@ New features:
 
 Improvements:
 
-* Improve look of weight graph (thanks `@alokhan`_) `#381`_
+* Improve the look of weight graph (thanks `@alokhan`_) `#381`_
 * Added password validation rules for more security
 * Exercise image downloader checks only accepted exercises (thanks `@gmmoraes`_) `#363`_
 * Use a native data type for the exercises' UUID (thanks `@gmmoraes`_) `#364`_
@@ -242,7 +244,7 @@ Other improvements and bugfixes: `#336`_, `#359`_,`#386`_, `#443`_
 .. warning ::
    There have been some changes to the installation procedure. Calling 'invoke'
    on its own has been deprecated, you should use the 'wger' command (which
-   accepts the same options). Also some of these commands have been renamed:
+   accepts the same options). Also, some of these commands have been renamed:
 
    * ``start_wger`` to ``wger``
    * ``bootstrap_wger`` to ``bootstrap``
@@ -290,7 +292,7 @@ Improvements:
 * Fields in workout log form are no longer required, making it possible to only log weight for certain exercises `#334`_
 * New, more verbose, API endpoint for exercises, (thanks `@andela-bmwenda`_)
 * The dashboard page was improved and made more user friendly `#201`_ (partly)
-* Replace jquery UI's autocompleter and sortable this reduces size of JS and CSS `#78`_ and `#79`_
+* Replace jquery UI's autocompleter and sortable this reduces the size of JS and CSS `#78`_ and `#79`_
 * Update to D3js v4 `#314`_, `#302`_
 * Remove hard-coded CC licence from documentation and website `#247`_
 
@@ -363,7 +365,7 @@ New features:
 
 * Workout PDF can now print the exercises' images and comments `#261`_
 * Allow login with username or email (thanks `@warchildmd`_) #164`_
-* Correctly use user weight when calculating nutrional plans' calories (thanks `@r-hughes`_) `#210`_
+* Correctly use user weight when calculating nutritional plans' calories (thanks `@r-hughes`_) `#210`_
 * Fix problem with datepicker `#192`_
 * Order of exercises in supersets is not reverted anymore `#229`_
 * Improvements to the gym management:
@@ -448,7 +450,7 @@ New features:
 * Allow users to submit corrections to exercises
 * Add day detail view in workout calendar `#103`_
 * Fix bug where the exercises added to a superset did not remain sorted `#89`_
-* Reduce size of generated html code `#125`_
+* Reduce the size of generated HTML code `#125`_
 * Allow users to copy shared workouts from others `#127`_
 * Added breadbrumbs, to make navigation easier `#101`_
 * Add option to delete workout sessions and their logs `#156`_
@@ -503,7 +505,7 @@ New features:
   * Gym managers can create and manage gyms
   * Trainers can see the gym's users and their routines
 
-* Reduce amount of CSS and JS libraries by using bootstrap as much as possible `#73`_
+* Reduce the amount of CSS and JS libraries by using bootstrap as much as possible `#73`_
 * Improvements to the REST API `#75`_
 
   * Add read-write access
@@ -638,14 +640,14 @@ New features and bugfixes:
 New features and bugfixes:
 
   * Add option to copy (duplicate) workouts and nutritional plans
-  * Login without an account with mozilla's Persona (BrowserID)
-  * Better AJAX handling of the modal dialogs, less page reloads and redirects
+  * Login without an account with Mozilla's Persona (BrowserID)
+  * Better AJAX handling of the modal dialogs, fewer page reloads and redirects
   * Expand the list of ingredients in German
-  * Add a pagination to ingredient list
+  * Add pagination to the ingredient list
   * Improvements to user page:
 
     * Add a "reset password" link to the login page
-    * Email is now user editable
+    * Email is now user-editable
 
   * More natural lines in weight chart with cubic interpolation
 
@@ -666,7 +668,7 @@ New features and bugfixes:
 
   * Fix issue with password change
   * Small improvements to UI
-  * Categories editable/deletable from exercise overview page
+  * Categories editable/deletable from the exercise overview page
   * Exercise AJAX search groups by category
   * More tests!
   * Use generic views for editing, creating and deleting objects

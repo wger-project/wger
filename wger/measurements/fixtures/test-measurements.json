@@ -1,0 +1,30 @@
+[
+    {
+        "pk": 1,
+        "model": "measurements.measurement",
+        "fields": {
+            "category": 1,
+            "date": "2021-07-01",
+            "value": 20
+        }
+    },
+    {
+        "pk": 2,
+        "model": "measurements.measurement",
+        "fields": {
+            "category": 2,
+            "date": "2021-07-01",
+            "value": 100.5
+        }
+    },
+    {
+        "pk": 3,
+        "model": "measurements.measurement",
+        "fields": {
+            "category": 1,
+            "date": "2021-07-10",
+            "value": 21,
+            "notes": "some extra information"
+        }
+    }
+]

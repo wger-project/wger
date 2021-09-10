@@ -199,12 +199,7 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = [
-            'id',
-            'plan',
-            'order',
-            'time',
-        ]
+        fields = ['id', 'plan', 'order', 'time', 'name']
 
 
 class MealInfoSerializer(serializers.ModelSerializer):
@@ -222,6 +217,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
             'plan',
             'order',
             'time',
+            'name',
             'meal_items',
             'get_nutritional_values',
         ]

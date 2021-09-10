@@ -13,19 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/rge/wger-workout-manager/"
-"language/uk/)\n"
+"PO-Revision-Date: 2021-09-02 08:34+0000\n"
+"Last-Translator: kvinto <badsystem@ukr.net>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.8-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -253,16 +252,14 @@ msgid "Email"
 msgstr "Адреса електронної пошти"
 
 #: core/forms.py:77
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Використовується для скидання пароля і, при необхідності, нагадування "
+"Використовується для скидання пароля і, і за необхідності, нагадування "
 "електронною поштою."
 
 #: core/forms.py:102
 msgid "Personal data"
-msgstr ""
+msgstr "Особисті дані"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -286,10 +283,8 @@ msgstr ""
 "електронною поштою."
 
 #: core/forms.py:160
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Ця адреса електронної пошти вже використана."
+msgstr "Ця адреса електронної пошти вже використовується."
 
 #: core/forms.py:180 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
@@ -306,7 +301,7 @@ msgstr "Неправильний пароль"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Форма захищена reCAPTCHA"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
@@ -320,8 +315,6 @@ msgid "Contact"
 msgstr "Контакт"
 
 #: core/forms.py:257
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Яким чином відповідати вам (електронна пошта, тощо)"
 
@@ -365,7 +358,7 @@ msgstr "Посилання на текст ліцензії чи іншу інф
 #: core/models/profile.py:52
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s це недійсно вказана дата народження"
 
 #: core/models/profile.py:61
 msgid "Male"
@@ -414,10 +407,10 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Поставте галочку, для того щоб показати компоненти також англійською мовою "
-"при створенні плану харчування. Назви цих інгредієнтів взяті зі списку "
-"встановленому Департаментом Сільського Господарства США. Список досить "
-"великий, близько 7000 записів, що може ускладнити пошук."
+"Поставте галочку, для того щоб показати компоненти також англійською\n"
+"мовою при створенні плану харчування. Назви цих інгредієнтів взяті\n"
+"зі списку встановленому Департаментом Сільського Господарства США.\n"
+"Список досить великий, близько 7000 записів, що може ускладнити пошук."
 
 #: core/models/profile.py:134
 msgid "Activate workout reminders"
@@ -583,7 +576,7 @@ msgstr "Запитана вами сторінка не існує."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Сталася помилка"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -597,6 +590,10 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Ви\n"
+"    переглядаєте сайт як користувач \"%(current_user)s\", усі дії "
+"виконуються з їх даними.\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -624,8 +621,8 @@ msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
 msgstr ""
-"Натисніть, щоб додати записи в журналі ваг на цей тренувальний день для "
-"поточного тренування:"
+"Натисніть, щоб додати записи в журналі ваг на\n"
+"цей тренувальний день для поточного тренування:"
 
 #: core/templates/index.html:43 core/templates/index.html:83
 #: core/templates/misc/fragments/shariff_modal.html:29
@@ -639,13 +636,16 @@ msgstr "Закрити"
 
 #: core/templates/index.html:54 core/templates/index.html:203
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Додати новий запис щоденника"
 
 #: core/templates/index.html:59
 msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
 msgstr ""
+"Натисніть, щоб додати запис до свого щоденника харчування на сьогодні. Ви "
+"можете або записати їжу, як ви її визначили, або ввести будь-яку кількість "
+"власних записів."
 
 #: core/templates/index.html:67 core/templates/index.html:171
 #: core/templates/user/overview.html:171
@@ -666,7 +666,7 @@ msgstr "ккал"
 
 #: core/templates/index.html:79 nutrition/templates/plan/view.html:348
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Додати власний запис щоденника"
 
 #: core/templates/index.html:94 core/templates/index.html:102
 #: manager/models/day.py:34 manager/models/log.py:56
@@ -688,6 +688,8 @@ msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
 msgstr ""
+"Поточне тренування вибирається з вашого активного розкладу або, якщо у вас "
+"його немає, просто за датою."
 
 #: core/templates/index.html:142 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -801,7 +803,7 @@ msgstr "Нічого не знайдено"
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Відбиток"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -825,8 +827,8 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "licenses for the different countries, add them as separate entries here."
 msgstr ""
-"Якщо ліцензія була локалізована, наприклад, як ліцензії Creative Commons для "
-"різних країн, додайте їх як окремі записи."
+"Якщо ліцензія була локалізована, наприклад, як ліцензії\n"
+"Creative Commons для різних країн, додайте їх як окремі записи."
 
 #: core/templates/navigation.html:22
 msgid "Training"
@@ -850,38 +852,34 @@ msgstr "Календар"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Галерея"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Тренування завершено!"
+msgstr "Шаблони тренувань"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Ваші програми"
+msgstr "Ваші шаблони"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Загальнодоступні шаблони"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "за категоріями"
 
 #: core/templates/navigation.html:65
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "за м'язовими групами"
 
 #: core/templates/navigation.html:66
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "за інвентарем"
 
 #: core/templates/navigation.html:70
 #: exercises/templates/equipment/overview.html:109
@@ -919,7 +917,7 @@ msgstr "Категорії"
 
 #: core/templates/navigation.html:94
 msgid "Body weight"
-msgstr ""
+msgstr "Вага тіла"
 
 #: core/templates/navigation.html:96 core/templates/user/overview.html:114
 #: weight/templates/overview.html:7
@@ -1093,7 +1091,7 @@ msgstr "вперед"
 
 #: core/templates/tags/render_day.html:34
 msgid "Add weight log"
-msgstr ""
+msgstr "Додати журнал ваги"
 
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
@@ -1123,7 +1121,7 @@ msgstr "Повтори"
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
 msgid "RiR"
-msgstr ""
+msgstr "Повторів можете зробити"
 
 #: core/templates/template.html:140
 msgid ""
@@ -1164,11 +1162,13 @@ msgid ""
 "anything). You must pass this information in the header in the format shown "
 "below."
 msgstr ""
-"Згенерувати ключ API, якщо ви хочете взаємодіяти з wger через <a href="
-"\"%(url)s\" rel=\"nofollow\">REST API</a>, який він надає (для "
-"загальнодоступних ресурсів, таких як вправи або інгредієнти, вам не потрібно "
-"нічого надавати). Ви повинні передати цю інформацію в заголовку у форматі, "
-"показаному нижче."
+"Згенерувати ключ API, якщо ви хочете взаємодіяти з wger через <a href=\""
+"%(url)s\"\n"
+"rel=\"nofollow\">REST API</a>, який він надає (для загальнодоступних "
+"ресурсів, таких\n"
+"як вправи або інгредієнти, вам не потрібно нічого надавати). Ви повинні "
+"передати\n"
+"цю інформацію в заголовку у форматі, показаному нижче."
 
 #: core/templates/user/api_key.html:15
 msgid "For security reasons, you should only access the API via HTTPS."
@@ -1211,9 +1211,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Ця дія видалить обліковий запис користувача \"%(username)s\" . \n"
+"Ця дія видалить обліковий запис користувача \"%(username)s\" .\n"
 "Це також безповоротно видалить всі пов'язані з нею дані (тренування, журнали "
-"тощо) і не може бути скасована."
+"тощо)\n"
+"і не може бути скасована. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1409,7 +1410,7 @@ msgstr "Включити в огляд неактивних"
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "Вхід адміністратора доступний лише для користувачів у %(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1571,7 +1572,7 @@ msgstr "Другорядні м'язи"
 
 #: exercises/models/base.py:79
 msgid "Variations"
-msgstr ""
+msgstr "Варіації"
 
 #: exercises/models/category.py:37
 msgid "Exercise Categories"
@@ -1691,14 +1692,15 @@ msgid ""
 "Your exercise '%(exercise)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Ваша вправа '%(exercise)s' була успішно додана до загального бази даних."
+"Ваша вправа '%(exercise)s' була успішно додана до загальної\n"
+"бази даних."
 
 #: exercises/templates/exercise/email_new.tpl:4
 msgid ""
 "It is now available on the exercise and muscle overview and can be\n"
 "added to workouts. You can access it on this address:"
 msgstr ""
-"Це тепер доступно в огляді вправ і м'язів і може бути додано до тренувань. "
+"Це тепер доступно в огляді вправ і м'язів і може бути додано до тренувань.\n"
 "Ви можете отримати доступ до нього за цією адресою:"
 
 #: exercises/templates/exercise/email_new.tpl:8
@@ -1722,7 +1724,9 @@ msgstr "Відправка вправи"
 msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
-msgstr "Дякуємо за подану вправу. Ми вам дуже вдячні!"
+msgstr ""
+"Дякуємо за подану вправу. Ми вам дуже\n"
+"вдячні!"
 
 #: exercises/templates/exercise/form.html:8
 msgid ""
@@ -1747,7 +1751,9 @@ msgstr "Виправлення вправи"
 msgid ""
 "Thank you for correcting and improving this exercise.\n"
 "This is much appreciated!"
-msgstr "Дякуємо за виправлення та покращення цієї вправи Це дуже цінується!"
+msgstr ""
+"Дякуємо за виправлення та покращення цієї вправи.\n"
+"Це дуже цінується!"
 
 #: exercises/templates/exercise/form_correct.html:8
 msgid ""
@@ -1789,8 +1795,8 @@ msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "        included in the database."
 msgstr ""
-"Ця вправа, що була подана користувачем, очікує на прийняття рішення "
-" включення  її до бази даних."
+"Ця вправа, що була подана користувачем, очікує на прийняття\n"
+"рішення  включення її до бази даних."
 
 #: exercises/templates/exercise/view.html:53
 msgid "Till then, it will not be shown in the overview or the search."
@@ -1815,7 +1821,7 @@ msgstr "Відхилити"
 
 #: exercises/templates/exercise/view.html:96
 msgid "Images"
-msgstr ""
+msgstr "Зображення"
 
 #: exercises/templates/exercise/view.html:137 exercises/views/images.py:93
 msgid "Add new image"
@@ -1844,7 +1850,7 @@ msgstr "Журнал ваги"
 
 #: exercises/templates/exercise/view.html:256
 msgid "Exercise Variations"
-msgstr ""
+msgstr "Варіації вправ"
 
 #: exercises/templates/exercise/view.html:277
 msgid "Submit a correction"
@@ -1864,6 +1870,8 @@ msgstr "Додати м'язи"
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"Ніяких вправ для цього м’яза. Додайте або відредагуйте вправу і встановіть "
+"м’язи."
 
 #: exercises/views/categories.py:71
 msgid "Add category"
@@ -1885,7 +1893,7 @@ msgstr "Видалити обладнання?"
 #, python-format
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
+msgstr "%(name_original)s занадто схоже на наявну вправу \"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:246
 msgid "Add exercise"
@@ -1917,10 +1925,8 @@ msgid "Delete exercise image?"
 msgstr "Видалити зображення вправи?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Додати нове зображення"
+msgstr "Додати зображення"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2053,11 +2059,11 @@ msgstr ""
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "Показувати назву в заголовку"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Показати назву тренажерного залу в заголовку сайта"
 
 #: gym/models/gym_config.py:68
 msgid "Configuration for {}"
@@ -2169,7 +2175,7 @@ msgstr "Додати учасника"
 
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Дата народження"
 
 #: gym/templates/gym/new_user.html:48 manager/templates/calendar/month.html:144
 #: manager/templates/log/add.html:75 nutrition/templates/rate/form.html:120
@@ -2365,10 +2371,8 @@ msgid "Kilometers"
 msgstr "Кілометри"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Повтори"
+msgstr "Макс. повтор."
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2403,7 +2407,7 @@ msgstr "Вміст"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Утворити попередній перегляд"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2436,7 +2440,7 @@ msgstr "Поточна версія"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Надсилати електронні листи"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2444,10 +2448,8 @@ msgid "Correction"
 msgstr "Виправлення"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Зробити копію цього тренування"
+msgstr "Назва тренування"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2608,28 +2610,30 @@ msgstr "Дата створення"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Тренування завершено!"
+msgstr "Шаблон тренування"
 
 #: manager/models/workout.py:74
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Позначення тренування як шаблону заморозить його і дозволить вам зробити "
+"його копії"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Загальнодоступний шаблон"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Загальнодоступний шаблон доступний для інших користувачів"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
 msgstr ""
+"Ви повинні позначити це тренування як шаблон, перш ніж оголосити його "
+"загальнодоступним"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2654,8 +2658,8 @@ msgid ""
 "The coloured days in the calendar have weight logs,\n"
 "you can click on them to see the details."
 msgstr ""
-"Кольорові дні в календарі містять записи ваги. Ви можете натиснути на них, "
-"щоб побачити деталі."
+"Кольорові дні в календарі містять записи ваги.\n"
+"Ви можете натиснути на них, щоб побачити деталі."
 
 #: manager/templates/calendar/month.html:157
 msgid "Go to current month"
@@ -2688,8 +2692,8 @@ msgid ""
 "it\n"
 "will simply be edited. Weight entries are always added."
 msgstr ""
-"Буде створено новий сеанс тренування (враження, замітки, час), якщо для "
-"обраної дати ще не існує такого. Якщо вже існує, він просто буде "
+"Буде створено новий сеанс тренування (враження, замітки, час), якщо\n"
+"для обраної дати ще не існує такого. Якщо вже існує, він просто буде\n"
 "редагуватись. Записи ваг завжди будуть додаватись."
 
 #: manager/templates/schedule/overview.html:5
@@ -2711,7 +2715,9 @@ msgstr "Програм не знайдено."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "succession."
-msgstr "Програми - це сукупність тренувань, які ви виконуєте по порядку"
+msgstr ""
+"Програми - це сукупність тренувань, які ви виконуєте\n"
+"по порядку"
 
 #: manager/templates/schedule/overview.html:39
 msgid ""
@@ -2720,8 +2726,8 @@ msgid ""
 "always do the same workouts in succession, e.g. A > B > C > A > B > C and so "
 "on."
 msgstr ""
-"Ви можете вказати тривалість кожного тренування, перед тим як перейти до "
-"наступного. Також можна створити цикл, для того, щоб виконувати однакові "
+"Ви можете вказати тривалість кожного тренування, перед тим як перейти до\n"
+"наступного. Також можна створити цикл, для того, щоб виконувати однакові\n"
 "тренування поспіль, наприклад A> B> C> A> B> C і т.д."
 
 #: manager/templates/schedule/overview.html:43
@@ -2796,9 +2802,9 @@ msgid ""
 "workout more\n"
 "than once."
 msgstr ""
-"Додайте стільки тренувань до програми, скільки захочете. Ви можете \n"
-"змінити порядок, перетягнувши їх. Також можна додати одне тренування більш "
-"ніж один раз"
+"Додайте стільки тренувань до програми, скільки захочете. Ви можете\n"
+"змінити порядок, перетягнувши їх. Також можна додати одне тренування\n"
+"більш ніж один раз"
 
 #: manager/templates/schedule/view.html:231
 #: manager/templates/schedule/view.html:241
@@ -2820,9 +2826,9 @@ msgid ""
 "application for example google calendar, outlook or iCal. This will create\n"
 "an appointment for each training day with the appropriate exercises."
 msgstr ""
-"Цей файл можна потім імпортувати в додаток Календар, наприклад google "
-"календар, outlook або iCal. Це дозволить створити розклад на кожен "
-"тренувальний день з відповідними вправами."
+"Цей файл можна потім імпортувати в додаток Календар, наприклад\n"
+"google календар, outlook або iCal. Це дозволить створити розклад на\n"
+"кожен тренувальний день з відповідними вправами."
 
 #: manager/templates/schedule/view.html:256
 #: manager/templates/schedule/view.html:290
@@ -2853,8 +2859,9 @@ msgid ""
 "automatically becomes \"4 x 10\"."
 msgstr ""
 "Якщо ви робите однакову кількість повторень для всіх підходів, ви можете "
-"просто ввести одне значення: наприклад, для 4 підходів просто введіть \"10\" "
-"повторень, це автоматично стає \"4 x 10\"."
+"просто ввести\n"
+"одне значення: наприклад, для 4 підходів просто введіть \"10\" повторень,\n"
+"це автоматично стає \"4 x 10\"."
 
 #: manager/templates/set/edit.html:10
 msgid "Edit set"
@@ -2862,7 +2869,7 @@ msgstr "Змінити підхід"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "Оновлення"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
@@ -2892,8 +2899,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
-"Якщо ви не хочете отримувати нагадування електронною поштою, деактивуйте цю "
-"опцію у ваших налаштуваннях."
+"Якщо Ви не хочете отримувати нагадування електронною поштою,\n"
+"деактивуйте цю опцію у ваших налаштуваннях."
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -2933,8 +2940,9 @@ msgid ""
 "only. Click on an exercise to see all the historical data for\n"
 "it."
 msgstr ""
-"На цій сторінці показані журнали ваги, що належать тільки до цього "
-"тренування. Натисніть на вправу, щоб побачити всі історичні дані."
+"На цій сторінці показані журнали ваги, що належать тільки\n"
+"до цього тренування. Натисніть на вправу, щоб побачити всі\n"
+"історичні дані."
 
 #: manager/templates/workout/log.html:100
 msgid ""
@@ -2942,9 +2950,9 @@ msgid ""
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
 msgstr ""
-"Якщо на один день припадає більше одного запису з однаковою кількістю "
-"повторень, але різними вагами, то на графіку буде показано тільки запис з "
-"більшою вагою."
+"Якщо на один день припадає більше одного запису з однаковою кількістю\n"
+"повторень, але різними вагами, то на графіку буде показано тільки запис\n"
+"з більшою вагою."
 
 #: manager/templates/workout/log.html:104
 msgid ""
@@ -2952,21 +2960,17 @@ msgid ""
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
 msgstr ""
-"Зверніть увагу, що тільки записи з одиницями ваги (кг або lb) і повторень "
-"відображаються на графіку. Інші комбінації, такі як час або \"до відмови\" "
-"тут ігноруються."
+"Зверніть увагу, що тільки записи з одиницями ваги (кг або lb) і\n"
+"повторень відображаються на графіку. Інші комбінації, такі як час,\n"
+"або \"до відмови\" тут ігноруються."
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No schedules found."
 msgid "No templates found."
-msgstr "Програм не знайдено."
+msgstr "Шаблонів не знайдено."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
-msgstr "Зробити копію цього тренування"
+msgstr "Позначити як тренування"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
@@ -2981,10 +2985,8 @@ msgstr ""
 "Зображення, які показують групи м'язів, що треновані вправами на тренуванні."
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
-msgstr "Поділитись цією сторінкою"
+msgstr "Використовувати цей шаблон"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
@@ -3012,11 +3014,11 @@ msgstr "Експорт цього тренування у файлі кален�
 
 #: manager/templates/workout/view.html:188
 msgid "Logs"
-msgstr ""
+msgstr "Журнали"
 
 #: manager/templates/workout/view.html:190
 msgid "View logs"
-msgstr ""
+msgstr "Перегляд журналів"
 
 #: manager/templates/workout/view.html:212 manager/views/schedule_step.py:99
 msgid "Edit workout"
@@ -3024,7 +3026,7 @@ msgstr "Змінити тренування"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Позначити як шаблон"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3147,11 +3149,11 @@ msgstr "Натрій"
 
 #: nutrition/models/ingredient.py:183
 msgid "Link to product"
-msgstr ""
+msgstr "Посилання на виріб"
 
 #: nutrition/models/ingredient.py:212
 msgid "Brand name of product"
-msgstr ""
+msgstr "Торгова марка виробу"
 
 #: nutrition/models/ingredient.py:272
 #, python-brace-format
@@ -3160,6 +3162,9 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"Загальна енергія ({energy}ккал) не є приблизною сумою енергії, яку "
+"забезпечують білки, вуглеводи та жири ({energy_calculated} ккал +/- "
+"{energy_approx}%)"
 
 #: nutrition/models/ingredient.py:357 nutrition/views/ingredient.py:225
 msgid "Ingredient was successfully added to the general database"
@@ -3176,7 +3181,7 @@ msgstr "Користувач {0} подав новий інгредієнт \"{1
 
 #: nutrition/models/ingredient_category.py:30
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Категорії інгредієнтів"
 
 #: nutrition/models/ingredient_weight_unit.py:49
 msgid "Amount in grams"
@@ -3343,7 +3348,7 @@ msgstr "Макроелементи"
 #: nutrition/templates/ingredient/view.html:80
 #: nutrition/templates/plan/view.html:62 nutrition/templates/plan/view.html:244
 msgid "kJ"
-msgstr ""
+msgstr "кДж"
 
 #: nutrition/templates/ingredient/view.html:101
 #: nutrition/templates/ingredient/view.html:117
@@ -3385,27 +3390,27 @@ msgstr "Видалити інгредієнт"
 #: nutrition/templates/log/overview.html:7
 #: nutrition/templates/plan/view.html:300
 msgid "Nutrition diary"
-msgstr ""
+msgstr "Щоденник харчування"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
-msgstr ""
+msgstr "Заплановано"
 
 #: nutrition/templates/log/detail.html:33
 #: nutrition/templates/log/overview.html:31
 #: nutrition/templates/plan/view.html:308
 msgid "Logged"
-msgstr ""
+msgstr "Записано"
 
 #: nutrition/templates/log/detail.html:34
 #: nutrition/templates/log/overview.html:32
 #: nutrition/templates/plan/view.html:309
 msgid "Difference"
-msgstr ""
+msgstr "Різниця"
 
 #: nutrition/templates/log/detail.html:150
 msgid "Entries"
-msgstr ""
+msgstr "Записи"
 
 #: nutrition/templates/log/detail.html:170
 msgid "g"
@@ -3414,7 +3419,7 @@ msgstr "г"
 #: nutrition/templates/log/overview.html:53
 #: nutrition/templates/plan/view.html:330
 msgid "nothing found"
-msgstr ""
+msgstr "нічого не знайдено"
 
 #: nutrition/templates/plan/overview.html:5
 msgid "Your nutrition plans"
@@ -3426,11 +3431,11 @@ msgstr "Зміст"
 
 #: nutrition/templates/plan/view.html:79
 msgid "Log this meal"
-msgstr ""
+msgstr "Записати цю їжу"
 
 #: nutrition/templates/plan/view.html:84
 msgid "Add ingredient to meal"
-msgstr ""
+msgstr "Додати інгредієнт до їжі"
 
 #: nutrition/templates/plan/view.html:150
 msgid "No items for this meal."
@@ -3442,7 +3447,7 @@ msgstr "Немає харчування для цього плану."
 
 #: nutrition/templates/plan/view.html:200
 msgid "Log this Plan"
-msgstr ""
+msgstr "Записати цей План"
 
 #: nutrition/templates/plan/view.html:206
 msgid "Add a new meal"
@@ -3455,7 +3460,7 @@ msgstr "Харчові дані"
 #: nutrition/templates/plan/view.html:219
 #, python-format
 msgid "Based on the weight entry dated %(date)s (%(weight)s)"
-msgstr ""
+msgstr "На основі запису про вагу від %(date)s (%(weight)s)"
 
 #: nutrition/templates/plan/view.html:228 nutrition/views/plan.py:377
 msgid "Total"
@@ -3475,25 +3480,22 @@ msgstr "унції на фунт маси тіли"
 
 #: nutrition/templates/plan/view.html:338
 msgid "View complete nutrition log"
-msgstr ""
+msgstr "Переглянути повний журнал харчування"
 
 #: nutrition/templates/plan/view.html:371
 msgid "Goal"
 msgstr "Ціль"
 
 #: nutrition/templates/plan/view.html:382
-#, fuzzy
-#| msgid ""
-#| "You have selected that this nutritional plan has a\n"
-#| "    goal amount of calories. Use the calculator or enter the value "
-#| "yourself."
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "            goal amount of calories. Use the calculator or enter the value\n"
 "            yourself."
 msgstr ""
-"Ви вказали, що цей план харчування має ціль кількості калорій. "
-"Використовуйте калькулятор або введіть значення самостійно."
+"Ви вибрали, що цей план харчування має\n"
+"            цільову кількість калорій. Скористайтеся калькулятором або "
+"введіть значення\n"
+"            себе."
 
 #: nutrition/templates/plan/view.html:392
 msgid ""
@@ -3624,12 +3626,12 @@ msgstr "Редагувати елемент прийому їжі"
 
 #: nutrition/views/plan.py:265
 msgid "Nutritional plan"
-msgstr ""
+msgstr "План харчування"
 
 #: nutrition/views/plan.py:267
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "План харчування для %s"
 
 #: nutrition/views/plan.py:341
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
@@ -3648,44 +3650,50 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Дякуємо за використання wger! wger - це спільний проєкт з відкритим кодом, "
+"створений ентузіастами фітнесу з усього світу."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Джерельний код"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr ""
+msgstr "Отримайте вихідний код цього застосунку та її сервер на github"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "У вас є проблема чи ідея?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Зв'яжіться з нами, якщо щось відбувається не так, як очікувалося, або якщо є "
+"функція, яка, на вашу думку, відсутня."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Привітайтеся!"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
+"Якщо ви хочете поспілкуватися з нами, зайдіть на сервер Discord і зв'яжіться "
+"з нами"
 
 #: software/templates/about_us.html:39
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Перекласти"
+msgstr "Перекладання"
 
 #: software/templates/about_us.html:41
 msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
+"Цей застосунок перекладено на Weblate. Якщо ви також хочете допомогти, "
+"клацніть на посилання та почніть переклад"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"
@@ -4041,12 +4049,12 @@ msgstr "Змінити запис ваги для %s"
 
 #: weight/views.py:123
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Успішно видалено."
 
 #: weight/views.py:127
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "Видалити запис ваги для %s"
 
 #~ msgid "Responsible for the content of this site as per German law §5 TMG:"
 #~ msgstr ""

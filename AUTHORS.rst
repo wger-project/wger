@@ -60,6 +60,8 @@ Developers
 * Emma Muth - https://github.com/emmaamuth
 * Sophia Reed - https://github.com/sophialr
 * Leninux - https://github.com/RedRudeBoy
+* Ayush Kumar - https://github.com/gr8ayu
+* Gorkem Arslan - https://github.com/gorkemarslan
 
 Translators
 -----------

@@ -67,10 +67,10 @@ Database
 
 .. _prod_postgres:
 
-postgreSQL
+PostgreSQL
 ~~~~~~~~~~
 
-Install the postgres server and create a database and a user::
+Install the Postgres server and create a database and a user::
 
     sudo apt-get install postgresql postgresql-server-dev-12 # or appropriate version
     su - postgres
@@ -82,7 +82,7 @@ You might want or need to edit your ``pg_hba.conf`` file to allow local socket
 connections or similar.
 
 
-sqlite
+SQLite
 ~~~~~~
 
 If using sqlite, create a folder for it (must be writable by the apache user)::

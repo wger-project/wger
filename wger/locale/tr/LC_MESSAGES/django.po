@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
+"PO-Revision-Date: 2021-08-27 19:38+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -800,7 +800,7 @@ msgstr "Hiçbir şey Bulunamadı"
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Künye"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -849,23 +849,19 @@ msgstr "Takvim"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galeri"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Egzersiz tamamlandı!"
+msgstr "Antrenman şablonları"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Programlarınız"
+msgstr "Şablonlarınız"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Herkese açık şablonlar"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
@@ -1932,10 +1928,8 @@ msgid "Delete exercise image?"
 msgstr "Egzersiz görüntüsü silinsin mi?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Yeni resim ekle"
+msgstr "Resim ekle"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2384,10 +2378,8 @@ msgid "Kilometers"
 msgstr "Kilometreler"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Temsilciler"
+msgstr "Azami Tekrar Sayısı"
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2463,10 +2455,8 @@ msgid "Correction"
 msgstr "Düzeltme"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Bu antrenmanın bir kopyasını oluşturun"
+msgstr "Antrenmanın adı"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2632,28 +2622,30 @@ msgstr "Oluşturulma tarihi"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Egzersiz tamamlandı!"
+msgstr "Antrenman şablonu"
 
 #: manager/models/workout.py:74
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Bir antrenmanı şablon olarak işaretlemek onu donduracak ve kopyalarını "
+"oluşturmanıza izin verecektir"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Herkese açık şablon"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Herkese açık bir şablon diğer kullanıcılar tarafından kullanılabilir"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
 msgstr ""
+"Bu antrenmanı herkese açık olarak ilan etmeden önce şablon olarak "
+"işaretlemelisiniz"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2980,16 +2972,12 @@ msgstr ""
 "burada göz ardı edilir."
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No schedules found."
 msgid "No templates found."
-msgstr "Program bulunamadı."
+msgstr "Şablon bulunamadı."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
-msgstr "Bu antrenmanın bir kopyasını oluşturun"
+msgstr "Antrenman olarak işaretle"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
@@ -3005,10 +2993,8 @@ msgstr ""
 "göstermektedir."
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
-msgstr "Bu sayfayı paylaş"
+msgstr "Bu şablonu kullan"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
@@ -3048,7 +3034,7 @@ msgstr "Antrenmanı düzenle"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Şablon olarak işaretle"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3514,19 +3500,14 @@ msgid "Goal"
 msgstr "Hedef"
 
 #: nutrition/templates/plan/view.html:382
-#, fuzzy
-#| msgid ""
-#| "You have selected that this nutritional plan has a\n"
-#| "    goal amount of calories. Use the calculator or enter the value "
-#| "yourself."
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "            goal amount of calories. Use the calculator or enter the value\n"
 "            yourself."
 msgstr ""
-"Bu beslenme planının bir\n"
-"    hedef kalori miktarı. Hesap makinesini kullanın veya değeri kendiniz "
-"girin."
+"Bu beslenme planının hedeflenen bir kalori miktarına\n"
+"             sahip olduğunu seçtiniz. Hesap makinesini kullanın veya değeri\n"
+"            kendiniz girin."
 
 #: nutrition/templates/plan/view.html:392
 msgid ""
@@ -3682,44 +3663,50 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"wger'ı kullandığınız için teşekkür ederiz! wger, dünyanın dört bir yanından "
+"spor tutkunları tarafından gerçekleştirilen ortak bir açık kaynaklı projedir."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Kaynak kodları"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr ""
+msgstr "Bu uygulamanın ve sunucusunun kaynak kodlarını github'dan edinin"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Bir sorununuz veya fikriniz mi var?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Bir şey beklendiği gibi davranmazsa veya eksik olduğunu düşündüğünüz bir "
+"özellik varsa iletişime geçin."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Merhaba deyin!"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
+"Bizimle sohbet etmek istiyorsanız, Discord sunucusuna gelin ve iletişime "
+"geçin"
 
 #: software/templates/about_us.html:39
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Çevir"
+msgstr "Çeviri"
 
 #: software/templates/about_us.html:41
 msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
+"Bu uygulama Weblate üzerinde çevrilmektedir. Yardım etmek istiyorsanız "
+"bağlantıya tıklayın ve çevirmeye başlayın"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"

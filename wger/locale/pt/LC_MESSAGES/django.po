@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-05-11 09:34+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"PO-Revision-Date: 2021-09-07 19:34+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -253,10 +253,8 @@ msgid "Email"
 msgstr "Email"
 
 #: core/forms.py:77
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "Usada para ressetar senha e email de lembretes opcionais "
+msgstr "Usada para ressetar senha e email de lembretes opcionais."
 
 #: core/forms.py:102
 msgid "Personal data"
@@ -282,8 +280,6 @@ msgid "Used for password resets and, optionally, email reminders."
 msgstr "Usada para redefinir a palavra-passe e email de lembretes opcionais"
 
 #: core/forms.py:160
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
 msgstr "Este e-mail já está em uso."
 
@@ -302,7 +298,7 @@ msgstr "Senha inválida"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Este formulário é protegido com reCAPTCHA"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
@@ -316,8 +312,6 @@ msgid "Contact"
 msgstr "Contato"
 
 #: core/forms.py:257
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Meios de contato (email, etc.)"
 

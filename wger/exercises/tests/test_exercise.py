@@ -695,7 +695,9 @@ class ExerciseApiTestCase(
 
 
 class ExerciseInfoApiTestCase(
-    api_base_test.BaseTestCase, api_base_test.ApiBaseTestCase, api_base_test.ApiGetTestCase
+    api_base_test.BaseTestCase,
+    api_base_test.ApiBaseTestCase,
+    api_base_test.ApiGetTestCase,
 ):
     """
     Tests the exercise info resource
