@@ -99,6 +99,11 @@ router.register(
     basename='exercise',
 )
 router.register(
+    r'exercise-base',
+    exercises_api_views.ExerciseBaseViewSet,
+    basename='exercise-base',
+)
+router.register(
     r'equipment',
     exercises_api_views.EquipmentViewSet,
     basename='api',

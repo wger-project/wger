@@ -60,25 +60,20 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
-from wger.utils.language import (
-    load_item_languages,
-    load_language,
-)
-from wger.utils.models import AbstractSubmissionModel
-from wger.utils.permissions import CreateOnlyPermission
+from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger(__name__)
 
 
-class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
+class ExerciseBaseViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise base objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
-    queryset = Exercise.objects.accepted()
+    queryset = ExerciseBase.objects.accepted()
     serializer_class = ExerciseBaseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    permission_classes = (IsAuthenticatedOrReadOnly, ) #CanEditExercises
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -87,15 +82,13 @@ class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
         'equipment',
     )
 
-
-class ExerciseViewSet(CreateUpdateModelViewSet):
+class ExerciseViewSet(viewsets.ReadOnlyModelViewSet): #viewsets.ReadOnlyModelViewSet
     """
-    API endpoint for exercise objects. For a read-only endpoint with all
+    API endpoint for exercise objects. For a single read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.accepted()
     serializer_class = ExerciseSerializer
-    permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
@@ -106,60 +99,6 @@ class ExerciseViewSet(CreateUpdateModelViewSet):
         'status',
         'name',
     )
-
-    def perform_create(self, serializer):
-        """
-        New exercise
-        """
-
-        # Exercise Base
-        base = ExerciseBase(category=serializer.validated_data['category'], variations=None)
-        base.save()
-        base.muscles.set(serializer.validated_data['muscles'])
-        base.muscles_secondary.set(serializer.validated_data['muscles_secondary'])
-        base.equipment.set(serializer.validated_data['equipment'])
-        base.save()
-
-        # Exercise
-        exercise = Exercise(
-            name_original=serializer.validated_data['name'],
-            description=serializer.validated_data['description'],
-            exercise_base=base,
-            language=serializer.validated_data['language'],
-            status=AbstractSubmissionModel.STATUS_ACCEPTED
-        )
-        exercise.save()
-        serializer.validated_data['id'] = exercise.id
-        serializer.validated_data['uuid'] = exercise.uuid
-        serializer.validated_data['exercise_base'] = exercise.exercise_base
-
-    def perform_update(self, serializer):
-        """
-        Update exercise
-        """
-        exercise = serializer.instance
-        base = exercise.exercise_base
-        for attr, value in serializer.validated_data.items():
-            if (attr == 'name'):
-                exercise.name_original = value
-
-            if (attr == 'description'):
-                exercise.description = value
-
-            if (attr == 'category'):
-                base.category = value
-
-            if (attr == 'muscles'):
-                base.muscles.set(value)
-
-            if (attr == 'muscles_secondary'):
-                base.muscles_secondary.set(value)
-
-            if (attr == 'equipment'):
-                base.equipment.set(value)
-
-        base.save()
-        exercise.save()
 
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""

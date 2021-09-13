@@ -86,6 +86,18 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     )
     """Variations of this exercise"""
 
+    creation_date = models.DateField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The submission date"""
+
+    update_date = models.DateTimeField(
+        _('Date'),
+        auto_now=True
+    )
+    """Datetime of last modification"""
+
     history = HistoricalRecords()
     """Edit history"""
 

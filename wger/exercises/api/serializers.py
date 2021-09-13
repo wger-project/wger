@@ -33,7 +33,7 @@ from wger.exercises.models import (
 
 class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
-    Exercise serializer
+    Exercise base serializer
     """
 
     class Meta:
@@ -41,11 +41,12 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'creation_date',
+            'update_date',
             'category',
             'muscles',
             'muscles_secondary',
             'equipment',
-            'creation_date',
         ]
 
 
