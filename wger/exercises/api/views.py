@@ -73,7 +73,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
     """
     queryset = ExerciseBase.objects.accepted()
     serializer_class = ExerciseBaseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, ) #CanEditExercises
+    permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -88,6 +88,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet): #viewsets.ReadOnlyModelVie
     the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.accepted()
+    permission_classes = (CanEditExercises,)
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
     filterset_fields = (

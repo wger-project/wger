@@ -24,11 +24,15 @@ class CanEditExercises(BasePermission):
     Regular users that are "trustworthy" (see Userprofile model for details) and
     administrator users with the appropriate exercise permission are allowed.
     """
+    SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
 
     def has_permission(self, request, view):
-        if request.user.is_anonymous:
-            return False
 
+        # Everybody can read
+        if request.method in self.SAFE_METHODS:
+            return True
+
+        # Only "trustworthy" users can edit
         return (
             request.user.userprofile.is_trustworthy
             or request.user.has_perm('exercises.add_exercise')
