@@ -47,6 +47,7 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
             'muscles',
             'muscles_secondary',
             'equipment',
+            'variations',
         ]
 
 
