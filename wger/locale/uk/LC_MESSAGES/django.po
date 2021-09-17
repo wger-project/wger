@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-09-02 08:34+0000\n"
+"PO-Revision-Date: 2021-09-19 02:37+0000\n"
 "Last-Translator: kvinto <badsystem@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -24,7 +24,7 @@ msgstr ""
 "? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
 "14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
 "100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -765,7 +765,7 @@ msgstr "Вага"
 
 #: core/templates/index.html:217
 msgid "Your current weight is: "
-msgstr "Ваша поточна вага:"
+msgstr "Ваша поточна вага: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:97
 #: weight/views.py:70
@@ -1066,7 +1066,7 @@ msgstr "Дякуємо за користування нашим сайтом!"
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr "Команда сайту %(site_name)s "
+msgstr "Команда сайту %(site_name)s"
 
 #: core/templates/tags/license-sidebar.html:3
 msgid "Free license"
@@ -2372,7 +2372,7 @@ msgstr "Кілометри"
 
 #: i18n.tpl:35
 msgid "Max Reps"
-msgstr "Макс. повтор."
+msgstr "Макс. Повтор"
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2717,7 +2717,7 @@ msgid ""
 "succession."
 msgstr ""
 "Програми - це сукупність тренувань, які ви виконуєте\n"
-"по порядку"
+"по порядку."
 
 #: manager/templates/schedule/overview.html:39
 msgid ""
@@ -2804,7 +2804,7 @@ msgid ""
 msgstr ""
 "Додайте стільки тренувань до програми, скільки захочете. Ви можете\n"
 "змінити порядок, перетягнувши їх. Також можна додати одне тренування\n"
-"більш ніж один раз"
+"більш ніж один раз."
 
 #: manager/templates/schedule/view.html:231
 #: manager/templates/schedule/view.html:241
@@ -3220,7 +3220,7 @@ msgstr "Результати"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Ваш ІМТ:"
+msgstr "Ваш ІМТ: "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3266,9 +3266,9 @@ msgid ""
 "in a new entry."
 msgstr ""
 "Використовуйте форму для розрахунку вашого ІМТ (Індекс Маси Тіла).\n"
-"Якщо ви ввели дані в розділ ваги, останній запис буде використовуватись "
-"автоматично. В іншому випадку, вага, який ви вкажете тут буде збережена в "
-"новому записі."
+"Якщо ви ввели дані в розділ ваги, останній запис буде використовуватись\n"
+"автоматично. В іншому випадку, вага, який ви вкажете тут буде збережена\n"
+"в новому записі."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
 #, python-format
@@ -3276,7 +3276,8 @@ msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
 msgstr ""
-"Ваш інгредієнт '%(ingredient)s' успішно додано до загального бази даних."
+"Ваш інгредієнт '%(ingredient)s' успішно додано до загальної\n"
+"бази даних."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
@@ -3284,7 +3285,8 @@ msgid ""
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
 "Він тепер доступний в огляді інгредієнтів і може бути доданий до планів "
-"харчування. Ви можете знайти його за цим посиланням:"
+"харчування.\n"
+"Ви можете знайти його за цим посиланням:"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
@@ -3294,7 +3296,9 @@ msgstr "Подання інгредієнта"
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr "Дякуємо за поданий інгредієнт. Ми вам дуже вдячні!"
+msgstr ""
+"Дякуємо за поданий інгредієнт. Ми Вам дуже\n"
+"вдячні!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -3528,13 +3532,14 @@ msgid ""
 "any\n"
 "additional physical activity."
 msgstr ""
-"Рівень базального метаболізму - це кількість енергії, витраченої щодня в "
-"стані спокою. Це мінімальна кількість енергії, необхідна для функціонування "
+"Рівень базального метаболізму - це кількість енергії, витраченої щодня\n"
+"в стані спокою. Це мінімальна кількість енергії, необхідна для "
+"функціонування\n"
 "організму, без будь-яких додаткових фізичних навантажень."
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Ваша основна метаболічна норма:"
+msgstr "Ваша основна метаболічна норма: "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -3546,21 +3551,21 @@ msgid ""
 "the additional physical activity and is used to calculate the total energy\n"
 "required per day."
 msgstr ""
-"Рівень фізичної активності (РФА) є фактором, який використовується для "
-"вираження додаткової фізичної активності та для розрахунку необхідної "
+"Рівень фізичної активності (РФА) є фактором, який використовується для\n"
+"вираження додаткової фізичної активності та для розрахунку необхідної\n"
 "загальної денної енергії."
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Фактор для щоденної активності:"
+msgstr "Фактор для щоденної активності: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
-"Базове споживання калорій - це кількість калорій яку потребує ваш метаболізм "
-"залежно від рівня вашої фізичної активності."
+"Базове споживання калорій - це кількість калорій яку потребує Ваш\n"
+"метаболізм залежно від рівня вашої фізичної активності."
 
 #: nutrition/templates/rate/form.html:81
 msgid "Calculate basic caloric intake"
@@ -3574,9 +3579,11 @@ msgid ""
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
 "Загальна кількість калорій - це фактична сума калорій за день. Це може "
-"включати, наприклад дефіцит калорій, якщо ви худнете, або надлишок, якщо "
-"набираєте вагу. В якості альтернативи можна просто ввести кількість калорій, "
-"якщо вона вам відома."
+"включати,\n"
+"наприклад, дефіцит калорій, якщо ви худнете, або надлишок, якщо набираєте "
+"вагу.\n"
+"В якості альтернативи можна просто ввести кількість калорій, якщо вона вам "
+"відома."
 
 #: nutrition/templates/rate/form.html:102
 msgid "Transfer basic intake to total daily calories"
@@ -3596,9 +3603,10 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-"Будь ласка, зверніть увагу, що ці розрахунки тільки приблизні. Якщо ви "
-"створюєте ваш план харчування на цих значеннях, поспостерігайте за собою "
-"кілька тижнів і при необхідності змініть загальну кількість."
+"Будь ласка, зверніть увагу, що ці розрахунки тільки приблизні. Якщо Ви "
+"створюєте\n"
+"свій план харчування на цих значеннях, поспостерігайте за собою кілька\n"
+"тижнів і при необхідності змініть загальну кількість."
 
 #: nutrition/views/ingredient.py:181
 msgid "Add a new ingredient"
@@ -3707,7 +3715,8 @@ msgid ""
 "ingredients, all released under a free license."
 msgstr ""
 "Мета полягає в тому, щоб побудувати дивовижний і гнучкий фітнес-менеджер, а "
-"також всебічний і повний перелік вправ і інгредієнтів, випущений під вільною "
+"також\n"
+"всебічний і повний перелік вправ і інгредієнтів, випущений під вільною\n"
 "ліцензією."
 
 #: software/templates/features.html:12
@@ -3716,7 +3725,7 @@ msgid ""
 "your exercises and workouts. "
 msgstr ""
 "wger Workout Manager - безкоштовний веб-додаток з відкритим вихідним кодом, "
-"який керує вашими вправами та тренуванням."
+"який керує вашими вправами та тренуванням. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -3924,8 +3933,8 @@ msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
-"Скористайтеся цим полем імпорту, щоб імпортувати ваші журнали ваги в Workout "
-"Manager."
+"Скористайтеся цим полем імпорту, щоб імпортувати ваші журнали ваги\n"
+"в Workout Manager."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3937,16 +3946,20 @@ msgid ""
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
 "Можна скопіювати та вставити текст з електронної таблиці в текстове поле "
-"вводу, система спробує вгадати формат для імпорту. \n"
-"Єдине, що потрібно враховувати, це те, що перша колонка - це <strong>дата</"
-"strong>, друга - <strong>вага</strong>. Усі наступні стовпці ігноруються. "
-"Ліміт 1000 рядків.\n"
+"вводу, система\n"
+"спробує вгадати формат для імпорту. Єдине, що потрібно враховувати, це те, "
+"що перша\n"
+"колонка - це <strong>дата</strong>, друга - <strong>вага</strong>. Усі "
+"наступні стовпці\n"
+"ігноруються. Ліміт 1000 рядків.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
-msgstr "Якщо є помилки, їх можна виправити або відхилити на другому етапі."
+msgstr ""
+"Якщо є помилки, їх можна виправити або відхилити на\n"
+"другому етапі."
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
@@ -3979,19 +3992,20 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
-"Ці значення не змогли бути конвертовані в запис журналу ваги. Причиною для "
-"цього могло бути що завгодно, від нерозпізнаного формату дати або числа до "
-"проблеми з кодуванням або що-небудь інше. Будь ласка, перевірте, щоб не було "
-"очевидних помилок в списку (і виправте їх, якщо вони є!) і спробуйте "
-"імпортувати список ще раз."
+"Ці значення не змогли бути конвертовані в запис журналу ваги. Причиною\n"
+"для цього могло бути що завгодно, від нерозпізнаного формату дати, або\n"
+"числа до проблеми з кодуванням або що-небудь інше. Будь ласка,\n"
+"перевірте, щоб не було очевидних помилок в списку (і виправте їх, якщо вони "
+"є!)\n"
+"і спробуйте імпортувати список ще раз."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
 "Remember that the expected structure is <strong>date</strong>\n"
 "    on the first columns and <strong>weight</strong> on the second."
 msgstr ""
-"Пам'ятайте, що очікувана структура: <strong>дата</strong> - в першому "
-"стовпці і <strong>вага</strong> - в другому."
+"Пам'ятайте, що очікувана структура: <strong>дата</strong> \n"
+"- в першому стовпці і <strong>вага</strong> - в другому."
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
@@ -4009,10 +4023,11 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
-"Продовжуйте тут, якщо ви бажаєте імпортувати до вашого журналу ваги всі "
-"записи, які були успішно перетворені. Всі записи, які викликали помилку, "
-"просто проігноруються. Ви повинні вирішити, чи є вони корисними "
-"(нерозпізнані записи) чи ні (наприклад, заголовки, коментарі тощо)."
+"Продовжуйте тут, якщо ви бажаєте імпортувати до вашого журналу ваги всі\n"
+"записи, які були успішно перетворені. Всі записи, які викликали помилку,\n"
+"просто проігноруються. Ви повинні вирішити, чи є вони корисними ("
+"нерозпізнані записи)\n"
+"чи ні (наприклад, заголовки, коментарі тощо)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -4027,8 +4042,8 @@ msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
-"Ви можете виправити список тут і повторно подати його так часто, як ви "
-"хочете."
+"Ви можете виправити список тут і повторно подати його так\n"
+"часто, як ви хочете."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
