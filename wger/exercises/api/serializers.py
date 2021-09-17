@@ -74,6 +74,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'image',
             'is_main',
             'status',
+            'style',
         ]
 
 
