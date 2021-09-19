@@ -18,6 +18,7 @@ Upgrade steps from 2.0:
 * Add templates / centrally managed workouts (thanks `@qwert45hi`_) `#639`_
 * Add comment filed to set for user notes `#702`_
 * Custom measurements such as biceps size or body fat `#133`_
+* Add picture type to exercise images (thanks `@LucasSD`_) `#589`_
 
 
 🐛 Bug Fixes:
@@ -30,6 +31,7 @@ Upgrade steps from 2.0:
 
   + /exerciseimage/
     - ``exercise`` was renamed to  ``exercise_base`` (was pointing there anyway)
+    - New field ``style``
   + /workout/
     - ``comment`` was renamed to name
     - field ``description`` was added, for longer descriptions
@@ -39,6 +41,7 @@ Upgrade steps from 2.0:
 
 .. _#133: https://github.com/wger-project/wger/issues/133
 .. _#572: https://github.com/wger-project/wger/issues/572
+.. _#589: https://github.com/wger-project/wger/issues/589
 .. _#639: https://github.com/wger-project/wger/issues/639
 .. _#656: https://github.com/wger-project/wger/issues/656
 .. _#666: https://github.com/wger-project/wger/issues/666
@@ -46,6 +49,7 @@ Upgrade steps from 2.0:
 .. _#702: https://github.com/wger-project/wger/issues/702
 .. _#716: https://github.com/wger-project/wger/issues/716
 
+.. _@LucasSD: https://github.com/LucasSD
 .. _@qwert45hi: https://github.com/qwert45hi
 .. _@jackmulligan-ire: https://github.com/jackmulligan-ire
 
