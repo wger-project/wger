@@ -39,14 +39,10 @@ def exercise_image_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     ext = pathlib.Path(filename).suffix
-    return "exercise-images/{0}/{1}{2}".format(
-        instance.exercise_base.id, instance.uuid, ext)
+    return "exercise-images/{0}/{1}{2}".format(instance.exercise_base.id, instance.uuid, ext)
 
 
-class ExerciseImage(
-        AbstractSubmissionModel,
-        AbstractLicenseModel,
-        models.Model):
+class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     Model for an exercise image
     """
@@ -120,9 +116,7 @@ class ExerciseImage(
         Only one image can be marked as main picture at a time
         """
         if self.is_main:
-            ExerciseImage.objects.filter(
-                exercise_base=self.exercise_base).update(
-                is_main=False)
+            ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
             if ExerciseImage.objects.accepted()\
@@ -139,8 +133,7 @@ class ExerciseImage(
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache(
-                'exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # And go on
@@ -155,16 +148,14 @@ class ExerciseImage(
         for language in Language.objects.all():
             delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache(
-                'exercise-overview-mobile', language.id)
+            delete_template_fragment_cache('exercise-overview-mobile', language.id)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.accepted() .filter(
-            exercise_base=self.exercise_base,
-            is_main=True).count() and ExerciseImage.objects.accepted() .filter(
-            exercise_base=self.exercise_base) .filter(
-                is_main=False) .count():
+        if not ExerciseImage.objects.accepted().filter(
+            exercise_base=self.exercise_base, is_main=True
+        ).count() and ExerciseImage.objects.accepted().filter(exercise_base=self.exercise_base
+                                                              ).filter(is_main=False).count():
 
             image = ExerciseImage.objects.accepted() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]

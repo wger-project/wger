@@ -15,18 +15,11 @@ class Migration(migrations.Migration):
             name='style',
             field=models.CharField(
                 choices=[
-                    ('1',
-                     'Line'),
-                    ('2',
-                     '3D'),
-                    ('3',
-                     'Low-poly'),
-                    ('4',
-                     'Photo'),
-                    ('5',
-                     'Other')],
+                    ('1', 'Line'), ('2', '3D'), ('3', 'Low-poly'), ('4', 'Photo'), ('5', 'Other')
+                ],
                 default='1',
                 help_text='The art style of your image',
-                max_length=1),
+                max_length=1
+            ),
         ),
     ]
