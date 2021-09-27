@@ -2,10 +2,10 @@
 # A wger installation under apache with WSGI
 #
 # Note: you MUST build this image from the project's root!
-# docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
+# docker build -f extras/docker/apache/Dockerfile --tag wger/demo .
 #
 # Please consult the documentation for usage
-# docker run -ti --name wger.apache --publish 8000:80 wger/apache
+# docker run -ti --name wger.demo --publish 8000:80 wger/demo
 #
 # To stop the container:
 # sudo docker container stop wger.apache

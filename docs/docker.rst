@@ -8,21 +8,22 @@ them yourself.
 Note that you need to build from the project's source folder, e.g::
 
     docker build -f extras/docker/development/Dockerfile -t wger/devel .
-    docker build -f extras/docker/apache/Dockerfile --tag wger/apache .
+    docker build -f extras/docker/apache/Dockerfile --tag wger/demo .
 
 
-Apache
-------
+Demo
+----
 
-This image runs the application using WSGI and apache.
+Self contained demo image
 
 Get the image::
 
-    docker pull wger/apache
+    docker pull wger/demo
 
 Run a container and start the application::
 
-    docker run -ti --name wger.apache --publish 8000:80 wger/apache
+    docker run -ti --name wger.demo --publish 8000:80 wger/demo
+
 
 Then just open http://localhost:8000 and log in as: **admin**, password **adminadmin**
 
