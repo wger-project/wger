@@ -750,7 +750,7 @@ xmlhttprequest@1:
   resolved "https://registry.yarnpkg.com/xmlhttprequest/-/xmlhttprequest-1.8.0.tgz#67fe075c5c24fef39f9d65f5f7b7fe75171968fc"
   integrity sha1-Z/4HXFwk/vOfnWX197f+dRcZaPw=
 
-yarn@^1.22.11:
-  version "1.22.11"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.11.tgz#d0104043e7349046e0e2aec977c24be106925ed6"
-  integrity sha512-AWje4bzqO9RUn3sdnM5N8n4ZJ0BqCc/kqFJvpOI5/EVkINXui0yuvU7NDCEF//+WaxHuNay2uOHxA4+tq1P3cg==
+yarn@^1.22.14:
+  version "1.22.14"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.14.tgz#f77caaa9e86b19e2401c2745a45d20623368acf7"
+  integrity sha512-V6wPpGH6FaToKlXbqzpTnTWzy6kQdzoAz8yR3jhymaxD3wtB70tkagsRQEqFX7leRZAXFjkdaSWwdq91j1VZOw==
