@@ -39,4 +39,4 @@ six>=1.12.0  # for django-compressor
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files
-django-sortedm2m~=3.0
+django-sortedm2m~=3.1
