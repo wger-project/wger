@@ -40,7 +40,7 @@ Building
 If you build this yourself, keep in mind that you **must** build from the
 project root!
 
-```docker build -f extras/docker/apache/Dockerfile --tag wger/demo .```
+```docker build -f extras/docker/demo/Dockerfile --tag wger/demo .```
 
 
 Contact

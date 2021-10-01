@@ -8,7 +8,7 @@ them yourself.
 Note that you need to build from the project's source folder, e.g::
 
     docker build -f extras/docker/development/Dockerfile -t wger/devel .
-    docker build -f extras/docker/apache/Dockerfile --tag wger/demo .
+    docker build -f extras/docker/demo/Dockerfile --tag wger/demo .
 
 
 Demo

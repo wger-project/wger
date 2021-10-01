@@ -2,7 +2,7 @@
 # A wger installation under apache with WSGI
 #
 # Note: you MUST build this image from the project's root!
-# docker build -f extras/docker/apache/Dockerfile --tag wger/demo .
+# docker build -f extras/docker/demo/Dockerfile --tag wger/demo .
 #
 # Please consult the documentation for usage
 # docker run -ti --name wger.demo --publish 8000:80 wger/demo
@@ -40,7 +40,7 @@ RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_de
 FROM wger/base:2.1-dev
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
-ARG DOCKER_DIR=./extras/docker/apache
+ARG DOCKER_DIR=./extras/docker/demo
 EXPOSE 80
 
 
