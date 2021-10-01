@@ -169,6 +169,14 @@ class Command(BaseCommand):
                     exercise = Exercise.objects.get(uuid=exercise_uuid)
                     exercise.name = exercise_name
                     exercise.description = exercise_description
+
+                    # Note: this should not happen and is an unnecessary workaround
+                    #       https://github.com/wger-project/wger/issues/840
+                    if not exercise.exercise_base:
+                        warning = f'Exercise {exercise.uuid} has no base, this should not happen!' \
+                                  f'Skipping...\n'
+                        self.stdout.write(self.style.WARNING(warning))
+                        continue
                     exercise.exercise_base.category_id = data['category']['id']
                     exercise.exercise_base.muscles.set(muscles)
                     exercise.exercise_base.muscles_secondary.set(muscles_sec)
