@@ -68,7 +68,11 @@ class WeightUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightUnit
-        fields = ['language', 'name']
+        fields = [
+            'id',
+            'language',
+            'name',
+        ]
 
 
 class IngredientSerializer(serializers.ModelSerializer):
