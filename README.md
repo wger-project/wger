@@ -1,7 +1,7 @@
 ﻿# wger
 <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png" width="100" height="100" />
 
-wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that help
+wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that helps
 you manage your personal workouts, weight and diet plans and can also be used
 as a simple gym management utility. It offers a REST API as well, for easy
 integration with other projects and tools.
