@@ -67,6 +67,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'code',
         'carbohydrates',
         'carbohydrates_sugar',
         'creation_date',
