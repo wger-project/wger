@@ -50,7 +50,7 @@ class Meal(models.Model):
         editable=False,
         on_delete=models.CASCADE,
     )
-    log = models.ForeignKey(
+    log_item = models.ForeignKey(
         LogItem,
         blank=True,
         null=True,

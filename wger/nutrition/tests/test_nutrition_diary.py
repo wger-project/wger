@@ -241,6 +241,23 @@ class AddMealItemUnitTestCase(WgerAddTestCase):
         'weight_unit': 1,
     }
 
+    def test_log_meals(self):
+        plan = NutritionPlan.objects.get(pk=1)
+        data = {
+            "meals": [1],
+            **self.data
+        }
+        plan.logitem_set.all().delete()
+        self.assertFalse(plan.logitem_set.exists())
+        self.user_login('test')
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 302)
+        plan.refresh_from_db()
+        log_item_queryset = plan.logitem_set.all()
+        self.assertEqual(log_item_queryset.count(), 1)
+        log_item = log_item_queryset.first()
+        self.assertEqual(list(log_item.meals.values_list("id", flat=True)), [1])
+
 
 class DeleteLogEntryTestCase(WgerDeleteTestCase):
     """

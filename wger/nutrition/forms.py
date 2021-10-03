@@ -274,6 +274,11 @@ class MealLogItemForm(MealItemForm):
             'meals',
         ]
 
+    def save(self, commit=True):
+        super(MealLogItemForm, self).save(commit)
+        self.instance.meals.set(self.cleaned_data.get("meals"))
+        return self.instance
+
 
 class IngredientForm(forms.ModelForm):
 
