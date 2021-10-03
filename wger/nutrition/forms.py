@@ -42,7 +42,7 @@ from wger.nutrition.models import (
     Ingredient,
     IngredientWeightUnit,
     LogItem,
-    MealItem,
+    MealItem, Meal,
 )
 from wger.utils.widgets import Html5NumberInput
 
@@ -263,6 +263,7 @@ class MealItemForm(forms.ModelForm):
 
 
 class MealLogItemForm(MealItemForm):
+    meals = forms.ModelMultipleChoiceField(queryset=Meal.objects.all(), required=False)
 
     class Meta:
         model = LogItem
@@ -270,6 +271,7 @@ class MealLogItemForm(MealItemForm):
             'ingredient',
             'weight_unit',
             'amount',
+            'meals',
         ]
 
 

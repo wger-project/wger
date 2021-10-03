@@ -27,8 +27,8 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
 
 # Local
+from . import LogItem
 from .plan import NutritionPlan
-
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +49,13 @@ class Meal(models.Model):
         verbose_name=_('Nutrition plan'),
         editable=False,
         on_delete=models.CASCADE,
+    )
+    log = models.ForeignKey(
+        LogItem,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="meals"
     )
     order = models.IntegerField(
         verbose_name=_('Order'),

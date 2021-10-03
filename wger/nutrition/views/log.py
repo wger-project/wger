@@ -179,6 +179,7 @@ def _logMealPlan(meals):
                 amount=item.amount
             )
             log_item.save()
+            log_item.meals.add(meal)
 
 
 class LogCreateView(WgerFormMixin, CreateView):
