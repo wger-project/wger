@@ -263,7 +263,7 @@ class MealItemForm(forms.ModelForm):
 
 
 class MealLogItemForm(MealItemForm):
-    meals = forms.ModelMultipleChoiceField(queryset=Meal.objects.all(), required=False)
+    meal = forms.ModelChoiceField(queryset=Meal.objects.all(), required=False)
 
     class Meta:
         model = LogItem
@@ -271,13 +271,8 @@ class MealLogItemForm(MealItemForm):
             'ingredient',
             'weight_unit',
             'amount',
-            'meals',
+            'meal',
         ]
-
-    def save(self, commit=True):
-        super(MealLogItemForm, self).save(commit)
-        self.instance.meals.set(self.cleaned_data.get("meals"))
-        return self.instance
 
 
 class IngredientForm(forms.ModelForm):

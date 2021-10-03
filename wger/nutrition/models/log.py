@@ -27,6 +27,7 @@ from django.utils.translation import gettext_lazy as _
 from wger.nutrition.helpers import BaseMealItem
 
 # Local
+from .meal import Meal
 from .ingredient import Ingredient
 from .ingredient_weight_unit import IngredientWeightUnit
 from .plan import NutritionPlan
@@ -47,6 +48,14 @@ class LogItem(BaseMealItem, models.Model):
         NutritionPlan,
         verbose_name=_('Nutrition plan'),
         on_delete=models.CASCADE,
+    )
+    meal = models.ForeignKey(
+        Meal,
+        verbose_name=_('Meal'),
+        on_delete=models.CASCADE,
+        related_name="log_items",
+        blank=True,
+        null=True
     )
     """
     The plan this log belongs to
