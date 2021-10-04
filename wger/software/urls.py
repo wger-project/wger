@@ -22,8 +22,8 @@ from django.views.generic import (
 )
 
 # wger
-from wger.software import views
 from wger import get_version
+from wger.software import views
 
 
 urlpatterns = [
@@ -44,8 +44,9 @@ urlpatterns = [
     ),
     path(
         'about-us',
-        TemplateView.as_view(template_name="about_us.html",
-                             extra_context={'version': get_version()}),
+        TemplateView.as_view(
+            template_name="about_us.html", extra_context={'version': get_version()}
+        ),
         name='about-us',
     ),
     path(
