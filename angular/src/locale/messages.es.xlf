@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="ngb.carousel.slide-number" datatype="html">
         <source>Slide <x id="INTERPOLATION" equiv-text="OnHover$ = new"/> of <x id="INTERPOLATION_1" equiv-text=";   private _pa"/> </source>
-        <target/>
+        <target>Diapositiva <x id="INTERPOLATION" equiv-text="OnHover$ = new"/> de <x id="INTERPOLATION_1" equiv-text=";   private _pa"/> </target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/carousel/carousel.ts</context>
           <context context-type="linenumber">114,118</context>
