@@ -213,7 +213,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
         <source>Decrement minutes</source>
-        <target/>
+        <target>Reducir minutos</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">82,84</context>
