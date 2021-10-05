@@ -253,7 +253,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="NgbTime;    pr"/></source>
-        <target/>
+        <target><x id="INTERPOLATION" equiv-text="NgbTime;    pr"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">115,121</context>
@@ -261,7 +261,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="t() meridian: b"/></source>
-        <target/>
+        <target><x id="INTERPOLATION" equiv-text="t() meridian: b"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">123,131</context>
