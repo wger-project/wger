@@ -165,7 +165,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.hours" datatype="html">
         <source>Hours</source>
-        <target/>
+        <target>Horas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">46,47</context>
