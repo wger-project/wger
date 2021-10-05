@@ -361,7 +361,7 @@
       </trans-unit>
       <trans-unit id="840951359074313455" datatype="html">
         <source>Days</source>
-        <target/>
+        <target>Días</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/weight/weight-list/weight-list.component.html</context>
           <context context-type="linenumber">15</context>
