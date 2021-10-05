@@ -133,7 +133,7 @@
       </trans-unit>
       <trans-unit id="ngb.pagination.next-aria" datatype="html">
         <source>Next</source>
-        <target/>
+        <target>Siguiente</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
           <context context-type="linenumber">226,228</context>
