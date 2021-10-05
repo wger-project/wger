@@ -117,7 +117,7 @@
       </trans-unit>
       <trans-unit id="ngb.pagination.first-aria" datatype="html">
         <source>First</source>
-        <target/>
+        <target>Primero</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
           <context context-type="linenumber">208,209</context>
