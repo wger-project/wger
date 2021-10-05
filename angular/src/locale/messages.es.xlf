@@ -189,7 +189,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
         <source>Increment hours</source>
-        <target/>
+        <target>Incrementar horas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">63,64</context>
