@@ -37,6 +37,8 @@ Upgrade steps from 2.0:
     - field ``description`` was added, for longer descriptions
   + /set/
     - field ``comment`` added, for user notes
+  + /min-app-version/
+    - New endpoint indicating minimum required version for flutter app
 * `#666`_, `#667`_, `#656`_ (thanks `@jackmulligan-ire`_), `#716`_
 
 .. _#133: https://github.com/wger-project/wger/issues/133
