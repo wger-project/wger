@@ -443,7 +443,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     @property
     def off_link(self):
-        if self.source_name == Source.OPEN_FOOD_FACTS:
+        if self.source_name == Source.OPEN_FOOD_FACTS.value:
             return f'https://world.openfoodfacts.org/product/{self.code}/'
 
     def get_image(self, request: HttpRequest):
