@@ -40,7 +40,7 @@ compose file. This config will persist your database and uploaded images:
 If you just want to try it out:
 
 ```shell script
-    docker run -ti --name wger.demo--publish 8000:80 wger/demo
+    docker run -ti --name wger.demo --publish 8000:80 wger/demo
 ```
 
 Then just open <http://localhost:8000> and log in as **admin**, password **adminadmin**
