@@ -5,7 +5,6 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 
-
 MIN_APP_VERSION = (1, 3, 0, 'final', 1)
 
 VERSION = (2, 1, 0, 'alpha', 3)

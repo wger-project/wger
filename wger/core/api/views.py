@@ -32,8 +32,8 @@ from rest_framework.response import Response
 
 # wger
 from wger import (
-    get_version,
     MIN_APP_VERSION,
+    get_version,
 )
 from wger.core.api.permissions import AllowRegisterUser
 from wger.core.api.serializers import (
