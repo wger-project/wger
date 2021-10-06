@@ -150,7 +150,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     if common_name and len(common_name) > 200:
         continue
 
-    source_name = Source.OPEN_FOOD_FACTS
+    source_name = Source.OPEN_FOOD_FACTS.value
     source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
 
     ingredient_data = {
@@ -171,7 +171,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         'brand': brand,
         'status': 2,
         'license_id': 5,
-        'license_author': Source.OPEN_FOOD_FACTS,
+        'license_author': Source.OPEN_FOOD_FACTS.value,
     }
 
     # Add entries as new products

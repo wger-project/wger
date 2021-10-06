@@ -460,7 +460,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not request.user.is_authenticated:
             return
 
-        if self.source_name != Source.OPEN_FOOD_FACTS:
+        if self.source_name != Source.OPEN_FOOD_FACTS.value:
             return
 
         if not settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF']:
