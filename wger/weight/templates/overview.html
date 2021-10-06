@@ -10,7 +10,21 @@
 {# Header #}
 {#        #}
 {% block header %}
-<script src="{% static 'js/weight.js' %}"></script>
+    <!--
+    <link rel="stylesheet" type="text/css" href="{% static 'angular/en/styles.css' %}">
+    -->
+
+    <script src="{% static 'angular/en/runtime.js' %}" defer></script>
+    <script src="{% static 'angular/en/polyfills.js' %}" defer></script>
+
+    {# Manually load the appropriate language if it's available #}
+    {% if language.short_name in languages_angular %}
+        {% with 'angular/'|add:language.short_name|add:"/main.js" as test %}
+        <script src="{% static test %}" defer></script>
+        {% endwith %}
+    {% else %}
+        <script src="{% static 'angular/en/main.js' %}" defer></script>
+    {% endif %}
 {% endblock %}
 
 
@@ -19,83 +33,11 @@
 {# Content #}
 {#         #}
 {% block content %}
-<div id="current-username" data-current-username="{{ owner_user.username }}"></div>
 
 
-{% if not min_date %}
-<p>
-    {% translate "There is no chart here because there are no weight entries." %}
-    {% translate "Use link to add one." %}
-</p>
-{% endif %}
 
-<div id="weight_diagram"></div>
-<br>
-<input id="height" placeholder="{% translate "height in cm" %}" type="number">
-<input id="enable_bmi" type="button" value="BMI">
+<app-root></app-root>
 
-<div class="btn-group modify-time-period-controls float-right" role="group" aria-label="..." style="padding-bottom: 1em;">
-    <button type="button" class="btn btn-light" data-time_period="90">{% translate "Last 3 months" %}</button>
-    <button type="button" class="btn btn-light" data-time_period="365">{% translate "Last 12 months" %}</button>
-    <button type="button" class="btn btn-light active" data-time_period="all">{% translate "No filter" %}</button>
-</div>
-
-
-{% if is_owner %}
-{% if last_five_weight_entries_details %}
-<table class="table">
-    <tr>
-        <th>{% translate 'Date' %}</th>
-        <th>{% translate 'Weight' %}</th>
-        <th>{% translate 'Change' context "Noun, not verb" %}</th>
-        <th>{% translate 'Days' %}</th>
-    </tr>
-    {% for entry_detail in last_five_weight_entries_details %}
-        <tr>
-            <td>{{ entry_detail.0.date }}</td>
-            <td>{{ entry_detail.0.weight }}</td>
-            <!-- weight diff and day diff below -->
-            <td>
-                {% if entry_detail.1 > 0 %}
-                    +
-                {% endif %}
-                {% if entry_detail.1 %}
-                    {{ entry_detail.1 }}
-                {% else %}
-                    -/-
-                {% endif %}
-            </td>
-            <td>
-                {% if entry_detail.2 %}
-                    {{ entry_detail.2 }}
-                {% else %}
-                    -/-
-                {% endif %}
-            </td>
-            <td>
-                <div class="btn-group" role="group" >
-                    <div class="btn-group" role="group">
-                        <button id="btnGroupWorkout" type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupWorkout">
-                            <a href="{% url 'weight:edit' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
-                               <span class="{% fa_class 'edit' %}"></span>
-                               {% translate "Edit weight" %}
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="{% url 'weight:delete' entry_detail.0.id %}" class="dropdown-item wger-modal-dialog">
-                                <span class="{% fa_class 'trash' %}"></span>
-                                {% translate "Delete" %}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
-</table>
-{% endif %}
-{% endif %}
 
 {% endblock %}
 

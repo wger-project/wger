@@ -111,7 +111,7 @@
 
 <h4>{% translate "Weight" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
-<a href="{{trainer_login}}?next={% url 'weight:overview' current_user.username %}" class="btn btn-light btn-sm">{% translate "Weight overview" %}</a>
+<a href="{{trainer_login}}?next={% url 'weight:overview' %}" class="btn btn-light btn-sm">{% translate "Weight overview" %}</a>
 {% endif %}
 
 <table class="table">

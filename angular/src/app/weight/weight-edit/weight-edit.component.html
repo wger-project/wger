@@ -1,0 +1,32 @@
+<form [formGroup]="group" (ngSubmit)="onSubmit()">
+
+  <div class="form-row">
+    <div class="col">
+          <label for="date" i18n>Date</label>
+          <input
+            type="date"
+            id="date"
+            formControlName="date"
+            class="form-control">
+        </div>
+
+      <div class="col">
+          <label for="weight" i18n>Weight</label>
+          <input
+            type="text"
+            id="weight"
+            formControlName="weight"
+            class="form-control">
+      </div>
+  </div>
+
+    <button
+      type="submit"
+      class="btn btn-success mt-2"
+      [disabled]="group.invalid" i18n>Save</button>
+    <button
+      type="submit"
+      class="btn btn-secondary mt-2 ml-2"
+      i18n
+      (click)="closeEdit.emit()">Cancel</button>
+</form>

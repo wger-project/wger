@@ -58,6 +58,9 @@ Developers
 * Jack Mulligan - https://github.com/jackmulligan-ire
 * Kristopher Newsome - https://github.com/sysadmin75
 * Leninux - https://github.com/RedRudeBoy
+* Ayush Kumar - https://github.com/gr8ayu
+* Gorkem Arslan - https://github.com/gorkemarslan
+* Lucas Stone-Drake - https://github.com/LucasSD
 
 Translators
 -----------

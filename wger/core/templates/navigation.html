@@ -88,12 +88,12 @@
                     {#            #}
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
-                        <a href="{% url 'weight:overview' user.username %}"
+                        <a href="{% url 'weight:overview' %}"
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown"
                            rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'weight:overview' user.username %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'weight:overview' %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
                         </ul>
                     </li>
@@ -148,12 +148,15 @@
                            class="dropdown-toggle nav-link"
                            data-toggle="dropdown">{% translate "About this software" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'software:contribute' %}">{% translate "Contribute!" %} </a></li>
-                            <li><a class="dropdown-item" href="{% url 'software:issues' %}">{% translate "Problems and wishes" %} </a></li>
-                            <li><a class="dropdown-item" href="{% url 'core:contact' %}">{% translate "Get in touch" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'software:about-us' %}">{% translate "About us" %}</a></li>
                             <li class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'software:api' %}">{% translate "REST API" %} </a></li>
-                            <li><a class="dropdown-item" href="{% url 'software:license' %}">{% translate "License" %} </a></li>
+                            <li>
+                                <a class="dropdown-item" href="https://github.com/wger-project/wger/blob/master/LICENSE.txt">
+                                    <span class="{% fa_class 'external-link-alt' %}"></span>
+                                    {% translate "License" %}
+                                </a>
+                            </li>
                             <li>
                                 <a  class="dropdown-item" href="https://wger.readthedocs.io/">
                                     <span class="{% fa_class 'external-link-alt' %}"></span>

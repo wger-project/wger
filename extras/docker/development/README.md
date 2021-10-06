@@ -15,7 +15,7 @@ host your own instance, take a look at the provided docker compose file:
 
 This docker image is meant to provide a quick development environment using
 django's development server and an sqlite database from your current code
-checkout (if you don't want or need a local checkout, use the wger/apache image,
+checkout (if you don't want or need a local checkout, use the wger/demo image,
 it is self-contained).
 
 A more comfortable development version is provided in the compose folder.
@@ -75,7 +75,6 @@ report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
 * discord: <https://discord.gg/rPWFv6W>
-* gitter: <https://gitter.im/wger-project/wger>
 * issue tracker: <https://github.com/wger-project/wger/issues>
 * twitter: <https://twitter.com/wger_project>
 

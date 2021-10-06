@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static i18n wger_extras %}
+
+
+{% block title %}{% translate "About us" %}{% endblock %}
+
+{% block content %}
+<p>
+    {% blocktranslate trimmed %}
+        Thank you for using wger! wger is a collaborative open source project, made
+        by fitness enthusiasts from around the world.
+    {% endblocktranslate %}
+</p>
+
+
+<h5>
+    <span class="{% fa_class 'code' %}"></span>
+    {% translate 'Source code' %}
+</h5>
+<p>{% translate 'Get the source code of this application and its server on github' %}</p>
+<a class="btn btn-outline-primary mb-5" href="https://github.com/wger-project">https://github.com/wger-project</a>
+
+<h5>
+    <span class="{% fa_class 'bug' %}"></span>
+    {% translate 'Have a problem or idea?' %}
+</h5>
+<p>{% translate "Get in touch if something didn't behave as expected or if there is a feature that you feel is missing." %}</p>
+<a class="btn btn-outline-primary mb-5" href="https://github.com/wger-project/wger/issues/new/choose">https://github.com/wger-project/wger/issues/new/choose</a>
+
+<h5>
+    <span class="{% fa_class 'comments' %}"></span>
+    {% translate 'Say hi!' %}
+</h5>
+<p>{% translate 'If you want to chat with us, hop on the Discord server and get in touch' %}</p>
+<a class="btn btn-outline-primary mb-5" href="https://discord.gg/rPWFv6W">https://discord.gg/rPWFv6W</a>
+
+<h5>
+    <span class="{% fa_class 'language' %}"></span>
+    {% translate 'Translation' %}
+</h5>
+<p>{% translate 'This application is translated on weblate. If you also want to help, click the link and start translating' %}</p>
+<a class="btn btn-outline-primary mb-5" href="https://hosted.weblate.org/engage/wger/">https://hosted.weblate.org/engage/wger/</a>
+
+{% endblock %}
+
+
+{% block sidebar %}
+<div class="card text-white bg-wger-green mb-3">
+    <div class="card-header">
+        {% translate "Our goal" %}
+    </div>
+    <div class="card-body">
+    {% blocktranslate %}The goal is to build an awesome
+and flexible fitness manager, along with a comprehensive and complete list of exercises and
+ingredients, all released under a free license.{% endblocktranslate %}
+    </div>
+</div>
+
+<p>{% translate "Current version" %} <b>{{ version }}</b></p>
+{% endblock %}
+
+

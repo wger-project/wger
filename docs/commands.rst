@@ -24,6 +24,7 @@ arguments::
     create-or-reset-admin   Creates an admin user or resets the password for an existing one
     create-settings         Creates a local settings file
     load-fixtures           Loads all fixtures
+    load-online-fixtures    Downloads fixtures from server and installs them (at the moment only ingredients)
     migrate-db              Run all database migrations
     start                   Start the application using django's built-in webserver
 
@@ -44,13 +45,13 @@ Bootstrap
 Command: **bootstrap**
 
 This command bootstraps the application: it creates a settings file, initialises
-a sqlite database, loads all necessary fixtures for the application to work and
-creates a default administrator user. While it can also work with e.g. a postgreSQL
+a SQLite database, loads all necessary fixtures for the application to work and
+creates a default administrator user. While it can also work with e.g. a PostgreSQL
 database, you will need to create it yourself::
 
     wger bootstrap
 
-The most usual use-case is creating the settings file and the sqlite database to
+The most usual use-case is creating the settings file and the SQLite database to
 their default locations, but you can set your own paths if you want e.g. start
 developing on a branch that is going to change the database schema.
 
@@ -64,7 +65,7 @@ Usage::
     Options:
       -a STRING, --address=STRING         Address to use. Default: localhost
       -b, --browser                       Whether to open the application in a browser window. Default: false
-      -d STRING, --database-path=STRING   Path to sqlite database (absolute path recommended). Leave empty for default
+      -d STRING, --database-path=STRING   Path to SQLite database (absolute path recommended). Leave empty for default
       -p, --port                          Port to use. Default: 8000
       -s STRING, --settings-path=STRING   Path to settings file (absolute path recommended). Leave empty for default
 
@@ -79,7 +80,7 @@ Starts an already installed application::
     wger start
 
 Please note that this is simply a comfort function and does not use any *magic*,
-it simply calls django's development server and (optionally) opens a browser
+it simply calls Django's development server and (optionally) opens a browser
 window. If you are developing, using the usual ``python manage.py runserver``
 is probably better.
 
@@ -105,7 +106,7 @@ Default locations
 Command: **config-location**
 
 Information command that simply outputs the default locations for the settings
-file as well as the data folder used for the sqlite database and the uploaded
+file as well as the data folder used for the SQLite database and the uploaded
 files.
 
 
@@ -114,7 +115,7 @@ Create settings
 
 Command: **create-settings**
 
-Creates a new settings file based. If you call it without further arguments it
+Creates a new settings file-based. If you call it without further arguments it
 will create the settings in the default locations::
 
     wger create-settings
@@ -132,8 +133,8 @@ Usage::
       Creates a local settings file
 
     Options:
-      -a STRING, --database-type=STRING   Database type to use. Supported: sqlite3, postgresql. Default: sqlite3
-      -d STRING, --database-path=STRING   Path to sqlite database (absolute path recommended). Leave empty for default
+      -a STRING, --database-type=STRING   Database type to use. Supported: SQLite3, postgresql. Default: SQLite3
+      -d STRING, --database-path=STRING   Path to SQLite database (absolute path recommended). Leave empty for default
       -k, --key-length                    Lenght of the generated secret key. Default: 50
       -s STRING, --settings-path=STRING   Path to settings file (absolute path recommended). Leave empty for default
       -u STRING, --url=STRING
@@ -145,7 +146,7 @@ Create or reset admin
 
 Command: **create-or-reset-admin**
 
-Makes sure that the default administrator user exists. If you change the password
+Makes sure that the default administrator user exists. If you change the password,
 it is reset.
 
 
@@ -186,12 +187,12 @@ Usage::
 
 
 
-Load all fixtures
-~~~~~~~~~~~~~~~~~
+Load fixtures
+~~~~~~~~~~~~~
 
 Command: **load-fixtures**
 
-Loads all fixture file with the default data. This data includes all data necessary
+Loads all fixture files with the default data. This data includes all data necessary
 for the application to work such as:
 
 * exercises, muscles, equipment
@@ -199,6 +200,9 @@ for the application to work such as:
 * languages
 * permission groups
 * etc.
+
+Note that ingredients are not included and need to be installed separately with
+download-online-fixtures.
 
 This command is called internally when installing the application but you can use
 it to reset the data to the original state. Note: new entries or user entries such
@@ -215,13 +219,33 @@ Usage::
       -s STRING, --settings-path=STRING   Path to settings file (absolute path recommended). Leave empty for default
 
 
+Load online fixtures
+~~~~~~~~~~~~~~~~~~~~
 
+Command: **load-online-fixtures**
+
+Downloads ingredient and weight units fixtures and installs them. They are not
+included in the repository due to size.
+
+This command is called internally when installing the application but you can use
+it to reset the data to the original state. Note: new entries or user entries such
+as workouts are *not* reset with this, only the application data.
+
+Usage::
+
+    Usage: inv[oke] [--core-opts] load-online-fixtures [--options] [other tasks here ...]
+
+    Docstring:
+      Downloads fixtures from server and installs them (at the moment only ingredients)
+
+    Options:
+      -s STRING, --settings-path=STRING   Path to settings file (absolute path). Leave empty for default
 
 
 Management commands
 -------------------
 
-wger also implements a series of django commands that perform different
+wger also implements a series of Django commands that perform different
 management functions that are sometimes needed. Call them with
 ``python manage.py <command_name>``:
 
@@ -233,11 +257,11 @@ management functions that are sometimes needed. Call them with
 
 **redo-capitalize-names**
   re-calculates the capitalized exercise names. This command can be called if the
-  current "smart" capitalization algorithm is changed. This is a safe operation,
+  current "smart" capitalization algorithm is changed. This is a safe operation
   since the original names (as entered by the user) are still available.
 
 **submitted-exercises**
-  simply prints a list of user submitted exercises
+  simply prints a list of user-submitted exercises
 
 **extract-i18n**
   extract strings from the database that have to be inserted manually in the PO
@@ -266,10 +290,10 @@ similar
   configured
 
 **email-reminders**
-  sends out email reminders for user that need to create a new workout.
+  sends out email reminders for a user that need to create a new workout.
 
 **email-weight-reminders**
-  sends out email reminders for user that need to enter a new (body) weight entry.
+  sends out email reminders for a user that need to enter a new (body) weight entry.
 
 **inactive-members**
   Sends email for gym members that have not been to the gym for a specified

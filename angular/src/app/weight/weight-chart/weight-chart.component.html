@@ -1,0 +1,38 @@
+<!--[view]="view"-->
+<div #containerRef>
+  <ngx-charts-line-chart
+    *ngIf="data !== null"
+
+    [view]="[containerRef.offsetWidth, 250]"
+    [scheme]="colorScheme"
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [timeline]="timeline"
+    [results]="data"
+    [autoScale]="autoScale"
+
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+  >
+  </ngx-charts-line-chart>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" i18n>Add entry</h4>
+      <button type="button" class="close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-weight-edit (closeEdit)="onFormCancelled()" [weight]="selectedEntry"></app-weight-edit>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" i18n>Close</button>
+    </div>
+  </ng-template>
+
+</div>

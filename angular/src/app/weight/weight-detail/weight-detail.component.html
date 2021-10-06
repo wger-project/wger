@@ -1,0 +1,38 @@
+<li class="list-group-item">
+  <div class="row">
+    <div class="col-3">
+        {{entry.date | date:'shortDate'}}
+    </div>
+
+    <div class="col-3">
+        {{entry.weight}}
+    </div>
+
+    <div class="col-3">
+      <div *ngIf="weightDiff !== null">
+        {{weightDiff | number : '1.1-2' }}
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div *ngIf="dayDiff !== null">
+        {{dayDiff}}
+      </div>
+    </div>
+
+    <div class="col-1">
+      <div ngbDropdown class="text-right">
+        <button class="btn btn-link" id="dropdownBasic1" ngbDropdownToggle></button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="toggleForm()" i18n>Edit</button>
+          <button ngbDropdownItem (click)="deleteEntry()" i18n>Delete</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <app-weight-edit *ngIf="showForm" [weight]="entry" (closeEdit)="onFormCancelled()"></app-weight-edit>
+
+
+</li>

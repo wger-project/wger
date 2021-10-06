@@ -89,7 +89,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         """
         Return to overview with username
         """
-        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+        return reverse('weight:overview')
 
 
 class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
@@ -109,7 +109,7 @@ class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         """
         Return to overview with username
         """
-        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+        return reverse('weight:overview')
 
 
 class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
@@ -131,7 +131,7 @@ class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
         """
         Return to overview with username
         """
-        return reverse('weight:overview', kwargs={'username': self.object.user.username})
+        return reverse('weight:overview')
 
 
 @login_required
@@ -158,65 +158,18 @@ def export_csv(request):
     return response
 
 
+@login_required
 def overview(request, username=None):
     """
     Shows a plot with the weight data
-
-    More info about the D3 library can be found here:
-        * https://github.com/mbostock/d3
-        * http://d3js.org/
     """
     is_owner, user = check_access(request.user, username)
-
-    template_data = {}
-
-    min_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Min('date'))['date__min']
-    max_date = WeightEntry.objects.filter(user=user).\
-        aggregate(Max('date'))['date__max']
-    if min_date:
-        template_data['min_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
-                                    {'year': min_date.year,
-                                     'month': min_date.month,
-                                     'day': min_date.day}
-    if max_date:
-        template_data['max_date'] = 'new Date(%(year)s, %(month)s, %(day)s)' % \
-                                    {'year': max_date.year,
-                                     'month': max_date.month,
-                                     'day': max_date.day}
-
-    last_weight_entries = helpers.get_last_entries(user)
-
-    template_data['is_owner'] = is_owner
-    template_data['owner_user'] = user
-    template_data['show_shariff'] = is_owner
-    template_data['last_five_weight_entries_details'] = last_weight_entries
-    return render(request, 'overview.html', template_data)
-
-
-@api_view(['GET'])
-def get_weight_data(request, username=None):
-    """
-    Process the data to pass it to the JS libraries to generate an SVG image
-    """
-
-    is_owner, user = check_access(request.user, username)
-
-    date_min = request.GET.get('date_min', False)
-    date_max = request.GET.get('date_max', True)
-
-    if date_min and date_max:
-        weights = WeightEntry.objects.filter(user=user, date__range=(date_min, date_max))
-    else:
-        weights = WeightEntry.objects.filter(user=user)
-
-    chart_data = []
-
-    for i in weights:
-        chart_data.append({'date': i.date, 'weight': i.weight})
-
-    # Return the results to the client
-    return Response(chart_data)
+    context = {
+        'is_owner': is_owner,
+        'owner_user': user,
+        'show_shariff': False,
+    }
+    return render(request, 'overview.html', context)
 
 
 class WeightCsvImportFormPreview(FormPreview):
@@ -243,6 +196,4 @@ class WeightCsvImportFormPreview(FormPreview):
     def done(self, request, cleaned_data):
         weight_list, error_list = helpers.parse_weight_csv(request, cleaned_data)
         WeightEntry.objects.bulk_create(weight_list)
-        return HttpResponseRedirect(
-            reverse('weight:overview', kwargs={'username': request.user.username})
-        )
+        return HttpResponseRedirect(reverse('weight:overview'))

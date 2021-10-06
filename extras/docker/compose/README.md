@@ -12,7 +12,7 @@ as well, for easy integration with other projects and tools.
 This docker-compose file starts up a development environment with django's
 development server, postgres as a database and redis for caching and saving
 the sessions. It binds your current code checkout into the volume, if you
-don't want or have one, use the `wger/apache` image, it is self-contained.
+don't want or have one, use the `wger/demo` image, it is self-contained.
 
 ### 1 - Start all services
 
@@ -20,9 +20,10 @@ To start all services:
 
     docker-compose -f extras/docker/compose/docker-compose.yml up
 
-You might also want to download the exercise images and the ingredients
-(will take some time):
+Optionally download current exercises from wger.de, exercise images and
+the ingredients (will take some time):
 
+    docker-compose -f extras/docker/compose/docker-compose.yml exec web python3 manage.py sync-exercises
     docker-compose -f extras/docker/compose/docker-compose.yml exec web wger download-exercise-images
     docker-compose -f extras/docker/compose/docker-compose.yml exec web wger download-ingredient-images
     docker-compose -f extras/docker/compose/docker-compose.yml exec web wger load-online-fixtures
@@ -78,7 +79,6 @@ report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
 * discord: <https://discord.gg/rPWFv6W>
-* gitter: <https://gitter.im/wger-project/wger>
 * issue tracker: <https://github.com/wger-project/wger/issues>
 * twitter: <https://twitter.com/wger_project>
 

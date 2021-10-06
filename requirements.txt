@@ -3,12 +3,12 @@
 #
 
 # Application
-bleach~=3.3
+bleach~=4.1
 django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.3
 django-recaptcha~=2.0.6
 Django~=3.2
-django-crispy-forms~=1.12
+django-crispy-forms~=1.13
 django_compressor~=2.4
 django_extensions~=3.1
 django-storages~=1.11
@@ -16,7 +16,7 @@ easy-thumbnails~=2.7
 icalendar==4.0.7
 invoke~=1.6
 pillow~=8.3
-reportlab==3.5.68
+reportlab==3.6.1
 requests
 setuptools>=18.5
 sphinx
@@ -27,7 +27,7 @@ sphinx
 
 # REST API
 django-cors-headers>=3.0
-django-filter==2.4.0
+django-filter==21.1
 djangorestframework~=3.12
 
 
@@ -39,4 +39,4 @@ six>=1.12.0  # for django-compressor
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files
-django-sortedm2m~=3.0
+django-sortedm2m~=3.1

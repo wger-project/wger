@@ -97,8 +97,10 @@
                                 </div>
                             </div>
                         {% endif %}
-
-                        <h4>{% if meal.time %}{{ meal.time|time:"H:i" }}{% endif %}</h4>
+                        
+                        <h4>{% if meal.name %}{{ meal.name }}{% endif %}</h4>
+                        <h5>{% if meal.time %}{{ meal.time|time:"H:i" }}{% endif %}</h5>
+                        
                     </td>
                 </tr>
                 <tr>

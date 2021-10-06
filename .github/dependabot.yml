@@ -10,6 +10,11 @@ updates:
     schedule:
       interval: "daily"
 
+  - package-ecosystem: "npm"
+    directory: "/angular"
+    schedule:
+      interval: "daily"
+
   - package-ecosystem: "pip"
     directory: "/"
     schedule:

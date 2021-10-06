@@ -31,7 +31,10 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 # wger
-from wger import get_version
+from wger import (
+    get_version,
+    MIN_APP_VERSION,
+)
 from wger.core.api.permissions import AllowRegisterUser
 from wger.core.api.serializers import (
     DaysOfWeekSerializer,
@@ -99,8 +102,20 @@ class ApplicationVersionView(viewsets.ViewSet):
     """
     permission_classes = (AllowAny, )
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         return Response(get_version())
+
+
+class RequiredApplicationVersionView(viewsets.ViewSet):
+    """
+    Returns the minimum required version of flutter app to access this server
+    """
+    permission_classes = (AllowAny, )
+
+    @staticmethod
+    def get(request):
+        return Response(get_version(MIN_APP_VERSION, True))
 
 
 class UserAPILoginView(viewsets.ViewSet):

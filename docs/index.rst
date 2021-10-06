@@ -6,11 +6,10 @@
 Welcome to wger Workout Manager's documentation!
 ================================================
 
-wger is a free, open source web application that manages your exercises and
-personal workouts, weight and nutrition. It can also be used as a simple gym
-management utility, providing different administrative roles (trainer, manager,
-etc.). It offers a REST API as well, for easy integration with other projects
-and tools. It is written with python/django and uses jQuery and some D3js for charts.
+wger (ˈvɛɡɐ) Workout Manager is a free, open-source web application that helps
+you manage your personal workouts, weight, and diet plans and can also be used
+as a simple gym management utility. It offers a REST API as well, for easy
+integration with other projects and tools.
 
 For more details and a live system, refer to the project's site:
 https://github.com/wger-project/wger
@@ -59,7 +58,6 @@ didn't behave as you expected (in this case you can also open a ticket on the
 issue tracker).
 
 * **discord:** https://discord.gg/rPWFv6W
-* **gitter:** https://gitter.im/wger-project/wger
 * **issue tracker:** https://github.com/wger-project/wger/issues
 * **twitter:** https://twitter.com/wger_project
 
@@ -67,7 +65,7 @@ issue tracker).
 Sources
 -------
 
-All the code and the content is freely available and is hosted on github:
+All the code and the content is freely available and is hosted on GitHub:
 https://github.com/wger-project/wger
 
 
@@ -83,7 +81,7 @@ Creative Commons Attribution Share-Alike 3.0 (CC-BY-SA 3.0)
 The documentation is released under a CC-BY-SA either version 4 of the License,
 or (at your option) any later version.
 
-Some images where taken from Wikipedia, see the SOURCES file in their respective
+Some images were taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.
 
 .. include the authors file from the root folder

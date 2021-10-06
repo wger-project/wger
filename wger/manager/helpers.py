@@ -106,7 +106,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             item_list = [Paragraph('', styleSheet["Small"])]
             if comments:
                 item_list = [
-                    ListItem(Paragraph(i, style=styleSheet["ExerciseComments"]))
+                    ListItem(Paragraph(i.comment, style=styleSheet["ExerciseComments"]))
                     for i in exercise.exercisecomment_set.all()
                 ]
 

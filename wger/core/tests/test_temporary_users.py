@@ -132,10 +132,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         # These pages should not create a user
-        self.client.get(reverse('core:contact'))
-        self.assertEqual(self.count_temp_users(), 1)
-
-        self.client.get(reverse('software:code'))
+        self.client.get(reverse('software:about-us'))
         self.assertEqual(self.count_temp_users(), 1)
 
         self.client.get(reverse('exercise:exercise:overview'))
@@ -149,7 +146,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
-        reverse('weight:overview', kwargs={'username': 'test'})
+        reverse('weight:overview')
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
@@ -178,8 +175,7 @@ class DemoUserTestCase(WgerTestCase):
         )
         self.assertContains(self.client.get(reverse('exercise:muscle:overview')), demo_notice_text)
         self.assertContains(self.client.get(reverse('nutrition:plan:overview')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('software:issues')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('software:license')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('software:about-us')), demo_notice_text)
 
     def test_command_delete_old_users(self):
         """

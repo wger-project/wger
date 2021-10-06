@@ -160,58 +160,55 @@
 
 
 <footer id="main-footer" class="bg-wger-light border-top">
-    <div class="container">
+    <div class="container bg-wger-light">
     <div class="row">
-        <div class="col-md-8">
-
+        <div class="col-xl-2 col-md-3">
+            <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                <img src="{% static 'images/logos/play-store/google-play-badge.png' %}"
+                     height="60"
+                     alt="Get it on Google Play"
+                     title="Get it on Google Play">
+            </a>
+        </div>
+        <div class="col-xl-6 col-md-5">
+            <ul class="list-unstyled mb-0 pt-2">
+                <li><a href="{% url 'core:imprint' %}" class="text-muted small">{% translate "Imprint" %}</a></li>
+                <li><a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a></li>
+            </ul>
+        </div>
 
         {#                                         #}
         {# Render the links to the other languages #}
         {#                                         #}
-
-        {% if not is_api_path %} {# Don't show language switcher in the generated API views #}
-        <div class="btn-group float-right" role="group">
-            <div class="btn-group" role="group">
-                <button id="btnGroupLanguages2" type="button" class="btn btn-link text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
-                  {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
-                  <img src="{% static flagname %}"
-                         width="18"
-                         height="11"
-                         alt="{% translate language.full_name %}"
-                         title="{% translate language.full_name %}"
-                         style="">
-                    {{language.full_name}} <span class="caret"></span>
-                  {% endwith %}
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupLanguages">
-                    {% for language in languages %}
-                        {% language_select language %}
-                    {% endfor %}
-                    <div class="dropdown-divider"></div>
-                    <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item" target="_blank">
-                        <span class="{% fa_class 'plus' %}"></span>
-                        {% translate "Translate" %}
-                    </a>
+        <div class="col-md-4">
+            {% if not is_api_path %} {# Don't show language switcher in the generated API views #}
+            <div class="btn-group float-sm-right" role="group">
+                <div class="btn-group" role="group">
+                    <button id="btnGroupLanguages2" type="button" class="btn btn-link text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
+                      {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                      <img src="{% static flagname %}"
+                             width="18"
+                             height="11"
+                             alt="{% translate language.full_name %}"
+                             title="{% translate language.full_name %}"
+                             style="">
+                        {{language.full_name}} <span class="caret"></span>
+                      {% endwith %}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupLanguages">
+                        {% for language in languages %}
+                            {% language_select language %}
+                        {% endfor %}
+                        <div class="dropdown-divider"></div>
+                        <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item" target="_blank">
+                            <span class="{% fa_class 'plus' %}"></span>
+                            {% translate "Translate" %}
+                        </a>
+                    </div>
                 </div>
             </div>
+            {% endif %}
         </div>
-        {% endif %}
-
-        <ul class="list-unstyled mb-0 pt-2">
-            <li><a href="{% url 'core:about' %}" class="text-muted small">{% translate "About" %}</a></li>
-            <li><a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a></li>
-        </ul>
-            <!--
-            <a href="https://github.com/wger-project/wger" class="no-hover">
-                <img src="{% static 'images/agpl-v3.svg' %}"
-                     width="57"
-                     height="20"
-                     alt="{% translate 'Released under the Affero GPL' %}"
-                     title="{% translate 'Released under the Affero GPL' %}"></a>
-            <em class="text-muted small">{{version}}</em> -->
-
-    </div>
-    </div>
     </div>
     </div>
 </footer>
