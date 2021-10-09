@@ -30,7 +30,7 @@ from wger.core.tests.base_testcase import (
 )
 from wger.nutrition.models import (
     LogItem,
-    NutritionPlan,
+    NutritionPlan, MealItem,
 )
 
 
@@ -164,7 +164,7 @@ class NutritionDiaryTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(reverse('nutrition:log:log_meal', kwargs={"meal_pk": 1}))
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(LogItem.objects.filter(plan=plan).count(), 3)
+        self.assertEqual(LogItem.objects.filter(plan=plan, meal_id=1).count(), 3)
 
     def test_log_meal_logged_out(self):
         """
@@ -240,21 +240,6 @@ class AddMealItemUnitTestCase(WgerAddTestCase):
         'ingredient': 1,
         'weight_unit': 1,
     }
-
-    def test_log_meals(self):
-        plan = NutritionPlan.objects.get(pk=1)
-        data = {
-            "meal": 1,
-            **self.data
-        }
-        plan.logitem_set.all().delete()
-        self.assertFalse(plan.logitem_set.exists())
-        self.user_login('test')
-        response = self.client.post(self.url, data)
-        self.assertEqual(response.status_code, 302)
-        plan.refresh_from_db()
-        log_item_queryset = plan.logitem_set.filter(plan=plan, meal_id=1)
-        self.assertEqual(log_item_queryset.count(), 1)
 
 
 class DeleteLogEntryTestCase(WgerDeleteTestCase):

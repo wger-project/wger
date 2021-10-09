@@ -263,7 +263,6 @@ class MealItemForm(forms.ModelForm):
 
 
 class MealLogItemForm(MealItemForm):
-    meal = forms.ModelChoiceField(queryset=Meal.objects.all(), required=False)
 
     class Meta:
         model = LogItem
@@ -271,7 +270,6 @@ class MealLogItemForm(MealItemForm):
             'ingredient',
             'weight_unit',
             'amount',
-            'meal',
         ]
 
 
