@@ -7,7 +7,7 @@ them yourself.
 
 Note that you need to build from the project's source folder, e.g::
 
-    docker build -f extras/docker/development/Dockerfile -t wger/devel .
+    docker build -f extras/docker/development/Dockerfile -t wger/server .
     docker build -f extras/docker/demo/Dockerfile --tag wger/demo .
 
 
@@ -36,11 +36,11 @@ and serves it with Django's development server.
 
 Get the image::
 
-    docker pull wger/devel
+    docker pull wger/server
 
 Run a container and start the application::
 
-    docker run -ti --name wger.devel --publish 8000:8000 wger/devel
+    docker run -ti --name wger.dev --publish 8000:8000 wger/server
     (in docker) source ~/venv/bin/activate
     (in docker) python manage.py runserver 0.0.0.0:8000
 
@@ -54,7 +54,7 @@ your host machine and use docker only to serve it. Then do this::
         --name wger.test1 \
         --publish 8005:8000 \
         --volume /path/to/local/wger/:/home/wger/src \
-         wger/devel
+         wger/server
 
 It will mount the local path *on top* of the folder in the container. For this to
 work you obviously need to manually checkout the code to ``/path/to/local/wger/``

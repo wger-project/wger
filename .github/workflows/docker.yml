@@ -40,4 +40,4 @@ jobs:
           push: true
           file: extras/docker/development/Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: wger/devel:latest,wger/devel:2.1-dev
+          tags: wger/server:latest,wger/server:2.1-dev,wger/devel:latest,wger/devel:2.1-dev
