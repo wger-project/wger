@@ -30,7 +30,7 @@ from wger.core.tests.base_testcase import (
 )
 from wger.nutrition.models import (
     LogItem,
-    NutritionPlan,
+    NutritionPlan, MealItem,
 )
 
 
@@ -164,7 +164,7 @@ class NutritionDiaryTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(reverse('nutrition:log:log_meal', kwargs={"meal_pk": 1}))
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(LogItem.objects.filter(plan=plan).count(), 3)
+        self.assertEqual(LogItem.objects.filter(plan=plan, meal_id=1).count(), 3)
 
     def test_log_meal_logged_out(self):
         """
