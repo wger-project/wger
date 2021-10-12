@@ -14,6 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='logitem',
             name='meal',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='log_items', to='nutrition.meal', verbose_name='Meal'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='log_items',
+                to='nutrition.meal',
+                verbose_name='Meal'
+            ),
         ),
     ]

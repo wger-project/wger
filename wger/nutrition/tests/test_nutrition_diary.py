@@ -30,7 +30,8 @@ from wger.core.tests.base_testcase import (
 )
 from wger.nutrition.models import (
     LogItem,
-    NutritionPlan, MealItem,
+    MealItem,
+    NutritionPlan,
 )
 
 
