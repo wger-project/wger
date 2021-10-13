@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Danish (http://www.transifex.com/rge/wger-workout-manager/"
-"language/da/)\n"
+"PO-Revision-Date: 2021-10-14 06:50+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/wger/web/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -253,32 +253,30 @@ msgstr "Bruges til kode-nulstilling og, hvis ønsket, påmindelser."
 
 #: core/forms.py:102
 msgid "Personal data"
-msgstr ""
+msgstr "Personlige oplysninger"
 
 #: core/forms.py:110
 msgid "Workout reminders"
-msgstr ""
+msgstr "Træningspåmindelser"
 
 #: core/forms.py:117
 msgid "Other settings"
-msgstr ""
+msgstr "Andre indstillinger"
 
 #: core/forms.py:125 core/views/user.py:599 core/views/user.py:614
 #: core/views/user.py:626 gym/forms.py:72 manager/templates/log/add.html:65
 #: manager/templates/set/add.html:69 manager/views/workout.py:221
 #: utils/generic_views.py:142
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 #: core/forms.py:132
 msgid "Used for password resets and, optionally, email reminders."
 msgstr "Bruges til kode-nulstilling og, hvis ønsket, påmindelser."
 
 #: core/forms.py:160
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Denne email er allere i brug."
+msgstr "Denne emailadresse er allerede i brug."
 
 #: core/forms.py:180 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
@@ -295,14 +293,14 @@ msgstr "Ukorrekt kodeord"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Denne formular er sikret med reCAPTCHA"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
 #: core/templates/user/login.html:20 core/views/user.py:293
 #: software/templates/features.html:38
 msgid "Register"
-msgstr ""
+msgstr "Registrer"
 
 #: core/forms.py:256
 msgid "Contact"
@@ -325,11 +323,11 @@ msgstr "Hvad vil du gerne sige?"
 
 #: core/models/days_of_week.py:29
 msgid "Day of the week"
-msgstr ""
+msgstr "Ugedag"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "Fulde navn"
 
 #: core/models/license.py:31
 msgid ""
