@@ -16,7 +16,7 @@ easy-thumbnails~=2.7
 icalendar==4.0.8
 invoke~=1.6
 pillow~=8.3
-reportlab==3.6.1
+reportlab==3.6.2
 requests
 setuptools>=18.5
 sphinx
