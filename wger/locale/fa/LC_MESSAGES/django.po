@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2021-10-17 08:36+0000\n"
+"Last-Translator: keyvanmj <keyvanmj5@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/wger/web/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -40,7 +40,7 @@ msgstr "تمرینات"
 
 #: config/models/language_config.py:42
 msgid "Ingredients"
-msgstr "دستور تهیه"
+msgstr "عناصر"
 
 #: config/templates/language/overview.html:4 core/templates/navigation.html:228
 msgid "Languages"
@@ -100,6 +100,7 @@ msgid "Configuration"
 msgstr "تنظیمات"
 
 #: config/templates/language/view.html:35
+#, fuzzy
 msgid ""
 "Use the configuration to select in what languages the\n"
 "exercises and ingredients will be shown for the current language (for "
@@ -108,9 +109,8 @@ msgid ""
 "in A)."
 msgstr ""
 "از تنظیمات استفاده کنید \n"
-"برای انتخاب اینکه از چه زبانی برای نمایش تمرینات و دستور تهیه استفاده شود "
-"(برای مثال تمرینات باید با زبان A, B و C نمایش داده شود، اما دستور تهیه فقط "
-"با زبان A)"
+"برای انتخاب اینکه از چه زبانی برای نمایش تمرینات و عناصر استفاده شود (برای "
+"مثال تمرینات باید با زبان A, B و C نمایش داده شود، اما عناصر فقط با زبان A)"
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
@@ -208,11 +208,11 @@ msgstr "نمونه برنامه غذایی"
 #: core/demo.py:349 core/demo.py:351 core/demo.py:353
 #, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr ""
+msgstr "تمرین نگه دارنده مکان شماره {0} برای برنامه"
 
 #: core/demo.py:358
 msgid "My cool workout schedule"
-msgstr "برنامه تمرین من"
+msgstr "برنامه تمرینی جالب من"
 
 #: core/demo.py:397 core/demo.py:412
 msgid "Empty placeholder schedule"
@@ -245,33 +245,31 @@ msgid "Email"
 msgstr "ایمیل"
 
 #: core/forms.py:77
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "استفاده کنید برای بازیابی رمز عبور و یا یادآوری ایمیل"
+msgstr "استفاده شده برای بازیابی رمز عبور و به صورت اختیاری, یادآوری ایمیل"
 
 #: core/forms.py:102
 msgid "Personal data"
-msgstr ""
+msgstr "اطلاعات شخصی"
 
 #: core/forms.py:110
 msgid "Workout reminders"
-msgstr ""
+msgstr "یاداوری تمرین"
 
 #: core/forms.py:117
 msgid "Other settings"
-msgstr ""
+msgstr "تنظیمات دیگر"
 
 #: core/forms.py:125 core/views/user.py:599 core/views/user.py:614
 #: core/views/user.py:626 gym/forms.py:72 manager/templates/log/add.html:65
 #: manager/templates/set/add.html:69 manager/views/workout.py:221
 #: utils/generic_views.py:142
 msgid "Save"
-msgstr ""
+msgstr "ذخیره"
 
 #: core/forms.py:132
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "استفاده کنید برای بازیابی رمز عبور و یا یادآوری ایمیل"
+msgstr "استفاده شده برای بازیابی رمز عبور و به صورت اختیاری, یادآوری ایمیل"
 
 #: core/forms.py:160
 #, fuzzy
@@ -294,7 +292,7 @@ msgstr "پسورد نامعتبر"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "این فرم با ریکپچا امن شده است"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
@@ -308,10 +306,8 @@ msgid "Contact"
 msgstr "ارتباط"
 
 #: core/forms.py:257
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "راه های ارتباطی (ایمیل و ... )"
+msgstr "راه های ارتباطی با شما(ایمیل و ... )"
 
 #: core/forms.py:265 exercises/models/comment.py:40 manager/models/set.py:60
 #: manager/models/setting.py:99 nutrition/models/log.py:61
@@ -320,7 +316,7 @@ msgstr "نظر"
 
 #: core/forms.py:266
 msgid "What do you want to say?"
-msgstr "چه میخواهید بگویید"
+msgstr "چه میخواهید بگویید؟"
 
 #: core/models/days_of_week.py:29
 msgid "Day of the week"
@@ -328,13 +324,16 @@ msgstr "روز در هفته"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr "تمام وقت"
+msgstr "نام و نام خانوادگی"
 
 #: core/models/license.py:31
+#, fuzzy
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"اگریک مجوز محلی شده باشد , به عنوان مثال مجوزهای عوام خلاق برای کشورهای "
+"مختلف ,ان ها را در اینجا به عنوان ورودی ها جدا اضافه کنید"
 
 #: core/models/license.py:38
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -346,12 +345,12 @@ msgstr "پیوند"
 
 #: core/models/license.py:43
 msgid "Link to license text or other information"
-msgstr ""
+msgstr "پیوند به متن مجوز یا سایر اطلاعات"
 
 #: core/models/profile.py:52
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s روز تولد معتبر نمی باشد"
 
 #: core/models/profile.py:61
 msgid "Male"
@@ -387,11 +386,11 @@ msgstr "نمایش نظرات تمرینات"
 
 #: core/models/profile.py:112
 msgid "Check to show exercise comments on the workout view"
-msgstr "انتخاب کنید تا نظرات تمرینات در بخش تمرین نمایش داده شود."
+msgstr "بررسی کنید تا نظرات تمرینات در بخش تمرین نمایش داده شود."
 
 #: core/models/profile.py:123
 msgid "Also use ingredients in English"
-msgstr "همچنین مواد مورد نیاز را به انگلیسی نمایش بده"
+msgstr "همچنین عناصر مورد نیاز را به انگلیسی نمایش بده"
 
 #: core/models/profile.py:125
 msgid ""
@@ -400,13 +399,15 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"همچنین مواد مورد نیاز را در زمان تهیه به زبان انگلیسی نمایش بده.\n"
-"مواد این لیست، توسط وزارت کشاورزی ایالات متحده تهیه شده است\n"
-"بسیار کامل است و شامل 7000 داده می باشد که کمی جستجو در آن گیج کننده است"
+"همچنین عناصر مورد نیاز را در زمان ایجاد برنامه غذایی به زبان انگلیسی نمایش "
+"بده.\n"
+"عناصرخارج شده این لیست، توسط وزارت کشاورزی ایالات متحده تهیه شده است\n"
+"بسیار کامل است و شامل 7000 داده می باشد اما می تواند تا حدودی طاقت فرسا باشد "
+"و جستجو را دشوار کند."
 
 #: core/models/profile.py:134
 msgid "Activate workout reminders"
-msgstr "تمرینات فعال"
+msgstr "یاد اوری تمرینات فعال"
 
 #: core/models/profile.py:136
 msgid ""
@@ -426,13 +427,15 @@ msgstr "تعداد روزهایی را که میخواهید یادآوری به
 
 #: core/models/profile.py:152
 msgid "Default duration of workouts"
-msgstr "میزان متعادل زمان تمرین"
+msgstr "مدت زمان پیش فرض زمان تمرین"
 
 #: core/models/profile.py:154
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
+"مدت زمان پیش فرض در هفته های تمرین نه در برنامه. برای یادآوری تمرینات ایمیل "
+"استفاده می شود."
 
 #: core/models/profile.py:171
 msgid "Notification language"
@@ -443,10 +446,13 @@ msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
+"زبانی که هنگام ارسال اعلان های ایمیل برای شما استفاده می شود ، به عنوان مثال "
+"یادآوری ایمیل برای تمرینات این بر زبان مورد استفاده در وب سایت تأثیر نمی "
+"گذارد."
 
 #: core/models/profile.py:186 gym/views/export.py:66
 msgid "Age"
-msgstr "سال"
+msgstr "سن"
 
 #: core/models/profile.py:202 nutrition/forms.py:98
 msgid "Height (cm)"
