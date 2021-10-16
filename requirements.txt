@@ -15,7 +15,7 @@ django-storages~=1.12
 easy-thumbnails~=2.7
 icalendar==4.0.8
 invoke~=1.6
-pillow~=8.3
+pillow~=8.4
 reportlab==3.6.2
 requests
 setuptools>=18.5
