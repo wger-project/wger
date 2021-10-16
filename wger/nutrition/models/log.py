@@ -49,6 +49,7 @@ class LogItem(BaseMealItem, models.Model):
         verbose_name=_('Nutrition plan'),
         on_delete=models.CASCADE,
     )
+
     meal = models.ForeignKey(
         Meal,
         verbose_name=_('Meal'),

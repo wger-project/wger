@@ -376,7 +376,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(NutritionPlan, 'plan')]
+        return [(NutritionPlan, 'plan'), (Meal, 'meal')]
 
     @action(detail=True)
     def nutritional_values(self, request, pk):
