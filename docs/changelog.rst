@@ -19,7 +19,7 @@ Upgrade steps from 2.0:
 * Add comment filed to set for user notes `#702`_
 * Custom measurements such as biceps size or body fat `#133`_
 * Add picture type to exercise images (thanks `@LucasSD`_) `#589`_
-
+* Add toptional relation from nutritional diary to meal (thanks `@Alig1493`_) `#819`_
 
 🐛 Bug Fixes:
 
@@ -52,7 +52,9 @@ Upgrade steps from 2.0:
 .. _#667: https://github.com/wger-project/wger/issues/667
 .. _#702: https://github.com/wger-project/wger/issues/702
 .. _#716: https://github.com/wger-project/wger/issues/716
+.. _#819: https://github.com/wger-project/wger/issues/819
 
+.. _@Alig1493: https://github.com/Alig1493
 .. _@LucasSD: https://github.com/LucasSD
 .. _@qwert45hi: https://github.com/qwert45hi
 .. _@jackmulligan-ire: https://github.com/jackmulligan-ire
