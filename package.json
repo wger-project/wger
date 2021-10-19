@@ -28,7 +28,7 @@
     "popper.js": "^1.16.1",
     "shariff": "^3.2.1",
     "tinymce": "^5.10.0",
-    "yarn": "^1.22.15"
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css",
