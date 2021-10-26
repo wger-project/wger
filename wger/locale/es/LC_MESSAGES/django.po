@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-10-26 09:56+0000\n"
-"Last-Translator: Alex Hidalgo <alexjhidalgo@icloud.com>\n"
+"PO-Revision-Date: 2021-10-26 09:57+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -3406,7 +3406,7 @@ msgstr "Borrar ingrediente"
 #: nutrition/templates/log/overview.html:7
 #: nutrition/templates/plan/view.html:300
 msgid "Nutrition diary"
-msgstr "Diario de nutrición"
+msgstr "Diario nutricional"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
@@ -3435,7 +3435,7 @@ msgstr "g"
 #: nutrition/templates/log/overview.html:53
 #: nutrition/templates/plan/view.html:330
 msgid "nothing found"
-msgstr ""
+msgstr "no se encontraron resultados"
 
 #: nutrition/templates/plan/overview.html:5
 msgid "Your nutrition plans"
