@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2021-10-26 09:56+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"Last-Translator: Alex Hidalgo <alexjhidalgo@icloud.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -2630,10 +2630,8 @@ msgstr "Fecha de creación"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "¡Entrenamiento completado!"
+msgstr "Pantilla de entrenamiento"
 
 #: manager/models/workout.py:74
 msgid ""
@@ -2645,7 +2643,7 @@ msgstr ""
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Plantilla pública"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
@@ -3227,6 +3225,9 @@ msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
 msgstr ""
+"Marque la casilla si desea marcar este plan como si tuviera una cantidad "
+"objetivo de calorías. Puede usar la calculadora o ingresar el valor usted "
+"mismo."
 
 #: nutrition/templates/bmi/form.html:62
 msgid "Results"
@@ -3405,7 +3406,7 @@ msgstr "Borrar ingrediente"
 #: nutrition/templates/log/overview.html:7
 #: nutrition/templates/plan/view.html:300
 msgid "Nutrition diary"
-msgstr ""
+msgstr "Diario de nutrición"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
@@ -3454,7 +3455,7 @@ msgstr ""
 
 #: nutrition/templates/plan/view.html:150
 msgid "No items for this meal."
-msgstr ""
+msgstr "No hay artículos para esta comida."
 
 #: nutrition/templates/plan/view.html:188
 msgid "No meals for this plan."
