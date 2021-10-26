@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2021-10-26 09:57+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"Last-Translator: Sergio <salvarher95@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -3410,7 +3410,7 @@ msgstr "Diario nutricional"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
-msgstr ""
+msgstr "Planeado"
 
 #: nutrition/templates/log/detail.html:33
 #: nutrition/templates/log/overview.html:31
@@ -3426,7 +3426,7 @@ msgstr ""
 
 #: nutrition/templates/log/detail.html:150
 msgid "Entries"
-msgstr ""
+msgstr "Entradas"
 
 #: nutrition/templates/log/detail.html:170
 msgid "g"
@@ -3447,11 +3447,11 @@ msgstr "Contenidos"
 
 #: nutrition/templates/plan/view.html:79
 msgid "Log this meal"
-msgstr ""
+msgstr "Registrar esta comida"
 
 #: nutrition/templates/plan/view.html:84
 msgid "Add ingredient to meal"
-msgstr ""
+msgstr "Añadir ingrendiente a la comida"
 
 #: nutrition/templates/plan/view.html:150
 msgid "No items for this meal."
@@ -3463,7 +3463,7 @@ msgstr "No hay comidas para este plan."
 
 #: nutrition/templates/plan/view.html:200
 msgid "Log this Plan"
-msgstr ""
+msgstr "Registrar este plan"
 
 #: nutrition/templates/plan/view.html:206
 msgid "Add a new meal"
@@ -3496,7 +3496,7 @@ msgstr "oz por lb de peso"
 
 #: nutrition/templates/plan/view.html:338
 msgid "View complete nutrition log"
-msgstr ""
+msgstr "Ver el registro completo de nutrición"
 
 #: nutrition/templates/plan/view.html:371
 msgid "Goal"
@@ -3571,6 +3571,8 @@ msgid ""
 "The base caloric intake is the amount of calories your metabolism\n"
 "needs based on your level of physical activity."
 msgstr ""
+"La ingesta base calorica es el total de calorias que tu metabolismo\n"
+"necesita en base a tu nivel de actividad física"
 
 #: nutrition/templates/rate/form.html:81
 msgid "Calculate basic caloric intake"
