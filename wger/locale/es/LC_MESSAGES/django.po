@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-10-26 09:57+0000\n"
+"PO-Revision-Date: 2021-10-27 10:48+0000\n"
 "Last-Translator: Sergio <salvarher95@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
@@ -3585,6 +3585,10 @@ msgid ""
 "Alternatively\n"
 "you might just enter yourself the amount of calories if you know the value."
 msgstr ""
+"Las calorías totales son las calorías totales reales por día. Este\n"
+"puede incluir, por ejemplo, un superávit o un déficit si estás haciendo "
+"volumen o definición. Alternativamente,\n"
+"puedes introducir tú mismo la cantidad de calorías si conoces el valor."
 
 #: nutrition/templates/rate/form.html:102
 msgid "Transfer basic intake to total daily calories"
@@ -3658,24 +3662,28 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"¡Gracias por usar wger! wger es un proyecto colaborativo de código abierto, "
+"hecho por entusiastas del fitness de todo el mundo"
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Código fuente"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr ""
+msgstr "Consigue el código fuente de esta aplicación y su servidor en GitHub"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "¿Tiene un problema o una idea?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Ponte en contacto con nosotros si algo no funciona como esperabas o si hay "
+"una función que crees que falta."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
@@ -3717,6 +3725,8 @@ msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts. "
 msgstr ""
+"wger Workout Manager es una aplicación web gratuita y de código abierto que "
+"gestiona tus ejercicios y entrenamientos. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -3744,7 +3754,7 @@ msgstr "Pruébalo ahora"
 
 #: software/templates/features.html:55
 msgid "Your advantages"
-msgstr ""
+msgstr "Tus ventajas"
 
 #: software/templates/features.html:57
 msgid ""
@@ -3765,6 +3775,10 @@ msgid ""
 "distance you want to do them. You can also combine different workouts into a "
 "schedule."
 msgstr ""
+"Puedes crear y gestionar rutinas de entrenamiento flexibles para cualquier "
+"objetivo que tengas. Selecciona exactamente qué ejercicios vas a hacer y "
+"cuántas repeticiones, tiempo o distancia quieres hacer. También puedes "
+"combinar diferentes entrenamientos en un mismo programa."
 
 #: software/templates/features.html:89
 msgid ""
@@ -3773,6 +3787,10 @@ msgid ""
 "nutritional values (total energy, protein, carbohydrates, and so on) about "
 "the whole plan as well as the indivual meals."
 msgstr ""
+"Crea tu plan de dieta personal creando tantas comidas con tantos "
+"ingredientes diferentes como necesites. La aplicación calculará los valores "
+"nutricionales (energía total, proteínas, hidratos de carbono, etc.) de todo "
+"el plan y de cada una de las comidas."
 
 #: software/templates/features.html:102
 msgid "Diary"
@@ -3784,6 +3802,9 @@ msgid ""
 "diagrams that let you see at a glance how well you are doing. The raw "
 "numbers are of course still accessible."
 msgstr ""
+"Introduce los pesos y las repeticiones que has hecho en cada ejercicio para "
+"generar diagramas que te permitan ver de un vistazo lo bien que lo estás "
+"haciendo. Por supuesto, los números en bruto siguen siendo accesibles."
 
 #: software/templates/features.html:109
 msgid ""
@@ -3804,12 +3825,17 @@ msgid ""
 "Keep track of your progress with the body weight chart. This makes it easy "
 "to see if you are reaching your goals or need to adjust something."
 msgstr ""
+"Controla tu progreso con la tabla de peso corporal. Esta hace que sea fácil "
+"ver si estás alcanzando tus objetivos o necesitas ajustar algo."
 
 #: software/templates/features.html:156
 msgid ""
 "Get an overview of how and when you trained as well as how you personally "
 "felt you performed. Access all your individual diary entries with one click."
 msgstr ""
+"Obtenga una visión general de cómo y cuándo ha entrenado, así como de su "
+"rendimiento personal. Accede a todas tus entradas individuales del registro "
+"con un solo clic."
 
 #: software/templates/features.html:171
 msgid "Exercise database"
@@ -3835,6 +3861,9 @@ msgid ""
 "attendance. You can manage the members' contracts, keep notes and upload any "
 "files you might need."
 msgstr ""
+"Utilice la aplicación en su gimnasio para gestionar a sus socios, sus "
+"entrenamientos y su asistencia. Podrás gestionar los contratos de los "
+"socios, guardar notas y subir los archivos que necesites."
 
 #: software/templates/features.html:213
 msgid ""
@@ -4027,7 +4056,7 @@ msgstr ""
 #: weight/views.py:127
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "Eliminar la entrada de peso para el %s"
 
 #~ msgid "Responsible for the content of this site as per German law §5 TMG:"
 #~ msgstr ""
