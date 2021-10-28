@@ -18,11 +18,20 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workout',
             name='is_public',
-            field=models.BooleanField(default=False, help_text='A public template is available to other users', verbose_name='Public template'),
+            field=models.BooleanField(
+                default=False,
+                help_text='A public template is available to other users',
+                verbose_name='Public template'
+            ),
         ),
         migrations.AlterField(
             model_name='workout',
             name='is_template',
-            field=models.BooleanField(default=False, help_text='Marking a workout as a template will freeze it and allow you to make copies of it', verbose_name='Workout template'),
+            field=models.BooleanField(
+                default=False,
+                help_text=
+                'Marking a workout as a template will freeze it and allow you to make copies of it',
+                verbose_name='Workout template'
+            ),
         ),
     ]
