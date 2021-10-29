@@ -17,9 +17,9 @@ icalendar==4.0.9
 invoke~=1.6
 pillow~=8.4
 reportlab==3.6.2
-requests
+requests==2.26.0
 setuptools>=18.5
-sphinx
+sphinx==4.2.0
 
 # AWS
 #boto3

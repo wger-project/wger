@@ -6,10 +6,10 @@
 -r requirements.txt
 
 # Building/installing
-wheel
+wheel==0.37.0
 
 # Development packages
-coverage
-django-debug-toolbar
-tblib
-isort
+coverage==6.0.2
+django-debug-toolbar==3.2.2
+tblib==1.7.0
+isort==5.9.3
