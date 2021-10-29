@@ -17,7 +17,7 @@
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
     "Sortable": "RubaXa/Sortable#1.14.0",
-    "bootstrap": "4.6.0",
+    "bootstrap": "4.6.1",
     "components-font-awesome": "5.9.0",
     "d3": "^7.1.1",
     "datatables": "^1.10.18",
