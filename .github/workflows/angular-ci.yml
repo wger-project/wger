@@ -1,5 +1,8 @@
 name: Continous Integration (Angular)
-on: push
+on:
+  push:
+    paths:
+      - '**.ts'
 jobs:
   build:
     runs-on: ubuntu-latest

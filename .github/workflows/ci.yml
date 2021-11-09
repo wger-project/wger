@@ -1,6 +1,14 @@
 name: Continous Integration
 
-on: [pull_request, push]
+on:
+  push:
+    paths:
+      - '**.py'
+      - 'requirements.txt'
+  pull_request:
+    paths:
+      - '**.py'
+      - 'requirements.txt'
 
 jobs:
   ci-job:
