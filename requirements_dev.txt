@@ -12,4 +12,4 @@ wheel==0.37.0
 coverage==6.1.1
 django-debug-toolbar==3.2.2
 tblib==1.7.0
-isort==5.10.0
+isort==5.10.1
