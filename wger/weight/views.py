@@ -150,7 +150,7 @@ def export_csv(request):
     writer.writerow([_('Weight'), _('Date')])
 
     for entry in weights:
-        writer.writerow([entry.weight, entry.date])
+        writer.writerow([entry.date, entry.weight])
 
     # Send the data to the browser
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
