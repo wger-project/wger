@@ -19,7 +19,7 @@ pillow~=8.4
 reportlab==3.6.2
 requests==2.26.0
 setuptools>=18.5
-sphinx==4.2.0
+sphinx==4.3.0
 
 # AWS
 #boto3
