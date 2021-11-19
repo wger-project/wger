@@ -28,14 +28,16 @@ jobs:
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
-          file: extras/docker/apache/Dockerfile
           push: true
-          tags: wger/apache:latest,wger/apache:2.1-dev
+          file: extras/docker/demo/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          tags: wger/demo:latest,wger/demo:2.1-dev,wger/apache:latest,wger/apache:2.1-dev
 
       - name: Build dev image
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
-          file: extras/docker/development/Dockerfile
           push: true
-          tags: wger/devel:latest,wger/devel:2.1-dev
+          file: extras/docker/development/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          tags: wger/server:latest,wger/server:2.1-dev,wger/devel:latest,wger/devel:2.1-dev

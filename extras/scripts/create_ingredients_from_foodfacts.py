@@ -11,6 +11,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+import enum
+from enum import Enum
 
 from pymongo import MongoClient
 import os
@@ -30,13 +32,17 @@ from wger.core.models import Language  # noqa: E402
 Simple script that imports and loads the Open Food Facts database into the
 ingredients database.
 
-NOTE: The file is VERY large (17 GB), so it takes a long time (> 3 hours) to run
-and create all ingredients.
+NOTE: The file is VERY large (17 GB), so it takes a long time (> 3 hours) to
+import the data and create all the ingredients.
 
 
 * Requirements:
-pip3 install pymongo zip
-apt-get install mongo-tools  # (for mongorestore)
+(note that the local mongo version needs to be compatible with the one used to
+ create the dump, otherwise the indices won't be compatible, it is best to use
+ a newer version than the one found in the ubuntu/debian repos)
+
+pip3 install pymongo
+apt-get install mongo-tools zip
 
 * Steps:
 wget https://static.openfoodfacts.org/data/openfoodfacts-mongodbdump.tar.gz
@@ -62,7 +68,7 @@ rm -r dump
 # Update ingredient fixture
 python3 manage.py dumpdata nutrition.ingredient > extras/scripts/data.json
 cd extras/scripts/
-python3 python3 filter-fixtures.py
+python3 filter-fixtures.py
 zip ingredients.json.zip ingredients.json
 """
 
@@ -70,11 +76,17 @@ zip ingredients.json.zip ingredients.json
 client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
 db = client.admin
 
+
 # Mode for this script. When using 'insert', the script will bulk-insert the new
 # ingredients, which is very efficient. Importing the whole database will require
 # barely a minute. When using 'update', existing ingredients will be updated, which
 # requires two queries per product.
-MODE = 'insert'
+class Mode(Enum):
+    INSERT = enum.auto()
+    UPDATE = enum.auto()
+
+
+MODE = Mode.INSERT
 
 languages = {i[0]: Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
 
@@ -89,17 +101,24 @@ stats = {'new': 0,
 #    total = db.products.count_documents({'lang': lang})
 #    print(f'Lang {lang} has {count} completed products out of {total}')
 
-# Lang de has 15667 completed products out of 52669
-# Lang es has 8757 completed products out of 186171
-# Lang ru has 505 completed products out of 2918
-# Lang fr has 85058 completed products out of 811715
-# Lang bg has 15 completed products out of 718
-# Lang el has 20 completed products out of 251
-# Lang nl has 750 completed products out of 5611
-# Lang no has 9 completed products out of 141
-# Lang cs has 123 completed products out of 789
-# Lang sv has 1340 completed products out of 2878
-# Lang pt has 526 completed products out of 3541
+# Completeness status of ingredients as of 2021-11-18
+#
+# Lang en has 5154 completed products out of 579495
+# Lang de has 8882 completed products out of 90885
+# Lang bg has 16 completed products out of 897
+# Lang es has 6785 completed products out of 236210
+# Lang ru has 481 completed products out of 8729
+# Lang nl has 628 completed products out of 7428
+# Lang pt has 482 completed products out of 5024
+# Lang el has 27 completed products out of 544
+# Lang cs has 154 completed products out of 1451
+# Lang sv has 1234 completed products out of 3459
+# Lang no has 9 completed products out of 155
+# Lang fr has 45358 completed products out of 960096
+# Lang it has 821 completed products out of 118270
+# Lang pl has 2032 completed products out of 4978
+# Lang uk has 4 completed products out of 158
+# Lang tr has 8 completed products out of 425
 
 print('***********************************')
 print(languages.keys())
@@ -174,7 +193,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     }
 
     # Add entries as new products
-    if MODE == 'insert':
+    if MODE == Mode.INSERT:
         bulk_update_bucket.append(Ingredient(**ingredient_data))
         if len(bulk_update_bucket) > BULK_SIZE:
             try:
@@ -190,8 +209,9 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
                         ingredient.save()
 
                     # ¯\_(ツ)_/¯
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        print('--> Error while saving the product individually')
+                        print(e)
 
             stats['new'] += BULK_SIZE
             bulk_update_bucket = []
@@ -212,7 +232,9 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
                 stats['edited'] += 1
                 # print('-> updated')
 
-        except:  # noqa: E722
+        except Exception as e:
+            print('--> Error while performing update_or_create')
+            print(e)
             continue
 
 print('***********************************')

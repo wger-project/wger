@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-09-07 19:34+0000\n"
+"PO-Revision-Date: 2021-10-27 10:48+0000\n"
 "Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -254,7 +254,7 @@ msgstr "Email"
 
 #: core/forms.py:77
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "Usada para ressetar senha e email de lembretes opcionais."
+msgstr "Usada para resetar senha e email de lembretes opcionais."
 
 #: core/forms.py:102
 msgid "Personal data"
@@ -298,7 +298,7 @@ msgstr "Senha inválida"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr "Este formulário é protegido com reCAPTCHA"
+msgstr "O formulário está seguro com o reCAPTCHA"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
@@ -313,7 +313,7 @@ msgstr "Contato"
 
 #: core/forms.py:257
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Meios de contato (email, etc.)"
+msgstr "Meios de contato (e-mail, etc.)"
 
 #: core/forms.py:265 exercises/models/comment.py:40 manager/models/set.py:60
 #: manager/models/setting.py:99 nutrition/models/log.py:61
@@ -588,6 +588,11 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Você está\n"
+"… navegando no site como usuário \"%(current_user)s\", todas as suas ações "
+"serão registradas sob seus dados.\n"
+"…\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -631,7 +636,7 @@ msgstr "Fechar"
 
 #: core/templates/index.html:54 core/templates/index.html:203
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Adicione uma nova entrada diária"
 
 #: core/templates/index.html:59
 msgid ""
@@ -988,7 +993,7 @@ msgstr "Minhas preferências"
 
 #: core/templates/navigation.html:216
 msgid "Logout"
-msgstr "Logout"
+msgstr "Sair"
 
 #: core/templates/navigation.html:231
 msgid "Licenses"

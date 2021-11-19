@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-17 13:26+0000\n"
-"Last-Translator: David <david@davidmachiels.be>\n"
+"PO-Revision-Date: 2021-10-27 10:48+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -596,6 +596,10 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Je bezoekt \n"
+"    de website als gebruiker \"%(current_user)s\", alle acties zijn "
+"uitgevoerd op eigen data\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -807,7 +811,7 @@ msgstr "Niets gevonden"
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Afdruk"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -857,13 +861,11 @@ msgstr "Kalender"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Gallerij"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Workout voltooid!"
+msgstr "Workout  schemas"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
 #, fuzzy
@@ -873,7 +875,7 @@ msgstr "Je schema's"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Publieke schemas"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"

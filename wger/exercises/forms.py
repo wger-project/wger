@@ -33,6 +33,7 @@ class ExerciseImageForm(forms.ModelForm):
             'is_main',
             'license',
             'license_author',
+            'style',
         )
 
 

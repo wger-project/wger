@@ -21,7 +21,7 @@ process under apache with a sqlite database. It is useful to just try it out and
 play around. To start it:
 
 
-```docker run -ti --name wger.apache --publish 8000:80 wger/apache```
+```docker run -ti --name wger.demo --publish 8000:80 wger/demo```
 
 Then just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
@@ -40,7 +40,7 @@ Building
 If you build this yourself, keep in mind that you **must** build from the
 project root!
 
-```docker build -f extras/docker/apache/Dockerfile --tag wger/apache .```
+```docker build -f extras/docker/demo/Dockerfile --tag wger/demo .```
 
 
 Contact

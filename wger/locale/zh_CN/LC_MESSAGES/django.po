@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-05-27 16:04+0000\n"
-"Last-Translator: 猫猫头 <914766662@qq.com>\n"
+"PO-Revision-Date: 2021-10-03 15:34+0000\n"
+"Last-Translator: freeair zhao <izhaoget@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1100,7 +1100,7 @@ msgstr "新增健身项目到这个健身日"
 #: core/templates/tags/render_weight_log.html:17 manager/helpers.py:89
 #: manager/models/setting.py:57 manager/templates/set/formset.html:10
 msgid "Reps"
-msgstr "重复"
+msgstr "重复次数"
 
 #: core/templates/tags/render_weight_log.html:30 manager/forms.py:178
 #: manager/models/log.py:101 manager/models/setting.py:87

@@ -18,7 +18,6 @@ from django.conf import settings
 from django.templatetags.static import static
 
 # wger
-from wger import get_version
 from wger.config.models import GymConfig
 from wger.utils import constants
 from wger.utils.language import load_language
@@ -35,9 +34,6 @@ def processor(request):
         i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
 
     context = {
-        # Application version
-        'version': get_version(),
-
         # Twitter handle for this instance
         'twitter': settings.WGER_SETTINGS['TWITTER'],
 

@@ -9,16 +9,17 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-11 18:54+0000\n"
-"Last-Translator: rge <roland@geider.net>\n"
-"Language-Team: Arabic (Saudi Arabia) (http://www.transifex.com/rge/wger-"
-"workout-manager/language/ar_SA/)\n"
+"PO-Revision-Date: 2021-09-13 21:39+0000\n"
+"Last-Translator: My Google <ahmedtahraoui90@gmail.com>\n"
+"Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
+"wger/web/ar_SA/>\n"
 "Language: ar_SA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -29,6 +30,9 @@ msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"حدد الصالة الرياضية الافتراضية لهذا التثبيت. سيؤدي هذا إلى تعيين جميع "
+"المستخدمين المسجلين الجدد في هذه الصالة الرياضية وتحديث جميع المستخدمين "
+"الحاليين بدون صالة رياضية."
 
 #: config/models/language_config.py:41 core/templates/navigation.html:63
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:122
@@ -46,7 +50,7 @@ msgstr "اللغات"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr ""
+msgstr "لم يتم العثور على شيء."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:147
 #: core/templates/index.html:199 manager/templates/calendar/month.html:132
@@ -58,8 +62,9 @@ msgstr ""
 #: nutrition/templates/plan/view.html:148
 #: nutrition/templates/plan/view.html:151
 #: nutrition/templates/plan/view.html:189
+#, fuzzy
 msgid "Add one now."
-msgstr ""
+msgstr "أضف واحدة الآن."
 
 #: config/templates/language/overview.html:29
 #: core/templates/license/list.html:38 core/templates/misc/license/list.html:41
@@ -80,24 +85,27 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:43
 #: weight/templates/overview.html:78
 msgid "Add"
-msgstr ""
+msgstr "اضف"
 
 #: config/templates/language/view.html:21 core/models/language.py:29
+#, fuzzy
 msgid "Language short name"
-msgstr ""
+msgstr "اسم قصير للغة"
 
 #: config/templates/language/view.html:22
 #: config/templates/language/view.html:43 core/models/language.py:32
 msgid "Language full name"
-msgstr ""
+msgstr "الاسم الكامل للغة"
 
 #: config/templates/language/view.html:34 core/templates/user/overview.html:451
 #: gym/views/admin_config.py:44 gym/views/admin_config.py:58
 #: gym/views/user_config.py:46
+#, fuzzy
 msgid "Configuration"
-msgstr ""
+msgstr "إعدادات"
 
 #: config/templates/language/view.html:35
+#, fuzzy
 msgid ""
 "Use the configuration to select in what languages the\n"
 "exercises and ingredients will be shown for the current language (for "
@@ -105,10 +113,14 @@ msgid ""
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
 msgstr ""
+"استخدم إعدادات لتحديد اللغات\n"
+"سيتم عرض التمارين والمكونات للغة الحالية (على سبيل المثال\n"
+"يجب أن تكون التدريبات باللغات أ ، ب ، ج ؛ المكونات فقط\n"
+"في اللغة  أ )."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
-msgstr ""
+msgstr "العرض"
 
 #: config/templates/language/view.html:91 core/templates/user/api_key.html:44
 #: core/templates/user/preferences.html:28
@@ -121,7 +133,7 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:226
 #: nutrition/templates/plan/view.html:409 weight/templates/overview.html:62
 msgid "Options"
-msgstr ""
+msgstr "الخيارات"
 
 #: config/templates/language/view.html:96 config/views/gym_config.py:41
 #: config/views/language_config.py:49 core/templates/license/list.html:16
@@ -152,7 +164,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:89 nutrition/templates/plan/view.html:124
 #: nutrition/templates/units/list.html:18
 msgid "Edit"
-msgstr ""
+msgstr "تعديل"
 
 #: config/templates/language/view.html:101 core/forms.py:191
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:20
@@ -181,7 +193,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:95 nutrition/templates/plan/view.html:130
 #: nutrition/templates/units/list.html:20
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: core/demo.py:86
 msgid "Sample workout"

@@ -67,6 +67,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'code',
         'carbohydrates',
         'carbohydrates_sugar',
         'creation_date',
@@ -375,7 +376,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Return objects to check for ownership permission
         """
-        return [(NutritionPlan, 'plan')]
+        return [(NutritionPlan, 'plan'), (Meal, 'meal')]
 
     @action(detail=True)
     def nutritional_values(self, request, pk):

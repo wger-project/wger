@@ -13,15 +13,15 @@ django-simple-history~=3.0
 django-email-verification~=0.1.0
 django_compressor~=2.4
 django_extensions~=3.1
-django-storages~=1.11
-easy-thumbnails~=2.7
-icalendar==4.0.7
+django-storages~=1.12
+easy-thumbnails~=2.8
+icalendar==4.0.9
 invoke~=1.6
-pillow~=8.3
-reportlab==3.6.1
-requests
+pillow~=8.4
+reportlab==3.6.2
+requests==2.26.0
 setuptools>=18.5
-sphinx
+sphinx==4.3.0
 
 # AWS
 #boto3
@@ -29,7 +29,7 @@ sphinx
 
 # REST API
 django-cors-headers>=3.0
-django-filter==2.4.0
+django-filter==21.1
 djangorestframework~=3.12
 
 
@@ -41,4 +41,4 @@ six>=1.12.0  # for django-compressor
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files
-django-sortedm2m~=3.0
+django-sortedm2m~=3.1

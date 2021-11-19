@@ -12,7 +12,7 @@ as well, for easy integration with other projects and tools.
 This docker-compose file starts up a development environment with django's
 development server, postgres as a database and redis for caching and saving
 the sessions. It binds your current code checkout into the volume, if you
-don't want or have one, use the `wger/apache` image, it is self-contained.
+don't want or have one, use the `wger/demo` image, it is self-contained.
 
 ### 1 - Start all services
 
@@ -65,7 +65,7 @@ the file to re-run migrations, etc.
 ## Building
 
 If you want to build this yourself, keep in mind that you **must** build from the
-project root. Make sure the wger/devel image is available locally as well:
+project root. Make sure the wger/server image is available locally as well:
 
     docker-compose -f extras/docker/compose/docker-compose.yml build.
 

@@ -15,7 +15,7 @@ host your own instance, take a look at the provided docker compose file:
 
 This docker image is meant to provide a quick development environment using
 django's development server and an sqlite database from your current code
-checkout (if you don't want or need a local checkout, use the wger/apache image,
+checkout (if you don't want or need a local checkout, use the wger/demo image,
 it is self-contained).
 
 A more comfortable development version is provided in the compose folder.
@@ -26,7 +26,7 @@ A more comfortable development version is provided in the compose folder.
     docker run -ti  \
        -v /path/to/your/wger/checkout:/home/wger/src \
        --name wger.devel \
-       --publish 8000:8000 wger/devel
+       --publish 8000:8000 wger/server
 
 When developing with windows, you might have problems with the `--volume` option,
 use the more verbose mount instead:
@@ -63,7 +63,7 @@ If you need to update the CSS/JS libraries or just issue some other command:
 If you build this yourself, keep in mind that you **must** build from the
 project root!
 
-```docker build -f extras/docker/development/Dockerfile --tag wger/devel .```
+```docker build -f extras/docker/development/Dockerfile --tag wger/server .```
 
 
 ## Contact

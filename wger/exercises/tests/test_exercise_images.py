@@ -116,7 +116,8 @@ class AddExerciseImageTestCase(WgerAddTestCase):
     data = {
         'is_main': True,
         'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
-        'license': 1
+        'license': 1,
+        'style': '1'
     }
 
 
@@ -128,7 +129,7 @@ class EditExerciseImageTestCase(WgerEditTestCase):
     object_class = ExerciseImage
     url = 'exercise:image:edit'
     pk = 2
-    data = {'is_main': True, 'license': 1}
+    data = {'is_main': True, 'license': 1, 'style': '1'}
 
 
 class DeleteExerciseImageTestCase(WgerDeleteTestCase):

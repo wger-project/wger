@@ -50,6 +50,19 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
     objects = SubmissionManager()
     """Custom manager"""
 
+    LINE_ART = '1'
+    THREE_D = '2'
+    LOW_POLY = '3'
+    PHOTO = '4'
+    OTHER = '5'
+    STYLE = (
+        (LINE_ART, _('Line')),
+        (THREE_D, _('3D')),
+        (LOW_POLY, _('Low-poly')),
+        (PHOTO, _('Photo')),
+        (OTHER, _('Other')),
+    )
+
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
@@ -82,6 +95,14 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         )
     )
     """A flag indicating whether the image is the exercise's main image"""
+
+    style = models.CharField(
+        help_text=_('The art style of your image'),
+        max_length=1,
+        choices=STYLE,
+        default=PHOTO,
+    )
+    """The art style of the image"""
 
     class Meta:
         """
@@ -131,12 +152,10 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.accepted() \
-                .filter(exercise_base=self.exercise_base, is_main=True).count() \
-           and ExerciseImage.objects.accepted() \
-                .filter(exercise_base=self.exercise_base) \
-                .filter(is_main=False) \
-                .count():
+        if not ExerciseImage.objects.accepted().filter(
+            exercise_base=self.exercise_base, is_main=True
+        ).count() and ExerciseImage.objects.accepted().filter(exercise_base=self.exercise_base
+                                                              ).filter(is_main=False).count():
 
             image = ExerciseImage.objects.accepted() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]
