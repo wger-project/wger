@@ -30,11 +30,6 @@
 {#        #}
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{% static 'angular/styles.css' %}">
-
-    <script src="{% static 'angular/runtime.js' %}" defer></script>
-    <script src="{% static 'angular/polyfills.js' %}" defer></script>
-    <script src="{% static 'angular/main.js' %}" defer></script>
-
 {% endblock %}
 
 
@@ -42,7 +37,6 @@
 {# Content #}
 {#         #}
 {% block content %}
-    <app-root></app-root>
 {% if exercise.status == exercise.STATUS_PENDING %}
 <div class="card text-white bg-dark mb-4">
     <div class="card-header">
@@ -132,6 +126,8 @@
     {% endwith %}
     </div>
 
+
+{% endif %}
     {% if perms.exercises.change_exerciseimage or perms.exercises.add_exerciseimage or user.userprofile.is_trustworthy %}
         <p>
             <a href="{% url 'exercise:image:add' exercise.id %}" >
@@ -139,7 +135,6 @@
             </a>
         </p>
     {% endif %}
-{% endif %}
 {% endwith %}
 
 {% if perms.exercises.change_exerciseimage %}
