@@ -73,7 +73,7 @@ PostgreSQL
 Install the Postgres server and create a database and a user::
 
     sudo apt-get install postgresql postgresql-server-dev-12 # or appropriate version
-    su - postgres
+    sudo su - postgres
     createdb wger
     psql wger -c "CREATE USER wger WITH PASSWORD 'wger'";
     psql wger -c "GRANT ALL PRIVILEGES ON DATABASE wger to wger";
