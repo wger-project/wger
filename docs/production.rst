@@ -40,7 +40,7 @@ Configure apache to serve the application::
         </Directory>
 
         Alias /media/ /home/wger/media/
-        <Directory /home/wger//media>
+        <Directory /home/wger/media>
             Require all granted
         </Directory>
 
