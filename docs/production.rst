@@ -123,11 +123,16 @@ Get the application::
   # If using sqlite without the --database-path
   wger create-settings --database-path /home/wger/db/database.sqlite
 
-If you are using postgres, you need to edit the settings file and set the
-correct values for the database (use ``django.db.backends.postgresql``
-for the engine).
+Edit the settings file
 
-Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and ``STATIC_ROOT`` to ``/home/wger/static``.
+* Add the correct values for the database (use ``django.db.backends.postgresql``
+  for the engine) if you are using postgres
+
+* Set ``MEDIA_ROOT`` to ``/home/wger/media`` and ``STATIC_ROOT`` to ``/home/wger/static``.
+
+* Add the domains that your site will be accessed to `ALLOWED_HOSTS=['example.com', 'www.example.com']`
+  (you might want to do this as the last step when you know everything els is
+  working correctly)
 
 Run the installation script, this will download some CSS and JS libraries and
 load all initial data::
@@ -137,11 +142,12 @@ load all initial data::
 
 Collect all static resources::
 
-    python manage.py collectstatic
+  python manage.py collectstatic
 
 
 The bootstrap command will also create a default administrator user (you probably
 want to change the password as soon as you log in):
+
 
 * **username**: admin
 * **password**: adminadmin
