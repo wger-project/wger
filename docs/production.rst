@@ -121,7 +121,7 @@ Get the application::
   wger create-settings --database-path /home/wger/db/database.sqlite
 
 If you are using postgres, you need to edit the settings file and set the
-correct values for the database (use ``django.db.backends.postgresql_psycopg2``
+correct values for the database (use ``django.db.backends.postgresql``
 for the engine). Also set ``MEDIA_ROOT`` to ``/home/wger/media`` and
 ``STATIC_ROOT`` to ``/home/wger/static``.
 

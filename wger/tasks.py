@@ -140,7 +140,7 @@ def create_settings(
         settings_content = settings_file.read()
 
     if database_type == 'postgresql':
-        dbengine = 'postgresql_psycopg2'
+        dbengine = 'postgresql'
         dbname = 'wger'
         dbuser = 'wger'
         dbpassword = 'wger'
