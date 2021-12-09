@@ -62,6 +62,7 @@ Developers
 * Gorkem Arslan - https://github.com/gorkemarslan
 * Lucas Stone-Drake - https://github.com/LucasSD
 * absolutely-not-bot - https://github.com/absolutely-not-bot
+* Jaspreet Dhillon - https://github.com/jaspreetsd902
 
 Translators
 -----------
