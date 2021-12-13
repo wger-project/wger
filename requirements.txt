@@ -28,7 +28,7 @@ sphinx==4.3.1
 # REST API
 django-cors-headers>=3.0
 django-filter==21.1
-djangorestframework~=3.12
+djangorestframework~=3.13
 
 
 # Explicitly set versions as a workaround for CI/Devel.
