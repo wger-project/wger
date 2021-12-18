@@ -6,6 +6,7 @@ Changelog
 **2021-XX-XX**
 
 Upgrade steps from 2.0:
+
 * Update python libraries ``pip3 install -r requirements.txt``
 * Run migrations ``python3 manage.py migrate``
 * Update CSS and JS libraries ``yarn install``
