@@ -60,3 +60,7 @@ It will mount the local path *on top* of the folder in the container. For this t
 work you obviously need to manually checkout the code to ``/path/to/local/wger/``
 and create a settings file as well.
 
+Production
+----------
+
+The production docker compose setup can be found here: https://github.com/wger-project/docker

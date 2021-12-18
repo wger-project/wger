@@ -3,40 +3,8 @@
 Tips and tricks
 ---------------
 
-Updating the code
-~~~~~~~~~~~~~~~~~
-
-When pulling updates from upstream there are a couple of things to consider.
-These steps apply to all installation methods above.
-
-Upgrading the database
-``````````````````````
-
-There are regular changes and upgrades to the database schema (these may also
-come from new versions of Django or the installed dependencies). If you start
-the development server and see a message that there are unapplied migrations,
-just do ``python manage.py migrate --all``.
-
-Downloading JS and CSS libraries
-````````````````````````````````
-
-We use yarn to download the JS and CSS libraries. To update them just go to
-the source and do ::
-
-        $ yarn install
-
-This happens automatically during the bootstrap process.
-
-
-Updating SASS files
-```````````````````
-After updating the SASS files, you need to compile them to regular CSS::
-
-    yarn build:css:sass
-
-
 Clearing the cache
-``````````````````
+~~~~~~~~~~~~~~~~~~
 
 Sometimes there are changes to the internal changes of the cached structures.
 It is recommended that you just clear all the existing caches

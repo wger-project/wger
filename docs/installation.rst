@@ -11,10 +11,13 @@ the following steps are performed on a Debian-based Linux distribution.
 If your setup differs (e.g. in Red Hat based distros the package names are
 slightly different) you will need to change the steps as appropriate.
 
+You can safely install from master, it is almost always in a usable and
+stable state.
+
 The application is compatible and regularly tested with
 
-* PostgreSQL
-* python 3.6, 3.7, 3.8, 3.9 and pypy3
+* PostgreSQL, sqlite
+* python 3.8, 3.9, 3.10 and pypy3
 
 After installation, you might also want to take a look at the :ref:`other-changes` section for other
 changes you might want to do to your local instance such as Terms of Service or
@@ -33,8 +36,10 @@ These are the necessary packages for both development and production::
 
 
 .. toctree::
+   :maxdepth: 1
 
    development
-   docker
    production
+   docker
+   updating
 

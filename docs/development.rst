@@ -3,9 +3,6 @@
 Development
 ===========
 
-You can safely install from master, it is almost always in a usable
-and stable state.
-
 Virtual environment
 ~~~~~~~~~~~~~~~~~~~
 

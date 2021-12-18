@@ -115,7 +115,6 @@ Get the application::
   git clone https://github.com/wger-project/wger.git /home/wger/src
   cd /home/wger/src
   pip install -r requirements.txt
-  npm install -g yarn sass
   python setup.py develop
   # Only if using postgres
   pip install psycopg2
@@ -131,7 +130,7 @@ Edit the settings file
 * Set ``MEDIA_ROOT`` to ``/home/wger/media`` and ``STATIC_ROOT`` to ``/home/wger/static``.
 
 * Add the domains that your site will be accessed to `ALLOWED_HOSTS=['example.com', 'www.example.com']`
-  (you might want to do this as the last step when you know everything els is
+  (you might want to do this as the last step when you know everything else is
   working correctly)
 
 Run the installation script, this will download some CSS and JS libraries and
