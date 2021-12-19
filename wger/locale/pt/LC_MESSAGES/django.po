@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-10-27 10:48+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2021-12-20 18:51+0000\n"
+"Last-Translator: Raphael Marques de Barros <rmbarros@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.10\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -643,6 +643,9 @@ msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
 msgstr ""
+"Clique aqui para adicionar uma anotação ao seu diário alimentar. Você pode "
+"registrar uma refeição como você a definiu ou inserir um número de entradas "
+"personalizadas."
 
 #: core/templates/index.html:67 core/templates/index.html:171
 #: core/templates/user/overview.html:171
@@ -663,7 +666,7 @@ msgstr "kcal"
 
 #: core/templates/index.html:79 nutrition/templates/plan/view.html:348
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Adicionar entrada de diário personalizada"
 
 #: core/templates/index.html:94 core/templates/index.html:102
 #: manager/models/day.py:34 manager/models/log.py:56
