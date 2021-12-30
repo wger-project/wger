@@ -24,7 +24,7 @@ Upgrade steps from 2.0:
 
 🐛 Bug Fixes:
 
-*
+* ...
 
 🧰 Maintenance:
 
