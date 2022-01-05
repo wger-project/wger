@@ -102,10 +102,10 @@ $(document).ready(function () {
 
 <div class="row">
     <div class="col-6">
-        {% render_muscles workout.muscles.front workout.muscles.front_secondary %}
+        {% render_muscles workout.canonical_representation.muscles.front workout.canonical_representation.muscles.front_secondary %}
     </div>
     <div class="col-6">
-        {% render_muscles workout.muscles.back workout.muscles.back_secondary %}
+        {% render_muscles workout.canonical_representation.muscles.back workout.canonical_representation.muscles.back_secondary %}
     </div>
 </div>
 
