@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-12-20 18:51+0000\n"
-"Last-Translator: Raphael Marques de Barros <rmbarros@protonmail.com>\n"
+"PO-Revision-Date: 2022-01-11 10:54+0000\n"
+"Last-Translator: Ricardo Bezerra da Silva <camalau@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -688,6 +688,8 @@ msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
 msgstr ""
+"O treino atual é selecionado a partir de sua programação ativa ou, se você "
+"não tiver, simplesmente por data."
 
 #: core/templates/index.html:142 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -801,7 +803,7 @@ msgstr "Nada encontrado"
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Imprimir"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -830,7 +832,7 @@ msgstr ""
 
 #: core/templates/navigation.html:22
 msgid "Training"
-msgstr ""
+msgstr "Treinamento"
 
 #: core/templates/navigation.html:28 core/templates/user/overview.html:25
 #: software/templates/features.html:72
@@ -850,7 +852,7 @@ msgstr "Calendário"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galeria"
 
 #: core/templates/navigation.html:48
 #, fuzzy
@@ -859,29 +861,27 @@ msgid "Workout templates"
 msgstr "Treino completo!"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Seus horários"
+msgstr "Seus modelos"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Modelos públicos"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "por categoria"
 
 #: core/templates/navigation.html:65
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "pelo músculo"
 
 #: core/templates/navigation.html:66
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "por equipamento"
 
 #: core/templates/navigation.html:70
 #: exercises/templates/equipment/overview.html:109
@@ -1094,7 +1094,7 @@ msgstr "Próximo"
 
 #: core/templates/tags/render_day.html:34
 msgid "Add weight log"
-msgstr ""
+msgstr "Adicionar registro de peso"
 
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
@@ -1413,6 +1413,7 @@ msgstr "Incluir na visão geral inativa"
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
 msgstr ""
+"O login de administrador está disponível apenas para usuários no %(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1574,7 +1575,7 @@ msgstr "Músculos secundários"
 
 #: exercises/models/base.py:79
 msgid "Variations"
-msgstr ""
+msgstr "Variações"
 
 #: exercises/models/category.py:37
 msgid "Exercise Categories"
@@ -1854,7 +1855,7 @@ msgstr "Log de peso"
 
 #: exercises/templates/exercise/view.html:256
 msgid "Exercise Variations"
-msgstr ""
+msgstr "Variações de Exercícios"
 
 #: exercises/templates/exercise/view.html:277
 msgid "Submit a correction"
@@ -1874,6 +1875,8 @@ msgstr "Adicionar músculo"
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"Não há exercícios para este músculo. Adicione ou edite um exercício e defina "
+"o músculo."
 
 #: exercises/views/categories.py:71
 msgid "Add category"
@@ -1896,6 +1899,8 @@ msgstr "Apagar equipamento?"
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
+"%(name_original)s é muito semelhante ao exercício existente \""
+"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:246
 msgid "Add exercise"
@@ -1927,10 +1932,8 @@ msgid "Delete exercise image?"
 msgstr "Apagar imagem do exercício?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Adicionar nova imagem"
+msgstr "Adicionar imagem"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2064,11 +2067,11 @@ msgstr ""
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "Mostrar o nome no cabeçalho"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Mostre o nome da academia no cabeçalho do site"
 
 #: gym/models/gym_config.py:68
 msgid "Configuration for {}"
@@ -2180,7 +2183,7 @@ msgstr "Adicionar membro"
 
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Data de Nascimento"
 
 #: gym/templates/gym/new_user.html:48 manager/templates/calendar/month.html:144
 #: manager/templates/log/add.html:75 nutrition/templates/rate/form.html:120
@@ -2377,10 +2380,8 @@ msgid "Kilometers"
 msgstr "Kilometros"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Repetições"
+msgstr "Max. de Repetições"
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2415,7 +2416,7 @@ msgstr "Conteúdo"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Gerar visualização"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2448,7 +2449,7 @@ msgstr "Versão atual"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Enviar e-mails"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2456,10 +2457,8 @@ msgid "Correction"
 msgstr "Correção"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Faça uma cópia deste treino"
+msgstr "Nome do treino"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2624,10 +2623,8 @@ msgstr "Data criação"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Treino completo!"
+msgstr "Modelo de treino"
 
 #: manager/models/workout.py:74
 msgid ""
