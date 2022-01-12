@@ -18,8 +18,6 @@ invoke~=1.6
 pillow~=8.4
 reportlab==3.6.5
 requests==2.27.1
-setuptools>=18.5
-sphinx==4.3.2
 
 # AWS
 #boto3
