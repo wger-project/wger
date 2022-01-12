@@ -24,8 +24,8 @@ For a live system, refer to the project's site: <https://wger.de/>
 
 These are the basic steps to install and run the application locally on a Linux
 system. There are more detailed instructions, other deployment options as well
-as an administration guide available at <https://wger.readthedocs.io> or locally
-in your code repository in the docs folder.
+as an administration guide available at <https://wger.readthedocs.io> or in the
+[docs repo](https://github.com/wger-project/docs).
 
 Please consult the commands' help for further information and available
 parameters.
