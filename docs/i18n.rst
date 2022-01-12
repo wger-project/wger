@@ -90,17 +90,8 @@ Please note that this will overwrite any changes you might have done from the
 language administration module.
 
 
-Angular
--------
+React
+-----
 
-There are translations for the angular side of things as well, they are located
-in the ``angular/src/locale`` folder.
-
-To extract new messages, run from the angular folder::
-
-  ng extract-i18n --output-path src/locale/
-
-
-Due to the way angular builds translated applications, it is necessary to keep
-a separate list of available languages in ``settings_global.py``. When the
-angular strings are translated into new languages, add their ISO code to ``LANGUAGES_ANGULAR``.
+The frontend that is built with react uses its own translation files. See
+the README.md file in the locale folder in the react repo for more information.

@@ -32,8 +32,6 @@
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css",
-    "build:angular": "cd angular && ng build --configuration production --output-path ../wger/core/static/angular --output-hashing none --localize",
-    "build:angular:i18n": "cd angular && ng extract-i18n --output-path src/locale/"
   },
   "engines": {
     "yarn": ">= 1.0.0"
