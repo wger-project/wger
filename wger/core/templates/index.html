@@ -7,17 +7,6 @@
 {# Header #}
 {#        #}
 {% block header %}
-    <script src="{% static 'angular/en/runtime.js' %}" defer></script>
-    <script src="{% static 'angular/en/polyfills.js' %}" defer></script>
-
-    {# Manually load the appropriate language if it's available #}
-    {% if language.short_name in languages_angular %}
-        {% with 'angular/'|add:language.short_name|add:"/main.js" as test %}
-        <script src="{% static test %}" defer></script>
-        {% endwith %}
-    {% else %}
-        <script src="{% static 'angular/en/main.js' %}" defer></script>
-    {% endif %}
 {% endblock %}
 
 
