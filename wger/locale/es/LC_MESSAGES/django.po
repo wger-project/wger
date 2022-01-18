@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2022-01-13 01:55+0000\n"
-"Last-Translator: Sergio <salvarher95@gmail.com>\n"
+"PO-Revision-Date: 2022-01-18 10:19+0000\n"
+"Last-Translator: G. Buendía <gbuendia@gmx.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -316,7 +316,7 @@ msgstr "Contacto"
 
 #: core/forms.py:257
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Alguna manera de responderte (correo electrónico u otros.)."
+msgstr "Alguna manera de responderte (correo electrónico u otros)."
 
 #: core/forms.py:265 exercises/models/comment.py:40 manager/models/set.py:60
 #: manager/models/setting.py:99 nutrition/models/log.py:61
@@ -407,9 +407,9 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Activa para mostrar también ingredientes en inglés en durante la\n"
-"creación de planes nutricionales. Estos ingredientes han sido extahidos\n"
-"de una lista proveida por el Departamento de Agricultura de los EE.EE.\n"
+"Marcar para mostrar también ingredientes en inglés en durante la\n"
+"creación de planes nutricionales. Estos ingredientes han sido extraídos\n"
+"de una lista provista por el Departamento de Agricultura de los EE. UU.\n"
 "Es extremadamente completa, con aproximadamente 7000 elementos pero\n"
 "puede hacer la búsqueda más difícil."
 
@@ -1504,9 +1504,9 @@ msgid ""
 "weight and nutrition plan entries so you can better see what  this site can "
 "do. Feel free to edit or delete them!"
 msgstr ""
-"Hemos creado ejemplos de rutinas, programas, entradas de peso y planes "
-"nutricionales para que puedas ver mejor lo que puede hacer esta página. No "
-"dudes en editar o borrar las entradas."
+"Hemos creado ejemplos de rutinas, programas, registros de peso, entradas de "
+"peso y planes nutricionales para que puedas ver mejor lo que puede hacer "
+"esta página. ¡No dudes en editar o borrar las entradas!"
 
 #: core/views/misc.py:155
 msgid "Rest day"
@@ -2087,7 +2087,7 @@ msgstr "Configuración para {}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
-msgstr "Visión de miembros inactivos."
+msgstr "Resumen de miembros inactivos"
 
 #: gym/models/user_config.py:66
 msgid "Receive email overviews of inactive members"
@@ -2321,7 +2321,7 @@ msgstr "Balón suizo"
 
 #: i18n.tpl:18
 msgid "SZ-Bar"
-msgstr ""
+msgstr "Barra de curl"
 
 #: i18n.tpl:19
 msgid "Anterior deltoid"
@@ -3476,7 +3476,7 @@ msgstr "Valores nutricionales"
 #: nutrition/templates/plan/view.html:219
 #, python-format
 msgid "Based on the weight entry dated %(date)s (%(weight)s)"
-msgstr ""
+msgstr "Basado en la entrada de peso con fecha %(date)s (%(weight)s)"
 
 #: nutrition/templates/plan/view.html:228 nutrition/views/plan.py:377
 msgid "Total"
@@ -3568,7 +3568,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Factor para actividades físicas:"
+msgstr "Factor para actividades físicas: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
@@ -3667,7 +3667,7 @@ msgid ""
 "by fitness enthusiasts from around the world."
 msgstr ""
 "¡Gracias por usar wger! wger es un proyecto colaborativo de código abierto, "
-"hecho por entusiastas del fitness de todo el mundo"
+"hecho por entusiastas del fitness de todo el mundo."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
@@ -3700,10 +3700,8 @@ msgstr ""
 "ponte en contacto"
 
 #: software/templates/about_us.html:39
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Traduce"
+msgstr "Traducción"
 
 #: software/templates/about_us.html:41
 msgid ""
@@ -3899,8 +3897,8 @@ msgid ""
 "If you are not the author, enter the name or source here. This is needed for "
 "some licenses e.g. the CC-BY-SA."
 msgstr ""
-"Si no eres el autor, ingrese el nombre del mismo o la fuente. Es necesario "
-"para la licencia ej.: CC-BY-SA"
+"Si no eres el autor, ingresa el nombre del mismo o la fuente. Es necesario "
+"para algunas licencias, ej.: CC-BY-SA."
 
 #: utils/models.py:77
 msgid "Pending"
@@ -3951,6 +3949,12 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
+"Puedes copiar y pegar de tu hoja de cálculo al campo de texto,\n"
+"el sistema intentará deducir el formato a importar. Solo debes tener en "
+"cuenta\n"
+"que la primera columna es la <strong>frecha</strong> y la segunda el "
+"<strong>peso</strong>.\n"
+"Cualquier otra columna será ignorada. El límite son 1000 columnas.\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
@@ -4059,7 +4063,7 @@ msgstr "Editar entrada de peso para el %s"
 
 #: weight/views.py:123
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Se ha borrado con éxito."
 
 #: weight/views.py:127
 #, python-format
