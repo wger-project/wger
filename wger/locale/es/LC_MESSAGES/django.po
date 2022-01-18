@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2022-01-18 10:19+0000\n"
-"Last-Translator: G. Buendía <gbuendia@gmx.net>\n"
+"Last-Translator: abraham <acastrovargas@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -215,7 +215,7 @@ msgstr "Ejemplo de plan nutricional"
 #: core/demo.py:349 core/demo.py:351 core/demo.py:353
 #, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr "Marcador de Entrenamiento nº {0} para la programación"
+msgstr "Entrenamiento de marcador de posición nr {0} para la programación"
 
 #: core/demo.py:358
 msgid "My cool workout schedule"
