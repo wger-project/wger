@@ -3,48 +3,51 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-28 19:01+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2022-01-21 19:55+0000\n"
+"Last-Translator: guillem <gbuendia@gmx.net>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/wger/web/ca/>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
-msgstr ""
+msgstr "Gimnàs per defecte"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"Escolliu el gimnàs per defecte per a aquesta instal·lació. Això assignarà "
+"tot nou usuari que es registri a dit gimnàs i actualitzarà tots els usuaris "
+"existents que no en tinguin."
 
 #: config/models/language_config.py:41 core/templates/navigation.html:63
 #: exercises/templates/exercise/overview.html:11 manager/forms.py:122
 #: manager/models/setting.py:44
 msgid "Exercises"
-msgstr ""
+msgstr "Exercicis"
 
 #: config/models/language_config.py:42
 msgid "Ingredients"
-msgstr ""
+msgstr "Ingredients"
 
 #: config/templates/language/overview.html:4 core/templates/navigation.html:228
 msgid "Languages"
-msgstr ""
+msgstr "Llengües"
 
 #: config/templates/language/overview.html:16
 msgid "Nothing found."
-msgstr ""
+msgstr "No s'ha trobat res."
 
 #: config/templates/language/overview.html:16 core/templates/index.html:147
 #: core/templates/index.html:199 manager/templates/calendar/month.html:132
@@ -57,7 +60,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:153
 #: nutrition/templates/plan/view.html:191
 msgid "Add one now."
-msgstr ""
+msgstr "Afegeix-ne un ara."
 
 #: config/templates/language/overview.html:29
 #: core/templates/license/list.html:38 core/templates/misc/license/list.html:41
@@ -78,22 +81,22 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:43
 #: weight/templates/overview.html:78
 msgid "Add"
-msgstr ""
+msgstr "Afegeix"
 
 #: config/templates/language/view.html:21 core/models/language.py:29
 msgid "Language short name"
-msgstr ""
+msgstr "Nom curt de la llengua"
 
 #: config/templates/language/view.html:22
 #: config/templates/language/view.html:43 core/models/language.py:32
 msgid "Language full name"
-msgstr ""
+msgstr "Nom llarg de la llengua"
 
 #: config/templates/language/view.html:34 core/templates/user/overview.html:451
 #: gym/views/admin_config.py:44 gym/views/admin_config.py:58
 #: gym/views/user_config.py:46
 msgid "Configuration"
-msgstr ""
+msgstr "Configuració"
 
 #: config/templates/language/view.html:35
 msgid ""
@@ -103,10 +106,14 @@ msgid ""
 "the exercises should be shown in languages A, B and C; the ingredients only\n"
 "in A)."
 msgstr ""
+"Useu la configuració per a seleccionar en quines llengües es mostraran els\n"
+"exercicis i ingredients per a la llengua actual (p. e. els exercicis s'han "
+"de mostrar\n"
+"en les llengües A, B i C; els ingredients només en A."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
-msgstr ""
+msgstr "Mostra"
 
 #: config/templates/language/view.html:91 core/templates/user/api_key.html:44
 #: core/templates/user/preferences.html:28
@@ -119,7 +126,7 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:226
 #: nutrition/templates/plan/view.html:411 weight/templates/overview.html:62
 msgid "Options"
-msgstr ""
+msgstr "Opcions"
 
 #: config/templates/language/view.html:96 config/views/gym_config.py:41
 #: config/views/language_config.py:49 core/templates/license/list.html:16
@@ -150,7 +157,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:89 nutrition/templates/plan/view.html:126
 #: nutrition/templates/units/list.html:18
 msgid "Edit"
-msgstr ""
+msgstr "Edita"
 
 #: config/templates/language/view.html:101 core/forms.py:191
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:20
@@ -179,52 +186,52 @@ msgstr ""
 #: nutrition/templates/plan/view.html:95 nutrition/templates/plan/view.html:132
 #: nutrition/templates/units/list.html:20
 msgid "Delete"
-msgstr ""
+msgstr "Esborra"
 
 #: core/demo.py:86
 msgid "Sample workout"
-msgstr ""
+msgstr "Entrenament de mostra"
 
 #: core/demo.py:90
 msgid "Sample day"
-msgstr ""
+msgstr "Dia de mostra"
 
 #: core/demo.py:94
 msgid "Another sample day"
-msgstr ""
+msgstr "Un altre dia de mostra"
 
 #: core/demo.py:217
 msgid "Sample nutrional plan"
-msgstr ""
+msgstr "Pla nutricional de mostra"
 
 #: core/demo.py:349 core/demo.py:351 core/demo.py:353
 #, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr ""
+msgstr "Reserva d'espai per l'entrenament núm. {0} per al programa"
 
 #: core/demo.py:358
 msgid "My cool workout schedule"
-msgstr ""
+msgstr "El meu programa d'entrenament xamós"
 
 #: core/demo.py:397 core/demo.py:412
 msgid "Empty placeholder schedule"
-msgstr ""
+msgstr "Programa buit per a reservar l'espai"
 
 #: core/forms.py:61 core/templates/navigation.html:190
 #: core/templates/navigation.html:194 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
-msgstr ""
+msgstr "Accedeix"
 
 #: core/forms.py:73 core/forms.py:164 gym/views/export.py:63
 #: gym/views/gym.py:218
 msgid "First name"
-msgstr ""
+msgstr "Nom"
 
 #: core/forms.py:74 core/forms.py:165 core/templates/user/overview.html:267
 #: gym/views/export.py:64 gym/views/gym.py:218
 msgid "Last name"
-msgstr ""
+msgstr "Cognom"
 
 #: core/forms.py:76 core/forms.py:131 core/templates/user/overview.html:271
 #: gym/models/contract.py:253 gym/models/gym.py:58
@@ -234,150 +241,157 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr ""
+msgstr "Adreça electrònica"
 
 #: core/forms.py:77
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
+"Usada per a reinicialitzar contrasenyes i, opcionalment, recordatoris per "
+"correu."
 
 #: core/forms.py:102
 msgid "Personal data"
-msgstr ""
+msgstr "Dades personals"
 
 #: core/forms.py:110
 msgid "Workout reminders"
-msgstr ""
+msgstr "Recordatoris d'entrenament"
 
 #: core/forms.py:117
 msgid "Other settings"
-msgstr ""
+msgstr "Altres configuracions"
 
 #: core/forms.py:125 core/views/user.py:599 core/views/user.py:614
 #: core/views/user.py:626 gym/forms.py:72 manager/templates/log/add.html:65
 #: manager/templates/set/add.html:69 manager/views/workout.py:221
 #: utils/generic_views.py:142
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #: core/forms.py:132
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
+"Usada per a reinicialitzar contrasenyes i, opcionalment, recordatoris per "
+"correu."
 
 #: core/forms.py:160
 msgid "This e-mail address is already in use."
-msgstr ""
+msgstr "Aquesta adreça ja s'està usant."
 
 #: core/forms.py:180 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
 msgid "Password"
-msgstr ""
+msgstr "Contrasenya"
 
 #: core/forms.py:182
 msgid "Please enter your current password."
-msgstr ""
+msgstr "Introduïu la contrasenya actual."
 
 #: core/forms.py:200
 msgid "Invalid password"
-msgstr ""
+msgstr "Contrasenya invàlida"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "El formulari està protegit amb reCAPTCHA"
 
 #: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
 #: core/templates/navigation.html:195 core/templates/template.html:150
 #: core/templates/user/login.html:20 core/views/user.py:293
 #: software/templates/features.html:38
 msgid "Register"
-msgstr ""
+msgstr "Enregistreu-vos"
 
 #: core/forms.py:256
 msgid "Contact"
-msgstr ""
+msgstr "Contacte"
 
 #: core/forms.py:257
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr ""
+msgstr "Algun medi per respondre-us (adreça electrònica, etc.)"
 
 #: core/forms.py:265 exercises/models/comment.py:40 manager/models/set.py:60
 #: manager/models/setting.py:99 nutrition/models/log.py:71
 msgid "Comment"
-msgstr ""
+msgstr "Comentari"
 
 #: core/forms.py:266
 msgid "What do you want to say?"
-msgstr ""
+msgstr "Què voleu dir?"
 
 #: core/models/days_of_week.py:29
 msgid "Day of the week"
-msgstr ""
+msgstr "Dia de la setmana"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "Nom complet"
 
 #: core/models/license.py:31
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"Si una llicència està localitzada, p. e. llicències Creative Commons per a "
+"diferents països , afegiu-les com a entrades separades aquí."
 
 #: core/models/license.py:38
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr ""
+msgstr "Nom curt, p. e. CC-BY-SA 3"
 
 #: core/models/license.py:42 nutrition/models/ingredient.py:182
 msgid "Link"
-msgstr ""
+msgstr "Vincle"
 
 #: core/models/license.py:43
 msgid "Link to license text or other information"
-msgstr ""
+msgstr "Vincle al text de la llicència o altra informació"
 
 #: core/models/profile.py:52
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s no és una data de naixement vàlida"
 
 #: core/models/profile.py:61
 msgid "Male"
-msgstr ""
+msgstr "Home"
 
 #: core/models/profile.py:62
 msgid "Female"
-msgstr ""
+msgstr "Dona"
 
 #: core/models/profile.py:69
 msgid "Low"
-msgstr ""
+msgstr "Baix"
 
 #: core/models/profile.py:70
 msgid "Medium"
-msgstr ""
+msgstr "Mitjà"
 
 #: core/models/profile.py:71
 msgid "High"
-msgstr ""
+msgstr "Alt"
 
 #: core/models/profile.py:77
 msgid "Metric (kilogram)"
-msgstr ""
+msgstr "Mètriques (kilogram)"
 
 #: core/models/profile.py:78
 msgid "Imperial (pound)"
-msgstr ""
+msgstr "Imperials (lliura)"
 
 #: core/models/profile.py:111
 msgid "Show exercise comments"
-msgstr ""
+msgstr "Mostra comentaris dels exercicis"
 
 #: core/models/profile.py:112
 msgid "Check to show exercise comments on the workout view"
 msgstr ""
+"Marqueu per a mostrar els comentaris dels exercicis a la vista d'entrenament"
 
 #: core/models/profile.py:123
 msgid "Also use ingredients in English"
-msgstr ""
+msgstr "Usa també ingredients en anglès"
 
 #: core/models/profile.py:125
 msgid ""
@@ -386,125 +400,143 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
+"Marqueu per a mostrar també els ingredients en anglès quan creeu un pla\n"
+"nutricional. Dits ingredients s'extreuen d'una llista proveïda pel "
+"Departament\n"
+"d'Agricultura dels EUA. És extremadament completa, amb unes 7000 entrades,\n"
+"però pot ser una mica massa extensa i dificultar les cerques."
 
 #: core/models/profile.py:134
 msgid "Activate workout reminders"
-msgstr ""
+msgstr "Activa recordatoris d'entrenament"
 
 #: core/models/profile.py:136
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
+"Marqueu per a activar els recordatoris automàtics per als entrenaments. Cal "
+"que proporcioneu una adreça electrònica vàlida per a que funcionin."
 
 #: core/models/profile.py:145
 msgid "Remind before expiration"
-msgstr ""
+msgstr "Avisa'm abans que no expiri"
 
 #: core/models/profile.py:146
 msgid "The number of days you want to be reminded before a workout expires."
 msgstr ""
+"Nombre de dies abans de l'expiració d'un entrenament amb què voleu ser "
+"avisat."
 
 #: core/models/profile.py:152
 msgid "Default duration of workouts"
-msgstr ""
+msgstr "Duració per defecte dels entrenaments"
 
 #: core/models/profile.py:154
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
+"Duració per defecte en setmanes per als entrenaments no programats. Usada "
+"pels recordatoris d'entrenament per correu."
 
 #: core/models/profile.py:171
 msgid "Notification language"
-msgstr ""
+msgstr "Llengua de notificació"
 
 #: core/models/profile.py:173
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
+"Llengua que s'usa quan se us enviïn notificacions per correu, p. e. "
+"recordatoris per entrenaments. No afecta la llengua usada en el web."
 
 #: core/models/profile.py:186 gym/views/export.py:66
 msgid "Age"
-msgstr ""
+msgstr "Edat"
 
 #: core/models/profile.py:202 nutrition/forms.py:99
 msgid "Height (cm)"
-msgstr ""
+msgstr "Alçada (cm)"
 
 #: core/models/profile.py:219
 msgid "Hours of sleep"
-msgstr ""
+msgstr "Hores de son"
 
 #: core/models/profile.py:220
 msgid "The average hours of sleep per day"
-msgstr ""
+msgstr "Mitjana d'hores de son al dia"
 
 #: core/models/profile.py:229
 msgid "Work"
-msgstr ""
+msgstr "Feina"
 
 #: core/models/profile.py:230 core/models/profile.py:272
 msgid "Average hours per day"
-msgstr ""
+msgstr "Mitjana d'hores diàries"
 
 #: core/models/profile.py:239 core/models/profile.py:260
 #: core/models/profile.py:281
 msgid "Physical intensity"
-msgstr ""
+msgstr "Intensitat física"
 
 #: core/models/profile.py:240 core/models/profile.py:261
 #: core/models/profile.py:282
 msgid "Approximately"
-msgstr ""
+msgstr "Aproximadament"
 
 #: core/models/profile.py:250
 msgid "Sport"
-msgstr ""
+msgstr "Esport"
 
 #: core/models/profile.py:251
 msgid "Average hours per week"
-msgstr ""
+msgstr "Mitjana d'hores setmanals"
 
 #: core/models/profile.py:271
 msgid "Free time"
-msgstr ""
+msgstr "Temps lliure"
 
 #: core/models/profile.py:292 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
-msgstr ""
+msgstr "Calories diàries totals"
 
 #: core/models/profile.py:293
 msgid "Total caloric intake, including e.g. any surplus"
-msgstr ""
+msgstr "Ingesta calòrica total, inclosos p. e. qualsevol extra"
 
 #: core/models/profile.py:305 nutrition/models/ingredient_weight_unit.py:45
 #: nutrition/models/log.py:90 nutrition/models/meal_item.py:58
 msgid "Weight unit"
-msgstr ""
+msgstr "Unitat de pes"
 
 #: core/models/profile.py:313
 msgid "Allow external access"
-msgstr ""
+msgstr "Permet accés extern"
 
 #: core/models/profile.py:315
 msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
 msgstr ""
+"Permet que usuaris externs accedeixin als vostres entrenaments i registres "
+"en mode de només lectura. Cal que ho activeu abans que podeu compartir "
+"vincles p. e. a xarxes socials."
 
 #: core/models/profile.py:324
 msgid "Automatic reminders for weight entries"
-msgstr ""
+msgstr "Recordatoris automàtics per a entrades de pes"
 
 #: core/models/profile.py:326
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
+"Nombre de dies des de la darrera entrada de pes (introduïu 0 per a "
+"desactivar)"
 
 #: core/models/profile.py:392
 msgid "The sum of all hours has to be 24"
-msgstr ""
+msgstr "La suma de totes les hores ha de ser 24"
 
 #: core/models/rep_unit.py:35 core/models/weight_unit.py:35
 #: core/templates/user/overview.html:263 core/views/user.py:575
@@ -521,31 +553,31 @@ msgstr ""
 #: nutrition/templates/ingredient/pending.html:15
 #: nutrition/templates/ingredient/view.html:185
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: core/templates/403.html:4
 msgid "Forbidden!"
-msgstr ""
+msgstr "Prohibit!"
 
 #: core/templates/403.html:7
 msgid "Something happened that is not allowed."
-msgstr ""
+msgstr "S'ha produït alguna cosa no permesa."
 
 #: core/templates/404.html:4
 msgid "Page not found"
-msgstr ""
+msgstr "No s'ha trobat la pàgina"
 
 #: core/templates/404.html:7
 msgid "The page you requested does not exist."
-msgstr ""
+msgstr "La pàgina sol·licitada no existeix."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "S'ha produït un error"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
-msgstr ""
+msgstr "Ha succeït alguna cosa que ha produït un error."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
 #, python-format
@@ -555,33 +587,39 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"Esteu\n"
+"    navegant el web com a l'usuari \"%(current_user)s\", qualsevol acció "
+"s'executarà sobre les seves dates.\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
 msgid "Back to \"%(target)s\""
-msgstr ""
+msgstr "Enrere a \"%(target)s\""
 
 #: core/templates/base.html:42 core/templates/base_wide.html:40
 msgid "Share"
-msgstr ""
+msgstr "Comparteix"
 
 #: core/templates/delete.html:15
 msgid "Are you sure you want to delete this? This action cannot be undone."
-msgstr ""
+msgstr "Esteu segur que voleu esborrar això? Aquesta acció no es pot desfer."
 
 #: core/templates/index.html:4
 msgid "Dashboard"
-msgstr ""
+msgstr "Consola"
 
 #: core/templates/index.html:31 manager/templates/calendar/month.html:115
 msgid "Add log to day"
-msgstr ""
+msgstr "Afegeix registre al dia"
 
 #: core/templates/index.html:35 manager/templates/calendar/month.html:120
 msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
 msgstr ""
+"Feu clic per a afegir registres de pes a un\n"
+"dia del vostre entrenament:"
 
 #: core/templates/index.html:43 core/templates/index.html:83
 #: core/templates/misc/fragments/shariff_modal.html:29
@@ -591,17 +629,20 @@ msgstr ""
 #: manager/templates/workout/view.html:132
 #: manager/templates/workout/view.html:181
 msgid "Close"
-msgstr ""
+msgstr "Tanca"
 
 #: core/templates/index.html:54 core/templates/index.html:203
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Afegeix nova entrada al diari"
 
 #: core/templates/index.html:59
 msgid ""
 "Click to add an entry to your nutrition diary for today. You can either log "
 "a meal as you defined it, or entry any number of custom entries."
 msgstr ""
+"Feu clic per a afegir una entrada al vostre diari nutricional. Podeu "
+"registrar un àpat com l'heu definit, o entrar qualsevol quantitat d'entrades "
+"personalitzades."
 
 #: core/templates/index.html:67 core/templates/index.html:171
 #: core/templates/user/overview.html:171
@@ -618,11 +659,11 @@ msgstr ""
 #: nutrition/templates/plan/view.html:365
 #: nutrition/templates/plan/view.html:375
 msgid "kcal"
-msgstr ""
+msgstr "kcal"
 
 #: core/templates/index.html:79 nutrition/templates/plan/view.html:350
 msgid "Add custom diary entry"
-msgstr ""
+msgstr "Afegeix entrada de diari personalitzada"
 
 #: core/templates/index.html:94 core/templates/index.html:102
 #: manager/models/day.py:34 manager/models/log.py:56
@@ -633,35 +674,37 @@ msgstr ""
 #: manager/views/pdf.py:161 manager/views/schedule.py:152
 #: manager/views/schedule.py:222
 msgid "Workout"
-msgstr ""
+msgstr "Entrenament"
 
 #: core/templates/index.html:128
 msgid "This workout is part of a schedule:"
-msgstr ""
+msgstr "Aquest entrenament és part d'un programa:"
 
 #: core/templates/index.html:133
 msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
 msgstr ""
+"L'entrenament actual se selecciona del vostre programa actiu o, si no en "
+"teniu un, simplement per data."
 
 #: core/templates/index.html:142 manager/templates/calendar/month.html:188
 msgid "Add new log"
-msgstr ""
+msgstr "Afegeix nou registre"
 
 #: core/templates/index.html:147 core/templates/user/overview.html:58
 #: manager/templates/calendar/month.html:128
 #: manager/templates/schedule/view.html:146
 #: manager/templates/workout/overview.html:28
 msgid "No workouts found."
-msgstr ""
+msgstr "No s'han trobat entrenaments."
 
 #: core/templates/index.html:157 nutrition/models/log.py:49
 #: nutrition/models/meal.py:49 nutrition/models/meal_item.py:47
 #: nutrition/models/plan.py:94 nutrition/templates/plan/view.html:11
 #: nutrition/templates/plan/view.html:19
 msgid "Nutrition plan"
-msgstr ""
+msgstr "Pla nutricional"
 
 #: core/templates/index.html:169 core/templates/user/overview.html:155
 #: nutrition/models/ingredient.py:100
@@ -672,7 +715,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:360
 #: nutrition/templates/plan/view.html:364 nutrition/views/plan.py:384
 msgid "Energy"
-msgstr ""
+msgstr "Energia"
 
 #: core/templates/index.html:175 core/templates/user/overview.html:156
 #: nutrition/models/ingredient.py:105
@@ -682,7 +725,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:54 nutrition/templates/plan/view.html:251
 #: nutrition/views/plan.py:390
 msgid "Protein"
-msgstr ""
+msgstr "Proteïna"
 
 #: core/templates/index.html:181 core/templates/user/overview.html:157
 #: nutrition/models/ingredient.py:113
@@ -692,7 +735,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:55 nutrition/templates/plan/view.html:257
 #: nutrition/views/plan.py:398
 msgid "Carbohydrates"
-msgstr ""
+msgstr "Carbohidrats"
 
 #: core/templates/index.html:187 core/templates/user/overview.html:158
 #: nutrition/models/ingredient.py:131
@@ -702,11 +745,11 @@ msgstr ""
 #: nutrition/templates/plan/view.html:56 nutrition/templates/plan/view.html:270
 #: nutrition/views/plan.py:412
 msgid "Fat"
-msgstr ""
+msgstr "Greix"
 
 #: core/templates/index.html:199 nutrition/templates/plan/overview.html:22
 msgid "No nutrition plans."
-msgstr ""
+msgstr "No s'han trobat plans nutricionals."
 
 #: core/templates/index.html:213 core/templates/user/overview.html:112
 #: core/templates/user/overview.html:121 manager/forms.py:173
@@ -715,20 +758,20 @@ msgstr ""
 #: weight/models.py:34 weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:150
 msgid "Weight"
-msgstr ""
+msgstr "Pes"
 
 #: core/templates/index.html:217
 msgid "Your current weight is: "
-msgstr ""
+msgstr "El vostre pes actual es: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:97
 #: weight/views.py:70
 msgid "Add weight entry"
-msgstr ""
+msgstr "Afegeix entrada de pes"
 
 #: core/templates/license/list.html:4 core/templates/misc/license/list.html:4
 msgid "License list"
-msgstr ""
+msgstr "Llista de llicències"
 
 #: core/templates/license/list.html:24 core/templates/misc/license/list.html:28
 #: core/templates/repetition_unit/list.html:26
@@ -751,28 +794,29 @@ msgstr ""
 #: nutrition/templates/ingredient/pending.html:30
 #: nutrition/templates/units/list.html:27
 msgid "Nothing found"
-msgstr ""
+msgstr "No s'ha trobat res"
 
 #: core/templates/misc/about.html:4 core/templates/template.html:175
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Colofó"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
-msgstr ""
+msgstr "Comparteix aquesta pàgina"
 
 #: core/templates/misc/fragments/shariff_modal.html:18
 msgid ""
 "Before you share links on social media you need to allow external access."
 msgstr ""
+"Abans de compartir vincles a xarxes socials heu de permetre l'accés extern."
 
 #: core/templates/misc/fragments/shariff_modal.html:22
 #: nutrition/templates/plan/view.html:387
 #: nutrition/templates/plan/view.html:396
 msgid "That's done here"
-msgstr ""
+msgstr "Es fa aquí"
 
 #: core/templates/misc/license/list.html:45
 msgid ""
