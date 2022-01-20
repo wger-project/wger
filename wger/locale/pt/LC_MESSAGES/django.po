@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2022-01-20 18:57+0000\n"
-"Last-Translator: João Goulart <joaofgoulart1@gmail.com>\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -278,7 +278,7 @@ msgstr "Salvar"
 
 #: core/forms.py:132
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "Usada para redefinir a palavra-passe e email de lembretes opcionais"
+msgstr "Usada para redefinir a palavra-passe e email de lembretes opcionais."
 
 #: core/forms.py:160
 msgid "This e-mail address is already in use."
@@ -766,7 +766,7 @@ msgstr "Peso"
 
 #: core/templates/index.html:217
 msgid "Your current weight is: "
-msgstr "Seu peso atual é:"
+msgstr "Seu peso atual é: "
 
 #: core/templates/index.html:248 core/templates/navigation.html:97
 #: weight/views.py:70
@@ -856,8 +856,6 @@ msgid "Gallery"
 msgstr "Galeria"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
 msgstr "Treino completo!"
 
@@ -1125,7 +1123,7 @@ msgstr "Repetições"
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
 msgid "RiR"
-msgstr ""
+msgstr "ReR"
 
 #: core/templates/template.html:140
 msgid ""
@@ -2632,18 +2630,20 @@ msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Marcar um treino como modelo irá congelá-lo e permitir que você faça cópias "
+"dele"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Modelo público"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Um modelo público está disponível para outros usuários"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
+msgstr "Você deve marcar este treino como um modelo antes de declará-lo público"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2873,7 +2873,7 @@ msgstr "Edit conjunto"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
@@ -2966,14 +2966,10 @@ msgstr ""
 "são traçadas, outras combinações como tempo ou até falharsão ignoradas aqui."
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No schedules found."
 msgid "No templates found."
 msgstr "Nenhum horário encontrado."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
 msgstr "Faça uma cópia deste treino"
 
@@ -2991,8 +2987,6 @@ msgstr ""
 "treino."
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
 msgstr "Compartilha a página"
 
@@ -3022,11 +3016,11 @@ msgstr "Exporte este treino como um ficheiro de calendário"
 
 #: manager/templates/workout/view.html:188
 msgid "Logs"
-msgstr ""
+msgstr "registros"
 
 #: manager/templates/workout/view.html:190
 msgid "View logs"
-msgstr ""
+msgstr "Ver registros"
 
 #: manager/templates/workout/view.html:212 manager/views/schedule_step.py:99
 msgid "Edit workout"
@@ -3034,7 +3028,7 @@ msgstr "Edite treino"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Marcar como modelo"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3157,11 +3151,11 @@ msgstr "Sódio"
 
 #: nutrition/models/ingredient.py:183
 msgid "Link to product"
-msgstr ""
+msgstr "Link para o produto"
 
 #: nutrition/models/ingredient.py:212
 msgid "Brand name of product"
-msgstr ""
+msgstr "Nome da marca do produto"
 
 #: nutrition/models/ingredient.py:272
 #, python-brace-format
@@ -3170,6 +3164,9 @@ msgid ""
 "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
 "{energy_approx}%)"
 msgstr ""
+"A energia total ({energy}kcal) não é a soma aproximada da energia fornecida "
+"por proteínas, carboidratos e gordura ({energy_calculated}kcal "
+"+/-{energy_approx}%)"
 
 #: nutrition/models/ingredient.py:357 nutrition/views/ingredient.py:225
 msgid "Ingredient was successfully added to the general database"
@@ -3186,7 +3183,7 @@ msgstr "O utilizador {0} submeteu um novo ingrediente \"{1}\""
 
 #: nutrition/models/ingredient_category.py:30
 msgid "Ingredient Categories"
-msgstr ""
+msgstr "Categorias de ingredientes"
 
 #: nutrition/models/ingredient_weight_unit.py:49
 msgid "Amount in grams"
@@ -3360,7 +3357,7 @@ msgstr "Macronutrientes"
 #: nutrition/templates/ingredient/view.html:80
 #: nutrition/templates/plan/view.html:62 nutrition/templates/plan/view.html:244
 msgid "kJ"
-msgstr ""
+msgstr "Kj"
 
 #: nutrition/templates/ingredient/view.html:101
 #: nutrition/templates/ingredient/view.html:117
@@ -3402,27 +3399,27 @@ msgstr "Apagar ingrediente"
 #: nutrition/templates/log/overview.html:7
 #: nutrition/templates/plan/view.html:300
 msgid "Nutrition diary"
-msgstr ""
+msgstr "Diário de nutrição"
 
 #: nutrition/templates/log/detail.html:32
 msgid "Planned"
-msgstr ""
+msgstr "Planejado"
 
 #: nutrition/templates/log/detail.html:33
 #: nutrition/templates/log/overview.html:31
 #: nutrition/templates/plan/view.html:308
 msgid "Logged"
-msgstr ""
+msgstr "Registrado"
 
 #: nutrition/templates/log/detail.html:34
 #: nutrition/templates/log/overview.html:32
 #: nutrition/templates/plan/view.html:309
 msgid "Difference"
-msgstr ""
+msgstr "Diferença"
 
 #: nutrition/templates/log/detail.html:150
 msgid "Entries"
-msgstr ""
+msgstr "Entradas"
 
 #: nutrition/templates/log/detail.html:170
 msgid "g"
@@ -3431,7 +3428,7 @@ msgstr "g"
 #: nutrition/templates/log/overview.html:53
 #: nutrition/templates/plan/view.html:330
 msgid "nothing found"
-msgstr ""
+msgstr "nada encontrado"
 
 #: nutrition/templates/plan/overview.html:5
 msgid "Your nutrition plans"
@@ -3443,11 +3440,11 @@ msgstr "Conteúdo"
 
 #: nutrition/templates/plan/view.html:79
 msgid "Log this meal"
-msgstr ""
+msgstr "Registrar esta refeição"
 
 #: nutrition/templates/plan/view.html:84
 msgid "Add ingredient to meal"
-msgstr ""
+msgstr "Adicionar ingrediente à refeição"
 
 #: nutrition/templates/plan/view.html:150
 msgid "No items for this meal."
@@ -3459,7 +3456,7 @@ msgstr "Nenhuma refeição para este plano."
 
 #: nutrition/templates/plan/view.html:200
 msgid "Log this Plan"
-msgstr ""
+msgstr "Registrar este plano"
 
 #: nutrition/templates/plan/view.html:206
 msgid "Add a new meal"
@@ -3472,7 +3469,7 @@ msgstr "Dados nutricionais"
 #: nutrition/templates/plan/view.html:219
 #, python-format
 msgid "Based on the weight entry dated %(date)s (%(weight)s)"
-msgstr ""
+msgstr "Com base na entrada de peso datada de %(date)s (%(weight)s)"
 
 #: nutrition/templates/plan/view.html:228 nutrition/views/plan.py:377
 msgid "Total"
@@ -3492,25 +3489,20 @@ msgstr "oz por libra-peso corporal"
 
 #: nutrition/templates/plan/view.html:338
 msgid "View complete nutrition log"
-msgstr ""
+msgstr "Ver o registro nutricional completo"
 
 #: nutrition/templates/plan/view.html:371
 msgid "Goal"
 msgstr "Objetivo"
 
 #: nutrition/templates/plan/view.html:382
-#, fuzzy
-#| msgid ""
-#| "You have selected that this nutritional plan has a\n"
-#| "    goal amount of calories. Use the calculator or enter the value "
-#| "yourself."
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "            goal amount of calories. Use the calculator or enter the value\n"
 "            yourself."
 msgstr ""
 "Você selecionou que este plano de nutrição possui\n"
-"uma meta de calorias. Use a calculador ou entre com o valor você mesmo."
+"uma meta de calorias. Use a calculadora ou entre com o valor você mesmo."
 
 #: nutrition/templates/plan/view.html:392
 msgid ""
@@ -3642,12 +3634,12 @@ msgstr "Edite item da refeição"
 
 #: nutrition/views/plan.py:265
 msgid "Nutritional plan"
-msgstr ""
+msgstr "Plano nutricional"
 
 #: nutrition/views/plan.py:267
 #, python-format
 msgid "Nutritional plan for %s"
-msgstr ""
+msgstr "Plano nutricional para %s"
 
 #: nutrition/views/plan.py:341
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
@@ -3666,36 +3658,40 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Obrigado por usar o wger! wger é um projeto colaborativo de código aberto, "
+"feito por entusiastas do fitness de todo o mundo."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Código fonte"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr ""
+msgstr "Obtenha o código fonte deste aplicativo e seu servidor no github"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Tem um problema ou ideia?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Entre em contato se algo não se comportar conforme o esperado ou se houver "
+"um recurso que você sente que está faltando."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Diga oi!"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
+"Se você quiser conversar conosco, entre no servidor Discord e entre em "
+"contato"
 
 #: software/templates/about_us.html:39
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
 msgstr "Traduzir"
 
@@ -3704,6 +3700,8 @@ msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
+"Este aplicativo é traduzido em weblate. Se você também quiser ajudar, clique "
+"no link e comece a traduzir"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"
@@ -4065,12 +4063,12 @@ msgstr "Edite registro de peso para o %s"
 
 #: weight/views.py:123
 msgid "Successfully deleted."
-msgstr ""
+msgstr "Excluído com sucesso."
 
 #: weight/views.py:127
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "Excluir entrada de peso para %s"
 
 #~ msgid "Responsible for the content of this site as per German law §5 TMG:"
 #~ msgstr ""
