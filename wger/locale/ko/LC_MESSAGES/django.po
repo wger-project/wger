@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2022-01-21 19:55+0000\n"
+"Last-Translator: namong79 <airmedic79@naver.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/wger/web/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -96,7 +96,7 @@ msgstr "언어명"
 #: gym/views/admin_config.py:44 gym/views/admin_config.py:58
 #: gym/views/user_config.py:46
 msgid "Configuration"
-msgstr ""
+msgstr "설정"
 
 #: config/templates/language/view.html:35
 msgid ""
@@ -109,7 +109,7 @@ msgstr ""
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
-msgstr ""
+msgstr "보기"
 
 #: config/templates/language/view.html:91 core/templates/user/api_key.html:44
 #: core/templates/user/preferences.html:28
@@ -190,15 +190,15 @@ msgstr "샘플 Workout"
 
 #: core/demo.py:90
 msgid "Sample day"
-msgstr ""
+msgstr "예시 일"
 
 #: core/demo.py:94
 msgid "Another sample day"
-msgstr ""
+msgstr "다른 예시 일"
 
 #: core/demo.py:217
 msgid "Sample nutrional plan"
-msgstr ""
+msgstr "영양 섭취 계획 예시"
 
 #: core/demo.py:349 core/demo.py:351 core/demo.py:353
 #, python-brace-format
