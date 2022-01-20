@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2022-01-11 10:54+0000\n"
-"Last-Translator: Ricardo Bezerra da Silva <camalau@gmail.com>\n"
+"PO-Revision-Date: 2022-01-20 18:57+0000\n"
+"Last-Translator: João Goulart <joaofgoulart1@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -220,11 +220,11 @@ msgstr "Espaço reservado para treino nº {0} para agendamento"
 
 #: core/demo.py:358
 msgid "My cool workout schedule"
-msgstr "Minha agenda de treino bacana"
+msgstr "Minha agenda de treino"
 
 #: core/demo.py:397 core/demo.py:412
 msgid "Empty placeholder schedule"
-msgstr "Agenda espaço reservado vazio"
+msgstr "Agenda de espaço reservado vazia"
 
 #: core/forms.py:61 core/templates/navigation.html:190
 #: core/templates/navigation.html:194 core/templates/user/login.html:4
@@ -254,7 +254,8 @@ msgstr "Email"
 
 #: core/forms.py:77
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "Usada para resetar senha e email de lembretes opcionais."
+msgstr ""
+"Usado para redefinições de senha e, opcionalmente, lembretes por e-mail."
 
 #: core/forms.py:102
 msgid "Personal data"
@@ -262,7 +263,7 @@ msgstr "Dados pessoais"
 
 #: core/forms.py:110
 msgid "Workout reminders"
-msgstr "Lembrentes de treino"
+msgstr "Lembretes de treino"
 
 #: core/forms.py:117
 msgid "Other settings"
