@@ -41,6 +41,7 @@ from wger.exercises.api.serializers import (
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
+    ExerciseVideoSerializer,
     ExerciseSerializer,
     MuscleSerializer,
 )
@@ -50,6 +51,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
+    ExerciseVideo,
     Muscle,
 )
 from wger.utils.language import (
@@ -284,6 +286,21 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         # Todo is it right to call set author after save?
         obj.set_author(self.request)
         obj.save()
+
+
+class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for exercise video objects
+    """
+    queryset = ExerciseVideo.objects.all()
+    serializer_class = ExerciseVideoSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'is_main',
+        'exercise_base',
+        'license',
+        'license_author',
+    )
 
 
 class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):

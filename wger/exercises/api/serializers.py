@@ -25,6 +25,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
+    ExerciseVideo,
     Muscle,
 )
 
@@ -75,6 +76,24 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'is_main',
             'status',
             'style',
+        ]
+
+
+class ExerciseVideoSerializer(serializers.ModelSerializer):
+    """
+    ExerciseVideo serializer
+    """
+
+    class Meta:
+        model = ExerciseVideo
+        fields = [
+            'id',
+            'uuid',
+            'exercise_base',
+            'video',
+            'is_main',
+            'license',
+            'license_author',
         ]
 
 
