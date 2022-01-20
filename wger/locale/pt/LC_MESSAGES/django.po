@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2022-01-20 18:57+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2022-01-21 19:55+0000\n"
+"Last-Translator: João Goulart <joaofgoulart1@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -278,11 +278,12 @@ msgstr "Salvar"
 
 #: core/forms.py:132
 msgid "Used for password resets and, optionally, email reminders."
-msgstr "Usada para redefinir a palavra-passe e email de lembretes opcionais."
+msgstr ""
+"Usado para redefinições de senha e, opcionalmente, lembretes por e-mail."
 
 #: core/forms.py:160
 msgid "This e-mail address is already in use."
-msgstr "Este e-mail já está em uso."
+msgstr "Este endereço de e-mail já está sendo usado."
 
 #: core/forms.py:180 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
@@ -406,7 +407,7 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Marque também para mostrar ingredientes em inglês equanto cria o plano "
+"Marque também para mostrar ingredientes em inglês enquanto cria o plano "
 "nutricional. Esses ingredientes são extraídos de uma lista mantida pelo "
 "Departamento de Agricultura dos Estados Unidos da América. Essa lista é "
 "extremamente completa, com aproximadamente 7000 itens, mas pode ser um pouco "
@@ -421,12 +422,12 @@ msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
-"Marque para ativa automaticamente os lembretes de treino. Você precisa "
+"Marque para ativar automaticamente os lembretes de treino. Você precisa "
 "fornecer um e-mail válido para que isso funcione."
 
 #: core/models/profile.py:145
 msgid "Remind before expiration"
-msgstr "Lembrar antes da experição"
+msgstr "Lembrar antes do vencimento"
 
 #: core/models/profile.py:146
 msgid "The number of days you want to be reminded before a workout expires."
@@ -454,8 +455,8 @@ msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
 msgstr ""
-"Idioma usado durante o envio de email de notificação, por exemplo, e-mail de "
-"lembrete de treinos. Isso não afeta o idioma usado no site."
+"Idioma usado durante o envio de e-mail de notificação, por exemplo, e-mail "
+"de lembrete de treinos. Isso não afeta o idioma usado no site."
 
 #: core/models/profile.py:186 gym/views/export.py:66
 msgid "Age"
@@ -530,7 +531,7 @@ msgstr ""
 
 #: core/models/profile.py:324
 msgid "Automatic reminders for weight entries"
-msgstr "Lembretes automáticos para pesos digitados"
+msgstr "Lembretes automáticos para entradas de peso"
 
 #: core/models/profile.py:326
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
@@ -579,7 +580,7 @@ msgstr "Um erro ocorreu"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
-msgstr "Algo aconteceu que causou um erro."
+msgstr "Aconteceu algo que causou um erro."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
 #, python-format
@@ -622,7 +623,7 @@ msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
 msgstr ""
-"Click para adicionar registros de peso à um \n"
+"Clique para adicionar registros de peso à um \n"
 "dia de treino no seu atual exercício:"
 
 #: core/templates/index.html:43 core/templates/index.html:83
@@ -694,7 +695,7 @@ msgstr ""
 
 #: core/templates/index.html:142 manager/templates/calendar/month.html:188
 msgid "Add new log"
-msgstr "Adicionar umnovo registro"
+msgstr "Adicionar um novo registro"
 
 #: core/templates/index.html:147 core/templates/user/overview.html:58
 #: manager/templates/calendar/month.html:128
@@ -821,7 +822,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:385
 #: nutrition/templates/plan/view.html:394
 msgid "That's done here"
-msgstr "Está pronto!"
+msgstr "Isso é feito aqui"
 
 #: core/templates/misc/license/list.html:45
 msgid ""
@@ -829,7 +830,7 @@ msgid ""
 "licenses for the different countries, add them as separate entries here."
 msgstr ""
 "Se uma licença for localizada, por exemplo a licença Creative\n"
-"Commons para differentes países, adicione-as separadamente aqui"
+"Commons para differentes países, adicione-as separadamente aqui."
 
 #: core/templates/navigation.html:22
 msgid "Training"
@@ -4026,11 +4027,11 @@ msgstr ""
 "produziram \n"
 "um erro serão simplesmente ignorados. Depende de você decidir se ele são "
 "úteis \n"
-"(registros irreconhecíveis) ou não (ex.: cabeçalhos, copmentários, etc.)."
+"(registros irreconhecíveis) ou não (ex.: cabeçalhos, comentários, etc.)."
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
-msgstr "import"
+msgstr "importar"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"
@@ -4041,7 +4042,7 @@ msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
-"Você pode corriger a lista aqui e re-submete-la o quanto\n"
+"Você pode corrigir a lista aqui e reenviar o quanto\n"
 "você quiser."
 
 #: weight/templates/import_csv_preview.html:85
