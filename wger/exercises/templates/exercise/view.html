@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 {# Images #}
 {% with images=exercise.images.accepted %}
-{% if images or perms.exercises.change_exerciseimage  %}
+{% if images or perms.exercises.change_exerciseimage %}
     <h5 class="mt-4">{% translate "Images" %}:</h5>
     <div class="row row-cols-2 row-cols-md-3">
     {% with other_images=images %}
@@ -135,6 +135,27 @@ $(document).ready(function() {
         <p>
             <a href="{% url 'exercise:image:add' exercise.id %}" >
                 {% translate "Add new image" %}
+            </a>
+        </p>
+    {% endif %}
+{% endif %}
+{% endwith %}
+
+
+{# Videos #}
+{% with videos=exercise.videos.all %}
+{% if videos or perms.exercises.change_exercisevideos %}
+    {% for video in videos %}
+        <video width='400' controls>
+        <source src='{{ MEDIA_URL }}{{ video.video }}' type='video/mp4'>
+        Your browser does not support the video tag.
+        </video>
+    {% endfor %}
+
+    {% if perms.exercises.change_exercisevideo %}
+        <p>
+            <a href="{% url 'exercise:video:add' exercise.id %}" >
+                {% translate "Add new video" %}
             </a>
         </p>
     {% endif %}
