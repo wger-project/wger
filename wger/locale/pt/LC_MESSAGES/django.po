@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
 "PO-Revision-Date: 2022-01-21 19:55+0000\n"
-"Last-Translator: João Goulart <joaofgoulart1@gmail.com>\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
 "Language: pt\n"
@@ -1953,12 +1953,11 @@ msgstr "Necessário 30 caracteres ou menos. Letras, digitos e @/./+/-/_ apenas."
 
 #: gym/forms.py:101
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr ""
-"Este valor deve conter apenas letras, números e os caracteres @/.//-/_ "
+msgstr "Este valor deve conter apenas letras, números e os caracteres @/.//-/_"
 
 #: gym/forms.py:116
 msgid "A user with that username already exists."
-msgstr "Já existe um utilizador com este login"
+msgstr "Já existe um utilizador com este login."
 
 #: gym/management/commands/inactive-members.py:97 gym/models/gym_config.py:44
 msgid "Reminder of inactive members"
@@ -2229,7 +2228,7 @@ msgstr "Adicionar nota"
 #: gym/views/contract_option.py:160 gym/views/contract_type.py:160
 #, python-brace-format
 msgid "Delete {0}"
-msgstr "Remover {0}?"
+msgstr "Remover {0}"
 
 #: gym/views/contract_type.py:60
 msgid "Add contract type"
@@ -2532,7 +2531,7 @@ msgid ""
 msgstr ""
 "Marque a caixa se você quiser marcar esta imagem com a principal para o "
 "exercício (irá ser mostrada, por exemplo, na busca). A primeira imagem é "
-"automaticamente marcada pelo sistema."
+"automaticamente marcada pelo sistema"
 
 #: manager/models/schedule.py:78 manager/templates/schedule/view.html:84
 msgid "Is a loop"
@@ -2768,7 +2767,7 @@ msgid ""
 "deactivate it"
 msgstr ""
 "Este cronograma é um laço de repetição e irá percorrer os treinos acima até "
-"que você desative-o."
+"que você desative-o"
 
 #: manager/templates/schedule/view.html:106 manager/views/schedule.py:168
 #: manager/views/schedule.py:238
@@ -2919,7 +2918,7 @@ msgstr ""
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
-msgstr "Você receberá esses lembretes até que indique a sua massa atual"
+msgstr "Você receberá esses lembretes até que indique a sua massa atual."
 
 #: manager/templates/workout/log.html:29
 msgid "Weight log for workout"
@@ -3013,7 +3012,7 @@ msgstr "Defina a repetição para cada conjunto"
 
 #: manager/templates/workout/view.html:121
 msgid "Export this workout as a calendar file."
-msgstr "Exporte este treino como um ficheiro de calendário"
+msgstr "Exporte este treino como um ficheiro de calendário."
 
 #: manager/templates/workout/view.html:188
 msgid "Logs"
@@ -3180,7 +3179,7 @@ msgstr "Novo ingrediente submetido por utilizador"
 #: nutrition/models/ingredient.py:383
 #, python-brace-format
 msgid "The user {0} submitted a new ingredient \"{1}\"."
-msgstr "O utilizador {0} submeteu um novo ingrediente \"{1}\""
+msgstr "O utilizador {0} submeteu um novo ingrediente \"{1}\"."
 
 #: nutrition/models/ingredient_category.py:30
 msgid "Ingredient Categories"
@@ -3225,7 +3224,7 @@ msgstr "Resultados"
 
 #: nutrition/templates/bmi/form.html:63
 msgid "Your BMI is: "
-msgstr "Seu IMC é:"
+msgstr "Seu IMC é: "
 
 #: nutrition/templates/bmi/form.html:71
 msgid "Legend"
@@ -3542,7 +3541,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Sua taxa metabólica básica é:"
+msgstr "Sua taxa metabólica básica é: "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -3560,7 +3559,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Fator para atividades diárias:"
+msgstr "Fator para atividades diárias: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
