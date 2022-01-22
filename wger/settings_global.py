@@ -45,9 +45,16 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'storages',
+    #for MFA
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
+
+    'otp_yubikey'
 
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
 
     # Apps from wger proper
     'wger.config',
@@ -98,12 +105,14 @@ MIDDLEWARE = (
 
     # Django Admin
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware', # for MFA
 
     # Javascript Header. Sends helper headers for AJAX
     'wger.utils.middleware.JavascriptAJAXRedirectionMiddleware',
 
     # Custom authentication middleware. Creates users on-the-fly for certain paths
     'wger.utils.middleware.WgerAuthenticationMiddleware',
+    
 
     # Send an appropriate Header so search engines don't index pages
     'wger.utils.middleware.RobotsExclusionMiddleware',
@@ -166,7 +175,9 @@ EMAIL_SUBJECT_PREFIX = '[wger] '
 #
 # Login
 #
-LOGIN_URL = '/user/login'
+# LOGIN_URL = '/user/login'
+LOGIN_URL = 'two_factor:login'  #for MFA
+
 LOGIN_REDIRECT_URL = '/'
 
 #

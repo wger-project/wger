@@ -22,6 +22,8 @@ from django.conf.urls import (
 from django.contrib.auth import views
 from django.urls import path
 from django.views.generic import TemplateView
+#for MFA
+from two_factor.urls import urlpatterns as tf_urls
 
 # wger
 from wger.core.forms import UserLoginForm
@@ -245,7 +247,8 @@ urlpatterns = [
 
     # The landing page
     path('', misc.index, name='index'),
-
+    #for MFA
+    path('', include(tf_urls)),
     # The dashboard
     path('dashboard', misc.dashboard, name='dashboard'),
 
