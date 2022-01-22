@@ -106,7 +106,7 @@ patterns_videos = [
         name='edit',
     ),
     path(
-        '<int:exercise_pk>/image/<int:pk>/delete',
+        '<int:exercise_pk>/video/<int:pk>/delete',
         videos.ExerciseVideoDeleteView.as_view(),
         name='delete',
     ),

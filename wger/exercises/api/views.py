@@ -41,8 +41,8 @@ from wger.exercises.api.serializers import (
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
-    ExerciseVideoSerializer,
     ExerciseSerializer,
+    ExerciseVideoSerializer,
     MuscleSerializer,
 )
 from wger.exercises.models import (
