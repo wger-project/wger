@@ -18,6 +18,7 @@ invoke~=1.6
 pillow~=9.0
 reportlab==3.6.5
 requests==2.27.1
+ffmpeg-python~=0.2.0
 
 # AWS
 #boto3

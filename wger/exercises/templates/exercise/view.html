@@ -181,7 +181,7 @@ $(document).ready(function() {
     {% endfor %}
     </div>
 
-    {% if perms.exercises.change_exercisevideo %}
+    {% if allow_upload_videos and perms.exercises.change_exercisevideo %}
         <p>
             <a href="{% url 'exercise:video:add' exercise.id %}" >
                 {% translate "Add new video" %}

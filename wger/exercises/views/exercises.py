@@ -158,6 +158,7 @@ def view(request, id, slug=None):
     template_data['json'] = chart_data
     template_data['svg_uuid'] = str(uuid.uuid4())
     template_data['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
+    template_data['allow_upload_videos'] = settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']
 
     return render(request, 'exercise/view.html', template_data)
 
