@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+import pathlib
+
 from django.db.models.signals import (
     post_delete,
     pre_save,
@@ -27,7 +29,10 @@ from easy_thumbnails.signal_handlers import generate_aliases
 from easy_thumbnails.signals import saved_file
 
 # wger
-from wger.exercises.models import ExerciseImage
+from wger.exercises.models import (
+    ExerciseVideo,
+    ExerciseImage
+)
 
 
 @receiver(post_delete, sender=ExerciseImage)
@@ -44,8 +49,8 @@ def delete_exercise_image_on_delete(sender, instance, **kwargs):
 @receiver(pre_save, sender=ExerciseImage)
 def delete_exercise_image_on_update(sender, instance, **kwargs):
     """
-    Delete the corresponding image from the filesystem when the an ExerciseImage
-    object was changed
+    Delete the corresponding image from the filesystem when the ExerciseImage
+    object was edited
     """
     if not instance.pk:
         return False
@@ -64,3 +69,35 @@ def delete_exercise_image_on_update(sender, instance, **kwargs):
 
 # Generate thumbnails when uploading a new image
 saved_file.connect(generate_aliases)
+
+
+@receiver(post_delete, sender=ExerciseVideo)
+def auto_delete_video_on_delete(sender, instance: ExerciseVideo, **kwargs):
+    """
+    Deletes file from filesystem when corresponding ExerciseVideo object is deleted
+    """
+    if instance.video:
+
+        path = pathlib.Path(instance.video.path)
+        if path.exists():
+            path.unlink()
+
+
+@receiver(pre_save, sender=ExerciseVideo)
+def delete_exercise_video_on_update(sender, instance: ExerciseVideo, **kwargs):
+    """
+    Deletes file from filesystem when corresponding ExerciseVideo object was edited
+    """
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = ExerciseVideo.objects.get(pk=instance.pk).video
+    except ExerciseVideo.DoesNotExist:
+        return False
+
+    new_file = instance.video
+    if old_file != new_file:
+        path = pathlib.Path(old_file.path)
+        if path.is_file():
+            path.unlink()

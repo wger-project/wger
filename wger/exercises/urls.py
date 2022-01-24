@@ -101,7 +101,7 @@ patterns_videos = [
         name='add',
     ),
     path(
-        '<int:pk>/edit',
+        '<int:exercise_pk>/<int:pk>/edit',
         videos.ExerciseVideoEditView.as_view(),
         name='edit',
     ),

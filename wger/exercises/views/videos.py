@@ -73,7 +73,7 @@ class ExerciseVideoEditView(
     form_class = ExerciseVideoForm
 
     def get_success_url(self):
-        return reverse('exercise:exercise:view', kwargs={'id': self.object.exercise_base.id})
+        return reverse('exercise:exercise:view', kwargs={'id': self.kwargs['exercise_pk']})
 
     # Send some additional data to the template
     def get_context_data(self, **kwargs):

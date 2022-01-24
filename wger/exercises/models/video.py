@@ -144,16 +144,3 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
                 self.codec_long = stream['codec_long_name']
 
         super(ExerciseVideo, self).save(*args, **kwargs)
-
-
-@receiver(models.signals.post_delete, sender=ExerciseVideo)
-def auto_delete_file_on_delete(sender, instance: ExerciseVideo, **kwargs):
-    """
-    Deletes file from filesystem
-    when corresponding `MediaFile` object is deleted.
-    """
-    if instance.video:
-
-        path = pathlib.Path(instance.video.path)
-        if path.exists():
-            path.unlink()

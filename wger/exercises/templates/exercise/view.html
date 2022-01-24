@@ -159,7 +159,7 @@ $(document).ready(function() {
                     <a href="{% url 'exercise:video:delete' exercise.pk video.pk %}" class="wger-modal-dialog btn btn-link">
                         <span class="{% fa_class 'trash' %}"></span>
                     </a>
-                    <a href="{% url 'exercise:video:edit' video.pk %}" class="btn btn-link">
+                    <a href="{% url 'exercise:video:edit'  exercise.pk video.pk %}" class="btn btn-link">
                         <span class="{% fa_class 'edit' %}"></span>
                     </a>
                 {% endif %}
