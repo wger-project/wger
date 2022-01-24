@@ -45,7 +45,6 @@ class ExerciseVideoForm(forms.ModelForm):
         fields = (
             'video',
             'is_main',
-            'license',
             'license_author',
         )
 
