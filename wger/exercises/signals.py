@@ -14,9 +14,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
+# Standard Library
 import pathlib
 
+# Django
 from django.db.models.signals import (
     post_delete,
     pre_save,
@@ -30,8 +31,8 @@ from easy_thumbnails.signals import saved_file
 
 # wger
 from wger.exercises.models import (
+    ExerciseImage,
     ExerciseVideo,
-    ExerciseImage
 )
 
 

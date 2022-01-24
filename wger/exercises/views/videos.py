@@ -37,15 +37,12 @@ from django.views.generic import (
 )
 
 # wger
-from utils.constants import DEFAULT_LICENSE_ID
-from wger.exercises.forms import (
-    ExerciseImageForm,
-    ExerciseVideoForm,
-)
+from wger.exercises.forms import ExerciseVideoForm
 from wger.exercises.models import (
     Exercise,
     ExerciseVideo,
 )
+from wger.utils.constants import DEFAULT_LICENSE_ID
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
