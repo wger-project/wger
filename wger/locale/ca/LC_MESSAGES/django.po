@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-28 19:01+0100\n"
-"PO-Revision-Date: 2022-01-21 19:55+0000\n"
+"PO-Revision-Date: 2022-01-25 08:56+0000\n"
 "Last-Translator: guillem <gbuendia@gmx.net>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/wger/web/ca/>\n"
 "Language: ca\n"
@@ -823,57 +823,59 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "licenses for the different countries, add them as separate entries here."
 msgstr ""
+"Si una llicència està localitzada, p. e. les llicències Creative Commons\n"
+"per a diferents països, afegiu-les aquí com a entrades separades."
 
 #: core/templates/navigation.html:22
 msgid "Training"
-msgstr ""
+msgstr "Entrenament"
 
 #: core/templates/navigation.html:28 core/templates/user/overview.html:25
 #: software/templates/features.html:72
 msgid "Workouts"
-msgstr ""
+msgstr "Entrenaments"
 
 #: core/templates/navigation.html:34
 msgid "Workouts schedules"
-msgstr ""
+msgstr "Plans d'entrenament"
 
 #: core/templates/navigation.html:37 core/templates/user/overview.html:70
 #: manager/templates/calendar/month.html:10
 #: manager/templates/calendar/month.html:21
 #: software/templates/features.html:152
 msgid "Calendar"
-msgstr ""
+msgstr "Calendari"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galeria"
 
 #: core/templates/navigation.html:48
 msgid "Workout templates"
-msgstr ""
+msgstr "Plantilles d'entrenaments"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
 msgid "Your templates"
-msgstr ""
+msgstr "Les vostres plantilles"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Plantilles públiques"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
 msgid "by category"
-msgstr ""
+msgstr "per categoria"
 
 #: core/templates/navigation.html:65
 msgctxt "as in sorted by muscle"
 msgid "by muscle"
-msgstr ""
+msgstr "per muscle"
 
 #: core/templates/navigation.html:66
 msgctxt "as in sorted by equipment"
 msgid "by equipment"
-msgstr ""
+msgstr "per equipament"
 
 #: core/templates/navigation.html:70
 #: exercises/templates/equipment/overview.html:109
@@ -883,156 +885,158 @@ msgstr ""
 #: exercises/templates/muscles/overview.html:108
 #: exercises/templates/muscles/overview.html:112
 msgid "Add new exercise"
-msgstr ""
+msgstr "Afegeix un nou exercici"
 
 #: core/templates/navigation.html:75 core/templates/navigation.html:134
 #: core/templates/navigation.html:226
 msgid "Administration"
-msgstr ""
+msgstr "Administració"
 
 #: core/templates/navigation.html:76
 #: exercises/templates/exercise/pending.html:6
 msgid "Exercises pending review"
-msgstr ""
+msgstr "Exercicis pendents de revisar"
 
 #: core/templates/navigation.html:77 exercises/models/base.py:72
 #: exercises/templates/exercise/view.html:80
 msgid "Equipment"
-msgstr ""
+msgstr "Equipament"
 
 #: core/templates/navigation.html:78 exercises/templates/exercise/view.html:208
 msgid "Muscles"
-msgstr ""
+msgstr "Músculs"
 
 #: core/templates/navigation.html:79
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
-msgstr ""
+msgstr "Categories"
 
 #: core/templates/navigation.html:94
 msgid "Body weight"
-msgstr ""
+msgstr "Pes corporal"
 
 #: core/templates/navigation.html:96 core/templates/user/overview.html:114
 #: weight/templates/overview.html:7
 msgid "Weight overview"
-msgstr ""
+msgstr "El pes en un cop d'ull"
 
 #: core/templates/navigation.html:111 software/templates/features.html:87
 msgid "Nutrition"
-msgstr ""
+msgstr "Nutrició"
 
 #: core/templates/navigation.html:117 core/templates/user/overview.html:144
 msgid "Nutrition plans"
-msgstr ""
+msgstr "Plans de nutrició"
 
 #: core/templates/navigation.html:123 nutrition/templates/bmi/form.html:50
 msgid "BMI calculator"
-msgstr ""
+msgstr "Calculadora de l'IMC"
 
 #: core/templates/navigation.html:129 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
-msgstr ""
+msgstr "Calculadora de calories diàries"
 
 #: core/templates/navigation.html:131
 #: nutrition/templates/ingredient/overview.html:29
 msgid "Ingredient overview"
-msgstr ""
+msgstr "Ingredients en un cop d'ull"
 
 #: core/templates/navigation.html:135 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
-msgstr ""
+msgstr "Unitats de pes dels ingredients"
 
 #: core/templates/navigation.html:136
 #: nutrition/templates/ingredient/pending.html:6
 msgid "Ingredients pending review"
-msgstr ""
+msgstr "Ingredients pendents de revisar"
 
 #: core/templates/navigation.html:149
 msgid "About this software"
-msgstr ""
+msgstr "Quant a aquest programari"
 
 #: core/templates/navigation.html:151 core/templates/template_features.html:83
 #: software/templates/about_us.html:5
 msgid "About us"
-msgstr ""
+msgstr "Quant a nosaltres"
 
 #: core/templates/navigation.html:153 software/templates/features.html:209
 msgid "REST API"
-msgstr ""
+msgstr "API REST"
 
 #: core/templates/navigation.html:157 utils/models.py:40
 msgid "License"
-msgstr ""
+msgstr "Llicència"
 
 #: core/templates/navigation.html:163
 msgid "Developer documentation"
-msgstr ""
+msgstr "Documentació per a desenvolupadors"
 
 #: core/templates/navigation.html:169
 msgid "Get the code"
-msgstr ""
+msgstr "Obteniu el codi font"
 
 #: core/templates/navigation.html:175 core/templates/template.html:205
 #: core/templates/template_features.html:100
 msgid "Translate"
-msgstr ""
+msgstr "Traduïu"
 
 #: core/templates/navigation.html:196 core/templates/user/login.html:28
 msgid "Reset password"
-msgstr ""
+msgstr "Reinicialitza la contrasenya"
 
 #: core/templates/navigation.html:209
 msgid "My preferences"
-msgstr ""
+msgstr "Les meves preferències"
 
 #: core/templates/navigation.html:216
 msgid "Logout"
-msgstr ""
+msgstr "Surt"
 
 #: core/templates/navigation.html:231
 msgid "Licenses"
-msgstr ""
+msgstr "Llicències"
 
 #: core/templates/navigation.html:234
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
-msgstr ""
+msgstr "Unitats de repetició"
 
 #: core/templates/navigation.html:237 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:174
 msgid "Weight units"
-msgstr ""
+msgstr "Unitats de pes"
 
 #: core/templates/navigation.html:240 core/templates/user/list.html:4
 msgid "User list"
-msgstr ""
+msgstr "Llista d'usuaris"
 
 #: core/templates/navigation.html:241
 msgid "Gyms"
-msgstr ""
+msgstr "Gimnasos"
 
 #: core/templates/registration/password_reset_complete.html:4
 msgid "Password reset complete"
-msgstr ""
+msgstr "Reinicialització de la contrasenya completada"
 
 #: core/templates/registration/password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
+msgstr "La vostra contrasenya s'ha reinicialitzat. Ja podeu procedir a entrar."
 
 #: core/templates/registration/password_reset_complete.html:10
 msgid "Log in"
-msgstr ""
+msgstr "Entra"
 
 #: core/templates/registration/password_reset_done.html:4
 msgid "Password reset successful"
-msgstr ""
+msgstr "Contrasenya reinicialitzada amb èxit"
 
 #: core/templates/registration/password_reset_done.html:8
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
+"Us hem enviat per correu instruccions per a reinicialitzar la contrasenya a "
+"l'adreça electrònica que heu facilitat. Hauria d'arrivar-vos aviat."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -1040,78 +1044,80 @@ msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Esteu rebent aquest correu perquè heu solicitat reinicialitzar la "
+"contrasenya del vostre compte d'usuari a %(site_name)s."
 
 #: core/templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
-msgstr ""
+msgstr "Aneu a la pàgina següent i escolliu una nova contrasenya:"
 
 #: core/templates/registration/password_reset_email.html:9
 msgid "Your username, in case you've forgotten:"
-msgstr ""
+msgstr "El vostre nom d'usuari, en cas que l'hagueu oblidat:"
 
 #: core/templates/registration/password_reset_email.html:11
 msgid "Thanks for using our site!"
-msgstr ""
+msgstr "Gràcies per usar el nostre lloc web!"
 
 #: core/templates/registration/password_reset_email.html:13
 #, python-format
 msgid "The %(site_name)s team"
-msgstr ""
+msgstr "L'equip de %(site_name)s"
 
 #: core/templates/tags/license-sidebar.html:3
 msgid "Free license"
-msgstr ""
+msgstr "Llicència lliure"
 
 #: core/templates/tags/license-sidebar.html:5
 msgid "This content is available under the following license:"
-msgstr ""
+msgstr "Aquest contingut està disponible sota la llicència següent:"
 
 #: core/templates/tags/license-sidebar.html:13
 msgid "Click here for more information"
-msgstr ""
+msgstr "Feu clic aquí per a més informació"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
-msgstr ""
+msgstr "enrere"
 
 #: core/templates/tags/pagination.html:31
 #: core/templates/tags/pagination.html:35
 msgid "next"
-msgstr ""
+msgstr "següent"
 
 #: core/templates/tags/render_day.html:34
 msgid "Add weight log"
-msgstr ""
+msgstr "Afegeix registre de pes"
 
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
 #: exercises/templates/exercise/overview.html:63
 #: exercises/templates/muscles/overview.html:61
 msgid "Placeholder image for exercise"
-msgstr ""
+msgstr "Imatge provisional per al vostre exercici"
 
 #: core/templates/tags/render_day.html:131
 msgid "This exercise has no repetitions."
-msgstr ""
+msgstr "Aquest exercici no té repeticions."
 
 #: core/templates/tags/render_day.html:134
 msgid "Edit them now."
-msgstr ""
+msgstr "Edita-les."
 
 #: core/templates/tags/render_day.html:159
 msgid "Add exercises to this workout day"
-msgstr ""
+msgstr "Afegeix exercicis a aquest dia d'entrenament"
 
 #: core/templates/tags/render_weight_log.html:17 manager/helpers.py:89
 #: manager/models/setting.py:57 manager/templates/set/formset.html:10
 msgid "Reps"
-msgstr ""
+msgstr "Repeticions"
 
 #: core/templates/tags/render_weight_log.html:30 manager/forms.py:178
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
 msgid "RiR"
-msgstr ""
+msgstr "RER"
 
 #: core/templates/template.html:140
 msgid ""
