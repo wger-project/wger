@@ -4,5 +4,8 @@
     "weight": "Peso",
     "days": "Días",
     "delete": "Borrar",
-    "difference": "Diferencia"
+    "difference": "Diferencia",
+    "submit": "Enviar",
+    "close": "Cerrar",
+    "add": "Añadir"
 }

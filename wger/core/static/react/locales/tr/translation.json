@@ -4,5 +4,8 @@
     "date": "Tarih",
     "days": "Gün",
     "difference": "Fark",
-    "weight": "Ağırlık"
+    "weight": "Ağırlık",
+    "submit": "Gönder",
+    "add": "Ekle",
+    "close": "Kapat"
 }

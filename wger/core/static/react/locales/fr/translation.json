@@ -4,5 +4,8 @@
     "date": "Date",
     "days": "Jours",
     "edit": "Modifier",
-    "weight": "Poids"
+    "weight": "Poids",
+    "submit": "Envoyer",
+    "add": "Ajouter",
+    "close": "Fermer"
 }

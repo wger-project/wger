@@ -4,5 +4,8 @@
     "date": "Datum",
     "weight": "Težina",
     "difference": "Razlika",
-    "days": "Dani"
+    "days": "Dani",
+    "add": "Dodaj",
+    "submit": "Pošalji",
+    "close": "Zatvori"
 }

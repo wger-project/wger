@@ -10,8 +10,7 @@
 {# Header #}
 {#        #}
 {% block header %}
-    <link rel="stylesheet" type="text/css" href="{% static 'react/main.css' %}">
-    <script src="{% static 'react/main.js' %}" defer="defer"></script>
+    {%  react_static %}
 {% endblock %}
 
 
@@ -21,7 +20,7 @@
 {#         #}
 {% block content %}
 
-    <div id="weight-overview"></div>
+    <div id="react-weight-overview"></div>
 
 {% endblock %}
 

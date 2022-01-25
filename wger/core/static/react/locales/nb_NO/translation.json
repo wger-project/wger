@@ -4,5 +4,8 @@
     "date": "Dato",
     "weight": "Vekt",
     "difference": "Forskjell",
-    "days": "Dager"
+    "days": "Dager",
+    "submit": "Send",
+    "add": "Legg til",
+    "close": "Lukk"
 }
