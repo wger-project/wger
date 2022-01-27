@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-28 19:01+0100\n"
-"PO-Revision-Date: 2022-01-26 12:56+0000\n"
+"PO-Revision-Date: 2022-01-28 07:52+0000\n"
 "Last-Translator: guillem <gbuendia@gmx.net>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/wger/web/ca/>\n"
 "Language: ca\n"
@@ -1753,35 +1753,45 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "successfully."
 msgstr ""
+"Quan envieu el formulari, l'administració rebrà un avís.\n"
+"Un cop el revisin, l'afegiran a la base de dades. Fins llavors, no serà "
+"visible\n"
+"a la vista general ni a la cerca. Si vau afegir una adreça electrònica quan "
+"us\n"
+"vau registrar, rebreu un avís quan aquest procés es completi amb èxit."
 
 #: exercises/templates/exercise/form_correct.html:4
 msgid "Correcting an exercise"
-msgstr ""
+msgstr "Corregint un exercici"
 
 #: exercises/templates/exercise/form_correct.html:5
 msgid ""
 "Thank you for correcting and improving this exercise.\n"
 "This is much appreciated!"
 msgstr ""
+"Gràcies per corregir i millorar aquest exercici.\n"
+"Ho apreciem molt!"
 
 #: exercises/templates/exercise/form_correct.html:8
 msgid ""
 "After you submit the form, the administrators will be notified.\n"
 "Once the changes are reviewed the exercise will be updated."
 msgstr ""
+"Quan envieu el formulari, l'administració rebrà un avís.\n"
+"Un cop els canvis s'hagin revisat, s'actualitzarà l'exercici."
 
 #: exercises/templates/exercise/overview.html:88
 msgid "No categories."
-msgstr ""
+msgstr "Sense categories."
 
 #: exercises/templates/exercise/overview.html:88
 msgid "Use link to create one"
-msgstr ""
+msgstr "Useu el vincle per a afegir-ne una"
 
 #: exercises/templates/exercise/pending.html:14
 #: nutrition/templates/ingredient/pending.html:14
 msgid "Submission date"
-msgstr ""
+msgstr "Data d'inserció"
 
 #: exercises/templates/exercise/pending.html:16 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1792,258 +1802,263 @@ msgstr ""
 #: measurements/models/measurement.py:59 nutrition/models/plan.py:55
 #: nutrition/templates/ingredient/pending.html:16 weight/models.py:41
 msgid "User"
-msgstr ""
+msgstr "Usuari"
 
 #: exercises/templates/exercise/view.html:48
 msgid "Exercise is pending review"
-msgstr ""
+msgstr "L'exercici està pendent de revisió"
 
 #: exercises/templates/exercise/view.html:51
 msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "        included in the database."
 msgstr ""
+"Aquest exercici enviat per un usuari està pendent\n"
+"d'una decisió per a ser inclòs a la base de dades."
 
 #: exercises/templates/exercise/view.html:53
 msgid "Till then, it will not be shown in the overview or the search."
-msgstr ""
+msgstr "Fins llavors, no es mostrarà a la vista general ni a la cerca."
 
 #: exercises/templates/exercise/view.html:54
 #: nutrition/templates/ingredient/view.html:31
 msgid "Please select one of the options below."
-msgstr ""
+msgstr "Seleccioneu una de les opcions següents."
 
 #: exercises/templates/exercise/view.html:60
 #: exercises/templates/exercise/view.html:153
 #: nutrition/templates/ingredient/view.html:38
 msgid "Accept"
-msgstr ""
+msgstr "Accepta"
 
 #: exercises/templates/exercise/view.html:64
 #: exercises/templates/exercise/view.html:154
 #: nutrition/templates/ingredient/view.html:42
 msgid "Decline"
-msgstr ""
+msgstr "Refusa"
 
 #: exercises/templates/exercise/view.html:96
 msgid "Images"
-msgstr ""
+msgstr "Imatges"
 
 #: exercises/templates/exercise/view.html:137 exercises/views/images.py:93
 msgid "Add new image"
-msgstr ""
+msgstr "Afegeix una nova imatge"
 
 #: exercises/templates/exercise/view.html:147
 msgid "Images pending review"
-msgstr ""
+msgstr "Imatges pendents de revisió"
 
 #: exercises/templates/exercise/view.html:168
 msgid "Comments for this exercise"
-msgstr ""
+msgstr "Comentaris per a aquest exercici"
 
 #: exercises/templates/exercise/view.html:196
 msgid "Add new comment"
-msgstr ""
+msgstr "Afegeix un nou comentari"
 
 #: exercises/templates/exercise/view.html:210
 msgid "The diagram shows the most used muscles on this exercise"
-msgstr ""
+msgstr "El diagrama mostra els músculs més usats en aquest exercici"
 
 #: exercises/templates/exercise/view.html:251
 #: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
 msgid "Weight log"
-msgstr ""
+msgstr "Registre del pes"
 
 #: exercises/templates/exercise/view.html:256
 msgid "Exercise Variations"
-msgstr ""
+msgstr "Variacions de l'exercici"
 
 #: exercises/templates/exercise/view.html:277
 msgid "Submit a correction"
-msgstr ""
+msgstr "Envia una esmena"
 
 #: exercises/templates/muscles/admin-overview.html:4
 #: exercises/templates/muscles/overview.html:7
 msgid "Muscle overview"
-msgstr ""
+msgstr "Vista general del músculs"
 
 #: exercises/templates/muscles/admin-overview.html:36
 #: exercises/views/muscles.py:86
 msgid "Add muscle"
-msgstr ""
+msgstr "Afegeix múscul"
 
 #: exercises/templates/muscles/overview.html:81
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
+"No hi ha exercicis per a aquest múscul. Afegiu o editeu un exercici i "
+"especifiqueu-l'hi."
 
 #: exercises/views/categories.py:71
 msgid "Add category"
-msgstr ""
+msgstr "Afegeix categoria"
 
 #: exercises/views/categories.py:120
 msgid "This will also delete all exercises in this category."
-msgstr ""
+msgstr "Això també esborrarà tots els exercicis d'aquesta categoria."
 
 #: exercises/views/comments.py:82
 msgid "Add exercise comment"
-msgstr ""
+msgstr "Afegeix comentari de l'exercici"
 
 #: exercises/views/equipment.py:107 exercises/views/equipment.py:118
 msgid "Delete equipment?"
-msgstr ""
+msgstr "Voleu esborrar l'equipament?"
 
 #: exercises/views/exercises.py:228
 #, python-format
 msgid ""
 "%(name_original)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
+"%(name_original)s és massa semblant a l'exercici existent «%(exercise_name)s»"
 
 #: exercises/views/exercises.py:246
 msgid "Add exercise"
-msgstr ""
+msgstr "Afegeix exercici"
 
 #: exercises/views/exercises.py:366
 msgid "Thank you. Once the changes are reviewed the exercise will be updated."
-msgstr ""
+msgstr "Gràcies. Un cop els canvis es revisin l'exercici s'actualitzarà."
 
 #: exercises/views/exercises.py:379
 #, python-brace-format
 msgid "Correct {0}"
-msgstr ""
+msgstr "Corregeix {0}"
 
 #: exercises/views/exercises.py:421
 msgid "This will delete the exercise from all workouts."
-msgstr ""
+msgstr "Això esborrarà l'exercici de tots els entrenaments."
 
 #: exercises/views/exercises.py:473
 msgid "Exercise was successfully marked as rejected"
-msgstr ""
+msgstr "L'exercici s'ha marcat amb èxit com a refusat"
 
 #: exercises/views/images.py:68
 msgid "Edit exercise image"
-msgstr ""
+msgstr "Edita imatge de l'exercici"
 
 #: exercises/views/images.py:143
 msgid "Delete exercise image?"
-msgstr ""
+msgstr "Voleu esborrar la imatge de l'exercici?"
 
 #: gallery/templates/images/overview.html:62
 msgid "Add image"
-msgstr ""
+msgstr "Afegeix imatge"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
-msgstr ""
+msgstr "Entrenador"
 
 #: gym/forms.py:61
 msgid "Gym administrator"
-msgstr ""
+msgstr "Administrador del gimnàs"
 
 #: gym/forms.py:63 gym/templates/gym/member_list.html:52
 msgid "General manager"
-msgstr ""
+msgstr "Gerent"
 
 #: gym/forms.py:97
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
+msgstr "Requerit. 30 caràcters o menys. Només lletres, números i @/./+/-/_."
 
 #: gym/forms.py:101
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr ""
+msgstr "Aquest valor només pot contenir lletres, números i @/./+/-/_."
 
 #: gym/forms.py:116
 msgid "A user with that username already exists."
-msgstr ""
+msgstr "Ja existeix un usuari amb aquest nom."
 
 #: gym/management/commands/inactive-members.py:97 gym/models/gym_config.py:44
 msgid "Reminder of inactive members"
-msgstr ""
+msgstr "Recordatori de membres inactius"
 
 #: gym/models/admin_user_note.py:66 gym/models/contract.py:302
 #: gym/models/user_document.py:96 gym/templates/contract/view.html:96
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: gym/models/contract.py:141
 msgid "Yearly"
-msgstr ""
+msgstr "Anual"
 
 #: gym/models/contract.py:142
 msgid "Half yearly"
-msgstr ""
+msgstr "Semestral"
 
 #: gym/models/contract.py:143
 msgid "Monthly"
-msgstr ""
+msgstr "Mensual"
 
 #: gym/models/contract.py:144
 msgid "Biweekly"
-msgstr ""
+msgstr "Bisetmanal"
 
 #: gym/models/contract.py:145
 msgid "Weekly"
-msgstr ""
+msgstr "Setmanal"
 
 #: gym/models/contract.py:146
 msgid "Daily"
-msgstr ""
+msgstr "Diari"
 
 #: gym/models/contract.py:191 gym/templates/contract/view.html:34
 msgid "Contract type"
-msgstr ""
+msgstr "Tipus de contracte"
 
 #: gym/models/contract.py:208 gym/templates/contract/view.html:59
 #: manager/templates/log/add.html:52 nutrition/forms.py:59
 #: nutrition/models/ingredient_weight_unit.py:54 nutrition/models/log.py:102
 #: nutrition/models/meal_item.py:72
 msgid "Amount"
-msgstr ""
+msgstr "Quantitat"
 
 #: gym/models/contract.py:218 gym/templates/contract/view.html:63
 msgid "Payment type"
-msgstr ""
+msgstr "Tipus de pagament"
 
 #: gym/models/contract.py:222
 msgid "How often the amount will be charged to the member"
-msgstr ""
+msgstr "Amb quina freqüència es carregarà aquesta quantitat al membre"
 
 #: gym/models/contract.py:228 gym/templates/contract/view.html:24
 msgid "Contract is active"
-msgstr ""
+msgstr "El contracte és actiu"
 
 #: gym/models/contract.py:234 gym/templates/contract/view.html:69
 #: manager/models/schedule.py:62 manager/templates/schedule/view.html:70
 msgid "Start date"
-msgstr ""
+msgstr "Data d'inici"
 
 #: gym/models/contract.py:244 gym/templates/contract/view.html:71
 msgid "End date"
-msgstr ""
+msgstr "Data de finalització"
 
 #: gym/models/contract.py:260 gym/models/gym.py:73 gym/views/export.py:67
 msgid "ZIP code"
-msgstr ""
+msgstr "Codi postal"
 
 #: gym/models/contract.py:268 gym/models/gym.py:81 gym/views/export.py:68
 msgid "City"
-msgstr ""
+msgstr "Ciutat"
 
 #: gym/models/contract.py:276 gym/models/gym.py:89 gym/views/export.py:69
 msgid "Street"
-msgstr ""
+msgstr "Carrer"
 
 #: gym/models/contract.py:292 gym/templates/contract/view.html:92
 msgid "Profession"
-msgstr ""
+msgstr "Ocupació"
 
 #: gym/models/gym.py:33
 msgid "Trainer: can see the users for a gym"
-msgstr ""
+msgstr "Entrenador: pot veure els usuaris per a un donat gimnàs"
 
 #: gym/models/gym.py:34
 msgid "Admin: can manage users for a gym"
-msgstr ""
+msgstr "Administrador: pot gestionar els usuaris per a un donat gimnàs"
 
 #: gym/models/gym.py:35
 msgid "Admin: can administrate the different gyms"
