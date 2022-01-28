@@ -92,6 +92,12 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'exercise_base',
             'video',
             'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
             'license',
             'license_author',
         ]
