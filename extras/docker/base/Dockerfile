@@ -24,7 +24,6 @@ RUN apt-get update \
       python3-pip \
       sqlite3 \
       netcat-openbsd \
-      ffmpeg \
   && rm -rf /var/lib/apt/lists/* \
   && npm install -g yarn@1.22.5 sass\
   && locale-gen en_US.UTF-8
