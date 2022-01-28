@@ -24,7 +24,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
-import ffmpeg
+try:
+    import ffmpeg
+except ImportError:
+    ffmpeg = None
 
 # wger
 from wger.exercises.models import ExerciseBase
@@ -37,16 +40,20 @@ def validate_video(value):
         raise ValidationError(_('Maximum file size is 100MB.'))
 
     if value.file.content_type not in ['video/mp4', 'video/webm', 'video/ogg']:
-        raise ValidationError(_('File type not supported.'))
+        raise ValidationError(_('File type is not supported'))
 
     # If ffmpeg can't read the file, it will raise an exception
     if not hasattr(value.file, 'temporary_file_path'):
-        raise ValidationError(_('File type not supported.'))
+        raise ValidationError(_('File type is not supported'))
+
+    # ffmpeg is not installed, skip
+    if not ffmpeg:
+        return
 
     try:
         ffmpeg.probe(value.file.temporary_file_path())
     except ffmpeg.Error as e:
-        raise ValidationError(_('File is not a valid video.'))
+        raise ValidationError(_('File is not a valid video'))
 
 
 def exercise_video_upload_dir(instance, filename):
@@ -54,7 +61,7 @@ def exercise_video_upload_dir(instance, filename):
     Returns the upload target for exercise videos
     """
     ext = pathlib.Path(filename).suffix
-    return "exercise-video/{0}/{1}{2}".format(instance.exercise_base.id, instance.uuid, ext)
+    return f"exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
 class ExerciseVideo(AbstractLicenseModel, models.Model):
@@ -83,29 +90,55 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
     """A flag indicating whether the video is the exercise's main one"""
 
     video = models.FileField(
-        verbose_name=_('Video'), upload_to=exercise_video_upload_dir, validators=[validate_video]
+        verbose_name=_('Video'),
+        upload_to=exercise_video_upload_dir,
+        validators=[validate_video],
     )
     """Uploaded video"""
 
-    size = models.IntegerField(verbose_name=_('Size'), default=0, editable=False)
+    size = models.IntegerField(
+        verbose_name=_('Size'),
+        default=0,
+        editable=False,
+    )
     """The video filesize, in bytes"""
 
     duration = models.DecimalField(
-        verbose_name=_('Duration'), default=0, editable=False, max_digits=12, decimal_places=2
+        verbose_name=_('Duration'),
+        default=0,
+        editable=False,
+        max_digits=12,
+        decimal_places=2,
     )
     """The video duration, in seconds"""
 
-    width = models.IntegerField(verbose_name=_('Width'), default=0, editable=False)
+    width = models.IntegerField(
+        verbose_name=_('Width'),
+        default=0,
+        editable=False,
+    )
     """The video width, in pixels"""
 
-    height = models.IntegerField(verbose_name=_('Height'), default=0, editable=False)
+    height = models.IntegerField(
+        verbose_name=_('Height'),
+        default=0,
+        editable=False,
+    )
     """The video height, in pixels"""
 
-    codec = models.CharField(verbose_name=_('Codec'), max_length=30, default='', editable=False)
+    codec = models.CharField(
+        verbose_name=_('Codec'),
+        max_length=30,
+        default='',
+        editable=False,
+    )
     """The video codec"""
 
     codec_long = models.CharField(
-        verbose_name=_('Codec, long name'), max_length=100, default='', editable=False
+        verbose_name=_('Codec, long name'),
+        max_length=100,
+        default='',
+        editable=False,
     )
     """The video codec, in full"""
 
@@ -123,9 +156,9 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Save metadata about the video
+        Save metadata about the video if ffmpeg is installed
         """
-        if not self.pk:
+        if ffmpeg and not self.pk:
             probe_result = ffmpeg.probe(self.video.file.temporary_file_path())
             self.size = probe_result['format']['size']
             self.duration = probe_result['format']['duration']
