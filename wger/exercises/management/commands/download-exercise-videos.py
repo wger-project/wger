@@ -102,21 +102,29 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    video = ExerciseVideo.objects.get(uuid=video_uuid)
+                    ExerciseVideo.objects.get(uuid=video_uuid)
                     self.stdout.write('    Video already present locally, skipping...')
                     continue
                 except ExerciseVideo.DoesNotExist:
                     self.stdout.write('    Video not found in local DB, creating now...')
                     video = ExerciseVideo()
+                    video.exercise_base = exercise_base
                     video.uuid = video_uuid
+                    video.is_main = video_data['is_main']
                     video.license_id = video_data['license']
                     video.license_author = video_data['license_author']
+                    video.size = video_data['size']
+                    video.width = video_data['width']
+                    video.height = video_data['height']
+                    video.codec = video_data['codec']
+                    video.codec_long = video_data['codec_long']
+                    video.duration = video_data['duration']
 
                 # Save the downloaded video
                 # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to-
                 retrieved_video = requests.get(video_data['video'], headers=headers)
 
-                # Temporary files on windows don't support the delete attribute
+                # Temporary files on Windows don't support the delete attribute
                 if os.name == 'nt':
                     img_temp = NamedTemporaryFile()
                 else:
@@ -124,8 +132,6 @@ class Command(BaseCommand):
                 img_temp.write(retrieved_video.content)
                 img_temp.flush()
 
-                video.exercise_base = exercise_base
-                video.is_main = video_data['is_main']
                 video.image.save(
                     os.path.basename(os.path.basename(video_data['image'])),
                     File(img_temp),
