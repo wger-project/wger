@@ -183,6 +183,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     """
 
     images = ExerciseImageSerializer(many=True, read_only=True)
+    videos = ExerciseVideoSerializer(many=True, read_only=True)
     comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
     category = ExerciseCategorySerializer(read_only=True)
     muscles = MuscleSerializer(many=True, read_only=True)
@@ -207,6 +208,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             "license",
             "license_author",
             "images",
+            "videos",
             "comments",
             "variations",
         ]
