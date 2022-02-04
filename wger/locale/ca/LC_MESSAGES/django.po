@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-28 19:01+0100\n"
-"PO-Revision-Date: 2022-01-28 07:52+0000\n"
+"PO-Revision-Date: 2022-02-06 10:57+0000\n"
 "Last-Translator: guillem <gbuendia@gmx.net>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/wger/web/ca/>\n"
 "Language: ca\n"
@@ -2062,140 +2062,144 @@ msgstr "Administrador: pot gestionar els usuaris per a un donat gimnàs"
 
 #: gym/models/gym.py:35
 msgid "Admin: can administrate the different gyms"
-msgstr ""
+msgstr "Director: pot gestionar els diversos gimnasos"
 
 #: gym/models/gym.py:65 gym/templates/gym/member_list.html:114
 msgid "Owner"
-msgstr ""
+msgstr "Propietari"
 
 #: gym/models/gym_config.py:46
 msgid ""
 "Number of weeks since the last time a user logged his presence to be "
 "considered inactive"
 msgstr ""
+"Nombre de setmanes des de la darrera connexió d'un usuari per a què es "
+"consideri inactiu"
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "Mostra el nom a la capçalera"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "Mostra el nom del gimnàs a la capçalera del web"
 
 #: gym/models/gym_config.py:68
 msgid "Configuration for {}"
-msgstr ""
+msgstr "Configuració per a {}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
-msgstr ""
+msgstr "Vista general de membres inactius"
 
 #: gym/models/user_config.py:66
 msgid "Receive email overviews of inactive members"
-msgstr ""
+msgstr "Rebre resums d'usuaris inactius per correu electrònic"
 
 #: gym/models/user_config.py:93
 msgid "Include this user in the email list with inactive members"
-msgstr ""
+msgstr "Inclou aquest usuari a la llista de correu amb membres inactius"
 
 #: gym/models/user_document.py:75
 msgid "Document"
-msgstr ""
+msgstr "Document"
 
 #: gym/models/user_document.py:88
 msgid "Will use file name if nothing provided"
-msgstr ""
+msgstr "S'usarà el nom del fitxer si no es facilita una altra cosa"
 
 #: gym/templates/admin_notes/list.html:4
 msgid "User notes"
-msgstr ""
+msgstr "Notes de l'usuari"
 
 #: gym/templates/contract/view.html:4
 msgid "Contract"
-msgstr ""
+msgstr "Contracte"
 
 #: gym/templates/contract_option/list.html:4
 msgid "Contract options"
-msgstr ""
+msgstr "Opcions de contracte"
 
 #: gym/templates/contract_type/list.html:4
 msgid "Contract types"
-msgstr ""
+msgstr "Tipus de contracte"
 
 #: gym/templates/gym/email_inactive_members.html:2
 #, python-format
 msgid ""
 "The following users have not visited the gym in the last %(weeks)s weeks"
 msgstr ""
+"El següents usuaris no han visitat el gimnàs en les darreres %(weeks)s "
+"setmanes"
 
 #: gym/templates/gym/list.html:6
 msgid "Gym list"
-msgstr ""
+msgstr "Llista de gimnasos"
 
 #: gym/templates/gym/list.html:47
 msgid "Global gym configuration"
-msgstr ""
+msgstr "Configuració global de gimnasos"
 
 #: gym/templates/gym/list.html:64 gym/views/gym.py:170
 msgid "Add new gym"
-msgstr ""
+msgstr "Afegeix un nou gimnàs"
 
 #: gym/templates/gym/member_list.html:22
 msgid "Administrators and trainers"
-msgstr ""
+msgstr "Administradors i entrenadors"
 
 #: gym/templates/gym/member_list.html:48
 msgid "Gym manager"
-msgstr ""
+msgstr "Director del gimnàs"
 
 #: gym/templates/gym/member_list.html:69
 msgid "This gym has no administrators or trainers"
-msgstr ""
+msgstr "Aquest gimnàs no té administradors ni entrenadors"
 
 #: gym/templates/gym/member_list.html:88
 msgid "Export"
-msgstr ""
+msgstr "Exporta"
 
 #: gym/templates/gym/member_list.html:125
 msgid "Members"
-msgstr ""
+msgstr "Membres"
 
 #: gym/templates/gym/member_list.html:145
 msgid "Gym configuration"
-msgstr ""
+msgstr "Configuració del gimnàs"
 
 #: gym/templates/gym/member_list.html:148
 msgid "Inactive members"
-msgstr ""
+msgstr "Membres inactius"
 
 #: gym/templates/gym/member_list.html:149
 msgid "weeks"
-msgstr ""
+msgstr "setmanes"
 
 #: gym/templates/gym/member_list.html:181
 msgid "My configuration"
-msgstr ""
+msgstr "La meva configuració"
 
 #: gym/templates/gym/member_list.html:215
 msgid "Types"
-msgstr ""
+msgstr "Tipus"
 
 #: gym/templates/gym/member_list.html:285
 msgid "Emails"
-msgstr ""
+msgstr "Adreces electròniques"
 
 #: gym/templates/gym/member_list.html:315
 msgid "Add member"
-msgstr ""
+msgstr "Afegeix un membre"
 
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Data de naixement"
 
 #: gym/templates/gym/new_user.html:48 manager/templates/calendar/month.html:144
 #: manager/templates/log/add.html:75 nutrition/templates/rate/form.html:120
 msgid "Info"
-msgstr ""
+msgstr "Informació"
 
 #: gym/templates/gym/new_user.html:50
 msgid ""
@@ -2204,79 +2208,85 @@ msgid ""
 "password\n"
 "cannot be recovered later."
 msgstr ""
+"Anoteu la contrasenya de l'usuari o deseu el fitxer exportat, que conté "
+"totes les\n"
+"dades de l'usuari, i emmagatzemeu-lo en un lloc segur.\n"
+"La contrasenya no es pot recuperar més endavant."
 
 #: gym/templates/gym/new_user.html:57
 msgid "Export user data"
-msgstr ""
+msgstr "Exporta dades de l'usuari"
 
 #: gym/templates/gym/reset_user_password.html:32
 msgid ""
 "This user's password has been reset. Please notify the user of their new "
 "password."
 msgstr ""
+"S'ha reinicialitzat la contrasenya de l'usuari. Notifiqueu l'usuari la seva "
+"nova contrasenya."
 
 #: gym/views/admin_notes.py:94 gym/views/document.py:94
 msgid "Add note"
-msgstr ""
+msgstr "Afegeix nota"
 
 #: gym/views/contract.py:69
 msgid "Add contract"
-msgstr ""
+msgstr "Afegeix contracte"
 
 #: gym/views/contract_option.py:60
 msgid "Add option"
-msgstr ""
+msgstr "Afegeix opció"
 
 #: gym/views/contract_option.py:160 gym/views/contract_type.py:160
 #, python-brace-format
 msgid "Delete {0}"
-msgstr ""
+msgstr "Esborra {0}"
 
 #: gym/views/contract_type.py:60
 msgid "Add contract type"
-msgstr ""
+msgstr "Afegeix tipus de contracte"
 
 #: gym/views/export.py:65
 msgid "Gender"
-msgstr ""
+msgstr "Gènere"
 
 #: gym/views/gym.py:342
 msgid "Add user to gym"
-msgstr ""
+msgstr "Afegeix usuari al gimnàs"
 
 #: gym/views/gym.py:438
 msgid "Edit gym"
-msgstr ""
+msgstr "Edita el gimnàs"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
 msgid "Subject"
-msgstr ""
+msgstr "Assumpte"
 
 #: mailer/forms.py:35 mailer/templates/mailer/gym/preview.html:40
 msgctxt "As in \"content of an email\""
 msgid "Content"
-msgstr ""
+msgstr "Contingut"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "Genera una vista prèvia"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
 #: manager/templates/workout/view.html:88
 msgid "Steps"
-msgstr ""
+msgstr "Passos"
 
 #: mailer/templates/mailer/gym/form.html:30
 #: mailer/templates/mailer/gym/preview.html:64
 msgid "Fill in the form"
-msgstr ""
+msgstr "Ompliu el formulari"
 
 #: mailer/templates/mailer/gym/form.html:31
 #: mailer/templates/mailer/gym/preview.html:65
 msgid "You will receive a preview email for you to review"
-msgstr ""
+msgstr "Rebreu una vista prèvia del correu per a que la reviseu"
 
 #: mailer/templates/mailer/gym/form.html:32
 #: mailer/templates/mailer/gym/preview.html:66
@@ -2284,36 +2294,40 @@ msgid ""
 "You can update and correct the content as often as you need before sending "
 "the emails"
 msgstr ""
+"Podeu actualitzar i corregir-ne el contingut tan sovint com calgui abans "
+"d'enviar els correus"
 
 #: mailer/templates/mailer/gym/preview.html:22
 #: software/templates/about_us.html:59
 msgid "Current version"
-msgstr ""
+msgstr "Versió actual"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "Envia correus"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
 msgid "Correction"
-msgstr ""
+msgstr "Correcció"
 
 #: manager/forms.py:89 manager/models/workout.py:59
 msgid "The name of the workout"
-msgstr ""
+msgstr "El nom de l'entrenament"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
 msgstr ""
+"Una curta descripció o l'objectiu del pla d'entrenament, p. e. «Focus a "
+"l'esquena» o «Semana 1 del Programa XY»."
 
 #: manager/forms.py:126
 msgid ""
 "You can search for more than one exercise, they will be grouped together for "
 "a superset."
-msgstr ""
+msgstr "Podeu cercar més d'un exercici, s'agruparan en un conjunt."
 
 #: manager/forms.py:155 manager/forms.py:160 manager/models/log.py:62
 #: manager/models/log.py:90 manager/models/setting.py:47
@@ -2322,50 +2336,52 @@ msgstr ""
 #: manager/templates/set/formset.html:13 measurements/models/category.py:58
 #: nutrition/forms.py:63
 msgid "Unit"
-msgstr ""
+msgstr "Unitat"
 
 #: manager/forms.py:169 manager/models/log.py:71
 #: manager/templates/set/add.html:53
 msgid "Repetitions"
-msgstr ""
+msgstr "Repeticions"
 
 #: manager/forms.py:266
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: manager/forms.py:267 manager/templates/workout/view.html:157
 msgid "Table"
-msgstr ""
+msgstr "Taula"
 
 #: manager/forms.py:269 manager/templates/workout/view.html:163
 msgid "with images"
-msgstr ""
+msgstr "amb imatges"
 
 #: manager/forms.py:270 manager/templates/workout/view.html:169
 msgid "with comments"
-msgstr ""
+msgstr "amb comentaris"
 
 #: manager/management/commands/email-reminders.py:125
 msgid "Workout will expire soon"
-msgstr ""
+msgstr "L'entrenament caducarà aviat"
 
 #: manager/models/day.py:39
 msgid ""
 "A description of what is done on this day (e.g. \"Pull day\") or what body "
 "parts are trained (e.g. \"Arms and abs\")"
 msgstr ""
+"Una descripció de què es fa aquest dia (p. e. «Dia de tracció») o quines "
+"parts del cos s'hi entrenen (p. e. «Braços i abdominals»)"
 
 #: manager/models/day.py:44
 msgid "Day"
-msgstr ""
+msgstr "Dia"
 
 #: manager/models/schedule.py:57
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
-msgstr ""
+msgstr "Nom o breu descripció del programa. Per exemple «Programa XYZ»."
 
 #: manager/models/schedule.py:66 manager/templates/schedule/view.html:74
 msgid "Schedule active"
-msgstr ""
+msgstr "Programa actiu"
 
 #: manager/models/schedule.py:69
 msgid ""
@@ -2373,159 +2389,169 @@ msgid ""
 "shown e.g. on your dashboard). All other schedules will then be marked as "
 "inactive"
 msgstr ""
+"Marqueu la casella si voleu marcar aquest programa com a l'actiu (es "
+"mostrarà p. e. a la vostra consola). Tots els altres programes es marcaran "
+"com a inactius"
 
 #: manager/models/schedule.py:78 manager/templates/schedule/view.html:84
 msgid "Is a loop"
-msgstr ""
+msgstr "És un cicle"
 
 #: manager/models/schedule.py:81
 msgid ""
 "Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
 "B, C, and so on)"
 msgstr ""
+"Marqueu la casella si voleu repetir els programes en un cicle (p. e. A, B, "
+"C, A, B, C, etcètera)"
 
 #: manager/models/schedule_step.py:49
 msgid "schedule"
-msgstr ""
+msgstr "Programa"
 
 #: manager/models/schedule_step.py:56
 msgid "Duration"
-msgstr ""
+msgstr "Duració"
 
 #: manager/models/schedule_step.py:57
 msgid "The duration in weeks"
-msgstr ""
+msgstr "La duració en setmanes"
 
 #: manager/models/schedule_step.py:63 manager/models/set.py:52
 #: manager/models/setting.py:98 nutrition/models/meal.py:54
 #: nutrition/models/meal_item.py:65
 msgid "Order"
-msgstr ""
+msgstr "Ordre"
 
 #: manager/models/session.py:42
 msgid "Bad"
-msgstr ""
+msgstr "Dolenta"
 
 #: manager/models/session.py:43
 msgid "Neutral"
-msgstr ""
+msgstr "Neutra"
 
 #: manager/models/session.py:44
 msgid "Good"
-msgstr ""
+msgstr "Bona"
 
 #: manager/models/session.py:76
 msgid "Any notes you might want to save about this workout session."
-msgstr ""
+msgstr "Qualsevol nota que vulgueu desar sobre aquesta sessió d'entrenament"
 
 #: manager/models/session.py:89
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
 msgstr ""
+"La vostra sensació sobre aquesta sessió d'entrenament. Heu entrenat tan bé "
+"com heu pogut?"
 
 #: manager/models/session.py:97
 msgid "Start time"
-msgstr ""
+msgstr "Hora d'inici"
 
 #: manager/models/session.py:102
 msgid "Finish time"
-msgstr ""
+msgstr "Hora de finalització"
 
 #: manager/models/session.py:128
 msgid "If you enter a time, you must enter both start and end time."
-msgstr ""
+msgstr "Si introduïu una hora, heu d'introduir-ne ambdues d'inici i final."
 
 #: manager/models/session.py:131
 msgid "The start time cannot be after the end time."
-msgstr ""
+msgstr "L'hora d'inici no pot ser posterior a la de finalització."
 
 #: manager/models/set.py:46
 msgid "Exercise day"
-msgstr ""
+msgstr "Dia d'entrenament"
 
 #: manager/models/set.py:56
 msgid "Number of sets"
-msgstr ""
+msgstr "Nombre de sèries"
 
 #: manager/models/setting.py:43
 msgid "Sets"
-msgstr ""
+msgstr "Sèries"
 
 #: manager/models/workout.py:54 nutrition/models/plan.py:65
 msgid "Creation date"
-msgstr ""
+msgstr "Data de creació"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
 msgid "Workout template"
-msgstr ""
+msgstr "Plantilla d'entrenament"
 
 #: manager/models/workout.py:74
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Marcar un entrenament com a plantilla el fixarà i permetrà fer-ne còpies"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Plantilla pública"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Una plantilla pública està disponible per a altres usuaris"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
+msgstr "Heu de marcar aquest entrenament com a plantilla abans de fer-ho públic"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
-msgstr ""
+msgstr "Registre d'entrenament"
 
 #: manager/templates/calendar/day.html:12
 #, python-format
 msgid "Workout log for %(username)s for %(date)s"
-msgstr ""
+msgstr "Registre d'entrenament per a %(username)s el %(date)s"
 
 #: manager/templates/calendar/month.html:13
 #, python-format
 msgid "Calendar for %(username)s"
-msgstr ""
+msgstr "Calendari per a %(username)s"
 
 #: manager/templates/calendar/month.html:53
 msgid "Detail page"
-msgstr ""
+msgstr "Pàgina de detalls"
 
 #: manager/templates/calendar/month.html:145
 msgid ""
 "The coloured days in the calendar have weight logs,\n"
 "you can click on them to see the details."
 msgstr ""
+"Els dies amb color al calendari contenen registres d'entrenament,\n"
+"podeu fer-hi clic a sobre per a veure'n els detalls."
 
 #: manager/templates/calendar/month.html:157
 msgid "Go to current month"
-msgstr ""
+msgstr "Vés al mes actual"
 
 #: manager/templates/calendar/partial_overview_table.html:5
 msgid "Log overview"
-msgstr ""
+msgstr "Vista general del registre"
 
 #: manager/templates/calendar/partial_overview_table.html:12
 msgid "Workout session"
-msgstr ""
+msgstr "Sessió d'entrenament"
 
 #: manager/templates/calendar/partial_overview_table.html:27
 msgid "Delete with logs"
-msgstr ""
+msgstr "Esborra amb registres"
 
 #: manager/templates/calendar/partial_overview_table.html:33
 msgid "Add workout impression"
-msgstr ""
+msgstr "Afegeix una sensació a l'entrenament"
 
 #: manager/templates/log/add.html:20
 msgid "New weight log"
-msgstr ""
+msgstr "Nou registre d'entrenament"
 
 #: manager/templates/log/add.html:76
 msgid ""
@@ -2534,27 +2560,32 @@ msgid ""
 "it\n"
 "will simply be edited. Weight entries are always added."
 msgstr ""
+"Es crearà una nova sessió d'entrenament (sensació, notes, temps)\n"
+"si no n'hi ha una per la data seleccionada. Si n'hi ha una, simplement\n"
+"s'editarà. Els registres d'entrenament s'afegeixen sempre."
 
 #: manager/templates/schedule/overview.html:5
 msgid "Your schedules"
-msgstr ""
+msgstr "Els vostres programes"
 
 #: manager/templates/schedule/overview.html:19
 #: manager/templates/schedule/view.html:134
 #: manager/templates/schedule/view.html:190
 #: manager/templates/workout/overview.html:16
 msgid "active"
-msgstr ""
+msgstr "actiu"
 
 #: manager/templates/schedule/overview.html:28
 msgid "No schedules found."
-msgstr ""
+msgstr "No s'han trobat programes."
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "succession."
 msgstr ""
+"Els programes són col·leccions d'entrenaments que\n"
+"feu en successió."
 
 #: manager/templates/schedule/overview.html:39
 msgid ""
@@ -2563,6 +2594,9 @@ msgid ""
 "always do the same workouts in succession, e.g. A > B > C > A > B > C and so "
 "on."
 msgstr ""
+"Podeu indicar quant de temps voleu fer cada entrenament abans de saltar\n"
+"al següent. També és possible crear un bucle per tal de fer els mateixos\n"
+"entrenaments en successió, p. e. A > B > C > A > B > C etcètera."
 
 #: manager/templates/schedule/overview.html:43
 msgid ""
@@ -2570,33 +2604,38 @@ msgid ""
 "shown e.g. in your dashboard) till it reaches the last workout or till you\n"
 "deactivate it, if it is a loop."
 msgstr ""
+"El programa actiu actualment romandrà actiu (i es mostrarà p. e. a la\n"
+"vostra consola) fins que arribi al darrer entrenament o, si és un bucle,\n"
+"fins a que el desactiveu."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
-msgstr ""
+msgstr "Afegeix programa"
 
 #: manager/templates/schedule/view.html:10
 msgid "Schedule"
-msgstr ""
+msgstr "Programa"
 
 #: manager/templates/schedule/view.html:88
 msgid ""
 "This schedule is a loop and will go through the workouts above till you "
 "deactivate it"
 msgstr ""
+"Aquest programa és un bucle i repetirà els entrenaments de més amunt fins "
+"que no el desactiveu"
 
 #: manager/templates/schedule/view.html:106 manager/views/schedule.py:168
 #: manager/views/schedule.py:238
 msgid "Weeks"
-msgstr ""
+msgstr "Setmanes"
 
 #: manager/templates/schedule/view.html:118
 msgid "Move me"
-msgstr ""
+msgstr "Mou-me"
 
 #: manager/templates/schedule/view.html:158
 msgid "Start schedule"
-msgstr ""
+msgstr "Inicia programa"
 
 #: manager/templates/schedule/view.html:183
 #, python-format
@@ -2607,11 +2646,15 @@ msgid_plural ""
 "%(weeks)s Weeks\n"
 "                    "
 msgstr[0] ""
+"%(weeks)s setmana\n"
+"                    "
 msgstr[1] ""
+"%(weeks)s setmanes\n"
+"                    "
 
 #: manager/templates/schedule/view.html:220
 msgid "Adding workouts"
-msgstr ""
+msgstr "Afegeix entrenaments"
 
 #: manager/templates/schedule/view.html:222
 msgid ""
@@ -2620,6 +2663,9 @@ msgid ""
 "workout more\n"
 "than once."
 msgstr ""
+"Afegiu tants entrenaments com voleu al programa. Podeu editar l'ordre\n"
+"arrossegant-los i deixant-los anar. També és possible afegir un\n"
+"entrenament més d'un cop."
 
 #: manager/templates/schedule/view.html:231
 #: manager/templates/schedule/view.html:241
@@ -2628,11 +2674,11 @@ msgstr ""
 #: manager/templates/workout/view.html:127
 #: manager/templates/workout/view.html:221
 msgid "Export calendar file"
-msgstr ""
+msgstr "Exporta fitxer de calendari"
 
 #: manager/templates/schedule/view.html:235
 msgid "Export this schedule as a calendar file."
-msgstr ""
+msgstr "Exporta aquest programa com a fitxer de calendari."
 
 #: manager/templates/schedule/view.html:236
 #: manager/templates/workout/view.html:122
@@ -2641,6 +2687,9 @@ msgid ""
 "application for example google calendar, outlook or iCal. This will create\n"
 "an appointment for each training day with the appropriate exercises."
 msgstr ""
+"Així podeu importar el fitxer a la vostra aplicació de\n"
+"calendari, p .e. Google Calendar, Outlook o iCal. Això crearà\n"
+"una cita per a cada dia d'entrenament amb els exercicis pertinents."
 
 #: manager/templates/schedule/view.html:256
 #: manager/templates/schedule/view.html:290
@@ -2648,20 +2697,20 @@ msgstr ""
 #: manager/templates/workout/view.html:217
 #: nutrition/templates/plan/view.html:417
 msgid "Download as PDF"
-msgstr ""
+msgstr "Descarrega com a PDF"
 
 #: manager/templates/schedule/view.html:295
 msgid "Edit schedule"
-msgstr ""
+msgstr "Edita programa"
 
 #: manager/templates/schedule/view.html:300
 msgid "Delete schedule"
-msgstr ""
+msgstr "Esborra programa"
 
 #: manager/templates/set/add.html:9
 #, python-format
 msgid "Add exercises to day \"%(day_name)s\""
-msgstr ""
+msgstr "Afegeix exercicis al dia «%(day_name)s»"
 
 #: manager/templates/set/add.html:55
 msgid ""
@@ -2670,24 +2719,27 @@ msgid ""
 "repetitions, this\n"
 "automatically becomes \"4 x 10\"."
 msgstr ""
+"Si feu les mateixes repeticions per a cada sèrie, podeu introduir només un\n"
+"valor: p. e. per a 4 sèries, introduïu un cop «10» per a les repeticions i\n"
+"es convertirà automàticament en «4 x 10»."
 
 #: manager/templates/set/edit.html:10
 msgid "Edit set"
-msgstr ""
+msgstr "Edita sèrie"
 
 #: manager/templates/set/edit.html:25
 msgid "Update"
-msgstr ""
+msgstr "Actualitza"
 
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(workout)s' expired %(days)s days ago."
-msgstr ""
+msgstr "El vostre entrenament «%(workout)s» va caducar fa %(days)s dies."
 
 #: manager/templates/workout/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr ""
+msgstr "El vostre entrenament actual «%(workout)s» caducarà en %(days)s dies."
 
 #: manager/templates/workout/email_reminder.tpl:9
 msgid ""
@@ -2695,6 +2747,9 @@ msgid ""
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
 "never produce reminders."
 msgstr ""
+"Rebreu aquests recordatoris regularment fins què afegiu un\n"
+"entrenament nou. Com a alternativa, podeu afegir entrenaments a un\n"
+"programa bucle, aquest tipus de programa no generen mai recordatoris."
 
 #: manager/templates/workout/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2702,6 +2757,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
+"Si no voleu rebre mai més recordatoris per correu, desactiveu\n"
+"l'opció a la configuració."
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
