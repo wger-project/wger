@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 17:23+0200\n"
-"PO-Revision-Date: 2022-01-26 12:56+0000\n"
+"PO-Revision-Date: 2022-02-06 10:57+0000\n"
 "Last-Translator: João Goulart <joaofgoulart1@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
 "\n"
@@ -29,14 +29,14 @@ msgstr ""
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
-msgstr "Academia padrão"
+msgstr "Academia principal"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
-"Selecione a academia padrão para essa instalação. Isto atribuirá todos os "
+"Selecione a academia principal para essa instalação. Isto atribuirá todos os "
 "novos utilizadores registados e os utilizadores sem academia à essa academia."
 
 #: config/models/language_config.py:41 core/templates/navigation.html:63
