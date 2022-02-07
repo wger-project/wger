@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-28 19:01+0100\n"
-"PO-Revision-Date: 2022-02-06 10:57+0000\n"
+"PO-Revision-Date: 2022-02-08 01:58+0000\n"
 "Last-Translator: guillem <gbuendia@gmx.net>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/wger/web/ca/>\n"
 "Language: ca\n"
@@ -2766,27 +2766,31 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
+"La vostra darrera entrada de pes és de %(date)s (fa %(days)s).\n"
+"Feu clic al vincle per a accedir a l'aplicació i introduir-ne una de nova."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
 msgstr ""
+"Rebreu aquests recordatoris regularment fins que hagueu introduït el vostre "
+"pes actual."
 
 #: manager/templates/workout/log.html:29
 msgid "Weight log for workout"
-msgstr ""
+msgstr "Registre d'entrenament"
 
 #: manager/templates/workout/log.html:49
 msgid "Add weight log to this day"
-msgstr ""
+msgstr "Afegeix entrada al registre d'aquest dia"
 
 #: manager/templates/workout/log.html:75
 msgid "No weight entries here."
-msgstr ""
+msgstr "No hi ha entrades del registre aquí."
 
 #: manager/templates/workout/log.html:83
 msgid "No exercises for this day."
-msgstr ""
+msgstr "No hi ha exercicis per a aquest dia."
 
 #: manager/templates/workout/log.html:96
 msgid ""
@@ -2794,6 +2798,9 @@ msgid ""
 "only. Click on an exercise to see all the historical data for\n"
 "it."
 msgstr ""
+"Aquesta pàgina mostra els registres corresponents només a aquest\n"
+"entrenament. Feu clic a un exercici per a veure'n l'històric\n"
+"de dades."
 
 #: manager/templates/workout/log.html:100
 msgid ""
@@ -2801,6 +2808,9 @@ msgid ""
 "same number of repetitions, but different weights, only the entry with the\n"
 "higher weight is shown in the diagram."
 msgstr ""
+"Si a un dia concret hi ha més d'una entrada amb el mateix nombre de\n"
+"repeticions però diferents pesos, només es mostrarà al diagrama\n"
+"l'entrada amb el pes més alt."
 
 #: manager/templates/workout/log.html:104
 msgid ""
@@ -2808,160 +2818,167 @@ msgid ""
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
 msgstr ""
+"Teniu en compte que només es tracen al diagrama les entrades\n"
+"amb unitats (kg o lb) i repeticions, altres combinacions com ara temps\n"
+"o fins la fallida s'ignoraran aquí."
 
 #: manager/templates/workout/overview.html:25
 msgid "No templates found."
-msgstr ""
+msgstr "No s'han trobat plantilles."
 
 #: manager/templates/workout/template_view.html:53
 msgid "Mark as workout"
-msgstr ""
+msgstr "Marca com a pla d'entrenament"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
 msgid "Muscles trained"
-msgstr ""
+msgstr "Músculs entrenats"
 
 #: manager/templates/workout/template_view.html:68
 #: manager/templates/workout/view.html:100
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
 msgstr ""
+"Les imatges mostren els músculs combinats que s'entrenen als exercicis de "
+"l'entrenament."
 
 #: manager/templates/workout/template_view.html:89
 msgid "Use this template"
-msgstr ""
+msgstr "Usa aquesta plantilla"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
-msgstr ""
+msgstr "Afegeix dia d'entrenament"
 
 #: manager/templates/workout/view.html:76
 msgid "Show/Hide exercise comments"
-msgstr ""
+msgstr "Mostra/amaga els comentaris als exercicis"
 
 #: manager/templates/workout/view.html:91
 msgid "Add training days"
-msgstr ""
+msgstr "Afegeix dies d'entrenament"
 
 #: manager/templates/workout/view.html:92
 msgid "Add workout sets to days"
-msgstr ""
+msgstr "Afegeix sèries d'entrenament als dies"
 
 #: manager/templates/workout/view.html:93
 msgid "Set the repetitions for each set"
-msgstr ""
+msgstr "Defineix les repeticions per a cada sèrie"
 
 #: manager/templates/workout/view.html:121
 msgid "Export this workout as a calendar file."
-msgstr ""
+msgstr "Exporta aquest pla d'entrenament com a fitxer de calendari."
 
 #: manager/templates/workout/view.html:188
 msgid "Logs"
-msgstr ""
+msgstr "Registres"
 
 #: manager/templates/workout/view.html:190
 msgid "View logs"
-msgstr ""
+msgstr "Veure registres"
 
 #: manager/templates/workout/view.html:212 manager/views/schedule_step.py:99
 msgid "Edit workout"
-msgstr ""
+msgstr "Edita el pla d'entrenament"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Marca com a plantilla"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
-msgstr ""
+msgstr "Afegeix dis d'entrenament"
 
 #: manager/views/log.py:92
 #, python-format
 msgid "Edit log entry for %s"
-msgstr ""
+msgstr "Edita entrada del registre per a %s"
 
 #: manager/views/log.py:111
 msgid "Delete workout log"
-msgstr ""
+msgstr "Esborra registre d'entrenament"
 
 #: manager/views/pdf.py:87 manager/views/pdf.py:163
 #, python-format
 msgid "Workout for %s"
-msgstr ""
+msgstr "Pla d'entrenament per a %s"
 
 #: manager/views/schedule.py:292
 msgid "Create schedule"
-msgstr ""
+msgstr "Crea un programa"
 
 #: manager/views/workout.py:87
 msgid "Your workouts"
-msgstr ""
+msgstr "Els vostres plans d'entrenament"
 
 #: manager/views/workout.py:227
 msgid "Copy workout"
-msgstr ""
+msgstr "Copia pla d'entrenament"
 
 #: manager/views/workout.py:230
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
 #: manager/views/workout_session.py:69
 #, python-brace-format
 msgid "Edit workout impression for {0}"
-msgstr ""
+msgstr "Edita les impressions de l'entrenament per a {0}"
 
 #: manager/views/workout_session.py:115
 #, python-brace-format
 msgid "New workout impression for the {0}"
-msgstr ""
+msgstr "Nova impressió de l'entrenament per a {0}"
 
 #: manager/views/workout_session.py:158
 msgid "This will delete all weight logs for this day as well."
-msgstr ""
+msgstr "Això esborrarà també tots els registres de pes per a aquest dia."
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
-msgstr ""
+msgstr "Calcula"
 
 #: nutrition/forms.py:195 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
-msgstr ""
+msgstr "Ingesta energètica bàsica"
 
 #: nutrition/forms.py:196
 msgid "Your basic caloric intake as calculated for your data"
-msgstr ""
+msgstr "La vostra ingesta energètica bàsica calculada segons les vostres dades"
 
 #: nutrition/forms.py:202
 msgid "Additional calories"
-msgstr ""
+msgstr "Calories addicionals"
 
 #: nutrition/forms.py:204
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
+"Calories addicionals a afegir a la base (per a sostreure-les-en, introduïu "
+"un número negatiu)"
 
 #: nutrition/forms.py:232 nutrition/models/ingredient_weight_unit.py:39
 #: nutrition/models/log.py:81 nutrition/models/meal_item.py:53
 #: nutrition/templates/log/detail.html:155
 msgid "Ingredient"
-msgstr ""
+msgstr "Ingredient"
 
 #: nutrition/models/ingredient.py:100
 msgid "In kcal per 100g"
-msgstr ""
+msgstr "En kcal per 100g"
 
 #: nutrition/models/ingredient.py:106 nutrition/models/ingredient.py:114
 #: nutrition/models/ingredient.py:124 nutrition/models/ingredient.py:132
 #: nutrition/models/ingredient.py:142 nutrition/models/ingredient.py:152
 #: nutrition/models/ingredient.py:162
 msgid "In g per 100g of product"
-msgstr ""
+msgstr "En g per 100g de producte"
 
 #: nutrition/models/ingredient.py:123
 #: nutrition/templates/ingredient/view.html:96
