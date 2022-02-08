@@ -35,7 +35,6 @@ from wger.utils.constants import (
     PAGINATION_PAGES_AROUND_CURRENT,
 )
 
-
 register = template.Library()
 
 
@@ -107,6 +106,18 @@ def render_weight_log(log, div_uuid, user=None):
     }
 
 
+@register.inclusion_tag('tags/react_static.html')
+def react_static():
+    """
+    Renders the necessary tags to load react's static files
+
+    This is a temporary solution until we have a proper react setup used
+    in more templates, then this can go to the main template
+    """
+
+    return {}
+
+
 @register.inclusion_tag('tags/license-sidebar.html')
 def license_sidebar(license, author=None):
     """
@@ -139,8 +150,8 @@ def render_muscles(muscles=None, muscles_sec=None):
         front_back = "front" if out_secondary[0].is_front else "back"
 
     out['backgrounds'] = [i.image_url_main for i in out_main] \
-        + [i.image_url_secondary for i in out_secondary] \
-        + [static(f"images/muscles/muscular_system_{front_back}.svg")]
+                         + [i.image_url_secondary for i in out_secondary] \
+                         + [static(f"images/muscles/muscular_system_{front_back}.svg")]
 
     return out
 
@@ -255,6 +266,6 @@ def spaceless_config(parser, token):
     This is django's spaceless tag, copied here to use our configurable
     SpacelessNode
     """
-    nodelist = parser.parse(('endspaceless_config', ))
+    nodelist = parser.parse(('endspaceless_config',))
     parser.delete_first_token()
     return SpacelessNode(nodelist)
