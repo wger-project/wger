@@ -35,6 +35,7 @@ from wger.utils.constants import (
     PAGINATION_PAGES_AROUND_CURRENT,
 )
 
+
 register = template.Library()
 
 
@@ -266,6 +267,6 @@ def spaceless_config(parser, token):
     This is django's spaceless tag, copied here to use our configurable
     SpacelessNode
     """
-    nodelist = parser.parse(('endspaceless_config',))
+    nodelist = parser.parse(('endspaceless_config', ))
     parser.delete_first_token()
     return SpacelessNode(nodelist)
