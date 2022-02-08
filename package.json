@@ -31,7 +31,7 @@
     "yarn": "^1.22.17"
   },
   "scripts": {
-    "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css",
+    "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css"
   },
   "engines": {
     "yarn": ">= 1.0.0"
