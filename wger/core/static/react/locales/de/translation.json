@@ -1,12 +1,13 @@
 {
-    "date": "Datum",
-    "weight": "Gewicht",
-    "change": "Veränderung",
-    "days": "Tage",
-    "edit": "Bearbeiten",
-    "delete": "Löschen",
-    "difference": "Differenz",
-    "add": "Hinzufügen",
-    "submit": "Abschicken",
-    "close": "Schließen"
+  "date": "Datum",
+  "weight": "Gewicht",
+  "change": "Veränderung",
+  "days": "Tage",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "difference": "Differenz",
+  "add": "Hinzufügen",
+  "submit": "Abschicken",
+  "close": "Schließen",
+  "currentWeight": "Aktuelles Gewicht"
 }

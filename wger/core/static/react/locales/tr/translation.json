@@ -7,5 +7,9 @@
     "weight": "Ağırlık",
     "submit": "Gönder",
     "add": "Ekle",
-    "close": "Kapat"
+    "close": "Kapat",
+    "nutritionalPlan": "Beslenme planı",
+    "addEntry": "Girdi ekle",
+    "currentWeight": "Şu anki ağırlık",
+    "workout": "Antrenman"
 }
