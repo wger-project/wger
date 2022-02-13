@@ -41,12 +41,14 @@ from wger.exercises.api.serializers import (
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
+    ExerciseBaseInfoSerializer,
     ExerciseSerializer,
     MuscleSerializer,
 )
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
@@ -212,9 +214,28 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     filterset_fields = (
         'creation_date',
         'description',
-        'language',
         'name',
         'exercise_base',
+        'license',
+        'license_author',
+    )
+
+
+class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
+    """
+    Read-only info API endpoint for exercise objects, grouped by the exercise
+    base. Returns nested data structures for more easy and faster parsing.
+    """
+
+    queryset = ExerciseBase.objects.accepted()
+    serializer_class = ExerciseBaseInfoSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'category',
+        'muscles',
+        'muscles_secondary',
+        'equipment',
+        'variations',
         'license',
         'license_author',
     )
