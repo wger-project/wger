@@ -36,12 +36,12 @@ from rest_framework.response import Response
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
+    ExerciseBaseInfoSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
-    ExerciseBaseInfoSerializer,
     ExerciseSerializer,
     MuscleSerializer,
 )

@@ -156,6 +156,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     """
     Exercise translation serializer
     """
+
     class Meta:
         model = Exercise
         fields = (

@@ -120,11 +120,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = [
-            'id',
-            'short_name',
-            'full_name'
-        ]
+        fields = ['id', 'short_name', 'full_name']
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):
