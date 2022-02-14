@@ -83,6 +83,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     """
     ExerciseVideo serializer
     """
+    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
 
     class Meta:
         model = ExerciseVideo
@@ -90,6 +91,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'id',
             'uuid',
             'exercise_base',
+            'exercise_base_uuid',
             'video',
             'is_main',
             'size',
