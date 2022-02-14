@@ -92,11 +92,10 @@ class Command(BaseCommand):
 
             for video_data in result['results']:
                 video_uuid = video_data['uuid']
-
                 self.stdout.write(f'Processing video {video_uuid}')
 
                 try:
-                    exercise_base = ExerciseBase.objects.get(id=video_data['exercise_base'])
+                    exercise_base = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
                 except ExerciseBase.DoesNotExist:
                     self.stdout.write('    Remote exercise base not found in local DB, skipping...')
                     continue
@@ -132,12 +131,12 @@ class Command(BaseCommand):
                 img_temp.write(retrieved_video.content)
                 img_temp.flush()
 
-                video.image.save(
-                    os.path.basename(os.path.basename(video_data['image'])),
+                video.video.save(
+                    os.path.basename(os.path.basename(video_data['video'])),
                     File(img_temp),
                 )
                 video.save()
-                self.stdout.write(self.style.SUCCESS('    successfully saved'))
+                self.stdout.write(self.style.SUCCESS('    saved successfully'))
 
             if result['next']:
                 page += 1

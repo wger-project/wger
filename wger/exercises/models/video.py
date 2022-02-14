@@ -158,7 +158,7 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
         """
         Save metadata about the video if ffmpeg is installed
         """
-        if ffmpeg and not self.pk:
+        if ffmpeg and not self.pk and hasattr(self.video.file, 'temporary_file_path'):
             probe_result = ffmpeg.probe(self.video.file.temporary_file_path())
             self.size = probe_result['format']['size']
             self.duration = probe_result['format']['duration']
