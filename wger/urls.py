@@ -99,6 +99,7 @@ router.register(
 router.register(
     r'exerciseimage', exercises_api_views.ExerciseImageViewSet, basename='exerciseimage'
 )
+router.register(r'video', exercises_api_views.ExerciseVideoViewSet, basename='video')
 router.register(
     r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, basename='exercisecomment'
 )

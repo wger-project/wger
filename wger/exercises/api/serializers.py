@@ -25,6 +25,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
+    ExerciseVideo,
     Muscle,
 )
 
@@ -75,6 +76,32 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'is_main',
             'status',
             'style',
+        ]
+
+
+class ExerciseVideoSerializer(serializers.ModelSerializer):
+    """
+    ExerciseVideo serializer
+    """
+    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+
+    class Meta:
+        model = ExerciseVideo
+        fields = [
+            'id',
+            'uuid',
+            'exercise_base',
+            'exercise_base_uuid',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_author',
         ]
 
 
@@ -177,6 +204,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     """
 
     images = ExerciseImageSerializer(many=True, read_only=True)
+    videos = ExerciseVideoSerializer(many=True, read_only=True)
     comments = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
     category = ExerciseCategorySerializer(read_only=True)
     muscles = MuscleSerializer(many=True, read_only=True)
@@ -202,6 +230,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             "license",
             "license_author",
             "images",
+            "videos",
             "comments",
             "variations",
         ]

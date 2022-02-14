@@ -428,6 +428,7 @@ WGER_SETTINGS = {
     'REMOVE_WHITESPACE': False,
     'ALLOW_REGISTRATION': True,
     'ALLOW_GUEST_USERS': True,
+    'ALLOW_UPLOAD_VIDEOS': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False
 }

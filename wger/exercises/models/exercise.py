@@ -184,6 +184,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         return self.exercise_base.exerciseimage_set
 
     @property
+    def videos(self):
+        return self.exercise_base.exercisevideo_set
+
+    @property
     def variations(self):
         """
         Returns the variations for this exercise in the same language

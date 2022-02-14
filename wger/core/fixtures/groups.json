@@ -169,6 +169,21 @@
                     "exerciseimage"
                 ],
                 [
+                    "add_exercisevideo",
+                    "exercises",
+                    "exercisevideo"
+                ],
+                [
+                    "change_exercisevideo",
+                    "exercises",
+                    "exercisevideo"
+                ],
+                [
+                    "delete_exercisevideo",
+                    "exercises",
+                    "exercisevideo"
+                ],
+                [
                     "add_muscle",
                     "exercises",
                     "muscle"

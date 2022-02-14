@@ -1,10 +1,13 @@
 name: Build and push base Docker images
 
-on: workflow_dispatch
-
-# on:
-#  schedule:
-#    - cron: '0 5 1 * *'
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+        - 'extras/docker/base/Dockerfile'
+  schedule:
+    - cron: '0 5 1 * *'
 
 jobs:
   path-context:

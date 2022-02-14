@@ -55,3 +55,6 @@ PAGINATION_PAGES_AROUND_CURRENT = 5
 # Minimum edit distance from all existing exercises for a new exercise submission
 # to be accepted
 MIN_EDIT_DISTANCE_THRESHOLD = 2
+
+# CC-BY-SA-4
+DEFAULT_LICENSE_ID = 2

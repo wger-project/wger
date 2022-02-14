@@ -23,3 +23,4 @@ from .exercise import Exercise
 from .image import ExerciseImage
 from .muscle import Muscle
 from .variation import Variation
+from .video import ExerciseVideo
