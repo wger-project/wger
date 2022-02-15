@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2022-02-15 09:56+0000\n"
+"PO-Revision-Date: 2022-02-16 16:58+0000\n"
 "Last-Translator: Nikita Epifanov <nikgreens@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
@@ -1603,20 +1603,22 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Пользователь {0} представил новое упражнение \"{1}\"."
 
 #: exercises/models/image.py:59
+#, fuzzy
 msgid "Line"
-msgstr ""
+msgstr "Линия"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
+#, fuzzy
 msgid "Low-poly"
-msgstr ""
+msgstr "Низкополигональный"
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Фото"
 
 #: exercises/models/image.py:63
 #, fuzzy
@@ -1648,7 +1650,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Художественный стиль вашего изображения"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1666,11 +1668,11 @@ msgstr "Латинское название (например: \"Pectoralis majo
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "Максимальный размер файла - 100 МБ."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Тип файла не поддерживается"
 
 #: exercises/models/video.py:57
 #, fuzzy
@@ -1686,11 +1688,11 @@ msgstr "Основное изображение"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Видео"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Размер"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1698,7 +1700,7 @@ msgstr "Продолжительность"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
 #: exercises/models/video.py:124
 #, fuzzy
@@ -1714,7 +1716,7 @@ msgstr "Код"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Кодек, длинное название"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1901,7 +1903,7 @@ msgstr "Добавить новое изображение"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Видео"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
 #, fuzzy
@@ -3163,8 +3165,9 @@ msgid "This will delete all weight logs for this day as well."
 msgstr "Это приведет также к удалению всех записей весов за этот день."
 
 #: measurements/models/measurement.py:69
+#, fuzzy
 msgid "Value"
-msgstr ""
+msgstr "Значение"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3294,6 +3297,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Дайте блюдам текстовое описание / название, например, \"Завтрак\" или \"После"
+" тренировки\""
 
 #: nutrition/models/plan.py:71
 msgid ""
