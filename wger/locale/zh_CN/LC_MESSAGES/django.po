@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-12-07 17:53+0000\n"
-"Last-Translator: tony <tony198586@hotmail.com>\n"
+"PO-Revision-Date: 2022-02-18 02:56+0000\n"
+"Last-Translator: sr-c <shuruihao@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.10-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -212,9 +212,9 @@ msgid "Sample nutrional plan"
 msgstr "示例营养计划"
 
 #: core/demo.py:349 core/demo.py:351 core/demo.py:353
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr ""
+msgstr "健身计划中的占位符{0}"
 
 #: core/demo.py:358
 msgid "My cool workout schedule"
@@ -581,6 +581,9 @@ msgid ""
 "performed on their data.\n"
 "    "
 msgstr ""
+"你是\n"
+"    以用户\"%(current_user)s\"的身份浏览本网站，所有操作都对其数据执行。\n"
+"    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -601,7 +604,7 @@ msgstr "管理面板"
 
 #: core/templates/index.html:21 manager/templates/calendar/month.html:115
 msgid "Add log to day"
-msgstr ""
+msgstr "添加日志"
 
 #: core/templates/index.html:25 manager/templates/calendar/month.html:120
 msgid ""
@@ -839,11 +842,11 @@ msgstr "健身模板"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
 msgid "Your templates"
-msgstr ""
+msgstr "你的模板"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "公共模板"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
@@ -1098,7 +1101,7 @@ msgstr "重复次数"
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
 msgid "RiR"
-msgstr ""
+msgstr "力竭之前的剩余次数"
 
 #: core/templates/template.html:140
 msgid ""
@@ -1591,10 +1594,8 @@ msgid "Photo"
 msgstr ""
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "其它"
+msgstr "其他"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1643,16 +1644,12 @@ msgid "File type is not supported"
 msgstr ""
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s不是一个有效的出生日期"
+msgstr "这不是一个有效的视频文件"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "首图"
+msgstr "主视频"
 
 #: exercises/models/video.py:94
 msgid "Video"
@@ -1671,10 +1668,8 @@ msgid "Width"
 msgstr ""
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "体重"
+msgstr "身高"
 
 #: exercises/models/video.py:131
 msgid "Codec"
@@ -1866,10 +1861,8 @@ msgid "Videos"
 msgstr ""
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "新增图片"
+msgstr "添加视频"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -1972,10 +1965,8 @@ msgid "Delete?"
 msgstr "删除?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "新增图片"
+msgstr "添加图片"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2413,10 +2404,8 @@ msgid "Kilometers"
 msgstr ""
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "重复"
+msgstr "最大重复次数"
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2491,10 +2480,8 @@ msgid "Correction"
 msgstr "修正"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "拷贝一份这个健身"
+msgstr "健身计划的名称"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2644,10 +2631,8 @@ msgstr "创建日期"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "健身完成"
+msgstr "健身计划模板"
 
 #: manager/models/workout.py:74
 msgid ""
@@ -2942,16 +2927,12 @@ msgid ""
 msgstr ""
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No workouts found."
 msgid "No templates found."
-msgstr "没有健身记录"
+msgstr "没有健身模板。"
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
-msgstr "拷贝一份这个健身"
+msgstr "标记此健身计划"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
@@ -2965,10 +2946,8 @@ msgid ""
 msgstr "这个图片展示了这个健身中健身项目联合训练到的所有肌肉。"
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
-msgstr "分享这个页面"
+msgstr "使用此模板"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
