@@ -24,3 +24,4 @@ from .image import ExerciseImage
 from .muscle import Muscle
 from .variation import Variation
 from .video import ExerciseVideo
+from .exercise_alias import Alias
