@@ -19,9 +19,9 @@ from rest_framework import serializers
 
 # wger
 from wger.exercises.models import (
+    Alias,
     Equipment,
     Exercise,
-    Alias,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,

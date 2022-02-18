@@ -23,6 +23,7 @@ from django.db.models import Q
 from django.utils.translation import gettext as _
 
 # Third Party
+from actstream import action as actstream_action
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -85,13 +86,28 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         'equipment',
     )
 
-class ExerciseViewSet(viewsets.ReadOnlyModelViewSet): #viewsets.ReadOnlyModelViewSet
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super(ExerciseBaseViewSet, self).perform_create(serializer)
+        actstream_action.send(self.request.user, verb='created', action_object=serializer.instance)
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super(ExerciseBaseViewSet, self).perform_update(serializer)
+        actstream_action.send(self.request.user, verb='updated', action_object=serializer.instance)
+
+
+class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):  #viewsets.ReadOnlyModelViewSet
     """
     API endpoint for exercise objects. For a single read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.accepted()
-    permission_classes = (CanEditExercises,)
+    permission_classes = (CanEditExercises, )
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
     filterset_fields = (

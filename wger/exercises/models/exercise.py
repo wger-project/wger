@@ -32,6 +32,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
+from actstream import action
 from simple_history.models import HistoricalRecords
 
 # wger

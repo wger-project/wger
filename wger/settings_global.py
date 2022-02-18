@@ -94,6 +94,9 @@ INSTALLED_APPS = (
 
     # Django email verification
     'django_email_verification',
+
+    # Activity stream
+    'actstream'
 )
 
 MIDDLEWARE = (
@@ -459,3 +462,10 @@ EMAIL_MAIL_PLAIN = 'email_verification/email_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'https://wger.de/'
+
+#
+# Django activity stream
+#
+ACTSTREAM_SETTINGS = {
+    'USE_JSONFIELD': True,
+}

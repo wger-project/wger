@@ -8,6 +8,7 @@ django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.3
 django-recaptcha~=3.0.0
 Django~=3.2
+django-activity-stream~=1.4
 django-crispy-forms~=1.14
 django-simple-history~=3.0
 django-email-verification~=0.1.0

@@ -96,7 +96,7 @@ router.register(
 router.register(
     r'exercisebaseinfo',
     exercises_api_views.ExerciseBaseInfoViewset,
-    basename='exercisebaseinfo'
+    basename='exercisebaseinfo',
 )
 router.register(
     r'exercise',

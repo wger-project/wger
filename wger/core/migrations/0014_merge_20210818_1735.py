@@ -10,5 +10,4 @@ class Migration(migrations.Migration):
         ('core', '0013_userprofile_email_verified'),
     ]
 
-    operations = [
-    ]
+    operations = []
