@@ -21,7 +21,7 @@ from rest_framework import serializers
 from wger.exercises.models import (
     Equipment,
     Exercise,
-    ExerciseAlias,
+    Alias,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
@@ -126,7 +126,7 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = ExerciseAlias
+        model = Alias
         fields = ['id', 'exercise', 'alias']
 
 
@@ -148,7 +148,7 @@ class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = ExerciseAlias
+        model = Alias
         fields = ['id', 'alias']
 
 
@@ -244,7 +244,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    aliases = ExerciseInfoAliasSerializer(source='exercisealias_set', many=True, read_only=True)
+    aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
 
     class Meta:
         model = Exercise

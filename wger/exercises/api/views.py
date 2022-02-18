@@ -164,7 +164,7 @@ def search(request):
         languages = load_item_languages(
             LanguageConfig.SHOW_ITEM_EXERCISES, language_code=request.GET.get('language', None)
         )
-        name_lookup = Q(name__icontains=q) | Q(exercisealias__alias__icontains=q)
+        name_lookup = Q(name__icontains=q) | Q(alias__alias__icontains=q)
         exercises = (
             Exercise.objects.filter(name_lookup).accepted().filter(
                 language__in=languages
