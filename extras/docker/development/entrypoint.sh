@@ -21,7 +21,7 @@ fi
 # after a first checkout), repeat the process.
 if [ ! -d "/home/wger/src/wger.egg-info" ];
 then
-    python3 setup.py develop --user
+    pip3 install -e .
 fi
 
 # Bootstrap the application

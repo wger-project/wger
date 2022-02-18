@@ -40,6 +40,7 @@ from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
     ExerciseAliasSerializer,
+    ExerciseBaseInfoSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
@@ -47,16 +48,18 @@ from wger.exercises.api.serializers import (
     ExerciseInfoSerializer,
     ExerciseSerializer,
     ExerciseVariationSerializer,
+    ExerciseVideoSerializer,
     MuscleSerializer,
 )
 from wger.exercises.models import (
+    Alias,
     Equipment,
     Exercise,
-    ExerciseAlias,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
+    ExerciseVideo,
     Muscle,
     Variation,
 )
@@ -206,9 +209,28 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     filterset_fields = (
         'creation_date',
         'description',
-        'language',
         'name',
         'exercise_base',
+        'license',
+        'license_author',
+    )
+
+
+class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
+    """
+    Read-only info API endpoint for exercise objects, grouped by the exercise
+    base. Returns nested data structures for more easy and faster parsing.
+    """
+
+    queryset = ExerciseBase.objects.accepted()
+    serializer_class = ExerciseBaseInfoSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'category',
+        'muscles',
+        'muscles_secondary',
+        'equipment',
+        'variations',
         'license',
         'license_author',
     )
@@ -281,6 +303,21 @@ class ExerciseImageViewSet(CreateUpdateModelViewSet):
         obj.save()
 
 
+class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for exercise video objects
+    """
+    queryset = ExerciseVideo.objects.all()
+    serializer_class = ExerciseVideoSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'is_main',
+        'exercise_base',
+        'license',
+        'license_author',
+    )
+
+
 class ExerciseCommentViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise comment objects
@@ -305,7 +342,7 @@ class ExerciseAliasViewSet(CreateUpdateModelViewSet):
     API endpoint for exercise aliases objects
     """
     serializer_class = ExerciseAliasSerializer
-    queryset = ExerciseAlias.objects.all()
+    queryset = Alias.objects.all()
     permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('alias', 'exercise')

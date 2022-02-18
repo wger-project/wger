@@ -28,7 +28,7 @@ from wger.utils.cache import reset_workout_canonical_form
 from .exercise import Exercise
 
 
-class ExerciseAlias(models.Model):
+class Alias(models.Model):
     """
     Model for an exercise (name)alias
     """
@@ -54,7 +54,7 @@ class ExerciseAlias(models.Model):
         for setting in self.exercise.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
-        super(ExerciseAlias, self).delete(*args, **kwargs)
+        super(Alias, self).delete(*args, **kwargs)
 
     def get_owner_object(self):
         """

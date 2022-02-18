@@ -21,6 +21,7 @@ from django import forms
 from wger.exercises.models import (
     ExerciseComment,
     ExerciseImage,
+    ExerciseVideo,
 )
 
 
@@ -34,6 +35,17 @@ class ExerciseImageForm(forms.ModelForm):
             'license',
             'license_author',
             'style',
+        )
+
+
+class ExerciseVideoForm(forms.ModelForm):
+
+    class Meta:
+        model = ExerciseVideo
+        fields = (
+            'video',
+            'is_main',
+            'license_author',
         )
 
 

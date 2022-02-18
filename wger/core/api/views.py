@@ -47,6 +47,7 @@ from wger.core.api.serializers import (
     UserRegistrationSerializer,
     WeightUnitSerializer,
 )
+from wger.core.forms import UserLoginForm
 from wger.core.models import (
     DaysOfWeek,
     Language,
@@ -134,28 +135,19 @@ class UserAPILoginView(viewsets.ViewSet):
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
-
         username = serializer.data["username"]
-        password = serializer.data["password"]
 
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
+        # Try to retrieve the user
+        form = UserLoginForm(data=serializer.data)
+        if not form.is_valid():
             logger.info(f"Tried logging via API with unknown user: '{username}'")
             return Response(
                 {'detail': 'Username or password unknown'},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
-        if user.check_password(password):
-            token = create_token(user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
-        else:
-            logger.info(f"User '{username}' tried logging via API with a wrong password")
-            return Response(
-                {'detail': 'Username or password unknown'},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+        token = create_token(form.get_user())
+        return Response({'token': token.key}, status=status.HTTP_200_OK)
 
 
 class UserAPIRegistrationViewSet(viewsets.ViewSet):

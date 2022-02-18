@@ -43,9 +43,6 @@ def processor(request):
         # Available application languages
         'languages': settings.LANGUAGES,
 
-        # Available application languages for angular app
-        'languages_angular': settings.LANGUAGES_ANGULAR,
-
         # The current path
         'request_full_path': full_path,
 

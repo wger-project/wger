@@ -29,7 +29,11 @@
 {# Header #}
 {#        #}
 {% block header %}
-    <link rel="stylesheet" type="text/css" href="{% static 'angular/styles.css' %}">
+<script>
+$(document).ready(function() {
+    wgerDrawWeightLogChart({{json|safe}}, "{{svg_uuid}}");
+});
+</script>
 {% endblock %}
 
 
@@ -37,6 +41,7 @@
 {# Content #}
 {#         #}
 {% block content %}
+
 {% if exercise.status == exercise.STATUS_PENDING %}
 <div class="card text-white bg-dark mb-4">
     <div class="card-header">
@@ -87,7 +92,7 @@
 
 {# Images #}
 {% with images=exercise.images.accepted %}
-{% if images %}
+{% if images or perms.exercises.change_exerciseimage %}
     <h5 class="mt-4">{% translate "Images" %}:</h5>
     <div class="row row-cols-2 row-cols-md-3">
     {% with other_images=images %}
@@ -135,6 +140,56 @@
             </a>
         </p>
     {% endif %}
+{% endwith %}
+
+
+{# Videos #}
+{% with videos=exercise.videos.all %}
+{% if videos or perms.exercises.change_exercisevideo %}
+    <h5 class="mt-4">{% translate "Videos" %}</h5>
+    <div class="row row-cols-1 row-cols-md-2">
+    {% for video in videos %}
+        <div class="col mb-4">
+        <div class="card h-100">
+            <video controls preload="metadata" class="card-img-top">
+                <source src='{{ MEDIA_URL }}{{ video.video }}' type='video/mp4'>
+                Your browser does not support the video tag.
+            </video>
+            <div class="card-body text-center">
+                {% if perms.exercises.change_exercisevideo %}
+                    <a href="{% url 'exercise:video:delete' exercise.pk video.pk %}" class="wger-modal-dialog btn btn-link">
+                        <span class="{% fa_class 'trash' %}"></span>
+                    </a>
+                    <a href="{% url 'exercise:video:edit'  exercise.pk video.pk %}" class="btn btn-link">
+                        <span class="{% fa_class 'edit' %}"></span>
+                    </a>
+                {% endif %}
+
+                {% if video.is_main %}
+                    <p class="card-text text-wger-green">
+                        <span class="{% fa_class 'medal' %}"></span>
+                    </p>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                {{video.get_license_display}}
+                {% if video.license_author %}
+                    {{video.license_author}}
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    {% if allow_upload_videos and perms.exercises.change_exercisevideo %}
+        <p>
+            <a href="{% url 'exercise:video:add' exercise.id %}" >
+                {% translate "Add new video" %}
+            </a>
+        </p>
+    {% endif %}
+{% endif %}
 {% endwith %}
 
 {% if perms.exercises.change_exerciseimage %}

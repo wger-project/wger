@@ -94,6 +94,11 @@ router.register(
     basename='exerciseinfo',
 )
 router.register(
+    r'exercisebaseinfo',
+    exercises_api_views.ExerciseBaseInfoViewset,
+    basename='exercisebaseinfo'
+)
+router.register(
     r'exercise',
     exercises_api_views.ExerciseViewSet,
     basename='exercise',
@@ -113,6 +118,7 @@ router.register(
     exercises_api_views.ExerciseCategoryViewSet,
     basename='exercisecategory',
 )
+router.register(r'video', exercises_api_views.ExerciseVideoViewSet, basename='video')
 router.register(
     r'exerciseimage',
     exercises_api_views.ExerciseImageViewSet,
