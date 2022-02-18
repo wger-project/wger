@@ -29,11 +29,7 @@ class Alias(models.Model):
     """
     Model for an exercise (name)alias
     """
-    exercise = models.ForeignKey(
-        Exercise,
-        verbose_name=_('Exercise'),
-        on_delete=models.CASCADE
-    )
+    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercise'), on_delete=models.CASCADE)
     alias = models.CharField(
         max_length=200,
         verbose_name=_('Alias for an exercise'),
