@@ -14,9 +14,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Alias',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    )
+                ),
                 ('alias', models.CharField(max_length=200, verbose_name='Alias for an exercise')),
-                ('exercise', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exercises.exercise', verbose_name='Exercise')),
+                (
+                    'exercise',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='exercises.exercise',
+                        verbose_name='Exercise'
+                    )
+                ),
             ],
         ),
     ]
