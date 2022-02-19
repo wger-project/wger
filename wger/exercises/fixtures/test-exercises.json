@@ -94,6 +94,8 @@
             "uuid": "acad394936fb44819a72be2ddae2bc05",
             "category": 2,
             "status": "2",
+            "creation_date": "2020-01-10",
+            "update_date": "2020-11-01T22:10:00+01:00",
             "muscles": [
                 1,
                 2
@@ -111,6 +113,8 @@
             "uuid": "029a6eac67f242d9b71d9d692b0a35b0",
             "category": 2,
             "status": "2",
+            "creation_date": "2014-11-01",
+            "update_date": "2018-11-01T00:00:00+01:00",
             "muscles": [
                 2
             ],
@@ -128,6 +132,8 @@
             "uuid": "c2dc11e9b14a49cb9d11d1b9441f16f4",
             "category": 3,
             "status": "2",
+            "creation_date": "2020-01-10",
+            "update_date": "2020-11-01T22:10:00+01:00",
             "muscles": [
                 1
             ],
@@ -141,6 +147,8 @@
             "uuid": "9838235ce38f4ca6921e9d237d8e0813",
             "category": 3,
             "status": "2",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00",
             "muscles": [
                 1
             ],
@@ -155,6 +163,8 @@
             "uuid": "e9e35f0c45b14d64b00db707a94c6fb8",
             "category": 1,
             "status": "2",
+            "creation_date": "2002-08-15",
+            "update_date": "2008-08-08T08:08:08+01:00",
             "muscles": [],
             "variations": null
         }
@@ -168,7 +178,9 @@
             "language": 1,
             "exercise_base": 1,
             "description": "",
-            "name": "An exercise"
+            "name": "An exercise",
+            "creation_date": "2002-08-15",
+            "update_date": "2008-08-08T08:08:08+01:00"
         }
     },
     {
@@ -180,7 +192,9 @@
             "language": 2,
             "exercise_base": 2,
             "description": "",
-            "name": "Very cool exercise"
+            "name": "Very cool exercise",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -192,7 +206,9 @@
             "language": 1,
             "exercise_base": 3,
             "description": "",
-            "name": "Boring exercise"
+            "name": "Boring exercise",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -205,7 +221,9 @@
             "description": "",
             "exercise_base": 3,
             "license_author": "test",
-            "name": "Pending exercise"
+            "name": "Pending exercise",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -217,7 +235,9 @@
             "language": 1,
             "exercise_base": 4,
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Needed for demo user",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -229,7 +249,9 @@
             "language": 1,
             "exercise_base": 4,
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Needed for demo user",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -241,7 +263,9 @@
             "language": 2,
             "exercise_base": 4,
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Needed for demo user",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -253,7 +277,9 @@
             "language": 2,
             "exercise_base": 4,
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Needed for demo user",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -265,7 +291,9 @@
             "language": 2,
             "exercise_base": 4,
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Needed for demo user",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {
@@ -277,7 +305,9 @@
             "language": 2,
             "exercise_base": 4,
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Needed for demo user",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
         }
     },
     {

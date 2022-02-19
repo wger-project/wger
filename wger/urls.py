@@ -104,6 +104,11 @@ router.register(
     basename='exercise',
 )
 router.register(
+    r'exercise-translation',
+    exercises_api_views.ExerciseTranslationViewSet,
+    basename='exercise-translation',
+)
+router.register(
     r'exercise-base',
     exercises_api_views.ExerciseBaseViewSet,
     basename='exercise-base',
@@ -118,7 +123,10 @@ router.register(
     exercises_api_views.ExerciseCategoryViewSet,
     basename='exercisecategory',
 )
-router.register(r'video', exercises_api_views.ExerciseVideoViewSet, basename='video')
+router.register(r'video',
+                exercises_api_views.ExerciseVideoViewSet,
+                basename='video',
+)
 router.register(
     r'exerciseimage',
     exercises_api_views.ExerciseImageViewSet,

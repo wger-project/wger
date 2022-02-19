@@ -42,7 +42,6 @@ from wger.utils.cache import (
     delete_template_fragment_cache,
     reset_workout_canonical_form,
 )
-from wger.utils.helpers import smart_capitalize
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
@@ -66,14 +65,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """Description on how to perform the exercise"""
 
     name = models.CharField(max_length=200, verbose_name=_('Name'))
-    """The exercise's name, with correct uppercase"""
-
-    name_original = models.CharField(
-        max_length=200,
-        verbose_name=_('Name'),
-        default='',
-    )
-    """The exercise's name, as entered by the user"""
+    """The exercise's name"""
 
     creation_date = models.DateField(
         _('Date'),
@@ -82,6 +74,12 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         blank=True,
     )
     """The submission date"""
+
+    update_date = models.DateTimeField(
+        _('Date'),
+        auto_now=True
+    )
+    """Datetime of the last modification"""
 
     language = models.ForeignKey(
         Language,
@@ -129,7 +127,6 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         Reset all cached infos
         """
-        self.name = smart_capitalize(self.name_original)
         super(Exercise, self).save(*args, **kwargs)
 
         # Cached template fragments
@@ -270,7 +267,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             subject = _('New user submitted exercise')
 
             message = _('The user {0} submitted a new exercise "{1}".'
-                        ).format(request.user.username, self.name_original)
+                        ).format(request.user.username, self.name)
             mail.mail_admins(
                 str(subject),
                 str(message),

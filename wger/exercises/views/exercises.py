@@ -196,7 +196,7 @@ class ExerciseForm(ModelForm):
         model = Exercise
         widgets = {'equipment': TranslatedSelectMultiple()}
         fields = [
-            'name_original',
+            'name',
             'category',
             'description',
             'muscles',
@@ -209,12 +209,12 @@ class ExerciseForm(ModelForm):
     class Media:
         js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js', )
 
-    def clean_name_original(self):
+    def clean_name(self):
         """
         Throws a validation error if the newly submitted name is too similar to
         an existing exercise's name
         """
-        name_original = self.cleaned_data['name_original']
+        name = self.cleaned_data['name']
 
         if not self.instance.id:
             language = load_language()
@@ -222,19 +222,19 @@ class ExerciseForm(ModelForm):
                 .filter(language=language)
             for exercise in exercises:
                 exercise_name = str(exercise)
-                min_edit_dist = levenshtein(exercise_name.casefold(), name_original.casefold())
+                min_edit_dist = levenshtein(exercise_name.casefold(), name.casefold())
                 if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
                     raise ValidationError(
                         _(
-                            '%(name_original)s is too similar to existing exercise '
+                            '%(name)s is too similar to existing exercise '
                             '"%(exercise_name)s"'
                         ),
                         params={
-                            'name_original': name_original,
+                            'name': name,
                             'exercise_name': exercise_name
                         },
                     )
-        return name_original
+        return name
 
 
 class ExercisesEditAddView(WgerFormMixin):
@@ -261,7 +261,7 @@ class ExercisesEditAddView(WgerFormMixin):
             form.fields['muscles_secondary'].initial = \
                 exercise.exercise_base.muscles_secondary.all()
         form.helper.layout = Layout(
-            "name_original",
+            "name",
             "description",
             "category",
             "equipment",
@@ -417,7 +417,7 @@ class ExerciseDeleteView(
     """
 
     model = Exercise
-    fields = ('description', 'name_original')
+    fields = ('description', 'name')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
     messages = gettext_lazy('Successfully deleted')
