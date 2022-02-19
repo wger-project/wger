@@ -35,10 +35,12 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 # wger
+from exercises.views.helper import HistoryModes
 from wger.config.models import LanguageConfig
 from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
+    ExerciseTranslationSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
     ExerciseBaseInfoSerializer,
@@ -90,18 +92,57 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         """
         Save entry to activity stream
         """
-        super(ExerciseBaseViewSet, self).perform_create(serializer)
+        super().perform_create(serializer)
         actstream_action.send(self.request.user, verb='created', action_object=serializer.instance)
 
     def perform_update(self, serializer):
         """
         Save entry to activity stream
         """
-        super(ExerciseBaseViewSet, self).perform_update(serializer)
+        super().perform_create(serializer)
         actstream_action.send(self.request.user, verb='updated', action_object=serializer.instance)
 
 
-class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):  #viewsets.ReadOnlyModelViewSet
+class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
+    """
+    API endpoint for editing or adding exercise objects.
+    """
+    queryset = Exercise.objects.accepted()
+    permission_classes = (CanEditExercises, )
+    serializer_class = ExerciseTranslationSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'uuid',
+        'creation_date',
+        'exercise_base',
+        'description',
+        'name',
+    )
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.ADDED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
+
+class ExerciseViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise objects. For a single read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
@@ -351,6 +392,28 @@ class ExerciseCommentViewSet(CreateUpdateModelViewSet):
             exercises = Exercise.objects.filter(language=language)
             qs = ExerciseComment.objects.filter(exercise__in=exercises)
         return qs
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.ADDED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.UPDATED.value,
+            action_object=serializer.instance,
+        )
 
 
 class ExerciseAliasViewSet(CreateUpdateModelViewSet):

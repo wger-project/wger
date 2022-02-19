@@ -33,7 +33,7 @@ class ExercisesCorrectionTestCase(WgerTestCase):
         description = 'a nice, long and accurate description for the exercise'
         response = self.client.post(
             reverse('exercise:exercise:correct', kwargs={'pk': 1}), {
-                'name_original': 'my test exercise',
+                'name': 'my test exercise',
                 'license': 2,
                 'description': description,
                 'muscles': [3],

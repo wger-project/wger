@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -11,21 +9,11 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.apps import AppConfig
+import enum
 
 
-class ExerciseConfig(AppConfig):
-    name = 'wger.exercises'
-    verbose_name = "Exercise"
-
-    def ready(self):
-        import wger.exercises.signals
-        from actstream import registry
-        registry.register(self.get_model('Exercise'))
-        registry.register(self.get_model('ExerciseBase'))
-        registry.register(self.get_model('ExerciseComment'))
-        registry.register(self.get_model('ExerciseImage'))
+class HistoryModes(enum.Enum):
+    ADDED = 'created'
+    UPDATED = 'updated'

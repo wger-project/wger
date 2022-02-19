@@ -182,7 +182,6 @@ class Command(BaseCommand):
                 # Set the nane and description, if there is any
                 if exercise_name:
                     exercise.name = exercise_name
-                    exercise.name_original = exercise_name
                     exercise.description = exercise_description
                 else:
                     continue

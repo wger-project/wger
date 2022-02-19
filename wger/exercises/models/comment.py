@@ -35,7 +35,6 @@ class ExerciseComment(models.Model):
     exercise = models.ForeignKey(
         Exercise,
         verbose_name=_('Exercise'),
-        editable=False,
         on_delete=models.CASCADE,
     )
     comment = models.CharField(

@@ -64,7 +64,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     )
     """Description on how to perform the exercise"""
 
-    name = models.CharField(max_length=200, verbose_name=_('Name'))
+    name = models.CharField(
+        max_length=200,
+        verbose_name=_('Name'),
+    )
     """The exercise's name"""
 
     creation_date = models.DateField(

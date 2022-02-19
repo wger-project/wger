@@ -1,9 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load static %}
-{% load wger_extras %}
-{% load cache %}
-{% load thumbnail %}
+{% load i18n static wger_extras activity_tags %}
 
 <!--
         Title
@@ -21,58 +17,38 @@
         Main Content
 -->
 {% block content %}
-    <div class="accordion" id="accordionExample">
-        {% for entry in history %}
-            <div class="card">
-                <div class="card-header" id="heading{{ entry.record.history_id }}">
-                    <button class="btn btn-link btn-block text-left"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#collapse{{ entry.record.history_id }}"
-                            aria-expanded="true"
-                            aria-controls="collapse{{ entry.record.history_id }}">
-                        History entry for {{ entry.record.instance.name }}
-                        <small>{{ entry.record.history_date }}</small>
-                    </button>
-                </div>
-                <div id="collapse{{ entry.record.history_id }}"
-                     class="collapse"
-                     aria-labelledby="heading{{ entry.record.history_id }}"
-                     data-parent="#accordionExample">
-                    <div class="card-body">
-                        {% if entry.record.history_type == '~' %}
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td>Field</td>
-                                    <td>Old</td>
-                                    <td>New</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% if entry.delta %}
-                            {% for change in entry.delta.changes %}
-                                <tr>
-                                    <td>{{ change.field }}</td>
-                                    <td>{{ change.old }}</td>
-                                    <td>{{ change.new }}</td>
-                                </tr>
-                            {% endfor %}
-                            {% endif %}
-                            </tbody>
-                        </table>
-                        {% elif entry.record.history_type == '-' %}
-                            <p>Entry deleted</p>
-                        {% elif entry.record.history_type == '+' %}
-                            <p>Entry created</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">user</th>
+            <th scope="col">action</th>
+            <th scope="col">Object</th>
+            <th scope="col">History changes</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in stream %}
+            <tr>
+                <th>{{ event.actor }}</th>
+                <td>
+                    {% if event.verb == modes.ADDED.value %}
+                        <span class="{% fa_class 'plus' %}"></span>
+                    {% elif event.verb == modes.UPDATED.value %}
+                        <span class="{% fa_class 'asterisk' %}"></span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if event.action_object.get_absolute_url %}
+                        <a href="{{ event.action_object.get_absolute_url }}">{{ event.action_object }}</a>
+                    {% else %}
+                        {{ event.action_object }}
+                    {% endif %}
+                </td>
+                <td> {{ event.timesince }}</td>
+            </tr>
         {% endfor %}
-
-    </div>
-
+        </tbody>
+    </table>
 
 {% endblock %}
 

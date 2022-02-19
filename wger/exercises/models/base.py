@@ -98,6 +98,12 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     history = HistoricalRecords()
     """Edit history"""
 
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f"base {self.uuid}"
+
     #
     # Own methods
     #

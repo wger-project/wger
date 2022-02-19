@@ -32,6 +32,10 @@ class CanEditExercises(BasePermission):
         if request.method in self.SAFE_METHODS:
             return True
 
+        # Only logged-in users can edit
+        if not request.user.is_authenticated:
+            return False
+
         # Only "trustworthy" users can edit
         return (
             request.user.userprofile.is_trustworthy

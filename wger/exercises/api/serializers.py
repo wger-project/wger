@@ -111,6 +111,8 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
     ExerciseComment serializer
     """
 
+    id = serializers.IntegerField(required=False, read_only=True)
+
     class Meta:
         model = ExerciseComment
         fields = [
@@ -217,12 +219,16 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     Exercise translation serializer
     """
 
+    id = serializers.IntegerField(required=False, read_only=True)
+    uuid = serializers.UUIDField(required=False, read_only=True)
+
     class Meta:
         model = Exercise
         fields = (
             "id",
             "uuid",
             "name",
+            "exercise_base",
             "description",
             "creation_date",
             "language",
