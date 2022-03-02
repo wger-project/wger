@@ -31,7 +31,7 @@
             <tr>
                 <th>{{ event.actor }}</th>
                 <td>
-                    {% if event.verb == modes.ADDED.value %}
+                    {% if event.verb == modes.CREATED.value %}
                         <span class="{% fa_class 'plus' %}"></span>
                     {% elif event.verb == modes.UPDATED.value %}
                         <span class="{% fa_class 'pen' %}"></span>
