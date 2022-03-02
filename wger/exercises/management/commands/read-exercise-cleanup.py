@@ -204,7 +204,6 @@ class Command(BaseCommand):
                 if not exercise.id:
                     new_exercise = True
 
-                exercise.status = Exercise.STATUS_ACCEPTED
                 exercise.save()
 
                 # Set the aliases

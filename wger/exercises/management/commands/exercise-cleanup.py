@@ -60,7 +60,7 @@ class Command(BaseCommand):
         out = []
 
         languages = Language.objects.all()
-        for base in ExerciseBase.objects.accepted():
+        for base in ExerciseBase.objects.all():
 
             data = {
                 'base': {

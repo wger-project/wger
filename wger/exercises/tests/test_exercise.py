@@ -197,12 +197,10 @@ class ExerciseDetailTestCase(WgerTestCase):
             self.assertContains(response, 'Edit')
             self.assertContains(response, 'Delete')
             self.assertContains(response, 'Add new comment')
-            self.assertNotContains(response, 'Exercise is pending review')
         else:
             self.assertNotContains(response, 'Edit')
             self.assertNotContains(response, 'Delete')
             self.assertNotContains(response, 'Add new comment')
-            self.assertNotContains(response, 'Exercise is pending review')
 
         # Ensure that non-existent exercises throw a 404.
         response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 42}))
@@ -210,7 +208,7 @@ class ExerciseDetailTestCase(WgerTestCase):
 
     def test_exercise_detail_editor(self):
         """
-        Tests the exercise details page as a logged in user with editor rights
+        Tests the exercise details page as a logged-in user with editor rights
         """
 
         self.user_login('admin')
@@ -327,10 +325,8 @@ class ExercisesTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=exercise_id)
         if admin:
             self.assertEqual(exercise.license_author, 'testserver')
-            self.assertEqual(exercise.status, Exercise.STATUS_ACCEPTED)
         else:
             self.assertEqual(exercise.license_author, 'test')
-            self.assertEqual(exercise.status, Exercise.STATUS_PENDING)
 
         response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': exercise_id}))
         self.assertEqual(response.status_code, 200)
@@ -347,7 +343,6 @@ class ExercisesTestCase(WgerTestCase):
                 'category': 111,
                 'name': random_string(),
                 'license': 1,
-                'category': 111,
                 'muscles': [1, 2]
             }
         )
@@ -359,7 +354,6 @@ class ExercisesTestCase(WgerTestCase):
                 'category': 111,
                 'name': random_string(),
                 'license': 1,
-                'category': 111,
                 'muscles': [1, 2]
             }
         )
@@ -374,7 +368,6 @@ class ExercisesTestCase(WgerTestCase):
                 'category': 1,
                 'name': random_string(),
                 'license': 1,
-                'category': 1,
                 'muscles': []
             }
         )
@@ -386,7 +379,6 @@ class ExercisesTestCase(WgerTestCase):
                 'category': 1,
                 'name': random_string(),
                 'license': 1,
-                'category': 1,
                 'muscles': []
             }
         )

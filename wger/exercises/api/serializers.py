@@ -200,7 +200,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "uuid",
             "name",
             "exercise_base",
-            "status",
             "description",
             "creation_date",
             "category",

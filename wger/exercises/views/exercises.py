@@ -114,7 +114,7 @@ class ExerciseListView(ListView):
         Filter to only active exercises in the configured languages
         """
         languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        return Exercise.objects.accepted() \
+        return Exercise.objects.all() \
             .filter(language__in=languages) \
             .order_by('exercise_base__category__id') \
             .select_related()
@@ -218,7 +218,7 @@ class ExerciseForm(ModelForm):
 
         if not self.instance.id:
             language = load_language()
-            exercises = Exercise.objects.accepted() \
+            exercises = Exercise.objects.all() \
                 .filter(language=language)
             for exercise in exercises:
                 exercise_name = str(exercise)
@@ -313,7 +313,7 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         """
-        Set language, author and status
+        Set language and author
         """
         form.instance.language = load_language()
         form.instance.set_author(self.request)
@@ -448,28 +448,3 @@ class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListV
         """
         return Exercise.objects.pending().order_by('-creation_date')
 
-
-@permission_required('exercises.add_exercise')
-def accept(request, pk):
-    """
-    Accepts a pending user submitted exercise and emails the user, if possible
-    """
-    exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = Exercise.STATUS_ACCEPTED
-    exercise.save()
-    exercise.send_email(request)
-    messages.success(request, _('Exercise was successfully added to the general database'))
-
-    return HttpResponseRedirect(exercise.get_absolute_url())
-
-
-@permission_required('exercises.add_exercise')
-def decline(request, pk):
-    """
-    Declines and deletes a pending user submitted exercise
-    """
-    exercise = get_object_or_404(Exercise, pk=pk)
-    exercise.status = Exercise.STATUS_DECLINED
-    exercise.save()
-    messages.success(request, _('Exercise was successfully marked as rejected'))
-    return HttpResponseRedirect(exercise.get_absolute_url())

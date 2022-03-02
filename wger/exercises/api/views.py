@@ -76,7 +76,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
     API endpoint for exercise base objects. For a read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
-    queryset = ExerciseBase.objects.accepted()
+    queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseSerializer
     permission_classes = (CanEditExercises, )
     ordering_fields = '__all__'
@@ -106,7 +106,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for editing or adding exercise objects.
     """
-    queryset = Exercise.objects.accepted()
+    queryset = Exercise.objects.all()
     permission_classes = (CanEditExercises, )
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
@@ -146,7 +146,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for exercise objects. For a single read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
-    queryset = Exercise.objects.accepted()
+    queryset = Exercise.objects.all()
     permission_classes = (CanEditExercises, )
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
@@ -156,14 +156,13 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'exercise_base',
         'description',
         'language',
-        'status',
         'name',
     )
 
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
 
-        qs = Exercise.objects.accepted()
+        qs = Exercise.objects.all()
 
         category = self.request.query_params.get('category')
         muscles = self.request.query_params.get('muscles')
@@ -222,7 +221,7 @@ def search(request):
         )
         name_lookup = Q(name__icontains=q) | Q(alias__alias__icontains=q)
         exercises = (
-            Exercise.objects.filter(name_lookup).accepted().filter(
+            Exercise.objects.filter(name_lookup).all().filter(
                 language__in=languages
             ).order_by('exercise_base__category__name', 'name').distinct()
         )
@@ -259,7 +258,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     structures for more easy parsing.
     """
 
-    queryset = Exercise.objects.accepted()
+    queryset = Exercise.objects.all()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -278,7 +277,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     base. Returns nested data structures for more easy and faster parsing.
     """
 
-    queryset = ExerciseBase.objects.accepted()
+    queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (

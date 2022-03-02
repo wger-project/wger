@@ -25,11 +25,8 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.utils.managers import SubmissionManager
-from wger.utils.models import (
-    AbstractLicenseModel,
-    AbstractSubmissionModel,
-)
+from wger.utils.models import AbstractLicenseModel
+
 
 # Local
 from .category import ExerciseCategory
@@ -38,15 +35,16 @@ from .muscle import Muscle
 from .variation import Variation
 
 
-class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class ExerciseBase(AbstractLicenseModel, models.Model):
     """
     Model for an exercise base
     """
 
-    objects = SubmissionManager()
-    """Custom manager"""
-
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name='UUID'
+    )
     """Globally unique ID, to identify the base across installations"""
 
     category = models.ForeignKey(

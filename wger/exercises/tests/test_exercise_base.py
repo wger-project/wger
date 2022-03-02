@@ -47,7 +47,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         # Even if these exercises have the same base, only the variations for
         # their respective languages are returned.
         exercise = Exercise.objects.get(pk=81)
-        self.assertListEqual(sorted([i.id for i in exercise.variations]), sorted([3, 35, 81]))
+        self.assertListEqual(sorted([i.id for i in exercise.variations]), sorted([3, 4, 35, 81]))
 
         exercise2 = Exercise.objects.get(pk=84)
         self.assertEqual(sorted([i.id for i in exercise2.variations]), sorted([84, 91, 111, 126]))

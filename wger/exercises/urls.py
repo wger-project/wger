@@ -232,16 +232,6 @@ patterns_exercise = [
         exercises.PendingExerciseListView.as_view(),
         name='pending',
     ),
-    path(
-        '<int:pk>/accept/',
-        exercises.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        exercises.decline,
-        name='decline',
-    ),
 ]
 
 urlpatterns = [

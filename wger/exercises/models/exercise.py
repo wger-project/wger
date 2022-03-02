@@ -42,21 +42,13 @@ from wger.utils.cache import (
     delete_template_fragment_cache,
     reset_workout_canonical_form,
 )
-from wger.utils.managers import SubmissionManager
-from wger.utils.models import (
-    AbstractLicenseModel,
-    AbstractSubmissionModel,
-)
+from wger.utils.models import AbstractLicenseModel
 
 
-class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class Exercise(AbstractLicenseModel, models.Model):
     """
     Model for an exercise
     """
-
-    objects = SubmissionManager()
-    """Custom manager"""
-
     description = models.TextField(
         max_length=2000,
         verbose_name=_('Description'),
@@ -200,7 +192,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         out = []
         if self.exercise_base.variations:
             for variation in self.exercise_base.variations.exercisebase_set.all():
-                for exercise in variation.exercises.filter(language=self.language).accepted():
+                for exercise in variation.exercises.filter(language=self.language).all():
                     out.append(exercise)
         return out
 
@@ -255,12 +247,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     def set_author(self, request):
         """
-        Set author and status
+        Set author
         This is only used when creating exercises (via web or API)
         """
 
         if request.user.has_perm('exercises.add_exercise'):
-            self.status = self.STATUS_ACCEPTED
             if not self.license_author:
                 self.license_author = request.get_host().split(':')[0]
         else:

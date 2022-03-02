@@ -42,37 +42,6 @@ $(document).ready(function() {
 {#         #}
 {% block content %}
 
-{% if exercise.status == exercise.STATUS_PENDING %}
-<div class="card text-white bg-dark mb-4">
-    <div class="card-header">
-        {% translate "Exercise is pending review" %}
-    </div>
-    <div class="card-body">
-        <p>{% blocktranslate %}This user submitted exercise is pending a decision to be
-        included in the database.{% endblocktranslate %}
-        {% translate "Till then, it will not be shown in the overview or the search."  %}
-        {% if perms.exercises.add_exercise %}{% translate "Please select one of the options below." %}{% endif %}
-        </p>
-
-        {% if perms.exercises.add_exercise %}
-            <a href="{% url 'exercise:exercise:accept' exercise.id %}" class="btn btn-secondary">
-                <span class="{% fa_class 'check' %}"></span>
-                {% translate "Accept" %}
-            </a>
-            <a href="{% url 'exercise:exercise:decline' exercise.id %}" class="btn btn-secondary">
-                <span class="{% fa_class 'times' %}"></span>
-                {% translate "Decline" %}
-            </a>
-            <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog btn btn-secondary">
-                <span class="{% fa_class 'trash' %}"></span>
-                {% translate "Delete" %}
-            </a>
-        {% endif %} {# end check permissions #}
-    </div>
-</div>
-{% endif %} {# end exercise is pending review #}
-
-
 <h5 class="mt-4">{% translate "Category" %}:</h5>
 {% translate exercise.category.name %}
 
