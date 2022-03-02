@@ -15,5 +15,5 @@ import enum
 
 
 class HistoryModes(enum.Enum):
-    ADDED = 'created'
+    CREATED = 'created'
     UPDATED = 'updated'

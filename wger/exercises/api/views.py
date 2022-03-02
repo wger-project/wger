@@ -31,11 +31,10 @@ from rest_framework.decorators import (
     action,
     api_view,
 )
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 # wger
-from exercises.views.helper import HistoryModes
+from wger.exercises.views.helper import HistoryModes
 from wger.config.models import LanguageConfig
 from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.exercises.api.permissions import CanEditExercises
@@ -126,7 +125,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.ADDED.value,
+            verb=HistoryModes.CREATED.value,
             action_object=serializer.instance,
         )
 
@@ -142,7 +141,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         )
 
 
-class ExerciseViewSet(CreateUpdateModelViewSet):
+class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise objects. For a single read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
@@ -352,12 +351,25 @@ class ExerciseImageViewSet(CreateUpdateModelViewSet):
 
     def perform_create(self, serializer):
         """
-        Set the license data
+        Save entry to activity stream
         """
-        obj = serializer.save()
-        # Todo is it right to call set author after save?
-        obj.set_author(self.request)
-        obj.save()
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.UPDATED.value,
+            action_object=serializer.instance,
+        )
 
 
 class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
@@ -400,7 +412,7 @@ class ExerciseCommentViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.ADDED.value,
+            verb=HistoryModes.CREATED.value,
             action_object=serializer.instance,
         )
 
