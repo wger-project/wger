@@ -227,11 +227,6 @@ patterns_exercise = [
         exercises.ExerciseDeleteView.as_view(),
         name='delete',
     ),
-    path(
-        'pending/',
-        exercises.PendingExerciseListView.as_view(),
-        name='pending',
-    ),
 ]
 
 urlpatterns = [

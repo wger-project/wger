@@ -431,20 +431,3 @@ class ExerciseDeleteView(
         context['title'] = _('Delete {0}?').format(self.object.name)
         return context
 
-
-class PendingExerciseListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    """
-    Generic view to list all weight units
-    """
-
-    model = Exercise
-    template_name = 'exercise/pending.html'
-    context_object_name = 'exercise_list'
-    permission_required = 'exercises.change_exercise'
-
-    def get_queryset(self):
-        """
-        Only show pending exercises
-        """
-        return Exercise.objects.pending().order_by('-creation_date')
-
