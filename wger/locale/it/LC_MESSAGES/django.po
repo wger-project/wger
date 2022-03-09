@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-06-18 08:48+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2022-03-10 08:59+0000\n"
+"Last-Translator: MARCO ACORTE <macorte@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -808,7 +808,7 @@ msgstr "Trovato niente"
 #: core/templates/template_features.html:118
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Impressum"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -857,23 +857,19 @@ msgstr "Calendario"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galleria"
 
 #: core/templates/navigation.html:48
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Allenamento completo!"
+msgstr "Modelli di allenamento"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Le tue programmazioni"
+msgstr "I tuoi modelli"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Modelli pubblici"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
@@ -1615,25 +1611,23 @@ msgstr "L'utente {0} ha inserito un nuovo esercizio «{1}»."
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Linea"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
-msgstr ""
+msgstr "Basso numero di poligoni"
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Altri"
+msgstr "Altro"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1659,7 +1653,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Lo stile artistico della tua immagine"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1676,31 +1670,27 @@ msgstr "In latino es. «Pectoralis major»"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "La dimensione massima del file è 100 MB."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Il tipo di file non è supportato"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s non è un compleanno valido"
+msgstr "Il file non è un video valido"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Immagine principale"
+msgstr "Video principale"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Dimensione"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1708,23 +1698,19 @@ msgstr "Durata"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Larghezza"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Peso"
+msgstr "Altezza"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Codice"
+msgstr "Codec"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Codec, nome completo"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1810,7 +1796,9 @@ msgstr "Inserendo un esercizio"
 msgid ""
 "Thank you for submitting an exercise. This is much\n"
 "appreciated!"
-msgstr "Grazie per aver inserito un esercizio. Lo apprezziamo davvero!"
+msgstr ""
+"Grazie per aver inserito un esercizio.\n"
+"Lo apprezziamo davvero!"
 
 #: exercises/templates/exercise/form.html:8
 msgid ""
@@ -1916,13 +1904,11 @@ msgstr "Aggiungi nuova immagine"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Video"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Aggiungi nuova immagine"
+msgstr "Aggiungi nuovo video"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -2029,10 +2015,8 @@ msgid "Delete?"
 msgstr "Elimina?"
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Aggiungi nuova immagine"
+msgstr "Aggiungi immagine"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2478,10 +2462,8 @@ msgid "Kilometers"
 msgstr "Chilometri"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Ripetizioni"
+msgstr "Numero massimo di ripetizioni"
 
 #: i18n.tpl:36
 msgid "Miles"
@@ -2558,10 +2540,8 @@ msgid "Correction"
 msgstr "Correzione"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Fai una copia di questo allenamento"
+msgstr "Nome dell'allenamento"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2723,28 +2703,30 @@ msgstr "Data di creazione"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Allenamento completo!"
+msgstr "Modello di allenamento"
 
 #: manager/models/workout.py:74
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Contrassegnare un allenamento come modello lo bloccherà e ti consentirà di "
+"farne delle copie"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Modello pubblico"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Un modello pubblico è disponibile per altri utenti"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
 msgstr ""
+"Devi contrassegnare questo allenamento come modello prima di dichiararlo "
+"pubblico"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -3076,16 +3058,12 @@ msgstr ""
 "sono ignorati qui."
 
 #: manager/templates/workout/overview.html:25
-#, fuzzy
-#| msgid "No schedules found."
 msgid "No templates found."
-msgstr "Nessuna programmazione trovata."
+msgstr "Nessun modello trovato."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
-msgstr "Fai una copia di questo allenamento"
+msgstr "Contrassegna come allenamento"
 
 #: manager/templates/workout/template_view.html:65
 #: manager/templates/workout/view.html:97
@@ -3101,10 +3079,8 @@ msgstr ""
 "sull'allenamento."
 
 #: manager/templates/workout/template_view.html:89
-#, fuzzy
-#| msgid "Share this page"
 msgid "Use this template"
-msgstr "Condividi questa pagina"
+msgstr "Usa questo modello"
 
 #: manager/templates/workout/view.html:72
 msgid "Add training day"
@@ -3144,7 +3120,7 @@ msgstr "Modifica allenamento"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:300
 msgid "Mark as template"
-msgstr ""
+msgstr "Contrassegna come modello"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -3196,7 +3172,7 @@ msgstr "Questo cancellerà anche tutti i log del peso per questo giorno."
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Valore"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3326,6 +3302,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Dai ai pasti una descrizione testuale/nome come \"Colazione\" o \"Dopo l'"
+"allenamento\""
 
 #: nutrition/models/plan.py:71
 msgid ""
@@ -3592,7 +3570,7 @@ msgstr "Aggiungi la pianificazione"
 
 #: nutrition/templates/plan/view.html:208
 msgid "Add a new meal"
-msgstr "Aggiungi un nuovo pasto."
+msgstr "Aggiungi un nuovo pasto"
 
 #: nutrition/templates/plan/view.html:218 nutrition/views/plan.py:369
 msgid "Nutritional data"
@@ -3628,19 +3606,15 @@ msgid "Goal"
 msgstr "Obiettivo"
 
 #: nutrition/templates/plan/view.html:384
-#, fuzzy
-#| msgid ""
-#| "You have selected that this nutritional plan has a\n"
-#| "    goal amount of calories. Use the calculator or enter the value "
-#| "yourself."
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "            goal amount of calories. Use the calculator or enter the value\n"
 "            yourself."
 msgstr ""
 "Hai selezionato che questo piano nutrizionale ha un\n"
-"     obbiettivo sulla quantità di calorie. Usa la calcolatrice o inserisci "
-"il valore tu stesso."
+"               obbiettivo sulla quantità di calorie. Usa la calcolatrice o "
+"inserisci il valore\n"
+"               tu stesso."
 
 #: nutrition/templates/plan/view.html:394
 msgid ""
@@ -3680,7 +3654,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:37
 msgid "Your basic metabolic rate is: "
-msgstr "Il tuo metabolismo basale è:"
+msgstr "Il tuo metabolismo basale è: "
 
 #: nutrition/templates/rate/form.html:47
 msgid "Physical activities"
@@ -3699,7 +3673,7 @@ msgstr ""
 
 #: nutrition/templates/rate/form.html:59
 msgid "Factor for daily activities: "
-msgstr "Fattore per le attività quotidiane:"
+msgstr "Fattore per le attività quotidiane: "
 
 #: nutrition/templates/rate/form.html:67
 msgid ""
@@ -3795,44 +3769,51 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Grazie per aver usato wger! wger è un progetto collaborativo open source, "
+"realizzato da appassionati di fitness di tutto il mondo."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Codice sorgente"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
 msgstr ""
+"Ottieni il codice sorgente di questa applicazione e del suo server su GitHub"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Hai un problema o un'idea?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Contattaci se qualcosa non ha funzionato come previsto o se c'è una "
+"funzionalità che ritieni mancante."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Dì ciao!"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
+"Se vuoi chattare con noi, raggiungici sul server Discord e mettiti in "
+"contatto"
 
 #: software/templates/about_us.html:39
-#, fuzzy
-#| msgid "Translate"
 msgid "Translation"
-msgstr "Traduci"
+msgstr "Traduzione"
 
 #: software/templates/about_us.html:41
 msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
+"Questa applicazione è tradotta su weblate. Se vuoi aiutare anche tu, clicca "
+"sul link e inizia a tradurre"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"
@@ -3856,7 +3837,7 @@ msgid ""
 "your exercises and workouts. "
 msgstr ""
 "wger Workout Manager è un'applicazione web gratuita e open source che "
-"gestisce i tuoi esercizi e allenamenti."
+"gestisce i tuoi esercizi e allenamenti. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -4174,7 +4155,7 @@ msgid ""
 "you want."
 msgstr ""
 "È possibile correggere l'elenco qui e inviarlo di nuovo tutte le volte\n"
-"che vuoi"
+"che vuoi."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
@@ -4191,11 +4172,11 @@ msgstr "Importa da foglio di calcolo"
 #: weight/views.py:104
 #, python-format
 msgid "Edit weight entry for the %s"
-msgstr "Modifica l'inserimento di peso per %s "
+msgstr "Modifica l'inserimento di peso per %s"
 
 #: weight/views.py:123
 msgid "Successfully deleted."
-msgstr "Cancellato con successo"
+msgstr "Cancellato con successo."
 
 #: weight/views.py:127
 #, python-format
