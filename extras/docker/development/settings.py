@@ -101,3 +101,6 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             }
         }
     }
+
+# Folder for compressed CSS and JS files
+COMPRESS_ROOT = STATIC_ROOT
