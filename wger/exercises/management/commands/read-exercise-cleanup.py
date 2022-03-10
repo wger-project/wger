@@ -22,8 +22,10 @@ import pathlib
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
-# wger
+# Third Party
 from utils.constants import DEFAULT_LICENSE_ID
+
+# wger
 from wger.core.models import (
     Language,
     License,
