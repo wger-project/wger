@@ -19,6 +19,7 @@ from rest_framework import serializers
 
 # wger
 from wger.exercises.models import (
+    Alias,
     Equipment,
     Exercise,
     ExerciseBase,
@@ -40,11 +41,13 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'creation_date',
+            'update_date',
             'category',
             'muscles',
             'muscles_secondary',
             'equipment',
-            'creation_date',
+            'variations',
         ]
 
 
@@ -119,6 +122,19 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         ]
 
 
+class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
+    """
+    Exercise alias serializer for info endpoint
+    """
+
+    class Meta:
+        model = Alias
+        fields = [
+            'id',
+            'alias',
+        ]
+
+
 class ExerciseCategorySerializer(serializers.ModelSerializer):
     """
     ExerciseCategory serializer
@@ -165,7 +181,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "uuid",
             "name",
             "exercise_base",
-            "status",
             "description",
             "creation_date",
             "category",
@@ -184,13 +199,20 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     Exercise translation serializer
     """
 
+    id = serializers.IntegerField(required=False, read_only=True)
+    uuid = serializers.UUIDField(required=False, read_only=True)
+    aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
+    notes = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+
     class Meta:
         model = Exercise
         fields = (
             "id",
             "uuid",
+            "aliases",
             "name",
             "description",
+            "notes",
             "creation_date",
             "language",
             "license",
