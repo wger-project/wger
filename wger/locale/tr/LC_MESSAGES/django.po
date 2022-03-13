@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-08-27 19:38+0000\n"
+"PO-Revision-Date: 2022-02-27 22:05+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -382,7 +382,7 @@ msgstr "Metrik (kilogram)"
 
 #: core/models/profile.py:78
 msgid "Imperial (pound)"
-msgstr "İmparatorluk (paund)"
+msgstr "İngiliz (paunt)"
 
 #: core/models/profile.py:111
 msgid "Show exercise comments"
@@ -1598,25 +1598,23 @@ msgstr "{0} kullanıcısı yeni bir \"{1}\" alıştırması gönderdi."
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Çizgi"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3B"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
-msgstr ""
+msgstr "Düşük poli"
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Fotoğraf"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Diğerleri"
+msgstr "Diğer"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1642,7 +1640,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Resminizin sanat tarzı"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1660,31 +1658,27 @@ msgstr "Latince, ör. \"Büyük pektoralis\""
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "Azami dosya boyutu 100MB'dir."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Dosya türü desteklenmiyor"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s geçerli bir doğum tarihi değil"
+msgstr "Dosya geçerli bir video değil"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Ana resim"
+msgstr "Ana video"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Boyut"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1692,23 +1686,19 @@ msgstr "Süresi"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Genişlik"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Kilo"
+msgstr "Yükseklik"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Kod"
+msgstr "Kodek"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Kodek, uzun ad"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1809,10 +1799,10 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "successfully."
 msgstr ""
-"Formu gönderdikten sonra, yöneticiler bilgilendirilecektir.\n"
-"İncelendikten sonra veritabanına eklenecektir. Bu olana kadar,\n"
-"genel bakışta veya aramada görünmez. E-postanızı eklemeniz durumunda\n"
-"kayıt olduğunuzda, işlem başarıyla tamamlandığında size haber verilecektir."
+"Formu gönderdikten sonra yöneticiler bilgilendirilecektir.\n"
+"İncelendikten sonra veri tabanına eklenecektir. Bu olana kadar,\n"
+"genel bakışta veya aramada görünmeyecektir. Kayıt olduğunuzda e-postanızı\n"
+"eklemeniz durumunda, işlem başarıyla tamamlandığında size haber verilecektir."
 
 #: exercises/templates/exercise/form_correct.html:4
 msgid "Correcting an exercise"
@@ -1867,9 +1857,8 @@ msgid ""
 "This user submitted exercise is pending a decision to be\n"
 "        included in the database."
 msgstr ""
-"Kullanıcı tarafından gönderilen bu alıştırma ile ilgili bir karar "
-"bekleniyor\n"
-"        veritabanına dahil edilmiştir."
+"Bu kullanıcı tarafından gönderilen egzersiz, veri tabanına\n"
+"        dahil edilmek için bir karar bekliyor."
 
 #: exercises/templates/exercise/view.html:53
 msgid "Till then, it will not be shown in the overview or the search."
@@ -1902,13 +1891,11 @@ msgstr "Yeni resim ekle"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Videolar"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Yeni resim ekle"
+msgstr "Yeni video ekle"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -3172,7 +3159,7 @@ msgstr "Bu, o gün için tüm ağırlık günlüklerini de siler."
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Değer"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3301,6 +3288,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Yemeklere \"Kahvaltı\" veya \"antrenmandan sonra\" gibi metinsel bir "
+"açıklama / ad verin"
 
 #: nutrition/models/plan.py:71
 msgid ""
@@ -3418,10 +3407,10 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
-"Formu gönderdikten sonra, yöneticiler bilgilendirilecektir.\n"
-"İncelendikten sonra veritabanına eklenecektir. Bu olana kadar,\n"
-"genel bakışta veya aramada görünmez. E-postanızı eklemeniz durumunda\n"
-"kayıt olduğunuzda, işlem başarıyla tamamlandığında size haber verilecektir."
+"Formu gönderdikten sonra yöneticiler bilgilendirilecektir.\n"
+"İncelendikten sonra veri tabanına eklenecektir. Bu olana kadar,\n"
+"genel bakışta veya aramada görünmeyecektir. Kayıt olduğunuzda e-postanızı\n"
+"eklemeniz durumunda, işlem başarıyla tamamlandığında size haber verilecektir."
 
 #: nutrition/templates/ingredient/overview.html:45
 msgid "No ingredients."
@@ -3447,10 +3436,9 @@ msgid ""
 "or\n"
 "the search."
 msgstr ""
-"Kullanıcı tarafından gönderilen bu içerik, bir karar bekliyor\n"
-"veritabanına dahil edilmiştir. O zamana kadar, genel bakışta gösterilmeyecek "
-"veya\n"
-"Araştırma."
+"Bu kullanıcı tarafından gönderilen malzeme, veri tabanına\n"
+"dahil edilmek için bir karar bekliyor. Bu olana kadar, genel bakışta veya\n"
+"aramada görünmeyecektir."
 
 #: nutrition/templates/ingredient/view.html:71
 #: nutrition/templates/log/detail.html:31
@@ -3573,7 +3561,7 @@ msgstr "Beslenme verileri"
 #: nutrition/templates/plan/view.html:221
 #, python-format
 msgid "Based on the weight entry dated %(date)s (%(weight)s)"
-msgstr "%(date)s (%(weight)s) tarihli ağırlık girdisine göre"
+msgstr "%(date)s (%(weight)s) tarihli ağırlık girişine göre"
 
 #: nutrition/templates/plan/view.html:230 nutrition/views/plan.py:377
 msgid "Total"
@@ -3939,7 +3927,7 @@ msgstr ""
 
 #: software/templates/features.html:171
 msgid "Exercise database"
-msgstr "Egzersiz veritabanı"
+msgstr "Egzersiz veri tabanı"
 
 #: software/templates/features.html:175
 msgid ""
@@ -3947,7 +3935,7 @@ msgid ""
 "can choose when creating a workout. You can view them by category and "
 "equipment used or muscles trained."
 msgstr ""
-"Egzersiz veritabanı, bir egzersiz oluştururken aralarından seçim "
+"Egzersiz veri tabanı, bir egzersiz oluştururken aralarından seçim "
 "yapabileceğiniz yüzden fazla egzersiz içerir. Bunları kategoriye ve "
 "kullanılan ekipmana veya çalıştırılan kaslara göre görüntüleyebilirsiniz."
 

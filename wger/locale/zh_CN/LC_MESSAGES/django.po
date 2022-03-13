@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2022-02-18 02:56+0000\n"
-"Last-Translator: sr-c <shuruihao@outlook.com>\n"
+"PO-Revision-Date: 2022-02-25 20:58+0000\n"
+"Last-Translator: Jing <cynthiacheng-jing@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1381,7 +1381,7 @@ msgstr ""
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "管理员登陆权限只对%(gym_name)s的用户开放"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1532,7 +1532,7 @@ msgstr "类别"
 
 #: exercises/models/base.py:58
 msgid "Primary muscles"
-msgstr ""
+msgstr "主要训练肌肉"
 
 #: exercises/models/base.py:64 exercises/templates/equipment/overview.html:71
 #: exercises/templates/exercise/overview.html:76
@@ -1543,17 +1543,17 @@ msgstr "次要肌肉"
 
 #: exercises/models/base.py:79
 msgid "Variations"
-msgstr ""
+msgstr "变体"
 
 #: exercises/models/category.py:37
 msgid "Exercise Categories"
-msgstr ""
+msgstr "训练类别"
 
 #: exercises/models/comment.py:34 exercises/models/image.py:75
 #: exercises/models/video.py:82 manager/forms.py:165 manager/helpers.py:89
 #: manager/models/log.py:51
 msgid "Exercise"
-msgstr ""
+msgstr "训练"
 
 #: exercises/models/comment.py:41
 msgid "A comment about how to correctly do this exercise."
@@ -1570,20 +1570,20 @@ msgstr "健身项目被成功添加到通用数据库中"
 
 #: exercises/models/exercise.py:265
 msgid "New user submitted exercise"
-msgstr ""
+msgstr "新用户提交锻炼动作"
 
 #: exercises/models/exercise.py:267
 #, python-brace-format
 msgid "The user {0} submitted a new exercise \"{1}\"."
-msgstr ""
+msgstr "用户{0}提交了一次新训练“{1}”."
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "线条"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
@@ -1591,7 +1591,7 @@ msgstr ""
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "照片"
 
 #: exercises/models/image.py:63
 msgid "Other"
@@ -1641,7 +1641,7 @@ msgstr ""
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "不支持文件类型"
 
 #: exercises/models/video.py:57
 msgid "File is not a valid video"
@@ -1653,19 +1653,19 @@ msgstr "主视频"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "视频"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
-msgstr ""
+msgstr "时长"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "宽度"
 
 #: exercises/models/video.py:124
 msgid "Height"
@@ -1747,7 +1747,7 @@ msgstr "谢谢你的贡献让网站越来越好."
 #: nutrition/templates/ingredient/email_new.tpl:9
 #, python-format
 msgid "The %(site)s team"
-msgstr ""
+msgstr "%(site)s团队"
 
 #: exercises/templates/exercise/form.html:4
 msgid "Submitting an exercise"
@@ -1858,7 +1858,7 @@ msgstr "新增图片"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "视频"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
 msgid "Add new video"
@@ -1887,7 +1887,7 @@ msgstr "体重日志"
 
 #: exercises/templates/exercise/view.html:306
 msgid "Exercise Variations"
-msgstr ""
+msgstr "动作变体"
 
 #: exercises/templates/exercise/view.html:327
 msgid "Submit a correction"

@@ -102,5 +102,8 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
         }
     }
 
+# Folder for compressed CSS and JS files
+COMPRESS_ROOT = STATIC_ROOT
+
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = 'http://localhost/'

@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-09-19 02:37+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2022-02-25 20:58+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1603,11 +1603,11 @@ msgstr "Der Benutzer {0} hat die Übung „{1}“ eingereicht."
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Linie"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: exercises/models/image.py:63
 #, fuzzy
@@ -1666,11 +1666,11 @@ msgstr "Auf latein, z.B. „Pectoralis major“"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "Die maximale Dateigröße beträgt 100 MB."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Dateityp wird nicht unterstützt"
 
 #: exercises/models/video.py:57
 #, fuzzy
@@ -1686,11 +1686,11 @@ msgstr "Hauptbild"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1698,7 +1698,7 @@ msgstr "Dauer"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Breite"
 
 #: exercises/models/video.py:124
 #, fuzzy
@@ -1714,7 +1714,7 @@ msgstr "Quellcode"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Codec, langer Name"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1906,7 +1906,7 @@ msgstr "Neues Bild hinzufügen"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Videos"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
 #, fuzzy
@@ -3179,7 +3179,7 @@ msgstr "Dies wird ebenfalls alle Gewichtslogs für diesen Tag löschen."
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3307,6 +3307,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Mahlzeiten eine Textbeschreibung / Name wie \"Frühstück oder\" \"nach dem "
+"Training\" geben"
 
 #: nutrition/models/plan.py:71
 msgid ""
