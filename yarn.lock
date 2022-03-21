@@ -740,10 +740,10 @@ shariff@^3.2.1:
     "@fortawesome/fontawesome-free" "^5.8.2"
     jquery "^3.4.1"
 
-tinymce@^5.10.3:
-  version "5.10.3"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.3.tgz#9485cf00159fd70c4948cb5e9dd49bce2a775899"
-  integrity sha512-O59ssHNnujWvSk5Gt8hIGrdNCMKVWVQv9F8siAgLTRgTh0t3NDHrP1UlLtCxArUi9DPWZvlBeUz8D5fJTu7vnA==
+tinymce@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-6.0.0.tgz#44945e4c12ea90d08aedf357304c24269a164e54"
+  integrity sha512-y4b5OhxScZiFovTgEFzI+2zEDSMfbJSQ4hfcYPg9HXvudxvDIHjc3fF73m0Sys5h8YtpWPG1fT9iJsjSnwuo2A==
 
 xmlhttprequest@1:
   version "1.8.0"
