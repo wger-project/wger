@@ -16,7 +16,7 @@ easy-thumbnails~=2.8
 icalendar==4.0.9
 invoke~=1.7
 pillow~=9.0
-reportlab==3.6.8
+reportlab==3.6.9
 requests==2.27.1
 
 # AWS
