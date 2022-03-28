@@ -47,8 +47,8 @@ class Set(models.Model):
         on_delete=models.CASCADE,
     )
     order = models.IntegerField(
-        blank=True,
-        null=True,
+        default=1,
+        null=False,
         verbose_name=_('Order'),
     )
     sets = models.IntegerField(

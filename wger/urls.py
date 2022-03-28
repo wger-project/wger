@@ -88,6 +88,9 @@ router.register(
 
 # Exercises app
 router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, basename='exerciseinfo')
+router.register(
+    r'exercisebaseinfo', exercises_api_views.ExerciseBaseInfoViewset, basename='exercisebaseinfo'
+)
 router.register(r'exercise', exercises_api_views.ExerciseViewSet, basename='exercise')
 router.register(r'equipment', exercises_api_views.EquipmentViewSet, basename='api')
 router.register(
@@ -96,6 +99,7 @@ router.register(
 router.register(
     r'exerciseimage', exercises_api_views.ExerciseImageViewSet, basename='exerciseimage'
 )
+router.register(r'video', exercises_api_views.ExerciseVideoViewSet, basename='video')
 router.register(
     r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, basename='exercisecomment'
 )

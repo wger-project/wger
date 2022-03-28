@@ -36,20 +36,24 @@ from rest_framework.response import Response
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
+    ExerciseBaseInfoSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
     ExerciseCommentSerializer,
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
     ExerciseSerializer,
+    ExerciseVideoSerializer,
     MuscleSerializer,
 )
 from wger.exercises.models import (
     Equipment,
     Exercise,
+    ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
+    ExerciseVideo,
     Muscle,
 )
 from wger.utils.language import (
@@ -212,9 +216,28 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     filterset_fields = (
         'creation_date',
         'description',
-        'language',
         'name',
         'exercise_base',
+        'license',
+        'license_author',
+    )
+
+
+class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
+    """
+    Read-only info API endpoint for exercise objects, grouped by the exercise
+    base. Returns nested data structures for more easy and faster parsing.
+    """
+
+    queryset = ExerciseBase.objects.accepted()
+    serializer_class = ExerciseBaseInfoSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'category',
+        'muscles',
+        'muscles_secondary',
+        'equipment',
+        'variations',
         'license',
         'license_author',
     )
@@ -284,6 +307,21 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
         # Todo is it right to call set author after save?
         obj.set_author(self.request)
         obj.save()
+
+
+class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for exercise video objects
+    """
+    queryset = ExerciseVideo.objects.all()
+    serializer_class = ExerciseVideoSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'is_main',
+        'exercise_base',
+        'license',
+        'license_author',
+    )
 
 
 class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):

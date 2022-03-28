@@ -15,14 +15,17 @@ For a live system, refer to the project's site: <https://wger.de/>
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
       alt="Get it on Google Play"
       height="80">](https://play.google.com/store/apps/details?id=de.wger.flutter)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/packages/de.wger.flutter/)
 
 
 ## Installation
 
 These are the basic steps to install and run the application locally on a Linux
 system. There are more detailed instructions, other deployment options as well
-as an administration guide available at <https://wger.readthedocs.io> or locally
-in your code repository in the docs folder.
+as an administration guide available at <https://wger.readthedocs.io> or in the
+[docs repo](https://github.com/wger-project/docs).
 
 Please consult the commands' help for further information and available
 parameters.
@@ -40,7 +43,7 @@ compose file. This config will persist your database and uploaded images:
 If you just want to try it out:
 
 ```shell script
-    docker run -ti --name wger.demo--publish 8000:80 wger/demo
+    docker run -ti --name wger.demo --publish 8000:80 wger/demo
 ```
 
 Then just open <http://localhost:8000> and log in as **admin**, password **adminadmin**

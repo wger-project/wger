@@ -2,14 +2,14 @@ version: '3.7'
 
 services:
   web:
-    image: wger/devel:2.1-dev
+    image: wger/server:latest
     volumes:
       - type: bind
         source: ../../../
         target: /home/wger/src/
       - media:/home/wger/media
     ports:
-      - 8000:8000
+      - "8000:8000"
     env_file:
       - ./dev.env
     depends_on:

@@ -28,12 +28,19 @@ from wger.exercises.models import (
 
 class Command(BaseCommand):
     """
-    Helper command to read out the strings to manually include in the .po files
+    Helper command to extract translatable content from the database such as
+    categories, muscles or equipment names and write it to files, so they can
+    be extracted and translated on weblate. This is a bit hacky and ugly, but
+    these strings *very* rarely change.
     """
 
-    help = 'Read out all strings that have to be included manually in the .po file'
+    help = 'Write the translatable strings from the database to a file'
 
     def handle(self, **options):
+
+        # Replace whitespace with underscores and make lowercase
+        def cleanup_name(name: str) -> str:
+            return name.replace(' ', '_').lower()
 
         # Collect all translatable items
         data = [i for i in ExerciseCategory.objects.all()] \
@@ -41,11 +48,29 @@ class Command(BaseCommand):
             + [i for i in Muscle.objects.all()] \
             + [i for i in RepetitionUnit.objects.all()]
 
-        # Write the result to a file that can be read by gettext. Yes, this is
-        # a bit ugly, but the categories or muscles have basically never changed.
-        out = '{% load i18n %}\n'
-        for i in data:
-            out += f'{{% translate  "{i}" %}}\n'
-
+        # Django - write to .tpl file
         with open('wger/i18n.tpl', 'w') as f:
+            out = '{% load i18n %}\n'
+            for i in data:
+                out += f'{{% translate "{i}" %}}\n'
             f.write(out)
+            self.stdout.write(self.style.SUCCESS(f'Wrote content to i18n.tpl!'))
+
+        # React - write to .tsx file (copy the file into the react repo)
+        with open('wger/i18n.tsx', 'w') as f:
+            out = '''
+                import { useTranslation } from "react-i18next";
+
+                export const DummyComponent = () => {
+                const [t, i18n] = useTranslation();'''
+            for i in data:
+                out += f't("exercises.{cleanup_name(i.__str__())}");\n'
+
+            out += '''
+                return (<p></p>);
+                };'''
+            f.write(out)
+            self.stdout.write(self.style.SUCCESS(f'Wrote content to i18n.tsx!'))
+
+        # Flutter - write to .dart file (copy the file into the flutter repo)
+        # TO BE IMPLEMENTED...

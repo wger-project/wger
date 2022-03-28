@@ -140,7 +140,7 @@ def create_settings(
         settings_content = settings_file.read()
 
     if database_type == 'postgresql':
-        dbengine = 'postgresql_psycopg2'
+        dbengine = 'postgresql'
         dbname = 'wger'
         dbuser = 'wger'
         dbpassword = 'wger'
@@ -181,7 +181,8 @@ def create_settings(
         settings_file.write(settings_content)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
+            'default'})
 def create_or_reset_admin(context, settings_path=None):
     """
     Creates an admin user or resets the password for an existing one
@@ -206,7 +207,8 @@ def create_or_reset_admin(context, settings_path=None):
     call_command("loaddata", path + "users.json")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
+            'default'})
 def migrate_db(context, settings_path=None):
     """
     Run all database migrations
@@ -218,7 +220,8 @@ def migrate_db(context, settings_path=None):
     call_command("migrate")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
+            'default'})
 def load_fixtures(context, settings_path=None):
     """
     Loads all fixtures
@@ -258,7 +261,8 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", "gym-adminconfig.json")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for ' 'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
+            'default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)

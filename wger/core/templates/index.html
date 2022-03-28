@@ -7,17 +7,7 @@
 {# Header #}
 {#        #}
 {% block header %}
-    <script src="{% static 'angular/en/runtime.js' %}" defer></script>
-    <script src="{% static 'angular/en/polyfills.js' %}" defer></script>
-
-    {# Manually load the appropriate language if it's available #}
-    {% if language.short_name in languages_angular %}
-        {% with 'angular/'|add:language.short_name|add:"/main.js" as test %}
-        <script src="{% static test %}" defer></script>
-        {% endwith %}
-    {% else %}
-        <script src="{% static 'angular/en/main.js' %}" defer></script>
-    {% endif %}
+    {% react_static %}
 {% endblock %}
 
 
@@ -212,35 +202,7 @@ day in your current workout:{% endblocktranslate %} <strong>{{current_workout}}<
         <div class="card-body">
             <h5 class="card-title">{% translate "Weight"%}</h5>
             <div class="card-text">
-                {% if weight %}
-                <p>
-                    {% translate "Your current weight is: "%}
-                    {{weight.weight|floatformat}} {% trans_weight_unit 'kg' user %}
-                </p>
-                <table class="table table-hover table-sm">
-                    {% for entry_detail in last_weight_entries %}
-                    <tr>
-                        <td>
-                            {{ entry_detail.0.date }}
-                        </td>
-                        <td>
-                            {{ entry_detail.0.weight }}
-                        </td>
-                        <td>
-                            {% if entry_detail.1 > 0 %}
-                                +
-                            {% endif %}
-                            {% if entry_detail.1 %}
-                                {{ entry_detail.1 }}
-                            {% else %}
-                                -/-
-                            {% endif %}
-                        <td>
-                    </tr>
-                    {% endfor %}
-                </table>
-                {% endif %}
-                <app-root></app-root>
+                <div id="react-weight-dashboard"></div>
             </div>
         </div>
         <div class="card-footer">

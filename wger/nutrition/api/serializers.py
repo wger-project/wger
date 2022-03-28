@@ -185,6 +185,7 @@ class LogItemSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'plan',
+            'meal',
             'ingredient',
             'weight_unit',
             'datetime',

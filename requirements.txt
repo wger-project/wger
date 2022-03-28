@@ -6,36 +6,26 @@
 bleach~=4.1
 django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.3
-django-recaptcha~=2.0.6
+django-recaptcha~=3.0.0
 Django~=3.2
-django-crispy-forms~=1.13
-django_compressor~=2.4
+django-crispy-forms~=1.14
+django_compressor~=3.1
 django_extensions~=3.1
-django-storages~=1.11
-easy-thumbnails~=2.7
-icalendar==4.0.7
+django-storages~=1.12
+easy-thumbnails~=2.8
+icalendar==4.0.9
 invoke~=1.6
-pillow~=8.3
-reportlab==3.6.1
-requests
-setuptools>=18.5
-sphinx
+pillow~=9.0
+reportlab==3.6.8
+requests==2.27.1
 
 # AWS
 #boto3
 
-
 # REST API
 django-cors-headers>=3.0
 django-filter==21.1
-djangorestframework~=3.12
-
-
-# Explicitly set versions as a workaround for CI/Devel.
-# This is just intended to make life easier, has no deeper meaning and
-# can be removed if needed.
-six>=1.12.0  # for django-compressor
-
+djangorestframework~=3.13
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files

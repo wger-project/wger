@@ -31,7 +31,6 @@ dictionary in your settings file. Currently, the following options are supported
   images, use the `download-ingredient-images` command, which downloads them
   from a selected wger instance.
 
-
 .. note::
   If you want to override a default setting, don't overwrite all the dictionary
   but only the keys you need, e.g. ``WGER_SETTINGS['foo'] = 'bar'``. This avoids

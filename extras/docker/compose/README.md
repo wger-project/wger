@@ -66,7 +66,7 @@ the file to re-run migrations, etc.
 ## Building
 
 If you want to build this yourself, keep in mind that you **must** build from the
-project root. Make sure the wger/devel image is available locally as well:
+project root. Make sure the wger/server image is available locally as well:
 
     docker-compose -f extras/docker/compose/docker-compose.yml build.
 

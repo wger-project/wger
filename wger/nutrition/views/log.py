@@ -174,6 +174,7 @@ def _logMealPlan(meals):
         for item in meal.mealitem_set.select_related():
             log_item = LogItem(
                 plan=item.meal.plan,
+                meal=meal,
                 ingredient=item.ingredient,
                 weight_unit=item.weight_unit,
                 amount=item.amount

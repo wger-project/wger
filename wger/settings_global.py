@@ -212,14 +212,6 @@ LANGUAGE_CODE = 'en'
 # All translation files are in one place
 LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 
-# Available locales for angular app
-LANGUAGES_ANGULAR = (
-    'en',
-    'de',
-    'fr',
-    'no',
-)
-
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
@@ -437,6 +429,7 @@ WGER_SETTINGS = {
     'REMOVE_WHITESPACE': False,
     'ALLOW_REGISTRATION': True,
     'ALLOW_GUEST_USERS': True,
+    'ALLOW_UPLOAD_VIDEOS': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'TWITTER': False,
     'DOWNLOAD_FROM_OFF': False
