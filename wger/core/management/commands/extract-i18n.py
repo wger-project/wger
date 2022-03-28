@@ -38,6 +38,10 @@ class Command(BaseCommand):
 
     def handle(self, **options):
 
+        # Replace whitespace with underscores and make lowercase
+        def cleanup_name(name: str) -> str:
+            return name.replace(' ', '_').lower()
+
         # Collect all translatable items
         data = [i for i in ExerciseCategory.objects.all()] \
             + [i for i in Equipment.objects.all()] \
@@ -60,7 +64,7 @@ class Command(BaseCommand):
                 export const DummyComponent = () => {
                 const [t, i18n] = useTranslation();'''
             for i in data:
-                out += f't("{i}");\n'
+                out += f't("exercises.{cleanup_name(i.__str__())}");\n'
 
             out += '''
                 return (<p></p>);
