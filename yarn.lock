@@ -584,10 +584,10 @@ d3@^4:
     d3-voronoi "1.1.2"
     d3-zoom "1.7.1"
 
-d3@^7.4.2:
-  version "7.4.2"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-7.4.2.tgz#c5d1001459dc9517bc774949f71b95e8735b3b4e"
-  integrity sha512-7VK+QBAWtNDbP2EU/ThkXgjd0u1MsXYYgCK2ElQ4BBWh0usE75tHVVeYx47m2pqQEy4isYKAA0tAFSln0l+9EQ==
+d3@^7.4.3:
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-7.4.3.tgz#7bcd4f4d19e4359180a84d9cfd678761a269cbf7"
+  integrity sha512-x5cxHjtlXjtCzzaFv23mk6JKHKJzkYm/ePygQdeztcwYVedTHVQ7INyuAmRfjO7d4HTzQuofxzqva/d06Nh++Q==
   dependencies:
     d3-array "3"
     d3-axis "3"
