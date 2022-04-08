@@ -246,7 +246,16 @@ class IngredientSearchTestCase(WgerTestCase):
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 2)
         self.assertEqual(result['suggestions'][0]['value'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result['suggestions'][0]['data']['id'], 2)
+        suggestion_0_name = 'Ingredient, test, 2, organic, raw'
+        self.assertEqual(result['suggestions'][0]['data']['name'], suggestion_0_name)
+        self.assertEqual(result['suggestions'][0]['data']['image'], None)
+        self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
         self.assertEqual(result['suggestions'][1]['value'], 'Test ingredient 1')
+        self.assertEqual(result['suggestions'][1]['data']['id'], 1)
+        self.assertEqual(result['suggestions'][1]['data']['name'], 'Test ingredient 1')
+        self.assertEqual(result['suggestions'][1]['data']['image'], None)
+        self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
 
         # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)

@@ -22,6 +22,8 @@ import datetime
 from django.shortcuts import get_object_or_404
 
 # Third Party
+from easy_thumbnails.alias import aliases
+from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
     action,
@@ -167,11 +169,22 @@ def search(request):
         )
 
         for ingredient in ingredients:
+            if hasattr(ingredient, 'image'):
+                image_obj = ingredient.image
+                image = image_obj.image.url
+                t = get_thumbnailer(image_obj.image)
+                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+            else:
+                image = None
+                thumbnail = None
+                
             ingredient_json = {
                 'value': ingredient.name,
                 'data': {
                     'id': ingredient.id,
                     'name': ingredient.name,
+                    'image': image,
+                    'image_thumbnail': thumbnail
                 }
             }
             results.append(ingredient_json)

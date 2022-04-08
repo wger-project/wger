@@ -446,18 +446,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if self.source_name == Source.OPEN_FOOD_FACTS.value:
             return f'https://world.openfoodfacts.org/product/{self.code}/'
 
-    def get_image(self, request: HttpRequest):
+    def fetch_image(self):
         """
-        Returns the ingredient image
+        Fetches the ingredient image from Open Food Facts servers if it is not available locally
 
-        If it is not available locally, it is fetched from Open Food Facts servers
+        Returns the image if it was fetched
         """
-        try:
-            return self.image
-        except Ingredient.image.RelatedObjectDoesNotExist:
-            pass
-
-        if not request.user.is_authenticated:
+        if hasattr(self, 'image'):
             return
 
         if self.source_name != Source.OPEN_FOOD_FACTS.value:
@@ -507,3 +502,17 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             'size': len(downloaded_image.content)
         }
         return Image.from_json(self, downloaded_image, image_data, headers, generate_uuid=True)
+
+    def get_image(self, request: HttpRequest):
+        """
+        Returns the ingredient image
+
+        If it is not available locally, it is fetched from Open Food Facts servers
+        """
+        if hasattr(self, 'image'):
+            return self.image
+
+        if not request.user.is_authenticated:
+            return
+
+        return self.fetch_image()
