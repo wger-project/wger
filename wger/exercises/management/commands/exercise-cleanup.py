@@ -18,9 +18,7 @@
 import csv
 
 # Django
-from django.core.management.base import (
-    BaseCommand,
-)
+from django.core.management.base import BaseCommand
 
 # wger
 from wger.core.models import Language
