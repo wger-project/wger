@@ -151,7 +151,7 @@ def view(request, id, slug=None):
     entry_log = []
     chart_data = []
     if request.user.is_authenticated:
-        logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
+        logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise.exercise_base)
         entry_log, chart_data = process_log_entries(logs)
 
     template_data['logs'] = entry_log

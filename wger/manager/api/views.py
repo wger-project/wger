@@ -384,7 +384,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'date',
-        'exercise',
+        'exercise_base',
         'reps',
         'weight',
         'workout',

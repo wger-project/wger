@@ -87,10 +87,10 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
     form_class = WorkoutLogForm
     success_url = reverse_lazy('manager:workout:calendar')
 
-    def get_context_data(self, **kwargs):
-        context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _('Edit log entry for %s') % self.object.exercise.name
-        return context
+    # def get_context_data(self, **kwargs):
+        # context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
+        # context['title'] = _('Edit log entry for %s') % self.object.exercise_base
+        # return context
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
@@ -100,7 +100,7 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
 
     model = WorkoutLog
     fields = (
-        'exercise',
+        'exercise_base',
         'workout',
         'repetition_unit',
         'reps',
@@ -118,7 +118,7 @@ def add(request, pk):
 
     # NOTE: This function is waaaay too complex and convoluted. While updating
     #       to crispy forms, the template logic could be reduced a lot, but
-    #       there is still a lot optimisations that could happen here.
+    #       there is still a lot of optimisations that could happen here.
 
     # Load the day and check ownership
     day = get_object_or_404(Day, pk=pk)
@@ -285,7 +285,7 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     exercise_log[exercise_id] = []
 
                     # Filter the logs for user and exclude all units that are not weight
-                    logs = exercise_obj.workoutlog_set.filter(
+                    logs = exercise_obj.exercise_base.workoutlog_set.filter(
                         user=self.owner_user,
                         weight_unit__in=(1, 2),
                         repetition_unit=1,
