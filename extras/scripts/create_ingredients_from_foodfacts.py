@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 import enum
 from enum import Enum
+from unicodedata import category
 
 from pymongo import MongoClient
 import os
@@ -164,6 +165,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     fibre = product['nutriments'].get('fiber_100g', None)
     common_name = product.get('generic_name', None)
     brand = product.get('brands', None)
+    category = product.get('categories', None)
 
     if common_name and len(common_name) > 200:
         continue
@@ -187,6 +189,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         'source_url': source_url,
         'common_name': common_name,
         'brand': brand,
+        'category': category,
         'status': 2,
         'license_id': 5,
         'license_author': 'Open Food Facts',
