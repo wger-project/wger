@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-from collections import Iterable
+from collections.abc import Iterable
 
 # Django
 from django import template
