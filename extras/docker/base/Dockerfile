@@ -8,7 +8,7 @@
 # docker build --tag wger/base .
 #
 
-FROM ubuntu:21.04
+FROM ubuntu:22.04
 
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
@@ -25,7 +25,7 @@ RUN apt-get update \
       sqlite3 \
       netcat-openbsd \
   && rm -rf /var/lib/apt/lists/* \
-  && npm install -g yarn@1.22.5 sass\
+  && npm install -g yarn sass\
   && locale-gen en_US.UTF-8
 
 # Environmental variables
