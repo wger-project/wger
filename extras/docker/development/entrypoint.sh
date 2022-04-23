@@ -45,6 +45,20 @@ then
     python3 manage.py migrate
 fi
 
+# Sync exercises
+if [[ "$SYNC_EXERCISES_ON_STARTUP" == "True" ]];
+then
+    echo "Synchronizing exercises"
+    python3 manage.py sync-exercises
+fi
+
+# Download exercise images
+if [[ "$DOWNLOAD_EXERCISE_IMAGES_ON_STARTUP" == "True" ]];
+then
+    echo "Downloading exercise images"
+    python3 manage.py download-exercise-images
+fi
+
 # Run the server
 if [[ "$WGER_USE_GUNICORN" == "True" ]];
 then
