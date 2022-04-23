@@ -38,6 +38,13 @@ then
     python3 manage.py collectstatic --no-input
 fi
 
+# Perform database migrations
+if [[ "$DJANGO_PERFORM_MIGRATIONS" == "True" ]];
+then
+    echo "Performing database migrations"
+    python3 manage.py migrate
+fi
+
 # Run the server
 if [[ "$WGER_USE_GUNICORN" == "True" ]];
 then
