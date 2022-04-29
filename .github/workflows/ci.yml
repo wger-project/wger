@@ -82,7 +82,7 @@ jobs:
       #    coverage report
 
       - name: Save coverage result artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: coverage-results-${{ matrix.python-version }}
           path: coverage-postgres/
