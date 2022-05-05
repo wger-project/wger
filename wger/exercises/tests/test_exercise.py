@@ -18,12 +18,16 @@ import json
 # Django
 from django.core import mail
 from django.core.cache import cache
+from django.core.cache.backends import locmem
 from django.core.cache.utils import make_template_fragment_key
 from django.template import (
     Context,
     Template,
 )
 from django.urls import reverse
+
+# Third Party
+from rest_framework import status
 
 # wger
 from wger.core.tests import api_base_test
@@ -700,6 +704,7 @@ class ExerciseApiTestCase(
     pk = 1
     resource = Exercise
     private_resource = False
+    overview_cached = True
 
 
 class ExerciseInfoApiTestCase(
@@ -712,6 +717,23 @@ class ExerciseInfoApiTestCase(
     """
     pk = 1
     private_resource = False
+    overview_cached = True
 
     def get_resource_name(self):
         return 'exerciseinfo'
+
+
+class ExerciseBaseInfoApiTestCase(
+    api_base_test.BaseTestCase,
+    api_base_test.ApiBaseTestCase,
+    api_base_test.ApiGetTestCase,
+):
+    """
+    Tests the exercise base info resource
+    """
+    pk = 1
+    private_resource = False
+    overview_cached = True
+
+    def get_resource_name(self):
+        return 'exercisebaseinfo'
