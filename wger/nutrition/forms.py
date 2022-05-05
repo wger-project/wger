@@ -101,6 +101,7 @@ class BmiForm(forms.ModelForm):
     weight = forms.DecimalField(
         widget=Html5NumberInput(),
         max_value=999,
+        label=_('Weight (kg)'),
     )
 
     class Meta:
@@ -119,8 +120,39 @@ class BmiForm(forms.ModelForm):
                 Column('height', css_class='form-group col-6 mb-0'),
                 Column('weight', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
-            ), ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
+            ), ButtonHolder(Submit('submit-id-submit', _("Calculate"), css_class='btn-success'))
         )
+
+
+class BmiResultForm(forms.ModelForm):
+    bmi = forms.DecimalField(
+        decimal_places=2
+    )
+    weight = forms.DecimalField(
+        widget=Html5NumberInput(),
+        max_value=999,
+        label=_('Height (cm)'),
+    )
+    height = forms.DecimalField(
+        widget=Html5NumberInput(),
+        max_value=999,
+        label=_('Height (cm)'),
+    )
+    class Meta:
+        model = UserProfile
+        fields = ('bmi', 'weight', 'height')
+
+    def __init__(self, *args, **kwargs):
+        super(BmiResultForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'result-form'
+        self.helper.layout = Layout(
+            "bmi",
+            "weight",
+            "height"
+        )
+        self.helper.form_tag = False
+           
 
 
 class BmrForm(forms.ModelForm):
