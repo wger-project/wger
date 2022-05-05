@@ -160,7 +160,7 @@ class ApiGetTestCase(object):
 
     def test_get_overview_is_cached(self):
         """
-        Test accessing the overview view of a resource
+        Test accessing the overview view of a resource is cached
         """
         # Ensure the wger cache is empty.
         cache_length = len(locmem._caches['wger-cache'])

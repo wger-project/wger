@@ -18,16 +18,12 @@ import json
 # Django
 from django.core import mail
 from django.core.cache import cache
-from django.core.cache.backends import locmem
 from django.core.cache.utils import make_template_fragment_key
 from django.template import (
     Context,
     Template,
 )
 from django.urls import reverse
-
-# Third Party
-from rest_framework import status
 
 # wger
 from wger.core.tests import api_base_test

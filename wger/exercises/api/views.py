@@ -67,7 +67,7 @@ from wger.utils.permissions import CreateOnlyPermission
 
 logger = logging.getLogger(__name__)
 
-exerciseCacheTTL = 60 * 60 # One hour
+exercise_cache_TTL = 60 * 60 # One hour
 
 class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -105,7 +105,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'name',
     )
 
-    @method_decorator(cache_page(exerciseCacheTTL))
+    @method_decorator(cache_page(exercise_cache_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -229,7 +229,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(exerciseCacheTTL))
+    @method_decorator(cache_page(exercise_cache_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -253,7 +253,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(exerciseCacheTTL))
+    @method_decorator(cache_page(exercise_cache_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
