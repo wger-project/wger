@@ -1,7 +1,8 @@
 # Django
-from django.contrib.sites.models import Site
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
+
 
 """
 Sets the site URL
