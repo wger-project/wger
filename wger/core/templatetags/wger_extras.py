@@ -247,26 +247,3 @@ def format_username(user):
         return user.email
     else:
         return user.username
-
-
-class SpacelessNode(template.base.Node):
-
-    def __init__(self, nodelist):
-        self.nodelist = nodelist
-
-    def render(self, context):
-        if settings.WGER_SETTINGS['REMOVE_WHITESPACE']:
-            return strip_spaces_between_tags(self.nodelist.render(context).strip())
-        else:
-            return self.nodelist.render(context)
-
-
-@register.tag
-def spaceless_config(parser, token):
-    """
-    This is django's spaceless tag, copied here to use our configurable
-    SpacelessNode
-    """
-    nodelist = parser.parse(('endspaceless_config', ))
-    parser.delete_first_token()
-    return SpacelessNode(nodelist)

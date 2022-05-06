@@ -425,7 +425,6 @@ USER_AGENTS_CACHE = 'default'
 #
 WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
-    'REMOVE_WHITESPACE': False,
     'ALLOW_REGISTRATION': True,
     'ALLOW_GUEST_USERS': True,
     'ALLOW_UPLOAD_VIDEOS': False,
