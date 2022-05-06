@@ -168,15 +168,8 @@ function wgerRenderBodyMassIndex() {
     '#800000']);
 
   xAxis = d3.axisBottom(x);
-
   yAxis = d3.axisLeft(y);
-
   stack = d3.stack();
-
-  nest = d3.nest()
-    .key(function (d) {
-      return d.key;
-    });
 
   area = d3.area()
     .x(function (d) {
@@ -211,7 +204,7 @@ function wgerRenderBodyMassIndex() {
       'pre_obese',
       'obese_class_2',
       'obese_class_3']);
-    layers = stack(nest.entries(data));
+    layers = stack(d3.group(data, d => d.key));
 
     // Manually set the domains
     x.domain(data.map(function (d) {

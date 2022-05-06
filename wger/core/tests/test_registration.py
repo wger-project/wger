@@ -43,7 +43,6 @@ class RegistrationTestCase(WgerTestCase):
         with self.settings(
             WGER_SETTINGS={
                 'USE_RECAPTCHA': True,
-                'REMOVE_WHITESPACE': False,
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'TWITTER': False,
@@ -55,7 +54,6 @@ class RegistrationTestCase(WgerTestCase):
         with self.settings(
             WGER_SETTINGS={
                 'USE_RECAPTCHA': False,
-                'REMOVE_WHITESPACE': False,
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'TWITTER': False,
@@ -116,7 +114,6 @@ class RegistrationTestCase(WgerTestCase):
         with self.settings(
             WGER_SETTINGS={
                 'USE_RECAPTCHA': False,
-                'REMOVE_WHITESPACE': False,
                 'ALLOW_GUEST_USERS': True,
                 'ALLOW_REGISTRATION': False,
             }

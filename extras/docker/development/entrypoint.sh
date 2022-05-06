@@ -59,6 +59,9 @@ then
     python3 manage.py download-exercise-images
 fi
 
+# Set the site URL
+python3 manage.py set-site-url
+
 # Run the server
 if [[ "$WGER_USE_GUNICORN" == "True" ]];
 then

@@ -429,7 +429,6 @@ WGER_SETTINGS = {
     'ALLOW_UPLOAD_VIDEOS': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
-    'REMOVE_WHITESPACE': False,
     'TWITTER': False,
     'USE_RECAPTCHA': False
 }
