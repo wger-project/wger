@@ -19,6 +19,7 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
@@ -67,7 +68,6 @@ from wger.utils.permissions import CreateOnlyPermission
 
 logger = logging.getLogger(__name__)
 
-exercise_cache_TTL = 60 * 60 # One hour
 
 class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -105,7 +105,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'name',
     )
 
-    @method_decorator(cache_page(exercise_cache_TTL))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -229,7 +229,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(exercise_cache_TTL))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -253,7 +253,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(exercise_cache_TTL))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
