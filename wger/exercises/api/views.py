@@ -19,7 +19,10 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.utils.translation import gettext as _
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # Third Party
 from easy_thumbnails.alias import aliases
@@ -101,6 +104,10 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'status',
         'name',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         """
@@ -222,6 +229,10 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
@@ -241,6 +252,10 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
