@@ -20,8 +20,8 @@ import logging
 
 # Django
 from django.conf import settings
-from django.utils.translation import gettext as _
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 
 # Third Party
