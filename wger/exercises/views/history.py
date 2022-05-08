@@ -20,11 +20,13 @@ import logging
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 
-# wger
-from wger.exercises.views.helper import HistoryModes
-from wger.exercises.models import Exercise
-
+# Third Party
 from actstream.models import Action
+
+# wger
+from wger.exercises.models import Exercise
+from wger.exercises.views.helper import HistoryModes
+
 
 logger = logging.getLogger(__name__)
 

@@ -27,7 +27,10 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import ExerciseBase, Exercise
+from wger.exercises.models import (
+    Exercise,
+    ExerciseBase,
+)
 from wger.utils.cache import reset_workout_canonical_form
 
 # Local

@@ -88,9 +88,9 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
     success_url = reverse_lazy('manager:workout:calendar')
 
     # def get_context_data(self, **kwargs):
-        # context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-        # context['title'] = _('Edit log entry for %s') % self.object.exercise_base
-        # return context
+    # context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
+    # context['title'] = _('Edit log entry for %s') % self.object.exercise_base
+    # return context
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
@@ -298,7 +298,9 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     if exercise_log:
                         workout_log[day_id][exercise_base_id] = {}
                         workout_log[day_id][exercise_base_id]['log_by_date'] = entry_log
-                        workout_log[day_id][exercise_base_id]['div_uuid'] = 'div-' + str(uuid.uuid4())
+                        workout_log[day_id][exercise_base_id]['div_uuid'] = 'div-' + str(
+                            uuid.uuid4()
+                        )
                         workout_log[day_id][exercise_base_id]['chart_data'] = chart_data
 
         context['workout_log'] = workout_log

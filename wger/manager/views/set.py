@@ -85,9 +85,7 @@ def create(request, day_pk):
         if form.is_valid():
             for base in form.cleaned_data['exercises']:
                 formset = SettingFormset(
-                    request.POST,
-                    queryset=Setting.objects.none(),
-                    prefix=f'base{base.id}'
+                    request.POST, queryset=Setting.objects.none(), prefix=f'base{base.id}'
                 )
                 formsets.append({'exercise_base': base, 'formset': formset})
         all_valid = True

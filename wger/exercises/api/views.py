@@ -34,12 +34,10 @@ from rest_framework.decorators import (
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.views.helper import HistoryModes
 from wger.config.models import LanguageConfig
 from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
-    ExerciseTranslationSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
     ExerciseBaseInfoSerializer,
@@ -49,6 +47,7 @@ from wger.exercises.api.serializers import (
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
     ExerciseSerializer,
+    ExerciseTranslationSerializer,
     ExerciseVariationSerializer,
     ExerciseVideoSerializer,
     MuscleSerializer,
@@ -65,6 +64,7 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
+from wger.exercises.views.helper import HistoryModes
 from wger.utils.language import load_item_languages
 
 

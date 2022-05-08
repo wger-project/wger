@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-
 """
 Migration script to move foreign keys in Settings and WorkoutLog from
 Exercise to ExerciseBase. We first add a nullable FK to ExerciseBase,

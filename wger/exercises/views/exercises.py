@@ -126,34 +126,32 @@ def view(request, id, slug=None):
     Detail view for an exercise
     """
 
-    template_data = {}
-    template_data['comment_edit'] = False
-    template_data['show_shariff'] = True
-
     exercise = get_object_or_404(Exercise, pk=id)
-
-    template_data['exercise'] = exercise
-
-    template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
-    template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
-    template_data["muscles_sec_front"] = exercise.muscles_secondary.filter(is_front=True)
-    template_data["muscles_sec_back"] = exercise.muscles_secondary.filter(is_front=False)
+    context = {
+        'comment_edit': False,
+        'show_shariff': True,
+        'exercise': exercise,
+        "muscles_main_front": exercise.muscles.filter(is_front=True),
+        "muscles_main_back": exercise.muscles.filter(is_front=False),
+        "muscles_sec_front": exercise.muscles_secondary.filter(is_front=True),
+        "muscles_sec_back": exercise.muscles_secondary.filter(is_front=False),
+    }
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
     entry_log = []
     chart_data = []
     if request.user.is_authenticated:
-        logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise.exercise_base)
+        logs = WorkoutLog.objects.filter(user=request.user, exercise_base=exercise.exercise_base)
         entry_log, chart_data = process_log_entries(logs)
 
-    template_data['logs'] = entry_log
-    template_data['json'] = chart_data
-    template_data['svg_uuid'] = str(uuid.uuid4())
-    template_data['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
-    template_data['allow_upload_videos'] = settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']
+    context['logs'] = entry_log
+    context['json'] = chart_data
+    context['svg_uuid'] = str(uuid.uuid4())
+    context['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
+    context['allow_upload_videos'] = settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']
 
-    return render(request, 'exercise/view.html', template_data)
+    return render(request, 'exercise/view.html', context)
 
 
 class ExerciseForm(ModelForm):
@@ -218,10 +216,8 @@ class ExerciseForm(ModelForm):
                 min_edit_dist = levenshtein(exercise_name.casefold(), name.casefold())
                 if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
                     raise ValidationError(
-                        _(
-                            '%(name)s is too similar to existing exercise '
-                            '"%(exercise_name)s"'
-                        ),
+                        _('%(name)s is too similar to existing exercise '
+                          '"%(exercise_name)s"'),
                         params={
                             'name': name,
                             'exercise_name': exercise_name
@@ -423,4 +419,3 @@ class ExerciseDeleteView(
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _('Delete {0}?').format(self.object.name)
         return context
-

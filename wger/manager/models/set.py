@@ -26,7 +26,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.exercises.models import Exercise, ExerciseBase
+from wger.exercises.models import (
+    Exercise,
+    ExerciseBase,
+)
 from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.helpers import normalize_decimal
 
@@ -96,7 +99,9 @@ class Set(models.Model):
     @property
     def exercise_bases(self) -> typing.List[ExerciseBase]:
         """Returns the exercises for this set"""
-        out = list(dict.fromkeys([s.exercise_base for s in self.setting_set.select_related().all()]))
+        out = list(
+            dict.fromkeys([s.exercise_base for s in self.setting_set.select_related().all()])
+        )
         for exercise in out:
             exercise.settings = self.reps_smart_text(exercise)
 

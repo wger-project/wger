@@ -51,7 +51,7 @@ from wger.core.models import (
 )
 from wger.exercises.models import (
     Exercise,
-    ExerciseBase
+    ExerciseBase,
 )
 from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (

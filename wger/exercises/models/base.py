@@ -16,22 +16,26 @@
 
 # Standard Library
 import uuid
+from typing import (
+    List,
+    Optional,
+)
 
 # Django
-from typing import List, Optional
-
 from django.core.checks import translation
 from django.db import models
-from django.utils.translation import gettext_lazy as _, get_language
+from django.utils.translation import (
+    get_language,
+    gettext_lazy as _,
+)
 
 # Third Party
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.utils.constants import DEFAULT_LANGUAGE
 from wger.core.models import Language
+from wger.utils.constants import DEFAULT_LANGUAGE
 from wger.utils.models import AbstractLicenseModel
-
 
 # Local
 from .category import ExerciseCategory
@@ -45,11 +49,7 @@ class ExerciseBase(AbstractLicenseModel, models.Model):
     Model for an exercise base
     """
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False,
-        verbose_name='UUID'
-    )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
     """Globally unique ID, to identify the base across installations"""
 
     category = models.ForeignKey(

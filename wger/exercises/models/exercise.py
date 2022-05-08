@@ -70,10 +70,7 @@ class Exercise(AbstractLicenseModel, models.Model):
     )
     """The submission date"""
 
-    update_date = models.DateTimeField(
-        _('Date'),
-        auto_now=True
-    )
+    update_date = models.DateTimeField(_('Date'), auto_now=True)
     """Datetime of the last modification"""
 
     language = models.ForeignKey(
