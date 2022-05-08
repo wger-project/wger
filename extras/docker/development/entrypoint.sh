@@ -5,16 +5,6 @@ if [ ! -f /home/wger/src/settings.py ]; then
    cp /tmp/settings.py /home/wger/src
 fi
 
-# If using docker compose, wait for postgres
-if [[ "$DJANGO_DB_PORT" == "5432" ]]; then
-    echo "Waiting for postgres..."
-
-    while ! nc -z $DJANGO_DB_HOST $DJANGO_DB_PORT; do
-      sleep 0.1
-    done
-
-    echo "PostgreSQL started :)"
-fi
 
 # The python wger package needs to be installed in development mode.
 # If the created folder does not exist (e.g. because this image was mounted
