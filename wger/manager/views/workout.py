@@ -122,7 +122,6 @@ def view(request, pk):
     """
     Show the workout with the given ID
     """
-    template_data = {}
     workout = get_object_or_404(Workout, pk=pk)
     user = workout.user
     is_owner = request.user == user
@@ -132,14 +131,16 @@ def view(request, pk):
 
     uid, token = make_token(user)
 
-    template_data['workout'] = workout
-    template_data['uid'] = uid
-    template_data['token'] = token
-    template_data['is_owner'] = is_owner
-    template_data['owner_user'] = user
-    template_data['show_shariff'] = is_owner
+    context = {
+        'workout': workout,
+        'uid': uid,
+        'token': token,
+        'is_owner': is_owner,
+        'owner_user': user,
+        'show_shariff': is_owner,
+    }
 
-    return render(request, 'workout/view.html', template_data)
+    return render(request, 'workout/view.html', context)
 
 
 @login_required()

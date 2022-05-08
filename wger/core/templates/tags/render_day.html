@@ -98,7 +98,7 @@
                 <div class="exercise-list">
 
                     {% for base in set.exercise_bases %}
-                    {% with exercise as base.get_by_language %}
+                    {% with base.get_exercise as exercise %}
 
                         <div id="exercise-{{ base.id }}" class="ajax-set-edit-target">
                             <div class="media">
