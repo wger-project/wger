@@ -240,6 +240,7 @@ def search(request):
                 'value': exercise.name,
                 'data': {
                     'id': exercise.id,
+                    'base_id': exercise.exercise_base_id,
                     'name': exercise.name,
                     'category': _(exercise.category.name),
                     'image': image,

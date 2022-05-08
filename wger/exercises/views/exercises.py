@@ -100,23 +100,16 @@ class ExerciseListView(ListView):
     Generic view to list all exercises
     """
 
-    model = Exercise
+    model = ExerciseBase
     template_name = 'exercise/overview.html'
-    context_object_name = 'exercises'
-
-    def get(self, request, *args, **kwargs):
-        response = super(ListView, self).get(request, *args, **kwargs)
-        patch_vary_headers(response, ['User-Agent'])
-        return response
+    context_object_name = 'bases'
 
     def get_queryset(self):
         """
         Filter to only active exercises in the configured languages
         """
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        return Exercise.objects.all() \
-            .filter(language__in=languages) \
-            .order_by('exercise_base__category__id') \
+        return ExerciseBase.objects.all() \
+            .order_by('category_id') \
             .select_related()
 
     def get_context_data(self, **kwargs):

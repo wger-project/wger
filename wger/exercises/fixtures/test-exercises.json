@@ -218,6 +218,34 @@
         }
     },
     {
+        "pk": 5,
+        "model": "exercises.exercise",
+        "fields": {
+            "uuid": "37b5813c76bd4658820a572d9dd93f31",
+            "language": 2,
+            "description": "",
+            "exercise_base": 1,
+            "license_author": "test",
+            "name": "Test exercise 123",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "exercises.exercise",
+        "fields": {
+            "uuid": "37b5813c76bd4658820a572d9dd93f31",
+            "language": 3,
+            "description": "",
+            "exercise_base": 3,
+            "license_author": "test",
+            "name": "Some other exercise",
+            "creation_date": "2022-01-10",
+            "update_date": "2022-02-02T06:45:11+01:00"
+        }
+    },
+    {
         "pk": 35,
         "model": "exercises.exercise",
         "fields": {

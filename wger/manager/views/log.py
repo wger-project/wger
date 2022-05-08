@@ -134,7 +134,7 @@ def add(request, pk):
     form_to_exercise = {}
 
     for exercise_set in day.set_set.all():
-        for exercise in exercise_set.exercises:
+        for bases in exercise_set.exercise_bases:
 
             # Maximum possible values
             total_sets += int(exercise_set.sets)
@@ -143,8 +143,8 @@ def add(request, pk):
             form_id_range = range(counter_before, counter + 1)
 
             # Add to list
-            exercise_list[exercise.id] = {
-                'obj': exercise,
+            exercise_list[bases.id] = {
+                'obj': bases,
                 'sets': int(exercise_set.sets),
                 'form_ids': form_id_range
             }
@@ -152,7 +152,7 @@ def add(request, pk):
             counter += 1
             # Helper mapping form-ID <--> Exercise
             for id in form_id_range:
-                form_to_exercise[id] = exercise
+                form_to_exercise[id] = bases
 
     # Define the formset here because now we know the value to pass to 'extra'
     WorkoutLogFormSet = modelformset_factory(
@@ -237,11 +237,11 @@ def add(request, pk):
             session_form = HelperWorkoutSessionForm()
 
     # Pass the correct forms to the exercise list
-    for exercise in exercise_list:
+    for bases in exercise_list:
 
-        form_id_from = min(exercise_list[exercise]['form_ids'])
-        form_id_to = max(exercise_list[exercise]['form_ids'])
-        exercise_list[exercise]['forms'] = formset[form_id_from:form_id_to + 1]
+        form_id_from = min(exercise_list[bases]['form_ids'])
+        form_id_to = max(exercise_list[bases]['form_ids'])
+        exercise_list[bases]['forms'] = formset[form_id_from:form_id_to + 1]
 
     context = {
         'day': day,
@@ -280,12 +280,12 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
             workout_log[day_id] = {}
             for set_obj in day_obj.set_set.all():
                 exercise_log = {}
-                for exercise_obj in set_obj.exercises:
-                    exercise_id = exercise_obj.id
-                    exercise_log[exercise_id] = []
+                for base_obj in set_obj.exercise_bases:
+                    exercise_base_id = base_obj.id
+                    exercise_log[exercise_base_id] = []
 
                     # Filter the logs for user and exclude all units that are not weight
-                    logs = exercise_obj.exercise_base.workoutlog_set.filter(
+                    logs = base_obj.workoutlog_set.filter(
                         user=self.owner_user,
                         weight_unit__in=(1, 2),
                         repetition_unit=1,
@@ -293,13 +293,13 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                     )
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
-                        exercise_log[exercise_obj.id].append(entry_log)
+                        exercise_log[base_obj.id].append(entry_log)
 
                     if exercise_log:
-                        workout_log[day_id][exercise_id] = {}
-                        workout_log[day_id][exercise_id]['log_by_date'] = entry_log
-                        workout_log[day_id][exercise_id]['div_uuid'] = 'div-' + str(uuid.uuid4())
-                        workout_log[day_id][exercise_id]['chart_data'] = chart_data
+                        workout_log[day_id][exercise_base_id] = {}
+                        workout_log[day_id][exercise_base_id]['log_by_date'] = entry_log
+                        workout_log[day_id][exercise_base_id]['div_uuid'] = 'div-' + str(uuid.uuid4())
+                        workout_log[day_id][exercise_base_id]['chart_data'] = chart_data
 
         context['workout_log'] = workout_log
         context['owner_user'] = self.owner_user

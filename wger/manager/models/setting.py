@@ -27,7 +27,7 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import Exercise
+from wger.exercises.models import ExerciseBase, Exercise
 from wger.utils.cache import reset_workout_canonical_form
 
 # Local
@@ -40,8 +40,17 @@ class Setting(models.Model):
     Settings for an exercise (weight, reps, etc.)
     """
 
-    set = models.ForeignKey(Set, verbose_name=_('Sets'), on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise, verbose_name=_('Exercises'), on_delete=models.CASCADE)
+    set = models.ForeignKey(
+        Set,
+        verbose_name=_('Sets'),
+        on_delete=models.CASCADE,
+    )
+
+    exercise_base = models.ForeignKey(
+        ExerciseBase,
+        verbose_name=_('Exercises'),
+        on_delete=models.CASCADE,
+    )
     repetition_unit = models.ForeignKey(
         RepetitionUnit,
         verbose_name=_('Unit'),
@@ -106,7 +115,7 @@ class Setting(models.Model):
         """
         Return a more human-readable representation
         """
-        return f"setting {self.id} for exercise {self.exercise_id} in set {self.set_id}"
+        return f"setting {self.id} for exercise base {self.exercise_base_id} in set {self.set_id}"
 
     def save(self, *args, **kwargs):
         """

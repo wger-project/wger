@@ -47,8 +47,8 @@
                         {% render_muscles muscle %}
                     </div>
 
-                    {% for exercise_base in muscle.exercisebase_set.accepted %}
-                        {% for exercise in exercise_base.exercises.accepted %}
+                    {% for exercise_base in muscle.exercisebase_set.all %}
+                        {% with exercise_base.get_exercise as exercise  %}
                         {% if exercise.language in active_languages %}
                         <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                             <div class="media">
@@ -77,9 +77,9 @@
                             </div>
                         </a>
                         {% endif %}
-                        {% empty %}
-                            {% translate "No exercises for this muscle. Add or edit an exercise and set the muscle." %}
-                        {% endfor %}
+                        {% endwith %}
+                    {% empty %}
+                        {% translate "No exercises for this muscle. Add or edit an exercise and set the muscle." %}
                     {% endfor %}
                 </div>
             </div>

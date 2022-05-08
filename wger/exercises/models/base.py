@@ -18,13 +18,18 @@
 import uuid
 
 # Django
+from typing import List, Optional
+
+from django.core.checks import translation
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, get_language
 
 # Third Party
 from simple_history.models import HistoricalRecords
 
 # wger
+from wger.utils.constants import DEFAULT_LANGUAGE
+from wger.core.models import Language
 from wger.utils.models import AbstractLicenseModel
 
 
@@ -107,8 +112,31 @@ class ExerciseBase(AbstractLicenseModel, models.Model):
     #
 
     @property
-    def get_languages(self):
+    def get_languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base
         """
         return [exercise.language for exercise in self.exercises.all()]
+
+    def get_exercise(self, language: Optional[str] = None):
+        """
+        Returns the exercise for the given language. If the language is not
+        available, return the English translation.
+
+        Note that as a fallback, if no English translation is found, the
+        first available one is returned. While this is kind of wrong, it won't
+        happen in our dataset, but it is possible that some local installations
+        have deleted the English translation or similar
+        """
+
+        language = language or get_language()
+
+        try:
+            exercise = self.exercises.get(language__short_name=language)
+        except:  # can't do Exercise.DoesNotExist because of circular imports
+            try:
+                exercise = self.exercises.get(language__short_name=DEFAULT_LANGUAGE)
+            except:
+                exercise = self.exercises.first()
+
+        return exercise

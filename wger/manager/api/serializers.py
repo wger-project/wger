@@ -139,7 +139,7 @@ class SettingSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'set',
-            'exercise',
+            'exercise_base',
             'repetition_unit',
             'reps',
             'weight',

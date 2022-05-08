@@ -97,15 +97,17 @@
                 {% endif %}
                 <div class="exercise-list">
 
-                    {% for exercise in set.exercises %}
-                        <div id="exercise-{{ exercise.id }}" class="ajax-set-edit-target">
+                    {% for base in set.exercise_bases %}
+                    {% with exercise as base.get_by_language %}
+
+                        <div id="exercise-{{ base.id }}" class="ajax-set-edit-target">
                             <div class="media">
 
                                 <div style="width: 64px; height: 64px;">
                                     <a href="{{ exercise.get_absolute_url }}">
-                                        {% if exercise.main_image %}
+                                        {% if base.main_image %}
                                             <img class="img-fluid"
-                                                 src="{{ exercise.main_image.image|thumbnail_url:'small' }}"
+                                                 src="{{ base.main_image.image|thumbnail_url:'small' }}"
                                                  alt="{{ exercise }}"
                                                  style="max-width: 100%; max-height: 100%;">
                                         {% else %}
@@ -122,11 +124,11 @@
                                         {{ exercise.name }}
                                     </p>
                                     <p>
-                                        {{ exercise.settings }}
+                                        {{ base.settings }}
                                     </p>
 
                                     {% if editable %}
-                                        {% if not exercise.settings %}
+                                        {% if not base.settings %}
                                             <p>
                                                 {% translate "This exercise has no repetitions." %}<br>
                                                 <a href="{% url 'manager:set:edit' set.id %}"
@@ -136,9 +138,9 @@
                                             </p>
                                         {% endif %}
 
-                                        {% if exercise.exercisecomment_set.all %}
+                                        {% if base.exercisecomment_set.all %}
                                             <p class="text-muted exercise-comments">
-                                                {% for comment in exercise.exercisecomment_set.all %}
+                                                {% for comment in base.exercisecomment_set.all %}
                                                     {{ comment }}<br>
                                                 {% endfor %}
                                             </p>
@@ -147,6 +149,7 @@
                                 </div>
                             </div>
                         </div>
+                    {% endwith %}
                     {% endfor %} <!--for exercise in set-->
                 </div>
             </td>

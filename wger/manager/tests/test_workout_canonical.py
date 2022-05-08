@@ -19,7 +19,7 @@ from django.core.cache import cache
 from wger.core.models import DaysOfWeek
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
-    Exercise,
+    ExerciseBase,
     Muscle,
 )
 from wger.manager.models import (
@@ -78,8 +78,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                 {
                     'exercise_list': [
                         {
-                            'obj':
-                            Exercise.objects.get(pk=1),
+                            'obj': ExerciseBase.objects.get(pk=1),
                             'image_list': [
                                 {
                                     'image': image1,
@@ -105,8 +104,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                         'backsecondary': [],
                         'front': [muscle1]
                     },
-                    'obj':
-                    Set.objects.get(pk=1),
+                    'obj': Set.objects.get(pk=1),
                     'settings_computed': [setting1] * 2
                 }
             ]
@@ -126,8 +124,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                 'day_list': [DaysOfWeek.objects.get(pk=4)],
                 'text': 'Thursday'
             },
-            'obj':
-            Day.objects.get(pk=2),
+            'obj': Day.objects.get(pk=2),
             'muscles': {
                 'back': [muscle2],
                 'frontsecondary': [muscle1],
@@ -138,7 +135,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                 {
                     'exercise_list': [
                         {
-                            'obj': Exercise.objects.get(pk=2),
+                            'obj': ExerciseBase.objects.get(pk=2),
                             'image_list': [{
                                 'image': image2,
                                 'is_main': False
@@ -220,7 +217,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
             {
                 'exercise_list': [
                     {
-                        'obj': Exercise.objects.get(pk=2),
+                        'obj': ExerciseBase.objects.get(pk=2),
                         'image_list': [{
                             'image': image2,
                             'is_main': False

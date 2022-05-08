@@ -121,7 +121,7 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 class SetForm(ModelForm):
 
     exercises = OrderedModelMultipleChoiceField(
-        queryset=Exercise.objects.all(),
+        queryset=ExerciseBase.objects.all(),
         label=_('Exercises'),
         required=False,
         widget=ExerciseAjaxSelect,

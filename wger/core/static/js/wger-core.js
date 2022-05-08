@@ -408,13 +408,13 @@ function addExercise(exercise) {
   $exerciseSearchLog.trigger('create');
 }
 
-function getExerciseFormset(exerciseId) {
+function getExerciseFormset(baseId) {
   var formsetUrl;
   var setValue;
   setValue = $('#id_sets').val();
-  if (setValue && parseInt(setValue, 10) && exerciseId && parseInt(exerciseId, 10)) {
+  if (setValue && parseInt(setValue, 10) && baseId && parseInt(baseId, 10)) {
     formsetUrl = '/' + getCurrentLanguage() +
-      '/workout/set/get-formset/' + exerciseId + '/' + setValue;
+      '/workout/set/get-formset/' + baseId + '/' + setValue;
 
     $.get(formsetUrl, function (data) {
       var $formsets;
@@ -482,12 +482,12 @@ function wgerInitEditSet() {
     onSelect: function (suggestion) {
       // Add the exercise to the list
       addExercise({
-        id: suggestion.data.id,
+        id: suggestion.data.base_id,
         value: suggestion.value
       });
 
       // Load formsets
-      getExerciseFormset(suggestion.data.id);
+      getExerciseFormset(suggestion.data.base_id);
 
       // Init the remove buttons
       initRemoveExerciseFormset();

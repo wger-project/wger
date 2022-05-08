@@ -103,7 +103,7 @@ def create_demo_entries(user):
     day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
 
-    setting = Setting(set=day_set, exercise=exercise, reps=8, order=1)
+    setting = Setting(set=day_set, exercise=exercise.exercise_base, reps=8, order=1)
     setting.save()
 
     # Weight log entries
@@ -111,7 +111,7 @@ def create_demo_entries(user):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise=exercise,
+                exercise=exercise.exercise_base,
                 workout=workout,
                 reps=reps,
                 weight=18 - reps + random.randint(1, 4),
@@ -127,14 +127,14 @@ def create_demo_entries(user):
     day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
 
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=8, order=1))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=8, order=1))
 
     # Weight log entries
     for reps in (7, 10):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise=exercise,
+                exercise=exercise.exercise_base,
                 workout=workout,
                 reps=reps,
                 weight=30 - reps + random.randint(1, 4),
@@ -150,14 +150,14 @@ def create_demo_entries(user):
     day_set = Set(exerciseday=day, sets=4, order=3)
     day_set.save()
 
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=10, order=1))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=10, order=1))
 
     # Weight log entries
     for reps in (5, 10, 12):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise=exercise,
+                exercise=exercise.exercise_base,
                 workout=workout,
                 reps=reps,
                 weight=110 - reps + random.randint(1, 10),
@@ -173,9 +173,9 @@ def create_demo_entries(user):
     day_set = Set(exerciseday=day, sets=4, order=4)
     day_set.save()
 
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=30, order=1))
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=99, order=2))
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=35, order=3))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=99, order=2))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=35, order=3))
 
     # Leg raises, supersets with crunches
     if language.short_name == 'de':
@@ -183,9 +183,9 @@ def create_demo_entries(user):
     else:
         exercise = Exercise.objects.get(pk=126)
 
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=30, order=1))
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=40, order=2))
-    setting_list.append(Setting(set=day_set, exercise=exercise, reps=99, order=3))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=40, order=2))
+    setting_list.append(Setting(set=day_set, exercise=exercise.exercise_base, reps=99, order=3))
 
     Setting.objects.bulk_create(setting_list)
 
@@ -214,7 +214,7 @@ def create_demo_entries(user):
     plan = NutritionPlan()
     plan.user = user
     plan.language = language
-    plan.description = _('Sample nutrional plan')
+    plan.description = _('Sample nutritional plan')
     plan.save()
 
     # Breakfast

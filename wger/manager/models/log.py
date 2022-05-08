@@ -46,11 +46,13 @@ class WorkoutLog(models.Model):
         editable=False,
         on_delete=models.CASCADE,
     )
+
     exercise_base = models.ForeignKey(
         ExerciseBase,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
+
     workout = models.ForeignKey(
         Workout,
         verbose_name=_('Workout'),
