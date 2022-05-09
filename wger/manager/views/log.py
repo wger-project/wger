@@ -130,29 +130,29 @@ def add(request, pk):
     # exercise they belong besides the form-ID, from Django's formset
     counter = 0
     total_sets = 0
-    exercise_list = {}
-    form_to_exercise = {}
+    exercise_base_list = {}
+    form_to_exercise_base = {}
 
-    for exercise_set in day.set_set.all():
-        for bases in exercise_set.exercise_bases:
+    for set_set in day.set_set.all():
+        for base in set_set.exercise_bases:
 
             # Maximum possible values
-            total_sets += int(exercise_set.sets)
+            total_sets += int(set_set.sets)
             counter_before = counter
-            counter = counter + int(exercise_set.sets) - 1
+            counter = counter + int(set_set.sets) - 1
             form_id_range = range(counter_before, counter + 1)
 
             # Add to list
-            exercise_list[bases.id] = {
-                'obj': bases,
-                'sets': int(exercise_set.sets),
+            exercise_base_list[base.id] = {
+                'obj': base,
+                'sets': int(set_set.sets),
                 'form_ids': form_id_range
             }
 
             counter += 1
-            # Helper mapping form-ID <--> Exercise
+            # Helper mapping form-ID <--> Exercise base
             for id in form_id_range:
-                form_to_exercise[id] = bases
+                form_to_exercise_base[id] = base
 
     # Define the formset here because now we know the value to pass to 'extra'
     WorkoutLogFormSet = modelformset_factory(
@@ -166,9 +166,9 @@ def add(request, pk):
         # the form (for space and usability reasons)
         post_copy = request.POST.copy()
 
-        for form_id in form_to_exercise:
+        for form_id in form_to_exercise_base:
             if post_copy.get('form-%s-weight' % form_id) or post_copy.get('form-%s-reps' % form_id):
-                post_copy['form-%s-exercise' % form_id] = form_to_exercise[form_id].id
+                post_copy['form-%s-exercise_base' % form_id] = form_to_exercise_base[form_id].id
 
         # Pass the new data to the forms
         formset = WorkoutLogFormSet(data=post_copy)
@@ -183,35 +183,35 @@ def add(request, pk):
                 session_form = HelperWorkoutSessionForm(data=post_copy, instance=session)
 
             # Save the Workout Session only if there is not already one for this date
-            instance = session_form.save(commit=False)
+            log_instance = session_form.save(commit=False)
             if not WorkoutSession.objects.filter(user=request.user, date=log_date).exists():
-                instance.date = log_date
-                instance.user = request.user
-                instance.workout = day.training
+                log_instance.date = log_date
+                log_instance.user = request.user
+                log_instance.workout = day.training
             else:
                 session = WorkoutSession.objects.get(user=request.user, date=log_date)
-                instance.instance = session
-            instance.save()
+                log_instance.instance = session
+            log_instance.save()
 
             # Log entries (only the ones with actual content)
-            instances = [i for i in formset.save(commit=False) if i.reps]
-            for instance in instances:
+            log_instances = [i for i in formset.save(commit=False) if i.reps]
+            for log_instance in log_instances:
 
                 # Set the weight unit in kg
-                if not hasattr(instance, 'weight_unit'):
-                    instance.weight_unit = WeightUnit.objects.get(pk=1)
+                if not hasattr(log_instance, 'weight_unit'):
+                    log_instance.weight_unit = WeightUnit.objects.get(pk=1)
 
                 # Set the unit in reps
-                if not hasattr(instance, 'repetition_unit'):
-                    instance.repetition_unit = RepetitionUnit.objects.get(pk=1)
+                if not hasattr(log_instance, 'repetition_unit'):
+                    log_instance.repetition_unit = RepetitionUnit.objects.get(pk=1)
 
-                if not instance.weight:
-                    instance.weight = 0
+                if not log_instance.weight:
+                    log_instance.weight = 0
 
-                instance.user = request.user
-                instance.workout = day.training
-                instance.date = log_date
-                instance.save()
+                log_instance.user = request.user
+                log_instance.workout = day.training
+                log_instance.date = log_date
+                log_instance.save()
 
             return HttpResponseRedirect(reverse('manager:log:log', kwargs={'pk': day.training_id}))
     else:
@@ -237,15 +237,15 @@ def add(request, pk):
             session_form = HelperWorkoutSessionForm()
 
     # Pass the correct forms to the exercise list
-    for bases in exercise_list:
+    for base in exercise_base_list:
 
-        form_id_from = min(exercise_list[bases]['form_ids'])
-        form_id_to = max(exercise_list[bases]['form_ids'])
-        exercise_list[bases]['forms'] = formset[form_id_from:form_id_to + 1]
+        form_id_from = min(exercise_base_list[base]['form_ids'])
+        form_id_to = max(exercise_base_list[base]['form_ids'])
+        exercise_base_list[base]['forms'] = formset[form_id_from:form_id_to + 1]
 
     context = {
         'day': day,
-        'exercises': exercise_list,
+        'bases': exercise_base_list,
         'formset': formset,
         'helper': WorkoutLogFormHelper(),
         'session_form': session_form,
