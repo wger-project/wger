@@ -16,34 +16,15 @@
 
 # Standard Library
 import csv
-import os
-import pprint
 
 # Django
-from django.conf import settings
-from django.core.exceptions import (
-    ImproperlyConfigured,
-    ValidationError,
-)
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
-from django.core.management.base import (
-    BaseCommand,
-    CommandError,
-)
-from django.core.validators import URLValidator
-
-# Third Party
-import requests
-from requests.utils import default_user_agent
+from django.core.management.base import BaseCommand
 
 # wger
-from wger import get_version
 from wger.core.models import Language
 from wger.exercises.models import (
     Exercise,
     ExerciseBase,
-    ExerciseImage,
 )
 
 
@@ -102,6 +83,7 @@ class Command(BaseCommand):
                     f'{language.short_name}:uuid',
                     f'{language.short_name}:name',
                     f'{language.short_name}:description',
+                    f'{language.short_name}:alias',
                     f'{language.short_name}:license',
                     f'{language.short_name}:author',
                 ]

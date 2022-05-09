@@ -19,8 +19,11 @@
 import logging
 
 # Django
+from django.conf import settings
+from django.utils.decorators import method_decorator
 from django.db.models import Q
 from django.utils.translation import gettext as _
+from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
@@ -158,6 +161,9 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'language',
         'name',
     )
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
@@ -271,6 +277,10 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
@@ -290,6 +300,10 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):

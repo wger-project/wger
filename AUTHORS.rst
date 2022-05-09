@@ -65,6 +65,8 @@ Developers
 * Lucas Stone-Drake - https://github.com/LucasSD
 * absolutely-not-bot - https://github.com/absolutely-not-bot
 * Jaspreet Dhillon - https://github.com/jaspreetsd902
+* Sofiko Alaverdashvili - https://github.com/sophiamartelli
+* Tom Bowyer - https://github.com/ImTheTom
 
 Translators
 -----------

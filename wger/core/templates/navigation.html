@@ -82,24 +82,6 @@
                     </li>
 
 
-
-                    {#            #}
-                    {# Weight tab #}
-                    {#            #}
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
-                        <a href="{% url 'weight:overview' %}"
-                           class="dropdown-toggle nav-link"
-                           data-toggle="dropdown"
-                           rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'weight:overview' %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
-                        </ul>
-                    </li>
-                    {% endif %}
-
-
                     {#               #}
                     {# Nutrition tab #}
                     {#               #}
@@ -138,6 +120,22 @@
                         </ul>
                     </li>
 
+
+                    {#            #}
+                    {# Weight tab #}
+                    {#            #}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
+                        <a href="{% url 'weight:overview' %}"
+                           class="dropdown-toggle nav-link"
+                           data-toggle="dropdown"
+                           rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'weight:overview' %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
 
 
                     {#              #}

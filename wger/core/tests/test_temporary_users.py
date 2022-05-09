@@ -61,7 +61,6 @@ class DemoUserTestCase(WgerTestCase):
         with self.settings(
             WGER_SETTINGS={
                 'USE_RECAPTCHA': True,
-                'REMOVE_WHITESPACE': False,
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': False,
                 'TWITTER': False,

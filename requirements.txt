@@ -12,15 +12,17 @@ django-activity-stream~=1.4
 django-crispy-forms~=1.14
 django-simple-history~=3.0
 django-email-verification~=0.1.0
-django_compressor~=3.1
+django_compressor~=4.0
 django_extensions~=3.1
 django-storages~=1.12
-easy-thumbnails~=2.8
+django-environ==0.8.1
+easy-thumbnails==2.8.1
 icalendar==4.0.9
-invoke~=1.6
-pillow~=9.0
-reportlab==3.6.8
+invoke~=1.7
+pillow~=9.1
+reportlab==3.6.9
 requests==2.27.1
+
 
 # AWS
 #boto3
