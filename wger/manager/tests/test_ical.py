@@ -79,7 +79,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
 
         # Approximate size
         self.assertGreater(len(response.content), 540)
-        self.assertLess(len(response.content), 560)
+        self.assertLess(len(response.content), 620)
 
     def export_ical_token_wrong(self):
         """
@@ -116,7 +116,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
 
             # Approximate size
             self.assertGreater(len(response.content), 540)
-            self.assertLess(len(response.content), 560)
+            self.assertLess(len(response.content), 620)
 
     def test_export_ical_anonymous(self):
         """
@@ -176,7 +176,7 @@ class ScheduleICalExportTestCase(WgerTestCase):
 
         # Approximate size
         self.assertGreater(len(response.content), 1650)
-        self.assertLess(len(response.content), 1670)
+        self.assertLess(len(response.content), 1800)
 
     def export_ical_token_wrong(self):
         """
@@ -213,7 +213,7 @@ class ScheduleICalExportTestCase(WgerTestCase):
 
             # Approximate size
             self.assertGreater(len(response.content), 1650)
-            self.assertLess(len(response.content), 1670)
+            self.assertLess(len(response.content), 1800)
 
     def test_export_ical_anonymous(self):
         """

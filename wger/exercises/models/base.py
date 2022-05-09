@@ -112,6 +112,13 @@ class ExerciseBase(AbstractLicenseModel, models.Model):
     #
 
     @property
+    def main_image(self):
+        """
+        Return the main image for the exercise or None if nothing is found
+        """
+        return self.exerciseimage_set.accepted().filter(is_main=True).first()
+
+    @property
     def get_languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base

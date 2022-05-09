@@ -196,7 +196,7 @@ def edit(request, pk):
 
     if request.method == "POST":
         formsets = []
-        for base in set_obj.exercises:
+        for base in set_obj.exercise_bases:
             formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(base.id))
             formsets.append({'base': base, 'formset': formset})
 

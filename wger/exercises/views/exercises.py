@@ -268,12 +268,12 @@ class ExercisesEditAddView(WgerFormMixin):
         return form
 
     def form_valid(self, form):
-        exercise_base = ExerciseBase.objects.filter(id=form.instance.id)
-        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
-        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
-        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
+        base = ExerciseBase.objects.filter(id=form.instance.id)
+        base.equipment.set(form.cleaned_data['equipment'].all())
+        base.muscles.set(form.cleaned_data['muscles'].all())
+        base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
 
-        form.instance.exercise_base = exercise_base
+        form.instance.exercise_base = base
         form.instance.save()
         return super(ExercisesEditAddView, self).form_valid(form)
 
