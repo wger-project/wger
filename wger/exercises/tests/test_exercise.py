@@ -91,11 +91,11 @@ class ExerciseIndexTestCase(WgerTestCase):
         self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
 
         # Correct categories are shown
-        category_1 = response.context['exercises'][0].exercise_base.category
+        category_1 = response.context['bases'][0].category
         self.assertEqual(category_1.id, 2)
         self.assertEqual(category_1.name, "Another category")
 
-        category_2 = response.context['exercises'][1].exercise_base.category
+        category_2 = response.context['bases'][1].category
         self.assertEqual(category_2.id, 3)
         self.assertEqual(category_2.name, "Yet another category")
 
@@ -656,7 +656,7 @@ class WorkoutCacheTestCase(WgerTestCase):
         Tests the workout cache when saving
         """
         exercise = Exercise.objects.get(pk=2)
-        for setting in exercise.setting_set.all():
+        for setting in exercise.exercise_base.setting_set.all():
             setting.set.exerciseday.training.canonical_representation
             workout_id = setting.set.exerciseday.training_id
             self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
@@ -671,7 +671,7 @@ class WorkoutCacheTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=2)
 
         workout_ids = []
-        for setting in exercise.setting_set.all():
+        for setting in exercise.exercise_base.setting_set.all():
             workout_id = setting.set.exerciseday.training_id
             workout_ids.append(workout_id)
             setting.set.exerciseday.training.canonical_representation

@@ -95,6 +95,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
         # Exercises
         for base in set_obj.exercise_bases:
+            exercise = base.get_exercise()
             group_exercise_marker[set_obj.id]['end'] = len(data)
 
             # Process the settings
@@ -107,7 +108,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             if comments:
                 item_list = [
                     ListItem(Paragraph(i.comment, style=styleSheet["ExerciseComments"]))
-                    for i in base.exercisecomment_set.all()
+                    for i in exercise.exercisecomment_set.all()
                 ]
 
             # Add the exercise's main image
@@ -128,7 +129,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
             # Put the name and images and comments together
             exercise_content = [
-                Paragraph(base.name, styleSheet["Small"]), image,
+                Paragraph(exercise.name, styleSheet["Small"]), image,
                 ListFlowable(
                     item_list,
                     bulletType='bullet',

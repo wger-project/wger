@@ -128,7 +128,7 @@ class Exercise(AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
-        for setting in self.setting_set.all():
+        for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
     def delete(self, *args, **kwargs):
@@ -143,7 +143,7 @@ class Exercise(AbstractLicenseModel, models.Model):
             delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
-        for setting in self.setting_set.all():
+        for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Exercise, self).delete(*args, **kwargs)

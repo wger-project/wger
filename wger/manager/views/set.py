@@ -190,7 +190,7 @@ def edit(request, pk):
 
     formsets = []
     for base in set_obj.exercise_bases:
-        queryset = Setting.objects.filter(set=set_obj, exercise=base)
+        queryset = Setting.objects.filter(set=set_obj, exercise_base=base)
         formset = SettingFormsetEdit(queryset=queryset, prefix='exercise{0}'.format(base.id))
         formsets.append({'base': base, 'formset': formset})
 

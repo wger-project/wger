@@ -56,7 +56,7 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.setting_set.all():
+        for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
         super(ExerciseComment, self).save(*args, **kwargs)
@@ -65,7 +65,7 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.setting_set.all():
+        for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(ExerciseComment, self).delete(*args, **kwargs)
