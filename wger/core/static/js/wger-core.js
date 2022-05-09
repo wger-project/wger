@@ -441,11 +441,12 @@ function updateAllExerciseFormset() {
       promise = $().promise();
       if (exerciseId && parseInt(exerciseId, 10)) {
         formsetUrl = '/' + getCurrentLanguage() +
-          '/workout/set/get-formset/' + exerciseId + '/' + setValue;
+          '/workout/set/' +
+          'get-formset/' + exerciseId + '/' + setValue;
         promise.done(function () {
           promise = $.get(formsetUrl, function (data) {
             var $formsets;
-            $('#formset-exercise-' + exerciseId).remove();
+            $('#formset-base-' + exerciseId).remove();
             $formsets = $('#formsets');
             $formsets.append(data);
             $('#exercise-search-log').scrollTop(0);
@@ -463,10 +464,10 @@ function updateAllExerciseFormset() {
  */
 function initRemoveExerciseFormset() {
   $('.ajax-exercise-select a').click(function (e) {
-    var exerciseId;
+    var baseId;
     e.preventDefault();
-    exerciseId = $(this).parent('div').find('input').val();
-    $('#formset-exercise-' + exerciseId).remove();
+    baseId = $(this).parent('div').find('input').val();
+    $('#formset-base-' + baseId).remove();
     $(this).parent('div').remove();
   });
 }
@@ -501,16 +502,16 @@ function wgerInitEditSet() {
   // Mobile select box
   $('#id_exercise_list').change(function () {
     var $idExerciseList;
-    var exerciseId;
+    var baseId;
     var exerciseName;
     $idExerciseList = $('#id_exercise_list');
-    exerciseId = $idExerciseList.val();
+    baseId = $idExerciseList.val();
     exerciseName = $idExerciseList.find(':selected').text();
     addExercise({
-      id: exerciseId,
+      id: baseId,
       value: exerciseName
     });
-    getExerciseFormset(exerciseId);
+    getExerciseFormset(baseId);
     initRemoveExerciseFormset();
   });
 
