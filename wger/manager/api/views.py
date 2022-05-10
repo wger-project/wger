@@ -348,7 +348,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
-        'exercise',
+        'exercise_base',
         'order',
         'reps',
         'weight',
