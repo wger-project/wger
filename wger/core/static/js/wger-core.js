@@ -496,6 +496,9 @@ function wgerInitEditSet() {
       $(this).val('');
       return false;
     }
+
+    // Add something to clear autocomplete on back button
+    // Something like $('form').trigger("reset");
   });
 
   // Mobile select box

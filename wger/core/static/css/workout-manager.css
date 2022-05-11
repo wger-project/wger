@@ -161,6 +161,7 @@ tbody tr:hover td .editoptions {
 .no-hover a:hover,
 .no-hover:hover {
   background-color: transparent;
+  cursor: pointer;
 }
 
 
@@ -392,6 +393,7 @@ table.month td.session-good:hover {
   font-size: 18px;
 }
 
+/**/
 .autocomplete-suggestions {
   overflow: auto;
   border: 1px solid #cbd3dd;
@@ -400,7 +402,7 @@ table.month td.session-good:hover {
 
 .autocomplete-suggestion {
   overflow: hidden;
-  padding: 5px 15px;
+  padding: 5px 20px;
   white-space: nowrap;
 }
 
@@ -415,6 +417,7 @@ table.month td.session-good:hover {
 
 .autocomplete-group {
   background-color: #d3d7cf;
+  padding-left: 10px;
 }
 
 .autocomplete-group strong {
