@@ -52,14 +52,9 @@ def overview2(request):
     """
     Generic view to list the history of the exercises
     """
-    context = {}
-
     out = []
-    history = Exercise.history.all()
-    for entry in history:
+    for entry in Exercise.history.all():
         if entry.prev_record:
             out.append({'record': entry, 'delta': entry.diff_against(entry.prev_record)})
 
-    context['history'] = out
-
-    return render(request, 'history/list.html', context)
+    return render(request, 'history/list2.html', {'history': out})

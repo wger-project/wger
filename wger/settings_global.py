@@ -457,11 +457,11 @@ def email_verified_callback(user):
 EMAIL_VERIFIED_CALLBACK = email_verified_callback
 EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
-EMAIL_MAIL_HTML = 'email_verification/email_body.html'
-EMAIL_MAIL_PLAIN = 'email_verification/email_body.txt'
+EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
+EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'https://wger.de/'
+EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
 # Django activity stream

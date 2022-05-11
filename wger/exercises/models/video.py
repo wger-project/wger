@@ -34,11 +34,17 @@ except ImportError:
 from wger.exercises.models import ExerciseBase
 from wger.utils.models import AbstractLicenseModel
 
+MAX_FILE_SIZE_MB = 100
+
 
 def validate_video(value):
 
-    if value.size > 1024 * 1024 * 100:
-        raise ValidationError(_('Maximum file size is 100MB.'))
+    if value.size > 1024 * 1024 * MAX_FILE_SIZE_MB:
+        raise ValidationError(_('Maximum file size is %(size)sMB.') % {'size': MAX_FILE_SIZE_MB})
+
+    # Editing existing video
+    if not hasattr(value.file, 'temporary_file_path'):
+        return
 
     if value.file.content_type not in ['video/mp4', 'video/webm', 'video/ogg']:
         raise ValidationError(_('File type is not supported'))
