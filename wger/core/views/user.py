@@ -282,9 +282,15 @@ def registration(request):
                 config.save()
 
             user.userprofile.save()
-
             user = authenticate(username=username, password=password)
+
+            # Log the user in
             django_login(request, user)
+
+            # Email the user with the activation link
+            send_email(user)
+
+            # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('core:dashboard'))
     else:

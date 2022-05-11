@@ -22,6 +22,7 @@ import logging
 from django.contrib.auth.models import User
 
 # Third Party
+from django_email_verification import send_email
 from rest_framework import (
     status,
     viewsets,
@@ -171,6 +172,9 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         user.userprofile.added_by = request.user
         user.userprofile.save()
         token = create_token(user)
+
+        # Email the user with the activation link
+        send_email(user)
 
         return Response(
             {

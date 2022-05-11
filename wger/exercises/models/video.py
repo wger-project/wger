@@ -34,6 +34,7 @@ except ImportError:
 from wger.exercises.models import ExerciseBase
 from wger.utils.models import AbstractLicenseModel
 
+
 MAX_FILE_SIZE_MB = 100
 
 
