@@ -44,6 +44,8 @@ class Muscle(models.Model):
     name_en = models.CharField(
         max_length=50,
         default='',
+        verbose_name=_('Alternative name'),
+        help_text=_('A more basic name for the muscle'),
     )
 
     # Metaclass to set some other properties

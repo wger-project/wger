@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='muscle',
             name='name_en',
-            field=models.CharField(default='', max_length=50),
+            field=models.CharField(default='', help_text='A more basic name for the muscle',
+                                   max_length=50, verbose_name='Alternative name'),
         ),
     ]
