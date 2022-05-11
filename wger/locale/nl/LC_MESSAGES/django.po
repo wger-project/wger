@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-10-27 10:48+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2022-05-12 14:15+0000\n"
+"Last-Translator: Rick <rickeits153@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -315,10 +315,8 @@ msgid "Contact"
 msgstr "Contact"
 
 #: core/forms.py:257
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Een manier om je van antwoord te voorzien (e-mail, etc.)"
+msgstr "Een manier om je te beantwoorden (e-mail, etc.)"
 
 #: core/forms.py:265 exercises/models/comment.py:40 manager/models/set.py:60
 #: manager/models/setting.py:99 nutrition/models/log.py:71
@@ -864,10 +862,8 @@ msgid "Workout templates"
 msgstr "Workout  schemas"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Je schema's"
+msgstr "Je sjablonen"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
@@ -1411,7 +1407,7 @@ msgstr "Opnemen in inactief overzicht"
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "Inloggen voor beheerders is enkel beschikbaar in %(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1609,11 +1605,11 @@ msgstr "Gebruiker {0} voegde een nieuwe oefening \"{1}\" toe."
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Regel"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
@@ -1621,13 +1617,11 @@ msgstr ""
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Anderen"
+msgstr "Andere"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1652,8 +1646,9 @@ msgstr ""
 "eerste afbeelding wordt automatisch aangeduid door het systeem."
 
 #: exercises/models/image.py:100
+#, fuzzy
 msgid "The art style of your image"
-msgstr ""
+msgstr "De artistieke stijl van je plaatje"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1670,31 +1665,31 @@ msgstr "Latijns, bvb. \"Pectoralis major\""
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "Maximale bestandsgrootte is 100MB"
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Bestandstype wordt niet ondersteund"
 
 #: exercises/models/video.py:57
 #, fuzzy
 #| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)sis geen geldige geboortedatum"
+msgstr "Bestand is geen geldige video"
 
 #: exercises/models/video.py:88
 #, fuzzy
 #| msgid "Main picture"
 msgid "Main video"
-msgstr "Hoofdafbeelding"
+msgstr "Hoofdvideo"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1702,23 +1697,19 @@ msgstr "Duur"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Breedte"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Gewicht"
+msgstr "Hoogte"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Code"
+msgstr "Codec"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Codec, lange naam"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1913,13 +1904,11 @@ msgstr "Voeg afbeelding toe"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Video's"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Voeg afbeelding toe"
+msgstr "Voeg video toe"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
