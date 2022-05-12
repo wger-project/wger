@@ -81,7 +81,7 @@ class MuscleAddView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixin, 
     """
 
     model = Muscle
-    fields = ['name', 'is_front']
+    fields = ['name', 'is_front', 'name_en']
     success_url = reverse_lazy('exercise:muscle:admin-list')
     title = gettext_lazy('Add muscle')
     permission_required = 'exercises.add_muscle'
@@ -93,7 +93,7 @@ class MuscleUpdateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = Muscle
-    fields = ['name', 'is_front']
+    fields = ['name', 'is_front', 'name_en']
     success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.change_muscle'
 
@@ -112,7 +112,7 @@ class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMi
     """
 
     model = Muscle
-    fields = ('name', 'is_front')
+    fields = ('name', 'is_front', 'name_en')
     success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.delete_muscle'
     messages = gettext_lazy('Successfully deleted')
