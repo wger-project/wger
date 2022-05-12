@@ -177,7 +177,12 @@ class Command(BaseCommand):
                 muscle.name_en = muscle_name_en
                 muscle.save()
             except Muscle.DoesNotExist:
-                muscle = Muscle(id=muscle_id, name=muscle_name, is_front=muscle_is_front, name_en=muscle_name_en)
+                muscle = Muscle(
+                    id=muscle_id,
+                    name=muscle_name,
+                    is_front=muscle_is_front,
+                    name_en=muscle_name_en
+                )
                 muscle.save()
                 self.stdout.write(
                     self.style.WARNING(

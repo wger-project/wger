@@ -18,6 +18,7 @@ muscle_names = [
     (16, 'Lower back'),
 ]
 
+
 def set_names(apps, schema_editor):
     Muscle = apps.get_model('exercises', 'Muscle')
     for mapping in muscle_names:
@@ -27,6 +28,7 @@ def set_names(apps, schema_editor):
             m.save()
         except Muscle.DoesNotExist:
             pass
+
 
 class Migration(migrations.Migration):
 
@@ -38,8 +40,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='muscle',
             name='name_en',
-            field=models.CharField(default='', help_text='A more basic name for the muscle',
-                                   max_length=50, verbose_name='Alternative name'),
+            field=models.CharField(
+                default='',
+                help_text='A more basic name for the muscle',
+                max_length=50,
+                verbose_name='Alternative name'
+            ),
         ),
         migrations.RunPython(set_names),
     ]
