@@ -108,15 +108,10 @@ function wgerSetupSortable() {
 function setProfileField(field, newValue) {
   var dataDict = {};
   dataDict[field] = newValue;
-  $.get('/api/v2/userprofile', function () {
-  }).done(function (userprofile) {
-    //console.log('Updating profile field "' + field + '" to value: ' + newValue);
-    $.ajax({
-      url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
-      type: 'PATCH',
+  $.post({
+      url: '/api/v2/userprofile/',
       data: dataDict
     });
-  });
 }
 
 /*
@@ -131,32 +126,12 @@ function getProfileField(field) {
     type: 'GET',
     async: false,
     success: function (userprofile) {
-      result = userprofile.results[0][field];
+      result = userprofile.results[field];
     }
   });
   return result;
 }
 
-/*
- Get the current user's username.
- Do not use with anonymous users!
- Synchronous request, use sparingly!
- */
-function wgerGetUsername() {
-  var userId;
-  var result;
-  userId = getProfileField('user');
-  result = null;
-  $.ajax({
-    url: '/api/v2/userprofile/' + userId + '/username/',
-    type: 'GET',
-    async: false,
-    success: function (user) {
-      result = user.username;
-    }
-  });
-  return result;
-}
 
 function wgerToggleComments() {
   $('#exercise-comments-toggle').click(function (e) {

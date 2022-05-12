@@ -39,11 +39,14 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
+    email = serializers.EmailField(source="user.email", read_only=True)
+    username = serializers.EmailField(source="user.username", read_only=True)
+
     class Meta:
         model = UserProfile
         fields = [
-            'id',
-            'user',
+            'username',
+            'email',
             'email_verified',
             'gym',
             'is_temporary',
