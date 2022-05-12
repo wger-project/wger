@@ -152,7 +152,7 @@ class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Muscle
     private_resource = False
-    data = {'name': 'The name', 'is_front': True}
+    data = {'name': 'The name', 'is_front': True, 'name_en': 'name en'}
 
     def test_get_detail(self):
         super().test_get_detail()
