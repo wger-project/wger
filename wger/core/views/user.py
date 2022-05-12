@@ -649,7 +649,7 @@ def confirm_email(request):
         send_email(request.user)
         messages.success(
             request,
-            _('Verification email sent to %(email)s') % {'email': request.user.email}
+            _('A verification email was sent to %(email)s') % {'email': request.user.email}
         )
 
     return HttpResponseRedirect(reverse('core:dashboard'))

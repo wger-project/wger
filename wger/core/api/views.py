@@ -74,7 +74,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     is_private = True
     serializer_class = UserprofileSerializer
     permission_classes = (WgerPermission, UpdateOnlyPermission)
-    ordering_fields = '__all__'
 
     def get_queryset(self):
         """
@@ -89,13 +88,29 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         return [(User, 'user')]
 
     @action(detail=True)
-    def username(self, request, pk):
+    def username(self, request, pk: int):
         """
         Return the username
         """
 
         user = self.get_object().user
         return Response(UsernameSerializer(user).data)
+
+    @action(detail=True, url_name='verify-email', url_path='verify-email')
+    def verify_email(self, request, pk: int):
+        """
+        Return the username
+        """
+
+        profile = self.get_object()
+        if profile.email_verified:
+            return Response({'status': 'verified',
+                             'message': 'This email is already verified'})
+
+        send_email(request.user)
+        return Response(
+            {'status': 'sent',
+             'message': f'A verification email was sent to {request.user.email}'})
 
 
 class ApplicationVersionView(viewsets.ViewSet):
