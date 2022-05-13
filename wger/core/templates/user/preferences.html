@@ -13,6 +13,22 @@
 
 
 {% block sidebar %}
+    {% if user.userprofile.email_verified %}
+        <p>
+            <span class="{% fa_class 'envelope-circle-check' %}  text-success"></span>
+            {% translate "Verified email" %}
+        </p>
+    {% else %}
+        <p>
+            <span class="{% fa_class 'envelope' %}"></span>
+            {% translate "Unverified email" %}
+            <br>
+            <a href="{% url 'core:user:confirm-email' %}">{% translate "Send verification email" %}</a>
+        </p>
+    {% endif %}
+    <p>
+        <small class="text-muted">{% translate "You need to verify your email to contribute exercises" %}</small>
+    </p>
 {% endblock %}
 
 
