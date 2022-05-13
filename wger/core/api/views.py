@@ -132,13 +132,15 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         profile = request.user.userprofile
         if profile.email_verified:
-            return Response({'status': 'verified',
-                             'message': 'This email is already verified'})
+            return Response({'status': 'verified', 'message': 'This email is already verified'})
 
         send_email(request.user)
         return Response(
-            {'status': 'sent',
-             'message': f'A verification email was sent to {request.user.email}'})
+            {
+                'status': 'sent',
+                'message': f'A verification email was sent to {request.user.email}'
+            }
+        )
 
 
 class ApplicationVersionView(viewsets.ViewSet):
