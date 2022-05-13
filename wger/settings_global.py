@@ -96,7 +96,10 @@ INSTALLED_APPS = (
     'django_email_verification',
 
     # Activity stream
-    'actstream'
+    'actstream',
+
+    # Fontawesome
+    'fontawesomefree',
 )
 
 MIDDLEWARE = (

@@ -18,7 +18,6 @@
   "dependencies": {
     "Sortable": "RubaXa/Sortable#1.15.0",
     "bootstrap": "4.6.1",
-    "components-font-awesome": "5.9.0",
     "d3": "^7.4.4",
     "datatables": "^1.10.18",
     "devbridge-autocomplete": "^1.4.11",
