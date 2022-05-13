@@ -108,16 +108,6 @@ class ExerciseIndexTestCase(WgerTestCase):
         self.assertEqual(exercise_2.id, 1)
         self.assertEqual(exercise_2.name, "An exercise")
 
-        # Only authorized users see the edit links
-        if admin:
-            self.assertNotContains(response, 'Only registered users can do this')
-
-        if logged_in and not demo:
-            self.assertNotContains(response, 'Only registered users can do this')
-
-        if logged_in and demo:
-            self.assertContains(response, 'Only registered users can do this')
-
     def test_exercise_index_editor(self):
         """
         Tests the exercise overview page as a logged in user with editor rights
