@@ -89,7 +89,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                     'is_main': False
                                 }
                             ],
-                            'comment_list': ['test 123'],
+                            'comment_list': [],
                             'has_weight':
                             False,
                             'setting_obj_list': [setting_1],
@@ -143,7 +143,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                 'image': image2,
                                 'is_main': False
                             }],
-                            'comment_list': ['Foobar'],
+                            'comment_list': [],
                             'has_weight': True,
                             'setting_obj_list': [setting_2],
                             'setting_text': '4 \xd7 10 (15 kg)',
@@ -225,7 +225,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                             'image': image2,
                             'is_main': False
                         }],
-                        'comment_list': ['Foobar'],
+                        'comment_list': [],
                         'has_weight': False,
                         'setting_obj_list': [Setting.objects.get(pk=3)],
                         'setting_text': '4 \xd7 10',
