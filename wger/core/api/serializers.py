@@ -75,13 +75,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
         ]
 
 
-class UsernameSerializer(serializers.Serializer):
-    """
-    Serializer to extract the username
-    """
-    username = serializers.CharField()
-
-
 class UserApiSerializer(serializers.ModelSerializer):
     """ Serializer to map to User model in relation to api user"""
     username = serializers.CharField(required=True)
