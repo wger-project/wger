@@ -101,9 +101,6 @@ def create(request, day_pk):
             form.instance.exerciseday = day
             set_obj = form.save()
 
-            print(formsets)
-            print('---------------------')
-
             order = 1
             for formset in formsets:
                 instances = formset['formset'].save(commit=False)
