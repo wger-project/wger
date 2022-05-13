@@ -289,16 +289,6 @@ $(document).ready(function() {
 {# Side bar #}
 {#          #}
 {% block sidebar %}
-{% if user.is_authenticated and not user.userprofile.is_temporary and not perms.exercises %}
-<h5>{% translate "Options" %}</h5>
-<p>
-    <a href="{% url 'exercise:exercise:correct' exercise.id %}">
-        <span class="{% fa_class 'edit' %}"></span>
-        {% translate "Submit a correction" %}
-    </a>
-</p>
-{% endif %}
-
 {% license_sidebar exercise.license exercise.license_author %}
 {% endblock %}
 
@@ -316,11 +306,6 @@ $(document).ready(function() {
             {% translate "Options" %}
         </button>
         <div class="dropdown-menu">
-            <a href="{% url 'exercise:exercise:edit' exercise.id %}" class="dropdown-item">
-                <span class="{% fa_class 'edit' %}"></span>
-                {% translate "Edit" %}
-            </a>
-            <div role="separator" class="dropdown-divider"></div>
             <a href="{% url 'exercise:exercise:delete' exercise.id %}" class="wger-modal-dialog dropdown-item">
                 <span class="{% fa_class 'trash' %}"></span>
                 {% translate "Delete" %}

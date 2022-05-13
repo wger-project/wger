@@ -65,11 +65,6 @@
                             <li><a class="dropdown-item" href="{% url 'exercise:muscle:overview' %}">{% translate "by muscle" context "as in sorted by muscle" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:equipment:overview' %}">{% translate "by equipment" context "as in sorted by equipment" %}</a></li>
 
-                            {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
-                            <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:add' %}">{% translate "Add new exercise" %}</a><li>
-                            {% endif %}
-
                             {% if user.userprofile.has_exercise_permission %}
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Administration" %}</li>

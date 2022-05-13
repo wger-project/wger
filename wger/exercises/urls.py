@@ -208,21 +208,6 @@ patterns_exercise = [
         name='view',
     ),
     path(
-        'add/',
-        login_required(exercises.ExerciseAddView.as_view()),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit/',
-        exercises.ExerciseUpdateView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:pk>/correct',
-        exercises.ExerciseCorrectView.as_view(),
-        name='correct',
-    ),
-    path(
         '<int:pk>/delete/',
         exercises.ExerciseDeleteView.as_view(),
         name='delete',
