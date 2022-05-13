@@ -92,24 +92,21 @@ class ExerciseIndexTestCase(WgerTestCase):
 
         # Correct categories are shown
         category_1 = response.context['bases'][0].category
-        self.assertEqual(category_1.id, 2)
-        self.assertEqual(category_1.name, "Another category")
+        self.assertEqual(category_1.id, 1)
+        self.assertEqual(category_1.name, "Category")
 
         category_2 = response.context['bases'][1].category
-        self.assertEqual(category_2.id, 3)
-        self.assertEqual(category_2.name, "Yet another category")
+        self.assertEqual(category_2.id, 2)
+        self.assertEqual(category_2.name, "Another category")
 
         # Correct exercises in the categories
-        exercise_bases_1 = category_1.exercisebase_set.all()
-        exercises_1 = exercise_bases_1[0].exercises.all()
-        exercises_2 = exercise_bases_1[1].exercises.all()
-        exercise_1 = exercises_1[0]
-        exercise_2 = exercises_2[0]
-        self.assertEqual(exercise_1.id, 1)
-        self.assertEqual(exercise_1.name, "An exercise")
+        exercise_1 = response.context['bases'][0].get_exercise()
+        exercise_2 = response.context['bases'][1].get_exercise()
+        self.assertEqual(exercise_1.id, 81)
+        self.assertEqual(exercise_1.name, "Needed for demo user")
 
-        self.assertEqual(exercise_2.id, 2)
-        self.assertEqual(exercise_2.name, "Very cool exercise")
+        self.assertEqual(exercise_2.id, 1)
+        self.assertEqual(exercise_2.name, "An exercise")
 
         self.assertContains(response, 'Add new exercise')
 

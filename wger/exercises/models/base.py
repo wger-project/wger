@@ -24,6 +24,7 @@ from typing import (
 # Django
 from django.core.checks import translation
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import (
     get_language,
     gettext_lazy as _,
@@ -124,6 +125,15 @@ class ExerciseBase(AbstractLicenseModel, models.Model):
         Returns the languages from the exercises that use this base
         """
         return [exercise.language for exercise in self.exercises.all()]
+
+    @property
+    def base_variations(self):
+        """
+        Returns the variations of this exercise base, excluding itself
+        """
+        if not self.variations:
+            return []
+        return self.variations.exercisebase_set.filter(~Q(id=self.id))
 
     def get_exercise(self, language: Optional[str] = None):
         """
