@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-15 14:51+0100\n"
+"POT-Creation-Date: 2022-05-14 12:01+0200\n"
 "PO-Revision-Date: 2022-01-18 14:31+0000\n"
 "Last-Translator: G. Buendía <gbuendia@gmx.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
@@ -49,7 +49,7 @@ msgstr "Ejercicios"
 msgid "Ingredients"
 msgstr "Ingredientes"
 
-#: config/templates/language/overview.html:4 core/templates/navigation.html:228
+#: config/templates/language/overview.html:4 core/templates/navigation.html:226
 msgid "Languages"
 msgstr "Idiomas"
 
@@ -225,8 +225,8 @@ msgstr "Mi programa de rutinas"
 msgid "Empty placeholder schedule"
 msgstr "Programación de marcador posición vacía"
 
-#: core/forms.py:61 core/templates/navigation.html:190
-#: core/templates/navigation.html:194 core/templates/user/login.html:4
+#: core/forms.py:61 core/templates/navigation.html:188
+#: core/templates/navigation.html:192 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
 msgstr "Ingresar"
@@ -303,8 +303,8 @@ msgstr "Contraseña incorrecta"
 msgid "The form is secured with reCAPTCHA"
 msgstr "El Formulario está asegurado por recaptcha"
 
-#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
-#: core/templates/navigation.html:195 core/templates/template.html:150
+#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:188
+#: core/templates/navigation.html:193 core/templates/template.html:149
 #: core/templates/user/login.html:20 core/views/user.py:293
 #: software/templates/features.html:38
 msgid "Register"
@@ -635,7 +635,7 @@ msgstr ""
 
 #: core/templates/index.html:33 core/templates/index.html:73
 #: core/templates/misc/fragments/shariff_modal.html:29
-#: core/templates/template.html:125 manager/templates/calendar/month.html:138
+#: core/templates/template.html:124 manager/templates/calendar/month.html:138
 #: manager/templates/schedule/view.html:246
 #: manager/templates/schedule/view.html:266
 #: manager/templates/workout/view.html:132
@@ -772,7 +772,7 @@ msgstr "No hay planes nutricionales."
 msgid "Weight"
 msgstr "Peso"
 
-#: core/templates/index.html:210 core/templates/navigation.html:97
+#: core/templates/index.html:210 core/templates/navigation.html:135
 #: weight/views.py:70
 msgid "Add weight entry"
 msgstr "Añadir entrada de peso"
@@ -804,8 +804,8 @@ msgstr "Listado de licencias"
 msgid "Nothing found"
 msgstr "No se ha encontrado nada"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:175
-#: core/templates/template_features.html:118
+#: core/templates/misc/about.html:4 core/templates/template.html:174
+#: core/templates/template_features.html:117
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
 msgstr "Imprimir"
@@ -892,13 +892,13 @@ msgstr "por equipamiento"
 #: exercises/templates/equipment/overview.html:113
 #: exercises/templates/exercise/overview.html:112
 #: exercises/templates/exercise/overview.html:116
-#: exercises/templates/muscles/overview.html:108
 #: exercises/templates/muscles/overview.html:112
+#: exercises/templates/muscles/overview.html:116
 msgid "Add new exercise"
 msgstr "Añadir nuevo ejercicio"
 
-#: core/templates/navigation.html:75 core/templates/navigation.html:134
-#: core/templates/navigation.html:226
+#: core/templates/navigation.html:75 core/templates/navigation.html:116
+#: core/templates/navigation.html:224
 msgid "Administration"
 msgstr "Administración"
 
@@ -921,106 +921,106 @@ msgstr "Músculos"
 msgid "Categories"
 msgstr "Categorias"
 
-#: core/templates/navigation.html:94
-msgid "Body weight"
-msgstr "Peso corporal"
-
-#: core/templates/navigation.html:96 core/templates/user/overview.html:114
-#: weight/templates/overview.html:7
-msgid "Weight overview"
-msgstr "Índice de peso"
-
-#: core/templates/navigation.html:111 software/templates/features.html:87
+#: core/templates/navigation.html:93 software/templates/features.html:87
 msgid "Nutrition"
 msgstr "Nutrición"
 
-#: core/templates/navigation.html:117 core/templates/user/overview.html:144
+#: core/templates/navigation.html:99 core/templates/user/overview.html:144
 msgid "Nutrition plans"
 msgstr "Planes nutritionales"
 
-#: core/templates/navigation.html:123 nutrition/templates/bmi/form.html:50
+#: core/templates/navigation.html:105 nutrition/templates/bmi/form.html:50
 msgid "BMI calculator"
 msgstr "Calculadora de IMC"
 
-#: core/templates/navigation.html:129 nutrition/templates/rate/form.html:17
+#: core/templates/navigation.html:111 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
 msgstr "Caluladora de calorias diarias"
 
-#: core/templates/navigation.html:131
+#: core/templates/navigation.html:113
 #: nutrition/templates/ingredient/overview.html:29
 msgid "Ingredient overview"
 msgstr "Índice de ingredientes"
 
-#: core/templates/navigation.html:135 nutrition/templates/units/list.html:6
+#: core/templates/navigation.html:117 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
 msgstr "Unidades de peso de los ingredientes"
 
-#: core/templates/navigation.html:136
+#: core/templates/navigation.html:118
 #: nutrition/templates/ingredient/pending.html:6
 msgid "Ingredients pending review"
 msgstr "Ingredientes esperando revisión"
 
-#: core/templates/navigation.html:149
+#: core/templates/navigation.html:132
+msgid "Body weight"
+msgstr "Peso corporal"
+
+#: core/templates/navigation.html:134 core/templates/user/overview.html:114
+#: weight/templates/overview.html:7
+msgid "Weight overview"
+msgstr "Índice de peso"
+
+#: core/templates/navigation.html:147
 msgid "About this software"
 msgstr "Sobre este programa"
 
-#: core/templates/navigation.html:151 core/templates/template_features.html:83
+#: core/templates/navigation.html:149 core/templates/template_features.html:82
 #: software/templates/about_us.html:5
 msgid "About us"
 msgstr "Sobre nosotros"
 
-#: core/templates/navigation.html:153 software/templates/features.html:209
+#: core/templates/navigation.html:151 software/templates/features.html:209
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:157 utils/models.py:40
+#: core/templates/navigation.html:155 utils/models.py:40
 msgid "License"
 msgstr "Licencia"
 
-#: core/templates/navigation.html:163
+#: core/templates/navigation.html:161
 msgid "Developer documentation"
 msgstr "Documentación para desarrolladores"
 
-#: core/templates/navigation.html:169
+#: core/templates/navigation.html:167
 msgid "Get the code"
 msgstr "Código fuente"
 
-#: core/templates/navigation.html:175 core/templates/template.html:205
-#: core/templates/template_features.html:100
+#: core/templates/navigation.html:173 core/templates/template.html:204
+#: core/templates/template_features.html:99
 msgid "Translate"
 msgstr "Traduce"
 
-#: core/templates/navigation.html:196 core/templates/user/login.html:28
+#: core/templates/navigation.html:194 core/templates/user/login.html:28
 msgid "Reset password"
 msgstr "Restablecer la contraseña"
 
-#: core/templates/navigation.html:209
+#: core/templates/navigation.html:207
 msgid "My preferences"
 msgstr "Mis preferencias"
 
-#: core/templates/navigation.html:216
+#: core/templates/navigation.html:214
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: core/templates/navigation.html:231
+#: core/templates/navigation.html:229
 msgid "Licenses"
 msgstr "Licencias"
 
-#: core/templates/navigation.html:234
+#: core/templates/navigation.html:232
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Unidades de repetición"
 
-#: core/templates/navigation.html:237 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:235 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:174
 msgid "Weight units"
 msgstr "Unidades de peso"
 
-#: core/templates/navigation.html:240 core/templates/user/list.html:4
+#: core/templates/navigation.html:238 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Lista de usuarios"
 
-#: core/templates/navigation.html:241
+#: core/templates/navigation.html:239
 msgid "Gyms"
 msgstr "Gimnasios"
 
@@ -1105,7 +1105,7 @@ msgstr "Añader registro de peso"
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
 #: exercises/templates/exercise/overview.html:63
-#: exercises/templates/muscles/overview.html:61
+#: exercises/templates/muscles/overview.html:65
 msgid "Placeholder image for exercise"
 msgstr "Marcador de imagen para ejercicio"
 
@@ -1132,23 +1132,23 @@ msgstr "Repeticiones"
 msgid "RiR"
 msgstr "ReR"
 
-#: core/templates/template.html:140
+#: core/templates/template.html:139
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Estás usando una cuenta de invitado, los datos que introduzcas se borrarán "
 "en una semana."
 
-#: core/templates/template.html:144
+#: core/templates/template.html:143
 msgid "Create some demo entries"
 msgstr "Crear datos de ejemplo"
 
-#: core/templates/template.html:176 core/templates/template_features.html:122
+#: core/templates/template.html:175 core/templates/template_features.html:121
 #: core/templates/template_no_context.html:89 software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Términos de servicio"
 
-#: core/templates/template_features.html:62 software/templates/features.html:9
+#: core/templates/template_features.html:61 software/templates/features.html:9
 #: software/templates/features.html:120
 msgid "Features"
 msgstr "Funciones"
@@ -1572,7 +1572,7 @@ msgstr "Músculos primarios"
 #: exercises/models/base.py:64 exercises/templates/equipment/overview.html:71
 #: exercises/templates/exercise/overview.html:76
 #: exercises/templates/exercise/view.html:268
-#: exercises/templates/muscles/overview.html:73
+#: exercises/templates/muscles/overview.html:77
 msgid "Secondary muscles"
 msgstr "Músculos secundarios"
 
@@ -1584,9 +1584,9 @@ msgstr "Variantes"
 msgid "Exercise Categories"
 msgstr "Categorías de ejercicios"
 
-#: exercises/models/comment.py:34 exercises/models/image.py:75
-#: exercises/models/video.py:82 manager/forms.py:165 manager/helpers.py:89
-#: manager/models/log.py:51
+#: exercises/models/comment.py:34 exercises/models/exercise_alias.py:32
+#: exercises/models/image.py:75 exercises/models/video.py:82
+#: manager/forms.py:165 manager/helpers.py:89 manager/models/log.py:51
 msgid "Exercise"
 msgstr "Ejercicio"
 
@@ -1611,6 +1611,12 @@ msgstr "Nuevo ejercicio enviado por un usuario"
 #, python-brace-format
 msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "El usuario {0} ha enviado un nuevo ejercicio \"{1}\"."
+
+#: exercises/models/exercise_alias.py:35
+#, fuzzy
+#| msgid "Correcting an exercise"
+msgid "Alias for an exercise"
+msgstr "Corregir un ejercicio"
 
 #: exercises/models/image.py:59
 msgid "Line"
@@ -1672,6 +1678,16 @@ msgstr "El usuario {0} agrego una nueva imagen \"{1}\" para el ejercicio {2}."
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "En latín, p.ej. \"Pectoralis major\""
+
+#: exercises/models/muscle.py:47
+#, fuzzy
+#| msgid "exercise name"
+msgid "Alternative name"
+msgstr "nombre del ejercicio"
+
+#: exercises/models/muscle.py:48
+msgid "A more basic name for the muscle"
+msgstr ""
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
@@ -1741,7 +1757,7 @@ msgstr "Resumen de equipos"
 #: exercises/templates/equipment/overview.html:69
 #: exercises/templates/exercise/overview.html:74
 #: exercises/templates/exercise/view.html:264
-#: exercises/templates/muscles/overview.html:71
+#: exercises/templates/muscles/overview.html:75
 msgid "Main muscles"
 msgstr "Músculos principales"
 
@@ -1766,7 +1782,7 @@ msgstr "nombre del ejercicio"
 
 #: exercises/templates/equipment/overview.html:115
 #: exercises/templates/exercise/overview.html:118
-#: exercises/templates/muscles/overview.html:114
+#: exercises/templates/muscles/overview.html:118
 #: nutrition/templates/ingredient/overview.html:85
 msgid "Only registered users can do this"
 msgstr "Sólo usuarios registrados pueden hacer esto"
@@ -1962,7 +1978,7 @@ msgstr "Índice de músculos"
 msgid "Add muscle"
 msgstr "Añadir músculo"
 
-#: exercises/templates/muscles/overview.html:81
+#: exercises/templates/muscles/overview.html:85
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
@@ -2344,7 +2360,7 @@ msgstr "Añadir usuario al gimnasio"
 msgid "Edit gym"
 msgstr "Editar gimnasio"
 
-#: i18n.tpl:2
+#: i18n.tpl:2 i18n.tpl:28
 msgid "Abs"
 msgstr "Abdominales"
 
@@ -2356,11 +2372,11 @@ msgstr "Brazos"
 msgid "Back"
 msgstr "Espalda"
 
-#: i18n.tpl:5
+#: i18n.tpl:5 i18n.tpl:23
 msgid "Calves"
 msgstr "Pantorrillas"
 
-#: i18n.tpl:6
+#: i18n.tpl:6 i18n.tpl:26
 msgid "Chest"
 msgstr "Pectorales"
 
@@ -2368,7 +2384,7 @@ msgstr "Pectorales"
 msgid "Legs"
 msgstr "Piernas"
 
-#: i18n.tpl:8
+#: i18n.tpl:8 i18n.tpl:19
 msgid "Shoulders"
 msgstr "Hombros"
 
@@ -2397,107 +2413,77 @@ msgid "Kettlebell"
 msgstr "Pesa rusa"
 
 #: i18n.tpl:15
-msgid "none (bodyweight exercise)"
-msgstr "ninguno (ejercicio de peso corporal)"
-
-#: i18n.tpl:16
 msgid "Pull-up bar"
 msgstr "Barra hacia arriba"
+
+#: i18n.tpl:16
+msgid "SZ-Bar"
+msgstr "Barra de curl"
 
 #: i18n.tpl:17
 msgid "Swiss Ball"
 msgstr "Balón suizo"
 
 #: i18n.tpl:18
-msgid "SZ-Bar"
-msgstr "Barra de curl"
-
-#: i18n.tpl:19
-msgid "Anterior deltoid"
-msgstr "Hombro"
+msgid "none (bodyweight exercise)"
+msgstr "ninguno (ejercicio de peso corporal)"
 
 #: i18n.tpl:20
-msgid "Biceps brachii"
+#, fuzzy
+#| msgid "Biceps brachii"
+msgid "Biceps"
 msgstr "Bíceps"
 
 #: i18n.tpl:21
-msgid "Biceps femoris"
-msgstr "Bíceps femoral"
+msgid "Hamstrings"
+msgstr ""
 
 #: i18n.tpl:22
-msgid "Brachialis"
-msgstr "Braquial anterior"
-
-#: i18n.tpl:23
-msgid "Gastrocnemius"
-msgstr "gemelos"
+msgid "Lower back"
+msgstr ""
 
 #: i18n.tpl:24
-msgid "Gluteus maximus"
-msgstr "nalgas"
+#, fuzzy
+#| msgid "Minutes"
+msgid "Glutes"
+msgstr "Minutos"
 
 #: i18n.tpl:25
-msgid "Latissimus dorsi"
-msgstr "Dorsal ancho"
-
-#: i18n.tpl:26
-msgid "Obliquus externus abdominis"
-msgstr "Oblicuo mayor del abdomen"
+msgid "Lats"
+msgstr ""
 
 #: i18n.tpl:27
-msgid "Pectoralis major"
-msgstr "pecho"
-
-#: i18n.tpl:28
-msgid "Quadriceps femoris"
-msgstr "Cuadriceps"
+msgid "Quads"
+msgstr ""
 
 #: i18n.tpl:29
-msgid "Rectus abdominis"
-msgstr "abdominales"
-
-#: i18n.tpl:30
-msgid "Serratus anterior"
-msgstr "Serrato anterior"
-
-#: i18n.tpl:31
-msgid "Soleus"
-msgstr "Sóleo"
-
-#: i18n.tpl:32
-msgid "Trapezius"
-msgstr "Trapecio"
-
-#: i18n.tpl:33
-msgid "Triceps brachii"
+#, fuzzy
+#| msgid "Triceps brachii"
+msgid "Triceps"
 msgstr "Tríceps braquial"
 
-#: i18n.tpl:34
+#: i18n.tpl:30
 msgid "Kilometers"
 msgstr "Kilómetros"
 
-#: i18n.tpl:35
-msgid "Max Reps"
-msgstr "Repeticiones máximas"
-
-#: i18n.tpl:36
+#: i18n.tpl:31
 msgid "Miles"
 msgstr "Millas"
 
-#: i18n.tpl:37
+#: i18n.tpl:32
 msgid "Minutes"
 msgstr "Minutos"
 
-#: i18n.tpl:38 manager/forms.py:169 manager/models/log.py:71
+#: i18n.tpl:33 manager/forms.py:169 manager/models/log.py:71
 #: manager/templates/set/add.html:53
 msgid "Repetitions"
 msgstr "Repeticiones"
 
-#: i18n.tpl:39
+#: i18n.tpl:34
 msgid "Seconds"
 msgstr "Segundos"
 
-#: i18n.tpl:40
+#: i18n.tpl:35
 msgid "Until Failure"
 msgstr "Hasta fallo muscular"
 
@@ -4171,6 +4157,48 @@ msgstr "Borrado con éxito."
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr "Eliminar la entrada de peso para el %s"
+
+#~ msgid "Anterior deltoid"
+#~ msgstr "Hombro"
+
+#~ msgid "Biceps femoris"
+#~ msgstr "Bíceps femoral"
+
+#~ msgid "Brachialis"
+#~ msgstr "Braquial anterior"
+
+#~ msgid "Gastrocnemius"
+#~ msgstr "gemelos"
+
+#~ msgid "Gluteus maximus"
+#~ msgstr "nalgas"
+
+#~ msgid "Latissimus dorsi"
+#~ msgstr "Dorsal ancho"
+
+#~ msgid "Obliquus externus abdominis"
+#~ msgstr "Oblicuo mayor del abdomen"
+
+#~ msgid "Pectoralis major"
+#~ msgstr "pecho"
+
+#~ msgid "Quadriceps femoris"
+#~ msgstr "Cuadriceps"
+
+#~ msgid "Rectus abdominis"
+#~ msgstr "abdominales"
+
+#~ msgid "Serratus anterior"
+#~ msgstr "Serrato anterior"
+
+#~ msgid "Soleus"
+#~ msgstr "Sóleo"
+
+#~ msgid "Trapezius"
+#~ msgstr "Trapecio"
+
+#~ msgid "Max Reps"
+#~ msgstr "Repeticiones máximas"
 
 #~ msgid "Your current weight is: "
 #~ msgstr "Tu peso actual es: "

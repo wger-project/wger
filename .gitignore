@@ -67,9 +67,6 @@ node_modules
 venv
 venv-wget
 
-# Dummy file for translations
-/wger/i18n.tpl
-
 # Will need to copy this file to react repo though
 /wger/i18n.tsx
 
