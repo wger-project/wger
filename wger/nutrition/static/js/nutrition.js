@@ -95,6 +95,12 @@ function wgerInitIngredientAutocompleter() {
           });
         });
       });
+    },
+    formatResult: function (suggestion) {
+      if (suggestion.data.image_thumbnail) {
+        return '<div><img src="' + suggestion.data.image_thumbnail + '" /> ' + suggestion.value + '</div>';
+      }
+      return '<div>' + suggestion.value + '</div>';
     }
   });
 }
