@@ -7,5 +7,9 @@
     "difference": "Diferencia",
     "submit": "Enviar",
     "close": "Cerrar",
-    "add": "Añadir"
+    "add": "Añadir",
+    "nutritionalPlan": "Plan nutricional",
+    "addEntry": "Añadir entrada",
+    "currentWeight": "Peso actual",
+    "workout": "Rutina"
 }
