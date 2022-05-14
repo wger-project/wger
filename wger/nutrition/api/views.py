@@ -177,7 +177,7 @@ def search(request):
             else:
                 image = None
                 thumbnail = None
-                
+
             ingredient_json = {
                 'value': ingredient.name,
                 'data': {

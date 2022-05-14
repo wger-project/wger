@@ -69,3 +69,6 @@ venv-wget
 
 # Dummy file for translations
 /wger/i18n.tpl
+
+# Local images folder
+/media
