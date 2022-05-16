@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+from datetime import datetime
 import logging
 
 # Django
@@ -264,6 +265,17 @@ class MealItemForm(forms.ModelForm):
 
 
 class MealLogItemForm(MealItemForm):
+    datetime = forms.DateTimeField(
+        input_formats=['%Y-%m-%dT%H:%M'],
+        widget=forms.DateTimeInput(
+            attrs={
+                'type': 'datetime-local',
+                'class': 'form-control',
+                'value': datetime.now().strftime("%Y-%m-%dT%H:%M")
+            },
+            format='%Y-%m-%dT%H:%M',
+        )
+    )
 
     class Meta:
         model = LogItem
@@ -271,7 +283,23 @@ class MealLogItemForm(MealItemForm):
             'ingredient',
             'weight_unit',
             'amount',
+            'datetime',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(MealItemForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'ingredient', 'ingredient_searchfield', HTML(
+                '<div id="ingredient_name"></div>'),
+            Row(
+                Column('amount', css_class='form-group col-6 mb-0'),
+                Column('weight_unit', css_class='form-group col-6 mb-0'),
+                Column('datetime', css_class='form-group col-6 mb-0'),
+                css_class='form-row'
+            )
+        )
 
 
 class IngredientForm(forms.ModelForm):
