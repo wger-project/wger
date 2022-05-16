@@ -63,8 +63,7 @@ class LogItem(BaseMealItem, models.Model):
     """
 
     datetime = models.DateTimeField(
-        verbose_name=_('Date and Time'),
-        blank=False,
+        verbose_name=_('Date and Time (Approx.)'),
         default=timezone.now
     )
     """

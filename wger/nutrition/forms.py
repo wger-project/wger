@@ -265,15 +265,19 @@ class MealItemForm(forms.ModelForm):
 
 
 class MealLogItemForm(MealItemForm):
+    datetime_format = '%Y-%m-%dT%H:%M'
+    now = datetime.now().strftime(datetime_format)
+
     datetime = forms.DateTimeField(
-        input_formats=['%Y-%m-%dT%H:%M'],
+        input_formats=[datetime_format],
         widget=forms.DateTimeInput(
             attrs={
                 'type': 'datetime-local',
                 'class': 'form-control',
-                'value': datetime.now().strftime("%Y-%m-%dT%H:%M")
+                'value': datetime.now().strftime(now),
+                'max': datetime.now().strftime(now)
             },
-            format='%Y-%m-%dT%H:%M',
+            format=datetime_format,
         )
     )
 
