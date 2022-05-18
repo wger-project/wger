@@ -274,8 +274,7 @@ class MealLogItemForm(MealItemForm):
             attrs={
                 'type': 'datetime-local',
                 'class': 'form-control',
-                'value': datetime.now().strftime(now),
-                'max': datetime.now().strftime(now)
+                'value': now
             },
             format=datetime_format,
         )
@@ -291,15 +290,15 @@ class MealLogItemForm(MealItemForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(MealItemForm, self).__init__(*args, **kwargs)
+        super(MealLogItemForm, self).__init__(*args, **kwargs)
 
-        self.helper = FormHelper()
         self.helper.layout = Layout(
-            'ingredient', 'ingredient_searchfield', HTML(
-                '<div id="ingredient_name"></div>'),
+            'ingredient', 'ingredient_searchfield',
             Row(
                 Column('amount', css_class='form-group col-6 mb-0'),
                 Column('weight_unit', css_class='form-group col-6 mb-0'),
+            ),
+            Row(
                 Column('datetime', css_class='form-group col-6 mb-0'),
                 css_class='form-row'
             )
