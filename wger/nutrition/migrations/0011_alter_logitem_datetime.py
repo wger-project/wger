@@ -14,6 +14,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='logitem',
             name='datetime',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date and Time (Approx.)'),
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name='Date and Time (Approx.)'
+            ),
         ),
     ]

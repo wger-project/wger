@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-from datetime import datetime
 import logging
+from datetime import datetime
 
 # Django
 from django import forms
@@ -297,11 +297,7 @@ class MealLogItemForm(MealItemForm):
             Row(
                 Column('amount', css_class='form-group col-6 mb-0'),
                 Column('weight_unit', css_class='form-group col-6 mb-0'),
-            ),
-            Row(
-                Column('datetime', css_class='form-group col-6 mb-0'),
-                css_class='form-row'
-            )
+            ), Row(Column('datetime', css_class='form-group col-6 mb-0'), css_class='form-row')
         )
 
 
