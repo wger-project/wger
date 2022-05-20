@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+from datetime import datetime
 
 # Django
 from django import forms
@@ -264,6 +265,20 @@ class MealItemForm(forms.ModelForm):
 
 
 class MealLogItemForm(MealItemForm):
+    datetime_format = '%Y-%m-%dT%H:%M'
+    now = datetime.now().strftime(datetime_format)
+
+    datetime = forms.DateTimeField(
+        input_formats=[datetime_format],
+        widget=forms.DateTimeInput(
+            attrs={
+                'type': 'datetime-local',
+                'class': 'form-control',
+                'value': now
+            },
+            format=datetime_format,
+        )
+    )
 
     class Meta:
         model = LogItem
@@ -271,7 +286,19 @@ class MealLogItemForm(MealItemForm):
             'ingredient',
             'weight_unit',
             'amount',
+            'datetime',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(MealLogItemForm, self).__init__(*args, **kwargs)
+
+        self.helper.layout = Layout(
+            'ingredient', 'ingredient_searchfield',
+            Row(
+                Column('amount', css_class='form-group col-6 mb-0'),
+                Column('weight_unit', css_class='form-group col-6 mb-0'),
+            ), Row(Column('datetime', css_class='form-group col-6 mb-0'), css_class='form-row')
+        )
 
 
 class IngredientForm(forms.ModelForm):

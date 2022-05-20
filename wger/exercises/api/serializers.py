@@ -175,6 +175,7 @@ class MuscleSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'is_front',
+            'name_en',
             'image_url_main',
             'image_url_secondary',
         ]

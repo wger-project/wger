@@ -470,4 +470,4 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', 'is_front')
+    filterset_fields = ('name', 'is_front', 'name_en')

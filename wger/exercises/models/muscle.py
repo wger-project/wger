@@ -40,6 +40,14 @@ class Muscle(models.Model):
     # Whether to use the front or the back image for background
     is_front = models.BooleanField(default=1)
 
+    # The name of the muscle in layman's terms
+    name_en = models.CharField(
+        max_length=50,
+        default='',
+        verbose_name=_('Alternative name'),
+        help_text=_('A more basic name for the muscle'),
+    )
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [

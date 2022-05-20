@@ -198,7 +198,7 @@ class WgerTestCase(BaseTestCase, TestCase):
         current_field_class = field.__class__.__name__
 
         # Standard types, simply compare
-        if current_field_class in ('unicode', 'str', 'int', 'float', 'time', 'date'):
+        if current_field_class in ('unicode', 'str', 'int', 'float', 'time', 'date', 'datetime'):
             self.assertEqual(field, value)
 
         # boolean, convert

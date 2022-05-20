@@ -50,11 +50,9 @@ class Command(BaseCommand):
         # Collect all translatable items
         data = [i for i in ExerciseCategory.objects.all()] \
             + [i for i in Equipment.objects.all()] \
+            + [i.name_en for i in Muscle.objects.all() if i.name_en] \
             + [i for i in RepetitionUnit.objects.all()]
 
-        # + [i for i in Muscle.objects.all()] \
-
-        #
         # Django - write to .tpl file
         with open('wger/i18n.tpl', 'w') as f:
             out = '{% load i18n %}\n'

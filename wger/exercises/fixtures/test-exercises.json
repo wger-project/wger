@@ -4,7 +4,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Anterior testoid"
+            "name": "Anterior testoid",
+            "name_en": "Testoulders"
         }
     },
     {
@@ -12,7 +13,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Biceps testii"
+            "name": "Biceps testii",
+            "name_en": "Testceps"
         }
     },
     {
@@ -28,7 +30,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Bigus Pectoralis"
+            "name": "Bigus Pectoralis",
+            "name_en": "Testch"
         }
     },
     {
@@ -44,7 +47,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Gluteus jucicus"
+            "name": "Gluteus jucicus",
+            "name_en": "Test jucicus"
         }
     },
     {

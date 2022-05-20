@@ -97,7 +97,7 @@ class AddMuscleTestCase(WgerAddTestCase):
 
     object_class = Muscle
     url = 'exercise:muscle:add'
-    data = {'name': 'A new muscle', 'is_front': True}
+    data = {'name': 'A new muscle', 'is_front': True, 'name_en': 'Other muscle'}
 
 
 class EditMuscleTestCase(WgerEditTestCase):
@@ -108,7 +108,7 @@ class EditMuscleTestCase(WgerEditTestCase):
     object_class = Muscle
     url = 'exercise:muscle:edit'
     pk = 1
-    data = {'name': 'The new name', 'is_front': True}
+    data = {'name': 'The new name', 'is_front': True, 'name_en': 'Edited muscle'}
 
 
 class DeleteMuscleTestCase(WgerDeleteTestCase):
@@ -152,7 +152,7 @@ class MuscleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Muscle
     private_resource = False
-    data = {'name': 'The name', 'is_front': True}
+    data = {'name': 'The name', 'is_front': True, 'name_en': 'name en'}
 
     def test_get_detail(self):
         super().test_get_detail()

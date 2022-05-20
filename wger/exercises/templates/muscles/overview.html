@@ -37,7 +37,11 @@
                 data-name="{{muscle.name}}"
                 itemscope itemtype="http://schema.org/Muscle"
             >
-                {{ muscle }}
+                {% if muscle.name_en %}
+                    {{ muscle }} ({% translate muscle.name_en %})
+                {% else %}
+                    {{ muscle }}
+                {% endif %}
             </button>
         </div>
         <div class="collapse" id="collapse-{{muscle.pk}}" data-parent="#muscleAccordion">
