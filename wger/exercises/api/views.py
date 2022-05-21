@@ -386,7 +386,7 @@ class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
     )
 
 
-class ExerciseCommentViewSet(CreateUpdateModelViewSet):
+class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise comment objects
     """

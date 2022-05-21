@@ -163,6 +163,5 @@ class ExerciseCommentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = False
     data = {
         "comment": "a cool comment",
-        "exercise": "1",
-        "id": 1,
+        "exercise": 1,
     }
