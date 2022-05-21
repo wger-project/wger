@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-04-20 20:12+0000\n"
+"PO-Revision-Date: 2022-05-22 21:18+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1597,10 +1597,8 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "{0} kullanıcısı yeni bir \"{1}\" alıştırması gönderdi."
 
 #: exercises/models/exercise_alias.py:35
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Bir egzersizi düzeltme"
+msgstr "Bir egzersizin takma adı"
 
 #: exercises/models/image.py:59
 msgid "Line"
@@ -1663,14 +1661,12 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Latince, ör. \"Büyük pektoralis\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "egzersiz adı"
+msgstr "Alternatif ad"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Kas için daha temel bir isim"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
@@ -2405,38 +2401,32 @@ msgid "none (bodyweight exercise)"
 msgstr "yok (vücut ağırlığı egzersizi)"
 
 #: i18n.tpl:20
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
-msgstr "Biceps brachii"
+msgstr "Pazılar"
 
 #: i18n.tpl:21
 msgid "Hamstrings"
-msgstr ""
+msgstr "Hamstringler"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Alt sırt"
 
 #: i18n.tpl:24
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Dakika"
+msgstr "Kalça kasları"
 
 #: i18n.tpl:25
 msgid "Lats"
-msgstr ""
+msgstr "Lat kasları"
 
 #: i18n.tpl:27
 msgid "Quads"
-msgstr ""
+msgstr "Quads kasları"
 
 #: i18n.tpl:29
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "Triceps brachii"
+msgstr "Triceps kasları"
 
 #: i18n.tpl:30
 msgid "Kilometers"
