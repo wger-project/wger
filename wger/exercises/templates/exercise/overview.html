@@ -39,7 +39,7 @@ $(document).ready(function() {
 {% block content %}
 
 {% cache cache_timeout exercise-overview language.id %}
-{% regroup exercises by exercise_base.category as exercise_list %}
+{% regroup bases by category as exercise_list %}
 <div class="accordion" id="exerciseAccordion">
     {% for item in exercise_list %}
     <div class="card">
@@ -51,7 +51,8 @@ $(document).ready(function() {
         <div class="collapse" id="collapse-{{item.grouper.id}}" data-parent="#exerciseAccordion">
             <div class="card-body px-0">
                 <div class="list-group list-group-flush">
-                    {% for exercise in item.list|dictsort:"name" %}
+                    {% for base in item.list %}
+                    {% with base.get_exercise as exercise  %}
                     <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
                         <div class="media">
                             {% if exercise.main_image %}
@@ -79,6 +80,7 @@ $(document).ready(function() {
                              </div>
                         </div>
                     </a>
+                    {% endwith %}
                     {% endfor %}
                 </div>
             </div>
@@ -107,16 +109,4 @@ $(document).ready(function() {
 
 
 {% block options %}
-    {% if user.is_authenticated and not user.userprofile.is_temporary %}
-        <a href="{% url 'exercise:exercise:add' %}" class="btn btn-success btn-sm">
-            {% translate "Add new exercise" %}
-        </a>
-    {% else %}
-        <a href="#" class="btn btn-success btn-sm disabled">
-            {% translate "Add new exercise" %}<br>
-            <small>
-            {% translate "Only registered users can do this" %}
-            </small>
-        </a>
-    {% endif %}
 {% endblock %}

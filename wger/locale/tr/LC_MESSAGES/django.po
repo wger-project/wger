@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2022-02-27 22:05+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"PO-Revision-Date: 2022-04-20 20:12+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -2330,11 +2330,11 @@ msgstr "Kollar"
 
 #: i18n.tpl:4
 msgid "Back"
-msgstr "Geri"
+msgstr "Sırt"
 
 #: i18n.tpl:5
 msgid "Calves"
-msgstr "Buzağı"
+msgstr "Baldırlar"
 
 #: i18n.tpl:6
 msgid "Chest"
@@ -2354,11 +2354,11 @@ msgstr "Halter"
 
 #: i18n.tpl:10
 msgid "Bench"
-msgstr "Bank"
+msgstr "Benç"
 
 #: i18n.tpl:11
 msgid "Dumbbell"
-msgstr "Halter"
+msgstr "Dambıl"
 
 #: i18n.tpl:12
 msgid "Gym mat"
@@ -2378,11 +2378,11 @@ msgstr "yok (vücut ağırlığı egzersizi)"
 
 #: i18n.tpl:16
 msgid "Pull-up bar"
-msgstr "Çubuğunu yukarı çekin"
+msgstr "Barfiks çubuğu"
 
 #: i18n.tpl:17
 msgid "Swiss Ball"
-msgstr "İsviçre Topu"
+msgstr "Egzersiz Topu"
 
 #: i18n.tpl:18
 msgid "SZ-Bar"
@@ -2450,7 +2450,7 @@ msgstr "Triceps brachii"
 
 #: i18n.tpl:34
 msgid "Kilometers"
-msgstr "Kilometreler"
+msgstr "Kilometre"
 
 #: i18n.tpl:35
 msgid "Max Reps"
@@ -2458,11 +2458,11 @@ msgstr "Azami Tekrar Sayısı"
 
 #: i18n.tpl:36
 msgid "Miles"
-msgstr "Miller"
+msgstr "Mil"
 
 #: i18n.tpl:37
 msgid "Minutes"
-msgstr "Dakikalar"
+msgstr "Dakika"
 
 #: i18n.tpl:38 manager/forms.py:169 manager/models/log.py:71
 #: manager/templates/set/add.html:53
@@ -2471,7 +2471,7 @@ msgstr "Tekrarlar"
 
 #: i18n.tpl:39
 msgid "Seconds"
-msgstr "Saniyeler"
+msgstr "Saniye"
 
 #: i18n.tpl:40
 msgid "Until Failure"
@@ -2539,8 +2539,8 @@ msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
 msgstr ""
-"Antrenmanın kısa bir açıklaması veya hedefi. Örneğin, 'Arkaya odaklan' veya "
-"'xy programının 1. Haftası'."
+"Antrenmanın kısa bir açıklaması veya hedefi. Örneğin, 'Sırta odaklan' veya "
+"'xy programının 1. haftası'."
 
 #: manager/forms.py:126
 msgid ""

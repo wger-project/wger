@@ -299,6 +299,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "uuid",
+            "creation_date",
             "category",
             "muscles",
             "muscles_secondary",

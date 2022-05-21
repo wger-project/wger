@@ -14,6 +14,7 @@
 
 # Django
 from django.contrib.auth.models import User
+from django.core.cache.backends import locmem
 
 # Third Party
 from rest_framework import status
@@ -64,6 +65,11 @@ class ApiBaseTestCase(APITestCase):
     """
     A list of special endpoints to check, e.g. the canonical representation of
     a workout.
+    """
+
+    overview_cached = False
+    """
+    A flag indicating whether the overview resource is cached
     """
 
     def get_resource_name(self):
@@ -152,6 +158,24 @@ class ApiGetTestCase(object):
             response = self.client.get(self.url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_get_overview_is_cached(self):
+        """
+        Test accessing the overview view of a resource is cached
+        """
+        # Ensure the wger cache is empty.
+        cache_length = len(locmem._caches['wger-cache'])
+        self.assertEqual(cache_length, 0)
+
+        self.test_get_overview()
+
+        # If the overview is cached. Then ensure the cache isn't empty.
+        if self.overview_cached:
+            cache_length = len(locmem._caches['wger-cache'])
+            self.assertNotEqual(cache_length, 0)
+        else:
+            cache_length = len(locmem._caches['wger-cache'])
+            self.assertEqual(cache_length, 0)
+
     def test_special_endpoints(self):
         """
         Test accessing any special endpoint the resource could have
@@ -200,17 +224,26 @@ class ApiPostTestCase(object):
         else:
             # Anonymous user
             response = self.client.post(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Authorized user (owner)
             self.get_credentials()
             response = self.client.post(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.post(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
     def test_post(self):
         """
@@ -239,17 +272,26 @@ class ApiPostTestCase(object):
         else:
             # Anonymous user
             response = self.client.post(self.url, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Logged in user
             self.get_credentials()
             response = self.client.post(self.url, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.post(self.url, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
     def test_post_special_endpoints(self):
         """
@@ -310,17 +352,26 @@ class ApiPatchTestCase(object):
         else:
             # Anonymous user
             response = self.client.patch(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Authorized user (owner)
             self.get_credentials()
             response = self.client.patch(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
     def test_patch(self):
         """
@@ -334,17 +385,24 @@ class ApiPatchTestCase(object):
         else:
             # Anonymous user
             response = self.client.patch(self.url, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
         # Logged in user
         self.get_credentials()
         response = self.client.patch(self.url, data=self.data)
-        self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+        self.assertIn(
+            response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+        )
 
         # Different logged in user
         self.get_credentials(self.user_fail)
         response = self.client.patch(self.url, data=self.data)
-        self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+        self.assertIn(
+            response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+        )
 
     def test_patch_special_endpoints(self):
         """
@@ -417,17 +475,26 @@ class ApiPutTestCase(object):
         else:
             # Anonymous user
             response = self.client.put(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Authorized user (owner)
             self.get_credentials()
             response = self.client.put(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
     def test_put(self):
         """
@@ -442,17 +509,24 @@ class ApiPutTestCase(object):
         else:
             # Anonymous user
             response = self.client.put(self.url, data=self.data)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
         # Authorized user (owner)
         self.get_credentials()
         response = self.client.put(self.url, data=self.data)
-        self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+        self.assertIn(
+            response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+        )
 
         # Different logged in user
         self.get_credentials(self.user_fail)
         response = self.client.put(self.url, data=self.data)
-        self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+        self.assertIn(
+            response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+        )
 
     def test_put_special_endpoints(self):
         """
@@ -511,17 +585,26 @@ class ApiDeleteTestCase(object):
         else:
             # Anonymous user
             response = self.client.delete(self.url_detail)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Logged in user
             self.get_credentials()
             response = self.client.delete(self.url_detail)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.delete(self.url_detail)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
     def test_delete(self):
         """
@@ -544,17 +627,26 @@ class ApiDeleteTestCase(object):
         else:
             # Anonymous user
             response = self.client.delete(self.url)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Authorized user (owner)
             self.get_credentials()
             response = self.client.delete(self.url)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.delete(self.url)
-            self.assertIn(response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN))
+            self.assertIn(
+                response.status_code,
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+            )
 
     def test_delete_special_endpoints(self):
         """

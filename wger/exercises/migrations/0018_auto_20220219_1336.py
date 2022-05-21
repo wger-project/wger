@@ -27,7 +27,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='historicalexercise',
             name='update_date',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
     ]

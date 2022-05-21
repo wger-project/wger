@@ -20,11 +20,13 @@ import logging
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 
-# wger
-from wger.exercises.views.helper import HistoryModes
-from wger.exercises.models import Exercise
-
+# Third Party
 from actstream.models import Action
+
+# wger
+from wger.exercises.models import Exercise
+from wger.exercises.views.helper import HistoryModes
+
 
 logger = logging.getLogger(__name__)
 
@@ -50,14 +52,9 @@ def overview2(request):
     """
     Generic view to list the history of the exercises
     """
-    context = {}
-
     out = []
-    history = Exercise.history.all()
-    for entry in history:
+    for entry in Exercise.history.all():
         if entry.prev_record:
             out.append({'record': entry, 'delta': entry.diff_against(entry.prev_record)})
 
-    context['history'] = out
-
-    return render(request, 'history/list.html', context)
+    return render(request, 'history/list2.html', {'history': out})

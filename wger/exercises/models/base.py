@@ -16,17 +16,27 @@
 
 # Standard Library
 import uuid
+from typing import (
+    List,
+    Optional,
+)
 
 # Django
+from django.core.checks import translation
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.db.models import Q
+from django.utils.translation import (
+    get_language,
+    gettext_lazy as _,
+)
 
 # Third Party
 from simple_history.models import HistoricalRecords
 
 # wger
+from wger.core.models import Language
+from wger.utils.constants import DEFAULT_LANGUAGE
 from wger.utils.models import AbstractLicenseModel
-
 
 # Local
 from .category import ExerciseCategory
@@ -40,11 +50,7 @@ class ExerciseBase(AbstractLicenseModel, models.Model):
     Model for an exercise base
     """
 
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False,
-        verbose_name='UUID'
-    )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
     """Globally unique ID, to identify the base across installations"""
 
     category = models.ForeignKey(
@@ -107,8 +113,47 @@ class ExerciseBase(AbstractLicenseModel, models.Model):
     #
 
     @property
-    def get_languages(self):
+    def main_image(self):
+        """
+        Return the main image for the exercise or None if nothing is found
+        """
+        return self.exerciseimage_set.accepted().filter(is_main=True).first()
+
+    @property
+    def get_languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base
         """
         return [exercise.language for exercise in self.exercises.all()]
+
+    @property
+    def base_variations(self):
+        """
+        Returns the variations of this exercise base, excluding itself
+        """
+        if not self.variations:
+            return []
+        return self.variations.exercisebase_set.filter(~Q(id=self.id))
+
+    def get_exercise(self, language: Optional[str] = None):
+        """
+        Returns the exercise for the given language. If the language is not
+        available, return the English translation.
+
+        Note that as a fallback, if no English translation is found, the
+        first available one is returned. While this is kind of wrong, it won't
+        happen in our dataset, but it is possible that some local installations
+        have deleted the English translation or similar
+        """
+
+        language = language or get_language()
+
+        try:
+            exercise = self.exercises.get(language__short_name=language)
+        except:  # can't do Exercise.DoesNotExist because of circular imports
+            try:
+                exercise = self.exercises.get(language__short_name=DEFAULT_LANGUAGE)
+            except:
+                exercise = self.exercises.first()
+
+        return exercise

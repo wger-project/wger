@@ -247,7 +247,7 @@ class WgerDeleteTestCase(WgerTestCase):
 
     def delete_object(self, fail=False):
         """
-        Helper function to test deleting a workout
+        Helper function to test deleting an object
         """
 
         # Only perform the checks on derived classes

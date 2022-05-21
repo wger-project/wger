@@ -64,7 +64,7 @@ WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 
 # The site's domain as used by the email verification workflow
-EMAIL_PAGE_DOMAIN = 'https://wger.de/'
+EMAIL_PAGE_DOMAIN = SITE_URL
 
 # Your twitter handle, if you have one for this instance.
 #WGER_SETTINGS['TWITTER'] = ''

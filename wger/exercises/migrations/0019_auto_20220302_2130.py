@@ -24,12 +24,24 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='exercisecomment',
             name='exercise',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exercises.exercise', verbose_name='Exercise'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='exercises.exercise',
+                verbose_name='Exercise'
+            ),
         ),
         migrations.AlterField(
             model_name='historicalexercisecomment',
             name='exercise',
-            field=models.ForeignKey(blank=True, db_constraint=False, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='exercises.exercise', verbose_name='Exercise'),
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name='+',
+                to='exercises.exercise',
+                verbose_name='Exercise'
+            ),
         ),
         migrations.RunPython(delete_pending_exercises),
     ]

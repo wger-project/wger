@@ -282,9 +282,15 @@ def registration(request):
                 config.save()
 
             user.userprofile.save()
-
             user = authenticate(username=username, password=password)
+
+            # Log the user in
             django_login(request, user)
+
+            # Email the user with the activation link
+            send_email(user)
+
+            # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('core:dashboard'))
     else:
@@ -301,8 +307,8 @@ def preferences(request):
     """
     An overview of all user preferences
     """
-    template_data = {}
-    template_data.update(csrf(request))
+    context = {}
+    context.update(csrf(request))
     redirect = False
 
     # Process the preferences form
@@ -343,13 +349,13 @@ def preferences(request):
         else:
             redirect = False
 
-    template_data['form'] = form
+    context['form'] = form
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
-        return render(request, 'user/preferences.html', template_data)
+        return render(request, 'user/preferences.html', context)
 
 
 class UserDeactivateView(
@@ -643,7 +649,7 @@ def confirm_email(request):
         send_email(request.user)
         messages.success(
             request,
-            _('Verification email sent to %(email)s') % {'email': request.user.email}
+            _('A verification email was sent to %(email)s') % {'email': request.user.email}
         )
 
     return HttpResponseRedirect(reverse('core:dashboard'))

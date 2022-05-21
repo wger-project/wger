@@ -19,8 +19,11 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.db.models import Q
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from django.views.decorators.cache import cache_page
 
 # Third Party
 from actstream import action as actstream_action
@@ -34,12 +37,10 @@ from rest_framework.decorators import (
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.views.helper import HistoryModes
 from wger.config.models import LanguageConfig
 from wger.core.api.viewsets import CreateUpdateModelViewSet
 from wger.exercises.api.permissions import CanEditExercises
 from wger.exercises.api.serializers import (
-    ExerciseTranslationSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
     ExerciseBaseInfoSerializer,
@@ -49,6 +50,7 @@ from wger.exercises.api.serializers import (
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
     ExerciseSerializer,
+    ExerciseTranslationSerializer,
     ExerciseVariationSerializer,
     ExerciseVideoSerializer,
     MuscleSerializer,
@@ -65,6 +67,7 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
+from wger.exercises.views.helper import HistoryModes
 from wger.utils.language import load_item_languages
 
 
@@ -159,6 +162,10 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'name',
     )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
 
@@ -240,6 +247,7 @@ def search(request):
                 'value': exercise.name,
                 'data': {
                     'id': exercise.id,
+                    'base_id': exercise.exercise_base_id,
                     'name': exercise.name,
                     'category': _(exercise.category.name),
                     'image': image,
@@ -270,6 +278,10 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
@@ -289,6 +301,10 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):

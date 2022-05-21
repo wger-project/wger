@@ -419,7 +419,7 @@ if hasattr(args, 'number_logs'):
                                 date = datetime.date.today() - datetime.timedelta(weeks=i)
                                 log = WorkoutLog(
                                     user=user,
-                                    exercise=setting.exercise,
+                                    exercise_base=setting.exercise.exercise_base,
                                     workout=workout,
                                     reps=reps,
                                     weight=50 - reps + random.randint(1, 10),

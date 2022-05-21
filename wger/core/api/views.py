@@ -22,6 +22,7 @@ import logging
 from django.contrib.auth.models import User
 
 # Third Party
+from django_email_verification import send_email
 from rest_framework import (
     status,
     viewsets,
@@ -42,7 +43,6 @@ from wger.core.api.serializers import (
     LicenseSerializer,
     RepetitionUnitSerializer,
     UserApiSerializer,
-    UsernameSerializer,
     UserprofileSerializer,
     UserRegistrationSerializer,
     WeightUnitSerializer,
@@ -57,10 +57,7 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.utils.api_token import create_token
-from wger.utils.permissions import (
-    UpdateOnlyPermission,
-    WgerPermission,
-)
+from wger.utils.permissions import WgerPermission
 
 
 logger = logging.getLogger(__name__)
@@ -68,12 +65,14 @@ logger = logging.getLogger(__name__)
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for workout objects
+    API endpoint for the user profile
+
+    This endpoint works somewhat differently than the others since it always
+    returns the data for the currently logged-in user's profile. To update
+    the profile, use a POST request with the new data, not a PATCH.
     """
-    is_private = True
     serializer_class = UserprofileSerializer
-    permission_classes = (WgerPermission, UpdateOnlyPermission)
-    ordering_fields = '__all__'
+    permission_classes = (WgerPermission, )
 
     def get_queryset(self):
         """
@@ -87,14 +86,61 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         """
         return [(User, 'user')]
 
-    @action(detail=True)
-    def username(self, request, pk):
+    def list(self, request, *args, **kwargs):
+        """
+        Customized list view, that returns only the current user's data
+        """
+        queryset = self.get_queryset()
+        print(queryset.first())
+        serializer = self.serializer_class(queryset.first(), many=False)
+
+        return Response(serializer.data)
+
+    def retrieve(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        serializer = self.serializer_class(request.user.userprofile, data=data)
+        if serializer.is_valid():
+            serializer.save()
+
+            # New email, update the user and reset the email verification flag
+            if request.user.email != data['email']:
+                request.user.email = data['email']
+                request.user.save()
+                request.user.userprofile.email_verified = False
+                request.user.userprofile.save()
+                logger.debug('resetting verified flag')
+
+            return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    @action(detail=False, url_name='verify-email', url_path='verify-email')
+    def verify_email(self, request):
         """
         Return the username
         """
 
-        user = self.get_object().user
-        return Response(UsernameSerializer(user).data)
+        profile = request.user.userprofile
+        if profile.email_verified:
+            return Response({'status': 'verified', 'message': 'This email is already verified'})
+
+        send_email(request.user)
+        return Response(
+            {
+                'status': 'sent',
+                'message': f'A verification email was sent to {request.user.email}'
+            }
+        )
 
 
 class ApplicationVersionView(viewsets.ViewSet):
@@ -171,6 +217,9 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         user.userprofile.added_by = request.user
         user.userprofile.save()
         token = create_token(user)
+
+        # Email the user with the activation link
+        send_email(user)
 
         return Response(
             {

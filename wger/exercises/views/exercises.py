@@ -20,7 +20,6 @@ import uuid
 # Django
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -49,7 +48,6 @@ from django.urls import (
     reverse,
     reverse_lazy,
 )
-from django.utils.cache import patch_vary_headers
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -69,7 +67,6 @@ from crispy_forms.layout import (
 )
 
 # wger
-from wger.config.models import LanguageConfig
 from wger.exercises.models import (
     Equipment,
     Exercise,
@@ -84,10 +81,7 @@ from wger.utils.generic_views import (
     WgerFormMixin,
 )
 from wger.utils.helpers import levenshtein
-from wger.utils.language import (
-    load_item_languages,
-    load_language,
-)
+from wger.utils.language import load_language
 from wger.utils.widgets import TranslatedSelectMultiple
 from wger.weight.helpers import process_log_entries
 
@@ -100,23 +94,16 @@ class ExerciseListView(ListView):
     Generic view to list all exercises
     """
 
-    model = Exercise
+    model = ExerciseBase
     template_name = 'exercise/overview.html'
-    context_object_name = 'exercises'
-
-    def get(self, request, *args, **kwargs):
-        response = super(ListView, self).get(request, *args, **kwargs)
-        patch_vary_headers(response, ['User-Agent'])
-        return response
+    context_object_name = 'bases'
 
     def get_queryset(self):
         """
         Filter to only active exercises in the configured languages
         """
-        languages = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        return Exercise.objects.all() \
-            .filter(language__in=languages) \
-            .order_by('exercise_base__category__id') \
+        return ExerciseBase.objects.all() \
+            .order_by('category_id') \
             .select_related()
 
     def get_context_data(self, **kwargs):
@@ -133,34 +120,32 @@ def view(request, id, slug=None):
     Detail view for an exercise
     """
 
-    template_data = {}
-    template_data['comment_edit'] = False
-    template_data['show_shariff'] = True
-
     exercise = get_object_or_404(Exercise, pk=id)
-
-    template_data['exercise'] = exercise
-
-    template_data["muscles_main_front"] = exercise.muscles.filter(is_front=True)
-    template_data["muscles_main_back"] = exercise.muscles.filter(is_front=False)
-    template_data["muscles_sec_front"] = exercise.muscles_secondary.filter(is_front=True)
-    template_data["muscles_sec_back"] = exercise.muscles_secondary.filter(is_front=False)
+    context = {
+        'comment_edit': False,
+        'show_shariff': True,
+        'exercise': exercise,
+        "muscles_main_front": exercise.muscles.filter(is_front=True),
+        "muscles_main_back": exercise.muscles.filter(is_front=False),
+        "muscles_sec_front": exercise.muscles_secondary.filter(is_front=True),
+        "muscles_sec_back": exercise.muscles_secondary.filter(is_front=False),
+    }
 
     # If the user is logged in, load the log and prepare the entries for
     # rendering in the D3 chart
     entry_log = []
     chart_data = []
     if request.user.is_authenticated:
-        logs = WorkoutLog.objects.filter(user=request.user, exercise=exercise)
+        logs = WorkoutLog.objects.filter(user=request.user, exercise_base=exercise.exercise_base)
         entry_log, chart_data = process_log_entries(logs)
 
-    template_data['logs'] = entry_log
-    template_data['json'] = chart_data
-    template_data['svg_uuid'] = str(uuid.uuid4())
-    template_data['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
-    template_data['allow_upload_videos'] = settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']
+    context['logs'] = entry_log
+    context['json'] = chart_data
+    context['svg_uuid'] = str(uuid.uuid4())
+    context['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
+    context['allow_upload_videos'] = settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']
 
-    return render(request, 'exercise/view.html', template_data)
+    return render(request, 'exercise/view.html', context)
 
 
 class ExerciseForm(ModelForm):
@@ -225,185 +210,14 @@ class ExerciseForm(ModelForm):
                 min_edit_dist = levenshtein(exercise_name.casefold(), name.casefold())
                 if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
                     raise ValidationError(
-                        _(
-                            '%(name)s is too similar to existing exercise '
-                            '"%(exercise_name)s"'
-                        ),
+                        _('%(name)s is too similar to existing exercise '
+                          '"%(exercise_name)s"'),
                         params={
                             'name': name,
                             'exercise_name': exercise_name
                         },
                     )
         return name
-
-
-class ExercisesEditAddView(WgerFormMixin):
-    """
-    Generic view to subclass from for exercise adding and editing, since they
-    share all this settings
-    """
-    model = Exercise
-    sidebar = 'exercise/form.html'
-    title = gettext_lazy('Add exercise')
-    custom_js = 'wgerInitTinymce();'
-    clean_html = ('description', )
-
-    def get_form_class(self):
-        return ExerciseForm
-
-    def get_form(self, form_class=None):
-        form = super(ExercisesEditAddView, self).get_form(form_class)
-        exercise = self.get_form_kwargs()['instance']
-        if exercise is not None:
-            form.fields['category'].initial = exercise.exercise_base.category
-            form.fields['equipment'].initial = exercise.exercise_base.equipment.all()
-            form.fields['muscles'].initial = exercise.exercise_base.muscles.all()
-            form.fields['muscles_secondary'].initial = \
-                exercise.exercise_base.muscles_secondary.all()
-        form.helper.layout = Layout(
-            "name",
-            "description",
-            "category",
-            "equipment",
-            Row(
-                Column('muscles', css_class='form-group col-6 mb-0'),
-                Column('muscles_secondary', css_class='form-group col-6 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('license', css_class='form-group col-6 mb-0'),
-                Column('license_author', css_class='form-group col-6 mb-0'),
-                css_class='form-row'
-            ),
-        )
-        return form
-
-    def form_valid(self, form):
-        exercise_base = Exercise.objects.filter(id=form.instance.id)[0].exercise_base
-        exercise_base.equipment.set(form.cleaned_data['equipment'].all())
-        exercise_base.muscles.set(form.cleaned_data['muscles'].all())
-        exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
-
-        form.instance.exercise_base = exercise_base
-        form.instance.save()
-        return super(ExercisesEditAddView, self).form_valid(form)
-
-
-class ExerciseUpdateView(
-    ExercisesEditAddView,
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    UpdateView,
-):
-    """
-    Generic view to update an existing exercise
-    """
-    permission_required = 'exercises.change_exercise'
-
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseUpdateView, self).get_context_data(**kwargs)
-        context['title'] = _('Edit {0}').format(self.object.name)
-        return context
-
-
-class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
-    """
-    Generic view to add a new exercise
-    """
-
-    def form_valid(self, form):
-        """
-        Set language and author
-        """
-        form.instance.language = load_language()
-        form.instance.set_author(self.request)
-
-        # Try retrieving a base exercise first
-        existing = ExerciseBase.objects.filter(
-            category=ExerciseCategory.objects.get(name=form.cleaned_data['category'])
-        )
-        for elem in form.cleaned_data['equipment'].all():
-            existing = existing.filter(equipment=elem)
-        for elem in form.cleaned_data['muscles'].all():
-            existing = existing.filter(muscles=elem)
-        for elem in form.cleaned_data['muscles_secondary'].all():
-            existing = existing.filter(muscles_secondary=elem)
-
-        # Create a new exercise base
-        if not existing:
-            exercise_base = ExerciseBase.objects.create(
-                category=form.cleaned_data['category'],
-                license=form.cleaned_data['license'],
-                license_author=form.cleaned_data['license_author']
-            )
-
-            exercise_base.equipment.set(form.cleaned_data['equipment'].all())
-            exercise_base.muscles.set(form.cleaned_data['muscles'].all())
-            exercise_base.muscles_secondary.set(form.cleaned_data['muscles_secondary'].all())
-            exercise_base.save()
-        else:
-            exercise_base = existing.first()
-
-        form.instance.exercise_base = exercise_base
-        form.instance.save()
-
-        return super(ExerciseAddView, self).form_valid(form)
-
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Demo users can't submit exercises
-        """
-        if request.user.userprofile.is_temporary:
-            return HttpResponseForbidden()
-
-        return super(ExerciseAddView, self).dispatch(request, *args, **kwargs)
-
-
-class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
-    """
-    Generic view to update an existing exercise
-    """
-    sidebar = 'exercise/form_correct.html'
-    messages = _('Thank you. Once the changes are reviewed the exercise will be updated.')
-
-    def dispatch(self, request, *args, **kwargs):
-        """
-        Only registered users can correct exercises
-        """
-        if not request.user.is_authenticated or request.user.userprofile.is_temporary:
-            return HttpResponseForbidden()
-
-        return super(ExerciseCorrectView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['title'] = _('Correct {0}').format(self.object.name)
-        return context
-
-    def form_valid(self, form):
-        """
-        If the form is valid send email notifications to the site administrators.
-
-        We don't return the super().form_valid because we don't want the data
-        to be saved.
-        """
-        subject = 'Correction submitted for exercise #{0}'.format(self.get_object().pk)
-        context = {
-            'exercise': self.get_object(),
-            'form_data': form.cleaned_data,
-            'user': self.request.user
-        }
-        message = render_to_string('exercise/email_correction.tpl', context)
-        mail.mail_admins(
-            str(subject),
-            str(message),
-            fail_silently=True,
-        )
-
-        messages.success(self.request, self.messages)
-        return HttpResponseRedirect(
-            reverse('exercise:exercise:view', kwargs={'id': self.object.id})
-        )
 
 
 class ExerciseDeleteView(
@@ -430,4 +244,3 @@ class ExerciseDeleteView(
         context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
         context['title'] = _('Delete {0}?').format(self.object.name)
         return context
-

@@ -79,11 +79,11 @@ class CopyWorkoutTestCase(WgerTestCase):
                 self.assertEqual(sets_original[j].order, sets_copy[j].order)
                 self.assertEqual(sets_original[j].comment, sets_copy[j].comment)
 
-                exercises_original = sets_original[j].exercises
-                exercises_copy = sets_copy[j].exercises
+                bases_original = sets_original[j].exercise_bases
+                bases_copy = sets_copy[j].exercise_bases
 
-                for k in range(len(sets_original[j].exercises)):
-                    self.assertEqual(exercises_original[k], exercises_copy[k])
+                for k in range(len(sets_original[j].exercise_bases)):
+                    self.assertEqual(bases_original[k], bases_copy[k])
 
                 settings_original = sets_original[j].setting_set.all()
                 settings_copy = sets_copy[j].setting_set.all()

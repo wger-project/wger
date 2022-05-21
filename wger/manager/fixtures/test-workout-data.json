@@ -128,7 +128,7 @@
             "weight_unit_id": 1,
             "weight": null,
             "order": 1,
-            "exercise": 1,
+            "exercise_base": 1,
             "rir": 3
         }
     },
@@ -143,7 +143,7 @@
             "weight_unit_id": 1,
             "weight": 15,
             "order": 1,
-            "exercise": 2
+            "exercise_base": 2
         }
     },
     {
@@ -157,7 +157,7 @@
             "weight_unit_id": 1,
             "weight": null,
             "order": 1,
-            "exercise": 2
+            "exercise_base": 2
         }
     },
 
@@ -170,7 +170,7 @@
             "reps": 8,
             "user": 1,
             "date": "2012-10-01",
-            "exercise": 1
+            "exercise_base": 1
         }
     },
     {
@@ -182,7 +182,7 @@
             "reps": 8,
             "user": 1,
             "date": "2012-10-10",
-            "exercise": 1
+            "exercise_base": 1
         }
     },
     {
@@ -194,7 +194,7 @@
             "reps": 8,
             "user": 1,
             "date": "2013-10-30",
-            "exercise": 1
+            "exercise_base": 1
         }
     },
     {
@@ -206,7 +206,7 @@
             "reps": 8,
             "user": 1,
             "date": "2012-11-01",
-            "exercise": 1
+            "exercise_base": 1
         }
     },
     {
@@ -218,7 +218,7 @@
             "reps": 8,
             "user": 2,
             "date": "2012-11-01",
-            "exercise": 2
+            "exercise_base": 2
         }
     }
 ]

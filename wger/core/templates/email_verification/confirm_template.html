@@ -15,10 +15,9 @@
 {#         #}
 {% block content %}
 {% if success %}
-    {% blocktranslate trimmed %}
-        {{ user.username }}, your email was verified
+    {% blocktranslate trimmed with username=user.username %}
+        {{ username }}, your email was verified
     {% endblocktranslate %}
-
 {% else %}
     {% translate "Error, invalid verification token" %}
 {% endif %}

@@ -65,11 +65,6 @@
                             <li><a class="dropdown-item" href="{% url 'exercise:muscle:overview' %}">{% translate "by muscle" context "as in sorted by muscle" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:equipment:overview' %}">{% translate "by equipment" context "as in sorted by equipment" %}</a></li>
 
-                            {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
-                            <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:add' %}">{% translate "Add new exercise" %}</a><li>
-                            {% endif %}
-
                             {% if user.userprofile.has_exercise_permission %}
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Administration" %}</li>
@@ -80,24 +75,6 @@
                             {% endif %}
                         </ul>
                     </li>
-
-
-
-                    {#            #}
-                    {# Weight tab #}
-                    {#            #}
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
-                        <a href="{% url 'weight:overview' %}"
-                           class="dropdown-toggle nav-link"
-                           data-toggle="dropdown"
-                           rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'weight:overview' %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
-                        </ul>
-                    </li>
-                    {% endif %}
 
 
                     {#               #}
@@ -138,6 +115,22 @@
                         </ul>
                     </li>
 
+
+                    {#            #}
+                    {# Weight tab #}
+                    {#            #}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown{% if active_tab == 'weight' %} active{% endif %}">
+                        <a href="{% url 'weight:overview' %}"
+                           class="dropdown-toggle nav-link"
+                           data-toggle="dropdown"
+                           rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'weight:overview' %}" rel="nofollow">{% translate "Weight overview" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'weight:add' %}" rel="nofollow">{% translate "Add weight entry" %}</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
 
 
                     {#              #}

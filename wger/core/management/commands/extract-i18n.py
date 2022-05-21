@@ -47,13 +47,12 @@ class Command(BaseCommand):
                 replace('(', '_').\
                 replace(')', '_')
 
-
         # Collect all translatable items
         data = [i for i in ExerciseCategory.objects.all()] \
             + [i for i in Equipment.objects.all()] \
             + [i for i in RepetitionUnit.objects.all()]
 
-            # + [i for i in Muscle.objects.all()] \
+        # + [i for i in Muscle.objects.all()] \
 
         #
         # Django - write to .tpl file
@@ -107,4 +106,3 @@ class Command(BaseCommand):
 
             f.write(out)
             self.stdout.write(self.style.SUCCESS(f'Wrote content to i18n.dart!'))
-

@@ -49,7 +49,10 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import Exercise
+from wger.exercises.models import (
+    Exercise,
+    ExerciseBase,
+)
 from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
     Day,
@@ -118,7 +121,7 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 class SetForm(ModelForm):
 
     exercises = OrderedModelMultipleChoiceField(
-        queryset=Exercise.objects.all(),
+        queryset=ExerciseBase.objects.all(),
         label=_('Exercises'),
         required=False,
         widget=ExerciseAjaxSelect,
@@ -160,8 +163,8 @@ class WorkoutLogForm(ModelForm):
         label=_('Unit'),
         required=False,
     )
-    exercise = ModelChoiceField(
-        queryset=Exercise.objects.all(),
+    exercise_base = ModelChoiceField(
+        queryset=ExerciseBase.objects.all(),
         label=_('Exercise'),
         required=False,
     )

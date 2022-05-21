@@ -14,7 +14,10 @@
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.exercises.models import Exercise
+from wger.exercises.models import (
+    Exercise,
+    ExerciseBase,
+)
 
 
 class ExerciseBaseTestCase(WgerTestCase):
@@ -41,16 +44,40 @@ class ExerciseBaseTestCase(WgerTestCase):
             self.get_ids(exercise.muscles_secondary),
         )
 
+    def test_language_utils_translation_exists(self):
+        """
+        Test that the base correctly returns translated exercises
+        """
+        exercise = ExerciseBase.objects.get(pk=1).get_exercise('de')
+        self.assertEqual(exercise.name, 'An exercise')
+
+    def test_language_utils_no_translation_exists(self):
+        """
+        Test that the base correctly returns the English translation if the
+        requested language does not exist
+        """
+        exercise = ExerciseBase.objects.get(pk=1).get_exercise('fr')
+        self.assertEqual(exercise.name, 'Test exercise 123')
+
+    def test_language_utils_no_translation_fallback(self):
+        """
+        Test that the base correctly returns the first translation if for whatever
+        reason English is not available
+        """
+        exercise = ExerciseBase.objects.get(pk=2).get_exercise('pt')
+
+        self.assertEqual(exercise.name, 'Very cool exercise')
+
     def test_variations(self):
         """Test that the variations are correctly returned"""
 
         # Even if these exercises have the same base, only the variations for
         # their respective languages are returned.
-        exercise = Exercise.objects.get(pk=81)
-        self.assertListEqual(sorted([i.id for i in exercise.variations]), sorted([3, 4, 35, 81]))
+        base = ExerciseBase.objects.get(pk=1)
+        self.assertListEqual(sorted([i.id for i in base.base_variations]), [2])
 
-        exercise2 = Exercise.objects.get(pk=84)
-        self.assertEqual(sorted([i.id for i in exercise2.variations]), sorted([84, 91, 111, 126]))
+        base2 = ExerciseBase.objects.get(pk=3)
+        self.assertEqual(sorted([i.id for i in base2.base_variations]), [4])
 
     def test_images(self):
         """Test that the correct images are returned for the exercises"""
