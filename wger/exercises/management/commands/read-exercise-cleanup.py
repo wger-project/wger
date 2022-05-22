@@ -23,7 +23,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand
 
 # Third Party
-from utils.constants import DEFAULT_LICENSE_ID
+from wger.utils.constants import DEFAULT_LICENSE_ID
 
 # wger
 from wger.core.models import (
