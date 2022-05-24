@@ -12,7 +12,7 @@ wheel==0.37.1
 pymongo==4.1.1
 
 # Development packages
-coverage==6.3.3
+coverage==6.4
 django-debug-toolbar==3.4.0
 tblib==1.7.0
 isort==5.10.1
