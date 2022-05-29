@@ -211,6 +211,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "license",
             "license_author",
             "variations",
+            "author_history",
         )
 
 
