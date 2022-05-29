@@ -16,9 +16,9 @@
 
 # Django
 from django.core.management.base import BaseCommand
-from wger.core.models.license_author_history import LicenseAuthorHistory
 
 # wger
+from wger.exercises.models import ExerciseBase
 from wger.exercises.models.exercise import Exercise
 
 
@@ -29,9 +29,10 @@ class Command(BaseCommand):
 
     help = (
         'Used to alter exercise license authors\n'
-        'Must provide at least the exercise id using --exercise-id\n'
+        'Must provide at least the exercise base id using --exercise-base-id\n'
+        'or the exercise id using --exercise-id.\n'
         'Must also provide the new author name using --author-name\n'
-    )
+        )
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -39,6 +40,12 @@ class Command(BaseCommand):
             action='store',
             dest='author_name',
             help='The name of the new author'
+        )
+        parser.add_argument(
+            '--exercise-base-id',
+            action='store',
+            dest='exercise_base_id',
+            help='The ID of the exercise'
         )
         parser.add_argument(
             '--exercise-id',
@@ -49,31 +56,37 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         author_name = options['author_name']
+        exercise_base_id = options['exercise_base_id']
         exercise_id = options['exercise_id']
 
         if author_name is None:
             self.print_error('Please enter an author name')
             return
 
-        if exercise_id is None:
-            self.print_error('Please enter an exercise ID')
+        if exercise_base_id is None and exercise_id is None:
+            self.print_error('Please enter an exercise base or exercise ID')
             return
 
-        try:
-            exercise = Exercise.objects.get(id=exercise_id)
-        except Exercise.DoesNotExist:
-            self.print_error('Failed to find exercise')
-            return
+        if exercise_base_id is not None:
+            try:
+                exercise_base = ExerciseBase.objects.get(id=exercise_base_id)
+            except ExerciseBase.DoesNotExist:
+                self.print_error('Failed to find exercise base')
+                return
+            exercise_base.license_author = author_name
+            exercise_base.save()
 
-        lh = LicenseAuthorHistory(
-            model_id=exercise.id,
-            model_type=LicenseAuthorHistory.MODEL_TYPE_EXERCISE,
-            name=author_name,
-        )
-        lh.save()
+        if exercise_id is not None:
+            try:
+                exercise = Exercise.objects.get(id=exercise_id)
+            except ExerciseBase.DoesNotExist:
+                self.print_error('Failed to find exercise')
+                return
+            exercise.license_author = author_name
+            exercise.save()
 
         self.stdout.write(
-            self.style.SUCCESS(f"Exercise has been updated")
+            self.style.SUCCESS(f"Exercise and/or exercise base has been updated")
         )
 
     def print_error(self, error_message):

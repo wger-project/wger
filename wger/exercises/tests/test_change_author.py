@@ -15,10 +15,10 @@
 from io import StringIO
 
 from django.core.management import call_command
-from wger.core.models.license_author_history import LicenseAuthorHistory
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models.base import ExerciseBase
 from wger.exercises.models.exercise import Exercise
 
 
@@ -30,7 +30,6 @@ class ChangeAuthorTestCase(WgerTestCase):
     def setUp(self):
         super(ChangeAuthorTestCase, self).setUp()
         self.out = StringIO()
-
 
     def test_missing_author(self):
         """
@@ -48,12 +47,36 @@ class ChangeAuthorTestCase(WgerTestCase):
             "tom"
         ]
         call_command('change-author', *args, stdout=self.out, no_color=True)
-        self.assertIn('Please enter an exercise ID', self.out.getvalue())
+        self.assertIn(
+            'Please enter an exercise base or exercise ID', self.out.getvalue())
+
+    def test_can_update_exercise_base(self):
+        """
+        Test to ensure command can handle an exercise base id passed
+        """
+        exercise_base = ExerciseBase.objects.get(id=2)
+        self.assertNotEquals(exercise_base.license_author, "tom")
+
+        args = [
+            "--author-name",
+            "tom",
+            "--exercise-base-id",
+            "2"
+        ]
+        call_command('change-author', *args, stdout=self.out, no_color=True)
+        self.assertIn(
+            'Exercise and/or exercise base has been updated', self.out.getvalue())
+
+        exercise_base = ExerciseBase.objects.get(id=2)
+        self.assertEquals(exercise_base.license_author, "tom")
 
     def test_can_update_exercise(self):
         """
         Test to ensure command can handle an exercise id passed
         """
+        exercise = Exercise.objects.get(id=1)
+        self.assertNotEquals(exercise.license_author, "tom")
+
         args = [
             "--author-name",
             "tom",
@@ -61,9 +84,8 @@ class ChangeAuthorTestCase(WgerTestCase):
             "1"
         ]
         call_command('change-author', *args, stdout=self.out, no_color=True)
-        self.assertIn('Exercise has been updated', self.out.getvalue())
+        self.assertIn(
+            'Exercise and/or exercise base has been updated', self.out.getvalue())
 
-        exercise = LicenseAuthorHistory.objects.filter(
-            model_type=LicenseAuthorHistory.MODEL_TYPE_EXERCISE
-        )
-        self.assertEquals(len(exercise), 1)
+        exercise = Exercise.objects.get(id=1)
+        self.assertEquals(exercise.license_author, "tom")

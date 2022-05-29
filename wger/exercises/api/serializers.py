@@ -16,7 +16,6 @@
 
 # Third Party
 from rest_framework import serializers
-from wger.core.models.license_author_history import LicenseAuthorHistory
 
 # wger
 from wger.exercises.models import (
@@ -194,7 +193,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
     muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
     equipment = serializers.PrimaryKeyRelatedField(many=True, queryset=Equipment.objects.all())
     variations = serializers.PrimaryKeyRelatedField(many=True, queryset=Variation.objects.all())
-    license_author_history = serializers.PrimaryKeyRelatedField(many=True, queryset=LicenseAuthorHistory.objects.all())
 
     class Meta:
         model = Exercise
@@ -213,7 +211,6 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "license",
             "license_author",
             "variations",
-            "license_author_history",
         )
 
 
