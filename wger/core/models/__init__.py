@@ -19,6 +19,7 @@ from .cache import UserCache
 from .days_of_week import DaysOfWeek
 from .language import Language
 from .license import License
+from .license_author_history import LicenseAuthorHistory
 from .profile import UserProfile
 from .rep_unit import RepetitionUnit
 from .weight_unit import WeightUnit

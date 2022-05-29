@@ -37,6 +37,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
+from wger.core.models.license_author_history import LicenseAuthorHistory
 from wger.exercises.models import ExerciseBase
 from wger.utils.cache import (
     delete_template_fragment_cache,
@@ -192,6 +193,16 @@ class Exercise(AbstractLicenseModel, models.Model):
                 for exercise in variation.exercises.filter(language=self.language).all():
                     out.append(exercise)
         return out
+
+    #
+    # Properties to expose the information about license history
+    #
+    @property
+    def license_author_history(self):
+        return LicenseAuthorHistory.objects.all().filter(
+            model_id=self.id,
+            model_type=LicenseAuthorHistory.MODEL_TYPE_EXERCISE,
+        )
 
     #
     # Own methods

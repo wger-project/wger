@@ -15,6 +15,7 @@
 from io import StringIO
 
 from django.core.management import call_command
+from wger.core.models.license_author_history import LicenseAuthorHistory
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -53,9 +54,6 @@ class ChangeAuthorTestCase(WgerTestCase):
         """
         Test to ensure command can handle an exercise id passed
         """
-        exercise = Exercise.objects.get(id=1)
-        self.assertNotEquals(exercise.license_author, "tom")
-
         args = [
             "--author-name",
             "tom",
@@ -65,5 +63,7 @@ class ChangeAuthorTestCase(WgerTestCase):
         call_command('change-author', *args, stdout=self.out, no_color=True)
         self.assertIn('Exercise has been updated', self.out.getvalue())
 
-        exercise = Exercise.objects.get(id=1)
-        self.assertEquals(exercise.license_author, "tom")
+        exercise = LicenseAuthorHistory.objects.filter(
+            model_type=LicenseAuthorHistory.MODEL_TYPE_EXERCISE
+        )
+        self.assertEquals(len(exercise), 1)

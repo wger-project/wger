@@ -16,6 +16,7 @@
 
 # Django
 from django.core.management.base import BaseCommand
+from wger.core.models.license_author_history import LicenseAuthorHistory
 
 # wger
 from wger.exercises.models.exercise import Exercise
@@ -64,8 +65,12 @@ class Command(BaseCommand):
             self.print_error('Failed to find exercise')
             return
 
-        exercise.license_author = author_name
-        exercise.save()
+        lh = LicenseAuthorHistory(
+            model_id=exercise.id,
+            model_type=LicenseAuthorHistory.MODEL_TYPE_EXERCISE,
+            name=author_name,
+        )
+        lh.save()
 
         self.stdout.write(
             self.style.SUCCESS(f"Exercise has been updated")
