@@ -67,7 +67,7 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
-from wger.exercises.views.helper import HistoryModes
+from wger.exercises.views.helper import StreamVerbs
 from wger.utils.language import load_item_languages
 
 
@@ -97,7 +97,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.CREATED.value,
+            verb=StreamVerbs.CREATED.value,
             action_object=serializer.instance
         )
 
@@ -108,7 +108,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.UPDATED.value,
+            verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance
         )
 
@@ -136,7 +136,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.CREATED.value,
+            verb=StreamVerbs.CREATED.value,
             action_object=serializer.instance,
         )
 
@@ -147,7 +147,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.UPDATED.value,
+            verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
         )
 
@@ -379,7 +379,7 @@ class ExerciseImageViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.CREATED.value,
+            verb=StreamVerbs.CREATED.value,
             action_object=serializer.instance,
         )
 
@@ -390,7 +390,7 @@ class ExerciseImageViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.UPDATED.value,
+            verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
         )
 
@@ -435,7 +435,7 @@ class ExerciseCommentViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.CREATED.value,
+            verb=StreamVerbs.CREATED.value,
             action_object=serializer.instance,
         )
 
@@ -446,7 +446,7 @@ class ExerciseCommentViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,
-            verb=HistoryModes.UPDATED.value,
+            verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
         )
 

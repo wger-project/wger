@@ -25,7 +25,7 @@ from actstream.models import Action
 
 # wger
 from wger.exercises.models import Exercise
-from wger.exercises.views.helper import HistoryModes
+from wger.exercises.views.helper import StreamVerbs
 
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ def overview(request):
 
         # We can't pass the enum to the template, so we have to do this
         # https://stackoverflow.com/questions/35953132/
-        'modes': HistoryModes.__members__
+        'modes': StreamVerbs.__members__
     }
 
     return render(request, 'history/list.html', context)

@@ -15,6 +15,6 @@
 import enum
 
 
-class HistoryModes(enum.Enum):
+class StreamVerbs(enum.Enum):
     CREATED = 'created'
     UPDATED = 'updated'
