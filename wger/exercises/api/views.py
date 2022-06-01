@@ -95,14 +95,22 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         Save entry to activity stream
         """
         super().perform_create(serializer)
-        actstream_action.send(self.request.user, verb='created', action_object=serializer.instance)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.CREATED.value,
+            action_object=serializer.instance
+        )
 
     def perform_update(self, serializer):
         """
         Save entry to activity stream
         """
         super().perform_create(serializer)
-        actstream_action.send(self.request.user, verb='updated', action_object=serializer.instance)
+        actstream_action.send(
+            self.request.user,
+            verb=HistoryModes.UPDATED.value,
+            action_object=serializer.instance
+        )
 
 
 class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
