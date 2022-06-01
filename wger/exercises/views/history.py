@@ -44,6 +44,7 @@ def overview(request):
         # https://stackoverflow.com/questions/35953132/
         'modes': HistoryModes.__members__
     }
+
     return render(request, 'history/list.html', context)
 
 

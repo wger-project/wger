@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load wger_extras %}
+{% load cache %}
+{% load thumbnail %}
+
+<!--
+        Title
+-->
+{% block title %}{% translate "Exercise edit history" %}{% endblock %}
+
+
+
+{% block header %}
+
+{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+    <div class="accordion" id="accordionExample">
+        {% for entry in history %}
+            <div class="card">
+                <div class="card-header" id="heading{{ entry.record.history_id }}">
+                    <button class="btn btn-link btn-block text-left"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapse{{ entry.record.history_id }}"
+                            aria-expanded="true"
+                            aria-controls="collapse{{ entry.record.history_id }}">
+                        History entry for {{ entry.record.instance.name }}
+                        <small>{{ entry.record.history_date }}</small>
+                    </button>
+                </div>
+                <div id="collapse{{ entry.record.history_id }}"
+                     class="collapse"
+                     aria-labelledby="heading{{ entry.record.history_id }}"
+                     data-parent="#accordionExample">
+                    <div class="card-body">
+                        {% if entry.record.history_type == '~' %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Field</td>
+                                    <td>Old</td>
+                                    <td>New</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% if entry.delta %}
+                            {% for change in entry.delta.changes %}
+                                <tr>
+                                    <td>{{ change.field }}</td>
+                                    <td>{{ change.old }}</td>
+                                    <td>{{ change.new }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                        {% elif entry.record.history_type == '-' %}
+                            <p>Entry deleted</p>
+                        {% elif entry.record.history_type == '+' %}
+                            <p>Entry created</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+
+{% endblock %}
+
+
+
+{% block options %}
+
+{% endblock %}

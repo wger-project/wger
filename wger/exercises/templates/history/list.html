@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+{% extends "base_wide.html" %}
 {% load i18n static wger_extras activity_tags %}
 
 <!--
         Title
 -->
-{% block title %}{% translate "Exercise edit history" %}{% endblock %}
+{% block title %}{% translate "Exercise edit stream" %}{% endblock %}
 
 
 
@@ -23,6 +23,7 @@
             <th scope="col">{% translate 'User' %}</th>
             <th scope="col">{% translate 'Action' %}</th>
             <th scope="col">{% translate 'Object' %}</th>
+            <th scope="col">{% translate 'Time' %}</th>
             <th scope="col">{% translate 'Changes' %}</th>
         </tr>
         </thead>
@@ -35,6 +36,8 @@
                         <span class="{% fa_class 'plus' %}"></span>
                     {% elif event.verb == modes.UPDATED.value %}
                         <span class="{% fa_class 'pen' %}"></span>
+                    {% else %}
+                        {{ event.verb }}
                     {% endif %}
                 </td>
                 <td>
@@ -44,7 +47,8 @@
                         {{ event.action_object }}
                     {% endif %}
                 </td>
-                <td> {{ event.timesince }}</td>
+                <td>{{ event.timesince }}</td>
+                <td>...</td>
             </tr>
         {% endfor %}
         </tbody>
