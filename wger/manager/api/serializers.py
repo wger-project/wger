@@ -21,8 +21,9 @@ from rest_framework import serializers
 # wger
 from wger.core.api.serializers import DaysOfWeekSerializer
 from wger.exercises.api.serializers import (
+    ExerciseBaseInfoSerializer,
     ExerciseSerializer,
-    MuscleSerializer, ExerciseBaseInfoSerializer,
+    MuscleSerializer,
 )
 from wger.manager.models import (
     Day,

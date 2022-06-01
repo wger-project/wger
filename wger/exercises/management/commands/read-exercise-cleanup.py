@@ -22,9 +22,6 @@ import pathlib
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
-# Third Party
-from wger.utils.constants import DEFAULT_LICENSE_ID
-
 # wger
 from wger.core.models import (
     Language,
@@ -39,6 +36,7 @@ from wger.exercises.models import (
     ExerciseVideo,
     Variation,
 )
+from wger.utils.constants import DEFAULT_LICENSE_ID
 
 
 class Command(BaseCommand):

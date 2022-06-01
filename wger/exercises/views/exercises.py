@@ -19,12 +19,10 @@ import uuid
 
 # Django
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-from django.core import mail
 from django.core.exceptions import ValidationError
 from django.forms import (
     CharField,
@@ -35,35 +33,18 @@ from django.forms import (
     Select,
     Textarea,
 )
-from django.http import (
-    HttpResponseForbidden,
-    HttpResponseRedirect,
-)
 from django.shortcuts import (
     get_object_or_404,
     render,
 )
-from django.template.loader import render_to_string
-from django.urls import (
-    reverse,
-    reverse_lazy,
-)
+from django.urls import reverse_lazy
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
 from django.views.generic import (
-    CreateView,
     DeleteView,
     ListView,
-    UpdateView,
-)
-
-# Third Party
-from crispy_forms.layout import (
-    Column,
-    Layout,
-    Row,
 )
 
 # wger
@@ -76,10 +57,7 @@ from wger.exercises.models import (
 )
 from wger.manager.models import WorkoutLog
 from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
-from wger.utils.generic_views import (
-    WgerDeleteMixin,
-    WgerFormMixin,
-)
+from wger.utils.generic_views import WgerDeleteMixin
 from wger.utils.helpers import levenshtein
 from wger.utils.language import load_language
 from wger.utils.widgets import TranslatedSelectMultiple
