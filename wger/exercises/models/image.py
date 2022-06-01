@@ -167,26 +167,3 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         Image has no owner information
         """
         return False
-
-    def set_author(self, request):
-        """
-        Set author and status
-        This is only used when creating images (via web or API)
-        """
-        if request.user.has_perm('exercises.add_exerciseimage'):
-            self.status = self.STATUS_ACCEPTED
-            if not self.license_author:
-                self.license_author = request.get_host().split(':')[0]
-
-        else:
-            if not self.license_author:
-                self.license_author = request.user.username
-
-            subject = _('New user submitted image')
-            message = _('The user {0} submitted a new image "{1}" for exercise {2}.'
-                        ).format(request.user.username, self.name, self.exercise)
-            mail.mail_admins(
-                str(subject),
-                str(message),
-                fail_silently=True,
-            )

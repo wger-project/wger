@@ -98,7 +98,6 @@ class ExerciseImageAddView(
         """Set the exercise base and the author"""
         exercise = get_object_or_404(Exercise, pk=self.kwargs['exercise_pk'])
         form.instance.exercise_base = exercise.exercise_base
-        form.instance.set_author(self.request)
         return super(ExerciseImageAddView, self).form_valid(form)
 
     def get_success_url(self):
