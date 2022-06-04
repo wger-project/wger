@@ -36,7 +36,7 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.core.models import Language
 from wger.utils.constants import DEFAULT_LANGUAGE
-from wger.utils.models import AbstractLicenseModel
+from wger.utils.models import AbstractHistoryMixin, AbstractLicenseModel
 
 # Local
 from .category import ExerciseCategory
@@ -45,7 +45,7 @@ from .muscle import Muscle
 from .variation import Variation
 
 
-class ExerciseBase(AbstractLicenseModel, models.Model):
+class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise base
     """

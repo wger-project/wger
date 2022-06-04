@@ -22,20 +22,20 @@ from wger.exercises.models.base import ExerciseBase
 from wger.exercises.models.exercise import Exercise
 
 
-class ChangeAuthorTestCase(WgerTestCase):
+class ChangeExerciseAuthorTestCase(WgerTestCase):
     """
-    Tests the change author command
+    Tests the change exercise author command
     """
 
     def setUp(self):
-        super(ChangeAuthorTestCase, self).setUp()
+        super(ChangeExerciseAuthorTestCase, self).setUp()
         self.out = StringIO()
 
     def test_missing_author(self):
         """
         Test to ensure command handles a missing author parameter
         """
-        call_command('change-author', stdout=self.out, no_color=True)
+        call_command('change-exercise-author', stdout=self.out, no_color=True)
         self.assertIn('Please enter an author name', self.out.getvalue())
 
     def test_missing_exercise(self):
@@ -46,7 +46,7 @@ class ChangeAuthorTestCase(WgerTestCase):
             "--author-name",
             "tom"
         ]
-        call_command('change-author', *args, stdout=self.out, no_color=True)
+        call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn(
             'Please enter an exercise base or exercise ID', self.out.getvalue())
 
@@ -63,7 +63,7 @@ class ChangeAuthorTestCase(WgerTestCase):
             "--exercise-base-id",
             "2"
         ]
-        call_command('change-author', *args, stdout=self.out, no_color=True)
+        call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn(
             'Exercise and/or exercise base has been updated', self.out.getvalue())
 
@@ -83,7 +83,7 @@ class ChangeAuthorTestCase(WgerTestCase):
             "--exercise-id",
             "1"
         ]
-        call_command('change-author', *args, stdout=self.out, no_color=True)
+        call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn(
             'Exercise and/or exercise base has been updated', self.out.getvalue())
 
