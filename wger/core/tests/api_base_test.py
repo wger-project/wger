@@ -292,11 +292,15 @@ class ApiPostTestCase(object):
 
             # Different logged in user
             self.get_credentials(self.user_fail)
-            response = self.client.post(self.url_detail, data=self.data)
-            self.assertIn(
-                response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
-            )
+            response = self.client.post(self.url, data=self.data)
+            if self.protected_resource:
+                self.assertIn(response.status_code,
+                              (status.HTTP_200_OK, status.HTTP_201_CREATED))
+            else:
+                self.assertIn(
+                    response.status_code,
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                )
 
     def test_post_special_endpoints(self):
         """
@@ -370,7 +374,7 @@ class ApiPatchTestCase(object):
                 (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
             )
 
-            # Different logged in user. Usually admin.
+            # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
             if self.protected_resource:
@@ -497,7 +501,7 @@ class ApiPutTestCase(object):
                 (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
             )
 
-            # Different logged in user. Usually admin.
+            # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
             if self.protected_resource:

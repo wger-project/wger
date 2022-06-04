@@ -32,7 +32,7 @@ class Command(BaseCommand):
         'Must provide at least the exercise base id using --exercise-base-id\n'
         'or the exercise id using --exercise-id.\n'
         'Must also provide the new author name using --author-name\n'
-        )
+    )
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             '--exercise-base-id',
             action='store',
             dest='exercise_base_id',
-            help='The ID of the exercise'
+            help='The ID of the exercise base'
         )
         parser.add_argument(
             '--exercise-id',
