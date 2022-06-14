@@ -257,6 +257,21 @@ class ExercisesTestCase(WgerTestCase):
         self.user_login('test')
         self.search_exercise()
 
+    def test_exercise_records_historical_data(self):
+        """
+        Test that changing exercise details generates a historical record
+        """
+        exercise = Exercise.objects.get(pk=2)
+        self.assertEqual(len(exercise.history.all()), 0)
+
+        exercise.name = 'Very cool exercise 2'
+        exercise.description = 'New description'
+        exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
+        exercise.save()
+
+        exercise = Exercise.objects.get(pk=2)
+        self.assertEqual(len(exercise.history.all()), 1)
+
 
 class DeleteExercisesTestCase(WgerDeleteTestCase):
     """

@@ -42,10 +42,13 @@ from wger.utils.cache import (
     delete_template_fragment_cache,
     reset_workout_canonical_form,
 )
-from wger.utils.models import AbstractLicenseModel
+from wger.utils.models import (
+    AbstractLicenseModel,
+    AbstractHistoryMixin,
+)
 
 
-class Exercise(AbstractLicenseModel, models.Model):
+class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise
     """

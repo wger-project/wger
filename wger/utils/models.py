@@ -86,3 +86,22 @@ class AbstractSubmissionModel(models.Model):
         editable=False,
     )
     """Status of the submission, e.g. accepted or declined"""
+
+
+class AbstractHistoryMixin(models.Model):
+    """
+    Abstract class used to model specific historical records.
+
+    Utilized in conjunction with simple_history's HistoricalRecords.
+    """
+
+    class Meta:
+        abstract = True
+
+    @property
+    def author_history(self):
+        out = []
+        for history in set(self.history.all()):
+            out.append(history.license_author)
+        return set(out)
+    """Author history is the unique set of license authors from historical records"""

@@ -161,6 +161,7 @@ class ExerciseCommentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = ExerciseComment
     private_resource = False
+    protected_resource = True
     data = {
         "comment": "a cool comment",
         "exercise": "1",

@@ -211,6 +211,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "license",
             "license_author",
             "variations",
+            "author_history",
         )
 
 
@@ -238,6 +239,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "language",
             "license",
             "license_author",
+            "author_history",
         )
 
 
@@ -278,6 +280,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             "videos",
             "comments",
             "variations",
+            "author_history",
         ]
 
 
@@ -311,4 +314,5 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "exercises",
             "variations",
             "images",
+            "author_history",
         ]

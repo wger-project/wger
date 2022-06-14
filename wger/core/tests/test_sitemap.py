@@ -36,7 +36,7 @@ class SitemapTestCase(WgerTestCase):
             reverse('django.contrib.sitemaps.views.sitemap', kwargs={'section': 'exercises'})
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['urlset']), 9)
+        self.assertEqual(len(response.context['urlset']), 12)
 
     def test_sitemap_ingredients(self):
 

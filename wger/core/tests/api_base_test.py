@@ -72,6 +72,11 @@ class ApiBaseTestCase(APITestCase):
     A flag indicating whether the overview resource is cached
     """
 
+    protected_resource = False
+    """
+    A flag indicating whether the resource is protected where only certain users can alter
+    """
+
     def get_resource_name(self):
         """
         Returns the name of the resource. The default is the name of the model
@@ -288,10 +293,14 @@ class ApiPostTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.post(self.url, data=self.data)
-            self.assertIn(
-                response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
-            )
+            if self.protected_resource:
+                self.assertIn(response.status_code,
+                              (status.HTTP_200_OK, status.HTTP_201_CREATED))
+            else:
+                self.assertIn(
+                    response.status_code,
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                )
 
     def test_post_special_endpoints(self):
         """
@@ -368,10 +377,14 @@ class ApiPatchTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
-            self.assertIn(
-                response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
-            )
+            if self.protected_resource:
+                self.assertIn(response.status_code,
+                              (status.HTTP_200_OK, status.HTTP_201_CREATED))
+            else:
+                self.assertIn(
+                    response.status_code,
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                )
 
     def test_patch(self):
         """
@@ -491,10 +504,15 @@ class ApiPutTestCase(object):
             # Different logged in user
             self.get_credentials(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
-            self.assertIn(
-                response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
-            )
+            if self.protected_resource:
+                self.assertIn(response.status_code,
+                          (status.HTTP_200_OK, status.HTTP_201_CREATED))
+            else:
+                self.assertIn(
+                    response.status_code,
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                )
+
 
     def test_put(self):
         """
