@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-02-25 20:58+0000\n"
-"Last-Translator: Jing <cynthiacheng-jing@outlook.com>\n"
+"PO-Revision-Date: 2022-06-13 13:14+0000\n"
+"Last-Translator: yzqzss <yzqzss@othing.xyz>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1381,7 +1381,7 @@ msgstr ""
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr "管理员登陆权限只对%(gym_name)s的用户开放"
+msgstr "管理员登录权限只对%(gym_name)s的用户开放"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
