@@ -36,14 +36,7 @@ def overview(request):
     """
     Generic view to list the history of the exercises
     """
-
-    context = {
-        'stream': Action.objects.all(),
-
-        # We can't pass the enum to the template, so we have to do this
-        # https://stackoverflow.com/questions/35953132/
-        'modes': StreamVerbs.__members__
-    }
+    context = fetch_exercise_stream()
 
     return render(request, 'history/list.html', context)
 
@@ -53,9 +46,42 @@ def overview2(request):
     """
     Generic view to list the history of the exercises
     """
-    out = []
+    history = fetch_exercise_history()
+
+    return render(request, 'history/list2.html', {'history': history})
+
+
+@permission_required('exercises.change_exercise')
+def control(request):
+    """
+    Admin view of the history of the exercises
+    """
+    context = fetch_exercise_stream()
+    history = fetch_exercise_history()
+
+    print(history)
+    print(context)
+
+    return render(request, 'history/list3.html', {
+        'context': context,
+        'history': history,
+    })
+
+def fetch_exercise_history():
+    history = []
     for entry in Exercise.history.all():
         if entry.prev_record:
-            out.append({'record': entry, 'delta': entry.diff_against(entry.prev_record)})
+            history.append(
+                {'record': entry, 'delta': entry.diff_against(entry.prev_record)})
+    return history
 
-    return render(request, 'history/list2.html', {'history': out})
+
+def fetch_exercise_stream():
+    context = {
+        'stream': Action.objects.all(),
+
+        # We can't pass the enum to the template, so we have to do this
+        # https://stackoverflow.com/questions/35953132/
+        'modes': StreamVerbs.__members__
+    }
+    return context

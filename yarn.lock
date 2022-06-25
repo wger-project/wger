@@ -14,7 +14,6 @@
 
 Sortable@RubaXa/Sortable#1.15.0:
   version "1.15.0"
-  uid babf6ab85fdfc5e13be1027827cecfbba2fb0d1e
   resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/babf6ab85fdfc5e13be1027827cecfbba2fb0d1e"
 
 bootstrap@4.6.1:
@@ -31,11 +30,6 @@ commander@7:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
-
-components-font-awesome@5.9.0:
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/components-font-awesome/-/components-font-awesome-5.9.0.tgz#02242f85946f0a6ab46870547f4c54d11e94ef75"
-  integrity sha512-AjY5WwmKripvroQ1oYpCC4eK8efavSKUGN/ATgwcbyz/kRmojslH8l6Mrlxq071bdzBrZvCxi+RKgU5ao3bU+A==
 
 d3-array@1, d3-array@^1.2.0:
   version "1.2.4"

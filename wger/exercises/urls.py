@@ -40,6 +40,7 @@ from wger.exercises.views import (
 patterns_history = [
     path('overview/', history.overview, name='overview'),
     path('overview-history/', history.overview2, name='overview-history'),
+    path('admin-control/', history.control, name='admin-control'),
 ]
 
 # sub patterns for muscles
