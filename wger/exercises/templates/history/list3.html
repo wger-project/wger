@@ -44,11 +44,11 @@
                 </td>
                 <td>{{ event.stream.timesince }}</td>
                 <td>
-                    <a href="#" id="view-changes" data-toggle="modal" data-target="#changes-modal"
+                    <a href="#" id="view-changes" data-toggle="modal" data-target="#changes-modal-{{ event.stream.id }}"
                         class="btn btn-success btn-sm btn-block">
                         {% translate "View changes" %}
                     </a>
-                    <div class="modal fade" id="changes-modal">
+                    <div class="modal fade" id="changes-modal-{{ event.stream.id }}">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">

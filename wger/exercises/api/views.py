@@ -144,10 +144,16 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
-
         obj_id = self.kwargs['pk']
         updated_object = Exercise.objects.get(id=obj_id)
+
+        # Create a default history to diff against if there is none
+        most_recent_history = updated_object.history.order_by('history_date').last()
+        if most_recent_history is None:
+            updated_object.save()
+
+        super().perform_create(serializer)
+
         most_recent_history = updated_object.history.order_by('history_date').last()
 
         actstream_action.send(
