@@ -39,7 +39,7 @@ def overview(request):
     Generic view to list the history of the exercises
     """
     context = {
-        'stream': Action.objects.get(),
+        'stream': Action.objects.all(),
 
         # We can't pass the enum to the template, so we have to do this
         # https://stackoverflow.com/questions/35953132/
@@ -57,8 +57,7 @@ def overview2(request):
     out = []
     for entry in Exercise.history.all():
         if entry.prev_record:
-            out.append(
-                {'record': entry, 'delta': entry.diff_against(entry.prev_record)})
+            out.append({'record': entry, 'delta': entry.diff_against(entry.prev_record)})
 
     return render(request, 'history/list2.html', {'history': out})
 
@@ -78,11 +77,20 @@ def control(request):
     for entry in stream:
         # Fetch history
         hist_id = entry.data['data']['history_id']
-        hist = Exercise.history.filter(history_id=hist_id)
-        out.append({
-            'history': hist,
-            'stream': entry
-        })
+        hist = Exercise.history.filter(history_id=hist_id).first()
+
+        if hist.prev_record:
+            out.append({
+                'history': {'record': hist, 'delta': hist.diff_against(hist.prev_record)},
+                'stream': entry
+            })
+        else:
+            out.append({
+                'history': {'record': hist, 'delta': None},
+                'stream': entry
+            })
+
+    print(out)
 
     return render(request, 'history/list3.html', {
         'history': out,
