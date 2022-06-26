@@ -41,6 +41,8 @@ patterns_history = [
     path('overview/', history.overview, name='overview'),
     path('overview-history/', history.overview2, name='overview-history'),
     path('admin-control/', history.control, name='admin-control'),
+    path('admin-control/revert/<int:pk>/',
+         history.history_revert, name='history-revert'),
 ]
 
 # sub patterns for muscles

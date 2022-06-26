@@ -21,9 +21,15 @@ import logging
 from django.contrib.auth.decorators import permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import (
+    reverse,
+    reverse_lazy,
+)
 
 # Third Party
 from actstream.models import Action
+from actstream import action as actstream_action
 
 # wger
 from wger.exercises.models import Exercise
@@ -73,6 +79,8 @@ def control(request):
         action_object_content_type_id=object_content_type_ID,
     )
 
+    print(stream)
+
     out = []
     for entry in stream:
         # Fetch history
@@ -95,3 +103,30 @@ def control(request):
     return render(request, 'history/list3.html', {
         'history': out,
     })
+
+
+@permission_required('exercises.change_exercise')
+def history_revert(request, pk):
+    """
+    Used to revert objects
+    """
+
+    hist = Exercise.history.filter(history_id=pk).first()
+
+    revert_obj = hist.prev_record
+
+    revert_obj.instance.save()
+
+    updated_object = Exercise.objects.get(id=revert_obj.id)
+    most_recent_history = updated_object.history.order_by('history_date').last()
+
+    actstream_action.send(
+        request.user,
+        verb=StreamVerbs.UPDATED.value,
+        action_object=revert_obj.instance,
+        data={
+            'history_id': most_recent_history.history_id,
+        }
+    )
+
+    return HttpResponseRedirect(reverse('exercise:history:admin-control'))
