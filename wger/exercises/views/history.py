@@ -14,10 +14,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+from datetime import datetime, timedelta
 import logging
 
 # Django
 from django.contrib.auth.decorators import permission_required
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 
 # Third Party
@@ -36,7 +38,13 @@ def overview(request):
     """
     Generic view to list the history of the exercises
     """
-    context = fetch_exercise_stream()
+    context = {
+        'stream': Action.objects.get(),
+
+        # We can't pass the enum to the template, so we have to do this
+        # https://stackoverflow.com/questions/35953132/
+        'modes': StreamVerbs.__members__
+    }
 
     return render(request, 'history/list.html', context)
 
@@ -46,9 +54,13 @@ def overview2(request):
     """
     Generic view to list the history of the exercises
     """
-    history = fetch_exercise_history()
+    out = []
+    for entry in Exercise.history.all():
+        if entry.prev_record:
+            out.append(
+                {'record': entry, 'delta': entry.diff_against(entry.prev_record)})
 
-    return render(request, 'history/list2.html', {'history': history})
+    return render(request, 'history/list2.html', {'history': out})
 
 
 @permission_required('exercises.change_exercise')
@@ -56,32 +68,46 @@ def control(request):
     """
     Admin view of the history of the exercises
     """
-    context = fetch_exercise_stream()
-    history = fetch_exercise_history()
+    objectContentTypeID = ContentType.objects.get_for_model(Exercise).id
+
+    history = []
+    for entry in Exercise.history.all():
+        stream = fetch_exercise_stream_for_object_id_content_type_id_and_timestamp(
+            entry.id,
+            objectContentTypeID,
+            entry.history_date
+        )
+        if entry.prev_record:
+            history.append({
+                    'record': entry,
+                    'delta': entry.diff_against(entry.prev_record),
+                    'stream': stream
+                })
+        else:
+            history.append({
+                    'record': entry,
+                    'delta': None,
+                    'stream': stream
+                })
 
     print(history)
-    print(context)
 
     return render(request, 'history/list3.html', {
-        'context': context,
         'history': history,
     })
 
-def fetch_exercise_history():
-    history = []
-    for entry in Exercise.history.all():
-        if entry.prev_record:
-            history.append(
-                {'record': entry, 'delta': entry.diff_against(entry.prev_record)})
-    return history
+def fetch_exercise_stream_for_object_id_content_type_id_and_timestamp(
+    object_id,
+    content_type_id,
+    timestamp
+):
+    end_range = timestamp + timedelta(seconds=0.5)
+    stream = Action.objects.filter(
+        action_object_object_id=object_id,
+        action_object_content_type_id=content_type_id,
+        timestamp__range=(timestamp, end_range)
+    )
 
-
-def fetch_exercise_stream():
-    context = {
-        'stream': Action.objects.all(),
-
-        # We can't pass the enum to the template, so we have to do this
-        # https://stackoverflow.com/questions/35953132/
-        'modes': StreamVerbs.__members__
-    }
-    return context
+    if len(stream) >= 1:
+        return stream[0]
+    return None
