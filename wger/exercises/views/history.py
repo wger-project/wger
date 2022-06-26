@@ -68,46 +68,22 @@ def control(request):
     """
     Admin view of the history of the exercises
     """
-    objectContentTypeID = ContentType.objects.get_for_model(Exercise).id
+    object_content_type_ID = ContentType.objects.get_for_model(Exercise).id
 
-    history = []
-    for entry in Exercise.history.all():
-        stream = fetch_exercise_stream_for_object_id_content_type_id_and_timestamp(
-            entry.id,
-            objectContentTypeID,
-            entry.history_date
-        )
-        if entry.prev_record:
-            history.append({
-                    'record': entry,
-                    'delta': entry.diff_against(entry.prev_record),
-                    'stream': stream
-                })
-        else:
-            history.append({
-                    'record': entry,
-                    'delta': None,
-                    'stream': stream
-                })
-
-    print(history)
-
-    return render(request, 'history/list3.html', {
-        'history': history,
-    })
-
-def fetch_exercise_stream_for_object_id_content_type_id_and_timestamp(
-    object_id,
-    content_type_id,
-    timestamp
-):
-    end_range = timestamp + timedelta(seconds=0.5)
     stream = Action.objects.filter(
-        action_object_object_id=object_id,
-        action_object_content_type_id=content_type_id,
-        timestamp__range=(timestamp, end_range)
+        action_object_content_type_id=object_content_type_ID,
     )
 
-    if len(stream) >= 1:
-        return stream[0]
-    return None
+    out = []
+    for entry in stream:
+        # Fetch history
+        hist_id = entry.data['data']['history_id']
+        hist = Exercise.history.filter(history_id=hist_id)
+        out.append({
+            'history': hist,
+            'stream': entry
+        })
+
+    return render(request, 'history/list3.html', {
+        'history': out,
+    })
