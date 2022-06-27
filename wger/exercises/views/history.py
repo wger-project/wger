@@ -79,8 +79,6 @@ def control(request):
         action_object_content_type_id=object_content_type_ID,
     )
 
-    print(stream)
-
     out = []
     for entry in stream:
         # Fetch history
@@ -92,13 +90,6 @@ def control(request):
                 'history': {'record': hist, 'delta': hist.diff_against(hist.prev_record)},
                 'stream': entry
             })
-        else:
-            out.append({
-                'history': {'record': hist, 'delta': None},
-                'stream': entry
-            })
-
-    print(out)
 
     return render(request, 'history/list3.html', {
         'history': out,
@@ -110,15 +101,22 @@ def history_revert(request, pk):
     """
     Used to revert objects
     """
-
     hist = Exercise.history.filter(history_id=pk).first()
 
+    # exit early if there's no prev_record
     revert_obj = hist.prev_record
+    if revert_obj is None:
+        return HttpResponseRedirect(reverse('exercise:history:admin-control'))
 
-    revert_obj.instance.save()
+    diff = hist.diff_against(hist.prev_record)
+    current_obj = Exercise.objects.get(id=revert_obj.instance.id)
 
-    updated_object = Exercise.objects.get(id=revert_obj.id)
-    most_recent_history = updated_object.history.order_by('history_date').last()
+    for change in diff.changes:
+        setattr(current_obj, change.field, change.old)
+
+    current_obj.save()
+
+    most_recent_history = current_obj.history.order_by('history_date').last()
 
     actstream_action.send(
         request.user,
