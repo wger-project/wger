@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2021-10-27 10:48+0000\n"
-"Last-Translator: A M <augim3@gmail.com>\n"
+"PO-Revision-Date: 2022-07-01 07:17+0000\n"
+"Last-Translator: Dawid Panyło <wampir5000@o2.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1113,9 +1113,8 @@ msgstr "Powtórzenia"
 #: core/templates/tags/render_weight_log.html:30 manager/forms.py:178
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
-#, fuzzy
 msgid "RiR"
-msgstr "RiR"
+msgstr "Liczba powtórzeń w rezerwie"
 
 #: core/templates/template.html:139
 msgid ""
@@ -1608,7 +1607,7 @@ msgstr ""
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
@@ -1616,7 +1615,7 @@ msgstr ""
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Zdjęcie"
 
 #: exercises/models/image.py:63
 #, fuzzy
@@ -1648,7 +1647,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Styl zdjęcia"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1664,42 +1663,36 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Po łacinie, np. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "nazwa ćwiczenia"
+msgstr "Alternatywna nazwa"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Bardziej podstawowa nazwa mięśnia"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "Maksymalny rozmiar pliku wynosi 100MB."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Typ pliku nie jest obsługiwany"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s jest niepoprawną datą urodzenia"
+msgstr "Plik nie jest prawidłowym filmem"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Główny obraz"
+msgstr "Główne wideo"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Wideo"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Rozmiar"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1707,13 +1700,11 @@ msgstr "Czas trwania"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Szerokość"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Ciężar"
+msgstr "Wzrost"
 
 #: exercises/models/video.py:131
 #, fuzzy
@@ -2409,18 +2400,16 @@ msgid "none (bodyweight exercise)"
 msgstr "żaden (własny ciężar ciała)"
 
 #: i18n.tpl:20
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
 msgstr "Biceps"
 
 #: i18n.tpl:21
 msgid "Hamstrings"
-msgstr ""
+msgstr "Tył uda"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Mięsień najszerszy grzbietu"
 
 #: i18n.tpl:24
 #, fuzzy
@@ -2437,8 +2426,6 @@ msgid "Quads"
 msgstr ""
 
 #: i18n.tpl:29
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
 msgstr "Triceps"
 
@@ -3151,7 +3138,7 @@ msgstr ""
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Wartość"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3280,7 +3267,7 @@ msgstr "Czas (przybliżony)"
 msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
-msgstr ""
+msgstr "Nadaj posiłkom opis tekstowy/nazwę, np. „Śniadanie” lub „Po treningu”"
 
 #: nutrition/models/plan.py:71
 msgid ""
@@ -3577,18 +3564,14 @@ msgid "Goal"
 msgstr "Cel"
 
 #: nutrition/templates/plan/view.html:384
-#, fuzzy
-#| msgid ""
-#| "You have selected that this nutritional plan has a\n"
-#| "    goal amount of calories. Use the calculator or enter the value "
-#| "yourself."
 msgid ""
 "You have selected that this nutritional plan has a\n"
 "            goal amount of calories. Use the calculator or enter the value\n"
 "            yourself."
 msgstr ""
 "Ustaliłeś, że ten plan żywieniowy ma\n"
-"określony cel kaloryczny. Użyj kalkulatora lub wpisz wartość samodzielnie."
+"            określony cel kaloryczny. Użyj kalkulatora lub wpisz wartość\n"
+"            samodzielnie."
 
 #: nutrition/templates/plan/view.html:394
 msgid ""
