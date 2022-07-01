@@ -57,7 +57,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install wheel coverage
           pip install -r requirements_prod.txt
-          python setup.py develop
+          pip3 install -e .
 
       # Only run the tests with coverage for one version of python
       - name: Test the application with coverage (Postgres)
@@ -80,6 +80,12 @@ jobs:
       #    coverage run --source='.' ./manage.py test
       #    coverage html --directory coverage-sqlite
       #    coverage report
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        if: matrix.python-version == 3.8
 
       - name: Save coverage result artifacts
         uses: actions/upload-artifact@v3
