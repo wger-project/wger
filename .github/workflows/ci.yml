@@ -17,7 +17,7 @@ jobs:
       max-parallel: 3
       matrix:
         #TODO: pypy3 has problems compiling lxml
-        python-version: [ '3.7', '3.8', '3.9', '3.10']
+        python-version: [ '3.9', '3.10']
     name: CI job (python ${{ matrix.python-version }})
 
     services:
@@ -64,15 +64,14 @@ jobs:
         run: |
           wger create-settings --database-type postgresql
           coverage run --source='.' ./manage.py test
-          coverage html --directory coverage-postgres
-          coverage report
-        if: matrix.python-version == 3.8
+          coverage lcov
+        if: matrix.python-version == 3.10
 
       - name: Test the application (Postgres)
         run: |
           wger create-settings --database-type postgresql
           python manage.py test
-        if: matrix.python-version != 3.8
+        if: matrix.python-version != 3.10
 
       # - name: Test the application (Sqlite)
       #  run: |
@@ -85,11 +84,5 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-        if: matrix.python-version == 3.8
-
-      - name: Save coverage result artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-results-${{ matrix.python-version }}
-          path: coverage-postgres/
-        if: matrix.python-version == 3.8
+          path-to-lcov: coverage.lcov
+        if: matrix.python-version == 3.10
