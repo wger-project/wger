@@ -64,8 +64,7 @@ jobs:
         run: |
           wger create-settings --database-type postgresql
           coverage run --source='.' ./manage.py test
-          coverage html --directory coverage-postgres
-          coverage report
+          coverage lcov
         if: matrix.python-version == 3.8
 
       - name: Test the application (Postgres)
@@ -85,12 +84,5 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: .coverage
-        if: matrix.python-version == 3.8
-
-      - name: Save coverage result artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-results-${{ matrix.python-version }}
-          path: coverage-postgres/
+          path-to-lcov: coverage.lcov
         if: matrix.python-version == 3.8
