@@ -237,7 +237,9 @@ urlpatterns += [
 
     # The api user login
     path(
-        'api/v2/login/', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
+        'api/v2/login/',
+        core_api_views.UserAPILoginView.as_view({'post': 'post'}),
+        name='api_user'
     ),
     path(
         'api/v2/register/',

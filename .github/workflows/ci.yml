@@ -65,13 +65,13 @@ jobs:
           wger create-settings --database-type postgresql
           coverage run --source='.' ./manage.py test
           coverage lcov
-        if: matrix.python-version == 3.8
+        if: matrix.python-version == 3.10
 
       - name: Test the application (Postgres)
         run: |
           wger create-settings --database-type postgresql
           python manage.py test
-        if: matrix.python-version != 3.8
+        if: matrix.python-version != 3.10
 
       # - name: Test the application (Sqlite)
       #  run: |
@@ -85,4 +85,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage.lcov
-        if: matrix.python-version == 3.8
+        if: matrix.python-version == 3.10
