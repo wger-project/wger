@@ -103,10 +103,7 @@ def control(request):
                     'history': {'record': hist, 'delta': hist.diff_against(hist.prev_record)},
                     'stream': entry
                 })
-        elif entry.verb == "deleted":
-            print("TODO")
 
-    print(out)
     return render(request, 'history/list3.html', {
         'history': out,
     })
