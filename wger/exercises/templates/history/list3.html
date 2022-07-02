@@ -25,6 +25,7 @@
         <thead>
             <tr>
                 <th scope="col">{% translate 'User' %}</th>
+                <th scope="col">{% translate 'Action Type' %}</th>
                 <th scope="col">{% translate 'Object' %}</th>
                 <th scope="col">{% translate 'Time' %}</th>
                 <th scope="col">{% translate 'Changes' %}</th>
@@ -35,6 +36,7 @@
             {% for event in history %}
             <tr>
                 <td>{{ event.stream.actor }}</td>
+                <td>{{ event.stream.verb }}</td>
                 <td>
                     {% if event.stream.action_object.get_absolute_url %}
                         <a href="{{ event.stream.action_object.get_absolute_url }}">{{ event.stream.action_object }}</a>
@@ -43,51 +45,64 @@
                     {% endif %}
                 </td>
                 <td>{{ event.stream.timesince }}</td>
-                <td>
-                    <a href="#" id="view-changes" data-toggle="modal" data-target="#changes-modal-{{ event.stream.id }}"
-                        class="btn btn-success btn-sm btn-block">
-                        {% translate "View changes" %}
-                    </a>
-                    <div class="modal fade" id="changes-modal-{{ event.stream.id }}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">{% translate 'Exercise changes' %}</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <td>Field</td>
-                                                <td>Old</td>
-                                                <td>New</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% if event.history.delta %}
-                                            {% for change in event.history.delta.changes %}
-                                            <tr>
-                                                <td>{{ change.field }}</td>
-                                                <td>{{ change.old }}</td>
-                                                <td>{{ change.new }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% endif %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
+                {% if event.stream.verb == "created" %}
+                    <td>
+                        <a href="{{ event.stream.action_object.get_absolute_url }}" id="view-changes" class="btn btn-success btn-sm btn-block">
+                            {% translate "View exercise" %}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'exercise:exercise:delete' event.stream.action_object.id %}" id="view-changes" class="btn btn-danger btn-sm btn-block">
+                            {% translate "Delete exercise" %}
+                        </a>
+                    </td>
+                {% elif event.stream.verb == "updated" %}
+                    <td>
+                        <a href="#" id="view-changes" data-toggle="modal" data-target="#changes-modal-{{ event.stream.id }}"
+                            class="btn btn-success btn-sm btn-block">
+                            {% translate "View changes" %}
+                        </a>
+                        <div class="modal fade" id="changes-modal-{{ event.stream.id }}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{% translate 'Exercise changes' %}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <td>Field</td>
+                                                    <td>Old</td>
+                                                    <td>New</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if event.history.delta %}
+                                                {% for change in event.history.delta.changes %}
+                                                <tr>
+                                                    <td>{{ change.field }}</td>
+                                                    <td>{{ change.old }}</td>
+                                                    <td>{{ change.new }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    <a href="revert/{{ event.history.record.history_id }}" id="view-changes" class="btn btn-danger btn-sm btn-block">
-                        {% translate "Revert changes" %}
-                    </a>
-                </td>
+                    </td>
+                    <td>
+                        <a href="revert/{{ event.history.record.history_id }}" id="view-changes" class="btn btn-danger btn-sm btn-block">
+                            {% translate "Revert changes" %}
+                        </a>
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

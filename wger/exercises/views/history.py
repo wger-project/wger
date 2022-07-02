@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-from datetime import datetime, timedelta
 import logging
 
 # Django
@@ -24,7 +23,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import (
     reverse,
-    reverse_lazy,
 )
 
 # Third Party
@@ -60,6 +58,7 @@ def overview2(request):
     """
     Generic view to list the history of the exercises
     """
+
     out = []
     for entry in Exercise.history.all():
         if entry.prev_record:
@@ -81,16 +80,33 @@ def control(request):
 
     out = []
     for entry in stream:
-        # Fetch history
-        hist_id = entry.data['data']['history_id']
-        hist = Exercise.history.filter(history_id=hist_id).first()
-
-        if hist.prev_record:
+        if entry.verb == "created":
             out.append({
-                'history': {'record': hist, 'delta': hist.diff_against(hist.prev_record)},
+                'history': {'record': None, 'delta': None},
                 'stream': entry
             })
+            continue
+        elif entry.verb == "updated":
+            # Fetch history
+            entry_data = entry.data
+            if entry_data is None:
+                continue
 
+            entry_dict = entry_data.get('data', {})
+            history_id = entry_dict.get('history_id', 0)
+            if history_id == 0:
+                continue
+
+            hist = Exercise.history.get(history_id=history_id)
+            if hist.prev_record:
+                out.append({
+                    'history': {'record': hist, 'delta': hist.diff_against(hist.prev_record)},
+                    'stream': entry
+                })
+        elif entry.verb == "deleted":
+            print("TODO")
+
+    print(out)
     return render(request, 'history/list3.html', {
         'history': out,
     })
@@ -101,7 +117,9 @@ def history_revert(request, pk):
     """
     Used to revert objects
     """
-    hist = Exercise.history.filter(history_id=pk).first()
+    hist = Exercise.history.get(history_id=pk)
+    if hist is None:
+        return HttpResponseRedirect(reverse('exercise:history:admin-control'))
 
     # exit early if there's no prev_record
     revert_obj = hist.prev_record
@@ -109,7 +127,10 @@ def history_revert(request, pk):
         return HttpResponseRedirect(reverse('exercise:history:admin-control'))
 
     diff = hist.diff_against(hist.prev_record)
+
     current_obj = Exercise.objects.get(id=revert_obj.instance.id)
+    if current_obj is None:
+        return HttpResponseRedirect(reverse('exercise:history:admin-control'))
 
     for change in diff.changes:
         setattr(current_obj, change.field, change.old)
