@@ -33,10 +33,6 @@ from django.forms import (
     Select,
     Textarea,
 )
-from django.http import (FileResponse,
-                         Http404,
-                         HttpResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect,
-                         JsonResponse)
 from django.shortcuts import (
     get_object_or_404,
     render,
@@ -51,9 +47,6 @@ from django.views.generic import (
     ListView,
 )
 
-# Third Party
-from actstream import action as actstream_action
-
 # wger
 from wger.exercises.models import (
     Equipment,
@@ -62,7 +55,6 @@ from wger.exercises.models import (
     ExerciseCategory,
     Muscle,
 )
-from wger.exercises.views.helper import StreamVerbs
 from wger.manager.models import WorkoutLog
 from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
 from wger.utils.generic_views import WgerDeleteMixin

@@ -42,6 +42,7 @@ def overview(request):
     """
     Generic view to list the history of the exercises
     """
+
     context = {
         'stream': Action.objects.all(),
 
@@ -58,7 +59,6 @@ def overview2(request):
     """
     Generic view to list the history of the exercises
     """
-
     out = []
     for entry in Exercise.history.all():
         if entry.prev_record:
@@ -72,22 +72,21 @@ def control(request):
     """
     Admin view of the history of the exercises
     """
-    object_content_type_ID = ContentType.objects.get_for_model(Exercise).id
+    object_content_type = ContentType.objects.get_for_model(Exercise)
 
     stream = Action.objects.filter(
-        action_object_content_type_id=object_content_type_ID,
+        action_object_content_type_id=object_content_type.id,
     )
 
     out = []
     for entry in stream:
-        if entry.verb == "created":
+        if entry.verb == StreamVerbs.CREATED.value:
             out.append({
-                'history': {'record': None, 'delta': None},
+                'history': None,
                 'stream': entry
             })
             continue
-        elif entry.verb == "updated":
-            # Fetch history
+        elif entry.verb == StreamVerbs.UPDATED.value:
             entry_data = entry.data
             if entry_data is None:
                 continue
@@ -105,20 +104,23 @@ def control(request):
                 })
 
     return render(request, 'history/list3.html', {
-        'history': out,
+        'context': out,
+
+        # We can't pass the enum to the template, so we have to do this
+        # https://stackoverflow.com/questions/35953132/
+        'modes': StreamVerbs.__members__
     })
 
 
 @permission_required('exercises.change_exercise')
 def history_revert(request, pk):
     """
-    Used to revert objects
+    Used to revert history objects
     """
     hist = Exercise.history.get(history_id=pk)
     if hist is None:
         return HttpResponseRedirect(reverse('exercise:history:admin-control'))
 
-    # exit early if there's no prev_record
     revert_obj = hist.prev_record
     if revert_obj is None:
         return HttpResponseRedirect(reverse('exercise:history:admin-control'))
@@ -130,7 +132,10 @@ def history_revert(request, pk):
         return HttpResponseRedirect(reverse('exercise:history:admin-control'))
 
     for change in diff.changes:
-        setattr(current_obj, change.field, change.old)
+        try:
+            setattr(current_obj, change.field, change.old)
+        except:
+            logger.warn(f"Failed setting field: {change.field} to {change.old} for Exercise {current_obj.id}")
 
     current_obj.save()
 

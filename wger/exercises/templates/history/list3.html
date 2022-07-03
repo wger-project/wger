@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for event in history %}
+            {% for event in context %}
             <tr>
                 <td>{{ event.stream.actor }}</td>
                 <td>{{ event.stream.verb }}</td>
@@ -45,7 +45,7 @@
                     {% endif %}
                 </td>
                 <td>{{ event.stream.timesince }}</td>
-                {% if event.stream.verb == "created" %}
+                {% if event.stream.verb == modes.CREATED.value %}
                     <td>
                         <a href="{{ event.stream.action_object.get_absolute_url }}" id="view-changes" class="btn btn-success btn-sm btn-block">
                             {% translate "View exercise" %}
@@ -56,7 +56,7 @@
                             {% translate "Delete exercise" %}
                         </a>
                     </td>
-                {% elif event.stream.verb == "updated" %}
+                {% elif event.stream.verb == modes.UPDATED.value %}
                     <td>
                         <a href="#" id="view-changes" data-toggle="modal" data-target="#changes-modal-{{ event.stream.id }}"
                             class="btn btn-success btn-sm btn-block">
@@ -98,10 +98,29 @@
                         </div>
                     </td>
                     <td>
-                        <a href="revert/{{ event.history.record.history_id }}" id="view-changes" class="btn btn-danger btn-sm btn-block">
+                        <a href="#" id="revert-changes" data-toggle="modal" data-target="#revert-modal-{{ event.stream.id }}"
+                            class="btn btn-danger btn-sm btn-block">
                             {% translate "Revert changes" %}
                         </a>
+                        <div class="modal fade" id="revert-modal-{{ event.stream.id }}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{% translate 'Are you sure?' %}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a href="revert/{{ event.history.record.history_id }}" id="view-changes" class="btn btn-danger btn-sm btn-block">
+                                            {% translate "Yes" %}
+                                        </a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "No" %}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
