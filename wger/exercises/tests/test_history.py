@@ -75,7 +75,7 @@ class ExerciseHistoryControl(WgerTestCase):
         exercise = Exercise.objects.get(pk=2)
 
         exercise.save()
-        exercise.name = 'Very cool exercise!'
+        exercise.description = 'Very cool exercise!'
         exercise.save()
 
         exercise = Exercise.objects.get(pk=2)
@@ -93,8 +93,9 @@ class ExerciseHistoryControl(WgerTestCase):
             }
         )
 
-        self.client.get(reverse('exercise:history:history-revert', kwargs={'pk': 2}))
+        self.client.get(reverse('exercise:history:history-revert',
+                        kwargs={'pk': most_recent_history.history_id}))
 
         exercise = Exercise.objects.get(pk=2)
 
-        self.assertNotEqual(exercise.name, 'Very cool exercise!')
+        self.assertNotEqual(exercise.description, 'Very cool exercise!')
