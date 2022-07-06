@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-07-01 07:17+0000\n"
+"PO-Revision-Date: 2022-07-08 10:17+0000\n"
 "Last-Translator: Dawid Panyło <wampir5000@o2.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
@@ -608,7 +608,7 @@ msgstr "Czy na pewno chcesz to usunąć? Tej czynności nie będzie można cofn�
 
 #: core/templates/index.html:4
 msgid "Dashboard"
-msgstr "Kokpit"
+msgstr "Pulpit"
 
 #: core/templates/index.html:21 manager/templates/calendar/month.html:115
 msgid "Add log to day"
@@ -659,7 +659,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:365
 #: nutrition/templates/plan/view.html:375
 msgid "kcal"
-msgstr "kilokalorii"
+msgstr "kcal"
 
 #: core/templates/index.html:69 nutrition/templates/plan/view.html:350
 msgid "Add custom diary entry"
@@ -796,7 +796,7 @@ msgstr "Nic nie znaleziono"
 #: core/templates/template_features.html:117
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Odcisk"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -945,7 +945,7 @@ msgstr "Waga ciała"
 #: core/templates/navigation.html:134 core/templates/user/overview.html:114
 #: weight/templates/overview.html:7
 msgid "Weight overview"
-msgstr "Rozpiska wagi"
+msgstr "Wykres masy ciała"
 
 #: core/templates/navigation.html:147
 msgid "About this software"
@@ -1114,7 +1114,7 @@ msgstr "Powtórzenia"
 #: manager/models/log.py:101 manager/models/setting.py:87
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:14
 msgid "RiR"
-msgstr "Liczba powtórzeń w rezerwie"
+msgstr "Rezerwa powtórzeń"
 
 #: core/templates/template.html:139
 msgid ""
@@ -1596,14 +1596,12 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Użytkownik {0} przesłał nowe ćwiczenie \"{1}\"."
 
 #: exercises/models/exercise_alias.py:35
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Poprawianie ćwiczenia"
+msgstr "Nacisk na ćwiczenie"
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Linia"
 
 #: exercises/models/image.py:60
 msgid "3D"
@@ -1611,17 +1609,15 @@ msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
-msgstr ""
+msgstr "Mało powtórzeń"
 
 #: exercises/models/image.py:62
 msgid "Photo"
 msgstr "Zdjęcie"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Inne"
+msgstr "Inny"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1707,14 +1703,12 @@ msgid "Height"
 msgstr "Wzrost"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
 msgstr "Kod"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Kod, długa nazwa"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1905,13 +1899,11 @@ msgstr "Dodaj nowy obraz"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Film"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Dodaj nowy obraz"
+msgstr "Dodaj nowy film"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -2409,21 +2401,19 @@ msgstr "Tył uda"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr "Mięsień najszerszy grzbietu"
+msgstr "Mięsień pleców"
 
 #: i18n.tpl:24
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
 msgstr "Minuty"
 
 #: i18n.tpl:25
 msgid "Lats"
-msgstr ""
+msgstr "mięsień najszerszy grzbietu"
 
 #: i18n.tpl:27
 msgid "Quads"
-msgstr ""
+msgstr "Mięsień czworogłowy"
 
 #: i18n.tpl:29
 msgid "Triceps"
@@ -3026,8 +3016,6 @@ msgid "No templates found."
 msgstr "Nie znaleziono szablonów."
 
 #: manager/templates/workout/template_view.html:53
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "Mark as workout"
 msgstr "Oznacz jako trening"
 
