@@ -17,7 +17,7 @@ easy-thumbnails==2.8.1
 icalendar==4.0.9
 invoke==1.7.1
 pillow==9.1.1
-reportlab==3.6.10
+reportlab==3.6.11
 requests==2.28.1
 
 
