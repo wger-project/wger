@@ -26,6 +26,7 @@ from django.db.models import (
     Max,
     Min,
 )
+
 from django.http import (
     HttpResponse,
     HttpResponseRedirect,
