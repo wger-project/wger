@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
+# Importing Standard Librares necessary to run the code.
 import copy
 import logging
 
@@ -25,6 +25,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect,
 )
+
 from django.shortcuts import (
     get_object_or_404,
     render,
