@@ -23,6 +23,7 @@ RUN apt-get update \
       python3-venv \
       python3-pip \
       sqlite3 \
+      wget \
   && rm -rf /var/lib/apt/lists/* \
   && npm install -g yarn sass\
   && locale-gen en_US.UTF-8
