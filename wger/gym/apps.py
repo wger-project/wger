@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
+# Django (import config)
 from django.apps import AppConfig
 
 
@@ -22,5 +22,6 @@ class GymConfig(AppConfig):
     name = 'wger.gym'
     verbose_name = "Gym"
 
+    #user defined function
     def ready(self):
         import wger.gym.signals
