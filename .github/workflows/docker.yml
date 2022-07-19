@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build apache image
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.0
         with:
           context: .
           push: true
@@ -34,7 +34,7 @@ jobs:
           tags: wger/demo:latest,wger/demo:2.1-dev,wger/apache:latest,wger/apache:2.1-dev
 
       - name: Build dev image
-        uses: docker/build-push-action@v3.0.0
+        uses: docker/build-push-action@v3.1.0
         with:
           context: .
           push: true
