@@ -73,7 +73,7 @@ class Command(BaseCommand):
                 export const DummyComponent = () => {
                 const [t, i18n] = useTranslation();'''
             for i in data:
-                out += f't("exercises.{cleanup_name(i.__str__())}");\n'
+                out += f't("server.{cleanup_name(i.__str__())}");\n'
 
             out += '''
                 return (<p></p>);
