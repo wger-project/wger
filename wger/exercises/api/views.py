@@ -301,6 +301,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseBaseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'uuid',
         'category',
         'muscles',
         'muscles_secondary',
