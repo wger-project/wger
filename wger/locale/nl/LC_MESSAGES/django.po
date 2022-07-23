@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-05-12 14:15+0000\n"
-"Last-Translator: Rick <rickeits153@gmail.com>\n"
+"PO-Revision-Date: 2022-07-24 12:21+0000\n"
+"Last-Translator: Remco Schrijver <remcoschrijv3r@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1604,10 +1604,8 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Gebruiker {0} voegde een nieuwe oefening \"{1}\" toe."
 
 #: exercises/models/exercise_alias.py:35
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Een oefening indienen"
+msgstr "Andere naam voor een oefening"
 
 #: exercises/models/image.py:59
 msgid "Line"
