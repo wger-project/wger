@@ -5,4 +5,4 @@
 {% blocktranslate with time=expiry|time:"TIME_FORMAT" %}The token expires on {{ time }}{% endblocktranslate %}
 
 
-{% translate 'the wger Team' %}
+{% translate 'the DBFV Team' %}

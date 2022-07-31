@@ -11,6 +11,6 @@
 <p>{% blocktranslate %}Please click <a href="{{ link }}">here</a> to confirm your email{% endblocktranslate %}</p>
 <p>{% blocktranslate with time=expiry|time:"TIME_FORMAT" %}The token expires on {{ time }}{% endblocktranslate %}</p>
 
-<p><i>{% translate 'the wger Team' %}</i></p>
+<p><i>{% translate 'the DBFV Team' %}</i></p>
 </body>
 </html>
