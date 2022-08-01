@@ -96,9 +96,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         """
         super().perform_create(serializer)
         actstream_action.send(
-            self.request.user,
-            verb=StreamVerbs.CREATED.value,
-            action_object=serializer.instance
+            self.request.user, verb=StreamVerbs.CREATED.value, action_object=serializer.instance
         )
 
     def perform_update(self, serializer):
@@ -107,9 +105,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         """
         super().perform_create(serializer)
         actstream_action.send(
-            self.request.user,
-            verb=StreamVerbs.UPDATED.value,
-            action_object=serializer.instance
+            self.request.user, verb=StreamVerbs.UPDATED.value, action_object=serializer.instance
         )
 
 
@@ -311,7 +307,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    # @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
