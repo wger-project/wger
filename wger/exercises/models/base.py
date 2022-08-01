@@ -36,7 +36,10 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.core.models import Language
 from wger.utils.constants import DEFAULT_LANGUAGE
-from wger.utils.models import AbstractHistoryMixin, AbstractLicenseModel
+from wger.utils.models import (
+    AbstractHistoryMixin,
+    AbstractLicenseModel,
+)
 
 # Local
 from .category import ExerciseCategory

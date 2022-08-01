@@ -15,6 +15,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='workoutlog',
             name='exercise_base',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exercises.exercisebase', verbose_name='Exercise'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='exercises.exercisebase',
+                verbose_name='Exercise'
+            ),
         ),
     ]

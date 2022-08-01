@@ -104,4 +104,5 @@ class AbstractHistoryMixin(models.Model):
         for history in set(self.history.all()):
             out.append(history.license_author)
         return set(out)
+
     """Author history is the unique set of license authors from historical records"""

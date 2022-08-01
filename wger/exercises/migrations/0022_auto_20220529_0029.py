@@ -12,19 +12,39 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='historicalalias',
-            options={'get_latest_by': ('history_date', 'history_id'), 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical alias', 'verbose_name_plural': 'historical aliass'},
+            options={
+                'get_latest_by': ('history_date', 'history_id'),
+                'ordering': ('-history_date', '-history_id'),
+                'verbose_name': 'historical alias',
+                'verbose_name_plural': 'historical aliass'
+            },
         ),
         migrations.AlterModelOptions(
             name='historicalexercise',
-            options={'get_latest_by': ('history_date', 'history_id'), 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical exercise', 'verbose_name_plural': 'historical exercises'},
+            options={
+                'get_latest_by': ('history_date', 'history_id'),
+                'ordering': ('-history_date', '-history_id'),
+                'verbose_name': 'historical exercise',
+                'verbose_name_plural': 'historical exercises'
+            },
         ),
         migrations.AlterModelOptions(
             name='historicalexercisebase',
-            options={'get_latest_by': ('history_date', 'history_id'), 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical exercise base', 'verbose_name_plural': 'historical exercise bases'},
+            options={
+                'get_latest_by': ('history_date', 'history_id'),
+                'ordering': ('-history_date', '-history_id'),
+                'verbose_name': 'historical exercise base',
+                'verbose_name_plural': 'historical exercise bases'
+            },
         ),
         migrations.AlterModelOptions(
             name='historicalexercisecomment',
-            options={'get_latest_by': ('history_date', 'history_id'), 'ordering': ('-history_date', '-history_id'), 'verbose_name': 'historical exercise comment', 'verbose_name_plural': 'historical exercise comments'},
+            options={
+                'get_latest_by': ('history_date', 'history_id'),
+                'ordering': ('-history_date', '-history_id'),
+                'verbose_name': 'historical exercise comment',
+                'verbose_name_plural': 'historical exercise comments'
+            },
         ),
         migrations.AlterField(
             model_name='historicalalias',

@@ -36,10 +36,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--author-name',
-            action='store',
-            dest='author_name',
-            help='The name of the new author'
+            '--author-name', action='store', dest='author_name', help='The name of the new author'
         )
         parser.add_argument(
             '--exercise-base-id',
@@ -48,10 +45,7 @@ class Command(BaseCommand):
             help='The ID of the exercise base'
         )
         parser.add_argument(
-            '--exercise-id',
-            action='store',
-            dest='exercise_id',
-            help='The ID of the exercise'
+            '--exercise-id', action='store', dest='exercise_id', help='The ID of the exercise'
         )
 
     def handle(self, **options):
@@ -85,13 +79,7 @@ class Command(BaseCommand):
             exercise.license_author = author_name
             exercise.save()
 
-        self.stdout.write(
-            self.style.SUCCESS(f"Exercise and/or exercise base has been updated")
-        )
+        self.stdout.write(self.style.SUCCESS(f"Exercise and/or exercise base has been updated"))
 
     def print_error(self, error_message):
-        self.stdout.write(
-            self.style.WARNING(
-                f"{error_message}"
-            )
-        )
+        self.stdout.write(self.style.WARNING(f"{error_message}"))
