@@ -166,7 +166,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'name',
     )
 
-    # @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -282,7 +282,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    # @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -321,6 +321,10 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name', )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -330,6 +334,10 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
     filterset_fields = ('name', )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ExerciseImageViewSet(CreateUpdateModelViewSet):
@@ -348,6 +356,10 @@ class ExerciseImageViewSet(CreateUpdateModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     @action(detail=True)
     def thumbnails(self, request, pk):
@@ -476,3 +488,7 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name', 'is_front', 'name_en')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)

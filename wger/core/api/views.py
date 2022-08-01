@@ -19,7 +19,10 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # Third Party
 from django_email_verification import send_email
@@ -238,6 +241,10 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('full_name', 'short_name')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
