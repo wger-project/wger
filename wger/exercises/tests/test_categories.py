@@ -134,3 +134,4 @@ class ExerciseCategoryApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 2
     resource = ExerciseCategory
     private_resource = False
+    overview_cached = True

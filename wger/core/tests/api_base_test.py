@@ -175,9 +175,8 @@ class ApiGetTestCase(object):
 
         # If the overview is cached. Then ensure the cache isn't empty.
         if self.overview_cached:
-            pass
-            # cache_length = len(locmem._caches['wger-cache'])
-            # self.assertNotEqual(cache_length, 0)
+            cache_length = len(locmem._caches['wger-cache'])
+            self.assertNotEqual(cache_length, 0)
         else:
             cache_length = len(locmem._caches['wger-cache'])
             self.assertEqual(cache_length, 0)

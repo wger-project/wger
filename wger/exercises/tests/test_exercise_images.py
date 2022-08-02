@@ -154,3 +154,4 @@ class ExerciseImagesApiTestCase(
     pk = 1
     private_resource = False
     resource = ExerciseImage
+    overview_cached = True

@@ -182,3 +182,4 @@ class EquipmentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Equipment
     private_resource = False
+    overview_cached = True
