@@ -13,7 +13,7 @@ django_compressor~=4.0
 django_extensions~=3.2
 django-storages~=1.12
 django-environ==0.9.0
-easy-thumbnails==2.8.1
+easy-thumbnails==2.8.3
 icalendar==4.1.0
 invoke==1.7.1
 pillow==9.2.0
