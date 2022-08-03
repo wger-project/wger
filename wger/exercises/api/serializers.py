@@ -242,6 +242,9 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "author_history",
         )
 
+    def get_description(self, obj):
+        return "foo"
+
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):
     """

@@ -77,7 +77,7 @@ logger = logging.getLogger(__name__)
 class ExerciseBaseViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise base objects. For a read-only endpoint with all
-    the information of an exercise, see /api/v2/exerciseinfo/
+    the information of an exercise, see /api/v2/exercisebaseinfo/
     """
     queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseSerializer
@@ -96,7 +96,9 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         """
         super().perform_create(serializer)
         actstream_action.send(
-            self.request.user, verb=StreamVerbs.CREATED.value, action_object=serializer.instance
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
         )
 
     def perform_update(self, serializer):
@@ -105,7 +107,9 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         """
         super().perform_create(serializer)
         actstream_action.send(
-            self.request.user, verb=StreamVerbs.UPDATED.value, action_object=serializer.instance
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
         )
 
 
@@ -140,6 +144,11 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         """
         Save entry to activity stream
         """
+
+        # Don't allow to change the exercise base over the API
+        if serializer.validated_data.get('exercise_base'):
+            del serializer.validated_data['exercise_base']
+
         super().perform_create(serializer)
         actstream_action.send(
             self.request.user,

@@ -109,7 +109,7 @@ class ApiBaseTestCase(APITestCase):
         self.client.force_authenticate(user=user_obj)
 
 
-class ApiGetTestCase(object):
+class ApiGetTestCase:
     """
     Base test case for testing GET access to the API
     """
@@ -202,7 +202,7 @@ class ApiGetTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-class ApiPostTestCase(object):
+class ApiPostTestCase:
     """
     Base test case for testing POST access to the API
     """
@@ -325,7 +325,7 @@ class ApiPostTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ApiPatchTestCase(object):
+class ApiPatchTestCase:
     """
     Base test case for testing PATCH access to the API
     """
