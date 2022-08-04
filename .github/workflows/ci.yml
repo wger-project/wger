@@ -12,25 +12,23 @@ on:
 
 jobs:
   ci-job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
-      max-parallel: 3
       matrix:
         #TODO: pypy3 has problems compiling lxml
         python-version: [ '3.9', '3.10']
     name: CI job (python ${{ matrix.python-version }})
 
-    services:
-      postgres:
-        image: postgres:12.0-alpine
-        env:
-          POSTGRES_USER: wger
-          POSTGRES_PASSWORD: wger
-          POSTGRES_DB: wger
-        ports:
-          - 5432:5432
-        # needed because the postgres container does not provide a health check
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    #services:
+    #  postgres:
+    #    image: postgres:12.0-alpine
+    #    env:
+    #      POSTGRES_USER: wger
+    #      POSTGRES_PASSWORD: wger
+    #      POSTGRES_DB: wger
+    #    ports:
+    #      - 5432:5432
+    #    options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
 
     steps:
@@ -60,25 +58,19 @@ jobs:
           pip3 install -e .
 
       # Only run the tests with coverage for one version of python
-      - name: Test the application with coverage (Postgres)
+      #           wger create-settings --database-type postgresql
+      - name: Test the application with coverage
         run: |
-          wger create-settings --database-type postgresql
+          wger create-settings
           coverage run --source='.' ./manage.py test
           coverage lcov
         if: matrix.python-version == 3.10
 
-      - name: Test the application (Postgres)
+      - name: Test the application
         run: |
-          wger create-settings --database-type postgresql
+          wger create-settings
           python manage.py test
         if: matrix.python-version != 3.10
-
-      # - name: Test the application (Sqlite)
-      #  run: |
-      #    wger create-settings
-      #    coverage run --source='.' ./manage.py test
-      #    coverage html --directory coverage-sqlite
-      #    coverage report
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
