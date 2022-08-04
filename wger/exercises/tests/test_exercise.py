@@ -25,9 +25,10 @@ from django.template import (
 )
 from django.urls import reverse
 
-# wger
+# Third Party
 from rest_framework import status
 
+# wger
 from wger.core.tests import api_base_test
 from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import (
@@ -607,3 +608,29 @@ class ExerciseCustomApiTestCase(api_base_test.BaseTestCase, ApiBaseTestCase):
 
         exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.exercise_base_id, 1)
+
+    def test_patch_clean_html(self):
+        """
+        Test that the description field has its HTML stripped before saving
+        """
+
+        description = '<script>alert();</script> The wild boar is a suid native...'
+        self.get_credentials('test')
+        response = self.client.patch(self.url_detail, data={'description': description})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.description, 'alert(); The wild boar is a suid native...')
+
+    def test_post_clean_html(self):
+        """
+        Test that the description field has its HTML stripped before creating an exercise
+        """
+
+        description = '<script>alert();</script> The wild boar is a suid native...'
+        self.get_credentials('test')
+        response = self.client.patch(self.url_detail, data={'description': description})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.description, 'alert(); The wild boar is a suid native...')

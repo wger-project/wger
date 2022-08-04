@@ -26,6 +26,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 
 # Third Party
+import bleach
 from actstream import action as actstream_action
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -68,6 +69,11 @@ from wger.exercises.models import (
     Variation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.constants import (
+    HTML_ATTRIBUTES_WHITELIST,
+    HTML_STYLES_WHITELIST,
+    HTML_TAG_WHITELIST,
+)
 from wger.utils.language import load_item_languages
 
 
@@ -134,6 +140,17 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         Save entry to activity stream
         """
         super().perform_create(serializer)
+
+        # Clean the description HTML
+        if serializer.validated_data.get('description'):
+            serializer.validated_data['description'] = bleach.clean(
+                serializer.validated_data['description'],
+                tags=HTML_TAG_WHITELIST,
+                attributes=HTML_ATTRIBUTES_WHITELIST,
+                styles=HTML_STYLES_WHITELIST,
+                strip=True
+            )
+
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.CREATED.value,
@@ -148,6 +165,16 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         # Don't allow to change the exercise base over the API
         if serializer.validated_data.get('exercise_base'):
             del serializer.validated_data['exercise_base']
+
+        # Clean the description HTML
+        if serializer.validated_data.get('description'):
+            serializer.validated_data['description'] = bleach.clean(
+                serializer.validated_data['description'],
+                tags=HTML_TAG_WHITELIST,
+                attributes=HTML_ATTRIBUTES_WHITELIST,
+                styles=HTML_STYLES_WHITELIST,
+                strip=True
+            )
 
         super().perform_create(serializer)
         actstream_action.send(
