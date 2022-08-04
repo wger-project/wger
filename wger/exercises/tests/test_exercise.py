@@ -615,7 +615,7 @@ class ExerciseCustomApiTestCase(api_base_test.BaseTestCase, ApiBaseTestCase):
         """
 
         description = '<script>alert();</script> The wild boar is a suid native...'
-        self.get_credentials('test')
+        self.get_credentials('trainer1')
         response = self.client.patch(self.url_detail, data={'description': description})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -628,7 +628,7 @@ class ExerciseCustomApiTestCase(api_base_test.BaseTestCase, ApiBaseTestCase):
         """
 
         description = '<script>alert();</script> The wild boar is a suid native...'
-        self.get_credentials('test')
+        self.get_credentials('trainer1')
         response = self.client.patch(self.url_detail, data={'description': description})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
