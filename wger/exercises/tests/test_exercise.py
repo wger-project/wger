@@ -583,7 +583,7 @@ class ExerciseCustomApiTestCase(api_base_test.BaseTestCase, ApiBaseTestCase):
             'name': 'A new name',
             'description': 'The wild boar is a suid native to much of Eurasia and North Africa'
         }
-        self.get_credentials('test')
+        self.get_credentials('trainer1')
         response = self.client.patch(self.url_detail, data=data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -602,7 +602,7 @@ class ExerciseCustomApiTestCase(api_base_test.BaseTestCase, ApiBaseTestCase):
         exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.exercise_base_id, 1)
 
-        self.get_credentials('test')
+        self.get_credentials('trainer1')
         response = self.client.patch(self.url_detail, data={'exercise_base': 2})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
