@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # wger
+from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Exercise,
@@ -84,3 +85,18 @@ class ExerciseBaseTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=1)
         base = exercise.exercise_base
         self.assertListEqual(self.get_ids(exercise.images), self.get_ids(base.exerciseimage_set))
+
+
+class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
+    pk = 1
+
+    data = {
+        "category": 3,
+        "muscles": [1, 3],
+        "muscles_secondary": [2],
+        "equipment": [3],
+        "variations": 4
+    }
+
+    def get_resource_name(self):
+        return 'exercise-base'

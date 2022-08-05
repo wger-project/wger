@@ -162,9 +162,12 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         Save entry to activity stream
         """
 
-        # Don't allow to change the exercise base over the API
+        # Don't allow to change the base or the language over the API
         if serializer.validated_data.get('exercise_base'):
             del serializer.validated_data['exercise_base']
+
+        if serializer.validated_data.get('language'):
+            del serializer.validated_data['language']
 
         # Clean the description HTML
         if serializer.validated_data.get('description'):

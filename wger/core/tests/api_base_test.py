@@ -701,3 +701,134 @@ class ApiBaseResourceTestCase(
     All logic happens in the Api*TestCase classes
     """
     pass
+
+
+class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
+    """
+    Testcase for the exercise API endpoints
+    """
+
+    def test_get_overview_anonymous_user(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_detail_anonymous_user(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        response = self.client.get(self.url_detail)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_overview_user(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('test')
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_detail_user(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('test')
+        response = self.client.get(self.url_detail)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_patch_anonymous(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        for key in self.data:
+            response = self.client.patch(self.url_detail, data={key: self.data[key]})
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_patch_user_unverified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('test')
+        for key in self.data:
+            response = self.client.patch(self.url_detail, data={key: self.data[key]})
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_patch_user_verified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('trainer1')
+        for key in self.data:
+            response = self.client.patch(self.url_detail, data={key: self.data[key]})
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_post_user_anonymous(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_post_user_unverified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('test')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_post_user_verified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('trainer1')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_put_user_anonymous(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        response = self.client.put(self.url_detail, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_put_user_unverified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('test')
+        response = self.client.put(self.url_detail, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_put_user_verified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('trainer1')
+        response = self.client.put(self.url_detail, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_delete_anonymous(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        response = self.client.delete(self.url_detail)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_user_unverified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('test')
+        response = self.client.delete(self.url_detail)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_user_verified_email(self):
+        if self.__class__.__name__ == 'ExerciseCrudApiTestCase':
+            return
+
+        self.get_credentials('trainer1')
+        response = self.client.delete(self.url_detail)
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
