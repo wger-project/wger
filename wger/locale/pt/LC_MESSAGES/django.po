@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-02-06 10:57+0000\n"
-"Last-Translator: João Goulart <joaofgoulart1@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"PO-Revision-Date: 2022-08-07 23:18+0000\n"
+"Last-Translator: Eduardo Menges Mattje <eduardomattje@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -254,7 +254,8 @@ msgstr "Email"
 
 #: core/forms.py:77
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "Usado para redefinições de senha e opcionalmente lembretes por e-mail."
+msgstr ""
+"Usado para redefinições de senha e, opcionalmente, lembretes por e-mail."
 
 #: core/forms.py:102
 msgid "Personal data"
@@ -590,9 +591,8 @@ msgid ""
 "    "
 msgstr ""
 "Você está\n"
-"… navegando no site como usuário \"%(current_user)s\", todas as suas ações "
-"serão registradas sob seus dados.\n"
-"…\n"
+"    navegando no site como o usuário \"%(current_user)s\", todas as ações "
+"são realizadas nos dados dele(a).\n"
 "    "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
@@ -853,7 +853,7 @@ msgstr "Galeria"
 
 #: core/templates/navigation.html:48
 msgid "Workout templates"
-msgstr "Treino completo!"
+msgstr "Modelos de treino"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
 msgid "Your templates"
@@ -1490,7 +1490,7 @@ msgid ""
 msgstr ""
 "Nós criamos exemplos de treinos, agenda de treinos, registros de peso, peso "
 "(corporal) e plano de nutrição para que você possa ver melhor o que este "
-"site pode fazer. Sinta-se à vontade para edita-los ou apaga-los."
+"site pode fazer. Sinta-se à vontade para os editar ou apagá-los!"
 
 #: core/views/misc.py:155
 msgid "Rest day"
@@ -1602,32 +1602,28 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "O utilizador {0} submete um novo exercício \"{1}\"."
 
 #: exercises/models/exercise_alias.py:35
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Corrige um exercício"
+msgstr "Outro nome para um exercício"
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Linha"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
-msgstr ""
+msgstr "Poucos polígonos"
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Outros"
+msgstr "Outro"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1653,7 +1649,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "O estilo da sua imagem"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1669,42 +1665,36 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Em latim, ex.: \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "nome do exercício"
+msgstr "Nome alternativo"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Um nome mais básico para o músculo"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "O tamanho máximo de arquivo é 100 MB."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Tipo de arquivo não suportado"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s não é uma data de aniversário válida"
+msgstr "O arquivo não é um vídeo válido"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Imagem principal"
+msgstr "Vídeo principal"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Vídeo"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Tamanho"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1712,23 +1702,19 @@ msgstr "Duração"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Largura"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Peso"
+msgstr "Altura"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Código"
+msgstr "Codec"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Codec, nome longo"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1922,13 +1908,11 @@ msgstr "Adicionar nova imagem"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Vídeos"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Adicionar nova imagem"
+msgstr "Adicionar novo vídeo"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -2056,7 +2040,8 @@ msgstr "Necessário 30 caracteres ou menos. Letras, digitos e @/./+/-/_ apenas."
 
 #: gym/forms.py:101
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
-msgstr "Este valor deve conter apenas letras, números e os caracteres @/.//-/_"
+msgstr ""
+"Este valor deve conter apenas letras, números e os caracteres @/.//-/_ ."
 
 #: gym/forms.py:116
 msgid "A user with that username already exists."
@@ -2363,7 +2348,7 @@ msgstr "Costas"
 
 #: i18n.tpl:5 i18n.tpl:23
 msgid "Calves"
-msgstr "Batata da perna"
+msgstr "Panturrilha"
 
 #: i18n.tpl:6 i18n.tpl:26
 msgid "Chest"
@@ -2418,38 +2403,32 @@ msgid "none (bodyweight exercise)"
 msgstr "nenhum (exercício corporal)"
 
 #: i18n.tpl:20
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
-msgstr "Brícipes Braquial"
+msgstr "Bíceps"
 
 #: i18n.tpl:21
 msgid "Hamstrings"
-msgstr ""
+msgstr "Isquiossurais"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Lombar"
 
 #: i18n.tpl:24
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minutos"
+msgstr "Glúteos"
 
 #: i18n.tpl:25
 msgid "Lats"
-msgstr ""
+msgstr "Dorsal"
 
 #: i18n.tpl:27
 msgid "Quads"
-msgstr ""
+msgstr "Quadríceps"
 
 #: i18n.tpl:29
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "Tríceps branquial"
+msgstr "Tríceps"
 
 #: i18n.tpl:30
 msgid "Kilometers"
@@ -3152,7 +3131,7 @@ msgstr "Isto apagará todos os logs de pesos para este dia também."
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3282,6 +3261,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Dar às refeições uma descrição textual / nome como \"Café da manhã\" ou \"pós"
+"-treino\""
 
 #: nutrition/models/plan.py:71
 msgid ""
