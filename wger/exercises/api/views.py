@@ -179,7 +179,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
                 strip=True
             )
 
-        super().perform_create(serializer)
+        super().perform_update(serializer)
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,

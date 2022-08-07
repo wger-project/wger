@@ -20,6 +20,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import License
+from wger.utils.constants import DEFAULT_LICENSE_ID
 
 
 """
@@ -38,7 +39,7 @@ class AbstractLicenseModel(models.Model):
     license = models.ForeignKey(
         License,
         verbose_name=_('License'),
-        default=2,
+        default=DEFAULT_LICENSE_ID,
         on_delete=models.CASCADE,
     )
     """The item's license"""

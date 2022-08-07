@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
@@ -19,6 +22,7 @@ from wger.exercises.models import (
     Exercise,
     ExerciseBase,
 )
+from wger.utils.constants import DEFAULT_LICENSE_ID
 
 
 class ExerciseBaseTestCase(WgerTestCase):
@@ -100,3 +104,32 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
 
     def get_resource_name(self):
         return 'exercise-base'
+
+    def test_cant_change_license(self):
+        """
+        Test that it is not possible to change the license of an existing
+        exercise base
+        """
+        exercise = ExerciseBase.objects.get(pk=self.pk)
+        self.assertEqual(exercise.license_id, 2)
+
+        self.get_credentials('trainer1')
+        response = self.client.patch(self.url_detail, data={'license': 3})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = ExerciseBase.objects.get(pk=self.pk)
+        self.assertEqual(exercise.license_id, 2)
+
+    def test_cant_set_license(self):
+        """
+        Test that it is not possible to set the license for a newly created
+        exercise base (the license is always set to the default)
+        """
+        self.data['license'] = 3
+
+        self.get_credentials('trainer1')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        exercise = ExerciseBase.objects.get(pk=self.pk)
+        self.assertEqual(exercise.license_id, DEFAULT_LICENSE_ID)

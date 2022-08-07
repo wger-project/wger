@@ -219,27 +219,23 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     """
     Exercise translation serializer
     """
-
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
-    aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
-    notes = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+    exercise_base = serializers.PrimaryKeyRelatedField(
+        queryset=ExerciseBase.objects.all(),
+        required=True,
+    )
 
     class Meta:
         model = Exercise
         fields = (
             "id",
             "uuid",
-            "aliases",
             "name",
             "exercise_base",
             "description",
-            "notes",
             "creation_date",
             "language",
-            "license",
-            "license_author",
-            "author_history",
         )
 
 
