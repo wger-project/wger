@@ -14,6 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.db.models import Q
+
 # Third Party
 from rest_framework import serializers
 
@@ -237,6 +240,34 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "creation_date",
             "language",
         )
+
+    def validate(self, value):
+        """
+        Check that there is only one language per exercise
+        """
+        if value.get('language'):
+            # Editing an existing object
+            # -> Check if the language already exists, excluding the current object
+            if self.instance:
+                if self.instance.exercise_base.exercises.filter(
+                    ~Q(id=self.instance.pk),
+                    language=value['language']
+                ).exists():
+                    raise serializers.ValidationError(
+                        f"There is already a translation for this exercise in {value['language']}"
+                    )
+            # Creating a new object
+            # -> Check if the language already exists
+            else:
+                if Exercise.objects.filter(
+                    exercise_base=value['exercise_base'],
+                    language=value['language']
+                ).exists():
+                    raise serializers.ValidationError(
+                        f"There is already a translation for this exercise in {value['language']}"
+                    )
+
+        return super().validate(value)
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):

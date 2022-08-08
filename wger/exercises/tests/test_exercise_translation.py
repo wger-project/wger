@@ -570,7 +570,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
     data = {
         'name': 'A new name',
         'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
-        'language': 3,
+        'language': 1,
         'exercise_base': 2
     }
 
@@ -647,3 +647,34 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
 
         exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.description, 'alert(); The wild boar is a suid native...')
+
+    def test_post_only_one_language_per_base(self):
+        """
+        Test that it's not possible to add a second translation for the same
+        base in the same language.
+        """
+        self.get_credentials('trainer1')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.post(self.url, data=self.data)
+        self.assertTrue(response.data['non_field_errors'])
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_set_existing_language(self):
+        """
+        Test that it is possible to set the language if it doesn't duplicate a translation
+        """
+        self.get_credentials('trainer1')
+        response = self.client.patch(self.url_detail, data={'language': 1, 'name': '123456'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data.get('non_field_errors'))
+
+    def test_edit_only_one_language_per_base(self):
+        """
+        Test that it's not possible to edit a translation to a second language for the same base
+        """
+        self.get_credentials('trainer1')
+        response = self.client.patch(self.url_detail, data={'language': 3})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue(response.data['non_field_errors'])
