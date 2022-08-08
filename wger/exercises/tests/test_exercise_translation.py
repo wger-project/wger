@@ -585,7 +585,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.exercise_base_id, 1)
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'exercise_base': 2})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -600,7 +600,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.language_id, 1)
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'language': 2})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -615,7 +615,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.license_id, 2)
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'license': 3})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -629,7 +629,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         """
         self.data['license'] = 3
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -641,7 +641,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         Test that the description field has its HTML stripped before saving
         """
         description = '<script>alert();</script> The wild boar is a suid native...'
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'description': description})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -653,7 +653,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         Test that it's not possible to add a second translation for the same
         base in the same language.
         """
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -665,7 +665,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         """
         Test that it is possible to set the language if it doesn't duplicate a translation
         """
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'language': 1, 'name': '123456'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(response.data.get('non_field_errors'))
@@ -674,7 +674,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         """
         Test that it's not possible to edit a translation to a second language for the same base
         """
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'language': 3})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertTrue(response.data['non_field_errors'])

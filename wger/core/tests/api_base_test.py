@@ -98,7 +98,7 @@ class ApiBaseTestCase(APITestCase):
         """
         return f'{self.url}{self.pk}/'
 
-    def get_credentials(self, username=None):
+    def authenticate(self, username=None):
         """
         Authenticates a user
         """
@@ -133,12 +133,12 @@ class ApiGetTestCase:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.get(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.get(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -155,7 +155,7 @@ class ApiGetTestCase:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.get(self.url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -192,12 +192,12 @@ class ApiGetTestCase:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.get(url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.get(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -218,12 +218,12 @@ class ApiPostTestCase:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.post(self.url_detail, data=self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.post(self.url_detail, data=self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         else:
@@ -235,7 +235,7 @@ class ApiPostTestCase:
             )
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.post(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
@@ -243,7 +243,7 @@ class ApiPostTestCase:
             )
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.post(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
@@ -261,7 +261,7 @@ class ApiPostTestCase:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             count_before = self.resource.objects.all().count()
             response = self.client.post(self.url, data=self.data)
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -269,7 +269,7 @@ class ApiPostTestCase:
             self.assertEqual(count_before + 1, count_after)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.post(self.url, data=self.data)
             # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
             # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -283,7 +283,7 @@ class ApiPostTestCase:
             )
 
             # Logged in user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.post(self.url, data=self.data)
             self.assertIn(
                 response.status_code,
@@ -291,7 +291,7 @@ class ApiPostTestCase:
             )
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.post(self.url, data=self.data)
             if self.protected_resource:
                 self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
@@ -315,12 +315,12 @@ class ApiPostTestCase:
                 self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.post(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.post(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -341,7 +341,7 @@ class ApiPatchTestCase:
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.patch(self.url_detail, data=self.data)
             self.assertIn(response.status_code, (status.HTTP_201_CREATED, status.HTTP_200_OK))
 
@@ -351,7 +351,7 @@ class ApiPatchTestCase:
                 self.assertEqual(response.status_code, status.HTTP_200_OK)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
@@ -366,7 +366,7 @@ class ApiPatchTestCase:
             )
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.patch(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
@@ -374,7 +374,7 @@ class ApiPatchTestCase:
             )
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.patch(self.url_detail, data=self.data)
             if self.protected_resource:
                 self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
@@ -402,14 +402,14 @@ class ApiPatchTestCase:
             )
 
         # Logged in user
-        self.get_credentials()
+        self.authenticate()
         response = self.client.patch(self.url, data=self.data)
         self.assertIn(
             response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
         )
 
         # Different logged in user
-        self.get_credentials(self.user_fail)
+        self.authenticate(self.user_fail)
         response = self.client.patch(self.url, data=self.data)
         self.assertIn(
             response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
@@ -429,12 +429,12 @@ class ApiPatchTestCase:
                 self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.patch(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.patch(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -455,13 +455,13 @@ class ApiPutTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.put(self.url_detail, data=self.data)
             self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
 
             # Different logged in user
             count_before = self.resource.objects.all().count()
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
             count_after = self.resource.objects.all().count()
 
@@ -492,7 +492,7 @@ class ApiPutTestCase(object):
             )
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.put(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
@@ -500,7 +500,7 @@ class ApiPutTestCase(object):
             )
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.put(self.url_detail, data=self.data)
             if self.protected_resource:
                 self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
@@ -529,14 +529,14 @@ class ApiPutTestCase(object):
             )
 
         # Authorized user (owner)
-        self.get_credentials()
+        self.authenticate()
         response = self.client.put(self.url, data=self.data)
         self.assertIn(
             response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
         )
 
         # Different logged in user
-        self.get_credentials(self.user_fail)
+        self.authenticate(self.user_fail)
         response = self.client.put(self.url, data=self.data)
         self.assertIn(
             response.status_code, (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
@@ -556,12 +556,12 @@ class ApiPutTestCase(object):
                 self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.put(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.put(url, self.data)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -584,7 +584,7 @@ class ApiDeleteTestCase(object):
             self.assertEqual(count_before, count_after)
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             count_before = self.resource.objects.all().count()
             response = self.client.delete(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -592,7 +592,7 @@ class ApiDeleteTestCase(object):
             self.assertEqual(count_before - 1, count_after)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.delete(self.url_detail)
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -605,7 +605,7 @@ class ApiDeleteTestCase(object):
             )
 
             # Logged in user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.delete(self.url_detail)
             self.assertIn(
                 response.status_code,
@@ -613,7 +613,7 @@ class ApiDeleteTestCase(object):
             )
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.delete(self.url_detail)
             self.assertIn(
                 response.status_code,
@@ -630,12 +630,12 @@ class ApiDeleteTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.delete(self.url)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.delete(self.url)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         else:
@@ -647,7 +647,7 @@ class ApiDeleteTestCase(object):
             )
 
             # Authorized user (owner)
-            self.get_credentials()
+            self.authenticate()
             response = self.client.delete(self.url)
             self.assertIn(
                 response.status_code,
@@ -655,7 +655,7 @@ class ApiDeleteTestCase(object):
             )
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.delete(self.url)
             self.assertIn(
                 response.status_code,
@@ -676,12 +676,12 @@ class ApiDeleteTestCase(object):
                 self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Logged in owner user
-            self.get_credentials()
+            self.authenticate()
             response = self.client.delete(url)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
             # Different logged in user
-            self.get_credentials(self.user_fail)
+            self.authenticate(self.user_fail)
             response = self.client.delete(url)
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -727,14 +727,14 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_get_overview_user(self):
         self.skip_test()
 
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_detail_user(self):
         self.skip_test()
 
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.get(self.url_detail)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -748,7 +748,7 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_patch_user_unverified_email(self):
         self.skip_test()
 
-        self.get_credentials('test')
+        self.authenticate('test')
         for key in self.data:
             response = self.client.patch(self.url_detail, data={key: self.data[key]})
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -756,7 +756,7 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_patch_user_verified_email(self):
         self.skip_test()
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         for key in self.data:
             response = self.client.patch(self.url_detail, data={key: self.data[key]})
             self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -770,14 +770,14 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_post_user_unverified_email(self):
         self.skip_test()
 
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_post_user_verified_email(self):
         self.skip_test()
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -790,14 +790,14 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_put_user_unverified_email(self):
         self.skip_test()
 
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.put(self.url_detail, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_put_user_verified_email(self):
         self.skip_test()
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.put(self.url_detail, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -810,13 +810,13 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
     def test_delete_user_unverified_email(self):
         self.skip_test()
 
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.delete(self.url_detail)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_delete_user_verified_email(self):
         self.skip_test()
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.delete(self.url_detail)
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)

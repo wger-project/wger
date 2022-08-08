@@ -113,7 +113,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         exercise = ExerciseBase.objects.get(pk=self.pk)
         self.assertEqual(exercise.license_id, 2)
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'license': 3})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -127,7 +127,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         """
         self.data['license'] = 3
 
-        self.get_credentials('trainer1')
+        self.authenticate('trainer1')
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

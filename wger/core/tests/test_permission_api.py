@@ -49,7 +49,7 @@ class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Test that authenticated users get an error when not passing a parameter
         """
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.data, self.error_message)
@@ -58,7 +58,7 @@ class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Test that the api correctly returns the user's permission
         """
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.get(self.url + '?permission=exercises.change_muscle')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['result'], False)
@@ -69,7 +69,7 @@ class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         (this is the default behaviour of django)
         """
-        self.get_credentials('test')
+        self.authenticate('test')
         response = self.client.get(self.url + '?permission=foo.bar_baz')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['result'], False)
@@ -78,7 +78,7 @@ class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         Test that the api correctly returns the user's permission
         """
-        self.get_credentials('admin')
+        self.authenticate('admin')
         response = self.client.get(self.url + '?permission=exercises.change_muscle')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['result'], True)
