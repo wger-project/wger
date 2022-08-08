@@ -114,7 +114,7 @@ class ExerciseIndexTestCase(WgerTestCase):
 
     def test_exercise_index_editor(self):
         """
-        Tests the exercise overview page as a logged in user with editor rights
+        Tests the exercise overview page as a logged-in user with editor rights
         """
 
         self.user_login('admin')
@@ -122,7 +122,7 @@ class ExerciseIndexTestCase(WgerTestCase):
 
     def test_exercise_index_non_editor(self):
         """
-        Tests the exercise overview page as a logged in user without editor rights
+        Tests the exercise overview page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -205,7 +205,7 @@ class ExerciseDetailTestCase(WgerTestCase):
 
     def test_exercise_detail_non_editor(self):
         """
-        Tests the exercise details page as a logged in user without editor rights
+        Tests the exercise details page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -255,7 +255,7 @@ class ExercisesTestCase(WgerTestCase):
 
     def test_search_exercise_logged_in(self):
         """
-        Test deleting an exercise by a logged in user
+        Test deleting an exercise by a logged-in user
         """
 
         self.user_login('test')

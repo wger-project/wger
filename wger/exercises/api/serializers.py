@@ -250,8 +250,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             # -> Check if the language already exists, excluding the current object
             if self.instance:
                 if self.instance.exercise_base.exercises.filter(
-                    ~Q(id=self.instance.pk),
-                    language=value['language']
+                    ~Q(id=self.instance.pk), language=value['language']
                 ).exists():
                     raise serializers.ValidationError(
                         f"There is already a translation for this exercise in {value['language']}"
@@ -260,8 +259,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             # -> Check if the language already exists
             else:
                 if Exercise.objects.filter(
-                    exercise_base=value['exercise_base'],
-                    language=value['language']
+                    exercise_base=value['exercise_base'], language=value['language']
                 ).exists():
                     raise serializers.ValidationError(
                         f"There is already a translation for this exercise in {value['language']}"

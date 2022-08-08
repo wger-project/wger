@@ -157,6 +157,24 @@ class ApplicationVersionView(viewsets.ViewSet):
         return Response(get_version())
 
 
+class PermissionView(viewsets.ViewSet):
+    """
+    Returns the application's version
+    """
+    permission_classes = (AllowAny, )
+
+    @staticmethod
+    def get(request):
+        permission = request.query_params.get('permission')
+        if request.user.is_anonymous or permission is None:
+            return Response(
+                "Please pass a permission name in the 'permission' parameter",
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response({'result': request.user.has_perm(permission)})
+
+
 class RequiredApplicationVersionView(viewsets.ViewSet):
     """
     Returns the minimum required version of flutter app to access this server
