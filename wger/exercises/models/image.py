@@ -131,10 +131,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         # Reset all cached infos
         #
         for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
 
         # And go on
         super(ExerciseImage, self).save(*args, **kwargs)
@@ -146,10 +143,7 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         super(ExerciseImage, self).delete(*args, **kwargs)
 
         for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.accepted().filter(

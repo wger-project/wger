@@ -62,8 +62,6 @@
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Exercises" %}</li>
                             <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "by category" context "as in sorted by category" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:muscle:overview' %}">{% translate "by muscle" context "as in sorted by muscle" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:equipment:overview' %}">{% translate "by equipment" context "as in sorted by equipment" %}</a></li>
 
                             {% if user.userprofile.has_exercise_permission %}
                             <li class="dropdown-divider"></li>

@@ -312,14 +312,12 @@ class ExercisesCacheTestCase(WgerTestCase):
         Test that the template cache for the overview is correctly reseted when
         performing certain operations
         """
-        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
         self.assertFalse(cache.get(make_template_fragment_key('muscle-overview-search', [2])))
         self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
         self.client.get(reverse('exercise:exercise:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        old_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
         old_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
         exercise = Exercise.objects.get(pk=2)
@@ -328,18 +326,14 @@ class ExercisesCacheTestCase(WgerTestCase):
         exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
         exercise.save()
 
-        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
         self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
         self.client.get(reverse('exercise:exercise:overview'))
-        self.client.get(reverse('exercise:muscle:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
-        new_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
         new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
 
         self.assertNotEqual(old_exercise_overview, new_exercise_overview)
-        self.assertNotEqual(old_muscle_overview, new_muscle_overview)
 
     def test_muscles_cache_update_on_delete(self):
         """

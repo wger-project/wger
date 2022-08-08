@@ -126,9 +126,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         # Cached template fragments
         for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():
@@ -141,9 +139,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         # Cached template fragments
         for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
             delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
 
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():

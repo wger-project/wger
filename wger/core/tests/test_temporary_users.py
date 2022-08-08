@@ -172,7 +172,6 @@ class DemoUserTestCase(WgerTestCase):
         self.assertContains(
             self.client.get(reverse('exercise:exercise:overview')), demo_notice_text
         )
-        self.assertContains(self.client.get(reverse('exercise:muscle:overview')), demo_notice_text)
         self.assertContains(self.client.get(reverse('nutrition:plan:overview')), demo_notice_text)
         self.assertContains(self.client.get(reverse('software:about-us')), demo_notice_text)
 

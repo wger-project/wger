@@ -45,26 +45,6 @@ class EquipmentRepresentationTestCase(WgerTestCase):
         self.assertEqual("{0}".format(Equipment.objects.get(pk=1)), 'Dumbbells')
 
 
-class EquipmentShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        url = reverse('exercise:equipment:overview')
-
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-
 class AddEquipmentTestCase(WgerAddTestCase):
     """
     Tests adding a new equipment
@@ -133,46 +113,6 @@ class EquipmentListTestCase(WgerTestCase):
 
         response = self.client.get(reverse('exercise:equipment:list'), {'page': 'foobar'})
         self.assertEqual(response.status_code, 404)
-
-
-class EquipmentCacheTestCase(WgerTestCase):
-    """
-    Equipment cache test case
-    """
-
-    def test_equipment_overview(self):
-        """
-        Test the equipment overview cache is correctly generated on visit
-        """
-        self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
-        self.client.get(reverse('exercise:equipment:overview'))
-        self.assertTrue(cache.get(make_template_fragment_key('equipment-overview', [2])))
-
-    def test_equipment_cache_update(self):
-        """
-        Test that the template cache for the overview is correctly reseted when
-        performing certain operations
-        """
-
-        self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
-
-        self.client.get(reverse('exercise:equipment:overview'))
-
-        old_overview = cache.get(make_template_fragment_key('equipment-overview', [2]))
-        self.assertTrue(old_overview)
-
-        exercise = Exercise.objects.get(pk=2)
-        exercise.name = 'Very cool exercise 2'
-        exercise.description = 'New description'
-        exercise.exercise_base.equipment.add(Equipment.objects.get(pk=2))
-        exercise.save()
-
-        self.assertFalse(cache.get(make_template_fragment_key('equipment-overview', [2])))
-        self.client.get(reverse('exercise:equipment:overview'))
-
-        new_overview = cache.get(make_template_fragment_key('equipment-overview', [2]))
-
-        self.assertNotEqual(old_overview, new_overview)
 
 
 class EquipmentApiTestCase(api_base_test.ApiBaseResourceTestCase):

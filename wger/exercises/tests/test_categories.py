@@ -119,7 +119,6 @@ class ExerciseCategoryCacheTestCase(WgerTestCase):
         self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
 
         self.client.get(reverse('exercise:exercise:overview'))
-        self.client.get(reverse('exercise:muscle:overview'))
         self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
 
         new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))

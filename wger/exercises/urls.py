@@ -45,11 +45,6 @@ patterns_history = [
 # sub patterns for muscles
 patterns_muscle = [
     path(
-        'overview/',
-        muscles.MuscleListView.as_view(),
-        name='overview',
-    ),
-    path(
         'admin-overview/',
         muscles.MuscleAdminListView.as_view(),
         name='admin-list',
@@ -183,11 +178,6 @@ patterns_equipment = [
         '<int:pk>/delete',
         equipment.EquipmentDeleteView.as_view(),
         name='delete',
-    ),
-    path(
-        'overview',
-        equipment.EquipmentOverviewView.as_view(),
-        name='overview',
     ),
 ]
 
