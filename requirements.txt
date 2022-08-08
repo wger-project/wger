@@ -15,22 +15,22 @@ django-email-verification~=0.1.0
 django_compressor~=4.0
 django_extensions~=3.1
 django-storages~=1.12
-django-environ==0.8.1
+django-environ==0.9.0
 easy-thumbnails==2.8.1
 fontawesomefree~=6.1.1
 icalendar==4.0.9
-invoke~=1.7
-pillow~=9.1
-reportlab==3.6.9
-requests==2.27.1
+invoke==1.7.1
+pillow==9.1.1
+reportlab==3.6.10
+requests==2.28.1
 
 
 # AWS
 #boto3
 
 # REST API
-django-cors-headers>=3.0
-django-filter==21.1
+django-cors-headers==3.13.0
+django-filter==22.1
 djangorestframework~=3.13
 
 # Not used anymore, but needed because some modules are imported in DB migration

@@ -252,6 +252,11 @@ urlpatterns += [
         name='app_version'
     ),
     path(
+        'api/v2/check-permission/',
+        core_api_views.PermissionView.as_view({'get': 'get'}),
+        name='permission'
+    ),
+    path(
         'api/v2/min-app-version/',
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version'

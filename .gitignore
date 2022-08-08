@@ -73,3 +73,4 @@ venv-wget
 # Will need to copy these files to the flutter repo
 /wger/i18n.dart
 /wger/app_en.arb
+/coverage.lcov

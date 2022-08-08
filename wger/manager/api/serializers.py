@@ -20,6 +20,7 @@ from rest_framework import serializers
 
 # wger
 from wger.core.api.serializers import DaysOfWeekSerializer
+from wger.core.models import DaysOfWeek
 from wger.exercises.api.serializers import (
     ExerciseBaseInfoSerializer,
     ExerciseSerializer,
@@ -114,6 +115,8 @@ class DaySerializer(serializers.ModelSerializer):
     """
     Workout day serializer
     """
+    training = serializers.PrimaryKeyRelatedField(queryset=Workout.objects.all())
+    day = serializers.PrimaryKeyRelatedField(queryset=DaysOfWeek.objects.all(), many=True)
 
     class Meta:
         model = Day
@@ -124,6 +127,7 @@ class SetSerializer(serializers.ModelSerializer):
     """
     Workout setting serializer
     """
+    exerciseday = serializers.PrimaryKeyRelatedField(queryset=Day.objects.all())
 
     class Meta:
         model = Set

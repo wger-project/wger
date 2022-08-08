@@ -16,7 +16,6 @@
 import json
 
 # Django
-from django.core import mail
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.template import (
@@ -25,10 +24,13 @@ from django.template import (
 )
 from django.urls import reverse
 
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.tests import api_base_test
+from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import (
-    STATUS_CODES_FAIL,
     WgerDeleteTestCase,
     WgerTestCase,
 )
@@ -38,8 +40,10 @@ from wger.exercises.models import (
     Muscle,
 )
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import WORKOUT_TAB
-from wger.utils.helpers import random_string
+from wger.utils.constants import (
+    DEFAULT_LICENSE_ID,
+    WORKOUT_TAB,
+)
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -110,7 +114,7 @@ class ExerciseIndexTestCase(WgerTestCase):
 
     def test_exercise_index_editor(self):
         """
-        Tests the exercise overview page as a logged in user with editor rights
+        Tests the exercise overview page as a logged-in user with editor rights
         """
 
         self.user_login('admin')
@@ -118,7 +122,7 @@ class ExerciseIndexTestCase(WgerTestCase):
 
     def test_exercise_index_non_editor(self):
         """
-        Tests the exercise overview page as a logged in user without editor rights
+        Tests the exercise overview page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -201,7 +205,7 @@ class ExerciseDetailTestCase(WgerTestCase):
 
     def test_exercise_detail_non_editor(self):
         """
-        Tests the exercise details page as a logged in user without editor rights
+        Tests the exercise details page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -251,7 +255,7 @@ class ExercisesTestCase(WgerTestCase):
 
     def test_search_exercise_logged_in(self):
         """
-        Test deleting an exercise by a logged in user
+        Test deleting an exercise by a logged-in user
         """
 
         self.user_login('test')
@@ -558,3 +562,119 @@ class ExerciseBaseInfoApiTestCase(
 
     def get_resource_name(self):
         return 'exercisebaseinfo'
+
+
+class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
+    pk = 1
+
+    data = {
+        'name': 'A new name',
+        'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
+        'language': 1,
+        'exercise_base': 2
+    }
+
+    def get_resource_name(self):
+        return 'exercise-translation'
+
+    def test_cant_change_base_id(self):
+        """
+        Test that it is not possible to change the base id of an existing
+        exercise translation.
+        """
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.exercise_base_id, 1)
+
+        self.authenticate('trainer1')
+        response = self.client.patch(self.url_detail, data={'exercise_base': 2})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.exercise_base_id, 1)
+
+    def test_cant_change_language(self):
+        """
+        Test that it is not possible to change the language id of an existing
+        exercise translation.
+        """
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.language_id, 1)
+
+        self.authenticate('trainer1')
+        response = self.client.patch(self.url_detail, data={'language': 2})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.exercise_base_id, 1)
+
+    def test_cant_change_license(self):
+        """
+        Test that it is not possible to change the license of an existing
+        exercise translation.
+        """
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.license_id, 2)
+
+        self.authenticate('trainer1')
+        response = self.client.patch(self.url_detail, data={'license': 3})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.license_id, 2)
+
+    def test_cant_set_license(self):
+        """
+        Test that it is not possible to set the license for a newly created
+        exercise translation (the license is always set to the default)
+        """
+        self.data['license'] = 3
+
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.license_id, DEFAULT_LICENSE_ID)
+
+    def test_patch_clean_html(self):
+        """
+        Test that the description field has its HTML stripped before saving
+        """
+        description = '<script>alert();</script> The wild boar is a suid native...'
+        self.authenticate('trainer1')
+        response = self.client.patch(self.url_detail, data={'description': description})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        exercise = Exercise.objects.get(pk=self.pk)
+        self.assertEqual(exercise.description, 'alert(); The wild boar is a suid native...')
+
+    def test_post_only_one_language_per_base(self):
+        """
+        Test that it's not possible to add a second translation for the same
+        base in the same language.
+        """
+        self.authenticate('trainer1')
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.post(self.url, data=self.data)
+        self.assertTrue(response.data['non_field_errors'])
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_set_existing_language(self):
+        """
+        Test that it is possible to set the language if it doesn't duplicate a translation
+        """
+        self.authenticate('trainer1')
+        response = self.client.patch(self.url_detail, data={'language': 1, 'name': '123456'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data.get('non_field_errors'))
+
+    def test_edit_only_one_language_per_base(self):
+        """
+        Test that it's not possible to edit a translation to a second language for the same base
+        """
+        self.authenticate('trainer1')
+        response = self.client.patch(self.url_detail, data={'language': 3})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue(response.data['non_field_errors'])

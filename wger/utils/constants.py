@@ -41,10 +41,8 @@ DATE_FORMATS = [
 
 # Allowed tags, attributes and styles allowed in textareas edited with a JS
 # editor. Everything not in these whitelists is stripped.
-HTML_TAG_WHITELIST = ('strong', 'em', 'ul', 'ol', 'li', 'p')
-
+HTML_TAG_WHITELIST = ('b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'p')
 HTML_ATTRIBUTES_WHITELIST = {'*': 'style'}
-
 HTML_STYLES_WHITELIST = ('text-decoration', )
 
 # Pagination

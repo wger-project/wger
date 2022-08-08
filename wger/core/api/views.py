@@ -19,7 +19,10 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # Third Party
 from django_email_verification import send_email
@@ -154,6 +157,24 @@ class ApplicationVersionView(viewsets.ViewSet):
         return Response(get_version())
 
 
+class PermissionView(viewsets.ViewSet):
+    """
+    Returns the application's version
+    """
+    permission_classes = (AllowAny, )
+
+    @staticmethod
+    def get(request):
+        permission = request.query_params.get('permission')
+        if request.user.is_anonymous or permission is None:
+            return Response(
+                "Please pass a permission name in the 'permission' parameter",
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response({'result': request.user.has_perm(permission)})
+
+
 class RequiredApplicationVersionView(viewsets.ViewSet):
     """
     Returns the minimum required version of flutter app to access this server
@@ -238,6 +259,10 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('full_name', 'short_name')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):

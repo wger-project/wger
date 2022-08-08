@@ -43,8 +43,8 @@ from wger.utils.cache import (
     reset_workout_canonical_form,
 )
 from wger.utils.models import (
-    AbstractLicenseModel,
     AbstractHistoryMixin,
+    AbstractLicenseModel,
 )
 
 

@@ -26,6 +26,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 
 # Third Party
+import bleach
 from actstream import action as actstream_action
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -68,6 +69,11 @@ from wger.exercises.models import (
     Variation,
 )
 from wger.exercises.views.helper import StreamVerbs
+from wger.utils.constants import (
+    HTML_ATTRIBUTES_WHITELIST,
+    HTML_STYLES_WHITELIST,
+    HTML_TAG_WHITELIST,
+)
 from wger.utils.language import load_item_languages
 
 
@@ -77,7 +83,7 @@ logger = logging.getLogger(__name__)
 class ExerciseBaseViewSet(CreateUpdateModelViewSet):
     """
     API endpoint for exercise base objects. For a read-only endpoint with all
-    the information of an exercise, see /api/v2/exerciseinfo/
+    the information of an exercise, see /api/v2/exercisebaseinfo/
     """
     queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseSerializer
@@ -98,7 +104,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.CREATED.value,
-            action_object=serializer.instance
+            action_object=serializer.instance,
         )
 
     def perform_update(self, serializer):
@@ -109,7 +115,7 @@ class ExerciseBaseViewSet(CreateUpdateModelViewSet):
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
-            action_object=serializer.instance
+            action_object=serializer.instance,
         )
 
 
@@ -134,6 +140,17 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         Save entry to activity stream
         """
         super().perform_create(serializer)
+
+        # Clean the description HTML
+        if serializer.validated_data.get('description'):
+            serializer.validated_data['description'] = bleach.clean(
+                serializer.validated_data['description'],
+                tags=HTML_TAG_WHITELIST,
+                attributes=HTML_ATTRIBUTES_WHITELIST,
+                styles=HTML_STYLES_WHITELIST,
+                strip=True
+            )
+
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.CREATED.value,
@@ -144,6 +161,7 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         """
         Save entry to activity stream
         """
+
         obj_id = self.kwargs['pk']
         updated_object = Exercise.objects.get(id=obj_id)
 
@@ -156,6 +174,26 @@ class ExerciseTranslationViewSet(CreateUpdateModelViewSet):
         super().perform_create(serializer)
 
         most_recent_history = updated_object.history.order_by('history_date').last()
+
+
+        # Don't allow to change the base or the language over the API
+        if serializer.validated_data.get('exercise_base'):
+            del serializer.validated_data['exercise_base']
+
+        if serializer.validated_data.get('language'):
+            del serializer.validated_data['language']
+
+        # Clean the description HTML
+        if serializer.validated_data.get('description'):
+            serializer.validated_data['description'] = bleach.clean(
+                serializer.validated_data['description'],
+                tags=HTML_TAG_WHITELIST,
+                attributes=HTML_ATTRIBUTES_WHITELIST,
+                styles=HTML_STYLES_WHITELIST,
+                strip=True
+            )
+
+        super().perform_update(serializer)
 
         actstream_action.send(
             self.request.user,
@@ -316,6 +354,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseBaseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'uuid',
         'category',
         'muscles',
         'muscles_secondary',
@@ -339,6 +378,10 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name', )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -348,6 +391,10 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
     filterset_fields = ('name', )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ExerciseImageViewSet(CreateUpdateModelViewSet):
@@ -366,6 +413,10 @@ class ExerciseImageViewSet(CreateUpdateModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     @action(detail=True)
     def thumbnails(self, request, pk):
@@ -494,3 +545,7 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name', 'is_front', 'name_en')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)

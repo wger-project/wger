@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-03-26 23:13+0000\n"
-"Last-Translator: gudvinr <gudvinr+weblate@gmail.com>\n"
+"PO-Revision-Date: 2022-05-24 21:14+0000\n"
+"Last-Translator: Konstantin <konstantin.photo@gmx.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/wger/web/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -2412,12 +2412,13 @@ msgid "Biceps"
 msgstr "Бицепс"
 
 #: i18n.tpl:21
+#, fuzzy
 msgid "Hamstrings"
-msgstr ""
+msgstr "Подколенные сухожилия"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Поясница"
 
 #: i18n.tpl:24
 #, fuzzy
@@ -2427,7 +2428,7 @@ msgstr "Минут"
 
 #: i18n.tpl:25
 msgid "Lats"
-msgstr ""
+msgstr "Широчайшие мышцы спины"
 
 #: i18n.tpl:27
 msgid "Quads"

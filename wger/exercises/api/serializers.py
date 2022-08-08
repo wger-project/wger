@@ -14,6 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Django
+from django.db.models import Q
+
 # Third Party
 from rest_framework import serializers
 
@@ -174,8 +177,8 @@ class MuscleSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'is_front',
             'name_en',
+            'is_front',
             'image_url_main',
             'image_url_secondary',
         ]
@@ -219,28 +222,50 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     """
     Exercise translation serializer
     """
-
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
-    aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
-    notes = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+    exercise_base = serializers.PrimaryKeyRelatedField(
+        queryset=ExerciseBase.objects.all(),
+        required=True,
+    )
 
     class Meta:
         model = Exercise
         fields = (
             "id",
             "uuid",
-            "aliases",
             "name",
             "exercise_base",
             "description",
-            "notes",
             "creation_date",
             "language",
-            "license",
-            "license_author",
-            "author_history",
         )
+
+    def validate(self, value):
+        """
+        Check that there is only one language per exercise
+        """
+        if value.get('language'):
+            # Editing an existing object
+            # -> Check if the language already exists, excluding the current object
+            if self.instance:
+                if self.instance.exercise_base.exercises.filter(
+                    ~Q(id=self.instance.pk), language=value['language']
+                ).exists():
+                    raise serializers.ValidationError(
+                        f"There is already a translation for this exercise in {value['language']}"
+                    )
+            # Creating a new object
+            # -> Check if the language already exists
+            else:
+                if Exercise.objects.filter(
+                    exercise_base=value['exercise_base'], language=value['language']
+                ).exists():
+                    raise serializers.ValidationError(
+                        f"There is already a translation for this exercise in {value['language']}"
+                    )
+
+        return super().validate(value)
 
 
 class ExerciseInfoSerializer(serializers.ModelSerializer):
