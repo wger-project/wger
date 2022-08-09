@@ -65,6 +65,7 @@ from .ingredient_category import IngredientCategory
 
 logger = logging.getLogger(__name__)
 
+
 class Source(Enum):
     WGER = 'wger'
     OPEN_FOOD_FACTS = 'Open Food Facts'

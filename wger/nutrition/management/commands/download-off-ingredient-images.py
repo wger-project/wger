@@ -39,9 +39,9 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         # Make sure off downloads are enabled
-        settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF'] = True  
+        settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF'] = True
 
-        # Since each MealItem is linked to a NutritionPlan via a Meal we can skip accessing 
+        # Since each MealItem is linked to a NutritionPlan via a Meal we can skip accessing
         # NutritionPlan and Meal itself and fetch all MealItems directly instead.
         meal_items = MealItem.objects.all()
         meal_item_counter = 0
@@ -55,10 +55,9 @@ class Command(BaseCommand):
                 self.stdout.write(
                     f'Processed {meal_item_counter} meal items, '
                     f'downloaded {download_counter} images'
-                    )
-
+                )
 
         self.stdout.write(
             f'Processed {meal_item_counter} meal items, downloaded {download_counter} images'
-            )
+        )
         self.stdout.write(f'Done')
