@@ -139,6 +139,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
         depth = 1
         fields = [
             'id',
+            'code',
             'name',
             'creation_date',
             'update_date',
@@ -203,6 +204,7 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
     weight_unit = serializers.PrimaryKeyRelatedField(read_only=True)
     weight_unit_obj = IngredientWeightUnitSerializer(source='weight_unit', read_only=True)
+    image = ImageSerializer(source='ingredient.image', read_only=True)
 
     class Meta:
         model = MealItem
@@ -214,6 +216,7 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
             'ingredient_obj',
             'weight_unit',
             'weight_unit_obj',
+            'image',
             'order',
             'amount',
         ]
