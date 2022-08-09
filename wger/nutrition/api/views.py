@@ -200,7 +200,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('uuid', 'source_url')
+    filterset_fields = ('uuid', 'source_url', 'ingredient_id')
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):

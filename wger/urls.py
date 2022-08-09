@@ -127,7 +127,7 @@ router.register(
 router.register(r'nutritiondiary', nutrition_api_views.LogItemViewSet, basename='nutritiondiary')
 router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='mealitem')
-router.register(r'ingredientimage', nutrition_api_views.ImageViewSet, basename='ingredientimage')
+router.register(r'ingredient-image', nutrition_api_views.ImageViewSet, basename='ingredientimage')
 
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
