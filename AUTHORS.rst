@@ -65,6 +65,7 @@ Developers
 * Jaspreet Dhillon - https://github.com/jaspreetsd902
 * Sofiko Alaverdashvili - https://github.com/sophiamartelli
 * Oebele Lijzenga - https://github.com/olijzenga
+* Tom Bowyer - https://github.com/ImTheTom
 
 Translators
 -----------

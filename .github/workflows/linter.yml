@@ -20,11 +20,13 @@ on:
       - master
     paths:
       - '**.py'
+      - '**.md'
   pull_request:
     branches:
       - master
     paths:
       - '**.py'
+      - '**.md'
 
 ###############
 # Set the Job #

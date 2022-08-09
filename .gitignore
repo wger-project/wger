@@ -67,8 +67,12 @@ node_modules
 venv
 venv-wget
 
-# Dummy file for translations
-/wger/i18n.tpl
+# Dummy translation files to copy to react or flutter repo
+/wger/i18n.tsx
+/wger/i18n.dart
+/wger/app_en.arb
+
+
 
 # Local images folder
 /media

@@ -53,18 +53,26 @@ it is only intended as an easy to setup demo
 
 ### Development version
 
-We provide a docker compose file that sets everything up for development and
-persists the database on a volume. From the root folder just call
+We provide a docker file that sets everything up for development (however this won't
+persist any data)
 
 ````shell script
-docker-compose -f extras/docker/compose/docker-compose.yml up
+docker run -ti  \
+    -v /path/to/your/wger/checkout:/home/wger/src \
+    --name wger.dev \
+    --publish 8000:8000 \ 
+    wger/server
 ````
 
-Log in as: **admin**, password **adminadmin**
+Then just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
-For more info, check the [README in wger/extras/docker/compose](
- ./extras/docker/compose/README.md
+For more info, check the [README in wger/extras/developemt](
+ ./extras/docker/development/README.md
 ).
+
+Alternatively you can use the production compose file for development as well,
+just bind your local source code into the web container (see the docker-compose.yml
+file for details). You will also probably want to set `DJANGO_DEBUG to false
 
 #### Local installation
 

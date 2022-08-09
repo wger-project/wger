@@ -425,14 +425,13 @@ USER_AGENTS_CACHE = 'default'
 # Consult docs/settings.rst for more information
 #
 WGER_SETTINGS = {
-    'USE_RECAPTCHA': False,
-    'REMOVE_WHITESPACE': False,
-    'ALLOW_REGISTRATION': True,
     'ALLOW_GUEST_USERS': True,
+    'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
+    'EXERCISE_CACHE_TTL': 3600,
     'TWITTER': False,
-    'DOWNLOAD_FROM_OFF': False
+    'USE_RECAPTCHA': False
 }
 
 # Whether the application is being run regularly or during tests

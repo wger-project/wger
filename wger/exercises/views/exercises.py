@@ -329,8 +329,17 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         for elem in form.cleaned_data['muscles_secondary'].all():
             existing = existing.filter(muscles_secondary=elem)
 
-        # Create a new exercise base
-        if not existing:
+        # ---> Temporary solution to avoid duplicate entries
+        #
+        # When creating several related exercises, it is possible that they all
+        # share a base. This will cause problems when e.g. adding images, since
+        # they get saved to the base and not the exercise translation. In this case,
+        # deleting an image causes another error. This logic will be handled better
+        # with the new react app anyway.
+        #
+        # Always create a new exercise base
+        # if not existing:
+        if True:
             exercise_base = ExerciseBase.objects.create(
                 category=form.cleaned_data['category'],
                 license=form.cleaned_data['license'],

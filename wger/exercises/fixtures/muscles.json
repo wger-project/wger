@@ -4,7 +4,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Anterior deltoid"
+            "name": "Anterior deltoid",
+            "name_en": "Shoulders"
         }
     },
     {
@@ -12,7 +13,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Biceps brachii"
+            "name": "Biceps brachii",
+            "name_en": "Biceps"
         }
     },
     {
@@ -20,7 +22,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Biceps femoris"
+            "name": "Biceps femoris",
+            "name_en": "Hamstrings"
         }
     },
     {
@@ -36,7 +39,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Erector spinae"
+            "name": "Erector spinae",
+            "name_en": "Lower back"
         }
     },
     {
@@ -44,7 +48,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Gastrocnemius"
+            "name": "Gastrocnemius",
+            "name_en": "Calves"
         }
     },
     {
@@ -52,7 +57,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Gluteus maximus"
+            "name": "Gluteus maximus",
+            "name_en": "Glutes"
         }
     },
     {
@@ -60,7 +66,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Latissimus dorsi"
+            "name": "Latissimus dorsi",
+            "name_en": "Lats"
         }
     },
     {
@@ -76,7 +83,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Pectoralis major"
+            "name": "Pectoralis major",
+            "name_en": "Chest"
         }
     },
     {
@@ -84,7 +92,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Quadriceps femoris"
+            "name": "Quadriceps femoris",
+            "name_en": "Quads"
         }
     },
     {
@@ -92,7 +101,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": true,
-            "name": "Rectus abdominis"
+            "name": "Rectus abdominis",
+            "name_en": "Abs"
         }
     },
     {
@@ -124,7 +134,8 @@
         "model": "exercises.muscle",
         "fields": {
             "is_front": false,
-            "name": "Triceps brachii"
+            "name": "Triceps brachii",
+            "name_en": "Triceps"
         }
     }
 ]

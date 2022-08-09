@@ -62,7 +62,7 @@ class LogItem(BaseMealItem, models.Model):
     The plan this log belongs to
     """
 
-    datetime = models.DateTimeField(default=timezone.now)
+    datetime = models.DateTimeField(verbose_name=_('Date and Time (Approx.)'), default=timezone.now)
     """
     Time and date when the log was added
     """

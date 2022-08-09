@@ -64,7 +64,7 @@ class DayView(WgerFormMixin, LoginRequiredMixin):
 
     def get_form(self, form_class=DayForm):
         """
-        Filter the days of the week that are alreeady used by other days
+        Filter the days of the week that are already used by other days
         """
 
         # Get the form

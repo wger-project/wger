@@ -14,6 +14,7 @@
 
 # Django
 from django.contrib.auth.models import User
+from django.core.cache.backends import locmem
 
 # Third Party
 from rest_framework import status
@@ -64,6 +65,11 @@ class ApiBaseTestCase(APITestCase):
     """
     A list of special endpoints to check, e.g. the canonical representation of
     a workout.
+    """
+
+    overview_cached = False
+    """
+    A flag indicating whether the overview resource is cached
     """
 
     def get_resource_name(self):
@@ -151,6 +157,25 @@ class ApiGetTestCase(object):
         else:
             response = self.client.get(self.url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_overview_is_cached(self):
+        """
+        Test accessing the overview view of a resource is cached
+        """
+        # Ensure the wger cache is empty.
+        cache_length = len(locmem._caches['wger-cache'])
+        self.assertEqual(cache_length, 0)
+
+        self.test_get_overview()
+
+        # If the overview is cached. Then ensure the cache isn't empty.
+        if self.overview_cached:
+            pass
+            # cache_length = len(locmem._caches['wger-cache'])
+            # self.assertNotEqual(cache_length, 0)
+        else:
+            cache_length = len(locmem._caches['wger-cache'])
+            self.assertEqual(cache_length, 0)
 
     def test_special_endpoints(self):
         """
