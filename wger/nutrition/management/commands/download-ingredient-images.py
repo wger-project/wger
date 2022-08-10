@@ -38,7 +38,7 @@ from wger.nutrition.models import (
 )
 
 
-IMAGE_API = "{0}/api/v2/ingredientimage/"
+IMAGE_API = "{0}/api/v2/ingredient-image/"
 
 
 class Command(BaseCommand):
