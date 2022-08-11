@@ -87,7 +87,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     variations = models.ForeignKey(
         Variation,
         verbose_name=_('Variations'),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
