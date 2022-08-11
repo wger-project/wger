@@ -35,7 +35,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
-from wger.utils.constants import DEFAULT_LANGUAGE
+from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -155,7 +155,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             exercise = self.exercises.get(language__short_name=language)
         except:  # can't do Exercise.DoesNotExist because of circular imports
             try:
-                exercise = self.exercises.get(language__short_name=DEFAULT_LANGUAGE)
+                exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
             except:
                 exercise = self.exercises.first()
 

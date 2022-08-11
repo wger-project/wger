@@ -39,9 +39,18 @@ from wger.exercises.models import (
 from wger.utils.constants import DEFAULT_LICENSE_ID
 
 
+UUID_NEW = 'NEW'
+VIDEO_AUTHOR = 'Goulart'
+VIDEO_PATH = pathlib.Path('videos-tmp')
+VIDEO_EXTENSION = '.webm'
+
+
 class Command(BaseCommand):
     """
     ONE OFF SCRIPT!
+
+    Note that running this script more than once will result in duplicate entries
+    (specially the entries with 'NEW' as their UUID)
 
     This script reads back into the database corrections made to a CSV generated with
     exercise-cleanup.py
@@ -49,19 +58,26 @@ class Command(BaseCommand):
 
     help = 'Update the exercise database based on the exercise cleanup spreadsheet'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--process-videos',
+            action='store_true',
+            dest='process_videos',
+            default=False,
+            help='Flag indicating whether to process and add videos to the exercises'
+        )
+
+        parser.add_argument(
+            '--create-on-new',
+            action='store_true',
+            dest='create_on_new',
+            default=True,
+            help="Controls whether we create new bases or exercises if they have the UUID 'NEW'"
+        )
+
     def handle(self, **options):
         csv_file = open('exercise_cleanup.csv', 'r', newline='')
         file_reader = csv.DictReader(csv_file)
-
-        UUID_NEW = 'NEW'
-
-        # Controls whether we create new bases or exercises if they have the UUID 'NEW'
-        SKIP_CREATE_ENTRIES_ON_NEW = False
-
-        VIDEO_AUTHOR = 'Goulart'
-
-        VIDEO_PATH = pathlib.Path('videos-tmp')
-        VIDEO_EXTENSION = '.webm'
 
         #
         # Sanity check
@@ -95,24 +111,29 @@ class Command(BaseCommand):
             base_variation_id = row['base:variation']
             base_video = row['base:video']
 
+            if not base_uuid:
+                # self.stdout.write('No base uuid, skipping')
+                continue
+
             self.stdout.write(f'\n\n*** Processing base-UUID {base_uuid}\n')
             self.stdout.write('-------------------------------------------------------------\n')
 
             #
             # Load and update the base data
             #
-            if not base_uuid:
-                self.stdout.write('    No base uuid, skipping')
+            if not options['create_on_new'] and base_uuid == UUID_NEW:
+                self.stdout.write(f'    Skipping creating new exercise base...\n')
                 continue
-
-            if SKIP_CREATE_ENTRIES_ON_NEW and base_uuid == UUID_NEW:
-                self.stdout.write(f'    Skipping creating new base...\n')
-                continue
-            base = ExerciseBase.objects.get(uuid=base_uuid
-                                            ) if base_uuid != UUID_NEW else ExerciseBase()
+            try:
+                base = ExerciseBase.objects.get(uuid=base_uuid
+                                                ) if base_uuid != UUID_NEW else ExerciseBase()
+            except ExerciseBase.DoesNotExist:
+                base = ExerciseBase(uuid=base_uuid)
 
             # Update the base data
             base.category = ExerciseCategory.objects.get(name=base_category)
+            base.save()
+
             base_equipment_list = []
             if base_equipment:
                 base_equipment_list = [
@@ -130,19 +151,24 @@ class Command(BaseCommand):
             base.save()
 
             # Save the video
-            if base_video and not ExerciseVideo.objects.filter(exercise_base=base).exists():
-                path = VIDEO_PATH / pathlib.Path(base_video + VIDEO_EXTENSION)
-                with path.open('rb') as video_file:
-                    video = ExerciseVideo()
-                    video.exercise_base = base
-                    video.license = default_license
-                    video.license_author = VIDEO_AUTHOR
-                    video.video.save(
-                        path.name,
-                        File(video_file),
-                    )
-                    video.save()
-                    self.stdout.write(f'Saving video {video.video}\n')
+
+            # Note we can't really know if the video is new or not since the name is
+            # a generated UUID. We could read the content and compare the size, etc.
+            # but that is too much work for this script that will be used only once.
+            if base_video and options['process_videos']:
+                for video_name in base_video.split('/'):
+                    path = VIDEO_PATH / pathlib.Path(video_name.strip() + VIDEO_EXTENSION)
+                    with path.open('rb') as video_file:
+                        video = ExerciseVideo()
+                        video.exercise_base = base
+                        video.license = default_license
+                        video.license_author = VIDEO_AUTHOR
+                        video.video.save(
+                            path.name,
+                            File(video_file),
+                        )
+                        video.save()
+                        self.stdout.write(f'Saving video {video.video}\n')
 
             #
             # Process the translations and create new exercises if necessary
@@ -156,33 +182,36 @@ class Command(BaseCommand):
                 exercise_author = row[f'{language_short}:author']
                 exercise_aliases = row[f'{language_short}:aliases']
 
-                # Load exercise
+                # Load translation
                 if exercise_uuid:
-                    self.stdout.write(f'{language_short}: exercise uuid: {exercise_uuid}\n')
+                    message = f'{language_short}: translation uuid: {exercise_uuid}\n'
+                    self.stdout.write(message)
+                else:
+                    # self.stdout.write(f'{language_short}: No UUID for translation, skipping...\n')
+                    continue
 
-                if SKIP_CREATE_ENTRIES_ON_NEW and exercise_uuid == UUID_NEW:
-                    self.stdout.write(f'    Skipping creating new exercise...\n')
+                if not exercise_name:
                     continue
+
+                if not options['create_on_new'] and exercise_uuid == UUID_NEW:
+                    self.stdout.write(f'    Skipping creating new translation ...\n')
+                    continue
+
                 try:
-                    exercise = Exercise.objects.get(
-                        uuid=exercise_uuid
-                    ) if (exercise_uuid and exercise_uuid != UUID_NEW) else Exercise()
+                    exercise = Exercise.objects.get(uuid=exercise_uuid
+                                                    ) if exercise_uuid != UUID_NEW else Exercise()
                 except Exercise.DoesNotExist:
-                    self.stdout.write(
-                        self.style.
-                        WARNING(f'    Exercise isn not known locally: {exercise_uuid}!\n')
-                    )
-                    continue
+                    # self.stdout.write(
+                    #     self.style.
+                    #     WARNING(f'    Exercise translation isnt known locally: {exercise_uuid}!')
+                    # )
+                    exercise = Exercise(uuid=exercise_uuid)
 
                 exercise.exercise_base = base
                 exercise.language = language
-
-                # Set the nane and description, if there is any
-                if exercise_name:
-                    exercise.name = exercise_name
-                    exercise.description = exercise_description
-                else:
-                    continue
+                exercise.name = exercise_name
+                exercise.name_original = exercise_name
+                exercise.description = exercise_description
 
                 # Set the license
                 if exercise_license:
@@ -200,19 +229,15 @@ class Command(BaseCommand):
                 exercise.license_author = exercise_author
 
                 if not exercise.id:
-                    new_exercise = True
+                    message = f'    New translation saved - {exercise_name}'
+                    self.stdout.write(self.style.SUCCESS(message))
 
                 exercise.save()
 
-                # Set the aliases
+                # Set the aliases (replaces existing ones)
                 if exercise_aliases:
                     Alias.objects.filter(exercise=exercise).delete()
                     for a in exercise_aliases.split('/'):
                         Alias(exercise=exercise, alias=a.strip()).save()
 
-                if new_exercise:
-                    self.stdout.write(
-                        self.style.
-                        SUCCESS(f'    New exercise saved, ID: {exercise.id}, {exercise.name}\n')
-                    )
         csv_file.close()
