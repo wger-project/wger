@@ -83,9 +83,22 @@ class Command(BaseCommand):
             warning = f'Exercise base {base.uuid} has duplicate translations for language IDs: {duplicates}!'
             self.stdout.write(self.style.WARNING(warning))
 
+            # Output the duplicates
+            for language_id in duplicates:
+                exercises = base.exercises.filter(language_id=language_id)
+                for exercise in exercises:
+                    self.stdout.write(f'  * {exercise.name}')
+                self.stdout.write('')
+
+            # And delete them
+            exercises = base.exercises.filter(language_id__in=duplicates)
             if delete:
-                exercises = base.exercises.filter(language_id__in=duplicates)
                 for exercise in exercises[1:]:
+                    self.stdout.write(
+                        f'  Deleting translation {exercise.uuid} for language ID {exercise.language_id}...'
+                    )
+
+
                     exercise.delete()
                     self.stdout.write(
                         f'  Deleting translation {exercise.uuid} for language ID {exercise.language_id}...'
