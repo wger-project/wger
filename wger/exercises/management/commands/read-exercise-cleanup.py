@@ -256,6 +256,7 @@ class Command(BaseCommand):
         for row in file_reader:
             base_uuid = row['baseUUID:toDelete']
             translation_uuid = row['exerciseUUID:toDelete']
+            variation_id = row['variations:toDelete']
 
             if base_uuid:
                 try:
@@ -267,7 +268,14 @@ class Command(BaseCommand):
             if translation_uuid:
                 try:
                     Exercise.objects.filter(uuid=translation_uuid).delete()
-                    self.stdout.write(f'* Deleted translation {base_uuid}')
+                    self.stdout.write(f'* Deleted translation {translation_uuid}')
+                except Exercise.DoesNotExist:
+                    pass
+
+            if variation_id:
+                try:
+                    Variation.objects.filter(uuid=variation_id).delete()
+                    self.stdout.write(f'* Deleted variation {variation_id}')
                 except Exercise.DoesNotExist:
                     pass
         csv_file.close()
