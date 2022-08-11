@@ -76,7 +76,11 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        csv_file = open('exercise_cleanup.csv', 'r', newline='')
+        self.process_new_exercises(options)
+        self.delete_duplicates(options)
+
+    def process_new_exercises(self, options):
+        csv_file = open('exercises_cleanup.csv', 'r', newline='')
         file_reader = csv.DictReader(csv_file)
 
         #
@@ -102,8 +106,7 @@ class Command(BaseCommand):
         #
         # Process the exercises
         #
-        rows = [f for f in file_reader]
-        for row in rows:
+        for row in file_reader:
             new_exercise = False
             base_uuid = row['base:uuid']
             base_equipment = row['base:equipment']
@@ -240,4 +243,31 @@ class Command(BaseCommand):
                     for a in exercise_aliases.split('/'):
                         Alias(exercise=exercise, alias=a.strip()).save()
 
+        csv_file.close()
+
+    def delete_duplicates(self, options):
+        csv_file = open('exercises_cleanup_duplicates.csv', 'r', newline='')
+        file_reader = csv.DictReader(csv_file)
+        self.stdout.write(
+            self.style.
+            WARNING(f'---> Deleting duplicate bases and translations now...')
+        )
+
+        for row in file_reader:
+            base_uuid = row['baseUUID:toDelete']
+            translation_uuid = row['exerciseUUID:toDelete']
+
+            if base_uuid:
+                try:
+                    ExerciseBase.objects.filter(uuid=base_uuid).delete()
+                    self.stdout.write(f'* Deleted base {base_uuid}')
+                except ExerciseBase.DoesNotExist:
+                    pass
+
+            if translation_uuid:
+                try:
+                    Exercise.objects.filter(uuid=translation_uuid).delete()
+                    self.stdout.write(f'* Deleted translation {base_uuid}')
+                except Exercise.DoesNotExist:
+                    pass
         csv_file.close()
