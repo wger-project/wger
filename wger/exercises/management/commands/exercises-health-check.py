@@ -98,7 +98,6 @@ class Command(BaseCommand):
                         f'  Deleting translation {exercise.uuid} for language ID {exercise.language_id}...'
                     )
 
-
                     exercise.delete()
                     self.stdout.write(
                         f'  Deleting translation {exercise.uuid} for language ID {exercise.language_id}...'

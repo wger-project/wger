@@ -21,7 +21,10 @@ from django.core.management.base import BaseCommand
 # wger
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
-from wger.manager.models import Setting, WorkoutLog
+from wger.manager.models import (
+    Setting,
+    WorkoutLog,
+)
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
 

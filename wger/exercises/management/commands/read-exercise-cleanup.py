@@ -249,8 +249,7 @@ class Command(BaseCommand):
         csv_file = open('exercises_cleanup_duplicates.csv', 'r', newline='')
         file_reader = csv.DictReader(csv_file)
         self.stdout.write(
-            self.style.
-            WARNING(f'---> Deleting duplicate bases and translations now...')
+            self.style.WARNING(f'---> Deleting duplicate bases and translations now...')
         )
 
         for row in file_reader:
