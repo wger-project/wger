@@ -1,35 +1,9 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% load static %}
+{% extends "base_wide.html" %}
 {% load wger_extras %}
-{% load cache %}
-{% load thumbnail %}
-
-<!--
-        Title
--->
-{% block title %}{% translate "Exercises" %}{% endblock %}
-
 
 
 {% block header %}
-<script>
-$(document).ready(function() {
-
-    // Init the autocompleter
-    $('#exercise-search').autocomplete({
-        serviceUrl: '{% url 'exercise-search' %}',
-        showNoSuggestionNotice: true,
-        dataType: 'json',
-        paramName: 'term',
-        groupBy: 'category',
-        minChars: 3,
-        onSelect: function (suggestion) {
-            window.location.href = '/exercise/' + suggestion.data.id + '/view/'
-        }
-    });
-});
-</script>
+    {% react_static %}
 {% endblock %}
 
 
@@ -37,73 +11,7 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
-
-{% cache cache_timeout exercise-overview language.id %}
-{% regroup bases by category as exercise_list %}
-<div class="accordion" id="exerciseAccordion">
-    {% for item in exercise_list %}
-    <div class="card">
-        <div class="card-header" id="header-{{item.grouper.id}}">
-            <button class="btn  btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{item.grouper.id}}" aria-expanded="true" aria-controls="collapse-{{equipment.pk}}">
-                {% translate item.grouper.name %}
-            </button>
-        </div>
-        <div class="collapse" id="collapse-{{item.grouper.id}}" data-parent="#exerciseAccordion">
-            <div class="card-body px-0">
-                <div class="list-group list-group-flush">
-                    {% for base in item.list %}
-                    {% with base.get_exercise as exercise  %}
-                    <a href="{{ exercise.get_absolute_url }}" class="list-group-item">
-                        <div class="media">
-                            {% if exercise.main_image %}
-                                <img alt="{{ exercise.name }}"
-                                 class="mr-3"
-                                 style="width: 50px;"
-                                 src="{{ exercise.main_image.image|thumbnail_url:'thumbnail' }}">
-                            {% else %}
-                                <img alt="{% translate 'Placeholder image for exercise' %}"
-                                     class="mr-3"
-                                     style="width: 50px;"
-                                     src="{% static 'images/icons/image-placeholder.svg' %}">
-                            {% endif %}
-                            <div class="media-body">
-                                <p class="media-heading h5">{{ exercise.name }}</p>
-                                <span class="text-muted small">
-
-                                    {{ exercise.equipment.all|join:", " }}
-                                    <!--
-                                    {% translate "Main muscles" %}: {{ exercise.exercise_base.muscles.all|join:", " }}
-                                    <br>
-                                    {% translate "Secondary muscles" %}: {{ exercise.exercise_base.muscles_secondary.all|join:", " }}
-                                    -->
-                                </span>
-                             </div>
-                        </div>
-                    </a>
-                    {% endwith %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-    {% empty %}
-        <p>{% translate "No categories." %} {% translate "Use link to create one" %}</p>
-    {% endfor %}
-</div>
-{% endcache %}
-{% endblock %}
-
-
-<!--
-        Side bar
--->
-{% block sidebar %}
-<h4>{% translate "Search" %}</h4>
-    <input name="term"
-           type="search"
-           id="exercise-search"
-           class="ajax-form-element form-control"
-           placeholder="{% translate 'exercise name' %}">
+    <div id="react-exercise-overview"></div>
 {% endblock %}
 
 

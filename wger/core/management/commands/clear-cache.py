@@ -107,9 +107,6 @@ class Command(BaseCommand):
                                 self.stdout.write(f"      Day {day.day}")
                             reset_workout_log(user.id, entry.year, entry.month, day)
 
-            for language in Language.objects.all():
-                delete_template_fragment_cache('exercise-overview', language.id)
-
         # Workout canonical form
         if options['clear_workout']:
             for w in Workout.objects.all():

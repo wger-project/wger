@@ -60,8 +60,7 @@
                             </a></li>
 
                             <li class="dropdown-divider"></li>
-                            <li class="dropdown-header">{% translate "Exercises" %}</li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "by category" context "as in sorted by category" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "Exercises" %}</a></li>
 
                             {% if user.userprofile.has_exercise_permission %}
                             <li class="dropdown-divider"></li>
@@ -79,7 +78,6 @@
                     {#               #}
                     {# Nutrition tab #}
                     {#               #}
-
                     <li class="nav-item dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
                         <a href="{% url 'nutrition:plan:overview' %}"
                            class="dropdown-toggle nav-link"

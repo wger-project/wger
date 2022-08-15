@@ -218,6 +218,34 @@ class ExerciseSerializer(serializers.ModelSerializer):
         )
 
 
+class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
+    """
+    Exercise translation serializer for the base info endpoint
+    """
+    id = serializers.IntegerField(required=False, read_only=True)
+    uuid = serializers.UUIDField(required=False, read_only=True)
+    exercise_base = serializers.PrimaryKeyRelatedField(
+        queryset=ExerciseBase.objects.all(),
+        required=True,
+    )
+    aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
+    notes = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+
+    class Meta:
+        model = Exercise
+        fields = (
+            "id",
+            "uuid",
+            "name",
+            "exercise_base",
+            "description",
+            "creation_date",
+            "language",
+            "aliases",
+            "notes"
+        )
+
+
 class ExerciseTranslationSerializer(serializers.ModelSerializer):
     """
     Exercise translation serializer
@@ -319,7 +347,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     muscles = MuscleSerializer(many=True, read_only=True)
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
-    exercises = ExerciseTranslationSerializer(many=True, read_only=True)
+    exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:

@@ -96,36 +96,6 @@ class AddExerciseCategoryTestCase(WgerAddTestCase):
     data = {'name': 'A new category'}
 
 
-class ExerciseCategoryCacheTestCase(WgerTestCase):
-    """
-    Cache test case
-    """
-
-    def test_overview_cache_update(self):
-        """
-        Test that the template cache for the overview is correctly reseted when
-        performing certain operations
-        """
-
-        self.client.get(reverse('exercise:exercise:overview'))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-
-        old_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
-
-        category = ExerciseCategory.objects.get(pk=2)
-        category.name = 'Cool category'
-        category.save()
-
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
-
-        self.client.get(reverse('exercise:exercise:overview'))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-
-        new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
-
-        self.assertNotEqual(old_exercise_overview, new_exercise_overview)
-
-
 class ExerciseCategoryApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the exercise category overview resource

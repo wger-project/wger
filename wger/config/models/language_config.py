@@ -82,9 +82,6 @@ class LanguageConfig(models.Model):
         # Cached objects
         cache.delete(cache_mapper.get_language_config_key(self.language, self.item))
 
-        # Cached template fragments
-        delete_template_fragment_cache('exercise-overview', self.language_id)
-
     def delete(self, *args, **kwargs):
         """
         Reset all cached infos
@@ -92,8 +89,5 @@ class LanguageConfig(models.Model):
 
         # Cached objects
         cache.delete(cache_mapper.get_language_config_key(self.language, self.item))
-
-        # Cached template fragments
-        delete_template_fragment_cache('exercise-overview', self.language_id)
 
         super(LanguageConfig, self).delete(*args, **kwargs)
