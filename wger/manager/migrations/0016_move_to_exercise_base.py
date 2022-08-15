@@ -26,7 +26,7 @@ def migrate_log_to_exercise_base(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exercises', '0020_auto_20220302_2136'),
+        ('exercises', '0018_auto_20220815_2006'),
         ('manager', '0015_auto_20211028_1113'),
     ]
 
