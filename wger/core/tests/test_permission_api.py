@@ -21,10 +21,11 @@ from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
 
 
-class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
+class PermissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
     url = '/api/v2/check-permission/'
     error_message = "Please pass a permission name in the 'permission' parameter"
+    error_message_anon = "Please login"
 
     def get_resource_name(self):
         return 'check-permission'
@@ -35,7 +36,7 @@ class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, self.error_message)
+        self.assertEqual(response.data, self.error_message_anon)
 
     def test_check_permission_anonymous_with_parameter(self):
         """
@@ -43,7 +44,7 @@ class ExerciseCustomApiTestCase(BaseTestCase, ApiBaseTestCase):
         """
         response = self.client.get(self.url + '?permission=exercises.change_muscle')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, self.error_message)
+        self.assertEqual(response.data, self.error_message_anon)
 
     def test_check_no_parameter_logged_in(self):
         """

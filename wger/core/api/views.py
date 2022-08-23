@@ -170,8 +170,14 @@ class PermissionView(viewsets.ViewSet):
 
     @staticmethod
     def get(request):
+        if request.user.is_anonymous:
+            return Response(
+                "Please login",
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         permission = request.query_params.get('permission')
-        if request.user.is_anonymous or permission is None:
+        if permission is None:
             return Response(
                 "Please pass a permission name in the 'permission' parameter",
                 status=status.HTTP_400_BAD_REQUEST,
