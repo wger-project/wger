@@ -273,7 +273,7 @@ class Command(BaseCommand):
 
             if variation_id:
                 try:
-                    Variation.objects.filter(uuid=variation_id).delete()
+                    Variation.objects.filter(id=variation_id).delete()
                     self.stdout.write(f'* Deleted variation {variation_id}')
                 except Exercise.DoesNotExist:
                     pass
