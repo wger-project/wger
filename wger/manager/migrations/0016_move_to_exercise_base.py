@@ -11,22 +11,26 @@ then we migrate the data.
 
 def migrate_setting_to_exercise_base(apps, schema_editor):
     Setting = apps.get_model('manager', 'Setting')
-    for setting in Setting.objects.all():
+
+    settings = Setting.objects.all()
+    for setting in settings:
         setting.exercise_base = setting.exercise.exercise_base
-        setting.save()
+    Setting.objects.bulk_update(settings, ['exercise_base'], batch_size=1000)
 
 
 def migrate_log_to_exercise_base(apps, schema_editor):
     WorkoutLog = apps.get_model('manager', 'WorkoutLog')
-    for log in WorkoutLog.objects.all():
+
+    logs = WorkoutLog.objects.all()
+    for log in logs:
         log.exercise_base = log.exercise.exercise_base
-        log.save()
+    WorkoutLog.objects.bulk_update(logs, ['exercise_base'], batch_size=1000)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exercises', '0018_auto_20220815_2006'),
+        ('exercises', '0019_exercise_crowdsourcing_changes'),
         ('manager', '0015_auto_20211028_1113'),
     ]
 

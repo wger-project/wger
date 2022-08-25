@@ -9,27 +9,13 @@ import simple_history.models
 import uuid
 
 
-def delete_pending_exercises(apps, schema_editor):
-    """
-    Delete all pending exercises
-
-    Note that we can't access STATUS_PENDING here because we are not using
-    a real model.
-    """
-    Exercise = apps.get_model("exercises", "Exercise")
-    Exercise.objects.filter(status='1').delete()
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0014_merge_20210818_1735'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('exercises', '0017_muscle_name_en'),
+        ('exercises', '0018_delete_pending_exercises'),
     ]
 
     operations = [
-        migrations.RunPython(delete_pending_exercises),
         migrations.RemoveField(
             model_name='exercise',
             name='name_original',
