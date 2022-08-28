@@ -11,7 +11,7 @@ def delete_pending_exercises(apps, schema_editor):
     Note that we can't access STATUS_PENDING here because we are not using
     a real model.
     """
-    Exercise = apps.get_model("exercises", "Exercise")
+    Exercise = apps.get_model("exercises", "ExerciseBase")
     Exercise.objects.filter(status='1').delete()
 
 
