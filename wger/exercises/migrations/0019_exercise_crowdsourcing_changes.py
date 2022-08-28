@@ -271,7 +271,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         db_constraint=False,
                         default=None,
-                        null=True,
+                        null=False,
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercisebase',

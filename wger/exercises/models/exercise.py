@@ -95,7 +95,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         verbose_name='ExerciseBase',
         on_delete=models.CASCADE,
         default=None,
-        null=True,
+        null=False,
         related_name='exercises',
     )
     """ Refers to the base exercise with non translated information """
