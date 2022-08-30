@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-02-25 20:58+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2022-08-31 10:16+0000\n"
+"Last-Translator: KneeClass03 <nisipa@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.1-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -113,8 +113,8 @@ msgstr ""
 "Benutze die Konfiguration um auszuwählen, in welchen Sprachen die \n"
 "Übungen und Zutaten für die gerade ausgewählte Sprache dargestellt werden "
 "sollen. (z.B. \n"
-"können die Übungen in Sprachen A, B und C, die Zutaten nur in A angezeigt "
-"werden)."
+"sollten die Übungen in Sprachen A, B und C, die Zutaten nur \n"
+"in A angezeigt werden)."
 
 #: config/templates/language/view.html:44 gym/templates/contract/list.html:36
 msgid "Show"
@@ -404,10 +404,11 @@ msgid ""
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Auswählen, um auch Zutaten auf englisch anzuzeigen beim Erstellen eines "
-"Ernährungsplanes. Diese Zutaten stammen aus einer Liste des US-"
-"amerikanischen Landwirtschaftsministeriums. Diese hat etwa 7000 Einträge und "
-"ist extrem vollständig, kann aber die Suche etwas unübersichtlich machen."
+"Auswählen, um auch Zutaten auf Englisch anzuzeigen beim Erstellen \n"
+"eines Ernährungsplanes. Diese Zutaten stammen aus einer Liste \n"
+"des US-amerikanischen Landwirtschaftsministeriums. Diese hat etwa 7000 "
+"Einträge und ist extrem vollständig, \n"
+"kann aber die Suche etwas unübersichtlich machen."
 
 #: core/models/profile.py:134
 msgid "Activate workout reminders"
@@ -1157,10 +1158,12 @@ msgid ""
 "anything). You must pass this information in the header in the format shown "
 "below."
 msgstr ""
-"Erstelle ein API-Schlüssel wenn du mit wger über die <a href=\"%(url)s\" rel="
-"\"nofollow\">REST API</a> interagieren willst (für öffentliche Ressourcen "
-"wie die Übungen oder Zutaten brauchst du nichts mitzusenden). Du musst "
-"diesen Schlüssel zusammen im Request-Header mitgeben."
+"Erstelle ein API-Schlüssel wenn du mit wger über \n"
+"die <a href=\"%(url)s\" rel=\"nofollow\">REST API</a> interagieren willst ("
+"für \n"
+"öffentliche Ressourcen wie die Übungen oder Zutaten brauchst du nichts "
+"mitzusenden). \n"
+"Du musst diesen Schlüssel zusammen im Request-Header mitgeben."
 
 #: core/templates/user/api_key.html:15
 msgid "For security reasons, you should only access the API via HTTPS."
@@ -1204,9 +1207,10 @@ msgid ""
 "logs, etc.)\n"
 "and can't be undone. "
 msgstr ""
-"Diese Aktion löscht das Benutzerkonto „%(username)s“.\n"
+"Diese Aktion löscht das Benutzerkonto „%(username)s“. \n"
 "Es werden unwiderruflich alle damit zugeordnete Daten gelöscht (Trainings, "
-"Protokolle, usw.), die Aktion kann nicht rückgängig gemacht werden. "
+"Protokolle, usw.), \n"
+"die Aktion kann nicht rückgängig gemacht werden. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"
@@ -1487,9 +1491,8 @@ msgid ""
 "do. Feel free to edit or delete them!"
 msgstr ""
 "Wir haben Beispieleinträge erstellt für: Trainings-, Ernährungs- und "
-"Zeitpläne sowie Gewichtseinträge für Übungen und Körpergewicht. Somit\n"
-"kannst du besser\n"
-" sehen was diese Seite machen kann. Du kannst diese\n"
+"Zeitpläne sowie Gewichtseinträge für Übungen und Körpergewicht. Somit kannst "
+"du besser sehen was diese Seite machen kann. Du kannst diese\n"
 "Einträge natürlich bearbeiten oder löschen!"
 
 #: core/views/misc.py:155
@@ -1602,10 +1605,8 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Der Benutzer {0} hat die Übung „{1}“ eingereicht."
 
 #: exercises/models/exercise_alias.py:35
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Eine Übung korrigieren"
+msgstr "Alias für eine Übung"
 
 #: exercises/models/image.py:59
 msgid "Line"
@@ -1624,8 +1625,6 @@ msgid "Photo"
 msgstr "Foto"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
 msgstr "Andere"
 
@@ -1649,12 +1648,12 @@ msgid ""
 msgstr ""
 "Kreuze die Checkbox an wenn du dieses Bild als das Hauptbild für diese Übung "
 "setzten willst\n"
-"(wird dann z.B. auf Übersichten angezeigt). Das erste Bild bekommt die "
-"Flagge automatisch."
+"(wird dann z.B. auf Übersichten angezeigt). Das erste Bild wird automatisch "
+"als Hauptbild ausgewählt."
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Der Stil deines Bildes"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1671,14 +1670,12 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Auf latein, z.B. „Pectoralis major“"
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "Übung"
+msgstr "Alternative Bezeichnung"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Einfacher Name füür den Muskel"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
@@ -1689,16 +1686,12 @@ msgid "File type is not supported"
 msgstr "Dateityp wird nicht unterstützt"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s ist kein gültiges Geburtsdatum"
+msgstr "Die Datei ist kein gültiges Video"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Hauptbild"
+msgstr "Hauptvideo"
 
 #: exercises/models/video.py:94
 msgid "Video"
@@ -1717,16 +1710,12 @@ msgid "Width"
 msgstr "Breite"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Gewicht"
+msgstr "Höhe"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Quellcode"
+msgstr "Codec"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
@@ -1925,10 +1914,8 @@ msgid "Videos"
 msgstr "Videos"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Neues Bild hinzufügen"
+msgstr "Neues Video hinzufügen"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -2427,25 +2414,23 @@ msgstr "Armbeuger"
 
 #: i18n.tpl:21
 msgid "Hamstrings"
-msgstr ""
+msgstr "Kniebeuger"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Unterer Rücken"
 
 #: i18n.tpl:24
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minuten"
+msgstr "Gesäßmuskeln"
 
 #: i18n.tpl:25
 msgid "Lats"
-msgstr ""
+msgstr "Latissimus"
 
 #: i18n.tpl:27
 msgid "Quads"
-msgstr ""
+msgstr "Quadrizeps"
 
 #: i18n.tpl:29
 #, fuzzy
