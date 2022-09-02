@@ -348,6 +348,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
+    videos = ExerciseVideoSerializer(source='exercisevideo_set', many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
@@ -367,5 +368,6 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "exercises",
             "variations",
             "images",
+            "videos",
             "author_history",
         ]
