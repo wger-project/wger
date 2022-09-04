@@ -31,7 +31,10 @@ from rest_framework import (
     viewsets,
 )
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticated,
+)
 from rest_framework.response import Response
 
 # wger
@@ -75,7 +78,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     the profile, use a POST request with the new data, not a PATCH.
     """
     serializer_class = UserprofileSerializer
-    permission_classes = (IsAuthenticated, WgerPermission, )
+    permission_classes = (
+        IsAuthenticated,
+        WgerPermission,
+    )
 
     def get_queryset(self):
         """

@@ -51,7 +51,7 @@ class Alias(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.setting_set.all():
+        for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Alias, self).delete(*args, **kwargs)

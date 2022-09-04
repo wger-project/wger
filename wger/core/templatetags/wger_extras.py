@@ -48,7 +48,7 @@ def get_current_settings(exercise, set_id):
     the template, and we are only interested on the settings that belong to the current
     set
     """
-    return exercise.setting_set.filter(set_id=set_id)
+    return exercise.exercise_base.setting_set.filter(set_id=set_id)
 
 
 @register.inclusion_tag('tags/render_day.html')
