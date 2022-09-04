@@ -193,18 +193,3 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 18)
         call_command('delete-temp-users')
         self.assertEqual(self.count_temp_users(), 2)
-
-    def test_temporary_user_no_permissions(self):
-        """
-        Tests that temporary users do not pass the "is trustworthy" check and do not have
-        any permissions.
-        """
-
-        # Get a temporary user
-        user = create_temporary_user()
-
-        # User does not pass trustworthiness check
-        self.assertFalse(user.userprofile.is_trustworthy)
-
-        # User does not pass admin/exercise editor permissions check
-        self.assertFalse(user.userprofile.has_exercise_permission)

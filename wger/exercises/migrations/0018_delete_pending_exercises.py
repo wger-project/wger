@@ -23,6 +23,4 @@ class Migration(migrations.Migration):
         ('exercises', '0017_muscle_name_en'),
     ]
 
-    operations = [
-        migrations.RunPython(delete_pending_exercises)
-    ]
+    operations = [migrations.RunPython(delete_pending_exercises)]
