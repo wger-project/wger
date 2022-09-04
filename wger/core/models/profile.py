@@ -200,7 +200,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         if self.is_temporary:
             return False
 
-        days_since_joined = datetime.date.today() - self.user.date_joined
+        days_since_joined = datetime.date.today() - self.user.date_joined.date()
         minimum_account_age = 21
 
         return days_since_joined.days > minimum_account_age and self.email_verified

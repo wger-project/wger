@@ -265,7 +265,7 @@ class UserDetailPageTestCase2(WgerAccessTestCase):
     )
 
 
-class UserTrustworthynessTestCase(TestCase):
+class UserTrustworthinessTestCase(WgerTestCase):
 
     def test_temporary_user_no_permissions(self):
         """
@@ -288,7 +288,7 @@ class UserTrustworthynessTestCase(TestCase):
         user = create_temporary_user()
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = True
-        user.date_joined = datetime.date.today()
+        user.date_joined = datetime.datetime.now()
 
         # User does not pass trustworthiness check
         self.assertFalse(user.userprofile.is_trustworthy)
@@ -302,7 +302,7 @@ class UserTrustworthynessTestCase(TestCase):
         user = create_temporary_user()
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = False
-        user.date_joined = datetime.date.today() - datetime.timedelta(days=30)
+        user.date_joined = datetime.datetime.now() - datetime.timedelta(days=30)
 
         # User does not pass trustworthiness check
         self.assertFalse(user.userprofile.is_trustworthy)
@@ -316,7 +316,7 @@ class UserTrustworthynessTestCase(TestCase):
         user = create_temporary_user()
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = True
-        user.date_joined = datetime.date.today() - datetime.timedelta(days=30)
+        user.date_joined = datetime.datetime.now() - datetime.timedelta(days=30)
 
         # User does not pass trustworthiness check
         self.assertTrue(user.userprofile.is_trustworthy)
@@ -331,7 +331,7 @@ class UserTrustworthynessTestCase(TestCase):
         user.is_superuser = True
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = False
-        user.date_joined = datetime.date.today()
+        user.date_joined = datetime.datetime.now()
 
         # User does not pass trustworthiness check
         self.assertTrue(user.userprofile.is_trustworthy)

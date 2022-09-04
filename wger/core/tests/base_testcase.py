@@ -89,7 +89,7 @@ def delete_testcase_add_methods(cls):
         setattr(cls, f'test_authorized_{user}', test_authorized)
 
 
-class BaseTestCase(object):
+class BaseTestCase():
     """
     Base test case.
 
