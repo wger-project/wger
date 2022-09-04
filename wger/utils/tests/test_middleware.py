@@ -77,6 +77,3 @@ class RobotsExclusionMiddlewareTestCase(WgerTestCase):
 
         response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
         self.assertFalse(response.get('X-Robots-Tag'))
-
-        response = self.client.get(reverse('exercise:muscle:overview'))
-        self.assertFalse(response.get('X-Robots-Tag'))

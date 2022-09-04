@@ -95,7 +95,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         verbose_name='ExerciseBase',
         on_delete=models.CASCADE,
         default=None,
-        null=True,
+        null=False,
         related_name='exercises',
     )
     """ Refers to the base exercise with non translated information """
@@ -124,12 +124,6 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         super(Exercise, self).save(*args, **kwargs)
 
-        # Cached template fragments
-        for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
-            delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
-
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training_id)
@@ -138,13 +132,6 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Reset all cached infos
         """
-
-        # Cached template fragments
-        for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
-            delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
-
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)

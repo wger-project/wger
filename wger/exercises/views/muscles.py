@@ -47,29 +47,12 @@ from wger.utils.language import load_item_languages
 logger = logging.getLogger(__name__)
 
 
-class MuscleListView(ListView):
-    """
-    Overview of all muscles and their exercises
-    """
-    model = Muscle
-    queryset = Muscle.objects.all().order_by('-is_front', 'name'),
-    context_object_name = 'muscle_list'
-    template_name = 'muscles/overview.html'
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(MuscleListView, self).get_context_data(**kwargs)
-        context['active_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        context['show_shariff'] = True
-        return context
-
-
-class MuscleAdminListView(LoginRequiredMixin, PermissionRequiredMixin, MuscleListView):
+class MuscleAdminListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all muscles, for administration purposes
     """
+    model = Muscle
+    context_object_name = 'muscle_list'
     permission_required = 'exercises.change_muscle'
     queryset = Muscle.objects.order_by('name')
     template_name = 'muscles/admin-overview.html'

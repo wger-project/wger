@@ -1,15 +1,15 @@
 {
-    "edit": "Editar",
-    "date": "Fecha",
-    "weight": "Peso",
-    "days": "Días",
-    "delete": "Borrar",
-    "difference": "Diferencia",
-    "submit": "Enviar",
-    "close": "Cerrar",
-    "add": "Añadir",
-    "nutritionalPlan": "Plan nutricional",
-    "addEntry": "Añadir entrada",
-    "currentWeight": "Peso actual",
-    "workout": "Rutina"
+  "add": "Añadir",
+  "addEntry": "Añadir entrada",
+  "close": "Cerrar",
+  "currentWeight": "Peso actual",
+  "date": "Fecha",
+  "days": "Días",
+  "delete": "Borrar",
+  "difference": "Diferencia",
+  "edit": "Editar",
+  "nutritionalPlan": "Plan nutricional",
+  "submit": "Enviar",
+  "weight": "Peso",
+  "workout": "Rutina"
 }

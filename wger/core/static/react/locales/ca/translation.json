@@ -1,15 +1,15 @@
 {
-    "weight": "Pes",
-    "date": "Data",
-    "submit": "Tramet",
-    "edit": "Edita",
-    "delete": "Esborra",
-    "add": "Afegeix",
-    "difference": "Diferència",
-    "days": "Dies",
-    "close": "Tanca",
-    "workout": "Entrenament",
-    "nutritionalPlan": "Pla nutricional",
-    "addEntry": "Afegeix entrada",
-    "currentWeight": "Pes actual"
+  "add": "Afegeix",
+  "addEntry": "Afegeix entrada",
+  "close": "Tanca",
+  "currentWeight": "Pes actual",
+  "date": "Data",
+  "days": "Dies",
+  "delete": "Esborra",
+  "difference": "Diferència",
+  "edit": "Edita",
+  "nutritionalPlan": "Pla nutricional",
+  "submit": "Tramet",
+  "weight": "Pes",
+  "workout": "Entrenament"
 }

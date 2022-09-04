@@ -44,14 +44,13 @@ from django.utils.translation import (
 )
 from django.views.generic import (
     DeleteView,
-    ListView,
+    TemplateView,
 )
 
 # wger
 from wger.exercises.models import (
     Equipment,
     Exercise,
-    ExerciseBase,
     ExerciseCategory,
     Muscle,
 )
@@ -67,30 +66,11 @@ from wger.weight.helpers import process_log_entries
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(ListView):
+class ExerciseListView(TemplateView):
     """
     Generic view to list all exercises
     """
-
-    model = ExerciseBase
     template_name = 'exercise/overview.html'
-    context_object_name = 'bases'
-
-    def get_queryset(self):
-        """
-        Filter to only active exercises in the configured languages
-        """
-        return ExerciseBase.objects.all() \
-            .order_by('category_id') \
-            .select_related()
-
-    def get_context_data(self, **kwargs):
-        """
-        Pass additional data to the template
-        """
-        context = super(ExerciseListView, self).get_context_data(**kwargs)
-        context['show_shariff'] = True
-        return context
 
 
 def view(request, id, slug=None):

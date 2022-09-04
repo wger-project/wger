@@ -73,7 +73,6 @@ class Command(BaseCommand):
                 data[language.short_name] = exercise_data
             out.append(data)
 
-        # pprint.pprint(out)
         with open('exercise_cleanup.csv', 'w', newline='') as csvfile:
             file_writer = csv.writer(csvfile, )
 

@@ -1,11 +1,11 @@
 {
-    "difference": "Différence",
-    "delete": "Supprimer",
-    "date": "Date",
-    "days": "Jours",
-    "edit": "Modifier",
-    "weight": "Poids",
-    "submit": "Envoyer",
-    "add": "Ajouter",
-    "close": "Fermer"
+  "add": "Ajouter",
+  "close": "Fermer",
+  "date": "Date",
+  "days": "Jours",
+  "delete": "Supprimer",
+  "difference": "Différence",
+  "edit": "Modifier",
+  "submit": "Envoyer",
+  "weight": "Poids"
 }

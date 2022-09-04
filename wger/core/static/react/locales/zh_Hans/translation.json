@@ -1,14 +1,14 @@
 {
-    "weight": "重量",
-    "submit": "提交",
-    "edit": "编辑",
-    "add": "添加",
-    "difference": "差异",
-    "days": "天数",
-    "nutritionalPlan": "饮食计划",
-    "addEntry": "添加条目",
-    "currentWeight": "目前重量",
-    "workout": "训练",
-    "date": "日期",
-    "delete": "删除"
+  "add": "添加",
+  "addEntry": "添加条目",
+  "currentWeight": "目前重量",
+  "date": "日期",
+  "days": "天数",
+  "delete": "删除",
+  "difference": "差异",
+  "edit": "编辑",
+  "nutritionalPlan": "饮食计划",
+  "submit": "提交",
+  "weight": "重量",
+  "workout": "训练"
 }

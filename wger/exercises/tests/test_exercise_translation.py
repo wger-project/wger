@@ -36,7 +36,6 @@ from wger.core.tests.base_testcase import (
 )
 from wger.exercises.models import (
     Exercise,
-    ExerciseCategory,
     Muscle,
 )
 from wger.utils.cache import cache_mapper
@@ -77,81 +76,6 @@ class ExerciseShareButtonTestCase(WgerTestCase):
         self.user_login('test')
         response = self.client.get(url)
         self.assertTrue(response.context['show_shariff'])
-
-
-class ExerciseIndexTestCase(WgerTestCase):
-
-    def exercise_index(self, logged_in=True, demo=False, admin=False):
-        """
-        Tests the exercise overview page
-        """
-
-        response = self.client.get(reverse('exercise:exercise:overview'))
-
-        # Page exists
-        self.assertEqual(response.status_code, 200)
-
-        # Correct tab is selected
-        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
-
-        # Correct categories are shown
-        category_1 = response.context['bases'][0].category
-        self.assertEqual(category_1.id, 1)
-        self.assertEqual(category_1.name, "Category")
-
-        category_2 = response.context['bases'][1].category
-        self.assertEqual(category_2.id, 2)
-        self.assertEqual(category_2.name, "Another category")
-
-        # Correct exercises in the categories
-        exercise_1 = response.context['bases'][0].get_exercise()
-        exercise_2 = response.context['bases'][1].get_exercise()
-        self.assertEqual(exercise_1.id, 81)
-        self.assertEqual(exercise_1.name, "Needed for demo user")
-
-        self.assertEqual(exercise_2.id, 1)
-        self.assertEqual(exercise_2.name, "An exercise")
-
-    def test_exercise_index_editor(self):
-        """
-        Tests the exercise overview page as a logged-in user with editor rights
-        """
-
-        self.user_login('admin')
-        self.exercise_index(admin=True)
-
-    def test_exercise_index_non_editor(self):
-        """
-        Tests the exercise overview page as a logged-in user without editor rights
-        """
-
-        self.user_login('test')
-        self.exercise_index()
-
-    def test_exercise_index_demo_user(self):
-        """
-        Tests the exercise overview page as a logged in demo user
-        """
-
-        self.user_login('demo')
-        self.exercise_index(demo=True)
-
-    def test_exercise_index_logged_out(self):
-        """
-        Tests the exercise overview page as an anonymous (logged out) user
-        """
-
-        self.exercise_index(logged_in=False)
-
-    def test_empty_exercise_index(self):
-        """
-        Test the index when there are no categories
-        """
-        self.user_login('admin')
-        ExerciseCategory.objects.all().delete()
-        response = self.client.get(reverse('exercise:exercise:overview'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'No categories')
 
 
 class ExerciseDetailTestCase(WgerTestCase):
@@ -293,53 +217,6 @@ class ExercisesCacheTestCase(WgerTestCase):
     """
     Exercise cache test case
     """
-
-    def test_exercise_overview(self):
-        """
-        Test the exercise overview cache is correctly generated on visit
-        """
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
-        self.client.get(reverse('exercise:exercise:overview'))
-        self.assertTrue(cache.get(make_template_fragment_key('exercise-overview', [2])))
-
-    def test_exercise_detail(self):
-        """
-        Test that the exercise detail cache is correctly generated on visit
-        """
-
-    def test_overview_cache_update(self):
-        """
-        Test that the template cache for the overview is correctly reseted when
-        performing certain operations
-        """
-        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
-        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview-search', [2])))
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
-
-        self.client.get(reverse('exercise:exercise:overview'))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-
-        old_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
-        old_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
-
-        exercise = Exercise.objects.get(pk=2)
-        exercise.name = 'Very cool exercise 2'
-        exercise.description = 'New description'
-        exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
-        exercise.save()
-
-        self.assertFalse(cache.get(make_template_fragment_key('muscle-overview', [2])))
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-overview', [2])))
-
-        self.client.get(reverse('exercise:exercise:overview'))
-        self.client.get(reverse('exercise:muscle:overview'))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-
-        new_muscle_overview = cache.get(make_template_fragment_key('muscle-overview', [2]))
-        new_exercise_overview = cache.get(make_template_fragment_key('exercise-overview', [2]))
-
-        self.assertNotEqual(old_exercise_overview, new_exercise_overview)
-        self.assertNotEqual(old_muscle_overview, new_muscle_overview)
 
     def test_muscles_cache_update_on_delete(self):
         """

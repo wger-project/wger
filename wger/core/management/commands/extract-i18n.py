@@ -74,7 +74,7 @@ class Command(BaseCommand):
                 const DummyComponent = () => {
                 const [t] = useTranslation();'''
             for i in data:
-                out += f't("exercises.{cleanup_name(i.__str__())}");\n'
+                out += f't("server.{cleanup_name(i.__str__())}");\n'
 
             out += '''
                 return (<p></p>);

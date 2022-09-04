@@ -1,15 +1,15 @@
 {
-    "date": "Data",
-    "days": "Dias",
-    "edit": "Editar",
-    "delete": "Deletar",
-    "add": "Adicionar",
-    "weight": "Peso",
-    "submit": "Enviar",
-    "difference": "Diferença",
-    "close": "Fechar",
-    "nutritionalPlan": "Plano nutricional",
-    "currentWeight": "Peso atual",
-    "addEntry": "Adicionar entrada",
-    "workout": "Treino"
+  "add": "Adicionar",
+  "addEntry": "Adicionar entrada",
+  "close": "Fechar",
+  "currentWeight": "Peso atual",
+  "date": "Data",
+  "days": "Dias",
+  "delete": "Deletar",
+  "difference": "Diferença",
+  "edit": "Editar",
+  "nutritionalPlan": "Plano nutricional",
+  "submit": "Enviar",
+  "weight": "Peso",
+  "workout": "Treino"
 }
