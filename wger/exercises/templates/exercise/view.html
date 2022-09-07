@@ -125,20 +125,7 @@ $(document).ready(function() {
                 Your browser does not support the video tag.
             </video>
             <div class="card-body text-center">
-                {% if perms.exercises.change_exercisevideo %}
-                    <a href="{% url 'exercise:video:delete' exercise.pk video.pk %}" class="wger-modal-dialog btn btn-link">
-                        <span class="{% fa_class 'trash' %}"></span>
-                    </a>
-                    <a href="{% url 'exercise:video:edit'  exercise.pk video.pk %}" class="btn btn-link">
-                        <span class="{% fa_class 'edit' %}"></span>
-                    </a>
-                {% endif %}
 
-                {% if video.is_main %}
-                    <p class="card-text text-wger-green">
-                        <span class="{% fa_class 'medal' %}"></span>
-                    </p>
-                {% endif %}
             </div>
             <div class="card-footer">
                 {{video.get_license_display}}
@@ -150,14 +137,6 @@ $(document).ready(function() {
         </div>
     {% endfor %}
     </div>
-
-    {% if allow_upload_videos and perms.exercises.change_exercisevideo %}
-        <p>
-            <a href="{% url 'exercise:video:add' exercise.id %}" >
-                {% translate "Add new video" %}
-            </a>
-        </p>
-    {% endif %}
 {% endif %}
 {% endwith %}
 
