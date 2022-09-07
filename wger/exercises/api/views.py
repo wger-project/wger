@@ -443,12 +443,13 @@ class ExerciseImageViewSet(ModelViewSet):
         )
 
 
-class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
+class ExerciseVideoViewSet(ModelViewSet):
     """
     API endpoint for exercise video objects
     """
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
