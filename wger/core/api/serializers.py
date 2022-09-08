@@ -41,6 +41,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField(source="user.email", read_only=True)
     username = serializers.EmailField(source="user.username", read_only=True)
+    date_joined = serializers.EmailField(source="user.date_joined", read_only=True)
 
     class Meta:
         model = UserProfile
@@ -48,6 +49,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'username',
             'email',
             'email_verified',
+            'date_joined',
             'gym',
             'is_temporary',
             'show_comments',
