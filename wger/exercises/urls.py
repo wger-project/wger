@@ -20,8 +20,8 @@ from django.conf.urls import (
     include,
     url,
 )
-from django.contrib.auth.decorators import login_required
 from django.urls import path
+from django.views.generic import TemplateView
 
 # wger
 from wger.exercises.views import (
@@ -178,6 +178,11 @@ patterns_exercise = [
         r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
         exercises.view,
         name='view',
+    ),
+    path(
+        '<int:id>/view-base',
+        TemplateView.as_view(template_name='exercise/view-base.html'),
+        name='view-base',
     ),
     path(
         '<int:pk>/delete/',
