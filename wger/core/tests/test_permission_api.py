@@ -21,30 +21,29 @@ from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import BaseTestCase
 
 
-class PermissionApiTestCase(BaseTestCase, ApiBaseTestCase):
+class CheckPermissionApiTestCase(BaseTestCase, ApiBaseTestCase):
 
     url = '/api/v2/check-permission/'
     error_message = "Please pass a permission name in the 'permission' parameter"
-    error_message_anon = "Please login"
 
     def get_resource_name(self):
         return 'check-permission'
 
-    def test_check_permission_anonymous(self):
+    def test_check_permission_anonymous_no_parameters(self):
         """
-        Test that logged-out users get a error message
+        Test that logged-out users get a error message when they don't pass any parameter
         """
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, self.error_message_anon)
+        self.assertEqual(response.data, self.error_message)
 
     def test_check_permission_anonymous_with_parameter(self):
         """
-        Test that logged-out users get en error message when passing a parameter
+        Test that logged-out users always get False
         """
         response = self.client.get(self.url + '?permission=exercises.change_muscle')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data, self.error_message_anon)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['result'], False)
 
     def test_check_no_parameter_logged_in(self):
         """
