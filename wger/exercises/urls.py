@@ -30,7 +30,6 @@ from wger.exercises.views import (
     equipment,
     exercises,
     history,
-    images,
     muscles,
 )
 
@@ -62,35 +61,6 @@ patterns_muscle = [
         '<int:pk>/delete/',
         muscles.MuscleDeleteView.as_view(),
         name='delete',
-    ),
-]
-
-# sub patterns for exercise images
-patterns_images = [
-    path(
-        '<int:exercise_pk>/image/add',
-        images.ExerciseImageAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit',
-        images.ExerciseImageEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:exercise_pk>/image/<int:pk>/delete',
-        images.ExerciseImageDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/accept/',
-        images.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        images.decline,
-        name='decline',
     ),
 ]
 
@@ -193,7 +163,6 @@ patterns_exercise = [
 
 urlpatterns = [
     path('muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    path('image/', include((patterns_images, 'image'), namespace="image")),
     path('comment/', include((patterns_comment, 'comment'), namespace="comment")),
     path('category/', include((patterns_category, 'category'), namespace="category")),
     path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
