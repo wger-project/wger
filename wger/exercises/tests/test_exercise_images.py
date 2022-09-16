@@ -105,43 +105,6 @@ class MainImageTestCase(WgerTestCase):
         self.assertFalse(ExerciseImage.objects.get(pk=pk5).is_main)
 
 
-class AddExerciseImageTestCase(WgerAddTestCase):
-    """
-    Tests adding an image to an exercise
-    """
-
-    object_class = ExerciseImage
-    url = reverse('exercise:image:add', kwargs={'exercise_pk': 1})
-    user_fail = False
-    data = {
-        'is_main': True,
-        'image': open('wger/exercises/tests/protestschwein.jpg', 'rb'),
-        'license': 1,
-        'style': '1'
-    }
-
-
-class EditExerciseImageTestCase(WgerEditTestCase):
-    """
-    Tests editing an image to an exercise
-    """
-
-    object_class = ExerciseImage
-    url = 'exercise:image:edit'
-    pk = 2
-    data = {'is_main': True, 'license': 1, 'style': '1'}
-
-
-class DeleteExerciseImageTestCase(WgerDeleteTestCase):
-    """
-    Tests deleting an image to an exercise
-    """
-
-    object_class = ExerciseImage
-    url = reverse('exercise:image:delete', kwargs={'exercise_pk': 1, 'pk': 1})
-    pk = 1
-
-
 # TODO: add POST and DELETE tests
 class ExerciseImagesApiTestCase(
     api_base_test.BaseTestCase,

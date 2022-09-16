@@ -73,14 +73,7 @@ $(document).ready(function() {
                 <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}" alt="">
             </a>
             <div class="card-body text-center">
-                {% if perms.exercises.change_exerciseimage %}
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="wger-modal-dialog btn btn-link">
-                         <span class="{% fa_class 'trash' %}"></span>
-                    </a>
-                    <a href="{% url 'exercise:image:edit' image.pk %}" class="btn btn-link">
-                         <span class="{% fa_class 'edit' %}"></span>
-                    </a>
-                {% endif %}
+
 
                 {% if image.is_main %}
                 <p class="card-text text-wger-green">
@@ -99,16 +92,7 @@ $(document).ready(function() {
     {% endfor %}
     {% endwith %}
     </div>
-
-
 {% endif %}
-    {% if perms.exercises.change_exerciseimage or perms.exercises.add_exerciseimage or user.userprofile.is_trustworthy %}
-        <p>
-            <a href="{% url 'exercise:image:add' exercise.id %}" >
-                {% translate "Add new image" %}
-            </a>
-        </p>
-    {% endif %}
 {% endwith %}
 
 
@@ -121,7 +105,7 @@ $(document).ready(function() {
         <div class="col mb-4">
         <div class="card h-100">
             <video controls preload="metadata" class="card-img-top">
-                <source src='{{ MEDIA_URL }}{{ video.video }}' type='video/mp4'>
+                <source src='{{ MEDIA_URL }}{{ video.video }}'>
                 Your browser does not support the video tag.
             </video>
             <div class="card-body text-center">
