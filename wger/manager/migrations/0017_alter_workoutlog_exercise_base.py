@@ -3,6 +3,37 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+# Mapping of bases that should be migrated
+# -> (old_base, new_base)
+base_mapping = [
+    ('201edd07-93f8-474b-8db0-e13e5283ee2b', '1b9ed9da-46d1-4484-8acc-236379ee823c'),  # Kabelziehen Über Kreuz
+    ('b7b690a7-2e65-40f9-a9cb-e61501a72fed', 'b16e3e5d-8401-4d2b-919c-15b536f9ec5e'),  # Kabelzug
+    ('713ee452-2775-4a68-8a7c-f1d22b5cd469', '00fcf603-b0d0-48d2-9b5e-c7f0d510d46c'),  # Rudern eng
+
+]
+
+
+def migrate_bases(apps, schema_editor):
+    """
+    Migrates the used bases
+
+    Note that we can't access STATUS_PENDING here because we are not using
+    a real model.
+    """
+    WorkoutLog = apps.get_model("manager", "WorkoutLog")
+    Setting = apps.get_model("manager", "Setting")
+    Base = apps.get_model("exercises", "ExerciseBase")
+    for mapping in base_mapping:
+        try:
+            base_old = Base.objects.get(uuid=mapping[0])
+            base_new = Base.objects.get(uuid=mapping[1])
+        except Base.DoesNotExist:
+            # print(f'Could not load base {base_old} or {base_new}')
+            continue
+
+        WorkoutLog.objects.filter(exercise_base=base_old).update(exercise_base=base_new)
+        Setting.objects.filter(exercise_base=base_old).update(exercise_base=base_new)
+
 
 class Migration(migrations.Migration):
 
@@ -21,4 +52,5 @@ class Migration(migrations.Migration):
                 verbose_name='Exercise'
             ),
         ),
+        migrations.RunPython(migrate_bases),
     ]
