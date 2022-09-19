@@ -97,17 +97,13 @@ class Command(BaseCommand):
                 assert (name in file_reader.fieldnames
                         ), '{0} not in {1}'.format(name, file_reader.fieldnames)
 
-        language_objs = [
-            Language.objects.get(short_name=language) for language in available_languages
-        ]
-
+        language_objs = [Language.objects.get(short_name=l) for l in available_languages]
         default_license = License.objects.get(pk=DEFAULT_LICENSE_ID)
 
         #
         # Process the exercises
         #
         for row in file_reader:
-            new_exercise = False
             base_uuid = row['base:uuid']
             base_equipment = row['base:equipment']
             base_category = row['base:category']
@@ -118,7 +114,7 @@ class Command(BaseCommand):
                 # self.stdout.write('No base uuid, skipping')
                 continue
 
-            self.stdout.write(f'\n\n*** Processing base-UUID {base_uuid}\n')
+            self.stdout.write(f'\n*** Processing base-UUID {base_uuid}\n')
             self.stdout.write('-------------------------------------------------------------\n')
 
             #
