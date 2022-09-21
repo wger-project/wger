@@ -191,7 +191,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return the main image for the exercise or None if nothing is found
         """
-        return self.images.accepted().filter(is_main=True).first()
+        return self.images.all().filter(is_main=True).first()
 
     @property
     def description_clean(self):

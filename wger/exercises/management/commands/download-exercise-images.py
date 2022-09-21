@@ -131,7 +131,6 @@ class Command(BaseCommand):
 
                 image.exercise_base = exercise_base
                 image.is_main = image_data['is_main']
-                image.status = image_data['status']
                 image.image.save(
                     os.path.basename(os.path.basename(image_data['image'])),
                     File(img_temp),

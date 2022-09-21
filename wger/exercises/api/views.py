@@ -390,7 +390,6 @@ class ExerciseImageViewSet(ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
-        'status',
         'exercise_base',
         'license',
         'license_author',

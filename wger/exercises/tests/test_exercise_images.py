@@ -44,7 +44,6 @@ class MainImageTestCase(WgerTestCase):
                 db_filename = filename
             image = ExerciseImage()
             image.exercise_base = exercise.exercise_base
-            image.status = ExerciseImage.STATUS_ACCEPTED
             image.image.save(db_filename, File(inFile))
             image.save()
             return image.pk
@@ -91,16 +90,16 @@ class MainImageTestCase(WgerTestCase):
         self.assertTrue(image.is_main)
         image.delete()
 
-        self.assertTrue(ExerciseImage.objects.get(pk=pk2).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=pk2).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=pk3).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=pk4).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=pk5).is_main)
 
         image = ExerciseImage.objects.get(pk=pk2)
-        self.assertTrue(image.is_main)
+        self.assertFalse(image.is_main)
         image.delete()
 
-        self.assertTrue(ExerciseImage.objects.get(pk=pk3).is_main)
+        self.assertFalse(ExerciseImage.objects.get(pk=pk3).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=pk4).is_main)
         self.assertFalse(ExerciseImage.objects.get(pk=pk5).is_main)
 
