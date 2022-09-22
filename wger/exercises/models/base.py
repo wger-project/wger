@@ -120,7 +120,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return the main image for the exercise or None if nothing is found
         """
-        return self.exerciseimage_set.accepted().filter(is_main=True).first()
+        return self.exerciseimage_set.all().filter(is_main=True).first()
 
     @property
     def get_languages(self) -> List[Language]:

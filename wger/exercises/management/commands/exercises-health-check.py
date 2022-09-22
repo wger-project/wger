@@ -86,8 +86,9 @@ class Command(BaseCommand):
             # Output the duplicates
             for language_id in duplicates:
                 exercises = base.exercises.filter(language_id=language_id)
+                self.stdout.write(f'Language {language_id}:')
                 for exercise in exercises:
-                    self.stdout.write(f'  * {exercise.name}')
+                    self.stdout.write(f'  * {exercise.name} (uuid: {exercise.uuid} )')
                 self.stdout.write('')
 
             # And delete them
@@ -97,8 +98,4 @@ class Command(BaseCommand):
                     self.stdout.write(
                         f'  Deleting translation {exercise.uuid} for language ID {exercise.language_id}...'
                     )
-
                     exercise.delete()
-                    self.stdout.write(
-                        f'  Deleting translation {exercise.uuid} for language ID {exercise.language_id}...'
-                    )

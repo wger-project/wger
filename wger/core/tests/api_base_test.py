@@ -819,4 +819,11 @@ class ExerciseCrudApiTestCase(BaseTestCase, ApiBaseTestCase):
 
         self.authenticate('trainer1')
         response = self.client.delete(self.url_detail)
-        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_user_with_permissions(self):
+        self.skip_test()
+
+        self.authenticate('admin')
+        response = self.client.delete(self.url_detail)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

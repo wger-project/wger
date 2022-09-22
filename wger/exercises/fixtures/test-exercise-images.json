@@ -6,7 +6,6 @@
             "image": "exercise-images/1/protestschwein.jpg",
             "exercise_base": 1,
             "is_main": true,
-            "status": "2",
             "license": "1"
         }
     },
@@ -17,7 +16,6 @@
             "image": "exercise-images/1/wildschwein.jpg",
             "exercise_base": 1,
             "is_main": false,
-            "status": "2",
             "license": "2"
         }
     },
@@ -28,7 +26,6 @@
             "image": "exercise-images/1/wildschwein.jpg",
             "exercise_base": 2,
             "is_main": false,
-            "status": "1",
             "license": "2"
         }
     }

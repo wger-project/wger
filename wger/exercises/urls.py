@@ -20,8 +20,8 @@ from django.conf.urls import (
     include,
     url,
 )
-from django.contrib.auth.decorators import login_required
 from django.urls import path
+from django.views.generic import TemplateView
 
 # wger
 from wger.exercises.views import (
@@ -30,9 +30,7 @@ from wger.exercises.views import (
     equipment,
     exercises,
     history,
-    images,
     muscles,
-    videos,
 )
 
 
@@ -69,53 +67,6 @@ patterns_muscle = [
     ),
 ]
 
-# sub patterns for exercise images
-patterns_images = [
-    path(
-        '<int:exercise_pk>/image/add',
-        images.ExerciseImageAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit',
-        images.ExerciseImageEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:exercise_pk>/image/<int:pk>/delete',
-        images.ExerciseImageDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/accept/',
-        images.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        images.decline,
-        name='decline',
-    ),
-]
-
-# sub patterns for exercise videos
-patterns_videos = [
-    path(
-        '<int:exercise_pk>/video/add',
-        videos.ExerciseVideoAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:exercise_pk>/<int:pk>/edit',
-        videos.ExerciseVideoEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:exercise_pk>/video/<int:pk>/delete',
-        videos.ExerciseVideoDeleteView.as_view(),
-        name='delete',
-    ),
-]
 
 # sub patterns for exercise comments
 patterns_comment = [
@@ -202,6 +153,11 @@ patterns_exercise = [
         name='view',
     ),
     path(
+        '<int:id>/view-base',
+        TemplateView.as_view(template_name='exercise/view-base.html'),
+        name='view-base',
+    ),
+    path(
         '<int:pk>/delete/',
         exercises.ExerciseDeleteView.as_view(),
         name='delete',
@@ -210,8 +166,6 @@ patterns_exercise = [
 
 urlpatterns = [
     path('muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    path('image/', include((patterns_images, 'image'), namespace="image")),
-    path('video/', include((patterns_videos, 'image'), namespace="video")),
     path('comment/', include((patterns_comment, 'comment'), namespace="comment")),
     path('category/', include((patterns_category, 'category'), namespace="category")),
     path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),

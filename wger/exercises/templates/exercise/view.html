@@ -60,7 +60,7 @@ $(document).ready(function() {
 
 
 {# Images #}
-{% with images=exercise.images.accepted %}
+{% with images=exercise.images.all %}
 {% if images or perms.exercises.change_exerciseimage %}
     <h5 class="mt-4">{% translate "Images" %}:</h5>
     <div class="row row-cols-2 row-cols-md-3">
@@ -73,14 +73,7 @@ $(document).ready(function() {
                 <img class="card-img-top" src="{{ image.image|thumbnail_url:'large' }}" alt="">
             </a>
             <div class="card-body text-center">
-                {% if perms.exercises.change_exerciseimage %}
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="wger-modal-dialog btn btn-link">
-                         <span class="{% fa_class 'trash' %}"></span>
-                    </a>
-                    <a href="{% url 'exercise:image:edit' image.pk %}" class="btn btn-link">
-                         <span class="{% fa_class 'edit' %}"></span>
-                    </a>
-                {% endif %}
+
 
                 {% if image.is_main %}
                 <p class="card-text text-wger-green">
@@ -99,16 +92,7 @@ $(document).ready(function() {
     {% endfor %}
     {% endwith %}
     </div>
-
-
 {% endif %}
-    {% if perms.exercises.change_exerciseimage or perms.exercises.add_exerciseimage or user.userprofile.is_trustworthy %}
-        <p>
-            <a href="{% url 'exercise:image:add' exercise.id %}" >
-                {% translate "Add new image" %}
-            </a>
-        </p>
-    {% endif %}
 {% endwith %}
 
 
@@ -121,24 +105,11 @@ $(document).ready(function() {
         <div class="col mb-4">
         <div class="card h-100">
             <video controls preload="metadata" class="card-img-top">
-                <source src='{{ MEDIA_URL }}{{ video.video }}' type='video/mp4'>
+                <source src='{{ MEDIA_URL }}{{ video.video }}'>
                 Your browser does not support the video tag.
             </video>
             <div class="card-body text-center">
-                {% if perms.exercises.change_exercisevideo %}
-                    <a href="{% url 'exercise:video:delete' exercise.pk video.pk %}" class="wger-modal-dialog btn btn-link">
-                        <span class="{% fa_class 'trash' %}"></span>
-                    </a>
-                    <a href="{% url 'exercise:video:edit'  exercise.pk video.pk %}" class="btn btn-link">
-                        <span class="{% fa_class 'edit' %}"></span>
-                    </a>
-                {% endif %}
 
-                {% if video.is_main %}
-                    <p class="card-text text-wger-green">
-                        <span class="{% fa_class 'medal' %}"></span>
-                    </p>
-                {% endif %}
             </div>
             <div class="card-footer">
                 {{video.get_license_display}}
@@ -150,36 +121,8 @@ $(document).ready(function() {
         </div>
     {% endfor %}
     </div>
-
-    {% if allow_upload_videos and perms.exercises.change_exercisevideo %}
-        <p>
-            <a href="{% url 'exercise:video:add' exercise.id %}" >
-                {% translate "Add new video" %}
-            </a>
-        </p>
-    {% endif %}
 {% endif %}
 {% endwith %}
-
-{% if perms.exercises.change_exerciseimage %}
-{% with images=exercise.images.pending %}
-{% if images %}
-<h5 class="mt-4">{% translate "Images pending review" %}</h5>
-<div class="card-deck">
-    {% for image in images %}
-        <div class="card">
-                <img class="card-img-top" src="{{ image.image|thumbnail_url:'small' }}" alt="">
-                <div class="card-body">
-                    <a href="{% url 'exercise:image:accept' image.pk %}" class="btn btn-light btn-sm">{% translate "Accept" %}</a>
-                    <a href="{% url 'exercise:image:decline' image.pk %}" class="btn btn-light btn-sm">{% translate "Decline" %}</a>
-                    <a href="{% url 'exercise:image:delete' exercise.pk image.pk %}" class="btn btn-danger btn-sm">{% translate "Delete" %}</a>
-                 </div>
-            </div>
-        </div>
-    {% endfor %}
-{% endif %}
-{% endwith %}
-{% endif %}  {# end check permission #}
 
 
 {# Comments #}

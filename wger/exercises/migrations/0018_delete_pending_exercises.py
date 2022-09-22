@@ -4,14 +4,25 @@ from django.db import migrations
 from django.conf import settings
 
 
-def delete_pending_exercises(apps, schema_editor):
+def delete_pending_bases(apps, schema_editor):
     """
-    Delete all pending exercises
+    Delete all pending bases
 
     Note that we can't access STATUS_PENDING here because we are not using
     a real model.
     """
-    Exercise = apps.get_model("exercises", "ExerciseBase")
+    Base = apps.get_model("exercises", "ExerciseBase")
+    Base.objects.filter(status='1').delete()
+
+
+def delete_pending_translations(apps, schema_editor):
+    """
+    Delete all pending translations
+
+    Note that we can't access STATUS_PENDING here because we are not using
+    a real model.
+    """
+    Exercise = apps.get_model("exercises", "Exercise")
     Exercise.objects.filter(status='1').delete()
 
 
@@ -24,5 +35,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(delete_pending_exercises)
+        migrations.RunPython(delete_pending_bases),
+        migrations.RunPython(delete_pending_translations),
     ]

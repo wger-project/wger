@@ -371,4 +371,23 @@ class Migration(migrations.Migration):
             },
             bases=(simple_history.models.HistoricalChanges, models.Model),
         ),
+        migrations.RemoveField(
+            model_name='exerciseimage',
+            name='status',
+        ),
+        migrations.AlterField(
+            model_name='exercise',
+            name='exercise_base',
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='exercises', to='exercises.exercisebase',
+                                    verbose_name='ExerciseBase'),
+        ),
+        migrations.AlterField(
+            model_name='historicalexercise',
+            name='exercise_base',
+            field=models.ForeignKey(blank=True, db_constraint=False, default=None, null=True,
+                                    on_delete=django.db.models.deletion.DO_NOTHING,
+                                    related_name='+', to='exercises.exercisebase',
+                                    verbose_name='ExerciseBase'),
+        ),
     ]

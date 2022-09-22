@@ -42,7 +42,7 @@ from wger.utils.constants import DEFAULT_LICENSE_ID
 UUID_NEW = 'NEW'
 VIDEO_AUTHOR = 'Goulart'
 VIDEO_PATH = pathlib.Path('videos-tmp')
-VIDEO_EXTENSION = '.webm'
+VIDEO_EXTENSIONS = ('.MP4', '.MOV')
 
 
 class Command(BaseCommand):
@@ -97,17 +97,13 @@ class Command(BaseCommand):
                 assert (name in file_reader.fieldnames
                         ), '{0} not in {1}'.format(name, file_reader.fieldnames)
 
-        language_objs = [
-            Language.objects.get(short_name=language) for language in available_languages
-        ]
-
+        language_objs = [Language.objects.get(short_name=l) for l in available_languages]
         default_license = License.objects.get(pk=DEFAULT_LICENSE_ID)
 
         #
         # Process the exercises
         #
         for row in file_reader:
-            new_exercise = False
             base_uuid = row['base:uuid']
             base_equipment = row['base:equipment']
             base_category = row['base:category']
@@ -118,7 +114,7 @@ class Command(BaseCommand):
                 # self.stdout.write('No base uuid, skipping')
                 continue
 
-            self.stdout.write(f'\n\n*** Processing base-UUID {base_uuid}\n')
+            self.stdout.write(f'\n*** Processing base-UUID {base_uuid}\n')
             self.stdout.write('-------------------------------------------------------------\n')
 
             #
@@ -160,18 +156,25 @@ class Command(BaseCommand):
             # but that is too much work for this script that will be used only once.
             if base_video and options['process_videos']:
                 for video_name in base_video.split('/'):
-                    path = VIDEO_PATH / pathlib.Path(video_name.strip() + VIDEO_EXTENSION)
-                    with path.open('rb') as video_file:
-                        video = ExerciseVideo()
-                        video.exercise_base = base
-                        video.license = default_license
-                        video.license_author = VIDEO_AUTHOR
-                        video.video.save(
-                            path.name,
-                            File(video_file),
-                        )
-                        video.save()
-                        self.stdout.write(f'Saving video {video.video}\n')
+                    video_processed = False
+                    for extension in VIDEO_EXTENSIONS:
+                        path = VIDEO_PATH / pathlib.Path(video_name.strip() + extension)
+
+                        if video_processed or not path.exists():
+                            continue
+
+                        with path.open('rb') as video_file:
+                            video = ExerciseVideo()
+                            video.exercise_base = base
+                            video.license = default_license
+                            video.license_author = VIDEO_AUTHOR
+                            video.video.save(
+                                path.name,
+                                File(video_file),
+                            )
+                            video.save()
+                            self.stdout.write(f'Saving video {path}\n')
+                            video_processed = True
 
             #
             # Process the translations and create new exercises if necessary

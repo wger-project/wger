@@ -24,7 +24,7 @@ class WgerPermission(permissions.BasePermission):
     Checks that the user has access to the object
 
     If the object has a 'owner_object' method, only allow access for the owner
-    user. For the other objects (system wide objects like exercises, etc.) allow
+    user. For the other objects (system-wide objects like exercises, etc.) allow
     only safe methods (GET, HEAD or OPTIONS)
     """
 

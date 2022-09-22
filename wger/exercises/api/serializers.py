@@ -78,7 +78,6 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'exercise_base',
             'image',
             'is_main',
-            'status',
             'style',
         ]
 
@@ -234,15 +233,8 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = (
-            "id",
-            "uuid",
-            "name",
-            "exercise_base",
-            "description",
-            "creation_date",
-            "language",
-            "aliases",
-            "notes"
+            "id", "uuid", "name", "exercise_base", "description", "creation_date", "language",
+            "aliases", "notes"
         )
 
 

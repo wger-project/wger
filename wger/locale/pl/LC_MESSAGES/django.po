@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2022-07-08 10:17+0000\n"
+"PO-Revision-Date: 2022-08-24 21:17+0000\n"
 "Last-Translator: Dawid Panyło <wampir5000@o2.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -2405,7 +2405,7 @@ msgstr "Mięsień pleców"
 
 #: i18n.tpl:24
 msgid "Glutes"
-msgstr "Minuty"
+msgstr "Pośladki"
 
 #: i18n.tpl:25
 msgid "Lats"
@@ -2784,7 +2784,7 @@ msgid ""
 "deactivate it, if it is a loop."
 msgstr ""
 "Aktualnie aktywny harmonogram pozostanie aktywny (i będzie\n"
-"wyświetlany np. na kokpicie) dopóki nie dojdzie do ostatniego treningu, lub "
+"wyświetlany np. na pulpicie) dopóki nie dojdzie do ostatniego treningu, lub "
 "dopóki\n"
 "nie zostanie zdezaktywowany - jeżeli jest zapętlony."
 

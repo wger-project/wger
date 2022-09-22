@@ -192,20 +192,18 @@ by the US Department of Agriculture. It is extremely complete, with around
         - the email address has been verified
         """
 
+        # Superusers are always trustworthy
+        if self.user.is_superuser:
+            return True
+
+        # Temporary users are never trustworthy
+        if self.is_temporary:
+            return False
+
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
         minimum_account_age = 21
 
         return days_since_joined.days > minimum_account_age and self.email_verified
-
-    @property
-    def has_exercise_permission(self):
-        """Returns true if user has all the exercise permissions and not just one."""
-        # TODO: check if this can be removed / refactored
-        if self.user.groups.filter(name='admin'
-                                   ).exists() or self.user.groups.filter(name='exercises_editor'
-                                                                         ).exists():
-            return True
-        return False
 
     #
     # User statistics

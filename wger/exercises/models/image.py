@@ -39,16 +39,13 @@ def exercise_image_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     ext = pathlib.Path(filename).suffix
-    return "exercise-images/{0}/{1}{2}".format(instance.exercise_base.id, instance.uuid, ext)
+    return f"exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
-class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class ExerciseImage(AbstractLicenseModel, models.Model):
     """
     Model for an exercise image
     """
-
-    objects = SubmissionManager()
-    """Custom manager"""
 
     LINE_ART = '1'
     THREE_D = '2'
@@ -119,9 +116,9 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
             ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.accepted()\
+            if ExerciseImage.objects.all()\
                 .filter(exercise_base=self.exercise_base).count() == 0 \
-               or not ExerciseImage.objects.accepted() \
+               or not ExerciseImage.objects.all() \
                     .filter(exercise_base=self.exercise_base, is_main=True)\
                     .count():
 
@@ -137,12 +134,12 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model)
         super(ExerciseImage, self).delete(*args, **kwargs)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.accepted().filter(
+        if not ExerciseImage.objects.all().filter(
             exercise_base=self.exercise_base, is_main=True
-        ).count() and ExerciseImage.objects.accepted().filter(exercise_base=self.exercise_base
+        ).count() and ExerciseImage.objects.all().filter(exercise_base=self.exercise_base
                                                               ).filter(is_main=False).count():
 
-            image = ExerciseImage.objects.accepted() \
+            image = ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]
             image.is_main = True
             image.save()
