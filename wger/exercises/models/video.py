@@ -50,13 +50,13 @@ def validate_video(value):
     if value.file.content_type not in ['video/mp4', 'video/webm', 'video/ogg']:
         raise ValidationError(_('File type is not supported'))
 
-    # If ffmpeg can't read the file, it will raise an exception
-    if not hasattr(value.file, 'temporary_file_path'):
-        raise ValidationError(_('File type is not supported'))
-
     # ffmpeg is not installed, skip
     if not ffmpeg:
         return
+
+    # ffmpeg needs to access this
+    if not hasattr(value.file, 'temporary_file_path'):
+        raise ValidationError(_('File type is not supported'))
 
     try:
         ffmpeg.probe(value.file.temporary_file_path())
