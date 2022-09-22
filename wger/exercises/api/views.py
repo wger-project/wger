@@ -171,10 +171,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
             if most_recent_history is None:
                 updated_object.save()
 
-        super().perform_create(serializer)
-
         most_recent_history = updated_object.history.order_by('history_date').last()
-
 
         # Don't allow to change the base or the language over the API
         if serializer.validated_data.get('exercise_base'):
@@ -475,6 +472,28 @@ class ExerciseVideoViewSet(ModelViewSet):
         'license_author',
     )
 
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
 
 class ExerciseCommentViewSet(ModelViewSet):
     """
@@ -526,6 +545,28 @@ class ExerciseAliasViewSet(ModelViewSet):
     permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('alias', 'exercise')
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
 
 
 class ExerciseVariationViewSet(ModelViewSet):
