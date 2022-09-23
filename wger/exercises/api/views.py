@@ -27,6 +27,7 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 import bleach
+from bleach.css_sanitizer import CSSSanitizer
 from actstream import action as actstream_action
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
@@ -145,7 +146,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
                 serializer.validated_data['description'],
                 tags=HTML_TAG_WHITELIST,
                 attributes=HTML_ATTRIBUTES_WHITELIST,
-                styles=HTML_STYLES_WHITELIST,
+                css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
                 strip=True
             )
         super().perform_create(serializer)
@@ -174,7 +175,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
                 serializer.validated_data['description'],
                 tags=HTML_TAG_WHITELIST,
                 attributes=HTML_ATTRIBUTES_WHITELIST,
-                styles=HTML_STYLES_WHITELIST,
+                css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
                 strip=True
             )
 

@@ -32,6 +32,7 @@ from django.views.generic.edit import ModelFormMixin
 
 # Third Party
 import bleach
+from bleach.css_sanitizer import CSSSanitizer
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     ButtonHolder,
@@ -242,7 +243,7 @@ class WgerFormMixin(ModelFormMixin):
                     getattr(form.instance, field),
                     tags=HTML_TAG_WHITELIST,
                     attributes=HTML_ATTRIBUTES_WHITELIST,
-                    styles=HTML_STYLES_WHITELIST,
+                    css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
                     strip=True
                 )
             )
