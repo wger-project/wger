@@ -38,12 +38,24 @@ class Command(BaseCommand):
 
     def handle(self, **options):
 
+        # Replace whitespace and other problematic characters with underscores
+        def cleanup_name(text: str) -> str:
+            return text.lower().\
+                replace(' ', '_').\
+                replace('-', '_').\
+                replace('/', '_').\
+                replace('(', '_').\
+                replace(')', '_')
+
         # Collect all translatable items
         data = [i for i in ExerciseCategory.objects.all()] \
             + [i for i in Equipment.objects.all()] \
-            + [i for i in Muscle.objects.all()] \
+            + [i.name_en for i in Muscle.objects.all() if i.name_en] \
             + [i for i in RepetitionUnit.objects.all()]
 
+        # + [i for i in Muscle.objects.all()] \
+
+        #
         # Django - write to .tpl file
         with open('wger/i18n.tpl', 'w') as f:
             out = '{% load i18n %}\n'
@@ -52,6 +64,7 @@ class Command(BaseCommand):
             f.write(out)
             self.stdout.write(self.style.SUCCESS(f'Wrote content to i18n.tpl!'))
 
+        #
         # React - write to .tsx file (copy the file into the react repo)
         with open('wger/i18n.tsx', 'w') as f:
             out = '''
@@ -60,7 +73,7 @@ class Command(BaseCommand):
                 export const DummyComponent = () => {
                 const [t, i18n] = useTranslation();'''
             for i in data:
-                out += f't("{i}");\n'
+                out += f't("server.{cleanup_name(i.__str__())}");\n'
 
             out += '''
                 return (<p></p>);
@@ -68,5 +81,29 @@ class Command(BaseCommand):
             f.write(out)
             self.stdout.write(self.style.SUCCESS(f'Wrote content to i18n.tsx!'))
 
-        # Flutter - write to .dart file (copy the file into the flutter repo)
-        # TO BE IMPLEMENTED...
+        #
+        # Flutter - write to app_en.arb, copy to the end of app_en.arb in the flutter repo
+        with open('wger/app_en.arb', 'w') as f:
+            out = ''
+            for i in data:
+                out += f'"{cleanup_name(i.__str__())}": "{i}",\n'
+            f.write(out)
+            self.stdout.write(self.style.SUCCESS(f'Wrote content to app_en.arb!'))
+
+        # Copy to i18n.dart in the flutter repo
+        with open('wger/i18n.dart', 'w') as f:
+            out = '''String getTranslation(String value, BuildContext context) {
+                  switch (value) {'''
+            for i in data:
+                out += f'''
+                case '{i}':
+                    return AppLocalizations.of(context).{cleanup_name(i.__str__())};
+                '''
+
+            out += f'''default:
+                  return 'NOT TRANSLATED';
+                  }}
+                  }}'''
+
+            f.write(out)
+            self.stdout.write(self.style.SUCCESS(f'Wrote content to i18n.dart!'))

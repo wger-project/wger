@@ -12,19 +12,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-09-19 02:37+0000\n"
-"Last-Translator: kvinto <badsystem@ukr.net>\n"
+"POT-Creation-Date: 2022-05-14 12:01+0200\n"
+"PO-Revision-Date: 2022-07-26 02:01+0000\n"
+"Last-Translator: Artem <artem@molotov.work>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.9-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -49,7 +49,7 @@ msgstr "Вправи"
 msgid "Ingredients"
 msgstr "Інгредієнти"
 
-#: config/templates/language/overview.html:4 core/templates/navigation.html:228
+#: config/templates/language/overview.html:4 core/templates/navigation.html:226
 msgid "Languages"
 msgstr "Мови"
 
@@ -225,8 +225,8 @@ msgstr "Моя класна програграма тренувань"
 msgid "Empty placeholder schedule"
 msgstr "Порожня програма-заповнювач"
 
-#: core/forms.py:61 core/templates/navigation.html:190
-#: core/templates/navigation.html:194 core/templates/user/login.html:4
+#: core/forms.py:61 core/templates/navigation.html:188
+#: core/templates/navigation.html:192 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
 msgstr "Вхід"
@@ -303,8 +303,8 @@ msgstr "Неправильний пароль"
 msgid "The form is secured with reCAPTCHA"
 msgstr "Форма захищена reCAPTCHA"
 
-#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
-#: core/templates/navigation.html:195 core/templates/template.html:150
+#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:188
+#: core/templates/navigation.html:193 core/templates/template.html:149
 #: core/templates/user/login.html:20 core/views/user.py:293
 #: software/templates/features.html:38
 msgid "Register"
@@ -626,7 +626,7 @@ msgstr ""
 
 #: core/templates/index.html:33 core/templates/index.html:73
 #: core/templates/misc/fragments/shariff_modal.html:29
-#: core/templates/template.html:125 manager/templates/calendar/month.html:138
+#: core/templates/template.html:124 manager/templates/calendar/month.html:138
 #: manager/templates/schedule/view.html:246
 #: manager/templates/schedule/view.html:266
 #: manager/templates/workout/view.html:132
@@ -728,7 +728,7 @@ msgstr "Енергія"
 #: nutrition/templates/plan/view.html:54 nutrition/templates/plan/view.html:251
 #: nutrition/views/plan.py:390
 msgid "Protein"
-msgstr "Протеїн"
+msgstr "Білок"
 
 #: core/templates/index.html:171 core/templates/user/overview.html:157
 #: nutrition/models/ingredient.py:113
@@ -748,7 +748,7 @@ msgstr "Вуглеводи"
 #: nutrition/templates/plan/view.html:56 nutrition/templates/plan/view.html:270
 #: nutrition/views/plan.py:412
 msgid "Fat"
-msgstr "Жир"
+msgstr "Жири"
 
 #: core/templates/index.html:189 nutrition/templates/plan/overview.html:22
 msgid "No nutrition plans."
@@ -763,7 +763,7 @@ msgstr "Немає планів харчування."
 msgid "Weight"
 msgstr "Вага"
 
-#: core/templates/index.html:210 core/templates/navigation.html:97
+#: core/templates/index.html:210 core/templates/navigation.html:135
 #: weight/views.py:70
 msgid "Add weight entry"
 msgstr "Додати запис ваги"
@@ -795,8 +795,8 @@ msgstr "Список ліцензій"
 msgid "Nothing found"
 msgstr "Нічого не знайдено"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:175
-#: core/templates/template_features.html:118
+#: core/templates/misc/about.html:4 core/templates/template.html:174
+#: core/templates/template_features.html:117
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
 msgstr "Відбиток"
@@ -882,13 +882,13 @@ msgstr "за інвентарем"
 #: exercises/templates/equipment/overview.html:113
 #: exercises/templates/exercise/overview.html:112
 #: exercises/templates/exercise/overview.html:116
-#: exercises/templates/muscles/overview.html:108
 #: exercises/templates/muscles/overview.html:112
+#: exercises/templates/muscles/overview.html:116
 msgid "Add new exercise"
 msgstr "Додати нову вправу"
 
-#: core/templates/navigation.html:75 core/templates/navigation.html:134
-#: core/templates/navigation.html:226
+#: core/templates/navigation.html:75 core/templates/navigation.html:116
+#: core/templates/navigation.html:224
 msgid "Administration"
 msgstr "Адміністрація"
 
@@ -911,106 +911,106 @@ msgstr "М'язи"
 msgid "Categories"
 msgstr "Категорії"
 
-#: core/templates/navigation.html:94
-msgid "Body weight"
-msgstr "Вага тіла"
-
-#: core/templates/navigation.html:96 core/templates/user/overview.html:114
-#: weight/templates/overview.html:7
-msgid "Weight overview"
-msgstr "Огляд ваги"
-
-#: core/templates/navigation.html:111 software/templates/features.html:87
+#: core/templates/navigation.html:93 software/templates/features.html:87
 msgid "Nutrition"
 msgstr "Харчування"
 
-#: core/templates/navigation.html:117 core/templates/user/overview.html:144
+#: core/templates/navigation.html:99 core/templates/user/overview.html:144
 msgid "Nutrition plans"
 msgstr "Плани харчування"
 
-#: core/templates/navigation.html:123 nutrition/templates/bmi/form.html:50
+#: core/templates/navigation.html:105 nutrition/templates/bmi/form.html:50
 msgid "BMI calculator"
 msgstr "Калькулятор індексу маси тіла"
 
-#: core/templates/navigation.html:129 nutrition/templates/rate/form.html:17
+#: core/templates/navigation.html:111 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
 msgstr "Калькулятор щоденних калорій"
 
-#: core/templates/navigation.html:131
+#: core/templates/navigation.html:113
 #: nutrition/templates/ingredient/overview.html:29
 msgid "Ingredient overview"
 msgstr "Огляд інгредієнтів"
 
-#: core/templates/navigation.html:135 nutrition/templates/units/list.html:6
+#: core/templates/navigation.html:117 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
 msgstr "Одиниці ваги інгредієнтів"
 
-#: core/templates/navigation.html:136
+#: core/templates/navigation.html:118
 #: nutrition/templates/ingredient/pending.html:6
 msgid "Ingredients pending review"
 msgstr "Інгредієнти, що очікують розгляду"
 
-#: core/templates/navigation.html:149
+#: core/templates/navigation.html:132
+msgid "Body weight"
+msgstr "Вага тіла"
+
+#: core/templates/navigation.html:134 core/templates/user/overview.html:114
+#: weight/templates/overview.html:7
+msgid "Weight overview"
+msgstr "Огляд ваги"
+
+#: core/templates/navigation.html:147
 msgid "About this software"
 msgstr "Про це програмне забезпечення"
 
-#: core/templates/navigation.html:151 core/templates/template_features.html:83
+#: core/templates/navigation.html:149 core/templates/template_features.html:82
 #: software/templates/about_us.html:5
 msgid "About us"
 msgstr "Про нас"
 
-#: core/templates/navigation.html:153 software/templates/features.html:209
+#: core/templates/navigation.html:151 software/templates/features.html:209
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:157 utils/models.py:40
+#: core/templates/navigation.html:155 utils/models.py:40
 msgid "License"
 msgstr "Ліцензія"
 
-#: core/templates/navigation.html:163
+#: core/templates/navigation.html:161
 msgid "Developer documentation"
 msgstr "Документація для розробників"
 
-#: core/templates/navigation.html:169
+#: core/templates/navigation.html:167
 msgid "Get the code"
 msgstr "Отримати код"
 
-#: core/templates/navigation.html:175 core/templates/template.html:205
-#: core/templates/template_features.html:100
+#: core/templates/navigation.html:173 core/templates/template.html:204
+#: core/templates/template_features.html:99
 msgid "Translate"
 msgstr "Перекласти"
 
-#: core/templates/navigation.html:196 core/templates/user/login.html:28
+#: core/templates/navigation.html:194 core/templates/user/login.html:28
 msgid "Reset password"
 msgstr "Скинути пароль"
 
-#: core/templates/navigation.html:209
+#: core/templates/navigation.html:207
 msgid "My preferences"
 msgstr "Мої налаштування"
 
-#: core/templates/navigation.html:216
+#: core/templates/navigation.html:214
 msgid "Logout"
 msgstr "Вийти"
 
-#: core/templates/navigation.html:231
+#: core/templates/navigation.html:229
 msgid "Licenses"
 msgstr "Ліцензії"
 
-#: core/templates/navigation.html:234
+#: core/templates/navigation.html:232
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Одиниці повторень"
 
-#: core/templates/navigation.html:237 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:235 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:174
 msgid "Weight units"
 msgstr "Одиниця ваги"
 
-#: core/templates/navigation.html:240 core/templates/user/list.html:4
+#: core/templates/navigation.html:238 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Список користувачів"
 
-#: core/templates/navigation.html:241
+#: core/templates/navigation.html:239
 msgid "Gyms"
 msgstr "Тренажерні зали"
 
@@ -1092,7 +1092,7 @@ msgstr "Додати журнал ваги"
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
 #: exercises/templates/exercise/overview.html:63
-#: exercises/templates/muscles/overview.html:61
+#: exercises/templates/muscles/overview.html:65
 msgid "Placeholder image for exercise"
 msgstr "Заповнювач зображення для вправи"
 
@@ -1119,23 +1119,23 @@ msgstr "Повтори"
 msgid "RiR"
 msgstr "Повторів можете зробити"
 
-#: core/templates/template.html:140
+#: core/templates/template.html:139
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Ви використовуєте обліковий запис гостя, введені дані будуть видалені через "
 "тиждень."
 
-#: core/templates/template.html:144
+#: core/templates/template.html:143
 msgid "Create some demo entries"
 msgstr "Створіть деякі демонстраційні записи"
 
-#: core/templates/template.html:176 core/templates/template_features.html:122
+#: core/templates/template.html:175 core/templates/template_features.html:121
 #: core/templates/template_no_context.html:89 software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Умови надання послуг"
 
-#: core/templates/template_features.html:62 software/templates/features.html:9
+#: core/templates/template_features.html:61 software/templates/features.html:9
 #: software/templates/features.html:120
 msgid "Features"
 msgstr "Особливості"
@@ -1559,7 +1559,7 @@ msgstr "Основні м'язи"
 #: exercises/models/base.py:64 exercises/templates/equipment/overview.html:71
 #: exercises/templates/exercise/overview.html:76
 #: exercises/templates/exercise/view.html:268
-#: exercises/templates/muscles/overview.html:73
+#: exercises/templates/muscles/overview.html:77
 msgid "Secondary muscles"
 msgstr "Другорядні м'язи"
 
@@ -1571,9 +1571,9 @@ msgstr "Варіації"
 msgid "Exercise Categories"
 msgstr "Категорії вправ"
 
-#: exercises/models/comment.py:34 exercises/models/image.py:75
-#: exercises/models/video.py:82 manager/forms.py:165 manager/helpers.py:89
-#: manager/models/log.py:51
+#: exercises/models/comment.py:34 exercises/models/exercise_alias.py:32
+#: exercises/models/image.py:75 exercises/models/video.py:82
+#: manager/forms.py:165 manager/helpers.py:89 manager/models/log.py:51
 msgid "Exercise"
 msgstr "Вправа"
 
@@ -1599,27 +1599,29 @@ msgstr "Нова вправа надіслана користувачем"
 msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Користувач {0} подав нову вправу \"{1}\"."
 
+#: exercises/models/exercise_alias.py:35
+msgid "Alias for an exercise"
+msgstr "Псевдонім вправи"
+
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Лінія"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
-msgstr ""
+msgstr "Малополігональний"
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Знімок"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Інші"
+msgstr "Інше"
 
 #: exercises/models/image.py:81 gallery/models/image.py:56
 msgid "Image"
@@ -1645,7 +1647,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Художній стиль вашого зображення"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1660,33 +1662,37 @@ msgstr "Користувач {0} подав нове зображення \"{1}\
 msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "На латині, напр. \"Pectoralis major\""
 
+#: exercises/models/muscle.py:47
+msgid "Alternative name"
+msgstr "Альтернативна назва"
+
+#: exercises/models/muscle.py:48
+msgid "A more basic name for the muscle"
+msgstr "Більш основна назва м'язів"
+
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "Максимальний розмір файлу - 100 МБ."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Тип файлу не підтримується"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s це недійсно вказана дата народження"
+msgstr "Файл не є припустимим відеофайлом"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Головне зображення"
+msgstr "Головне відео"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Відео"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Розмір"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1694,23 +1700,19 @@ msgstr "Тривалість"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
 #: exercises/models/video.py:124
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Вага"
+msgstr "Висота"
 
 #: exercises/models/video.py:131
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Код"
+msgstr "Кодек"
 
 #: exercises/models/video.py:139
 msgid "Codec, long name"
-msgstr ""
+msgstr "Кодек, довга назва"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1728,7 +1730,7 @@ msgstr "Огляд обладнання"
 #: exercises/templates/equipment/overview.html:69
 #: exercises/templates/exercise/overview.html:74
 #: exercises/templates/exercise/view.html:264
-#: exercises/templates/muscles/overview.html:71
+#: exercises/templates/muscles/overview.html:75
 msgid "Main muscles"
 msgstr "Основні м'язи"
 
@@ -1753,7 +1755,7 @@ msgstr "назва вправи"
 
 #: exercises/templates/equipment/overview.html:115
 #: exercises/templates/exercise/overview.html:118
-#: exercises/templates/muscles/overview.html:114
+#: exercises/templates/muscles/overview.html:118
 #: nutrition/templates/ingredient/overview.html:85
 msgid "Only registered users can do this"
 msgstr "Це можуть робити лише зареєстровані користувачі"
@@ -1902,13 +1904,11 @@ msgstr "Додати нове зображення"
 
 #: exercises/templates/exercise/view.html:148
 msgid "Videos"
-msgstr ""
+msgstr "Відео"
 
 #: exercises/templates/exercise/view.html:187 exercises/views/videos.py:94
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add new video"
-msgstr "Додати нове зображення"
+msgstr "Додати нове відео"
 
 #: exercises/templates/exercise/view.html:197
 msgid "Images pending review"
@@ -1949,7 +1949,7 @@ msgstr "Огляд м'язів"
 msgid "Add muscle"
 msgstr "Додати м'язи"
 
-#: exercises/templates/muscles/overview.html:81
+#: exercises/templates/muscles/overview.html:85
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
@@ -2326,7 +2326,7 @@ msgstr "Додати користувача до залу"
 msgid "Edit gym"
 msgstr "Редагувати тренажерний зал"
 
-#: i18n.tpl:2
+#: i18n.tpl:2 i18n.tpl:28
 msgid "Abs"
 msgstr "Прес"
 
@@ -2338,11 +2338,11 @@ msgstr "Руки"
 msgid "Back"
 msgstr "Спина"
 
-#: i18n.tpl:5
+#: i18n.tpl:5 i18n.tpl:23
 msgid "Calves"
 msgstr "Литки"
 
-#: i18n.tpl:6
+#: i18n.tpl:6 i18n.tpl:26
 msgid "Chest"
 msgstr "Груди"
 
@@ -2350,7 +2350,7 @@ msgstr "Груди"
 msgid "Legs"
 msgstr "Ноги"
 
-#: i18n.tpl:8
+#: i18n.tpl:8 i18n.tpl:19
 msgid "Shoulders"
 msgstr "Плечі"
 
@@ -2379,107 +2379,71 @@ msgid "Kettlebell"
 msgstr "Гирі"
 
 #: i18n.tpl:15
-msgid "none (bodyweight exercise)"
-msgstr "немає (вправа з вагою тіла)"
+msgid "Pull-up bar"
+msgstr "Перекладина"
 
 #: i18n.tpl:16
-msgid "Pull-up bar"
-msgstr "Турнік"
+msgid "SZ-Bar"
+msgstr "SZ-Штанга"
 
 #: i18n.tpl:17
 msgid "Swiss Ball"
 msgstr "Фітбол"
 
 #: i18n.tpl:18
-msgid "SZ-Bar"
-msgstr "SZ-Штанга"
-
-#: i18n.tpl:19
-msgid "Anterior deltoid"
-msgstr "Дельтоподібний м'яз"
+msgid "none (bodyweight exercise)"
+msgstr "немає (вправа з вагою тіла)"
 
 #: i18n.tpl:20
-msgid "Biceps brachii"
+msgid "Biceps"
 msgstr "Біцепс"
 
 #: i18n.tpl:21
-msgid "Biceps femoris"
-msgstr "Двоголовий м’яз стегна"
+msgid "Hamstrings"
+msgstr "Підколінні сухожилля"
 
 #: i18n.tpl:22
-msgid "Brachialis"
-msgstr "Плечовий м'яз"
-
-#: i18n.tpl:23
-msgid "Gastrocnemius"
-msgstr "Литковий м'яз"
+msgid "Lower back"
+msgstr "Нижня частина спини"
 
 #: i18n.tpl:24
-msgid "Gluteus maximus"
-msgstr "Великий сiдничний м’яз"
+msgid "Glutes"
+msgstr "Сідниці"
 
 #: i18n.tpl:25
-msgid "Latissimus dorsi"
-msgstr "Найширший м'яз спини"
-
-#: i18n.tpl:26
-msgid "Obliquus externus abdominis"
-msgstr "Зовнiшнiй косий м’яз живота"
+msgid "Lats"
+msgstr "Найширші м'язи спини"
 
 #: i18n.tpl:27
-msgid "Pectoralis major"
-msgstr "Великий грудний м’яз"
-
-#: i18n.tpl:28
-msgid "Quadriceps femoris"
-msgstr "Чотириголовий м’яз стегна"
+msgid "Quads"
+msgstr "Чотириголові м'язи стегн"
 
 #: i18n.tpl:29
-msgid "Rectus abdominis"
-msgstr "Прямий м’яз живота"
+msgid "Triceps"
+msgstr "Трицепси"
 
 #: i18n.tpl:30
-msgid "Serratus anterior"
-msgstr "Передній зубчастий м’яз"
-
-#: i18n.tpl:31
-msgid "Soleus"
-msgstr "Камбалоподібний м'яз"
-
-#: i18n.tpl:32
-msgid "Trapezius"
-msgstr "Трапеція"
-
-#: i18n.tpl:33
-msgid "Triceps brachii"
-msgstr "Трицепс"
-
-#: i18n.tpl:34
 msgid "Kilometers"
 msgstr "Кілометри"
 
-#: i18n.tpl:35
-msgid "Max Reps"
-msgstr "Макс. Повтор"
-
-#: i18n.tpl:36
+#: i18n.tpl:31
 msgid "Miles"
 msgstr "Милі"
 
-#: i18n.tpl:37
+#: i18n.tpl:32
 msgid "Minutes"
 msgstr "Хвилини"
 
-#: i18n.tpl:38 manager/forms.py:169 manager/models/log.py:71
+#: i18n.tpl:33 manager/forms.py:169 manager/models/log.py:71
 #: manager/templates/set/add.html:53
 msgid "Repetitions"
 msgstr "Повтори"
 
-#: i18n.tpl:39
+#: i18n.tpl:34
 msgid "Seconds"
 msgstr "Секунди"
 
-#: i18n.tpl:40
+#: i18n.tpl:35
 msgid "Until Failure"
 msgstr "До відмови"
 
@@ -3046,9 +3010,9 @@ msgid ""
 "repetitions are charted, other combinations such as time or until failure\n"
 "are ignored here."
 msgstr ""
-"Зверніть увагу, що тільки записи з одиницями ваги (кг або lb) і\n"
-"повторень відображаються на графіку. Інші комбінації, такі як час,\n"
-"або \"до відмови\" тут ігноруються."
+"Запримітьте, що на графіку відображаються тільки\n"
+"записи з одиницями ваги (кг або lb) і повтореннями. Інші комбінації,\n"
+"такі як час або \"до відмови\", тут ігноруються."
 
 #: manager/templates/workout/overview.html:25
 msgid "No templates found."
@@ -3164,7 +3128,7 @@ msgstr "Також буде видалено всі записи ваги для
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Значення"
 
 #: nutrition/forms.py:122
 msgid "Calculate"
@@ -3294,6 +3258,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Дайте стравам текстовий опис / назву, таку як \"Сніданок\" або \"після "
+"тренування\""
 
 #: nutrition/models/plan.py:71
 msgid ""
@@ -3703,7 +3669,7 @@ msgid ""
 "approximation. If you base your nutrition plan on these values, observe\n"
 "yourself for some weeks and change the total amount if needed."
 msgstr ""
-"Будь ласка, зверніть увагу, що ці розрахунки тільки приблизні. Якщо Ви "
+"Будь ласка, запримітьте, що ці розрахунки тільки приблизні. Якщо Ви "
 "створюєте\n"
 "свій план харчування на цих значеннях, поспостерігайте за собою кілька\n"
 "тижнів і при необхідності змініть загальну кількість."
@@ -3763,7 +3729,7 @@ msgstr "Джерельний код"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr "Отримайте вихідний код цього застосунку та її сервер на github"
+msgstr "Отримайте джерельний код цього додатка та його сервера на github"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
@@ -3796,8 +3762,8 @@ msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
-"Цей застосунок перекладено на Weblate. Якщо ви також хочете допомогти, "
-"клацніть на посилання та почніть переклад"
+"Цей додаток перекладено на Weblate. Якщо ви також хочете допомогти, клацніть "
+"на посилання та почніть переклад"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"
@@ -4166,6 +4132,48 @@ msgstr "Успішно видалено."
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr "Видалити запис ваги для %s"
+
+#~ msgid "Anterior deltoid"
+#~ msgstr "Дельтоподібний м'яз"
+
+#~ msgid "Biceps femoris"
+#~ msgstr "Двоголовий м’яз стегна"
+
+#~ msgid "Brachialis"
+#~ msgstr "Плечовий м'яз"
+
+#~ msgid "Gastrocnemius"
+#~ msgstr "Литковий м'яз"
+
+#~ msgid "Gluteus maximus"
+#~ msgstr "Великий сiдничний м’яз"
+
+#~ msgid "Latissimus dorsi"
+#~ msgstr "Найширший м'яз спини"
+
+#~ msgid "Obliquus externus abdominis"
+#~ msgstr "Зовнiшнiй косий м’яз живота"
+
+#~ msgid "Pectoralis major"
+#~ msgstr "Великий грудний м’яз"
+
+#~ msgid "Quadriceps femoris"
+#~ msgstr "Чотириголовий м’яз стегна"
+
+#~ msgid "Rectus abdominis"
+#~ msgstr "Прямий м’яз живота"
+
+#~ msgid "Serratus anterior"
+#~ msgstr "Передній зубчастий м’яз"
+
+#~ msgid "Soleus"
+#~ msgstr "Камбалоподібний м'яз"
+
+#~ msgid "Trapezius"
+#~ msgstr "Трапеція"
+
+#~ msgid "Max Reps"
+#~ msgstr "Макс. Повтор"
 
 #~ msgid "Your current weight is: "
 #~ msgstr "Ваша поточна вага: "

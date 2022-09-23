@@ -67,5 +67,9 @@ node_modules
 venv
 venv-wget
 
-# Dummy file for translations
-/wger/i18n.tpl
+# Will need to copy this file to react repo though
+/wger/i18n.tsx
+
+# Will need to copy these files to the flutter repo
+/wger/i18n.dart
+/wger/app_en.arb

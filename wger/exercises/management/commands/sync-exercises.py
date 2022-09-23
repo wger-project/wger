@@ -166,16 +166,23 @@ class Command(BaseCommand):
             muscle_id = muscle_data['id']
             muscle_name = muscle_data['name']
             muscle_is_front = muscle_data['is_front']
+            muscle_name_en = muscle_data['name_en']
             muscle_url_main = muscle_data['image_url_main']
             muscle_url_secondary = muscle_data['image_url_secondary']
 
             try:
                 muscle = Muscle.objects.get(pk=muscle_id)
                 muscle.name = muscle_name
-                muscle_is_front = muscle_is_front
+                muscle.is_front = muscle_is_front
+                muscle.name_en = muscle_name_en
                 muscle.save()
             except Muscle.DoesNotExist:
-                muscle = Muscle(id=muscle_id, name=muscle_name, is_front=muscle_is_front)
+                muscle = Muscle(
+                    id=muscle_id,
+                    name=muscle_name,
+                    is_front=muscle_is_front,
+                    name_en=muscle_name_en
+                )
                 muscle.save()
                 self.stdout.write(
                     self.style.WARNING(

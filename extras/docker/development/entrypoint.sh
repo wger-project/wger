@@ -5,16 +5,6 @@ if [ ! -f /home/wger/src/settings.py ]; then
    cp /tmp/settings.py /home/wger/src
 fi
 
-# If using docker compose, wait for postgres
-if [[ "$DJANGO_DB_PORT" == "5432" ]]; then
-    echo "Waiting for postgres..."
-
-    while ! nc -z $DJANGO_DB_HOST $DJANGO_DB_PORT; do
-      sleep 0.1
-    done
-
-    echo "PostgreSQL started :)"
-fi
 
 # The python wger package needs to be installed in development mode.
 # If the created folder does not exist (e.g. because this image was mounted
@@ -37,6 +27,30 @@ then
     echo "Running in production mode, running collectstatic now"
     python3 manage.py collectstatic --no-input
 fi
+
+# Perform database migrations
+if [[ "$DJANGO_PERFORM_MIGRATIONS" == "True" ]];
+then
+    echo "Performing database migrations"
+    python3 manage.py migrate
+fi
+
+# Sync exercises
+if [[ "$SYNC_EXERCISES_ON_STARTUP" == "True" ]];
+then
+    echo "Synchronizing exercises"
+    python3 manage.py sync-exercises
+fi
+
+# Download exercise images
+if [[ "$DOWNLOAD_EXERCISE_IMAGES_ON_STARTUP" == "True" ]];
+then
+    echo "Downloading exercise images"
+    python3 manage.py download-exercise-images
+fi
+
+# Set the site URL
+python3 manage.py set-site-url
 
 # Run the server
 if [[ "$WGER_USE_GUNICORN" == "True" ]];

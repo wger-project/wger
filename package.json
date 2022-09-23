@@ -17,18 +17,18 @@
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
     "Sortable": "RubaXa/Sortable#1.15.0",
-    "bootstrap": "4.6.1",
+    "bootstrap": "4.6.2",
     "components-font-awesome": "5.9.0",
-    "d3": "^7.3.0",
+    "d3": "^7.6.1",
     "datatables": "^1.10.18",
     "devbridge-autocomplete": "^1.4.11",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.1",
     "masonry-layout": "^4.2.2",
     "metrics-graphics": "^2.15.6",
     "popper.js": "^1.16.1",
     "shariff": "^3.2.1",
-    "tinymce": "^5.10.3",
-    "yarn": "^1.22.18"
+    "tinymce": "^5.10.5",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "build:css:sass": "sass wger/core/static/scss/main.scss:wger/core/static/yarn/bootstrap-compiled.css"

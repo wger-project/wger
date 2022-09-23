@@ -240,6 +240,7 @@ class AddMealItemUnitTestCase(WgerAddTestCase):
         'amount': 1,
         'ingredient': 1,
         'weight_unit': 1,
+        'datetime': datetime.datetime(2022, 2, 2, tzinfo=datetime.timezone.utc)
     }
 
 

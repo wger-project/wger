@@ -12,7 +12,7 @@
 ##########
 # Builder
 ##########
-FROM ubuntu:21.04 as builder
+FROM ubuntu:22.04 as builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -21,8 +21,7 @@ RUN apt-get update \
       python3-dev \
       python3-pip \
       python3-wheel \
-      git \
-  && rm -rf /var/lib/apt/lists/*
+      git
 
 # Build the necessary python wheels
 COPY requirements* ./

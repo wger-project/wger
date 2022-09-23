@@ -11,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-15 14:51+0100\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"POT-Creation-Date: 2022-05-14 12:01+0200\n"
+"PO-Revision-Date: 2022-04-20 20:12+0000\n"
+"Last-Translator: stefan <stefan.isacsson@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -45,7 +45,7 @@ msgstr "Övningar"
 msgid "Ingredients"
 msgstr "Ingredienser"
 
-#: config/templates/language/overview.html:4 core/templates/navigation.html:228
+#: config/templates/language/overview.html:4 core/templates/navigation.html:226
 msgid "Languages"
 msgstr "Språk"
 
@@ -220,8 +220,8 @@ msgstr "Mitt coola träningsschema"
 msgid "Empty placeholder schedule"
 msgstr "Tom platshållarschema"
 
-#: core/forms.py:61 core/templates/navigation.html:190
-#: core/templates/navigation.html:194 core/templates/user/login.html:4
+#: core/forms.py:61 core/templates/navigation.html:188
+#: core/templates/navigation.html:192 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
 msgstr "Logga in"
@@ -247,15 +247,12 @@ msgid "Email"
 msgstr "E-post"
 
 #: core/forms.py:77
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr ""
-"Används för lösenordsåterställning och, frivilligt, för epostpåminnelser"
+msgstr "Används för lösenordsåterställning, alternativt påminnelser."
 
 #: core/forms.py:102
 msgid "Personal data"
-msgstr ""
+msgstr "Personlig data"
 
 #: core/forms.py:110
 msgid "Workout reminders"
@@ -278,8 +275,6 @@ msgstr ""
 "Används för lösenordsåterställning och, frivilligt, för epostpåminnelser"
 
 #: core/forms.py:160
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
 msgstr "Denna mail används redan."
 
@@ -298,10 +293,10 @@ msgstr "Ogiltigt lösenord"
 
 #: core/forms.py:212 core/forms.py:278
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Denna formen är säkrad med reCAPTCHA"
 
-#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:190
-#: core/templates/navigation.html:195 core/templates/template.html:150
+#: core/forms.py:226 core/forms.py:245 core/templates/navigation.html:188
+#: core/templates/navigation.html:193 core/templates/template.html:149
 #: core/templates/user/login.html:20 core/views/user.py:293
 #: software/templates/features.html:38
 msgid "Register"
@@ -312,10 +307,8 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: core/forms.py:257
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Något sätt besvara dig (e-post, etc.)"
+msgstr "Något sätt svara dig (e-post, etc.)"
 
 #: core/forms.py:265 exercises/models/comment.py:40 manager/models/set.py:60
 #: manager/models/setting.py:99 nutrition/models/log.py:71
@@ -619,7 +612,7 @@ msgstr ""
 
 #: core/templates/index.html:33 core/templates/index.html:73
 #: core/templates/misc/fragments/shariff_modal.html:29
-#: core/templates/template.html:125 manager/templates/calendar/month.html:138
+#: core/templates/template.html:124 manager/templates/calendar/month.html:138
 #: manager/templates/schedule/view.html:246
 #: manager/templates/schedule/view.html:266
 #: manager/templates/workout/view.html:132
@@ -751,7 +744,7 @@ msgstr "Inga kostplaner."
 msgid "Weight"
 msgstr "Vikt"
 
-#: core/templates/index.html:210 core/templates/navigation.html:97
+#: core/templates/index.html:210 core/templates/navigation.html:135
 #: weight/views.py:70
 msgid "Add weight entry"
 msgstr "Lägg till vikt"
@@ -783,8 +776,8 @@ msgstr "Licens lista"
 msgid "Nothing found"
 msgstr "Ingenting hittades"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:175
-#: core/templates/template_features.html:118
+#: core/templates/misc/about.html:4 core/templates/template.html:174
+#: core/templates/template_features.html:117
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
 msgstr ""
@@ -835,23 +828,21 @@ msgstr "Kalender"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galleri"
 
 #: core/templates/navigation.html:48
 #, fuzzy
 #| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Träningspass fullbordat!"
+msgstr "Träningsmallar"
 
 #: core/templates/navigation.html:53 manager/views/workout.py:101
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Dina scheman"
+msgstr "Dina mallar"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Publika mallar"
 
 #: core/templates/navigation.html:64
 msgctxt "as in sorted by category"
@@ -873,13 +864,13 @@ msgstr ""
 #: exercises/templates/equipment/overview.html:113
 #: exercises/templates/exercise/overview.html:112
 #: exercises/templates/exercise/overview.html:116
-#: exercises/templates/muscles/overview.html:108
 #: exercises/templates/muscles/overview.html:112
+#: exercises/templates/muscles/overview.html:116
 msgid "Add new exercise"
 msgstr "Lägg till ny övning"
 
-#: core/templates/navigation.html:75 core/templates/navigation.html:134
-#: core/templates/navigation.html:226
+#: core/templates/navigation.html:75 core/templates/navigation.html:116
+#: core/templates/navigation.html:224
 msgid "Administration"
 msgstr "Administration"
 
@@ -902,106 +893,106 @@ msgstr "Muskler"
 msgid "Categories"
 msgstr "Kategorier"
 
-#: core/templates/navigation.html:94
-msgid "Body weight"
-msgstr ""
-
-#: core/templates/navigation.html:96 core/templates/user/overview.html:114
-#: weight/templates/overview.html:7
-msgid "Weight overview"
-msgstr "Viktöversikt"
-
-#: core/templates/navigation.html:111 software/templates/features.html:87
+#: core/templates/navigation.html:93 software/templates/features.html:87
 msgid "Nutrition"
 msgstr "Kost"
 
-#: core/templates/navigation.html:117 core/templates/user/overview.html:144
+#: core/templates/navigation.html:99 core/templates/user/overview.html:144
 msgid "Nutrition plans"
 msgstr "Kostplaner"
 
-#: core/templates/navigation.html:123 nutrition/templates/bmi/form.html:50
+#: core/templates/navigation.html:105 nutrition/templates/bmi/form.html:50
 msgid "BMI calculator"
 msgstr "BMI-kalkylator"
 
-#: core/templates/navigation.html:129 nutrition/templates/rate/form.html:17
+#: core/templates/navigation.html:111 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
 msgstr "Dagliga-kalorier-kalkylator"
 
-#: core/templates/navigation.html:131
+#: core/templates/navigation.html:113
 #: nutrition/templates/ingredient/overview.html:29
 msgid "Ingredient overview"
 msgstr "Ingrediensöversikt"
 
-#: core/templates/navigation.html:135 nutrition/templates/units/list.html:6
+#: core/templates/navigation.html:117 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
 msgstr "Ingrediens viktenheter"
 
-#: core/templates/navigation.html:136
+#: core/templates/navigation.html:118
 #: nutrition/templates/ingredient/pending.html:6
 msgid "Ingredients pending review"
 msgstr "Ingredienser i avvaktan på översyn"
 
-#: core/templates/navigation.html:149
+#: core/templates/navigation.html:132
+msgid "Body weight"
+msgstr ""
+
+#: core/templates/navigation.html:134 core/templates/user/overview.html:114
+#: weight/templates/overview.html:7
+msgid "Weight overview"
+msgstr "Viktöversikt"
+
+#: core/templates/navigation.html:147
 msgid "About this software"
 msgstr "Om programvaran"
 
-#: core/templates/navigation.html:151 core/templates/template_features.html:83
+#: core/templates/navigation.html:149 core/templates/template_features.html:82
 #: software/templates/about_us.html:5
 msgid "About us"
 msgstr "Om oss"
 
-#: core/templates/navigation.html:153 software/templates/features.html:209
+#: core/templates/navigation.html:151 software/templates/features.html:209
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:157 utils/models.py:40
+#: core/templates/navigation.html:155 utils/models.py:40
 msgid "License"
 msgstr "Licens"
 
-#: core/templates/navigation.html:163
+#: core/templates/navigation.html:161
 msgid "Developer documentation"
 msgstr "Dokument för utvecklare"
 
-#: core/templates/navigation.html:169
+#: core/templates/navigation.html:167
 msgid "Get the code"
 msgstr "Hämta koden"
 
-#: core/templates/navigation.html:175 core/templates/template.html:205
-#: core/templates/template_features.html:100
+#: core/templates/navigation.html:173 core/templates/template.html:204
+#: core/templates/template_features.html:99
 msgid "Translate"
 msgstr "Översätt"
 
-#: core/templates/navigation.html:196 core/templates/user/login.html:28
+#: core/templates/navigation.html:194 core/templates/user/login.html:28
 msgid "Reset password"
 msgstr "Återställ lösenord"
 
-#: core/templates/navigation.html:209
+#: core/templates/navigation.html:207
 msgid "My preferences"
 msgstr "Mina preferenser"
 
-#: core/templates/navigation.html:216
+#: core/templates/navigation.html:214
 msgid "Logout"
 msgstr "Logga ut"
 
-#: core/templates/navigation.html:231
+#: core/templates/navigation.html:229
 msgid "Licenses"
 msgstr "Licenser"
 
-#: core/templates/navigation.html:234
+#: core/templates/navigation.html:232
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Repetitioner"
 
-#: core/templates/navigation.html:237 core/templates/weight_unit/list.html:4
+#: core/templates/navigation.html:235 core/templates/weight_unit/list.html:4
 #: nutrition/templates/ingredient/view.html:174
 msgid "Weight units"
 msgstr "Viktenheter"
 
-#: core/templates/navigation.html:240 core/templates/user/list.html:4
+#: core/templates/navigation.html:238 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Användarlista"
 
-#: core/templates/navigation.html:241
+#: core/templates/navigation.html:239
 msgid "Gyms"
 msgstr "Gym"
 
@@ -1083,7 +1074,7 @@ msgstr ""
 #: core/templates/tags/render_day.html:114
 #: exercises/templates/equipment/overview.html:59
 #: exercises/templates/exercise/overview.html:63
-#: exercises/templates/muscles/overview.html:61
+#: exercises/templates/muscles/overview.html:65
 msgid "Placeholder image for exercise"
 msgstr "Platshållarbild för övning"
 
@@ -1110,21 +1101,21 @@ msgstr "Reps"
 msgid "RiR"
 msgstr ""
 
-#: core/templates/template.html:140
+#: core/templates/template.html:139
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr "Du använder ett gästkonto, data som anges tas bort efter en vecka."
 
-#: core/templates/template.html:144
+#: core/templates/template.html:143
 msgid "Create some demo entries"
 msgstr "Skapa några demoposter"
 
-#: core/templates/template.html:176 core/templates/template_features.html:122
+#: core/templates/template.html:175 core/templates/template_features.html:121
 #: core/templates/template_no_context.html:89 software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Villkor för tjänsten"
 
-#: core/templates/template_features.html:62 software/templates/features.html:9
+#: core/templates/template_features.html:61 software/templates/features.html:9
 #: software/templates/features.html:120
 msgid "Features"
 msgstr "Funktioner"
@@ -1389,7 +1380,7 @@ msgstr "Inkludera i inaktiv överblick"
 #: core/templates/user/overview.html:487
 #, python-format
 msgid "Admin login is only available for users in %(gym_name)s"
-msgstr ""
+msgstr "Admininloggning är bara tillgängligt för använder i %(gym_name)s"
 
 #: core/templates/user/overview.html:491
 msgid "Log in as this user"
@@ -1545,7 +1536,7 @@ msgstr "Primära muskler"
 #: exercises/models/base.py:64 exercises/templates/equipment/overview.html:71
 #: exercises/templates/exercise/overview.html:76
 #: exercises/templates/exercise/view.html:268
-#: exercises/templates/muscles/overview.html:73
+#: exercises/templates/muscles/overview.html:77
 msgid "Secondary muscles"
 msgstr "Sekundära muskler"
 
@@ -1557,9 +1548,9 @@ msgstr ""
 msgid "Exercise Categories"
 msgstr "Övningskategorier"
 
-#: exercises/models/comment.py:34 exercises/models/image.py:75
-#: exercises/models/video.py:82 manager/forms.py:165 manager/helpers.py:89
-#: manager/models/log.py:51
+#: exercises/models/comment.py:34 exercises/models/exercise_alias.py:32
+#: exercises/models/image.py:75 exercises/models/video.py:82
+#: manager/forms.py:165 manager/helpers.py:89 manager/models/log.py:51
 msgid "Exercise"
 msgstr "Träning"
 
@@ -1584,6 +1575,12 @@ msgstr "Ny användarskapad övning"
 #, python-brace-format
 msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "Användaren {0} har laggt in en ny övning \"{1}\"."
+
+#: exercises/models/exercise_alias.py:35
+#, fuzzy
+#| msgid "Correcting an exercise"
+msgid "Alias for an exercise"
+msgstr "Korrigera en övning"
 
 #: exercises/models/image.py:59
 msgid "Line"
@@ -1645,6 +1642,16 @@ msgstr "Användaren {0} har laggt in en ny bild {1} för övning {2}."
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "På latin, e.g. \"Pectoralis major\""
+
+#: exercises/models/muscle.py:47
+#, fuzzy
+#| msgid "exercise name"
+msgid "Alternative name"
+msgstr "Övningsnamn"
+
+#: exercises/models/muscle.py:48
+msgid "A more basic name for the muscle"
+msgstr ""
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
@@ -1712,7 +1719,7 @@ msgstr "Utrustningsöversikt"
 #: exercises/templates/equipment/overview.html:69
 #: exercises/templates/exercise/overview.html:74
 #: exercises/templates/exercise/view.html:264
-#: exercises/templates/muscles/overview.html:71
+#: exercises/templates/muscles/overview.html:75
 msgid "Main muscles"
 msgstr "Huvudsakliga muskler"
 
@@ -1737,7 +1744,7 @@ msgstr "Övningsnamn"
 
 #: exercises/templates/equipment/overview.html:115
 #: exercises/templates/exercise/overview.html:118
-#: exercises/templates/muscles/overview.html:114
+#: exercises/templates/muscles/overview.html:118
 #: nutrition/templates/ingredient/overview.html:85
 msgid "Only registered users can do this"
 msgstr "Endast registrerade användare kan göra detta"
@@ -1929,7 +1936,7 @@ msgstr "Muskelöversikt"
 msgid "Add muscle"
 msgstr "Lägg till muskel"
 
-#: exercises/templates/muscles/overview.html:81
+#: exercises/templates/muscles/overview.html:85
 msgid ""
 "No exercises for this muscle. Add or edit an exercise and set the muscle."
 msgstr ""
@@ -2307,7 +2314,7 @@ msgstr "Lägg till användare till gym"
 msgid "Edit gym"
 msgstr "Redigera gym"
 
-#: i18n.tpl:2
+#: i18n.tpl:2 i18n.tpl:28
 msgid "Abs"
 msgstr "Magmuskler"
 
@@ -2319,11 +2326,11 @@ msgstr "Armar"
 msgid "Back"
 msgstr "Rygg"
 
-#: i18n.tpl:5
+#: i18n.tpl:5 i18n.tpl:23
 msgid "Calves"
 msgstr "Vader"
 
-#: i18n.tpl:6
+#: i18n.tpl:6 i18n.tpl:26
 msgid "Chest"
 msgstr "Bröst"
 
@@ -2331,7 +2338,7 @@ msgstr "Bröst"
 msgid "Legs"
 msgstr "Ben"
 
-#: i18n.tpl:8
+#: i18n.tpl:8 i18n.tpl:19
 msgid "Shoulders"
 msgstr "Axlar"
 
@@ -2360,109 +2367,77 @@ msgid "Kettlebell"
 msgstr "Kettlebell"
 
 #: i18n.tpl:15
-msgid "none (bodyweight exercise)"
-msgstr "ingen (kroppsvikt träning)"
-
-#: i18n.tpl:16
 msgid "Pull-up bar"
 msgstr "Pull-up bar"
+
+#: i18n.tpl:16
+msgid "SZ-Bar"
+msgstr "SZ-Bar"
 
 #: i18n.tpl:17
 msgid "Swiss Ball"
 msgstr "Schweizisk boll"
 
 #: i18n.tpl:18
-msgid "SZ-Bar"
-msgstr "SZ-Bar"
-
-#: i18n.tpl:19
-msgid "Anterior deltoid"
-msgstr "Främre deltamuskeln"
+msgid "none (bodyweight exercise)"
+msgstr "ingen (kroppsvikt träning)"
 
 #: i18n.tpl:20
-msgid "Biceps brachii"
+#, fuzzy
+#| msgid "Biceps brachii"
+msgid "Biceps"
 msgstr "Biceps brachii"
 
 #: i18n.tpl:21
-msgid "Biceps femoris"
-msgstr "Biceps femoris"
+msgid "Hamstrings"
+msgstr ""
 
 #: i18n.tpl:22
-msgid "Brachialis"
-msgstr "Brachialis"
-
-#: i18n.tpl:23
-msgid "Gastrocnemius"
-msgstr "Gastrocnemius"
+msgid "Lower back"
+msgstr ""
 
 #: i18n.tpl:24
-msgid "Gluteus maximus"
-msgstr "Gluteus maximus"
+#, fuzzy
+#| msgid "Minutes"
+msgid "Glutes"
+msgstr "Minuter"
 
 #: i18n.tpl:25
-msgid "Latissimus dorsi"
-msgstr "Latissimus dorsi"
-
-#: i18n.tpl:26
-msgid "Obliquus externus abdominis"
-msgstr "Obliquus externus abdominis"
+msgid "Lats"
+msgstr ""
 
 #: i18n.tpl:27
-msgid "Pectoralis major"
-msgstr "Pectoralis stora"
-
-#: i18n.tpl:28
-msgid "Quadriceps femoris"
-msgstr "Quadriceps femoris"
+msgid "Quads"
+msgstr ""
 
 #: i18n.tpl:29
-msgid "Rectus abdominis"
-msgstr "Rectus abdominis"
-
-#: i18n.tpl:30
-msgid "Serratus anterior"
-msgstr "Serratus anterior"
-
-#: i18n.tpl:31
-msgid "Soleus"
-msgstr "Soleus"
-
-#: i18n.tpl:32
-msgid "Trapezius"
-msgstr "Trapezius"
-
-#: i18n.tpl:33
-msgid "Triceps brachii"
+#, fuzzy
+#| msgid "Triceps brachii"
+msgid "Triceps"
 msgstr "Tricepsbrachii"
 
-#: i18n.tpl:34
+#: i18n.tpl:30
 msgid "Kilometers"
 msgstr "Kilometer"
 
-#: i18n.tpl:35
-#, fuzzy
-#| msgid "Reps"
-msgid "Max Reps"
-msgstr "Reps"
-
-#: i18n.tpl:36
+#: i18n.tpl:31
 msgid "Miles"
 msgstr "Mil"
 
-#: i18n.tpl:37
+#: i18n.tpl:32
 msgid "Minutes"
 msgstr "Minuter"
 
-#: i18n.tpl:38 manager/forms.py:169 manager/models/log.py:71
+#: i18n.tpl:33 manager/forms.py:169 manager/models/log.py:71
 #: manager/templates/set/add.html:53
 msgid "Repetitions"
 msgstr "Repetitioner"
 
-#: i18n.tpl:39
+#: i18n.tpl:34
 msgid "Seconds"
 msgstr "Sekunder"
 
-#: i18n.tpl:40
+#: i18n.tpl:35
 msgid "Until Failure"
 msgstr "Tills Misslyckande"
 
@@ -2520,10 +2495,8 @@ msgid "Correction"
 msgstr "Korrigering"
 
 #: manager/forms.py:89 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Skapa en kopia av detta träningspass"
+msgstr "Namnet på din workout"
 
 #: manager/forms.py:93 manager/models/workout.py:66
 msgid ""
@@ -2682,10 +2655,8 @@ msgstr "Datum för skapande"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Träningspass fullbordat!"
+msgstr "Träningspassmall"
 
 #: manager/models/workout.py:74
 msgid ""
@@ -4114,6 +4085,48 @@ msgstr ""
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr ""
+
+#~ msgid "Anterior deltoid"
+#~ msgstr "Främre deltamuskeln"
+
+#~ msgid "Biceps femoris"
+#~ msgstr "Biceps femoris"
+
+#~ msgid "Brachialis"
+#~ msgstr "Brachialis"
+
+#~ msgid "Gastrocnemius"
+#~ msgstr "Gastrocnemius"
+
+#~ msgid "Gluteus maximus"
+#~ msgstr "Gluteus maximus"
+
+#~ msgid "Latissimus dorsi"
+#~ msgstr "Latissimus dorsi"
+
+#~ msgid "Obliquus externus abdominis"
+#~ msgstr "Obliquus externus abdominis"
+
+#~ msgid "Pectoralis major"
+#~ msgstr "Pectoralis stora"
+
+#~ msgid "Quadriceps femoris"
+#~ msgstr "Quadriceps femoris"
+
+#~ msgid "Rectus abdominis"
+#~ msgstr "Rectus abdominis"
+
+#~ msgid "Serratus anterior"
+#~ msgstr "Serratus anterior"
+
+#~ msgid "Soleus"
+#~ msgstr "Soleus"
+
+#~ msgid "Trapezius"
+#~ msgstr "Trapezius"
+
+#~ msgid "Max Reps"
+#~ msgstr "Max antal Reps"
 
 #~ msgid "Your current weight is: "
 #~ msgstr "Din nuvarande vikt är: "
