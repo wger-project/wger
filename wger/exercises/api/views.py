@@ -139,8 +139,6 @@ class ExerciseTranslationViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
-
         # Clean the description HTML
         if serializer.validated_data.get('description'):
             serializer.validated_data['description'] = bleach.clean(
@@ -150,6 +148,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
                 styles=HTML_STYLES_WHITELIST,
                 strip=True
             )
+        super().perform_create(serializer)
 
         actstream_action.send(
             self.request.user,
@@ -161,17 +160,6 @@ class ExerciseTranslationViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-
-        obj_id = self.kwargs['pk']
-        updated_object = Exercise.objects.get(id=obj_id)
-
-        # Create a default history to diff against if there is none
-        if updated_object:
-            most_recent_history = updated_object.history.order_by('history_date').last()
-            if most_recent_history is None:
-                updated_object.save()
-
-        most_recent_history = updated_object.history.order_by('history_date').last()
 
         # Don't allow to change the base or the language over the API
         if serializer.validated_data.get('exercise_base'):
@@ -191,14 +179,10 @@ class ExerciseTranslationViewSet(ModelViewSet):
             )
 
         super().perform_update(serializer)
-
         actstream_action.send(
             self.request.user,
             verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
-            data={
-                'history_id': most_recent_history.history_id,
-            }
         )
 
 

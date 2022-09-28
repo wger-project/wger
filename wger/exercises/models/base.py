@@ -25,6 +25,7 @@ from typing import (
 from django.core.checks import translation
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils.translation import (
     get_language,
     gettext_lazy as _,
@@ -154,12 +155,13 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         happen in our dataset, but it is possible that some local installations
         have deleted the English translation or similar
         """
+        from wger.exercises.models import Exercise
 
         language = language or get_language()
 
         try:
             exercise = self.exercises.get(language__short_name=language)
-        except:  # can't do Exercise.DoesNotExist because of circular imports
+        except Exercise.DoesNotExist:
             try:
                 exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
             except:
