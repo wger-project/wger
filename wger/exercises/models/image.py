@@ -19,20 +19,15 @@ import pathlib
 import uuid
 
 # Django
-from django.core import mail
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+# Third Party
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.managers import SubmissionManager
-from wger.utils.models import (
-    AbstractLicenseModel,
-    AbstractSubmissionModel,
-)
+from wger.utils.models import AbstractLicenseModel
 
 
 def exercise_image_upload_dir(instance, filename):
@@ -144,10 +139,10 @@ class ExerciseImage(AbstractLicenseModel, models.Model):
         super(ExerciseImage, self).delete(*args, **kwargs)
 
         # Make sure there is always a main image
-        if not ExerciseImage.objects.all().filter(
-            exercise_base=self.exercise_base, is_main=True
-        ).count() and ExerciseImage.objects.all().filter(exercise_base=self.exercise_base
-                                                              ).filter(is_main=False).count():
+        if not ExerciseImage.objects.all().filter(exercise_base=self.exercise_base, is_main=True
+                                                  ).count() and ExerciseImage.objects.all().filter(
+                                                      exercise_base=self.exercise_base
+                                                  ).filter(is_main=False).count():
 
             image = ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]

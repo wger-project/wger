@@ -19,18 +19,20 @@ import logging
 # Django
 from django.contrib.auth.decorators import permission_required
 from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import (
-    reverse,
+from django.shortcuts import (
+    get_object_or_404,
+    render,
 )
+from django.urls import reverse
 
 # Third Party
-from actstream.models import Action
 from actstream import action as actstream_action
+from actstream.models import Action
 
 # wger
 from wger.exercises.views.helper import StreamVerbs
+
 
 logger = logging.getLogger(__name__)
 
@@ -59,13 +61,17 @@ def control(request):
 
         out.append(data)
 
-    return render(request, 'history/overview.html', {
-        'context': out,
+    return render(
+        request,
+        'history/overview.html',
+        {
+            'context': out,
 
-        # We can't pass the enum to the template, so we have to do this
-        # https://stackoverflow.com/questions/35953132/
-        'verbs': StreamVerbs.__members__
-    })
+            # We can't pass the enum to the template, so we have to do this
+            # https://stackoverflow.com/questions/35953132/
+            'verbs': StreamVerbs.__members__
+        }
+    )
 
 
 @permission_required('exercises.change_exercise')

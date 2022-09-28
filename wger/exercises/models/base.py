@@ -155,6 +155,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         happen in our dataset, but it is possible that some local installations
         have deleted the English translation or similar
         """
+        # wger
         from wger.exercises.models import Exercise
 
         language = language or get_language()

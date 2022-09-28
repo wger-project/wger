@@ -36,14 +36,10 @@ from wger.exercises.views import (
 
 # sub patterns for history
 patterns_history = [
-    path(
-        'admin-control',
-        history.control,
-        name='overview'
-    ),
+    path('admin-control', history.control, name='overview'),
     path(
         'admin-control/revert/<int:history_pk>/<int:content_type_id>',
-         history.history_revert,
+        history.history_revert,
         name='revert'
     ),
 ]
@@ -71,7 +67,6 @@ patterns_muscle = [
         name='delete',
     ),
 ]
-
 
 # sub patterns for exercise comments
 patterns_comment = [

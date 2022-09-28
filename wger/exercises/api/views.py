@@ -447,7 +447,7 @@ class ExerciseVideoViewSet(ModelViewSet):
     """
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
-    permission_classes = (CanContributeExercises,)
+    permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',

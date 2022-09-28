@@ -11,24 +11,21 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+# Standard Library
 from time import sleep
 
-from django.contrib.contenttypes.models import ContentType
 # Django
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 
 # Third Party
 from actstream import action as actstream_action
 
 # wger
-from wger.core.tests.base_testcase import (
-    WgerTestCase,
-)
-from wger.exercises.models import (
-    Exercise,
-)
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models import Exercise
 from wger.exercises.views.helper import StreamVerbs
-from django.contrib.auth.models import User
 
 
 class ExerciseHistoryControl(WgerTestCase):
@@ -74,9 +71,15 @@ class ExerciseHistoryControl(WgerTestCase):
         exercise.description = 'Very cool exercise!'
         exercise.save()
 
-        self.client.get(reverse('exercise:history:revert',
-                        kwargs={'history_pk': most_recent_history.history_id,
-                                'content_type_id': ContentType.objects.get_for_model(exercise).id}))
+        self.client.get(
+            reverse(
+                'exercise:history:revert',
+                kwargs={
+                    'history_pk': most_recent_history.history_id,
+                    'content_type_id': ContentType.objects.get_for_model(exercise).id
+                }
+            )
+        )
 
         exercise = Exercise.objects.get(pk=2)
         self.assertEqual(exercise.description, 'Boring exercise')
