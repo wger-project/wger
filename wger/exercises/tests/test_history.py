@@ -11,7 +11,9 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+from time import sleep
 
+from django.contrib.contenttypes.models import ContentType
 # Django
 from django.urls import reverse
 
@@ -47,23 +49,15 @@ class ExerciseHistoryControl(WgerTestCase):
         exercise.save()
 
         exercise = Exercise.objects.get(pk=2)
-
-        most_recent_history = exercise.history.order_by('history_date').last()
-
-        user = User.objects.all().first()
-
         actstream_action.send(
-            user,
+            User.objects.all().first(),
             verb=StreamVerbs.UPDATED.value,
             action_object=exercise,
-            data={
-                'history_id': most_recent_history.history_id,
-            }
         )
 
-        response = self.client.get(reverse('exercise:history:admin-control'))
+        response = self.client.get(reverse('exercise:history:overview'))
 
-        self.assertEqual(StreamVerbs.__members__, response.context['modes'])
+        self.assertEqual(StreamVerbs.__members__, response.context['verbs'])
         self.assertEqual(1, len(response.context['context']))
 
     def test_admin_revert_view(self):
@@ -73,29 +67,16 @@ class ExerciseHistoryControl(WgerTestCase):
         self.user_login()
 
         exercise = Exercise.objects.get(pk=2)
-
+        exercise.description = 'Boring exercise'
         exercise.save()
+
+        most_recent_history = exercise.history.order_by('history_date').last()
         exercise.description = 'Very cool exercise!'
         exercise.save()
 
-        exercise = Exercise.objects.get(pk=2)
-
-        most_recent_history = exercise.history.order_by('history_date').last()
-
-        user = User.objects.all().first()
-
-        actstream_action.send(
-            user,
-            verb=StreamVerbs.UPDATED.value,
-            action_object=exercise,
-            data={
-                'history_id': most_recent_history.history_id,
-            }
-        )
-
-        self.client.get(reverse('exercise:history:history-revert',
-                        kwargs={'pk': most_recent_history.history_id}))
+        self.client.get(reverse('exercise:history:revert',
+                        kwargs={'history_pk': most_recent_history.history_id,
+                                'content_type_id': ContentType.objects.get_for_model(exercise).id}))
 
         exercise = Exercise.objects.get(pk=2)
-
-        self.assertNotEqual(exercise.description, 'Very cool exercise!')
+        self.assertEqual(exercise.description, 'Boring exercise')
