@@ -30,41 +30,9 @@ from actstream.models import Action
 from actstream import action as actstream_action
 
 # wger
-from wger.exercises.models import Exercise
 from wger.exercises.views.helper import StreamVerbs
 
-
 logger = logging.getLogger(__name__)
-
-
-@permission_required('exercises.change_exercise')
-def overview(request):
-    """
-    Generic view to list the history of the exercises
-    """
-
-    context = {
-        'stream': Action.objects.all(),
-
-        # We can't pass the enum to the template, so we have to do this
-        # https://stackoverflow.com/questions/35953132/
-        'modes': StreamVerbs.__members__
-    }
-
-    return render(request, 'history/list.html', context)
-
-
-@permission_required('exercises.change_exercise')
-def overview2(request):
-    """
-    Generic view to list the history of the exercises
-    """
-    out = []
-    for entry in Exercise.history.all():
-        if entry.prev_record:
-            out.append({'record': entry, 'delta': entry.diff_against(entry.prev_record)})
-
-    return render(request, 'history/list2.html', {'history': out})
 
 
 @permission_required('exercises.change_exercise')
@@ -91,7 +59,7 @@ def control(request):
 
         out.append(data)
 
-    return render(request, 'history/list3.html', {
+    return render(request, 'history/overview.html', {
         'context': out,
 
         # We can't pass the enum to the template, so we have to do this
@@ -117,4 +85,4 @@ def history_revert(request, history_pk, content_type_id):
         info='reverted history by admin'
     )
 
-    return HttpResponseRedirect(reverse('exercise:history:admin-control'))
+    return HttpResponseRedirect(reverse('exercise:history:overview'))
