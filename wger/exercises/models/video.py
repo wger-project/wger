@@ -22,7 +22,7 @@ import uuid
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from simple_history.models import HistoricalRecords
 
 try:
     # Third Party
@@ -149,6 +149,15 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
         editable=False,
     )
     """The video codec, in full"""
+
+    history = HistoricalRecords()
+    """Edit history"""
+
+    def get_absolute_url(self):
+        """
+        Returns the video URL
+        """
+        return self.video.url
 
     class Meta:
         """

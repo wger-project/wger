@@ -22,6 +22,7 @@ import uuid
 from django.core import mail
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
@@ -100,6 +101,15 @@ class ExerciseImage(AbstractLicenseModel, models.Model):
         default=PHOTO,
     )
     """The art style of the image"""
+
+    history = HistoricalRecords()
+    """Edit history"""
+
+    def get_absolute_url(self):
+        """
+        Return the image URL
+        """
+        return self.image.url
 
     class Meta:
         """

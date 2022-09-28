@@ -109,7 +109,13 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return a more human-readable representation
         """
-        return f"base {self.uuid}"
+        return f"base {self.uuid} ({self.get_exercise(ENGLISH_SHORT_NAME).name})"
+
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view an exercise
+        """
+        return reverse('exercise:exercise:view-base', kwargs={'id': self.id})
 
     #
     # Own methods
