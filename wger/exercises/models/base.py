@@ -165,7 +165,9 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         except Exercise.DoesNotExist:
             try:
                 exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
-            except:
+            except Exercise.DoesNotExist:
                 exercise = self.exercises.first()
+        except Exercise.MultipleObjectsReturned:
+            exercise = self.exercises.filter(language__short_name=language).first()
 
         return exercise
