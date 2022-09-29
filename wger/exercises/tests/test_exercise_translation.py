@@ -57,92 +57,6 @@ class ExerciseRepresentationTestCase(WgerTestCase):
         self.assertEqual("{0}".format(Exercise.objects.get(pk=1)), 'An exercise')
 
 
-class ExerciseShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        exercise = Exercise.objects.get(pk=1)
-        url = exercise.get_absolute_url()
-
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-
-class ExerciseDetailTestCase(WgerTestCase):
-    """
-    Tests the exercise details page
-    """
-
-    def exercise_detail(self, editor=False):
-        """
-        Tests the exercise details page
-        """
-
-        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
-        self.assertEqual(response.status_code, 200)
-
-        # Correct tab is selected
-        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
-
-        # Exercise loaded correct muscles
-        exercise_1 = response.context['exercise']
-        self.assertEqual(exercise_1.id, 1)
-
-        muscles = exercise_1.exercise_base.muscles.all()
-        muscle_1 = muscles[0]
-        muscle_2 = muscles[1]
-
-        self.assertEqual(muscle_1.id, 1)
-        self.assertEqual(muscle_2.id, 2)
-
-        # Only authorized users see the edit links
-        if editor:
-            self.assertContains(response, 'Edit')
-            self.assertContains(response, 'Delete')
-            self.assertContains(response, 'Add new comment')
-        else:
-            self.assertNotContains(response, 'Edit')
-            self.assertNotContains(response, 'Delete')
-            self.assertNotContains(response, 'Add new comment')
-
-        # Ensure that non-existent exercises throw a 404.
-        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 42}))
-        self.assertEqual(response.status_code, 404)
-
-    def test_exercise_detail_editor(self):
-        """
-        Tests the exercise details page as a logged-in user with editor rights
-        """
-
-        self.user_login('admin')
-        self.exercise_detail(editor=True)
-
-    def test_exercise_detail_non_editor(self):
-        """
-        Tests the exercise details page as a logged-in user without editor rights
-        """
-
-        self.user_login('test')
-        self.exercise_detail(editor=False)
-
-    def test_exercise_detail_logged_out(self):
-        """
-        Tests the exercise details page as an anonymous (logged out) user
-        """
-
-        self.exercise_detail(editor=False)
-
-
 class ExercisesTestCase(WgerTestCase):
     """
     Exercise test case
@@ -211,39 +125,6 @@ class DeleteExercisesTestCase(WgerDeleteTestCase):
     pk = 2
     user_success = 'admin'
     user_fail = 'test'
-
-
-class ExercisesCacheTestCase(WgerTestCase):
-    """
-    Exercise cache test case
-    """
-
-    def test_muscles_cache_update_on_delete(self):
-        """
-        Test that the template cache for the overview is correctly reset when
-        performing certain operations
-        """
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-        self.assertTrue(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
-
-        muscle = Muscle.objects.get(pk=2)
-        muscle.delete()
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
-
-    def test_muscles_cache_update_on_update(self):
-        """
-        Test that the template cache for the overview is correctly reset when
-        performing certain operations
-        """
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
-        self.client.get(reverse('exercise:exercise:view', kwargs={'id': 2}))
-        self.assertTrue(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
-
-        muscle = Muscle.objects.get(pk=2)
-        muscle.name = 'foo'
-        muscle.save()
-        self.assertFalse(cache.get(make_template_fragment_key('exercise-detail-muscles', ["2-2"])))
 
 
 class MuscleTemplateTagTest(WgerTestCase):

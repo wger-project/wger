@@ -119,7 +119,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         return reverse(
             'exercise:exercise:view-base',
             kwargs={
-                'id': self.exercise_base_id,
+                'pk': self.exercise_base_id,
                 'slug': slugify(self.name)
             }
         )

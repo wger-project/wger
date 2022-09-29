@@ -153,12 +153,12 @@ patterns_exercise = [
         name='view',
     ),
     path(
-        '<int:id>/view-base',
+        '<int:pk>/view-base',
         TemplateView.as_view(template_name='exercise/view-base.html'),
         name='view-base',
     ),
-    url(
-        r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
+    path(
+        '<int:pk>/view-base/<slug:slug>',
         TemplateView.as_view(template_name='exercise/view-base.html'),
         name='view-base',
     ),

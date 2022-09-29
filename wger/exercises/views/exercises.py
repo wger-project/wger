@@ -33,11 +33,18 @@ from django.forms import (
     Select,
     Textarea,
 )
+from django.http import (
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+)
 from django.shortcuts import (
     get_object_or_404,
     render,
 )
-from django.urls import reverse_lazy
+from django.urls import (
+    reverse,
+    reverse_lazy,
+)
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
@@ -75,35 +82,18 @@ class ExerciseListView(TemplateView):
 
 def view(request, id, slug=None):
     """
-    Detail view for an exercise
+    Detail view for an exercise translation
     """
-
     exercise = get_object_or_404(Exercise, pk=id)
-    context = {
-        'comment_edit': False,
-        'show_shariff': True,
-        'exercise': exercise,
-        "muscles_main_front": exercise.muscles.filter(is_front=True),
-        "muscles_main_back": exercise.muscles.filter(is_front=False),
-        "muscles_sec_front": exercise.muscles_secondary.filter(is_front=True),
-        "muscles_sec_back": exercise.muscles_secondary.filter(is_front=False),
-    }
 
-    # If the user is logged in, load the log and prepare the entries for
-    # rendering in the D3 chart
-    entry_log = []
-    chart_data = []
-    if request.user.is_authenticated:
-        logs = WorkoutLog.objects.filter(user=request.user, exercise_base=exercise.exercise_base)
-        entry_log, chart_data = process_log_entries(logs)
-
-    context['logs'] = entry_log
-    context['json'] = chart_data
-    context['svg_uuid'] = str(uuid.uuid4())
-    context['cache_vary_on'] = "{}-{}".format(exercise.id, load_language().id)
-    context['allow_upload_videos'] = settings.WGER_SETTINGS['ALLOW_UPLOAD_VIDEOS']
-
-    return render(request, 'exercise/view.html', context)
+    return HttpResponsePermanentRedirect(
+        reverse(
+            'exercise:exercise:view-base',
+            kwargs={
+                'pk': exercise.exercise_base_id,
+                'slug': slug
+            }
+        ))
 
 
 class ExerciseForm(ModelForm):
