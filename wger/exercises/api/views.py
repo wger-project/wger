@@ -139,8 +139,6 @@ class ExerciseTranslationViewSet(ModelViewSet):
         """
         Save entry to activity stream
         """
-        super().perform_create(serializer)
-
         # Clean the description HTML
         if serializer.validated_data.get('description'):
             serializer.validated_data['description'] = bleach.clean(
@@ -150,6 +148,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
                 styles=HTML_STYLES_WHITELIST,
                 strip=True
             )
+        super().perform_create(serializer)
 
         actstream_action.send(
             self.request.user,
@@ -448,7 +447,7 @@ class ExerciseVideoViewSet(ModelViewSet):
     """
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
-    permission_classes = (CanContributeExercises,)
+    permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -456,6 +455,28 @@ class ExerciseVideoViewSet(ModelViewSet):
         'license',
         'license_author',
     )
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
 
 
 class ExerciseCommentViewSet(ModelViewSet):
@@ -508,6 +529,28 @@ class ExerciseAliasViewSet(ModelViewSet):
     permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('alias', 'exercise')
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
 
 
 class ExerciseVariationViewSet(ModelViewSet):

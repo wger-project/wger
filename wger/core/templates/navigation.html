@@ -62,11 +62,10 @@
                             <li class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "Exercises" %}</a></li>
 
-                            {% if user.userprofile.has_exercise_permission %}
+                            {% if perms.exercises.change_exercise %}
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Administration" %}</li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:history:overview' %}">{% translate "Exercise edit stream" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:history:overview-history' %}">{% translate "Exercise edit history" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:history:overview' %}">{% translate "Exercise edit history" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:equipment:list' %}">{% translate "Equipment" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:muscle:admin-list' %}">{% translate "Muscles" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:category:list' %}">{% translate "Categories" %}</a></li>

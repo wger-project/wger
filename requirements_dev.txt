@@ -11,9 +11,6 @@ wheel==0.37.1
 # for ingredient import script from OFF
 pymongo==4.2.0
 
-# for ingredient import script from OFF
-pymongo==3.12.1
-
 # Development packages
 coverage==6.4.4
 django-debug-toolbar==3.6.0

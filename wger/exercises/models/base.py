@@ -25,6 +25,7 @@ from typing import (
 from django.core.checks import translation
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils.translation import (
     get_language,
     gettext_lazy as _,
@@ -109,7 +110,13 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return a more human-readable representation
         """
-        return f"base {self.uuid}"
+        return f"base {self.uuid} ({self.get_exercise(ENGLISH_SHORT_NAME).name})"
+
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view an exercise
+        """
+        return reverse('exercise:exercise:view-base', kwargs={'id': self.id})
 
     #
     # Own methods
@@ -148,15 +155,19 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         happen in our dataset, but it is possible that some local installations
         have deleted the English translation or similar
         """
+        # wger
+        from wger.exercises.models import Exercise
 
         language = language or get_language()
 
         try:
             exercise = self.exercises.get(language__short_name=language)
-        except:  # can't do Exercise.DoesNotExist because of circular imports
+        except Exercise.DoesNotExist:
             try:
                 exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
-            except:
+            except Exercise.DoesNotExist:
                 exercise = self.exercises.first()
+        except Exercise.MultipleObjectsReturned:
+            exercise = self.exercises.filter(language__short_name=language).first()
 
         return exercise

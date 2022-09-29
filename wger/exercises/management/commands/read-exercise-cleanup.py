@@ -156,8 +156,7 @@ class Command(BaseCommand):
             # but that is too much work for this script that will be used only once.
             if base_video and options['process_videos']:
                 for video_name in base_video.split('/'):
-                    video_processed = True
-
+                    video_processed = False
                     for extension in VIDEO_EXTENSIONS:
                         path = VIDEO_PATH / pathlib.Path(video_name.strip() + extension)
 
