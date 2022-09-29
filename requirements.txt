@@ -5,7 +5,7 @@
 # Application
 bleach~=4.1
 django-bootstrap-breadcrumbs~=0.9
-django-formtools~=2.3
+django-formtools~=2.4
 django-recaptcha~=3.0.0
 Django~=3.2
 django-crispy-forms~=1.14
