@@ -163,6 +163,11 @@ patterns_exercise = [
         name='view-base',
     ),
     path(
+        'contribute',
+        TemplateView.as_view(template_name='exercise/contribute.html'),
+        name='contribute',
+    ),
+    path(
         '<int:pk>/delete/',
         exercises.ExerciseDeleteView.as_view(),
         name='delete',
