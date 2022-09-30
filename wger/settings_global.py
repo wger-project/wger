@@ -18,7 +18,7 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
-
+from datetime import timedelta
 
 """
 This file contains the global settings that don't usually need to be changed.
@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'rest_framework_simplejwt',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
@@ -376,6 +377,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -385,6 +387,17 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'login': '3/min'
     }
+}
+
+#
+# Django Rest Framework SimpleJWT
+#
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
 }
 
 #
