@@ -363,7 +363,6 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "muscles_secondary",
             "equipment",
             "license",
-            "license_author",
             "images",
             "exercises",
             "variations",
