@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+from datetime import date
 # Django
 from django import forms
 from django.contrib.auth.forms import (
@@ -77,6 +78,17 @@ class UserPreferencesForm(forms.ModelForm):
         help_text=_("Used for password resets and, optionally, e-mail reminders."),
         required=False
     )
+    birthdate = forms.DateField(
+        label=_("Date of Birth"),
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                "max": str(date.today().replace(year=date.today().year - 10)),
+                "min": str(date.today().replace(year=date.today().year - 100))
+            },
+        )
+    )
 
     class Meta:
         model = UserProfile
@@ -104,7 +116,9 @@ class UserPreferencesForm(forms.ModelForm):
                     Column('first_name', css_class='form-group col-6 mb-0'),
                     Column('last_name', css_class='form-group col-6 mb-0'),
                     css_class='form-row'
-                ), HTML("<hr>")
+                ),
+                'birthdate',
+                HTML("<hr>")
             ),
             Fieldset(
                 _("Workout reminders"),
@@ -121,7 +135,6 @@ class UserPreferencesForm(forms.ModelForm):
                 "show_comments",
                 "show_english_ingredients",
                 "num_days_weight_reminder",
-                "birthdate",
             ), ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
 
