@@ -17,4 +17,6 @@ class ImageSerializer(serializers.ModelSerializer):
             'date',
             'image',
             'description',
+            'height',
+            'width'
         ]
