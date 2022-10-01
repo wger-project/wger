@@ -52,6 +52,7 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
             'muscles_secondary',
             'equipment',
             'variations',
+            'license_author',
         ]
 
 
@@ -79,6 +80,9 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'image',
             'is_main',
             'style',
+            'license',
+            'license_author',
+            'author_history'
         ]
 
 
@@ -105,6 +109,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'codec_long',
             'license',
             'license_author',
+            'author_history'
         ]
 
 
@@ -267,6 +272,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "description",
             "creation_date",
             "language",
+            'license_author',
         )
 
     def validate(self, value):

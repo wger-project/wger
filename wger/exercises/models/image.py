@@ -27,7 +27,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.exercises.models import ExerciseBase
-from wger.utils.models import AbstractLicenseModel
+from wger.utils.models import AbstractLicenseModel, AbstractHistoryMixin
 
 
 def exercise_image_upload_dir(instance, filename):
@@ -38,7 +38,7 @@ def exercise_image_upload_dir(instance, filename):
     return f"exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
-class ExerciseImage(AbstractLicenseModel, models.Model):
+class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise image
     """
