@@ -17,12 +17,9 @@
 
 # Standard Library
 import logging
-import warnings
-from warnings import warn
 
 # Django
 from django.contrib.auth.models import User
-
 # Third Party
 from rest_framework import (
     status,
