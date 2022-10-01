@@ -17,6 +17,8 @@
 
 # Standard Library
 import logging
+import warnings
+from warnings import warn
 
 # Django
 from django.contrib.auth.models import User
@@ -62,7 +64,6 @@ from wger.utils.permissions import (
     WgerPermission,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -101,7 +102,7 @@ class ApplicationVersionView(viewsets.ViewSet):
     """
     Returns the application's version
     """
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     @staticmethod
     def get(request):
@@ -112,7 +113,7 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
     """
     Returns the minimum required version of flutter app to access this server
     """
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     @staticmethod
     def get(request):
@@ -122,6 +123,7 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
 class UserAPILoginView(viewsets.ViewSet):
     """
     API endpoint for api user objects
+    .. warning:: This endpoint is deprecated
     """
     permission_classes = (AllowAny, )
     queryset = User.objects.all()
@@ -129,7 +131,15 @@ class UserAPILoginView(viewsets.ViewSet):
     throttle_scope = 'login'
 
     def get(self, request):
-        return Response({'message': "You must send a 'username' and 'password' via POST"})
+        return Response(
+            data={
+                'message': "You must send a 'username' and 'password' via POST",
+                'warning': "This endpoint is deprecated."
+            },
+            headers={
+                "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
+            },
+        )
 
     def post(self, request):
         data = request.data
@@ -147,7 +157,13 @@ class UserAPILoginView(viewsets.ViewSet):
             )
 
         token = create_token(form.get_user())
-        return Response({'token': token.key}, status=status.HTTP_200_OK)
+        return Response(
+            data={'token': token.key, 'message': "This endpoint is deprecated."},
+            status=status.HTTP_200_OK,
+            headers={
+                "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
+            }
+        )
 
 
 class UserAPIRegistrationViewSet(viewsets.ViewSet):
@@ -198,7 +214,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('day_of_week', )
+    filterset_fields = ('day_of_week',)
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
