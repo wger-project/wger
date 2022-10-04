@@ -14,7 +14,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 from datetime import date
+
 # Django
 from django import forms
 from django.contrib.auth.forms import (
@@ -116,9 +118,7 @@ class UserPreferencesForm(forms.ModelForm):
                     Column('first_name', css_class='form-group col-6 mb-0'),
                     Column('last_name', css_class='form-group col-6 mb-0'),
                     css_class='form-row'
-                ),
-                'birthdate',
-                HTML("<hr>")
+                ), 'birthdate', HTML("<hr>")
             ),
             Fieldset(
                 _("Workout reminders"),
