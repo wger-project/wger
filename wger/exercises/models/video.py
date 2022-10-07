@@ -92,7 +92,7 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
-    """The exercise the image belongs to"""
+    """The exercise the video belongs to"""
 
     is_main = models.BooleanField(
         verbose_name=_('Main video'),

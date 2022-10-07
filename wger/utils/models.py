@@ -17,7 +17,6 @@
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 # wger
 from wger.core.models import License
 from wger.utils.constants import DEFAULT_LICENSE_ID
@@ -95,10 +94,28 @@ class AbstractHistoryMixin():
 
     Utilized in conjunction with simple_history's HistoricalRecords.
     """
+
     @property
     def author_history(self):
         """Author history is the unique set of license authors from historical records"""
-        out = set()
-        for history in set(self.history.all()):
-            out.add(history.license_author)
-        return set(out)
+        return collect_model_author_history(self)
+
+
+def collect_model_author_history(model):
+    """
+    Get unique set of license authors from historical records from model.
+    """
+    out = set()
+    for history in set(model.history.all()):
+        out.add(history.license_author)
+    return out
+
+
+def collect_models_author_history(models):
+    """
+    Get unique set of license authors from historical records from models.
+    """
+    out = set()
+    for model in models:
+        out.union(collect_model_author_history(model))
+    return out
