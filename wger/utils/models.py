@@ -99,6 +99,6 @@ class AbstractHistoryMixin:
     def author_history(self):
         """Author history is the unique set of license authors from historical records"""
         out = set()
-        for history in set(self.history.all()):
+        for history in self.history.all():
             out.add(history.license_author)
         return set(out)
