@@ -277,7 +277,8 @@ AXES_LOCKOUT_TEMPLATE = None
 # For test environments set AXES_HANDLER = 'axes.handlers.dummy.AxesDummyHandler'
 AXES_HANDLER = 'axes.handlers.database.AxesDatabaseHandler'
 
-# If your redis has different name other than 'default' in CACHES, change this value
+# If your redis has a different name other than 'default' (e.g. when you have multiple caches
+# defined in CACHES), change the following value to that name
 AXES_CACHE = 'default'
 
 
