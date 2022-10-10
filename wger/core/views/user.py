@@ -282,7 +282,7 @@ def registration(request):
 
             user.userprofile.save()
 
-            user = authenticate(username=username, password=password)
+            user = authenticate(request=request, username=username, password=password)
             django_login(request, user)
             messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('core:dashboard'))
