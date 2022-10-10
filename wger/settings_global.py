@@ -269,6 +269,7 @@ CACHES = {
 #
 # Django Axes
 #
+AXES_ENABLED = True
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 0.5  # in hours
 AXES_LOCKOUT_TEMPLATE = None

@@ -150,6 +150,10 @@ class BaseTestCase(object):
         self.media_root = tempfile.mkdtemp()
         settings.MEDIA_ROOT = self.media_root
 
+        # Disable django-axes
+        # https://django-axes.readthedocs.io/en/latest/3_usage.html#authenticating-users
+        settings.AXES_ENABLED = False
+
     def tearDown(self):
         """
         Reset settings
