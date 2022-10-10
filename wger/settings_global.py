@@ -272,6 +272,7 @@ CACHES = {
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 0.5  # in hours
 AXES_LOCKOUT_TEMPLATE = None
+AXES_RESET_ON_SUCCESS = False
 AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = True
 
 # If you want to set up redis, set AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
