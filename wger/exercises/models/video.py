@@ -35,8 +35,7 @@ except ImportError:
 
 # wger
 from wger.exercises.models import ExerciseBase
-from wger.utils.models import AbstractLicenseModel
-
+from wger.utils.models import AbstractLicenseModel, AbstractHistoryMixin
 
 MAX_FILE_SIZE_MB = 100
 
@@ -75,7 +74,7 @@ def exercise_video_upload_dir(instance, filename):
     return f"exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
-class ExerciseVideo(AbstractLicenseModel, models.Model):
+class ExerciseVideo(AbstractLicenseModel,  AbstractHistoryMixin, models.Model):
     """
     Model for an exercise image
     """

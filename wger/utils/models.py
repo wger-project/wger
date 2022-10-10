@@ -88,7 +88,7 @@ class AbstractSubmissionModel(models.Model):
     """Status of the submission, e.g. accepted or declined"""
 
 
-class AbstractHistoryMixin():
+class AbstractHistoryMixin:
     """
     Abstract class used to model specific historical records.
 
