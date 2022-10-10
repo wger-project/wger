@@ -8,6 +8,7 @@ django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.4
 django-recaptcha~=3.0.0
 Django~=3.2
+django-axes==5.39.0
 django-crispy-forms~=1.14
 django_compressor~=4.1
 django_extensions~=3.2
