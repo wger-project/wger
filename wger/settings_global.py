@@ -272,9 +272,9 @@ CACHES = {
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 0.5  # in hours
 AXES_LOCKOUT_TEMPLATE = None
+AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = True
 
 # If you want to set up redis, set AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
-# For test environments set AXES_HANDLER = 'axes.handlers.dummy.AxesDummyHandler'
 AXES_HANDLER = 'axes.handlers.database.AxesDatabaseHandler'
 
 # If your redis has a different name other than 'default' (e.g. when you have multiple caches
