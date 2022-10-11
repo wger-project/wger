@@ -59,7 +59,7 @@ automatically becomes "4 x 10".{% endblocktranslate %}</span>
     <div class="form-group">
         <div id="formsets">
         {% for formset in formsets %}
-            {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset helper=helper %}
+            {% include 'set/formset.html' with base=formset.exercise_base formset=formset.formset helper=helper %}
         {% endfor %}
         </div>
     </div>

@@ -20,6 +20,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import License
+from wger.utils.constants import DEFAULT_LICENSE_ID
 
 
 """
@@ -38,7 +39,7 @@ class AbstractLicenseModel(models.Model):
     license = models.ForeignKey(
         License,
         verbose_name=_('License'),
-        default=2,
+        default=DEFAULT_LICENSE_ID,
         on_delete=models.CASCADE,
     )
     """The item's license"""
@@ -86,3 +87,18 @@ class AbstractSubmissionModel(models.Model):
         editable=False,
     )
     """Status of the submission, e.g. accepted or declined"""
+
+
+class AbstractHistoryMixin:
+    """
+    Abstract class used to model specific historical records.
+
+    Utilized in conjunction with simple_history's HistoricalRecords.
+    """
+    @property
+    def author_history(self):
+        """Author history is the unique set of license authors from historical records"""
+        out = set()
+        for history in self.history.all():
+            out.add(history.license_author)
+        return set(out)

@@ -50,23 +50,3 @@ class ExerciseCategory(models.Model):
         Category has no owner information
         """
         return False
-
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        super(ExerciseCategory, self).save(*args, **kwargs)
-
-        # Cached template fragments
-        for language in Language.objects.all():
-            delete_template_fragment_cache('exercise-overview', language.id)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-        for language in Language.objects.all():
-            delete_template_fragment_cache('exercise-overview', language.id)
-
-        super(ExerciseCategory, self).delete(*args, **kwargs)

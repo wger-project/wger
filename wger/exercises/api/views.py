@@ -20,11 +20,15 @@ import logging
 
 # Django
 from django.conf import settings
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
 
 # Third Party
+import bleach
+from bleach.css_sanitizer import CSSSanitizer
+from actstream import action as actstream_action
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -32,13 +36,15 @@ from rest_framework.decorators import (
     action,
     api_view,
 )
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 # wger
 from wger.config.models import LanguageConfig
+from wger.exercises.api.permissions import CanContributeExercises
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
+    ExerciseAliasSerializer,
     ExerciseBaseInfoSerializer,
     ExerciseBaseSerializer,
     ExerciseCategorySerializer,
@@ -46,10 +52,13 @@ from wger.exercises.api.serializers import (
     ExerciseImageSerializer,
     ExerciseInfoSerializer,
     ExerciseSerializer,
+    ExerciseTranslationSerializer,
+    ExerciseVariationSerializer,
     ExerciseVideoSerializer,
     MuscleSerializer,
 )
 from wger.exercises.models import (
+    Alias,
     Equipment,
     Exercise,
     ExerciseBase,
@@ -58,25 +67,28 @@ from wger.exercises.models import (
     ExerciseImage,
     ExerciseVideo,
     Muscle,
+    Variation,
 )
-from wger.utils.language import (
-    load_item_languages,
-    load_language,
+from wger.exercises.views.helper import StreamVerbs
+from wger.utils.constants import (
+    HTML_ATTRIBUTES_WHITELIST,
+    HTML_STYLES_WHITELIST,
+    HTML_TAG_WHITELIST,
 )
-from wger.utils.permissions import CreateOnlyPermission
+from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger(__name__)
 
 
-class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
+class ExerciseBaseViewSet(ModelViewSet):
     """
     API endpoint for exercise base objects. For a read-only endpoint with all
-    the information of an exercise, see /api/v2/exerciseinfo/
+    the information of an exercise, see /api/v2/exercisebaseinfo/
     """
-    queryset = Exercise.objects.accepted()
+    queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -85,15 +97,104 @@ class ExerciseBaseViewSet(viewsets.ReadOnlyModelViewSet):
         'equipment',
     )
 
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
+
+class ExerciseTranslationViewSet(ModelViewSet):
+    """
+    API endpoint for editing or adding exercise objects.
+    """
+    queryset = Exercise.objects.all()
+    permission_classes = (CanContributeExercises, )
+    serializer_class = ExerciseTranslationSerializer
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'uuid',
+        'creation_date',
+        'exercise_base',
+        'description',
+        'name',
+    )
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        # Clean the description HTML
+        if serializer.validated_data.get('description'):
+            serializer.validated_data['description'] = bleach.clean(
+                serializer.validated_data['description'],
+                tags=HTML_TAG_WHITELIST,
+                attributes=HTML_ATTRIBUTES_WHITELIST,
+                css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
+                strip=True
+            )
+        super().perform_create(serializer)
+
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+
+        # Don't allow to change the base or the language over the API
+        if serializer.validated_data.get('exercise_base'):
+            del serializer.validated_data['exercise_base']
+
+        if serializer.validated_data.get('language'):
+            del serializer.validated_data['language']
+
+        # Clean the description HTML
+        if serializer.validated_data.get('description'):
+            serializer.validated_data['description'] = bleach.clean(
+                serializer.validated_data['description'],
+                tags=HTML_TAG_WHITELIST,
+                attributes=HTML_ATTRIBUTES_WHITELIST,
+                css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
+                strip=True
+            )
+
+        super().perform_update(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
 
 class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for exercise objects. For a read-only endpoint with all
+    API endpoint for exercise objects. For a single read-only endpoint with all
     the information of an exercise, see /api/v2/exerciseinfo/
     """
-    queryset = Exercise.objects.accepted()
+    queryset = Exercise.objects.all()
+    permission_classes = (CanContributeExercises, )
     serializer_class = ExerciseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
@@ -101,28 +202,17 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'exercise_base',
         'description',
         'language',
-        'status',
         'name',
     )
 
-    # @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-    def perform_create(self, serializer):
-        """
-        Set author and status
-        """
-        language = load_language()
-        obj = serializer.save(language=language)
-        # Todo is it right to call set author after save?
-        obj.set_author(self.request)
-        obj.save()
 
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
 
-        qs = Exercise.objects.accepted()
+        qs = Exercise.objects.all()
 
         category = self.request.query_params.get('category')
         muscles = self.request.query_params.get('muscles')
@@ -179,9 +269,10 @@ def search(request):
         languages = load_item_languages(
             LanguageConfig.SHOW_ITEM_EXERCISES, language_code=request.GET.get('language', None)
         )
+        name_lookup = Q(name__icontains=q) | Q(alias__alias__icontains=q)
         exercises = (
-            Exercise.objects.filter(name__icontains=q).filter(language__in=languages).filter(
-                status=Exercise.STATUS_ACCEPTED
+            Exercise.objects.filter(name_lookup).all().filter(
+                language__in=languages
             ).order_by('exercise_base__category__name', 'name').distinct()
         )
 
@@ -199,6 +290,7 @@ def search(request):
                 'value': exercise.name,
                 'data': {
                     'id': exercise.id,
+                    'base_id': exercise.exercise_base_id,
                     'name': exercise.name,
                     'category': _(exercise.category.name),
                     'image': image,
@@ -217,7 +309,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     structures for more easy parsing.
     """
 
-    queryset = Exercise.objects.accepted()
+    queryset = Exercise.objects.all()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -229,7 +321,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    # @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -240,10 +332,11 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     base. Returns nested data structures for more easy and faster parsing.
     """
 
-    queryset = ExerciseBase.objects.accepted()
+    queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'uuid',
         'category',
         'muscles',
         'muscles_secondary',
@@ -253,7 +346,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    # @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -267,6 +360,10 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name', )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -277,22 +374,30 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name', )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
-class ExerciseImageViewSet(viewsets.ModelViewSet):
+
+class ExerciseImageViewSet(ModelViewSet):
     """
     API endpoint for exercise image objects
     """
+
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, CreateOnlyPermission)
+    permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
-        'status',
         'exercise_base',
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     @action(detail=True)
     def thumbnails(self, request, pk):
@@ -316,20 +421,34 @@ class ExerciseImageViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """
-        Set the license data
+        Save entry to activity stream
         """
-        obj = serializer.save()
-        # Todo is it right to call set author after save?
-        obj.set_author(self.request)
-        obj.save()
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
 
 
-class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
+class ExerciseVideoViewSet(ModelViewSet):
     """
     API endpoint for exercise video objects
     """
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
+    permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -338,12 +457,35 @@ class ExerciseVideoViewSet(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
 
-class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
+
+class ExerciseCommentViewSet(ModelViewSet):
     """
     API endpoint for exercise comment objects
     """
     serializer_class = ExerciseCommentSerializer
+    permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
     filterset_fields = ('comment', 'exercise')
 
@@ -356,6 +498,70 @@ class ExerciseCommentViewSet(viewsets.ReadOnlyModelViewSet):
             qs = ExerciseComment.objects.filter(exercise__in=exercises)
         return qs
 
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
+
+class ExerciseAliasViewSet(ModelViewSet):
+    """
+    API endpoint for exercise aliases objects
+    """
+    serializer_class = ExerciseAliasSerializer
+    queryset = Alias.objects.all()
+    permission_classes = (CanContributeExercises, )
+    ordering_fields = '__all__'
+    filterset_fields = ('alias', 'exercise')
+
+    def perform_create(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.CREATED.value,
+            action_object=serializer.instance,
+        )
+
+    def perform_update(self, serializer):
+        """
+        Save entry to activity stream
+        """
+        super().perform_create(serializer)
+        actstream_action.send(
+            self.request.user,
+            verb=StreamVerbs.UPDATED.value,
+            action_object=serializer.instance,
+        )
+
+
+class ExerciseVariationViewSet(ModelViewSet):
+    """
+    API endpoint for exercise variation objects
+    """
+    serializer_class = ExerciseVariationSerializer
+    queryset = Variation.objects.all()
+    permission_classes = (CanContributeExercises, )
+
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -365,3 +571,7 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name', 'is_front', 'name_en')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)

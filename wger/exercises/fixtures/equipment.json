@@ -68,5 +68,12 @@
             "name": "Kettlebell"
         },
         "model": "exercises.equipment"
+    },
+    {
+        "pk": 11,
+        "fields": {
+            "name": "Resistance Band"
+        },
+        "model": "exercises.equipment"
     }
 ]

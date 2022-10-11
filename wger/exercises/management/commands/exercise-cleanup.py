@@ -41,7 +41,7 @@ class Command(BaseCommand):
         out = []
 
         languages = Language.objects.all()
-        for base in ExerciseBase.objects.accepted():
+        for base in ExerciseBase.objects.all():
 
             data = {
                 'base': {
@@ -73,7 +73,6 @@ class Command(BaseCommand):
                 data[language.short_name] = exercise_data
             out.append(data)
 
-        # pprint.pprint(out)
         with open('exercise_cleanup.csv', 'w', newline='') as csvfile:
             file_writer = csv.writer(csvfile, )
 

@@ -119,25 +119,3 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
         context['form_action'] = reverse('exercise:equipment:delete', kwargs={'pk': pk})
 
         return context
-
-
-class EquipmentOverviewView(ListView):
-    """
-    Overview with all exercises, group by equipment
-    """
-
-    model = Equipment
-    template_name = 'equipment/overview.html'
-    context_object_name = 'equipment_list'
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(EquipmentOverviewView, self).get_context_data(**kwargs)
-        context['exercise_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
-        for equipment in context['equipment_list']:
-            equipment.name = _(equipment.name)
-        context['equipment_list'] = sorted(context['equipment_list'], key=lambda e: e.name)
-        context['show_shariff'] = True
-        return context

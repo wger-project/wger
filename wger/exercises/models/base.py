@@ -16,16 +16,30 @@
 
 # Standard Library
 import uuid
+from typing import (
+    List,
+    Optional,
+)
 
 # Django
+from django.core.checks import translation
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.db.models import Q
+from django.urls import reverse
+from django.utils.translation import (
+    get_language,
+    gettext_lazy as _,
+)
+
+# Third Party
+from simple_history.models import HistoricalRecords
 
 # wger
-from wger.utils.managers import SubmissionManager
+from wger.core.models import Language
+from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
+    AbstractHistoryMixin,
     AbstractLicenseModel,
-    AbstractSubmissionModel,
 )
 
 # Local
@@ -35,13 +49,10 @@ from .muscle import Muscle
 from .variation import Variation
 
 
-class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise base
     """
-
-    objects = SubmissionManager()
-    """Custom manager"""
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
     """Globally unique ID, to identify the base across installations"""
@@ -77,19 +88,86 @@ class ExerciseBase(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     variations = models.ForeignKey(
         Variation,
         verbose_name=_('Variations'),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     """Variations of this exercise"""
+
+    creation_date = models.DateField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The submission date"""
+
+    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    """Datetime of last modification"""
+
+    history = HistoricalRecords()
+    """Edit history"""
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f"base {self.uuid} ({self.get_exercise(ENGLISH_SHORT_NAME).name})"
+
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view an exercise
+        """
+        return reverse('exercise:exercise:view-base', kwargs={'pk': self.id})
 
     #
     # Own methods
     #
 
     @property
-    def get_languages(self):
+    def main_image(self):
+        """
+        Return the main image for the exercise or None if nothing is found
+        """
+        return self.exerciseimage_set.all().filter(is_main=True).first()
+
+    @property
+    def get_languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base
         """
         return [exercise.language for exercise in self.exercises.all()]
+
+    @property
+    def base_variations(self):
+        """
+        Returns the variations of this exercise base, excluding itself
+        """
+        if not self.variations:
+            return []
+        return self.variations.exercisebase_set.filter(~Q(id=self.id))
+
+    def get_exercise(self, language: Optional[str] = None):
+        """
+        Returns the exercise for the given language. If the language is not
+        available, return the English translation.
+
+        Note that as a fallback, if no English translation is found, the
+        first available one is returned. While this is kind of wrong, it won't
+        happen in our dataset, but it is possible that some local installations
+        have deleted the English translation or similar
+        """
+        # wger
+        from wger.exercises.models import Exercise
+
+        language = language or get_language()
+
+        try:
+            exercise = self.exercises.get(language__short_name=language)
+        except Exercise.DoesNotExist:
+            try:
+                exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
+            except Exercise.DoesNotExist:
+                exercise = self.exercises.first()
+        except Exercise.MultipleObjectsReturned:
+            exercise = self.exercises.filter(language__short_name=language).first()
+
+        return exercise

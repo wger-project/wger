@@ -32,6 +32,8 @@ from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
+from actstream import action
+from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
@@ -40,22 +42,16 @@ from wger.utils.cache import (
     delete_template_fragment_cache,
     reset_workout_canonical_form,
 )
-from wger.utils.helpers import smart_capitalize
-from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
+    AbstractHistoryMixin,
     AbstractLicenseModel,
-    AbstractSubmissionModel,
 )
 
 
-class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise
     """
-
-    objects = SubmissionManager()
-    """Custom manager"""
-
     description = models.TextField(
         max_length=2000,
         verbose_name=_('Description'),
@@ -63,15 +59,11 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     )
     """Description on how to perform the exercise"""
 
-    name = models.CharField(max_length=200, verbose_name=_('Name'))
-    """The exercise's name, with correct uppercase"""
-
-    name_original = models.CharField(
+    name = models.CharField(
         max_length=200,
         verbose_name=_('Name'),
-        default='',
     )
-    """The exercise's name, as entered by the user"""
+    """The exercise's name"""
 
     creation_date = models.DateField(
         _('Date'),
@@ -80,6 +72,9 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         blank=True,
     )
     """The submission date"""
+
+    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    """Datetime of the last modification"""
 
     language = models.ForeignKey(
         Language,
@@ -100,10 +95,13 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         verbose_name='ExerciseBase',
         on_delete=models.CASCADE,
         default=None,
-        null=True,
+        null=False,
         related_name='exercises',
     )
     """ Refers to the base exercise with non translated information """
+
+    history = HistoricalRecords()
+    """Edit history"""
 
     #
     # Django methods
@@ -118,38 +116,30 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         Returns the canonical URL to view an exercise
         """
-        return reverse('exercise:exercise:view', kwargs={'id': self.id, 'slug': slugify(self.name)})
+        return reverse(
+            'exercise:exercise:view-base',
+            kwargs={
+                'pk': self.exercise_base_id,
+                'slug': slugify(self.name)
+            }
+        )
 
     def save(self, *args, **kwargs):
         """
         Reset all cached infos
         """
-        self.name = smart_capitalize(self.name_original)
         super(Exercise, self).save(*args, **kwargs)
 
-        # Cached template fragments
-        for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
-            delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
-
         # Cached workouts
-        for setting in self.setting_set.all():
+        for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
     def delete(self, *args, **kwargs):
         """
         Reset all cached infos
         """
-
-        # Cached template fragments
-        for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
-            delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
-
         # Cached workouts
-        for setting in self.setting_set.all():
+        for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Exercise, self).delete(*args, **kwargs)
@@ -195,7 +185,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         out = []
         if self.exercise_base.variations:
             for variation in self.exercise_base.variations.exercisebase_set.all():
-                for exercise in variation.exercises.filter(language=self.language).accepted():
+                for exercise in variation.exercises.filter(language=self.language).all():
                     out.append(exercise)
         return out
 
@@ -207,7 +197,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         Return the main image for the exercise or None if nothing is found
         """
-        return self.images.accepted().filter(is_main=True).first()
+        return self.images.all().filter(is_main=True).first()
 
     @property
     def description_clean(self):
@@ -221,53 +211,3 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Exercise has no owner information
         """
         return False
-
-    def send_email(self, request):
-        """
-        Sends an email after being successfully added to the database (for user
-        submitted exercises only)
-        """
-        try:
-            user = User.objects.get(username=self.license_author)
-        except User.DoesNotExist:
-            return
-        if self.license_author and user.email:
-            translation.activate(user.userprofile.notification_language.short_name)
-            url = request.build_absolute_uri(self.get_absolute_url())
-            subject = _('Exercise was successfully added to the general database')
-            context = {
-                'exercise': self.name,
-                'url': url,
-                'site': Site.objects.get_current().domain,
-            }
-            message = render_to_string('exercise/email_new.tpl', context)
-            mail.send_mail(
-                subject,
-                message,
-                settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
-                fail_silently=True
-            )
-
-    def set_author(self, request):
-        """
-        Set author and status
-        This is only used when creating exercises (via web or API)
-        """
-
-        if request.user.has_perm('exercises.add_exercise'):
-            self.status = self.STATUS_ACCEPTED
-            if not self.license_author:
-                self.license_author = request.get_host().split(':')[0]
-        else:
-            if not self.license_author:
-                self.license_author = request.user.username
-
-            subject = _('New user submitted exercise')
-
-            message = _('The user {0} submitted a new exercise "{1}".'
-                        ).format(request.user.username, self.name_original)
-            mail.mail_admins(
-                str(subject),
-                str(message),
-                fail_silently=True,
-            )

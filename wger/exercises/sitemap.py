@@ -26,7 +26,7 @@ class ExercisesSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Exercise.objects.accepted()
+        return Exercise.objects.all()
 
     def lastmod(self, obj):
         return obj.creation_date

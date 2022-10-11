@@ -108,15 +108,10 @@ function wgerSetupSortable() {
 function setProfileField(field, newValue) {
   var dataDict = {};
   dataDict[field] = newValue;
-  $.get('/api/v2/userprofile', function () {
-  }).done(function (userprofile) {
-    //console.log('Updating profile field "' + field + '" to value: ' + newValue);
-    $.ajax({
-      url: '/api/v2/userprofile/' + userprofile.results[0].id + '/',
-      type: 'PATCH',
+  $.post({
+      url: '/api/v2/userprofile/',
       data: dataDict
     });
-  });
 }
 
 /*
@@ -131,32 +126,12 @@ function getProfileField(field) {
     type: 'GET',
     async: false,
     success: function (userprofile) {
-      result = userprofile.results[0][field];
+      result = userprofile.results[field];
     }
   });
   return result;
 }
 
-/*
- Get the current user's username.
- Do not use with anonymous users!
- Synchronous request, use sparingly!
- */
-function wgerGetUsername() {
-  var userId;
-  var result;
-  userId = getProfileField('user');
-  result = null;
-  $.ajax({
-    url: '/api/v2/userprofile/' + userId + '/username/',
-    type: 'GET',
-    async: false,
-    success: function (user) {
-      result = user.username;
-    }
-  });
-  return result;
-}
 
 function wgerToggleComments() {
   $('#exercise-comments-toggle').click(function (e) {
@@ -408,13 +383,13 @@ function addExercise(exercise) {
   $exerciseSearchLog.trigger('create');
 }
 
-function getExerciseFormset(exerciseId) {
+function getExerciseFormset(baseId) {
   var formsetUrl;
   var setValue;
   setValue = $('#id_sets').val();
-  if (setValue && parseInt(setValue, 10) && exerciseId && parseInt(exerciseId, 10)) {
+  if (setValue && parseInt(setValue, 10) && baseId && parseInt(baseId, 10)) {
     formsetUrl = '/' + getCurrentLanguage() +
-      '/workout/set/get-formset/' + exerciseId + '/' + setValue;
+      '/workout/set/get-formset/' + baseId + '/' + setValue;
 
     $.get(formsetUrl, function (data) {
       var $formsets;
@@ -441,11 +416,12 @@ function updateAllExerciseFormset() {
       promise = $().promise();
       if (exerciseId && parseInt(exerciseId, 10)) {
         formsetUrl = '/' + getCurrentLanguage() +
-          '/workout/set/get-formset/' + exerciseId + '/' + setValue;
+          '/workout/set/' +
+          'get-formset/' + exerciseId + '/' + setValue;
         promise.done(function () {
           promise = $.get(formsetUrl, function (data) {
             var $formsets;
-            $('#formset-exercise-' + exerciseId).remove();
+            $('#formset-base-' + exerciseId).remove();
             $formsets = $('#formsets');
             $formsets.append(data);
             $('#exercise-search-log').scrollTop(0);
@@ -463,10 +439,10 @@ function updateAllExerciseFormset() {
  */
 function initRemoveExerciseFormset() {
   $('.ajax-exercise-select a').click(function (e) {
-    var exerciseId;
+    var baseId;
     e.preventDefault();
-    exerciseId = $(this).parent('div').find('input').val();
-    $('#formset-exercise-' + exerciseId).remove();
+    baseId = $(this).parent('div').find('input').val();
+    $('#formset-base-' + baseId).remove();
     $(this).parent('div').remove();
   });
 }
@@ -482,12 +458,12 @@ function wgerInitEditSet() {
     onSelect: function (suggestion) {
       // Add the exercise to the list
       addExercise({
-        id: suggestion.data.id,
+        id: suggestion.data.base_id,
         value: suggestion.value
       });
 
       // Load formsets
-      getExerciseFormset(suggestion.data.id);
+      getExerciseFormset(suggestion.data.base_id);
 
       // Init the remove buttons
       initRemoveExerciseFormset();
@@ -501,16 +477,16 @@ function wgerInitEditSet() {
   // Mobile select box
   $('#id_exercise_list').change(function () {
     var $idExerciseList;
-    var exerciseId;
+    var baseId;
     var exerciseName;
     $idExerciseList = $('#id_exercise_list');
-    exerciseId = $idExerciseList.val();
+    baseId = $idExerciseList.val();
     exerciseName = $idExerciseList.find(':selected').text();
     addExercise({
-      id: exerciseId,
+      id: baseId,
       value: exerciseName
     });
-    getExerciseFormset(exerciseId);
+    getExerciseFormset(baseId);
     initRemoveExerciseFormset();
   });
 

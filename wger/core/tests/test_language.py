@@ -98,3 +98,4 @@ class LanguageApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 1
     resource = Language
     private_resource = False
+    overview_cached = True

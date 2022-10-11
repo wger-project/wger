@@ -16,6 +16,14 @@
         }
     },
     {
+        "pk": 3,
+        "model": "core.language",
+        "fields": {
+            "full_name": "Français",
+            "short_name": "fr"
+        }
+    },
+    {
         "pk": 1,
         "model": "config.languageconfig",
         "fields": {

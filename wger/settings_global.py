@@ -88,6 +88,18 @@ INSTALLED_APPS = (
 
     # CORS
     'corsheaders',
+
+    # History keeping
+    'simple_history',
+
+    # Django email verification
+    'django_email_verification',
+
+    # Activity stream
+    'actstream',
+
+    # Fontawesome
+    'fontawesomefree',
 )
 
 MIDDLEWARE = (
@@ -110,6 +122,9 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
+    # History keeping
+    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -431,4 +446,29 @@ WGER_SETTINGS = {
     'EXERCISE_CACHE_TTL': 3600,
     'TWITTER': False,
     'USE_RECAPTCHA': False
+}
+
+
+#
+# Django email verification
+#
+def email_verified_callback(user):
+    user.userprofile.email_verified = True
+    user.userprofile.save()
+
+
+EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
+EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
+
+#
+# Django activity stream
+#
+ACTSTREAM_SETTINGS = {
+    'USE_JSONFIELD': True,
 }

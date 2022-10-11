@@ -1,11 +1,11 @@
 {
-    "edit": "Rediger",
-    "delete": "Slett",
-    "date": "Dato",
-    "weight": "Vekt",
-    "difference": "Forskjell",
-    "days": "Dager",
-    "submit": "Send",
-    "add": "Legg til",
-    "close": "Lukk"
+  "add": "Legg til",
+  "close": "Lukk",
+  "date": "Dato",
+  "days": "Dager",
+  "delete": "Slett",
+  "difference": "Forskjell",
+  "edit": "Rediger",
+  "submit": "Send",
+  "weight": "Vekt"
 }

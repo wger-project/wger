@@ -47,26 +47,3 @@ def update_activity_cache(sender, instance, **kwargs):
 
 post_save.connect(update_activity_cache, sender=WorkoutSession)
 post_save.connect(update_activity_cache, sender=WorkoutLog)
-
-# TODO: this seems to cause problems when users are deleted
-#       perhaps because of the cascading, needs to be checked
-# post_delete.connect(update_activity_cache, sender=WorkoutSession)
-# post_delete.connect(update_activity_cache, sender=WorkoutLog)
-
-
-def reset_muscle_cache(sender, instance, **kwargs):
-    exercises = Exercise.objects.filter(
-        Q(exercise_base__muscles=instance)
-        | Q(exercise_base__muscles_secondary=instance)
-    ).all()
-    languages = Language.objects.all()
-
-    for exercise in exercises:
-        for language in languages:
-            delete_template_fragment_cache(
-                'exercise-detail-muscles', "{}-{}".format(exercise.id, language.id)
-            )
-
-
-post_save.connect(reset_muscle_cache, sender=Muscle)
-pre_delete.connect(reset_muscle_cache, sender=Muscle)

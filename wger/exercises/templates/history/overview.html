@@ -1,0 +1,159 @@
+{% extends "base_wide.html" %}
+{% load i18n %}
+{% load static %}
+{% load wger_extras %}
+{% load cache %}
+{% load thumbnail %}
+
+<!--
+        Title
+-->
+{% block title %}{% translate "Exercise admin history" %}{% endblock %}
+
+
+
+{% block header %}
+
+{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col" style="width: 5%">{% translate 'Action' %}</th>
+            <th scope="col" style="width: 5%">{% translate 'User' %}</th>
+            <th scope="col" style="width: 45%">{% translate 'Object' %}</th>
+            <th scope="col" style="width: 15%">{% translate 'Time' %}</th>
+            <th scope="col" style="width: 15%">{% translate 'Changes' %}</th>
+            <th scope="col" style="width: 15%">{% translate 'Revert' %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in context %}
+            <tr>
+                <td>
+                    {% if event.stream.verb == verbs.CREATED.value %}
+                        <span class="{% fa_class 'circle-plus' %}"></span>
+                    {% elif event.stream.verb == verbs.UPDATED.value %}
+                        <span class="{% fa_class 'pen' %}"></span>
+                    {% else %}
+                        {{ event.verb }}
+                    {% endif %}
+                </td>
+                <td>{{ event.stream.actor }}</td>
+                <td>
+                    {% if event.stream.action_object.get_absolute_url %}
+                        <a href="{{ event.stream.action_object.get_absolute_url }}">{{ event.stream.action_object }}</a>
+                    {% else %}
+                        {{ event.stream.action_object }}
+                    {% endif %}
+
+                    {% if event.stream.data.info %}
+                        <span class="badge badge-secondary">{{ event.stream.data.info }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ event.stream.timesince }}</td>
+                {% if event.stream.verb == verbs.CREATED.value %}
+                    <td>
+                        <a href="{{ event.stream.action_object.get_absolute_url }}" id="view-changes"
+                           class="btn btn-success btn-sm btn-block">
+                            {% translate "View Object" %}
+                        </a>
+                    </td>
+                    <td>
+
+                    </td>
+                {% elif event.stream.verb == verbs.UPDATED.value %}
+                    <td>
+                        <a class="btn btn-success btn-sm btn-block" data-toggle="collapse"
+                           href="#collapse-{{ event.stream.id }}"
+                           role="button">
+                            {% translate "View changes" %}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#"
+                           id="revert-changes"
+                           data-toggle="modal"
+                           data-target="#revert-modal-{{ event.stream.id }}"
+                           class="btn btn-danger btn-sm btn-block"
+                           {% if not event.history_id %}disabled{% endif %}
+                        >
+                            {% translate "Revert changes" %}
+                        </a>
+                        {% if event.history_id %}
+                            <div class="modal fade" id="revert-modal-{{ event.stream.id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">{% translate 'Are you sure?' %}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <a href="{% url 'exercise:history:revert' event.history_id event.content_type_id %}"
+                                               id="view-changes"
+                                               class="btn btn-danger btn-sm btn-block">
+                                                {% translate "Yes" %}
+                                            </a>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                    class="btn btn-light"
+                                                    data-dismiss="modal">
+                                                {% translate "No" %}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </td>
+                {% endif %}
+            </tr>
+            <tr class="collapse" id="collapse-{{ event.stream.id }}">
+                <td colspan="6">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Field</td>
+                            <td>Old</td>
+                            <td>New</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if event.delta %}
+                            {% for change in event.delta.changes %}
+                                <tr>
+                                    <td>{{ change.field }}</td>
+                                    <td>{{ change.old }}</td>
+                                    <td>{{ change.new }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+<!--
+        Sidebar
+-->
+{% block sidebar %}
+
+{% endblock %}
+
+
+
+{% block options %}
+
+{% endblock %}

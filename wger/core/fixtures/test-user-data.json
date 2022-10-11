@@ -480,6 +480,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 1,
@@ -511,6 +512,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 2,
@@ -542,6 +544,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": true,
+            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 3,
@@ -573,6 +576,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 4,
@@ -604,6 +608,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 5,
@@ -635,6 +640,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": false,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 6,
@@ -666,6 +672,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 7,
@@ -697,6 +704,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 8,
@@ -728,6 +736,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 9,
@@ -759,6 +768,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 10,
@@ -790,6 +800,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 11,
@@ -821,6 +832,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 12,
@@ -852,6 +864,7 @@
         "model": "core.userprofile",
         "fields": {
             "is_temporary": false,
+            "email_verified": true,
             "show_comments": false,
             "show_english_ingredients": false,
             "user": 13,
@@ -882,6 +895,7 @@
         "pk": 14,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -913,6 +927,7 @@
         "pk": 15,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -944,6 +959,7 @@
         "pk": 16,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -975,6 +991,7 @@
         "pk": 17,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1006,6 +1023,7 @@
         "pk": 18,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1037,6 +1055,7 @@
         "pk": 19,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": false,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1068,6 +1087,7 @@
         "pk": 20,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1099,6 +1119,7 @@
         "pk": 21,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1130,6 +1151,7 @@
         "pk": 22,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1161,6 +1183,7 @@
         "pk": 23,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
@@ -1192,6 +1215,7 @@
         "pk": 24,
         "model": "core.userprofile",
         "fields": {
+            "email_verified": true,
             "workout_reminder": 20,
             "height": 180,
             "show_english_ingredients": false,
