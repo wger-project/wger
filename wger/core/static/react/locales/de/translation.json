@@ -44,7 +44,10 @@
         "submitExercise": "Übung einreichen",
         "compatibleImagesCC": "Die Bilder müssen mit der CC BY SA-Lizenz kompatibel sein. Im Zweifelsfall solltest du nur Fotos hochladen, die du selbst aufgenommen hast.",
         "alternativeNames": "Alternative Namen",
-        "missingExerciseDescription": "Hilf der Community und leiste einen Beitrag!"
+        "missingExerciseDescription": "Hilf der Community und leiste einen Beitrag!",
+        "deleteExerciseFull": "Vollständige Übung löschen",
+        "deleteTranslation": "Übersetzung löschen",
+        "deleteExerciseBody": "Möchtest due die Übung \"{{name}}\" löschen? Du kannst entweder die aktuelle {{language}} Übersetzung oder die komplette Übung mit allen Übersetzungen, Bildern usw. löschen."
     },
     "noResults": "Keine Ergebnisse",
     "noResultsDescription": "Keine Ergebnisse für diese Suche gefunden, bitte reduziere die Anzahl der Filter.",
@@ -97,5 +100,7 @@
         "fieldRequired": "Pflichtfeld"
     },
     "name": "Name",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "videos": "Videos",
+    "cannotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden."
 }

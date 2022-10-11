@@ -54,7 +54,7 @@ class Command(BaseCommand):
     be modified via the GUI.
     """
 
-    help = ('Download exercise videos from wger.de and update the local database')
+    help = 'Download exercise videos from wger.de and update the local database'
 
     def add_arguments(self, parser):
         parser.add_argument(
