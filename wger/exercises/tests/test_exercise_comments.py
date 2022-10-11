@@ -17,7 +17,7 @@ from django.core.cache import cache
 from django.urls import reverse
 
 # wger
-from wger.core.tests import api_base_test
+from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import (
     WgerAddTestCase,
     WgerEditTestCase,
@@ -128,7 +128,7 @@ class WorkoutCacheTestCase(WgerTestCase):
         Tests the workout cache when saving
         """
         comment = ExerciseComment.objects.get(pk=1)
-        for setting in comment.exercise.setting_set.all():
+        for setting in comment.exercise.exercise_base.setting_set.all():
             setting.set.exerciseday.training.canonical_representation
             workout_id = setting.set.exerciseday.training_id
             self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
@@ -143,7 +143,7 @@ class WorkoutCacheTestCase(WgerTestCase):
         comment = ExerciseComment.objects.get(pk=1)
 
         workout_ids = []
-        for setting in comment.exercise.setting_set.all():
+        for setting in comment.exercise.exercise_base.setting_set.all():
             workout_id = setting.set.exerciseday.training_id
             workout_ids.append(workout_id)
             setting.set.exerciseday.training.canonical_representation
@@ -154,13 +154,12 @@ class WorkoutCacheTestCase(WgerTestCase):
             self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
-class ExerciseCommentApiTestCase(api_base_test.ApiBaseResourceTestCase):
+class ExerciseCommentApiTestCase(ExerciseCrudApiTestCase):
     """
     Tests the exercise comment overview resource
     """
     pk = 1
     resource = ExerciseComment
-    private_resource = False
     data = {
         "comment": "a cool comment",
         "exercise": "1",

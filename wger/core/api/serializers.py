@@ -39,10 +39,18 @@ class UserprofileSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
+    email = serializers.EmailField(source="user.email", read_only=True)
+    username = serializers.EmailField(source="user.username", read_only=True)
+    date_joined = serializers.EmailField(source="user.date_joined", read_only=True)
+
     class Meta:
         model = UserProfile
         fields = [
-            'user',
+            'username',
+            'email',
+            'email_verified',
+            'is_trustworthy',
+            'date_joined',
             'gym',
             'is_temporary',
             'show_comments',
@@ -68,13 +76,6 @@ class UserprofileSerializer(serializers.ModelSerializer):
             'ro_access',
             'num_days_weight_reminder',
         ]
-
-
-class UsernameSerializer(serializers.Serializer):
-    """
-    Serializer to extract the username
-    """
-    username = serializers.CharField()
 
 
 class UserApiSerializer(serializers.ModelSerializer):

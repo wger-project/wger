@@ -43,7 +43,7 @@ from wger.exercises.models import (
 )
 
 
-IMAGE_API = "{0}/api/v2/video/"
+VIDEO_API = "{0}/api/v2/video/"
 
 
 class Command(BaseCommand):
@@ -54,7 +54,7 @@ class Command(BaseCommand):
     be modified via the GUI.
     """
 
-    help = ('Download exercise videos from wger.de and update the local database')
+    help = 'Download exercise videos from wger.de and update the local database'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -80,10 +80,10 @@ class Command(BaseCommand):
 
         headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
 
-        # Get all images
+        # Get all videos
         page = 1
         all_videos_processed = False
-        result = requests.get(IMAGE_API.format(remote_url), headers=headers).json()
+        result = requests.get(VIDEO_API.format(remote_url), headers=headers).json()
         self.stdout.write('*** Processing videos ***')
         while not all_videos_processed:
             self.stdout.write('')

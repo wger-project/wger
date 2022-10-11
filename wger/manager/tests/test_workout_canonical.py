@@ -19,7 +19,7 @@ from django.core.cache import cache
 from wger.core.models import DaysOfWeek
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
-    Exercise,
+    ExerciseBase,
     Muscle,
 )
 from wger.manager.models import (
@@ -79,7 +79,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                     'exercise_list': [
                         {
                             'obj':
-                            Exercise.objects.get(pk=1),
+                            ExerciseBase.objects.get(pk=1),
                             'image_list': [
                                 {
                                     'image': image1,
@@ -89,7 +89,7 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                                     'is_main': False
                                 }
                             ],
-                            'comment_list': ['test 123'],
+                            'comment_list': [],
                             'has_weight':
                             False,
                             'setting_obj_list': [setting_1],
@@ -138,12 +138,12 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
                 {
                     'exercise_list': [
                         {
-                            'obj': Exercise.objects.get(pk=2),
+                            'obj': ExerciseBase.objects.get(pk=2),
                             'image_list': [{
                                 'image': image2,
                                 'is_main': False
                             }],
-                            'comment_list': ['Foobar'],
+                            'comment_list': [],
                             'has_weight': True,
                             'setting_obj_list': [setting_2],
                             'setting_text': '4 \xd7 10 (15 kg)',
@@ -220,12 +220,12 @@ class WorkoutCanonicalFormTestCase(WgerTestCase):
             {
                 'exercise_list': [
                     {
-                        'obj': Exercise.objects.get(pk=2),
+                        'obj': ExerciseBase.objects.get(pk=2),
                         'image_list': [{
                             'image': image2,
                             'is_main': False
                         }],
-                        'comment_list': ['Foobar'],
+                        'comment_list': [],
                         'has_weight': False,
                         'setting_obj_list': [Setting.objects.get(pk=3)],
                         'setting_text': '4 \xd7 10',
