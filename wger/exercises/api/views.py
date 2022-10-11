@@ -27,8 +27,8 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 import bleach
-from bleach.css_sanitizer import CSSSanitizer
 from actstream import action as actstream_action
+from bleach.css_sanitizer import CSSSanitizer
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets

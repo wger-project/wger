@@ -113,7 +113,9 @@ class DemoUserTestCase(WgerTestCase):
         for i in range(1, 5):
             creation_date = datetime.date.today() - datetime.timedelta(days=i)
             entry = WeightEntry(
-                user=user, weight=80 + 0.5 * i + random.randint(1, 3), date=creation_date,
+                user=user,
+                weight=80 + 0.5 * i + random.randint(1, 3),
+                date=creation_date,
             )
             temp.append(entry)
         WeightEntry.objects.bulk_create(temp)

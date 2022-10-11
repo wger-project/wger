@@ -27,7 +27,10 @@ from django.utils.translation import gettext as _
 
 # wger
 from wger.core.models import DaysOfWeek
-from wger.exercises.models import Exercise, ExerciseBase
+from wger.exercises.models import (
+    Exercise,
+    ExerciseBase,
+)
 from wger.manager.models import (
     Day,
     Schedule,
@@ -147,9 +150,7 @@ def create_demo_entries(user):
     day_set = Set(exerciseday=day, sets=4, order=3)
     day_set.save()
 
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=10, order=1)
-    )
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=10, order=1))
 
     # Weight log entries
     for reps in (5, 10, 12):
@@ -169,28 +170,16 @@ def create_demo_entries(user):
     day_set = Set(exerciseday=day, sets=4, order=4)
     day_set.save()
 
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=30, order=1)
-    )
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=99, order=2)
-    )
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=35, order=3)
-    )
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=99, order=2))
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=35, order=3))
 
     # Leg raises, supersets with crunches
     base = ExerciseBase.objects.get(uuid=UUID_LEG_RAISES)
 
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=30, order=1)
-    )
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=40, order=2)
-    )
-    setting_list.append(
-        Setting(set=day_set, exercise_base=base, reps=99, order=3)
-    )
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=40, order=2))
+    setting_list.append(Setting(set=day_set, exercise_base=base, reps=99, order=3))
 
     Setting.objects.bulk_create(setting_list)
 

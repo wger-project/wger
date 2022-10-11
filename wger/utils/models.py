@@ -95,6 +95,7 @@ class AbstractHistoryMixin:
 
     Utilized in conjunction with simple_history's HistoricalRecords.
     """
+
     @property
     def author_history(self):
         """Author history is the unique set of license authors from historical records"""
