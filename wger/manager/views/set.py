@@ -35,7 +35,7 @@ from django.shortcuts import (
 from django.urls import reverse
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import ExerciseBase
 from wger.manager.forms import (
     SetForm,
     SettingForm,
@@ -83,13 +83,11 @@ def create(request, day_pk):
     if request.method == "POST":
         form = SetForm(request.POST)
         if form.is_valid():
-            for exercise in form.cleaned_data['exercises']:
+            for base in form.cleaned_data['exercises']:
                 formset = SettingFormset(
-                    request.POST,
-                    queryset=Setting.objects.none(),
-                    prefix='exercise{0}'.format(exercise.id)
+                    request.POST, queryset=Setting.objects.none(), prefix=f'base{base.id}'
                 )
-                formsets.append({'exercise': exercise, 'formset': formset})
+                formsets.append({'exercise_base': base, 'formset': formset})
         all_valid = True
 
         for formset in formsets:
@@ -109,7 +107,7 @@ def create(request, day_pk):
                 for instance in instances:
                     instance.set = set_obj
                     instance.order = order
-                    instance.exercise = formset['exercise']
+                    instance.exercise_base = formset['exercise_base']
                     instance.save()
                     order += 1
 
@@ -129,11 +127,11 @@ def create(request, day_pk):
 
 
 @login_required
-def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
+def get_formset(request, base_pk, reps=Set.DEFAULT_SETS):
     """
     Returns a formset. This is then rendered inside the new set template
     """
-    exercise = Exercise.objects.get(pk=exercise_pk)
+    base = ExerciseBase.objects.get(pk=base_pk)
     SettingFormSet = inlineformset_factory(
         Set,
         Setting,
@@ -143,9 +141,9 @@ def get_formset(request, exercise_pk, reps=Set.DEFAULT_SETS):
     )
     formset = SettingFormSet(
         queryset=Setting.objects.none(),
-        prefix='exercise{0}'.format(exercise_pk),
+        prefix=f'base{base_pk}',
     )
-    context = {'formset': formset, 'helper': WorkoutLogFormHelper(), 'exercise': exercise}
+    context = {'formset': formset, 'helper': WorkoutLogFormHelper(), 'base': base}
 
     return render(request, "set/formset.html", context)
 
@@ -188,16 +186,16 @@ def edit(request, pk):
     )
 
     formsets = []
-    for exercise in set_obj.exercises:
-        queryset = Setting.objects.filter(set=set_obj, exercise=exercise)
-        formset = SettingFormsetEdit(queryset=queryset, prefix='exercise{0}'.format(exercise.id))
-        formsets.append({'exercise': exercise, 'formset': formset})
+    for base in set_obj.exercise_bases:
+        queryset = Setting.objects.filter(set=set_obj, exercise_base=base)
+        formset = SettingFormsetEdit(queryset=queryset, prefix='exercise{0}'.format(base.id))
+        formsets.append({'base': base, 'formset': formset})
 
     if request.method == "POST":
         formsets = []
-        for exercise in set_obj.exercises:
-            formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(exercise.id))
-            formsets.append({'exercise': exercise, 'formset': formset})
+        for base in set_obj.exercise_bases:
+            formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(base.id))
+            formsets.append({'base': base, 'formset': formset})
 
         # If all formsets validate, save them
         all_valid = True

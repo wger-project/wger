@@ -64,12 +64,7 @@ class CacheKeyMapper(object):
         """
         Small helper function that returns the PK for the given parameter
         """
-        try:
-            pk = param.pk
-        except AttributeError:
-            pk = param
-
-        return pk
+        return param.pk if hasattr(param, 'pk') else param
 
     def get_language_key(self, param):
         """

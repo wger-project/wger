@@ -47,5 +47,12 @@
             "name": "Calves"
         },
         "model": "exercises.exercisecategory"
+    },
+    {
+        "pk": 15,
+        "fields": {
+            "name": "Cardio"
+        },
+        "model": "exercises.exercisecategory"
     }
 ]

@@ -60,20 +60,12 @@
                             </a></li>
 
                             <li class="dropdown-divider"></li>
-                            <li class="dropdown-header">{% translate "Exercises" %}</li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "by category" context "as in sorted by category" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:muscle:overview' %}">{% translate "by muscle" context "as in sorted by muscle" %}</a></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:equipment:overview' %}">{% translate "by equipment" context "as in sorted by equipment" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">{% translate "Exercises" %}</a></li>
 
-                            {% if user.is_authenticated and not user.userprofile.is_temporary and not trainer_identity %}
-                            <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:add' %}">{% translate "Add new exercise" %}</a><li>
-                            {% endif %}
-
-                            {% if perms.exercises %}
+                            {% if perms.exercises.change_exercise %}
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Administration" %}</li>
-                            <li><a class="dropdown-item" href="{% url 'exercise:exercise:pending' %}">{% translate "Exercises pending review" %}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'exercise:history:overview' %}">{% translate "Exercise edit history" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:equipment:list' %}">{% translate "Equipment" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:muscle:admin-list' %}">{% translate "Muscles" %}</a></li>
                             <li><a class="dropdown-item" href="{% url 'exercise:category:list' %}">{% translate "Categories" %}</a></li>
@@ -85,7 +77,6 @@
                     {#               #}
                     {# Nutrition tab #}
                     {#               #}
-
                     <li class="nav-item dropdown {% if active_tab == 'nutrition' %}active{% endif %}">
                         <a href="{% url 'nutrition:plan:overview' %}"
                            class="dropdown-toggle nav-link"
@@ -219,7 +210,7 @@
                                 {#                #}
                                 {# Administration #}
                                 {#                #}
-                                {% if perms.exercises or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
+                                {% if user.userprofile.has_exercise_permission or perms.gym.manage_gyms or perms.gym.manage_gym or perms.gym.gym_trainer %}
                                     <li class="dropdown-divider"></li>
                                     <li class="dropdown-header">{% translate "Administration" %}</li>
                                     {% if perms.core.change_language %}

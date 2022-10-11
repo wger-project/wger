@@ -1,0 +1,48 @@
+{% extends "base_wide.html" %}
+{% load i18n static wger_extras thumbnail cache django_bootstrap_breadcrumbs %}
+
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{{ exercise.name }}">
+    <meta property="og:description" content="{{ exercise.description_clean }}">
+{% endblock %}
+{% block opengraphimages %}
+    {% for image in exercise.images.accepted %}
+        <meta property="og:image" content="{{ image.image.url }}">
+    {% empty %}
+        <meta property="og:image" content="{{ image_absolute_path }}">
+    {% endfor %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% endblock %}
+
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+    {% react_static %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+    <div id="react-exercise-detail"></div>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% endblock %}

@@ -49,6 +49,7 @@ RUN apt-get update \
     apache2 \
     cron \
     libapache2-mod-wsgi-py3 \
+    python3-wheel \
   && rm -rf /var/lib/apt/lists/*
 
 # Configure apache
@@ -81,7 +82,6 @@ WORKDIR /home/wger/src
 RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
-    && pip install wheel \
     && pip install --no-cache /wheels/* \
     && python setup.py develop \
     && wger create-settings --database-path /home/wger/db/database.sqlite \

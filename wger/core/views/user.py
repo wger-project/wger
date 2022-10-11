@@ -72,6 +72,7 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
+from django_email_verification import send_email
 from rest_framework.authtoken.models import Token
 
 # wger
@@ -281,9 +282,15 @@ def registration(request):
                 config.save()
 
             user.userprofile.save()
-
             user = authenticate(username=username, password=password)
+
+            # Log the user in
             django_login(request, user)
+
+            # Email the user with the activation link
+            send_email(user)
+
+            # Redirect to the dashboard
             messages.success(request, _('You were successfully registered'))
             return HttpResponseRedirect(reverse('core:dashboard'))
     else:
@@ -300,8 +307,8 @@ def preferences(request):
     """
     An overview of all user preferences
     """
-    template_data = {}
-    template_data.update(csrf(request))
+    context = {}
+    context.update(csrf(request))
     redirect = False
 
     # Process the preferences form
@@ -325,21 +332,30 @@ def preferences(request):
 
     # Process the email form
     if request.method == 'POST':
+        user_email = request.user.email
         email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
 
         if email_form.is_valid() and redirect:
+
+            # If the user changes the email, it is no longer verified
+            if user_email != email_form.instance.email:
+                logger.debug('resetting verified flag')
+                request.user.userprofile.email_verified = False
+                request.user.userprofile.save()
+
+            # Save as normal
             email_form.save()
             redirect = True
         else:
             redirect = False
 
-    template_data['form'] = form
+    context['form'] = form
 
     if redirect:
         messages.success(request, _('Settings successfully updated'))
         return HttpResponseRedirect(reverse('core:user:preferences'))
     else:
-        return render(request, 'user/preferences.html', template_data)
+        return render(request, 'user/preferences.html', context)
 
 
 class UserDeactivateView(
@@ -625,3 +641,15 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         form.helper.form_class = 'wger-form'
         form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         return form
+
+
+@login_required
+def confirm_email(request):
+    if not request.user.userprofile.email_verified:
+        send_email(request.user)
+        messages.success(
+            request,
+            _('A verification email was sent to %(email)s') % {'email': request.user.email}
+        )
+
+    return HttpResponseRedirect(reverse('core:dashboard'))

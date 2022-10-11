@@ -20,8 +20,8 @@ from django.conf.urls import (
     include,
     url,
 )
-from django.contrib.auth.decorators import login_required
 from django.urls import path
+from django.views.generic import TemplateView
 
 # wger
 from wger.exercises.views import (
@@ -29,19 +29,23 @@ from wger.exercises.views import (
     comments,
     equipment,
     exercises,
-    images,
+    history,
     muscles,
-    videos,
 )
 
 
+# sub patterns for history
+patterns_history = [
+    path('admin-control', history.control, name='overview'),
+    path(
+        'admin-control/revert/<int:history_pk>/<int:content_type_id>',
+        history.history_revert,
+        name='revert'
+    ),
+]
+
 # sub patterns for muscles
 patterns_muscle = [
-    path(
-        'overview/',
-        muscles.MuscleListView.as_view(),
-        name='overview',
-    ),
     path(
         'admin-overview/',
         muscles.MuscleAdminListView.as_view(),
@@ -60,54 +64,6 @@ patterns_muscle = [
     path(
         '<int:pk>/delete/',
         muscles.MuscleDeleteView.as_view(),
-        name='delete',
-    ),
-]
-
-# sub patterns for exercise images
-patterns_images = [
-    path(
-        '<int:exercise_pk>/image/add',
-        images.ExerciseImageAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit',
-        images.ExerciseImageEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:exercise_pk>/image/<int:pk>/delete',
-        images.ExerciseImageDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/accept/',
-        images.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        images.decline,
-        name='decline',
-    ),
-]
-
-# sub patterns for exercise videos
-patterns_videos = [
-    path(
-        '<int:exercise_pk>/video/add',
-        videos.ExerciseVideoAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:exercise_pk>/<int:pk>/edit',
-        videos.ExerciseVideoEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:exercise_pk>/video/<int:pk>/delete',
-        videos.ExerciseVideoDeleteView.as_view(),
         name='delete',
     ),
 ]
@@ -177,11 +133,6 @@ patterns_equipment = [
         equipment.EquipmentDeleteView.as_view(),
         name='delete',
     ),
-    path(
-        'overview',
-        equipment.EquipmentOverviewView.as_view(),
-        name='overview',
-    ),
 ]
 
 # sub patterns for exercises
@@ -202,48 +153,32 @@ patterns_exercise = [
         name='view',
     ),
     path(
-        'add/',
-        login_required(exercises.ExerciseAddView.as_view()),
-        name='add',
+        '<int:pk>/view-base',
+        TemplateView.as_view(template_name='exercise/view-base.html'),
+        name='view-base',
     ),
     path(
-        '<int:pk>/edit/',
-        exercises.ExerciseUpdateView.as_view(),
-        name='edit',
+        '<int:pk>/view-base/<slug:slug>',
+        TemplateView.as_view(template_name='exercise/view-base.html'),
+        name='view-base',
     ),
     path(
-        '<int:pk>/correct',
-        exercises.ExerciseCorrectView.as_view(),
-        name='correct',
+        'contribute',
+        TemplateView.as_view(template_name='exercise/contribute.html'),
+        name='contribute',
     ),
     path(
         '<int:pk>/delete/',
         exercises.ExerciseDeleteView.as_view(),
         name='delete',
     ),
-    path(
-        'pending/',
-        exercises.PendingExerciseListView.as_view(),
-        name='pending',
-    ),
-    path(
-        '<int:pk>/accept/',
-        exercises.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        exercises.decline,
-        name='decline',
-    ),
 ]
 
 urlpatterns = [
     path('muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    path('image/', include((patterns_images, 'image'), namespace="image")),
-    path('video/', include((patterns_videos, 'image'), namespace="video")),
     path('comment/', include((patterns_comment, 'comment'), namespace="comment")),
     path('category/', include((patterns_category, 'category'), namespace="category")),
     path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
+    path('history/', include((patterns_history, 'history'), namespace="history")),
     path('', include((patterns_exercise, 'exercise'), namespace="exercise")),
 ]

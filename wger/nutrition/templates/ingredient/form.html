@@ -1,6 +1,6 @@
 {% load i18n %}
 
-{% if not perms.exercises %}
+{% if not user.userprofile.has_exercise_permission %}
 <h4>{% translate "Submitting an ingredient" %}</h4>
 <p><strong>{% blocktranslate %}Thank you for submitting an ingredient. This is much
 appreciated!{% endblocktranslate %}</strong></p>

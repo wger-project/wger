@@ -94,12 +94,13 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
         group_exercise_marker[set_obj.id] = {'start': len(data), 'end': len(data)}
 
         # Exercises
-        for exercise in set_obj.exercises:
+        for base in set_obj.exercise_bases:
+            exercise = base.get_exercise()
             group_exercise_marker[set_obj.id]['end'] = len(data)
 
             # Process the settings
             setting_out = []
-            for i in set_obj.reps_smart_text(exercise).split('–'):
+            for i in set_obj.reps_smart_text(base).split('–'):
                 setting_out.append(Paragraph(i, styleSheet["Small"], bulletText=''))
 
             # Collect a list of the exercise comments
@@ -113,7 +114,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
             # Add the exercise's main image
             image = Paragraph('', styleSheet["Small"])
             if images:
-                if exercise.main_image:
+                if base.main_image:
 
                     # Make the images somewhat larger when printing only the workout and not
                     # also the columns for weight logs
@@ -122,7 +123,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
                     else:
                         image_size = 1.5
 
-                    image = Image(exercise.main_image.image)
+                    image = Image(base.main_image.image)
                     image.drawHeight = image_size * cm * image.drawHeight / image.drawWidth
                     image.drawWidth = image_size * cm
 
