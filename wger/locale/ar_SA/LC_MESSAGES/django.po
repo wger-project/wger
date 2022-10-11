@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2021-09-13 21:39+0000\n"
-"Last-Translator: My Google <ahmedtahraoui90@gmail.com>\n"
+"PO-Revision-Date: 2022-10-17 00:56+0000\n"
+"Last-Translator: Hissabat Manager <hissabatmanager@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
 "Language: ar_SA\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -88,7 +88,6 @@ msgid "Add"
 msgstr "اضف"
 
 #: config/templates/language/view.html:21 core/models/language.py:29
-#, fuzzy
 msgid "Language short name"
 msgstr "اسم قصير للغة"
 
@@ -197,19 +196,19 @@ msgstr "حذف"
 
 #: core/demo.py:86
 msgid "Sample workout"
-msgstr ""
+msgstr "عينة تمارين"
 
 #: core/demo.py:90
 msgid "Sample day"
-msgstr ""
+msgstr "عينة يوم"
 
 #: core/demo.py:94
 msgid "Another sample day"
-msgstr ""
+msgstr "عينة يوم أخرى"
 
 #: core/demo.py:217
 msgid "Sample nutrional plan"
-msgstr ""
+msgstr "عينة خطة غذائية"
 
 #: core/demo.py:349 core/demo.py:351 core/demo.py:353
 #, python-brace-format
@@ -218,17 +217,17 @@ msgstr ""
 
 #: core/demo.py:358
 msgid "My cool workout schedule"
-msgstr ""
+msgstr "جدول تماريني الرائع"
 
 #: core/demo.py:397 core/demo.py:412
 msgid "Empty placeholder schedule"
-msgstr ""
+msgstr "حامل جدول فارغ"
 
 #: core/forms.py:61 core/templates/navigation.html:188
 #: core/templates/navigation.html:192 core/templates/user/login.html:4
 #: software/templates/features.html:43
 msgid "Login"
-msgstr ""
+msgstr "تسجيل الدخول"
 
 #: core/forms.py:73 core/forms.py:164 gym/views/export.py:63
 #: gym/views/gym.py:218
