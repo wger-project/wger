@@ -121,10 +121,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         if slug_name:
             kwargs['slug'] = slug_name
 
-        return reverse(
-            'exercise:exercise:view-base',
-            kwargs=kwargs
-        )
+        return reverse('exercise:exercise:view-base', kwargs=kwargs)
 
     def save(self, *args, **kwargs):
         """
