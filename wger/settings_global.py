@@ -91,7 +91,7 @@ INSTALLED_APPS = (
 
     # Django Axes
     'axes',
-    
+
     # History keeping
     'simple_history',
 
@@ -128,7 +128,7 @@ MIDDLEWARE = (
 
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
-    
+
     # Django Axes
     'axes.middleware.AxesMiddleware',
 )
@@ -294,8 +294,8 @@ AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = True
 # If you want to set up redis, set AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
 AXES_HANDLER = 'axes.handlers.database.AxesDatabaseHandler'
 
-# If your redis has a different name other than 'default' (e.g. when you have multiple caches
-# defined in CACHES), change the following value to that name
+# If your redis or MemcachedCache has a different name other than 'default'
+# (e.g. when you have multiple caches defined in CACHES), change the following value to that name
 AXES_CACHE = 'default'
 
 

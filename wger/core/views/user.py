@@ -282,7 +282,6 @@ def registration(request):
                 config.save()
 
             user.userprofile.save()
-
             user = authenticate(request=request, username=username, password=password)
 
             # Log the user in

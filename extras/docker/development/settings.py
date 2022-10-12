@@ -115,3 +115,15 @@ COMPRESS_ROOT = STATIC_ROOT
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = 'http://localhost/'
+
+
+#
+# Django Axes
+#
+AXES_ENABLED = True  # allow to disable axes entirely
+# (e.g. if this is run in a local network or so we would save up some resources),
+# but default it true
+AXES_FAILURE_LIMIT = 5  # configurable, default is 5
+AXES_COOLOFF_TIME = 0.5  # configurable, default is 0.5 hours
+AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'  # Configurable,
+# but default is the cache handler.

@@ -65,7 +65,7 @@ node_modules
 
 # Virtual envs
 venv
-venv-wget
+venv-wger
 
 # Will need to copy this file to react repo though
 /wger/i18n.tsx
