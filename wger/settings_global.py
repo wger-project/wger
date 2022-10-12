@@ -130,11 +130,11 @@ MIDDLEWARE = (
     'simple_history.middleware.HistoryRequestMiddleware',
 
     # Django Axes
-    'axes.middleware.AxesMiddleware',
+    'axes.middleware.AxesMiddleware',  # should be the last one in the list
 )
 
 AUTHENTICATION_BACKENDS = (
-    'axes.backends.AxesStandaloneBackend',
+    'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
     'django.contrib.auth.backends.ModelBackend',
     'wger.utils.helpers.EmailAuthBackend',
 )
