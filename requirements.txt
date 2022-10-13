@@ -32,7 +32,7 @@ requests==2.28.1
 django-cors-headers==3.13.0
 django-filter==22.1
 djangorestframework~=3.14
-djangorestframework-simplejwt[crypto]==5.2.0
+djangorestframework-simplejwt[crypto]==5.2.1
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files
