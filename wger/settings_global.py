@@ -166,7 +166,7 @@ TEMPLATES = [
                 'django.template.loaders.app_directories.Loader',
             ],
             'debug':
-                False
+            False
         },
     },
 ]
@@ -282,7 +282,6 @@ CACHES = {
     }
 }
 
-
 #
 # Django Axes
 #
@@ -299,7 +298,6 @@ AXES_HANDLER = 'axes.handlers.database.AxesDatabaseHandler'
 # If your redis or MemcachedCache has a different name other than 'default'
 # (e.g. when you have multiple caches defined in CACHES), change the following value to that name
 AXES_CACHE = 'default'
-
 
 #
 # Django Crispy Templates
@@ -408,15 +406,15 @@ COMPRESS_ROOT = STATIC_ROOT
 # Django Rest Framework
 #
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
     'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.LimitOffsetPagination',
+    'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE':
-        20,
+    20,
     'PAGINATE_BY_PARAM':
-        'limit',  # Allow client to override, using `?limit=xxx`.
+    'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT':
-        'json',
+    'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -452,7 +450,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
 
 #
 # Password rules
