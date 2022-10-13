@@ -20,6 +20,7 @@ import os
 import re
 from datetime import timedelta
 
+
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:

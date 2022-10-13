@@ -65,6 +65,7 @@ from wger.core.models import (
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -154,7 +155,7 @@ class ApplicationVersionView(viewsets.ViewSet):
     """
     Returns the application's version
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny, )
 
     @staticmethod
     def get(request):
@@ -187,7 +188,7 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
     """
     Returns the minimum required version of flutter app to access this server
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny, )
 
     @staticmethod
     def get(request):
@@ -232,7 +233,10 @@ class UserAPILoginView(viewsets.ViewSet):
 
         token = create_token(form.get_user())
         return Response(
-            data={'token': token.key, 'message': "This endpoint is deprecated."},
+            data={
+                'token': token.key,
+                'message': "This endpoint is deprecated."
+            },
             status=status.HTTP_200_OK,
             headers={
                 "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
@@ -295,7 +299,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('day_of_week',)
+    filterset_fields = ('day_of_week', )
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
