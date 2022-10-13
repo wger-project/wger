@@ -44,7 +44,7 @@ else:
 TIME_ZONE = env.str("TIME_ZONE", 'Europe/Berlin')
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = env.str("SECRET_KEY", 'wger-django-secret-key')
+SECRET_KEY = env.str("SECRET_KEY", 'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)')
 
 
 # Your reCaptcha keys
@@ -122,3 +122,10 @@ AXES_ENABLED = True  # allow to disable axes entirely (e.g. if this is run in a 
 AXES_FAILURE_LIMIT = 5  # configurable, default is 5
 AXES_COOLOFF_TIME = 0.5  # configurable, default is 0.5 hours
 AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'  # Configurable, but default is the cache handler
+
+#
+# Django Rest Framework SimpleJWT
+#
+SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int("ACCESS_TOKEN_LIFETIME", 15))
+SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=env.int("REFRESH_TOKEN_LIFETIME", 24))
+SIMPLE_JWT['SIGNING_KEY'] = env.str("SIGNING_KEY", SECRET_KEY)

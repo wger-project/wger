@@ -30,6 +30,11 @@ from django.urls import path
 # Third Party
 from django_email_verification import urls as email_urls
 from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 # wger
 from wger.core.api import views as core_api_views
@@ -44,7 +49,7 @@ from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
 
-#admin.autodiscover()
+# admin.autodiscover()
 
 #
 # REST API
@@ -204,7 +209,7 @@ sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    #url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
     path('workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
@@ -244,6 +249,9 @@ urlpatterns += [
         core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
         name='api_register'
     ),
+    path('api/v2/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v2/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v2/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # Others
     path(

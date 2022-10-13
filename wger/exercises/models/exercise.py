@@ -116,13 +116,12 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Returns the canonical URL to view an exercise
         """
-        return reverse(
-            'exercise:exercise:view-base',
-            kwargs={
-                'pk': self.exercise_base_id,
-                'slug': slugify(self.name)
-            }
-        )
+        slug_name = slugify(self.name)
+        kwargs = {'pk': self.exercise_base_id}
+        if slug_name:
+            kwargs['slug'] = slug_name
+
+        return reverse('exercise:exercise:view-base', kwargs=kwargs)
 
     def save(self, *args, **kwargs):
         """
