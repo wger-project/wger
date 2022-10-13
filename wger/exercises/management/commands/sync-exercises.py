@@ -120,14 +120,6 @@ class Command(BaseCommand):
                     exercise.save()
                 except Exercise.DoesNotExist:
                     self.stdout.write(f'Saved new exercise {exercise_name}')
-                    exercise = Exercise(
-                        uuid=exercise_uuid,
-                        name=exercise_name,
-                        description=exercise_description,
-                        language_id=data['language']['id'],
-                        license_id=data['license']['id'],
-                        license_author=data['license_author'],
-                    )
                     base = ExerciseBase()
                     base.category_id = data['category']['id']
                     base.save()
@@ -135,6 +127,15 @@ class Command(BaseCommand):
                     base.muscles_secondary.set(muscles_sec)
                     base.equipment.set(equipment)
                     base.save()
+                    exercise = Exercise(
+                        uuid=exercise_uuid,
+                        exercise_base=base,
+                        name=exercise_name,
+                        description=exercise_description,
+                        language_id=data['language']['id'],
+                        license_id=data['license']['id'],
+                        license_author=data['license_author'],
+                    )
                     exercise.save()
 
             if result['next']:
