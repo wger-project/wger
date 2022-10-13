@@ -118,10 +118,10 @@ EMAIL_PAGE_DOMAIN = 'http://localhost/'
 
 
 # Django Axes
-AXES_ENABLED = True  # allow to disable axes entirely (e.g. if this is run in a local network or so we would save up some resources), but default is true
-AXES_FAILURE_LIMIT = 5  # configurable, default is 5
-AXES_COOLOFF_TIME = 0.5  # configurable, default is 0.5 hours
-AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'  # Configurable, but default is the cache handler
+AXES_ENABLED = env.bool('AXES_ENABLED', True)
+AXES_FAILURE_LIMIT = env.int('AXES_FAILURE_LIMIT', 10)
+AXES_COOLOFF_TIME = timedelta(minutes=env.float('AXES_COOLOFF_TIME', 30))
+AXES_HANDLER = env.str('AXES_HANDLER', 'axes.handlers.cache.AxesCacheHandler')
 
 #
 # Django Rest Framework SimpleJWT
