@@ -40,6 +40,7 @@ from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
+    collect_models_author_history,
 )
 
 # Local
@@ -105,6 +106,20 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
     history = HistoricalRecords()
     """Edit history"""
+
+    @property
+    def total_authors_history(self):
+        """
+        All athors history related to the BaseExercise.
+        """
+        history = self.author_history
+        collect_for_models = [
+            *self.exercises.all(),
+            *self.exercisevideo_set.all(),
+            *self.exerciseimage_set.all(),
+        ]
+        history.union(collect_models_author_history(collect_for_models))
+        return history
 
     def __str__(self):
         """

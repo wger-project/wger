@@ -375,4 +375,5 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "images",
             "videos",
             "author_history",
+            "total_authors_history",
         ]
