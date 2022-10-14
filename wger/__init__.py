@@ -26,7 +26,9 @@ def get_version(version=None, release=None):
     # sub = .devN - for pre-alpha releases
     #     | {a|b|c}N - for alpha, beta and rc releases
 
-    main_parts = 2 if version[2] == 0 else 3
+    # Always use all three parts, otherwise we might get problems in the version
+    # parser on the flutter side of things
+    main_parts = 3
     main = '.'.join(str(x) for x in version[:main_parts])
 
     if version[3] != 'final':
