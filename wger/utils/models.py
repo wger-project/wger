@@ -118,5 +118,5 @@ def collect_models_author_history(models):
     """
     out = set()
     for model in models:
-        out.union(collect_model_author_history(model))
+        out = out.union(collect_model_author_history(model))
     return out

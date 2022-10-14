@@ -112,14 +112,12 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         All athors history related to the BaseExercise.
         """
-        history = self.author_history
         collect_for_models = [
             *self.exercises.all(),
             *self.exercisevideo_set.all(),
             *self.exerciseimage_set.all(),
         ]
-        history.union(collect_models_author_history(collect_for_models))
-        return history
+        return self.author_history.union(collect_models_author_history(collect_for_models))
 
     def __str__(self):
         """
