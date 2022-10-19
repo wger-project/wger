@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-14 12:01+0200\n"
-"PO-Revision-Date: 2021-11-07 16:51+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2022-08-24 21:17+0000\n"
+"Last-Translator: MrSniikyz <babygeek83bis@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1616,18 +1616,16 @@ msgid "The user {0} submitted a new exercise \"{1}\"."
 msgstr "L'utilisateur {0} a proposé un nouvel exercice « {1} »."
 
 #: exercises/models/exercise_alias.py:35
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Corriger un exercice"
+msgstr "Alias pour un exercice"
 
 #: exercises/models/image.py:59
 msgid "Line"
-msgstr ""
+msgstr "Ligne"
 
 #: exercises/models/image.py:60
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:61
 msgid "Low-poly"
@@ -1635,11 +1633,9 @@ msgstr ""
 
 #: exercises/models/image.py:62
 msgid "Photo"
-msgstr ""
+msgstr "Photo"
 
 #: exercises/models/image.py:63
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
 msgstr "Autres"
 
@@ -1667,7 +1663,7 @@ msgstr ""
 
 #: exercises/models/image.py:100
 msgid "The art style of your image"
-msgstr ""
+msgstr "Le style d'art de votre image"
 
 #: exercises/models/image.py:185
 msgid "New user submitted image"
@@ -1684,42 +1680,36 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "En latin, par ex. « Pectoralis major »"
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "nom de l'exercice"
+msgstr "Nom alternatif"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Un nom plus basique pour le muscle"
 
 #: exercises/models/video.py:41
 msgid "Maximum file size is 100MB."
-msgstr ""
+msgstr "La taille maximum du fichier est 100MB."
 
 #: exercises/models/video.py:44 exercises/models/video.py:48
 msgid "File type is not supported"
-msgstr ""
+msgstr "Le type de fichier n'est pas supporté"
 
 #: exercises/models/video.py:57
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s n’est pas une date de naissance valide"
+msgstr "Le fichier n'est pas une vidéo valide"
 
 #: exercises/models/video.py:88
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Image principale"
+msgstr "Vidéo principale"
 
 #: exercises/models/video.py:94
 msgid "Video"
-msgstr ""
+msgstr "Vidéo"
 
 #: exercises/models/video.py:101
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 #: exercises/models/video.py:108 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1727,7 +1717,7 @@ msgstr "Durée"
 
 #: exercises/models/video.py:117
 msgid "Width"
-msgstr ""
+msgstr "Largeur"
 
 #: exercises/models/video.py:124
 #, fuzzy
@@ -2480,11 +2470,11 @@ msgstr "kilomètres"
 
 #: i18n.tpl:31
 msgid "Miles"
-msgstr "miles"
+msgstr "Miles"
 
 #: i18n.tpl:32
 msgid "Minutes"
-msgstr "minutes"
+msgstr "Minutes"
 
 #: i18n.tpl:33 manager/forms.py:169 manager/models/log.py:71
 #: manager/templates/set/add.html:53
@@ -2493,7 +2483,7 @@ msgstr "Répétitions"
 
 #: i18n.tpl:34
 msgid "Seconds"
-msgstr "secondes"
+msgstr "Secondes"
 
 #: i18n.tpl:35
 msgid "Until Failure"

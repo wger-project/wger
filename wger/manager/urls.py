@@ -250,7 +250,7 @@ patterns_set = [
         name='add',
     ),
     path(
-        'get-formset/<int:exercise_pk>/<int:reps>',
+        'get-formset/<int:base_pk>/<int:reps>',
         set.get_formset,
         name='get-formset',
     ),  # Used by JS

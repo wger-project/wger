@@ -16,11 +16,47 @@ ingredients can be accessed without authentication. For <strong>user owned
 objects such as workouts, you need to generate an API KEY</strong> and pass
 it in the header, see the link on the sidebar for details.</p>
 
-<p>You can also generate a token via the <code>login</code> endpoint. Send a
-username and password and you will get the user's token or a new one will be
-generated. At the moment it is not possible to register via the API.</p>
+<h6>JWT Authentication</h6>
+
+<p>
+You can generate access token via <code>/token/</code> endpoint. Send a username and password, and you will get the
+<code>access</code> token which you can use to access the private endpoints.
+<pre>
+curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"username": "example_username", "password": "example_password "}' \
+  https://wger.de/api/v2/token/
+
+...
+{
+  "access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNDU2LCJqdGkiOiJmZDJmOWQ1ZTFhN2M0MmU4OTQ5MzVlMzYyYmNhOGJjYSJ9.NHlztMGER7UADHZJlxNG0WSi22a2KaYSfd1S-AuT7lU",
+  "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImNvbGRfc3R1ZmYiOiLimIMiLCJleHAiOjIzNDU2NywianRpIjoiZGUxMmY0ZTY3MDY4NDI3ODg5ZjE1YWMyNzcwZGEwNTEifQ.aEoAYkSJjoWH1boshQAaTkf8G3yn0kapko6HFRt7Rh4"
+}
+</pre>
+
+<p>Additionally, you can send an access token to <code>/token/verify/</code> endpoint to verify that token.</p>
+
+<p>When this short-lived access token expires, you can use the longer-lived <code>refresh</code>
+token to obtain another access token.
+<pre>
+curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImNvbGRfc3R1ZmYiOiLimIMiLCJleHAiOjIzNDU2NywianRpIjoiZGUxMmY0ZTY3MDY4NDI3ODg5ZjE1YWMyNzcwZGEwNTEifQ.aEoAYkSJjoWH1boshQAaTkf8G3yn0kapko6HFRt7Rh4"}' \
+  https://wger.de/api/v2/token/refresh/
+
+...
+{"access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNTY3LCJqdGkiOiJjNzE4ZTVkNjgzZWQ0NTQyYTU0NWJkM2VmMGI0ZGQ0ZSJ9.ekxRxgb9OKmHkfy-zs1Ro_xs1eMLXiR17dIDBVxeT-w"}
+</pre>
+</p>
+</p>
 
 <p>You should always use HTTPS if possible when communicating with the server.</p>
+<p>At the moment it is not possible to register via the API.</p>
+<p><strong>Deprecated: </strong>You can also generate a token via the <code>login</code> endpoint. Send a
+username and password, and you will get the user's token or a new one will be
+generated.</p>
 
 
 <div class="container">
@@ -31,29 +67,32 @@ generated. At the moment it is not possible to register via the API.</p>
             <li>daysofweek</li>
             <li>equipment</li>
             <li>exercise</li>
-            <li>exerciseinfo</li>
+            <li>exercisealias</li>
             <li>exercisecategory</li>
             <li>exercisecomment</li>
             <li>exerciseimage</li>
+            <li>exerciseinfo</li>
             <li>ingredient</li>
             <li>ingredientinfo</li>
             <li>ingredienttoweightunit</li>
             <li>language</li>
             <li>license</li>
             <li>muscle</li>
-            <li>weightunit</li>
             <li>setting-repetitionunit</li>
             <li>setting-weightunit</li>
+            <li>variation</li>
+            <li>weightunit</li>
         </ul>
     </div>
     <div class="col-6">
         <h4>Private endpoints</h4>
         <ul>
             <li>day</li>
+            <li>gallery</li>
             <li>meal</li>
             <li>mealitem</li>
-            <li>nutritionplan</li>
             <li>nutritiondiary</li>
+            <li>nutritionplan</li>
             <li>schedule</li>
             <li>schedulestep</li>
             <li>set</li>

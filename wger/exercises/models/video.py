@@ -23,6 +23,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from simple_history.models import HistoricalRecords
+
 
 try:
     # Third Party
@@ -32,24 +35,34 @@ except ImportError:
 
 # wger
 from wger.exercises.models import ExerciseBase
-from wger.utils.models import AbstractLicenseModel
+from wger.utils.models import (
+    AbstractHistoryMixin,
+    AbstractLicenseModel,
+)
+
+
+MAX_FILE_SIZE_MB = 100
 
 
 def validate_video(value):
 
-    if value.size > 1024 * 1024 * 100:
-        raise ValidationError(_('Maximum file size is 100MB.'))
+    if value.size > 1024 * 1024 * MAX_FILE_SIZE_MB:
+        raise ValidationError(_('Maximum file size is %(size)sMB.') % {'size': MAX_FILE_SIZE_MB})
+
+    # Editing existing video
+    if not hasattr(value.file, 'temporary_file_path'):
+        return
 
     if value.file.content_type not in ['video/mp4', 'video/webm', 'video/ogg']:
-        raise ValidationError(_('File type is not supported'))
-
-    # If ffmpeg can't read the file, it will raise an exception
-    if not hasattr(value.file, 'temporary_file_path'):
         raise ValidationError(_('File type is not supported'))
 
     # ffmpeg is not installed, skip
     if not ffmpeg:
         return
+
+    # ffmpeg needs to access this
+    if not hasattr(value.file, 'temporary_file_path'):
+        raise ValidationError(_('File type is not supported'))
 
     try:
         ffmpeg.probe(value.file.temporary_file_path())
@@ -65,7 +78,7 @@ def exercise_video_upload_dir(instance, filename):
     return f"exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
-class ExerciseVideo(AbstractLicenseModel, models.Model):
+class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise image
     """
@@ -82,7 +95,7 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
-    """The exercise the image belongs to"""
+    """The exercise the video belongs to"""
 
     is_main = models.BooleanField(
         verbose_name=_('Main video'),
@@ -142,6 +155,15 @@ class ExerciseVideo(AbstractLicenseModel, models.Model):
         editable=False,
     )
     """The video codec, in full"""
+
+    history = HistoricalRecords()
+    """Edit history"""
+
+    def get_absolute_url(self):
+        """
+        Returns the video URL
+        """
+        return self.video.url
 
     class Meta:
         """

@@ -19,19 +19,17 @@ import pathlib
 import uuid
 
 # Django
-from django.core import mail
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from simple_history.models import HistoricalRecords
+
 # wger
-from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import delete_template_fragment_cache
-from wger.utils.helpers import BaseImage
-from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
+    AbstractHistoryMixin,
     AbstractLicenseModel,
-    AbstractSubmissionModel,
 )
 
 
@@ -40,16 +38,13 @@ def exercise_image_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     ext = pathlib.Path(filename).suffix
-    return "exercise-images/{0}/{1}{2}".format(instance.exercise_base.id, instance.uuid, ext)
+    return f"exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
-class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model, BaseImage):
+class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, BaseImage):
     """
     Model for an exercise image
     """
-
-    objects = SubmissionManager()
-    """Custom manager"""
 
     LINE_ART = '1'
     THREE_D = '2'
@@ -105,6 +100,15 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model,
     )
     """The art style of the image"""
 
+    history = HistoricalRecords()
+    """Edit history"""
+
+    def get_absolute_url(self):
+        """
+        Return the image URL
+        """
+        return self.image.url
+
     class Meta:
         """
         Set default ordering
@@ -120,22 +124,13 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model,
             ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.accepted()\
+            if ExerciseImage.objects.all()\
                 .filter(exercise_base=self.exercise_base).count() == 0 \
-               or not ExerciseImage.objects.accepted() \
+               or not ExerciseImage.objects.all() \
                     .filter(exercise_base=self.exercise_base, is_main=True)\
                     .count():
 
                 self.is_main = True
-
-        #
-        # Reset all cached infos
-        #
-        for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
-            delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
 
         # And go on
         super(ExerciseImage, self).save(*args, **kwargs)
@@ -146,19 +141,13 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model,
         """
         super(ExerciseImage, self).delete(*args, **kwargs)
 
-        for language in Language.objects.all():
-            delete_template_fragment_cache('muscle-overview', language.id)
-            delete_template_fragment_cache('exercise-overview', language.id)
-            delete_template_fragment_cache('exercise-overview-mobile', language.id)
-            delete_template_fragment_cache('equipment-overview', language.id)
-
         # Make sure there is always a main image
-        if not ExerciseImage.objects.accepted().filter(
-            exercise_base=self.exercise_base, is_main=True
-        ).count() and ExerciseImage.objects.accepted().filter(exercise_base=self.exercise_base
-                                                              ).filter(is_main=False).count():
+        if not ExerciseImage.objects.all().filter(exercise_base=self.exercise_base, is_main=True
+                                                  ).count() and ExerciseImage.objects.all().filter(
+                                                      exercise_base=self.exercise_base
+                                                  ).filter(is_main=False).count():
 
-            image = ExerciseImage.objects.accepted() \
+            image = ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]
             image.is_main = True
             image.save()
@@ -168,29 +157,6 @@ class ExerciseImage(AbstractSubmissionModel, AbstractLicenseModel, models.Model,
         Image has no owner information
         """
         return False
-
-    def set_author(self, request):
-        """
-        Set author and status
-        This is only used when creating images (via web or API)
-        """
-        if request.user.has_perm('exercises.add_exerciseimage'):
-            self.status = self.STATUS_ACCEPTED
-            if not self.license_author:
-                self.license_author = request.get_host().split(':')[0]
-
-        else:
-            if not self.license_author:
-                self.license_author = request.user.username
-
-            subject = _('New user submitted image')
-            message = _('The user {0} submitted a new image "{1}" for exercise {2}.'
-                        ).format(request.user.username, self.name, self.exercise)
-            mail.mail_admins(
-                str(subject),
-                str(message),
-                fail_silently=True,
-            )
 
     @classmethod
     def from_json(

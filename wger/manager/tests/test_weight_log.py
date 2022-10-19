@@ -30,7 +30,7 @@ from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerTestCase,
 )
-from wger.exercises.models import Exercise
+from wger.exercises.models import ExerciseBase
 from wger.manager.models import (
     Workout,
     WorkoutLog,
@@ -286,7 +286,7 @@ class WeightlogTestCase(WgerTestCase):
         log = WorkoutLog()
         log.user = user1
         log.date = datetime.date(2014, 1, 5)
-        log.exercise = Exercise.objects.get(pk=1)
+        log.exercise_base = ExerciseBase.objects.get(pk=1)
         log.workout = workout1
         log.weight = 10
         log.reps = 10
@@ -354,7 +354,7 @@ class WeightLogEntryEditTestCase(WgerTestCase):
                 'repetition_unit': 2,
                 'weight_unit': 3,
                 'weight': 10,
-                'exercise': 1,
+                'exercise_base': 1,
                 'rir': 2,
             }
         )
@@ -587,7 +587,7 @@ class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     resource = WorkoutLog
     private_resource = True
     data = {
-        "exercise": 1,
+        "exercise_base": 1,
         "workout": 3,
         "reps": 3,
         "repetition_unit": 1,

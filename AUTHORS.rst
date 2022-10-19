@@ -57,6 +57,8 @@ Developers
 * Calvin Walden - https://github.com/calvinrw
 * Jack Mulligan - https://github.com/jackmulligan-ire
 * Kristopher Newsome - https://github.com/sysadmin75
+* Emma Muth - https://github.com/emmaamuth
+* Sophia Reed - https://github.com/sophialr
 * Leninux - https://github.com/RedRudeBoy
 * Ayush Kumar - https://github.com/gr8ayu
 * Gorkem Arslan - https://github.com/gorkemarslan
@@ -65,7 +67,9 @@ Developers
 * Jaspreet Dhillon - https://github.com/jaspreetsd902
 * Sofiko Alaverdashvili - https://github.com/sophiamartelli
 * Oebele Lijzenga - https://github.com/olijzenga
+* Kade - https://github.com/kp5431/
 * Tom Bowyer - https://github.com/ImTheTom
+* Rohan Karan - https://github.com/RohanKaran
 
 Translators
 -----------

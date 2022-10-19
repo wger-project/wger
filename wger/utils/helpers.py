@@ -220,28 +220,6 @@ def normalize_decimal(d):
         return normalized
 
 
-def smart_capitalize(input):
-    """
-    A "smart" capitalizer
-
-    This is used to capitalize e.g. exercise names. This is different than python's
-    capitalize and the similar django template tag mainly because of side effects
-    when applied to all caps words. E.g. the German "KH" (Kurzhantel) is capitalized
-    to "Kh" or "ß" to "SS". Because of this, only words with more than 2 letters as
-    well as the ones starting with "ß" are ignored.
-
-    :param input: the input string
-    :return: the capitalized string
-    """
-    out = []
-    for word in input.split(' '):
-        if len(word) > 2 and word[0] != 'ß':
-            out.append(word[:1].upper() + word[1:])
-        else:
-            out.append(word)
-    return ' '.join(out)
-
-
 def levenshtein(s1, s2):
     """
     The Levenshtein distance

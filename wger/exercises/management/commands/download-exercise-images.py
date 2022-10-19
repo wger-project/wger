@@ -109,14 +109,29 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    ExerciseImage.objects.get(uuid=image_uuid)
+                    image = ExerciseImage.objects.get(uuid=image_uuid)
                     self.stdout.write('    Image already present locally, skipping...')
                     continue
                 except ExerciseImage.DoesNotExist:
                     self.stdout.write('    Image not found in local DB, creating now...')
                     retrieved_image = requests.get(image_data['image'], headers=headers)
-                    ExerciseImage.from_json(exercise_base, retrieved_image, image_data, headers)
+                    image = ExerciseImage.from_json(exercise_base, retrieved_image, image_data, headers)
 
+                # Temporary files on windows don't support the delete attribute
+                if os.name == 'nt':
+                    img_temp = NamedTemporaryFile()
+                else:
+                    img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(retrieved_image.content)
+                img_temp.flush()
+
+                image.exercise_base = exercise_base
+                image.is_main = image_data['is_main']
+                image.image.save(
+                    os.path.basename(os.path.basename(image_data['image'])),
+                    File(img_temp),
+                )
+                image.save()
                 self.stdout.write(self.style.SUCCESS('    successfully saved'))
 
             if result['next']:

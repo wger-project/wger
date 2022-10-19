@@ -18,6 +18,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from simple_history.models import HistoricalRecords
+
 # wger
 from wger.utils.cache import reset_workout_canonical_form
 
@@ -32,7 +35,6 @@ class ExerciseComment(models.Model):
     exercise = models.ForeignKey(
         Exercise,
         verbose_name=_('Exercise'),
-        editable=False,
         on_delete=models.CASCADE,
     )
     comment = models.CharField(
@@ -40,6 +42,9 @@ class ExerciseComment(models.Model):
         verbose_name=_('Comment'),
         help_text=_('A comment about how to correctly do this exercise.')
     )
+
+    history = HistoricalRecords()
+    """Edit history"""
 
     def __str__(self):
         """
@@ -51,7 +56,7 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.setting_set.all():
+        for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training_id)
 
         super(ExerciseComment, self).save(*args, **kwargs)
@@ -60,7 +65,7 @@ class ExerciseComment(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.setting_set.all():
+        for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(ExerciseComment, self).delete(*args, **kwargs)

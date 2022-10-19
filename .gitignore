@@ -65,14 +65,12 @@ node_modules
 
 # Virtual envs
 venv
-venv-wget
+venv-wger
 
 # Dummy translation files to copy to react or flutter repo
 /wger/i18n.tsx
+
+# Will need to copy these files to the flutter repo
 /wger/i18n.dart
 /wger/app_en.arb
-
-
-
-# Local images folder
-/media
+/coverage.lcov

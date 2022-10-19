@@ -44,7 +44,7 @@ else:
 TIME_ZONE = env.str("TIME_ZONE", 'Europe/Berlin')
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = env.str("SECRET_KEY", 'wger-django-secret-key')
+SECRET_KEY = env.str("SECRET_KEY", 'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)')
 
 
 # Your reCaptcha keys
@@ -59,9 +59,13 @@ SITE_URL = env.str('SITE_URL', 'http://localhost:8000')
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT = env.str("DJANGO_MEDIA_ROOT", '/home/wger/media')
-MEDIA_URL = '/media/'
-
 STATIC_ROOT = env.str("DJANGO_STATIC_ROOT", '/home/wger/static')
+
+# If you change these, adjust nginx alias definitions as well
+MEDIA_URL = env.str('MEDIA_URL', '/media/')
+STATIC_URL = env.str('STATIC_URL', '/static/')
+
+LOGIN_REDIRECT_URL = env.str('LOGIN_REDIRECT_URL', '/')
 
 # Allow all hosts to access the application. Change if used in production.
 ALLOWED_HOSTS = '*'
@@ -108,3 +112,20 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
 
 # Folder for compressed CSS and JS files
 COMPRESS_ROOT = STATIC_ROOT
+
+# The site's domain as used by the email verification workflow
+EMAIL_PAGE_DOMAIN = 'http://localhost/'
+
+
+# Django Axes
+AXES_ENABLED = env.bool('AXES_ENABLED', True)
+AXES_FAILURE_LIMIT = env.int('AXES_FAILURE_LIMIT', 10)
+AXES_COOLOFF_TIME = timedelta(minutes=env.float('AXES_COOLOFF_TIME', 30))
+AXES_HANDLER = env.str('AXES_HANDLER', 'axes.handlers.cache.AxesCacheHandler')
+
+#
+# Django Rest Framework SimpleJWT
+#
+SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int("ACCESS_TOKEN_LIFETIME", 15))
+SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=env.int("REFRESH_TOKEN_LIFETIME", 24))
+SIMPLE_JWT['SIGNING_KEY'] = env.str("SIGNING_KEY", SECRET_KEY)

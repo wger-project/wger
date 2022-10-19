@@ -18,6 +18,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from simple_history.models import HistoricalRecords
+
 # wger
 from wger.utils.cache import reset_workout_canonical_form
 
@@ -35,6 +38,9 @@ class Alias(models.Model):
         verbose_name=_('Alias for an exercise'),
     )
 
+    history = HistoricalRecords()
+    """Edit history"""
+
     def __str__(self):
         """
         Return a more human-readable representation
@@ -45,7 +51,7 @@ class Alias(models.Model):
         """
         Reset cached workouts
         """
-        for setting in self.exercise.setting_set.all():
+        for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
         super(Alias, self).delete(*args, **kwargs)

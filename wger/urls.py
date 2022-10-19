@@ -28,7 +28,13 @@ from django.contrib.sitemaps.views import (
 from django.urls import path
 
 # Third Party
+from django_email_verification import urls as email_urls
 from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 # wger
 from wger.core.api import views as core_api_views
@@ -43,7 +49,7 @@ from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
 
-#admin.autodiscover()
+# admin.autodiscover()
 
 #
 # REST API
@@ -87,23 +93,71 @@ router.register(
 )
 
 # Exercises app
-router.register(r'exerciseinfo', exercises_api_views.ExerciseInfoViewset, basename='exerciseinfo')
 router.register(
-    r'exercisebaseinfo', exercises_api_views.ExerciseBaseInfoViewset, basename='exercisebaseinfo'
-)
-router.register(r'exercise', exercises_api_views.ExerciseViewSet, basename='exercise')
-router.register(r'equipment', exercises_api_views.EquipmentViewSet, basename='api')
-router.register(
-    r'exercisecategory', exercises_api_views.ExerciseCategoryViewSet, basename='exercisecategory'
+    r'exerciseinfo',
+    exercises_api_views.ExerciseInfoViewset,
+    basename='exerciseinfo',
 )
 router.register(
-    r'exerciseimage', exercises_api_views.ExerciseImageViewSet, basename='exerciseimage'
+    r'exercisebaseinfo',
+    exercises_api_views.ExerciseBaseInfoViewset,
+    basename='exercisebaseinfo',
 )
-router.register(r'video', exercises_api_views.ExerciseVideoViewSet, basename='video')
 router.register(
-    r'exercisecomment', exercises_api_views.ExerciseCommentViewSet, basename='exercisecomment'
+    r'exercise',
+    exercises_api_views.ExerciseViewSet,
+    basename='exercise',
 )
-router.register(r'muscle', exercises_api_views.MuscleViewSet, basename='muscle')
+router.register(
+    r'exercise-translation',
+    exercises_api_views.ExerciseTranslationViewSet,
+    basename='exercise-translation',
+)
+router.register(
+    r'exercise-base',
+    exercises_api_views.ExerciseBaseViewSet,
+    basename='exercise-base',
+)
+router.register(
+    r'equipment',
+    exercises_api_views.EquipmentViewSet,
+    basename='api',
+)
+router.register(
+    r'exercisecategory',
+    exercises_api_views.ExerciseCategoryViewSet,
+    basename='exercisecategory',
+)
+router.register(
+    r'video',
+    exercises_api_views.ExerciseVideoViewSet,
+    basename='video',
+)
+router.register(
+    r'exerciseimage',
+    exercises_api_views.ExerciseImageViewSet,
+    basename='exerciseimage',
+)
+router.register(
+    r'exercisecomment',
+    exercises_api_views.ExerciseCommentViewSet,
+    basename='exercisecomment',
+)
+router.register(
+    r'exercisealias',
+    exercises_api_views.ExerciseAliasViewSet,
+    basename='exercisealias',
+)
+router.register(
+    r'muscle',
+    exercises_api_views.MuscleViewSet,
+    basename='muscle',
+)
+router.register(
+    r'variation',
+    exercises_api_views.ExerciseVariationViewSet,
+    basename='variation',
+)
 
 # Nutrition app
 router.register(r'ingredient', nutrition_api_views.IngredientViewSet, basename='api-ingredient')
@@ -156,7 +210,7 @@ sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    #url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
     path('workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
@@ -196,6 +250,9 @@ urlpatterns += [
         core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
         name='api_register'
     ),
+    path('api/v2/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v2/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v2/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # Others
     path(
@@ -204,10 +261,16 @@ urlpatterns += [
         name='app_version'
     ),
     path(
+        'api/v2/check-permission/',
+        core_api_views.PermissionView.as_view({'get': 'get'}),
+        name='permission'
+    ),
+    path(
         'api/v2/min-app-version/',
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version'
     ),
+    path('email/', include(email_urls)),
 ]
 
 #

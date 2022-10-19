@@ -1,303 +1,317 @@
 [
-    {
-        "pk": 1,
-        "model": "exercises.muscle",
-        "fields": {
-            "is_front": true,
-            "name": "Anterior testoid",
-            "name_en": "Testoulders"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "exercises.muscle",
-        "fields": {
-            "is_front": false,
-            "name": "Biceps testii",
-            "name_en": "Testceps"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "exercises.muscle",
-        "fields": {
-            "is_front": false,
-            "name": "Biceps notusensis"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "exercises.muscle",
-        "fields": {
-            "is_front": true,
-            "name": "Bigus Pectoralis",
-            "name_en": "Testch"
-        }
-    },
-    {
-        "pk": 5,
-        "model": "exercises.muscle",
-        "fields": {
-            "is_front": true,
-            "name": "Latissimus wingus"
-        }
-    },
-    {
-        "pk": 6,
-        "model": "exercises.muscle",
-        "fields": {
-            "is_front": true,
-            "name": "Gluteus jucicus",
-            "name_en": "Test jucicus"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "exercises.exercisecategory",
-        "fields": {
-            "name": "Category"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "exercises.exercisecategory",
-        "fields": {
-            "name": "Another category"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "exercises.exercisecategory",
-        "fields": {
-            "name": "Yet another category"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "exercises.exercisecategory",
-        "fields": {
-            "name": "I will be deleted"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "exercises.variation",
-        "fields": {
-        }
-    },
-    {
-        "pk": 2,
-        "model": "exercises.variation",
-        "fields": {
-        }
-    },
-    {
-        "pk": 1,
-        "model": "exercises.exercisebase",
-        "fields": {
-            "uuid": "acad394936fb44819a72be2ddae2bc05",
-            "category": 2,
-            "status": "2",
-            "muscles": [
-                1,
-                2
-            ],
-            "muscles_secondary": [
-                3
-            ],
-            "variations": 1
-        }
-    },
-    {
-        "pk": 2,
-        "model": "exercises.exercisebase",
-        "fields": {
-            "uuid": "029a6eac67f242d9b71d9d692b0a35b0",
-            "category": 2,
-            "status": "2",
-            "muscles": [
-                2
-            ],
-            "muscles_secondary": [
-                1,
-                3
-            ],
-            "variations": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "exercises.exercisebase",
-        "fields": {
-            "uuid": "c2dc11e9b14a49cb9d11d1b9441f16f4",
-            "category": 3,
-            "status": "2",
-            "muscles": [
-                1
-            ],
-            "variations": 2
-        }
-    },
-    {
-        "pk": 4,
-        "model": "exercises.exercisebase",
-        "fields": {
-            "uuid": "9838235ce38f4ca6921e9d237d8e0813",
-            "category": 3,
-            "status": "2",
-            "muscles": [
-                1
-            ],
-            "muscles_secondary":[],
-            "variations": 2
-        }
-    },
-    {
-        "pk": 6,
-        "model": "exercises.exercisebase",
-        "fields": {
-            "uuid": "e9e35f0c45b14d64b00db707a94c6fb8",
-            "category": 1,
-            "status": "2",
-            "muscles": [],
-            "variations": null
-        }
-    },
-    {
-        "pk": 1,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "9838235ce38f4ca6921e9d237d8e0813",
-            "status": "2",
-            "language": 1,
-            "exercise_base": 1,
-            "description": "",
-            "name": "An exercise"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "3275c4e6e7ba4368964b6b1a9d80ca7a",
-            "status": "2",
-            "language": 2,
-            "exercise_base": 2,
-            "description": "",
-            "name": "Very cool exercise"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
-            "status": "2",
-            "language": 1,
-            "exercise_base": 3,
-            "description": "",
-            "name": "Boring exercise"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "37b5813c76bd4658820a572d9dd93f31",
-            "status": "1",
-            "language": 1,
-            "description": "",
-            "exercise_base": 3,
-            "license_author": "test",
-            "name": "Pending exercise"
-        }
-    },
-    {
-        "pk": 35,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "150f17eb8674450d976f4c5538479bfb",
-            "status": "2",
-            "language": 1,
-            "exercise_base": 4,
-            "description": "",
-            "name": "Needed for demo user"
-        }
-    },
-    {
-        "pk": 81,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "885c1110aa324235af361164347a4465",
-            "status": "2",
-            "language": 1,
-            "exercise_base": 4,
-            "description": "",
-            "name": "Needed for demo user"
-        }
-    },
-    {
-        "pk": 84,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "a7c662b36b474affb313a872a104dd2f",
-            "status": "2",
-            "language": 2,
-            "exercise_base": 4,
-            "description": "",
-            "name": "Needed for demo user"
-        }
-    },
-    {
-        "pk": 91,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "f2417bb4fa314e51bd5c425af21be468",
-            "status": "2",
-            "language": 2,
-            "exercise_base": 4,
-            "description": "",
-            "name": "Needed for demo user"
-        }
-    },
-    {
-        "pk": 111,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "cc3dbb66889f4deda2f0142c942c464f",
-            "status": "2",
-            "language": 2,
-            "exercise_base": 4,
-            "description": "",
-            "name": "Needed for demo user"
-        }
-    },
-    {
-        "pk": 126,
-        "model": "exercises.exercise",
-        "fields": {
-            "uuid": "283ad85ca8984a719abbc9cadd62b353",
-            "status": "2",
-            "language": 2,
-            "exercise_base": 4,
-            "description": "",
-            "name": "Needed for demo user"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "exercises.exercisecomment",
-        "fields": {
-            "comment": "test 123",
-            "exercise": 1
-        }
-    },
-    {
-        "pk": 2,
-        "model": "exercises.exercisecomment",
-        "fields": {
-            "comment": "Foobar",
-            "exercise": 2
-        }
+  {
+    "pk": 1,
+    "model": "exercises.variation",
+    "fields": {
     }
+  },
+  {
+    "pk": 2,
+    "model": "exercises.variation",
+    "fields": {
+    }
+  },
+  {
+    "pk": 3,
+    "model": "exercises.variation",
+    "fields": {
+    }
+  },
+  {
+    "pk": 4,
+    "model": "exercises.variation",
+    "fields": {
+    }
+  },
+  {
+    "pk": 1,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "acad394936fb44819a72be2ddae2bc05",
+      "category": 2,
+      "creation_date": "2020-01-10",
+      "update_date": "2020-11-01T22:10:00+01:00",
+      "muscles": [
+        1,
+        2
+      ],
+      "muscles_secondary": [
+        3
+      ],
+      "variations": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "029a6eac67f242d9b71d9d692b0a35b0",
+      "category": 2,
+      "creation_date": "2014-11-01",
+      "update_date": "2018-11-01T00:00:00+01:00",
+      "muscles": [
+        2
+      ],
+      "muscles_secondary": [
+        1,
+        3
+      ],
+      "variations": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "c2dc11e9b14a49cb9d11d1b9441f16f4",
+      "category": 3,
+      "creation_date": "2020-01-10",
+      "update_date": "2020-11-01T22:10:00+01:00",
+      "muscles": [
+        1
+      ],
+      "variations": 2
+    }
+  },
+  {
+    "pk": 4,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "a2f5b6ef-b780-49c0-8d96-fdaff23e27ce",
+      "category": 3,
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00",
+      "muscles": [
+        1
+      ],
+      "muscles_secondary": [],
+      "variations": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "1ae6a28d-10e7-4ecf-af4f-905f8193e2c6",
+      "category": 1,
+      "creation_date": "2002-08-15",
+      "update_date": "2008-08-08T08:08:08+01:00",
+      "muscles": [],
+      "variations": null
+    }
+  },
+  {
+    "pk": 6,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "95a7e546-e8f8-4521-a76b-983d94161b25",
+      "category": 1,
+      "creation_date": "2002-08-15",
+      "update_date": "2008-08-08T08:08:08+01:00",
+      "muscles": [],
+      "variations": null
+    }
+  },
+  {
+    "pk": 7,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "b186f1f8-4957-44dc-bf30-d0b00064ce6f",
+      "category": 1,
+      "creation_date": "2002-08-15",
+      "update_date": "2008-08-08T08:08:08+01:00",
+      "muscles": [],
+      "variations": null
+    }
+  },
+  {
+    "pk": 8,
+    "model": "exercises.exercisebase",
+    "fields": {
+      "uuid": "c2078aac-e4e2-4103-a845-6252a3eb795e",
+      "category": 1,
+      "creation_date": "2002-08-15",
+      "update_date": "2008-08-08T08:08:08+01:00",
+      "muscles": [],
+      "variations": null
+    }
+  },
+  {
+    "pk": 1,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "9838235ce38f4ca6921e9d237d8e0813",
+      "language": 1,
+      "exercise_base": 1,
+      "description": "Lorem ipsum dolor sit amet",
+      "name": "An exercise",
+      "creation_date": "2002-08-15",
+      "update_date": "2008-08-08T08:08:08+01:00"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "3275c4e6e7ba4368964b6b1a9d80ca7a",
+      "language": 2,
+      "exercise_base": 2,
+      "description": "",
+      "name": "Very cool exercise",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
+      "language": 1,
+      "exercise_base": 3,
+      "description": "",
+      "name": "Boring exercise",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "37b5813c76bd4658820a572d9dd93f31",
+      "language": 1,
+      "description": "",
+      "exercise_base": 4,
+      "license_author": "test",
+      "name": "Pending exercise",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "37b5813c76bd4658820a572d9dd93f31",
+      "language": 3,
+      "description": "",
+      "exercise_base": 1,
+      "license_author": "test",
+      "name": "Test exercise 123",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "37b5813c76bd4658820a572d9dd93f31",
+      "language": 3,
+      "description": "",
+      "exercise_base": 3,
+      "license_author": "test",
+      "name": "Some other exercise",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "150f17eb8674450d976f4c5538479bfb",
+      "language": 1,
+      "exercise_base": 4,
+      "description": "",
+      "name": "Needed for demo user",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "885c1110aa324235af361164347a4465",
+      "language": 1,
+      "exercise_base": 5,
+      "description": "",
+      "name": "Needed for demo user",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "a7c662b36b474affb313a872a104dd2f",
+      "language": 2,
+      "exercise_base": 6,
+      "description": "",
+      "name": "Needed for demo user",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "f2417bb4fa314e51bd5c425af21be468",
+      "language": 2,
+      "exercise_base": 7,
+      "description": "",
+      "name": "Needed for demo user",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "exercises.exercise",
+    "fields": {
+      "uuid": "cc3dbb66889f4deda2f0142c942c464f",
+      "language": 2,
+      "exercise_base": 8,
+      "description": "",
+      "name": "Needed for demo user",
+      "creation_date": "2022-01-10",
+      "update_date": "2022-02-02T06:45:11+01:00"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "exercises.exercisecomment",
+    "fields": {
+      "comment": "test 123",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "exercises.exercisecomment",
+    "fields": {
+      "comment": "Foobar",
+      "exercise": 2
+    }
+  },
+  {
+    "pk": 1,
+    "model": "exercises.alias",
+    "fields": {
+      "alias": "a different name",
+      "exercise": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "exercises.alias",
+    "fields": {
+      "alias": "yet another name",
+      "exercise": 2
+    }
+  }
 ]

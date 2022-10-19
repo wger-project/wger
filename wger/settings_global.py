@@ -19,6 +19,7 @@
 import os
 import re
 import sys
+from datetime import timedelta
 
 
 """
@@ -83,12 +84,28 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'rest_framework_simplejwt',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
 
     # CORS
     'corsheaders',
+
+    # Django Axes
+    'axes',
+
+    # History keeping
+    'simple_history',
+
+    # Django email verification
+    'django_email_verification',
+
+    # Activity stream
+    'actstream',
+
+    # Fontawesome
+    'fontawesomefree',
 )
 
 MIDDLEWARE = (
@@ -111,10 +128,18 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
+    # History keeping
+    'simple_history.middleware.HistoryRequestMiddleware',
+
+    # Django Axes
+    'axes.middleware.AxesMiddleware',  # should be the last one in the list
 )
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', 'wger.utils.helpers.EmailAuthBackend'
+    'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
+    'django.contrib.auth.backends.ModelBackend',
+    'wger.utils.helpers.EmailAuthBackend',
 )
 
 TEMPLATES = [
@@ -259,6 +284,23 @@ CACHES = {
 }
 
 #
+# Django Axes
+#
+AXES_ENABLED = True
+AXES_FAILURE_LIMIT = 10
+AXES_COOLOFF_TIME = timedelta(minutes=30)
+AXES_LOCKOUT_TEMPLATE = None
+AXES_RESET_ON_SUCCESS = False
+AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = True
+
+# If you want to set up redis, set AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
+AXES_HANDLER = 'axes.handlers.database.AxesDatabaseHandler'
+
+# If your redis or MemcachedCache has a different name other than 'default'
+# (e.g. when you have multiple caches defined in CACHES), change the following value to that name
+AXES_CACHE = 'default'
+
+#
 # Django Crispy Templates
 #
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -377,6 +419,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -386,6 +429,17 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'login': '3/min'
     }
+}
+
+#
+# Django Rest Framework SimpleJWT
+#
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
 }
 
 #
@@ -433,6 +487,32 @@ WGER_SETTINGS = {
     'TWITTER': False,
     'USE_RECAPTCHA': False
 }
+
+
+#
+# Django email verification
+#
+def email_verified_callback(user):
+    user.userprofile.email_verified = True
+    user.userprofile.save()
+
+
+EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
+EMAIL_MAIL_SUBJECT = 'Confirm your email'
+EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
+EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'
+EMAIL_MAIL_TOKEN_LIFE = 60 * 60
+EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
+
+#
+# Django activity stream
+#
+ACTSTREAM_SETTINGS = {
+    'USE_JSONFIELD': True,
+}
+
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'

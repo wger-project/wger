@@ -84,6 +84,8 @@ class Command(BaseCommand):
         self.sync_exercises(headers, remote_url)
 
     def sync_exercises(self, headers: dict, remote_url: str):
+        """Synchronize the exercises from the remote server"""
+
         self.stdout.write('*** Synchronizing exercises...')
         page = 1
         all_exercise_processed = False
@@ -118,14 +120,6 @@ class Command(BaseCommand):
                     exercise.save()
                 except Exercise.DoesNotExist:
                     self.stdout.write(f'Saved new exercise {exercise_name}')
-                    exercise = Exercise(
-                        uuid=exercise_uuid,
-                        name=exercise_name,
-                        description=exercise_description,
-                        language_id=data['language']['id'],
-                        license_id=data['license']['id'],
-                        license_author=data['license_author'],
-                    )
                     base = ExerciseBase()
                     base.category_id = data['category']['id']
                     base.save()
@@ -133,6 +127,15 @@ class Command(BaseCommand):
                     base.muscles_secondary.set(muscles_sec)
                     base.equipment.set(equipment)
                     base.save()
+                    exercise = Exercise(
+                        uuid=exercise_uuid,
+                        exercise_base=base,
+                        name=exercise_name,
+                        description=exercise_description,
+                        language_id=data['language']['id'],
+                        license_id=data['license']['id'],
+                        license_author=data['license_author'],
+                    )
                     exercise.save()
 
             if result['next']:
@@ -143,6 +146,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
     def sync_equipment(self, headers: dict, remote_url: str):
+        """Synchronize the equipment from the remote server"""
+
         self.stdout.write('*** Synchronizing equipment...')
         result = requests.get(EQUIPMENT_API.format(remote_url), headers=headers).json()
         for equipment_data in result['results']:
@@ -160,6 +165,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
     def sync_muscles(self, headers: dict, remote_url: str):
+        """Synchronize the muscles from the remote server"""
+
         self.stdout.write('*** Synchronizing muscles...')
         result = requests.get(MUSCLE_API.format(remote_url), headers=headers).json()
         for muscle_data in result['results']:
@@ -195,6 +202,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
     def sync_categories(self, headers: dict, remote_url: str):
+        """Synchronize the categories from the remote server"""
+
         self.stdout.write('*** Synchronizing categories...')
         result = requests.get(CATEGORY_API.format(remote_url), headers=headers).json()
         for category_data in result['results']:

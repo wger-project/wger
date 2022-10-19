@@ -89,7 +89,7 @@ def delete_testcase_add_methods(cls):
         setattr(cls, f'test_authorized_{user}', test_authorized)
 
 
-class BaseTestCase(object):
+class BaseTestCase():
     """
     Base test case.
 
@@ -116,6 +116,8 @@ class BaseTestCase(object):
         'test-apikeys',
         'test-weight-data',
         'test-equipment',
+        'test-categories',
+        'test-muscles',
         'test-exercises',
         'test-exercise-images',
         'test-weight-units',
@@ -149,6 +151,10 @@ class BaseTestCase(object):
         # Set MEDIA_ROOT
         self.media_root = tempfile.mkdtemp()
         settings.MEDIA_ROOT = self.media_root
+
+        # Disable django-axes
+        # https://django-axes.readthedocs.io/en/latest/3_usage.html#authenticating-users
+        settings.AXES_ENABLED = False
 
     def tearDown(self):
         """
@@ -247,7 +253,7 @@ class WgerDeleteTestCase(WgerTestCase):
 
     def delete_object(self, fail=False):
         """
-        Helper function to test deleting a workout
+        Helper function to test deleting an object
         """
 
         # Only perform the checks on derived classes

@@ -98,6 +98,9 @@ class UserProfile(models.Model):
     The gym this user belongs to, if any
     """
 
+    email_verified = models.BooleanField(default=False)
+    """Flag indicating whether the user's email has been verified"""
+
     is_temporary = models.BooleanField(default=False, editable=False)
     """
     Flag to mark a temporary user (demo account)
@@ -179,6 +182,29 @@ by the US Department of Agriculture. It is extremely complete, with around
         on_delete=models.CASCADE
     )
 
+    @property
+    def is_trustworthy(self) -> bool:
+        """
+        Flag indicating whether the user "is trustworthy" and can submit or edit exercises
+
+        At the moment the criteria are:
+        - the account has existed for 3 weeks
+        - the email address has been verified
+        """
+
+        # Superusers are always trustworthy
+        if self.user.is_superuser:
+            return True
+
+        # Temporary users are never trustworthy
+        if self.is_temporary:
+            return False
+
+        days_since_joined = datetime.date.today() - self.user.date_joined.date()
+        minimum_account_age = 21
+
+        return days_since_joined.days > minimum_account_age and self.email_verified
+
     #
     # User statistics
     #
@@ -191,7 +217,7 @@ by the US Department of Agriculture. It is extremely complete, with around
     """The user's age"""
 
     birthdate = models.DateField(
-        verbose_name=('Date of Birth'),
+        verbose_name=_('Date of Birth'),
         blank=False,
         null=True,
         validators=[birthdate_validator],
