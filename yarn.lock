@@ -31,6 +31,11 @@ commander@7:
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
 
+components-font-awesome@5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/components-font-awesome/-/components-font-awesome-5.9.0.tgz#02242f85946f0a6ab46870547f4c54d11e94ef75"
+  integrity sha512-AjY5WwmKripvroQ1oYpCC4eK8efavSKUGN/ATgwcbyz/kRmojslH8l6Mrlxq071bdzBrZvCxi+RKgU5ao3bU+A==
+
 d3-array@1, d3-array@^1.2.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.2.4.tgz#635ce4d5eea759f6f605863dbcfc30edc737f71f"
@@ -734,10 +739,10 @@ shariff@^3.2.1:
     "@fortawesome/fontawesome-free" "^5.8.2"
     jquery "^3.4.1"
 
-tinymce@^5.10.5:
-  version "5.10.5"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.5.tgz#02aef6a67e915f1559e51fa8fb007270d9666778"
-  integrity sha512-nFKtLhmoRtExBxUfv06JlkbQWux5D+d115vxSRAqUmccZdrtpFvOIYwZmikvulLdM9pfEpvO0B+RQ2qFV/+R7w==
+tinymce@^5.10.6:
+  version "5.10.6"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.6.tgz#ea03927e9d20c035619dfd32ec4fd471c55e32c5"
+  integrity sha512-bnF2LUoycDsoZZLQBNHbOijrmoJuEeR1rQdqgo4s77BedufpOVnDh00OZKbseHeTMCxhVH05wvOqxLsi6vpeZw==
 
 xmlhttprequest@1:
   version "1.8.0"
