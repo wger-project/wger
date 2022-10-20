@@ -133,5 +133,5 @@ SIMPLE_JWT['SIGNING_KEY'] = env.str("SIGNING_KEY", SECRET_KEY)
 #
 # Celery message queue configuration
 #
-CELERY_BROKER_URL = "redis://cache:6379/1"
-CELERY_RESULT_BACKEND = "redis://cache:6379/1"
+CELERY_BROKER_URL = env.str("CELERY_BROKER", "redis://cache:6379/1")
+CELERY_RESULT_BACKEND = env.str("CELERY_BACKEND", "redis://cache:6379/1")
