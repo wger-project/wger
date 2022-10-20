@@ -27,6 +27,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.exercises.models import ExerciseBase
+from wger.utils.helpers import BaseImage
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
