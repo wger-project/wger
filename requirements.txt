@@ -24,6 +24,9 @@ invoke==1.7.3
 pillow==9.2.0
 reportlab==3.6.11
 requests==2.28.1
+celery==5.2.7
+redis==4.3.4
+flower==1.2.0
 
 
 # AWS
