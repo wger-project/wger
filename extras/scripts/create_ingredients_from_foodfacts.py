@@ -25,7 +25,7 @@ django.setup()
 from django.conf import settings  # noqa: E402
 
 from wger.nutrition.models import Ingredient  # noqa: E402
-from wger.nutrition.models.ingredient import Source  # noqa: E402
+from wger.nutrition.models.sources import Source
 from wger.core.models import Language  # noqa: E402
 
 

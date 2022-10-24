@@ -15,24 +15,22 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 
 # Django
 from django.conf import settings
-from django.contrib.sites.models import Site
-from django.core import mail
 from django.core.management.base import BaseCommand
-from django.template import loader
-from django.utils import translation
-from django.utils.translation import gettext_lazy as _
 
 # wger
+from wger.nutrition.tasks import fetch_ingredient_image
 from wger.nutrition.models import MealItem
 
 
 class Command(BaseCommand):
     """
-    Download images of all Open Food Facts ingredients that are used in a nutrition plan
+    One off script
+
+    This is intended to download all images from Open Food Facts for the all
+    currently used ingredients
     """
 
     help = 'Download images of all Open Food Facts ingredients that are used in a nutrition plan'
@@ -47,7 +45,8 @@ class Command(BaseCommand):
         meal_item_counter = 0
         download_counter = 0
         for meal_item in meal_items:
-            if meal_item.ingredient.fetch_image():
+            if meal_item.ingredient:
+                fetch_ingredient_image.delay(meal_item.ingredient.pk)
                 download_counter += 1
             meal_item_counter += 1
 

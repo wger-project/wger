@@ -4,6 +4,9 @@
     :copyright: 2011, 2012 by OpenSlides team, see AUTHORS.
     :license: GNU GPL, see LICENSE for more details.
 """
+# Local
+from .celery import app as celery_app
+
 
 MIN_APP_VERSION = (1, 5, 0, 'final', 1)
 

@@ -115,7 +115,12 @@ class Command(BaseCommand):
                 except ExerciseImage.DoesNotExist:
                     self.stdout.write('    Image not found in local DB, creating now...')
                     retrieved_image = requests.get(image_data['image'], headers=headers)
-                    image = ExerciseImage.from_json(exercise_base, retrieved_image, image_data, headers)
+                    image = ExerciseImage.from_json(
+                        exercise_base,
+                        retrieved_image,
+                        image_data,
+                        headers,
+                    )
 
                 # Temporary files on windows don't support the delete attribute
                 if os.name == 'nt':

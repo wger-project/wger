@@ -166,7 +166,7 @@ def search(request):
             name__icontains=term,
             language__in=languages,
             status=Ingredient.STATUS_ACCEPTED,
-        )
+        )[:30]
 
         for ingredient in ingredients:
             if hasattr(ingredient, 'image'):
@@ -175,6 +175,7 @@ def search(request):
                 t = get_thumbnailer(image_obj.image)
                 thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
             else:
+                ingredient.get_image(request)
                 image = None
                 thumbnail = None
 

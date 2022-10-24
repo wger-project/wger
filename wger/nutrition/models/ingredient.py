@@ -16,11 +16,8 @@
 
 # Standard Library
 import logging
-import os
 import uuid as uuid
 from decimal import Decimal
-from enum import Enum
-from typing import Optional
 
 # Django
 from django.conf import settings
@@ -42,12 +39,9 @@ from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-# Third Party
-import requests
-from requests.utils import default_user_agent
-
 # wger
 from wger.core.models import Language
+from wger.nutrition.tasks import fetch_ingredient_image
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.managers import SubmissionManager
@@ -57,18 +51,12 @@ from wger.utils.models import (
 )
 
 # Local
-from ... import get_version
 from ..consts import ENERGY_FACTOR
-from .image import Image
 from .ingredient_category import IngredientCategory
+from .sources import Source
 
 
 logger = logging.getLogger(__name__)
-
-
-class Source(Enum):
-    WGER = 'wger'
-    OPEN_FOOD_FACTS = 'Open Food Facts'
 
 
 class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
@@ -447,73 +435,18 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if self.source_name == Source.OPEN_FOOD_FACTS.value:
             return f'https://world.openfoodfacts.org/product/{self.code}/'
 
-    def fetch_image(self):
-        """
-        Fetches the ingredient image from Open Food Facts servers if it is not available locally
-
-        Returns the image if it was fetched
-        """
-        if hasattr(self, 'image'):
-            return
-
-        if self.source_name != Source.OPEN_FOOD_FACTS.value:
-            return
-
-        if not settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF']:
-            return
-
-        if settings.TESTING:
-            return
-
-        # Everything looks fine, go ahead
-        logger.info(f'Trying to fetch image from OFF for {self.name} (UUID: {self.uuid})')
-        headers = {
-            'User-agent':
-            default_user_agent(f'wger/{get_version()} - https://github.com/wger-project')
-        }
-
-        # Fetch the product data
-        product_data = requests.get(self.source_url, headers=headers).json()
-        image_url: Optional[str] = product_data['product'].get('image_front_url')
-        if not image_url:
-            return
-
-        image_data = product_data['product']['images']
-
-        # Download the image file
-        downloaded_image: requests.Response = requests.get(image_url, headers=headers)
-        if downloaded_image.status_code != 200:
-            return
-
-        # Parse the file name, looks something like this:
-        # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg
-        image_name: str = image_url.rpartition("/")[2].partition(".")[0]
-
-        # Retrieve the uploader name
-        try:
-            image_id: str = image_data[image_name]['imgid']
-            uploader_name: str = image_data[image_id]['uploader']
-        except KeyError:
-            return
-
-        # Save to DB
-        image_data: dict = {
-            'image': os.path.basename(image_url),
-            'license_author': uploader_name,
-            'size': len(downloaded_image.content)
-        }
-        return Image.from_json(self, downloaded_image, image_data, headers, generate_uuid=True)
-
     def get_image(self, request: HttpRequest):
         """
         Returns the ingredient image
 
         If it is not available locally, it is fetched from Open Food Facts servers
         """
+
         if hasattr(self, 'image'):
             return self.image
 
         if not request.user.is_authenticated:
             return
 
-        return self.fetch_image()
+        # Let celery fetch the image
+        fetch_ingredient_image.delay(self.pk)
