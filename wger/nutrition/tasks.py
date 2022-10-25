@@ -98,7 +98,7 @@ def fetch_ingredient_image_function(pk: int):
         return
 
     # Save to DB
-    image_data: dict = {
+    image_data = {
         'image': os.path.basename(image_url),
         'license_author': uploader_name,
         'size': len(response.content)
