@@ -448,5 +448,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not request.user.is_authenticated:
             return
 
+        if not settings.WGER_SETTINGS['USE_CELERY']:
+            return
+
         # Let celery fetch the image
         fetch_ingredient_image.delay(self.pk)

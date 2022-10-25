@@ -482,6 +482,7 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
+    'USE_CELERY': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'TWITTER': False,
@@ -512,7 +513,6 @@ EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,
 }
-
 
 # Whether the application is being run regularly or during tests
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'

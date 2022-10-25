@@ -36,6 +36,9 @@ class Command(BaseCommand):
     help = 'Download images of all Open Food Facts ingredients that are used in a nutrition plan'
 
     def handle(self, **options):
+        if not settings.WGER_SETTINGS['USE_CELERY']:
+            return
+
         # Make sure off downloads are enabled
         settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF'] = True
 
