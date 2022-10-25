@@ -28,7 +28,7 @@ as an administration guide available at <https://wger.readthedocs.io> or in the
 [docs repo](https://github.com/wger-project/docs).
 
 Please consult the commands' help for further information and available
-parameters.
+parameters...
 
 
 ### Production
