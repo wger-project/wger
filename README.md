@@ -28,7 +28,7 @@ as an administration guide available at <https://wger.readthedocs.io> or in the
 [docs repo](https://github.com/wger-project/docs).
 
 Please consult the commands' help for further information and available
-parameters...
+parameters.
 
 
 ### Production
@@ -78,6 +78,24 @@ file for details). You will also probably want to set `DJANGO_DEBUG to false
 
 If you prefer a local installation, consult the
 [development documentation](https://wger.readthedocs.io/en/latest/development.html)
+
+#### Quick how to guide: Contributing to documentation using an editor (VScode)
+
+Step 1. Create GitHub account if you don't already have one.
+
+Step 2. CLone repository you wish to make changes to
+
+Step 3. Open in editor (VScode)
+
+Step 4. Make desired changes in editor
+
+Step 5. Save changes and stage changes
+
+Step 6. Commit to local repository
+
+Step 7. "Push" commit to remote repository
+
+Step 8. Log into GitHub, check commits are there. Done.  
 
 
 ## Contact
