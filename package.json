@@ -16,8 +16,7 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "Sortable": "RubaXa/Sortable#1.15.0",
-    "bootstrap": "4.6.2",
+    "bootstrap": "^5.2.2",
     "components-font-awesome": "5.9.0",
     "d3": "^7.6.1",
     "datatables": "^1.10.18",
@@ -27,6 +26,7 @@
     "metrics-graphics": "^2.15.6",
     "popper.js": "^1.16.1",
     "shariff": "^3.2.1",
+    "Sortable": "RubaXa/Sortable#1.15.0",
     "tinymce": "^5.10.6",
     "yarn": "^1.22.19"
   },
