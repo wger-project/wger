@@ -21,7 +21,7 @@ easy-thumbnails==2.8.3
 fontawesomefree~=6.2.0
 icalendar==4.1.0
 invoke==1.7.3
-pillow==9.2.0
+pillow==9.3.0
 reportlab==3.6.12
 requests==2.28.1
 
