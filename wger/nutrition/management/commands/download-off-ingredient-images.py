@@ -1,5 +1,3 @@
-# -*- coding: utf-8 *-*
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
+import logging
 
 # Django
 from django.conf import settings
@@ -23,6 +22,9 @@ from django.core.management.base import BaseCommand
 # wger
 from wger.nutrition.tasks import fetch_ingredient_image
 from wger.nutrition.models import MealItem
+
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -37,6 +39,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         if not settings.WGER_SETTINGS['USE_CELERY']:
+            logger.info('Celery deactivated, skipping task')
             return
 
         # Make sure off downloads are enabled

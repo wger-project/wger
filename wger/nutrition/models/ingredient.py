@@ -449,6 +449,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return
 
         if not settings.WGER_SETTINGS['USE_CELERY']:
+            logger.info('Celery deactivated, skipping task')
             return
 
         # Let celery fetch the image
