@@ -19,7 +19,10 @@
 import datetime
 
 # Django
+from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # Third Party
 from easy_thumbnails.alias import aliases
@@ -88,6 +91,10 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        super().dispatch(request, *args, **kwargs)
 
     @action(detail=True)
     def get_values(self, request, pk):
@@ -202,6 +209,10 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ImageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'source_url', 'ingredient_id')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        super().dispatch(request, *args, **kwargs)
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):

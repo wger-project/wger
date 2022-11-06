@@ -20,8 +20,8 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.nutrition.tasks import fetch_ingredient_image
 from wger.nutrition.models import MealItem
+from wger.nutrition.tasks import fetch_ingredient_image
 
 
 logger = logging.getLogger(__name__)
