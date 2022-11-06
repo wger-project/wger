@@ -6,7 +6,7 @@
 -r requirements.txt
 
 # Building/installing
-wheel==0.37.1
+wheel==0.38.1
 
 # for ingredient import script from OFF
 pymongo==4.3.2
