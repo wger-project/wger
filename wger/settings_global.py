@@ -483,6 +483,7 @@ WGER_SETTINGS = {
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
     'USE_CELERY': False,
+    'DOWNLOAD_FROM_OFF': False,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'TWITTER': False,
