@@ -173,7 +173,7 @@ def search(request):
             name__icontains=term,
             language__in=languages,
             status=Ingredient.STATUS_ACCEPTED,
-        )[:30]
+        )[:100]
 
         for ingredient in ingredients:
             if hasattr(ingredient, 'image'):
