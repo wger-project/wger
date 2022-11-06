@@ -19,6 +19,7 @@ from typing import Optional
 
 # Django
 from django.conf import settings
+from django.db import IntegrityError
 
 # Third Party
 import requests
@@ -94,5 +95,12 @@ def fetch_ingredient_image(pk: int):
         'license_author': uploader_name,
         'size': len(response.content)
     }
-    Image.from_json(ingredient, response, image_data, headers, generate_uuid=True)
+    try:
+        Image.from_json(ingredient, response, image_data, headers, generate_uuid=True)
+    # Due to a race condition (e.g. when adding tasks over the search), we might
+    # try to save an image to an ingredient that already has one. In that case,
+    # just ignore the error
+    except IntegrityError:
+        logger.info('Ingredient has already an image, skipping...')
+        return
     logger.info('Image successfully saved')
