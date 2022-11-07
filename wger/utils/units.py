@@ -26,7 +26,7 @@ Weight unit classes
 """
 
 
-class AbstractWeight(object):
+class AbstractWeight:
     """
     Helper class to use when working with sensible (kg) or imperial units.
 

@@ -41,7 +41,7 @@ from django.utils.http import (
 logger = logging.getLogger(__name__)
 
 
-class EmailAuthBackend(object):
+class EmailAuthBackend:
 
     def authenticate(self, request, username=None, password=None):
         try:

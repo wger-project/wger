@@ -439,7 +439,7 @@ class ApiPatchTestCase:
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ApiPutTestCase(object):
+class ApiPutTestCase:
     """
     Base test case for testing PUT access to the API
     """
@@ -468,7 +468,7 @@ class ApiPutTestCase(object):
             # Even if we PUT to a detail resource that does not belong to us,
             # the created object will have the correct user assigned.
             #
-            # Currently resources that have a 'user' field 'succeed'
+            # Currently, resources that have a 'user' field 'succeed'
             if response.status_code == status.HTTP_201_CREATED:
                 # print(f'201: {self.url_detail}')
                 obj = self.resource.objects.get(pk=response.data['id'])
@@ -566,7 +566,7 @@ class ApiPutTestCase(object):
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ApiDeleteTestCase(object):
+class ApiDeleteTestCase:
     """
     Base test case for testing DELETE access to the API
     """

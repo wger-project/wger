@@ -64,7 +64,7 @@ class WgerMultiplePermissionRequiredMixin(PermissionRequiredMixin):
         return False
 
 
-class WgerPermissionMixin(object):
+class WgerPermissionMixin:
     """
     Custom permission mixim
 
