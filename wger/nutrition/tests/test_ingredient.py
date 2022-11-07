@@ -208,7 +208,7 @@ class IngredientDetailTestCase(WgerTestCase):
 
     def test_ingredient_detail_editor(self):
         """
-        Tests the ingredient details page as a logged in user with editor rights
+        Tests the ingredient details page as a logged-in user with editor rights
         """
 
         self.user_login('admin')
@@ -216,7 +216,7 @@ class IngredientDetailTestCase(WgerTestCase):
 
     def test_ingredient_detail_non_editor(self):
         """
-        Tests the ingredient details page as a logged in user without editor rights
+        Tests the ingredient details page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -272,7 +272,7 @@ class IngredientSearchTestCase(WgerTestCase):
 
     def test_search_ingredient_logged_in(self):
         """
-        Test searching for an ingredient by a logged in user
+        Test searching for an ingredient by a logged-in user
         """
 
         self.user_login('test')
@@ -350,7 +350,7 @@ class IngredientValuesTestCase(WgerTestCase):
 
     def test_calculate_value_logged_in(self):
         """
-        Calculate the nutritional values as a logged in user
+        Calculate the nutritional values as a logged-in user
         """
 
         self.user_login('test')
