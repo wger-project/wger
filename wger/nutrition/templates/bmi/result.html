@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+<style>
+div.table {
+    display:table;
+    margin-top: 1em;
+}
+div.table > div {
+    display:table-row;
+}
+div.table > div > div {
+    display:table-cell;
+    padding-left: 1em;
+}
+div.bmi-legend {
+    width:1em;
+    height:1em;
+}
+</style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Language', 'Speakers (in millions)'],
+          ['Underweight', 1.5], ['Normal', 14.6], ['Overweight', 30.7], ['Obese', 42.4], ['Severe Obesity', 9.2]
+        ]);
+
+        
+        var options = {
+          title: 'Percentage of Different BMI',
+          legend: 'none',
+          pieSliceText: 'label',
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+{% endblock %}
+
+<!--
+        Title
+-->
+{% block title %}{% translate "BMI Result Page" %}{% endblock %}
+
+
+<!--
+        Main Content
+-->
+{% block content %}
+
+
+{% comment %} user.userprofile.calculate_bmi {% endcomment %}
+
+<div id="bmi-result-container">
+    <h3>{% translate 'Results' %}</h3>
+    <p>{% translate 'Your BMI is: ' %} <strong><span id="bmi-result-value">{{user.userprofile.calculate_bmi|floatformat:1}}</span></strong></p>
+</div>
+
+<div id="bmi-chart"></div>
+
+
+<h4>{% translate "Legend" %}</h4>
+<p>{% translate 'BMI under 18.5 = underweight' %}</p>
+<p>{% translate 'BMI 25 to <30 = overweight' %}</p>
+<p>{% translate 'BMI 30 to <35 = obese (class 1)' %}</p>
+<p>{% translate 'BMI 35 to <40 = obese (class 2)' %}</p>
+<p>{% translate 'BMI 40 or higher = obese (class 3 - morbid)' %}</p>
+
+ <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+</div>
+
+
+{% endblock %}
+
+
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h4>Analysis</h4>
+<p>
+{% blocktranslate %}The chart above shows the percentage of people with different BMI in the US.{% endblocktranslate %}
+</p>
+{% endblock %}

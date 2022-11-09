@@ -25,7 +25,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # wger
-from wger.nutrition.forms import BmiForm
+from wger.nutrition.forms import BmiForm, BmiResultForm
 from wger.utils import helpers
 
 
@@ -66,15 +66,30 @@ def calculate(request):
         request.user.userprofile.user_bodyweight(form.cleaned_data['weight'])
 
         bmi = request.user.userprofile.calculate_bmi()
+        print('bmi here')
+        print(bmi)
         result = {
             'bmi': '{0:.2f}'.format(bmi),
             'weight': form.cleaned_data['weight'],
             'height': request.user.userprofile.height,
         }
         data = json.dumps(result, cls=helpers.DecimalJsonEncoder)
+        context = {}
+        context['form'] = BmiResultForm(initial=result)
 
+        # print('json data here')
+        # print(data)
+        # print('request here')
+        # print(request)
+        # print('form here')
+        # print(form)
+        # print('data here')
+        # print(data)
+        
     # Return the results to the client
-    return HttpResponse(data, 'application/json')
+    # return HttpResponse(data, 'application/json')
+    return render(request, 'bmi/result.html', context)
+
 
 
 def chart_data(request):
