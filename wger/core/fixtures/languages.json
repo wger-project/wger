@@ -20,7 +20,7 @@
         "pk": 3,
         "fields": {
             "short_name": "bg",
-            "full_name": "\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u0435\u0437\u0438\u043a"
+            "full_name": "\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438 \u0435\u0437\u0438\u043a"
         }
     },
     {
@@ -68,15 +68,7 @@
         "pk": 9,
         "fields": {
             "short_name": "cs",
-            "full_name": "\u010de\u0161tina"
-        }
-    },
-    {
-        "model": "core.language",
-        "pk": 10,
-        "fields": {
-            "short_name": "sv",
-            "full_name": "Svenska"
+            "full_name": "\u010ce\u0161tina"
         }
     },
     {
@@ -116,7 +108,7 @@
         "pk": 15,
         "fields": {
             "short_name": "uk",
-            "full_name": "\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430 \u043c\u043e\u0432\u0430"
+            "full_name": "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430 \u043c\u043e\u0432\u0430"
         }
     },
     {
@@ -125,6 +117,30 @@
         "fields": {
             "short_name": "tr",
             "full_name": "T\u00fcrk\u00e7e"
+        }
+    },
+    {
+        "model": "core.language",
+        "pk": 17,
+        "fields": {
+            "short_name": "zh",
+            "full_name": "\u6c49\u8bed"
+        }
+    },
+    {
+        "model": "core.language",
+        "pk": 18,
+        "fields": {
+            "short_name": "ca",
+            "full_name": "Catala"
+        }
+    },
+    {
+        "model": "core.language",
+        "pk": 19,
+        "fields": {
+            "short_name": "sv",
+            "full_name": "Svenska"
         }
     }
 ]

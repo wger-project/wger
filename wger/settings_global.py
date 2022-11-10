@@ -228,6 +228,8 @@ LANGUAGES = (
     ('pl', 'Polish'),
     ('uk', 'Ukrainian'),
     ('tr', 'Turkish'),
+    ('zh', 'Chinese simplified'),
+    ('ca', 'Catalan'),
 )
 
 # Default language code for this installation.
