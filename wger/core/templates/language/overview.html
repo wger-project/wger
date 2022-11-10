@@ -9,6 +9,13 @@
         {% for language in language_list %}
             <a href="{% url 'core:language:view' language.id %}" class="list-group-item">
                 <span class="glyphicon glyphicon-chevron-right float-right"></span>
+                {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                <img src="{% static flagname %}"
+                     width="18"
+                     alt="{% translate language.full_name %}"
+                     title="{% translate language.full_name %}"
+                     style="">
+                {% endwith %}
                 {{ language.full_name }}
             </a>
         {% empty %}

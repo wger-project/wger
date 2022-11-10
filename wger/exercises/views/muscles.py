@@ -35,13 +35,11 @@ from django.views.generic import (
 )
 
 # wger
-from wger.config.models import LanguageConfig
 from wger.exercises.models import Muscle
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
 )
-from wger.utils.language import load_item_languages
 
 
 logger = logging.getLogger(__name__)
