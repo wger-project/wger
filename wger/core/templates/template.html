@@ -20,9 +20,9 @@
 {% block breadcrumbs %}
     {% clear_breadcrumbs %}
 {% endblock %}
-<html lang="{{language.short_name}}">
+<html lang="{{ language.short_name }}">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,58 +37,57 @@
 
     <!-- twitter cards -->
     {% block twittercard %}
-    {% if twitter %}
-        <meta content="summary" name="twitter:card">
-        <meta content="@{{ twitter }}" name="twitter:site">
-    {% endif %}
+        {% if twitter %}
+            <meta content="summary" name="twitter:card">
+            <meta content="@{{ twitter }}" name="twitter:site">
+        {% endif %}
     {% endblock %}
 
 
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-    <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
-    <script src="{% static 'yarn/d3/dist/d3.js' %}"></script>
-    <script src="{% static 'yarn/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
-    <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
-    <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
-    <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/wger-core.js' %}"></script>
-    <script src="{% static 'js/nutrition.js' %}"></script>
+        <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
+        <script src="{% static 'yarn/d3/dist/d3.js' %}"></script>
+        <script src="{% static 'yarn/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
+        <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
+        <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'js/wger-core.js' %}"></script>
+        <script src="{% static 'js/nutrition.js' %}"></script>
     {% endcompress %}
 
     {% block header %}{% endblock %}
 
     <script>
-    $(document).ready(function() {
+        $(document).ready(function () {
 
-        if (typeof wgerCustomPageInit !== "undefined")
-        {
-            wgerCustomPageInit();
-        }
+            if (typeof wgerCustomPageInit !== "undefined") {
+                wgerCustomPageInit();
+            }
 
-        // Init the modal dialog for editing forms
-        wgerFormModalDialog();
+            // Init the modal dialog for editing forms
+            wgerFormModalDialog();
 
-        // Initialise the hook to reload the main-content
-        wgerLoadMaincontent();
+            // Initialise the hook to reload the main-content
+            wgerLoadMaincontent();
 
-        // Check for RO-access before allowing sharing
-        wgerToggleReadOnlyAccess();
-    });
+            // Check for RO-access before allowing sharing
+            wgerToggleReadOnlyAccess();
+        });
     </script>
 
 
@@ -99,7 +98,6 @@
 {# Navigation #}
 {#            #}
 {% include 'navigation.html' %}
-
 
 
 {#              #}
@@ -115,19 +113,21 @@
                         <button type="button"
                                 class="close pl-2"
                                 data-dismiss="modal"
-                                aria-hidden="true">&times;</button>
+                                aria-hidden="true">&times;
+                        </button>
 
                     </div>
                     <div class="modal-body" id="ajax-info-content">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
+                        <button type="button" class="btn btn-light"
+                                data-dismiss="modal">{% translate "Close" %}</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="current-url" data-current-url="{{request_full_path}}"></div>
-        <div id="current-language" data-current-language="{{language.short_name}}"></div>
+        <div id="current-url" data-current-url="{{ request_full_path }}"></div>
+        <div id="current-language" data-current-language="{{ language.short_name }}"></div>
 
 
         {#             #}
@@ -157,57 +157,69 @@
 </div>
 
 
-
 <footer id="main-footer" class="bg-wger-light border-top">
     <div class="container bg-wger-light">
-    <div class="row">
-        <div class="col-xl-2 col-md-3">
-            <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                <img src="{% static 'images/logos/play-store/google-play-badge.png' %}"
-                     height="60"
-                     alt="Get it on Google Play"
-                     title="Get it on Google Play">
-            </a>
-        </div>
-        <div class="col-xl-6 col-md-5">
-            <ul class="list-unstyled mb-0 pt-2">
-                <li><a href="{% url 'core:imprint' %}" class="text-muted small">{% translate "Imprint" %}</a></li>
-                <li><a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a></li>
-            </ul>
-        </div>
-
-        {#                                         #}
-        {# Render the links to the other languages #}
-        {#                                         #}
-        <div class="col-md-4">
-            {% if not is_api_path %} {# Don't show language switcher in the generated API views #}
-            <div class="btn-group float-sm-right" role="group">
-                <div class="btn-group" role="group">
-                    <button id="btnGroupLanguages2" type="button" class="btn btn-link text-muted small dropdown-toggle btn-sm" data-toggle="dropdown">
-                      {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
-                      <img src="{% static flagname %}"
-                             width="18"
-                             alt="{% translate language.full_name %}"
-                             title="{% translate language.full_name %}"
-                             style="">
-                        {{language.full_name}} <span class="caret"></span>
-                      {% endwith %}
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupLanguages">
-                        {% for language in languages %}
-                            {% language_select language %}
-                        {% endfor %}
-                        <div class="dropdown-divider"></div>
-                        <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item" target="_blank">
-                            <span class="{% fa_class 'plus' %}"></span>
-                            {% translate "Translate" %}
-                        </a>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-xl-2 col-md-3">
+                <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                    <img src="{% static 'images/logos/play-store/google-play-badge.png' %}"
+                         height="60"
+                         alt="Get it on Google Play"
+                         title="Get it on Google Play">
+                </a>
             </div>
-            {% endif %}
+            <div class="col-xl-6 col-md-5">
+                <ul class="list-unstyled mb-0 pt-2">
+                    <li>
+                        <a href="{% url 'core:imprint' %}" class="text-muted small">
+                            {% translate "Imprint" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'software:tos' %}" class="text-muted small">
+                            {% translate "Terms of service" %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            {#                                         #}
+            {# Render the links to the other languages #}
+            {#                                         #}
+            <div class="col-md-4">
+                {% if not is_api_path %} {# Don't show language switcher in the generated API views #}
+                    <div class="dropdown float-end">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                                <img src="{% static flagname %}"
+                                     width="18"
+                                     alt="{% translate language.full_name %}"
+                                     title="{% translate language.full_name %}"
+                                     style="">
+                                {{ language.full_name }} <span class="caret"></span>
+                            {% endwith %}
+                        </button>
+
+
+                        <div class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                            {% for language in languages %}
+                                {% language_select language %}
+                            {% endfor %}
+                            <div class="dropdown-divider"></div>
+                            <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item" target="_blank">
+                                <span class="{% fa_class 'plus' %}"></span>
+                                {% translate "Translate" %}
+                            </a>
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    </div>
     </div>
 </footer>
 
