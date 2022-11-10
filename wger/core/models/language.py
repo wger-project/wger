@@ -26,7 +26,11 @@ class Language(models.Model):
     """
 
     # e.g. 'de'
-    short_name = models.CharField(max_length=2, verbose_name=_('Language short name'))
+    short_name = models.CharField(
+        max_length=2,
+        verbose_name=_('Language short name'),
+        unique=True,
+    )
 
     # e.g. 'Deutsch'
     full_name = models.CharField(max_length=30, verbose_name=_('Language full name'))
