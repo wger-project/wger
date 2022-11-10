@@ -5,26 +5,28 @@
 
 
 {% block content %}
-<ul class="list-group">
-    {% for license in license_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <div class="dropdown-menu" role="menu">
-                <a href="{% url 'core:license:edit' license.id %}" class="dropdown-item wger-modal-dialog">{% translate 'Edit' %}</a>
-                <a href="{% url 'core:license:delete' license.id %}" class="dropdown-item wger-modal-dialog">{% translate 'Delete' %}</a>
-            </div>
-        </div>
-        {{license}}
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for license in license_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="{% url 'core:license:edit' license.id %}"
+                           class="dropdown-item wger-modal-dialog">{% translate 'Edit' %}</a>
+                        <a href="{% url 'core:license:delete' license.id %}"
+                           class="dropdown-item wger-modal-dialog">{% translate 'Delete' %}</a>
+                    </div>
+                </div>
+                {{ license }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
@@ -33,9 +35,9 @@
 {# Options #}
 {#         #}
 {% block options %}
-{% if perms.core.add_license %}
-    <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add" %}
-    </a>
-{% endif %}
+    {% if perms.core.add_license %}
+        <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+            {% translate "Add" %}
+        </a>
+    {% endif %}
 {% endblock %}

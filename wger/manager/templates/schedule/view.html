@@ -6,114 +6,113 @@
 {# Opengraph #}
 {#           #}
 {% block opengraph %}
-{{ block.super }}
-<meta property="og:title" content="{% translate 'Schedule' %}">
-<meta property="og:description" content="{{ schedule }} / {{owner_user.username}}">
+    {{ block.super }}
+    <meta property="og:title" content="{% translate 'Schedule' %}">
+    <meta property="og:description" content="{{ schedule }} / {{ owner_user.username }}">
 {% endblock %}
 
-{% block title %}{{schedule.name}}{% endblock %}
+{% block title %}{{ schedule.name }}{% endblock %}
 
 {% block header %}
-<script type="text/javascript">
-    function init_sortable()
-    {
-        $("#schedule-table").find("tbody").off();
-        var elements = document.getElementsByTagName('tbody');
-        $.each(elements, function(index, element) {
-            Sortable.create(element, {
-                handle: '.dragndrop-handle',
-                animation: 150,
-                onUpdate: function (event) {
-                    var schedule_id = $(event.target).parents('table').data('schedule');
-                    $.each(($(event.from).children('tr')), function(index, tr_element) {
-                        var tr_element = $(tr_element);
-                        console.log(tr_element.data('id'));
+    <script type="text/javascript">
+        function init_sortable() {
+            $("#schedule-table").find("tbody").off();
+            var elements = document.getElementsByTagName('tbody');
+            $.each(elements, function (index, element) {
+                Sortable.create(element, {
+                    handle: '.dragndrop-handle',
+                    animation: 150,
+                    onUpdate: function (event) {
+                        var schedule_id = $(event.target).parents('table').data('schedule');
+                        $.each(($(event.from).children('tr')), function (index, tr_element) {
+                            var tr_element = $(tr_element);
+                            console.log(tr_element.data('id'));
 
-                        // The last table element has no ID attribute (has only the
-                        // 'add exercise' link
-                        if( tr_element.data('id') ) {
-                            var step_pk = tr_element.data('id');
-                            $.ajax({
-                                url: '/api/v2/schedulestep/' + step_pk + '/',
-                                type: 'PATCH',
-                                data: {'order': index + 1}
-                            }).done(function (data) {
-                                // console.log(data);
-                            });
-                        }
-                    });
+                            // The last table element has no ID attribute (has only the
+                            // 'add exercise' link
+                            if (tr_element.data('id')) {
+                                var step_pk = tr_element.data('id');
+                                $.ajax({
+                                    url: '/api/v2/schedulestep/' + step_pk + '/',
+                                    type: 'PATCH',
+                                    data: {'order': index + 1}
+                                }).done(function (data) {
+                                    // console.log(data);
+                                });
+                            }
+                        });
 
 
-                    // TODO: again, why do we need to do this twice. Otherwise, sometimes
-                    //       it doesn't get current data
-                    var current_url = $("#current-url").data('currentUrl');
-                    $.get(current_url);
-                    $.get(current_url, function(data) {
-                        $('#schedule-table').html($(data).find('#schedule-table').html());
-                        init_sortable();
-                        wgerFormModalDialog();
-                    });
-                }
-            });
-        })
-    }
+                        // TODO: again, why do we need to do this twice. Otherwise, sometimes
+                        //       it doesn't get current data
+                        var current_url = $("#current-url").data('currentUrl');
+                        $.get(current_url);
+                        $.get(current_url, function (data) {
+                            $('#schedule-table').html($(data).find('#schedule-table').html());
+                            init_sortable();
+                            wgerFormModalDialog();
+                        });
+                    }
+                });
+            })
+        }
 
-    $(function() {
-        init_sortable();
-    });
-</script>
+        $(function () {
+            init_sortable();
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
-<table class="table">
-    <tr>
-        <th style="width: 30%;">{% translate "Start date" %}</th>
-        <td>{{schedule.start_date}}</td>
-    </tr>
-    <tr>
-        <th>{% translate "Schedule active" %}</th>
-        <td>
-            {% if schedule.is_active %}
-                <span class="{% fa_class 'check' %}"></span>
-            {% else %}
-                <span class="{% fa_class 'times' %}"></span>
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <th>{% translate "Is a loop" %}</th>
-        <td>
-            {% if schedule.is_loop %}
-                <span class="{% fa_class 'check' %}"></span>
-                <small>{% translate "This schedule is a loop and will go through the workouts above till you deactivate it" %}</small>
-            {% else %}
-                <span class="{% fa_class 'times' %}"></span>
-            {% endif %}
-        </td>
-    </tr>
-</table>
-
-
-<div id="schedule-table-container">
-    <table id="schedule-table" class="table" data-schedule="{{schedule.id}}">
-        <thead>
+    <table class="table">
         <tr>
-            <th>{% translate "Nr." %}</th>
-            {% if is_owner %}
-            <th>{% translate "Actions" %}</th>
-            {% endif %}
-            <th>{% translate "Workout" %}</th>
-            <th>{% translate "Weeks" %}</th>
+            <th style="width: 30%;">{% translate "Start date" %}</th>
+            <td>{{ schedule.start_date }}</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for step in schedule.schedulestep_set.select_related %}
-        <tr data-id="{{step.id}}">
+        <tr>
+            <th>{% translate "Schedule active" %}</th>
             <td>
-                {{ forloop.counter }}
+                {% if schedule.is_active %}
+                    <span class="{% fa_class 'check' %}"></span>
+                {% else %}
+                    <span class="{% fa_class 'times' %}"></span>
+                {% endif %}
             </td>
-            {% if is_owner %}
-            <td style="min-width: 6em;">
+        </tr>
+        <tr>
+            <th>{% translate "Is a loop" %}</th>
+            <td>
+                {% if schedule.is_loop %}
+                    <span class="{% fa_class 'check' %}"></span>
+                    <small>{% translate "This schedule is a loop and will go through the workouts above till you deactivate it" %}</small>
+                {% else %}
+                    <span class="{% fa_class 'times' %}"></span>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+
+    <div id="schedule-table-container">
+        <table id="schedule-table" class="table" data-schedule="{{ schedule.id }}">
+            <thead>
+            <tr>
+                <th>{% translate "Nr." %}</th>
+                {% if is_owner %}
+                    <th>{% translate "Actions" %}</th>
+                {% endif %}
+                <th>{% translate "Workout" %}</th>
+                <th>{% translate "Weeks" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for step in schedule.schedulestep_set.select_related %}
+                <tr data-id="{{ step.id }}">
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+                    {% if is_owner %}
+                        <td style="min-width: 6em;">
             <span class="editoptions">
                 <span title="{% translate 'Move me' %}" class="dragndrop-handle {% fa_class 'bars' %}"></span>
 
@@ -126,148 +125,152 @@
                    class="wger-modal-dialog">
                     <span class="{% fa_class 'trash' %}"></span></a>
             </span>
-            </td>
-            {% endif %}
-            <td>
-                <a href="{{ step.workout.get_absolute_url }}">{{ step.workout }}</a>
-                {% if active_workout == step %}
-                &nbsp;<span class="badge badge-info">{% translate "active" %}</span>
-                {% endif  %}
-            </td>
-            <td>
-                {{ step.duration }}
-            </td>
-        </tr>
-        {% empty %}
-        {% if is_owner %}
-        <tr>
-            <td colspan="4">
-                <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-block btn-light">
-                    {% translate "No workouts found." %} {% translate "Add one now." %}
-                </a>
-            </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        {% if is_owner %}
-        <tr>
-            <td colspan="4">
-                {% if not schedule.is_active %}
-                <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
-                    <span class="{% fa_class 'play' %}"></span>
-                    {% translate "Start schedule" %}
-                </a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ step.workout.get_absolute_url }}">{{ step.workout }}</a>
+                        {% if active_workout == step %}
+                            &nbsp;<span class="badge badge-info">{% translate "active" %}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ step.duration }}
+                    </td>
+                </tr>
+                {% empty %}
+                {% if is_owner %}
+                    <tr>
+                        <td colspan="4">
+                            <a href="{% url 'manager:step:add' schedule.id %}"
+                               class="wger-modal-dialog btn btn-block btn-light">
+                                {% translate "No workouts found." %} {% translate "Add one now." %}
+                            </a>
+                        </td>
+                    </tr>
                 {% endif %}
+            {% endfor %}
+            {% if is_owner %}
+                <tr>
+                    <td colspan="4">
+                        {% if not schedule.is_active %}
+                            <a href="{% url 'manager:schedule:start' schedule.pk %}" class="btn btn-success btn-sm">
+                                <span class="{% fa_class 'play' %}"></span>
+                                {% translate "Start schedule" %}
+                            </a>
+                        {% endif %}
 
-                <a href="{% url 'manager:step:add' schedule.id %}" class="wger-modal-dialog btn btn-light btn-sm">
-                    <span class="{% fa_class 'plus' %}"></span>
-                    {% translate "Add workout" %}
-                </a>
-            </td>
-            <td colspan="2">
-            </td>
-        </tr>
-        {% endif %}
-        </tbody>
-    </table>
-</div>
+                        <a href="{% url 'manager:step:add' schedule.id %}"
+                           class="wger-modal-dialog btn btn-light btn-sm">
+                            <span class="{% fa_class 'plus' %}"></span>
+                            {% translate "Add workout" %}
+                        </a>
+                    </td>
+                    <td colspan="2">
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
 
 
-{% for step in schedule.schedulestep_set.select_related %}
-{% with step_dates=step.get_dates %}
-<div class="row">
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">
-                    {% blocktranslate count weeks=step.duration %}{{ weeks }} Week
-                    {% plural %}{{ weeks }} Weeks
-                    {% endblocktranslate %}
-                </h4>
+    {% for step in schedule.schedulestep_set.select_related %}
+        {% with step_dates=step.get_dates %}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                {% blocktranslate count weeks=step.duration %}{{ weeks }} Week
+                                    {% plural %}{{ weeks }} Weeks
+                                {% endblocktranslate %}
+                            </h4>
 
-                <span class="card-text">
+                            <span class="card-text">
                     {% if active_workout == step %}
                         <span class="badge badge-pill badge-primary">{% translate "active" %}</span><br>
-                    {% endif  %}
-                    <span>{{step_dates.0}} <br> {{step_dates.1}}</span>
+                    {% endif %}
+                                <span>{{ step_dates.0 }} <br> {{ step_dates.1 }}</span>
                 </span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ step.workout.get_absolute_url }}"
+                               class="btn btn-light btn-block btn-sm"
+                               style="white-space: normal;">
+                                <span class="glyphicon glyphicon-chevron-right float-right"></span>
+                                {{ step.workout }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    {% for day in step.workout.canonical_representation.day_list %}
+                        <div id="div-day-{{ day.obj.id }}">
+                            {% render_day day.obj False %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="card-footer">
-                <a href="{{ step.workout.get_absolute_url }}"
-                   class="btn btn-light btn-block btn-sm"
-                   style="white-space: normal;">
-                    <span class="glyphicon glyphicon-chevron-right float-right"></span>
-                    {{ step.workout }}
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-9">
-        {% for day in step.workout.canonical_representation.day_list %}
-        <div id="div-day-{{ day.obj.id }}">
-            {% render_day day.obj False %}
-        </div>
-        {% endfor %}
-    </div>
-</div>
-{% endwith %}
-{% endfor %}
+        {% endwith %}
+    {% endfor %}
 {% endblock %}
 
 
 {% block sidebar %}
-{% if is_owner %}
-<h4>{% translate "Adding workouts" %}</h4>
+    {% if is_owner %}
+        <h4>{% translate "Adding workouts" %}</h4>
 
-<p>{% blocktranslate %}Add as many workouts to the schedule as you want. You can
-edit the order by dragging and dropping them. It's also possible to add one workout more
-than once.{% endblocktranslate %}</p>
-{% endif %}
+        <p>{% blocktranslate %}Add as many workouts to the schedule as you want. You can
+            edit the order by dragging and dropping them. It's also possible to add one workout more
+            than once.{% endblocktranslate %}</p>
+    {% endif %}
 
-<div class="modal fade" id="export-ical-popup">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">{% translate "Export calendar file" %}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>{% translate "Export this schedule as a calendar file." %}</p>
-                <p>{% blocktranslate %}You can then import the file it into your calendar
-application for example google calendar, outlook or iCal. This will create
-an appointment for each training day with the appropriate exercises.{% endblocktranslate %}</p>
-                <p>
-                    <a href="{% url 'manager:schedule:ical' schedule.id uid token %}" class="btn btn-block btn-light">
-                        {% translate "Export calendar file" %}
-                    </a>
-                </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
+    <div class="modal fade" id="export-ical-popup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{% translate "Export calendar file" %}</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>{% translate "Export this schedule as a calendar file." %}</p>
+                    <p>{% blocktranslate %}You can then import the file it into your calendar
+                        application for example google calendar, outlook or iCal. This will create
+                        an appointment for each training day with the appropriate exercises.{% endblocktranslate %}</p>
+                    <p>
+                        <a href="{% url 'manager:schedule:ical' schedule.id uid token %}"
+                           class="btn btn-block btn-light">
+                            {% translate "Export calendar file" %}
+                        </a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="download-pdf-popup">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">{% translate "Download as PDF" %}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="wger-form">
-                    {% crispy download_form %}
-                    <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
+    <div class="modal fade" id="download-pdf-popup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{% translate "Download as PDF" %}</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="wger-form">
+                        {% crispy download_form %}
+                        <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}"
+                             data-token="{{ token }}"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {#         #}
@@ -276,16 +279,17 @@ an appointment for each training day with the appropriate exercises.{% endblockt
 {% block options %}
     <div class="btn-group">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}
             </button>
             <div class="dropdown-menu">
-                <a href="#" data-toggle="modal" data-target="#export-ical-popup" class="dropdown-item">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#export-ical-popup" class="dropdown-item">
                     <span class="{% fa_class 'calendar' %}"></span>
                     {% translate "Export calendar file" %}
                 </a>
-                <a data-toggle="modal" data-target="#download-pdf-popup" class="dropdown-item">
+                <a data-bs-toggle="modal" data-bs-target="#download-pdf-popup" class="dropdown-item">
                     <span class="{% fa_class 'download' %}"></span>
                     {% translate "Download as PDF" %}
                 </a>

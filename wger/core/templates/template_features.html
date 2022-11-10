@@ -18,9 +18,9 @@
 
 
 {% load i18n static compress wger_extras %}
-<html lang="{{language.short_name}}">
+<html lang="{{ language.short_name }}">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -36,25 +36,25 @@
 
     <!-- twitter cards -->
     {% block twittercard %}
-    {% if twitter %}
-        <meta content="summary" name="twitter:card">
-        <meta content="@{{ twitter }}" name="twitter:site">
-    {% endif %}
+        {% if twitter %}
+            <meta content="summary" name="twitter:card">
+            <meta content="@{{ twitter }}" name="twitter:site">
+        {% endif %}
     {% endblock %}
 
 
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'yarn/components-font-awesome/css/all.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/agency.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/components-font-awesome/css/all.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/agency.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-    <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
-    <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     {% endcompress %}
 
     <title>wger Workout Manager - {% translate "Features" %}</title>
@@ -63,13 +63,12 @@
 <body id="page-top" class="index">
 
 {% if user.is_authenticated %}
-{% include 'navigation.html' %}
-{% endif  %}
+    {% include 'navigation.html' %}
+{% endif %}
 
-    {% block template %}{% endblock %}
-    <div id="current-url" data-current-url="{{request_full_path}}"></div>
-    <div id="current-language" data-current-language="{{language.short_name}}"></div>
-
+{% block template %}{% endblock %}
+<div id="current-url" data-current-url="{{ request_full_path }}"></div>
+<div id="current-language" data-current-language="{{ language.short_name }}"></div>
 
 
 <footer class="bg-darkest-gray">
@@ -102,11 +101,11 @@
                     <li class="list-inline-item">
                         {% if show_shariff %}
                             {% include 'misc/fragments/shariff_modal.html' %}
-                            <a data-toggle="modal" href="#shariffModal" title="Share">
+                            <a data-bs-toggle="modal" href="#shariffModal" title="Share">
                                 <span class="{% fa_class 'share-alt' %}"></span>
                             </a>
                             <div class="clearfix"></div>
-                      {% endif %}
+                        {% endif %}
                     </li>
                 </ul>
             </div>
@@ -117,7 +116,8 @@
                     </li>
 
                     <li class="list-inline-item">
-                        <a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a>
+                        <a href="{% url 'software:tos' %}"
+                           class="text-muted small">{% translate "Terms of service" %}</a>
                     </li>
                 </ul>
             </div>

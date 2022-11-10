@@ -17,46 +17,46 @@
 
 {% block content %}
 
-<ul class="list-group">
-    {% for option in contractoption_list %}
-        <li class="list-group-item ">
-            <div class="btn-group float-right">
-                <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                    <span class="{% fa_class 'cog' %}"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    {% if perms.gym.change_contracttype %}
-                    <li>
-                        <a href="{% url 'gym:contract-option:edit' option.pk %}" class="wger-modal-dialog">
-                            {% translate 'Edit' %}
-                        </a>
-                    </li>
-                    {% endif %}
+    <ul class="list-group">
+        {% for option in contractoption_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if perms.gym.change_contracttype %}
+                            <li>
+                                <a href="{% url 'gym:contract-option:edit' option.pk %}" class="wger-modal-dialog">
+                                    {% translate 'Edit' %}
+                                </a>
+                            </li>
+                        {% endif %}
 
-                    {% if perms.gym.delete_contracttype %}
-                    <li>
-                        <a href="{% url 'gym:contract-option:delete' option.pk %}"  class="wger-modal-dialog">
-                            {% translate 'Delete' %}
-                        </a>
-                    </li>
-                    {% endif %}
+                        {% if perms.gym.delete_contracttype %}
+                            <li>
+                                <a href="{% url 'gym:contract-option:delete' option.pk %}" class="wger-modal-dialog">
+                                    {% translate 'Delete' %}
+                                </a>
+                            </li>
+                        {% endif %}
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
 
-            <h4 class="list-group-item-heading">
-                {{ option.name }}
-            </h4>
+                <h4 class="list-group-item-heading">
+                    {{ option.name }}
+                </h4>
 
-            <p class="list-group-item-text" style="white-space: pre-line;">{{ option.description }}</p>
-        </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+                <p class="list-group-item-text" style="white-space: pre-line;">{{ option.description }}</p>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 

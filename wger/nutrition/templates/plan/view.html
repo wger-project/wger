@@ -71,7 +71,7 @@
                             <div class="dropdown float-right">
                                 <button type="button"
                                         class="btn btn-link btn-block dropdown-toggle btn-xs"
-                                        data-toggle="dropdown"></button>
+                                        data-bs-toggle="dropdown"></button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                                     <a href="{% url 'nutrition:log:log_meal' meal.id %}"
                                        class="dropdown-item">
@@ -97,10 +97,10 @@
                                 </div>
                             </div>
                         {% endif %}
-                        
+
                         <h4>{% if meal.name %}{{ meal.name }}{% endif %}</h4>
                         <h5>{% if meal.time %}{{ meal.time|time:"H:i" }}{% endif %}</h5>
-                        
+
                     </td>
                 </tr>
                 <tr>
@@ -118,7 +118,7 @@
                                 <div class="dropdown float-right">
                                     <button type="button"
                                             class="btn btn-link dropdown-toggle btn-xs"
-                                            data-toggle="dropdown"></button>
+                                            data-bs-toggle="dropdown"></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
                                         <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                                            class="wger-modal-dialog edit-meal edit-mealitem dropdown-item">
@@ -405,7 +405,7 @@
 {#         #}
 {% block options %}
     <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
             {% translate "Options" %}

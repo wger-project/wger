@@ -78,7 +78,7 @@ $(document).ready(function() {
 
                                 {% if is_owner %}
                                     <div class="dropdown float-right">
-                                        <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                                             <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
@@ -113,7 +113,7 @@ $(document).ready(function() {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{% translate 'Add log to day' %}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
                 {% if current_workout %}
@@ -135,7 +135,7 @@ day in your current workout:{% endblocktranslate %} <strong>{{current_workout}}<
                 {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-dismiss="modal">{% translate "Close" %}</button>
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">{% translate "Close" %}</button>
             </div>
         </div>
     </div>
@@ -164,7 +164,7 @@ you can click on them to see the details.{% endblocktranslate %}</p>
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="heading{{ year.grouper }}">
                 <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ year.grouper }}" aria-expanded="true" aria-controls="collapse{{ year.grouper }}">
+                    <a role="button" data-bs-toggle="collapse" data-parent="#accordion" href="#collapse{{ year.grouper }}" aria-expanded="true" aria-controls="collapse{{ year.grouper }}">
                         {{ year.grouper }}
                     </a>
                 </h4>
@@ -184,7 +184,7 @@ you can click on them to see the details.{% endblocktranslate %}</p>
 
 {% block options %}
 {% if is_owner %}
-    <a href="#" id="calendar-day-select-link" data-toggle="modal" data-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
+    <a href="#" id="calendar-day-select-link" data-bs-toggle="modal" data-bs-target="#ecalendar-day-select-popup" class="btn btn-success btn-sm">
         {% translate "Add new log" %}
     </a>
 {% endif %}

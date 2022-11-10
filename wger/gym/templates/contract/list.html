@@ -17,50 +17,50 @@
 
 
 {% block content %}
-<div class="list-group">
-    {% for contract in contract_list %}
-        <li class="list-group-item ">
-            <div class="btn-group float-right">
-                <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                    <span class="{% fa_class 'cog' %}"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    {% if perms.gym.change_contract %}
-                    <li>
-                        <a href="{% url 'gym:contract:edit' contract.pk %}">
-                            {% translate 'Edit' %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'gym:contract:view' contract.pk %}">
-                            {% translate 'Show' %}
-                        </a>
-                    </li>
-                    {% endif %}
+    <div class="list-group">
+        {% for contract in contract_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if perms.gym.change_contract %}
+                            <li>
+                                <a href="{% url 'gym:contract:edit' contract.pk %}">
+                                    {% translate 'Edit' %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'gym:contract:view' contract.pk %}">
+                                    {% translate 'Show' %}
+                                </a>
+                            </li>
+                        {% endif %}
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
 
-            <h4 class="list-group-item-heading">
-                {{ contract.contract_type.name }}
+                <h4 class="list-group-item-heading">
+                    {{ contract.contract_type.name }}
 
-                <small>
-                    {{ contract.date_start }}
-                    {% if contract.date_end %}
-                        - {{ contract.date_end }}
-                    {% endif %}
-                </small>
-            </h4>
+                    <small>
+                        {{ contract.date_start }}
+                        {% if contract.date_end %}
+                            - {{ contract.date_end }}
+                        {% endif %}
+                    </small>
+                </h4>
 
-            <p class="list-group-item-text">{{ contract.note }}</p>
-        </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</div>
+                <p class="list-group-item-text">{{ contract.note }}</p>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 
@@ -69,5 +69,6 @@
 {# Options #}
 {#         #}
 {% block options %}
-    <a href="{% url 'gym:contract:add' member.pk %}" class="wger-modal-dialog btn btn-sm btn-success">{% translate "Add" %}</a>
+    <a href="{% url 'gym:contract:add' member.pk %}"
+       class="wger-modal-dialog btn btn-sm btn-success">{% translate "Add" %}</a>
 {% endblock %}

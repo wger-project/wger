@@ -18,41 +18,41 @@
 
 
 {% block content %}
-<ul class="list-group">
-    {% for note in adminusernote_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                {% if perms.gym.change_adminusernote %}
-                <li>
-                    <a href="{% url 'gym:admin_note:edit' note.pk %}" class="wger-modal-dialog">
-                        {% translate 'Edit' %}
-                    </a>
-                </li>
-                {% endif %}
+    <ul class="list-group">
+        {% for note in adminusernote_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if perms.gym.change_adminusernote %}
+                            <li>
+                                <a href="{% url 'gym:admin_note:edit' note.pk %}" class="wger-modal-dialog">
+                                    {% translate 'Edit' %}
+                                </a>
+                            </li>
+                        {% endif %}
 
-                {% if perms.gym.delete_adminusernote %}
-                <li>
-                    <a href="{% url 'gym:admin_note:delete' note.pk %}" class="wger-modal-dialog">
-                        {% translate 'Delete' %}
-                    </a>
-                <li>
-                {% endif %}
-            </ul>
-        </div>
+                        {% if perms.gym.delete_adminusernote %}
+                            <li>
+                                <a href="{% url 'gym:admin_note:delete' note.pk %}" class="wger-modal-dialog">
+                                    {% translate 'Delete' %}
+                                </a>
+                            <li>
+                        {% endif %}
+                    </ul>
+                </div>
 
-        <h4 class="list-group-item-heading">{{ note.timestamp_created }} - {{ note.user|format_username }}</h4>
-        <p class="list-group-item-text">{{ note.note }}</p>
-    </li>
-    {% empty %}
-    <li class="list-group-item">
-        {% translate "Nothing found" %}
-    </li>
-    {% endfor %}
-</ul>
+                <h4 class="list-group-item-heading">{{ note.timestamp_created }} - {{ note.user|format_username }}</h4>
+                <p class="list-group-item-text">{{ note.note }}</p>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
@@ -62,9 +62,9 @@
 {# Options #}
 {#         #}
 {% block options %}
-{% if perms.gym.add_adminusernote %}
-    <a href="{% url 'gym:admin_note:add' member.pk %}" class="wger-modal-dialog btn btn-success btn-sm">
-        {% translate "Add" %}
-    </a>
-{% endif %}
+    {% if perms.gym.add_adminusernote %}
+        <a href="{% url 'gym:admin_note:add' member.pk %}" class="wger-modal-dialog btn btn-success btn-sm">
+            {% translate "Add" %}
+        </a>
+    {% endif %}
 {% endblock %}

@@ -198,7 +198,7 @@
 {% block sidebar %}
 {% if perms.gym.manage_gyms or perms.gym.manage_gym %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -209,7 +209,7 @@
         {% else %}
             <a href="{% url 'core:user:activate' current_user.pk %}" class="dropdown-item">{% translate "Activate user"%}</a>
         {% endif %}
-        <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-toggle="modal" data-target="#confirmation-modal" class="dropdown-item">{% translate "Reset user password" %}</a>
+        <a data-url="{% url 'gym:gym:reset-user-password' current_user.pk %}" data-bs-toggle="modal" data-bs-target="#confirmation-modal" class="dropdown-item">{% translate "Reset user password" %}</a>
         {% if perms.gym.manage_gym or perms.gym.manage_gyms %}
         {% if current_user.userprofile.gym %}
             <a href="{% url 'gym:gym:edit-user-permission' current_user.pk %}" class="wger-modal-dialog dropdown-item">{% translate "Roles"%}</a>
@@ -224,13 +224,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{% translate 'Password reset confirmation' %}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <p>{% translate 'Do you really want to change this user&#39;s password?' %}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">{% translate 'No' %}</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{% translate 'No' %}</button>
                 <button type="button" class="btn btn-success">{% translate 'Yes' %}</button>
             </div>
         </div>
@@ -319,7 +319,7 @@
 {#          #}
 {% if perms.gym.add_contract %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -358,7 +358,7 @@
 {#             #}
 {% if perms.gym.add_adminusernote %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -394,7 +394,7 @@
 {#           #}
 {% if perms.gym.add_userdocument %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
@@ -439,7 +439,7 @@
 {#                   #}
 {% if perms.gym.change_gymuserconfig and current_user.gymuserconfig %}
 <div class="btn-group float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu" role="menu">
