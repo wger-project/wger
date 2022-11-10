@@ -42,6 +42,6 @@ $enable-responsive-font-sizes: true;
 /*
  * Import the rest of the bootstrap files
  */
-@import "../yarn/bootstrap/scss/_functions";
-@import "../yarn/bootstrap/scss/_variables";
+@import "../yarn/bootstrap/scss/functions";
+@import "../yarn/bootstrap/scss/variables";
 @import "../yarn/bootstrap/scss/bootstrap";
