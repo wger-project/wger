@@ -1,31 +1,31 @@
 {% load i18n %}
-{% translate "Lower back" %}
-{% translate "Seconds" %}
+{% translate "Until Failure" %}
 {% translate "Repetitions" %}
-{% translate "Dumbbell" %}
 {% translate "Abs" %}
+{% translate "Arms" %}
+{% translate "Legs" %}
+{% translate "Dumbbell" %}
+{% translate "Biceps" %}
 {% translate "SZ-Bar" %}
-{% translate "Miles" %}
+{% translate "Kettlebell" %}
+{% translate "Swiss Ball" %}
+{% translate "none (bodyweight exercise)" %}
+{% translate "Calves" %}
+{% translate "Back" %}
+{% translate "Lower back" %}
+{% translate "Lats" %}
+{% translate "Hamstrings" %}
+{% translate "Bench" %}
+{% translate "Glutes" %}
 {% translate "Kilometers" %}
 {% translate "Shoulders" %}
-{% translate "Triceps" %}
-{% translate "Quads" %}
-{% translate "none (bodyweight exercise)" %}
-{% translate "Barbell" %}
-{% translate "Lats" %}
-{% translate "Until Failure" %}
-{% translate "Gym mat" %}
-{% translate "Glutes" %}
-{% translate "Bench" %}
-{% translate "Pull-up bar" %}
-{% translate "Calves" %}
-{% translate "Arms" %}
-{% translate "Biceps" %}
-{% translate "Kettlebell" %}
-{% translate "Back" %}
-{% translate "Chest" %}
-{% translate "Swiss Ball" %}
-{% translate "Minutes" %}
+{% translate "Seconds" %}
+{% translate "Miles" %}
 {% translate "Incline bench" %}
-{% translate "Hamstrings" %}
-{% translate "Legs" %}
+{% translate "Quads" %}
+{% translate "Minutes" %}
+{% translate "Chest" %}
+{% translate "Gym mat" %}
+{% translate "Pull-up bar" %}
+{% translate "Barbell" %}
+{% translate "Triceps" %}
