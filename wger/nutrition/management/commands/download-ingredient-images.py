@@ -28,7 +28,6 @@ from django.core.validators import URLValidator
 
 # Third Party
 import requests
-from requests.utils import default_user_agent
 
 # wger
 from wger import get_version

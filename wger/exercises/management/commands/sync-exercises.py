@@ -24,10 +24,8 @@ from django.core.validators import URLValidator
 
 # Third Party
 import requests
-from requests.utils import default_user_agent
 
 # wger
-from wger import get_version
 from wger.exercises.models import (
     Equipment,
     Exercise,
@@ -35,6 +33,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     Muscle,
 )
+from wger.utils.requests import wger_user_agent
 
 
 EXERCISE_API = "{0}/api/v2/exerciseinfo/?limit=100"
@@ -77,7 +76,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
+        headers = {'User-agent': wger_user_agent()}
         self.sync_categories(headers, remote_url)
         self.sync_muscles(headers, remote_url)
         self.sync_equipment(headers, remote_url)

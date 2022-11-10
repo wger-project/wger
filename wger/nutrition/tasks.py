@@ -24,12 +24,11 @@ from django.db import IntegrityError
 # Third Party
 import requests
 from celery import shared_task
-from requests.utils import default_user_agent
 
 # wger
-from wger import get_version
 from wger.nutrition.models import Image
 from wger.nutrition.models.sources import Source
+from wger.utils.requests import wger_user_agent
 
 
 logger = logging.getLogger(__name__)
@@ -40,11 +39,17 @@ def fetch_ingredient_image(pk: int):
     """
     Fetches the ingredient image from Open Food Facts servers if it is not available locally
 
-    Returns the image if it was fetched
+    Returns the image if it is already present in the DB
     """
+    fetch_ingredient_image_function(pk)
+
+
+def fetch_ingredient_image_function(pk: int):
     # wger
     from wger.nutrition.models import Ingredient
     ingredient = Ingredient.objects.get(pk=pk)
+
+    logger.info(f'Fetching image for ingredient {pk}')
 
     if hasattr(ingredient, 'image'):
         return
@@ -60,22 +65,20 @@ def fetch_ingredient_image(pk: int):
 
     # Everything looks fine, go ahead
     logger.info(f'Trying to fetch image from OFF for {ingredient.name} (UUID: {ingredient.uuid})')
-    headers = {
-        'User-agent': default_user_agent(f'wger/{get_version()} - https://github.com/wger-project')
-    }
+    headers = {'User-agent': wger_user_agent()}
 
     # Fetch the product data
     product_data = requests.get(ingredient.source_url, headers=headers).json()
     image_url: Optional[str] = product_data['product'].get('image_front_url')
     if not image_url:
+        logger.info('Product data has no "image_front_url" key')
         return
-
     image_data = product_data['product']['images']
 
     # Download the image file
     response = requests.get(image_url, headers=headers)
     if response.status_code != 200:
-        logger.info('An error occurred!')
+        logger.info(f'An error occurred! Status code: {response.status_code}')
         return
 
     # Parse the file name, looks something like this:

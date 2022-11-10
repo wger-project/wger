@@ -33,14 +33,13 @@ from django.core.validators import URLValidator
 
 # Third Party
 import requests
-from requests.utils import default_user_agent
 
 # wger
-from wger import get_version
 from wger.exercises.models import (
     ExerciseBase,
     ExerciseImage,
 )
+from wger.utils.requests import wger_user_agent
 
 
 IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
@@ -85,7 +84,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': default_user_agent(f'wger/{get_version()} + requests')}
+        headers = {'User-agent': wger_user_agent()}
 
         # Get all images
         page = 1
