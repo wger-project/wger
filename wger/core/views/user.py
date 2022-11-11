@@ -104,6 +104,7 @@ from wger.utils.generic_views import (
 )
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -563,7 +564,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     Overview of all users in the instance
     """
     model = User
-    permission_required = ('gym.manage_gyms',)
+    permission_required = ('gym.manage_gyms', )
     template_name = 'user/list.html'
 
     def get_queryset(self):

@@ -148,7 +148,7 @@ class UserEmailForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('email', )
 
     def clean_email(self):
         """

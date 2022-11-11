@@ -8,10 +8,8 @@
     {{ block.super }}
     <meta property="og:title" content="{% translate 'Features' %} - wger">
 
-    {% with username=owner_user.username %}
-        <meta property="og:description"
-              content="{% blocktranslate %}wger Workout Manager is a free, open source web application that manages your exercises and workouts. {% endblocktranslate %}">
-    {% endwith %}
+    <meta property="og:description"
+          content="{% blocktranslate %}wger Workout Manager is a free, open source web application that manages your exercises and workouts.{% endblocktranslate %}">
 {% endblock %}
 
 
@@ -56,7 +54,9 @@
                     <!-- buttons -->
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-transparent">Login</button>
-                        <button type="button" class="btn btn-primary rounded-1 bg-dark-blue px-4">Sign Up</button>
+                        {% if allow_registration %}
+                            <button type="button" class="btn btn-primary rounded-1 bg-dark-blue px-4">Sign Up</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -82,20 +82,20 @@
         <!-- board section -->
         <section class="row row-cols-lg-4 row-cols-2 board-section">
             <div class="col-lg-3 col-sm-3 d-flex flex-column align-items-center">
-                <h2 class="display-3 font-Bebas_Neue text-dark-blue text-center mb-0">XY+</h2>
+                <h2 class="display-3 font-Bebas_Neue text-dark-blue text-center mb-0">{{ nr_users }}+</h2>
                 <p class="text-center">people <br> using wger</p>
             </div>
             <div class="col-lg-3 col-sm-3  d-flex flex-column align-items-center">
-                <h2 class="display-3 font-Bebas_Neue text-dark-blue mb-0">100+</h2>
+                <h2 class="display-3 font-Bebas_Neue text-dark-blue mb-0">{{ nr_exercises }}+</h2>
                 <p class="text-center">exercises <br> for workout creation</p>
             </div>
             <div class="col-lg-3 col-sm-3 d-flex flex-column align-items-center justify-content-center">
-                <h2 class="display-3 font-Bebas_Neue text-dark-blue  mb-0">2 000 000+</h2>
+                <h2 class="display-3 font-Bebas_Neue text-dark-blue  mb-0">{{ nr_ingredients }}+</h2>
                 <p class="text-center">foods <br> for meal planing</p>
             </div>
             <div class="col-lg-3 col-sm-3  d-flex flex-column align-items-center">
-                <h2 class="display-3 font-Bebas_Neue text-dark-blue mb-0">1 700+</h2>
-                <p class="text-center">starts <br> on github</p>
+                <h2 class="display-3 font-Bebas_Neue text-dark-blue mb-0">2000+</h2>
+                <p class="text-center">stars <br> on GitHub</p>
             </div>
         </section>
     </header>

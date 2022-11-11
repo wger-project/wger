@@ -19,12 +19,18 @@ import logging
 
 # Django
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 
+# wger
+from wger.exercises.models import ExerciseBase
+from wger.nutrition.models import Ingredient
 
 logger = logging.getLogger(__name__)
 
 
+# @cache_page(60 * 60 * 24 * 10)
 def features(request):
     """
     Render the features page
@@ -32,6 +38,9 @@ def features(request):
 
     context = {
         'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
-        'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS']
+        'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS'],
+        'nr_users': User.objects.count(),
+        'nr_exercises': ExerciseBase.objects.count(),
+        'nr_ingredients': Ingredient.objects.count()
     }
     return render(request, 'features.html', context)

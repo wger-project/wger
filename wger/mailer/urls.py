@@ -22,6 +22,7 @@ from django.urls import path
 from wger.mailer.forms import EmailListForm
 from wger.mailer.views import gym
 
+
 # sub patterns for email lists
 patterns_email = [
     path(

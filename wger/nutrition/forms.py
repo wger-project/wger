@@ -48,6 +48,7 @@ from wger.nutrition.models import (
 )
 from wger.utils.widgets import Html5NumberInput
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -105,7 +106,7 @@ class BmiForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('height',)
+        fields = ('height', )
 
     def __init__(self, *args, **kwargs):
         super(BmiForm, self).__init__(*args, **kwargs)
@@ -212,7 +213,7 @@ class DailyCaloriesForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('calories',)
+        fields = ('calories', )
 
     def __init__(self, *args, **kwargs):
         super(DailyCaloriesForm, self).__init__(*args, **kwargs)
@@ -301,6 +302,7 @@ class MealLogItemForm(MealItemForm):
 
 
 class IngredientForm(forms.ModelForm):
+
     class Meta:
         model = Ingredient
         fields = [
