@@ -23,7 +23,6 @@
                     handle: '.dragndrop-handle',
                     animation: 150,
                     onUpdate: function (event) {
-                        var schedule_id = $(event.target).parents('table').data('schedule');
                         $.each(($(event.from).children('tr')), function (index, tr_element) {
                             var tr_element = $(tr_element);
                             console.log(tr_element.data('id'));
@@ -180,6 +179,11 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
+                            {% if active_workout == step %}
+                                <span class="badge rounded-pill text-bg-secondary float-end">
+                                    {% translate "active" %}
+                                </span>
+                            {% endif %}
                             <h4 class="card-title">
                                 {% blocktranslate count weeks=step.duration %}{{ weeks }} Week
                                     {% plural %}{{ weeks }} Weeks
@@ -187,15 +191,12 @@
                             </h4>
 
                             <span class="card-text">
-                    {% if active_workout == step %}
-                        <span class="badge badge-pill badge-primary">{% translate "active" %}</span><br>
-                    {% endif %}
                                 <span>{{ step_dates.0 }} <br> {{ step_dates.1 }}</span>
-                </span>
+                            </span>
                         </div>
                         <div class="card-footer">
                             <a href="{{ step.workout.get_absolute_url }}"
-                               class="btn btn-light btn-block btn-sm"
+                               class="btn btn-dark btn-block btn-sm"
                                style="white-space: normal;">
                                 <span class="glyphicon glyphicon-chevron-right float-end"></span>
                                 {{ step.workout }}
