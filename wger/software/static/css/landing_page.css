@@ -1,0 +1,237 @@
+/*  */
+@font-face {
+    font-family: "Bebas Neue";
+    src: url("/static/fonts/bebas_neue/BebasNeue-Regular.woff");
+}
+
+
+* {
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+:root {
+    --blue: #245daf;
+    --green: #bd5164;
+    --gray: #218064;
+    --bg-blue: #163665;
+}
+
+html,
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* common css code */
+.font-Bebas_Neue {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.bg-dark-blue {
+    background-color: var(--bg-blue);
+    border: 0;
+}
+
+.bg-dark-blue:hover {
+    color: "#fff";
+}
+
+.text-dark-blue {
+    color: var(--bg-blue);
+}
+
+.text-green {
+    color: var(--green);
+}
+
+.text-red {
+    color: #9a6a23;
+}
+
+.text-gray {
+    color: var(--gray);
+}
+
+.fs-8 {
+    font-size: 16px;
+}
+
+/* styles of html */
+header {
+    background: linear-gradient(196.14deg, #dde7fc 7.97%, #f1f5ff 92.02%);
+    min-height: 100vh;
+}
+
+.header_hero_image {
+    height: 450px;
+    width: 450px;
+}
+
+header .board-section {
+    position: absolute;
+    width: 100%;
+}
+
+ul {
+    text-align: justify;
+}
+
+.hexagon {
+    /* top: 30vh; */
+    /* left: 40%; */
+    position: absolute;
+    margin: 0 auto;
+    background-color: dodgerblue;
+    border-radius: 10px;
+    width: 20rem;
+    height: 50vh;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+}
+
+/* Creating pseudo-class */
+.hexagon:before,
+.hexagon:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: dodgerblue;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.hexagon:before {
+    transform: rotate(60deg);
+}
+
+.hexagon:after {
+    transform: rotate(-60deg);
+}
+
+/* main */
+main {
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+.empty-space {
+    min-height: 20vh;
+}
+
+.main-section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-screen {
+    position: absolute;
+    z-index: 10;
+    left: 100px;
+    top: 100px;
+    height: 360px;
+}
+
+.laptop-screen {
+    position: absolute;
+    z-index: 1;
+    width: 550px;
+    height: 370px;
+}
+
+.polygon-bg {
+    z-index: 0;
+    height: 90%;
+    width: 80%;
+}
+
+/* last section of main */
+.bg-blue {
+    background-color: var(--blue);
+}
+
+.heading-h6 {
+    font-family: "Bebas Neue", sans-serif;
+    letter-spacing: 2px;
+}
+
+/* footer */
+.footer-bg {
+    background-color: var(--bg-blue);
+}
+
+footer a {
+    font-weight: 200;
+    text-decoration: none;
+    transition: all ease-in;
+    color: #ececec;
+}
+
+footer a:hover {
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+}
+
+.flex-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* media screen */
+@media screen and (max-width: 900px) {
+    .flex-reverse {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .header_hero_image {
+        height: 22rem;
+        width: 22rem;
+    }
+
+    .main-section {
+        min-height: 70vh;
+    }
+
+    .empty-space {
+        min-height: 30vh;
+    }
+
+    header {
+        min-height: 80vh;
+    }
+
+    .mobile-screen {
+        left: 20px;
+        top: 80px;
+        height: 200px;
+    }
+
+    .laptop-screen {
+        width: 350px;
+        height: 230px;
+    }
+
+    .polygon-bg {
+        width: 80%;
+        height: 18rem;
+    }
+
+    .human_faces_img {
+        height: 22rem;
+    }
+}
