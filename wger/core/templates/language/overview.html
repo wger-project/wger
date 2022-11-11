@@ -7,8 +7,8 @@
 {% block content %}
     <div class="list-group">
         {% for language in language_list %}
-            <a href="{% url 'core:language:view' language.id %}" class="list-group-item">
-                <span class="glyphicon glyphicon-chevron-right float-right"></span>
+            <a href="{% url 'core:language:view' language.id %}" class="list-group-item list-group-item-action">
+                <span class="glyphicon glyphicon-chevron-right float-end"></span>
                 {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
                 <img src="{% static flagname %}"
                      width="18"

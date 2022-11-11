@@ -7,9 +7,9 @@
 {% block content %}
     <ul class="list-group">
         {% for equipment in equipment_list %}
-            <li class="list-group-item ">
-                <div class="btn-group float-right">
-                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+            <li class="list-group-item list-group-item-action">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">

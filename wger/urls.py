@@ -48,7 +48,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 # admin.autodiscover()
 
 #
@@ -219,7 +218,7 @@ urlpatterns = i18n_patterns(
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
-    path('email', include(('wger.mailer.urls', 'email'), namespace='email')),
+    path('email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path(
         'sitemap-<section>.xml',

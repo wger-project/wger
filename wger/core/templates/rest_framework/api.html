@@ -33,7 +33,7 @@
 {# GET button #}
 {#            #}
 {% if 'GET' in allowed_methods %}
-    <form id="get-form" class="float-right">
+    <form id="get-form" class="float-end">
         <fieldset>
             <div class="btn-group format-selection">
                 <a class="btn btn-primary js-tooltip" href='{{ request.get_full_path }}' rel="nofollow"
@@ -63,7 +63,7 @@
 {# OPTIONS button #}
 {#                #}
 {% if options_form %}
-    <form class="float-right" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
+    <form class="float-end" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
         {% csrf_token %}
         <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="OPTIONS"/>
         <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the {{ name }} resource">OPTIONS
@@ -75,7 +75,7 @@
 {# DELETE button #}
 {#               #}
 {% if delete_form %}
-    <form class="float-right" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
+    <form class="float-end" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
         {% csrf_token %}
         <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE"/>
         <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the {{ name }} resource">DELETE

@@ -68,7 +68,7 @@
                 <tr>
                     <td colspan="6">
                         {% if is_owner %}
-                            <div class="dropdown float-right">
+                            <div class="dropdown float-end">
                                 <button type="button"
                                         class="btn btn-link btn-block dropdown-toggle btn-xs"
                                         data-bs-toggle="dropdown"></button>
@@ -115,7 +115,7 @@
                             {{ item.ingredient.name }}
 
                             {% if is_owner %}
-                                <div class="dropdown float-right">
+                                <div class="dropdown float-end">
                                     <button type="button"
                                             class="btn btn-link dropdown-toggle btn-xs"
                                             data-bs-toggle="dropdown"></button>
@@ -133,7 +133,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <span class="editoptions float-right"></span>
+                                <span class="editoptions float-end"></span>
                             {% endif %}
                         </td>
                         <td class="align-right">{{ item.get_nutritional_values.energy|floatformat:1 }}

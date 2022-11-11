@@ -8,49 +8,52 @@
 
 {% block content %}
 
-<ul class="list-group">
-    {% for gym in gym_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'gym:gym:edit' gym.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                <a href="{% url 'gym:gym:delete' gym.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
-            </div>
-        </div>
-        <a href="{% url 'gym:gym:user-list' gym.pk %}">{{gym}}</a>
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for gym in gym_list %}
+            <li class="list-group-item list-group-item-action">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a href="{% url 'gym:gym:edit' gym.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                        <a href="{% url 'gym:gym:delete' gym.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                    </div>
+                </div>
+                <a href="{% url 'gym:gym:user-list' gym.pk %}">{{ gym }}</a>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
 
 
 {% block sidebar %}
-{% if perms.config.change_gymconfig %}
-<div class="btn-group float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
-        {% translate "Actions" %} <span class="caret"></span>
-    </button>
-    <div class="dropdown-menu" role="menu">
-        <a href="{% url 'config:gym_config:edit' %}" class="wger-modal-dialog dropdown-item">{% translate "Edit"%}</a>
-    </div>
-</div>
-{% endif %}
-<h4>{% translate "Global gym configuration" %}</h4>
-<table class="table">
-    <tr>
-        <th>{% translate "Default gym" %}</th>
-        <td>{{ global_gym_config.default_gym|default:"-/-" }}</td>
-    </tr>
-</table>
+    {% if perms.config.change_gymconfig %}
+        <div class="btn-group float-end">
+            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                {% translate "Actions" %} <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" role="menu">
+                <a href="{% url 'config:gym_config:edit' %}"
+                   class="wger-modal-dialog dropdown-item">{% translate "Edit" %}</a>
+            </div>
+        </div>
+    {% endif %}
+    <h4>{% translate "Global gym configuration" %}</h4>
+    <table class="table">
+        <tr>
+            <th>{% translate "Default gym" %}</th>
+            <td>{{ global_gym_config.default_gym|default:"-/-" }}</td>
+        </tr>
+    </table>
 {% endblock %}
 
 
@@ -59,9 +62,9 @@
 {# Options #}
 {#         #}
 {% block options %}
-{% if perms.gym.add_gym %}
-    <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add new gym" %}
-   </a>
-{% endif %}
+    {% if perms.gym.add_gym %}
+        <a href="{% url 'gym:gym:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+            {% translate "Add new gym" %}
+        </a>
+    {% endif %}
 {% endblock %}

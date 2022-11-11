@@ -19,15 +19,16 @@
 
     <ul class="list-group">
         {% for contract_type in contracttype_list %}
-            <li class="list-group-item ">
-                <div class="btn-group float-right">
-                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+            <li class="list-group-item list-group-item-action">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         {% if perms.gym.change_contracttype %}
                             <li>
-                                <a href="{% url 'gym:contract_type:edit' contract_type.pk %}" class="wger-modal-dialog">
+                                <a href="{% url 'gym:contract_type:edit' contract_type.pk %}"
+                                   class="wger-modal-dialog dropdown-item">
                                     {% translate 'Edit' %}
                                 </a>
                             </li>
@@ -36,7 +37,7 @@
                         {% if perms.gym.delete_contracttype %}
                             <li>
                                 <a href="{% url 'gym:contract_type:delete' contract_type.pk %}"
-                                   class="wger-modal-dialog">
+                                   class="wger-modal-dialog dropdown-item">
                                     {% translate 'Delete' %}
                                 </a>
                             </li>
