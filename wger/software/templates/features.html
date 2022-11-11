@@ -107,16 +107,21 @@
     <!-- main -->
     <main>
         <div class="empty-space"></div>
+
         <!-- section 1 -->
         <section class="main-section">
             <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                 <div
                     class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                    <img src="{% static 'images/mobile1.png' %}" alt="mobile screen showing wger feature"
+                    <img src="{% static 'images/mobile1.png' %}"
+                         alt="mobile screen showing wger feature"
                          class="mobile-screen">
-                    <img src="{% static 'images/screen1.png' %}" alt="laptop screen showing wger feature"
+                    <img src="{% static 'images/screen1.png' %}"
+                         alt="laptop screen showing wger feature"
                          class="laptop-screen">
-                    <img src="{% static 'images/Polygon2.png' %}" alt="laptop screen showing wger feature" width="550px"
+                    <img src="{% static 'images/Polygon2.png' %}"
+                         alt="laptop screen showing wger feature"
+                         width="550px"
                          class="polygon-bg">
                 </div>
                 <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
@@ -145,6 +150,7 @@
                 </div>
             </div>
         </section>
+
         <!-- section 2 -->
         <section class="main-section">
             <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center gy-3">
@@ -183,6 +189,7 @@
                 </div>
             </div>
         </section>
+
         <!-- section 3 -->
         <section class="main-section">
             <div class="row row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
@@ -300,34 +307,49 @@
 
         <!-- last section  -->
         <section class="bg-blue p-5">
-            <h1 class="w-100 display-4 text-white text-center heading-h6 py-4">
-                WEB VERSION NOT ENOUGH?
+            <h1 class="w-100 display-4 text-white text-center text-uppercase heading-h6 py-4">
+                {% translate "Web version not enough?" %}
                 <br>
-                GET THE CODE, TOO!
+                {% translate "Get the code, too!" %}
             </h1>
             <div class="row py-4">
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="{% static 'images/dumbbell.svg' %}" height="96px" width="96px" alt="dumbbell image"
+                    <img src="{% static 'images/dumbbell.svg' %}"
+                         height="96"
+                         width="96"
+                         alt="dumbbell icon"
                          class="mb-4">
-                    <h6 class="text-white fw-bold text-center">Set up a private server for your gym</h6>
+                    <h6 class="text-white fw-bold text-center">
+                        {% translate "Set up a private server for your gym" %}
+                    </h6>
                     <p class="text-light fw-lighter text-center">
-                        Don't want your data on an online service? Set up a wger instance on your own server for free!
+                        {% translate "Don't want your data on an online service? Set up a wger instance on your own server for free!" %}
                     </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="{% static 'images/code.svg' %}" height="96px" width="96px" alt="dumbbell image"
+                    <img src="{% static 'images/code.svg' %}"
+                         height="96"
+                         width="96"
+                         alt="code icon"
                          class="mb-4">
-                    <h6 class="text-white fw-bold text-center">Integrate with your own app</h6>
+                    <h6 class="text-white fw-bold text-center">
+                        {% translate "Integrate with your own app" %}
+                    </h6>
                     <p class="text-light fw-lighter text-center">
-                        wger offers an open API that you can use for your app.
+                        {% translate "wger offers an open API that you can use for your app." %}
                     </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="{% static 'images/fork.svg' %}" height="96px" width="96px" alt="dumbbell image"
+                    <img src="{% static 'images/fork.svg' %}"
+                         height="96"
+                         width="96"
+                         alt="git branch icon"
                          class="mb-4">
-                    <h6 class="text-white fw-bold text-center">Create your own version</h6>
+                    <h6 class="text-white fw-bold text-center">
+                        {% translate "Create your own version" %}
+                    </h6>
                     <p class="text-light fw-lighter text-center">
-                        The source code is available under the GNU AGPLv3 license! Feel free to fork it on GitHub.
+                        {% translate "The source code is available under the GNU AGPLv3 license! Feel free to fork it on GitHub." %}
                     </p>
                 </div>
             </div>
@@ -451,7 +473,7 @@
                     </li>
                     <li class="list-group-item bg-transparent border-0">
                         <a href="http://" class="text-light fw-lighter footer-link" target="_blank"
-                           rel="noopener noreferrer">Terms of service</a>
+                           rel="noopener noreferrer">{% translate "Terms of service" %}</a>
                     </li>
                     <li class="list-group-item bg-transparent border-0">
                         <a href="http://" target="_blank" rel="noopener noreferrer">Privacy policy</a>
