@@ -9,7 +9,8 @@
     <meta property="og:title" content="{% translate 'Features' %} - wger">
 
     {% with username=owner_user.username %}
-        <meta property="og:description" content="{% blocktranslate %}wger Workout Manager is a free, open source web application that manages your exercises and workouts. {% endblocktranslate %}">
+        <meta property="og:description"
+              content="{% blocktranslate %}wger Workout Manager is a free, open source web application that manages your exercises and workouts. {% endblocktranslate %}">
     {% endwith %}
 {% endblock %}
 
@@ -18,230 +19,20 @@
 {# Content #}
 {#         #}
 {% block content %}
-    <!-- <header>
-        <div class="container">
-            <div class="intro-text">
-                <div class="intro-heading">{% translate "Welcome to wger" %}</div>
-                <div class="intro-lead-in">{% translate "Your body." %}</div>
-                <div class="intro-lead-in">{% translate "Your workouts." %}</div>
-                <div class="intro-lead-in">{% translate "Your data." %}</div>
-                <div class="intro-lead-in">{% translate "Your progress." %}</div>
-                {% if allow_guest_users and not user.is_authenticated %}
-                    <a href="{% url 'core:user:demo-entries' %}" class="page-scroll btn btn-xl" rel="nofollow" style="margin-top: 1em;">
-                        {% translate "Try it now" %}
-                    </a>
-                {% endif %}
-
-                {% if not user.is_authenticated or user.userprofile.is_temporary %}
-                    {% if allow_registration %}
-                        <a href="{% url 'core:user:registration' %}" class="page-scroll btn btn-xl" style="margin-top: 1em;">
-                            {% translate "Register" %}
-                        </a>
-                    {% endif %}
-
-                    <a href="{% url 'core:user:login' %}" class="page-scroll btn btn-xl" style="margin-top: 1em;">
-                        {% translate "Login" %}
-                    </a>
-                {% endif %}
-            </div>
-        </div>
-    </header> -->
-
-    <!-- Services Section -->
-    <!-- <section id="services" class="bg-darkest-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-light">{% translate "Your advantages" %}</h2>
-                    <h3 class="section-subheading text-muted">
-                        {% blocktranslate trimmed %}
-                            wger Workout Manager is a free, open source web application that manages
-                            your exercises, workouts and nutrition. It started as a pet project of
-                            mine to replace my growing collection of different spreadsheets, but it
-                            has become something other people could also find useful.
-                        {% endblocktranslate %}
-                    </h3>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="{% fa_class 'circle' %} fa-stack-2x text-primary"></i>
-                        <i class="{% fa_class 'user' %} fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading text-light">{% translate "Workouts" %}</h4>
-                    <p class="text-muted">
-                        {% blocktranslate trimmed %}
-                            You can create and manage flexible workout routines for any goals you
-                            have. Select exactly which exercises you'll do and how many repetitions,
-                            time or distance you want to do them. You can also combine different
-                            workouts into a schedule.
-                        {% endblocktranslate %}
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="{% fa_class 'circle' %} fa-stack-2x text-primary"></i>
-                        <i class="{% fa_class 'utensils' %} fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading text-light">{% translate "Nutrition" %}</h4>
-                    <p class="text-muted">
-                        {% blocktranslate trimmed %}
-                            Create your personal diet plan by creating as many meals with as many
-                            different ingredients as you need. The application will calculate the
-                            nutritional values (total energy, protein, carbohydrates, and so on)
-                            about the whole plan as well as the indivual meals.
-                        {% endblocktranslate %}
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="{% fa_class 'circle' %} fa-stack-2x text-primary"></i>
-                        <i class="{% fa_class 'chart-line' %} fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading text-light">{% translate 'Diary' %}</h4>
-                    <p class="text-muted">
-                        {% blocktranslate trimmed %}
-                            Enter the weights and repetitions you did for each exercise to generate
-                            diagrams that let you see at a glance how well you are doing. The raw
-                            numbers are of course still accessible.
-                        {% endblocktranslate %}
-                        {% translate "You can also enter notes and a general impression (great, neutral, etc.)" %}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- <section id="about" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">{% translate "Features" %}</h2>
-                    <h3 class="section-subheading text-muted">{% translate "Among many others" %}</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="timeline">
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-fluid rounded-circle" src="{% static 'images/weight-chart.png' %}" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>{% translate "Weight tracker" %}</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% blocktranslate trimmed %}
-                                            Keep track of your progress with the body weight chart. This makes
-                                            it easy to see if you are reaching your goals or need to adjust
-                                            something.
-                                        {% endblocktranslate %}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-fluid rounded-circle" src="{% static 'images/calendar.png' %}" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>{% translate 'Calendar' %}</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% blocktranslate trimmed %}
-                                            Get an overview of how and when you trained as well as how you
-                                            personally felt you performed. Access all your individual diary
-                                            entries with one click.
-                                        {% endblocktranslate %}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline">
-                            <div class="timeline-image">
-                                <img class="img-fluid rounded-circle" src="{% static 'images/muscle-overview.png' %}" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>{% translate 'Exercise database' %}</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% blocktranslate trimmed %}
-                                            The exercise database contains more than hundred exercises from
-                                            which you can choose when creating a workout. You can view them by
-                                            category and equipment used or muscles trained.
-                                        {% endblocktranslate %}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-fluid rounded-circle" src="{% static 'images/gym-management.png' %}" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>{% translate 'Gym management' %}</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% blocktranslate trimmed %}
-                                            Use the application for your gym to manage its members, their
-                                            workouts and attendance. You can manage the members' contracts,
-                                            keep notes and upload any files you might need.
-                                        {% endblocktranslate %}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline">
-                            <div class="timeline-image">
-                                <img class="img-fluid rounded-circle" src="{% static 'images/rest-api.png' %}" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>{% translate "REST API" %}</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">
-                                        {% blocktranslate trimmed %}
-                                            wger provides a REST API with full read and write access to all
-                                            data so you can integrate your own application and tools.
-                                        {% endblocktranslate %}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline">
-                            <div class="timeline-image">
-                                <h4>{% blocktranslate trimmed %}100% Free
-                                    <br>and
-                                    <br>Open Source{% endblocktranslate %}
-                                </h4>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
     <header>
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg px-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="./static/images/wger-logo.png" />
+                    <img src="{% static 'images/wger-logo.png' %}"/>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -273,7 +64,7 @@
         <!-- hero section -->
         <section class="row px-5 mb-5 d-flex align-items-center justify-content-center gap-2 flex-reverse">
             <div class="col-lg-7 col-sm-12 d-flex px-5 flex-column align-items-center">
-                <img src="./static/images/hero.png" alt="a man with a dumbbell" class="header_hero_image">
+                <img src="{% static 'images/hero.png' %}" alt="a man with a dumbbell" class="header_hero_image">
             </div>
             <div class="col-lg-4 col-sm-12 d-flex flex-column px-5 py-3">
                 <h1 class="font-Bebas_Neue display-3 uppercase w-100">
@@ -286,7 +77,7 @@
                     Get Started
                 </button>
             </div>
-    
+
         </section>
         <!-- board section -->
         <section class="row row-cols-lg-4 row-cols-2 board-section">
@@ -316,30 +107,32 @@
             <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                 <div
                     class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                    <img src="./static/images/mobile1.png" alt="mobile screen showing wger feature" class="mobile-screen">
-                    <img src="./static/images/screen1.png" alt="laptop screen showing wger feature" class="laptop-screen">
-                    <img src="./static/images/Polygon2.png" alt="laptop screen showing wger feature" width="550px"
-                        class="polygon-bg">
+                    <img src="{% static 'images/mobile1.png' %}" alt="mobile screen showing wger feature"
+                         class="mobile-screen">
+                    <img src="{% static 'images/screen1.png' %}" alt="laptop screen showing wger feature"
+                         class="laptop-screen">
+                    <img src="{% static 'images/Polygon2.png' %}" alt="laptop screen showing wger feature" width="550px"
+                         class="polygon-bg">
                 </div>
                 <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
                     <h2 class="w-100 font-Bebas_Neue display-4 uppercase">Craft your perfect <span
-                            class="text-green">workout
+                        class="text-green">workout
                             regimen</span></h2>
                     <ul class="list-group gap-1 li-green">
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-green.png" alt="list item image">
+                            <img src="{% static 'images/li-green.png' %}" alt="list item image">
                             Design a weekly workout plan from more than 100 exercises
                         </li>
-                        <li class="list-group-item border-0 fs-8 p-0"><img src="./static/images/li-green.png"
-                                alt="list item image">
+                        <li class="list-group-item border-0 fs-8 p-0">
+                            <img src="{% static 'images/li-green.png' %}" alt="list item image">
                             Set reps and sets, duration, or distance goals for each exercise
                         </li>
-                        <li class="list-group-item border-0 fs-8 p-0"><img src="./static/images/li-green.png"
-                                alt="list item image">
+                        <li class="list-group-item border-0 fs-8 p-0">
+                            <img src="{% static ' images/li-green.png' %}" alt="list item image">
                             Get guided through your workouts step by step
                         </li>
-                        <li class="list-group-item border-0 fs-8 p-0"><img src="./static/images/li-green.png"
-                                alt="list item image">
+                        <li class="list-group-item border-0 fs-8 p-0">
+                            <img src="{% static 'images/li-green.png' %}" alt="list item image">
                             Keep track of the workouts you've done, including how you felt you performed
                         </li>
                     </ul>
@@ -351,25 +144,31 @@
             <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center gy-3">
                 <div
                     class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                    <img src="./static/images/mobile2.png" alt="mobile screen showing wger feature" class="mobile-screen">
-                    <img src="./static/images/screen2.png" alt="laptop screen showing wger feature" class="laptop-screen">
-                    <img src="./static/images/Polygon3.png" alt="laptop screen showing wger feature" width="550px"
-                        class="polygon-bg">
+                    <img src="{% static 'images/mobile2.png' %}" alt="mobile screen showing wger feature"
+                         class="mobile-screen">
+                    <img src="{% static 'images/screen2.png' %}" alt="laptop screen showing wger feature"
+                         class="laptop-screen">
+                    <img src="{% static 'images/Polygon3.png' %}"
+                         alt="laptop screen showing wger feature"
+                         width="550px"
+                         class="polygon-bg">
                 </div>
                 <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-">
-                    <h2 class="w-100 font-Bebas_Neue display-4 uppercase">Plan your<br> <span class="text-red">Daily
-                            meals</span></h2>
+                    <h2 class="w-100 font-Bebas_Neue display-4 uppercase">
+                        Plan your<br>
+                        <span class="text-red">Daily meals</span>
+                    </h2>
                     <ul class="list-group gap-1">
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-red.png" alt="list item image">
+                            <img src="{% static 'images/li-red.png' %}" alt="list item image">
                             Fill your week with nutritious meals that help you perform better
                         </li>
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-red.png" alt="list item image">
+                            <img src="{% static 'images/li-red.png' %}" alt="list item image">
                             Build meals from a database of more than 2 million foods
                         </li>
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-red.png" alt="list item image">
+                            <img src="{% static 'images/li-red.png' %}" alt="list item image">
                             Get automatically calculated nutritional values (energy, protein, carbs, ...) for both
                             individual meals and your entire
                             weekly plan
@@ -383,32 +182,37 @@
             <div class="row row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                 <div
                     class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                    <img src="./static/images/mobile3.png" alt="mobile screen showing wger feature" class="mobile-screen">
-                    <img src="./static/images/screen3.png" alt="laptop screen showing wger feature" class="laptop-screen">
-                    <img src="./static/images/Polygon1.png" alt="laptop screen showing wger feature" width="550px"
-                        class="polygon-bg">
-    
+                    <img src="{% static 'images/mobile3.png' %}"
+                         alt="mobile screen showing wger feature"
+                         class="mobile-screen">
+                    <img src="{% static 'images/screen3.png' %}"
+                         alt="laptop screen showing wger feature"
+                         class="laptop-screen">
+                    <img src="{% static 'images/Polygon1.png' %}"
+                         alt="laptop screen showing wger feature" width="550px"
+                         class="polygon-bg">
+
                 </div>
                 <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
                     <h2 class="w-100 font-Bebas_Neue display-4 uppercase w-100">Keep track of <br> <span
-                            class="text-gray">your
+                        class="text-gray">your
                             progress</span></h2>
                     <ul class="list-group gap-1">
-    
+
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-grey.png" alt="list item image">
+                            <img src="{% static 'images/li-grey.png' %}" alt="list item image">
                             Track and annotate everything about your meals and workouts
                         </li>
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-grey.png" alt="list item image">
+                            <img src="{% static 'images/li-grey.png' %}" alt="list item image">
                             Add custom notes
                         </li>
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-grey.png" alt="list item image">
+                            <img src="{% static 'images/li-grey.png' %}" alt="list item image">
                             Record your weight
                         </li>
                         <li class="list-group-item border-0 fs-8 p-0">
-                            <img src="./static/images/li-grey.png" alt="list item image">
+                            <img src="{% static 'images/li-grey.png' %}" alt="list item image">
                             Keep a photo log to see your progress
                             Use the calendar view to see past entries
                         </li>
@@ -422,16 +226,18 @@
                 Try Wger Now
             </button>
         </div>
-    
+
         <!-- third last section -->
         <section class="main-section p-4" style="background-color:#EAF0FE;">
             <div class="row w-100 gy-3">
                 <div class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
-                    <img src="./static/images/human-faces.png" alt="list of human faces" class="human_faces_img">
+                    <img src="{% static 'images/human-faces.png' %}" alt="list of human faces" class="human_faces_img">
                 </div>
                 <div class="col-lg-5 col-sm-12">
-                    <h1 class="display-3 uppercase font-Bebas_Neue">Powered By <br> <span class="text-dark-blue">The
-                            community</span> </h1>
+                    <h1 class="display-3 uppercase font-Bebas_Neue">
+                        Powered By <br>
+                        <span class="text-dark-blue">The community</span>
+                    </h1>
                     <p style="line-height: 30px;">
                         wger is funded and created by the open-source community: people like you translating, adding
                         exercises and nutritional
@@ -455,7 +261,7 @@
                 </div>
             </div>
         </section>
-    
+
         <!-- second last section -->
         <!-- style="background: linear-gradient(184.31deg, #DDE7FC -7.65%, #F1F5FF 56.04%);" -->
         <section class="main-section p-3">
@@ -477,7 +283,7 @@
                         <input type="password" required class="form-control" id="password" placeholder=" ">
                         <label for="password">Password</label>
                     </div>
-    
+
                     <!-- <div class="d-flex align-items-center justify-content-between border border-gray p-2 mb-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -487,12 +293,12 @@
                             </div>
                             <img src="" alt="">
                         </div> -->
-    
+
                     <button class="btn btn-primary bg-dark-blue px-4 w-100">Submit</button>
                 </div>
             </div>
         </section>
-    
+
         <!-- last section  -->
         <section class="bg-blue p-5">
             <h1 class="w-100 display-4 text-white text-center heading-h6 py-4">
@@ -502,24 +308,27 @@
             </h1>
             <div class="row py-4">
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="./static/images/dumbell.png" height="96px" width="96px" alt="dumbbell image" class="mb-4">
+                    <img src="{% static 'images/dumbell.png' %}" height="96px" width="96px" alt="dumbbell image"
+                         class="mb-4">
                     <h6 class="text-white fw-bold text-center">Set up a private server for your gym</h6>
                     <p class="text-light fw-lighter text-center">
                         Don't want your data on an online service? Set up a wger instance on your own server for free!
                     </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="./static/images/code.png" height="96px" width="96px" alt="dumbbell image" class="mb-4">
+                    <img src="{% static 'images/code.png' %}" height="96px" width="96px" alt="dumbbell image"
+                         class="mb-4">
                     <h6 class="text-white fw-bold text-center">Integrate with your own app</h6>
                     <p class="text-light fw-lighter text-center">
                         wger offers an open API that you can use for your app.
                     </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="./static/images/branch.png" height="96px" width="96px" alt="dumbbell image" class="mb-4">
+                    <img src="{% static 'images/branch.png' %}" height="96px" width="96px" alt="dumbbell image"
+                         class="mb-4">
                     <h6 class="text-white fw-bold text-center">Create your own version</h6>
                     <p class="text-light fw-lighter text-center">
-                        The source code is available under the GNU AGPLv3 license! Feel free to fork it on Github.
+                        The source code is available under the GNU AGPLv3 license! Feel free to fork it on GitHub.
                     </p>
                 </div>
             </div>
@@ -528,7 +337,7 @@
     <!-- footer -->
     <footer class="d-grid gap-3 p-5 footer-bg">
         <div class="d-flex px-3">
-            <img src="./static/images/white-wger-logo.png" />
+            <img src="{% static 'images/white-wger-logo.png' %}"/>
         </div>
         <div class="row row-cols-lg-4 row-cols-sm-1 g-2 border-bottom border-light pb-3">
             <div class="col-lg-3 col-sm-12">
@@ -536,18 +345,48 @@
                     <li class="list-group-item bg-transparent border-0 text-light">
                         <h1 class="fs-5 text-white">Account</h1>
                     </li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Sign Up</a></li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Login</a></li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Dashboard</a></li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Training</a></li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Weight</a></li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Nutrition</a></li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Sign Up
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Login
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Training
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Weight
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Nutrition
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="col-lg-3 col-sm-12">
@@ -555,12 +394,25 @@
                     <li class="list-group-item bg-transparent border-0 text-light">
                         <h1 class="fs-5 text-white">Community</h1>
                     </li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Exercises</a></li>
-                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter"><a href="http://"
-                            target="_blank" rel="noopener noreferrer">Workout Plans</a></li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Exercise translation</a>
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Exercises
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Workout
+                            Plans
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                            Exercise translation
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -600,7 +452,7 @@
                     </li>
                     <li class="list-group-item bg-transparent border-0">
                         <a href="http://" class="text-light fw-lighter footer-link" target="_blank"
-                            rel="noopener noreferrer">Terms of service</a>
+                           rel="noopener noreferrer">Terms of service</a>
                     </li>
                     <li class="list-group-item bg-transparent border-0">
                         <a href="http://" target="_blank" rel="noopener noreferrer">Privacy policy</a>
@@ -613,10 +465,7 @@
                 English
                 <i class="fa fa-pencil px-2" aria-hidden="true"></i>
             </button>
-            <img src="./static/images/google-play.png" />
+            <img src="{% static 'images/google-play.png' %}"/>
         </div>
     </footer>
-
-
-
 {% endblock %}
