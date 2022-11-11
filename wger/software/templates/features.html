@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-lg px-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="{% static 'images/wger-logo.png' %}"/>
+                    <img src="{% static 'images/logos/logo-font.svg' %}"/>
                 </a>
                 <button class="navbar-toggler"
                         type="button"
@@ -53,9 +53,12 @@
                     </ul>
                     <!-- buttons -->
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-transparent">Login</button>
+                        <a rola="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">Login</a>
                         {% if allow_registration %}
-                            <button type="button" class="btn btn-primary rounded-1 bg-dark-blue px-4">Sign Up</button>
+                            <a role="button" class="btn btn-primary rounded-1 bg-dark-blue px-4"
+                               href="{% url 'core:user:registration' %}">
+                                Sign Up
+                            </a>
                         {% endif %}
                     </div>
                 </div>
@@ -308,7 +311,7 @@
             </h1>
             <div class="row py-4">
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="{% static 'images/dumbell.png' %}" height="96px" width="96px" alt="dumbbell image"
+                    <img src="{% static 'images/dumbbell.svg' %}" height="96px" width="96px" alt="dumbbell image"
                          class="mb-4">
                     <h6 class="text-white fw-bold text-center">Set up a private server for your gym</h6>
                     <p class="text-light fw-lighter text-center">
@@ -316,7 +319,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="{% static 'images/code.png' %}" height="96px" width="96px" alt="dumbbell image"
+                    <img src="{% static 'images/code.svg' %}" height="96px" width="96px" alt="dumbbell image"
                          class="mb-4">
                     <h6 class="text-white fw-bold text-center">Integrate with your own app</h6>
                     <p class="text-light fw-lighter text-center">
@@ -324,7 +327,7 @@
                     </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                    <img src="{% static 'images/branch.png' %}" height="96px" width="96px" alt="dumbbell image"
+                    <img src="{% static 'images/fork.svg' %}" height="96px" width="96px" alt="dumbbell image"
                          class="mb-4">
                     <h6 class="text-white fw-bold text-center">Create your own version</h6>
                     <p class="text-light fw-lighter text-center">
@@ -465,7 +468,7 @@
                 English
                 <i class="fa fa-pencil px-2" aria-hidden="true"></i>
             </button>
-            <img src="{% static 'images/google-play.png' %}"/>
+            <img src="{% static 'images/logos/play-store/google-play-badge.png' %}" height="64"/>
         </div>
     </footer>
 {% endblock %}

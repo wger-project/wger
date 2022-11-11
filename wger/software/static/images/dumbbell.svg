@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="80"
+   height="80"
+   viewBox="0 0 80 80"
+   fill="none"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="image.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.95"
+     inkscape:cx="40"
+     inkscape:cy="40"
+     inkscape:window-width="1344"
+     inkscape:window-height="456"
+     inkscape:window-x="177"
+     inkscape:window-y="43"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4" />
+  <path
+     d="M74.3125 51.4375L79.9375 57.25L71.5 65.6875L77.125 71.5L71.5 77.125L65.6875 71.5L57.25 79.9375L51.4375 74.3125L45.8125 79.9375L40 74.3125L54.25 60.0625L19.9375 25.75L5.6875 40L0.0625 34.1875L5.6875 28.5625L0.0625 22.75L8.5 14.3125L2.875 8.5L8.5 2.875L14.3125 8.5L22.75 0.0625L28.5625 5.6875L34.1875 0.0625L40 5.6875L25.75 19.9375L60.0625 54.25L74.3125 40L79.9375 45.8125L74.3125 51.4375Z"
+     fill="white"
+     id="path2" />
+</svg>
