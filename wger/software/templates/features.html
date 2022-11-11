@@ -53,11 +53,13 @@
                     </ul>
                     <!-- buttons -->
                     <div class="d-flex gap-2">
-                        <a rola="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">Login</a>
+                        <a rola="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">
+                            {% translate "Login" %}
+                        </a>
                         {% if allow_registration %}
                             <a role="button" class="btn btn-primary rounded-1 bg-dark-blue px-4"
                                href="{% url 'core:user:registration' %}">
-                                Sign Up
+                                {% translate "Register" %}
                             </a>
                         {% endif %}
                     </div>
@@ -71,13 +73,13 @@
             </div>
             <div class="col-lg-4 col-sm-12 d-flex flex-column px-5 py-3">
                 <h1 class="font-bebas-neue display-3 uppercase w-100">
-                    Track your <br> way to your <br> ideal body
+                    {% translate "Track your <br> way to your <br> ideal body" %}
                 </h1>
                 <p class="">
-                    Join wger, the community-driven <b>free <br> and open-source fitness tracker</b>
+                    {% translate "Join wger, the community-driven <b>free <br> and open-source fitness tracker</b>" %}
                 </p>
                 <button type="button" class="btn btn-primary rounded-1 bg-dark-blue py-2">
-                    Get Started
+                    {% translate "Get Started" %}
                 </button>
             </div>
 
@@ -86,19 +88,19 @@
         <section class="row row-cols-lg-4 row-cols-2 board-section">
             <div class="col-lg-3 col-sm-3 d-flex flex-column align-items-center">
                 <h2 class="display-3 font-bebas-neue text-dark-blue text-center mb-0">{{ nr_users }}+</h2>
-                <p class="text-center">people <br> using wger</p>
+                <p class="text-center">{% translate "people <br> using wger" %}</p>
             </div>
             <div class="col-lg-3 col-sm-3  d-flex flex-column align-items-center">
                 <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_exercises }}+</h2>
-                <p class="text-center">exercises <br> for workout creation</p>
+                <p class="text-center">{% translate "exercises <br> for workout creation" %}</p>
             </div>
             <div class="col-lg-3 col-sm-3 d-flex flex-column align-items-center justify-content-center">
                 <h2 class="display-3 font-bebas-neue text-dark-blue  mb-0">{{ nr_ingredients }}+</h2>
-                <p class="text-center">foods <br> for meal planing</p>
+                <p class="text-center">{% translate "foods <br> for meal planing" %}</p>
             </div>
             <div class="col-lg-3 col-sm-3  d-flex flex-column align-items-center">
                 <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_stars }}+</h2>
-                <p class="text-center">stars <br> on GitHub</p>
+                <p class="text-center">{% translate "stars <br> on GitHub" %}</p>
             </div>
         </section>
     </header>
@@ -118,9 +120,10 @@
                          class="polygon-bg">
                 </div>
                 <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
-                    <h2 class="w-100 font-bebas-neue display-4 uppercase">Craft your perfect <span
-                        class="text-green">workout
-                            regimen</span></h2>
+                    <h2 class="w-100 font-bebas-neue display-4 uppercase">
+                        Craft your perfect
+                        <span class="text-green">workout regimen</span>
+                    </h2>
                     <ul class="list-group gap-1 li-green">
                         <li class="list-group-item border-0 fs-8 p-0">
                             <img src="{% static 'images/li-green.png' %}" alt="list item image">
@@ -197,9 +200,10 @@
 
                 </div>
                 <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
-                    <h2 class="w-100 font-bebas-neue display-4 uppercase w-100">Keep track of <br> <span
-                        class="text-gray">your
-                            progress</span></h2>
+                    <h2 class="w-100 font-bebas-neue display-4 uppercase w-100">
+                        Keep track of <br>
+                        <span class="text-gray">your progress</span>
+                    </h2>
                     <ul class="list-group gap-1">
 
                         <li class="list-group-item border-0 fs-8 p-0">
@@ -242,16 +246,20 @@
                         <span class="text-dark-blue">The community</span>
                     </h1>
                     <p style="line-height: 30px;">
-                        wger is funded and created by the open-source community: people like you translating, adding
-                        exercises and nutritional
-                        info, developing, and more.
-                        <br>
+                        {% blocktranslate trimmed %}
+                            wger is funded and created by the open-source community: people like you translating, adding
+                            exercises and nutritional
+                            info, developing, and more.
+                        {% endblocktranslate %}
                         <b>
-                            We don't use ads, don't sell your personal info, and we share the code under a free and
-                            open-source license.
+                            {% blocktranslate trimmed %}
+                                We don't use ads, don't sell your personal info, and we share the code under a free and
+                                open-source license.
+                            {% endblocktranslate %}
                         </b>
-                        <br>
-                        Pitch in and help make wger even better!
+                        {% blocktranslate trimmed %}
+                            Pitch in and help make wger even better!
+                        {% endblocktranslate %}
                     </p>
                     <div class="d-flex gap-3">
                         <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
@@ -271,33 +279,22 @@
             <!-- form -->
             <div class="row d-flex flex-column gap-2 w-100 align-items-center">
                 <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
-                    Sign Up Now For Free
+                    {% translate "Sign Up Now For Free" %}
                 </h3>
                 <div class="col-lg-5 col-sm-8 d-flex flex-column gap-2">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="username" placeholder=" ">
-                        <label for="username">Username</label>
+                        <label for="username">{% translate "Username" %}</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="email" placeholder="name@example.com">
-                        <label for="email">Email address (optional)</label>
+                        <label for="email">{% translate "Email address (optional)" %}</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" required class="form-control" id="password" placeholder=" ">
-                        <label for="password">Password</label>
+                        <label for="password">{% translate "Password" %}</label>
                     </div>
-
-                    <!-- <div class="d-flex align-items-center justify-content-between border border-gray p-2 mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    I am a human
-                                </label>
-                            </div>
-                            <img src="" alt="">
-                        </div> -->
-
-                    <button class="btn btn-primary bg-dark-blue px-4 w-100">Submit</button>
+                    <button class="btn btn-primary bg-dark-blue px-4 w-100">{% translate "Submit" %}</button>
                 </div>
             </div>
         </section>
