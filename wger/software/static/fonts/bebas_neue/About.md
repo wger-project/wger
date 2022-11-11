@@ -62,18 +62,18 @@ info@dharmatype.com
 * [Mocha Mattari (2011) — Commercial font](https://www.myfonts.com/fonts/flat-it/mocha-mattari/?refby=dharmatype)  
   Mocha Mattari is distressed font designed based on Bebas Neue (2010)  
   Available from [Our partners](https://dharmatype.com/shop) such
-  like [Myfonts](https://www.myfonts.com/fonts/flat-it/mocha-mattari/?refby=dharmatype)  .
+  like [Myfonts](https://www.myfonts.com/fonts/flat-it/mocha-mattari/?refby=dharmatype).
 
 * [Bebas Neue version 1.xxx (2010) — Free font](https://github.com/dharmatype/Bebas-Neue)  
   Bebas Neue was re-designed from Bebas (2005) font for the same purpose. First released in 2010.  
   Bebas Neue have same proportion and theory as original Bebas (2005) font.  
   Licensed under the SIL Open Font License v1.1.
 
-* [Boycott (2006) — Commercial font](https://www.myfonts.com/fonts/flat-it/boycott/?refby=dharmatype)   
-  Boycott is distressed font designed based on Bebas(2005).  
+* [Boycott (2006) — Commercial font](https://www.myfonts.com/fonts/flat-it/boycott/?refby=dharmatype)
+  Boycott is distressed font designed based on Bebas(2005).
   Available from [Our partners](https://dharmatype.com/shop) such
   like [Myfonts](https://www.myfonts.com/fonts/flat-it/boycott/?refby=dharmatype).
 
 * [Bebas (2005) — Free font](https://github.com/dharmatype/Bebas)  
   Bebas is a free font for the purpose of type design training/practice for myself and to get feedback from the world.  
-  Originally released in 2005. *Development was terminated.*   
+  Originally released in 2005. *Development was terminated.*
