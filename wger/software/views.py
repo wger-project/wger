@@ -23,9 +23,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 
+# Third Party
+import requests
+
 # wger
 from wger.exercises.models import ExerciseBase
 from wger.nutrition.models import Ingredient
+
 
 logger = logging.getLogger(__name__)
 
@@ -36,11 +40,15 @@ def features(request):
     Render the features page
     """
 
+    # Fetch number of stars from GitHub. The page is cached, so doing this is OK
+    result = requests.get('https://api.github.com/repos/wger-project/wger').json()
+
     context = {
         'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
         'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS'],
         'nr_users': User.objects.count(),
         'nr_exercises': ExerciseBase.objects.count(),
-        'nr_ingredients': Ingredient.objects.count()
+        'nr_ingredients': Ingredient.objects.count(),
+        'nr_stars': result.get('stargazers_count', '2000')
     }
     return render(request, 'features.html', context)
