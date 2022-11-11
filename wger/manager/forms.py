@@ -69,7 +69,6 @@ from wger.utils.widgets import (
 
 
 class WorkoutForm(ModelForm):
-
     class Meta:
         model = Workout
         fields = (
@@ -79,7 +78,6 @@ class WorkoutForm(ModelForm):
 
 
 class WorkoutMakeTemplateForm(ModelForm):
-
     class Meta:
         model = Workout
         fields = (
@@ -102,10 +100,9 @@ class WorkoutCopyForm(Form):
 
 
 class DayForm(ModelForm):
-
     class Meta:
         model = Day
-        exclude = ('training', )
+        exclude = ('training',)
         widgets = {'day': TranslatedSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
@@ -127,7 +124,6 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 
 
 class SetForm(ModelForm):
-
     exercises = OrderedModelMultipleChoiceField(
         queryset=ExerciseBase.objects.all(),
         label=_('Exercises'),
@@ -146,7 +142,6 @@ class SetForm(ModelForm):
 
 
 class SettingForm(ModelForm):
-
     class Meta:
         model = Setting
         exclude = ('set', 'exercise', 'order', 'name')
@@ -193,7 +188,7 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('workout', )
+        exclude = ('workout',)
 
 
 class WorkoutLogFormHelper(FormHelper):
@@ -204,11 +199,11 @@ class WorkoutLogFormHelper(FormHelper):
         self.layout = Layout(
             'id',
             Row(
-                Column('reps', css_class='form-group col-2 mb-0'),
-                Column('repetition_unit', css_class='form-group col-3 mb-0'),
-                Column('weight', css_class='form-group col-2 mb-0'),
-                Column('weight_unit', css_class='form-group col-3 mb-0'),
-                Column('rir', css_class='form-group col-2 mb-0'),
+                Column('reps', css_class='col-2'),
+                Column('repetition_unit', css_class='col-3'),
+                Column('weight', css_class='col-2'),
+                Column('weight_unit', css_class='col-3'),
+                Column('rir', css_class='col-2'),
                 css_class='form-row'
             ),
         )
@@ -232,14 +227,14 @@ class HelperWorkoutSessionForm(ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='form-group col-6 mb-0'),
-                Column('impression', css_class='form-group col-6 mb-0'),
+                Column('date', css_class='col-6'),
+                Column('impression', css_class='col-6'),
                 css_class='form-row'
             ),
             'notes',
             Row(
-                Column('time_start', css_class='form-group col-6 mb-0'),
-                Column('time_end', css_class='form-group col-6 mb-0'),
+                Column('time_start', css_class='col-6'),
+                Column('time_end', css_class='col-6'),
                 css_class='form-row'
             ),
         )
@@ -262,8 +257,8 @@ class WorkoutSessionForm(ModelForm):
             'impression',
             'notes',
             Row(
-                Column('time_start', css_class='form-group col-6 mb-0'),
-                Column('time_end', css_class='form-group col-6 mb-0'),
+                Column('time_start', css_class='col-6'),
+                Column('time_end', css_class='col-6'),
                 css_class='form-row'
             ),
         )

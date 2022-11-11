@@ -48,7 +48,6 @@ from wger.nutrition.models import (
 )
 from wger.utils.widgets import Html5NumberInput
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -85,8 +84,8 @@ class UnitChooserForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('amount', css_class='form-group col-6 mb-0'),
-                Column('unit', css_class='form-group col-6 mb-0'),
+                Column('amount', css_class='col-6'),
+                Column('unit', css_class='col-6'),
                 css_class='form-row'
             )
         )
@@ -106,7 +105,7 @@ class BmiForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('height', )
+        fields = ('height',)
 
     def __init__(self, *args, **kwargs):
         super(BmiForm, self).__init__(*args, **kwargs)
@@ -117,8 +116,8 @@ class BmiForm(forms.ModelForm):
         self.helper.form_id = 'bmi-form'
         self.helper.layout = Layout(
             Row(
-                Column('height', css_class='form-group col-6 mb-0'),
-                Column('weight', css_class='form-group col-6 mb-0'),
+                Column('height', css_class='col-6'),
+                Column('weight', css_class='col-6'),
                 css_class='form-row'
             ), ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
         )
@@ -169,18 +168,18 @@ class PhysicalActivitiesForm(forms.ModelForm):
         self.helper.layout = Layout(
             "sleep_hours",
             Row(
-                Column('work_hours', css_class='form-group col-6 mb-0'),
-                Column('work_intensity', css_class='form-group col-6 mb-0'),
+                Column('work_hours', css_class='col-6'),
+                Column('work_intensity', css_class='col-6'),
                 css_class='form-row'
             ),
             Row(
-                Column('sport_hours', css_class='form-group col-6 mb-0'),
-                Column('sport_intensity', css_class='form-group col-6 mb-0'),
+                Column('sport_hours', css_class='col-6'),
+                Column('sport_intensity', css_class='col-6'),
                 css_class='form-row'
             ),
             Row(
-                Column('freetime_hours', css_class='form-group col-6 mb-0'),
-                Column('freetime_intensity', css_class='form-group col-6 mb-0'),
+                Column('freetime_hours', css_class='col-6'),
+                Column('freetime_intensity', css_class='col-6'),
                 css_class='form-row'
             )
         )
@@ -213,7 +212,7 @@ class DailyCaloriesForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('calories', )
+        fields = ('calories',)
 
     def __init__(self, *args, **kwargs):
         super(DailyCaloriesForm, self).__init__(*args, **kwargs)
@@ -257,8 +256,8 @@ class MealItemForm(forms.ModelForm):
         self.helper.layout = Layout(
             'ingredient', 'ingredient_searchfield', HTML('<div id="ingredient_name"></div>'),
             Row(
-                Column('amount', css_class='form-group col-6 mb-0'),
-                Column('weight_unit', css_class='form-group col-6 mb-0'),
+                Column('amount', css_class='col-6'),
+                Column('weight_unit', css_class='col-6'),
                 css_class='form-row'
             )
         )
@@ -295,14 +294,13 @@ class MealLogItemForm(MealItemForm):
         self.helper.layout = Layout(
             'ingredient', 'ingredient_searchfield',
             Row(
-                Column('amount', css_class='form-group col-6 mb-0'),
-                Column('weight_unit', css_class='form-group col-6 mb-0'),
-            ), Row(Column('datetime', css_class='form-group col-6 mb-0'), css_class='form-row')
+                Column('amount', css_class='col-6'),
+                Column('weight_unit', css_class='col-6'),
+            ), Row(Column('datetime', css_class='col-6'), css_class='form-row')
         )
 
 
 class IngredientForm(forms.ModelForm):
-
     class Meta:
         model = Ingredient
         fields = [
@@ -326,27 +324,27 @@ class IngredientForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='form-group col-6 mb-0'),
-                Column('brand', css_class='form-group col-6 mb-0'),
+                Column('name', css_class='col-6'),
+                Column('brand', css_class='col-6'),
                 css_class='form-row'
             ),
             'energy',
             'protein',
             Row(
-                Column('carbohydrates', css_class='form-group col-6 mb-0'),
-                Column('carbohydrates_sugar', css_class='form-group col-6 mb-0'),
+                Column('carbohydrates', css_class='col-6'),
+                Column('carbohydrates_sugar', css_class='col-6'),
                 css_class='form-row'
             ),
             Row(
-                Column('fat', css_class='form-group col-6 mb-0'),
-                Column('fat_saturated', css_class='form-group col-6 mb-0'),
+                Column('fat', css_class='col-6'),
+                Column('fat_saturated', css_class='col-6'),
                 css_class='form-row'
             ),
             'fibres',
             'sodium',
             Row(
-                Column('license', css_class='form-group col-6 mb-0'),
-                Column('license_author', css_class='form-group col-6 mb-0'),
+                Column('license', css_class='col-6'),
+                Column('license_author', css_class='col-6'),
                 css_class='form-row'
             ),
         )

@@ -4,6 +4,7 @@
 
 # Application
 bleach[css]~=5.0
+crispy-bootstrap5==0.7
 django-bootstrap-breadcrumbs~=0.9
 django-formtools~=2.4
 django-recaptcha~=3.0.0
@@ -24,6 +25,7 @@ invoke==1.7.3
 pillow==9.3.0
 reportlab==3.6.12
 requests==2.28.1
+
 
 
 # AWS
