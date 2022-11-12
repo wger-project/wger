@@ -12,8 +12,9 @@
 
 :root {
     --blue: #245daf;
-    --green: #bd5164;
-    --gray: #218064;
+    --green: #218064;
+    --red: #bd5164;
+    --dark-yellow: #9a6a23;
     --bg-blue: #163665;
 }
 
@@ -49,12 +50,34 @@ a {
     color: var(--green);
 }
 
-.text-red {
-    color: #9a6a23;
+.text-dark-yellow {
+    color: var(--dark-yellow);
 }
 
-.text-gray {
-    color: var(--gray);
+.text-red {
+    color: var(--red);
+}
+
+.text-blue {
+    color: var(--blue);
+}
+
+
+ul.hex-bullet li::before {
+    content: '⬢';
+    font-size: 20px;
+}
+
+ul.bullet-red li::before {
+    color: var(--red);;
+}
+
+ul.bullet-dark-yellow li::before {
+    color: var(--dark-yellow);
+}
+
+ul.bullet-green li::before {
+    color: var(--green);
 }
 
 .fs-8 {
@@ -80,6 +103,7 @@ header .board-section {
 ul {
     text-align: justify;
 }
+
 
 .hexagon {
     /* top: 30vh; */
@@ -131,7 +155,7 @@ main {
 
 .main-section {
     width: 100%;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
