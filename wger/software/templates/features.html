@@ -66,12 +66,13 @@
                 </div>
             </div>
         </nav>
+
         <!-- hero section -->
         <section class="row px-5 mb-5 d-flex align-items-center justify-content-center gap-2 flex-reverse">
             <div class="col-lg-7 col-sm-12 d-flex px-5 flex-column align-items-center">
                 <img src="{% static 'images/hero.png' %}" alt="a man with a dumbbell" class="header_hero_image">
             </div>
-            <div class="col-lg-4 col-sm-12 d-flex flex-column px-5 py-3">
+            <div class="col-lg-4 col-sm-12 px-5 py-3">
                 <h1 class="font-bebas-neue display-3 uppercase w-100">
                     {% translate "Track your <br> way to your <br> ideal body" %}
                 </h1>
@@ -106,10 +107,9 @@
     </header>
     <!-- main -->
     <main>
-        <div class="empty-space"></div>
 
         <!-- section 1 -->
-        <section class="main-section">
+        <section class="main-section" style="margin-top: 7em;">
             <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                 <div
                     class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
@@ -124,7 +124,9 @@
                          width="550px"
                          class="polygon-bg">
                 </div>
-                <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
+
+                <div
+                    class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center px-5 py-2">
                     <h2 class="w-100 font-bebas-neue display-4 uppercase">
                         Craft your perfect
                         <span class="text-green">workout regimen</span>
@@ -269,7 +271,11 @@
                     </p>
                     <div class="d-flex gap-3">
                         <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">{% translate "Contribute" %}</a>
+                            <a href="https://github.com/wger-project"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                {% translate "Contribute" %}
+                            </a>
                         </button>
                         <button type="button" class="btn btn-outline-primary rounded-1 w-auto px-5">
                             <a href="http://" target="_blank" rel="noopener noreferrer">Donate</a>
@@ -367,45 +373,33 @@
                         <h1 class="fs-5 text-white">Account</h1>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Sign Up
+                        <a href="{% url 'core:user:registration' %}">
+                            {% translate "Register" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Login
+                        <a href="{% url 'core:user:login' %}">
+                            {% translate "Login" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Dashboard
+                        <a href="{% url 'core:index' %}">
+                            {% translate "Dashboard" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Training
+                        <a href="{% url 'manager:workout:overview' %}">
+                            {% translate "Training" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Weight
+                        <a href="{% url 'weight:overview' %}">
+                            {% translate "Body weight" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Nutrition
+                        <a href="{% url 'nutrition:plan:overview' %}">
+                            {% translate "Nutrition" %}
                         </a>
                     </li>
                 </ul>
@@ -416,18 +410,15 @@
                         <h1 class="fs-5 text-white">Community</h1>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Exercises
+                        <a href="{% url 'exercise:exercise:overview' %}">
+                            {% translate "Exercises" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
                         <a href="http://"
                            target="_blank"
                            rel="noopener noreferrer">
-                            Workout
-                            Plans
+                            Workout Plans
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
@@ -443,19 +434,29 @@
                         <h1 class="fs-5 text-white">Software</h1>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Report an issue</a>
+                        <a href="https://github.com/wger-project/wger/issues/new/choose"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            {% translate "Report an issue" %}
+                        </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Source Code</a>
+                        <a href="https://github.com/wger-project" target="_blank" rel="noopener noreferrer">
+                            {% translate "Source Code" %}
+                        </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Software translation</a>
+                        <a href="https://hosted.weblate.org/engage/wger/" target="_blank" rel="noopener noreferrer">
+                            {% translate "Translation" %}
+                        </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Rest API</a>
+                        <a href="{% url 'software:api' %}">{% translate "REST API" %}</a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Documentation</a>
+                        <a href="https://wger.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">
+                            {% translate "Documentation" %}
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -463,30 +464,36 @@
                 <ul class="list-group">
                     <li class="list-group-item bg-transparent border-0 text-light">
                         <h1 class="fs-5 text-white">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <a href="https://twitter.com/wger_project" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-twitter px-2" aria-hidden="true"></i>
                             </a>
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                            <a href="https://discord.gg/rPWFv6W" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-discord px-2"></i>
                             </a>
                         </h1>
                     </li>
                     <li class="list-group-item bg-transparent border-0">
-                        <a href="http://" class="text-light fw-lighter footer-link" target="_blank"
-                           rel="noopener noreferrer">{% translate "Terms of service" %}</a>
+                        <a href="{% url 'software:tos' %}" class="text-light fw-lighter footer-link">
+                            {% translate "Terms of service" %}
+                        </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0">
-                        <a href="http://" target="_blank" rel="noopener noreferrer">Privacy policy</a>
+                        <a href="{% url 'core:imprint' %}">
+                            Privacy policy
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
+
         <div class="d-flex justify-content-between px-3">
             <button type="button" class="btn btn-outline-light">
                 English
                 <i class="fa fa-pencil px-2" aria-hidden="true"></i>
             </button>
-            <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}" height="64"/>
+            <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}" height="55"/>
+            </a>
         </div>
     </footer>
 {% endblock %}

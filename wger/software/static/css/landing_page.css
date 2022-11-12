@@ -64,7 +64,6 @@ a {
 /* styles of html */
 header {
     background: linear-gradient(196.14deg, #dde7fc 7.97%, #f1f5ff 92.02%);
-    min-height: 100vh;
 }
 
 .header_hero_image {
@@ -75,6 +74,7 @@ header {
 header .board-section {
     position: absolute;
     width: 100%;
+    margin-top: -2em;
 }
 
 ul {
@@ -131,7 +131,7 @@ main {
 
 .main-section {
     width: 100%;
-    min-height: 100vh;
+    
     display: flex;
     justify-content: center;
     align-items: center;

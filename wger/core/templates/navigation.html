@@ -81,8 +81,11 @@
                             </li>
 
                             <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item"
-                                   href="{% url 'exercise:exercise:overview' %}">{% translate "Exercises" %}</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">
+                                    {% translate "Exercises" %}
+                                </a>
+                            </li>
 
                             {% if perms.exercises.change_exercise %}
                                 <li class="dropdown-divider"></li>
@@ -213,7 +216,7 @@
                             </li>
                             <li class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'software:api' %}">{% translate "REST API" %} </a>
+                                <a class="dropdown-item" href="{% url 'software:api' %}">{% translate "REST API" %}</a>
                             </li>
                             <li>
                                 <a class="dropdown-item"
