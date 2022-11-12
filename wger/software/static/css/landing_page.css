@@ -58,10 +58,6 @@ a {
     color: var(--red);
 }
 
-.text-blue {
-    color: var(--blue);
-}
-
 
 ul.hex-bullet li::before {
     content: '⬢';
@@ -69,7 +65,7 @@ ul.hex-bullet li::before {
 }
 
 ul.bullet-red li::before {
-    color: var(--red);;
+    color: var(--red);
 }
 
 ul.bullet-dark-yellow li::before {

@@ -17,7 +17,7 @@
 -->
 
 
-{% load i18n static compress wger_extras %}
+{% load i18n static compress %}
 <html lang="{{ language.short_name }}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -63,70 +63,6 @@
 </head>
 
 <body id="page-top" class="index">
-
-{% if user.is_authenticated %}
-    {% include 'navigation.html' %}
-{% endif %}
-
 {% block template %}{% endblock %}
-<div id="current-url" data-current-url="{{ request_full_path }}"></div>
-<div id="current-language" data-current-language="{{ language.short_name }}"></div>
-
-
-<footer class="bg-darkest-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks">
-                    <li class="list-inline-item">
-                        <a href="{% url 'software:about-us' %}" class="text-muted small">{% translate "About us" %}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons">
-                    <li class="list-inline-item">
-                        <a href="https://github.com/wger-project/wger" title="Github">
-                            <span class="{% fa_class 'github' 'fab' %}"></span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/wger_project" title="Twitter">
-                            <span class="{% fa_class 'twitter' 'fab' %}"></span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://hosted.weblate.org/engage/wger/" title="{% translate 'Translate' %}">
-                            <span class="{% fa_class 'globe' %}"></span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        {% if show_shariff %}
-                            {% include 'misc/fragments/shariff_modal.html' %}
-                            <a data-toggle="modal" href="#shariffModal" title="Share">
-                                <span class="{% fa_class 'share-alt' %}"></span>
-                            </a>
-                            <div class="clearfix"></div>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4 text-lg-right">
-                <ul class="list-inline quicklinks">
-                    <li class="list-inline-item">
-                        <a href="{% url 'core:imprint' %}" class="text-muted small">{% translate "Imprint" %}</a>
-                    </li>
-
-                    <li class="list-inline-item">
-                        <a href="{% url 'software:tos' %}"
-                           class="text-muted small">{% translate "Terms of service" %}</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="{% static 'yarn/shariff/dist/shariff.min.js' %}"></script>
 </body>
 </html>
