@@ -160,26 +160,6 @@ main {
     align-items: center;
 }
 
-.mobile-screen {
-    position: absolute;
-    z-index: 10;
-    left: 100px;
-    top: 100px;
-    height: 360px;
-}
-
-.laptop-screen {
-    position: absolute;
-    z-index: 1;
-    width: 550px;
-    height: 370px;
-}
-
-.polygon-bg {
-    z-index: 0;
-    height: 90%;
-    width: 80%;
-}
 
 /* last section of main */
 .bg-blue {
@@ -238,23 +218,4 @@ footer a:hover {
         min-height: 80vh;
     }
 
-    .mobile-screen {
-        left: 20px;
-        top: 80px;
-        height: 200px;
-    }
-
-    .laptop-screen {
-        width: 350px;
-        height: 230px;
-    }
-
-    .polygon-bg {
-        width: 80%;
-        height: 18rem;
-    }
-
-    .human_faces_img {
-        height: 22rem;
-    }
 }
