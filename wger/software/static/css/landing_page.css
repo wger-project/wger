@@ -58,6 +58,9 @@ a {
     color: var(--red);
 }
 
+ul.hex-bullet {
+    padding-left: 0
+}
 
 ul.hex-bullet li::before {
     content: '⬢';
