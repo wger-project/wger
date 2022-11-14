@@ -32,7 +32,7 @@ from django.utils.translation import gettext_lazy as _
 # wger
 from wger.gym.models import Gym
 from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight
+from wger.utils.units import AbstractWeight, AbstractHeight
 from wger.weight.models import WeightEntry
 
 # Local
@@ -446,7 +446,8 @@ by the US Department of Agriculture. It is extremely complete, with around
             return 0
 
         weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
-        return weight / pow(self.height / decimal.Decimal(100), 2)
+        height = self.height if self.use_metric else AbstractHeight(self.height, 'inches').inches
+        return weight / pow(height / decimal.Decimal(100), 2)
 
     def calculate_basal_metabolic_rate(self, formula=1):
         """

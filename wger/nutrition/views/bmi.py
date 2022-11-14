@@ -57,7 +57,6 @@ def calculate(request):
     """
 
     data = []
-
     form = BmiForm(request.POST, instance=request.user.userprofile)
     if form.is_valid():
         form.save()
