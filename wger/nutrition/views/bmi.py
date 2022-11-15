@@ -27,6 +27,9 @@ from django.shortcuts import render
 # wger
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
+from wger.utils.units import AbstractHeight
+
+
 
 
 logger = logging.getLogger(__name__)
@@ -57,7 +60,16 @@ def calculate(request):
     """
 
     data = []
+
     form = BmiForm(request.POST, instance=request.user.userprofile)
+    output_height = request.POST['height']
+    
+    if not request.user.userprofile.use_metric:
+        request_copy = request.POST.copy()
+        output_height = request_copy['height']
+        request_copy['height'] = AbstractHeight(request_copy['height'], mode='inches').cm
+        form = BmiForm(request_copy, instance=request.user.userprofile)
+
     if form.is_valid():
         form.save()
 
@@ -68,10 +80,9 @@ def calculate(request):
         result = {
             'bmi': '{0:.2f}'.format(bmi),
             'weight': form.cleaned_data['weight'],
-            'height': request.user.userprofile.height,
+            'height': output_height,
         }
         data = json.dumps(result, cls=helpers.DecimalJsonEncoder)
-
     # Return the results to the client
     return HttpResponse(data, 'application/json')
 
