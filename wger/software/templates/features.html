@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-lg px-4">
         <div class="container-xl">
             <a class="navbar-brand" href="#">
-                <img src="{% static 'images/logos/logo-font.svg' %}"/>
+                <img src="{% static 'images/logos/logo-font.svg' %}" alt="wger logo" />
             </a>
             <button class="navbar-toggler"
                     type="button"
@@ -56,7 +56,7 @@
                 </ul>
                 <!-- buttons -->
                 <div class="d-flex gap-2">
-                    <a rola="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">
+                    <a role="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">
                         {% translate "Login" %}
                     </a>
                     {% if allow_registration %}
@@ -366,7 +366,7 @@
 <footer class="d-grid gap-3 p-5 footer-bg">
     <div class="container-xl">
         <div class="d-flex px-3">
-            <img src="{% static 'images/logos/logo-font-inverse.svg' %}"/>
+            <img src="{% static 'images/logos/logo-font-inverse.svg' %}" alt="wger logo"/>
         </div>
         <div class="row row-cols-lg-4 row-cols-sm-1 g-2 border-bottom border-light pb-3">
             <div class="col-lg-3 col-sm-12">
@@ -517,7 +517,9 @@
             </div>
 
             <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}" height="55"/>
+                <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}"
+                     alt="google play logo"
+                     height="55"/>
             </a>
         </div>
     </div>
