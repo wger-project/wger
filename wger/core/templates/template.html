@@ -35,9 +35,9 @@
         <meta property="og:image" content="{{ image_absolute_path }}">
     {% endblock %}
 
-    <!-- twitter cards -->
     {% block twittercard %}
         {% if twitter %}
+            <!-- twitter cards -->
             <meta content="summary" name="twitter:card">
             <meta content="@{{ twitter }}" name="twitter:site">
         {% endif %}
