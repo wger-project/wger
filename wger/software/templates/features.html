@@ -7,7 +7,6 @@
 {% block opengraph %}
     {{ block.super }}
     <meta property="og:title" content="{% translate 'Features' %} - wger">
-
     <meta property="og:description"
           content="{% blocktranslate %}wger Workout Manager is a free, open source web application that manages your exercises and workouts.{% endblocktranslate %}">
 {% endblock %}
@@ -74,8 +73,8 @@
                 <div class="col-lg-7 col-sm-12 d-flex px-5 flex-column align-items-center">
                     <img src="{% static 'images/hero.png' %}" alt="a man with a dumbbell" class="header_hero_image">
                 </div>
-                <div class="col-lg-4 col-sm-12 py-3">
-                    <h1 class="font-bebas-neue display-3 uppercase w-100">
+                <div class="col-lg-4 col-sm-12 py-3 d-flex flex-column align-items-center">
+                    <h1 class="font-bebas-neue display-3 uppercase">
                         {% translate "Track your <br> way to your <br> ideal body" %}
                     </h1>
                     <p class="">
@@ -88,20 +87,20 @@
             </section>
 
             <!-- board section -->
-            <section class="row row-cols-lg-4 row-cols-2 board-section">
-                <div class="col-lg-2 col-sm-2 d-flex flex-column align-items-center">
-                    <h2 class="display-3 font-bebas-neue text-dark-blue text-center mb-0">{{ nr_users }}+</h2>
+            <section class="row">
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center">
+                    <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_users }}+</h2>
                     <p class="text-center">{% translate "people <br> using wger" %}</p>
                 </div>
-                <div class="col-lg-2 col-sm-2  d-flex flex-column align-items-center">
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center">
                     <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_exercises }}+</h2>
                     <p class="text-center">{% translate "exercises <br> for workout creation" %}</p>
                 </div>
-                <div class="col-lg-2 col-sm-2 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="display-3 font-bebas-neue text-dark-blue  mb-0">{{ nr_ingredients }}+</h2>
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center">
+                    <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_ingredients }}+</h2>
                     <p class="text-center">{% translate "foods <br> for meal planing" %}</p>
                 </div>
-                <div class="col-lg-2 col-sm-2 d-flex flex-column align-items-center">
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center">
                     <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_stars }}+</h2>
                     <p class="text-center">{% translate "stars <br> on GitHub" %}</p>
                 </div>
@@ -275,11 +274,11 @@
         </section>
 
         <!-- sign up section -->
-        <section class="main-section p-3">
-            <div class="container-xl">
+        <section class="main-section">
+            <div class="container-xl d-flex align-items-center sign-up-bg">
 
                 <!-- form -->
-                <div class="row d-flex flex-column gap-2 w-100 align-items-center">
+                <div class="row d-flex flex-column gap-2 w-100 align-items-center ms-1">
                     <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
                         {% translate "Sign Up Now For Free" %}
                     </h3>

@@ -93,14 +93,16 @@ header {
     width: 450px;
 }
 
-header .board-section {
-    position: absolute;
-    width: 100%;
-    margin-top: -2em;
-}
 
 ul {
     text-align: justify;
+}
+
+.sign-up-bg {
+    background-image: url('/static/images/sign-up-bg.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 1000px;
 }
 
 
