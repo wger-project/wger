@@ -114,6 +114,10 @@ ul {
     display: block;
 }
 
+.bg-bottom-menu {
+    background: linear-gradient(181.83deg, #163665 2.2%, #234982 99.11%);
+}
+
 .hexagon {
     /* top: 30vh; */
     /* left: 40%; */
@@ -172,10 +176,6 @@ main {
 
 
 /* last section of main */
-.bg-blue {
-    background-color: var(--blue);
-}
-
 .heading-h6 {
     font-family: "Bebas Neue", sans-serif;
     letter-spacing: 2px;
