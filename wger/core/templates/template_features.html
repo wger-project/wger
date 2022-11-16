@@ -35,9 +35,9 @@
         <meta property="og:image" content="{{ image_absolute_path }}">
     {% endblock %}
 
-    <!-- twitter cards -->
     {% block twittercard %}
         {% if twitter %}
+            <!-- twitter cards -->
             <meta content="summary" name="twitter:card">
             <meta content="@{{ twitter }}" name="twitter:site">
         {% endif %}
@@ -53,7 +53,6 @@
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
     {% compress js %}
-        <script src="{% static 'yarn/jquery/dist/jquery.js' %}"></script>
         <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
     {% endcompress %}
@@ -61,7 +60,7 @@
     <title>wger Workout Manager - {% translate "Features" %}</title>
 </head>
 
-<body id="page-top" class="index">
+<body>
 {% block template %}{% endblock %}
 </body>
 </html>
