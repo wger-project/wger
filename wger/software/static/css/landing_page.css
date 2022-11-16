@@ -68,16 +68,13 @@ ul.bullet-green li::before {
     color: var(--green);
 }
 
-.fs-8 {
-    font-size: 16px;
-}
 
 /* styles of html */
 header {
     background: linear-gradient(196.14deg, #dde7fc 7.97%, #f1f5ff 92.02%);
 }
 
-.header_hero_image {
+.header-hero-image {
     height: 450px;
     width: 450px;
 }
@@ -118,43 +115,6 @@ ul {
     background: linear-gradient(181.83deg, #163665 2.2%, #234982 99.11%);
 }
 
-.hexagon {
-    /* top: 30vh; */
-    /* left: 40%; */
-    position: absolute;
-    margin: 0 auto;
-    background-color: dodgerblue;
-    border-radius: 10px;
-    width: 20rem;
-    height: 50vh;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-}
-
-/* Creating pseudo-class */
-.hexagon:before,
-.hexagon:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: dodgerblue;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-}
-
-/* Align them in such a way
-        that they form a hexagon */
-.hexagon:before {
-    transform: rotate(60deg);
-}
-
-.hexagon:after {
-    transform: rotate(-60deg);
-}
 
 /* main */
 main {
@@ -208,7 +168,7 @@ footer a:hover {
         flex-direction: row;
     }
 
-    .header_hero_image {
+    .header-hero-image {
         height: 22rem;
         width: 22rem;
     }
