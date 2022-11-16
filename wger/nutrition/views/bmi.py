@@ -47,7 +47,8 @@ def view(request):
     context = {}
     form_data = {
         'height': request.user.userprofile.height,
-        'weight': request.user.userprofile.weight
+        'weight': request.user.userprofile.weight,
+        'use_metric' : request.user.userprofile.use_metric
     }
     context['form'] = BmiForm(initial=form_data)
     return render(request, 'bmi/form.html', context)
