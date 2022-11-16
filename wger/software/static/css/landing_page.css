@@ -162,9 +162,6 @@ main {
     min-height: 100vh;
 }
 
-.empty-space {
-    min-height: 20vh;
-}
 
 .main-section {
     width: 100%;
@@ -218,10 +215,6 @@ footer a:hover {
 
     .main-section {
         min-height: 70vh;
-    }
-
-    .empty-space {
-        min-height: 30vh;
     }
 
     header {

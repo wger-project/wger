@@ -50,7 +50,6 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
-
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
     {% endcompress %}
@@ -187,7 +186,7 @@
             {#                                         #}
             <div class="col-md-4">
                 {% if not is_api_path %} {# Don't show language switcher in the generated API views #}
-                    <div class="dropdown float-end">
+                    <div class="dropup float-end">
                         <button
                             class="btn btn-light dropdown-toggle"
                             type="button"
@@ -197,12 +196,10 @@
                                 <img src="{% static flagname %}"
                                      width="18"
                                      alt="{% translate language.full_name %}"
-                                     title="{% translate language.full_name %}"
-                                     style="">
+                                     title="{% translate language.full_name %}">
                                 {{ language.full_name }} <span class="caret"></span>
                             {% endwith %}
                         </button>
-
 
                         <div class="dropdown-menu" aria-labelledby="btnGroupLanguages">
                             {% for language in languages %}

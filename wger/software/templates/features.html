@@ -219,6 +219,7 @@
             </section>
 
         </div>
+
         <!-- button -->
         <div class="row w-100 p-5 d-flex justify-content-center">
             <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
@@ -226,7 +227,7 @@
             </button>
         </div>
 
-        <!-- third last section -->
+        <!-- community section -->
         <section class="main-section p-4" style="background-color:#EAF0FE;">
             <div class="container-xl">
                 <div class="row w-100 gy-3">
@@ -301,7 +302,7 @@
             </div>
         </section>
 
-        <!-- last section  -->
+        <!-- not enough section  -->
         <section class="bg-bottom-menu p-5">
             <div class="container-xl">
                 <h1 class="w-100 display-4 text-white text-center text-uppercase heading-h6 py-4">
@@ -367,7 +368,7 @@
                 <div class="col-lg-3 col-sm-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">Account</h1>
+                            <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
                         </li>
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
                             <a href="{% url 'core:user:registration' %}">
@@ -404,7 +405,7 @@
                 <div class="col-lg-3 col-sm-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">Community</h1>
+                            <h1 class="fs-5 text-white">{% translate "Community" %}</h1>
                         </li>
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
                             <a href="{% url 'exercise:exercise:overview' %}">
@@ -428,7 +429,7 @@
                 <div class="col-lg-3 col-sm-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">Software</h1>
+                            <h1 class="fs-5 text-white">{% translate "Software" %}</h1>
                         </li>
                         <li class="list-group-item bg-transparent border-0 text-light">
                             <a href="https://github.com/wger-project/wger/issues/new/choose"
@@ -484,10 +485,33 @@
             </div>
 
             <div class="d-flex justify-content-between py-3">
-                <button type="button" class="btn btn-outline-light">
-                    English
-                    <i class="fa fa-pencil px-2" aria-hidden="true"></i>
-                </button>
+                <div class="dropup">
+                    <button
+                        class="btn btn-outline-light dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                            <img src="{% static flagname %}"
+                                 width="18"
+                                 alt="{% translate language.full_name %}"
+                                 title="{% translate language.full_name %}">
+                            {{ language.full_name }} <span class="caret"></span>
+                        {% endwith %}
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                        {% for language in languages %}
+                            {% language_select language %}
+                        {% endfor %}
+                        <div class="dropdown-divider"></div>
+                        <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item" target="_blank">
+                            <span class="{% fa_class 'plus' %}"></span>
+                            {% translate "Translate" %}
+                        </a>
+                    </div>
+                </div>
+
                 <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
                     <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}" height="55"/>
                 </a>
