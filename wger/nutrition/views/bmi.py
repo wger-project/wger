@@ -84,6 +84,15 @@ def calculate(request):
             'height': output_height,
         }
         data = json.dumps(result, cls=helpers.DecimalJsonEncoder)
+    else:
+        help_message = {
+            'error': 'Please make sure your height is within the appropriate range.',
+        }
+        if request.user.userprofile.use_metric:
+            help_message['cm_range'] = '140 to 230'
+        else:
+            help_message['in_range'] = '56 to 90'
+        data = json.dumps(help_message)
     # Return the results to the client
     return HttpResponse(data, 'application/json')
 
