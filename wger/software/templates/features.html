@@ -39,19 +39,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item mx-2 my-1">
-                        <a class="nav-link active fw-bolder" aria-current="page" href="#">About</a>
+                        <a class="nav-link active fw-bolder" aria-current="page" href="#">{% translate "About" %}    </a>
                     </li>
                     <li class="nav-item mx-2 my-1">
-                        <a class="nav-link fw-semibold" href="#">Mobile App</a>
+                        <a class="nav-link fw-semibold" href="#">{%  translate "Mobile app" %}</a>
                     </li>
                     <li class="nav-item mx-2 my-1">
-                        <a class="nav-link fw-semibold" href="#">Donate</a>
+                        <a class="nav-link fw-semibold" href="#">{%  translate "Donate" %}</a>
                     </li>
                     <li class="nav-item mx-2 my-1">
-                        <a class="nav-link fw-semibold" href="#">Develop</a>
+                        <a class="nav-link fw-semibold" href="https://github.com/wger-project">
+                            {%  translate "Develop" %}
+                        </a>
                     </li>
                     <li class="nav-item mx-2 my-1">
-                        <a class="nav-link fw-semibold" href="#">Community</a>
+                        <a class="nav-link fw-semibold" href="#">{%  translate "Community" %}</a>
                     </li>
                 </ul>
                 <!-- buttons -->
@@ -248,13 +250,12 @@
                     <p style="line-height: 30px;">
                         {% blocktranslate trimmed %}
                             wger is funded and created by the open-source community: people like you
-                            translating,
-                            adding exercises and nutritional info, developing, and more.
+                            translating, adding exercises and nutritional info, developing, and more.
                         {% endblocktranslate %}
                         <b>
                             {% blocktranslate trimmed %}
-                                We don't use ads, don't sell your personal info, and we share the code under
-                                a free and open-source license.
+                                We don't use ads, don't sell your personal info, and we share the code
+                                under a free and open-source license.
                             {% endblocktranslate %}
                         </b>
                         {% blocktranslate trimmed %}
@@ -263,14 +264,16 @@
                     </p>
                     <div class="d-flex gap-3">
                         <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
-                            <a href="https://github.com/wger-project"
+                            <a href=""
                                target="_blank"
                                rel="noopener noreferrer">
                                 {% translate "Contribute" %}
                             </a>
                         </button>
                         <button type="button" class="btn btn-outline-primary rounded-1 w-auto px-5">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">Donate</a>
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                {% translate "Donate" %}
+                            </a>
                         </button>
                     </div>
                 </div>
@@ -417,10 +420,8 @@
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                        <a href="http://"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Workout Plans
+                        <a href="{% url 'manager:template:overview' %}">
+                            {% translate "Workout routines" %}
                         </a>
                     </li>
                     <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
@@ -474,9 +475,6 @@
                             </a>
                             <a href="https://twitter.com/wger_project" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-twitter px-2" aria-hidden="true"></i>
-                            </a>
-                            <a href="https://discord.gg/rPWFv6W" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-discord px-2"></i>
                             </a>
                         </h1>
                     </li>
