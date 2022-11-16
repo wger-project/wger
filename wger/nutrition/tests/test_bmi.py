@@ -74,15 +74,15 @@ class BmiTestCase(WgerTestCase):
         profile.save()
         response = self.client.post(
             reverse('nutrition:bmi:calculate'), {
-                'height': 180,
-                'weight': 176.36
+                'height': 75,
+                'weight': 176
             }
         )
         self.assertEqual(response.status_code, 200)
         bmi = json.loads(response.content.decode('utf8'))
-        self.assertEqual(Decimal(bmi['bmi']), Decimal(24.69).quantize(TWOPLACES))
-        self.assertEqual(Decimal(bmi['weight']), Decimal(176.36).quantize(TWOPLACES))
-        self.assertEqual(Decimal(bmi['height']), Decimal(180))
+        self.assertEqual(Decimal(bmi['bmi']), Decimal(22.11).quantize(TWOPLACES))
+        self.assertEqual(Decimal(bmi['weight']), Decimal(176).quantize(TWOPLACES))
+        self.assertEqual(Decimal(bmi['height']), Decimal(75))
 
     def test_automatic_weight_entry(self):
         """
