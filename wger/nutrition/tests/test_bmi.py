@@ -45,7 +45,7 @@ class BmiTestCase(WgerTestCase):
         response = self.client.get(reverse('nutrition:bmi:view'))
         self.assertEqual(response.status_code, 200)
 
-    def test_calculator(self):
+    def test_calculator_metric(self):
         """
         Tests the calculator itself
         """
@@ -63,6 +63,44 @@ class BmiTestCase(WgerTestCase):
         self.assertEqual(Decimal(bmi['weight']), Decimal(80))
         self.assertEqual(Decimal(bmi['height']), Decimal(180))
 
+    def test_calculator_metric_low_height(self):
+        """
+        Tests the calculator when the height is too low. Should trigger an error message.
+        """
+
+        self.user_login('test')
+        profile = UserProfile.objects.get(user__username='test')
+        profile.save()
+        response = self.client.post(
+            reverse('nutrition:bmi:calculate'), {
+                'height': 115,
+                'weight': 76
+            }
+        )
+        self.assertEqual(response.status_code, 406)
+        response = json.loads(response.content.decode('utf8'))
+        self.assertTrue('error' in response)
+
+
+    def test_calculator_metric_high_height(self):
+        """
+        Tests the calculator when the height is too low. Should trigger an error message.
+        """
+
+        self.user_login('test')
+        profile = UserProfile.objects.get(user__username='test')
+        profile.save()
+        response = self.client.post(
+            reverse('nutrition:bmi:calculate'), {
+                'height': 250,
+                'weight': 82
+            }
+        )
+        self.assertEqual(response.status_code, 406)
+        response = json.loads(response.content.decode('utf8'))
+        self.assertTrue('error' in response)
+
+
     def test_calculator_imperial(self):
         """
         Tests the calculator using imperial units
@@ -74,15 +112,54 @@ class BmiTestCase(WgerTestCase):
         profile.save()
         response = self.client.post(
             reverse('nutrition:bmi:calculate'), {
-                'height': 75,
+                'height': 73,
                 'weight': 176
             }
         )
         self.assertEqual(response.status_code, 200)
         bmi = json.loads(response.content.decode('utf8'))
-        self.assertEqual(Decimal(bmi['bmi']), Decimal(22.11).quantize(TWOPLACES))
+        self.assertEqual(Decimal(bmi['bmi']), Decimal(23.33).quantize(TWOPLACES))
         self.assertEqual(Decimal(bmi['weight']), Decimal(176).quantize(TWOPLACES))
-        self.assertEqual(Decimal(bmi['height']), Decimal(75))
+        self.assertEqual(Decimal(bmi['height']), Decimal(73))
+
+    def test_calculator_imperial_low_height(self):
+        """
+        Tests the calculator when the height is too low. Should trigger an error message.
+        """
+
+        self.user_login('test')
+        profile = UserProfile.objects.get(user__username='test')
+        profile.weight_unit = 'lb'
+        profile.save()
+        response = self.client.post(
+            reverse('nutrition:bmi:calculate'), {
+                'height': 48,
+                'weight': 145
+            }
+        )
+        self.assertEqual(response.status_code, 406)
+        response = json.loads(response.content.decode('utf8'))
+        self.assertTrue('error' in response)
+
+
+    def test_calculator_imperial_high_height(self):
+        """
+        Tests the calculator when the height is too low. Should trigger an error message.
+        """
+
+        self.user_login('test')
+        profile = UserProfile.objects.get(user__username='test')
+        profile.weight_unit = 'lb'
+        profile.save()
+        response = self.client.post(
+            reverse('nutrition:bmi:calculate'), {
+                'height': 98,
+                'weight': 145
+            }
+        )
+        self.assertEqual(response.status_code, 406)
+        response = json.loads(response.content.decode('utf8'))
+        self.assertTrue('error' in response)
 
     def test_automatic_weight_entry(self):
         """
