@@ -46,17 +46,6 @@ a {
     color: var(--bg-blue);
 }
 
-.text-green {
-    color: var(--green);
-}
-
-.text-dark-yellow {
-    color: var(--dark-yellow);
-}
-
-.text-red {
-    color: var(--red);
-}
 
 ul.hex-bullet {
     padding-left: 0
@@ -105,6 +94,25 @@ ul {
     height: 1000px;
 }
 
+.header-community span {
+    color: var(--bg-blue);
+    display: block;
+}
+
+.header-progress span {
+    color: var(--green);
+    display: block;
+}
+
+.header-meals span {
+    color: var(--dark-yellow);
+    display: block;
+}
+
+.header-workout span {
+    color: var(--red);
+    display: block;
+}
 
 .hexagon {
     /* top: 30vh; */
