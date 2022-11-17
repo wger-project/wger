@@ -69,7 +69,8 @@ Developers
 * Kade - https://github.com/kp5431/
 * Tom Bowyer - https://github.com/ImTheTom
 * Rohan Karan - https://github.com/RohanKaran
-* Bernardo Koen - http://github.com/BernardoKoen
+* Bernardo Koen - https://github.com/BernardoKoen
+* Gabriel Liss - https://github.com/gabeliss
 
 Translators
 -----------
