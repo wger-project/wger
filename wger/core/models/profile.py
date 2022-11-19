@@ -19,6 +19,7 @@ import datetime
 import decimal
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import (
@@ -201,7 +202,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             return False
 
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
-        minimum_account_age = 21
+        minimum_account_age = settings.WGER_SETTINGS['MINIMUM_AGE_TO_TRUST']:
 
         return days_since_joined.days > minimum_account_age and self.email_verified
 
