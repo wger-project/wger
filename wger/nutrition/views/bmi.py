@@ -87,12 +87,12 @@ def calculate(request):
         response = HttpResponse(data, 'application/json')
     else:
         help_message = {
-            'error': 'Please make sure your height is within the appropriate range.',
+            _('error'): _('Please make sure your height is within the appropriate range.'),
         }
         if request.user.userprofile.use_metric:
-            help_message['cm_range'] = '140 to 230'
+            help_message['cm_range'] = _('140 to 230')
         else:
-            help_message['in_range'] = '56 to 90'
+            help_message['in_range'] = _('56 to 90')
         data = json.dumps(help_message)
         response = HttpResponse(data, 'application/json')
         response.status_code = 406

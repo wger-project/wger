@@ -111,8 +111,8 @@ class BmiForm(forms.ModelForm):
         super(BmiForm, self).__init__(*args, **kwargs)
         
         if 'initial' in kwargs: #if the form is rendering for the first time
-            self['height'].label = 'Height (cm)' if kwargs['initial']['use_metric'] else 'Height (in)'
-            self['weight'].label = 'Weight (kg)' if kwargs['initial']['use_metric'] else 'Weight (lbs)'
+            self['height'].label = _('Height (cm)') if kwargs['initial']['use_metric'] else _('Height (in)')
+            self['weight'].label = _('Weight (kg)') if kwargs['initial']['use_metric'] else _('Weight (lbs)')
 
         self.helper = FormHelper()
         self.helper.form_action = reverse('nutrition:bmi:calculate')
