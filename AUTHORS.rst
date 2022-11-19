@@ -69,6 +69,7 @@ Developers
 * Kade - https://github.com/kp5431/
 * Tom Bowyer - https://github.com/ImTheTom
 * Rohan Karan - https://github.com/RohanKaran
+* Mohammad Rafigh - https://github.com/mohammadrafigh
 
 Translators
 -----------
