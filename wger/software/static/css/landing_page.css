@@ -16,6 +16,7 @@
     --red: #bd5164;
     --dark-yellow: #9a6a23;
     --bg-blue: #163665;
+    --bg-light-blue: #eaf0fe;
 }
 
 html,
@@ -36,6 +37,10 @@ a {
 .bg-dark-blue {
     background-color: var(--bg-blue);
     border: 0;
+}
+
+.bg-light-blue {
+    background-color: var(--bg-light-blue);
 }
 
 .bg-dark-blue:hover {

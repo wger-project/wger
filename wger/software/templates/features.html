@@ -24,7 +24,7 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg px-4">
         <div class="container-xl">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'core:index' %}">
                 <img src="{% static 'images/logos/logo-font.svg' %}" alt="wger logo" />
             </a>
             <button class="navbar-toggler"
@@ -178,7 +178,8 @@
                         <li>
                             {% blocktranslate trimmed %}Get automatically calculated nutritional values
                                 (energy, protein, carbs, ...) for both individual meals and your entire
-                                weekly plan{% endblocktranslate %}
+                                weekly plan
+                            {% endblocktranslate %}
                         </li>
                     </ul>
                 </div>
@@ -234,7 +235,7 @@
     </div>
 
     <!-- community section -->
-    <section class="main-section p-4" style="background-color:#EAF0FE;">
+    <section class="main-section p-4 bg-light-blue">
         <div class="container-xl">
             <div class="row w-100 gy-3">
                 <div class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
@@ -262,19 +263,16 @@
                             Pitch in and help make wger even better!
                         {% endblocktranslate %}
                     </p>
-                    <div class="d-flex gap-3">
-                        <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
-                            <a href=""
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                {% translate "Contribute" %}
-                            </a>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary rounded-1 w-auto px-5">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
-                                {% translate "Donate" %}
-                            </a>
-                        </button>
+                    <div class="d-flex align-items-sm-center gap-3">
+                        <a href=""
+                           class="btn btn-primary rounded-1 w-auto px-5"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            {% translate "Contribute" %}
+                        </a>
+                        <a href="http://" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary rounded-1 w-auto px-5">
+                            {% translate "Donate" %}
+                        </a>
                     </div>
                 </div>
             </div>
