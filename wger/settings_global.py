@@ -228,6 +228,8 @@ LANGUAGES = (
     ('pl', 'Polish'),
     ('uk', 'Ukrainian'),
     ('tr', 'Turkish'),
+    ('zh', 'Chinese simplified'),
+    ('ca', 'Catalan'),
 )
 
 # Default language code for this installation.
@@ -481,6 +483,7 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
+    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'TWITTER': False,

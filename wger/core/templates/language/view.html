@@ -29,45 +29,6 @@
     </tr>
 </tbody>
 </table>
-
-
-<h4>{% translate "Configuration" %}</h4>
-<p>{% blocktranslate %}Use the configuration to select in what languages the
-exercises and ingredients will be shown for the current language (for example
-the exercises should be shown in languages A, B and C; the ingredients only
-in A).{% endblocktranslate %}</p>
-
-<table class="table">
-<thead>
-    <tr>
-        <th>{% translate "Language full name" %}</th>
-        <th>{% translate "Show" %}</th>
-    </tr>
-</thead>
-<tbody>
-    {% for config in view_language.language_source.all %}
-    {% ifchanged config.get_item_display %}
-    <tr>
-        <td colspan="2" class="active" style="text-align:center;">{{config.get_item_display}}</td>
-    </tr>
-    {% endifchanged %}
-    <tr>
-        <td>
-            <a href="{% url 'config:language_config:edit' config.id %}" class="wger-modal-dialog">
-            {{config.language_target.full_name}}
-            </a>
-        </td>
-        <td>
-            {% if config.show %}
-                <span class="{% fa_class 'check' %} text-success"></span>
-            {% else %}
-                <span class="{% fa_class 'times' %}"></span>
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</tbody>
-</table>
 {% endblock %}
 
 

@@ -243,7 +243,6 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", "setting_weight_units.json")
 
     # Config
-    call_command("loaddata", "language_config.json")
     call_command("loaddata", "gym_config.json")
 
     # Manager

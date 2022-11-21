@@ -65,33 +65,6 @@ def load_language():
     return language
 
 
-def load_ingredient_languages(request):
-    """
-    Filter the ingredients the user will see by its language.
-
-    Additionally, if the user has selected on his preference page that he wishes
-    to also see the ingredients in English (from the US Department of Agriculture),
-    show those too.
-
-    This only makes sense if the user's language isn't English, as he will be
-    presented those in that case anyway, so also do a check for this.
-    """
-
-    language = load_language()
-    languages = (language.id, )
-
-    # Only registered users have a profile
-    if request.user.is_authenticated:
-        profile = request.user.userprofile
-        show_english = profile.show_english_ingredients
-
-        # If the user's language is not english and has the preference, add english to the list
-        if show_english and language.short_name != 'en':
-            languages = (language.id, 2)
-
-    return languages
-
-
 def render_footer(url, date=None):
     """
     Renders the footer used in the different PDFs

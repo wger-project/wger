@@ -88,7 +88,6 @@ filter_dump(('core.repetitionunit',), 'repetition_units.json')
 #
 # Configurations
 #
-filter_dump(('config.languageconfig',), 'language_config.json')
 filter_dump(('config.gymconfig',), 'gym_config.json')
 
 #

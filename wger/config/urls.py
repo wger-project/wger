@@ -20,16 +20,8 @@ from django.conf.urls import include
 from django.urls import path
 
 # wger
-from wger.config.views import (
-    gym_config,
-    language_config,
-)
+from wger.config.views import gym_config
 
-
-# sub patterns for language configs
-patterns_language_config = [
-    path('<int:pk>/edit', language_config.LanguageConfigUpdateView.as_view(), name='edit'),
-]
 
 # sub patterns for default gym
 patterns_gym_config = [
@@ -40,10 +32,6 @@ patterns_gym_config = [
 # Actual patterns
 #
 urlpatterns = [
-    path(
-        'language-config/',
-        include((patterns_language_config, 'language_config'), namespace="language_config")
-    ),
     path(
         'gym-config/',
         include((patterns_gym_config, 'gym_config'), namespace="gym_config"),

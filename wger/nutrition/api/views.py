@@ -51,10 +51,7 @@ from wger.nutrition.models import (
     NutritionPlan,
     WeightUnit,
 )
-from wger.utils.language import (
-    load_ingredient_languages,
-    load_language,
-)
+from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -153,28 +150,27 @@ def search(request):
     requested_language = request.GET.get('language', None)
     results = []
     json_response = {}
-    if term:
-        if requested_language:
-            languages = [load_language(requested_language)]
-        else:
-            languages = load_ingredient_languages(request)
-        ingredients = Ingredient.objects.filter(
-            name__icontains=term,
-            language__in=languages,
-            status=Ingredient.STATUS_ACCEPTED,
-        )
 
-        for ingredient in ingredients:
-            ingredient_json = {
-                'value': ingredient.name,
-                'data': {
-                    'id': ingredient.id,
-                    'name': ingredient.name,
-                }
+    if not term:
+        return Response(json_response)
+
+    language = load_language(requested_language)
+    ingredients = Ingredient.objects.filter(
+        name__icontains=term,
+        language=language,
+        status=Ingredient.STATUS_ACCEPTED,
+    )
+
+    for ingredient in ingredients:
+        ingredient_json = {
+            'value': ingredient.name,
+            'data': {
+                'id': ingredient.id,
+                'name': ingredient.name,
             }
-            results.append(ingredient_json)
-        json_response['suggestions'] = results
-
+        }
+        results.append(ingredient_json)
+    json_response['suggestions'] = results
     return Response(json_response)
 
 
