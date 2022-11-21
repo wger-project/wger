@@ -47,7 +47,8 @@
         "missingExerciseDescription": "Hilf der Community und leiste einen Beitrag!",
         "deleteExerciseFull": "Vollständige Übung löschen",
         "deleteTranslation": "Übersetzung löschen",
-        "deleteExerciseBody": "Möchtest due die Übung \"{{name}}\" löschen? Du kannst entweder die aktuelle {{language}} Übersetzung oder die komplette Übung mit allen Übersetzungen, Bildern usw. löschen."
+        "deleteExerciseBody": "Möchtest due die Übung \"{{name}}\" löschen? Du kannst entweder die aktuelle {{language}} Übersetzung oder die komplette Übung mit allen Übersetzungen, Bildern usw. löschen.",
+        "basics": "Grundlagen"
     },
     "noResults": "Keine Ergebnisse",
     "noResultsDescription": "Keine Ergebnisse für diese Suche gefunden, bitte reduziere die Anzahl der Filter.",
