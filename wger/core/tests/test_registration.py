@@ -46,7 +46,7 @@ class RegistrationTestCase(WgerTestCase):
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'TWITTER': False,
-                'MINIMUM_AGE_TO_TRUST': 21,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
             response = self.client.get(reverse('core:user:registration'))
@@ -58,7 +58,7 @@ class RegistrationTestCase(WgerTestCase):
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'TWITTER': False,
-                'MINIMUM_AGE_TO_TRUST': 21,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
             response = self.client.get(reverse('core:user:registration'))
@@ -118,7 +118,7 @@ class RegistrationTestCase(WgerTestCase):
                 'USE_RECAPTCHA': False,
                 'ALLOW_GUEST_USERS': True,
                 'ALLOW_REGISTRATION': False,
-                'MINIMUM_AGE_TO_TRUST': 21,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
 

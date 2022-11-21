@@ -202,7 +202,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             return False
 
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
-        minimum_account_age = settings.WGER_SETTINGS['MINIMUM_AGE_TO_TRUST']
+        minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
 
         return days_since_joined.days > minimum_account_age and self.email_verified
 
