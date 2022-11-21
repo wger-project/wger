@@ -9,7 +9,7 @@ django-formtools~=2.4
 django-recaptcha~=3.0.0
 Django~=3.2
 django-activity-stream~=1.4
-django-axes==5.39.0
+django-axes==5.40.0
 django-crispy-forms~=1.14
 django-simple-history~=3.2
 django-email-verification~=0.3.1
