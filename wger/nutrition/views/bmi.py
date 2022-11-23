@@ -28,6 +28,7 @@ from django.shortcuts import render
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
 from wger.utils.units import AbstractHeight
+from django.utils.translation import gettext as _
 
 
 
