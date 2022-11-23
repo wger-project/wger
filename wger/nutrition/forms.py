@@ -97,7 +97,6 @@ class BmiForm(forms.ModelForm):
     height = forms.DecimalField(
         widget=Html5NumberInput(),
         max_value=999,
-        label=_('Height (cm)'),
     )
     weight = forms.DecimalField(
         widget=Html5NumberInput(),
@@ -110,6 +109,10 @@ class BmiForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BmiForm, self).__init__(*args, **kwargs)
+        
+        if 'initial' in kwargs: #if the form is rendering for the first time
+            self['height'].label = _('Height (cm)') if kwargs['initial']['use_metric'] else _('Height (in)')
+            self['weight'].label = _('Weight (kg)') if kwargs['initial']['use_metric'] else _('Weight (lbs)')
 
         self.helper = FormHelper()
         self.helper.form_action = reverse('nutrition:bmi:calculate')

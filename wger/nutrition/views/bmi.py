@@ -27,6 +27,10 @@ from django.shortcuts import render
 # wger
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
+from wger.utils.units import AbstractHeight
+from django.utils.translation import gettext as _
+
+
 
 
 logger = logging.getLogger(__name__)
@@ -44,7 +48,8 @@ def view(request):
     context = {}
     form_data = {
         'height': request.user.userprofile.height,
-        'weight': request.user.userprofile.weight
+        'weight': request.user.userprofile.weight,
+        'use_metric' : request.user.userprofile.use_metric
     }
     context['form'] = BmiForm(initial=form_data)
     return render(request, 'bmi/form.html', context)
@@ -59,6 +64,14 @@ def calculate(request):
     data = []
 
     form = BmiForm(request.POST, instance=request.user.userprofile)
+    output_height = request.POST['height']
+    
+    if not request.user.userprofile.use_metric:
+        request_copy = request.POST.copy()
+        output_height = request_copy['height']
+        request_copy['height'] = AbstractHeight(request_copy['height'], mode='inches').cm
+        form = BmiForm(request_copy, instance=request.user.userprofile)
+
     if form.is_valid():
         form.save()
 
@@ -69,12 +82,24 @@ def calculate(request):
         result = {
             'bmi': '{0:.2f}'.format(bmi),
             'weight': form.cleaned_data['weight'],
-            'height': request.user.userprofile.height,
+            'height': output_height,
         }
         data = json.dumps(result, cls=helpers.DecimalJsonEncoder)
-
+        response = HttpResponse(data, 'application/json')
+    else:
+        help_message = {
+            ('error'): _('Please make sure your height is within the appropriate range.'),
+        }
+        if request.user.userprofile.use_metric:
+            help_message['cm_range'] = _('140 to 230')
+        else:
+            help_message['in_range'] = _('56 to 90')
+        data = json.dumps(help_message)
+        response = HttpResponse(data, 'application/json')
+        response.status_code = 406
     # Return the results to the client
-    return HttpResponse(data, 'application/json')
+    return response
+    
 
 
 def chart_data(request):
