@@ -81,7 +81,6 @@ class BmiTestCase(WgerTestCase):
         response = json.loads(response.content.decode('utf8'))
         self.assertTrue('error' in response)
 
-
     def test_calculator_metric_high_height(self):
         """
         Tests the calculator when the height is too low. Should trigger an error message.
@@ -99,7 +98,6 @@ class BmiTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 406)
         response = json.loads(response.content.decode('utf8'))
         self.assertTrue('error' in response)
-
 
     def test_calculator_imperial(self):
         """
@@ -140,7 +138,6 @@ class BmiTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 406)
         response = json.loads(response.content.decode('utf8'))
         self.assertTrue('error' in response)
-
 
     def test_calculator_imperial_high_height(self):
         """

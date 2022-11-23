@@ -33,7 +33,10 @@ from django.utils.translation import gettext_lazy as _
 # wger
 from wger.gym.models import Gym
 from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight, AbstractHeight
+from wger.utils.units import (
+    AbstractHeight,
+    AbstractWeight,
+)
 from wger.weight.models import WeightEntry
 
 # Local

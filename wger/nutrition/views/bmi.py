@@ -23,14 +23,12 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.translation import gettext as _
 
 # wger
 from wger.nutrition.forms import BmiForm
 from wger.utils import helpers
 from wger.utils.units import AbstractHeight
-from django.utils.translation import gettext as _
-
-
 
 
 logger = logging.getLogger(__name__)
@@ -49,7 +47,7 @@ def view(request):
     form_data = {
         'height': request.user.userprofile.height,
         'weight': request.user.userprofile.weight,
-        'use_metric' : request.user.userprofile.use_metric
+        'use_metric': request.user.userprofile.use_metric
     }
     context['form'] = BmiForm(initial=form_data)
     return render(request, 'bmi/form.html', context)
@@ -65,7 +63,7 @@ def calculate(request):
 
     form = BmiForm(request.POST, instance=request.user.userprofile)
     output_height = request.POST['height']
-    
+
     if not request.user.userprofile.use_metric:
         request_copy = request.POST.copy()
         output_height = request_copy['height']
@@ -99,7 +97,6 @@ def calculate(request):
         response.status_code = 406
     # Return the results to the client
     return response
-    
 
 
 def chart_data(request):

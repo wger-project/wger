@@ -116,6 +116,7 @@ class AbstractWeight(object):
         """
         return self.normalize(self.lb * 16)
 
+
 class AbstractHeight(object):
     """
     Helper class to use when working with sensible (cm) or imperial units.
@@ -162,7 +163,6 @@ class AbstractHeight(object):
             return self.normalize(self.height)
         else:
             return self.normalize(self.height * self.INCHES_IN_CM)
-
 
     @property
     def inches(self):
