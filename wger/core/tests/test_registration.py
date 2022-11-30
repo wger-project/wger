@@ -145,10 +145,12 @@ class RegistrationTestCase(WgerTestCase):
         self.user_logout()
 
         # Username is too long
-        long_user = ("my_username_is_"
-                     "wayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-                     "_toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
-                     "_loooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
+        long_user = (
+            "my_username_is_"
+            "wayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+            "_toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+            "_loooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"
+        )
         registration_data['username'] = long_user
         response = self.client.post(reverse('core:user:registration'), registration_data)
         self.assertFalse(response.context['form'].is_valid())
