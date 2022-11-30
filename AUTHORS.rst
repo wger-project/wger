@@ -72,6 +72,7 @@ Developers
 * Mohammad Rafigh - https://github.com/mohammadrafigh
 * Bernardo Koen - https://github.com/BernardoKoen
 * Gabriel Liss - https://github.com/gabeliss
+* Alexandra Rhodes - https://github.com/arhodes130
 
 Translators
 -----------
