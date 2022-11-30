@@ -57,10 +57,7 @@ from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
 )
-from wger.utils.language import (
-    load_ingredient_languages,
-    load_language,
-)
+from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
@@ -81,12 +78,9 @@ class IngredientListView(ListView):
     def get_queryset(self):
         """
         Filter the ingredients the user will see by its language
-
-        (the user can also want to see ingredients in English, in addition to his
-        native language, see load_ingredient_languages)
         """
-        languages = load_ingredient_languages(self.request)
-        return (Ingredient.objects.accepted().filter(language__in=languages).only('id', 'name'))
+        language = load_language()
+        return Ingredient.objects.accepted().filter(language=language).only('id', 'name')
 
     def get_context_data(self, **kwargs):
         """

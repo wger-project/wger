@@ -54,7 +54,6 @@ class CacheKeyMapper:
 
     # Keys used by the cache
     LANGUAGE_CACHE_KEY = 'language-{0}'
-    LANGUAGE_CONFIG_CACHE_KEY = 'language-config-{0}-{1}'
     INGREDIENT_CACHE_KEY = 'ingredient-{0}'
     WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
     WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
@@ -71,12 +70,6 @@ class CacheKeyMapper:
         Return the language cache key
         """
         return self.LANGUAGE_CACHE_KEY.format(self.get_pk(param))
-
-    def get_language_config_key(self, param, item):
-        """
-        Return the language cache key
-        """
-        return self.LANGUAGE_CONFIG_CACHE_KEY.format(self.get_pk(param), item)
 
     def get_ingredient_key(self, param):
         """

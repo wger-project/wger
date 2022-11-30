@@ -69,6 +69,7 @@ class Command(BaseCommand):
                     exercise_data['description'] = exercise.description
                     exercise_data['license'] = exercise.license.short_name
                     exercise_data['author'] = exercise.license_author
+                    exercise_data['aliases'] = ','.join([a.alias for a in exercise.alias_set.all()])
 
                 data[language.short_name] = exercise_data
             out.append(data)
@@ -81,8 +82,8 @@ class Command(BaseCommand):
                 header += [
                     f'{language.short_name}:uuid',
                     f'{language.short_name}:name',
-                    f'{language.short_name}:description',
                     f'{language.short_name}:alias',
+                    f'{language.short_name}:description',
                     f'{language.short_name}:license',
                     f'{language.short_name}:author',
                 ]
@@ -100,8 +101,8 @@ class Command(BaseCommand):
                     data += [
                         entry[language.short_name]['uuid'],
                         entry[language.short_name]['name'],
+                        entry[language.short_name]['aliases'],
                         entry[language.short_name]['description'],
-                        '',  # Alias field is still empty for all
                         entry[language.short_name]['license'],
                         entry[language.short_name]['author'],
                     ]

@@ -19,21 +19,6 @@
                     "gymconfig"
                 ],
                 [
-                    "add_languageconfig",
-                    "config",
-                    "languageconfig"
-                ],
-                [
-                    "change_languageconfig",
-                    "config",
-                    "languageconfig"
-                ],
-                [
-                    "delete_languageconfig",
-                    "config",
-                    "languageconfig"
-                ],
-                [
                     "add_language",
                     "core",
                     "language"

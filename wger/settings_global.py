@@ -229,6 +229,8 @@ LANGUAGES = (
     ('pl', 'Polish'),
     ('uk', 'Ukrainian'),
     ('tr', 'Turkish'),
+    ('zh', 'Chinese simplified'),
+    ('ca', 'Catalan'),
 )
 
 # Default language code for this installation.
@@ -286,7 +288,7 @@ CACHES = {
 #
 # Django Axes
 #
-AXES_ENABLED = False
+AXES_ENABLED = True
 AXES_FAILURE_LIMIT = 10
 AXES_COOLOFF_TIME = timedelta(minutes=30)
 AXES_LOCKOUT_TEMPLATE = None
@@ -484,6 +486,7 @@ WGER_SETTINGS = {
     'ALLOW_UPLOAD_VIDEOS': False,
     'USE_CELERY': False,
     'DOWNLOAD_FROM_OFF': False,
+    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'TWITTER': False,

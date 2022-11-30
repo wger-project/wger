@@ -58,10 +58,7 @@ from wger.nutrition.models import (
     NutritionPlan,
     WeightUnit,
 )
-from wger.utils.language import (
-    load_ingredient_languages,
-    load_language,
-)
+from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
@@ -160,39 +157,39 @@ def search(request):
     requested_language = request.GET.get('language', None)
     results = []
     json_response = {}
-    if term:
-        if requested_language:
-            languages = [load_language(requested_language)]
+
+    if not term:
+        return Response(json_response)
+
+    language = load_language(requested_language)
+    ingredients = Ingredient.objects.filter(
+        name__icontains=term,
+        language=language,
+        status=Ingredient.STATUS_ACCEPTED,
+    )[:100]
+
+    for ingredient in ingredients:
+        if hasattr(ingredient, 'image'):
+            image_obj = ingredient.image
+            image = image_obj.image.url
+            t = get_thumbnailer(image_obj.image)
+            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
         else:
-            languages = load_ingredient_languages(request)
-        ingredients = Ingredient.objects.filter(
-            name__icontains=term,
-            language__in=languages,
-            status=Ingredient.STATUS_ACCEPTED,
-        )[:100]
+            ingredient.get_image(request)
+            image = None
+            thumbnail = None
 
-        for ingredient in ingredients:
-            if hasattr(ingredient, 'image'):
-                image_obj = ingredient.image
-                image = image_obj.image.url
-                t = get_thumbnailer(image_obj.image)
-                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-            else:
-                ingredient.get_image(request)
-                image = None
-                thumbnail = None
-
-            ingredient_json = {
-                'value': ingredient.name,
-                'data': {
-                    'id': ingredient.id,
-                    'name': ingredient.name,
-                    'image': image,
-                    'image_thumbnail': thumbnail
-                }
+        ingredient_json = {
+            'value': ingredient.name,
+            'data': {
+                'id': ingredient.id,
+                'name': ingredient.name,
+                'image': image,
+                'image_thumbnail': thumbnail
             }
-            results.append(ingredient_json)
-        json_response['suggestions'] = results
+        }
+        results.append(ingredient_json)
+    json_response['suggestions'] = results
 
     return Response(json_response)
 

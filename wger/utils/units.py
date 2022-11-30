@@ -22,7 +22,7 @@ from wger.utils.constants import FOURPLACES
 
 logger = logging.getLogger(__name__)
 """
-Weight unit classes
+Weight and height unit classes
 """
 
 
@@ -115,3 +115,63 @@ class AbstractWeight:
         :return: decimal
         """
         return self.normalize(self.lb * 16)
+
+
+class AbstractHeight(object):
+    """
+    Helper class to use when working with sensible (cm) or imperial units.
+
+    Internally, all values are stored as cm and are converted only if
+    needed. For consistency, all results are converted to python decimal and
+    quantized to four places
+    """
+
+    CM_IN_INCHES = Decimal(0.393701)
+    INCHES_IN_CM = Decimal(2.5400)
+
+    height = 0
+    is_cm = True
+
+    def __init__(self, height, mode='cm'):
+        """
+        :param height: the numerical height
+        :param mode: the mode, values 'cm' (default), 'inches' are supported
+        """
+        height = self.normalize(height)
+
+        self.height = height
+        self.is_cm = (mode == 'cm')
+
+    @staticmethod
+    def normalize(value):
+        """
+        Helper method that returns quantized
+        :param value:
+        :return: a quantized value to four decimal places
+        """
+
+        return Decimal(value).quantize(FOURPLACES)
+
+    @property
+    def cm(self):
+        """
+        Return the height in cm
+
+        :return: decimal
+        """
+        if self.is_cm:
+            return self.normalize(self.height)
+        else:
+            return self.normalize(self.height * self.INCHES_IN_CM)
+
+    @property
+    def inches(self):
+        """
+        Return the height in inches
+
+        :return: decimal
+        """
+        if self.is_cm:
+            return self.normalize(self.height * self.CM_IN_INCHES)
+        else:
+            return self.normalize(self.height)

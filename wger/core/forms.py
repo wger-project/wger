@@ -19,6 +19,7 @@ from datetime import date
 
 # Django
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
@@ -70,6 +71,28 @@ class UserLoginForm(AuthenticationForm):
                 css_class='form-row'
             )
         )
+
+    def clean(self):
+        """
+        Note this clean method is the same as the one from django/contrib/auth/forms.py,
+        but we pass the request as an explicit request parameter. Otherwise, django
+        axes won't work
+
+        See https://github.com/wger-project/wger/issues/1163
+        """
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+
+        if username is not None and password:
+            self.user_cache = authenticate(
+                request=self.request, username=username, password=password
+            )
+            if self.user_cache is None:
+                raise self.get_invalid_login_error()
+            else:
+                self.confirm_login_allowed(self.user_cache)
+
+        return self.cleaned_data
 
 
 class UserPreferencesForm(forms.ModelForm):

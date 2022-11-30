@@ -21,6 +21,7 @@ import logging
 # Django
 from django.conf import settings
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
@@ -40,7 +41,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 # wger
-from wger.config.models import LanguageConfig
+from wger.core.models import Language
 from wger.exercises.api.permissions import CanContributeExercises
 from wger.exercises.api.serializers import (
     EquipmentSerializer,
@@ -75,7 +76,7 @@ from wger.utils.constants import (
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
 )
-from wger.utils.language import load_item_languages
+from wger.utils.language import load_language
 
 
 logger = logging.getLogger(__name__)
@@ -262,45 +263,43 @@ def search(request):
     This format is currently used by the exercise search autocompleter
     """
     q = request.GET.get('term', None)
+    language_code = request.GET.get('language', None)
+    response = {}
     results = []
-    json_response = {}
 
-    if q:
-        languages = load_item_languages(
-            LanguageConfig.SHOW_ITEM_EXERCISES, language_code=request.GET.get('language', None)
-        )
-        name_lookup = Q(name__icontains=q) | Q(alias__alias__icontains=q)
-        exercises = (
-            Exercise.objects.filter(name_lookup).all().filter(
-                language__in=languages
-            ).order_by('exercise_base__category__name', 'name').distinct()
-        )
+    if not q:
+        return Response(response)
 
-        for exercise in exercises:
-            if exercise.main_image:
-                image_obj = exercise.main_image
-                image = image_obj.image.url
-                t = get_thumbnailer(image_obj.image)
-                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
-            else:
-                image = None
-                thumbnail = None
+    language = load_language(language_code)
+    exercises = Exercise.objects\
+        .filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))\
+        .filter(language=language)\
+        .order_by('exercise_base__category__name', 'name')\
+        .distinct()
 
-            exercise_json = {
-                'value': exercise.name,
-                'data': {
-                    'id': exercise.id,
-                    'base_id': exercise.exercise_base_id,
-                    'name': exercise.name,
-                    'category': _(exercise.category.name),
-                    'image': image,
-                    'image_thumbnail': thumbnail
-                }
+    for exercise in exercises:
+        image = None
+        thumbnail = None
+        if exercise.main_image:
+            image_obj = exercise.main_image
+            image = image_obj.image.url
+            t = get_thumbnailer(image_obj.image)
+            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+
+        exercise_json = {
+            'value': exercise.name,
+            'data': {
+                'id': exercise.id,
+                'base_id': exercise.exercise_base_id,
+                'name': exercise.name,
+                'category': _(exercise.category.name),
+                'image': image,
+                'image_thumbnail': thumbnail
             }
-            results.append(exercise_json)
-        json_response['suggestions'] = results
-
-    return Response(json_response)
+        }
+        results.append(exercise_json)
+    response['suggestions'] = results
+    return Response(response)
 
 
 class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):

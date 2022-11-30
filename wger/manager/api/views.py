@@ -28,7 +28,10 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import (
+    Exercise,
+    ExerciseBase,
+)
 from wger.manager.api.serializers import (
     DaySerializer,
     ScheduleSerializer,
@@ -93,17 +96,17 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         """
         Returns processed log data for graphing
 
-        Basically, these are the logs for the workout and for a specific exercise.
+        Basically, these are the logs for the workout and for a specific exercise base.
 
         If on a day there are several entries with the same number of repetitions,
         but different weights, only the entry with the higher weight is shown in the chart
         """
-        execise_id = request.GET.get('id')
-        if not execise_id:
-            return Response("Please provide an exercise ID in the 'id' GET parameter")
+        base_id = request.GET.get('id')
+        if not base_id:
+            return Response("Please provide an base ID in the 'id' GET parameter")
 
-        exercise = get_object_or_404(Exercise, pk=execise_id)
-        logs = exercise.workoutlog_set.filter(
+        base = get_object_or_404(ExerciseBase, pk=base_id)
+        logs = base.workoutlog_set.filter(
             user=self.request.user,
             weight_unit__in=(1, 2),
             repetition_unit=1,
