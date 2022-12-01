@@ -47,6 +47,7 @@ def fetch_ingredient_image(pk: int):
 def fetch_ingredient_image_function(pk: int):
     # wger
     from wger.nutrition.models import Ingredient
+
     ingredient = Ingredient.objects.get(pk=pk)
 
     logger.info(f'Fetching image for ingredient {pk}')
@@ -55,6 +56,9 @@ def fetch_ingredient_image_function(pk: int):
         return
 
     if ingredient.source_name != Source.OPEN_FOOD_FACTS.value:
+        return
+
+    if not ingredient.source_url:
         return
 
     if not settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF']:
@@ -89,7 +93,8 @@ def fetch_ingredient_image_function(pk: int):
     try:
         image_id: str = image_data[image_name]['imgid']
         uploader_name: str = image_data[image_id]['uploader']
-    except KeyError:
+    except KeyError as e:
+        logger.info('could not load all image information, skipping...', e)
         return
 
     # Save to DB
