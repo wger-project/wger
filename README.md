@@ -79,23 +79,37 @@ file for details). You will also probably want to set `DJANGO_DEBUG to false
 If you prefer a local installation, consult the
 [development documentation](https://wger.readthedocs.io/en/latest/development.html)
 
-#### Quick how to guide: Contributing to documentation using an editor (VScode)
+
+#### Beginner's guide to contributing to this project- See steps below with tips
 
 Step 1. Create GitHub account if you don't already have one.
 
-Step 2. CLone repository you wish to make changes to
+https://github.com/join
 
-Step 3. Open in editor (VScode)
+Step 2. CLone repository you wish to make changes to.
+
+https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+
+Step 3. Open in editor of your choosing (example: VScode).
+
+https://www.hostinger.com/tutorials/best-code-editors
 
 Step 4. Make desired changes in editor
 
-Step 5. Save changes and stage changes
+Step 5. Save changes and stage changes (see turorial below)
 
-Step 6. Commit to local repository
+https://www.youtube.com/watch?v=-dI00g5KdD4
 
-Step 7. "Push" commit to remote repository
+Step 6. Commit to local repository and "Push" to remote repository(see turorial below).
 
-Step 8. Log into GitHub, check commits are there. Done.  
+https://www.youtube.com/watch?v=B8RSMBSzFuA
+
+Step 7. Log into GitHub, check commits are there.
+
+Step 8. Create pull request to original repository on Github.
+
+https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request
+
 
 
 ## Contact
