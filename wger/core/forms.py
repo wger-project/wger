@@ -58,8 +58,12 @@ class UserLoginForm(AuthenticationForm):
     Form for logins
     """
 
-    def __init__(self, *args, **kwargs):
+    authenticate_on_clean = True
+
+    def __init__(self, authenticate_on_clean=True, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
+
+        self.authenticate_on_clean = authenticate_on_clean
 
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', _('Login'), css_class='btn-success btn-block'))
@@ -74,25 +78,30 @@ class UserLoginForm(AuthenticationForm):
 
     def clean(self):
         """
-        Note this clean method is the same as the one from django/contrib/auth/forms.py,
-        but we pass the request as an explicit request parameter. Otherwise, django
-        axes won't work
+        Note: this clean method needs to be able to toggle authenticating directly
+        or not. This is needed because django axes expects an explicit request
+        parameter and otherwise the login endpoint won't work
 
         See https://github.com/wger-project/wger/issues/1163
         """
+        if self.authenticate_on_clean:
+            self.authenticate(self.request)
+        return self.cleaned_data
+
+    def authenticate(self, request):
         username = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
 
-        if username is not None and password:
+        if username and password:
             self.user_cache = authenticate(
-                request=self.request, username=username, password=password
+                request=request,
+                username=username,
+                password=password,
             )
             if self.user_cache is None:
                 raise self.get_invalid_login_error()
             else:
                 self.confirm_login_allowed(self.user_cache)
-
-        return self.cleaned_data
 
 
 class UserPreferencesForm(forms.ModelForm):
