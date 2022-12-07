@@ -147,16 +147,16 @@ def search(request):
     This format is currently used by the ingredient search autocompleter
     """
     term = request.GET.get('term', None)
-    requested_language = request.GET.get('language', None)
     results = []
     json_response = {}
 
     if not term:
         return Response(json_response)
 
+    requested_language = request.GET.get('language', None)
     language = load_language(requested_language)
     ingredients = Ingredient.objects.filter(
-        name__icontains=term,
+        search_column=term,
         language=language,
         status=Ingredient.STATUS_ACCEPTED,
     )

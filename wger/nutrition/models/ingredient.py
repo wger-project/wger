@@ -21,6 +21,8 @@ from decimal import Decimal
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
@@ -51,7 +53,6 @@ from wger.utils.models import (
 from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -68,13 +69,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     energy amount given (in percent).
     """
 
-    # Metaclass to set some other properties
-    class Meta:
-        ordering = [
-            "name",
-        ]
-
-    # Meta data
     language = models.ForeignKey(
         Language,
         verbose_name=_('Language'),
@@ -97,7 +91,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         validators=[MinLengthValidator(3)],
     )
 
-    energy = models.IntegerField(verbose_name=_('Energy'), help_text=_('In kcal per 100g'))
+    energy = models.IntegerField(
+        verbose_name=_('Energy'),
+        help_text=_('In kcal per 100g'),
+    )
 
     protein = models.DecimalField(
         decimal_places=3,
@@ -213,6 +210,16 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         null=True,
         blank=True,
     )
+
+    search_column = SearchVectorField(null=True)
+    """Column used for full text search"""
+
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = [
+            "name",
+        ]
+        indexes = (GinIndex(fields=["search_column"]),)
 
     #
     # Django methods
