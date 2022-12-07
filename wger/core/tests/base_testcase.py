@@ -37,10 +37,13 @@ from wger.utils.constants import TWOPLACES
 STATUS_CODES_FAIL = (302, 403, 404)
 
 
-def get_reverse(url, kwargs={}):
+def get_reverse(url, kwargs=None):
     """
     Helper function to get the reverse URL
     """
+    if kwargs is None:
+        kwargs = {}
+
     try:
         url = reverse(url, kwargs=kwargs)
     except NoReverseMatch:
@@ -286,7 +289,9 @@ class WgerDeleteTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 302)
             self.assertEqual(count_before - 1, count_after)
             self.assertRaises(
-                self.object_class.DoesNotExist, self.object_class.objects.get, pk=self.pk
+                self.object_class.DoesNotExist,
+                self.object_class.objects.get,
+                pk=self.pk,
             )
 
             # TODO: the redirection page might not have a language prefix (e.g. /user/login
@@ -312,7 +317,7 @@ class WgerDeleteTestCase(WgerTestCase):
 
     def test_delete_object_other(self):
         """
-        Tests deleting the object as the unauthorized, logged in users
+        Tests deleting the object as the unauthorized, logged-in users
         """
         if self.user_fail and not isinstance(self.user_success, tuple):
             for user in get_user_list(self.user_fail):
