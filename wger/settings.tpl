@@ -49,7 +49,7 @@ MEDIA_ROOT = '{media_folder_path}'
 MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application. Change if used in production.
-ALLOWED_HOSTS = '*'
+ALLOWED_HOSTS = ['*', ]
 
 # This might be a good idea if you setup redis
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"

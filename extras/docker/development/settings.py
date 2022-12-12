@@ -68,7 +68,7 @@ STATIC_URL = env.str('STATIC_URL', '/static/')
 LOGIN_REDIRECT_URL = env.str('LOGIN_REDIRECT_URL', '/')
 
 # Allow all hosts to access the application. Change if used in production.
-ALLOWED_HOSTS = '*'
+ALLOWED_HOSTS = ['*', ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
