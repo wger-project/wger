@@ -27,6 +27,7 @@ invoke==1.7.3
 pillow==9.3.0
 reportlab==3.6.12
 requests==2.28.1
+tzdata==2022.7
 
 
 # AWS
