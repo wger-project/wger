@@ -125,7 +125,6 @@ class StepDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     """
 
     model = ScheduleStep
-    fields = ('workout', 'duration', 'order')
     messages = gettext_lazy('Successfully deleted')
 
     def get_success_url(self):

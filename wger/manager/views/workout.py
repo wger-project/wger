@@ -264,7 +264,6 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = Workout
-    fields = ('name', )
     success_url = reverse_lazy('manager:workout:overview')
     messages = gettext_lazy('Successfully deleted')
 

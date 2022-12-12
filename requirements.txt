@@ -4,10 +4,13 @@
 
 # Application
 bleach[css]~=5.0
-django-bootstrap-breadcrumbs~=0.9
+
+# this is a fork of django-bootstrap-breadcrumbs
+# we might need to think about migrating away from this completely
+django-bootstrap-breadcrumbs2==1.0.0
 django-formtools~=2.4
 django-recaptcha~=3.0.0
-Django~=3.2
+Django==4.0.8
 django-activity-stream~=1.4
 django-axes==5.40.1
 django-crispy-forms~=1.14

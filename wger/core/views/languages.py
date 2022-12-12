@@ -80,7 +80,6 @@ class LanguageDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequired
     """
 
     model = Language
-    fields = ['short_name', 'full_name']
     success_url = reverse_lazy('core:language:overview')
     messages = gettext_lazy('Successfully deleted')
     permission_required = 'core.delete_language'

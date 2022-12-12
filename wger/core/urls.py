@@ -15,12 +15,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.conf.urls import (
-    include,
-    url,
-)
+from django.conf.urls import include
 from django.contrib.auth import views
-from django.urls import path
+from django.urls import (
+    path,
+    re_path,
+)
 from django.views.generic import TemplateView
 
 # wger
@@ -103,7 +103,7 @@ patterns_user = [
         views.PasswordResetDoneView.as_view(),
         name='password_reset_done',
     ),
-    url(
+    re_path(
         r'^password/reset/check/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         user.WgerPasswordResetConfirmView.as_view(),
         name='password_reset_confirm',

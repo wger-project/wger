@@ -110,7 +110,6 @@ class ImageDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = Image
-    fields = ['image', 'date', 'description']
     success_url = reverse_lazy('gallery:images:overview')
 
     def get_context_data(self, **kwargs):
