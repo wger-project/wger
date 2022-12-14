@@ -22,7 +22,7 @@
     "d3": "^7.6.1",
     "datatables": "^1.10.18",
     "devbridge-autocomplete": "^1.4.11",
-    "jquery": "^3.6.1",
+    "jquery": "^3.6.2",
     "masonry-layout": "^4.2.2",
     "metrics-graphics": "^2.15.6",
     "popper.js": "^1.16.1",
