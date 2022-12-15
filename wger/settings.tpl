@@ -8,7 +8,6 @@ from wger.settings_global import *
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
 
-
 # Application settings
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 WGER_SETTINGS["ALLOW_REGISTRATION"] = True
@@ -75,7 +74,6 @@ DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL
-
 
 #
 # https://django-axes.readthedocs.io/en/latest/
