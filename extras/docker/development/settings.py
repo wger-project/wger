@@ -118,7 +118,9 @@ COMPRESS_ROOT = STATIC_ROOT
 EMAIL_PAGE_DOMAIN = 'http://localhost/'
 
 
+#
 # Django Axes
+#
 AXES_ENABLED = env.bool('AXES_ENABLED', True)
 AXES_FAILURE_LIMIT = env.int('AXES_FAILURE_LIMIT', 10)
 AXES_COOLOFF_TIME = timedelta(minutes=env.float('AXES_COOLOFF_TIME', 30))

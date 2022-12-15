@@ -8,13 +8,14 @@ from wger.settings_global import *
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
 
-# List of administrations
-ADMINS = (('Your name', 'your_email@example.com'), )
-MANAGERS = ADMINS
 
-# SERVER_EMAIL = 'info@my-domain.com'
-# The email address that error messages (and only error messages, such as
-# internal server errors) come from, such as those sent to ADMINS and MANAGERS.
+# Application settings
+WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
+WGER_SETTINGS["ALLOW_REGISTRATION"] = True
+WGER_SETTINGS["ALLOW_GUEST_USERS"] = True
+WGER_SETTINGS["ALLOW_UPLOAD_VIDEOS"] = False
+WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = 21  # in days
+WGER_SETTINGS["EXERCISE_CACHE_TTL"] = 3600  # in seconds
 
 DATABASES = {{
     'default': {{
@@ -26,6 +27,15 @@ DATABASES = {{
         'PORT': '{dbport}',
     }}
 }}  # yapf: disable
+
+
+# List of administrations
+ADMINS = (('Your name', 'your_email@example.com'), )
+MANAGERS = ADMINS
+
+# SERVER_EMAIL = 'info@my-domain.com'
+# The email address that error messages (and only error messages, such as
+# internal server errors) come from, such as those sent to ADMINS and MANAGERS.
 
 # Timezone for this installation. Consult settings_global.py for more information
 TIME_ZONE = 'Europe/Berlin'
@@ -53,7 +63,7 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-# This might be a good idea if you setup redis
+# This might be a good idea if you set up redis
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Configure a real backend in production
@@ -61,15 +71,19 @@ ALLOWED_HOSTS = [
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Sender address used for sent emails
-WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL
 
-# Your twitter handle, if you have one for this instance.
-#WGER_SETTINGS['TWITTER'] = ''
+
+#
+# https://django-axes.readthedocs.io/en/latest/
+#
+AXES_ENABLED = False
+AXES_FAILURE_LIMIT = 10
+AXES_COOLOFF_TIME = timedelta(minutes=30)
+AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
 
 #
 # Sometimes needed if deployed behind a proxy, etc.
