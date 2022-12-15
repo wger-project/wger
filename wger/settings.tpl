@@ -79,9 +79,9 @@ EMAIL_PAGE_DOMAIN = SITE_URL
 # https://django-axes.readthedocs.io/en/latest/
 #
 AXES_ENABLED = False
-AXES_FAILURE_LIMIT = 10
-AXES_COOLOFF_TIME = timedelta(minutes=30)
-AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
+# AXES_FAILURE_LIMIT = 10
+# AXES_COOLOFF_TIME = timedelta(minutes=30)
+# AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
 
 #
 # Sometimes needed if deployed behind a proxy, etc.
