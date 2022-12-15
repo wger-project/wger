@@ -5,7 +5,8 @@ on:
     branches:
       - "master"
     paths:
-        - 'extras/docker/base/Dockerfile'
+      - 'extras/docker/base/Dockerfile'
+      - '.github/workflows/docker-base.yml'
   schedule:
     - cron: '0 5 1 * *'
 
@@ -34,5 +35,5 @@ jobs:
           context: .
           push: true
           file: extras/docker/base/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: wger/base:latest,wger/base:2.2-dev

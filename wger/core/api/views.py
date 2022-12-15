@@ -223,7 +223,8 @@ class UserAPILoginView(viewsets.ViewSet):
         username = serializer.data["username"]
 
         # Try to retrieve the user
-        form = UserLoginForm(data=serializer.data)
+        form = UserLoginForm(data=serializer.data, authenticate_on_clean=False)
+
         if not form.is_valid():
             logger.info(f"Tried logging via API with unknown user: '{username}'")
             return Response(
@@ -231,6 +232,7 @@ class UserAPILoginView(viewsets.ViewSet):
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
+        form.authenticate(request)
         token = create_token(form.get_user())
         return Response(
             data={

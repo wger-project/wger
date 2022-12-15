@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-11-20 11:48+0000\n"
+"PO-Revision-Date: 2022-12-03 09:48+0000\n"
 "Last-Translator: Tymofii Lytvynenko <till.svit@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
@@ -543,22 +543,26 @@ msgstr "Ви вже майже на місці, %(username)s!"
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Будь ласка, натисніть <a href=\"%(link)s\">тут</a>, щоб підтвердити свою "
+"електронну пошту"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Строк дії токена спливає %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "Команда wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"Будь ласка, перейдіть за наступним посиланням, щоб підтвердити свою "
+"електронну пошту: %(link)s"
 
 #: core/templates/index.html:4
 msgid "Dashboard"
@@ -878,10 +882,8 @@ msgid "Administration"
 msgstr "Адміністрація"
 
 #: core/templates/navigation.html:68
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "День тренування"
+msgstr "Історія редагування вправи"
 
 #: core/templates/navigation.html:69 exercises/models/base.py:84
 msgid "Equipment"
@@ -1406,22 +1408,20 @@ msgid "Preferences"
 msgstr "Налаштування"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Надсилати електронні листи"
+msgstr "Підтверджена електронна пошта"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Непідтверджена електронна пошта"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Надіслати електронний лист для підтвердження"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "Вам необхідно підтвердити свою електронну пошту, щоб надсилати вправи"
 
 #: core/templates/user/preferences.html:49 core/views/user.py:603
 msgid "Change password"
@@ -1558,7 +1558,7 @@ msgstr "Тренажерний зал"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "Підтверджувальний лист було надіслано на електронну адресу %(email)s"
 
 #: exercises/models/base.py:63 nutrition/models/ingredient.py:204
 msgid "Category"
@@ -1658,10 +1658,9 @@ msgid "A more basic name for the muscle"
 msgstr "Більш основна назва м'язів"
 
 #: exercises/models/video.py:50
-#, fuzzy, python-format
-#| msgid "Maximum file size is 100MB."
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Максимальний розмір файлу - 100 МБ."
+msgstr "Максимальний розмір файлу - %(size)sМБ."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
@@ -1713,16 +1712,12 @@ msgid "Add new equipment"
 msgstr "Додайте нове обладнання"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "День тренування"
+msgstr "Історія адміністрування вправ"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Дії"
+msgstr "Дія"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1736,36 +1731,28 @@ msgid "User"
 msgstr "Користувач"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Тема"
+msgstr "Об'єкт"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Змінити"
+msgstr "Зміни"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Повернути"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Перегляд об'єкту"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Перегляд журналів"
+msgstr "Перегляд змін"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Повернення змін"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1793,12 +1780,9 @@ msgid "Delete equipment?"
 msgstr "Видалити обладнання?"
 
 #: exercises/views/exercises.py:161
-#, fuzzy, python-format
-#| msgid ""
-#| "%(name_original)s is too similar to existing exercise "
-#| "\"%(exercise_name)s\""
+#, python-format
 msgid "%(name)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr "%(name_original)s занадто схоже на наявну вправу \"%(exercise_name)s\""
+msgstr "%(name)s занадто схоже на наявну вправу \"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:184
 msgid "This will delete the exercise from all workouts."
@@ -3048,10 +3032,8 @@ msgid "Meal"
 msgstr "Приймання їжі"
 
 #: nutrition/models/log.py:65
-#, fuzzy
-#| msgid "Time (approx)"
 msgid "Date and Time (Approx.)"
-msgstr "Час (приблизно)"
+msgstr "Дата і час (приблизно)"
 
 #: nutrition/models/meal.py:61
 msgid "Time (approx)"

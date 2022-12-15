@@ -68,7 +68,7 @@ STATIC_URL = env.str('STATIC_URL', '/static/')
 LOGIN_REDIRECT_URL = env.str('LOGIN_REDIRECT_URL', '/')
 
 # Allow all hosts to access the application. Change if used in production.
-ALLOWED_HOSTS = '*'
+ALLOWED_HOSTS = ['*', ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
@@ -119,7 +119,9 @@ COMPRESS_ROOT = STATIC_ROOT
 EMAIL_PAGE_DOMAIN = 'http://localhost/'
 
 
+#
 # Django Axes
+#
 AXES_ENABLED = env.bool('AXES_ENABLED', True)
 AXES_FAILURE_LIMIT = env.int('AXES_FAILURE_LIMIT', 10)
 AXES_COOLOFF_TIME = timedelta(minutes=env.float('AXES_COOLOFF_TIME', 30))
@@ -131,6 +133,11 @@ AXES_HANDLER = env.str('AXES_HANDLER', 'axes.handlers.cache.AxesCacheHandler')
 SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'] = timedelta(minutes=env.int("ACCESS_TOKEN_LIFETIME", 15))
 SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'] = timedelta(hours=env.int("REFRESH_TOKEN_LIFETIME", 24))
 SIMPLE_JWT['SIGNING_KEY'] = env.str("SIGNING_KEY", SECRET_KEY)
+
+#
+# https://docs.djangoproject.com/en/4.1/ref/csrf/
+#
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", ['http://127.0.0.1', ])
 
 #
 # Celery message queue configuration

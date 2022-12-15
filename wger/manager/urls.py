@@ -16,12 +16,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import (
-    include,
-    url,
-)
+from django.conf.urls import include
 from django.contrib.auth.decorators import login_required
-from django.urls import path
+from django.urls import (
+    path,
+    re_path,
+)
 
 # wger
 from wger.manager.views import (
@@ -117,7 +117,7 @@ patterns_workout = [
         workout.view,
         name='view',
     ),
-    url(
+    re_path(
         r'^calendar/(?P<username>[\w.@+-]+)$',
         log.calendar,
         name='calendar',
@@ -127,22 +127,22 @@ patterns_workout = [
         log.calendar,
         name='calendar',
     ),
-    url(
+    re_path(
         r'^calendar/(?P<username>[\w.@+-]+)/(?P<year>\d{4})/(?P<month>\d{1,2})$',
         log.calendar,
         name='calendar',
     ),
-    url(
+    re_path(
         r'^calendar/(?P<year>\d{4})/(?P<month>\d{1,2})$',
         log.calendar,
         name='calendar',
     ),
-    url(
+    re_path(
         r'^calendar/(?P<username>[\w.@+-]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$',
         log.day,
         name='calendar-day',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         ical.export,
         name='ical',
@@ -152,17 +152,17 @@ patterns_workout = [
         ical.export,
         name='ical',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         pdf.workout_log,
         name='pdf-log',
     ),  # JS!
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         pdf.workout_log,
         name='pdf-log',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
         pdf.workout_log,
         name='pdf-log',
@@ -172,17 +172,17 @@ patterns_workout = [
         pdf.workout_log,
         name='pdf-log',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         pdf.workout_view,
         name='pdf-table',
     ),  # JS!
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         pdf.workout_view,
         name='pdf-table',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
         pdf.workout_view,
         name='pdf-table',
@@ -196,7 +196,7 @@ patterns_workout = [
 
 # sub patterns for workout sessions
 patterns_session = [
-    url(
+    re_path(
         r'^(?P<workout_pk>\d+)/add/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
         workout_session.WorkoutSessionAddView.as_view(),
         name='add',
@@ -206,7 +206,7 @@ patterns_session = [
         workout_session.WorkoutSessionUpdateView.as_view(),
         name='edit',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/delete/(?P<logs>session|logs)?$',
         workout_session.WorkoutSessionDeleteView.as_view(),
         name='delete',
@@ -298,7 +298,7 @@ patterns_schedule = [
         schedule.ScheduleDeleteView.as_view(),
         name='delete',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/ical/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         ical.export_schedule,
         name='ical',
@@ -308,17 +308,17 @@ patterns_schedule = [
         ical.export_schedule,
         name='ical',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         schedule.export_pdf_log,
         name='pdf-log',
     ),  # JS!
-    url(
+    re_path(
         r'^(?P<pk>\d+)/pdf/log/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         schedule.export_pdf_log,
         name='pdf-log',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/pdf/log/(?P<images>[01]+)/(?P<comments>[01]+)$',
         schedule.export_pdf_log,
         name='pdf-log',
@@ -328,17 +328,17 @@ patterns_schedule = [
         schedule.export_pdf_log,
         name='pdf-log',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         schedule.export_pdf_table,
         name='pdf-table',
     ),  # JS!
-    url(
+    re_path(
         r'^(?P<pk>\d+)/pdf/table/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})$',
         schedule.export_pdf_table,
         name='pdf-table',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/pdf/table/(?P<images>[01]+)/(?P<comments>[01]+)$',
         schedule.export_pdf_table,
         name='pdf-table',

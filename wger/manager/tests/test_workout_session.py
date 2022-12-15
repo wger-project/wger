@@ -128,6 +128,7 @@ class WorkoutSessionDeleteLogsTestCase(WgerTestCase):
         self.user_login('admin')
 
         session = WorkoutSession.objects.get(pk=1)
+        self.assertEqual(WorkoutSession.objects.all().count(), 4)
         count_before = WorkoutLog.objects.filter(
             user__username=session.user.username,
             date=session.date,
@@ -141,6 +142,8 @@ class WorkoutSessionDeleteLogsTestCase(WgerTestCase):
             })
         )
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(WorkoutSession.objects.all().count(), 3)
+
         count_after = WorkoutLog.objects.filter(
             user__username=session.user.username,
             date=session.date,

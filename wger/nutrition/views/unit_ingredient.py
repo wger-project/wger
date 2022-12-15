@@ -135,7 +135,6 @@ class WeightUnitIngredientDeleteView(
     """
 
     model = IngredientWeightUnit
-    fields = ('unit', 'gram', 'amount')
     title = gettext_lazy('Delete?')
     permission_required = 'nutrition.add_ingredientweightunit'
 

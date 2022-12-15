@@ -105,7 +105,6 @@ class WeightUnitDeleteView(
     """
 
     model = WeightUnit
-    fields = ['name']
     success_url = reverse_lazy('nutrition:weight_unit:list')
     permission_required = 'nutrition.delete_ingredientweightunit'
     messages = gettext_lazy('Successfully deleted')

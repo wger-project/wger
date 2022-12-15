@@ -118,8 +118,6 @@ class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = WeightEntry
-    fields = ('weight', )
-
     messages = gettext_lazy('Successfully deleted.')
 
     def get_context_data(self, **kwargs):

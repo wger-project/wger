@@ -16,12 +16,12 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import (
-    include,
-    url,
-)
+from django.conf.urls import include
 from django.contrib.auth.decorators import login_required
-from django.urls import path
+from django.urls import (
+    path,
+    re_path,
+)
 
 # wger
 from wger.nutrition.views import (
@@ -69,7 +69,7 @@ patterns_plan = [
         login_required(plan.PlanEditView.as_view()),
         name='edit',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})',
         plan.export_pdf,
         name='export-pdf',
@@ -256,7 +256,7 @@ patterns_diary = [
         log.overview,
         name='overview',
     ),
-    url(
+    re_path(
         r'^(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
         log.detail,
         name='detail',

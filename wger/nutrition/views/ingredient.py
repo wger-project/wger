@@ -123,17 +123,6 @@ class IngredientDeleteView(
     """
 
     model = Ingredient
-    fields = (
-        'name',
-        'energy',
-        'protein',
-        'carbohydrates',
-        'carbohydrates_sugar',
-        'fat',
-        'fat_saturated',
-        'fibres',
-        'sodium',
-    )
     template_name = 'delete.html'
     success_url = reverse_lazy('nutrition:ingredient:list')
     messages = gettext_lazy('Successfully deleted')

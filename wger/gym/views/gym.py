@@ -466,15 +466,6 @@ class GymDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin
     """
 
     model = Gym
-    fields = (
-        'name',
-        'phone',
-        'email',
-        'owner',
-        'zip_code',
-        'city',
-        'street',
-    )
     success_url = reverse_lazy('gym:gym:list')
     permission_required = 'gym.delete_gym'
 

@@ -7,11 +7,8 @@ on:
 
 jobs:
   apache:
+    name: Build demo image
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [ 'amd64', 'arm64' ]
-    name: Build apache image (linux/${{ matrix.arch }})
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,7 +31,7 @@ jobs:
           context: .
           push: true
           file: extras/docker/demo/Dockerfile
-          platforms: linux/${{ matrix.arch }}
+          platforms: linux/amd64,linux/arm64
           tags: wger/demo:latest,wger/demo:2.2-dev,wger/apache:latest,wger/apache:2.2-dev
 
   prod:

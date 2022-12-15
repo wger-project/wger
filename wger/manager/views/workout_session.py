@@ -136,18 +136,17 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = WorkoutSession
-    fields = ('date', 'notes', 'impression', 'time_start', 'time_end')
     success_url = reverse_lazy('manager:workout:overview')
     messages = gettext_lazy('Successfully deleted')
 
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         """
         Delete the workout session and, if wished, all associated weight logs as well
         """
         if self.kwargs.get('logs') == 'logs':
             WorkoutLog.objects.filter(user=self.request.user, date=self.get_object().date).delete()
 
-        return super(WorkoutSessionDeleteView, self).delete(request, *args, **kwargs)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
 

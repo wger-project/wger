@@ -306,7 +306,6 @@ class ScheduleDeleteView(WgerDeleteMixin, DeleteView, PermissionRequiredMixin):
     """
 
     model = Schedule
-    fields = ('name', 'start_date', 'is_active', 'is_loop')
     success_url = reverse_lazy('manager:schedule:overview')
     messages = gettext_lazy('Successfully deleted')
 

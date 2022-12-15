@@ -115,7 +115,6 @@ class PlanDeleteView(WgerDeleteMixin, DeleteView):
     """
 
     model = NutritionPlan
-    fields = ('description', 'has_goal_calories')
     success_url = reverse_lazy('nutrition:plan:overview')
     messages = gettext_lazy('Successfully deleted')
 
