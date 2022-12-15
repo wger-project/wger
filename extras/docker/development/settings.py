@@ -136,4 +136,7 @@ SIMPLE_JWT['SIGNING_KEY'] = env.str("SIGNING_KEY", SECRET_KEY)
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/
 #
-CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", ['http://127.0.0.1', ])
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=['http://127.0.0.1', 'http://localhost'],
+)
