@@ -70,3 +70,10 @@ EMAIL_PAGE_DOMAIN = SITE_URL
 
 # Your twitter handle, if you have one for this instance.
 #WGER_SETTINGS['TWITTER'] = ''
+
+
+#
+# Sometimes needed if deployed behind a proxy, etc.
+# https://docs.djangoproject.com/en/4.1/ref/csrf/
+#
+# CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'https://my.domain.example.com']
