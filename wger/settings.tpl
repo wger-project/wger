@@ -4,6 +4,7 @@
 # wger
 from wger.settings_global import *
 
+
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
 
@@ -27,7 +28,7 @@ DATABASES = {{
 }}  # yapf: disable
 
 # List of administrations
-ADMINS = (('Your name', 'your_email@example.com'),)
+ADMINS = (('Your name', 'your_email@example.com'), )
 MANAGERS = ADMINS
 
 # SERVER_EMAIL = 'info@my-domain.com'
