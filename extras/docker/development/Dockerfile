@@ -21,7 +21,8 @@ RUN apt-get update \
       python3-dev \
       python3-pip \
       python3-wheel \
-      git
+      git \
+      libpq-dev
 
 # Build the necessary python wheels
 COPY requirements* ./
