@@ -26,7 +26,7 @@ RUN apt-get update \
 
 # Build the necessary python wheels
 COPY requirements* ./
-RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_prod.txt
+RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt
 
 
 
