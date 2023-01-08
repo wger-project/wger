@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-12-19 20:49+0000\n"
-"Last-Translator: Dawid Panyło <wampir5000@o2.pl>\n"
+"PO-Revision-Date: 2023-01-09 19:50+0000\n"
+"Last-Translator: gnu-ewm <gnu.ewm@protonmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -80,8 +80,6 @@ msgid "Another sample day"
 msgstr "Jeszcze jeden przykładowy dzień"
 
 #: core/demo.py:211
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
 msgstr "Przykładowy plan odżywiania"
 
