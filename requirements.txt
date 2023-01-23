@@ -3,7 +3,7 @@
 #
 
 # Application
-bleach[css]~=5.0
+bleach[css]~=6.0
 
 # this is a fork of django-bootstrap-breadcrumbs
 # we might need to think about migrating away from this completely
