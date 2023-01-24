@@ -21,7 +21,6 @@ import logging
 # Django
 from django.conf import settings
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
@@ -41,9 +40,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 # wger
-from wger.core.models import Language
 from wger.exercises.api.permissions import CanContributeExercises
 from wger.exercises.api.serializers import (
+    DeletionLogSerializer,
     EquipmentSerializer,
     ExerciseAliasSerializer,
     ExerciseBaseInfoSerializer,
@@ -60,6 +59,7 @@ from wger.exercises.api.serializers import (
 )
 from wger.exercises.models import (
     Alias,
+    DeletionLog,
     Equipment,
     Exercise,
     ExerciseBase,
@@ -271,10 +271,10 @@ def search(request):
         return Response(response)
 
     language = load_language(language_code)
-    exercises = Exercise.objects\
-        .filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))\
-        .filter(language=language)\
-        .order_by('exercise_base__category__name', 'name')\
+    exercises = Exercise.objects \
+        .filter(Q(name__icontains=q) | Q(alias__alias__icontains=q)) \
+        .filter(language=language) \
+        .order_by('exercise_base__category__name', 'name') \
         .distinct()
 
     for exercise in exercises:
@@ -362,6 +362,16 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+
+class DeletionLogViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for exercise deletion logs
+    """
+    queryset = DeletionLog.objects.all()
+    serializer_class = DeletionLogSerializer
+    ordering_fields = '__all__'
+    filterset_fields = ('model_type', )
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 *-*
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -29,15 +27,19 @@ from requests.utils import default_user_agent
 # wger
 from wger import get_version
 from wger.exercises.models import (
+    DeletionLog,
     Equipment,
     Exercise,
     ExerciseBase,
     ExerciseCategory,
+    ExerciseImage,
+    ExerciseVideo,
     Muscle,
 )
 
 
 EXERCISE_API = "{0}/api/v2/exerciseinfo/?limit=100"
+DELETION_LOG_API = "{0}/api/v2/deletion-log/?limit=100"
 CATEGORY_API = "{0}/api/v2/exercisecategory/"
 MUSCLE_API = "{0}/api/v2/muscle/"
 EQUIPMENT_API = "{0}/api/v2/equipment/"
@@ -47,8 +49,12 @@ class Command(BaseCommand):
     """
     Synchronizes exercise data from a wger instance to the local database
     """
+    remote_url = 'https://wger.de'
+    headers = {}
 
     help = """Synchronizes exercise data from a wger instance to the local database.
+            This script also deletes entries that were removed on the server such
+            as exercises, images or videos.
 
             Please note that at the moment the following objects can only identified
             by their id. If you added new objects they might have the same IDs as the
@@ -63,63 +69,82 @@ class Command(BaseCommand):
             '--remote-url',
             action='store',
             dest='remote_url',
-            default='https://wger.de',
-            help='Remote URL to fetch the exercises from (default: '
-            'https://wger.de)'
+            default=self.remote_url,
+            help=f'Remote URL to fetch the exercises from (default: {self.remote_url})'
+        )
+
+        parser.add_argument(
+            '--dont-delete',
+            action='store_true',
+            dest='skip_delete',
+            default=False,
+            help='Skips deleting any entries'
         )
 
     def handle(self, **options):
 
         remote_url = options['remote_url']
+
         try:
             val = URLValidator()
             val(remote_url)
+            self.remote_url = remote_url
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))}
-        self.sync_categories(headers, remote_url)
-        self.sync_muscles(headers, remote_url)
-        self.sync_equipment(headers, remote_url)
-        self.sync_exercises(headers, remote_url)
+        self.headers = {
+            'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))
+        }
+        self.sync_categories()
+        self.sync_muscles()
+        self.sync_equipment()
+        self.sync_exercises()
+        if not options['skip_delete']:
+            self.delete_entries()
 
-    def sync_exercises(self, headers: dict, remote_url: str):
+    def sync_exercises(self):
         """Synchronize the exercises from the remote server"""
 
         self.stdout.write('*** Synchronizing exercises...')
         page = 1
         all_exercise_processed = False
-        result = requests.get(EXERCISE_API.format(remote_url), headers=headers).json()
+        result = requests.get(EXERCISE_API.format(self.remote_url), headers=self.headers).json()
         while not all_exercise_processed:
 
             for data in result['results']:
-                exercise_uuid = data['uuid']
-                exercise_name = data['name']
-                exercise_description = data['description']
+                translation_uuid = data['uuid']
+                translation_name = data['name']
+                translation_description = data['description']
+                language_id = data['language']['id']
+                license_id = data['license']['id']
+                license_author = data['license_author']
                 equipment = [Equipment.objects.get(pk=i['id']) for i in data['equipment']]
                 muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
                 muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
                 try:
-                    exercise = Exercise.objects.get(uuid=exercise_uuid)
-                    exercise.name = exercise_name
-                    exercise.description = exercise_description
+                    translation = Exercise.objects.get(uuid=translation_uuid)
+                    translation.name = translation_name
+                    translation.description = translation_description
+                    translation.language_id = language_id
+                    translation.license_id = license_id
+                    translation.license_author = license_author
 
                     # Note: this should not happen and is an unnecessary workaround
                     #       https://github.com/wger-project/wger/issues/840
-                    if not exercise.exercise_base:
-                        warning = f'Exercise {exercise.uuid} has no base, this should not happen!' \
+                    if not translation.exercise_base:
+                        warning = f'Exercise {translation.uuid} has no base, this should not happen!' \
                                   f'Skipping...\n'
                         self.stdout.write(self.style.WARNING(warning))
                         continue
-                    exercise.exercise_base.category_id = data['category']['id']
-                    exercise.exercise_base.muscles.set(muscles)
-                    exercise.exercise_base.muscles_secondary.set(muscles_sec)
-                    exercise.exercise_base.equipment.set(equipment)
-                    exercise.exercise_base.save()
-                    exercise.save()
+                    translation.exercise_base.category_id = data['category']['id']
+                    translation.exercise_base.muscles.set(muscles)
+                    translation.exercise_base.muscles_secondary.set(muscles_sec)
+                    translation.exercise_base.equipment.set(equipment)
+                    translation.exercise_base.save()
+                    translation.save()
                 except Exercise.DoesNotExist:
-                    self.stdout.write(f'Saved new exercise {exercise_name}')
+                    self.stdout.write(f'Saved new exercise {translation_name}')
                     base = ExerciseBase()
                     base.category_id = data['category']['id']
                     base.save()
@@ -127,29 +152,81 @@ class Command(BaseCommand):
                     base.muscles_secondary.set(muscles_sec)
                     base.equipment.set(equipment)
                     base.save()
-                    exercise = Exercise(
-                        uuid=exercise_uuid,
+                    translation = Exercise(
+                        uuid=translation_uuid,
                         exercise_base=base,
-                        name=exercise_name,
-                        description=exercise_description,
-                        language_id=data['language']['id'],
+                        name=translation_name,
+                        description=translation_description,
+                        language_id=language_id,
                         license_id=data['license']['id'],
-                        license_author=data['license_author'],
+                        license_author=license_author,
                     )
-                    exercise.save()
+                    translation.save()
 
             if result['next']:
                 page += 1
-                result = requests.get(result['next'], headers=headers).json()
+                result = requests.get(result['next'], headers=self.headers).json()
             else:
                 all_exercise_processed = True
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
-    def sync_equipment(self, headers: dict, remote_url: str):
+    def delete_entries(self):
+        """Delete exercises that were removed on the server"""
+
+        self.stdout.write('*** Deleting exercises that were removed on the server...')
+
+        page = 1
+        all_entries_processed = False
+        result = requests.get(DELETION_LOG_API.format(self.remote_url), headers=self.headers).json()
+        while not all_entries_processed:
+            for data in result['results']:
+                uuid = data['uuid']
+                model_type = data['model_type']
+
+                if model_type == DeletionLog.MODEL_BASE:
+                    try:
+                        obj = ExerciseBase.objects.get(uuid=uuid)
+                        obj.delete()
+                        self.stdout.write(f'Deleted exercise base {uuid}')
+                    except ExerciseBase.DoesNotExist:
+                        pass
+
+                elif model_type == DeletionLog.MODEL_TRANSLATION:
+                    try:
+                        obj = Exercise.objects.get(uuid=uuid)
+                        obj.delete()
+                        self.stdout.write(f"Deleted translation {uuid} ({data['comment']})")
+                    except Exercise.DoesNotExist:
+                        pass
+
+                elif model_type == DeletionLog.MODEL_IMAGE:
+                    try:
+                        obj = ExerciseImage.objects.get(uuid=uuid)
+                        obj.delete()
+                        self.stdout.write(f'Deleted image {uuid}')
+                    except ExerciseImage.DoesNotExist:
+                        pass
+
+                elif model_type == DeletionLog.MODEL_VIDEO:
+                    try:
+                        obj = ExerciseVideo.objects.get(uuid=uuid)
+                        obj.delete()
+                        self.stdout.write(f'Deleted video {uuid}')
+                    except ExerciseVideo.DoesNotExist:
+                        pass
+
+            if result['next']:
+                page += 1
+                result = requests.get(result['next'], headers=self.headers).json()
+            else:
+                all_entries_processed = True
+        self.stdout.write(self.style.SUCCESS('done!\n'))
+
+    def sync_equipment(self):
         """Synchronize the equipment from the remote server"""
 
         self.stdout.write('*** Synchronizing equipment...')
-        result = requests.get(EQUIPMENT_API.format(remote_url), headers=headers).json()
+        result = requests.get(EQUIPMENT_API.format(self.remote_url), headers=self.headers).json()
         for equipment_data in result['results']:
             equipment_id = equipment_data['id']
             equipment_name = equipment_data['name']
@@ -164,11 +241,11 @@ class Command(BaseCommand):
                 equipment.save()
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
-    def sync_muscles(self, headers: dict, remote_url: str):
+    def sync_muscles(self):
         """Synchronize the muscles from the remote server"""
 
         self.stdout.write('*** Synchronizing muscles...')
-        result = requests.get(MUSCLE_API.format(remote_url), headers=headers).json()
+        result = requests.get(MUSCLE_API.format(self.remote_url), headers=self.headers).json()
         for muscle_data in result['results']:
             muscle_id = muscle_data['id']
             muscle_name = muscle_data['name']
@@ -201,11 +278,11 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.WARNING(muscle_url_secondary))
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
-    def sync_categories(self, headers: dict, remote_url: str):
+    def sync_categories(self):
         """Synchronize the categories from the remote server"""
 
         self.stdout.write('*** Synchronizing categories...')
-        result = requests.get(CATEGORY_API.format(remote_url), headers=headers).json()
+        result = requests.get(CATEGORY_API.format(self.remote_url), headers=self.headers).json()
         for category_data in result['results']:
             category_id = category_data['id']
             category_name = category_data['name']

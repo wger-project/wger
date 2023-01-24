@@ -121,7 +121,12 @@ router.register(
 router.register(
     r'equipment',
     exercises_api_views.EquipmentViewSet,
-    basename='api',
+    basename='equipment',
+)
+router.register(
+    r'deletion-log',
+    exercises_api_views.DeletionLogViewSet,
+    basename='deletion-log',
 )
 router.register(
     r'exercisecategory',
