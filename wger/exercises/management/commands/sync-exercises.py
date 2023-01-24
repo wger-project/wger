@@ -77,7 +77,7 @@ class Command(BaseCommand):
             '--dont-delete',
             action='store_true',
             dest='skip_delete',
-            default=True,
+            default=False,
             help='Skips deleting any entries'
         )
 
@@ -112,33 +112,39 @@ class Command(BaseCommand):
         while not all_exercise_processed:
 
             for data in result['results']:
-                exercise_uuid = data['uuid']
-                exercise_name = data['name']
-                exercise_description = data['description']
+                translation_uuid = data['uuid']
+                translation_name = data['name']
+                translation_description = data['description']
+                language_id = data['language']['id']
+                license_id = data['license']['id']
+                license_author = data['license_author']
                 equipment = [Equipment.objects.get(pk=i['id']) for i in data['equipment']]
                 muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
                 muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
                 try:
-                    exercise = Exercise.objects.get(uuid=exercise_uuid)
-                    exercise.name = exercise_name
-                    exercise.description = exercise_description
+                    translation = Exercise.objects.get(uuid=translation_uuid)
+                    translation.name = translation_name
+                    translation.description = translation_description
+                    translation.language_id = language_id
+                    translation.license_id = license_id
+                    translation.license_author = license_author
 
                     # Note: this should not happen and is an unnecessary workaround
                     #       https://github.com/wger-project/wger/issues/840
-                    if not exercise.exercise_base:
-                        warning = f'Exercise {exercise.uuid} has no base, this should not happen!' \
+                    if not translation.exercise_base:
+                        warning = f'Exercise {translation.uuid} has no base, this should not happen!' \
                                   f'Skipping...\n'
                         self.stdout.write(self.style.WARNING(warning))
                         continue
-                    exercise.exercise_base.category_id = data['category']['id']
-                    exercise.exercise_base.muscles.set(muscles)
-                    exercise.exercise_base.muscles_secondary.set(muscles_sec)
-                    exercise.exercise_base.equipment.set(equipment)
-                    exercise.exercise_base.save()
-                    exercise.save()
+                    translation.exercise_base.category_id = data['category']['id']
+                    translation.exercise_base.muscles.set(muscles)
+                    translation.exercise_base.muscles_secondary.set(muscles_sec)
+                    translation.exercise_base.equipment.set(equipment)
+                    translation.exercise_base.save()
+                    translation.save()
                 except Exercise.DoesNotExist:
-                    self.stdout.write(f'Saved new exercise {exercise_name}')
+                    self.stdout.write(f'Saved new exercise {translation_name}')
                     base = ExerciseBase()
                     base.category_id = data['category']['id']
                     base.save()
@@ -146,16 +152,16 @@ class Command(BaseCommand):
                     base.muscles_secondary.set(muscles_sec)
                     base.equipment.set(equipment)
                     base.save()
-                    exercise = Exercise(
-                        uuid=exercise_uuid,
+                    translation = Exercise(
+                        uuid=translation_uuid,
                         exercise_base=base,
-                        name=exercise_name,
-                        description=exercise_description,
-                        language_id=data['language']['id'],
+                        name=translation_name,
+                        description=translation_description,
+                        language_id=language_id,
                         license_id=data['license']['id'],
-                        license_author=data['license_author'],
+                        license_author=license_author,
                     )
-                    exercise.save()
+                    translation.save()
 
             if result['next']:
                 page += 1
