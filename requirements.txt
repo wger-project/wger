@@ -10,8 +10,8 @@ bleach[css]~=6.0
 django-bootstrap-breadcrumbs2==1.0.0
 django-formtools~=2.4
 django-recaptcha~=3.0.0
-Django==4.0.8
-django-activity-stream~=1.4
+Django==4.1.5
+django-activity-stream==1.4.2
 django-axes==5.40.1
 django-crispy-forms~=1.14
 django-simple-history~=3.2
