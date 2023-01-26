@@ -244,6 +244,8 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             "language",
             "aliases",
             "notes",
+            "license",
+            "license_author",
             "author_history",
         )
 
@@ -366,6 +368,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "muscles_secondary",
             "equipment",
             "license",
+            "license_author",
             "images",
             "exercises",
             "variations",

@@ -26,6 +26,7 @@ from requests.utils import default_user_agent
 
 # wger
 from wger import get_version
+from wger.core.models import Language
 from wger.exercises.models import (
     DeletionLog,
     Equipment,
@@ -37,11 +38,11 @@ from wger.exercises.models import (
     Muscle,
 )
 
-
-EXERCISE_API = "{0}/api/v2/exerciseinfo/?limit=100"
+EXERCISE_API = "{0}/api/v2/exercisebaseinfo/?limit=100"
 DELETION_LOG_API = "{0}/api/v2/deletion-log/?limit=100"
 CATEGORY_API = "{0}/api/v2/exercisecategory/"
 MUSCLE_API = "{0}/api/v2/muscle/"
+LANGUAGE_API = "{0}/api/v2/language/"
 EQUIPMENT_API = "{0}/api/v2/equipment/"
 
 
@@ -95,6 +96,9 @@ class Command(BaseCommand):
         self.headers = {
             'User-agent': default_user_agent('wger/{} + requests'.format(get_version()))
         }
+
+        # Process everything
+        self.sync_languages()
         self.sync_categories()
         self.sync_muscles()
         self.sync_equipment()
@@ -112,56 +116,50 @@ class Command(BaseCommand):
         while not all_exercise_processed:
 
             for data in result['results']:
-                translation_uuid = data['uuid']
-                translation_name = data['name']
-                translation_description = data['description']
-                language_id = data['language']['id']
+
+                uuid = data['uuid']
                 license_id = data['license']['id']
+                category_id = data['category']['id']
                 license_author = data['license_author']
                 equipment = [Equipment.objects.get(pk=i['id']) for i in data['equipment']]
                 muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
                 muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-                try:
-                    translation = Exercise.objects.get(uuid=translation_uuid)
-                    translation.name = translation_name
-                    translation.description = translation_description
+                base, base_created = ExerciseBase.objects.get_or_create(
+                    uuid=uuid,
+                    defaults={'category_id': category_id},
+                )
+                self.stdout.write(f"{'created' if base_created else 'updated'} exercise {uuid}")
+
+                base.muscles.set(muscles)
+                base.muscles_secondary.set(muscles_sec)
+                base.equipment.set(equipment)
+                base.save()
+
+                for translation_data in data['exercises']:
+                    trans_uuid = translation_data['uuid']
+                    name = translation_data['name']
+                    description = translation_data['description']
+                    language_id = translation_data['language']
+
+                    translation, translation_created = Exercise.objects.get_or_create(
+                        uuid=trans_uuid,
+                        defaults={
+                            'language_id': language_id,
+                            'exercise_base': base
+                        },
+                    )
+                    out = f"- {'created' if translation_created else 'updated'} translation " \
+                          f"{translation.language.short_name} {trans_uuid} - {name}"
+                    self.stdout.write(out)
+
+                    translation.name = name
+                    translation.description = description
                     translation.language_id = language_id
                     translation.license_id = license_id
                     translation.license_author = license_author
-
-                    # Note: this should not happen and is an unnecessary workaround
-                    #       https://github.com/wger-project/wger/issues/840
-                    if not translation.exercise_base:
-                        warning = f'Exercise {translation.uuid} has no base, this should not happen!' \
-                                  f'Skipping...\n'
-                        self.stdout.write(self.style.WARNING(warning))
-                        continue
-                    translation.exercise_base.category_id = data['category']['id']
-                    translation.exercise_base.muscles.set(muscles)
-                    translation.exercise_base.muscles_secondary.set(muscles_sec)
-                    translation.exercise_base.equipment.set(equipment)
-                    translation.exercise_base.save()
                     translation.save()
-                except Exercise.DoesNotExist:
-                    self.stdout.write(f'Saved new exercise {translation_name}')
-                    base = ExerciseBase()
-                    base.category_id = data['category']['id']
-                    base.save()
-                    base.muscles.set(muscles)
-                    base.muscles_secondary.set(muscles_sec)
-                    base.equipment.set(equipment)
-                    base.save()
-                    translation = Exercise(
-                        uuid=translation_uuid,
-                        exercise_base=base,
-                        name=translation_name,
-                        description=translation_description,
-                        language_id=language_id,
-                        license_id=data['license']['id'],
-                        license_author=license_author,
-                    )
-                    translation.save()
+                self.stdout.write('')
 
             if result['next']:
                 page += 1
@@ -173,7 +171,7 @@ class Command(BaseCommand):
     def delete_entries(self):
         """Delete exercises that were removed on the server"""
 
-        self.stdout.write('*** Deleting exercises that were removed on the server...')
+        self.stdout.write('*** Deleting exercises data that was removed on the server...')
 
         page = 1
         all_entries_processed = False
@@ -227,18 +225,18 @@ class Command(BaseCommand):
 
         self.stdout.write('*** Synchronizing equipment...')
         result = requests.get(EQUIPMENT_API.format(self.remote_url), headers=self.headers).json()
-        for equipment_data in result['results']:
-            equipment_id = equipment_data['id']
-            equipment_name = equipment_data['name']
+        for data in result['results']:
+            equipment_id = data['id']
+            equipment_name = data['name']
 
-            try:
-                equipment = Equipment.objects.get(pk=equipment_id)
-                equipment.name = equipment_name
-                equipment.save()
-            except Equipment.DoesNotExist:
+            equipment, created = Equipment.objects.get_or_create(
+                pk=equipment_id,
+                defaults={'name': equipment_name},
+            )
+
+            if created:
                 self.stdout.write(f'Saved new equipment {equipment_name}')
-                equipment = Equipment(id=equipment_id, name=equipment_name)
-                equipment.save()
+
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
     def sync_muscles(self):
@@ -246,36 +244,30 @@ class Command(BaseCommand):
 
         self.stdout.write('*** Synchronizing muscles...')
         result = requests.get(MUSCLE_API.format(self.remote_url), headers=self.headers).json()
-        for muscle_data in result['results']:
-            muscle_id = muscle_data['id']
-            muscle_name = muscle_data['name']
-            muscle_is_front = muscle_data['is_front']
-            muscle_name_en = muscle_data['name_en']
-            muscle_url_main = muscle_data['image_url_main']
-            muscle_url_secondary = muscle_data['image_url_secondary']
+        for data in result['results']:
+            muscle_id = data['id']
+            muscle_name = data['name']
+            muscle_is_front = data['is_front']
+            muscle_name_en = data['name_en']
+            muscle_url_main = data['image_url_main']
+            muscle_url_secondary = data['image_url_secondary']
 
-            try:
-                muscle = Muscle.objects.get(pk=muscle_id)
-                muscle.name = muscle_name
-                muscle.is_front = muscle_is_front
-                muscle.name_en = muscle_name_en
-                muscle.save()
-            except Muscle.DoesNotExist:
-                muscle = Muscle(
-                    id=muscle_id,
-                    name=muscle_name,
-                    is_front=muscle_is_front,
-                    name_en=muscle_name_en
-                )
-                muscle.save()
+            muscle, created = Muscle.objects.get_or_create(
+                pk=muscle_id,
+                defaults={
+                    'name': muscle_name,
+                    'name_en': muscle_name_en,
+                    'is_front': muscle_is_front,
+                },
+            )
+
+            if created:
                 self.stdout.write(
-                    self.style.WARNING(
-                        f'Saved new muscle {muscle_name}. '
-                        f'Save the corresponding images manually'
-                    )
+                    f'Saved new muscle {muscle_name}. Save the corresponding images manually:'
                 )
-                self.stdout.write(self.style.WARNING(muscle_url_main))
-                self.stdout.write(self.style.WARNING(muscle_url_secondary))
+                self.stdout.write(f' - {self.remote_url}{muscle_url_main}')
+                self.stdout.write(f' - {self.remote_url}{muscle_url_secondary}')
+
         self.stdout.write(self.style.SUCCESS('done!\n'))
 
     def sync_categories(self):
@@ -283,15 +275,35 @@ class Command(BaseCommand):
 
         self.stdout.write('*** Synchronizing categories...')
         result = requests.get(CATEGORY_API.format(self.remote_url), headers=self.headers).json()
-        for category_data in result['results']:
-            category_id = category_data['id']
-            category_name = category_data['name']
-            try:
-                category = ExerciseCategory.objects.get(pk=category_id)
-                category.name = category_name
-                category.save()
-            except ExerciseCategory.DoesNotExist:
-                self.stdout.write(self.style.WARNING(f'Saving new category {category_name}'))
-                category = ExerciseCategory(id=category_id, name=category_name)
-                category.save()
+        for data in result['results']:
+            category_id = data['id']
+            category_name = data['name']
+
+            category, created = ExerciseCategory.objects.get_or_create(
+                pk=category_id,
+                defaults={'name': category_name},
+            )
+
+            if created:
+                self.stdout.write(f'Saved new category {category_name}')
+
+        self.stdout.write(self.style.SUCCESS('done!\n'))
+
+    def sync_languages(self):
+        """Synchronize the languages from the remote server"""
+
+        self.stdout.write('*** Synchronizing languages...')
+        result = requests.get(LANGUAGE_API.format(self.remote_url), headers=self.headers).json()
+        for data in result['results']:
+            short_name = data['short_name']
+            full_name = data['full_name']
+
+            language, created = Language.objects.get_or_create(
+                short_name=short_name,
+                defaults={'full_name': full_name},
+            )
+
+            if created:
+                self.stdout.write(f'Saved new language {full_name}')
+
         self.stdout.write(self.style.SUCCESS('done!\n'))
