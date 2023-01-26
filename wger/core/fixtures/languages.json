@@ -73,6 +73,14 @@
     },
     {
         "model": "core.language",
+        "pk": 10,
+        "fields": {
+            "short_name": "sv",
+            "full_name": "Svenska"
+        }
+    },
+    {
+        "model": "core.language",
         "pk": 11,
         "fields": {
             "short_name": "no",
@@ -133,14 +141,6 @@
         "fields": {
             "short_name": "ca",
             "full_name": "Catala"
-        }
-    },
-    {
-        "model": "core.language",
-        "pk": 19,
-        "fields": {
-            "short_name": "sv",
-            "full_name": "Svenska"
         }
     }
 ]

@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-04-20 20:12+0000\n"
-"Last-Translator: stefan <stefan.isacsson@gmail.com>\n"
+"PO-Revision-Date: 2023-01-18 17:47+0000\n"
+"Last-Translator: tygyh <jonis9898@hotmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/wger/web/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -122,12 +122,12 @@ msgstr "E-post"
 
 #: core/forms.py:80
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr "Används för lösenordsåterställning, alternativt påminnelser."
+msgstr "Används för återställning av lösenord och eventuellt e-postpåminnelser."
 
 #: core/forms.py:84 core/models/profile.py:220
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Födelsedatum"
 
 #: core/forms.py:116
 msgid "Personal data"
@@ -197,7 +197,7 @@ msgstr "Ogiltigt lösenord"
 
 #: core/forms.py:225 core/forms.py:291
 msgid "The form is secured with reCAPTCHA"
-msgstr "Denna formen är säkrad med reCAPTCHA"
+msgstr "Formuläret är säkrat med reCAPTCHA"
 
 #: core/forms.py:239 core/forms.py:258 core/templates/navigation.html:179
 #: core/templates/navigation.html:184 core/templates/template.html:149
@@ -212,7 +212,7 @@ msgstr "Kontakt"
 
 #: core/forms.py:270
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Något sätt svara dig (e-post, etc.)"
+msgstr "Något sätt att svara dig (e-post osv.)"
 
 #: core/forms.py:278 exercises/models/comment.py:42 manager/models/set.py:60
 #: manager/models/setting.py:111 nutrition/models/log.py:71
@@ -262,7 +262,7 @@ msgstr "Länk till licens text eller annan information"
 #: core/models/profile.py:52
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)s är inte ett giltigt födelsedatum"
 
 #: core/models/profile.py:61
 msgid "Male"
@@ -477,7 +477,7 @@ msgstr "Den sida du begärt finns inte."
 
 #: core/templates/500.html:4 core/templates/template_no_context.html:36
 msgid "An error occurred"
-msgstr ""
+msgstr "Ett fel har uppstått"
 
 #: core/templates/500.html:7
 msgid "Something happened that caused an error."
@@ -1170,9 +1170,9 @@ msgid ""
 "and can't be undone. "
 msgstr ""
 "Denna handling kommer ta bort användarkontot \"%(username)s\".\n"
-"Den kommer också oåterkalleligen ta bort all data associerad med kontot "
-"(träningspass, loggar, etc.).\n"
-"Detta kan inte ångras."
+"Den kommer också oåterkalleligen ta bort all data associerad med kontot ("
+"träningspass, loggar, etc.).\n"
+"Detta kan inte ångras. "
 
 #: core/templates/user/login.html:16
 msgid "No account?"

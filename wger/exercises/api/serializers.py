@@ -23,6 +23,7 @@ from rest_framework import serializers
 # wger
 from wger.exercises.models import (
     Alias,
+    DeletionLog,
     Equipment,
     Exercise,
     ExerciseBase,
@@ -64,6 +65,21 @@ class EquipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipment
         fields = ['id', 'name']
+
+
+class DeletionLogSerializer(serializers.ModelSerializer):
+    """
+    Deletion log serializer
+    """
+
+    class Meta:
+        model = DeletionLog
+        fields = [
+            'model_type',
+            'uuid',
+            'timestamp',
+            'comment',
+        ]
 
 
 class ExerciseImageSerializer(serializers.ModelSerializer):

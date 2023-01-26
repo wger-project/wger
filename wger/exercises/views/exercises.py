@@ -179,7 +179,6 @@ class ExerciseDeleteView(
     """
 
     model = Exercise
-    fields = ('description', 'name')
     success_url = reverse_lazy('exercise:exercise:overview')
     delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
     messages = gettext_lazy('Successfully deleted')

@@ -130,7 +130,6 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     """
 
     model = ContractType
-    fields = ('name', 'description')
     permission_required = 'gym.delete_contracttype'
 
     def dispatch(self, request, *args, **kwargs):

@@ -22,7 +22,6 @@ from typing import (
 )
 
 # Django
-from django.core.checks import translation
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse

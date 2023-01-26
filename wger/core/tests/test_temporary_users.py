@@ -64,6 +64,7 @@ class DemoUserTestCase(WgerTestCase):
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': False,
                 'TWITTER': False,
+                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
             self.assertEqual(self.count_temp_users(), 1)

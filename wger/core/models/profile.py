@@ -19,6 +19,7 @@ import datetime
 import decimal
 
 # Django
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import (
@@ -32,7 +33,10 @@ from django.utils.translation import gettext_lazy as _
 # wger
 from wger.gym.models import Gym
 from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight
+from wger.utils.units import (
+    AbstractHeight,
+    AbstractWeight,
+)
 from wger.weight.models import WeightEntry
 
 # Local
@@ -201,7 +205,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             return False
 
         days_since_joined = datetime.date.today() - self.user.date_joined.date()
-        minimum_account_age = 21
+        minimum_account_age = settings.WGER_SETTINGS['MIN_ACCOUNT_AGE_TO_TRUST']
 
         return days_since_joined.days > minimum_account_age and self.email_verified
 
@@ -446,7 +450,8 @@ by the US Department of Agriculture. It is extremely complete, with around
             return 0
 
         weight = self.weight if self.use_metric else AbstractWeight(self.weight, 'lb').kg
-        return weight / pow(self.height / decimal.Decimal(100), 2)
+        height = self.height if self.use_metric else AbstractHeight(self.height, 'inches').inches
+        return weight / pow(height / decimal.Decimal(100), 2)
 
     def calculate_basal_metabolic_rate(self, formula=1):
         """

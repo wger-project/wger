@@ -93,7 +93,6 @@ class MuscleDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMi
     """
 
     model = Muscle
-    fields = ('name', 'is_front', 'name_en')
     success_url = reverse_lazy('exercise:muscle:admin-list')
     permission_required = 'exercises.delete_muscle'
     messages = gettext_lazy('Successfully deleted')
