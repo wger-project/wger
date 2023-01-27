@@ -90,8 +90,15 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseImage
         fields = [
-            'id', 'uuid', 'exercise_base', 'image', 'is_main', 'style', 'license', 'license_author',
-            'author_history'
+            'id',
+            'uuid',
+            'exercise_base',
+            'image',
+            'is_main',
+            'style',
+            'license',
+            'license_author',
+            'author_history',
         ]
 
 
@@ -104,9 +111,21 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseVideo
         fields = [
-            'id', 'uuid', 'exercise_base', 'exercise_base_uuid', 'video', 'is_main', 'size',
-            'duration', 'width', 'height', 'codec', 'codec_long', 'license', 'license_author',
-            'author_history'
+            'id',
+            'uuid',
+            'exercise_base',
+            'exercise_base_uuid',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_author',
+            'author_history',
         ]
 
 
