@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-11-25 10:47+0000\n"
+"PO-Revision-Date: 2023-02-02 15:38+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -3908,7 +3908,7 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
-msgstr "İthalat"
+msgstr "İçe aktar"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"
