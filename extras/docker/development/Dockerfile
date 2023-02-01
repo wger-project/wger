@@ -12,7 +12,7 @@
 ##########
 # Builder
 ##########
-FROM ubuntu:22.04 as builder
+FROM ubuntu:22.10 as builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
