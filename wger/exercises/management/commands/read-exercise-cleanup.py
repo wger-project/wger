@@ -38,6 +38,7 @@ from wger.exercises.models import (
 )
 from wger.utils.constants import DEFAULT_LICENSE_ID
 
+
 UUID_NEW = 'NEW'
 VIDEO_AUTHOR = 'Goulart'
 VIDEO_PATH = pathlib.Path('videos-tmp')
@@ -91,8 +92,8 @@ class Command(BaseCommand):
         for language in [l.short_name for l in languages]:
             for column in columns:
                 name = '{0}:{1}'.format(language, column)
-                assert (name in file_reader.fieldnames), '{0} not in {1}'.format(name,
-                                                                                 file_reader.fieldnames)
+                assert (name in file_reader.fieldnames
+                        ), '{0} not in {1}'.format(name, file_reader.fieldnames)
 
         default_license = License.objects.get(pk=DEFAULT_LICENSE_ID)
 
@@ -200,8 +201,10 @@ class Command(BaseCommand):
                     continue
 
                 translation = Exercise.objects.get_or_create(
-                    uuid=exercise_uuid,
-                    defaults={'exercise_base': base, 'language': language}
+                    uuid=exercise_uuid, defaults={
+                        'exercise_base': base,
+                        'language': language
+                    }
                 )[0] if not new_translation else Exercise()
                 translation.exercise_base = base
                 translation.language = language
