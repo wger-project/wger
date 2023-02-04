@@ -38,7 +38,6 @@ from wger.exercises.models import (
     Muscle,
 )
 
-
 EXERCISE_API = "{0}/api/v2/exercisebaseinfo/?limit=100"
 DELETION_LOG_API = "{0}/api/v2/deletion-log/?limit=100"
 CATEGORY_API = "{0}/api/v2/exercisecategory/"
