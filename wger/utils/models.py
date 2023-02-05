@@ -22,7 +22,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.core.models import License
 from wger.utils.constants import DEFAULT_LICENSE_ID
 
-
 """
 Abstract model classes
 """
@@ -46,7 +45,7 @@ class AbstractLicenseModel(models.Model):
 
     license_author = models.CharField(
         verbose_name=_('Author'),
-        max_length=50,
+        max_length=60,
         blank=True,
         null=True,
         help_text=_(
