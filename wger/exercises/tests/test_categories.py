@@ -12,11 +12,6 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
-from django.urls import reverse
-
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
