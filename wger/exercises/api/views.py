@@ -21,6 +21,7 @@ import logging
 # Django
 from django.conf import settings
 from django.db.models import Q
+from django.http import HttpRequest
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
@@ -346,7 +347,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     )
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
 
