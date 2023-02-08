@@ -42,8 +42,7 @@ from wger.exercises.models import (
     ExerciseImage,
 )
 
-
-IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
+IMAGE_API = "{0}/api/v2/exerciseimage/"
 
 
 class Command(BaseCommand):
@@ -70,7 +69,7 @@ class Command(BaseCommand):
             dest='remote_url',
             default='https://wger.de',
             help='Remote URL to fetch the exercises from (default: '
-            'https://wger.de)'
+                 'https://wger.de)'
         )
 
     def handle(self, **options):
