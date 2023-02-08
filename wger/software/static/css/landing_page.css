@@ -16,6 +16,7 @@
     --red: #bd5164;
     --dark-yellow: #9a6a23;
     --bg-blue: #163665;
+    --bg-light-blue: #eaf0fe;
 }
 
 html,
@@ -38,6 +39,10 @@ a {
     border: 0;
 }
 
+.bg-light-blue {
+    background-color: var(--bg-light-blue);
+}
+
 .bg-dark-blue:hover {
     color: "#fff";
 }
@@ -46,17 +51,6 @@ a {
     color: var(--bg-blue);
 }
 
-.text-green {
-    color: var(--green);
-}
-
-.text-dark-yellow {
-    color: var(--dark-yellow);
-}
-
-.text-red {
-    color: var(--red);
-}
 
 ul.hex-bullet {
     padding-left: 0
@@ -79,68 +73,53 @@ ul.bullet-green li::before {
     color: var(--green);
 }
 
-.fs-8 {
-    font-size: 16px;
-}
 
 /* styles of html */
 header {
     background: linear-gradient(196.14deg, #dde7fc 7.97%, #f1f5ff 92.02%);
 }
 
-.header_hero_image {
+.header-hero-image {
     height: 450px;
     width: 450px;
 }
 
-header .board-section {
-    position: absolute;
-    width: 100%;
-    margin-top: -2em;
-}
 
 ul {
     text-align: justify;
 }
 
-
-.hexagon {
-    /* top: 30vh; */
-    /* left: 40%; */
-    position: absolute;
-    margin: 0 auto;
-    background-color: dodgerblue;
-    border-radius: 10px;
-    width: 20rem;
-    height: 50vh;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
+.sign-up-bg {
+    background-image: url('/static/images/sign-up-bg.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 1000px;
 }
 
-/* Creating pseudo-class */
-.hexagon:before,
-.hexagon:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: dodgerblue;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
+.header-community span {
+    color: var(--bg-blue);
+    display: block;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
-.hexagon:before {
-    transform: rotate(60deg);
+.header-progress span {
+    color: var(--green);
+    display: block;
 }
 
-.hexagon:after {
-    transform: rotate(-60deg);
+.header-meals span {
+    color: var(--dark-yellow);
+    display: block;
 }
+
+.header-workout span {
+    color: var(--red);
+    display: block;
+}
+
+.bg-bottom-menu {
+    background: linear-gradient(181.83deg, #163665 2.2%, #234982 99.11%);
+}
+
 
 /* main */
 main {
@@ -148,9 +127,6 @@ main {
     min-height: 100vh;
 }
 
-.empty-space {
-    min-height: 20vh;
-}
 
 .main-section {
     width: 100%;
@@ -160,32 +136,8 @@ main {
     align-items: center;
 }
 
-.mobile-screen {
-    position: absolute;
-    z-index: 10;
-    left: 100px;
-    top: 100px;
-    height: 360px;
-}
-
-.laptop-screen {
-    position: absolute;
-    z-index: 1;
-    width: 550px;
-    height: 370px;
-}
-
-.polygon-bg {
-    z-index: 0;
-    height: 90%;
-    width: 80%;
-}
 
 /* last section of main */
-.bg-blue {
-    background-color: var(--blue);
-}
-
 .heading-h6 {
     font-family: "Bebas Neue", sans-serif;
     letter-spacing: 2px;
@@ -221,7 +173,7 @@ footer a:hover {
         flex-direction: row;
     }
 
-    .header_hero_image {
+    .header-hero-image {
         height: 22rem;
         width: 22rem;
     }
@@ -230,31 +182,8 @@ footer a:hover {
         min-height: 70vh;
     }
 
-    .empty-space {
-        min-height: 30vh;
-    }
-
     header {
         min-height: 80vh;
     }
 
-    .mobile-screen {
-        left: 20px;
-        top: 80px;
-        height: 200px;
-    }
-
-    .laptop-screen {
-        width: 350px;
-        height: 230px;
-    }
-
-    .polygon-bg {
-        width: 80%;
-        height: 18rem;
-    }
-
-    .human_faces_img {
-        height: 22rem;
-    }
 }

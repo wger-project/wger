@@ -7,9 +7,12 @@
 {% block opengraph %}
     {{ block.super }}
     <meta property="og:title" content="{% translate 'Features' %} - wger">
-
     <meta property="og:description"
           content="{% blocktranslate %}wger Workout Manager is a free, open source web application that manages your exercises and workouts.{% endblocktranslate %}">
+{% endblock %}
+
+{% block opengraphimages %}
+    <meta property="og:image" content="{% static 'images/logos/logo-font.svg' %}">
 {% endblock %}
 
 
@@ -17,503 +20,510 @@
 {# Content #}
 {#         #}
 {% block template %}
-    <header>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg px-4">
-            <div class="container-xl">
-                <a class="navbar-brand" href="#">
-                    <img src="{% static 'images/logos/logo-font.svg' %}"/>
-                </a>
-                <button class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+<header>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg px-4">
+        <div class="container-xl">
+            <a class="navbar-brand" href="{% url 'core:index' %}">
+                <img src="{% static 'images/logos/logo-font.svg' %}" alt="wger logo" />
+            </a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-2 my-1">
+                        <a class="nav-link active fw-bolder" aria-current="page" href="#">{% translate "About" %}    </a>
+                    </li>
+                    <li class="nav-item mx-2 my-1">
+                        <a class="nav-link fw-semibold" href="#">{%  translate "Mobile app" %}</a>
+                    </li>
+                    <li class="nav-item mx-2 my-1">
+                        <a class="nav-link fw-semibold" href="#">{%  translate "Donate" %}</a>
+                    </li>
+                    <li class="nav-item mx-2 my-1">
+                        <a class="nav-link fw-semibold" href="https://github.com/wger-project">
+                            {%  translate "Develop" %}
+                        </a>
+                    </li>
+                    <li class="nav-item mx-2 my-1">
+                        <a class="nav-link fw-semibold" href="#">{%  translate "Community" %}</a>
+                    </li>
+                </ul>
+                <!-- buttons -->
+                <div class="d-flex gap-2">
+                    <a role="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">
+                        {% translate "Login" %}
+                    </a>
+                    {% if allow_registration %}
+                        <a role="button" class="btn btn-primary rounded-1 bg-dark-blue px-4"
+                           href="{% url 'core:user:registration' %}">
+                            {% translate "Register" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-xl">
+        <!-- hero section -->
+        <section class="row px-3 mb-5 d-flex align-items-center justify-content-center gap-2 flex-reverse">
+            <div class="col-lg-7 col-sm-12 d-flex px-5 flex-column align-items-center">
+                <img src="{% static 'images/hero.png' %}" alt="a man with a dumbbell" class="header-hero-image">
+            </div>
+            <div class="col-lg-4 col-sm-12 py-3 d-flex flex-column align-items-center">
+                <h1 class="font-bebas-neue display-3 uppercase">
+                    {% translate "Track your <br> way to your <br> ideal body" %}
+                </h1>
+                <p class="">
+                    {% translate "Join wger, the community-driven <b>free <br> and open-source fitness tracker</b>" %}
+                </p>
+                <button type="button" class="btn btn-primary rounded-1 bg-dark-blue py-2">
+                    {% translate "Get Started" %}
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item mx-2 my-1">
-                            <a class="nav-link active fw-bolder" aria-current="page" href="#">About</a>
+            </div>
+        </section>
+
+        <!-- board section -->
+        <section class="row">
+            <div class="col-6 col-md-3 d-flex flex-column align-items-center">
+                <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_users }}+</h2>
+                <p class="text-center">{% translate "people <br> using wger" %}</p>
+            </div>
+            <div class="col-6 col-md-3 d-flex flex-column align-items-center">
+                <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_exercises }}+</h2>
+                <p class="text-center">{% translate "exercises <br> for workout creation" %}</p>
+            </div>
+            <div class="col-6 col-md-3 d-flex flex-column align-items-center">
+                <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_ingredients }}+</h2>
+                <p class="text-center">{% translate "foods <br> for meal planing" %}</p>
+            </div>
+            <div class="col-6 col-md-3 d-flex flex-column align-items-center">
+                <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_stars }}+</h2>
+                <p class="text-center">{% translate "stars <br> on GitHub" %}</p>
+            </div>
+        </section>
+    </div>
+</header>
+
+
+<!-- main -->
+<main>
+
+    <div class="container-xl">
+
+        <!-- section 1 - workout regimen -->
+        <section class="main-section" style="margin-top: 9em;">
+            <div
+                class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
+                <div
+                    class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
+                    <img src="{% static 'images/screens-1.png' %}"
+                         alt="mobile screen showing wger feature"
+                         class="img-fluid">
+                </div>
+
+                <div
+                    class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center py-2">
+                    <h2 class="w-100 font-bebas-neue display-4 uppercase header-workout">
+                        {% translate "Craft your perfect <span>workout routines</span>" %}
+                    </h2>
+                    <ul class="hex-bullet bullet-red">
+                        <li>
+                            {% translate "Design a weekly workout plan from more than 100 exercises" %}
                         </li>
-                        <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">Mobile App</a>
+                        <li>
+                            {% translate "Set reps and sets, duration, or distance goals for each exercise" %}
                         </li>
-                        <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">Donate</a>
+                        <li>
+                            {% translate "Get guided through your workouts step by step" %}
                         </li>
-                        <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">Develop</a>
-                        </li>
-                        <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">Community</a>
+                        <li>
+                            {% translate "Keep track of the workouts you've done, including how you felt you performed" %}
                         </li>
                     </ul>
-                    <!-- buttons -->
-                    <div class="d-flex gap-2">
-                        <a rola="button" class="btn btn-transparent" href="{% url 'core:user:login' %}">
+                </div>
+            </div>
+        </section>
+
+        <!-- section 2 - daily meals -->
+        <section class="main-section">
+            <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center gy-3">
+                <div
+                    class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
+                    style="overflow: hidden;">
+                    <img src="{% static 'images/screens-2.png' %}"
+                         alt="mobile screen showing wger feature"
+                         class="img-fluid">
+                </div>
+                <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center">
+                    <h2 class="w-100 font-bebas-neue display-4 uppercase header-meals">
+                        {% translate "Plan your <span>daily meals</span>" %}
+                    </h2>
+                    <ul class="gap-1 hex-bullet bullet-dark-yellow">
+                        <li>
+                            {% translate "Fill your week with nutritious meals that help you perform better" %}
+                        </li>
+                        <li>
+                            {% translate "Build meals from a database of more than 2 million foods" %}
+                        </li>
+                        <li>
+                            {% blocktranslate trimmed %}Get automatically calculated nutritional values
+                                (energy, protein, carbs, ...) for both individual meals and your entire
+                                weekly plan
+                            {% endblocktranslate %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- section 3 - progress -->
+        <section class="main-section">
+            <div class="row row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
+                <div
+                    class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
+                    style="overflow: hidden;">
+                    <img src="{% static 'images/screens-3.png' %}"
+                         alt="mobile screen showing wger feature"
+                         class="img-fluid">
+
+                </div>
+                <div
+                    class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center py-2">
+                    <h2 class="w-100 font-bebas-neue display-4 uppercase w-100 header-progress">
+                        {% translate "Keep track of <span>your progress</span>" %}
+                    </h2>
+                    <ul class="hex-bullet bullet-green">
+
+                        <li>
+                            {% translate "Track and annotate everything about your meals and workouts" %}
+                        </li>
+                        <li>
+                            {% translate "Add custom notes" %}
+                        </li>
+                        <li>
+                            {% translate "Record your weight" %}
+                        </li>
+                        <li>
+                            {% translate "Keep a photo log to see your progress" %}
+                        </li>
+                        <li>
+                            {% translate "Use the calendar view to see past entries" %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- button -->
+    <div class="row w-100 p-5 d-flex justify-content-center">
+        <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
+            Try Wger Now
+        </button>
+    </div>
+
+    <!-- community section -->
+    <section class="main-section p-4 bg-light-blue">
+        <div class="container-xl">
+            <div class="row w-100 gy-3">
+                <div class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+                    <img src="{% static 'images/community.png' %}"
+                         width="500"
+                         alt="list of human faces"
+                         class="img-fluid">
+                </div>
+                <div class="col-lg-5 col-sm-12">
+                    <h1 class="display-3 uppercase font-bebas-neue header-community">
+                        {% translate "Powered By <span>the community</span>" %}
+                    </h1>
+                    <p style="line-height: 30px;">
+                        {% blocktranslate trimmed %}
+                            wger is funded and created by the open-source community: people like you
+                            translating, adding exercises and nutritional info, developing, and more.
+                        {% endblocktranslate %}
+                        <b>
+                            {% blocktranslate trimmed %}
+                                We don't use ads, don't sell your personal info, and we share the code
+                                under a free and open-source license.
+                            {% endblocktranslate %}
+                        </b>
+                        {% blocktranslate trimmed %}
+                            Pitch in and help make wger even better!
+                        {% endblocktranslate %}
+                    </p>
+                    <div class="d-flex align-items-sm-center gap-3">
+                        <a href=""
+                           class="btn btn-primary rounded-1 w-auto px-5"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            {% translate "Contribute" %}
+                        </a>
+                        <a href="http://" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary rounded-1 w-auto px-5">
+                            {% translate "Donate" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- sign up section -->
+    <section class="main-section">
+        <div class="container-xl d-flex align-items-center sign-up-bg">
+
+            <!-- form -->
+            <div class="row d-flex flex-column gap-2 w-100 align-items-center ms-1">
+                <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
+                    {% translate "Sign Up Now For Free" %}
+                </h3>
+                <div class="col-lg-5 col-sm-8 d-flex flex-column gap-2">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" placeholder=" ">
+                        <label for="username">{% translate "Username" %}</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        <label for="email">{% translate "Email address (optional)" %}</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" required class="form-control" id="password" placeholder=" ">
+                        <label for="password">{% translate "Password" %}</label>
+                    </div>
+                    <button class="btn btn-primary bg-dark-blue px-4 w-100">{% translate "Submit" %}</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- not enough section  -->
+    <section class="bg-bottom-menu p-5">
+        <div class="container-xl">
+            <h1 class="w-100 display-4 text-white text-center text-uppercase heading-h6 py-4">
+                {% translate "Web version not enough?" %}
+                <br>
+                {% translate "Get the code, too!" %}
+            </h1>
+            <div class="row py-4">
+                <div
+                    class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
+                    <img src="{% static 'images/dumbbell.svg' %}"
+                         height="96"
+                         width="96"
+                         alt="dumbbell icon"
+                         class="mb-4">
+                    <h6 class="text-white fw-bold text-center">
+                        {% translate "Set up a private server for your gym" %}
+                    </h6>
+                    <p class="text-light fw-lighter text-center">
+                        {% translate "Don't want your data on an online service? Set up a wger instance on your own server for free!" %}
+                    </p>
+                </div>
+                <div
+                    class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
+                    <img src="{% static 'images/code.svg' %}"
+                         height="96"
+                         width="96"
+                         alt="code icon"
+                         class="mb-4">
+                    <h6 class="text-white fw-bold text-center">
+                        {% translate "Integrate with your own app" %}
+                    </h6>
+                    <p class="text-light fw-lighter text-center">
+                        {% translate "wger offers an open API that you can use for your app." %}
+                    </p>
+                </div>
+                <div
+                    class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
+                    <img src="{% static 'images/fork.svg' %}"
+                         height="96"
+                         width="96"
+                         alt="git branch icon"
+                         class="mb-4">
+                    <h6 class="text-white fw-bold text-center">
+                        {% translate "Create your own version" %}
+                    </h6>
+                    <p class="text-light fw-lighter text-center">
+                        {% translate "The source code is available under the GNU AGPLv3 license! Feel free to fork it on GitHub." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- footer -->
+<footer class="d-grid gap-3 p-5 footer-bg">
+    <div class="container-xl">
+        <div class="d-flex px-3">
+            <img src="{% static 'images/logos/logo-font-inverse.svg' %}" alt="wger logo"/>
+        </div>
+        <div class="row row-cols-lg-4 row-cols-sm-1 g-2 border-bottom border-light pb-3">
+            <div class="col-lg-3 col-sm-12">
+                <ul class="list-group">
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'core:user:registration' %}">
+                            {% translate "Register" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'core:user:login' %}">
                             {% translate "Login" %}
                         </a>
-                        {% if allow_registration %}
-                            <a role="button" class="btn btn-primary rounded-1 bg-dark-blue px-4"
-                               href="{% url 'core:user:registration' %}">
-                                {% translate "Register" %}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'core:index' %}">
+                            {% translate "Dashboard" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'manager:workout:overview' %}">
+                            {% translate "Training" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'weight:overview' %}">
+                            {% translate "Body weight" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'nutrition:plan:overview' %}">
+                            {% translate "Nutrition" %}
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-
-
-        <div class="container-xl">
-            <!-- hero section -->
-            <section class="row px-3 mb-5 d-flex align-items-center justify-content-center gap-2 flex-reverse">
-                <div class="col-lg-7 col-sm-12 d-flex px-5 flex-column align-items-center">
-                    <img src="{% static 'images/hero.png' %}" alt="a man with a dumbbell" class="header_hero_image">
-                </div>
-                <div class="col-lg-4 col-sm-12 py-3">
-                    <h1 class="font-bebas-neue display-3 uppercase w-100">
-                        {% translate "Track your <br> way to your <br> ideal body" %}
-                    </h1>
-                    <p class="">
-                        {% translate "Join wger, the community-driven <b>free <br> and open-source fitness tracker</b>" %}
-                    </p>
-                    <button type="button" class="btn btn-primary rounded-1 bg-dark-blue py-2">
-                        {% translate "Get Started" %}
-                    </button>
-                </div>
-            </section>
-
-            <!-- board section -->
-            <section class="row row-cols-lg-4 row-cols-2 board-section">
-                <div class="col-lg-2 col-sm-2 d-flex flex-column align-items-center">
-                    <h2 class="display-3 font-bebas-neue text-dark-blue text-center mb-0">{{ nr_users }}+</h2>
-                    <p class="text-center">{% translate "people <br> using wger" %}</p>
-                </div>
-                <div class="col-lg-2 col-sm-2  d-flex flex-column align-items-center">
-                    <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_exercises }}+</h2>
-                    <p class="text-center">{% translate "exercises <br> for workout creation" %}</p>
-                </div>
-                <div class="col-lg-2 col-sm-2 d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="display-3 font-bebas-neue text-dark-blue  mb-0">{{ nr_ingredients }}+</h2>
-                    <p class="text-center">{% translate "foods <br> for meal planing" %}</p>
-                </div>
-                <div class="col-lg-2 col-sm-2 d-flex flex-column align-items-center">
-                    <h2 class="display-3 font-bebas-neue text-dark-blue mb-0">{{ nr_stars }}+</h2>
-                    <p class="text-center">{% translate "stars <br> on GitHub" %}</p>
-                </div>
-            </section>
-        </div>
-    </header>
-
-
-    <!-- main -->
-    <main>
-
-        <div class="container-xl">
-
-            <!-- section 1 - workout regimen -->
-            <section class="main-section" style="margin-top: 9em;">
-                <div
-                    class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
-                    <div
-                        class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative">
-                        <img src="{% static 'images/mobile1.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="mobile-screen">
-                        <img src="{% static 'images/screen1.png' %}"
-                             alt="laptop screen showing wger feature"
-                             class="laptop-screen">
-                        <img src="{% static 'images/polygon-bg.png' %}"
-                             alt="laptop screen showing wger feature"
-                             width="550px"
-                             class="polygon-bg">
-                    </div>
-
-                    <div
-                        class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center py-2">
-                        <h2 class="w-100 font-bebas-neue display-4 uppercase">
-                            {% translate "Craft your perfect <br><span class='text-red'>workout routines</span>" %}
-                        </h2>
-                        <ul class="hex-bullet bullet-red">
-                            <li>
-                                {% translate "Design a weekly workout plan from more than 100 exercises" %}
-                            </li>
-                            <li>
-                                {% translate "Set reps and sets, duration, or distance goals for each exercise" %}
-                            </li>
-                            <li>
-                                {% translate "Get guided through your workouts step by step" %}
-                            </li>
-                            <li>
-                                {% translate "Keep track of the workouts you've done, including how you felt you performed" %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- section 2 - daily meals -->
-            <section class="main-section">
-                <div class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center gy-3">
-                    <div
-                        class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
-                        style="overflow: hidden;">
-                        <img src="{% static 'images/mobile2.png' %}" alt="mobile screen showing wger feature"
-                             class="mobile-screen">
-                        <img src="{% static 'images/screen2.png' %}" alt="laptop screen showing wger feature"
-                             class="laptop-screen">
-                        <img src="{% static 'images/polygon-bg.png' %}"
-                             alt="laptop screen showing wger feature"
-                             width="550px"
-                             class="polygon-bg"
-                             style="transform: rotate(-15deg);">
-                    </div>
-                    <div class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center">
-                        <h2 class="w-100 font-bebas-neue display-4 uppercase">
-                            {% translate "Plan your <br><span class='text-dark-yellow'>daily meals</span>" %}
-                        </h2>
-                        <ul class="gap-1 hex-bullet bullet-dark-yellow">
-                            <li>
-                                {% translate "Fill your week with nutritious meals that help you perform better" %}
-                            </li>
-                            <li>
-                                {% translate "Build meals from a database of more than 2 million foods" %}
-                            </li>
-                            <li>
-                                {% blocktranslate trimmed %}Get automatically calculated nutritional values
-                                    (energy, protein, carbs, ...) for both individual meals and your entire
-                                    weekly plan{% endblocktranslate %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- section 3 - progress -->
-            <section class="main-section">
-                <div class="row row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
-                    <div
-                        class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center position-relative"
-                        style="overflow: hidden;">
-                        <img src="{% static 'images/mobile3.png' %}"
-                             alt="mobile screen showing wger feature"
-                             class="mobile-screen">
-                        <img src="{% static 'images/screen3.png' %}"
-                             alt="laptop screen showing wger feature"
-                             class="laptop-screen">
-                        <img src="{% static 'images/polygon-bg.png' %}"
-                             alt="laptop screen showing wger feature"
-                             width="550px"
-                             class="polygon-bg"
-                             style="transform: rotate(30deg);">
-
-                    </div>
-                    <div
-                        class="col-lg-5 col-sm-12 d-flex flex-column align-items-start justify-content-center py-2">
-                        <h2 class="w-100 font-bebas-neue display-4 uppercase w-100">
-                            {% translate "Keep track of <br><span class='text-green'>your progress</span>" %}
-                        </h2>
-                        <ul class="hex-bullet bullet-green">
-
-                            <li>
-                                {% translate "Track and annotate everything about your meals and workouts" %}
-                            </li>
-                            <li>
-                                {% translate "Add custom notes" %}
-                            </li>
-                            <li>
-                                {% translate "Record your weight" %}
-                            </li>
-                            <li>
-                                {% translate "Keep a photo log to see your progress" %}
-                            </li>
-                            <li>
-                                {% translate "Use the calendar view to see past entries" %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </section>
-
-        </div>
-        <!-- button -->
-        <div class="row w-100 p-5 d-flex justify-content-center">
-            <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
-                Try Wger Now
-            </button>
-        </div>
-
-        <!-- third last section -->
-        <section class="main-section p-4" style="background-color:#EAF0FE;">
-            <div class="container-xl">
-                <div class="row w-100 gy-3">
-                    <div class="col-lg-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
-                        <img src="{% static 'images/community.png' %}"
-                             width="500"
-                             alt="list of human faces"
-                             class="human_faces_img">
-                    </div>
-                    <div class="col-lg-5 col-sm-12">
-                        <h1 class="display-3 uppercase font-bebas-neue">
-                            {% translate "Powered By <br><span class='text-dark-blue'>the community</span>" %}
-                        </h1>
-                        <p style="line-height: 30px;">
-                            {% blocktranslate trimmed %}
-                                wger is funded and created by the open-source community: people like you
-                                translating,
-                                adding exercises and nutritional info, developing, and more.
-                            {% endblocktranslate %}
-                            <b>
-                                {% blocktranslate trimmed %}
-                                    We don't use ads, don't sell your personal info, and we share the code under
-                                    a free and open-source license.
-                                {% endblocktranslate %}
-                            </b>
-                            {% blocktranslate trimmed %}
-                                Pitch in and help make wger even better!
-                            {% endblocktranslate %}
-                        </p>
-                        <div class="d-flex gap-3">
-                            <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
-                                <a href="https://github.com/wger-project"
-                                   target="_blank"
-                                   rel="noopener noreferrer">
-                                    {% translate "Contribute" %}
-                                </a>
-                            </button>
-                            <button type="button" class="btn btn-outline-primary rounded-1 w-auto px-5">
-                                <a href="http://" target="_blank" rel="noopener noreferrer">Donate</a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-3 col-sm-12">
+                <ul class="list-group">
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <h1 class="fs-5 text-white">{% translate "Community" %}</h1>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'exercise:exercise:overview' %}">
+                            {% translate "Exercises" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="{% url 'manager:template:overview' %}">
+                            {% translate "Workout routines" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                            Exercise translation
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </section>
-
-        <!-- sign up section -->
-        <section class="main-section p-3">
-            <div class="container-xl">
-
-                <!-- form -->
-                <div class="row d-flex flex-column gap-2 w-100 align-items-center">
-                    <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
-                        {% translate "Sign Up Now For Free" %}
-                    </h3>
-                    <div class="col-lg-5 col-sm-8 d-flex flex-column gap-2">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="username" placeholder=" ">
-                            <label for="username">{% translate "Username" %}</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" placeholder="name@example.com">
-                            <label for="email">{% translate "Email address (optional)" %}</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" required class="form-control" id="password" placeholder=" ">
-                            <label for="password">{% translate "Password" %}</label>
-                        </div>
-                        <button class="btn btn-primary bg-dark-blue px-4 w-100">{% translate "Submit" %}</button>
-                    </div>
-                </div>
+            <div class="col-lg-3 col-sm-12">
+                <ul class="list-group">
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <h1 class="fs-5 text-white">{% translate "Software" %}</h1>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <a href="https://github.com/wger-project/wger/issues/new/choose"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            {% translate "Report an issue" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <a href="https://github.com/wger-project" target="_blank" rel="noopener noreferrer">
+                            {% translate "Source Code" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <a href="https://hosted.weblate.org/engage/wger/" target="_blank" rel="noopener noreferrer">
+                            {% translate "Translation" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <a href="{% url 'software:api' %}">{% translate "REST API" %}</a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <a href="https://wger.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">
+                            {% translate "Documentation" %}
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </section>
-
-        <!-- last section  -->
-        <section class="bg-blue p-5">
-            <div class="container-xl">
-                <h1 class="w-100 display-4 text-white text-center text-uppercase heading-h6 py-4">
-                    {% translate "Web version not enough?" %}
-                    <br>
-                    {% translate "Get the code, too!" %}
-                </h1>
-                <div class="row py-4">
-                    <div
-                        class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                        <img src="{% static 'images/dumbbell.svg' %}"
-                             height="96"
-                             width="96"
-                             alt="dumbbell icon"
-                             class="mb-4">
-                        <h6 class="text-white fw-bold text-center">
-                            {% translate "Set up a private server for your gym" %}
-                        </h6>
-                        <p class="text-light fw-lighter text-center">
-                            {% translate "Don't want your data on an online service? Set up a wger instance on your own server for free!" %}
-                        </p>
-                    </div>
-                    <div
-                        class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                        <img src="{% static 'images/code.svg' %}"
-                             height="96"
-                             width="96"
-                             alt="code icon"
-                             class="mb-4">
-                        <h6 class="text-white fw-bold text-center">
-                            {% translate "Integrate with your own app" %}
-                        </h6>
-                        <p class="text-light fw-lighter text-center">
-                            {% translate "wger offers an open API that you can use for your app." %}
-                        </p>
-                    </div>
-                    <div
-                        class="col-lg-4 col-sm-12 d-flex flex-column align-items-center justify-content-start gap-2">
-                        <img src="{% static 'images/fork.svg' %}"
-                             height="96"
-                             width="96"
-                             alt="git branch icon"
-                             class="mb-4">
-                        <h6 class="text-white fw-bold text-center">
-                            {% translate "Create your own version" %}
-                        </h6>
-                        <p class="text-light fw-lighter text-center">
-                            {% translate "The source code is available under the GNU AGPLv3 license! Feel free to fork it on GitHub." %}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- footer -->
-    <footer class="d-grid gap-3 p-5 footer-bg">
-        <div class="container-xl">
-            <div class="d-flex px-3">
-                <img src="{% static 'images/logos/logo-font-inverse.svg' %}"/>
-            </div>
-            <div class="row row-cols-lg-4 row-cols-sm-1 g-2 border-bottom border-light pb-3">
-                <div class="col-lg-3 col-sm-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">Account</h1>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'core:user:registration' %}">
-                                {% translate "Register" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'core:user:login' %}">
-                                {% translate "Login" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'core:index' %}">
-                                {% translate "Dashboard" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'manager:workout:overview' %}">
-                                {% translate "Training" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'weight:overview' %}">
-                                {% translate "Body weight" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'nutrition:plan:overview' %}">
-                                {% translate "Nutrition" %}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">Community</h1>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'exercise:exercise:overview' %}">
-                                {% translate "Exercises" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="http://"
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                Workout Plans
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="http://" target="_blank" rel="noopener noreferrer">
-                                Exercise translation
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">Software</h1>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <a href="https://github.com/wger-project/wger/issues/new/choose"
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                {% translate "Report an issue" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light">
+            <div class="col-lg-3 col-sm-12">
+                <ul class="list-group">
+                    <li class="list-group-item bg-transparent border-0 text-light">
+                        <h1 class="fs-5 text-white">
                             <a href="https://github.com/wger-project" target="_blank" rel="noopener noreferrer">
-                                {% translate "Source Code" %}
+                                <i class="fab fa-github px-2"></i>
                             </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <a href="https://hosted.weblate.org/engage/wger/" target="_blank" rel="noopener noreferrer">
-                                {% translate "Translation" %}
+                            <a href="https://discord.gg/rPWFv6W" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-discord px-2"></i>
                             </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <a href="{% url 'software:api' %}">{% translate "REST API" %}</a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <a href="https://wger.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">
-                                {% translate "Documentation" %}
+                            <a href="https://twitter.com/wger_project" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-twitter px-2" aria-hidden="true"></i>
                             </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 text-light">
-                            <h1 class="fs-5 text-white">
-                                <a href="https://twitter.com/wger_project" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-twitter px-2" aria-hidden="true"></i>
-                                </a>
-                                <a href="https://discord.gg/rPWFv6W" target="_blank" rel="noopener noreferrer">
-                                    <i class="fab fa-discord px-2"></i>
-                                </a>
-                            </h1>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0">
-                            <a href="{% url 'software:tos' %}" class="text-light fw-lighter footer-link">
-                                {% translate "Terms of service" %}
-                            </a>
-                        </li>
-                        <li class="list-group-item bg-transparent border-0">
-                            <a href="{% url 'core:imprint' %}">
-                                Privacy policy
-                            </a>
-                        </li>
-                    </ul>
+                        </h1>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0">
+                        <a href="{% url 'software:tos' %}" class="text-light fw-lighter footer-link">
+                            {% translate "Terms of service" %}
+                        </a>
+                    </li>
+                    <li class="list-group-item bg-transparent border-0">
+                        <a href="{% url 'core:imprint' %}">
+                            Privacy policy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between py-3">
+            <div class="dropup">
+                <button
+                    class="btn btn-outline-light dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
+                        <img src="{% static flagname %}"
+                             width="18"
+                             alt="{% translate language.full_name %}"
+                             title="{% translate language.full_name %}">
+                        {{ language.full_name }} <span class="caret"></span>
+                    {% endwith %}
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                    {% for language in languages %}
+                        {% language_select language %}
+                    {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item" target="_blank">
+                        <span class="{% fa_class 'plus' %}"></span>
+                        {% translate "Translate" %}
+                    </a>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between px-3">
-                <button type="button" class="btn btn-outline-light">
-                    English
-                    <i class="fa fa-pencil px-2" aria-hidden="true"></i>
-                </button>
-                <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
-                    <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}" height="55"/>
-                </a>
-            </div>
+            <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                <img src="{% static 'images/logos/play-store/google-play-badge.svg' %}"
+                     alt="google play logo"
+                     height="55"/>
+            </a>
         </div>
-    </footer>
+    </div>
+</footer>
 {% endblock %}

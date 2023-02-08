@@ -3,7 +3,7 @@
 #
 
 # Application
-bleach[css]~=5.0
+bleach[css]~=6.0
 crispy-bootstrap5==0.7
 
 # this is a fork of django-bootstrap-breadcrumbs
@@ -29,6 +29,7 @@ pillow==9.4.0
 reportlab==3.6.12
 requests==2.28.2
 tzdata==2022.7
+
 
 
 # AWS

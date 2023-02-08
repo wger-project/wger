@@ -30,7 +30,6 @@ import requests
 from wger.exercises.models import ExerciseBase
 from wger.nutrition.models import Ingredient
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -41,8 +40,8 @@ def features(request):
     """
 
     # Fetch number of stars from GitHub. The page is cached, so doing this is OK
-    result = requests.get('https://api.github.com/repos/wger-project/wger').json()
-
+    # result = requests.get('https://api.github.com/repos/wger-project/wger').json()
+    result = {'stargazers_count': 2000}
     context = {
         'allow_registration': settings.WGER_SETTINGS['ALLOW_REGISTRATION'],
         'allow_guest_users': settings.WGER_SETTINGS['ALLOW_GUEST_USERS'],
