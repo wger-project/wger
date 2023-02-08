@@ -33,8 +33,7 @@ from wger.exercises.models import (
     ExerciseCategory,
     Muscle,
 )
-from wger.utils.requests import wger_user_agent
-
+from wger.utils.requests import wger_headers
 
 EXERCISE_API = "{0}/api/v2/exerciseinfo/?limit=100"
 CATEGORY_API = "{0}/api/v2/exercisecategory/"
@@ -76,7 +75,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': wger_user_agent()}
+        headers = wger_headers()
         self.sync_categories(headers, remote_url)
         self.sync_muscles(headers, remote_url)
         self.sync_equipment(headers, remote_url)

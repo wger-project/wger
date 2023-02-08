@@ -39,8 +39,7 @@ from wger.exercises.models import (
     ExerciseBase,
     ExerciseImage,
 )
-from wger.utils.requests import wger_user_agent
-
+from wger.utils.requests import wger_headers
 
 IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
 
@@ -84,7 +83,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': wger_user_agent()}
+        headers = wger_headers()
 
         # Get all images
         page = 1

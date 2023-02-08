@@ -18,3 +18,7 @@ from wger import get_version
 
 def wger_user_agent():
     return f'wger/{get_version()} - https://github.com/wger-project'
+
+
+def wger_headers():
+    return {'User-agent': wger_user_agent()}

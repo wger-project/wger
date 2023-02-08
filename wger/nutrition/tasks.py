@@ -28,8 +28,7 @@ from celery import shared_task
 # wger
 from wger.nutrition.models import Image
 from wger.nutrition.models.sources import Source
-from wger.utils.requests import wger_user_agent
-
+from wger.utils.requests import wger_headers
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +68,7 @@ def fetch_ingredient_image_function(pk: int):
 
     # Everything looks fine, go ahead
     logger.info(f'Trying to fetch image from OFF for {ingredient.name} (UUID: {ingredient.uuid})')
-    headers = {'User-agent': wger_user_agent()}
+    headers = wger_headers()
 
     # Fetch the product data
     product_data = requests.get(ingredient.source_url, headers=headers).json()

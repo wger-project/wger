@@ -27,8 +27,7 @@ from wger.nutrition.tasks import (
     fetch_ingredient_image_function,
     logger,
 )
-from wger.utils.requests import wger_user_agent
-
+from wger.utils.requests import wger_headers
 
 loggerMock = MagicMock()
 
@@ -116,13 +115,13 @@ class FetchIngredientImageTestCase(WgerTestCase):
             self.assertTrue(
                 request1.called_with(
                     'https://world.openfoodfacts.org/api/v0/product/5055365635003.json',
-                    headers={'User-agent': wger_user_agent()}
+                    headers=wger_headers()
                 )
             )
             self.assertTrue(
                 request2.called_with(
                     'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
-                    headers={'User-agent': wger_user_agent()}
+                    headers=wger_headers()
                 )
             )
 
