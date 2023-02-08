@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-10-17 00:56+0000\n"
-"Last-Translator: Cem Avcı <cemo99@gmail.com>\n"
+"PO-Revision-Date: 2023-02-02 15:38+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -75,8 +75,6 @@ msgid "Another sample day"
 msgstr "Başka bir örnek gün"
 
 #: core/demo.py:211
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
 msgstr "Örnek beslenme planı"
 
@@ -328,7 +326,7 @@ msgid ""
 "valid email for this to work."
 msgstr ""
 "Antrenmanlar için otomatik hatırlatıcıları etkinleştirmek için işaretleyin. "
-"Bunun çalışması için geçerli bir e-posta sağlamanız gerekiyor."
+"Bunun çalışması için geçerli bir e-posta adresi sağlamanız gerekiyor."
 
 #: core/models/profile.py:148
 msgid "Remind before expiration"
@@ -516,50 +514,49 @@ msgstr "Bunu silmek istediğinizden emin misiniz? Bu eylem geri alınamaz."
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "E-posta adresi doğrulandı"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, e-posta adresiniz doğrulandı"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Hata, geçersiz doğrulama belirteci"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Yapılandırma"
+msgstr "E-posta Doğrulaması"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "%(username)s için takvim"
+msgstr "%(username)s, neredeyse bitirdiniz!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"E-posta adresinizi doğrulamak için lütfen <a href=\"%(link)s\">buraya</a> "
+"tıklayın"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Belirtecin süresi %(time)s tarihinde doluyor"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "wger Ekibi"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
-msgstr ""
+msgstr "E-posta adresinizi doğrulamak için lütfen tıklayın: %(link)s"
 
 #: core/templates/index.html:4
 msgid "Dashboard"
@@ -879,10 +876,8 @@ msgid "Administration"
 msgstr "Yönetim"
 
 #: core/templates/navigation.html:68
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Egzersiz günü"
+msgstr "Egzersiz düzenleme geçmişi"
 
 #: core/templates/navigation.html:69 exercises/models/base.py:84
 msgid "Equipment"
@@ -1407,22 +1402,21 @@ msgid "Preferences"
 msgstr "Tercihler"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Mailleri gönder"
+msgstr "Doğrulanmış e-posta adresi"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Doğrulanmamış e-posta adresi"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Doğrulama e-postası gönder"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
 msgstr ""
+"Egzersizlere katkıda bulunmak için e-posta adresinizi doğrulamanız gerekiyor"
 
 #: core/templates/user/preferences.html:49 core/views/user.py:603
 msgid "Change password"
@@ -1559,7 +1553,7 @@ msgstr "Jimnastik"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "%(email)s adresine bir doğrulama e-postası gönderildi"
 
 #: exercises/models/base.py:63 nutrition/models/ingredient.py:204
 msgid "Category"
@@ -1659,10 +1653,9 @@ msgid "A more basic name for the muscle"
 msgstr "Kas için daha temel bir isim"
 
 #: exercises/models/video.py:50
-#, fuzzy, python-format
-#| msgid "Maximum file size is 100MB."
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Azami dosya boyutu 100MB'dir."
+msgstr "Azami dosya boyutu %(size)sMB'dir."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
@@ -1714,16 +1707,12 @@ msgid "Add new equipment"
 msgstr "Yeni ekipman ekle"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Egzersiz günü"
+msgstr "Egzersiz yönetici geçmişi"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Hareketler"
+msgstr "Eylem"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1737,36 +1726,28 @@ msgid "User"
 msgstr "Kullanıcı"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Konu"
+msgstr "Nesne"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Değiştir"
+msgstr "Değişiklikler"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Geri al"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Nesneyi Görüntüle"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Günlükleri görüntüle"
+msgstr "Değişiklikleri görüntüle"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Değişiklikleri geri al"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1794,13 +1775,9 @@ msgid "Delete equipment?"
 msgstr "Ekipman silinsin mi?"
 
 #: exercises/views/exercises.py:161
-#, fuzzy, python-format
-#| msgid ""
-#| "%(name_original)s is too similar to existing exercise "
-#| "\"%(exercise_name)s\""
+#, python-format
 msgid "%(name)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
-"%(name_original)s, mevcut \"%(exercise_name)s\" egzersizine çok benziyor"
+msgstr "%(name)s, mevcut \"%(exercise_name)s\" egzersizine çok benziyor"
 
 #: exercises/views/exercises.py:184
 msgid "This will delete the exercise from all workouts."
@@ -2291,7 +2268,7 @@ msgstr "Şimdiki versiyonu"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr "Mailleri gönder"
+msgstr "E-postaları gönder"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2747,7 +2724,7 @@ msgid ""
 "option in your settings."
 msgstr ""
 "E-posta hatırlatıcılarını hiçbir zaman almak istemiyorsanız,\n"
-"ayarlarınızda seçeneği."
+"ayarlarınızda seçeneği devre dışı bırakın."
 
 #: manager/templates/workout/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
@@ -3054,10 +3031,8 @@ msgid "Meal"
 msgstr "Yemek"
 
 #: nutrition/models/log.py:65
-#, fuzzy
-#| msgid "Time (approx)"
 msgid "Date and Time (Approx.)"
-msgstr "Zaman (yaklaşık)"
+msgstr "Tarih ve Saat (Yaklaşık)"
 
 #: nutrition/models/meal.py:61
 msgid "Time (approx)"
@@ -3195,7 +3170,8 @@ msgid ""
 msgstr ""
 "Formu gönderdikten sonra yöneticiler bilgilendirilecektir.\n"
 "İncelendikten sonra veri tabanına eklenecektir. Bu olana kadar,\n"
-"genel bakışta veya aramada görünmeyecektir. Kayıt olduğunuzda e-postanızı\n"
+"genel bakışta veya aramada görünmeyecektir. Kayıt olduğunuzda e-posta "
+"adresinizi\n"
 "eklemeniz durumunda, işlem başarıyla tamamlandığında size haber verilecektir."
 
 #: nutrition/templates/ingredient/overview.html:45
@@ -3932,7 +3908,7 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
-msgstr "İthalat"
+msgstr "İçe aktar"
 
 #: weight/templates/import_csv_preview.html:74
 msgid "Or try it again"

@@ -16,11 +16,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import (
-    include,
-    url,
+from django.conf.urls import include
+from django.urls import (
+    path,
+    re_path,
 )
-from django.urls import path
 from django.views.generic import TemplateView
 
 # wger
@@ -147,7 +147,7 @@ patterns_exercise = [
         exercises.view,
         name='view',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
         exercises.view,
         name='view',

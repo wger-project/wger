@@ -100,7 +100,6 @@ class EquipmentDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequire
     """
 
     model = Equipment
-    fields = ('name', )
     messages = gettext_lazy('Successfully deleted')
     title = gettext_lazy('Delete equipment?')
     permission_required = 'exercises.delete_equipment'

@@ -92,7 +92,6 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     """
 
     model = WeightUnit
-    fields = ['name']
     success_url = reverse_lazy('core:weight-unit:list')
     permission_required = 'core.delete_weightunit'
 

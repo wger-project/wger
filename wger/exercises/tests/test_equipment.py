@@ -14,8 +14,6 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
 from django.urls import reverse
 
 # wger
@@ -26,10 +24,7 @@ from wger.core.tests.base_testcase import (
     WgerEditTestCase,
     WgerTestCase,
 )
-from wger.exercises.models import (
-    Equipment,
-    Exercise,
-)
+from wger.exercises.models import Equipment
 from wger.utils.constants import PAGINATION_OBJECTS_PER_PAGE
 
 
@@ -82,7 +77,6 @@ class EquipmentListTestCase(WgerTestCase):
     """
 
     def test_overview(self):
-
         # Add more equipments so we can test the pagination
         self.user_login('admin')
         data = {"name": "A new entry"}

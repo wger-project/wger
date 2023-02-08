@@ -92,7 +92,6 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     """
 
     model = RepetitionUnit
-    fields = ['name']
     success_url = reverse_lazy('core:repetition-unit:list')
     permission_required = 'core.delete_repetitionunit'
 

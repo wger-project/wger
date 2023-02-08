@@ -230,9 +230,6 @@ class LogDeleteView(WgerDeleteMixin, DeleteView, WgerPermissionMixin):
     title = gettext_lazy('Delete?')
     form_action_urlname = 'nutrition:log:delete'
     login_required = True
-    fields = [
-        "comment",
-    ]
 
     def get_success_url(self):
         """

@@ -43,7 +43,7 @@ from wger.exercises.models import (
 )
 
 
-IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
+IMAGE_API = "{0}/api/v2/exerciseimage/"
 
 
 class Command(BaseCommand):

@@ -17,7 +17,6 @@ import json
 
 # Django
 from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
 from django.template import (
     Context,
     Template,
@@ -39,10 +38,7 @@ from wger.exercises.models import (
     Muscle,
 )
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import (
-    DEFAULT_LICENSE_ID,
-    WORKOUT_TAB,
-)
+from wger.utils.constants import DEFAULT_LICENSE_ID
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):

@@ -23,6 +23,7 @@ from rest_framework import serializers
 # wger
 from wger.exercises.models import (
     Alias,
+    DeletionLog,
     Equipment,
     Exercise,
     ExerciseBase,
@@ -66,6 +67,21 @@ class EquipmentSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class DeletionLogSerializer(serializers.ModelSerializer):
+    """
+    Deletion log serializer
+    """
+
+    class Meta:
+        model = DeletionLog
+        fields = [
+            'model_type',
+            'uuid',
+            'timestamp',
+            'comment',
+        ]
+
+
 class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
@@ -74,8 +90,15 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseImage
         fields = [
-            'id', 'uuid', 'exercise_base', 'image', 'is_main', 'style', 'license', 'license_author',
-            'author_history'
+            'id',
+            'uuid',
+            'exercise_base',
+            'image',
+            'is_main',
+            'style',
+            'license',
+            'license_author',
+            'author_history',
         ]
 
 
@@ -88,9 +111,21 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciseVideo
         fields = [
-            'id', 'uuid', 'exercise_base', 'exercise_base_uuid', 'video', 'is_main', 'size',
-            'duration', 'width', 'height', 'codec', 'codec_long', 'license', 'license_author',
-            'author_history'
+            'id',
+            'uuid',
+            'exercise_base',
+            'exercise_base_uuid',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_author',
+            'author_history',
         ]
 
 
@@ -228,6 +263,8 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             "language",
             "aliases",
             "notes",
+            "license",
+            "license_author",
             "author_history",
         )
 
@@ -350,6 +387,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "muscles_secondary",
             "equipment",
             "license",
+            "license_author",
             "images",
             "exercises",
             "variations",

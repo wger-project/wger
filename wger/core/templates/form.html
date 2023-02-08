@@ -15,7 +15,11 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-    {% crispy form %}
+    {% if form %}
+        {% crispy form %}
+    {% else %}
+        Looks like you clicked on an invalid link. Please try again.
+    {% endif %}
 {% endblock %}
 
 

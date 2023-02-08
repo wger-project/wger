@@ -18,30 +18,20 @@
 import uuid
 
 # Django
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
-from django.core import mail
 from django.core.validators import MinLengthValidator
 from django.db import models
-from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
-from actstream import action
 from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import (
-    delete_template_fragment_cache,
-    reset_workout_canonical_form,
-)
+from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -73,7 +63,10 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """The submission date"""
 
-    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    update_date = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
     """Datetime of the last modification"""
 
     language = models.ForeignKey(

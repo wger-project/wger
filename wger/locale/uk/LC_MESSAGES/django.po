@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-07-26 02:01+0000\n"
-"Last-Translator: Artem <artem@molotov.work>\n"
+"PO-Revision-Date: 2022-12-21 00:51+0000\n"
+"Last-Translator: Dan <denqwerta@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.14-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -80,10 +80,8 @@ msgid "Another sample day"
 msgstr "Інший пробний день"
 
 #: core/demo.py:211
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
-msgstr "Пробний план харчування"
+msgstr "Зразок плану харчування"
 
 #: core/demo.py:343 core/demo.py:345 core/demo.py:347
 #, python-brace-format
@@ -520,50 +518,51 @@ msgstr "Ви дійсно хочете вилучити це? Цю дію нем
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "Електронну адресу підтверджено"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, ваша електронна пошта була підтверджена"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Помилка, недійсний токен верифікації"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Конфігурація"
+msgstr "Підтвердження електронною поштою"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Календар для %(username)s"
+msgstr "Ви вже майже на місці, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Будь ласка, натисніть <a href=\"%(link)s\">тут</a>, щоб підтвердити свою "
+"електронну пошту"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Строк дії токена спливає %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "Команда wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"Будь ласка, перейдіть за наступним посиланням, щоб підтвердити свою "
+"електронну пошту: %(link)s"
 
 #: core/templates/index.html:4
 msgid "Dashboard"
@@ -883,10 +882,8 @@ msgid "Administration"
 msgstr "Адміністрація"
 
 #: core/templates/navigation.html:68
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "День тренування"
+msgstr "Історія редагування вправи"
 
 #: core/templates/navigation.html:69 exercises/models/base.py:84
 msgid "Equipment"
@@ -1411,22 +1408,20 @@ msgid "Preferences"
 msgstr "Налаштування"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Надсилати електронні листи"
+msgstr "Підтверджена електронна пошта"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Непідтверджена електронна пошта"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Надіслати електронний лист для підтвердження"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "Вам необхідно підтвердити свою електронну пошту, щоб надсилати вправи"
 
 #: core/templates/user/preferences.html:49 core/views/user.py:603
 msgid "Change password"
@@ -1563,7 +1558,7 @@ msgstr "Тренажерний зал"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "Підтверджувальний лист було надіслано на електронну адресу %(email)s"
 
 #: exercises/models/base.py:63 nutrition/models/ingredient.py:204
 msgid "Category"
@@ -1663,10 +1658,9 @@ msgid "A more basic name for the muscle"
 msgstr "Більш основна назва м'язів"
 
 #: exercises/models/video.py:50
-#, fuzzy, python-format
-#| msgid "Maximum file size is 100MB."
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Максимальний розмір файлу - 100 МБ."
+msgstr "Максимальний розмір файлу - %(size)sМБ."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
@@ -1718,16 +1712,12 @@ msgid "Add new equipment"
 msgstr "Додайте нове обладнання"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "День тренування"
+msgstr "Історія адміністрування вправ"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Дії"
+msgstr "Дія"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1741,36 +1731,28 @@ msgid "User"
 msgstr "Користувач"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Тема"
+msgstr "Об'єкт"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Змінити"
+msgstr "Зміни"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Повернути"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Перегляд об'єкту"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Перегляд журналів"
+msgstr "Перегляд змін"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Повернення змін"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1798,12 +1780,9 @@ msgid "Delete equipment?"
 msgstr "Видалити обладнання?"
 
 #: exercises/views/exercises.py:161
-#, fuzzy, python-format
-#| msgid ""
-#| "%(name_original)s is too similar to existing exercise "
-#| "\"%(exercise_name)s\""
+#, python-format
 msgid "%(name)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr "%(name_original)s занадто схоже на наявну вправу \"%(exercise_name)s\""
+msgstr "%(name)s занадто схоже на наявну вправу \"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:184
 msgid "This will delete the exercise from all workouts."
@@ -2649,7 +2628,7 @@ msgid ""
 "workout more\n"
 "than once."
 msgstr ""
-"Додайте стільки тренувань до програми, скільки захочете. Ви можете\n"
+"Додайте стільки тренувань до розкладу, скільки захочете. Ви можете\n"
 "змінити порядок, перетягнувши їх. Також можна додати одне тренування\n"
 "більш ніж один раз."
 
@@ -2673,7 +2652,7 @@ msgid ""
 "application for example google calendar, outlook or iCal. This will create\n"
 "an appointment for each training day with the appropriate exercises."
 msgstr ""
-"Цей файл можна потім імпортувати в додаток Календар, наприклад\n"
+"Цей файл можна потім імпортувати в календар застосунока, наприклад\n"
 "google календар, outlook або iCal. Це дозволить створити розклад на\n"
 "кожен тренувальний день з відповідними вправами."
 
@@ -2762,8 +2741,8 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
-"Ваш останній запис ваги від %(date)s (%(days)s і днів тому). \n"
-"Натисніть посилання для доступу до програми та введіть нову."
+"Ваш останній запис ваги від %(date)s (%(days)s і днів тому).\n"
+"Натисніть посилання для доступу до застосунку та введіть нову."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
@@ -3053,10 +3032,8 @@ msgid "Meal"
 msgstr "Приймання їжі"
 
 #: nutrition/models/log.py:65
-#, fuzzy
-#| msgid "Time (approx)"
 msgid "Date and Time (Approx.)"
-msgstr "Час (приблизно)"
+msgstr "Дата і час (приблизно)"
 
 #: nutrition/models/meal.py:61
 msgid "Time (approx)"
@@ -3570,7 +3547,7 @@ msgstr "Джерельний код"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr "Отримайте джерельний код цього додатка та його сервера на github"
+msgstr "Отримайте джерельний код цього застосунку та його сервера на github"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
@@ -3603,8 +3580,8 @@ msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
-"Цей додаток перекладено на Weblate. Якщо ви також хочете допомогти, клацніть "
-"на посилання та почніть переклад"
+"Цей застосунок перекладено на Weblate. Якщо ви також хочете допомогти, "
+"клацніть на посилання та почніть переклад"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"
@@ -3627,8 +3604,8 @@ msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts. "
 msgstr ""
-"wger Workout Manager - безкоштовний веб-додаток з відкритим вихідним кодом, "
-"який керує вашими вправами та тренуванням. "
+"wger Workout Manager - безкоштовний вебзастосунок з відкритим вихідним "
+"кодом, який керує вашими вправами та тренуванням. "
 
 #: software/templates/features.html:24
 msgid "Welcome to wger"
@@ -3665,11 +3642,11 @@ msgid ""
 "to replace my growing collection of different spreadsheets, but it has "
 "become something other people could also find useful."
 msgstr ""
-"wger Workout Manager - безкоштовний веб-додаток з відкритим вихідним кодом, "
-"який керує вашими вправами, тренуванням та харчуванням. Це почалося як мій "
-"проект для виховання домашніх тварин, щоб замінити мою зростаючу колекцію "
-"різних електронних таблиць, але став таким, що міг би бути корисним інші "
-"людям."
+"wger Workout Manager - безкоштовний вебзастосунок з відкритим вихідним "
+"кодом, який керує вашими вправами, тренуванням та харчуванням. Це почалося "
+"як мій проект для виховання домашніх тварин, щоб замінити мою зростаючу "
+"колекцію різних електронних таблиць, але став таким, що міг би бути корисним "
+"інші людям."
 
 #: software/templates/features.html:74
 msgid ""
@@ -3691,9 +3668,9 @@ msgid ""
 "the whole plan as well as the indivual meals."
 msgstr ""
 "Створіть свій особистий план дієти, створивши стільки їжі з різними "
-"потрібними інгредієнтами скільки потрібно. Додаток розрахує поживні цінності "
-"(загальну енергію, білок, вуглеводи тощо) щодо всього плану, а також окремих "
-"прийомів їжі."
+"потрібними інгредієнтами скільки потрібно. Застосунок розрахує поживні "
+"цінності (загальну енергію, білок, вуглеводи тощо) щодо всього плану, а "
+"також окремих прийомів їжі."
 
 #: software/templates/features.html:102
 msgid "Diary"
@@ -3765,7 +3742,7 @@ msgid ""
 "attendance. You can manage the members' contracts, keep notes and upload any "
 "files you might need."
 msgstr ""
-"Використовуйте додаток для тренажерного залу, щоб керувати його "
+"Використовуйте застосунок для тренажерного залу, щоб керувати його "
 "відвідувачами, їх тренуванням та відвідуваністю. Ви можете керувати "
 "контрактами відвідувачів, зберігати нотатки та завантажувати будь-які "
 "потрібні вам файли."
@@ -3776,7 +3753,7 @@ msgid ""
 "can integrate your own application and tools."
 msgstr ""
 "wger надає REST API з повним доступом до читання та запису до всіх даних, "
-"щоб ви могли інтегрувати власні програми та інструменти."
+"щоб ви могли інтегрувати власні застосунки та інструменти."
 
 #: software/templates/features.html:223
 #, python-format

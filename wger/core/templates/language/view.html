@@ -37,6 +37,11 @@
 {# Side bar #}
 {#          #}
 {% block sidebar %}
+    <img src="{% static view_language.static_path %}"
+         width="200"
+         alt="{% translate view_language.full_name %}"
+         title="{% translate view_language.full_name %}"
+         style="border: 1px black solid">
 {% endblock %}
 
 

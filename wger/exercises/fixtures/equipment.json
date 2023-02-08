@@ -1,79 +1,72 @@
 [
     {
+        "model": "exercises.equipment",
         "pk": 1,
         "fields": {
             "name": "Barbell"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 2,
         "fields": {
             "name": "SZ-Bar"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 3,
         "fields": {
             "name": "Dumbbell"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 4,
         "fields": {
             "name": "Gym mat"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 5,
         "fields": {
             "name": "Swiss Ball"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 6,
         "fields": {
             "name": "Pull-up bar"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 7,
         "fields": {
             "name": "none (bodyweight exercise)"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 8,
         "fields": {
             "name": "Bench"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 9,
         "fields": {
             "name": "Incline bench"
-        },
-        "model": "exercises.equipment"
+        }
     },
     {
+        "model": "exercises.equipment",
         "pk": 10,
         "fields": {
             "name": "Kettlebell"
-        },
-        "model": "exercises.equipment"
-    },
-    {
-        "pk": 11,
-        "fields": {
-            "name": "Resistance Band"
-        },
-        "model": "exercises.equipment"
+        }
     }
 ]

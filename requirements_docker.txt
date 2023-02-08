@@ -1,0 +1,10 @@
+#
+# Requirements for wger for production (docker setup)
+#
+
+# Regular packages
+-r requirements.txt
+
+gunicorn~=20.1
+psycopg2==2.9.5
+django-redis==5.2.0
