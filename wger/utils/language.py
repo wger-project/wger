@@ -24,7 +24,6 @@ from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -34,10 +33,9 @@ def load_language(language_code=None):
     """
 
     # Read the first part of a composite language, e.g. 'de-at'
-    if language_code is None:
-        used_language = translation.get_language().split('-')[0]
-    else:
-        used_language = language_code
+    used_language = translation.get_language().split('-')[0] \
+        if language_code is None \
+        else language_code
 
     language = cache.get(cache_mapper.get_language_key(used_language))
     if language:
