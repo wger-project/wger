@@ -47,7 +47,9 @@
         "deleteExerciseFull": "Eliminar ejercicio completo",
         "deleteTranslation": "Eliminar traducción",
         "changeExerciseLanguage": "Cambiar el idioma de este ejercicio",
-        "missingExercise": "¿Falta algún ejercicio?"
+        "missingExercise": "¿Falta algún ejercicio?",
+        "identicalExercise": "Evitar los ejercicios duplicados",
+        "cacheWarning": "Debido al almacenamiento en caché, puede pasar algún tiempo hasta que los cambios sean visibles en toda la aplicación."
     },
     "loading": "Cargando...",
     "images": "Imágenes",
@@ -75,7 +77,7 @@
         "minutes": "Minutos",
         "repetitions": "Repeticiones",
         "seconds": "Segundos",
-        "until_failure": "Hasta el fallo",
+        "until_failure": "Hasta que falle",
         "abs": "Abdominales",
         "chest": "Pecho",
         "kettlebell": "Pesa rusa",
@@ -85,7 +87,8 @@
         "kilometers": "Kilómetros",
         "dumbbell": "Mancuerna",
         "gym_mat": "Colchoneta",
-        "incline_bench": "Banco inclinado"
+        "incline_bench": "Banco inclinado",
+        "cardio": "Cardio"
     },
     "English": "Inglés",
     "name": "Nombre",
@@ -104,5 +107,6 @@
     },
     "preferences": "Preferencias",
     "cancel": "Cancelar",
-    "noResults": "Sin resultados"
+    "noResults": "Sin resultados",
+    "success": "¡Exitoso!"
 }
