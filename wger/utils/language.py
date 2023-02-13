@@ -17,7 +17,6 @@ import logging
 
 # Django
 from django.core.cache import cache
-from django.core.exceptions import ObjectDoesNotExist
 from django.utils import translation
 
 # wger
@@ -46,8 +45,7 @@ def load_language(language_code=None):
 
     try:
         language = Language.objects.get(short_name=used_language)
-    except ObjectDoesNotExist:
-        # No luck, load english as our fall-back language
+    except Language.DoesNotExist:
         language = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
     cache.set(cache_mapper.get_language_key(language.short_name), language)
