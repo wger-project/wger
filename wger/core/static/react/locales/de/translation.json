@@ -47,8 +47,11 @@
         "missingExerciseDescription": "Hilf der Community und leiste einen Beitrag!",
         "deleteExerciseFull": "Vollständige Übung löschen",
         "deleteTranslation": "Übersetzung löschen",
-        "deleteExerciseBody": "Möchtest due die Übung \"{{name}}\" löschen? Du kannst entweder die aktuelle {{language}} Übersetzung oder die komplette Übung mit allen Übersetzungen, Bildern usw. löschen.",
-        "basics": "Grundlagen"
+        "deleteExerciseBody": "Möchtest du die Übung \"{{name}}\" löschen? Du kannst entweder die aktuelle {{language}} Übersetzung oder die komplette Übung mit allen Übersetzungen, Bildern usw. löschen.",
+        "basics": "Grundlagen",
+        "notEnoughRightsHeader": "Du kannst keine Übungen beisteuern",
+        "notEnoughRights": "Du kannst Übungen nur dann beisteuern, wenn dein Benutzerkonto älter als {{days}} Tage und deine E-Mail-Adresse verifiziert ist",
+        "changeExerciseLanguage": "Ändere die Sprache dieser Übung"
     },
     "noResults": "Keine Ergebnisse",
     "noResultsDescription": "Keine Ergebnisse für diese Suche gefunden, bitte reduziere die Anzahl der Filter.",
@@ -93,7 +96,7 @@
     "translation": "Übersetzung",
     "overview": "Übersicht",
     "goBack": "Zurück",
-    "language": "Sprache",
+    "language": "Bilder",
     "forms": {
         "supportedImageFormats": "Es werden nur JPEG-, PNG- und WEBP-Dateien unter 20Mb unterstützt",
         "valueTooShort": "Der Wert ist zu gering",
@@ -103,5 +106,6 @@
     "name": "Name",
     "cancel": "Abbrechen",
     "videos": "Videos",
-    "cannotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden."
+    "cannotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "preferences": "Voreinstellungen"
 }

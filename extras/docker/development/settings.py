@@ -7,7 +7,6 @@ from wger.settings_global import *
 # Third Party
 import environ
 
-
 env = environ.Env(
     # set casting, default value
     DJANGO_DEBUG=(bool, False)
@@ -87,14 +86,16 @@ if os.environ.get("ENABLE_EMAIL"):
 
 
 # Sender address used for sent emails
-WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{env.str("FROM_EMAIL")}>'
-DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
+DEFAULT_FROM_EMAIL = env.str("FROM_EMAIL", "wger Workout Manager <wger@example.com>")
+WGER_SETTINGS['EMAIL_FROM'] = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+EMAIL_FROM_ADDRESS = DEFAULT_FROM_EMAIL
 
 # Management
 WGER_SETTINGS["ALLOW_REGISTRATION"] = env.bool("ALLOW_REGISTRATION", True)
 WGER_SETTINGS["ALLOW_GUEST_USERS"] = env.bool("ALLOW_GUEST_USERS", True)
 WGER_SETTINGS["ALLOW_UPLOAD_VIDEOS"] = env.bool("ALLOW_UPLOAD_VIDEOS", True)
-WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = env.int("MIN_ACCOUNT_AGE_TO_TRUST", 21) # in days
+WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = env.int("MIN_ACCOUNT_AGE_TO_TRUST", 21)  # in days
 WGER_SETTINGS["EXERCISE_CACHE_TTL"] = env.int("EXERCISE_CACHE_TTL", 3600)
 WGER_SETTINGS["USE_CELERY"] = env.bool("USE_CELERY", False)
 
@@ -116,8 +117,7 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
 COMPRESS_ROOT = STATIC_ROOT
 
 # The site's domain as used by the email verification workflow
-EMAIL_PAGE_DOMAIN = 'http://localhost/'
-
+EMAIL_PAGE_DOMAIN = SITE_URL
 
 #
 # Django Axes
@@ -137,7 +137,16 @@ SIMPLE_JWT['SIGNING_KEY'] = env.str("SIGNING_KEY", SECRET_KEY)
 #
 # https://docs.djangoproject.com/en/4.1/ref/csrf/
 #
-CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", ['http://127.0.0.1', ])
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=['http://127.0.0.1', 'http://localhost', 'https://localhost'],
+)
+
+if env.bool('X_FORWARDED_PROTO_HEADER_SET', False):
+    SECURE_PROXY_SSL_HEADER = (
+        env.str('SECURE_PROXY_SSL_HEADER', 'HTTP_X_FORWARDED_PROTO'),
+        'https'
+    )
 
 #
 # Celery message queue configuration

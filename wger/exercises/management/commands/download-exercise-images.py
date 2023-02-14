@@ -41,7 +41,7 @@ from wger.exercises.models import (
 )
 from wger.utils.requests import wger_headers
 
-IMAGE_API = "{0}/api/v2/exerciseimage/?status=2"
+IMAGE_API = "{0}/api/v2/exerciseimage/"
 
 
 class Command(BaseCommand):
@@ -107,7 +107,7 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    image = ExerciseImage.objects.get(uuid=image_uuid)
+                    ExerciseImage.objects.get(uuid=image_uuid)
                     self.stdout.write('    Image already present locally, skipping...')
                     continue
                 except ExerciseImage.DoesNotExist:

@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-01-18 14:31+0000\n"
-"Last-Translator: G. Buendía <gbuendia@gmx.net>\n"
+"PO-Revision-Date: 2023-02-02 15:38+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -80,8 +80,6 @@ msgid "Another sample day"
 msgstr "Otro día de ejemplo"
 
 #: core/demo.py:211
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
 msgstr "Ejemplo de plan nutricional"
 
@@ -529,50 +527,50 @@ msgstr ""
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "Correo electrónico verificado"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, tu correo electrónico ha sido verificado"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Error, token de verificación no válido"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Configuración"
+msgstr "Confirmación de correo electrónico"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Calendario de %(username)s"
+msgstr "¡Ya casi estás, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Haga clic <a href=\"%(link)s\">aquí</a> para confirmar su correo electrónico"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "El token caduca el %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "El Equipo Wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"Haga clic en el siguiente enlace para confirmar su correo electrónico: "
+"%(link)s"
 
 #: core/templates/index.html:4
 msgid "Dashboard"
@@ -893,10 +891,8 @@ msgid "Administration"
 msgstr "Administración"
 
 #: core/templates/navigation.html:68
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Día de ejercicio"
+msgstr "Historial de edición de ejercicios"
 
 #: core/templates/navigation.html:69 exercises/models/base.py:84
 msgid "Equipment"
@@ -1081,12 +1077,12 @@ msgstr "Clic aqui para mas informacion"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
-msgstr "previo"
+msgstr "anterior"
 
 #: core/templates/tags/pagination.html:31
 #: core/templates/tags/pagination.html:35
 msgid "next"
-msgstr "siguiente"
+msgstr "próximo"
 
 #: core/templates/tags/render_day.html:34
 msgid "Add weight log"
@@ -1424,22 +1420,21 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Enviar email"
+msgstr "Correo electrónico verificado"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Correo electrónico no verificado"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Envía un correo electronico de verificación"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
 msgstr ""
+"Necesitas verificar tu correo electrónico para contribuir con ejercicios"
 
 #: core/templates/user/preferences.html:49 core/views/user.py:603
 msgid "Change password"
@@ -1576,7 +1571,7 @@ msgstr "Gimnasio"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "Se envió un correo electrónico de verificación a %(email)s"
 
 #: exercises/models/base.py:63 nutrition/models/ingredient.py:204
 msgid "Category"
@@ -1614,32 +1609,28 @@ msgid "Language"
 msgstr "Idioma"
 
 #: exercises/models/exercise_alias.py:38
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Corregir un ejercicio"
+msgstr "Alias para un ejercicio"
 
 #: exercises/models/image.py:55
 msgid "Line"
-msgstr ""
+msgstr "Línea"
 
 #: exercises/models/image.py:56
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:57
 msgid "Low-poly"
-msgstr ""
+msgstr "Low-poly"
 
 #: exercises/models/image.py:58
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: exercises/models/image.py:59
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Otros"
+msgstr "Otro"
 
 #: exercises/models/image.py:77 gallery/models/image.py:56
 msgid "Image"
@@ -1665,50 +1656,44 @@ msgstr ""
 
 #: exercises/models/image.py:96
 msgid "The art style of your image"
-msgstr ""
+msgstr "El estilo artístico de tu imagen"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "En latín, p.ej. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "nombre del ejercicio"
+msgstr "Nombre alternativo"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Un nombre más básico para el músculo"
 
 #: exercises/models/video.py:50
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "El tamaño máximo de archivo es %(size)sMB."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
-msgstr ""
+msgstr "El tipo de archivo no es compatible"
 
 #: exercises/models/video.py:70
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s Fecha de nacimiento no valida"
+msgstr "El archivo no es un video válido"
 
 #: exercises/models/video.py:101
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Imagen principal"
+msgstr "Video principal"
 
 #: exercises/models/video.py:107
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: exercises/models/video.py:114
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: exercises/models/video.py:121 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1716,23 +1701,19 @@ msgstr "Duración"
 
 #: exercises/models/video.py:130
 msgid "Width"
-msgstr ""
+msgstr "Ancho"
 
 #: exercises/models/video.py:137
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Peso"
+msgstr "Alto"
 
 #: exercises/models/video.py:144
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Código"
+msgstr "Códec"
 
 #: exercises/models/video.py:152
 msgid "Codec, long name"
-msgstr ""
+msgstr "Códec, nombre largo"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1744,16 +1725,12 @@ msgid "Add new equipment"
 msgstr "Agregar nuevo equipo"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Día de ejercicio"
+msgstr "Historial de administración de ejercicios"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Acciones"
+msgstr "Acción"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1767,36 +1744,28 @@ msgid "User"
 msgstr "Usuario"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Tema"
+msgstr "Objeto"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Cambio"
+msgstr "Cambios"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Revertir"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Ver Objeto"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Ver registro de peso"
+msgstr "Ver cambios"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Revertir cambios"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1824,13 +1793,10 @@ msgid "Delete equipment?"
 msgstr "¿Borrar equipo?"
 
 #: exercises/views/exercises.py:161
-#, fuzzy, python-format
-#| msgid ""
-#| "%(name_original)s is too similar to existing exercise "
-#| "\"%(exercise_name)s\""
+#, python-format
 msgid "%(name)s is too similar to existing exercise \"%(exercise_name)s\""
 msgstr ""
-"%(name_original)s es muy similar al ejercicio existente \"%(exercise_name)s\""
+"%(name)s es demasiado similar al ejercicio existente \"%(exercise_name)s\""
 
 #: exercises/views/exercises.py:184
 msgid "This will delete the exercise from all workouts."
@@ -2178,8 +2144,6 @@ msgid "Dumbbell"
 msgstr "Mancuerna"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
 msgstr "Bíceps"
 
@@ -2209,25 +2173,23 @@ msgstr "Espalda"
 
 #: i18n.tpl:15
 msgid "Lower back"
-msgstr ""
+msgstr "Espalda baja"
 
 #: i18n.tpl:16
 msgid "Lats"
-msgstr ""
+msgstr "Laterales"
 
 #: i18n.tpl:17
 msgid "Hamstrings"
-msgstr ""
+msgstr "Isquiotibiales"
 
 #: i18n.tpl:18
 msgid "Bench"
 msgstr "Banco"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minutos"
+msgstr "Glúteos"
 
 #: i18n.tpl:20
 msgid "Kilometers"
@@ -2251,7 +2213,7 @@ msgstr "Banco inclinado"
 
 #: i18n.tpl:25
 msgid "Quads"
-msgstr ""
+msgstr "Cuádriceps"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2274,10 +2236,8 @@ msgid "Barbell"
 msgstr "Barra olímpica"
 
 #: i18n.tpl:31
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "Tríceps braquial"
+msgstr "Tríceps"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -2962,7 +2922,7 @@ msgstr "Esto también eliminará todos los registros de peso de este día."
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: nutrition/forms.py:123
 msgid "Calculate"
@@ -3084,10 +3044,8 @@ msgid "Meal"
 msgstr "Comida"
 
 #: nutrition/models/log.py:65
-#, fuzzy
-#| msgid "Time (approx)"
 msgid "Date and Time (Approx.)"
-msgstr "Hora (aprox.)"
+msgstr "Fecha y Hora (aprox.)"
 
 #: nutrition/models/meal.py:61
 msgid "Time (approx)"
@@ -3098,6 +3056,8 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
+"Dé a las comidas una descripción/nombre textual como \"Desayuno\" o \"después"
+" del entrenamiento\""
 
 #: nutrition/models/plan.py:71
 msgid ""

@@ -20,7 +20,13 @@
         "contributeExercise": "Contribuer à un exercice",
         "exercises": "Exercices",
         "category": "Catégorie",
-        "equipment": "Equipement"
+        "equipment": "Equipement",
+        "notEnoughRightsHeader": "Vous ne pouvez pas contribuer aux exercices",
+        "translateExerciseNow": "Traduire cet exercice",
+        "variations": "Variations",
+        "notEnoughRights": "Vous pouvez contribuer aux exercices seulement si votre compte est vieux d'au moins {{days}} jours et votre email est vérifié",
+        "muscles": "Muscles",
+        "deleteTranslation": "Supprimer la traduction"
     },
     "server": {
         "arms": "Bras",
@@ -50,8 +56,10 @@
     },
     "noResults": "Aucun résultats",
     "noResultsDescription": "Aucun résultats n'a été trouvé avec cette requête, essayez de réduire le nombre de filtres.",
-    "nutritionalPlan": "Plan nutritionnel",
+    "nutritionalPlan": "Programme nutritionnel",
     "addEntry": "Ajouter une entrée",
     "currentWeight": "Poids actuel",
-    "workout": "Séance"
+    "workout": "Séance",
+    "loading": "Chargement...",
+    "continue": "Continuer"
 }

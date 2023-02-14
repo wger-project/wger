@@ -44,7 +44,9 @@
         "filterVariations": "Varyasyonları filtrelemek için egzersiz adı girin",
         "deleteExerciseBody": "\"{{name}}\" egzersizini silmek istiyor musunuz? İster {{language}} çeviriyi silebilirsiniz, isterseniz alıştırmanın tamamını silebilirsiniz tüm çeviriler, resimler vb.",
         "step1HeaderBasics": "İngilizce'de temel bilgiler",
-        "identicalExercisePleaseDiscard": "Eklediğiniz egzersizle aynı olan bir egzersiz fark ederseniz, lütfen taslağınızı atın ve bunun yerine o egzersizi düzenleyin."
+        "identicalExercisePleaseDiscard": "Eklediğiniz egzersizle aynı olan bir egzersiz fark ederseniz, lütfen taslağınızı atın ve bunun yerine o egzersizi düzenleyin.",
+        "identicalExercise": "Yinelenen egzersizlerden kaçın",
+        "cacheWarning": "Önbelleğe alma nedeniyle değişikliklerin uygulama genelinde görünür olması biraz zaman alabilir."
     },
     "noResults": "Sonuç yok",
     "noResultsDescription": "Bu sorgu için sonuç bulunamadı, filtre sayısını azaltmayı düşünün.",
@@ -83,7 +85,8 @@
         "none__bodyweight_exercise_": "yok (vücut ağırlığı egzersizi)",
         "sz_bar": "Z bar",
         "pull_up_bar": "Barfiks çubuğu",
-        "triceps": "Tricep kasları"
+        "triceps": "Tricep kasları",
+        "cardio": "Kardiyo"
     },
     "submit": "Gönder",
     "weight": "Ağırlık",
@@ -109,5 +112,6 @@
     "videos": "Videolar",
     "cancel": "İptal",
     "cannotBeUndone": "Bu eylem geri alınamaz.",
-    "translation": "Çeviri"
+    "translation": "Çeviri",
+    "success": "Başarılı!"
 }

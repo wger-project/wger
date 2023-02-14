@@ -8,7 +8,6 @@ from wger.settings_global import *
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
 
-
 # Application settings
 WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 WGER_SETTINGS["ALLOW_REGISTRATION"] = True
@@ -27,7 +26,6 @@ DATABASES = {{
         'PORT': '{dbport}',
     }}
 }}  # yapf: disable
-
 
 # List of administrations
 ADMINS = (('Your name', 'your_email@example.com'), )
@@ -64,7 +62,7 @@ ALLOWED_HOSTS = [
 ]
 
 # This might be a good idea if you set up redis
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Configure a real backend in production
 # See: https://docs.djangoproject.com/en/dev/topics/email/#email-backends
@@ -76,18 +74,21 @@ DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL
 
-
 #
 # https://django-axes.readthedocs.io/en/latest/
 #
 AXES_ENABLED = False
-AXES_FAILURE_LIMIT = 10
-AXES_COOLOFF_TIME = timedelta(minutes=30)
-AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
-
+# AXES_FAILURE_LIMIT = 10
+# AXES_COOLOFF_TIME = timedelta(minutes=30)
+# AXES_HANDLER = 'axes.handlers.cache.AxesCacheHandler'
 
 #
-# Sometimes needed if deployed behind a proxy, etc.
+# Sometimes needed if deployed behind a proxy with HTTPS enabled:
 # https://docs.djangoproject.com/en/4.1/ref/csrf/
 #
 # CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'https://my.domain.example.com']
+
+# Alternative to above, needs changes to the reverse proxy's config
+# https://docs.djangoproject.com/en/4.1/ref/settings/#secure-proxy-ssl-header
+#
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO, 'https')

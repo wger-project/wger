@@ -10,7 +10,7 @@ from .celery import app as celery_app
 
 MIN_APP_VERSION = (1, 5, 0, 'final', 1)
 
-VERSION = (2, 2, 0, 'alpha', 1)
+VERSION = (2, 2, 0, 'alpha', 2)
 RELEASE = True
 
 

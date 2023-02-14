@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Zrnek <perteus@gmail.com>\n"
+"PO-Revision-Date: 2023-02-13 10:39+0000\n"
+"Last-Translator: Roman Kalivoda <kalivodaroman@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -524,16 +524,16 @@ msgstr "Jsi si jistý, že to chceš smazat? Tuhle akci už nejde pak odvolat."
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "Email ověřen"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, Váš email byl ověřen"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Chyba, chybně zadaný ověřovací token"
 
 #: core/templates/email_verification/email_body_html.tpl:6
 #, fuzzy
@@ -552,22 +552,23 @@ msgstr "Kalendář uživatele %(username)s"
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Prosím klikněte na <a href=\"%(link)s\">here</a> pro potvrzení vašeho e-mailu"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Platnost tohoto tokenu vyprší v %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "Tým wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
-#, python-format
+#, fuzzy, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
-msgstr ""
+msgstr "Pro potvrzení e-mailu klikněte na následující odkaz: %(link)s"
 
 #: core/templates/index.html:4
 msgid "Dashboard"
@@ -812,7 +813,7 @@ msgstr "Nic nenalezeno"
 #: core/templates/template_features.html:117
 #: core/templates/template_no_context.html:88
 msgid "Imprint"
-msgstr ""
+msgstr "Tiráž"
 
 #: core/templates/misc/fragments/shariff_modal.html:6
 msgid "Share this page"
@@ -861,7 +862,7 @@ msgstr "Kalendář"
 
 #: core/templates/navigation.html:44 gallery/templates/images/overview.html:6
 msgid "Gallery"
-msgstr ""
+msgstr "Galerie"
 
 #: core/templates/navigation.html:48
 #, fuzzy
@@ -877,7 +878,7 @@ msgstr "Tvé rozvrhy"
 
 #: core/templates/navigation.html:59 manager/views/workout.py:115
 msgid "Public templates"
-msgstr ""
+msgstr "Veřejné šablony"
 
 #: core/templates/navigation.html:63 manager/forms.py:133
 #: manager/models/setting.py:54
@@ -1422,15 +1423,15 @@ msgstr "Odeslat emaily"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Neověřený email"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Odeslat ověřovací email"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "Abyste mohli přidávat cvičení, musíte ověřit svůj email"
 
 #: core/templates/user/preferences.html:49 core/views/user.py:603
 msgid "Change password"
@@ -1567,7 +1568,7 @@ msgstr "Posilovna"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "Ověřovací e-mail byl zaslán na %(email)s"
 
 #: exercises/models/base.py:63 nutrition/models/ingredient.py:204
 msgid "Category"
@@ -1616,7 +1617,7 @@ msgstr ""
 
 #: exercises/models/image.py:56
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: exercises/models/image.py:57
 msgid "Low-poly"
@@ -1624,7 +1625,7 @@ msgstr ""
 
 #: exercises/models/image.py:58
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: exercises/models/image.py:59
 #, fuzzy
@@ -1670,16 +1671,16 @@ msgstr "jméno cviku"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Obecnější název svalu"
 
 #: exercises/models/video.py:50
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "Maximální velikost souboru je %(size)sMB."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
-msgstr ""
+msgstr "Typ souboru není podporován"
 
 #: exercises/models/video.py:70
 #, fuzzy
@@ -1695,11 +1696,11 @@ msgstr "Hlavní obrázek"
 
 #: exercises/models/video.py:107
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: exercises/models/video.py:114
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 #: exercises/models/video.py:121 manager/models/schedule_step.py:56
 msgid "Duration"
@@ -1707,7 +1708,7 @@ msgstr "Trvání"
 
 #: exercises/models/video.py:130
 msgid "Width"
-msgstr ""
+msgstr "Šířka"
 
 #: exercises/models/video.py:137
 #, fuzzy
@@ -1723,7 +1724,7 @@ msgstr "Kód"
 
 #: exercises/models/video.py:152
 msgid "Codec, long name"
-msgstr ""
+msgstr "Kodek, dlouhý název"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1773,11 +1774,11 @@ msgstr "Změna"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Navrátit"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Zobrazit objekt"
 
 #: exercises/templates/history/overview.html:75
 #, fuzzy
@@ -1787,7 +1788,7 @@ msgstr "Zobrazit záznamy"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Zvrátit změny"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2202,15 +2203,15 @@ msgstr "Záda"
 
 #: i18n.tpl:15
 msgid "Lower back"
-msgstr ""
+msgstr "Dolní část zad"
 
 #: i18n.tpl:16
 msgid "Lats"
-msgstr ""
+msgstr "Široký sval zádový"
 
 #: i18n.tpl:17
 msgid "Hamstrings"
-msgstr ""
+msgstr "Zadní stehenní svaly"
 
 #: i18n.tpl:18
 msgid "Bench"
@@ -2244,7 +2245,7 @@ msgstr "Šikmá lavice"
 
 #: i18n.tpl:25
 msgid "Quads"
-msgstr ""
+msgstr "Čtyřhlavý sval stehenní"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2500,18 +2501,20 @@ msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Označení tréninku jako šablony jej uzamkne pro úpravy a umožní vám vytvářet "
+"jeho kopie"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Veřejná šablona"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Veřejná šablona je k dispozici ostatním uživatelům"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
+msgstr "Musíte označit toto cvičení jako šablonu před tím, než ji zveřejníte"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:31
 msgid "Workout log"
@@ -2912,7 +2915,7 @@ msgstr "Upravit trénink"
 
 #: manager/templates/workout/view.html:225 manager/views/workout.py:301
 msgid "Mark as template"
-msgstr ""
+msgstr "Označit jako šablonu"
 
 #: manager/views/day.py:109
 msgid "Add workout day"
@@ -2959,7 +2962,7 @@ msgstr "Toto smaže všechny záznamy váhy pro tento den"
 
 #: measurements/models/measurement.py:69
 msgid "Value"
-msgstr ""
+msgstr "Hodnota"
 
 #: nutrition/forms.py:123
 msgid "Calculate"
@@ -3090,10 +3093,11 @@ msgid "Time (approx)"
 msgstr "Čas (cca)"
 
 #: nutrition/models/meal.py:68
+#, fuzzy
 msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
-msgstr ""
+msgstr "textový popis/název jídla, například \"snídaně\" nebo \"po tréninku\"."
 
 #: nutrition/models/plan.py:71
 msgid ""
@@ -3583,32 +3587,38 @@ msgid ""
 "Thank you for using wger! wger is a collaborative open source project, made "
 "by fitness enthusiasts from around the world."
 msgstr ""
+"Děkujeme Vám za použití wger! wger je komunitní open source projekt, který "
+"je tvořen fitness nadšenci z celého světa."
 
 #: software/templates/about_us.html:18
 msgid "Source code"
-msgstr ""
+msgstr "Zdrojový kód"
 
 #: software/templates/about_us.html:20
 msgid "Get the source code of this application and its server on github"
-msgstr ""
+msgstr "Získejte zdrojový kód této aplikace a jejího serveru na GitHubu"
 
 #: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
-msgstr ""
+msgstr "Máte problém nebo nápad?"
 
 #: software/templates/about_us.html:27
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
 msgstr ""
+"Kontaktujte nás, pokud se něco nechovalo podle očekávání nebo pokud existuje "
+"funkce, o které se domníváte, že chybí."
 
 #: software/templates/about_us.html:32
 msgid "Say hi!"
-msgstr ""
+msgstr "Ahoj!"
 
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
+"Pokud si s námi chcete popovídat, přejděte na Discord server a kontaktujte "
+"nás"
 
 #: software/templates/about_us.html:39
 #, fuzzy
@@ -3621,6 +3631,8 @@ msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
 msgstr ""
+"Tato aplikace je přeložena na weblate. Chcete-li také pomoci, klikněte na "
+"odkaz a začněte překládat"
 
 #: software/templates/about_us.html:50
 msgid "Our goal"

@@ -35,8 +35,9 @@
         "submitExercise": "Invia esercizio",
         "whatVariationsExist": "Quali variazioni esistono per l'esercizio?",
         "variations": "Variazioni",
-        "identicalExercisePleaseDiscard": "Se l'esercizio è identico a quello che stai aggiungendo, per favore elimina la bozza e modifica l'esercizio già presente",
-        "checkInformationBeforeSubmitting": "Per favore controlla che le informazioni inserite siano corrette prima di confermare l'esercizio"
+        "identicalExercisePleaseDiscard": "Se noti un esercizio identico a quello che stai aggiungendo, elimina la bozza e modifica invece quell'esercizio.",
+        "checkInformationBeforeSubmitting": "Per favore controlla che le informazioni inserite siano corrette prima di confermare l'esercizio",
+        "step1HeaderBasics": "Nozioni di base in inglese"
     },
     "noResults": "Nessun risultato",
     "noResultsDescription": "Nessun risultato trovato. Prova a ridurre i termini di ricerca.",
