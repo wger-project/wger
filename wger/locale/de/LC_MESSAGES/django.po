@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
 "PO-Revision-Date: 2023-02-18 01:46+0000\n"
-"Last-Translator: KneeClass03 <nisipa@web.de>\n"
+"Last-Translator: Axel Steinbrecher <mail@axelsteinbrecher.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -76,10 +76,8 @@ msgid "Another sample day"
 msgstr "Noch ein Beispieltag"
 
 #: core/demo.py:211
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
-msgstr "Beispiel Ernährungplan"
+msgstr "Beispiel Ernährungsplan"
 
 #: core/demo.py:343 core/demo.py:345 core/demo.py:347
 #, python-brace-format
@@ -539,10 +537,9 @@ msgstr "E-Mail-Bestätigung"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Kalender für %(username)s"
+msgstr "Fast geschafft %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -888,10 +885,8 @@ msgid "Administration"
 msgstr "Administration"
 
 #: core/templates/navigation.html:68
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Übungstag"
+msgstr "Übungen - Bearbeitungshistorie"
 
 #: core/templates/navigation.html:69 exercises/models/base.py:84
 msgid "Equipment"
@@ -1608,7 +1603,7 @@ msgstr "Sprache"
 
 #: exercises/models/exercise_alias.py:38
 msgid "Alias for an exercise"
-msgstr "Alias für eine Übung"
+msgstr "Alternativer Name für eine Übung"
 
 #: exercises/models/image.py:55
 msgid "Line"
