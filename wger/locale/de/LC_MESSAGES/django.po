@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-12-14 21:49+0000\n"
-"Last-Translator: Christoph Suesser <fitzzz@fitzzz.de>\n"
+"PO-Revision-Date: 2023-02-18 01:46+0000\n"
+"Last-Translator: KneeClass03 <nisipa@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -1667,7 +1667,7 @@ msgstr "Alternative Bezeichnung"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr "Einfacher Name füür den Muskel"
+msgstr "Einfacherer Name für den Muskel"
 
 #: exercises/models/video.py:50
 #, fuzzy, python-format
@@ -1685,7 +1685,7 @@ msgstr "Die Datei ist kein gültiges Video"
 
 #: exercises/models/video.py:101
 msgid "Main video"
-msgstr "Hauptvideo"
+msgstr "Hauptfilm"
 
 #: exercises/models/video.py:107
 msgid "Video"
@@ -2160,10 +2160,8 @@ msgid "Dumbbell"
 msgstr "Kurzhantel"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
-msgstr "Armbeuger"
+msgstr "Bizeps"
 
 #: i18n.tpl:9
 msgid "SZ-Bar"
@@ -2254,10 +2252,8 @@ msgid "Barbell"
 msgstr "Langhantel"
 
 #: i18n.tpl:31
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "Armstrecker"
+msgstr "Trizeps"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
