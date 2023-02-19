@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2023-02-18 01:46+0000\n"
-"Last-Translator: Axel Steinbrecher <mail@axelsteinbrecher.de>\n"
+"PO-Revision-Date: 2023-02-20 19:37+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1411,10 +1411,8 @@ msgid "Preferences"
 msgstr "Einstellungen"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "E-Mails senden"
+msgstr "Verifizierte E-Mail"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
@@ -1665,10 +1663,9 @@ msgid "A more basic name for the muscle"
 msgstr "Einfacherer Name für den Muskel"
 
 #: exercises/models/video.py:50
-#, fuzzy, python-format
-#| msgid "Maximum file size is 100MB."
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Die maximale Dateigröße beträgt 100 MB."
+msgstr "Die maximale Dateigröße beträgt %(size)sMB."
 
 #: exercises/models/video.py:57 exercises/models/video.py:65
 msgid "File type is not supported"
@@ -1726,8 +1723,6 @@ msgid "Exercise admin history"
 msgstr "Übungstag"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
 msgstr "Aktionen"
 
@@ -1743,18 +1738,12 @@ msgid "User"
 msgstr "Benutzer"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Betreff"
+msgstr "Objekt"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Änderung"
+msgstr "Änderungen"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
@@ -1765,10 +1754,8 @@ msgid "View Object"
 msgstr "Objekt anzeigen"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Logs anzeigen"
+msgstr "Änderungen anzeigen"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
@@ -1800,13 +1787,9 @@ msgid "Delete equipment?"
 msgstr "Gerät löschen?"
 
 #: exercises/views/exercises.py:161
-#, fuzzy, python-format
-#| msgid ""
-#| "%(name_original)s is too similar to existing exercise "
-#| "\"%(exercise_name)s\""
+#, python-format
 msgid "%(name)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
-"%(name_original)s ist zu ähnlich zur bestehenden Übung „%(exercise_name)s“"
+msgstr "%(name)s ist zu ähnlich zur bestehenden Übung „%(exercise_name)s“"
 
 #: exercises/views/exercises.py:184
 msgid "This will delete the exercise from all workouts."
@@ -3063,10 +3046,8 @@ msgid "Meal"
 msgstr "Mahlzeit"
 
 #: nutrition/models/log.py:65
-#, fuzzy
-#| msgid "Time (approx)"
 msgid "Date and Time (Approx.)"
-msgstr "Uhrzeit (ca.)"
+msgstr "Uhrzeit und Datum (ca.)"
 
 #: nutrition/models/meal.py:61
 msgid "Time (approx)"
