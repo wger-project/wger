@@ -35,7 +35,6 @@ from wger.utils.constants import (
     PAGINATION_PAGES_AROUND_CURRENT,
 )
 
-
 register = template.Library()
 
 
@@ -165,7 +164,7 @@ def language_select(context, language):
 
     return {
         'language_name': language[1],
-        'path': f'images/icons/flag-{language[0]}.svg',
+        'path': f'images/icons/flags/{language[0]}.svg',
         'i18n_path': context['i18n_path'][language[0]]
     }
 

@@ -194,10 +194,9 @@
                                     class="btn btn-link text-muted small dropdown-toggle btn-sm"
                                     data-toggle="dropdown">
                                 <img src="{% static language.static_path %}"
-                                     width="18"
+                                     width="20"
                                      alt="{% translate language.full_name %}"
-                                     title="{% translate language.full_name %}"
-                                     style="">
+                                     title="{% translate language.full_name %}">
                                 {{ language.full_name }} <span class="caret"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right"
@@ -207,7 +206,8 @@
                                 {% endfor %}
                                 <div class="dropdown-divider"></div>
                                 <a href="https://hosted.weblate.org/engage/wger/"
-                                   class="dropdown-item" target="_blank">
+                                   class="dropdown-item"
+                                   target="_blank">
                                     <span class="{% fa_class 'plus' %}"></span>
                                     {% translate "Translate" %}
                                 </a>

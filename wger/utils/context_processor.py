@@ -16,6 +16,7 @@
 # Django
 from django.conf import settings
 from django.templatetags.static import static
+from django.utils.translation import get_language, to_locale
 
 # wger
 from wger.config.models import GymConfig
@@ -24,15 +25,14 @@ from wger.utils.language import load_language
 
 
 def processor(request):
-
     language = load_language()
     full_path = request.get_full_path()
     i18n_path = {}
     static_path = static('images/logos/logo-social.png')
     is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
-    for lang in settings.LANGUAGES:
-        i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
+    for lang in settings.AVAILABLE_LANGUAGES:
+        i18n_path[lang[0]] = '/{0}/{1}'.format(lang[0], '/'.join(full_path.split('/')[2:]))
 
     context = {
         # Twitter handle for this instance
@@ -42,7 +42,7 @@ def processor(request):
         'language': language,
 
         # Available application languages
-        'languages': settings.LANGUAGES,
+        'languages': settings.AVAILABLE_LANGUAGES,
 
         # The current path
         'request_full_path': full_path,
@@ -76,8 +76,8 @@ def processor(request):
 
     # Pseudo-intelligent navigation here
     if '/software/' in request.get_full_path() \
-       or '/contact' in request.get_full_path() \
-       or '/api/v2' in request.get_full_path():
+        or '/contact' in request.get_full_path() \
+        or '/api/v2' in request.get_full_path():
         context['active_tab'] = constants.SOFTWARE_TAB
         context['show_shariff'] = True
 

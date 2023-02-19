@@ -20,7 +20,6 @@ import os
 import re
 from datetime import timedelta
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -165,8 +164,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-            False
+            'debug': False
         },
     },
 ]
@@ -210,33 +208,46 @@ USE_L10N = True
 # system time zone.
 TIME_ZONE = 'UTC'
 
-# Restrict the available languages
-LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'German'),
+# Available languages. Needs to be kept in sync with sufficiently
+# translated languages: https://hosted.weblate.org/projects/wger/web/
+#
+# Translated languages for which exist a country specific locale in django
+# upstream need to be added as well (plus their country flag)
+# https://github.com/django/django/blob/main/django/conf/global_settings.py
+AVAILABLE_LANGUAGES = (
     ('bg', 'Bulgarian'),
-    ('es', 'Spanish'),
-    ('ru', 'Russian'),
-    ('nl', 'Dutch'),
-    ('pt', 'Portuguese'),
-    ('el', 'Greek'),
+    ('ca', 'Catalan'),
     ('cs', 'Czech'),
-    ('sv', 'Swedish'),
-    ('no', 'Norwegian'),
+    ('de', 'German'),
+    ('el', 'Greek'),
+    ('en', 'English'),
+    ('en-au', 'Australian English'),
+    ('en-gb', 'British English'),
+    ('es', 'Spanish'),
+    ('es-ar', 'Argentinian Spanish'),
+    ('es-co', 'Colombian Spanish'),
+    ('es-mx', 'Mexican Spanish'),
+    ('es-ni', 'Nicaraguan Spanish'),
+    ('es-ve', 'Venezuelan Spanish'),
     ('fr', 'French'),
     ('it', 'Italian'),
+    ('nl', 'Dutch'),
+    ('no', 'Norwegian'),
     ('pl', 'Polish'),
-    ('uk', 'Ukrainian'),
+    ('pt', 'Portuguese'),
+    ('pt-br', 'Brazilian Portuguese'),
+    ('ru', 'Russian'),
+    ('sv', 'Swedish'),
     ('tr', 'Turkish'),
+    ('uk', 'Ukrainian'),
     ('zh', 'Chinese simplified'),
-    ('ca', 'Catalan'),
 )
 
 # Default language code for this installation.
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -408,15 +419,11 @@ COMPRESS_ROOT = STATIC_ROOT
 # Django Rest Framework
 #
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':
-    20,
-    'PAGINATE_BY_PARAM':
-    'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT':
-    'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -452,7 +459,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
