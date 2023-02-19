@@ -24,6 +24,7 @@ from wger.core.models import Language
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
+
 logger = logging.getLogger(__name__)
 
 
