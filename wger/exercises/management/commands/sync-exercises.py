@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.management.base import (
     BaseCommand,
@@ -24,7 +25,6 @@ from django.core.validators import URLValidator
 import requests
 
 # wger
-from wger import get_version
 from wger.core.models import Language
 from wger.exercises.models import (
     DeletionLog,
@@ -37,6 +37,7 @@ from wger.exercises.models import (
     Muscle,
 )
 from wger.utils.requests import wger_headers
+
 
 EXERCISE_API = "{0}/api/v2/exercisebaseinfo/?limit=100"
 DELETION_LOG_API = "{0}/api/v2/deletion-log/?limit=100"
@@ -70,8 +71,9 @@ class Command(BaseCommand):
             '--remote-url',
             action='store',
             dest='remote_url',
-            default=self.remote_url,
-            help=f'Remote URL to fetch the exercises from (default: {self.remote_url})'
+            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
+            help=f'Remote URL to fetch the exercises from (default: WGER_SETTINGS'
+            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
         )
 
         parser.add_argument(

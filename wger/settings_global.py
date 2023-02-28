@@ -484,13 +484,15 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'USE_CELERY': False,
-    'DOWNLOAD_FROM_OFF': False,
-    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'DOWNLOAD_INGREDIENT_IMAGES_FROM_OFF': False,
+    'DOWNLOAD_INGREDIENT_IMAGES_FROM_WGER': True,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'TWITTER': False,
-    'USE_RECAPTCHA': False
+    'USE_CELERY': False,
+    'USE_RECAPTCHA': False,
+    'WGER_INSTANCE': 'https://wger.de',
 }
 
 

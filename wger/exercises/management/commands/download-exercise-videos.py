@@ -41,6 +41,7 @@ from wger.exercises.models import (
 )
 from wger.utils.requests import wger_headers
 
+
 VIDEO_API = "{0}/api/v2/video/"
 
 
