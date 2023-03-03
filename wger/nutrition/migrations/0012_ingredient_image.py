@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('core', '0013_auto_20210726_1729'),
-        ('nutrition', '0011_alter_logitem_datetime'),
+        ('nutrition', '0012_alter_ingredient_license_author'),
     ]
 
     operations = [
