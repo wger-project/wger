@@ -48,9 +48,9 @@ COPY --from=builder /wheels /wheels
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
-COPY ${DOCKER_DIR}/../celery/beat/start /start-beat
-COPY ${DOCKER_DIR}/../celery/worker/start /start-worker
-COPY ${DOCKER_DIR}/../celery/flower/start /start-flower
+COPY ${DOCKER_DIR}/celery/beat/start /start-beat
+COPY ${DOCKER_DIR}/celery/worker/start /start-worker
+COPY ${DOCKER_DIR}/celery/flower/start /start-flower
 RUN chmod +x /home/wger/entrypoint.sh \
     && chmod +x /start-beat \
     && chmod +x /start-worker \
