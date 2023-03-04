@@ -5,8 +5,7 @@
     :license: GNU GPL, see LICENSE for more details.
 """
 # Local
-from .celery import app as celery_app
-
+from .celery_configuration import app
 
 MIN_APP_VERSION = (1, 5, 0, 'final', 1)
 
