@@ -35,6 +35,7 @@ from wger.nutrition.models import (
     Image,
     Ingredient,
 )
+from wger.utils.requests import wger_headers
 
 
 IMAGE_API = "{0}/api/v2/ingredient-image/"
@@ -62,9 +63,9 @@ class Command(BaseCommand):
             '--remote-url',
             action='store',
             dest='remote_url',
-            default='https://wger.de',
-            help='Remote URL to fetch the exercises from (default: '
-            'https://wger.de)'
+            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
+            help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
+            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
         )
 
     def handle(self, **options):
@@ -79,7 +80,7 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = {'User-agent': f'wger/{get_version()} https://github.com/wger-project'}
+        headers = wger_headers()
 
         # Get all images
         page = 1
@@ -109,7 +110,7 @@ class Command(BaseCommand):
                 except Image.DoesNotExist:
                     self.stdout.write('    Image not found in local DB, creating now...')
                     retrieved_image = requests.get(image_data['image'], headers=headers)
-                    Image.from_json(ingredient, retrieved_image, image_data, headers)
+                    Image.from_json(ingredient, retrieved_image, image_data)
 
                 self.stdout.write(self.style.SUCCESS('    successfully saved'))
 

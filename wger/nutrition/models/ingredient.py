@@ -41,7 +41,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.tasks import fetch_ingredient_image
+from wger.nutrition.tasks import fetch_ingredient_image_task
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.managers import SubmissionManager
@@ -449,8 +449,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return
 
         if not settings.WGER_SETTINGS['USE_CELERY']:
-            logger.info('Celery deactivated, skipping task')
+            logger.info('Celery deactivated, skipping retrieving ingredient image')
             return
 
         # Let celery fetch the image
-        fetch_ingredient_image.delay(self.pk)
+        fetch_ingredient_image_task.delay(self.pk)

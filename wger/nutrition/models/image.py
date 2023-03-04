@@ -77,12 +77,9 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
         connect_to,
         retrieved_image,
         json_data: dict,
-        headers,
         generate_uuid: bool = False,
     ):
-        image: cls = super().from_json(
-            connect_to, retrieved_image, json_data, headers, generate_uuid
-        )
+        image: cls = super().from_json(connect_to, retrieved_image, json_data, generate_uuid)
 
         image.ingredient = connect_to
         image.license = License.objects.get(pk=1)

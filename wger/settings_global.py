@@ -21,6 +21,8 @@ import re
 import sys
 from datetime import timedelta
 
+# wger
+from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
 """
 This file contains the global settings that don't usually need to be changed.
@@ -484,8 +486,7 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'DOWNLOAD_INGREDIENT_IMAGES_FROM_OFF': False,
-    'DOWNLOAD_INGREDIENT_IMAGES_FROM_WGER': True,
+    'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,

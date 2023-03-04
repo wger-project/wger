@@ -21,7 +21,7 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.nutrition.models import MealItem
-from wger.nutrition.tasks import fetch_ingredient_image
+from wger.nutrition.tasks import fetch_ingredient_image_task
 
 
 logger = logging.getLogger(__name__)
@@ -35,15 +35,17 @@ class Command(BaseCommand):
     currently used ingredients
     """
 
-    help = 'Download images of all Open Food Facts ingredients that are used in a nutrition plan'
+    help = 'Download images of all Open Food Facts ingredients that are used in a nutritional plan'
 
     def handle(self, **options):
         if not settings.WGER_SETTINGS['USE_CELERY']:
-            logger.info('Celery deactivated, skipping task')
+            self.stdout.write('Celery deactivated. Exiting...')
             return
 
         # Make sure off downloads are enabled
-        settings.WGER_SETTINGS['DOWNLOAD_FROM_OFF'] = True
+        if not settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES']:
+            self.stdout.write('DOWNLOAD_INGREDIENT_IMAGES not set. Exiting...')
+            return
 
         # Since each MealItem is linked to a NutritionPlan via a Meal we can skip accessing
         # NutritionPlan and Meal itself and fetch all MealItems directly instead.
@@ -52,7 +54,7 @@ class Command(BaseCommand):
         download_counter = 0
         for meal_item in meal_items:
             if meal_item.ingredient:
-                fetch_ingredient_image.delay(meal_item.ingredient.pk)
+                fetch_ingredient_image_task.delay(meal_item.ingredient.pk)
                 download_counter += 1
             meal_item_counter += 1
 

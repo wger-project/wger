@@ -273,9 +273,7 @@ class BaseImage:
         )
 
     @classmethod
-    def from_json(
-        cls, connect_to, retrieved_image, json_data: dict, headers, generate_uuid: bool = False
-    ):
+    def from_json(cls, connect_to, retrieved_image, json_data: dict, generate_uuid: bool = False):
         image: cls = cls()
         if not generate_uuid:
             image.uuid = json_data['uuid']

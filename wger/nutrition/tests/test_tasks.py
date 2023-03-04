@@ -24,15 +24,41 @@ from unittest.mock import (
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import Ingredient
 from wger.nutrition.tasks import (
-    fetch_ingredient_image_function,
+    fetch_ingredient_image,
     logger,
 )
+from wger.utils.constants import DOWNLOAD_INGREDIENT_OFF
 from wger.utils.requests import wger_headers
+
 
 loggerMock = MagicMock()
 
 
-class MockResponse:
+class MockOffResponse:
+
+    def __init__(self):
+        self.status_code = 200
+        self.content = b'2000'
+
+    @staticmethod
+    def json():
+        return {
+            "product": {
+                'image_front_url':
+                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                'images': {
+                    'front_en': {
+                        'imgid': '12345',
+                    },
+                    '12345': {
+                        'uploader': 'Mr Foobar'
+                    }
+                }
+            },
+        }
+
+
+class MockWgerApiResponse:
 
     def __init__(self):
         self.status_code = 200
@@ -69,7 +95,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        result = fetch_ingredient_image_function(1)
+        result = fetch_ingredient_image(1)
         self.assertEqual(result, None)
 
     def test_download_off_setting(self):
@@ -80,11 +106,11 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_FROM_OFF': False}):
-            result = fetch_ingredient_image_function(1)
+        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': False}):
+            result = fetch_ingredient_image(1)
             self.assertEqual(result, None)
 
-    @patch('requests.get', return_value=MockResponse())
+    @patch('requests.get', return_value=MockOffResponse())
     @patch.object(logger, 'info')
     def test_download_ingredient(self, mock_logger, mock_request):
         """
@@ -95,8 +121,11 @@ class FetchIngredientImageTestCase(WgerTestCase):
         object could probably be done better
         """
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_FROM_OFF': True}, TESTING=False):
-            result = fetch_ingredient_image_function(1)
+        with self.settings(
+            WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_OFF},
+            TESTING=False
+        ):
+            result = fetch_ingredient_image(1)
 
             log1 = mock_logger.mock_calls[0]
             log2 = mock_logger.mock_calls[1]
