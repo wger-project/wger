@@ -490,11 +490,11 @@ WGER_SETTINGS = {
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'SYNC_EXERCISES_CELERY': False,
     'TWITTER': False,
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
-    'SYNC_EXERCISES_CELERY': False
 }
 
 
