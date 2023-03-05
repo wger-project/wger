@@ -14,6 +14,10 @@
 
 # Standard Library
 import logging
+import random
+
+# Django
+from django.conf import settings
 
 # Third Party
 from celery.schedules import crontab
@@ -28,7 +32,6 @@ from wger.exercises.sync import (
     sync_languages,
     sync_muscles,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -49,8 +52,13 @@ def sync_exercises_task():
 
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(
-        crontab(hour=10, minute=30, day_of_week='monday'),
-        sync_exercises_task.s(),
-        name='Regularly sync exercises',
-    )
+    if settings.WGER_SETTINGS['SYNC_EXERCISES_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=random.randint(0, 23),
+                minute=random.randint(0, 59),
+                day_of_week=random.randint(0, 6),
+            ),
+            sync_exercises_task.s(),
+            name='Regularly sync exercises',
+        )

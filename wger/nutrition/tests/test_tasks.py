@@ -45,7 +45,7 @@ class MockOffResponse:
         return {
             "product": {
                 'image_front_url':
-                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',
@@ -69,7 +69,7 @@ class MockWgerApiResponse:
         return {
             "product": {
                 'image_front_url':
-                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',

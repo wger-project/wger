@@ -45,7 +45,6 @@ TIME_ZONE = env.str("TIME_ZONE", 'Europe/Berlin')
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env.str("SECRET_KEY", 'wger-docker-supersecret-key-1234567890!@#$%^&*(-_)')
 
-
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
 RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', '')
@@ -84,7 +83,6 @@ if os.environ.get("ENABLE_EMAIL"):
     EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", True)
     EMAIL_TIMEOUT = 60
 
-
 # Sender address used for sent emails
 DEFAULT_FROM_EMAIL = env.str("FROM_EMAIL", "wger Workout Manager <wger@example.com>")
 WGER_SETTINGS['EMAIL_FROM'] = DEFAULT_FROM_EMAIL
@@ -99,7 +97,7 @@ WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = env.int("MIN_ACCOUNT_AGE_TO_TRUST", 
 WGER_SETTINGS["EXERCISE_CACHE_TTL"] = env.int("EXERCISE_CACHE_TTL", 3600)
 WGER_SETTINGS["USE_CELERY"] = env.bool("USE_CELERY", False)
 WGER_SETTINGS["DOWNLOAD_INGREDIENT_IMAGES"] = env.str("DOWNLOAD_INGREDIENT_IMAGES", "WGER")
-
+WGER_SETTINGS["SYNC_EXERCISES_CELERY"] = env.bool("SYNC_EXERCISES_CELERY", False)
 
 # Cache
 if os.environ.get("DJANGO_CACHE_BACKEND"):
