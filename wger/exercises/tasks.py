@@ -50,6 +50,22 @@ def sync_exercises_task():
     delete_entries(logger.info)
 
 
+@app.task
+def sync_images_task():
+    """
+    Fetches the exercise images from the default wger instance
+    """
+    pass
+
+
+@app.task
+def sync_videos_task():
+    """
+    Fetches the exercise videos from the default wger instance
+    """
+    pass
+
+
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISES_CELERY']:
@@ -60,5 +76,27 @@ def setup_periodic_tasks(sender, **kwargs):
                 day_of_week=random.randint(0, 6),
             ),
             sync_exercises_task.s(),
-            name='Regularly sync exercises',
+            name='Sync exercises',
+        )
+
+    if settings.WGER_SETTINGS['SYNC_EXERCISE_IMAGES_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=random.randint(0, 23),
+                minute=random.randint(0, 59),
+                day_of_week=random.randint(0, 6),
+            ),
+            sync_images_task.s(),
+            name='Sync exercise images',
+        )
+
+    if settings.WGER_SETTINGS['SYNC_EXERCISE_VIDEOS_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=random.randint(0, 23),
+                minute=random.randint(0, 59),
+                day_of_week=random.randint(0, 6),
+            ),
+            sync_videos_task.s(),
+            name='Sync exercise videos',
         )
