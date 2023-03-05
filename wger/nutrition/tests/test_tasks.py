@@ -23,7 +23,7 @@ from unittest.mock import (
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.nutrition.models import Ingredient
-from wger.nutrition.tasks import (
+from wger.nutrition.sync import (
     fetch_ingredient_image,
     logger,
 )
@@ -45,7 +45,7 @@ class MockOffResponse:
         return {
             "product": {
                 'image_front_url':
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',
@@ -69,7 +69,7 @@ class MockWgerApiResponse:
         return {
             "product": {
                 'image_front_url':
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',
@@ -122,8 +122,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_OFF},
-            TESTING=False
+            WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_OFF}, TESTING=False
         ):
             result = fetch_ingredient_image(1)
 

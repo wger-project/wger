@@ -28,19 +28,24 @@ from wger.nutrition.models import Ingredient  # noqa: E402
 from wger.nutrition.models.sources import Source
 from wger.core.models import Language  # noqa: E402
 
-
 """
 Simple script that imports and loads the Open Food Facts database into the
 ingredients database.
 
-NOTE: The file is VERY large (17 GB), so it takes a long time (> 3 hours) to
+NOTE: The file is VERY large (40 GB), so it takes a long time (> 3 hours) to
 import the data and create all the ingredients.
 
 
 * Requirements:
-(note that the local mongo version needs to be compatible with the one used to
+ (note that the local mongo version needs to be compatible with the one used to
  create the dump, otherwise the indices won't be compatible, it is best to use
  a newer version than the one found in the ubuntu/debian repos)
+
+ - MongoDB
+ https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+
+ - Docker
+ snap install docker
 
 pip3 install pymongo
 apt-get install mongo-tools zip
@@ -73,7 +78,6 @@ python3 filter-fixtures.py
 zip ingredients.json.zip ingredients.json
 """
 
-
 client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
 db = client.admin
 
@@ -87,9 +91,9 @@ class Mode(Enum):
     UPDATE = enum.auto()
 
 
-MODE = Mode.INSERT
+MODE = Mode.UPDATE
 
-languages = {i[0]: Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
+languages = {l.short_name: l for l in Language.objects.all()}
 
 BULK_SIZE = 500
 bulk_update_bucket = []
@@ -104,27 +108,34 @@ stats = {'new': 0,
 
 # Completeness status of ingredients as of 2021-11-18
 #
-# Lang en has 5154 completed products out of 579495
-# Lang de has 8882 completed products out of 90885
-# Lang bg has 16 completed products out of 897
-# Lang es has 6785 completed products out of 236210
-# Lang ru has 481 completed products out of 8729
-# Lang nl has 628 completed products out of 7428
-# Lang pt has 482 completed products out of 5024
-# Lang el has 27 completed products out of 544
-# Lang cs has 154 completed products out of 1451
-# Lang sv has 1234 completed products out of 3459
-# Lang no has 9 completed products out of 155
-# Lang fr has 45358 completed products out of 960096
-# Lang it has 821 completed products out of 118270
-# Lang pl has 2032 completed products out of 4978
-# Lang uk has 4 completed products out of 158
-# Lang tr has 8 completed products out of 425
+# Lang az has 0 completed products out of 39
+# Lang id has 6 completed products out of 845
+# Lang cs has 78 completed products out of 3736
+# Lang de has 972 completed products out of 157846
+# Lang en has 959 completed products out of 905683
+# Lang es has 533 completed products out of 300344
+# Lang eo has 0 completed products out of 9
+# Lang fr has 6677 completed products out of 1145075
+# Lang hr has 56 completed products out of 1544
+# Lang it has 809 completed products out of 211901
+# Lang nl has 71 completed products out of 11202
+# Lang no has 4 completed products out of 247
+# Lang pl has 45 completed products out of 6793
+# Lang pt has 132 completed products out of 9427
+# Lang sv has 297 completed products out of 4501
+# Lang tr has 3 completed products out of 1209
+# Lang el has 6 completed products out of 880
+# Lang bg has 31 completed products out of 3392
+# Lang ru has 13 completed products out of 10799
+# Lang uk has 1 completed products out of 297
+# Lang he has 0 completed products out of 352
+# Lang ar has 1 completed products out of 3426
+# Lang fa has 0 completed products out of 577
+# Lang zh has 2 completed products out of 913
 
 print('***********************************')
 print(languages.keys())
 print('***********************************')
-
 
 for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'complete': 1}):
     lang = product['lang']

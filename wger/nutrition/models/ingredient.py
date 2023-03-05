@@ -41,7 +41,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.tasks import fetch_ingredient_image_task
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.managers import SubmissionManager
@@ -453,4 +452,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return
 
         # Let celery fetch the image
+        # wger
+        from wger.nutrition.tasks import fetch_ingredient_image_task
         fetch_ingredient_image_task.delay(self.pk)

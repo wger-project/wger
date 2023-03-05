@@ -30,14 +30,3 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # discover and load tasks.py from all registered Django apps
 app.autodiscover_tasks()
-
-# @app.on_after_finalize.connect
-#def setup_periodic_tasks(sender, **kwargs):
-#    from wger.nutrition.tasks import test
-#    sender.add_periodic_task(30.0, test.s('world'), expires=10)
-
-# Calls test('hello') every 10 seconds.
-#sender.add_periodic_task(
-#    crontab(hour=7, minute=30, day_of_week=1),
-#    test.s('Happy Mondays!'),
-#)

@@ -17,6 +17,7 @@
 # Standard Library
 import csv
 import pathlib
+import re
 
 # Django
 from django.core.files import File
@@ -77,7 +78,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         self.process_new_exercises(options)
-        self.delete_duplicates(options)
+        # self.delete_duplicates(options)
 
     def process_new_exercises(self, options):
         csv_file = open('exercises_cleanup.csv', 'r', newline='')
@@ -129,7 +130,9 @@ class Command(BaseCommand):
 
             # Update the base data
             base.category = ExerciseCategory.objects.get(name=base_category)
-            base.save()
+
+            if new_base:
+                base.save()
 
             base_equipment_list = []
             if base_equipment:
@@ -196,8 +199,7 @@ class Command(BaseCommand):
                     continue
 
                 new_translation = exercise_uuid == UUID_NEW
-                if not options['create_on_new'] and new_translation:
-                    self.stdout.write(f'    Skipping creating new translation ...\n')
+                if not new_translation:
                     continue
 
                 translation = Exercise.objects.get_or_create(
@@ -228,10 +230,24 @@ class Command(BaseCommand):
                 translation.license_author = exercise_author
 
                 if not translation.id:
-                    message = f'    New translation saved - {exercise_name}'
+                    message = f'    New translation saved - {exercise_name} ({translation.uuid})'
                     self.stdout.write(self.style.SUCCESS(message))
 
-                translation.save()
+                if '(imported from Feeel)' in exercise_author:
+                    exercise_author = re.sub('\(imported from Feeel\)', '', exercise_author)
+                    for author in exercise_author.split(','):
+                        author = author.strip()
+                        author = f'{author} (imported from Feeel)'
+                        self.stdout.write(f'    - Saving individual author {author}')
+                        if len(author) >= 60:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f'      Author name is longer than 60 characters, skipping...'
+                                )
+                            )
+                            continue
+                        translation.license_author = author
+                        translation.save()
 
                 # Set the aliases (replaces existing ones)
                 if exercise_aliases:
