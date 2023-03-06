@@ -12,9 +12,18 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import logging
+
 # wger
 from wger.celery_configuration import app
-from wger.nutrition.sync import fetch_ingredient_image
+from wger.nutrition.sync import (
+    download_ingredient_images,
+    fetch_ingredient_image,
+)
+
+
+logger = logging.getLogger(__name__)
 
 
 @app.task
@@ -25,3 +34,13 @@ def fetch_ingredient_image_task(pk: int):
     Returns the image if it is already present in the DB
     """
     fetch_ingredient_image(pk)
+
+
+@app.task
+def fetch_all_ingredient_images_task():
+    """
+    Fetches the ingredient image from Open Food Facts servers if it is not available locally
+
+    Returns the image if it is already present in the DB
+    """
+    download_ingredient_images(logger.info)

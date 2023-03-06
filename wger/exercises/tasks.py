@@ -26,12 +26,15 @@ from celery.schedules import crontab
 from wger.celery_configuration import app
 from wger.exercises.sync import (
     delete_entries,
+    download_exercise_images,
+    download_exercise_videos,
     sync_categories,
     sync_equipment,
     sync_exercises,
     sync_languages,
     sync_muscles,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +58,7 @@ def sync_images_task():
     """
     Fetches the exercise images from the default wger instance
     """
-    pass
+    download_exercise_images(logger.info)
 
 
 @app.task
@@ -63,7 +66,7 @@ def sync_videos_task():
     """
     Fetches the exercise videos from the default wger instance
     """
-    pass
+    download_exercise_videos(logger.info)
 
 
 @app.on_after_finalize.connect

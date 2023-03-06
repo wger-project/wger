@@ -27,6 +27,7 @@ import requests
 # wger
 from wger.nutrition.models import (
     Image,
+    Ingredient,
     Source,
 )
 from wger.utils.constants import (
@@ -37,6 +38,8 @@ from wger.utils.requests import wger_headers
 
 
 logger = logging.getLogger(__name__)
+
+IMAGE_API = "{0}/api/v2/ingredient-image/"
 
 
 def fetch_ingredient_image(pk: int):
@@ -123,3 +126,48 @@ def fetch_image_from_off(ingredient):
         logger.info('Ingredient has already an image, skipping...')
         return
     logger.info('Image successfully saved')
+
+
+def download_ingredient_images(
+    print_fn,
+    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    style_fn=lambda x: x,
+):
+    headers = wger_headers()
+    # Get all images
+    page = 1
+    all_images_processed = False
+    result = requests.get(IMAGE_API.format(remote_url), headers=headers).json()
+    print_fn('*** Processing images ***')
+    while not all_images_processed:
+        print_fn('')
+        print_fn(f'*** Page {page}')
+        print_fn('')
+
+        for image_data in result['results']:
+            image_uuid = image_data['uuid']
+
+            print_fn(f'Processing image {image_uuid}')
+
+            try:
+                ingredient = Ingredient.objects.get(uuid=image_data['ingredient_uuid'])
+            except Ingredient.DoesNotExist:
+                print_fn('    Remote ingredient not found in local DB, skipping...')
+                continue
+
+            try:
+                Image.objects.get(uuid=image_uuid)
+                print_fn('    Image already present locally, skipping...')
+                continue
+            except Image.DoesNotExist:
+                print_fn('    Image not found in local DB, creating now...')
+                retrieved_image = requests.get(image_data['image'], headers=headers)
+                Image.from_json(ingredient, retrieved_image, image_data)
+
+            print_fn(style_fn('    successfully saved'))
+
+        if result['next']:
+            page += 1
+            result = requests.get(result['next'], headers=headers).json()
+        else:
+            all_images_processed = True

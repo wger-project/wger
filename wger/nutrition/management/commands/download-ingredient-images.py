@@ -26,19 +26,8 @@ from django.core.management.base import (
 )
 from django.core.validators import URLValidator
 
-# Third Party
-import requests
-
 # wger
-from wger import get_version
-from wger.nutrition.models import (
-    Image,
-    Ingredient,
-)
-from wger.utils.requests import wger_headers
-
-
-IMAGE_API = "{0}/api/v2/ingredient-image/"
+from wger.nutrition.sync import download_ingredient_images
 
 
 class Command(BaseCommand):
@@ -80,42 +69,4 @@ class Command(BaseCommand):
         except ValidationError:
             raise CommandError('Please enter a valid URL')
 
-        headers = wger_headers()
-
-        # Get all images
-        page = 1
-        all_images_processed = False
-        result = requests.get(IMAGE_API.format(remote_url), headers=headers).json()
-        self.stdout.write('*** Processing images ***')
-        while not all_images_processed:
-            self.stdout.write('')
-            self.stdout.write(f'*** Page {page}')
-            self.stdout.write('')
-
-            for image_data in result['results']:
-                image_uuid = image_data['uuid']
-
-                self.stdout.write(f'Processing image {image_uuid}')
-
-                try:
-                    ingredient = Ingredient.objects.get(uuid=image_data['ingredient_uuid'])
-                except Ingredient.DoesNotExist:
-                    self.stdout.write('    Remote ingredient not found in local DB, skipping...')
-                    continue
-
-                try:
-                    Image.objects.get(uuid=image_uuid)
-                    self.stdout.write('    Image already present locally, skipping...')
-                    continue
-                except Image.DoesNotExist:
-                    self.stdout.write('    Image not found in local DB, creating now...')
-                    retrieved_image = requests.get(image_data['image'], headers=headers)
-                    Image.from_json(ingredient, retrieved_image, image_data)
-
-                self.stdout.write(self.style.SUCCESS('    successfully saved'))
-
-            if result['next']:
-                page += 1
-                result = requests.get(result['next'], headers=headers).json()
-            else:
-                all_images_processed = True
+        download_ingredient_images(self.stdout.write, remote_url, self.style.SUCCESS)

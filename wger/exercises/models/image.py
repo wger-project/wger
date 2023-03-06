@@ -165,15 +165,16 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         connect_to: ExerciseBase,
         retrieved_image,
         json_data: dict,
-        headers,
-        generate_uuid: bool = False
+        generate_uuid: bool = False,
     ):
         image: cls = super().from_json(
-            connect_to, retrieved_image, json_data, headers, generate_uuid
+            connect_to,
+            retrieved_image,
+            json_data,
+            generate_uuid,
         )
         image.exercise_base = connect_to
         image.is_main = json_data['is_main']
-        image.status = json_data['status']
 
         image.save_image(retrieved_image, json_data)
 

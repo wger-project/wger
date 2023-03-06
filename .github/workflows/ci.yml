@@ -56,4 +56,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage.lcov
-        if: matrix.python-version == 3.10
+        if: matrix.python-version == 3.11
+
