@@ -62,6 +62,7 @@ USER wger
 RUN mkdir ~/media \
     && pip3 install -e . \
     && mkdir ~/static \
+    && mkdir ~/beat \
     && mkdir ~/db/
 
 CMD ["/home/wger/entrypoint.sh"]
