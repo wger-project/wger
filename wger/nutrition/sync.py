@@ -69,6 +69,7 @@ def fetch_ingredient_image(pk: int):
 
 def fetch_image_from_wger_instance(ingredient):
     url = f"{settings.WGER_SETTINGS['WGER_INSTANCE']}/api/v2/ingredient-image/{ingredient.pk}"
+    logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     image_uuid = result['uuid']
     try:

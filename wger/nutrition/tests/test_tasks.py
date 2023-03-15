@@ -15,10 +15,7 @@
 # Standard Library
 
 # Standard Library
-from unittest.mock import (
-    MagicMock,
-    patch,
-)
+from unittest.mock import patch
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
@@ -27,11 +24,11 @@ from wger.nutrition.sync import (
     fetch_ingredient_image,
     logger,
 )
-from wger.utils.constants import DOWNLOAD_INGREDIENT_OFF
+from wger.utils.constants import (
+    DOWNLOAD_INGREDIENT_OFF,
+    DOWNLOAD_INGREDIENT_WGER,
+)
 from wger.utils.requests import wger_headers
-
-
-loggerMock = MagicMock()
 
 
 class MockOffResponse:
@@ -67,18 +64,17 @@ class MockWgerApiResponse:
     @staticmethod
     def json():
         return {
-            "product": {
-                'image_front_url':
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
-                'images': {
-                    'front_en': {
-                        'imgid': '12345',
-                    },
-                    '12345': {
-                        'uploader': 'Mr Foobar'
-                    }
-                }
-            },
+            "id": 1,
+            "uuid": "188324b5-587f-42d7-9abc-d2ca64c73d45",
+            "ingredient_id": "12345",
+            "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
+            "image":
+            "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
+            "last_update": "2023-03-15T23:20:10.969369+01:00",
+            "size": 20179,
+            "source_url": "",
+            "license": 1,
+            "license_author": "Tester McTest"
         }
 
 
@@ -112,7 +108,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
     @patch('requests.get', return_value=MockOffResponse())
     @patch.object(logger, 'info')
-    def test_download_ingredient(self, mock_logger, mock_request):
+    def test_download_ingredient_off(self, mock_logger, mock_request):
         """
         Test that the image is correctly downloaded
 
@@ -126,31 +122,60 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ):
             result = fetch_ingredient_image(1)
 
-            log1 = mock_logger.mock_calls[0]
-            log2 = mock_logger.mock_calls[1]
-            log3 = mock_logger.mock_calls[2]
-            self.assertTrue(log1.called_with('Fetching image for ingredient 1'))
-            self.assertTrue(
-                log2.called_with(
-                    'Trying to fetch image from OFF for Test ingredient 1 (UUID: '
-                    'ed608788-811d-4d13-8854-6c42ba545d00)'
-                )
+            # log1 = mock_logger.mock_calls[0]
+            # print(log1)
+            mock_logger.assert_any_call('Fetching image for ingredient 1')
+            mock_logger.assert_any_call(
+                'Trying to fetch image from OFF for Test ingredient 1 (UUID: '
+                '7908c204-907f-4b1e-ad4e-f482e9769ade)'
             )
-            self.assertTrue(log3.called_with('Image successfully saved'))
+            mock_logger.assert_any_call('Image successfully saved')
 
-            request1 = mock_request.mock_calls[0]
-            request2 = mock_request.mock_calls[1]
-            self.assertTrue(
-                request1.called_with(
-                    'https://world.openfoodfacts.org/api/v0/product/5055365635003.json',
-                    headers=wger_headers()
-                )
+            mock_request.assert_any_call(
+                'https://world.openfoodfacts.org/api/v0/product/5055365635003.json',
+                headers=wger_headers()
             )
-            self.assertTrue(
-                request2.called_with(
-                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
-                    headers=wger_headers()
-                )
+
+            mock_request.assert_any_call(
+                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                headers=wger_headers()
+            )
+
+            self.assertEqual(result, None)
+
+    @patch('requests.get', return_value=MockWgerApiResponse())
+    @patch.object(logger, 'info')
+    def test_download_ingredient_wger123(self, mock_logger, mock_request):
+        """
+        Test that the image is correctly downloaded
+
+        While this way of testing is fragile and depends on what exactly (and when)
+        things are logged, it seems to work. Also, directly mocking the logger
+        object could probably be done better
+        """
+
+        with self.settings(
+            WGER_SETTINGS={
+                'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_WGER,
+                'WGER_INSTANCE': 'http://localhost:8000'
+            },
+            TESTING=False
+        ):
+            result = fetch_ingredient_image(1)
+
+            mock_logger.assert_any_call('Fetching image for ingredient 1')
+            mock_logger.assert_any_call(
+                'Trying to fetch image from WGER for Test ingredient 1 (UUID: '
+                '7908c204-907f-4b1e-ad4e-f482e9769ade)'
+            )
+
+            mock_request.assert_any_call(
+                'http://localhost:8000/api/v2/ingredient-image/1', headers=wger_headers()
+            )
+            mock_request.assert_any_call(
+                'http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8'
+                '/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
+                headers=wger_headers()
             )
 
             self.assertEqual(result, None)
