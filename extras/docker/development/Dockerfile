@@ -59,8 +59,8 @@ RUN chmod +x /home/wger/entrypoint.sh \
     && chown -R wger:wger .
 
 USER wger
-RUN mkdir ~/media \
-    && pip3 install -e . \
+RUN pip3 install -e . \
+    && mkdir ~/media \
     && mkdir ~/static \
     && mkdir ~/beat \
     && mkdir ~/db/
