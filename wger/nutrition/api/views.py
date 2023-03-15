@@ -89,6 +89,10 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     @action(detail=True)
     def get_values(self, request, pk):
         """
@@ -205,7 +209,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
