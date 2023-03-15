@@ -20,6 +20,7 @@ import os
 import re
 from datetime import timedelta
 
+
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -165,7 +166,8 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug': False
+            'debug':
+            False
         },
     },
 ]
@@ -248,7 +250,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -423,13 +425,13 @@ COMPRESS_ROOT = STATIC_ROOT
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
     'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.LimitOffsetPagination',
+    'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE':
-        20,
+    20,
     'PAGINATE_BY_PARAM':
-        'limit',  # Allow client to override, using `?limit=xxx`.
+    'limit',  # Allow client to override, using `?limit=xxx`.
     'TEST_REQUEST_DEFAULT_FORMAT':
-        'json',
+    'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
