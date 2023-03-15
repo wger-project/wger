@@ -437,4 +437,5 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = Ingredient
     private_resource = False
+    overview_cached = True
     data = {'language': 1, 'license': 2}
