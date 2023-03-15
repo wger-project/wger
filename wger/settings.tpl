@@ -92,3 +92,9 @@ AXES_ENABLED = False
 # https://docs.djangoproject.com/en/4.1/ref/settings/#secure-proxy-ssl-header
 #
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO, 'https')
+
+#
+# Celery
+# Needed if you plan to use celery for background tasks
+# CELERY_BROKER_URL = "redis://localhost:6379/2"
+# CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
