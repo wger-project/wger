@@ -192,13 +192,9 @@
                             type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
-                                <img src="{% static flagname %}"
-                                     width="18"
-                                     alt="{% translate language.full_name %}"
-                                     title="{% translate language.full_name %}">
-                                {{ language.full_name }} <span class="caret"></span>
-                            {% endwith %}
+                                <span class="{% fa_class 'globe' %}"></span>
+                                    {% translate i18n_language.name %}
+                                <span class="caret"></span>
                         </button>
 
                         <div class="dropdown-menu" aria-labelledby="btnGroupLanguages">

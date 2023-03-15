@@ -73,6 +73,7 @@ from wger.exercises.models import (
 )
 from wger.exercises.views.helper import StreamVerbs
 from wger.utils.constants import (
+    ENGLISH_SHORT_NAME,
     HTML_ATTRIBUTES_WHITELIST,
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
@@ -264,41 +265,41 @@ def search(request):
     This format is currently used by the exercise search autocompleter
     """
     q = request.GET.get('term', None)
-    language_code = request.GET.get('language', None)
+    language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)
     response = {}
     results = []
 
     if not q:
         return Response(response)
 
-    language = load_language(language_code)
-    exercises = Exercise.objects \
+    languages = [load_language(l) for l in language_codes.split(',')]
+    translations = Exercise.objects \
         .filter(Q(name__icontains=q) | Q(alias__alias__icontains=q)) \
-        .filter(language=language) \
+        .filter(language__in=languages) \
         .order_by('exercise_base__category__name', 'name') \
         .distinct()
 
-    for exercise in exercises:
+    for translation in translations:
         image = None
         thumbnail = None
-        if exercise.main_image:
-            image_obj = exercise.main_image
+        if translation.main_image:
+            image_obj = translation.main_image
             image = image_obj.image.url
             t = get_thumbnailer(image_obj.image)
             thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
 
-        exercise_json = {
-            'value': exercise.name,
+        result_json = {
+            'value': translation.name,
             'data': {
-                'id': exercise.id,
-                'base_id': exercise.exercise_base_id,
-                'name': exercise.name,
-                'category': _(exercise.category.name),
+                'id': translation.id,
+                'base_id': translation.exercise_base_id,
+                'name': translation.name,
+                'category': _(translation.category.name),
                 'image': image,
                 'image_thumbnail': thumbnail
             }
         }
-        results.append(exercise_json)
+        results.append(result_json)
     response['suggestions'] = results
     return Response(response)
 

@@ -109,7 +109,7 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    image = ExerciseImage.objects.get(uuid=image_uuid)
+                    ExerciseImage.objects.get(uuid=image_uuid)
                     self.stdout.write('    Image already present locally, skipping...')
                     continue
                 except ExerciseImage.DoesNotExist:

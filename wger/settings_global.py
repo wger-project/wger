@@ -211,26 +211,39 @@ USE_L10N = True
 # system time zone.
 TIME_ZONE = 'UTC'
 
-# Restrict the available languages
-LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'German'),
+# Available languages. Needs to be kept in sync with sufficiently
+# translated languages: https://hosted.weblate.org/projects/wger/web/
+#
+# Translated languages for which a country specific locale exists in django
+# upstream need to be added here as well (plus their country flag)
+# https://github.com/django/django/blob/main/django/conf/global_settings.py
+AVAILABLE_LANGUAGES = (
     ('bg', 'Bulgarian'),
-    ('es', 'Spanish'),
-    ('ru', 'Russian'),
-    ('nl', 'Dutch'),
-    ('pt', 'Portuguese'),
-    ('el', 'Greek'),
+    ('ca', 'Catalan'),
     ('cs', 'Czech'),
-    ('sv', 'Swedish'),
-    ('no', 'Norwegian'),
+    ('de', 'German'),
+    ('el', 'Greek'),
+    ('en', 'English'),
+    ('en-au', 'Australian English'),
+    ('en-gb', 'British English'),
+    ('es', 'Spanish'),
+    ('es-ar', 'Argentinian Spanish'),
+    ('es-co', 'Colombian Spanish'),
+    ('es-mx', 'Mexican Spanish'),
+    ('es-ni', 'Nicaraguan Spanish'),
+    ('es-ve', 'Venezuelan Spanish'),
     ('fr', 'French'),
     ('it', 'Italian'),
+    ('nl', 'Dutch'),
+    ('no', 'Norwegian'),
     ('pl', 'Polish'),
-    ('uk', 'Ukrainian'),
+    ('pt', 'Portuguese'),
+    ('pt-br', 'Brazilian Portuguese'),
+    ('ru', 'Russian'),
+    ('sv', 'Swedish'),
     ('tr', 'Turkish'),
+    ('uk', 'Ukrainian'),
     ('zh', 'Chinese simplified'),
-    ('ca', 'Catalan'),
 )
 
 # Default language code for this installation.

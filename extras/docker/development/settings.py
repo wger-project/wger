@@ -84,8 +84,10 @@ if os.environ.get("ENABLE_EMAIL"):
     EMAIL_TIMEOUT = 60
 
 # Sender address used for sent emails
-WGER_SETTINGS['EMAIL_FROM'] = f'wger Workout Manager <{env.str("FROM_EMAIL", "wger@example.com")}>'
-DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
+DEFAULT_FROM_EMAIL = env.str("FROM_EMAIL", "wger Workout Manager <wger@example.com>")
+WGER_SETTINGS['EMAIL_FROM'] = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+EMAIL_FROM_ADDRESS = DEFAULT_FROM_EMAIL
 
 # Management
 WGER_SETTINGS["ALLOW_REGISTRATION"] = env.bool("ALLOW_REGISTRATION", True)
