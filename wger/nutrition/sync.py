@@ -36,7 +36,6 @@ from wger.utils.constants import (
 )
 from wger.utils.requests import wger_headers
 
-
 logger = logging.getLogger(__name__)
 
 IMAGE_API = "{0}/api/v2/ingredient-image/"
@@ -47,7 +46,6 @@ def fetch_ingredient_image(pk: int):
     from wger.nutrition.models import Ingredient
 
     ingredient = Ingredient.objects.get(pk=pk)
-    logger.info(f'Fetching image for ingredient {pk}')
 
     if hasattr(ingredient, 'image'):
         return
@@ -61,6 +59,7 @@ def fetch_ingredient_image(pk: int):
     if settings.TESTING:
         return
 
+    logger.info(f'Fetching image for ingredient {pk}')
     if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES'] == DOWNLOAD_INGREDIENT_OFF:
         fetch_image_from_off(ingredient)
     elif settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES'] == DOWNLOAD_INGREDIENT_WGER:
@@ -68,7 +67,7 @@ def fetch_ingredient_image(pk: int):
 
 
 def fetch_image_from_wger_instance(ingredient):
-    url = f"{settings.WGER_SETTINGS['WGER_INSTANCE']}/api/v2/ingredient-image/{ingredient.pk}"
+    url = f"{settings.WGER_SETTINGS['WGER_INSTANCE']}/api/v2/ingredient-image/{ingredient.pk}/"
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     image_uuid = result['uuid']

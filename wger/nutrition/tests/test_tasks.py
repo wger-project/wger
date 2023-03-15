@@ -42,7 +42,7 @@ class MockOffResponse:
         return {
             "product": {
                 'image_front_url':
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',
@@ -68,8 +68,8 @@ class MockWgerApiResponse:
             "uuid": "188324b5-587f-42d7-9abc-d2ca64c73d45",
             "ingredient_id": "12345",
             "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
-            "image":
-            "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
+            "image": "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8"
+                     "/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
             "last_update": "2023-03-15T23:20:10.969369+01:00",
             "size": 20179,
             "source_url": "",
@@ -83,7 +83,9 @@ class FetchIngredientImageTestCase(WgerTestCase):
     Test fetching an ingredient image
     """
 
-    def test_source(self):
+    @patch('requests.get')
+    @patch.object(logger, 'info')
+    def test_source(self, mock_logger, mock_request):
         """
         Test that sources other than OFF are ignored
         """
@@ -91,10 +93,15 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        result = fetch_ingredient_image(1)
-        self.assertEqual(result, None)
+        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': True}):
+            result = fetch_ingredient_image(1)
+            mock_logger.assert_not_called()
+            mock_request.assert_not_called()
+            self.assertEqual(result, None)
 
-    def test_download_off_setting(self):
+    @patch('requests.get')
+    @patch.object(logger, 'info')
+    def test_download_off_setting(self, mock_logger, mock_request):
         """
         Test that no images are fetched if the appropriate setting is not set
         """
@@ -104,6 +111,8 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
         with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': False}):
             result = fetch_ingredient_image(1)
+            mock_logger.assert_not_called()
+            mock_request.assert_not_called()
             self.assertEqual(result, None)
 
     @patch('requests.get', return_value=MockOffResponse())
@@ -118,7 +127,8 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_OFF}, TESTING=False
+            WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_OFF},
+            TESTING=False,
         ):
             result = fetch_ingredient_image(1)
 
@@ -135,7 +145,6 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 'https://world.openfoodfacts.org/api/v0/product/5055365635003.json',
                 headers=wger_headers()
             )
-
             mock_request.assert_any_call(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 headers=wger_headers()
@@ -170,7 +179,8 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
 
             mock_request.assert_any_call(
-                'http://localhost:8000/api/v2/ingredient-image/1', headers=wger_headers()
+                'http://localhost:8000/api/v2/ingredient-image/1/',
+                headers=wger_headers(),
             )
             mock_request.assert_any_call(
                 'http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8'
