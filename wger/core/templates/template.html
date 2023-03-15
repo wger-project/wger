@@ -193,11 +193,9 @@
                             <button id="btnGroupLanguages2" type="button"
                                     class="btn btn-link text-muted small dropdown-toggle btn-sm"
                                     data-toggle="dropdown">
-                                <img src="{% static language.static_path %}"
-                                     width="20"
-                                     alt="{% translate language.full_name %}"
-                                     title="{% translate language.full_name %}">
-                                {{ language.full_name }} <span class="caret"></span>
+                                <span class="{% fa_class 'globe' %}"></span>
+                                {% translate i18n_language.name %}
+                                <span class="caret"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right"
                                  aria-labelledby="btnGroupLanguages">

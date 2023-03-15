@@ -20,6 +20,7 @@ import os
 import re
 from datetime import timedelta
 
+
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -164,7 +165,8 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug': False
+            'debug':
+            False
         },
     },
 ]
@@ -211,8 +213,8 @@ TIME_ZONE = 'UTC'
 # Available languages. Needs to be kept in sync with sufficiently
 # translated languages: https://hosted.weblate.org/projects/wger/web/
 #
-# Translated languages for which exist a country specific locale in django
-# upstream need to be added as well (plus their country flag)
+# Translated languages for which a country specific locale exists in django
+# upstream need to be added here as well (plus their country flag)
 # https://github.com/django/django/blob/main/django/conf/global_settings.py
 AVAILABLE_LANGUAGES = (
     ('bg', 'Bulgarian'),
@@ -247,7 +249,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -419,11 +421,15 @@ COMPRESS_ROOT = STATIC_ROOT
 # Django Rest Framework
 #
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 20,
-    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE':
+    20,
+    'PAGINATE_BY_PARAM':
+    'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT':
+    'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -459,7 +465,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
 
 #
 # Password rules

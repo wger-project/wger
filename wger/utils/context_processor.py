@@ -16,16 +16,16 @@
 # Django
 from django.conf import settings
 from django.templatetags.static import static
-from django.utils.translation import get_language, to_locale
+from django.utils.translation import get_language
 
 # wger
 from wger.config.models import GymConfig
 from wger.utils import constants
-from wger.utils.language import load_language
+from wger.utils.language import get_language_data
 
 
 def processor(request):
-    language = load_language()
+    languages_dict = dict(settings.AVAILABLE_LANGUAGES)
     full_path = request.get_full_path()
     i18n_path = {}
     static_path = static('images/logos/logo-social.png')
@@ -38,10 +38,8 @@ def processor(request):
         # Twitter handle for this instance
         'twitter': settings.WGER_SETTINGS['TWITTER'],
 
-        # User language
-        'language': language,
-
-        # Available application languages
+        # Languages
+        'i18n_language': get_language_data((get_language(), languages_dict[get_language()])),
         'languages': settings.AVAILABLE_LANGUAGES,
 
         # The current path
