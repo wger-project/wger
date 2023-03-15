@@ -80,7 +80,6 @@ from wger.utils.constants import (
 )
 from wger.utils.language import load_language
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -91,7 +90,7 @@ class ExerciseBaseViewSet(ModelViewSet):
     """
     queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -128,7 +127,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     API endpoint for editing or adding exercise objects.
     """
     queryset = Exercise.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -196,7 +195,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     the information of an exercise, see /api/v2/exerciseinfo/
     """
     queryset = Exercise.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -359,7 +358,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
@@ -373,7 +372,7 @@ class DeletionLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DeletionLog.objects.all()
     serializer_class = DeletionLogSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('model_type', )
+    filterset_fields = ('model_type',)
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -383,7 +382,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ExerciseCategory.objects.all()
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
@@ -397,7 +396,7 @@ class ExerciseImageViewSet(ModelViewSet):
 
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -459,7 +458,7 @@ class ExerciseVideoViewSet(ModelViewSet):
     """
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -496,7 +495,7 @@ class ExerciseCommentViewSet(ModelViewSet):
     API endpoint for exercise comment objects
     """
     serializer_class = ExerciseCommentSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = ('comment', 'exercise')
 
@@ -538,7 +537,7 @@ class ExerciseAliasViewSet(ModelViewSet):
     """
     serializer_class = ExerciseAliasSerializer
     queryset = Alias.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = ('alias', 'exercise')
 
@@ -571,7 +570,7 @@ class ExerciseVariationViewSet(ModelViewSet):
     """
     serializer_class = ExerciseVariationSerializer
     queryset = Variation.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):

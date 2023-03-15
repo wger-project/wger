@@ -49,3 +49,7 @@ def load_language(language_code=None):
 
     cache.set(cache_mapper.get_language_key(language.short_name), language)
     return language
+
+
+def get_language_data(language):
+    return {'name': language[1], 'path': f'images/icons/flags/{language[0]}.svg'}

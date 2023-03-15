@@ -21,7 +21,6 @@ import logging
 from django.conf import settings
 from django.shortcuts import render
 
-
 logger = logging.getLogger(__name__)
 
 

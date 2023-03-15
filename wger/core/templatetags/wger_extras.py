@@ -34,6 +34,7 @@ from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT,
 )
+from wger.utils.language import get_language_data
 
 
 register = template.Library()
@@ -163,11 +164,7 @@ def language_select(context, language):
     Renders a link to change the current language.
     """
 
-    return {
-        'language_name': language[1],
-        'path': f'images/icons/flag-{language[0]}.svg',
-        'i18n_path': context['i18n_path'][language[0]]
-    }
+    return {**get_language_data(language), 'i18n_path': context['i18n_path'][language[0]]}
 
 
 @register.filter

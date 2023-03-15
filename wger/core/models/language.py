@@ -70,4 +70,4 @@ class Language(models.Model):
 
     @property
     def static_path(self):
-        return f'images/icons/flag-{self.short_name}.svg'
+        return f'images/icons/flags/{self.short_name}.svg'
