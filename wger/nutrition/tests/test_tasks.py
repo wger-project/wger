@@ -93,7 +93,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': True}):
+        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': True}):
             result = fetch_ingredient_image(1)
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
@@ -109,7 +109,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': False}):
+        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': False}):
             result = fetch_ingredient_image(1)
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
@@ -127,7 +127,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_OFF},
+            WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF},
             TESTING=False,
         ):
             result = fetch_ingredient_image(1)
@@ -165,7 +165,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
         with self.settings(
             WGER_SETTINGS={
-                'DOWNLOAD_INGREDIENT_IMAGES': DOWNLOAD_INGREDIENT_WGER,
+                'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
                 'WGER_INSTANCE': 'http://localhost:8000'
             },
             TESTING=False

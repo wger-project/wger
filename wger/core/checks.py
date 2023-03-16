@@ -26,12 +26,12 @@ def settings_check(app_configs, **kwargs):
         )
 
     # Only one setting should be set
-    if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES'] not in DOWNLOAD_INGREDIENT_OPTIONS:
+    if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] not in DOWNLOAD_INGREDIENT_OPTIONS:
         errors.append(
             Error(
                 'Ingredient images configuration error',
                 hint=f'Origin for ingredient images misconfigured. Valid options are '
-                f'{DOWNLOAD_INGREDIENT_OPTIONS}',
+                     f'{DOWNLOAD_INGREDIENT_OPTIONS}',
                 obj=settings,
                 id='wger.E001',
             )

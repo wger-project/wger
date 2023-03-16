@@ -23,7 +23,6 @@ from django.core.management.base import BaseCommand
 from wger.nutrition.models import MealItem
 from wger.nutrition.tasks import fetch_ingredient_image_task
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -43,8 +42,8 @@ class Command(BaseCommand):
             return
 
         # Make sure off downloads are enabled
-        if not settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES']:
-            self.stdout.write('DOWNLOAD_INGREDIENT_IMAGES not set. Exiting...')
+        if not settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM']:
+            self.stdout.write('DOWNLOAD_INGREDIENTS_FROM not set. Exiting...')
             return
 
         # Since each MealItem is linked to a NutritionPlan via a Meal we can skip accessing

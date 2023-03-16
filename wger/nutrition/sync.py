@@ -60,9 +60,9 @@ def fetch_ingredient_image(pk: int):
         return
 
     logger.info(f'Fetching image for ingredient {pk}')
-    if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES'] == DOWNLOAD_INGREDIENT_OFF:
+    if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_OFF:
         fetch_image_from_off(ingredient)
-    elif settings.WGER_SETTINGS['DOWNLOAD_INGREDIENT_IMAGES'] == DOWNLOAD_INGREDIENT_WGER:
+    elif settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] == DOWNLOAD_INGREDIENT_WGER:
         fetch_image_from_wger_instance(ingredient)
 
 
