@@ -34,7 +34,10 @@ class Language(models.Model):
     )
 
     # e.g. 'Deutsch'
-    full_name = models.CharField(max_length=30, verbose_name=_('Language full name'))
+    full_name = models.CharField(
+        max_length=30,
+        verbose_name=_('Language full name'),
+    )
 
     class Meta:
         """

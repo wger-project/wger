@@ -129,7 +129,7 @@ def sync_languages(
         short_name = data['short_name']
         full_name = data['full_name']
 
-        language, created = Language.objects.get_or_create(
+        language, created = Language.objects.update_or_create(
             short_name=short_name,
             defaults={'full_name': full_name},
         )
@@ -155,7 +155,7 @@ def sync_categories(
         category_id = data['id']
         category_name = data['name']
 
-        category, created = ExerciseCategory.objects.get_or_create(
+        category, created = ExerciseCategory.objects.update_or_create(
             pk=category_id,
             defaults={'name': category_name},
         )
@@ -185,7 +185,7 @@ def sync_muscles(
         muscle_url_main = data['image_url_main']
         muscle_url_secondary = data['image_url_secondary']
 
-        muscle, created = Muscle.objects.get_or_create(
+        muscle, created = Muscle.objects.update_or_create(
             pk=muscle_id,
             defaults={
                 'name': muscle_name,
@@ -217,7 +217,7 @@ def sync_equipment(
         equipment_id = data['id']
         equipment_name = data['name']
 
-        equipment, created = Equipment.objects.get_or_create(
+        equipment, created = Equipment.objects.update_or_create(
             pk=equipment_id,
             defaults={'name': equipment_name},
         )
