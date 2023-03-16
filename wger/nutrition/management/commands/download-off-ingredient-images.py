@@ -23,6 +23,7 @@ from django.core.management.base import BaseCommand
 from wger.nutrition.models import MealItem
 from wger.nutrition.tasks import fetch_ingredient_image_task
 
+
 logger = logging.getLogger(__name__)
 
 

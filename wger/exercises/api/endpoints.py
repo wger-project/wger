@@ -1,0 +1,7 @@
+EXERCISE_ENDPOINT = "{0}/api/v2/exercisebaseinfo/?limit=100"
+DELETION_LOG_ENDPOINT = "{0}/api/v2/deletion-log/?limit=100"
+CATEGORY_ENDPOINT = "{0}/api/v2/exercisecategory/"
+MUSCLE_ENDPOINT = "{0}/api/v2/muscle/"
+EQUIPMENT_ENDPOINT = "{0}/api/v2/equipment/"
+IMAGE_ENDPOINT = "{0}/api/v2/exerciseimage/"
+VIDEO_ENDPOINT = "{0}/api/v2/video/"

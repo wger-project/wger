@@ -25,6 +25,7 @@ from django.db import IntegrityError
 import requests
 
 # wger
+from wger.nutrition.api.endpoints import IMAGE_ENDPOINT
 from wger.nutrition.models import (
     Image,
     Ingredient,
@@ -36,9 +37,8 @@ from wger.utils.constants import (
 )
 from wger.utils.requests import wger_headers
 
-logger = logging.getLogger(__name__)
 
-IMAGE_API = "{0}/api/v2/ingredient-image/"
+logger = logging.getLogger(__name__)
 
 
 def fetch_ingredient_image(pk: int):
@@ -67,7 +67,7 @@ def fetch_ingredient_image(pk: int):
 
 
 def fetch_image_from_wger_instance(ingredient):
-    url = f"{settings.WGER_SETTINGS['WGER_INSTANCE']}/api/v2/ingredient-image/{ingredient.pk}/"
+    url = f"{IMAGE_ENDPOINT.format(settings.WGER_SETTINGS['WGER_INSTANCE'])}/{ingredient.pk}/"
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     image_uuid = result['uuid']
@@ -137,7 +137,7 @@ def download_ingredient_images(
     # Get all images
     page = 1
     all_images_processed = False
-    result = requests.get(IMAGE_API.format(remote_url), headers=headers).json()
+    result = requests.get(IMAGE_ENDPOINT.format(remote_url), headers=headers).json()
     print_fn('*** Processing images ***')
     while not all_images_processed:
         print_fn('')

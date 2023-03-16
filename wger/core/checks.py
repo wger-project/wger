@@ -31,7 +31,7 @@ def settings_check(app_configs, **kwargs):
             Error(
                 'Ingredient images configuration error',
                 hint=f'Origin for ingredient images misconfigured. Valid options are '
-                     f'{DOWNLOAD_INGREDIENT_OPTIONS}',
+                f'{DOWNLOAD_INGREDIENT_OPTIONS}',
                 obj=settings,
                 id='wger.E001',
             )

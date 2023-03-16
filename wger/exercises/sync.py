@@ -23,7 +23,17 @@ from django.core.files.temp import NamedTemporaryFile
 import requests
 
 # wger
+from wger.core.api.endpoints import LANGUAGE_ENDPOINT
 from wger.core.models import Language
+from wger.exercises.api.endpoints import (
+    CATEGORY_ENDPOINT,
+    DELETION_LOG_ENDPOINT,
+    EQUIPMENT_ENDPOINT,
+    EXERCISE_ENDPOINT,
+    IMAGE_ENDPOINT,
+    MUSCLE_ENDPOINT,
+    VIDEO_ENDPOINT,
+)
 from wger.exercises.models import (
     DeletionLog,
     Equipment,
@@ -37,16 +47,6 @@ from wger.exercises.models import (
 from wger.utils.requests import wger_headers
 
 
-EXERCISE_API = "{0}/api/v2/exercisebaseinfo/?limit=100"
-DELETION_LOG_API = "{0}/api/v2/deletion-log/?limit=100"
-CATEGORY_API = "{0}/api/v2/exercisecategory/"
-MUSCLE_API = "{0}/api/v2/muscle/"
-LANGUAGE_API = "{0}/api/v2/language/"
-EQUIPMENT_API = "{0}/api/v2/equipment/"
-IMAGE_API = "{0}/api/v2/exerciseimage/"
-VIDEO_API = "{0}/api/v2/video/"
-
-
 def sync_exercises(
     print_fn,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
@@ -58,7 +58,7 @@ def sync_exercises(
     print_fn('*** Synchronizing exercises...')
     page = 1
     all_exercise_processed = False
-    result = requests.get(EXERCISE_API.format(remote_url), headers=headers).json()
+    result = requests.get(EXERCISE_ENDPOINT.format(remote_url), headers=headers).json()
     while not all_exercise_processed:
 
         for data in result['results']:
@@ -124,7 +124,7 @@ def sync_languages(
     headers = wger_headers()
 
     print_fn('*** Synchronizing languages...')
-    result = requests.get(LANGUAGE_API.format(remote_url), headers=headers).json()
+    result = requests.get(LANGUAGE_ENDPOINT.format(remote_url), headers=headers).json()
     for data in result['results']:
         short_name = data['short_name']
         full_name = data['full_name']
@@ -150,7 +150,7 @@ def sync_categories(
     headers = wger_headers()
 
     print_fn('*** Synchronizing categories...')
-    result = requests.get(CATEGORY_API.format(remote_url), headers=headers).json()
+    result = requests.get(CATEGORY_ENDPOINT.format(remote_url), headers=headers).json()
     for data in result['results']:
         category_id = data['id']
         category_name = data['name']
@@ -176,7 +176,7 @@ def sync_muscles(
     headers = wger_headers()
 
     print_fn('*** Synchronizing muscles...')
-    result = requests.get(MUSCLE_API.format(remote_url), headers=headers).json()
+    result = requests.get(MUSCLE_ENDPOINT.format(remote_url), headers=headers).json()
     for data in result['results']:
         muscle_id = data['id']
         muscle_name = data['name']
@@ -212,7 +212,7 @@ def sync_equipment(
     headers = wger_headers()
 
     print_fn('*** Synchronizing equipment...')
-    result = requests.get(EQUIPMENT_API.format(remote_url), headers=headers).json()
+    result = requests.get(EQUIPMENT_ENDPOINT.format(remote_url), headers=headers).json()
     for data in result['results']:
         equipment_id = data['id']
         equipment_name = data['name']
@@ -241,7 +241,7 @@ def delete_entries(
 
     page = 1
     all_entries_processed = False
-    result = requests.get(DELETION_LOG_API.format(remote_url), headers=headers).json()
+    result = requests.get(DELETION_LOG_ENDPOINT.format(remote_url), headers=headers).json()
     while not all_entries_processed:
         for data in result['results']:
             uuid = data['uuid']
@@ -297,7 +297,7 @@ def download_exercise_images(
     # Get all images
     page = 1
     all_images_processed = False
-    result = requests.get(IMAGE_API.format(remote_url), headers=headers).json()
+    result = requests.get(IMAGE_ENDPOINT.format(remote_url), headers=headers).json()
     print_fn('*** Processing images ***')
     while not all_images_processed:
         print_fn('')
@@ -363,7 +363,7 @@ def download_exercise_videos(
     # Get all videos
     page = 1
     all_videos_processed = False
-    result = requests.get(VIDEO_API.format(remote_url), headers=headers).json()
+    result = requests.get(VIDEO_ENDPOINT.format(remote_url), headers=headers).json()
     print_fn('*** Processing videos ***')
     while not all_videos_processed:
         print_fn('')
