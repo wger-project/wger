@@ -6,13 +6,13 @@
 -r requirements.txt
 
 # Building/installing
-wheel==0.38.4
+wheel==0.40.0
 
 # for ingredient import script from OFF
 pymongo==4.3.3
 
 # Development packages
-coverage==7.1.0
+coverage==7.2.1
 django-debug-toolbar==3.8.1
 tblib==1.7.0
 isort==5.12.0

@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-10 16:03+0100\n"
-"PO-Revision-Date: 2022-08-07 23:18+0000\n"
-"Last-Translator: Eduardo Menges Mattje <eduardomattje@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/"
-">\n"
+"PO-Revision-Date: 2023-03-01 22:38+0000\n"
+"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/wger/web/pt/>"
+"\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.16\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:50
 msgid "Default gym"
@@ -520,22 +520,20 @@ msgstr ""
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "E-mail verificado"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, seu e-mail foi verificado"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Erro, token de verificação inválido"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Configuração"
+msgstr "Confirmação de e-mail"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
@@ -1423,7 +1421,7 @@ msgstr ""
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Enviar e-mail de verificação"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
