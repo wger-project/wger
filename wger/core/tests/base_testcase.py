@@ -33,7 +33,6 @@ from django.utils.translation import activate
 # wger
 from wger.utils.constants import TWOPLACES
 
-
 STATUS_CODES_FAIL = (302, 403, 404)
 
 
@@ -76,7 +75,6 @@ def delete_testcase_add_methods(cls):
     """
 
     for user in get_user_list(cls.user_fail):
-
         def test_unauthorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
@@ -84,7 +82,6 @@ def delete_testcase_add_methods(cls):
         setattr(cls, f'test_unauthorized_{user}', test_unauthorized)
 
     for user in get_user_list(cls.user_success):
-
         def test_authorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
@@ -92,7 +89,7 @@ def delete_testcase_add_methods(cls):
         setattr(cls, f'test_authorized_{user}', test_authorized)
 
 
-class BaseTestCase():
+class BaseTestCase:
     """
     Base test case.
 
@@ -161,7 +158,6 @@ class BaseTestCase():
 
         settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] = False
         settings.WGER_SETTINGS['USE_CELERY'] = False
-        settings.WGER_SETTINGS['WGER_INSTANCE'] = 'http://localhost:8000'
 
     def tearDown(self):
         """
