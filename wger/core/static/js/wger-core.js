@@ -82,7 +82,7 @@ function wgerSetupSortable() {
             $.ajax({
               url: '/api/v2/set/' + setId + '/',
               type: 'PATCH',
-              data: { order: eventIndex + 1 }
+              data: {order: eventIndex + 1}
             });
           }
         });
@@ -109,9 +109,9 @@ function setProfileField(field, newValue) {
   var dataDict = {};
   dataDict[field] = newValue;
   $.post({
-      url: '/api/v2/userprofile/',
-      data: dataDict
-    });
+    url: '/api/v2/userprofile/',
+    data: dataDict
+  });
 }
 
 /*
@@ -447,10 +447,22 @@ function initRemoveExerciseFormset() {
   });
 }
 
+function getSearchLanguages() {
+  let search_languages = getCurrentLanguage();
+  let search_english = $('#id_english_results')[0].checked;
+  if (search_english === true) {
+    search_languages = search_languages + ',' + 'en';
+  }
+
+  return search_languages;
+}
+
 function wgerInitEditSet() {
   // Initialise the autocompleter (our widget, defined above)
   $('#exercise-search').autocomplete({
-    serviceUrl: '/api/v2/exercise/search/?language=' + getCurrentLanguage(),
+    serviceUrl: function () {
+      return '/api/v2/exercise/search/?language=' + getSearchLanguages()
+    },
     showNoSuggestionNotice: true,
     groupBy: 'category',
     paramName: 'term',

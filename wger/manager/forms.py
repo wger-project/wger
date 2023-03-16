@@ -127,7 +127,6 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 
 
 class SetForm(ModelForm):
-
     exercises = OrderedModelMultipleChoiceField(
         queryset=ExerciseBase.objects.all(),
         label=_('Exercises'),
@@ -138,6 +137,12 @@ class SetForm(ModelForm):
             'exercise, they will be grouped '
             'together for a superset.'
         )
+    )
+
+    english_results = BooleanField(
+        label=gettext_lazy("Also search for names in English"),
+        initial=True,
+        required=False,
     )
 
     class Meta:
