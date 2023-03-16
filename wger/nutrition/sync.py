@@ -37,7 +37,6 @@ from wger.utils.constants import (
 )
 from wger.utils.requests import wger_headers
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -67,7 +66,7 @@ def fetch_ingredient_image(pk: int):
 
 
 def fetch_image_from_wger_instance(ingredient):
-    url = f"{IMAGE_ENDPOINT.format(settings.WGER_SETTINGS['WGER_INSTANCE'])}/{ingredient.pk}/"
+    url = f"{IMAGE_ENDPOINT.format(settings.WGER_SETTINGS['WGER_INSTANCE'])}{ingredient.pk}/"
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     image_uuid = result['uuid']
