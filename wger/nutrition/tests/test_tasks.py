@@ -42,7 +42,7 @@ class MockOffResponse:
         return {
             "product": {
                 'image_front_url':
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',
@@ -69,7 +69,7 @@ class MockWgerApiResponse:
             "ingredient_id": "12345",
             "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
             "image": "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8"
-            "/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
+                     "/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
             "last_update": "2023-03-15T23:20:10.969369+01:00",
             "size": 20179,
             "source_url": "",
@@ -154,7 +154,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
     @patch('requests.get', return_value=MockWgerApiResponse())
     @patch.object(logger, 'info')
-    def test_download_ingredient_wger123(self, mock_logger, mock_request):
+    def test_download_ingredient_wger(self, mock_logger, mock_request):
         """
         Test that the image is correctly downloaded
 
@@ -178,6 +178,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 '7908c204-907f-4b1e-ad4e-f482e9769ade)'
             )
 
+            print(mock_request.mock_calls)
             mock_request.assert_any_call(
                 'http://localhost:8000/api/v2/ingredient-image/1/',
                 headers=wger_headers(),
