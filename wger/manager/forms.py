@@ -69,7 +69,6 @@ from wger.utils.widgets import (
 
 
 class WorkoutForm(ModelForm):
-
     class Meta:
         model = Workout
         fields = (
@@ -79,7 +78,6 @@ class WorkoutForm(ModelForm):
 
 
 class WorkoutMakeTemplateForm(ModelForm):
-
     class Meta:
         model = Workout
         fields = (
@@ -102,10 +100,9 @@ class WorkoutCopyForm(Form):
 
 
 class DayForm(ModelForm):
-
     class Meta:
         model = Day
-        exclude = ('training', )
+        exclude = ('training',)
         widgets = {'day': TranslatedSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
@@ -127,7 +124,6 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 
 
 class SetForm(ModelForm):
-
     exercises = OrderedModelMultipleChoiceField(
         queryset=ExerciseBase.objects.all(),
         label=_('Exercises'),
@@ -140,13 +136,18 @@ class SetForm(ModelForm):
         )
     )
 
+    english_results = BooleanField(
+        label=gettext_lazy("Also search for names in English"),
+        initial=True,
+        required=False,
+    )
+
     class Meta:
         model = Set
         exclude = ('order', 'exerciseday')
 
 
 class SettingForm(ModelForm):
-
     class Meta:
         model = Setting
         exclude = ('set', 'exercise', 'order', 'name')
@@ -193,7 +194,7 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('workout', )
+        exclude = ('workout',)
 
 
 class WorkoutLogFormHelper(FormHelper):
