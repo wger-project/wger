@@ -43,6 +43,7 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
+        unique=True,
         editable=False,
         verbose_name='UUID',
     )

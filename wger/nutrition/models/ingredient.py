@@ -101,6 +101,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
     uuid = models.UUIDField(
         default=uuid.uuid4,
+        unique=True,
         editable=False,
         verbose_name='UUID',
     )

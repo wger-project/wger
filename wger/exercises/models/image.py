@@ -63,6 +63,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
+        unique=True,
         verbose_name='UUID',
     )
     """Globally unique ID, to identify the image across installations"""
@@ -125,12 +126,11 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
             ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.all()\
+            if ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base).count() == 0 \
-               or not ExerciseImage.objects.all() \
-                    .filter(exercise_base=self.exercise_base, is_main=True)\
-                    .count():
-
+                or not ExerciseImage.objects.all() \
+                .filter(exercise_base=self.exercise_base, is_main=True) \
+                .count():
                 self.is_main = True
 
         # And go on
@@ -147,7 +147,6 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
                                                   ).count() and ExerciseImage.objects.all().filter(
                                                       exercise_base=self.exercise_base
                                                   ).filter(is_main=False).count():
-
             image = ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]
             image.is_main = True

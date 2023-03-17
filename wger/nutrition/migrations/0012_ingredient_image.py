@@ -21,7 +21,6 @@ def generate_uuids(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0013_auto_20210726_1729'),
         ('nutrition', '0012_alter_ingredient_license_author'),
@@ -31,7 +30,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ingredient',
             name='uuid',
-            field=models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID'),
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                editable=False,
+                unique=True,
+                verbose_name='UUID',
+            ),
         ),
         migrations.CreateModel(
             name='Image',
@@ -39,27 +43,38 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     )
                 ),
                 (
                     'license_author',
                     models.CharField(
                         blank=True,
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
-                        max_length=50,
+                        help_text='If you are not the author, enter the name or source here. This '
+                        'is needed for some licenses e.g. the CC-BY-SA.',
+                        max_length=60,
                         null=True,
-                        verbose_name='Author'
+                        verbose_name='Author',
                     )
                 ),
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
+                (
+                    'uuid',
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        unique=True,
+                        verbose_name='UUID',
+                    )
+                ),
                 (
                     'image',
                     models.ImageField(
                         help_text='Only PNG and JPEG formats are supported',
                         upload_to=wger.nutrition.models.image.ingredient_image_upload_dir,
-                        verbose_name='Image'
+                        verbose_name='Image',
                     )
                 ),
                 ('last_update', models.DateTimeField(auto_now=True)),
