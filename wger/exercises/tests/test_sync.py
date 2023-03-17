@@ -212,6 +212,12 @@ class MockDeletionLogResponse:
                     "comment": "Exercise base with ID 1"
                 },
                 {
+                    "model_type": "base",
+                    "uuid": "577ee012-70c6-4517-b0fe-dcf340926ae7",
+                    "timestamp": "2023-01-30T19:32:56.761426+01:00",
+                    "comment": "Unknown Exercise base"
+                },
+                {
                     "model_type": "translation",
                     "uuid": "0ef4cec8-d9c9-464f-baf9-3dbdf20083cb",
                     "timestamp": "2023-01-30T19:32:56.764582+01:00",
@@ -222,6 +228,18 @@ class MockDeletionLogResponse:
                     "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
                     "timestamp": "2023-01-30T19:32:56.765350+01:00",
                     "comment": "Translation with ID 3"
+                },
+                {
+                    "model_type": "image",
+                    "uuid": "c72b4463-48ae-4c7d-8093-2c347c38e05a",
+                    "timestamp": "2023-01-30T19:32:56.765350+01:00",
+                    "comment": "Unknown image"
+                },
+                {
+                    "model_type": "video",
+                    "uuid": "e0d25624-348b-4a23-adcd-17190f96f005",
+                    "timestamp": "2023-01-30T19:32:56.765350+01:00",
+                    "comment": "Unknown video"
                 },
                 {
                     "model_type": "foobar",
