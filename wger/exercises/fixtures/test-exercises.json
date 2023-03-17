@@ -45,7 +45,7 @@
     "pk": 2,
     "model": "exercises.exercisebase",
     "fields": {
-      "uuid": "029a6eac67f242d9b71d9d692b0a35b0",
+      "uuid": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
       "category": 2,
       "creation_date": "2014-11-01",
       "update_date": "2018-11-01T00:00:00+01:00",
@@ -153,7 +153,7 @@
     "pk": 2,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "3275c4e6e7ba4368964b6b1a9d80ca7a",
+      "uuid": "7524ca8d-032e-482d-ab18-40e8a97851f6",
       "language": 2,
       "exercise_base": 2,
       "description": "",

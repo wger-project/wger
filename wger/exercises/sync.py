@@ -11,6 +11,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 # Standard Library
 import os
 
@@ -35,11 +36,13 @@ from wger.exercises.api.endpoints import (
     VIDEO_ENDPOINT,
 )
 from wger.exercises.models import (
+    Alias,
     DeletionLog,
     Equipment,
     Exercise,
     ExerciseBase,
     ExerciseCategory,
+    ExerciseComment,
     ExerciseImage,
     ExerciseVideo,
     Muscle,
@@ -71,7 +74,7 @@ def sync_exercises(
             muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
             muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-            base, base_created = ExerciseBase.objects.get_or_create(
+            base, base_created = ExerciseBase.objects.update_or_create(
                 uuid=uuid,
                 defaults={'category_id': category_id},
             )
@@ -88,23 +91,27 @@ def sync_exercises(
                 description = translation_data['description']
                 language_id = translation_data['language']
 
-                translation, translation_created = Exercise.objects.get_or_create(
+                translation, translation_created = Exercise.objects.update_or_create(
                     uuid=trans_uuid,
                     defaults={
+                        'exercise_base': base,
+                        'name': name,
+                        'description': description,
+                        'license_id': license_id,
+                        'license_author': license_author,
                         'language_id': language_id,
-                        'exercise_base': base
                     },
                 )
                 out = f"- {'created' if translation_created else 'updated'} translation " \
                       f"{translation.language.short_name} {trans_uuid} - {name}"
                 print_fn(out)
 
-                translation.name = name
-                translation.description = description
-                translation.language_id = language_id
-                translation.license_id = license_id
-                translation.license_author = license_author
-                translation.save()
+                for note in translation_data['notes']:
+                    ExerciseComment.objects.get_or_create(exercise=translation, comment=note)
+
+                for alias in translation_data['aliases']:
+                    Alias.objects.get_or_create(exercise=translation, alias=alias)
+
             print_fn('')
 
         if result['next']:
