@@ -1,5 +1,3 @@
-# -*- coding: utf-8 *-*
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -54,7 +52,7 @@ class Command(BaseCommand):
             dest='remote_url',
             default=settings.WGER_SETTINGS['WGER_INSTANCE'],
             help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
+                 f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
         )
 
     def handle(self, **options):

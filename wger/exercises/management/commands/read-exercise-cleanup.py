@@ -1,5 +1,3 @@
-# -*- coding: utf-8 *-*
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -38,7 +36,6 @@ from wger.exercises.models import (
     Variation,
 )
 from wger.utils.constants import DEFAULT_LICENSE_ID
-
 
 UUID_NEW = 'NEW'
 VIDEO_AUTHOR = 'Goulart'
