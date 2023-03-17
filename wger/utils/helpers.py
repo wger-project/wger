@@ -37,6 +37,7 @@ from django.utils.http import (
     urlsafe_base64_encode,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -214,7 +215,7 @@ def normalize_decimal(d):
     normalized = d.normalize()
     sign, digits, exponent = normalized.as_tuple()
     if exponent > 0:
-        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
+        return decimal.Decimal((sign, digits + (0, ) * exponent, 0))
     else:
         return normalized
 

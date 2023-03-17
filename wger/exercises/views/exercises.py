@@ -21,9 +21,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-
 from django.http import HttpResponsePermanentRedirect
-
 from django.shortcuts import get_object_or_404
 from django.urls import (
     reverse,
@@ -41,6 +39,7 @@ from django.views.generic import (
 # wger
 from wger.exercises.models import Exercise
 from wger.utils.generic_views import WgerDeleteMixin
+
 
 logger = logging.getLogger(__name__)
 

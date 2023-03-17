@@ -37,6 +37,7 @@ from wger.utils.constants import (
 )
 from wger.utils.requests import wger_headers
 
+
 logger = logging.getLogger(__name__)
 
 
