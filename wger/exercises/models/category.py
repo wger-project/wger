@@ -18,10 +18,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# wger
-from wger.core.models import Language
-from wger.utils.cache import delete_template_fragment_cache
-
 
 class ExerciseCategory(models.Model):
     """

@@ -19,9 +19,7 @@ from collections.abc import Iterable
 
 # Django
 from django import template
-from django.conf import settings
 from django.templatetags.static import static
-from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     gettext_lazy as _,
@@ -35,7 +33,6 @@ from wger.utils.constants import (
     PAGINATION_PAGES_AROUND_CURRENT,
 )
 from wger.utils.language import get_language_data
-
 
 register = template.Library()
 
