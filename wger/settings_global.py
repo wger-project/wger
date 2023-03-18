@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
 import sys
@@ -24,13 +23,13 @@ from datetime import timedelta
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -172,8 +171,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-            False
+            'debug': False
         },
     },
 ]
@@ -256,7 +254,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -417,7 +415,8 @@ else:
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
 )
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
@@ -428,16 +427,13 @@ COMPRESS_ROOT = STATIC_ROOT
 #
 # Django Rest Framework
 #
+# yapf: disable
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':
-    20,
-    'PAGINATE_BY_PARAM':
-    'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT':
-    'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -452,6 +448,7 @@ REST_FRAMEWORK = {
         'login': '10/min'
     }
 }
+# yapf: enable
 
 #
 # Django Rest Framework SimpleJWT
@@ -473,7 +470,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
