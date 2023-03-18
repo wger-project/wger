@@ -36,6 +36,7 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_WGER,
 )
 from wger.utils.requests import wger_headers
+from wger.utils.url import make_uri
 
 
 logger = logging.getLogger(__name__)
@@ -67,17 +68,21 @@ def fetch_ingredient_image(pk: int):
 
 
 def fetch_image_from_wger_instance(ingredient):
-    url = f"{IMAGE_ENDPOINT.format(settings.WGER_SETTINGS['WGER_INSTANCE'])}{ingredient.pk}/"
+    url = make_uri(IMAGE_ENDPOINT, query={'uuid': ingredient.uuid})
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
-    image_uuid = result['uuid']
+    if result['count'] == 0:
+        logger.info('No ingredient matches UUID in the remote server')
+
+    image_data = result['results'][0]
+    image_uuid = image_data['uuid']
     try:
         Image.objects.get(uuid=image_uuid)
         logger.info('image already present locally, skipping...')
         return
     except Image.DoesNotExist:
-        retrieved_image = requests.get(result['image'], headers=wger_headers())
-        Image.from_json(ingredient, retrieved_image, result)
+        retrieved_image = requests.get(image_data['image'], headers=wger_headers())
+        Image.from_json(ingredient, retrieved_image, image_data)
 
 
 def fetch_image_from_off(ingredient):
@@ -133,11 +138,12 @@ def download_ingredient_images(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
-    headers = wger_headers()
-    # Get all images
     page = 1
     all_images_processed = False
-    result = requests.get(IMAGE_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(IMAGE_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
+
     print_fn('*** Processing images ***')
     while not all_images_processed:
         print_fn('')

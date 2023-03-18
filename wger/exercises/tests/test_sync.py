@@ -42,6 +42,7 @@ class MockLanguageResponse:
         self.status_code = 200
         self.content = b'1234'
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
@@ -53,25 +54,30 @@ class MockLanguageResponse:
                     "id": 1,
                     "short_name": "de",
                     "full_name": "Daitsch"
-                }, {
+                },
+                {
                     "id": 2,
                     "short_name": "en",
                     "full_name": "English"
-                }, {
+                },
+                {
                     "id": 3,
                     "short_name": "fr",
                     "full_name": "Français"
-                }, {
+                },
+                {
                     "id": 4,
                     "short_name": "es",
                     "full_name": "Español"
-                }, {
+                },
+                {
                     "id": 19,
                     "short_name": "eo",
                     "full_name": "Esperanto"
                 }
             ]
         }
+    # yapf: enable
 
 
 class MockCategoryResponse:
@@ -80,6 +86,7 @@ class MockCategoryResponse:
         self.status_code = 200
         self.content = b'1234'
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
@@ -90,24 +97,30 @@ class MockCategoryResponse:
                 {
                     "id": 1,
                     "name": "A cooler, swaggier category"
-                }, {
+                },
+                {
                     "id": 2,
                     "name": "Another category"
-                }, {
+                },
+                {
                     "id": 3,
                     "name": "Yet another category"
-                }, {
+                },
+                {
                     "id": 4,
                     "name": "Calves"
-                }, {
+                },
+                {
                     "id": 5,
                     "name": "Cardio"
-                }, {
+                },
+                {
                     "id": 16,
                     "name": "Chest"
                 }
             ]
         }
+    # yapf: enable
 
 
 class MockMuscleResponse:
@@ -116,6 +129,7 @@ class MockMuscleResponse:
         self.status_code = 200
         self.content = b''
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
@@ -157,6 +171,7 @@ class MockMuscleResponse:
                 },
             ]
         }
+    # yapf: enable
 
 
 class MockEquipmentResponse:
@@ -165,6 +180,7 @@ class MockEquipmentResponse:
         self.status_code = 200
         self.content = b''
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
@@ -190,6 +206,7 @@ class MockEquipmentResponse:
                 },
             ]
         }
+    # yapf: enable
 
 
 class MockDeletionLogResponse:
@@ -198,6 +215,7 @@ class MockDeletionLogResponse:
         self.status_code = 200
         self.content = b''
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
@@ -249,6 +267,7 @@ class MockDeletionLogResponse:
                 },
             ]
         }
+    # yapf: enable
 
 
 class MockExerciseResponse:
@@ -257,6 +276,7 @@ class MockExerciseResponse:
         self.status_code = 200
         self.content = b''
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
@@ -454,6 +474,7 @@ class MockExerciseResponse:
                 },
             ]
         }
+    # yapf: enable
 
 
 class TestSyncMethods(WgerTestCase):
