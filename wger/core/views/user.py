@@ -85,7 +85,6 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm,
 )
-from wger.core.models import Language
 from wger.gym.models import (
     AdminUserNote,
     Contract,
@@ -102,6 +101,7 @@ from wger.utils.generic_views import (
     WgerFormMixin,
     WgerMultiplePermissionRequiredMixin,
 )
+from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
 
 
@@ -267,7 +267,7 @@ def registration(request):
             user.save()
 
             # Pre-set some values of the user's profile
-            language = Language.objects.get(short_name=translation.get_language())
+            language = load_language(translation.get_language())
             user.userprofile.notification_language = language
 
             # Set default gym, if needed
