@@ -37,12 +37,13 @@ class MockOffResponse:
         self.status_code = 200
         self.content = b'2000'
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
             "product": {
                 'image_front_url':
-                'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
+                    'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 'images': {
                     'front_en': {
                         'imgid': '12345',
@@ -53,6 +54,7 @@ class MockOffResponse:
                 }
             },
         }
+    # yapf: disable
 
 
 class MockWgerApiResponse:
@@ -61,21 +63,30 @@ class MockWgerApiResponse:
         self.status_code = 200
         self.content = b'2000'
 
+    # yapf: disable
     @staticmethod
     def json():
         return {
-            "id": 1,
-            "uuid": "188324b5-587f-42d7-9abc-d2ca64c73d45",
-            "ingredient_id": "12345",
-            "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
-            "image": "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8"
-            "/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
-            "last_update": "2023-03-15T23:20:10.969369+01:00",
-            "size": 20179,
-            "source_url": "",
-            "license": 1,
-            "license_author": "Tester McTest"
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [
+                {
+                    "id": 1,
+                    "uuid": "188324b5-587f-42d7-9abc-d2ca64c73d45",
+                    "ingredient_id": "12345",
+                    "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
+                    "image": "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90"
+                             "-5b9739b06cf8/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
+                    "last_update": "2023-03-15T23:20:10.969369+01:00",
+                    "size": 20179,
+                    "source_url": "",
+                    "license": 1,
+                    "license_author": "Tester McTest"
+                }
+            ]
         }
+    # yapf: enable
 
 
 class FetchIngredientImageTestCase(WgerTestCase):
@@ -164,11 +175,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={
-                'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
-                'WGER_INSTANCE': 'http://localhost:8000'
-            },
-            TESTING=False
+            WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER}, TESTING=False
         ):
             result = fetch_ingredient_image(1)
 
@@ -178,9 +185,8 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 '7908c204-907f-4b1e-ad4e-f482e9769ade)'
             )
 
-            print(mock_request.mock_calls)
             mock_request.assert_any_call(
-                'http://localhost:8000/api/v2/ingredient-image/1/',
+                'https://wger.de/api/v2/ingredient-image/?uuid=7908c204-907f-4b1e-ad4e-f482e9769ade',
                 headers=wger_headers(),
             )
             mock_request.assert_any_call(
