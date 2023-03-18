@@ -48,6 +48,7 @@ from wger.exercises.models import (
     Muscle,
 )
 from wger.utils.requests import wger_headers
+from wger.utils.url import make_uri
 
 
 def sync_exercises(
@@ -56,12 +57,13 @@ def sync_exercises(
     style_fn=lambda x: x,
 ):
     """Synchronize the exercises from the remote server"""
-    headers = wger_headers()
-
     print_fn('*** Synchronizing exercises...')
+
     page = 1
     all_exercise_processed = False
-    result = requests.get(EXERCISE_ENDPOINT.format(remote_url), headers=headers).json()
+    url = make_uri(EXERCISE_ENDPOINT, server_url=remote_url, query={'limit': 100})
+    headers = wger_headers()
+    result = requests.get(url, headers=headers).json()
     while not all_exercise_processed:
 
         for data in result['results']:
@@ -128,10 +130,10 @@ def sync_languages(
     style_fn=lambda x: x,
 ):
     """Synchronize the languages from the remote server"""
-    headers = wger_headers()
-
     print_fn('*** Synchronizing languages...')
-    result = requests.get(LANGUAGE_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(LANGUAGE_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
     for data in result['results']:
         short_name = data['short_name']
         full_name = data['full_name']
@@ -154,10 +156,10 @@ def sync_categories(
 ):
     """Synchronize the categories from the remote server"""
 
-    headers = wger_headers()
-
     print_fn('*** Synchronizing categories...')
-    result = requests.get(CATEGORY_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(CATEGORY_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
     for data in result['results']:
         category_id = data['id']
         category_name = data['name']
@@ -180,10 +182,10 @@ def sync_muscles(
 ):
     """Synchronize the muscles from the remote server"""
 
-    headers = wger_headers()
-
     print_fn('*** Synchronizing muscles...')
-    result = requests.get(MUSCLE_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(MUSCLE_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
     for data in result['results']:
         muscle_id = data['id']
         muscle_name = data['name']
@@ -215,11 +217,11 @@ def sync_equipment(
     style_fn=lambda x: x,
 ):
     """Synchronize the equipment from the remote server"""
+    print_fn('*** Synchronizing equipment...')
 
     headers = wger_headers()
-
-    print_fn('*** Synchronizing equipment...')
-    result = requests.get(EQUIPMENT_ENDPOINT.format(remote_url), headers=headers).json()
+    url = make_uri(EQUIPMENT_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
     for data in result['results']:
         equipment_id = data['id']
         equipment_name = data['name']
@@ -241,14 +243,13 @@ def delete_entries(
     style_fn=lambda x: x,
 ):
     """Delete exercises that were removed on the server"""
-
-    headers = wger_headers()
-
     print_fn('*** Deleting exercises data that was removed on the server...')
 
     page = 1
     all_entries_processed = False
-    result = requests.get(DELETION_LOG_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(DELETION_LOG_ENDPOINT, server_url=remote_url, query={'limit': 100})
+    result = requests.get(url, headers=headers).json()
     while not all_entries_processed:
         for data in result['results']:
             uuid = data['uuid']
@@ -299,12 +300,11 @@ def download_exercise_images(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
-    headers = wger_headers()
-
-    # Get all images
     page = 1
     all_images_processed = False
-    result = requests.get(IMAGE_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(IMAGE_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
     print_fn('*** Processing images ***')
     while not all_images_processed:
         print_fn('')
@@ -365,12 +365,12 @@ def download_exercise_videos(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
-    headers = wger_headers()
-
     # Get all videos
     page = 1
     all_videos_processed = False
-    result = requests.get(VIDEO_ENDPOINT.format(remote_url), headers=headers).json()
+    headers = wger_headers()
+    url = make_uri(VIDEO_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
     print_fn('*** Processing videos ***')
     while not all_videos_processed:
         print_fn('')
