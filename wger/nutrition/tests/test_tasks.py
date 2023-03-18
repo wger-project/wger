@@ -76,8 +76,8 @@ class MockWgerApiResponse:
                     "uuid": "188324b5-587f-42d7-9abc-d2ca64c73d45",
                     "ingredient_id": "12345",
                     "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
-                    "image": "http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90"
-                             "-5b9739b06cf8/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
+                    "image": "http://localhost:8000/media/ingredients/1/"
+                             "188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
                     "last_update": "2023-03-15T23:20:10.969369+01:00",
                     "size": 20179,
                     "source_url": "",
@@ -190,8 +190,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 headers=wger_headers(),
             )
             mock_request.assert_any_call(
-                'http://localhost:8000/media/ingredients/e9baa8bd-84fc-4756-8d90-5b9739b06cf8'
-                '/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
+                'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
                 headers=wger_headers()
             )
 

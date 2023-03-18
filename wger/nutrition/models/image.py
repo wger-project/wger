@@ -33,7 +33,7 @@ def ingredient_image_upload_dir(instance, filename):
     Returns the upload target for exercise images
     """
     ext = pathlib.Path(filename).suffix
-    return "ingredients/{0}/{1}{2}".format(instance.ingredient.uuid, instance.uuid, ext)
+    return "ingredients/{0}/{1}{2}".format(instance.ingredient.pk, instance.uuid, ext)
 
 
 class Image(AbstractLicenseModel, models.Model, BaseImage):
