@@ -239,7 +239,7 @@ AVAILABLE_LANGUAGES = (
     ('fr', 'French'),
     ('it', 'Italian'),
     ('nl', 'Dutch'),
-    ('no', 'Norwegian'),
+    ('nb', 'Norwegian'),
     ('pl', 'Polish'),
     ('pt', 'Portuguese'),
     ('pt-br', 'Brazilian Portuguese'),
@@ -247,7 +247,7 @@ AVAILABLE_LANGUAGES = (
     ('sv', 'Swedish'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
-    ('zh', 'Chinese simplified'),
+    ('zh-hans', 'Chinese simplified'),
 )
 
 # Default language code for this installation.
@@ -470,7 +470,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
 
 #
 # Password rules
