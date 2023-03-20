@@ -21,6 +21,7 @@ from django.utils.translation import get_language
 # wger
 from wger.config.models import GymConfig
 from wger.utils import constants
+from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import get_language_data
 
 
@@ -39,7 +40,9 @@ def processor(request):
         'twitter': settings.WGER_SETTINGS['TWITTER'],
 
         # Languages
-        'i18n_language': get_language_data((get_language(), languages_dict[get_language()])),
+        'i18n_language': get_language_data(
+            (get_language(), languages_dict.get(get_language(), ENGLISH_SHORT_NAME)),
+        ),
         'languages': settings.AVAILABLE_LANGUAGES,
 
         # The current path
