@@ -166,28 +166,3 @@ class ExerciseForm(ModelForm):
                         },
                     )
         return name
-
-
-class ExerciseDeleteView(
-    WgerDeleteMixin,
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    DeleteView,
-):
-    """
-    Generic view to delete an existing exercise
-    """
-
-    model = Exercise
-    success_url = reverse_lazy('exercise:exercise:overview')
-    delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
-    messages = gettext_lazy('Successfully deleted')
-    permission_required = 'exercises.delete_exercise'
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _('Delete {0}?').format(self.object.name)
-        return context

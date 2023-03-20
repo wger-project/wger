@@ -26,7 +26,6 @@ from django.views.generic import TemplateView
 # wger
 from wger.exercises.views import (
     categories,
-    comments,
     equipment,
     exercises,
     history,
@@ -64,25 +63,6 @@ patterns_muscle = [
     path(
         '<int:pk>/delete/',
         muscles.MuscleDeleteView.as_view(),
-        name='delete',
-    ),
-]
-
-# sub patterns for exercise comments
-patterns_comment = [
-    path(
-        '<int:exercise_pk>/comment/add/',
-        comments.ExerciseCommentAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit/',
-        comments.ExerciseCommentEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:id>/delete/',
-        comments.delete,
         name='delete',
     ),
 ]
@@ -167,16 +147,10 @@ patterns_exercise = [
         TemplateView.as_view(template_name='exercise/contribute.html'),
         name='contribute',
     ),
-    path(
-        '<int:pk>/delete/',
-        exercises.ExerciseDeleteView.as_view(),
-        name='delete',
-    ),
 ]
 
 urlpatterns = [
     path('muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    path('comment/', include((patterns_comment, 'comment'), namespace="comment")),
     path('category/', include((patterns_category, 'category'), namespace="category")),
     path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
     path('history/', include((patterns_history, 'history'), namespace="history")),
