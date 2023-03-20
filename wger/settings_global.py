@@ -20,6 +20,9 @@ import os
 import re
 from datetime import timedelta
 
+# wger
+from wger import get_version
+
 
 """
 This file contains the global settings that don't usually need to be changed.
@@ -87,6 +90,8 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
@@ -446,7 +451,21 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
         'login': '3/min'
-    }
+    },
+    'DEFAULT_SCHEMA_CLASS':
+    'drf_spectacular.openapi.AutoSchema',
+}
+
+# Api docs
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'wger workout manager',
+    'DESCRIPTION': 'FLOSS self hosted workout and fitness tracker',
+    'VERSION': get_version(),
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
 }
 
 #

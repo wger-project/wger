@@ -29,6 +29,11 @@ from django.urls import path
 
 # Third Party
 from django_email_verification import urls as email_urls
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -47,7 +52,6 @@ from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
-
 
 # admin.autodiscover()
 
@@ -275,6 +279,23 @@ urlpatterns += [
         name='min_app_version'
     ),
     path('email/', include(email_urls)),
+
+    # Api documentation
+    path(
+        'api/schema/',
+        SpectacularAPIView.as_view(),
+        name='schema',
+    ),
+    path(
+        'api/schema/swagger-ui/',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='swagger-ui'
+    ),
+    path(
+        'api/schema/redoc/',
+        SpectacularRedocView.as_view(url_name='schema'),
+        name='redoc'
+    ),
 ]
 
 #
