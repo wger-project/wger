@@ -58,6 +58,7 @@ from wger.nutrition.models import (
     NutritionPlan,
     WeightUnit,
 )
+from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
@@ -158,17 +159,17 @@ def search(request):
     This format is currently used by the ingredient search autocompleter
     """
     term = request.GET.get('term', None)
-    requested_language = request.GET.get('language', None)
+    language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)
     results = []
     json_response = {}
 
     if not term:
         return Response(json_response)
 
-    language = load_language(requested_language)
+    languages = [load_language(l) for l in language_codes.split(',')]
     ingredients = Ingredient.objects.filter(
         name__icontains=term,
-        language=language,
+        language__in=languages,
         status=Ingredient.STATUS_ACCEPTED,
     )[:100]
 
