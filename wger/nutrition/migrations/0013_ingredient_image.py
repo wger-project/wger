@@ -7,6 +7,10 @@ import wger.nutrition.models.image
 import wger.utils.helpers
 
 
+def noop(apps, schema_editor):
+    pass
+
+
 def generate_uuids(apps, schema_editor):
     """
     Generate new UUIDs for each exercise
@@ -102,7 +106,7 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model, wger.utils.helpers.BaseImage),
         ),
-        migrations.RunPython(generate_uuids),
+        migrations.RunPython(generate_uuids, reverse_code=noop),
         migrations.AlterField(
             model_name='ingredient',
             name='uuid',
