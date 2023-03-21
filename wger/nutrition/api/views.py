@@ -72,6 +72,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'uuid',
         'code',
         'carbohydrates',
         'carbohydrates_sugar',
@@ -206,7 +207,12 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('uuid', 'source_url', 'ingredient_id')
+    filterset_fields = (
+        'uuid',
+        'ingredient_uuid',
+        'source_url',
+        'ingredient_id'
+    )
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):

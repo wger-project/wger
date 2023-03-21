@@ -109,6 +109,7 @@ class IngredientSerializer(serializers.ModelSerializer):
         model = Ingredient
         fields = [
             'id',
+            'uuid',
             'code',
             'name',
             'creation_date',
