@@ -17,7 +17,7 @@ def generate_uuids(apps, schema_editor):
     Ingredient = apps.get_model("nutrition", "Ingredient")
     for ingredient in Ingredient.objects.all():
         ingredient.uuid = uuid.uuid4()
-        ingredient.save()
+        ingredient.save(update_fields=["uuid"])
 
 
 class Migration(migrations.Migration):
@@ -33,7 +33,6 @@ class Migration(migrations.Migration):
             field=models.UUIDField(
                 default=uuid.uuid4,
                 editable=False,
-                unique=True,
                 verbose_name='UUID',
             ),
         ),
@@ -54,7 +53,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         blank=True,
                         help_text='If you are not the author, enter the name or source here. This '
-                        'is needed for some licenses e.g. the CC-BY-SA.',
+                                  'is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=60,
                         null=True,
                         verbose_name='Author',
@@ -104,4 +103,14 @@ class Migration(migrations.Migration):
             bases=(models.Model, wger.utils.helpers.BaseImage),
         ),
         migrations.RunPython(generate_uuids),
+        migrations.AlterField(
+            model_name='ingredient',
+            name='uuid',
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                editable=False,
+                unique=True,
+                verbose_name='UUID',
+            ),
+        )
     ]
