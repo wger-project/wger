@@ -51,12 +51,6 @@ then
     python3 manage.py download-exercise-images
 fi
 
-# Download ingredient images
-if [[ "$DOWNLOAD_INGREDIENT_IMAGES_ON_STARTUP" == "True" ]];
-then
-    echo "Downloading ingredient images"
-    python3 manage.py download-ingredient-images
-fi
 
 # Set the site URL
 python3 manage.py set-site-url
