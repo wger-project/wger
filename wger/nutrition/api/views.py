@@ -209,9 +209,9 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
-        'ingredient_uuid',
         'source_url',
-        'ingredient_id'
+        'ingredient_id',
+        'ingredient__uuid'
     )
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))

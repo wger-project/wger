@@ -68,7 +68,7 @@ def fetch_ingredient_image(pk: int):
 
 
 def fetch_image_from_wger_instance(ingredient):
-    url = make_uri(IMAGE_ENDPOINT, query={'uuid': ingredient.uuid})
+    url = make_uri(IMAGE_ENDPOINT, query={'ingredient__uuid': ingredient.uuid})
     logger.info(f'Trying to fetch image from WGER for {ingredient.name} (UUID: {ingredient.uuid})')
     result = requests.get(url, headers=wger_headers()).json()
     if result['count'] == 0:
