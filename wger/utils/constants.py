@@ -17,7 +17,6 @@
 # Standard Library
 from decimal import Decimal
 
-
 # Navigation
 WORKOUT_TAB = 'workout'
 EXERCISE_TAB = 'exercises'
@@ -43,7 +42,7 @@ DATE_FORMATS = [
 # editor. Everything not in these whitelists is stripped.
 HTML_TAG_WHITELIST = {'b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'p'}
 HTML_ATTRIBUTES_WHITELIST = {'*': 'style'}
-HTML_STYLES_WHITELIST = ('text-decoration', )
+HTML_STYLES_WHITELIST = ('text-decoration',)
 
 # Pagination
 PAGINATION_OBJECTS_PER_PAGE = 25
@@ -56,6 +55,7 @@ MIN_EDIT_DISTANCE_THRESHOLD = 2
 
 # CC-BY-SA-4
 DEFAULT_LICENSE_ID = 2
+CC_BY_SA_3_LICENSE_ID = 1
 
 # Default language
 ENGLISH_SHORT_NAME = 'en'

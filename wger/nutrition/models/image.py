@@ -83,7 +83,7 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
         image: cls = super().from_json(connect_to, retrieved_image, json_data, generate_uuid)
 
         image.ingredient = connect_to
-        image.license = License.objects.get(pk=1)
+        image.license_id = json_data['license']
         image.license_author = json_data['license_author']
         image.size = json_data['size']
 

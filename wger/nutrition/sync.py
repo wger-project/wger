@@ -32,12 +32,12 @@ from wger.nutrition.models import (
     Source,
 )
 from wger.utils.constants import (
+    CC_BY_SA_3_LICENSE_ID,
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
 from wger.utils.requests import wger_headers
 from wger.utils.url import make_uri
-
 
 logger = logging.getLogger(__name__)
 
@@ -119,6 +119,7 @@ def fetch_image_from_off(ingredient):
     # Save to DB
     image_data = {
         'image': os.path.basename(image_url),
+        'license': CC_BY_SA_3_LICENSE_ID,
         'license_author': uploader_name,
         'size': len(response.content)
     }
