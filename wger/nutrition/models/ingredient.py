@@ -354,20 +354,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
-    def compare_with_database(self):
-        """
-        Compares the current ingredient with the version saved in the database.
-
-        If the current object has no PK, returns false
-        """
-        if not self.pk:
-            return False
-
-        ingredient = Ingredient.objects.get(pk=self.pk)
-        if self != ingredient:
-            return False
-        else:
-            return True
 
     def send_email(self, request):
         """
