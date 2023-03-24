@@ -86,12 +86,17 @@ def fetch_image_from_wger_instance(ingredient):
 
 
 def fetch_image_from_off(ingredient):
-    # Everything looks fine, go ahead
+    """
+    See
+    - https://openfoodfacts.github.io/openfoodfacts-server/api/how-to-download-images/
+    - https://openfoodfacts.github.io/openfoodfacts-server/api/ref-v2/
+    """
     logger.info(f'Trying to fetch image from OFF for {ingredient.name} (UUID: {ingredient.uuid})')
-    headers = wger_headers()
 
-    # Fetch the product data
-    product_data = requests.get(ingredient.source_url, headers=headers).json()
+    url = ingredient.source_url + '?fields=images,image_front_url'
+    headers = wger_headers()
+    product_data = requests.get(url, headers=headers).json()
+
     image_url: Optional[str] = product_data['product'].get('image_front_url')
     if not image_url:
         logger.info('Product data has no "image_front_url" key')
