@@ -35,8 +35,7 @@ from wger.exercises.models import (
     ExerciseVideo,
     Variation,
 )
-from wger.utils.constants import DEFAULT_LICENSE_ID
-
+from wger.utils.constants import CC_BY_SA_4_ID
 
 UUID_NEW = 'NEW'
 VIDEO_AUTHOR = 'Goulart'
@@ -94,7 +93,7 @@ class Command(BaseCommand):
                 assert (name in file_reader.fieldnames
                         ), '{0} not in {1}'.format(name, file_reader.fieldnames)
 
-        default_license = License.objects.get(pk=DEFAULT_LICENSE_ID)
+        default_license = License.objects.get(pk=CC_BY_SA_4_ID)
 
         #
         # Process the exercises

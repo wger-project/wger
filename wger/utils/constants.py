@@ -53,8 +53,8 @@ PAGINATION_PAGES_AROUND_CURRENT = 5
 # to be accepted
 MIN_EDIT_DISTANCE_THRESHOLD = 2
 
-# CC-BY-SA-4
-DEFAULT_LICENSE_ID = 2
+# Important license IDs
+CC_BY_SA_4_ID = 2
 CC_BY_SA_3_LICENSE_ID = 1
 
 # Default language
