@@ -11,8 +11,9 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+from collections import Counter
 import enum
-from enum import Enum
 
 from pymongo import MongoClient
 import os
@@ -86,7 +87,7 @@ db = client.admin
 # ingredients, which is very efficient. Importing the whole database will require
 # barely a minute. When using 'update', existing ingredients will be updated, which
 # requires two queries per product.
-class Mode(Enum):
+class Mode(enum.Enum):
     INSERT = enum.auto()
     UPDATE = enum.auto()
 
@@ -97,9 +98,7 @@ languages = {l.short_name: l for l in Language.objects.all()}
 
 BULK_SIZE = 500
 bulk_update_bucket = []
-stats = {'new': 0,
-         'edited': 0,
-         'skipped': 0}
+counter = Counter()
 
 # for lang in languages.keys():
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
@@ -148,7 +147,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     # Some products have no name or name is too long, skipping
     if not name or len(name) > 200:
         # print(f'-> skipping due to name requirements')
-        stats['skipped'] += 1
+        counter['skipped'] += 1
         continue
 
     # print(f'Processing "{name}"...')
@@ -168,7 +167,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         saturated = product['nutriments']['saturated-fat_100g']
     else:
         # print(f'-> skipping due to required nutriments')
-        stats['skipped'] += 1
+        counter['skipped'] += 1
         continue
 
     # these are optional
@@ -225,7 +224,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
                         print('--> Error while saving the product individually')
                         print(e)
 
-            stats['new'] += BULK_SIZE
+            counter['new'] += BULK_SIZE
             bulk_update_bucket = []
 
     # Update existing entries
@@ -238,10 +237,10 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
             obj, created = Ingredient.objects.update_or_create(code=code, defaults=ingredient_data)
 
             if created:
-                stats['new'] += 1
+                counter['new'] += 1
                 # print('-> added to the database')
             else:
-                stats['edited'] += 1
+                counter['edited'] += 1
                 # print('-> updated')
 
         except Exception as e:
@@ -250,5 +249,5 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
             continue
 
 print('***********************************')
-print(stats)
+print(counter)
 print('***********************************')
