@@ -54,7 +54,6 @@ from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
 from .sources import Source
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -114,7 +113,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         validators=[MinLengthValidator(3)],
     )
 
-    energy = models.IntegerField(verbose_name=_('Energy'), help_text=_('In kcal per 100g'))
+    energy = models.IntegerField(
+        verbose_name=_('Energy'),
+        help_text=_('In kcal per 100g'),
+    )
 
     protein = models.DecimalField(
         decimal_places=3,
