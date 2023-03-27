@@ -38,7 +38,7 @@ tzdata==2023.2
 
 # REST API
 django-cors-headers==3.14.0
-django-filter==22.1
+django-filter==23.1
 djangorestframework~=3.14
 djangorestframework-simplejwt[crypto]==5.2.2
 
