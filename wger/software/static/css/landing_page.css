@@ -4,12 +4,6 @@
     src: url("/static/fonts/bebas_neue/BebasNeue-Regular.woff");
 }
 
-
-* {
-    box-sizing: border-box;
-    overflow-x: hidden;
-}
-
 :root {
     --blue: #245daf;
     --green: #218064;
@@ -54,6 +48,10 @@ a {
 
 ul.hex-bullet {
     padding-left: 0
+}
+
+ul.hex-bullet li {
+    list-style-type: none;
 }
 
 ul.hex-bullet li::before {

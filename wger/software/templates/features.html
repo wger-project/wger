@@ -1,5 +1,5 @@
 {% extends "template_features.html" %}
-{% load i18n static wger_extras %}
+{% load i18n static wger_extras crispy_forms_tags %}
 
 {#           #}
 {# Opengraph #}
@@ -20,6 +20,8 @@
 {# Content #}
 {#         #}
 {% block template %}
+
+    <!-- header -->
     <header>
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg px-4">
@@ -44,10 +46,15 @@
                         </li>
                         <li class="nav-item mx-2 my-1">
                             <a class="nav-link fw-semibold"
-                               href="#">{% translate "Mobile app" %}</a>
+                               href="https://play.google.com/store/apps/details?id=de.wger.flutter">
+                                {% translate "Mobile app" %}
+                            </a>
                         </li>
                         <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">{% translate "Donate" %}</a>
+                            <a class="nav-link fw-semibold"
+                               href="https://www.buymeacoffee.com/wger">
+                                {% translate "Donate" %}
+                            </a>
                         </li>
                         <li class="nav-item mx-2 my-1">
                             <a class="nav-link fw-semibold" href="https://github.com/wger-project">
@@ -55,45 +62,55 @@
                             </a>
                         </li>
                         <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">{% translate "Community" %}</a>
+                            <a class="nav-link fw-semibold" href="#">
+                                {% translate "Community" %}
+                            </a>
                         </li>
                     </ul>
                     <!-- buttons -->
-                    <div class="d-flex gap-2">
-                        <a role="button" class="btn btn-transparent"
-                           href="{% url 'core:user:login' %}">
-                            {% translate "Login" %}
-                        </a>
-                        {% if allow_registration %}
-                            <a role="button" class="btn btn-primary rounded-1 bg-dark-blue px-4"
-                               href="{% url 'core:user:registration' %}">
-                                {% translate "Register" %}
+                    {% if not user.is_authenticated %}
+                        <div class="d-flex gap-2 my-2 my-lg-0">
+                            <a role="button" class="btn btn-transparent"
+                               href="{% url 'core:user:login' %}">
+                                {% translate "Login" %}
                             </a>
-                        {% endif %}
-                    </div>
+                            {% if allow_registration %}
+                                <a role="button" class="btn btn-primary rounded-1 bg-dark-blue px-4"
+                                   href="{% url 'core:user:registration' %}">
+                                    {% translate "Register" %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </nav>
 
-
         <div class="container-xl">
             <!-- hero section -->
             <section
-                class="row px-3 mb-5 d-flex align-items-center justify-content-center gap-2 flex-reverse">
-                <div class="col-lg-7 col-sm-12 d-flex px-5 flex-column align-items-center">
-                    <img src="{% static 'images/hero.png' %}" alt="a man with a dumbbell"
+                class="row px-3 mb-5 d-flex align-items-center justify-content-center gap-2 flex-row-reverse">
+                <div class="col-lg-7 col-sm-6 col-12 d-flex px-5 flex-column align-items-center">
+                    <img src="{% static 'images/hero.png' %}"
+                         alt="a man with a dumbbell"
                          class="header-hero-image">
                 </div>
-                <div class="col-lg-4 col-sm-12 py-3 d-flex flex-column align-items-center">
+                <div class="col-lg-3 col-sm-5 col-12 d-flex py-3 flex-column align-items-start">
                     <h1 class="font-bebas-neue display-3 uppercase">
                         {% translate "Track your <br> way to your <br> ideal body" %}
                     </h1>
-                    <p class="">
-                        {% translate "Join wger, the community-driven <b>free <br> and open-source fitness tracker</b>" %}
+                    <p>
+                        {% translate "Join wger, the community-driven <b>free and open-source fitness tracker</b>" %}
                     </p>
-                    <button type="button" class="btn btn-primary rounded-1 bg-dark-blue py-2">
+
+                    <a role="button"
+                       class="btn btn-primary rounded-1 bg-dark-blue py-2 px-5"
+                       href="
+
+                           {% if user.is_authenticated %}{% url 'core:index' %}{% else %}{% url 'core:user:login' %}{% endif %}">
                         {% translate "Get Started" %}
-                    </button>
+                    </a>
+
                 </div>
             </section>
 
@@ -119,14 +136,12 @@
         </div>
     </header>
 
-
-    <!-- main -->
+    <!-- main content -->
     <main>
-
         <div class="container-xl">
 
             <!-- section 1 - workout regimen -->
-            <section class="main-section" style="margin-top: 9em;">
+            <section class="main-section">
                 <div
                     class="row row-cols row-cols-lg-2 row-cols-sm-1 px-3 w-100 justify-content-center flex-reverse gy-3">
                     <div
@@ -239,9 +254,15 @@
 
         <!-- button -->
         <div class="row w-100 p-5 d-flex justify-content-center">
-            <button type="button" class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5">
-                Try Wger Now
-            </button>
+            <a role="button"
+               class="btn btn-primary rounded-1 bg-dark-blue w-auto px-5"
+               href="{% if allow_guest_users and not user.is_authenticated %}
+                        {% url 'core:user:demo-entries' %}
+                    {% else %}
+                        {% url 'core:index' %}
+                    {% endif %}">
+                {% translate "Try wger now" %}
+            </a>
         </div>
 
         <!-- community section -->
@@ -262,29 +283,29 @@
                         <p style="line-height: 30px;">
                             {% blocktranslate trimmed %}
                                 wger is funded and created by the open-source community: people like
-                                you
-                                translating, adding exercises and nutritional info, developing, and
-                                more.
+                                you translating, adding exercises and nutritional info, developing,
+                                and more.
                             {% endblocktranslate %}
                             <b>
                                 {% blocktranslate trimmed %}
                                     We don't use ads, don't sell your personal info, and we share
-                                    the code
-                                    under a free and open-source license.
+                                    the code under a free and open-source license.
                                 {% endblocktranslate %}
                             </b>
                             {% blocktranslate trimmed %}
                                 Pitch in and help make wger even better!
                             {% endblocktranslate %}
                         </p>
-                        <div class="d-flex align-items-sm-center gap-3">
+                        <div class="d-grid gap-2 d-md-block">
                             <a href=""
                                class="btn btn-primary rounded-1 w-auto px-5"
                                target="_blank"
                                rel="noopener noreferrer">
                                 {% translate "Contribute" %}
                             </a>
-                            <a href="http://" target="_blank" rel="noopener noreferrer"
+                            <a href="https://www.buymeacoffee.com/wger"
+                               target="_blank"
+                               rel="noopener noreferrer"
                                class="btn btn-outline-primary rounded-1 w-auto px-5">
                                 {% translate "Donate" %}
                             </a>
@@ -295,33 +316,21 @@
         </section>
 
         <!-- sign up section -->
-        <section class="main-section">
-            <div class="container-xl d-flex align-items-center sign-up-bg">
+        <section class="main-section  ">
+            <div class="container d-flex align-items-center sign-up-bg">
 
                 <!-- form -->
-                <div class="row d-flex flex-column gap-2 w-100 align-items-center ms-1">
+                <form method="post"
+                      action="{% url 'core:user:registration' %}"
+                      class="row justify-content-center w-100">
+                    {% csrf_token %}
                     <h3 class="col-12 text-center fs-1 uppercase font-bebas-neue">
                         {% translate "Sign Up Now For Free" %}
                     </h3>
-                    <div class="col-lg-5 col-sm-8 d-flex flex-column gap-2">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="username" placeholder=" ">
-                            <label for="username">{% translate "Username" %}</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email"
-                                   placeholder="name@example.com">
-                            <label for="email">{% translate "Email address (optional)" %}</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" required class="form-control" id="password"
-                                   placeholder=" ">
-                            <label for="password">{% translate "Password" %}</label>
-                        </div>
-                        <button
-                            class="btn btn-primary bg-dark-blue px-4 w-100">{% translate "Submit" %}</button>
+                    <div class="col-lg-5 col-sm-10 col-12">
+                        {% crispy form %}
                     </div>
-                </div>
+                </form>
             </div>
         </section>
 
@@ -345,7 +354,10 @@
                             {% translate "Set up a private server for your gym" %}
                         </h6>
                         <p class="text-light fw-lighter text-center">
-                            {% translate "Don't want your data on an online service? Set up a wger instance on your own server for free!" %}
+                            {% blocktranslate trimmed %}
+                                Don't want your data on an online service? Set up a wger instance
+                                on your own server for free!
+                            {% endblocktranslate %}
                         </p>
                     </div>
                     <div
@@ -373,7 +385,10 @@
                             {% translate "Create your own version" %}
                         </h6>
                         <p class="text-light fw-lighter text-center">
-                            {% translate "The source code is available under the GNU AGPLv3 license! Feel free to fork it on GitHub." %}
+                            {% blocktranslate trimmed %}
+                                The source code is available under the GNU AGPLv3 license! Feel
+                                free to fork it on GitHub.
+                            {% endblocktranslate %}
                         </p>
                     </div>
                 </div>
@@ -384,48 +399,48 @@
     <!-- footer -->
     <footer class="d-grid gap-3 p-5 footer-bg">
         <div class="container-xl">
-            <div class="d-flex px-3">
+            <div class="d-flex pb-4">
                 <img src="{% static 'images/logos/logo-font-inverse.svg' %}" alt="wger logo"/>
             </div>
             <div class="row row-cols-lg-4 row-cols-sm-1 g-2 border-bottom border-light pb-3">
-                <div class="col-lg-3 col-sm-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <ul class="list-group">
-                        <li class="list-group-item bg-transparent border-0 text-light">
+                        <li class="list-group-item bg-transparent border-0 text-light ps-0">
                             <h1 class="fs-5 text-white">{% translate "Account" %}</h1>
                         </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:registration' %}">
                                 {% translate "Register" %}
                             </a>
                         </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:user:login' %}">
                                 {% translate "Login" %}
                             </a>
                         </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'core:index' %}">
                                 {% translate "Dashboard" %}
                             </a>
                         </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'manager:workout:overview' %}">
                                 {% translate "Training" %}
                             </a>
                         </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'weight:overview' %}">
                                 {% translate "Body weight" %}
                             </a>
                         </li>
-                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter ps-0">
                             <a href="{% url 'nutrition:plan:overview' %}">
                                 {% translate "Nutrition" %}
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-sm-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 text-light">
                             <h1 class="fs-5 text-white">{% translate "Community" %}</h1>
@@ -436,18 +451,26 @@
                             </a>
                         </li>
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
-                            <a href="{% url 'manager:template:overview' %}">
+                            <a href="{% url 'manager:template:public' %}">
                                 {% translate "Workout routines" %}
                             </a>
                         </li>
+                        <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
+                            <a href="https://discord.gg/rPWFv6W" target="_blank"
+                               rel="noopener noreferrer">
+                                {% translate "Discord" %}
+                            </a>
+                        </li>
+                        <!--
                         <li class="list-group-item bg-transparent border-0 text-light fw-lighter">
                             <a href="http://" target="_blank" rel="noopener noreferrer">
                                 Exercise translation
                             </a>
                         </li>
+                        -->
                     </ul>
                 </div>
-                <div class="col-lg-3 col-sm-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 text-light">
                             <h1 class="fs-5 text-white">{% translate "Software" %}</h1>
@@ -482,7 +505,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-sm-12">
+                <div class="col-lg-3 col-sm-6 col-12">
                     <ul class="list-group">
                         <li class="list-group-item bg-transparent border-0 text-light">
                             <h1 class="fs-5 text-white">
@@ -516,28 +539,32 @@
             </div>
 
             <div class="d-flex justify-content-between py-3">
-                <div class="dropup">
-                    <button
-                        class="btn btn-outline-light dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                <div class="btn-group dropup">
+                    <button class="btn btn-outline-light dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
                         <span class="{% fa_class 'globe' %}"></span>
                         {% translate i18n_language.name %}
                         <span class="caret"></span>
                     </button>
 
-                    <div class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupLanguages">
                         {% for language in languages %}
                             {% language_select language %}
                         {% endfor %}
-                        <div class="dropdown-divider"></div>
-                        <a href="https://hosted.weblate.org/engage/wger/" class="dropdown-item"
-                           target="_blank">
-                            <span class="{% fa_class 'plus' %}"></span>
-                            {% translate "Translate" %}
-                        </a>
-                    </div>
+                        <li>
+                            <hr class="dropdown-divider"></hr>
+                        </li>
+                        <li>
+                            <a href="https://hosted.weblate.org/engage/wger/"
+                               class="dropdown-item"
+                               target="_blank">
+                                <span class="{% fa_class 'plus' %}"></span>
+                                {% translate "Translate" %}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
