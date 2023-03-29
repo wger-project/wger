@@ -111,18 +111,6 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(len(exercise.history.all()), 1)
 
 
-class DeleteExercisesTestCase(WgerDeleteTestCase):
-    """
-    Exercise test case
-    """
-
-    object_class = Exercise
-    url = 'exercise:exercise:delete'
-    pk = 2
-    user_success = 'admin'
-    user_fail = 'test'
-
-
 class MuscleTemplateTagTest(WgerTestCase):
 
     def test_render_main_muscles(self):

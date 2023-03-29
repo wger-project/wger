@@ -52,4 +52,8 @@ def load_language(language_code=None):
 
 
 def get_language_data(language):
-    return {'name': language[1], 'path': f'images/icons/flags/{language[0]}.svg'}
+    return {
+        'name': language[1],
+        'code': language[0],
+        'path': f'images/icons/flags/{language[0]}.svg'
+    }

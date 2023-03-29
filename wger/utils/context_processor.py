@@ -21,6 +21,7 @@ from django.utils.translation import get_language
 # wger
 from wger.config.models import GymConfig
 from wger.utils import constants
+from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import get_language_data
 
 
@@ -36,40 +37,56 @@ def processor(request):
 
     context = {
         # Twitter handle for this instance
-        'twitter': settings.WGER_SETTINGS['TWITTER'],
+        'twitter':
+        settings.WGER_SETTINGS['TWITTER'],
 
         # Languages
-        'i18n_language': get_language_data((get_language(), languages_dict[get_language()])),
-        'languages': settings.AVAILABLE_LANGUAGES,
+        'i18n_language':
+        get_language_data(
+            (get_language(), languages_dict.get(get_language(), ENGLISH_SHORT_NAME)),
+        ),
+        'languages':
+        settings.AVAILABLE_LANGUAGES,
 
         # The current path
-        'request_full_path': full_path,
+        'request_full_path':
+        full_path,
 
         # The current full path with host
-        'request_absolute_path': request.build_absolute_uri(),
-        'image_absolute_path': request.build_absolute_uri(static_path),
+        'request_absolute_path':
+        request.build_absolute_uri(),
+        'image_absolute_path':
+        request.build_absolute_uri(static_path),
 
         # Translation links
-        'i18n_path': i18n_path,
-        'is_api_path': '/api/' in request.build_absolute_uri(),
+        'i18n_path':
+        i18n_path,
+        'is_api_path':
+        '/api/' in request.build_absolute_uri(),
 
         # Flag for guest users
-        'has_demo_data': request.session.get('has_demo_data', False),
+        'has_demo_data':
+        request.session.get('has_demo_data', False),
 
         # Don't show messages on AJAX requests (they are deleted if shown)
-        'no_messages': request.META.get('HTTP_X_WGER_NO_MESSAGES', False),
+        'no_messages':
+        request.META.get('HTTP_X_WGER_NO_MESSAGES', False),
 
         # Default cache time for template fragment caching
-        'cache_timeout': settings.CACHES['default']['TIMEOUT'],
+        'cache_timeout':
+        settings.CACHES['default']['TIMEOUT'],
 
         # Used for logged in trainers
-        'trainer_identity': request.session.get('trainer.identity'),
+        'trainer_identity':
+        request.session.get('trainer.identity'),
 
         # current gym, if available
-        'custom_header': get_custom_header(request),
+        'custom_header':
+        get_custom_header(request),
 
         # Template to extend in forms, kinda ugly but will be removed in the future
-        'extend_template': 'base_empty.html' if is_ajax else 'base.html'
+        'extend_template':
+        'base_empty.html' if is_ajax else 'base.html'
     }
 
     # Pseudo-intelligent navigation here

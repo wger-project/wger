@@ -31,6 +31,7 @@ function wgerCustomPageInit()
 
     {% csrf_token %}
     {{ form.exercises|as_crispy_field }}
+    {{ form.english_results|as_crispy_field }}
     {{ form.comment|as_crispy_field }}
     <div class="form-group">
 

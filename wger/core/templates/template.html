@@ -23,6 +23,7 @@
 <html lang="{{ language.short_name }}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-language" content="{{ i18n_language.code }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -125,7 +126,7 @@
             </div>
         </div>
         <div id="current-url" data-current-url="{{ request_full_path }}"></div>
-        <div id="current-language" data-current-language="{{ language.short_name }}"></div>
+        <div id="current-language" data-current-language="{{ i18n_language.code }}"></div>
 
 
         {#             #}

@@ -139,6 +139,12 @@ class SetForm(ModelForm):
         )
     )
 
+    english_results = BooleanField(
+        label=gettext_lazy("Also search for names in English"),
+        initial=True,
+        required=False,
+    )
+
     class Meta:
         model = Set
         exclude = ('order', 'exerciseday')
