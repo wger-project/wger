@@ -16,10 +16,10 @@ Sortable@RubaXa/Sortable#1.15.0:
   version "1.15.0"
   resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/babf6ab85fdfc5e13be1027827cecfbba2fb0d1e"
 
-bootstrap@4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.2.tgz#8e0cd61611728a5bf65a3a2b8d6ff6c77d5d7479"
-  integrity sha512-51Bbp/Uxr9aTuy6ca/8FbFloBUJZLHwnhTcnjIeRn2suQWsWzcuJhGjKDB5eppVte/8oCdOL3VuwxvZDUggwGQ==
+bootstrap@5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.2.2.tgz#834e053eed584a65e244d8aa112a6959f56e27a0"
+  integrity sha512-dEtzMTV71n6Fhmbg4fYJzQsw1N29hJKO1js5ackCgIpDcGid2ETMGC6zwSYw09v05Y+oRdQ9loC54zB1La3hHQ==
 
 commander@2:
   version "2.20.3"
@@ -583,10 +583,10 @@ d3@^4:
     d3-voronoi "1.1.2"
     d3-zoom "1.7.1"
 
-d3@^7.8.2:
-  version "7.8.2"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-7.8.2.tgz#2bdb3c178d095ae03b107a18837ae049838e372d"
-  integrity sha512-WXty7qOGSHb7HR7CfOzwN1Gw04MUOzN8qh9ZUsvwycIMb4DYMpY9xczZ6jUorGtO6bR9BPMPaueIKwiDxu9uiQ==
+d3@^7.8.3:
+  version "7.8.3"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-7.8.3.tgz#b6c862d16368e15bf764c89e248a300a56f2ab40"
+  integrity sha512-cAa866AkPXtt4IzRx6nzGf50uerq6VYks7p/tTH94be4QfhUkyTfJfaxXGPOB5ZRVUZmUV1wcM1dism/Ua0lCw==
   dependencies:
     d3-array "3"
     d3-axis "3"

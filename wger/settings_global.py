@@ -81,7 +81,7 @@ INSTALLED_APPS = (
 
     # Form renderer helper
     'crispy_forms',
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',
     # note: bs3 can be deleted when we solve https://github.com/wger-project/wger/issues/1127
     'crispy_bootstrap3',
 
@@ -322,8 +322,8 @@ AXES_CACHE = 'default'
 #
 # Django Crispy Templates
 #
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 #
 # Easy thumbnails

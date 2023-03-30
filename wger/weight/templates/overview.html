@@ -10,7 +10,7 @@
 {# Header #}
 {#        #}
 {% block header %}
-    {%  react_static %}
+    {% react_static %}
 {% endblock %}
 
 
@@ -37,28 +37,29 @@
 {# Options #}
 {#         #}
 {% block options %}
-{% if is_owner %}
-<div class="btn-group">
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="{% fa_class 'cog' %}"></span>
-            {% translate "Options" %}
-        </button>
+    {% if is_owner %}
+        <div class="btn-group">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    <span class="{% fa_class 'cog' %}"></span>
+                    {% translate "Options" %}
+                </button>
 
-        <div class="dropdown-menu">
-            <a href="{% url 'weight:export-csv' %}" target="_blank" class="dropdown-item">
-                <span class="{% fa_class 'download' %}"></span>
-                {% translate "Export as CSV" %}
-            </a>
-            <a href="{% url 'weight:import-csv' %}" class="dropdown-item">
-                <span class="{% fa_class 'upload' %}"></span>
-                {% translate "Import from spreadsheet" %}
-            </a>
+                <div class="dropdown-menu">
+                    <a href="{% url 'weight:export-csv' %}" target="_blank" class="dropdown-item">
+                        <span class="{% fa_class 'download' %}"></span>
+                        {% translate "Export as CSV" %}
+                    </a>
+                    <a href="{% url 'weight:import-csv' %}" class="dropdown-item">
+                        <span class="{% fa_class 'upload' %}"></span>
+                        {% translate "Import from spreadsheet" %}
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-    {% translate "Add" %}
-</a>
-{% endif %}
+        <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+            {% translate "Add" %}
+        </a>
+    {% endif %}
 {% endblock %}

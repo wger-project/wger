@@ -5,44 +5,46 @@
 
 
 {% block content %}
-<ul class="list-group">
-    {% for license in license_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="{% url 'core:license:edit' license.id %}" class="wger-modal-dialog">{% translate 'Edit' %}</a>
-                </li>
-                <li>
-                    <a href="{% url 'core:license:delete' license.id %}" class="wger-modal-dialog">{% translate 'Delete' %}</a>
-                </li>
-            </ul>
-        </div>
-        {{license}}
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for license in license_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{% url 'core:license:edit' license.id %}"
+                               class="wger-modal-dialog">{% translate 'Edit' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'core:license:delete' license.id %}"
+                               class="wger-modal-dialog">{% translate 'Delete' %}</a>
+                        </li>
+                    </ul>
+                </div>
+                {{ license }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
 
 
 {% block sidebar %}
-{% if perms.core.add_license %}
-<p>
-    <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add" %}
-    </a>
-</p>
+    {% if perms.core.add_license %}
+        <p>
+            <a href="{% url 'core:license:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+                {% translate "Add" %}
+            </a>
+        </p>
 
-<p>{% blocktranslate %}If a license has been localized, e.g. the Creative Commons
-licenses for the different countries, add them as separate entries here.{% endblocktranslate %}</p>
-{% endif %}
+        <p>{% blocktranslate %}If a license has been localized, e.g. the Creative Commons
+            licenses for the different countries, add them as separate entries here.{% endblocktranslate %}</p>
+    {% endif %}
 {% endblock %}

@@ -196,6 +196,7 @@ def fa_class(class_name='', icon_type='fas', fixed_width=True):
 
     :param class_name: the CSS class name, without the "fa-" prefix
     :param fixed_width: toggle for fixed icon width
+    :param icon_type; icon type (
     :return: the complete CSS classes
     """
     css = ''
