@@ -36,6 +36,7 @@ from wger.utils.constants import (
 )
 from wger.utils.language import get_language_data
 
+
 register = template.Library()
 
 

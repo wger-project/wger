@@ -18,16 +18,20 @@ import logging
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.shortcuts import render
 from django.core.cache import cache
+from django.shortcuts import render
 
 # Third Party
 import requests
 
 # wger
-from wger.core.forms import RegistrationForm, RegistrationFormNoCaptcha
+from wger.core.forms import (
+    RegistrationForm,
+    RegistrationFormNoCaptcha,
+)
 from wger.exercises.models import ExerciseBase
 from wger.nutrition.models import Ingredient
+
 
 logger = logging.getLogger(__name__)
 

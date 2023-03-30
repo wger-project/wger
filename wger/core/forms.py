@@ -180,7 +180,7 @@ class UserEmailForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('email', )
 
     def clean_email(self):
         """
@@ -262,14 +262,12 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            'username',
-            'email',
+            'username', 'email',
             Row(
                 Column('password1', css_class='col-md-6 col-12'),
                 Column('password2', css_class='col-md-6 col-12'),
                 css_class='form-row'
-            ),
-            'captcha',
+            ), 'captcha',
             ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
         )
 
@@ -284,8 +282,7 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
         self.helper = FormHelper()
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
-            'username',
-            'email',
+            'username', 'email',
             Row(
                 Column('password1', css_class='col-md-6 col-12'),
                 Column('password2', css_class='col-md-6 col-12'),
