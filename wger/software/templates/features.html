@@ -42,7 +42,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item mx-2 my-1">
                             <a class="nav-link active fw-bolder" aria-current="page"
-                               href="#">{% translate "About" %}    </a>
+                               href="{% url 'software:about-us' %}">{% translate "About" %}    </a>
                         </li>
                         <li class="nav-item mx-2 my-1">
                             <a class="nav-link fw-semibold"
@@ -62,7 +62,7 @@
                             </a>
                         </li>
                         <li class="nav-item mx-2 my-1">
-                            <a class="nav-link fw-semibold" href="#">
+                            <a class="nav-link fw-semibold" href="https://discord.gg/rPWFv6W">
                                 {% translate "Community" %}
                             </a>
                         </li>
@@ -105,9 +105,11 @@
 
                     <a role="button"
                        class="btn btn-primary rounded-1 bg-dark-blue py-2 px-5"
-                       href="
-
-                           {% if user.is_authenticated %}{% url 'core:index' %}{% else %}{% url 'core:user:login' %}{% endif %}">
+                       href="{% if user.is_authenticated %}
+                                {% url 'core:index' %}
+                            {% else %}
+                                {% url 'core:user:login' %}
+                            {% endif %}">
                         {% translate "Get Started" %}
                     </a>
 
