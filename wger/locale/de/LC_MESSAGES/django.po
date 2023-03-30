@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-30 21:20+0200\n"
-"PO-Revision-Date: 2023-02-20 19:37+0000\n"
+"PO-Revision-Date: 2023-03-31 22:40+0000\n"
 "Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -491,12 +491,7 @@ msgid "Something happened that caused an error."
 msgstr "Etwas hat einen Fehler verursacht."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -505,7 +500,7 @@ msgid ""
 msgstr ""
 "Du bist als Benutzer „%(current_user)s“ auf der Website unterwegs, alle "
 "Aktionen werden mit ihren Daten durchgeführt.\n"
-"    "
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -825,9 +820,6 @@ msgid "Share this page"
 msgstr "Diese Seite teilen"
 
 #: core/templates/misc/fragments/shariff_modal.html:20
-#, fuzzy
-#| msgid ""
-#| "Before you share links on social media you need to allow external access."
 msgid ""
 "Before you share links on social media you need to allow external\n"
 "                            access."
@@ -1510,8 +1502,8 @@ msgid ""
 msgstr ""
 "Wir haben Beispieleinträge erstellt für: Trainings-, Ernährungs- und "
 "Zeitpläne sowie Gewichtseinträge für Übungen und Körpergewicht. Somit kannst "
-"du besser sehen was diese Seite machen kann. Du kannst diese\n"
-"Einträge natürlich bearbeiten oder löschen!"
+"du besser sehen was diese Seite machen kann. Du kannst diese Einträge "
+"natürlich bearbeiten oder löschen!"
 
 #: core/views/misc.py:155
 msgid "Rest day"
@@ -3580,11 +3572,11 @@ msgstr ""
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "140 bis 230"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "56 bis 90"
 
 #: nutrition/views/ingredient.py:164
 msgid "Add a new ingredient"
@@ -3726,11 +3718,11 @@ msgstr ""
 
 #: software/templates/features.html:56 software/templates/features.html:312
 msgid "Donate"
-msgstr ""
+msgstr "Spenden"
 
 #: software/templates/features.html:61
 msgid "Develop"
-msgstr ""
+msgstr "Entwickeln"
 
 #: software/templates/features.html:66 software/templates/features.html:448
 #, fuzzy
@@ -3769,32 +3761,35 @@ msgstr ""
 
 #: software/templates/features.html:135
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "Sterne <br> auf GitHub"
 
 #: software/templates/features.html:159
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Gestalte dein perfektes <span>Trainingsprogramm</span>"
 
 #: software/templates/features.html:163
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Erstelle einen wöchentlichen Trainingsplan aus mehr als 100 Übungen"
 
 #: software/templates/features.html:166
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Lege für jede Übung Wiederholungen und Sätze, Dauer oder Distanzziele fest"
 
 #: software/templates/features.html:169
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Lasse dich Schritt für Schritt durch dein Training führen"
 
 #: software/templates/features.html:172
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Behalte den Überblick über die absolvierten Trainingseinheiten, "
+"einschließlich deiner gefühlten Leistung"
 
 #: software/templates/features.html:193
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Plane deine <span>täglichen Mahlzeiten</span>"
 
 #: software/templates/features.html:197
 msgid "Fill your week with nutritious meals that help you perform better"
@@ -3803,16 +3798,20 @@ msgstr ""
 #: software/templates/features.html:200
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Zusammenstellung von Mahlzeiten aus einer Datenbank mit mehr als 2 Millionen "
+"Lebensmitteln"
 
 #: software/templates/features.html:203
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Automatisch berechnete Nährwerte (Energie, Eiweiß, Kohlenhydrate, ...) "
+"sowohl für einzelne Mahlzeiten als auch für deinen gesamten Wochenplan"
 
 #: software/templates/features.html:230
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Behalte den Überblick über <span>deine Fortschritte</span>"
 
 #: software/templates/features.html:235
 msgid "Track and annotate everything about your meals and workouts"
@@ -3832,7 +3831,7 @@ msgstr "Körpergewicht"
 
 #: software/templates/features.html:244
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Führe ein Fotoprotokoll, um deine Fortschritte zu verfolgen"
 
 #: software/templates/features.html:247
 msgid "Use the calendar view to see past entries"
@@ -3872,11 +3871,11 @@ msgstr "Mach mit!"
 
 #: software/templates/features.html:330
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Jetzt kostenlos anmelden"
 
 #: software/templates/features.html:343
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Webversion nicht genug?"
 
 #: software/templates/features.html:345
 #, fuzzy
@@ -3886,13 +3885,15 @@ msgstr "Quellcode"
 
 #: software/templates/features.html:356
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Einen privaten Server für dein Fitnessstudio einrichten"
 
 #: software/templates/features.html:359
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Du willst deine Daten nicht auf einem Online-Dienst? Richte eine wger-"
+"Instanz auf deinem eigenen Server ein - kostenlos!"
 
 #: software/templates/features.html:373
 msgid "Integrate with your own app"
@@ -3900,7 +3901,7 @@ msgstr ""
 
 #: software/templates/features.html:376
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "wger bietet eine offene API, die du für deine Anwendung nutzen kannst."
 
 #: software/templates/features.html:387
 #, fuzzy
@@ -3913,6 +3914,8 @@ msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Der Quellcode ist unter der GNU AGPLv3 Lizenz verfügbar! Zöger nicht, ihn "
+"auf GitHub zu forken."
 
 #: software/templates/features.html:411
 #, fuzzy
@@ -3932,11 +3935,11 @@ msgstr "Discord"
 
 #: software/templates/features.html:478
 msgid "Software"
-msgstr ""
+msgstr "Software"
 
 #: software/templates/features.html:484
 msgid "Report an issue"
-msgstr ""
+msgstr "Ein Problem melden"
 
 #: software/templates/features.html:490
 #, fuzzy
