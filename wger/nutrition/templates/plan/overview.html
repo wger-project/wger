@@ -6,24 +6,24 @@
 
 
 {% block content %}
-<div class="list-group">
-    {% for plan in plans %}
-        <a href="{{ plan.get_absolute_url }}" class="list-group-item">
-            <span class="glyphicon glyphicon-chevron-right float-right"></span>
+    <div class="list-group">
+        {% for plan in plans %}
+            <a href="{{ plan.get_absolute_url }}" class="list-group-item list-group-item-action">
+                <span class="glyphicon glyphicon-chevron-right float-end"></span>
 
-            <p class="list-group-item-heading h5">{{plan}}</p>
-            <p class="list-group-item-text">
-                {{ plan.creation_date }} –
-                {{ plan.get_nutritional_values.total.energy|floatformat }} {% translate "kcal" %}
-            </p>
-        </a>
-    {% empty %}
-        <a href="{% url 'nutrition:plan:add' %}" class="list-group-item">
-        {% translate "No nutrition plans." %}<br>
-        {% translate "Add one now." %}
-        </a>
-    {% endfor %}
-</div>
+                <p class="list-group-item-heading h5">{{ plan }}</p>
+                <p class="list-group-item-text">
+                    {{ plan.creation_date }} –
+                    {{ plan.get_nutritional_values.total.energy|floatformat }} {% translate "kcal" %}
+                </p>
+            </a>
+            {% empty %}
+            <a href="{% url 'nutrition:plan:add' %}" class="list-group-item list-group-item-action">
+                {% translate "No nutrition plans." %}<br>
+                {% translate "Add one now." %}
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 

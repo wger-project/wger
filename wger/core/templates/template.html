@@ -25,8 +25,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="content-language" content="{{ i18n_language.code }}">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Roland Geider">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- OpenGraph -->
     {% block opengraph %}
@@ -37,9 +36,9 @@
         <meta property="og:image" content="{{ image_absolute_path }}">
     {% endblock %}
 
-    <!-- twitter cards -->
     {% block twittercard %}
         {% if twitter %}
+            <!-- twitter cards -->
             <meta content="summary" name="twitter:card">
             <meta content="@{{ twitter }}" name="twitter:site">
         {% endif %}
@@ -50,13 +49,9 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-        <link rel="stylesheet" type="text/css"
-              href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
-        <link rel="stylesheet" type="text/css"
-              href="{% static 'fontawesomefree/css/all.min.css' %}">
-
-        <link rel="stylesheet" type="text/css"
-              href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
     {% endcompress %}
 
@@ -68,8 +63,8 @@
         <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
         <script src="{% static 'yarn/d3/dist/d3.js' %}"></script>
         <script src="{% static 'yarn/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
-        <script
-            src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
+        <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
@@ -115,18 +110,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
-                        <button type="button"
-                                class="close pl-2"
-                                data-dismiss="modal"
-                                aria-hidden="true">&times;
-                        </button>
-
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="ajax-info-content">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light"
-                                data-dismiss="modal">{% translate "Close" %}</button>
+                        <button
+                            type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal">
+                            {% translate "Close" %}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -144,8 +138,7 @@
                 {% translate "You are using a guest account, data entered will be deleted after a week." %}
                 {% if not has_demo_data %}
                     <br>
-                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow"
-                       class="btn btn-link btn-sm">
+                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-link btn-sm">
                         {% translate "Create some demo entries" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
@@ -163,7 +156,7 @@
 </div>
 
 
-<footer id="main-footer" class="bg-wger-light border-top">
+<footer id="main-footer" class="bg-light border-top">
     <div class="container bg-wger-light">
         <div class="row">
             <div class="col-xl-2 col-md-3">
@@ -176,10 +169,16 @@
             </div>
             <div class="col-xl-6 col-md-5">
                 <ul class="list-unstyled mb-0 pt-2">
-                    <li><a href="{% url 'core:imprint' %}"
-                           class="text-muted small">{% translate "Imprint" %}</a></li>
-                    <li><a href="{% url 'software:tos' %}"
-                           class="text-muted small">{% translate "Terms of service" %}</a></li>
+                    <li>
+                        <a href="{% url 'core:imprint' %}" class="text-muted small">
+                            {% translate "Imprint" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'software:tos' %}" class="text-muted small">
+                            {% translate "Terms of service" %}
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -189,29 +188,33 @@
             <div class="col-md-4">
                 {% if not is_api_path %}
                     {# Don't show language switcher in the generated API views #}
-                    <div class="btn-group float-sm-right" role="group">
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupLanguages2" type="button"
-                                    class="btn btn-link text-muted small dropdown-toggle btn-sm"
-                                    data-toggle="dropdown">
-                                <span class="{% fa_class 'globe' %}"></span>
-                                {% translate i18n_language.name %}
-                                <span class="caret"></span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right"
-                                 aria-labelledby="btnGroupLanguages">
-                                {% for language in languages %}
-                                    {% language_select language %}
-                                {% endfor %}
-                                <div class="dropdown-divider"></div>
+                    <div class="btn-group dropup">
+                        <button class="btn btn-light dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="{% fa_class 'globe' %}"></span>
+                            {% translate i18n_language.name %}
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                            {% for language in languages %}
+                                {% language_select language %}
+                            {% endfor %}
+                            <li>
+                                <hr class="dropdown-divider"></hr>
+                            </li>
+                            <li>
                                 <a href="https://hosted.weblate.org/engage/wger/"
                                    class="dropdown-item"
                                    target="_blank">
                                     <span class="{% fa_class 'plus' %}"></span>
                                     {% translate "Translate" %}
                                 </a>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
+
                     </div>
                 {% endif %}
             </div>

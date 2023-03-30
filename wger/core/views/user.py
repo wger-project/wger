@@ -136,11 +136,11 @@ def delete(request, user_pk=None):
         # Forbidden if the user has not enough rights, doesn't belong to the
         # gym or is an admin as well. General admins can delete all users.
         if not request.user.has_perm('gym.manage_gyms') \
-                and (not request.user.has_perm('gym.manage_gym')
-                     or request.user.userprofile.gym_id != user.userprofile.gym_id
-                     or user.has_perm('gym.manage_gym')
-                     or user.has_perm('gym.gym_trainer')
-                     or user.has_perm('gym.manage_gyms')):
+            and (not request.user.has_perm('gym.manage_gym')
+                 or request.user.userprofile.gym_id != user.userprofile.gym_id
+                 or user.has_perm('gym.manage_gym')
+                 or user.has_perm('gym.gym_trainer')
+                 or user.has_perm('gym.manage_gyms')):
             return HttpResponseForbidden()
     else:
         user = request.user
@@ -179,14 +179,14 @@ def trainer_login(request, user_pk):
 
     # No changing if identity is not set
     if not request.user.has_perm('gym.gym_trainer') \
-            and not request.session.get('trainer.identity'):
+        and not request.session.get('trainer.identity'):
         return HttpResponseForbidden()
 
     # Changing between trainers or managers is not allowed
     if request.user.has_perm('gym.gym_trainer') \
-            and (user.has_perm('gym.gym_trainer')
-                 or user.has_perm('gym.manage_gym')
-                 or user.has_perm('gym.manage_gyms')):
+        and (user.has_perm('gym.gym_trainer')
+             or user.has_perm('gym.manage_gym')
+             or user.has_perm('gym.manage_gyms')):
         return HttpResponseForbidden()
 
     # Changing is only allowed between the same gym
@@ -380,7 +380,7 @@ class UserDeactivateView(
             return HttpResponseForbidden()
 
         if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
-                and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+            and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
             return HttpResponseForbidden()
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
@@ -415,7 +415,7 @@ class UserActivateView(
             return HttpResponseForbidden()
 
         if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
-                and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+            and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
@@ -455,8 +455,8 @@ class UserEditView(
             return HttpResponseForbidden()
 
         if user.has_perm('gym.manage_gym') \
-                and not user.has_perm('gym.manage_gyms') \
-                and user.userprofile.gym != self.get_object().userprofile.gym:
+            and not user.has_perm('gym.manage_gyms') \
+            and user.userprofile.gym != self.get_object().userprofile.gym:
             return HttpResponseForbidden()
 
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
@@ -520,8 +520,8 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
             return HttpResponseForbidden()
 
         if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
-                and not user.has_perm('gym.manage_gyms') \
-                and user.userprofile.gym != self.get_object().userprofile.gym:
+            and not user.has_perm('gym.manage_gyms') \
+            and user.userprofile.gym != self.get_object().userprofile.gym:
             return HttpResponseForbidden()
 
         return super(UserDetailView, self).dispatch(request, *args, **kwargs)
@@ -543,10 +543,10 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
                 }
             )
         context['workouts'] = out
-        context['weight_entries'] = WeightEntry.objects.filter(user=self.object)\
-            .order_by('-date')[:5]
-        context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object)\
-            .order_by('-creation_date')[:5]
+        context['weight_entries'] = WeightEntry.objects.filter(user=self.object) \
+                                        .order_by('-date')[:5]
+        context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object) \
+                                         .order_by('-creation_date')[:5]
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
@@ -609,8 +609,8 @@ class WgerPasswordChangeView(PasswordChangeView):
         form.helper.layout = Layout(
             'old_password',
             Row(
-                Column('new_password1', css_class='form-group col-6 mb-0'),
-                Column('new_password2', css_class='form-group col-6 mb-0'),
+                Column('new_password1', css_class='col-6'),
+                Column('new_password2', css_class='col-6'),
                 css_class='form-row'
             ), ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )

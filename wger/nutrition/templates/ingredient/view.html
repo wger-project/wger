@@ -190,8 +190,8 @@ the search.{% endblocktranslate %}
         <tr>
             <td>
                 {{unit.amount}} {{unit.unit.name}} = {{unit.gram}}g
-                <div class="dropdown float-right">
-                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+                <div class="dropdown float-end">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
                         <span class="{% fa_class 'cog' %}"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -221,7 +221,7 @@ the search.{% endblocktranslate %}
 {% if perms.nutrition.delete_ingredient %}
 <div class="btn-group">
     <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
             {% translate "Options" %}
         </button>

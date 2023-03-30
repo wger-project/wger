@@ -1,0 +1,187 @@
+/*  */
+@font-face {
+    font-family: "Bebas Neue";
+    src: url("/static/fonts/bebas_neue/BebasNeue-Regular.woff");
+}
+
+:root {
+    --blue: #245daf;
+    --green: #218064;
+    --red: #bd5164;
+    --dark-yellow: #9a6a23;
+    --bg-blue: #163665;
+    --bg-light-blue: #eaf0fe;
+}
+
+html,
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* common css code */
+.font-bebas-neue {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.bg-dark-blue {
+    background-color: var(--bg-blue);
+    border: 0;
+}
+
+.bg-light-blue {
+    background-color: var(--bg-light-blue);
+}
+
+.bg-dark-blue:hover {
+    color: "#fff";
+}
+
+.text-dark-blue {
+    color: var(--bg-blue);
+}
+
+
+ul.hex-bullet {
+    padding-left: 0
+}
+
+ul.hex-bullet li {
+    list-style-type: none;
+}
+
+ul.hex-bullet li::before {
+    content: '⬢';
+    font-size: 20px;
+}
+
+ul.bullet-red li::before {
+    color: var(--red);
+}
+
+ul.bullet-dark-yellow li::before {
+    color: var(--dark-yellow);
+}
+
+ul.bullet-green li::before {
+    color: var(--green);
+}
+
+
+/* styles of html */
+header {
+    background: linear-gradient(196.14deg, #dde7fc 7.97%, #f1f5ff 92.02%);
+}
+
+.header-hero-image {
+    height: 450px;
+    width: 450px;
+}
+
+
+ul {
+    text-align: justify;
+}
+
+.sign-up-bg {
+    background-image: url('/static/images/sign-up-bg.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 1000px;
+}
+
+.header-community span {
+    color: var(--bg-blue);
+    display: block;
+}
+
+.header-progress span {
+    color: var(--green);
+    display: block;
+}
+
+.header-meals span {
+    color: var(--dark-yellow);
+    display: block;
+}
+
+.header-workout span {
+    color: var(--red);
+    display: block;
+}
+
+.bg-bottom-menu {
+    background: linear-gradient(181.83deg, #163665 2.2%, #234982 99.11%);
+}
+
+
+/* main */
+main {
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+
+.main-section {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* last section of main */
+.heading-h6 {
+    font-family: "Bebas Neue", sans-serif;
+    letter-spacing: 2px;
+}
+
+/* footer */
+.footer-bg {
+    background-color: var(--bg-blue);
+}
+
+footer a {
+    font-weight: 200;
+    text-decoration: none;
+    transition: all ease-in;
+    color: #ececec;
+}
+
+footer a:hover {
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+}
+
+.flex-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* media screen */
+@media screen and (max-width: 900px) {
+    .flex-reverse {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .header-hero-image {
+        height: 22rem;
+        width: 22rem;
+    }
+
+    .main-section {
+        min-height: 70vh;
+    }
+
+    header {
+        min-height: 80vh;
+    }
+
+}

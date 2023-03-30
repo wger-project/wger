@@ -5,37 +5,39 @@
 
 
 {% block content %}
-<ul class="list-group">
-    {% for equipment in equipment_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'exercise:equipment:edit' equipment.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                <a href="{% url 'exercise:equipment:delete' equipment.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
-            </div>
-        </div>
-        {{equipment.name}}
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for equipment in equipment_list %}
+            <li class="list-group-item list-group-item-action">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a href="{% url 'exercise:equipment:edit' equipment.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                        <a href="{% url 'exercise:equipment:delete' equipment.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                    </div>
+                </div>
+                {{ equipment.name }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
 
 
 {% block sidebar %}
-{% if perms.exercises.add_equipment %}
-<p>
-    <a href="{% url 'exercise:equipment:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add new equipment" %}
-    </a>
-</p>
-{% endif %}
+    {% if perms.exercises.add_equipment %}
+        <p>
+            <a href="{% url 'exercise:equipment:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+                {% translate "Add new equipment" %}
+            </a>
+        </p>
+    {% endif %}
 {% endblock %}

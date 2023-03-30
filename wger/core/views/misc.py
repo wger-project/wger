@@ -136,7 +136,7 @@ def dashboard(request):
     context['weight'] = weight
     context['last_weight_entries'] = get_last_entries(request.user)
 
-    # Format a bit the days so it doesn't have to be done in the template
+    # Format a bit the days, so it doesn't have to be done in the template
     used_days = {}
     if current_workout:
         for day in current_workout.day_set.select_related():

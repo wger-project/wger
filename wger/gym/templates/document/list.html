@@ -18,52 +18,53 @@
 
 {% block content %}
 
-<ul class="list-group">
-    {% for document in userdocument_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="{{ document.document.url }}" download="{{ document.original_name }}">
-                        <span class="glyphicon glyphicon-download"></span>
-                        {% translate 'Download' %}
-                    </a>
-                </li>
-                {% if perms.gym.change_userdocument %}
-                <li>
-                    <a href="{% url 'gym:document:edit' document.pk %}">
-                        {% translate 'Edit' %}
-                    </a>
-                </li>
+    <ul class="list-group">
+        {% for document in userdocument_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{{ document.document.url }}" download="{{ document.original_name }}">
+                                <span class="glyphicon glyphicon-download"></span>
+                                {% translate 'Download' %}
+                            </a>
+                        </li>
+                        {% if perms.gym.change_userdocument %}
+                            <li>
+                                <a href="{% url 'gym:document:edit' document.pk %}">
+                                    {% translate 'Edit' %}
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% if perms.gym.delete_userdocument %}
+                            <li>
+                                <a href="{% url 'gym:document:delete' document.pk %}" class="wger-modal-dialog">
+                                    {% translate 'Delete' %}
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+
+                <h4 class="list-group-item-heading">{{ document.name }}</h4>
+
+                <p class="list-group-item-text">{{ document.timestamp_created }}
+                    - {{ document.user|format_username }}</p>
+                {% if document.note %}
+                    <p class="list-group-item-text">{{ document.note }}</p>
                 {% endif %}
-
-                {% if perms.gym.delete_userdocument %}
-                <li>
-                    <a href="{% url 'gym:document:delete' document.pk %}"  class="wger-modal-dialog">
-                        {% translate 'Delete' %}
-                    </a>
-                </li>
-                {% endif %}
-
-            </ul>
-        </div>
-
-        <h4 class="list-group-item-heading">{{ document.name }}</h4>
-
-        <p class="list-group-item-text">{{ document.timestamp_created }} - {{ document.user|format_username }}</p>
-        {% if document.note %}
-        <p class="list-group-item-text">{{ document.note }}</p>
-        {% endif %}
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
@@ -73,9 +74,9 @@
 {# Options #}
 {#         #}
 {% block options %}
-{% if perms.gym.add_userdocument %}
-   <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-sm btn-success">
-       {% translate "Add" %}
-   </a>
-{% endif %}
+    {% if perms.gym.add_userdocument %}
+        <a href="{% url 'gym:document:add' member.pk %}" class="btn btn-sm btn-success">
+            {% translate "Add" %}
+        </a>
+    {% endif %}
 {% endblock %}
