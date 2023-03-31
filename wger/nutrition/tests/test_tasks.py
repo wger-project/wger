@@ -153,7 +153,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             mock_logger.assert_any_call('Image successfully saved')
 
             mock_request.assert_any_call(
-                'https://world.openfoodfacts.org/api/v0/product/5055365635003.json',
+                'https://world.openfoodfacts.org/api/v2/product/5055365635003.json?fields=images,image_front_url',
                 headers=wger_headers()
             )
             mock_request.assert_any_call(
@@ -186,7 +186,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
 
             mock_request.assert_any_call(
-                'https://wger.de/api/v2/ingredient-image/?uuid=7908c204-907f-4b1e-ad4e-f482e9769ade',
+                'https://wger.de/api/v2/ingredient-image/?ingredient__uuid=7908c204-907f-4b1e-ad4e-f482e9769ade',
                 headers=wger_headers(),
             )
             mock_request.assert_any_call(

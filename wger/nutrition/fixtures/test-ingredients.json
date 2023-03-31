@@ -20,7 +20,7 @@
       "carbohydrates": "0.1251",
       "code": "1234567890987654321",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -47,7 +47,7 @@
       "carbohydrates": "0.1251",
       "code": "1234567890",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-10T12:37:35.903Z",
       "common_name": "ing 2",
       "brand": "the food brand"
@@ -74,7 +74,7 @@
       "carbohydrates": "0.1551",
       "code": "1223334444",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-31T12:37:35.903Z",
       "common_name": "the everything food",
       "brand": "the food brand"
@@ -101,7 +101,7 @@
       "carbohydrates": "99.0",
       "code": "0987654321",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -128,7 +128,7 @@
       "carbohydrates": "5.0",
       "code": "555555555",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -155,7 +155,7 @@
       "carbohydrates": "5.0",
       "code": "1112222333333334444444",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -182,7 +182,7 @@
       "carbohydrates": "5.0",
       "code": "11222222333",
       "source_name": "wger",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -209,7 +209,7 @@
       "carbohydrates": "5.0",
       "code": "9988877766655",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -236,7 +236,7 @@
       "carbohydrates": "5.0",
       "code": "123454321",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -263,7 +263,7 @@
       "carbohydrates": "5.0",
       "code": "0009999888777",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -290,7 +290,7 @@
       "carbohydrates": "5.0",
       "code": "7787878787878787",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -317,7 +317,7 @@
       "carbohydrates": "5.0",
       "code": "29292929292929",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -344,7 +344,7 @@
       "carbohydrates": "5.0",
       "code": "19191919191",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
@@ -371,7 +371,7 @@
       "carbohydrates": "5.0",
       "code": "4444444444444",
       "source_name": "Open Food Facts",
-      "source_url": "https://world.openfoodfacts.org/api/v0/product/5055365635003.json",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
       "last_imported": "2022-12-01T12:37:35.903Z",
       "common_name": "foo",
       "brand": "the food brand"
