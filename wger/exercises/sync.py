@@ -24,8 +24,14 @@ from django.core.files.temp import NamedTemporaryFile
 import requests
 
 # wger
-from wger.core.api.endpoints import LANGUAGE_ENDPOINT
-from wger.core.models import Language
+from wger.core.api.endpoints import (
+    LANGUAGE_ENDPOINT,
+    LICENSE_ENDPOINT,
+)
+from wger.core.models import (
+    Language,
+    License,
+)
 from wger.exercises.api.endpoints import (
     CATEGORY_ENDPOINT,
     DELETION_LOG_ENDPOINT,
@@ -145,6 +151,35 @@ def sync_languages(
 
         if created:
             print_fn(f'Saved new language {full_name}')
+
+    print_fn(style_fn('done!\n'))
+
+
+def sync_licenses(
+    print_fn,
+    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    style_fn=lambda x: x,
+):
+    """Synchronize the lincenses from the remote server"""
+    print_fn('*** Synchronizing licenses...')
+    headers = wger_headers()
+    url = make_uri(LICENSE_ENDPOINT, server_url=remote_url)
+    result = requests.get(url, headers=headers).json()
+    for data in result['results']:
+        short_name = data['short_name']
+        full_name = data['full_name']
+        license_url = data['url']
+
+        language, created = License.objects.update_or_create(
+            short_name=short_name,
+            defaults={
+                'full_name': full_name,
+                'url': license_url
+            },
+        )
+
+        if created:
+            print_fn(f'Saved new license {full_name}')
 
     print_fn(style_fn('done!\n'))
 

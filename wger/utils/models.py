@@ -22,6 +22,7 @@ from django.utils.translation import gettext_lazy as _
 from wger.core.models import License
 from wger.utils.constants import CC_BY_SA_4_ID
 
+
 """
 Abstract model classes
 """

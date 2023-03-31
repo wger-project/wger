@@ -32,6 +32,7 @@ from wger.exercises.sync import (
     sync_equipment,
     sync_exercises,
     sync_languages,
+    sync_licenses,
     sync_muscles,
 )
 
@@ -45,10 +46,10 @@ def sync_exercises_task():
     Fetches the current exercises from the default wger instance
     """
     sync_languages(logger.info)
+    sync_licenses(logger.info)
     sync_categories(logger.info)
     sync_muscles(logger.info)
     sync_equipment(logger.info)
-    sync_exercises(logger.info)
     sync_exercises(logger.info)
     delete_entries(logger.info)
 

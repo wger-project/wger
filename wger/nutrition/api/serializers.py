@@ -265,7 +265,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NutritionPlan
-        exclude = ('user',)
+        exclude = ('user', )
 
 
 class NutritionPlanInfoSerializer(serializers.ModelSerializer):

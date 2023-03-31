@@ -16,7 +16,10 @@
 from unittest.mock import patch
 
 # wger
-from wger.core.models import Language
+from wger.core.models import (
+    Language,
+    License,
+)
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Equipment,
@@ -31,6 +34,7 @@ from wger.exercises.sync import (
     sync_equipment,
     sync_exercises,
     sync_languages,
+    sync_licenses,
     sync_muscles,
 )
 from wger.utils.requests import wger_headers
@@ -75,6 +79,43 @@ class MockLanguageResponse:
                     "short_name": "eo",
                     "full_name": "Esperanto"
                 }
+            ]
+        }
+    # yapf: enable
+
+
+class MockLicenseResponse:
+
+    def __init__(self):
+        self.status_code = 200
+        self.content = b'1234'
+
+    # yapf: disable
+    @staticmethod
+    def json():
+        return {
+            "count": 24,
+            "next": "http://localhost:8000/api/v2/language/?limit=20&offset=20",
+            "previous": None,
+            "results": [
+                {
+                    "id": 1,
+                    "full_name": "A cool and free license - Germany",
+                    "short_name": "ACAFL - DE",
+                    "url": "http://creativecommons.org/licenses/aca/fl/4.0/"
+                },
+                {
+                    "id": 2,
+                    "full_name": " Another cool license 2.1",
+                    "short_name": "ACL 2.1",
+                    "url": "https://another-cool-license.org/acl-2.1"
+                },
+                {
+                    "id": 3,
+                    "full_name": "Creative Commons Attribution Share Alike 4",
+                    "short_name": "CC-BY-SA 4",
+                    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+                },
             ]
         }
     # yapf: enable
@@ -492,6 +533,24 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(Language.objects.get(pk=1).full_name, 'Daitsch')
         self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
+
+    @patch('requests.get', return_value=MockLicenseResponse())
+    def test_license_sync(self, mock_request):
+        self.assertEqual(License.objects.count(), 2)
+        self.assertEqual(License.objects.get(pk=1).url, '')
+
+        sync_licenses(lambda x: x)
+        mock_request.assert_called_with(
+            'https://wger.de/api/v2/license/',
+            headers=wger_headers(),
+        )
+        self.assertEqual(
+            License.objects.get(pk=1).url, 'http://creativecommons.org/licenses/aca/fl/4.0/'
+        )
+        self.assertEqual(
+            License.objects.get(pk=3).full_name, 'Creative Commons Attribution Share Alike 4'
+        )
+        self.assertEqual(License.objects.count(), 3)
 
     @patch('requests.get', return_value=MockCategoryResponse())
     def test_categories_sync(self, mock_request):

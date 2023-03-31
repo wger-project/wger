@@ -39,6 +39,7 @@ from wger.utils.constants import (
 from wger.utils.requests import wger_headers
 from wger.utils.url import make_uri
 
+
 logger = logging.getLogger(__name__)
 
 

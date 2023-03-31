@@ -28,6 +28,7 @@ from wger.exercises.sync import (
     sync_equipment,
     sync_exercises,
     sync_languages,
+    sync_licenses,
     sync_muscles,
 )
 
@@ -84,6 +85,7 @@ class Command(BaseCommand):
         sync_categories(self.stdout.write, self.remote_url, self.style.SUCCESS)
         sync_muscles(self.stdout.write, self.remote_url, self.style.SUCCESS)
         sync_equipment(self.stdout.write, self.remote_url, self.style.SUCCESS)
+        sync_licenses(self.stdout.write, self.remote_url, self.style.SUCCESS)
         sync_exercises(self.stdout.write, self.remote_url, self.style.SUCCESS)
         if not options['skip_delete']:
             delete_entries(self.stdout.write, self.remote_url, self.style.SUCCESS)

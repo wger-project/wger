@@ -54,6 +54,7 @@ from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
 from .sources import Source
 
+
 logger = logging.getLogger(__name__)
 
 

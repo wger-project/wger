@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
                     models.CharField(
                         blank=True,
                         help_text='If you are not the author, enter the name or source here. This '
-                                  'is needed for some licenses e.g. the CC-BY-SA.',
+                        'is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=60,
                         null=True,
                         verbose_name='Author',
