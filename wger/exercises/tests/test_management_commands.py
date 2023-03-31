@@ -28,8 +28,10 @@ class TestManagementCommands(SimpleTestCase):
     @patch('wger.exercises.sync.sync_exercises')
     @patch('wger.exercises.sync.sync_equipment')
     @patch('wger.exercises.sync.sync_categories')
+    @patch('wger.exercises.sync.sync_licenses')
     def test_sync_exercises(
         self,
+        mock_sync_licenses,
         mock_sync_categories,
         mock_sync_equipment,
         mock_sync_exercises,
@@ -39,6 +41,7 @@ class TestManagementCommands(SimpleTestCase):
     ):
         call_command('sync-exercises')
 
+        mock_sync_licenses.assert_called()
         mock_sync_categories.assert_called()
         mock_sync_equipment.assert_called()
         mock_sync_exercises.assert_called()
