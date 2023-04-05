@@ -26,7 +26,7 @@ django-storages~=1.13
 django-environ==0.10.0
 easy-thumbnails==2.8.5
 fontawesomefree~=6.4.0
-icalendar==4.1.0
+icalendar==5.0.4
 invoke==2.0.0
 pillow==9.5.0
 reportlab==3.6.12
