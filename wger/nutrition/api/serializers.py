@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -96,7 +94,11 @@ class ImageSerializer(serializers.ModelSerializer):
             'size',
             'source_url',
             'license',
+            'license_title',
+            'license_object_url',
             'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
         ]
 
 
@@ -123,7 +125,11 @@ class IngredientSerializer(serializers.ModelSerializer):
             'fibres',
             'sodium',
             'license',
+            'license_title',
+            'license_object_url',
             'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
             'language',
         ]
 

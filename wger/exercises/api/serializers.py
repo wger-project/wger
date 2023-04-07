@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -124,7 +122,11 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'codec',
             'codec_long',
             'license',
+            'license_title',
+            'license_object_url',
             'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
             'author_history',
         ]
 
@@ -264,7 +266,11 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             "aliases",
             "notes",
             "license",
+            "license_title",
+            "license_object_url",
             "license_author",
+            "license_author_url",
+            "license_derivative_source_url",
             "author_history",
         )
 

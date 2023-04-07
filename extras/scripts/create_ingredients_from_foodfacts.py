@@ -180,7 +180,8 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         continue
 
     source_name = Source.OPEN_FOOD_FACTS.value
-    source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
+    source_url = f'https://world.openfoodfacts.org/api/v2/product/{code}.json'
+    authors = ', '.join(product.get('editors_tags', ['open food facts']))
 
     ingredient_data = {
         'language': languages[lang],
@@ -200,7 +201,9 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         'brand': brand,
         'status': 2,
         'license_id': 5,
-        'license_author': Source.OPEN_FOOD_FACTS.value,
+        'license_author': authors,
+        'license_title': name,
+        'license_object_url': f'https://world.openfoodfacts.org/product/{code}/'
     }
 
     # Add entries as new products

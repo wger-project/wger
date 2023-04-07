@@ -123,10 +123,15 @@ def fetch_image_from_off(ingredient):
         return
 
     # Save to DB
+    url = f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id=front_en'
+    uploader_url = f'https://world.openfoodfacts.org/photographer/{uploader_name}'
     image_data = {
         'image': os.path.basename(image_url),
         'license': CC_BY_SA_3_LICENSE_ID,
+        'license_title': 'Photo',
         'license_author': uploader_name,
+        'license_author_url': uploader_url,
+        'license_object_url': url,
         'size': len(response.content)
     }
     try:

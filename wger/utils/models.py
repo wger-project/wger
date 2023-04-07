@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of Workout Manager.
 #
 # Workout Manager is free software: you can redistribute it and/or modify
@@ -31,6 +29,12 @@ Abstract model classes
 class AbstractLicenseModel(models.Model):
     """
     Abstract class that adds license information to a model
+
+    Implements TASL (Title - Author - Source - License) for proper attribution
+
+    See also
+    - https://wiki.creativecommons.org/wiki/Recommended_practices_for_attribution
+    - https://wiki.creativecommons.org/wiki/Best_practices_for_attribution
     """
 
     class Meta:
@@ -42,20 +46,63 @@ class AbstractLicenseModel(models.Model):
         default=CC_BY_SA_4_ID,
         on_delete=models.CASCADE,
     )
-    """The item's license"""
+
+    license_title = models.CharField(
+        verbose_name=_('The original title of this object, if available'),
+        max_length=100,
+        blank=True,
+    )
+
+    license_object_url = models.URLField(
+        verbose_name=_('Link to original object, if available'),
+        max_length=100,
+        blank=True,
+    )
 
     license_author = models.CharField(
-        verbose_name=_('Author'),
-        max_length=60,
+        verbose_name=_('Author(s)'),
+        max_length=200,
         blank=True,
         null=True,
-        help_text=_(
-            'If you are not the author, enter the name or '
-            'source here. This is needed for some licenses '
-            'e.g. the CC-BY-SA.'
-        )
+        help_text=_('If you are not the author, enter the name or source here.')
     )
-    """The author if it is not the uploader"""
+
+    license_author_url = models.URLField(
+        verbose_name=_('Link to author profile, if available'),
+        max_length=100,
+        blank=True,
+    )
+
+    license_derivative_source_url = models.URLField(
+        verbose_name=_('Link to the original source, if this is a derivative work'),
+        help_text=_(
+            'Note that a derivative work is one which is not only based on a previous '
+            'work, but which also contains sufficient new, creative content to entitle it '
+            'to its own copyright.'
+        ),
+        max_length=100,
+        blank=True,
+    )
+
+    @property
+    def attribution_link(self):
+        out = ''
+
+        if self.license_title:
+            out += self.license_title
+
+        if self.license_author_url:
+            out += f'<a href="{self.license_author_url}">{self.license_author}</a>'
+        else:
+            out += self.license_author
+
+        out += f' is licensed under <a href="{self.license.url}">{self.license.short_name}</a>'
+
+        if self.license_source_url:
+            out += f'/ A derivative work from <a href="{self.license_source_url}">the original ' \
+                   f'work</a>'
+
+        return out
 
 
 class AbstractSubmissionModel(models.Model):
@@ -112,11 +159,11 @@ def collect_model_author_history(model):
     return out
 
 
-def collect_models_author_history(models):
+def collect_models_author_history(model_list):
     """
     Get unique set of license authors from historical records from models.
     """
     out = set()
-    for model in models:
+    for model in model_list:
         out = out.union(collect_model_author_history(model))
     return out
