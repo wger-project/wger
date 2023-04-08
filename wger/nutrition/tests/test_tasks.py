@@ -82,7 +82,11 @@ class MockWgerApiResponse:
                     "size": 20179,
                     "source_url": "",
                     "license": 1,
-                    "license_author": "Tester McTest"
+                    "license_author": "Tester McTest",
+                    "license_author_url": "https://example.com/editors/mcLovin",
+                    "license_title": "",
+                    "license_object_url": "",
+                    "license_derivative_source_url": ""
                 }
             ]
         }
