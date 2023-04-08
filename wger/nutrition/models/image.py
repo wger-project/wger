@@ -69,9 +69,6 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
     size = models.IntegerField()
     """The size of the image in bytes"""
 
-    source_url = models.URLField()
-    """The source of the image"""
-
     @classmethod
     def from_json(
         cls,

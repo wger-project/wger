@@ -80,7 +80,6 @@ class MockWgerApiResponse:
                              "188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
                     "last_update": "2023-03-15T23:20:10.969369+01:00",
                     "size": 20179,
-                    "source_url": "",
                     "license": 1,
                     "license_author": "Tester McTest",
                     "license_author_url": "https://example.com/editors/mcLovin",

@@ -82,7 +82,6 @@ class Migration(migrations.Migration):
                 ),
                 ('last_update', models.DateTimeField(auto_now=True)),
                 ('size', models.IntegerField()),
-                ('source_url', models.URLField()),
                 (
                     'ingredient',
                     models.OneToOneField(
