@@ -132,8 +132,9 @@ class FetchIngredientImageTestCase(WgerTestCase):
             self.assertEqual(result, None)
 
     @patch('requests.get', return_value=MockOffResponse())
+    @patch('wger.nutrition.models.Image.from_json')
     @patch.object(logger, 'info')
-    def test_download_ingredient_off(self, mock_logger, mock_request):
+    def test_download_ingredient_off(self, mock_logger, mock_from_json, mock_request):
         """
         Test that the image is correctly downloaded
 
@@ -165,12 +166,14 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
                 headers=wger_headers()
             )
+            mock_from_json.assert_called()
 
             self.assertEqual(result, None)
 
     @patch('requests.get', return_value=MockWgerApiResponse())
+    @patch('wger.nutrition.models.Image.from_json')
     @patch.object(logger, 'info')
-    def test_download_ingredient_wger(self, mock_logger, mock_request):
+    def test_download_ingredient_wger(self, mock_logger, mock_from_json, mock_request):
         """
         Test that the image is correctly downloaded
 
@@ -198,5 +201,6 @@ class FetchIngredientImageTestCase(WgerTestCase):
                 'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
                 headers=wger_headers()
             )
+            mock_from_json.assert_called()
 
             self.assertEqual(result, None)
