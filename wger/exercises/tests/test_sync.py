@@ -380,7 +380,11 @@ class MockExerciseResponse:
                                 "Kettlebell mit zwei Händen"
                             ],
                             "notes": [
-                                "Wichtig die Übung richtig zu machen"
+                                {
+                                    "id": 1,
+                                    "exercise": 100,
+                                    "comment": "Wichtig die Übung richtig zu machen"
+                                },
                             ],
                             "license": 2,
                             "license_author": "Tester von der Testen",
@@ -477,7 +481,11 @@ class MockExerciseResponse:
                                 "yet another name"
                             ],
                             "notes": [
-                                "Foobar",
+                                {
+                                    "id": 147,
+                                    "exercise": 123,
+                                    "comment": "Foobar"
+                                },
                             ],
                             "license": 2,
                             "license_author": "Mr X",

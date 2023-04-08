@@ -115,7 +115,10 @@ def sync_exercises(
                 print_fn(out)
 
                 for note in translation_data['notes']:
-                    ExerciseComment.objects.get_or_create(exercise=translation, comment=note)
+                    ExerciseComment.objects.get_or_create(
+                        exercise=translation,
+                        comment=note['comment'],
+                    )
 
                 for alias in translation_data['aliases']:
                     Alias.objects.get_or_create(exercise=translation, alias=alias)
