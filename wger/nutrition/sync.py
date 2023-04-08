@@ -112,18 +112,18 @@ def fetch_image_from_off(ingredient):
 
     # Parse the file name, looks something like this:
     # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg
-    image_name: str = image_url.rpartition("/")[2].partition(".")[0]
+    image_id: str = image_url.rpartition("/")[2].partition(".")[0]
 
     # Retrieve the uploader name
     try:
-        image_id: str = image_data[image_name]['imgid']
+        image_id: str = image_data[image_id]['imgid']
         uploader_name: str = image_data[image_id]['uploader']
     except KeyError as e:
         logger.info('could not load all image information, skipping...', e)
         return
 
     # Save to DB
-    url = f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id=front_en'
+    url = f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id={image_id}'
     uploader_url = f'https://world.openfoodfacts.org/photographer/{uploader_name}'
     image_data = {
         'image': os.path.basename(image_url),
