@@ -154,7 +154,9 @@ the search.{% endblocktranslate %}
 </table>
 </div>
 
-{{ ingredient.attribution_link|safe }}
+<small>
+    {{ ingredient.attribution_link|safe }}
+</small>
 {% endblock %}
 
 
@@ -202,7 +204,11 @@ the search.{% endblocktranslate %}
     <a href="{{ ingredient.off_link }}">
         <img src="{{ image.image.url }}" class="img-fluid">
     </a>
-    {{ image.attribution_link|safe }}
+    <p>
+    <small>
+        {{ image.attribution_link|safe }}
+    </small>
+    </p>
 {% endif %}
 
 {% endblock %}
