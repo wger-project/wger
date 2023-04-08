@@ -104,33 +104,35 @@ counter = Counter()
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
 #    total = db.products.count_documents({'lang': lang})
 #    print(f'Lang {lang} has {count} completed products out of {total}')
+# import sys
+# sys.exit()
 
-# Completeness status of ingredients as of 2021-11-18
+# Completeness status of ingredients as of 2023-04-08
 #
-# Lang az has 0 completed products out of 39
-# Lang id has 6 completed products out of 845
-# Lang cs has 78 completed products out of 3736
-# Lang de has 972 completed products out of 157846
-# Lang en has 959 completed products out of 905683
-# Lang es has 533 completed products out of 300344
+# Lang az has 0 completed products out of 40
+# Lang id has 6 completed products out of 981
+# Lang cs has 80 completed products out of 4654
+# Lang de has 1025 completed products out of 165771
+# Lang en has 1028 completed products out of 929003
+# Lang es has 618 completed products out of 303937
 # Lang eo has 0 completed products out of 9
-# Lang fr has 6677 completed products out of 1145075
-# Lang hr has 56 completed products out of 1544
-# Lang it has 809 completed products out of 211901
-# Lang nl has 71 completed products out of 11202
-# Lang no has 4 completed products out of 247
-# Lang pl has 45 completed products out of 6793
-# Lang pt has 132 completed products out of 9427
-# Lang sv has 297 completed products out of 4501
-# Lang tr has 3 completed products out of 1209
-# Lang el has 6 completed products out of 880
-# Lang bg has 31 completed products out of 3392
-# Lang ru has 13 completed products out of 10799
-# Lang uk has 1 completed products out of 297
-# Lang he has 0 completed products out of 352
-# Lang ar has 1 completed products out of 3426
-# Lang fa has 0 completed products out of 577
-# Lang zh has 2 completed products out of 913
+# Lang fr has 7125 completed products out of 1160796
+# Lang hr has 57 completed products out of 1699
+# Lang it has 870 completed products out of 216046
+# Lang nl has 71 completed products out of 11744
+# Lang no has 4 completed products out of 261
+# Lang pl has 48 completed products out of 7145
+# Lang pt has 127 completed products out of 9802
+# Lang sv has 308 completed products out of 4622
+# Lang tr has 3 completed products out of 1296
+# Lang el has 6 completed products out of 927
+# Lang bg has 31 completed products out of 4524
+# Lang ru has 23 completed products out of 11683
+# Lang uk has 2 completed products out of 604
+# Lang he has 0 completed products out of 365
+# Lang ar has 1 completed products out of 3552
+# Lang fa has 0 completed products out of 575
+# Lang zh has 2 completed products out of 935
 
 print('***********************************')
 print(languages.keys())
