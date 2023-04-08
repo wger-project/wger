@@ -60,6 +60,8 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
         verbose_name=_('Image'),
         help_text=_('Only PNG and JPEG formats are supported'),
         upload_to=ingredient_image_upload_dir,
+        height_field='height',
+        width_field='width',
     )
     """Uploaded image"""
 
@@ -71,6 +73,12 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
 
     size = models.IntegerField()
     """The size of the image in bytes"""
+
+    height = models.IntegerField(editable=False)
+    """Height of the image"""
+
+    width = models.IntegerField(editable=False)
+    """Width of the image"""
 
     @classmethod
     def from_json(

@@ -78,11 +78,15 @@ class Migration(migrations.Migration):
                         help_text='Only PNG and JPEG formats are supported',
                         upload_to=wger.nutrition.models.image.ingredient_image_upload_dir,
                         verbose_name='Image',
+                        height_field='height',
+                        width_field='width',
                     )
                 ),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('last_update', models.DateTimeField(auto_now=True)),
                 ('size', models.IntegerField()),
+                ('height', models.IntegerField(editable=False)),
+                ('width', models.IntegerField(editable=False)),
                 (
                     'ingredient',
                     models.OneToOneField(

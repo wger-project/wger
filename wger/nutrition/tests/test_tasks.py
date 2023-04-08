@@ -80,6 +80,8 @@ class MockWgerApiResponse:
                     "created": "2023-03-15T23:20:10.969369+01:00",
                     "last_update": "2023-03-15T23:20:10.969369+01:00",
                     "size": 20179,
+                    "width": 400,
+                    "height": 166,
                     "license": 1,
                     "license_author": "Tester McTest",
                     "license_author_url": "https://example.com/editors/mcLovin",

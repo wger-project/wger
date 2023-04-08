@@ -93,6 +93,8 @@ class ImageSerializer(serializers.ModelSerializer):
             'created',
             'last_update',
             'size',
+            'width',
+            'height',
             'license',
             'license_title',
             'license_object_url',
