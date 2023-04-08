@@ -90,6 +90,7 @@ class ImageSerializer(serializers.ModelSerializer):
             'ingredient_id',
             'ingredient_uuid',
             'image',
+            'created',
             'last_update',
             'size',
             'license',

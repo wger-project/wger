@@ -63,6 +63,9 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
     )
     """Uploaded image"""
 
+    created = models.DateTimeField(auto_now_add=True)
+    """The date when this image was first created """
+
     last_update = models.DateTimeField(auto_now=True)
     """The date when this image was last synchronized """
 

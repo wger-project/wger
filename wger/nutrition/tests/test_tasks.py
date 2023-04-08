@@ -78,6 +78,7 @@ class MockWgerApiResponse:
                     "ingredient_uuid": "e9baa8bd-84fc-4756-8d90-5b9739b06cf8",
                     "image": "http://localhost:8000/media/ingredients/1/"
                              "188324b5-587f-42d7-9abc-d2ca64c73d45.jpg",
+                    "created": "2023-03-15T23:20:10.969369+01:00",
                     "last_update": "2023-03-15T23:20:10.969369+01:00",
                     "size": 20179,
                     "license": 1,
