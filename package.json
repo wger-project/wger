@@ -24,7 +24,7 @@
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.6.4",
     "masonry-layout": "^4.2.2",
-    "metrics-graphics": "^2.15.6",
+    "metrics-graphics": "^3.0.0-beta1",
     "popper.js": "^1.16.1",
     "shariff": "^3.2.1",
     "tinymce": "^5.10.7",
