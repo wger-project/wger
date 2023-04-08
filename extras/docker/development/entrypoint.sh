@@ -27,7 +27,7 @@ wger bootstrap
 if [[ "$DJANGO_DEBUG" == "False" ]];
 then
     echo "Running in production mode, running collectstatic now"
-    python3 manage.py collectstatic --no-input
+    python3 manage.py collectstatic --no-input --clear
 fi
 
 # Perform database migrations

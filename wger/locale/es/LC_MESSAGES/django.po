@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-30 21:20+0200\n"
-"PO-Revision-Date: 2023-02-02 15:38+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2023-04-04 23:41+0000\n"
+"Last-Translator: Javier <javiroldan98@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -498,22 +498,16 @@ msgid "Something happened that caused an error."
 msgstr "Algo ha sucedido que ha causadi un error."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
 "actions are performed on their data.\n"
 "            "
 msgstr ""
-"Estás\n"
-"    navegando por la web como el usuario \"%(current_user)s\", todas las "
+"Estás navegando por la web como el usuario \"%(current_user)s\", todas las "
 "acciones se realizan sobre tus datos.\n"
-"    "
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -585,16 +579,13 @@ msgid "Add log to day"
 msgstr "Agregar registro al día"
 
 #: core/templates/index.html:25
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
-"Clic para agregar registros de peso a un día de entrenamiento\n"
-"en el entrenamiento actual:"
+"Haz clic para agregar registros de peso a un día \n"
+"                                                de entrenamiento en el "
+"entreno actual:"
 
 #: core/templates/index.html:38 core/templates/index.html:82
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -830,15 +821,13 @@ msgid "Share this page"
 msgstr "Compartir esta página"
 
 #: core/templates/misc/fragments/shariff_modal.html:20
-#, fuzzy
-#| msgid ""
-#| "Before you share links on social media you need to allow external access."
 msgid ""
 "Before you share links on social media you need to allow external\n"
 "                            access."
 msgstr ""
 "Antes de compartir enlaces en redes sociales es necesario permitir el acceso "
-"externo."
+"\n"
+"                                                                externo."
 
 #: core/templates/misc/fragments/shariff_modal.html:26
 #: nutrition/templates/plan/view.html:387
@@ -847,18 +836,14 @@ msgid "That's done here"
 msgstr "Eso se hace aqui"
 
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
 "entries here."
 msgstr ""
-"Si la licencia ha sido localizada, como por ejemplo las licencias Creative "
-"Commons\n"
-"para los diferentes países, agrégalas como entradas separadas aquí."
+"Si la licencia ha sido localizada, como por ejemplo las licencias \n"
+"                            Creative Commons para los diferentes países, "
+"agrégalas como entradas separadas aquí."
 
 #: core/templates/navigation.html:27 software/templates/features.html:430
 msgid "Training"
@@ -1621,7 +1606,7 @@ msgstr "Idioma"
 
 #: exercises/models/exercise_alias.py:38
 msgid "Alias for an exercise"
-msgstr "Alias para un ejercicio"
+msgstr "Nombre alternativo para un ejercicio"
 
 #: exercises/models/image.py:55
 msgid "Line"
@@ -1641,7 +1626,7 @@ msgstr "Foto"
 
 #: exercises/models/image.py:59
 msgid "Other"
-msgstr "Otro"
+msgstr "Otros"
 
 #: exercises/models/image.py:77 gallery/models/image.py:56
 msgid "Image"
@@ -1696,7 +1681,7 @@ msgstr "El archivo no es un video válido"
 
 #: exercises/models/video.py:101
 msgid "Main video"
-msgstr "Video principal"
+msgstr "Vídeo principal"
 
 #: exercises/models/video.py:107
 msgid "Video"
@@ -1716,7 +1701,7 @@ msgstr "Ancho"
 
 #: exercises/models/video.py:137
 msgid "Height"
-msgstr "Alto"
+msgstr "Altura"
 
 #: exercises/models/video.py:144
 msgid "Codec"
@@ -2151,7 +2136,7 @@ msgstr "Pantorrillas"
 
 #: i18n.tpl:9
 msgid "Cardio"
-msgstr ""
+msgstr "Cardio"
 
 #: i18n.tpl:10
 msgid "Chest"
@@ -2187,7 +2172,7 @@ msgstr "Kilómetros"
 
 #: i18n.tpl:18
 msgid "Lats"
-msgstr "Laterales"
+msgstr "Dorsal"
 
 #: i18n.tpl:19
 msgid "Legs"
@@ -2320,10 +2305,8 @@ msgstr ""
 "una superserie."
 
 #: manager/forms.py:143
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Usa también los ingredientes en inglés"
+msgstr "Busque también los nombres en inglés"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2578,24 +2561,14 @@ msgid "No schedules found."
 msgstr "No se han encontrado programas."
 
 #: manager/templates/schedule/overview.html:36
-#, fuzzy
-#| msgid ""
-#| "Schedules are collections of workouts that you do in\n"
-#| "succession."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
 msgstr ""
-"Programas son simplemente colecciones de rutinas que haces\n"
-"en sucesión."
+"Los programas son simplemente colecciones de rutinas que haces en \n"
+"                  sucesión."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2603,26 +2576,22 @@ msgid ""
 "        always do the same workouts in succession, e.g. A > B > C > A > B > "
 "C and so on."
 msgstr ""
-"Puedes indicar cuánto tiempo quieres hacer cada rutina antes de\n"
-"saltar a la siguiente. También puedes crear un bucle, haciendo siempre\n"
-"las mismas rutinas en sucesión, e.g. A > B > C > A > B > C, etc."
+"Puedes indicar cuánto tiempo quieres hacer cada rutina \n"
+"                   antes de saltar a la siguiente. También puedes crear un "
+"bucle, para \n"
+"                   poder hacer siempre las mismas rutinas en sucesión, p.ej. "
+"A > B > C > A > B > C, etc."
 
 #: manager/templates/schedule/overview.html:43
-#, fuzzy
-#| msgid ""
-#| "The currently active schedule will remain active (and be\n"
-#| "shown e.g. in your dashboard) till it reaches the last workout or till "
-#| "you\n"
-#| "deactivate it, if it is a loop."
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
 "till you\n"
 "        deactivate it, if it is a loop."
 msgstr ""
-"Tu programa activo actual permanecerá activo (y se mostrará\n"
-"p.ej. en tu escritorio) hasta que llegues al final o lo desactives si\n"
-"es un bucle."
+"Tu programa activo actual permanecerá activo (y se mostrará \n"
+"                    p.ej. en tu escritorio) hasta que llegues al final o \n"
+"                    en el caso de un bucle lo desactives."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
@@ -2653,13 +2622,7 @@ msgid "Start schedule"
 msgstr "Iniciar programa"
 
 #: manager/templates/schedule/view.html:188
-#, fuzzy, python-format
-#| msgid ""
-#| "%(weeks)s Week\n"
-#| "                    "
-#| msgid_plural ""
-#| "%(weeks)s Weeks\n"
-#| "                    "
+#, python-format
 msgid ""
 "%(weeks)s Week\n"
 "                                    "
@@ -2668,31 +2631,25 @@ msgid_plural ""
 "                                "
 msgstr[0] ""
 "%(weeks)s Semana\n"
-"                    "
+"                                    "
 msgstr[1] ""
 "%(weeks)s Semanas\n"
-"                    "
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
 msgstr "Añadir rutinas"
 
 #: manager/templates/schedule/view.html:224
-#, fuzzy
-#| msgid ""
-#| "Add as many workouts to the schedule as you want. You can\n"
-#| "edit the order by dragging and dropping them. It's also possible to add "
-#| "one workout more\n"
-#| "than once."
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "            edit the order by dragging and dropping them. It's also possible "
 "to add one workout more\n"
 "            than once."
 msgstr ""
-"Agrega los ejercicios que desees a tu calendario. Puedes\n"
-"editar el orden con solo arrastrarlos y soltarlos. También es posible añadir "
-"el mismo ejercicio más\n"
+"Agrega tantos ejercicios como desees a tu calendario. Puedes\n"
+"alterar su orden con solo arrastrarlos y soltarlos. También es posible "
+"añadir el mismo ejercicio más\n"
 "de una vez."
 
 #: manager/templates/schedule/view.html:233
@@ -2710,12 +2667,6 @@ msgstr "Expora este programa como archivo de calendario."
 
 #: manager/templates/schedule/view.html:238
 #: manager/templates/workout/view.html:123
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "application for example google calendar, outlook or iCal. This will "
-#| "create\n"
-#| "an appointment for each training day with the appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2723,9 +2674,9 @@ msgid ""
 "                        an appointment for each training day with the "
 "appropriate exercises."
 msgstr ""
-"Podrás importar el archivo en tu aplicación calendario, por ejemplo,\n"
-"Google Calendar, Outlook o iCal. Esto creará una cita para cada día\n"
-"de entrenamiento con los ejercicios adecuados."
+"Podrás importar el archivo en tu aplicación de calendario, como por ejemplo\n"
+"Google Calendar, Outlook o iCal. Esto creará una entrada para cada día\n"
+"de entrenamiento con los respectivos ejercicios."
 
 #: manager/templates/schedule/view.html:259
 #: manager/templates/schedule/view.html:295
@@ -2984,22 +2935,16 @@ msgid "Value"
 msgstr "Valor"
 
 #: nutrition/forms.py:115
-#, fuzzy
-#| msgid "Height (cm)"
 msgid "Height (in)"
-msgstr "Altura (cm)"
+msgstr "Altura (pulgadas)"
 
 #: nutrition/forms.py:116
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "Registro de peso"
+msgstr "Peso (kg)"
 
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "Registro de peso"
+msgstr "Peso (libras)"
 
 #: nutrition/forms.py:128
 msgid "Calculate"
@@ -3133,8 +3078,7 @@ msgid ""
 "Give meals a textual description / name such as \"Breakfast\" or \"after "
 "workout\""
 msgstr ""
-"Dé a las comidas una descripción/nombre textual como \"Desayuno\" o "
-"\"después del entrenamiento\""
+"Dé a las comidas una descripción/nombre como \"Desayuno\" o \"Post entreno\""
 
 #: nutrition/models/plan.py:71
 msgid ""
@@ -3575,15 +3519,15 @@ msgstr ""
 
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
-msgstr ""
+msgstr "Por favor asegúrese de que su altura está en el rango apropiado."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "140 a 230"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "56 a 90"
 
 #: nutrition/views/ingredient.py:164
 msgid "Add a new ingredient"
@@ -3685,33 +3629,25 @@ msgid "Our goal"
 msgstr "Nuestro objetivo"
 
 #: software/templates/about_us.html:53
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
 "complete list of exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"La meta es crear un administrador de rutinas fenomenal, junto\n"
-"con una lista completa y extensiva de ejercicios e ingredientes,\n"
-"todo bajo una licencia libre."
+"El objetivo es crear un administrador de rutinas flexible y eficiente, "
+"junto\n"
+"con una completa y extensiva lista de ejercicios e ingredientes alimenticios,"
+"\n"
+"todo bajo una licencia de uso libre."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
 "wger Workout Manager es una aplicación web gratuita y de código abierto que "
-"gestiona tus ejercicios y entrenamientos. "
+"gestiona tus ejercicios y entrenamientos."
 
 #: software/templates/features.html:45
 msgid "About"
@@ -3719,117 +3655,120 @@ msgstr "Aviso legal"
 
 #: software/templates/features.html:50
 msgid "Mobile app"
-msgstr ""
+msgstr "Aplicación Móvil"
 
 #: software/templates/features.html:56 software/templates/features.html:312
 msgid "Donate"
-msgstr ""
+msgstr "Dona"
 
 #: software/templates/features.html:61
 msgid "Develop"
-msgstr ""
+msgstr "Desarrollo"
 
 #: software/templates/features.html:66 software/templates/features.html:448
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Comentario"
+msgstr "Comunidad"
 
 #: software/templates/features.html:100
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Monitoriza tu <br> camino hacia tu <br> cuerpo ideal"
 
 #: software/templates/features.html:103
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Únete a wger, la comunidad fitness <b>de software libre y código abierto</b>"
 
 #: software/templates/features.html:113
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Código fuente"
+msgstr "Comenzar"
 
 #: software/templates/features.html:123
+#, fuzzy
 msgid "people <br> using wger"
-msgstr ""
+msgstr "los usuarios de wger"
 
 #: software/templates/features.html:127
 #, fuzzy
 #| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Añadir ejercicios a este dia"
+msgstr "ejercicios <br>para crear entrenamientos"
 
 #: software/templates/features.html:131
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "alimentos <br>para planear comidas"
 
 #: software/templates/features.html:135
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "estrellas <br> en GitHub"
 
 #: software/templates/features.html:159
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Crea tu rutina <span>de entrenamiento perfecta</span>"
 
 #: software/templates/features.html:163
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Diseña un plan de entrenamiento semanal en base a más de 100 ejercicios"
 
 #: software/templates/features.html:166
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Ajusta objetivos de sets y repeticiones, duración o distancia para ejercicio"
 
 #: software/templates/features.html:169
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Guíate paso a paso en tus entrenamientos"
 
 #: software/templates/features.html:172
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Haz un seguimiento de las sesiones de entrenamiento que has realizado, "
+"incluido tu rendimiento percibido"
 
 #: software/templates/features.html:193
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Planea tus <span>comidas diarias</span>"
 
 #: software/templates/features.html:197
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Completa tu semana con nutritivas comidas que te ayudarán a rendir mejor"
 
 #: software/templates/features.html:200
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Crea comidas a partir de una base de datos de más de 2 millones de alimentos"
 
 #: software/templates/features.html:203
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Consigue cálculos automáticos de valores nutricionales (energía, proteínas, "
+"carbohidratos, ...) para tus comidas individuales y todo tu plan semanal"
 
 #: software/templates/features.html:230
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Monitoriza <span>tu progreso</span>"
 
 #: software/templates/features.html:235
 msgid "Track and annotate everything about your meals and workouts"
-msgstr ""
+msgstr "Monitoriza y anota todo sobre tus comidas y entrenos"
 
 #: software/templates/features.html:238
 #, fuzzy
 #| msgid "Add custom diary entry"
 msgid "Add custom notes"
-msgstr "Añadir una entrada personalizada"
+msgstr "Añadir una nota"
 
 #: software/templates/features.html:241
-#, fuzzy
-#| msgid "Body weight"
 msgid "Record your weight"
-msgstr "Peso corporal"
+msgstr "Registra tu peso"
 
 #: software/templates/features.html:244
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Mantén un registro fotográfico para seguir tus progresos"
 
 #: software/templates/features.html:247
 msgid "Use the calendar view to see past entries"

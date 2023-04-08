@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-30 21:20+0200\n"
-"PO-Revision-Date: 2022-12-21 00:51+0000\n"
+"PO-Revision-Date: 2023-03-31 22:40+0000\n"
 "Last-Translator: Dan <denqwerta@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -490,12 +490,7 @@ msgid "Something happened that caused an error."
 msgstr "Сталося щось, що призвело до помилки."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -505,7 +500,7 @@ msgstr ""
 "Ви\n"
 "    переглядаєте сайт як користувач \"%(current_user)s\", усі дії "
 "виконуються з їх даними.\n"
-"    "
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -577,16 +572,12 @@ msgid "Add log to day"
 msgstr "Додати журнал до дня"
 
 #: core/templates/index.html:25
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
-"Натисніть, щоб додати записи в журналі ваг на\n"
-"цей тренувальний день для поточного тренування:"
+"Натисніть, щоб додати записи про вагу до тренування\n"
+"                            дня поточного тренування:"
 
 #: core/templates/index.html:38 core/templates/index.html:82
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -822,9 +813,6 @@ msgid "Share this page"
 msgstr "Поділитись цією сторінкою"
 
 #: core/templates/misc/fragments/shariff_modal.html:20
-#, fuzzy
-#| msgid ""
-#| "Before you share links on social media you need to allow external access."
 msgid ""
 "Before you share links on social media you need to allow external\n"
 "                            access."
@@ -839,10 +827,6 @@ msgid "That's done here"
 msgstr "Це зроблено тут"
 
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
@@ -2135,7 +2119,7 @@ msgstr "Литки"
 
 #: i18n.tpl:9
 msgid "Cardio"
-msgstr ""
+msgstr "Кардіо"
 
 #: i18n.tpl:10
 msgid "Chest"
@@ -2303,10 +2287,8 @@ msgstr ""
 "Ви можете шукати більше ніж одну вправу, вони будуть згруповані в суперсет."
 
 #: manager/forms.py:143
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Також використовувати інгредієнти Англійською"
+msgstr "Також шукайте імена англійською мовою"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2559,10 +2541,6 @@ msgid "No schedules found."
 msgstr "Програм не знайдено."
 
 #: manager/templates/schedule/overview.html:36
-#, fuzzy
-#| msgid ""
-#| "Schedules are collections of workouts that you do in\n"
-#| "succession."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
@@ -2571,12 +2549,6 @@ msgstr ""
 "по порядку."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2584,17 +2556,13 @@ msgid ""
 "        always do the same workouts in succession, e.g. A > B > C > A > B > "
 "C and so on."
 msgstr ""
-"Ви можете вказати тривалість кожного тренування, перед тим як перейти до\n"
-"наступного. Також можна створити цикл, для того, щоб виконувати однакові\n"
+"Ви можете вказати тривалість кожного тренування,\n"
+"        перед тим як перейти до\n"
+"наступного. Також можна створити цикл, для того,\n"
+"        щоб виконувати однакові\n"
 "тренування поспіль, наприклад A> B> C> A> B> C і т.д."
 
 #: manager/templates/schedule/overview.html:43
-#, fuzzy
-#| msgid ""
-#| "The currently active schedule will remain active (and be\n"
-#| "shown e.g. in your dashboard) till it reaches the last workout or till "
-#| "you\n"
-#| "deactivate it, if it is a loop."
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
@@ -2636,13 +2604,7 @@ msgid "Start schedule"
 msgstr "Почати програму"
 
 #: manager/templates/schedule/view.html:188
-#, fuzzy, python-format
-#| msgid ""
-#| "%(weeks)s Week\n"
-#| "                    "
-#| msgid_plural ""
-#| "%(weeks)s Weeks\n"
-#| "                    "
+#, python-format
 msgid ""
 "%(weeks)s Week\n"
 "                                    "
@@ -2651,28 +2613,22 @@ msgid_plural ""
 "                                "
 msgstr[0] ""
 "%(weeks)s Тиждень\n"
-"                    "
+"                                "
 msgstr[1] ""
 "%(weeks)s Тижнів\n"
-"                    "
+"                                "
 msgstr[2] ""
 "%(weeks)s Тижнів\n"
-"                    "
+"                                "
 msgstr[3] ""
 "%(weeks)s Тижні\n"
-"                    "
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
 msgstr "Додавання тренувань"
 
 #: manager/templates/schedule/view.html:224
-#, fuzzy
-#| msgid ""
-#| "Add as many workouts to the schedule as you want. You can\n"
-#| "edit the order by dragging and dropping them. It's also possible to add "
-#| "one workout more\n"
-#| "than once."
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "            edit the order by dragging and dropping them. It's also possible "
@@ -2698,12 +2654,6 @@ msgstr "Експортувати цю програму в файл календ�
 
 #: manager/templates/schedule/view.html:238
 #: manager/templates/workout/view.html:123
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "application for example google calendar, outlook or iCal. This will "
-#| "create\n"
-#| "an appointment for each training day with the appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2711,7 +2661,7 @@ msgid ""
 "                        an appointment for each training day with the "
 "appropriate exercises."
 msgstr ""
-"Цей файл можна потім імпортувати в календар застосунока, наприклад\n"
+"Цей файл можна потім імпортувати в календар застосунку, наприклад\n"
 "google календар, outlook або iCal. Це дозволить створити розклад на\n"
 "кожен тренувальний день з відповідними вправами."
 
@@ -2972,22 +2922,16 @@ msgid "Value"
 msgstr "Значення"
 
 #: nutrition/forms.py:115
-#, fuzzy
-#| msgid "Height (cm)"
 msgid "Height (in)"
 msgstr "Зріст (см)"
 
 #: nutrition/forms.py:116
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "Журнал ваги"
+msgstr "Вага (кг)"
 
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "Журнал ваги"
+msgstr "Вага (фунти)"
 
 #: nutrition/forms.py:128
 msgid "Calculate"
@@ -3568,14 +3512,16 @@ msgstr ""
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
 msgstr ""
+"Будь ласка, переконайтеся, що ваш зріст знаходиться в межах відповідного "
+"діапазону."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "від 140 до 230"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "від 56 до 90"
 
 #: nutrition/views/ingredient.py:164
 msgid "Add a new ingredient"
@@ -3677,12 +3623,6 @@ msgid "Our goal"
 msgstr "Наша мета"
 
 #: software/templates/about_us.html:53
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3695,16 +3635,12 @@ msgstr ""
 "ліцензією."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
-"wger Workout Manager - безкоштовний вебзастосунок з відкритим вихідним "
-"кодом, який керує вашими вправами та тренуванням. "
+"wger Workout Manager - безплатний вебзастосунок з відкритим вихідним кодом, "
+"який керує вашими вправами та тренуванням."
 
 #: software/templates/features.html:45
 msgid "About"
@@ -3712,227 +3648,223 @@ msgstr "Про"
 
 #: software/templates/features.html:50
 msgid "Mobile app"
-msgstr ""
+msgstr "Мобільний застосунок"
 
 #: software/templates/features.html:56 software/templates/features.html:312
 msgid "Donate"
-msgstr ""
+msgstr "Підтримка проєкту"
 
 #: software/templates/features.html:61
 msgid "Develop"
-msgstr ""
+msgstr "Розробка"
 
 #: software/templates/features.html:66 software/templates/features.html:448
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Коментар"
+msgstr "Спільнота"
 
 #: software/templates/features.html:100
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Відстежуйте свій <br> шлях до свого <br> ідеального тіла"
 
 #: software/templates/features.html:103
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Приєднуйтесь до wger, безплатного фітнес-трекера з відкритим вихідним кодом "
+"<b>, що розробляється спільнотою</b>"
 
 #: software/templates/features.html:113
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Отримати код"
+msgstr "Почати роботу"
 
 #: software/templates/features.html:123
 msgid "people <br> using wger"
-msgstr ""
+msgstr "люди <br> використовують wger"
 
 #: software/templates/features.html:127
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Додати вправи до цього дня тренування"
+msgstr "вправи <br> для створення тренувань"
 
 #: software/templates/features.html:131
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "продукти <br> для планування харчування"
 
 #: software/templates/features.html:135
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "зірки <br> на GitHub"
 
 #: software/templates/features.html:159
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Створіть свій ідеальний <span>тренувальний режим</span>"
 
 #: software/templates/features.html:163
 msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "Складіть тижневий план тренувань з понад 100 вправ"
 
 #: software/templates/features.html:166
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Встановіть кількість повторень і підходів, тривалість або дистанцію для "
+"кожної вправи"
 
 #: software/templates/features.html:169
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Крок за кроком керуйте своїми тренуваннями"
 
 #: software/templates/features.html:172
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Відстежуйте тренування, які ви виконали, а також те, як ви себе почували"
 
 #: software/templates/features.html:193
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Сплануйте свій <span>щоденний раціон</span>"
 
 #: software/templates/features.html:197
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Наповніть свій тиждень поживними стравами, які допоможуть вам працювати краще"
 
 #: software/templates/features.html:200
 msgid "Build meals from a database of more than 2 million foods"
-msgstr ""
+msgstr "Створюйте страви на основі бази даних з понад 2 мільйонів продуктів"
 
 #: software/templates/features.html:203
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Отримуйте автоматично розраховану поживну цінність (енергія, білки, "
+"вуглеводи, ...) як для окремих страв, так і для всього вашого тижневого плану"
 
 #: software/templates/features.html:230
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Відстежуйте <span>свій прогрес</span>"
 
 #: software/templates/features.html:235
 msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
+"Відстежуйте та коментуйте все, що стосується вашого харчування та тренувань"
 
 #: software/templates/features.html:238
-#, fuzzy
-#| msgid "Add custom diary entry"
 msgid "Add custom notes"
-msgstr "Додати власний запис щоденника"
+msgstr "Додати власні нотатки"
 
 #: software/templates/features.html:241
-#, fuzzy
-#| msgid "Body weight"
 msgid "Record your weight"
-msgstr "Вага тіла"
+msgstr "Запишіть свою вагу"
 
 #: software/templates/features.html:244
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Ведіть фото-журнал, щоб бачити свій прогрес"
 
 #: software/templates/features.html:247
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Використовуйте календар для перегляду минулих записів"
 
 #: software/templates/features.html:266
-#, fuzzy
-#| msgid "Try it now"
 msgid "Try wger now"
-msgstr "Спробуйте зараз"
+msgstr "Спробувати wger зараз"
 
 #: software/templates/features.html:283
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "Завдяки <span>спільноті</span>"
 
 #: software/templates/features.html:286
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger фінансується і створюється спільнотою з відкритим вихідним кодом: такі "
+"люди, як ви, перекладають, додають вправи та інформацію про харчування, "
+"розробляють і багато іншого."
 
 #: software/templates/features.html:292
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Ми не використовуємо рекламу, не продаємо вашу особисту інформацію і "
+"ділимося кодом під вільною ліцензією з відкритим вихідним кодом."
 
 #: software/templates/features.html:297
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Долучайтеся і допоможіть зробити wger ще кращим!"
 
 #: software/templates/features.html:306
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "Сприяйте!"
+msgstr "Зробити внесок"
 
 #: software/templates/features.html:330
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Зареєструватися зараз безплатно"
 
 #: software/templates/features.html:343
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Вебверсії недостатньо?"
 
 #: software/templates/features.html:345
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Отримати код"
+msgstr "Отримати код!"
 
 #: software/templates/features.html:356
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Налаштуйте приватний сервер для свого спортзалу"
 
 #: software/templates/features.html:359
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Не хочете, щоб ваші дані були на онлайн-сервісі? Створіть екземпляр wger на "
+"власному сервері безплатно!"
 
 #: software/templates/features.html:373
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Інтеграція з вашим власним застосунком"
 
 #: software/templates/features.html:376
 msgid "wger offers an open API that you can use for your app."
 msgstr ""
+"wger пропонує відкритий API, який ви можете використовувати для свого "
+"застосунку."
 
 #: software/templates/features.html:387
-#, fuzzy
-#| msgid "Current version"
 msgid "Create your own version"
-msgstr "Поточна версія"
+msgstr "Створіть власну версію"
 
 #: software/templates/features.html:390
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Вихідний код доступний під ліцензією GNU AGPLv3! Ви можете створити форк на "
+"GitHub."
 
 #: software/templates/features.html:411
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Сума"
+msgstr "Обліковий запис"
 
 #: software/templates/features.html:457
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "Нагадування про тренування"
+msgstr "Процедури тренувань"
 
 #: software/templates/features.html:463
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: software/templates/features.html:478
 msgid "Software"
-msgstr ""
+msgstr "Програмне забезпечення"
 
 #: software/templates/features.html:484
 msgid "Report an issue"
-msgstr ""
+msgstr "Повідомити про проблему"
 
 #: software/templates/features.html:490
-#, fuzzy
-#| msgid "Source code"
 msgid "Source Code"
-msgstr "Джерельний код"
+msgstr "Вихідний код"
 
 #: utils/generic_views.py:262
 msgid "Yes, delete"

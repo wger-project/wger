@@ -56,7 +56,10 @@ def features(request):
 
     FormClass = RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] \
         else RegistrationFormNoCaptcha
-    context['form'] = FormClass()
+    form = FormClass()
+    form.fields['username'].widget.attrs.pop("autofocus", None)
+
+    context['form'] = form
     context['allow_registration'] = settings.WGER_SETTINGS['ALLOW_REGISTRATION']
     context['allow_guest_users'] = settings.WGER_SETTINGS['ALLOW_GUEST_USERS']
 
