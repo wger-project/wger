@@ -84,7 +84,11 @@ class Image(AbstractLicenseModel, models.Model, BaseImage):
 
         image.ingredient = connect_to
         image.license_id = json_data['license']
+        image.license_title = json_data['license_title']
+        image.license_object_url = json_data['license_object_url']
         image.license_author = json_data['license_author']
+        image.license_author_url = json_data['license_author_url']
+        image.license_derivative_source_url = json_data['license_derivative_source_url']
         image.size = json_data['size']
 
         image.save_image(retrieved_image, json_data)

@@ -132,6 +132,7 @@ def fetch_image_from_off(ingredient):
         'license_author': uploader_name,
         'license_author_url': uploader_url,
         'license_object_url': url,
+        'license_derivative_source_url': '',
         'size': len(response.content)
     }
     try:
