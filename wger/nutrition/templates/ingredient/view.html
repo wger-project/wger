@@ -154,21 +154,14 @@ the search.{% endblocktranslate %}
 </table>
 </div>
 
+<small>
+    {{ ingredient.attribution_link|safe }}
+</small>
 {% endblock %}
 
 
 
 {% block sidebar %}
-
-{% if ingredient.status == ingredient.INGREDIENT_STATUS_ACCEPTED %}
-<div class="alert" style="margin-top:1em;">
-<h4>{% translate "User submitted ingredient" %}</h4>
-{% with username=ingredient.user.username %}
-<p>{% blocktranslate %}This exercise was submitted by <strong>{{username}}</strong>.{% endblocktranslate %}
-{% endwith %}
-</div>
-{% endif %}
-
 
 {% if perms.nutrition.delete_ingredient %}
 <h4>{% translate "Weight units" %}</h4>
@@ -207,7 +200,16 @@ the search.{% endblocktranslate %}
 {% endif %}
 {% endif %}
 
-{% license_sidebar ingredient.license ingredient.license_author %}
+{% if image %}
+    <a href="{{ ingredient.off_link }}">
+        <img src="{{ image.image.url }}" class="img-fluid">
+    </a>
+    <p>
+    <small>
+        {{ image.attribution_link|safe }}
+    </small>
+    </p>
+{% endif %}
 
 {% endblock %}
 

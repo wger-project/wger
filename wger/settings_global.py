@@ -15,10 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
+import sys
 from datetime import timedelta
+
+# wger
+from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
 
 """
@@ -27,6 +30,7 @@ For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -237,7 +241,7 @@ AVAILABLE_LANGUAGES = (
     ('fr', 'French'),
     ('it', 'Italian'),
     ('nl', 'Dutch'),
-    ('no', 'Norwegian'),
+    ('nb', 'Norwegian'),
     ('pl', 'Polish'),
     ('pt', 'Portuguese'),
     ('pt-br', 'Brazilian Portuguese'),
@@ -245,7 +249,7 @@ AVAILABLE_LANGUAGES = (
     ('sv', 'Swedish'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
-    ('zh', 'Chinese simplified'),
+    ('zh-hans', 'Chinese simplified'),
 )
 
 # Default language code for this installation.
@@ -413,7 +417,8 @@ else:
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
 )
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
@@ -424,16 +429,13 @@ COMPRESS_ROOT = STATIC_ROOT
 #
 # Django Rest Framework
 #
+# yapf: disable
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':
-    20,
-    'PAGINATE_BY_PARAM':
-    'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT':
-    'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -445,9 +447,10 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '3/min'
+        'login': '10/min'
     }
 }
+# yapf: enable
 
 #
 # Django Rest Framework SimpleJWT
@@ -500,11 +503,17 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'SYNC_EXERCISES_CELERY': False,
+    'SYNC_EXERCISE_IMAGES_CELERY': False,
+    'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'TWITTER': False,
-    'USE_RECAPTCHA': False
+    'USE_CELERY': False,
+    'USE_RECAPTCHA': False,
+    'WGER_INSTANCE': 'https://wger.de',
 }
 
 
@@ -531,3 +540,6 @@ EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,
 }
+
+# Whether the application is being run regularly or during tests
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'

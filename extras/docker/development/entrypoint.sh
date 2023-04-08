@@ -51,6 +51,7 @@ then
     python3 manage.py download-exercise-images
 fi
 
+
 # Set the site URL
 python3 manage.py set-site-url
 

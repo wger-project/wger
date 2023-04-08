@@ -91,24 +91,25 @@ class IngredientListView(ListView):
         return context
 
 
-def view(request, id, slug=None):
-    template_data = {}
+def view(request, pk, slug=None):
+    context = {}
 
-    ingredient = cache.get(cache_mapper.get_ingredient_key(int(id)))
+    ingredient = cache.get(cache_mapper.get_ingredient_key(int(pk)))
     if not ingredient:
-        ingredient = get_object_or_404(Ingredient, pk=id)
+        ingredient = get_object_or_404(Ingredient, pk=pk)
         cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
-    template_data['ingredient'] = ingredient
-    template_data['form'] = UnitChooserForm(
+    context['ingredient'] = ingredient
+    context['image'] = ingredient.get_image(request)
+    context['form'] = UnitChooserForm(
         data={
             'ingredient_id': ingredient.id,
             'amount': 100,
             'unit': None
         }
     )
-    template_data['show_shariff'] = True
 
-    return render(request, 'ingredient/view.html', template_data)
+    context['show_shariff'] = True
+    return render(request, 'ingredient/view.html', context)
 
 
 class IngredientDeleteView(
@@ -164,7 +165,6 @@ class IngredientCreateView(WgerFormMixin, CreateView):
     title = gettext_lazy('Add a new ingredient')
 
     def form_valid(self, form):
-
         form.instance.language = load_language()
         form.instance.set_author(self.request)
         return super(IngredientCreateView, self).form_valid(form)

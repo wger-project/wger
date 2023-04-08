@@ -26,7 +26,7 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.units import AbstractWeight
 
 
-class BaseMealItem(object):
+class BaseMealItem:
     """
     Base class for an item (component) of a meal or log
 

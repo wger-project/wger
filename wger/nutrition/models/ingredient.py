@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+import uuid as uuid
 from decimal import Decimal
 
 # Django
@@ -31,6 +32,7 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
@@ -50,6 +52,7 @@ from wger.utils.models import (
 # Local
 from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
+from .sources import Source
 
 
 logger = logging.getLogger(__name__)
@@ -82,13 +85,27 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateField(_('Date'), auto_now_add=True)
+    creation_date = models.DateField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """Date when the ingredient was created"""
+
     update_date = models.DateField(
         _('Date'),
         auto_now=True,
         blank=True,
         editable=False,
     )
+    """Last update time"""
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        editable=False,
+        verbose_name='UUID',
+    )
+    """Globally unique ID, to identify the ingredient across installations"""
 
     # Product infos
     name = models.CharField(
@@ -97,7 +114,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         validators=[MinLengthValidator(3)],
     )
 
-    energy = models.IntegerField(verbose_name=_('Energy'), help_text=_('In kcal per 100g'))
+    energy = models.IntegerField(
+        verbose_name=_('Energy'),
+        help_text=_('In kcal per 100g'),
+    )
 
     protein = models.DecimalField(
         decimal_places=3,
@@ -228,9 +248,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         slug = slugify(self.name)
         if not slug:
-            return reverse('nutrition:ingredient:view', kwargs={'id': self.id})
+            return reverse('nutrition:ingredient:view', kwargs={'pk': self.id})
         else:
-            return reverse('nutrition:ingredient:view', kwargs={'id': self.id, 'slug': slug})
+            return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
 
     def clean(self):
         """
@@ -301,10 +321,21 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
         equal = True
         if isinstance(other, self.__class__):
-            for i in self._meta.fields:
+            for i in (
+                'carbohydrates',
+                'carbohydrates_sugar',
+                'creation_date',
+                'energy',
+                'fat',
+                'fat_saturated',
+                'fibres',
+                'name',
+                'protein',
+                'sodium',
+            ):
                 if (
-                    hasattr(self, i.name) and hasattr(other, i.name)
-                    and (getattr(self, i.name, None) != getattr(other, i.name, None))
+                    hasattr(self, i) and hasattr(other, i)
+                    and (getattr(self, i, None) != getattr(other, i, None))
                 ):
                     equal = False
         else:
@@ -326,20 +357,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
-    def compare_with_database(self):
-        """
-        Compares the current ingredient with the version saved in the database.
-
-        If the current object has no PK, returns false
-        """
-        if not self.pk:
-            return False
-
-        ingredient = Ingredient.objects.get(pk=self.pk)
-        if self != ingredient:
-            return False
-        else:
-            return True
 
     def send_email(self, request):
         """
@@ -401,3 +418,30 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             return Decimal(self.energy * 4.184).quantize(TWOPLACES)
         else:
             return 0
+
+    @property
+    def off_link(self):
+        if self.source_name == Source.OPEN_FOOD_FACTS.value:
+            return f'https://world.openfoodfacts.org/product/{self.code}/'
+
+    def get_image(self, request: HttpRequest):
+        """
+        Returns the ingredient image
+
+        If it is not available locally, it is fetched from Open Food Facts servers
+        """
+
+        if hasattr(self, 'image'):
+            return self.image
+
+        if not request.user.is_authenticated:
+            return
+
+        if not settings.WGER_SETTINGS['USE_CELERY']:
+            logger.info('Celery deactivated, skipping retrieving ingredient image')
+            return
+
+        # Let celery fetch the image
+        # wger
+        from wger.nutrition.tasks import fetch_ingredient_image_task
+        fetch_ingredient_image_task.delay(self.pk)

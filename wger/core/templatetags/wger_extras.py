@@ -19,9 +19,7 @@ from collections.abc import Iterable
 
 # Django
 from django import template
-from django.conf import settings
 from django.templatetags.static import static
-from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     gettext_lazy as _,
@@ -118,15 +116,6 @@ def react_static():
     """
 
     return {}
-
-
-@register.inclusion_tag('tags/license-sidebar.html')
-def license_sidebar(license, author=None):
-    """
-    Renders the license notice for exercises
-    """
-
-    return {'license': license, 'author': author}
 
 
 @register.inclusion_tag('tags/muscles.html')

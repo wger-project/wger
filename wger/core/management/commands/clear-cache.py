@@ -1,5 +1,3 @@
-# -*- coding: utf-8 *-*
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -23,13 +21,11 @@ from django.core.management.base import (
 )
 
 # wger
-from wger.core.models import Language
 from wger.manager.models import (
     Workout,
     WorkoutLog,
 )
 from wger.utils.cache import (
-    delete_template_fragment_cache,
     reset_workout_canonical_form,
     reset_workout_log,
 )

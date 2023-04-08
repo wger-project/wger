@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+celery -A wger --broker="${CELERY_BROKER}" flower --basic_auth=wger:${CELERY_FLOWER_PASSWORD}

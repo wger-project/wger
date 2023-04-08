@@ -27,6 +27,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.exercises.models import ExerciseBase
+from wger.utils.helpers import BaseImage
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -41,7 +42,7 @@ def exercise_image_upload_dir(instance, filename):
     return f"exercise-images/{instance.exercise_base.id}/{instance.uuid}{ext}"
 
 
-class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
+class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, BaseImage):
     """
     Model for an exercise image
     """
@@ -62,6 +63,7 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
+        unique=True,
         verbose_name='UUID',
     )
     """Globally unique ID, to identify the image across installations"""
@@ -124,12 +126,11 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             ExerciseImage.objects.filter(exercise_base=self.exercise_base).update(is_main=False)
             self.is_main = True
         else:
-            if ExerciseImage.objects.all()\
+            if ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base).count() == 0 \
-               or not ExerciseImage.objects.all() \
-                    .filter(exercise_base=self.exercise_base, is_main=True)\
-                    .count():
-
+                or not ExerciseImage.objects.all() \
+                .filter(exercise_base=self.exercise_base, is_main=True) \
+                .count():
                 self.is_main = True
 
         # And go on
@@ -146,7 +147,6 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                                                   ).count() and ExerciseImage.objects.all().filter(
                                                       exercise_base=self.exercise_base
                                                   ).filter(is_main=False).count():
-
             image = ExerciseImage.objects.all() \
                 .filter(exercise_base=self.exercise_base, is_main=False)[0]
             image.is_main = True
@@ -157,3 +157,25 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         Image has no owner information
         """
         return False
+
+    @classmethod
+    def from_json(
+        cls,
+        connect_to: ExerciseBase,
+        retrieved_image,
+        json_data: dict,
+        generate_uuid: bool = False,
+    ):
+        image: cls = super().from_json(
+            connect_to,
+            retrieved_image,
+            json_data,
+            generate_uuid,
+        )
+        image.exercise_base = connect_to
+        image.is_main = json_data['is_main']
+
+        image.save_image(retrieved_image, json_data)
+
+        image.save()
+        return image

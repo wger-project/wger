@@ -35,7 +35,10 @@ class License(models.Model):
     )
     """Full name"""
 
-    short_name = models.CharField(max_length=15, verbose_name=_('Short name, e.g. CC-BY-SA 3'))
+    short_name = models.CharField(
+        max_length=15,
+        verbose_name=_('Short name, e.g. CC-BY-SA 3'),
+    )
     """Short name, e.g. CC-BY-SA 3"""
 
     url = models.URLField(

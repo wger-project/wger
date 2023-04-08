@@ -70,7 +70,7 @@ class IngredientsPendingDetailTestCase(WgerTestCase):
         """
         Helper function
         """
-        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 7}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 7}))
         self.assertContains(response, 'pending review')
 
         if not fail:

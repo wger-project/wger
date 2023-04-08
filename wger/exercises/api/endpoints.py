@@ -1,0 +1,7 @@
+EXERCISE_ENDPOINT = "exercisebaseinfo"
+DELETION_LOG_ENDPOINT = "deletion-log"
+CATEGORY_ENDPOINT = "exercisecategory"
+MUSCLE_ENDPOINT = "muscle"
+EQUIPMENT_ENDPOINT = "equipment"
+IMAGE_ENDPOINT = "exerciseimage"
+VIDEO_ENDPOINT = "video"
