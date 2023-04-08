@@ -98,7 +98,12 @@ def fetch_image_from_off(ingredient):
     headers = wger_headers()
     product_data = requests.get(url, headers=headers).json()
 
-    image_url: Optional[str] = product_data['product'].get('image_front_url')
+    try:
+        image_url: Optional[str] = product_data['product'].get('image_front_url')
+    except KeyError:
+        logger.info('No "product" key found, exiting...')
+        return
+
     if not image_url:
         logger.info('Product data has no "image_front_url" key')
         return
