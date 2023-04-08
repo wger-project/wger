@@ -118,15 +118,6 @@ def react_static():
     return {}
 
 
-@register.inclusion_tag('tags/license-sidebar.html')
-def license_sidebar(license, author=None):
-    """
-    Renders the license notice for exercises
-    """
-
-    return {'license': license, 'author': author}
-
-
 @register.inclusion_tag('tags/muscles.html')
 def render_muscles(muscles=None, muscles_sec=None):
     """

@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),
@@ -122,7 +122,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available'
             ),
         ),
@@ -161,7 +161,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),
@@ -200,7 +200,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),
@@ -239,7 +239,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),
@@ -278,7 +278,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),
@@ -317,7 +317,7 @@ class Migration(migrations.Migration):
             name='license_title',
             field=models.CharField(
                 blank=True,
-                max_length=100,
+                max_length=200,
                 verbose_name='The original title of this object, if available',
             ),
         ),

@@ -49,7 +49,7 @@ class AbstractLicenseModel(models.Model):
 
     license_title = models.CharField(
         verbose_name=_('The original title of this object, if available'),
-        max_length=100,
+        max_length=200,
         blank=True,
     )
 
@@ -88,9 +88,12 @@ class AbstractLicenseModel(models.Model):
     def attribution_link(self):
         out = ''
 
-        if self.license_title:
+        if self.license_object_url:
+            out += f'<a href="{self.license_object_url}">{self.license_title}</a>'
+        else:
             out += self.license_title
 
+        out += ' by '
         if self.license_author_url:
             out += f'<a href="{self.license_author_url}">{self.license_author}</a>'
         else:
@@ -98,9 +101,9 @@ class AbstractLicenseModel(models.Model):
 
         out += f' is licensed under <a href="{self.license.url}">{self.license.short_name}</a>'
 
-        if self.license_source_url:
-            out += f'/ A derivative work from <a href="{self.license_source_url}">the original ' \
-                   f'work</a>'
+        if self.license_derivative_source_url:
+            out += f'/ A derivative work from <a href="{self.license_derivative_source_url}">the ' \
+                   f'original work</a>'
 
         return out
 
