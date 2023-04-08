@@ -65,7 +65,9 @@ function wgerInitIngredientDetail(url) {
 function wgerInitIngredientAutocompleter() {
   // Init the autocompleter
   $('#id_ingredient_searchfield').autocomplete({
-    serviceUrl: '/api/v2/ingredient/search/',
+    serviceUrl: function () {
+      return '/api/v2/ingredient/search/?language=' + getSearchLanguages()
+    },
     paramName: 'term',
     minChars: 3,
     onSelect: function (suggestion) {
@@ -117,8 +119,10 @@ function wgerDrawNutritionDiaryChart(planPk) {
             x_accessor: 'date',
             decimals: 0,
             full_width: true,
-            baselines: [{ value: nutritionalValues.total.energy,
-                          label: 'Planned (' + nutritionalValues.total.energy + 'kcal)' }],
+            baselines: [{
+              value: nutritionalValues.total.energy,
+              label: 'Planned (' + nutritionalValues.total.energy + 'kcal)'
+            }],
             target: '#nutrition_diary_chart',
             colors: '#307916'
           });
@@ -154,7 +158,7 @@ function wgerRenderBodyMassIndex() {
 
   heightFactor = (widthFactor / 600) * 300;
 
-  margin = { top: 20, right: 80, bottom: 30, left: 50 };
+  margin = {top: 20, right: 80, bottom: 30, left: 50};
   width = widthFactor - margin.left - margin.right;
   height = heightFactor - margin.top - margin.bottom;
 
@@ -294,7 +298,7 @@ function wgerInitCaloriesCalculator() {
       $.ajax({
         url: '/api/v2/userprofile/' + userprofile.results[0].user + '/',
         type: 'PATCH',
-        data: { calories: totalCalories }
+        data: {calories: totalCalories}
       });
     });
   });

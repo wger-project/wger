@@ -20,6 +20,7 @@ from datetime import datetime
 
 # Django
 from django import forms
+from django.forms import BooleanField
 from django.urls import reverse
 from django.utils.translation import (
     gettext as _,
@@ -110,7 +111,7 @@ class BmiForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(BmiForm, self).__init__(*args, **kwargs)
 
-        if 'initial' in kwargs:  #if the form is rendering for the first time
+        if 'initial' in kwargs:  # if the form is rendering for the first time
             self['height'].label = _('Height (cm)'
                                      ) if kwargs['initial']['use_metric'] else _('Height (in)')
             self['weight'].label = _('Weight (kg)'
@@ -233,13 +234,30 @@ class MealItemForm(forms.ModelForm):
         empty_label="g",
         required=False,
     )
-    ingredient = forms.ModelChoiceField(queryset=Ingredient.objects.all(), widget=forms.HiddenInput)
+    ingredient = forms.ModelChoiceField(
+        queryset=Ingredient.objects.all(),
+        widget=forms.HiddenInput,
+    )
 
-    ingredient_searchfield = forms.CharField(required=False, label=gettext_lazy("Ingredient"))
+    ingredient_searchfield = forms.CharField(
+        required=False,
+        label=gettext_lazy("Ingredient"),
+    )
+
+    english_results = BooleanField(
+        label=gettext_lazy("Also search for names in English"),
+        initial=True,
+        required=False,
+    )
 
     class Meta:
         model = MealItem
-        fields = ['ingredient', 'weight_unit', 'amount']
+        fields = [
+            'ingredient',
+            'english_results',
+            'weight_unit',
+            'amount',
+        ]
 
     def __init__(self, *args, **kwargs):
         super(MealItemForm, self).__init__(*args, **kwargs)
@@ -260,7 +278,8 @@ class MealItemForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'ingredient', 'ingredient_searchfield', HTML('<div id="ingredient_name"></div>'),
+            'ingredient', 'ingredient_searchfield', 'english_results',
+            HTML('<div id="ingredient_name"></div>'),
             Row(
                 Column('amount', css_class='col-6'),
                 Column('weight_unit', css_class='col-6'),
@@ -298,7 +317,7 @@ class MealLogItemForm(MealItemForm):
         super(MealLogItemForm, self).__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
-            'ingredient', 'ingredient_searchfield',
+            'ingredient', 'ingredient_searchfield', 'english_results',
             Row(
                 Column('amount', css_class='col-6'),
                 Column('weight_unit', css_class='col-6'),
