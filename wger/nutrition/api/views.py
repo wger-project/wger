@@ -92,8 +92,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     )
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     @action(detail=True)
     def get_values(self, request, pk):
