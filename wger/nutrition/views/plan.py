@@ -198,38 +198,37 @@ def view(request, id):
 
 
 @login_required
-def copy(request, pk):
+def copy_mealplan(request, pk):
     """
-    Copy the nutrition plan
+    Copy meals from a previous plan into a nutrition plan
     """
-
-    plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+    plan_copy = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
     # Copy plan
-    meals = plan.meal_set.all()
+    meals = plan_copy.meal_set.all()
 
-    plan_copy = plan
     plan_copy.pk = None
     plan_copy.save()
 
     # Copy the meals
-    for meal in meals:
-        meal_items = meal.mealitem_set.all()
-
-        meal_copy = meal
-        meal_copy.pk = None
-        meal_copy.plan = plan_copy
-        meal_copy.save()
-
+    i = 0
+    while i < len(meals):
+        meal_items = meals[i].mealitem_set.all()
+        copy = meals[i]
+        copy.plan = plan_copy
+        copy.pk = None
+        copy.save()
         # Copy the individual meal entries
-        for item in meal_items:
-            item_copy = item
-            item_copy.pk = None
-            item_copy.meal = meal_copy
+        j = 0
+        while j < len(meal_items):
+            item = meal_items[j]
+            item.meal = copy
+            item.pk = None
             item.save()
-
+            j = j + 1
+        i = i + 1
     # Redirect
-    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan_copy.id}))
 
 
 def export_pdf(request, id, uidb64=None, token=None):
