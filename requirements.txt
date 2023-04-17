@@ -13,7 +13,7 @@ django-formtools~=2.4
 django-recaptcha~=3.0.0
 Django==4.1.7
 django-activity-stream==1.4.2
-django-axes==5.41.0
+django-axes==5.41.1
 django-crispy-forms~=2.0
 crispy-bootstrap4==2022.1
 # note: bs3 can be deleted when we solve https://github.com/wger-project/wger/issues/1127
