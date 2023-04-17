@@ -189,3 +189,23 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = True
     special_endpoints = ('nutritional_values', )
     data = {'description': 'The description', 'language': 1}
+
+
+class CopyPlanTestCase(WgerTestCase):
+    """
+    Tests for copying a nutritional plan
+    """
+
+    def CopyPlanTestCase(self):
+        """
+        Tests copying a nutritional plan
+        """
+
+        # create plan
+        self.user_login('test')
+        plan = NutritionPlan.objects.get(pk=1)
+        plan.save()
+
+        # copied mealplan
+        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 1}))
+        self.assertEqual(response, plan)
