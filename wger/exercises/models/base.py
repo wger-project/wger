@@ -54,7 +54,12 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     Model for an exercise base
     """
 
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+        verbose_name='UUID',
+    )
     """Globally unique ID, to identify the base across installations"""
 
     category = models.ForeignKey(

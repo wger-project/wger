@@ -70,8 +70,8 @@ class UserLoginForm(AuthenticationForm):
         self.helper.form_class = 'wger-form'
         self.helper.layout = Layout(
             Row(
-                Column('username', css_class='form-group col-6 mb-0'),
-                Column('password', css_class='form-group col-6 mb-0'),
+                Column('username', css_class='col-6'),
+                Column('password', css_class='col-6'),
                 css_class='form-row'
             )
         )
@@ -147,8 +147,8 @@ class UserPreferencesForm(forms.ModelForm):
             Fieldset(
                 _("Personal data"), 'email',
                 Row(
-                    Column('first_name', css_class='form-group col-6 mb-0'),
-                    Column('last_name', css_class='form-group col-6 mb-0'),
+                    Column('first_name', css_class='col-6'),
+                    Column('last_name', css_class='col-6'),
                     css_class='form-row'
                 ), 'birthdate', HTML("<hr>")
             ),
@@ -184,7 +184,7 @@ class UserEmailForm(forms.ModelForm):
 
     def clean_email(self):
         """
-        E-mail must be unique system wide
+        E-mail must be unique system-wide
 
         However, this check should only be performed when the user changes
         e-mail address, otherwise the uniqueness check will because it will find one user
@@ -264,8 +264,8 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
         self.helper.layout = Layout(
             'username', 'email',
             Row(
-                Column('password1', css_class='form-group col-6 mb-0'),
-                Column('password2', css_class='form-group col-6 mb-0'),
+                Column('password1', css_class='col-md-6 col-12'),
+                Column('password2', css_class='col-md-6 col-12'),
                 css_class='form-row'
             ), 'captcha',
             ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
@@ -284,16 +284,20 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
         self.helper.layout = Layout(
             'username', 'email',
             Row(
-                Column('password1', css_class='form-group col-6 mb-0'),
-                Column('password2', css_class='form-group col-6 mb-0'),
+                Column('password1', css_class='col-md-6 col-12'),
+                Column('password2', css_class='col-md-6 col-12'),
                 css_class='form-row'
-            ), ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+            ),
+            ButtonHolder(
+                Submit('submit', _("Register"), css_class='btn-success col-sm-6 col-12'),
+                css_class='text-center'
+            )
         )
 
 
 class FeedbackRegisteredForm(forms.Form):
     """
-    Feedback form used for logged in users
+    Feedback form used for logged-in users
     """
     contact = forms.CharField(
         max_length=50,

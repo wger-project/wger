@@ -52,20 +52,18 @@
 {% block options %}
     <div class="btn-group">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                 <span class="{% fa_class 'cog' %}"></span>
                 {% translate "Options" %}
             </button>
             <div class="dropdown-menu">
-                <a href="{% url 'core:language:edit' view_language.id %}"
-                   class="wger-modal-dialog dropdown-item">
+                <a href="{% url 'core:language:edit' view_language.id %}" class="wger-modal-dialog dropdown-item">
                     <span class="{% fa_class 'edit' %}"></span>
                     {% translate "Edit" %}
                 </a>
                 <div role="separator" class="dropdown-divider"></div>
-                <a href="{% url 'core:language:delete' view_language.id %}"
-                   class="wger-modal-dialog dropdown-item">
+                <a href="{% url 'core:language:delete' view_language.id %}" class="wger-modal-dialog dropdown-item">
                     <span class="{% fa_class 'trash' %}"></span>
                     {% translate "Delete" %}
                 </a>

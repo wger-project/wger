@@ -36,6 +36,7 @@ use the more verbose mount instead:
 You might also want to download the exercise images and the ingredients
 (will take some time):
 
+    docker exec wger.devel python3 manage.py sync-exercises
     docker exec wger.devel python3 manage.py download-exercise-images
     docker exec wger.devel wger load-online-fixtures
 

@@ -68,10 +68,10 @@
                 <tr>
                     <td colspan="6">
                         {% if is_owner %}
-                            <div class="dropdown float-right">
+                            <div class="dropdown float-end">
                                 <button type="button"
                                         class="btn btn-link btn-block dropdown-toggle btn-xs"
-                                        data-toggle="dropdown"></button>
+                                        data-bs-toggle="dropdown"></button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                                     <a href="{% url 'nutrition:log:log_meal' meal.id %}"
                                        class="dropdown-item">
@@ -97,16 +97,19 @@
                                 </div>
                             </div>
                         {% endif %}
-                        
+
                         <h4>{% if meal.name %}{{ meal.name }}{% endif %}</h4>
                         <h5>{% if meal.time %}{{ meal.time|time:"H:i" }}{% endif %}</h5>
-                        
+
                     </td>
                 </tr>
                 <tr>
 
                     {% for item in meal.mealitem_set.select_related %}
                         <td>
+                        {% if item.ingredient.image %}
+                            <a href="{{ item.ingredient.off_link }}"><img src="{{ item.ingredient.image.image.url }}" class="img-thumbnail rounded" width="48"></a>
+                        {% endif %}
                             {% if item.get_unit_type == MEALITEM_WEIGHT_GRAM %}
                                 {{ item.amount|floatformat:"0" }}g
                             {% else %}
@@ -115,10 +118,10 @@
                             {{ item.ingredient.name }}
 
                             {% if is_owner %}
-                                <div class="dropdown float-right">
+                                <div class="dropdown float-end">
                                     <button type="button"
                                             class="btn btn-link dropdown-toggle btn-xs"
-                                            data-toggle="dropdown"></button>
+                                            data-bs-toggle="dropdown"></button>
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
                                         <a href="{% url 'nutrition:meal_item:edit' item.id %}"
                                            class="wger-modal-dialog edit-meal edit-mealitem dropdown-item">
@@ -133,7 +136,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <span class="editoptions float-right"></span>
+                                <span class="editoptions float-end"></span>
                             {% endif %}
                         </td>
                         <td class="align-right">{{ item.get_nutritional_values.energy|floatformat:1 }}
@@ -405,7 +408,7 @@
 {#         #}
 {% block options %}
     <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
             <span class="{% fa_class 'cog' %}"></span>
             {% translate "Options" %}

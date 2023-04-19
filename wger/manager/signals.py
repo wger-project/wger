@@ -15,24 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.db.models import Q
-from django.db.models.signals import (
-    post_save,
-    pre_delete,
-)
+from django.db.models.signals import post_save
 
 # wger
-from wger.core.models import Language
-from wger.exercises.models import (
-    Exercise,
-    Muscle,
-)
 from wger.gym.helpers import get_user_last_activity
 from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
-from wger.utils.cache import delete_template_fragment_cache
 
 
 def update_activity_cache(sender, instance, **kwargs):

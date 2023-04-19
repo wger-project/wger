@@ -37,27 +37,28 @@
 {# Options #}
 {#         #}
 {% block options %}
-<div class="btn-group">
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="{% fa_class 'cog' %}"></span>
-            {% translate "Options" %}
-        </button>
-        <div class="dropdown-menu">
-            <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
-                <span class="{% fa_class 'key' %}"></span>
-                {% translate "Change password" %}
-            </a>
-            <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
-                <span class="{% fa_class 'globe' %}"></span>
-                {% translate "API key" %}
-            </a>
-            <div role="separator" class="dropdown-divider"></div>
-            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
-                <span class="{% fa_class 'trash' %}"></span>
-                {% translate "Delete account" %}
-            </a>
+    <div class="btn-group">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <span class="{% fa_class 'cog' %}"></span>
+                {% translate "Options" %}
+            </button>
+            <div class="dropdown-menu">
+                <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
+                    <span class="{% fa_class 'key' %}"></span>
+                    {% translate "Change password" %}
+                </a>
+                <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
+                    <span class="{% fa_class 'globe' %}"></span>
+                    {% translate "API key" %}
+                </a>
+                <div role="separator" class="dropdown-divider"></div>
+                <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
+                    <span class="{% fa_class 'trash' %}"></span>
+                    {% translate "Delete account" %}
+                </a>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

@@ -15,13 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
+import sys
 from datetime import timedelta
 
 # wger
 from wger import get_version
+from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
 
 """
@@ -81,7 +82,7 @@ INSTALLED_APPS = (
 
     # Form renderer helper
     'crispy_forms',
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',
     # note: bs3 can be deleted when we solve https://github.com/wger-project/wger/issues/1127
     'crispy_bootstrap3',
 
@@ -242,7 +243,7 @@ AVAILABLE_LANGUAGES = (
     ('fr', 'French'),
     ('it', 'Italian'),
     ('nl', 'Dutch'),
-    ('no', 'Norwegian'),
+    ('nb', 'Norwegian'),
     ('pl', 'Polish'),
     ('pt', 'Portuguese'),
     ('pt-br', 'Brazilian Portuguese'),
@@ -250,7 +251,7 @@ AVAILABLE_LANGUAGES = (
     ('sv', 'Swedish'),
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
-    ('zh', 'Chinese simplified'),
+    ('zh-hans', 'Chinese simplified'),
 )
 
 # Default language code for this installation.
@@ -325,8 +326,8 @@ AXES_CACHE = 'default'
 #
 # Django Crispy Templates
 #
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 #
 # Easy thumbnails
@@ -418,7 +419,8 @@ else:
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
 )
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
@@ -429,16 +431,13 @@ COMPRESS_ROOT = STATIC_ROOT
 #
 # Django Rest Framework
 #
+# yapf: disable
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':
-    20,
-    'PAGINATE_BY_PARAM':
-    'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT':
-    'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -450,11 +449,24 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '3/min'
+        'login': '10/min'
     },
     'DEFAULT_SCHEMA_CLASS':
     'drf_spectacular.openapi.AutoSchema',
 }
+
+# Api docs
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'wger workout manager',
+    'DESCRIPTION': 'FLOSS self hosted workout and fitness tracker',
+    'VERSION': get_version(),
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}
+# yapf: enable
 
 # Api docs
 SPECTACULAR_SETTINGS = {
@@ -519,11 +531,17 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'SYNC_EXERCISES_CELERY': False,
+    'SYNC_EXERCISE_IMAGES_CELERY': False,
+    'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'TWITTER': False,
-    'USE_RECAPTCHA': False
+    'USE_CELERY': False,
+    'USE_RECAPTCHA': False,
+    'WGER_INSTANCE': 'https://wger.de',
 }
 
 
@@ -550,3 +568,6 @@ EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,
 }
+
+# Whether the application is being run regularly or during tests
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'

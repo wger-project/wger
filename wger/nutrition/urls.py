@@ -157,12 +157,12 @@ patterns_ingredient = [
         name='decline',
     ),
     path(
-        '<int:id>/view/',
+        '<int:pk>/view/',
         ingredient.view,
         name='view',
     ),
     path(
-        '<int:id>/view/<slug:slug>/',
+        '<int:pk>/view/<slug:slug>/',
         ingredient.view,
         name='view',
     ),

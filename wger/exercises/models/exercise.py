@@ -79,6 +79,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
+        unique=True,
         verbose_name='UUID',
     )
     """Globally unique ID, to identify the exercise across installations"""

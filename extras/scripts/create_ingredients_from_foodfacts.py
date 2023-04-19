@@ -11,8 +11,9 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+from collections import Counter
 import enum
-from enum import Enum
 
 from pymongo import MongoClient
 import os
@@ -25,21 +26,27 @@ django.setup()
 from django.conf import settings  # noqa: E402
 
 from wger.nutrition.models import Ingredient  # noqa: E402
+from wger.nutrition.models.sources import Source
 from wger.core.models import Language  # noqa: E402
-
 
 """
 Simple script that imports and loads the Open Food Facts database into the
 ingredients database.
 
-NOTE: The file is VERY large (17 GB), so it takes a long time (> 3 hours) to
+NOTE: The file is VERY large (40 GB), so it takes a long time (> 3 hours) to
 import the data and create all the ingredients.
 
 
 * Requirements:
-(note that the local mongo version needs to be compatible with the one used to
+ (note that the local mongo version needs to be compatible with the one used to
  create the dump, otherwise the indices won't be compatible, it is best to use
  a newer version than the one found in the ubuntu/debian repos)
+
+ - MongoDB
+ https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+
+ - Docker
+ snap install docker
 
 pip3 install pymongo
 apt-get install mongo-tools zip
@@ -72,7 +79,6 @@ python3 filter-fixtures.py
 zip ingredients.json.zip ingredients.json
 """
 
-
 client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
 db = client.admin
 
@@ -81,49 +87,56 @@ db = client.admin
 # ingredients, which is very efficient. Importing the whole database will require
 # barely a minute. When using 'update', existing ingredients will be updated, which
 # requires two queries per product.
-class Mode(Enum):
+class Mode(enum.Enum):
     INSERT = enum.auto()
     UPDATE = enum.auto()
 
 
-MODE = Mode.INSERT
+MODE = Mode.UPDATE
 
-languages = {i[0]: Language.objects.get(short_name=i[0]) for i in settings.LANGUAGES}
+languages = {l.short_name: l for l in Language.objects.all()}
 
 BULK_SIZE = 500
 bulk_update_bucket = []
-stats = {'new': 0,
-         'edited': 0,
-         'skipped': 0}
+counter = Counter()
 
 # for lang in languages.keys():
 #    count = db.products.count_documents({'lang': lang, 'complete': 1})
 #    total = db.products.count_documents({'lang': lang})
 #    print(f'Lang {lang} has {count} completed products out of {total}')
+# import sys
+# sys.exit()
 
-# Completeness status of ingredients as of 2021-11-18
+# Completeness status of ingredients as of 2023-04-08
 #
-# Lang en has 5154 completed products out of 579495
-# Lang de has 8882 completed products out of 90885
-# Lang bg has 16 completed products out of 897
-# Lang es has 6785 completed products out of 236210
-# Lang ru has 481 completed products out of 8729
-# Lang nl has 628 completed products out of 7428
-# Lang pt has 482 completed products out of 5024
-# Lang el has 27 completed products out of 544
-# Lang cs has 154 completed products out of 1451
-# Lang sv has 1234 completed products out of 3459
-# Lang no has 9 completed products out of 155
-# Lang fr has 45358 completed products out of 960096
-# Lang it has 821 completed products out of 118270
-# Lang pl has 2032 completed products out of 4978
-# Lang uk has 4 completed products out of 158
-# Lang tr has 8 completed products out of 425
+# Lang az has 0 completed products out of 40
+# Lang id has 6 completed products out of 981
+# Lang cs has 80 completed products out of 4654
+# Lang de has 1025 completed products out of 165771
+# Lang en has 1028 completed products out of 929003
+# Lang es has 618 completed products out of 303937
+# Lang eo has 0 completed products out of 9
+# Lang fr has 7125 completed products out of 1160796
+# Lang hr has 57 completed products out of 1699
+# Lang it has 870 completed products out of 216046
+# Lang nl has 71 completed products out of 11744
+# Lang no has 4 completed products out of 261
+# Lang pl has 48 completed products out of 7145
+# Lang pt has 127 completed products out of 9802
+# Lang sv has 308 completed products out of 4622
+# Lang tr has 3 completed products out of 1296
+# Lang el has 6 completed products out of 927
+# Lang bg has 31 completed products out of 4524
+# Lang ru has 23 completed products out of 11683
+# Lang uk has 2 completed products out of 604
+# Lang he has 0 completed products out of 365
+# Lang ar has 1 completed products out of 3552
+# Lang fa has 0 completed products out of 575
+# Lang zh has 2 completed products out of 935
 
 print('***********************************')
 print(languages.keys())
 print('***********************************')
-
 
 for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'complete': 1}):
     lang = product['lang']
@@ -136,7 +149,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     # Some products have no name or name is too long, skipping
     if not name or len(name) > 200:
         # print(f'-> skipping due to name requirements')
-        stats['skipped'] += 1
+        counter['skipped'] += 1
         continue
 
     # print(f'Processing "{name}"...')
@@ -156,7 +169,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         saturated = product['nutriments']['saturated-fat_100g']
     else:
         # print(f'-> skipping due to required nutriments')
-        stats['skipped'] += 1
+        counter['skipped'] += 1
         continue
 
     # these are optional
@@ -168,8 +181,9 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
     if common_name and len(common_name) > 200:
         continue
 
-    source_name = "Open Food Facts"
-    source_url = f'https://world.openfoodfacts.org/api/v0/product/{code}.json'
+    source_name = Source.OPEN_FOOD_FACTS.value
+    source_url = f'https://world.openfoodfacts.org/api/v2/product/{code}.json'
+    authors = ', '.join(product.get('editors_tags', ['open food facts']))
 
     ingredient_data = {
         'language': languages[lang],
@@ -189,7 +203,9 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
         'brand': brand,
         'status': 2,
         'license_id': 5,
-        'license_author': 'Open Food Facts',
+        'license_author': authors,
+        'license_title': name,
+        'license_object_url': f'https://world.openfoodfacts.org/product/{code}/'
     }
 
     # Add entries as new products
@@ -213,7 +229,7 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
                         print('--> Error while saving the product individually')
                         print(e)
 
-            stats['new'] += BULK_SIZE
+            counter['new'] += BULK_SIZE
             bulk_update_bucket = []
 
     # Update existing entries
@@ -226,10 +242,10 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
             obj, created = Ingredient.objects.update_or_create(code=code, defaults=ingredient_data)
 
             if created:
-                stats['new'] += 1
+                counter['new'] += 1
                 # print('-> added to the database')
             else:
-                stats['edited'] += 1
+                counter['edited'] += 1
                 # print('-> updated')
 
         except Exception as e:
@@ -238,5 +254,5 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
             continue
 
 print('***********************************')
-print(stats)
+print(counter)
 print('***********************************')

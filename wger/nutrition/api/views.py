@@ -19,9 +19,14 @@
 import datetime
 
 # Django
+from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 # Third Party
+from easy_thumbnails.alias import aliases
+from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
     action,
@@ -31,6 +36,7 @@ from rest_framework.response import Response
 
 # wger
 from wger.nutrition.api.serializers import (
+    ImageSerializer,
     IngredientInfoSerializer,
     IngredientSerializer,
     IngredientWeightUnitSerializer,
@@ -43,6 +49,7 @@ from wger.nutrition.api.serializers import (
 )
 from wger.nutrition.forms import UnitChooserForm
 from wger.nutrition.models import (
+    Image,
     Ingredient,
     IngredientWeightUnit,
     LogItem,
@@ -51,6 +58,7 @@ from wger.nutrition.models import (
     NutritionPlan,
     WeightUnit,
 )
+from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
@@ -64,6 +72,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = (
+        'uuid',
         'code',
         'carbohydrates',
         'carbohydrates_sugar',
@@ -81,6 +90,10 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     @action(detail=True)
     def get_values(self, request, pk):
@@ -147,31 +160,58 @@ def search(request):
     This format is currently used by the ingredient search autocompleter
     """
     term = request.GET.get('term', None)
-    requested_language = request.GET.get('language', None)
+    language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)
     results = []
     json_response = {}
 
     if not term:
         return Response(json_response)
 
-    language = load_language(requested_language)
+    languages = [load_language(l) for l in language_codes.split(',')]
     ingredients = Ingredient.objects.filter(
         name__icontains=term,
-        language=language,
+        language__in=languages,
         status=Ingredient.STATUS_ACCEPTED,
-    )
+    )[:100]
 
     for ingredient in ingredients:
+        if hasattr(ingredient, 'image'):
+            image_obj = ingredient.image
+            image = image_obj.image.url
+            t = get_thumbnailer(image_obj.image)
+            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+        else:
+            ingredient.get_image(request)
+            image = None
+            thumbnail = None
+
         ingredient_json = {
             'value': ingredient.name,
             'data': {
                 'id': ingredient.id,
                 'name': ingredient.name,
+                'image': image,
+                'image_thumbnail': thumbnail
             }
         }
         results.append(ingredient_json)
     json_response['suggestions'] = results
+
     return Response(json_response)
+
+
+class ImageViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint for ingredient images
+    """
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    ordering_fields = '__all__'
+    filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
+
+    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):

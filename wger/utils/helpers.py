@@ -27,6 +27,8 @@ from functools import wraps
 # Django
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes
@@ -39,7 +41,7 @@ from django.utils.http import (
 logger = logging.getLogger(__name__)
 
 
-class EmailAuthBackend(object):
+class EmailAuthBackend:
 
     def authenticate(self, request, username=None, password=None):
         try:
@@ -217,37 +219,9 @@ def normalize_decimal(d):
     normalized = d.normalize()
     sign, digits, exponent = normalized.as_tuple()
     if exponent > 0:
-        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
+        return decimal.Decimal((sign, digits + (0, ) * exponent, 0))
     else:
         return normalized
-
-
-def levenshtein(s1, s2):
-    """
-    The Levenshtein distance
-
-    This is used as a string metric for measuring the difference between
-    two sequences. We use this to determine whether or not similar
-    exercises have been added
-
-    Source: Wikipedia
-
-    :param input: two input strings
-    :return: number of characters different between the strings
-    """
-    if len(s1) > len(s2):
-        s1, s2 = s2, s1
-
-    distances = range(len(s1) + 1)
-    for i2, c2 in enumerate(s2):
-        distances_ = [i2 + 1]
-        for i1, c1 in enumerate(s1):
-            if c1 == c2:
-                distances_.append(distances[i1])
-            else:
-                distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
-        distances = distances_
-    return distances[-1]
 
 
 def random_string(length=32):
@@ -255,3 +229,28 @@ def random_string(length=32):
     Generates a random string
     """
     return ''.join(random.choice(string.ascii_uppercase) for i in range(length))
+
+
+class BaseImage:
+
+    def save_image(self, retrieved_image, json_data: dict):
+        # Save the downloaded image
+        # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to
+        if os.name == 'nt':
+            img_temp = NamedTemporaryFile()
+        else:
+            img_temp = NamedTemporaryFile(delete=True)
+        img_temp.write(retrieved_image.content)
+        img_temp.flush()
+
+        self.image.save(
+            os.path.basename(json_data['image']),
+            File(img_temp),
+        )
+
+    @classmethod
+    def from_json(cls, connect_to, retrieved_image, json_data: dict, generate_uuid: bool = False):
+        image: cls = cls()
+        if not generate_uuid:
+            image.uuid = json_data['uuid']
+        return image

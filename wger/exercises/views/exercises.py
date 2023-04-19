@@ -15,32 +15,14 @@
 
 # Standard Library
 import logging
-import uuid
 
 # Django
-from django.conf import settings
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-from django.core.exceptions import ValidationError
-from django.forms import (
-    CharField,
-    CheckboxSelectMultiple,
-    ModelChoiceField,
-    ModelForm,
-    ModelMultipleChoiceField,
-    Select,
-    Textarea,
-)
-from django.http import (
-    HttpResponsePermanentRedirect,
-    HttpResponseRedirect,
-)
-from django.shortcuts import (
-    get_object_or_404,
-    render,
-)
+from django.http import HttpResponsePermanentRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import (
     reverse,
     reverse_lazy,
@@ -55,19 +37,8 @@ from django.views.generic import (
 )
 
 # wger
-from wger.exercises.models import (
-    Equipment,
-    Exercise,
-    ExerciseCategory,
-    Muscle,
-)
-from wger.manager.models import WorkoutLog
-from wger.utils.constants import MIN_EDIT_DISTANCE_THRESHOLD
+from wger.exercises.models import Exercise
 from wger.utils.generic_views import WgerDeleteMixin
-from wger.utils.helpers import levenshtein
-from wger.utils.language import load_language
-from wger.utils.widgets import TranslatedSelectMultiple
-from wger.weight.helpers import process_log_entries
 
 
 logger = logging.getLogger(__name__)
@@ -96,73 +67,26 @@ def view(request, id, slug=None):
     )
 
 
-class ExerciseForm(ModelForm):
-    # Redefine some fields here to set some properties
-    # (some of this could be done with a crispy form helper and would be
-    # a cleaner solution)
-    category = ModelChoiceField(queryset=ExerciseCategory.objects.all(), widget=Select())
-    muscles = ModelMultipleChoiceField(
-        queryset=Muscle.objects.all(),
-        widget=CheckboxSelectMultiple(),
-        required=False,
-    )
+class ExerciseDeleteView(
+    WgerDeleteMixin,
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
+    """
+    Generic view to delete an existing exercise
+    """
 
-    muscles_secondary = ModelMultipleChoiceField(
-        queryset=Muscle.objects.all(),
-        widget=CheckboxSelectMultiple(),
-        required=False,
-    )
+    model = Exercise
+    success_url = reverse_lazy('exercise:exercise:overview')
+    delete_message_extra = gettext_lazy('This will delete the exercise from all workouts.')
+    messages = gettext_lazy('Successfully deleted')
+    permission_required = 'exercises.delete_exercise'
 
-    equipment = ModelMultipleChoiceField(
-        queryset=Equipment.objects.all(),
-        widget=CheckboxSelectMultiple(),
-        required=False,
-    )
-
-    description = CharField(
-        label=_('Description'),
-        widget=Textarea,
-        required=False,
-    )
-
-    class Meta:
-        model = Exercise
-        widgets = {'equipment': TranslatedSelectMultiple()}
-        fields = [
-            'name',
-            'category',
-            'description',
-            'muscles',
-            'muscles_secondary',
-            'equipment',
-            'license',
-            'license_author',
-        ]
-
-    class Media:
-        js = (settings.STATIC_URL + 'yarn/tinymce/tinymce.min.js', )
-
-    def clean_name(self):
+    def get_context_data(self, **kwargs):
         """
-        Throws a validation error if the newly submitted name is too similar to
-        an existing exercise's name
+        Send some additional data to the template
         """
-        name = self.cleaned_data['name']
-
-        if not self.instance.id:
-            language = load_language()
-            exercises = Exercise.objects.all() \
-                .filter(language=language)
-            for exercise in exercises:
-                exercise_name = str(exercise)
-                min_edit_dist = levenshtein(exercise_name.casefold(), name.casefold())
-                if min_edit_dist < MIN_EDIT_DISTANCE_THRESHOLD:
-                    raise ValidationError(
-                        _('%(name)s is too similar to existing exercise '
-                          '"%(exercise_name)s"'),
-                        params={
-                            'name': name,
-                            'exercise_name': exercise_name
-                        },
-                    )
-        return name
+        context = super(ExerciseDeleteView, self).get_context_data(**kwargs)
+        context['title'] = _('Delete {0}?').format(self.object.name)
+        return context

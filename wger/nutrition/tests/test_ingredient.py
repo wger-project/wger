@@ -185,7 +185,7 @@ class IngredientDetailTestCase(WgerTestCase):
         Tests the ingredient details page
         """
 
-        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 6}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 6}))
         self.assertEqual(response.status_code, 200)
 
         # Correct tab is selected
@@ -203,12 +203,12 @@ class IngredientDetailTestCase(WgerTestCase):
             self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
-        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 42}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))
         self.assertEqual(response.status_code, 404)
 
     def test_ingredient_detail_editor(self):
         """
-        Tests the ingredient details page as a logged in user with editor rights
+        Tests the ingredient details page as a logged-in user with editor rights
         """
 
         self.user_login('admin')
@@ -216,7 +216,7 @@ class IngredientDetailTestCase(WgerTestCase):
 
     def test_ingredient_detail_non_editor(self):
         """
-        Tests the ingredient details page as a logged in user without editor rights
+        Tests the ingredient details page as a logged-in user without editor rights
         """
 
         self.user_login('test')
@@ -246,7 +246,16 @@ class IngredientSearchTestCase(WgerTestCase):
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 2)
         self.assertEqual(result['suggestions'][0]['value'], 'Ingredient, test, 2, organic, raw')
+        self.assertEqual(result['suggestions'][0]['data']['id'], 2)
+        suggestion_0_name = 'Ingredient, test, 2, organic, raw'
+        self.assertEqual(result['suggestions'][0]['data']['name'], suggestion_0_name)
+        self.assertEqual(result['suggestions'][0]['data']['image'], None)
+        self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
         self.assertEqual(result['suggestions'][1]['value'], 'Test ingredient 1')
+        self.assertEqual(result['suggestions'][1]['data']['id'], 1)
+        self.assertEqual(result['suggestions'][1]['data']['name'], 'Test ingredient 1')
+        self.assertEqual(result['suggestions'][1]['data']['image'], None)
+        self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
 
         # Search for an ingredient pending review (0 hits, "Pending ingredient")
         response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
@@ -263,7 +272,7 @@ class IngredientSearchTestCase(WgerTestCase):
 
     def test_search_ingredient_logged_in(self):
         """
-        Test searching for an ingredient by a logged in user
+        Test searching for an ingredient by a logged-in user
         """
 
         self.user_login('test')
@@ -341,7 +350,7 @@ class IngredientValuesTestCase(WgerTestCase):
 
     def test_calculate_value_logged_in(self):
         """
-        Calculate the nutritional values as a logged in user
+        Calculate the nutritional values as a logged-in user
         """
 
         self.user_login('test')
@@ -428,4 +437,5 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = Ingredient
     private_resource = False
+    overview_cached = True
     data = {'language': 1, 'license': 2}

@@ -45,7 +45,6 @@ MAX_FILE_SIZE_MB = 100
 
 
 def validate_video(value):
-
     if value.size > 1024 * 1024 * MAX_FILE_SIZE_MB:
         raise ValidationError(_('Maximum file size is %(size)sMB.') % {'size': MAX_FILE_SIZE_MB})
 
@@ -86,6 +85,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
+        unique=True,
         verbose_name='UUID',
     )
     """Globally unique ID, to identify the image across installations"""

@@ -5,36 +5,38 @@
 
 
 {% block content %}
-<ul class="list-group">
-    {% for category in exercisecategory_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'exercise:category:edit' category.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                <a href="{% url 'exercise:category:delete' category.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
-            </div>
-        </div>
-        {{ category }}
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for category in exercisecategory_list %}
+            <li class="list-group-item list-group-item-action">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a href="{% url 'exercise:category:edit' category.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                        <a href="{% url 'exercise:category:delete' category.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                    </div>
+                </div>
+                {{ category }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 
 
 {% block options %}
-{% if perms.exercises.add_exercisecategory %}
-<p>
-    <a href="{% url 'exercise:category:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-        {% translate "Add" %}
-    </a>
-</p>
-{% endif %}
+    {% if perms.exercises.add_exercisecategory %}
+        <p>
+            <a href="{% url 'exercise:category:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
+                {% translate "Add" %}
+            </a>
+        </p>
+    {% endif %}
 {% endblock %}

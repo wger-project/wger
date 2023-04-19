@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -24,3 +22,4 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         import wger.core.signals
+        import wger.core.checks

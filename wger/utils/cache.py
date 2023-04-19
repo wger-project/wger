@@ -47,7 +47,7 @@ def reset_workout_log(user_pk, year, month, day=None):
     cache.delete(cache_mapper.get_workout_log_list(log_hash))
 
 
-class CacheKeyMapper(object):
+class CacheKeyMapper:
     """
     Simple class for mapping the cache keys of different objects
     """
