@@ -367,11 +367,7 @@ def download_exercise_images(
             except ExerciseImage.DoesNotExist:
                 print_fn('    Image not found in local DB, creating now...')
                 retrieved_image = requests.get(image_data['image'], headers=headers)
-                image = ExerciseImage.from_json(
-                    exercise_base,
-                    retrieved_image,
-                    image_data
-                )
+                image = ExerciseImage.from_json(exercise_base, retrieved_image, image_data)
 
             # Temporary files on Windows don't support the delete attribute
             if os.name == 'nt':
