@@ -85,12 +85,15 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     ExerciseImage serializer
     """
 
+    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+
     class Meta:
         model = ExerciseImage
         fields = [
             'id',
             'uuid',
             'exercise_base',
+            'exercise_base_uuid',
             'image',
             'is_main',
             'style',
