@@ -355,7 +355,7 @@ def download_exercise_images(
             print_fn(f'Processing image {image_uuid}')
 
             try:
-                exercise_base = ExerciseBase.objects.get(id=image_data['exercise_base'])
+                exercise_base = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
             except ExerciseBase.DoesNotExist:
                 print_fn('    Remote exercise base not found in local DB, skipping...')
                 continue
@@ -370,8 +370,7 @@ def download_exercise_images(
                 image = ExerciseImage.from_json(
                     exercise_base,
                     retrieved_image,
-                    image_data,
-                    headers,
+                    image_data
                 )
 
             # Temporary files on Windows don't support the delete attribute
@@ -383,7 +382,6 @@ def download_exercise_images(
             img_temp.flush()
 
             image.exercise_base = exercise_base
-            image.is_main = image_data['is_main']
             image.image.save(
                 os.path.basename(os.path.basename(image_data['image'])),
                 File(img_temp),

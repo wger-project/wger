@@ -175,6 +175,13 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         image.exercise_base = connect_to
         image.is_main = json_data['is_main']
 
+        image.license_id = json_data['license']
+        image.license_title = json_data['license_title']
+        image.license_object_url = json_data['license_object_url']
+        image.license_author = json_data['license_author']
+        image.license_author_url = json_data['license_author_url']
+        image.license_derivative_source_url = json_data['license_derivative_source_url']
+
         image.save_image(retrieved_image, json_data)
 
         image.save()
