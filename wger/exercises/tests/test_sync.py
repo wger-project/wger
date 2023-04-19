@@ -51,7 +51,7 @@ class MockLanguageResponse:
     def json():
         return {
             "count": 24,
-            "next": "http://localhost:8000/api/v2/language/?limit=20&offset=20",
+            "next": None,
             "previous": None,
             "results": [
                 {
@@ -95,7 +95,7 @@ class MockLicenseResponse:
     def json():
         return {
             "count": 24,
-            "next": "http://localhost:8000/api/v2/language/?limit=20&offset=20",
+            "next": None,
             "previous": None,
             "results": [
                 {
