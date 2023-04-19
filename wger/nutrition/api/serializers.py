@@ -74,7 +74,7 @@ class WeightUnitSerializer(serializers.ModelSerializer):
         ]
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class IngredientImageSerializer(serializers.ModelSerializer):
     """
     Image serializer
     """
@@ -213,7 +213,7 @@ class MealItemInfoSerializer(serializers.ModelSerializer):
     ingredient_obj = IngredientInfoSerializer(source='ingredient', read_only=True)
     weight_unit = serializers.PrimaryKeyRelatedField(read_only=True)
     weight_unit_obj = IngredientWeightUnitSerializer(source='weight_unit', read_only=True)
-    image = ImageSerializer(source='ingredient.image', read_only=True)
+    image = IngredientImageSerializer(source='ingredient.image', read_only=True)
 
     class Meta:
         model = MealItem
@@ -245,6 +245,20 @@ class MealSerializer(serializers.ModelSerializer):
         fields = ['id', 'plan', 'order', 'time', 'name']
 
 
+class NutritionalValuesSerializer(serializers.Serializer):
+    """
+    Nutritional values serializer
+    """
+    energy = serializers.FloatField()
+    protein = serializers.FloatField()
+    carbohydrates = serializers.FloatField()
+    carbohydrates_sugar = serializers.FloatField()
+    fat = serializers.FloatField()
+    fat_saturated = serializers.FloatField()
+    fibres = serializers.FloatField()
+    sodium = serializers.FloatField()
+
+
 class MealInfoSerializer(serializers.ModelSerializer):
     """
     Meal info serializer
@@ -252,6 +266,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
 
     meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
     plan = serializers.PrimaryKeyRelatedField(read_only=True)
+    get_nutritional_values = NutritionalValuesSerializer(read_only=True)
 
     class Meta:
         model = Meal
@@ -282,6 +297,7 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     """
 
     meals = MealInfoSerializer(source='meal_set', many=True)
+    get_nutritional_values = NutritionalValuesSerializer(read_only=True)
 
     class Meta:
         model = NutritionPlan

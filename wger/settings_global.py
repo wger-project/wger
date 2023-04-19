@@ -24,7 +24,6 @@ from datetime import timedelta
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -175,7 +174,7 @@ TEMPLATES = [
                 'django.template.loaders.app_directories.Loader',
             ],
             'debug':
-            False
+                False
         },
     },
 ]
@@ -258,7 +257,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -451,29 +450,16 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'login': '10/min'
     },
-    'DEFAULT_SCHEMA_CLASS':
-    'drf_spectacular.openapi.AutoSchema',
-}
-
-# Api docs
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'wger workout manager',
-    'DESCRIPTION': 'FLOSS self hosted workout and fitness tracker',
-    'VERSION': get_version(),
-    'SERVE_INCLUDE_SCHEMA': False,
-    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
-    'SWAGGER_UI_DIST': 'SIDECAR',
-    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
-    'REDOC_DIST': 'SIDECAR',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # yapf: enable
 
 # Api docs
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'wger workout manager',
-    'DESCRIPTION': 'FLOSS self hosted workout and fitness tracker',
+    'TITLE': 'wger',
+    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
     'VERSION': get_version(),
-    'SERVE_INCLUDE_SCHEMA': False,
+    'SERVE_INCLUDE_SCHEMA': True,
     'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
@@ -500,7 +486,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules

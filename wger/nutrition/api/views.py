@@ -25,6 +25,12 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 # Third Party
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+    inline_serializer,
+)
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
@@ -32,11 +38,15 @@ from rest_framework.decorators import (
     action,
     api_view,
 )
+from rest_framework.fields import (
+    CharField,
+    IntegerField,
+)
 from rest_framework.response import Response
 
 # wger
 from wger.nutrition.api.serializers import (
-    ImageSerializer,
+    IngredientImageSerializer,
     IngredientInfoSerializer,
     IngredientSerializer,
     IngredientWeightUnitSerializer,
@@ -152,6 +162,45 @@ class IngredientInfoViewSet(IngredientViewSet):
     serializer_class = IngredientInfoSerializer
 
 
+@extend_schema(
+    parameters=[
+        OpenApiParameter(
+            'term',
+            OpenApiTypes.STR,
+            OpenApiParameter.QUERY,
+            description='The name of the ingredient to search"',
+            required=True,
+        ),
+        OpenApiParameter(
+            'language',
+            OpenApiTypes.STR,
+            OpenApiParameter.QUERY,
+            description='Comma separated list of language codes to search',
+            required=True,
+        ),
+    ],
+    responses={
+        200:
+        inline_serializer(
+            name='IngredientSearchResponse',
+            fields={
+                'value':
+                CharField(),
+                'data':
+                inline_serializer(
+                    name='IngredientSearchItemResponse',
+                    fields={
+                        'id': IntegerField(),
+                        'name': CharField(),
+                        'category': CharField(),
+                        'image': CharField(),
+                        'image_thumbnail': CharField()
+                    }
+                )
+            }
+        )
+    },
+)
 @api_view(['GET'])
 def search(request):
     """
@@ -205,7 +254,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for ingredient images
     """
     queryset = Image.objects.all()
-    serializer_class = ImageSerializer
+    serializer_class = IngredientImageSerializer
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
 
@@ -258,6 +307,10 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return NutritionPlan.objects.none()
+
         return NutritionPlan.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -304,7 +357,7 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     Read-only info API endpoint for nutrition plan objects. Returns nested data
     structures for more easy parsing.
     """
-    serializer_class = NutritionPlanInfoSerializer
+    serializer_class = NutritionPlanInfoSerializer(read_only=True)
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
@@ -324,6 +377,10 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Meal.objects.none()
+
         return Meal.objects.filter(plan__user=self.request.user)
 
     def perform_create(self, serializer):
@@ -365,6 +422,10 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return MealItem.objects.none()
+
         return MealItem.objects.filter(meal__plan__user=self.request.user)
 
     def perform_create(self, serializer):
@@ -406,6 +467,10 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return LogItem.objects.none()
+
         return LogItem.objects.filter(plan__user=self.request.user)
 
     def get_owner_objects(self):

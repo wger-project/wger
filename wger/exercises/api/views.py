@@ -30,12 +30,22 @@ from django.views.decorators.cache import cache_page
 import bleach
 from actstream import action as actstream_action
 from bleach.css_sanitizer import CSSSanitizer
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+    inline_serializer,
+)
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
     action,
     api_view,
+)
+from rest_framework.fields import (
+    CharField,
+    IntegerField,
 )
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -257,6 +267,46 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         return qs
 
 
+@extend_schema(
+    parameters=[
+        OpenApiParameter(
+            'term',
+            OpenApiTypes.STR,
+            OpenApiParameter.QUERY,
+            description='The name of the exercise to search"',
+            required=True,
+        ),
+        OpenApiParameter(
+            'language',
+            OpenApiTypes.STR,
+            OpenApiParameter.QUERY,
+            description='Comma separated list of language codes to search',
+            required=True,
+        ),
+    ],
+    responses={
+        200:
+        inline_serializer(
+            name='ExerciseSearchResponse',
+            fields={
+                'value':
+                CharField(),
+                'data':
+                inline_serializer(
+                    name='ExerciseSearchItemResponse',
+                    fields={
+                        'id': IntegerField(),
+                        'base_id': IntegerField(),
+                        'name': CharField(),
+                        'category': CharField(),
+                        'image': CharField(),
+                        'image_thumbnail': CharField()
+                    }
+                )
+            }
+        )
+    },
+)
 @api_view(['GET'])
 def search(request):
     """

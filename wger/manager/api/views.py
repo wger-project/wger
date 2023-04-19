@@ -72,6 +72,10 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Workout.objects.none()
+
         return Workout.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -132,6 +136,10 @@ class UserWorkoutTemplateViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Workout.objects.none()
+
         return Workout.templates.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -189,6 +197,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for workout sessions objects
     """
+
     serializer_class = WorkoutSessionSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -205,6 +214,11 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return WorkoutSession.objects.none()
+
         return WorkoutSession.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -238,6 +252,10 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return ScheduleStep.objects.none()
+
         return ScheduleStep.objects.filter(schedule__user=self.request.user)
 
     def get_owner_objects(self):
@@ -265,6 +283,10 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Schedule.objects.none()
+
         return Schedule.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -291,6 +313,10 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Day.objects.none()
+
         return Day.objects.filter(training__user=self.request.user)
 
     def get_owner_objects(self):
@@ -317,6 +343,10 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Set.objects.none()
+
         return Set.objects.filter(exerciseday__training__user=self.request.user)
 
     def get_owner_objects(self):
@@ -363,6 +393,10 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Setting.objects.none()
+
         return Setting.objects.filter(set__exerciseday__training__user=self.request.user)
 
     def perform_create(self, serializer):
@@ -397,6 +431,9 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return WorkoutLog.objects.none()
 
         return WorkoutLog.objects.filter(user=self.request.user)
 

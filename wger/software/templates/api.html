@@ -9,6 +9,15 @@
     <p>wger Workout Manager provides a full REST API to all database
         objects: <a href="/api/v2/" rel="nofollow">https://wger.de/api/v2/</a></p>
 
+    <h3>Documentation</h3>
+    <p>The API is documented with openAPI:</p>
+
+    <ul>
+        <li><a href="{% url 'schema' %}">Download schema file</a></li>
+        <li><a href="{% url 'api-swagger-ui' %}">Swagger UI</a></li>
+        <li><a href="{% url 'api-redoc' %}">Redoc</a></li>
+    </ul>
+
 
     <h3>Authentication</h3>
     <p>Public endpoints, such as the list of exercises or the
@@ -19,7 +28,8 @@
     <h6>JWT Authentication</h6>
 
     <p>
-        You can generate access token via <code>/token/</code> endpoint. Send a username and password, and you will get
+        You can generate access token via <code>/token/</code> endpoint. Send a username and
+        password, and you will get
         the
         <code>access</code> token which you can use to access the private endpoints.
     <pre>
@@ -36,7 +46,8 @@ curl \
 }
 </pre>
 
-    <p>Additionally, you can send an access token to <code>/token/verify/</code> endpoint to verify that token.</p>
+    <p>Additionally, you can send an access token to <code>/token/verify/</code> endpoint to verify
+        that token.</p>
 
     <p>When this short-lived access token expires, you can use the longer-lived <code>refresh</code>
         token to obtain another access token.
@@ -55,7 +66,8 @@ curl \
 
     <p>You should always use HTTPS if possible when communicating with the server.</p>
     <p>At the moment it is not possible to register via the API.</p>
-    <p><strong>Deprecated: </strong>You can also generate a token via the <code>login</code> endpoint. Send a
+    <p><strong>Deprecated: </strong>You can also generate a token via the <code>login</code>
+        endpoint. Send a
         username and password, and you will get the user's token or a new one will be
         generated.</p>
 
@@ -197,7 +209,8 @@ curl \
     <p>
         You can easily filter all resources by specifying the filter queries in the
         URL: <code>?&lt;fieldname&gt;=&lt;value&gt;</code>, combinations are possible,
-        the filters will be AND-joined: <code>?&lt;f1&gt;=&lt;v1&gt;&amp;&lt;f2&gt;=&lt;v2&gt;</code>.
+        the filters will be AND-joined:
+        <code>?&lt;f1&gt;=&lt;v1&gt;&amp;&lt;f2&gt;=&lt;v2&gt;</code>.
         Please note that for boolean values you must pass 'False' or 'True' other
         values, e.g. 1, 0, false, etc. will be ignored. Like with not filtered queries,
         your objects will be available under the 'results' key.
@@ -449,9 +462,11 @@ curl -H "Authorization: Token 123456..." \
 {% block sidebar %}
     <div class="alert alert-info" style="margin-top:1em;">
         This is also new for us, if you plan on using the API,
-        <a href="https://github.com/wger-project/wger" class="alert-link">we'd love to hear from you</a>.
+        <a href="https://github.com/wger-project/wger" class="alert-link">we'd love to hear from
+            you</a>.
     </div>
 
     <p><a href="/api/v2/" class="btn btn-block btn-light" rel="nofollow">Browse the API</a></p>
-    <p><a href="{% url 'core:user:api-key' %}" class="btn btn-block btn-light">Generate API KEY</a></p>
+    <p><a href="{% url 'core:user:api-key' %}" class="btn btn-block btn-light">Generate API KEY</a>
+    </p>
 {% endblock %}

@@ -53,6 +53,7 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
+
 # admin.autodiscover()
 
 #
@@ -196,7 +197,7 @@ router.register(r'ingredient-image', nutrition_api_views.ImageViewSet, basename=
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
 
 # Gallery app
-router.register(r'gallery', gallery_api_views.ImageViewSet, basename='gallery')
+router.register(r'gallery', gallery_api_views.GalleryImageViewSet, basename='gallery')
 
 # Measurements app
 router.register(
@@ -288,15 +289,9 @@ urlpatterns += [
         name='schema',
     ),
     path(
-        'api/schema/swagger-ui/',
-        SpectacularSwaggerView.as_view(url_name='schema'),
-        name='swagger-ui'
+        'api/schema/ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='api-swagger-ui'
     ),
-    path(
-        'api/schema/redoc/',
-        SpectacularRedocView.as_view(url_name='schema'),
-        name='redoc'
-    ),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='api-redoc'),
 ]
 
 #

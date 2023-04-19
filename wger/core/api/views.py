@@ -26,11 +26,22 @@ from django.views.decorators.cache import cache_page
 
 # Third Party
 from django_email_verification import send_email
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    OpenApiResponse,
+    extend_schema,
+    inline_serializer,
+)
 from rest_framework import (
     status,
     viewsets,
 )
 from rest_framework.decorators import action
+from rest_framework.fields import (
+    BooleanField,
+    CharField,
+)
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -87,6 +98,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return UserProfile.objects.none()
+
         return UserProfile.objects.filter(user=self.request.user)
 
     def get_owner_objects(self):
@@ -158,6 +173,12 @@ class ApplicationVersionView(viewsets.ViewSet):
     permission_classes = (AllowAny, )
 
     @staticmethod
+    @extend_schema(
+        parameters=[],
+        responses={
+            200: OpenApiTypes.STR,
+        },
+    )
     def get(request):
         return Response(get_version())
 
@@ -169,6 +190,26 @@ class PermissionView(viewsets.ViewSet):
     permission_classes = (AllowAny, )
 
     @staticmethod
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'permission',
+                OpenApiTypes.STR,
+                OpenApiParameter.QUERY,
+                description='The name of the django permission such as "exercises.change_muscle"',
+            ),
+        ],
+        responses={
+            201:
+            inline_serializer(name='PermissionResponse', fields={
+                'result': BooleanField(),
+            }),
+            400:
+            OpenApiResponse(
+                description="Please pass a permission name in the 'permission' parameter"
+            ),
+        },
+    )
     def get(request):
         permission = request.query_params.get('permission')
 
@@ -191,6 +232,12 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
     permission_classes = (AllowAny, )
 
     @staticmethod
+    @extend_schema(
+        parameters=[],
+        responses={
+            200: OpenApiTypes.STR,
+        },
+    )
     def get(request):
         return Response(get_version(MIN_APP_VERSION, True))
 

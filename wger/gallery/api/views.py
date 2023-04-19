@@ -34,7 +34,7 @@ from wger.gallery.models import Image
 logger = logging.getLogger(__name__)
 
 
-class ImageViewSet(viewsets.ModelViewSet):
+class GalleryImageViewSet(viewsets.ModelViewSet):
     """
     API endpoint for gallery image
     """
@@ -53,6 +53,10 @@ class ImageViewSet(viewsets.ModelViewSet):
         """
         Only allow access to appropriate objects
         """
+        # REST API generation
+        if getattr(self, "swagger_fake_view", False):
+            return Image.objects.none()
+
         return Image.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):

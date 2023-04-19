@@ -84,6 +84,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = ExerciseImage
@@ -105,6 +106,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     ExerciseVideo serializer
     """
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = ExerciseVideo
@@ -193,6 +195,8 @@ class MuscleSerializer(serializers.ModelSerializer):
     """
     Muscle serializer
     """
+    image_url_main = serializers.CharField()
+    image_url_secondary = serializers.CharField()
 
     class Meta:
         model = Muscle
@@ -218,6 +222,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
     equipment = serializers.PrimaryKeyRelatedField(many=True, queryset=Equipment.objects.all())
     variations = serializers.PrimaryKeyRelatedField(many=True, queryset=Variation.objects.all())
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = Exercise
@@ -252,6 +257,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     )
     aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
     notes = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = Exercise
@@ -340,6 +346,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     equipment = EquipmentSerializer(many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = Exercise
@@ -380,6 +387,8 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
     videos = ExerciseVideoSerializer(source='exercisevideo_set', many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
+    author_history = serializers.ListSerializer(child=serializers.CharField())
+    total_authors_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = ExerciseBase
