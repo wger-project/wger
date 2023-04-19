@@ -98,7 +98,11 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
             'is_main',
             'style',
             'license',
+            'license_title',
+            'license_object_url',
             'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
             'author_history',
         ]
 
