@@ -82,8 +82,6 @@ INSTALLED_APPS = (
     # Form renderer helper
     'crispy_forms',
     'crispy_bootstrap5',
-    # note: bs3 can be deleted when we solve https://github.com/wger-project/wger/issues/1127
-    'crispy_bootstrap3',
 
     # REST-API
     'rest_framework',
