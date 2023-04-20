@@ -280,18 +280,25 @@ urlpatterns += [
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version'
     ),
-    path('email/', include(email_urls)),
 
     # Api documentation
     path(
-        'api/schema/',
+        'api/v2/schema',
         SpectacularAPIView.as_view(),
         name='schema',
     ),
     path(
-        'api/schema/ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='api-swagger-ui'
+        'api/v2/schema/ui',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='api-swagger-ui',
     ),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='api-redoc'),
+    path(
+        'api/v2/schema/redoc',
+        SpectacularRedocView.as_view(url_name='schema'),
+        name='api-redoc',
+    ),
+
+    path('email/', include(email_urls)),
 ]
 
 #
