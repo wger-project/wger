@@ -247,7 +247,6 @@ urlpatterns += [
 
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
-    path('api/v2/exerciseinfo/search/', exercises_api_views.search, name='exercise-info'),
     path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/', include(router.urls)),
 
