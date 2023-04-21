@@ -8,9 +8,6 @@ integration with other projects and tools.
 
 For a live system, refer to the project's site: <https://wger.de/>
 
-![Workout plan](https://raw.githubusercontent.com/wger-project/wger/master/wger/software/static/images/workout.png)
-
-
 ## Mobile app
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
       alt="Get it on Google Play"
