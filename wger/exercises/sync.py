@@ -332,6 +332,16 @@ def download_exercise_images(
 
     print_fn('*** Processing images ***')
 
+    # 2023-04-21: Delete all images that have no associated image files
+    #
+    # This is a temporary fix necessary because we had a bug in this sync
+    # script that downloaded the image files and created image entries in the
+    # database, but didn't connect them. This deletes the image entries so
+    # that they can be re-downloaded (the dangling files are still there, though).
+    deleted, rows = ExerciseImage.objects.filter(image='').delete()
+    if deleted:
+        print_fn(f'Deleted {deleted} images without associated image files')
+
     for image_data in result:
         image_uuid = image_data['uuid']
 
