@@ -352,20 +352,6 @@ def download_exercise_images(
             retrieved_image = requests.get(image_data['image'], headers=headers)
             image = ExerciseImage.from_json(exercise_base, retrieved_image, image_data)
 
-        # Temporary files on Windows don't support the delete attribute
-        if os.name == 'nt':
-            img_temp = NamedTemporaryFile()
-        else:
-            img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(retrieved_image.content)
-        img_temp.flush()
-
-        image.exercise_base = exercise_base
-        image.image.save(
-            os.path.basename(os.path.basename(image_data['image'])),
-            File(img_temp),
-        )
-        image.save()
         print_fn(style_fn('    successfully saved'))
 
 
