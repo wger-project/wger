@@ -36,7 +36,10 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
-from wger.utils.requests import wger_headers
+from wger.utils.requests import (
+    get_paginated_generator,
+    wger_headers,
+)
 from wger.utils.url import make_uri
 
 
@@ -156,19 +159,13 @@ def download_ingredient_images(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
-    page = 1
-    all_images_processed = False
     headers = wger_headers()
-    url = make_uri(IMAGE_ENDPOINT, server_url=remote_url)
-    result = requests.get(url, headers=headers).json()
+    url = make_uri(IMAGE_ENDPOINT, server_url=remote_url, query={'limit': 100})
 
     print_fn('*** Processing images ***')
-    while not all_images_processed:
-        print_fn('')
-        print_fn(f'*** Page {page}')
-        print_fn('')
+    for result in get_paginated_generator(url, headers=headers):
 
-        for image_data in result['results']:
+        for image_data in result:
             image_uuid = image_data['uuid']
 
             print_fn(f'Processing image {image_uuid}')
@@ -177,6 +174,9 @@ def download_ingredient_images(
                 ingredient = Ingredient.objects.get(uuid=image_data['ingredient_uuid'])
             except Ingredient.DoesNotExist:
                 print_fn('    Remote ingredient not found in local DB, skipping...')
+                continue
+
+            if hasattr(ingredient, 'image'):
                 continue
 
             try:
@@ -189,9 +189,3 @@ def download_ingredient_images(
                 Image.from_json(ingredient, retrieved_image, image_data)
 
             print_fn(style_fn('    successfully saved'))
-
-        if result['next']:
-            page += 1
-            result = requests.get(result['next'], headers=headers).json()
-        else:
-            all_images_processed = True

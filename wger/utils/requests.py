@@ -43,7 +43,27 @@ def get_paginated(url: str, headers=None):
         response = requests.get(url, headers=headers).json()
         results.extend(response['results'])
 
+        url = response['next']
         if not response['next']:
             break
-        url = response['next']
     return results
+
+
+def get_paginated_generator(url: str, headers=None):
+    """
+    Generator that iterates over a paginated endpoint
+
+    :param url: The URL to fetch from.
+    :param headers: Optional headers to send with the request.
+    :return: Generator with the contents of the 'result' key
+    """
+    if headers is None:
+        headers = {}
+
+    while True:
+        response = requests.get(url, headers=headers).json()
+        yield response['results']
+
+        url = response['next']
+        if not response['next']:
+            break
