@@ -30,7 +30,7 @@ icalendar==4.1.0
 invoke==2.0.0
 pillow==9.5.0
 reportlab==3.6.12
-requests==2.28.2
+requests==2.29.0
 tzdata==2023.3
 celery[redis]==5.2.7
 flower==1.2.0
