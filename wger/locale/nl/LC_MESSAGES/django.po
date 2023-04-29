@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-30 21:20+0200\n"
-"PO-Revision-Date: 2023-02-02 15:38+0000\n"
-"Last-Translator: Dieter Verbeken <dieter.verbeken@gmail.com>\n"
+"PO-Revision-Date: 2023-04-30 20:49+0000\n"
+"Last-Translator: Nick <weblate@b00m.eu>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -495,12 +495,7 @@ msgid "Something happened that caused an error."
 msgstr "Er is iets gebeurd dat een fout veroorzaakte."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -508,9 +503,9 @@ msgid ""
 "            "
 msgstr ""
 "Je bezoekt \n"
-"    de website als gebruiker \"%(current_user)s\", alle acties zijn "
+"    de website als gebruiker \"%(current_user)s\", alle acties worden "
 "uitgevoerd op eigen data\n"
-"    "
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -1432,15 +1427,15 @@ msgstr "Verzend e-mails"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Onbevestigde email"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Verstuur bevestigingsemail"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "Je moet jouw email bevestigen om bij te dragen aan oefeningen"
 
 #: core/templates/user/preferences.html:50 core/views/user.py:603
 msgid "Change password"
@@ -1576,7 +1571,7 @@ msgstr "Gym"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "Een bevestigingsmail is verstuurd naar %(email)s"
 
 #: exercises/models/base.py:62 nutrition/models/ingredient.py:204
 msgid "Category"
@@ -1776,11 +1771,11 @@ msgstr "Verander"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Terug"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Bekijk Object"
 
 #: exercises/templates/history/overview.html:75
 #, fuzzy
@@ -1790,7 +1785,7 @@ msgstr "Bekijk logs"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Draai veranderingen terug"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1816,7 +1811,7 @@ msgstr "Materiaal verwijderen?"
 #: exercises/views/exercises.py:161
 #, python-format
 msgid "%(name)s is too similar to existing exercise \"%(exercise_name)s\""
-msgstr ""
+msgstr "%(name)s lijkt teveel op %(exercise_name)s"
 
 #: gallery/templates/images/overview.html:62
 #, fuzzy
@@ -2165,7 +2160,7 @@ msgstr "Kuiten"
 
 #: i18n.tpl:9
 msgid "Cardio"
-msgstr ""
+msgstr "Cardio"
 
 #: i18n.tpl:10
 msgid "Chest"
@@ -2187,7 +2182,7 @@ msgstr "Gym-matje"
 
 #: i18n.tpl:14
 msgid "Hamstrings"
-msgstr ""
+msgstr "Hamstrings"
 
 #: i18n.tpl:15
 msgid "Incline bench"
@@ -2203,7 +2198,7 @@ msgstr "Kilometer"
 
 #: i18n.tpl:18
 msgid "Lats"
-msgstr ""
+msgstr "Lats"
 
 #: i18n.tpl:19
 msgid "Legs"
@@ -2211,7 +2206,7 @@ msgstr "Benen"
 
 #: i18n.tpl:20
 msgid "Lower back"
-msgstr ""
+msgstr "Onder rug"
 
 #: i18n.tpl:21
 msgid "Miles"
@@ -2227,7 +2222,7 @@ msgstr "Optrekstaaf"
 
 #: i18n.tpl:24
 msgid "Quads"
-msgstr ""
+msgstr "Quads"
 
 #: i18n.tpl:25 manager/forms.py:185 manager/models/log.py:73
 #: manager/templates/set/add.html:54
@@ -2499,18 +2494,22 @@ msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Een training markeren als een sjabloon zal het bevriezen en je toelaten om "
+"er kopieën van te maken"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "Publieke sjabloon"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Een publieke sjabloon is beschikbaar voor andere gebruikers"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
 msgstr ""
+"Je moet deze training markeren als een sjabloon voordat je het publiek kunt "
+"verklaren"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:32
 msgid "Workout log"
@@ -2519,12 +2518,12 @@ msgstr "Workout-log"
 #: manager/templates/calendar/day.html:13
 #, python-format
 msgid "Workout log for %(username)s for %(date)s"
-msgstr ""
+msgstr "Workout-log voor %(username)s op %(date)s"
 
 #: manager/templates/calendar/month.html:13
 #, python-format
 msgid "Calendar for %(username)s"
-msgstr ""
+msgstr "Kalender voor %(username)s"
 
 #: manager/templates/calendar/month.html:53
 msgid "Detail page"
@@ -2556,7 +2555,7 @@ msgstr "Logoverzicht"
 
 #: manager/templates/calendar/partial_overview_table.html:12
 msgid "Workout session"
-msgstr ""
+msgstr "Trainingssessie"
 
 #: manager/templates/calendar/partial_overview_table.html:27
 msgid "Delete with logs"
@@ -2683,7 +2682,11 @@ msgid_plural ""
 "%(weeks)s Weeks\n"
 "                                "
 msgstr[0] ""
+"%(weeks)s Week\n"
+"                                    "
 msgstr[1] ""
+"%(weeks)s Weken\n"
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
