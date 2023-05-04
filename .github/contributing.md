@@ -43,7 +43,7 @@ You want to contribute code? Awesome! Here are some tips:
 haven’t heard anything by then, feel free to ping the thread.
 
 You want to submit a Pull Request? See Step 12 of this guide to see how you can
-start a pull request: https://www.dataschool.io/how-to-contribute-on-github/.
+start a pull request: https://www.dataschool.io/how-to-contribute-on-github/#:~:text=Step%2012%3A%20Begin%20the%20pull%20request.
 
 Alternatively, here is GitHub's link about how pull requests work:
 https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
