@@ -17,7 +17,8 @@ https://www.dataschool.io/how-to-contribute-on-github/
 
 When contributing to the Wger project, it is good practice to create your own branch.
 This creates an environment for your work that is isolated from the master branch.
-To be able to do so, see Step 8 of the link above.
+To be able to do so, see Step 8 of the link below.
+https://www.dataschool.io/how-to-contribute-on-github/#:~:text=Step%208%3A%20Create%20a%20new%20branch
 
 ## Questions
 Are you just using the software and have a question or improvement?
