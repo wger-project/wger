@@ -12,6 +12,13 @@ These are mostly guidelines, not rules. As everywhere in life, use your
 best judgment, and feel free to propose changes to this document
 in a pull request.
 
+Here is a step-by-step guide on how to start contributing:
+https://www.dataschool.io/how-to-contribute-on-github/
+
+When contributing to the Wger project, it is good practice to create your own branch.
+This creates an environment for your work that is isolated from the master branch.
+To be able to do so, see Step 8 of the link above.
+
 ## Questions
 Are you just using the software and have a question or improvement?
 
@@ -33,6 +40,12 @@ You want to contribute code? Awesome! Here are some tips:
   when it's merged.
 * You can expect a response from a maintainer within a week, if you
 haven’t heard anything by then, feel free to ping the thread.
+
+You want to submit a Pull Request? See Step 12 of this guide to see how you can
+start a pull request: https://www.dataschool.io/how-to-contribute-on-github/.
+
+Alternatively, here is GitHub's link about how pull requests work:
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
 
 
 Thanks!
