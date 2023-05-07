@@ -26,6 +26,8 @@ RUN apt-get update \
       python3-dev \
       python3-pip \
       python3-wheel \
+      pkg-config \
+      libcairo2-dev \
       git
 
 # Set up the application
@@ -87,8 +89,8 @@ RUN . /home/wger/venv/bin/activate \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
     && wger bootstrap \
     && wger load-online-fixtures \
-    && python3 manage.py download-exercise-images \
-    && python3 manage.py sync-exercises
+    && python3 manage.py sync-exercises \
+    && python3 manage.py download-exercise-images
 
 
 # Change permissions of some files and folders so the apache process
