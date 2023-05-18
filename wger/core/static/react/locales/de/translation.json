@@ -51,7 +51,9 @@
         "basics": "Grundlagen",
         "notEnoughRightsHeader": "Du kannst keine Übungen beisteuern",
         "notEnoughRights": "Du kannst Übungen nur dann beisteuern, wenn dein Benutzerkonto älter als {{days}} Tage und deine E-Mail-Adresse verifiziert ist",
-        "changeExerciseLanguage": "Ändere die Sprache dieser Übung"
+        "changeExerciseLanguage": "Ändere die Sprache dieser Übung",
+        "identicalExercise": "Vermeide doppelte Übungen",
+        "cacheWarning": "Aufgrund von Caching kann es einige Zeit dauern, bis Änderungen in der ganzen Anwendung sichtbar sind."
     },
     "noResults": "Keine Ergebnisse",
     "noResultsDescription": "Keine Ergebnisse für diese Suche gefunden, bitte reduziere die Anzahl der Filter.",
@@ -86,7 +88,8 @@
         "swiss_ball": "Swissball",
         "sz_bar": "SZ Stange",
         "triceps": "Trizeps",
-        "until_failure": "Bis zum Muskelversagen"
+        "until_failure": "Bis zum Muskelversagen",
+        "cardio": "Kardio"
     },
     "submit": "Abschicken",
     "weight": "Gewicht",
