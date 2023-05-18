@@ -68,10 +68,10 @@ from wger.utils.helpers import make_token
 
 logger = logging.getLogger(__name__)
 
-
 # ************************
 # Workout functions
 # ************************
+
 
 @login_required
 def template_overview(request):

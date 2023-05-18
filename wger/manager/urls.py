@@ -23,8 +23,8 @@ from django.urls import (
     re_path,
 )
 
-from wger.core.views.react import ReactView
 # wger
+from wger.core.views.react import ReactView
 from wger.manager.views import (
     day,
     ical,

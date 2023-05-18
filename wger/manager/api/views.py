@@ -386,13 +386,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
-        'date',
-        'exercise_base',
-        'reps',
-        'weight',
-        'workout',
-        'repetition_unit',
-        'weight_unit'
+        'date', 'exercise_base', 'reps', 'weight', 'workout', 'repetition_unit', 'weight_unit'
     )
 
     def get_queryset(self):

@@ -21,10 +21,9 @@ from django.urls import (
     path,
     re_path,
 )
-from django.views.generic import TemplateView
 
-from wger.core.views.react import ReactView
 # wger
+from wger.core.views.react import ReactView
 from wger.exercises.views import (
     categories,
     equipment,

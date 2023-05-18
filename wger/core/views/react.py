@@ -11,6 +11,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
+# Django
 from django.http import HttpResponseForbidden
 from django.views.generic import TemplateView
 
