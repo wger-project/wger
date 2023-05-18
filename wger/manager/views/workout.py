@@ -72,23 +72,6 @@ logger = logging.getLogger(__name__)
 # ************************
 # Workout functions
 # ************************
-@login_required
-def overview(request):
-    """
-    An overview of all the user's workouts
-    """
-
-    context = {}
-
-    workouts = Workout.objects.filter(user=request.user)
-    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-    context['workouts'] = workouts
-    context['current_workout'] = current_workout
-    context['title'] = _('Your workouts')
-    context['template_overview'] = False
-
-    return render(request, 'workout/overview.html', context)
-
 
 @login_required
 def template_overview(request):

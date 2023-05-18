@@ -23,26 +23,7 @@
 {# Header #}
 {#        #}
 {% block header %}
-    <script>
-        function wgerCustomModalInit() {
-            // Set up the edit set functions on modal dialogs
-            wgerInitEditSet();
-        }
-
-        $(document).ready(function () {
-            var $exercisecomments = $(".exercise-comments");
-            // Allow the sets to be sortable
-            wgerSetupSortable();
-
-            // Show/Hide the comments to the exercises
-            {% if user.userprofile.show_comments %}
-                $exercisecomments.show();
-            {% else %}
-                $exercisecomments.hide();
-            {% endif %}
-            wgerToggleComments();
-        });
-    </script>
+    {% react_static %}
 {% endblock %}
 
 
@@ -50,34 +31,7 @@
 {# Content #}
 {#         #}
 {% block content %}
-
-
-    {% if workout.name %}
-        <h4>{{ workout.name }}</h4>
-    {% endif %}
-
-    {% if workout.description %}
-        <p>{{ workout.description }}</p>
-    {% endif %}
-
-    {% for day in workout.day_set.all %}
-        <div id="div-day-{{ day.id }}">
-            {% render_day day is_owner %}
-        </div>
-    {% endfor %}
-
-
-    {% if is_owner %}
-        <p>
-            <a href="{% url 'manager:day:add' workout.id %}"
-               class="wger-modal-dialog btn btn-link btn-block">{% translate "Add training day" %}</a>
-
-            <!--
-    |
-    <a id="exercise-comments-toggle" href="{% url 'core:user:preferences' %}">{% translate "Show/Hide exercise comments" %}</a>
-    -->
-        </p>
-    {% endif %}
+    <div id="react-routine-detail"></div>
 {% endblock %}
 
 

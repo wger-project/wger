@@ -41,10 +41,10 @@ def get_paginated(url: str, headers=None):
     results = []
     while True:
         response = requests.get(url, headers=headers).json()
+        url = response['next']
         results.extend(response['results'])
 
-        url = response['next']
-        if not response['next']:
+        if not url:
             break
     return results
 
@@ -65,5 +65,5 @@ def get_paginated_generator(url: str, headers=None):
         yield response['results']
 
         url = response['next']
-        if not response['next']:
+        if not url:
             break

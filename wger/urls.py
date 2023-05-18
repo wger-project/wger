@@ -217,7 +217,7 @@ sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
 urlpatterns = i18n_patterns(
     # url(r'^admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
-    path('workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
+    path('routine/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
     path('weight/', include(('wger.weight.urls', 'weight'), namespace='weight')),
     path('nutrition/', include(('wger.nutrition.urls', 'nutrition'), namespace='nutrition')),

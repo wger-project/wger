@@ -44,13 +44,6 @@ from wger.utils.generic_views import WgerDeleteMixin
 logger = logging.getLogger(__name__)
 
 
-class ExerciseListView(TemplateView):
-    """
-    Generic view to list all exercises
-    """
-    template_name = 'exercise/overview.html'
-
-
 def view(request, id, slug=None):
     """
     Detail view for an exercise translation

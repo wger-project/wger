@@ -391,6 +391,8 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         'reps',
         'weight',
         'workout',
+        'repetition_unit',
+        'weight_unit'
     )
 
     def get_queryset(self):

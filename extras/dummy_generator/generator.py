@@ -410,6 +410,7 @@ if hasattr(args, 'number_logs'):
         weight_log = []
         print('   - generating for {0}'.format(user.username))
 
+        # Create a log for each workout day, set, setting, reps, weight, date
         for workout in Workout.objects.filter(user=user):
             for day in workout.day_set.all():
                 for set in day.set_set.all():
@@ -419,7 +420,7 @@ if hasattr(args, 'number_logs'):
                                 date = datetime.date.today() - datetime.timedelta(weeks=i)
                                 log = WorkoutLog(
                                     user=user,
-                                    exercise_base=setting.exercise.exercise_base,
+                                    exercise_base=setting.exercise_base,
                                     workout=workout,
                                     reps=reps,
                                     weight=50 - reps + random.randint(1, 10),
