@@ -16,7 +16,10 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.core.models import RepetitionUnit, WeightUnit
+from wger.core.models import (
+    RepetitionUnit,
+    WeightUnit,
+)
 from wger.exercises.models import (
     Equipment,
     ExerciseCategory,
