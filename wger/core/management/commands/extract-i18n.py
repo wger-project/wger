@@ -16,7 +16,7 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.core.models import RepetitionUnit
+from wger.core.models import RepetitionUnit, WeightUnit
 from wger.exercises.models import (
     Equipment,
     ExerciseCategory,
@@ -49,7 +49,8 @@ class Command(BaseCommand):
         data = [i for i in ExerciseCategory.objects.all()] \
                + [i for i in Equipment.objects.all()] \
                + [i.name_en for i in Muscle.objects.all() if i.name_en] \
-               + [i for i in RepetitionUnit.objects.all()]
+               + [i for i in RepetitionUnit.objects.all()] \
+               + [i for i in WeightUnit.objects.all()]
 
         # Make entries unique and sort alphabetically
         data = sorted(set([i.__str__() for i in data]))
@@ -76,6 +77,7 @@ class Command(BaseCommand):
 
                 import { useTranslation } from "react-i18next";
 
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const DummyComponent = () => {
                 const [t] = useTranslation();'''
             for i in data:
