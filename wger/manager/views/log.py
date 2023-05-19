@@ -72,7 +72,6 @@ from wger.weight.helpers import (
     process_log_entries,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -85,12 +84,9 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
     """
     model = WorkoutLog
     form_class = WorkoutLogForm
-    success_url = reverse_lazy('manager:workout:calendar')
 
-    # def get_context_data(self, **kwargs):
-    # context = super(WorkoutLogUpdateView, self).get_context_data(**kwargs)
-    # context['title'] = _('Edit log entry for %s') % self.object.exercise_base
-    # return context
+    def get_success_url(self):
+        return reverse('manager:workout:view', kwargs={'pk': self.object.workout_id})
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
@@ -99,8 +95,10 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
     """
 
     model = WorkoutLog
-    success_url = reverse_lazy('manager:workout:calendar')
     title = gettext_lazy('Delete workout log')
+
+    def get_success_url(self):
+        return reverse('manager:workout:view', kwargs={'pk': self.object.workout_id})
 
 
 def add(request, pk):
@@ -230,7 +228,6 @@ def add(request, pk):
 
     # Pass the correct forms to the exercise list
     for base in exercise_base_list:
-
         form_id_from = min(exercise_base_list[base]['form_ids'])
         form_id_to = max(exercise_base_list[base]['form_ids'])
         exercise_base_list[base]['forms'] = formset[form_id_from:form_id_to + 1]

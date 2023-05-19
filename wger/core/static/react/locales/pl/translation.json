@@ -43,7 +43,9 @@
         "deleteExerciseFull": "Usuń całe ćwiczenie",
         "compatibleImagesCC": "Obrazy muszą być zgodne z licencją CC BY SA. Jeśli masz wątpliwości przesyłaj tylko zdjęcia które sam zrobiłeś.",
         "deleteTranslation": "Usuń tłumaczenie",
-        "step1HeaderBasics": "Podstawy po angielsku"
+        "step1HeaderBasics": "Podstawy po angielsku",
+        "identicalExercise": "Unikaj powielania ćwiczeń",
+        "cacheWarning": "Ze względu na buforowanie może minąć trochę czasu zanim zmiany będą widoczne w całej aplikacji."
     },
     "noResults": "Brak wyników",
     "noResultsDescription": "Nie znaleziono wyników dla tego zapytania, rozważ zmniejszenie liczby filtrów.",
@@ -81,7 +83,8 @@
         "lats": "Mięsień najszerszy grzbietu",
         "quads": "Mięsień czworogłowy uda",
         "hamstrings": "Mięsień dwugłowy uda",
-        "abs": "Brzuch"
+        "abs": "Brzuch",
+        "cardio": "Kardio"
     },
     "submit": "Wyślij",
     "weight": "Waga",
@@ -107,5 +110,6 @@
     "cancel": "Anuluj",
     "name": "Nazwa",
     "loading": "Ładowanie...",
-    "goBack": "Powrót"
+    "goBack": "Powrót",
+    "success": "Sukces!"
 }

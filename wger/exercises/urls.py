@@ -21,9 +21,9 @@ from django.urls import (
     path,
     re_path,
 )
-from django.views.generic import TemplateView
 
 # wger
+from wger.core.views.react import ReactView
 from wger.exercises.views import (
     categories,
     equipment,
@@ -119,7 +119,7 @@ patterns_equipment = [
 patterns_exercise = [
     path(
         'overview/',
-        exercises.ExerciseListView.as_view(),
+        ReactView.as_view(div_id='react-exercise-overview'),
         name='overview',
     ),
     path(
@@ -134,17 +134,17 @@ patterns_exercise = [
     ),
     path(
         '<int:pk>/view-base',
-        TemplateView.as_view(template_name='exercise/view-base.html'),
+        ReactView.as_view(div_id='react-exercise-overview'),
         name='view-base',
     ),
     path(
         '<int:pk>/view-base/<slug:slug>',
-        TemplateView.as_view(template_name='exercise/view-base.html'),
+        ReactView.as_view(div_id='react-exercise-detail'),
         name='view-base',
     ),
     path(
         'contribute',
-        TemplateView.as_view(template_name='exercise/contribute.html'),
+        ReactView.as_view(div_id='react-exercise-contribute'),
         name='contribute',
     ),
 ]

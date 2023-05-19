@@ -39,28 +39,7 @@ from wger.manager.models import (
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import WORKOUT_TAB
 
-
 logger = logging.getLogger(__name__)
-
-
-class WorkoutLogShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        url = reverse('manager:log:log', kwargs={'pk': 1})
-
-        response = self.client.get(url)
-        self.assertFalse(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(url)
-        self.assertFalse(response.context['show_shariff'])
 
 
 class WeightLogAccessTestCase(WgerTestCase):
@@ -68,33 +47,15 @@ class WeightLogAccessTestCase(WgerTestCase):
     Test accessing the weight log page
     """
 
-    def test_access_shared(self):
+    def test_access(self):
         """
-        Test accessing the URL of a shared weight log
+        Test accessing the URL of a weight log
         """
         url = reverse('manager:log:log', kwargs={'pk': 1})
 
         self.user_login('admin')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-
-        self.user_login('test')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-        self.user_logout()
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_access_not_shared(self):
-        """
-        Test accessing the URL of a private weight log
-        """
-        url = reverse('manager:log:log', kwargs={'pk': 3})
-
-        self.user_login('admin')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 403)
 
         self.user_login('test')
         response = self.client.get(url)
@@ -176,14 +137,6 @@ class WeightLogOverviewAddTestCase(WgerTestCase):
         """
         Helper function to test adding weight log entries
         """
-
-        # Fetch the overview page
-        response = self.client.get(reverse('manager:log:log', kwargs={'pk': 1}))
-
-        # All access OK, since user 1 has ro_access = True
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['active_tab'], WORKOUT_TAB)
-        self.assertEqual(response.context['workout'].id, 1)
 
         # Open the log entry page
         response = self.client.get(reverse('manager:day:log', kwargs={'pk': 1}))
