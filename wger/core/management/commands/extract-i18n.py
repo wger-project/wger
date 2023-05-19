@@ -98,6 +98,9 @@ class Command(BaseCommand):
             out = ''
             for i in data:
                 out += f'"{cleanup_name(i.__str__())}": "{i}",\n'
+                out += f'"@{cleanup_name(i.__str__())}": {{ \n'
+                out += f'"description": "Generated entry for translation for server strings"\n'
+                out += '},\n'
             f.write(out)
             self.stdout.write(self.style.SUCCESS(f'Wrote content to app_en.arb'))
 
