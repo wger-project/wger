@@ -91,6 +91,7 @@
     "barbell": "Barbell",
     "bench": "Bench",
     "biceps": "Biceps",
+    "body_weight": "Body weight",
     "calves": "Calves",
     "cardio": "Cardio",
     "chest": "Chest",
@@ -101,11 +102,13 @@
     "incline_bench": "Incline bench",
     "kettlebell": "Kettlebell",
     "kilometers": "Kilometers",
+    "kilometers_per_hour": "Kilometers per hour",
     "lats": "Lats",
     "legs": "Legs",
-    "lower_back": "Lower back",
     "miles": "Miles",
+    "miles_per_hour": "Miles per hour",
     "minutes": "Minutes",
+    "plates": "Plates",
     "pull_up_bar": "Pull up bar",
     "quads": "Quads",
     "repetitions": "Repetitions",
@@ -115,6 +118,8 @@
     "swiss_ball": "Swiss ball",
     "triceps": "Triceps",
     "until_failure": "Until failure",
+    "kg": "kg",
+    "lb": "lb",
     "none__bodyweight_exercise_": "none (bodyweight exercise)"
   }
 }
