@@ -13,18 +13,18 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 15:41+0200\n"
-"PO-Revision-Date: 2023-03-31 22:40+0000\n"
+"PO-Revision-Date: 2023-05-22 00:51+0000\n"
 "Last-Translator: Dan <denqwerta@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 4.17-dev\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -2104,8 +2104,6 @@ msgid "Biceps"
 msgstr "Біцепс"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
 msgstr "Вага тіла"
 
@@ -2150,10 +2148,8 @@ msgid "Kilometers"
 msgstr "Кілометри"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Кілометри"
+msgstr "Кілометрів на годину"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2169,7 +2165,7 @@ msgstr "Милі"
 
 #: i18n.tpl:23
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Миль на годину"
 
 #: i18n.tpl:24
 msgid "Minutes"
@@ -2177,7 +2173,7 @@ msgstr "Хвилини"
 
 #: i18n.tpl:25
 msgid "Plates"
-msgstr ""
+msgstr "Пластини"
 
 #: i18n.tpl:26
 msgid "Pull-up bar"
@@ -2185,7 +2181,7 @@ msgstr "Перекладина"
 
 #: i18n.tpl:27
 msgid "Quads"
-msgstr "Чотириголові м'язи стегн"
+msgstr "Квадрицепс"
 
 #: i18n.tpl:28 manager/forms.py:185 manager/models/log.py:73
 #: manager/templates/set/add.html:54
@@ -3857,35 +3853,27 @@ msgstr "Так, вилучити"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Оригінальна назва цього об'єкта, якщо є"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Посилання на оригінальний об'єкт, якщо доступне"
 
 #: utils/models.py:63
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
-msgstr "Автор"
+msgstr "Автор(и)"
 
 #: utils/models.py:67
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Якщо ви не є автором, введіть тут ім'я або джерело. Це необхідно для деяких "
-"ліцензій, наприклад, CC-BY-SA."
+msgstr "Якщо ви не є автором, введіть тут ім'я або джерело."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Посилання на профіль автора, якщо доступне"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Посилання на першоджерело, якщо це похідна робота"
 
 #: utils/models.py:79
 msgid ""
@@ -3893,6 +3881,9 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Зауважте, що похідна робота - це та, яка не тільки ґрунтується на попередній "
+"роботі, але також містить достатньо нового творчого змісту, щоб надати їй "
+"право на власне авторське право."
 
 #: utils/models.py:128
 msgid "Pending"
