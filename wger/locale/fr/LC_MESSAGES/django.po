@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-19 15:41+0200\n"
-"PO-Revision-Date: 2023-02-26 06:35+0000\n"
-"Last-Translator: MrSniikyz <babygeek83bis@gmail.com>\n"
+"PO-Revision-Date: 2023-05-30 17:48+0000\n"
+"Last-Translator: Célian <gallcelian@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -588,14 +588,12 @@ msgid "Add log to day"
 msgstr "Ajouter un journal au jour"
 
 #: core/templates/index.html:25
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
-msgstr "Cliquer pour ajouter un journal de poids à un jour :"
+msgstr ""
+"Cliquer pour ajouter des journaux\n"
+"de poids à un jour d'entraînement dans votre séance :"
 
 #: core/templates/index.html:38 core/templates/index.html:82
 #: core/templates/misc/fragments/shariff_modal.html:33
