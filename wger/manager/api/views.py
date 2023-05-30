@@ -38,7 +38,6 @@ from wger.manager.api.serializers import (
     ScheduleStepSerializer,
     SetSerializer,
     SettingSerializer,
-    WorkoutAndTemplateSerializer,
     WorkoutCanonicalFormSerializer,
     WorkoutLogSerializer,
     WorkoutSerializer,
@@ -61,7 +60,7 @@ from wger.weight.helpers import process_log_entries
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     """
-    API endpoint for workout objects
+    API endpoint for routine objects
     """
     serializer_class = WorkoutSerializer
     is_private = True
@@ -123,9 +122,9 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         return Response({'chart_data': json.loads(chart_data), 'logs': serialized_logs})
 
 
-class UserWorkoutTemplateViewSet(viewsets.ModelViewSet):
+class UserWorkoutTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for workout objects
+    API endpoint for routine template objects
     """
     serializer_class = WorkoutTemplateSerializer
     is_private = True
@@ -163,28 +162,6 @@ class PublicWorkoutTemplateViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         return Workout.templates.filter(is_public=True)
-
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
-
-
-class WorkoutAndTemplateViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint for workout objects
-    """
-    serializer_class = WorkoutAndTemplateSerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = ('name', 'description', 'creation_date')
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        return Workout.both.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         """
@@ -298,7 +275,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
 
 class DayViewSet(WgerOwnerObjectModelViewSet):
     """
-    API endpoint for training day objects
+    API endpoint for routine day objects
     """
     serializer_class = DaySerializer
     is_private = True

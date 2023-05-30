@@ -185,7 +185,7 @@ class ApplicationVersionView(viewsets.ViewSet):
 
 class PermissionView(viewsets.ViewSet):
     """
-    Returns the application's version
+    Checks whether the user has a django permission
     """
     permission_classes = (AllowAny, )
 
@@ -228,6 +228,7 @@ class PermissionView(viewsets.ViewSet):
 class RequiredApplicationVersionView(viewsets.ViewSet):
     """
     Returns the minimum required version of flutter app to access this server
+    such as 1.4.2 or 3.0.0
     """
     permission_classes = (AllowAny, )
 
@@ -244,8 +245,10 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
 
 class UserAPILoginView(viewsets.ViewSet):
     """
-    API endpoint for api user objects
-    .. warning:: This endpoint is deprecated
+    API login endpoint. Returns a token that can subsequently passed in the
+    header.
+
+    Note that it is recommended to use token authorization instead.
     """
     permission_classes = (AllowAny, )
     queryset = User.objects.all()
@@ -263,6 +266,17 @@ class UserAPILoginView(viewsets.ViewSet):
             },
         )
 
+    @staticmethod
+    @extend_schema(
+        parameters=[],
+        responses={
+            status.HTTP_200_OK:
+            inline_serializer(
+                name='loginSerializer',
+                fields={'token': CharField()},
+            ),
+        }
+    )
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -284,12 +298,8 @@ class UserAPILoginView(viewsets.ViewSet):
         return Response(
             data={
                 'token': token.key,
-                'message': "This endpoint is deprecated."
             },
             status=status.HTTP_200_OK,
-            headers={
-                "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
-            }
         )
 
 
@@ -306,6 +316,16 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         """
         return UserProfile.objects.filter(user=self.request.user)
 
+    @extend_schema(
+        parameters=[],
+        responses={
+            status.HTTP_200_OK:
+            inline_serializer(
+                name='loginSerializer',
+                fields={'token': CharField()},
+            ),
+        }
+    )
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -329,7 +349,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
 
 class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for workout objects
+    API endpoint for the languages used in the application
     """
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
@@ -343,7 +363,9 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
 
 class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for workout objects
+    API endpoint for the days of the week (monday, tuesday, etc.).
+
+    This has historical reasons, and it's better and easier to just define a simple enum
     """
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
@@ -353,7 +375,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for workout objects
+    API endpoint for license objects
     """
     queryset = License.objects.all()
     serializer_class = LicenseSerializer

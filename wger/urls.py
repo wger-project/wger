@@ -296,7 +296,6 @@ urlpatterns += [
         SpectacularRedocView.as_view(url_name='schema'),
         name='api-redoc',
     ),
-
     path('email/', include(email_urls)),
 ]
 
