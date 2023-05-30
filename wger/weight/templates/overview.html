@@ -40,7 +40,8 @@
     {% if is_owner %}
         <div class="btn-group">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                        data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     <span class="{% fa_class 'cog' %}"></span>
                     {% translate "Options" %}
@@ -58,8 +59,5 @@
                 </div>
             </div>
         </div>
-        <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog">
-            {% translate "Add" %}
-        </a>
     {% endif %}
 {% endblock %}

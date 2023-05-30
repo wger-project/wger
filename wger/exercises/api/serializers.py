@@ -86,17 +86,24 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     author_history = serializers.ListSerializer(child=serializers.CharField())
 
+    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+
     class Meta:
         model = ExerciseImage
         fields = [
             'id',
             'uuid',
             'exercise_base',
+            'exercise_base_uuid',
             'image',
             'is_main',
             'style',
             'license',
+            'license_title',
+            'license_object_url',
             'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
             'author_history',
         ]
 

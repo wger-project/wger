@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Third Party
+import requests
+
 # wger
 from wger import get_version
 
@@ -22,3 +25,45 @@ def wger_user_agent():
 
 def wger_headers():
     return {'User-agent': wger_user_agent()}
+
+
+def get_paginated(url: str, headers=None):
+    """
+    Fetch all results from a paginated endpoint.
+
+    :param url: The URL to fetch from.
+    :param headers: Optional headers to send with the request.
+    :return: A list of all results.
+    """
+    if headers is None:
+        headers = {}
+
+    results = []
+    while True:
+        response = requests.get(url, headers=headers).json()
+        url = response['next']
+        results.extend(response['results'])
+
+        if not url:
+            break
+    return results
+
+
+def get_paginated_generator(url: str, headers=None):
+    """
+    Generator that iterates over a paginated endpoint
+
+    :param url: The URL to fetch from.
+    :param headers: Optional headers to send with the request.
+    :return: Generator with the contents of the 'result' key
+    """
+    if headers is None:
+        headers = {}
+
+    while True:
+        response = requests.get(url, headers=headers).json()
+        yield response['results']
+
+        url = response['next']
+        if not url:
+            break

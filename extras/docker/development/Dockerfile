@@ -21,6 +21,8 @@ RUN apt-get update \
       python3-dev \
       python3-pip \
       python3-wheel \
+      pkg-config \
+      libcairo2-dev \
       git \
       libpq-dev
 

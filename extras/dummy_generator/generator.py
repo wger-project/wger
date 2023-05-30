@@ -29,7 +29,6 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.utils.text import slugify
 
-
 sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 django.setup()
@@ -71,7 +70,6 @@ from wger.nutrition.models import (
 )
 from wger.weight.models import WeightEntry
 
-
 parser = argparse.ArgumentParser(description='Data generator. Please consult the documentation')
 subparsers = parser.add_subparsers(help='The kind of entries you want to generate')
 
@@ -83,7 +81,7 @@ user_parser.add_argument(
     action='store',
     default='auto',
     help='Gym to assign the users to. Allowed values: auto, none, <gym_id>. '
-    'Default: auto'
+         'Default: auto'
 )
 user_parser.add_argument(
     '--country',
@@ -366,9 +364,13 @@ if hasattr(args, 'number_workouts'):
                     day_set = Set(exerciseday=day, sets=sets, order=order)
                     day_set.save()
 
-                    setting = Setting(set=day_set, exercise=exercise, reps=reps, order=order)
+                    setting = Setting(
+                        set=day_set,
+                        exercise_base=exercise.exercise_base,
+                        reps=reps,
+                        order=order,
+                    )
                     setting.save()
-
                     order += 1
 
         # Schedules
@@ -410,6 +412,7 @@ if hasattr(args, 'number_logs'):
         weight_log = []
         print('   - generating for {0}'.format(user.username))
 
+        # Create a log for each workout day, set, setting, reps, weight, date
         for workout in Workout.objects.filter(user=user):
             for day in workout.day_set.all():
                 for set in day.set_set.all():
@@ -419,7 +422,7 @@ if hasattr(args, 'number_logs'):
                                 date = datetime.date.today() - datetime.timedelta(weeks=i)
                                 log = WorkoutLog(
                                     user=user,
-                                    exercise_base=setting.exercise.exercise_base,
+                                    exercise_base=setting.exercise_base,
                                     workout=workout,
                                     reps=reps,
                                     weight=50 - reps + random.randint(1, 10),

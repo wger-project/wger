@@ -89,9 +89,9 @@ function wgerSetupSortable() {
 
         // Replace the content of the table with a fresh version that has
         // correct indexes.
-        $.get('/' + getCurrentLanguage() + '/workout/day/' + dayId + '/view/');
+        $.get('/' + getCurrentLanguage() + '/routine/day/' + dayId + '/view/');
         $('#div-day-' + dayId)
-          .load('/' + getCurrentLanguage() + '/workout/day/' + dayId + '/view/');
+          .load('/' + getCurrentLanguage() + '/routine/day/' + dayId + '/view/');
       }
     });
   });
@@ -389,7 +389,7 @@ function getExerciseFormset(baseId) {
   setValue = $('#id_sets').val();
   if (setValue && parseInt(setValue, 10) && baseId && parseInt(baseId, 10)) {
     formsetUrl = '/' + getCurrentLanguage() +
-      '/workout/set/get-formset/' + baseId + '/' + setValue;
+      '/routine/set/get-formset/' + baseId + '/' + setValue;
 
     $.get(formsetUrl, function (data) {
       var $formsets;
@@ -416,7 +416,7 @@ function updateAllExerciseFormset() {
       promise = $().promise();
       if (exerciseId && parseInt(exerciseId, 10)) {
         formsetUrl = '/' + getCurrentLanguage() +
-          '/workout/set/' +
+          '/routine/set/' +
           'get-formset/' + exerciseId + '/' + setValue;
         promise.done(function () {
           promise = $.get(formsetUrl, function (data) {
@@ -636,7 +636,7 @@ $(document).ready(function () {
 
     // Put together and redirect
     targetUrl = '/' + getCurrentLanguage() +
-      '/workout/' + workoutId + '/pdf' +
+      '/routine/' + workoutId + '/pdf' +
       '/' + downloadType +
       '/' + downloadImages +
       '/' + downloadComments +
@@ -668,7 +668,7 @@ $(document).ready(function () {
 
     // Put together and redirect
     targetUrl = '/' + getCurrentLanguage() +
-      '/workout/schedule/' + scheduleId + '/pdf' +
+      '/routine/schedule/' + scheduleId + '/pdf' +
       '/' + downloadType +
       '/' + downloadImages +
       '/' + downloadComments +

@@ -5,6 +5,7 @@
 {% translate "Barbell" %}
 {% translate "Bench" %}
 {% translate "Biceps" %}
+{% translate "Body Weight" %}
 {% translate "Calves" %}
 {% translate "Cardio" %}
 {% translate "Chest" %}
@@ -15,11 +16,13 @@
 {% translate "Incline bench" %}
 {% translate "Kettlebell" %}
 {% translate "Kilometers" %}
+{% translate "Kilometers Per Hour" %}
 {% translate "Lats" %}
 {% translate "Legs" %}
-{% translate "Lower back" %}
 {% translate "Miles" %}
+{% translate "Miles Per Hour" %}
 {% translate "Minutes" %}
+{% translate "Plates" %}
 {% translate "Pull-up bar" %}
 {% translate "Quads" %}
 {% translate "Repetitions" %}
@@ -29,4 +32,6 @@
 {% translate "Swiss Ball" %}
 {% translate "Triceps" %}
 {% translate "Until Failure" %}
+{% translate "kg" %}
+{% translate "lb" %}
 {% translate "none (bodyweight exercise)" %}

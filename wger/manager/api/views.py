@@ -362,16 +362,6 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         out = SettingSerializer(self.get_object().compute_settings, many=True).data
         return Response({'results': out})
 
-    @action(detail=True)
-    def smart_text(self, request, pk):
-        """Returns the smart text representation for the reps"""
-
-        try:
-            exercise = get_object_or_404(Exercise, pk=int(self.request.GET.get('exercise')))
-        except ValueError:
-            return HttpResponseNotFound()
-        return Response({'results': self.get_object().reps_smart_text(exercise=exercise)})
-
 
 class SettingViewSet(WgerOwnerObjectModelViewSet):
     """
@@ -420,11 +410,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
-        'date',
-        'exercise_base',
-        'reps',
-        'weight',
-        'workout',
+        'date', 'exercise_base', 'reps', 'weight', 'workout', 'repetition_unit', 'weight_unit'
     )
 
     def get_queryset(self):

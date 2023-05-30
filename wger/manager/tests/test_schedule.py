@@ -40,26 +40,6 @@ from wger.utils.helpers import make_token
 logger = logging.getLogger(__name__)
 
 
-class ScheduleShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        workout = Workout.objects.get(pk=2)
-
-        response = self.client.get(workout.get_absolute_url())
-        self.assertFalse(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertFalse(response.context['show_shariff'])
-
-
 class ScheduleAccessTestCase(WgerTestCase):
     """
     Test accessing the workout page
