@@ -53,6 +53,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'react/main.css' %}" id="react-css">
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
@@ -68,6 +69,7 @@
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
+        <script src="{% static 'react/main.js' %}" defer="defer"></script>
     {% endcompress %}
 
     {% block header %}{% endblock %}

@@ -106,18 +106,6 @@ def render_weight_log(log, div_uuid, user=None):
     }
 
 
-@register.inclusion_tag('tags/react_static.html')
-def react_static():
-    """
-    Renders the necessary tags to load react's static files
-
-    This is a temporary solution until we have a proper react setup used
-    in more templates, then this can go to the main template
-    """
-
-    return {}
-
-
 @register.inclusion_tag('tags/muscles.html')
 def render_muscles(muscles=None, muscles_sec=None):
     """
