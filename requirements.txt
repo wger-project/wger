@@ -28,7 +28,7 @@ fontawesomefree~=6.4.0
 icalendar==5.0.7
 invoke==2.1.2
 pillow==9.5.0
-reportlab==4.0.0
+reportlab==4.0.4
 requests==2.30.0
 tzdata==2023.3
 celery[redis]==5.2.7
