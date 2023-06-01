@@ -37,7 +37,6 @@ from wger.core.models import (
     WeightUnit,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -97,7 +96,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 'email']
 
-    def __init__(self, request: HttpRequest, instance=None, data=empty, **kwargs):
+    def __init__(self, request: HttpRequest = None, instance=None, data=empty, **kwargs):
         self.request = request
         super().__init__(instance, data, **kwargs)
 
