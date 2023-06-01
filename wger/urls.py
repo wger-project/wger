@@ -29,6 +29,11 @@ from django.urls import path
 
 # Third Party
 from django_email_verification import urls as email_urls
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -47,7 +52,6 @@ from wger.nutrition.api import views as nutrition_api_views
 from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
-
 
 # admin.autodiscover()
 
@@ -89,7 +93,7 @@ router.register(
     basename='setting-repetition-unit'
 )
 router.register(
-    r'setting-weightunit', core_api_views.WeightUnitViewSet, basename='setting-weight-unit'
+    r'setting-weightunit', core_api_views.RoutineWeightUnitViewSet, basename='setting-weight-unit'
 )
 
 # Exercises app
@@ -192,7 +196,7 @@ router.register(r'ingredient-image', nutrition_api_views.ImageViewSet, basename=
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
 
 # Gallery app
-router.register(r'gallery', gallery_api_views.ImageViewSet, basename='gallery')
+router.register(r'gallery', gallery_api_views.GalleryImageViewSet, basename='gallery')
 
 # Measurements app
 router.register(
@@ -242,7 +246,6 @@ urlpatterns += [
 
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
-    path('api/v2/exerciseinfo/search/', exercises_api_views.search, name='exercise-info'),
     path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/', include(router.urls)),
 
@@ -274,6 +277,23 @@ urlpatterns += [
         'api/v2/min-app-version/',
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version'
+    ),
+
+    # Api documentation
+    path(
+        'api/v2/schema',
+        SpectacularAPIView.as_view(),
+        name='schema',
+    ),
+    path(
+        'api/v2/schema/ui',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='api-swagger-ui',
+    ),
+    path(
+        'api/v2/schema/redoc',
+        SpectacularRedocView.as_view(url_name='schema'),
+        name='api-redoc',
     ),
     path('email/', include(email_urls)),
 ]

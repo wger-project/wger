@@ -159,7 +159,7 @@ class RepetitionUnitSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class WeightUnitSerializer(serializers.ModelSerializer):
+class RoutineWeightUnitSerializer(serializers.ModelSerializer):
     """
     Weight unit serializer
     """

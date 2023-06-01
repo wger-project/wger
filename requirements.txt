@@ -16,14 +16,13 @@ django-activity-stream==1.4.2
 django-axes==5.41.1
 django-crispy-forms~=2.0
 crispy-bootstrap4==2022.1
-# note: bs3 can be deleted when we solve https://github.com/wger-project/wger/issues/1127
-crispy-bootstrap3==2022.1
 django-simple-history~=3.3
 django-email-verification~=0.3.1
 django_compressor~=4.3
 django_extensions~=3.2
 django-storages~=1.13
 django-environ==0.10.0
+drf-spectacular[sidecar]==0.26.1
 easy-thumbnails==2.8.5
 fontawesomefree~=6.4.0
 icalendar==5.0.7

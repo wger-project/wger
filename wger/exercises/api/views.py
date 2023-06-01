@@ -30,12 +30,22 @@ from django.views.decorators.cache import cache_page
 import bleach
 from actstream import action as actstream_action
 from bleach.css_sanitizer import CSSSanitizer
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+    inline_serializer,
+)
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
     action,
     api_view,
+)
+from rest_framework.fields import (
+    CharField,
+    IntegerField,
 )
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -86,8 +96,9 @@ logger = logging.getLogger(__name__)
 
 class ExerciseBaseViewSet(ModelViewSet):
     """
-    API endpoint for exercise base objects. For a read-only endpoint with all
-    the information of an exercise, see /api/v2/exercisebaseinfo/
+    API endpoint for exercise base objects.
+
+    For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
     queryset = ExerciseBase.objects.all()
     serializer_class = ExerciseBaseSerializer
@@ -125,7 +136,7 @@ class ExerciseBaseViewSet(ModelViewSet):
 
 class ExerciseTranslationViewSet(ModelViewSet):
     """
-    API endpoint for editing or adding exercise objects.
+    API endpoint for editing or adding exercise translation objects.
     """
     queryset = Exercise.objects.all()
     permission_classes = (CanContributeExercises, )
@@ -192,8 +203,9 @@ class ExerciseTranslationViewSet(ModelViewSet):
 
 class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint for exercise objects. For a single read-only endpoint with all
-    the information of an exercise, see /api/v2/exerciseinfo/
+    API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
+
+    This is only kept for backwards compatibility and will be removed in the future
     """
     queryset = Exercise.objects.all()
     permission_classes = (CanContributeExercises, )
@@ -211,6 +223,14 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+    @extend_schema(deprecated=True)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @extend_schema(deprecated=True)
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
 
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
@@ -257,6 +277,48 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         return qs
 
 
+@extend_schema(
+    parameters=[
+        OpenApiParameter(
+            'term',
+            OpenApiTypes.STR,
+            OpenApiParameter.QUERY,
+            description='The name of the exercise to search"',
+            required=True,
+        ),
+        OpenApiParameter(
+            'language',
+            OpenApiTypes.STR,
+            OpenApiParameter.QUERY,
+            description='Comma separated list of language codes to search',
+            required=True,
+        ),
+    ],
+    # yapf: disable
+    responses={
+        200:
+        inline_serializer(
+            name='ExerciseSearchResponse',
+            fields={
+                'value':
+                CharField(),
+                'data':
+                inline_serializer(
+                    name='ExerciseSearchItemResponse',
+                    fields={
+                        'id': IntegerField(),
+                        'base_id': IntegerField(),
+                        'name': CharField(),
+                        'category': CharField(),
+                        'image': CharField(),
+                        'image_thumbnail': CharField()
+                    }
+                )
+            }
+        )
+    }
+    # yapf: enable
+)
 @api_view(['GET'])
 def search(request):
     """
@@ -306,8 +368,7 @@ def search(request):
 
 class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
-    Read-only info API endpoint for exercise objects. Returns nested data
-    structures for more easy parsing.
+    API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
     """
 
     queryset = Exercise.objects.all()
@@ -326,11 +387,20 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
+    @extend_schema(deprecated=True)
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @extend_schema(deprecated=True)
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
 
 class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     Read-only info API endpoint for exercise objects, grouped by the exercise
-    base. Returns nested data structures for more easy and faster parsing.
+    base. Returns nested data structures for more easy and faster parsing and
+    is the recommended way to access the exercise data.
     """
 
     queryset = ExerciseBase.objects.all()
@@ -369,6 +439,10 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
 class DeletionLogViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise deletion logs
+
+    This lists objects that where deleted on a wger instance and should be deleted
+    as well when performing a sync (e.g. because many exercises where submitted at
+    once or an image was uploaded that hasn't a CC license)
     """
     queryset = DeletionLog.objects.all()
     serializer_class = DeletionLogSerializer

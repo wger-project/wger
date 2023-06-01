@@ -21,8 +21,8 @@ import sys
 from datetime import timedelta
 
 # wger
+from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
-
 
 """
 This file contains the global settings that don't usually need to be changed.
@@ -30,7 +30,6 @@ For a full list of options, visit:
     https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -83,14 +82,14 @@ INSTALLED_APPS = (
     # Form renderer helper
     'crispy_forms',
     'crispy_bootstrap5',
-    # note: bs3 can be deleted when we solve https://github.com/wger-project/wger/issues/1127
-    'crispy_bootstrap3',
 
     # REST-API
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
@@ -151,7 +150,6 @@ AUTHENTICATION_BACKENDS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'wger.utils.context_processor.processor',
@@ -172,8 +170,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-            False
+            'debug': False
         },
     },
 ]
@@ -256,7 +253,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -448,9 +445,27 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
         'login': '10/min'
-    }
+    },
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # yapf: enable
+
+# Api docs
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'wger',
+    'SERVERS': [
+        {'url': '/', 'description': 'This server'},
+        {'url': 'https://wger.de', 'description': 'The "official" upstream wger instance'},
+    ],
+    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
+    'VERSION': get_version(),
+    'SERVE_INCLUDE_SCHEMA': True,
+    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'COMPONENT_SPLIT_REQUEST': True
+}
 
 #
 # Django Rest Framework SimpleJWT
@@ -472,7 +487,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
