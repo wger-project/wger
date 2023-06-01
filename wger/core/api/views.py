@@ -59,8 +59,8 @@ from wger.core.api.serializers import (
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
-    UserLoginSerializer,
     RoutineWeightUnitSerializer,
+    UserLoginSerializer,
     UserprofileSerializer,
     UserRegistrationSerializer,
 )
@@ -262,10 +262,10 @@ class UserAPILoginView(viewsets.ViewSet):
         parameters=[],
         responses={
             status.HTTP_200_OK:
-                inline_serializer(
-                    name='loginSerializer',
-                    fields={'token': CharField()},
-                ),
+            inline_serializer(
+                name='loginSerializer',
+                fields={'token': CharField()},
+            ),
         }
     )
     def post(self, request):
