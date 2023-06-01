@@ -59,8 +59,8 @@ from wger.core.api.serializers import (
     LanguageSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
+    UserLoginSerializer,
     RoutineWeightUnitSerializer,
-    UserApiSerializer,
     UserprofileSerializer,
     UserRegistrationSerializer,
 )
@@ -252,42 +252,35 @@ class UserAPILoginView(viewsets.ViewSet):
     """
     permission_classes = (AllowAny, )
     queryset = User.objects.all()
-    serializer_class = UserApiSerializer
+    serializer_class = UserLoginSerializer
     throttle_scope = 'login'
 
     def get(self, request):
-        return Response(
-            data={
-                'message': "You must send a 'username' and 'password' via POST",
-                'warning': "This endpoint is deprecated."
-            },
-            headers={
-                "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
-            },
-        )
+        return Response(data={'message': "You must send a 'username' and 'password' via POST"})
 
-    @staticmethod
     @extend_schema(
         parameters=[],
         responses={
             status.HTTP_200_OK:
-            inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
+                inline_serializer(
+                    name='loginSerializer',
+                    fields={'token': CharField()},
+                ),
         }
     )
     def post(self, request):
-        data = request.data
-        serializer = self.serializer_class(data=data)
+        serializer = self.serializer_class(data=request.data, request=request)
         serializer.is_valid(raise_exception=True)
-        username = serializer.data["username"]
 
-        # Try to retrieve the user
-        form = UserLoginForm(data=serializer.data, authenticate_on_clean=False)
+        # This is a bit hacky, but saving the email or username as the username
+        # allows us to simply use the helpers.EmailAuthBackend backend which also
+        # uses emails
+        username = serializer.data.get('username', serializer.data.get('email', None))
+        data = {'username': username, 'password': serializer.data['password']}
+        form = UserLoginForm(data=data, authenticate_on_clean=False)
 
         if not form.is_valid():
-            logger.info(f"Tried logging via API with unknown user: '{username}'")
+            logger.info(f"Tried logging via API with unknown user : '{username}'")
             return Response(
                 {'detail': 'Username or password unknown'},
                 status=status.HTTP_401_UNAUTHORIZED,
@@ -296,10 +289,11 @@ class UserAPILoginView(viewsets.ViewSet):
         form.authenticate(request)
         token = create_token(form.get_user())
         return Response(
-            data={
-                'token': token.key,
-            },
+            data={'token': token.key},
             status=status.HTTP_200_OK,
+            headers={
+                "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
+            }
         )
 
 
