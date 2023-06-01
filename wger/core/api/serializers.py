@@ -37,6 +37,7 @@ from wger.core.models import (
     WeightUnit,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
