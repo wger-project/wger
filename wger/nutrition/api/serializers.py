@@ -295,9 +295,11 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     """
     Nutritional plan info serializer
     """
-
     meals = MealInfoSerializer(source='meal_set', many=True)
-    get_nutritional_values = NutritionalValuesSerializer(read_only=True)
+    get_nutritional_values = NutritionalValuesSerializer(
+        source='get_nutritional_values.total',
+        read_only=True
+    )
 
     class Meta:
         model = NutritionPlan
