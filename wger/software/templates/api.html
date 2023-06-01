@@ -6,18 +6,15 @@
 {% block title %}REST API{% endblock %}
 
 {% block content %}
-    <p>
-        wger provides a full REST API to all database objects:
-        <a href="{% url 'api-root' %}" rel="nofollow">{% url 'api-root' %}</a>
-    </p>
 
     <h3>Documentation</h3>
     <p>The API is documented with openAPI:</p>
 
     <ul>
-        <li><a href="{% url 'api-root' %}">Browse the API</a></li>
-        <li><a href="{% url 'api-swagger-ui' %}">Swagger UI</a></li>
+        <li><a href="{% url 'api-root' %}">Browsable API</a></li>
         <li><a href="{% url 'api-redoc' %}">Redoc</a></li>
+        <li><a href="{% url 'api-swagger-ui' %}">Swagger UI</a></li>
+        <li><a href="{% url 'schema' %}">Download openAPI 3 schema file</a></li>
     </ul>
 
 
@@ -219,12 +216,8 @@ curl \
 
 {% block sidebar %}
     <div class="alert alert-info" style="margin-top:1em;">
-        If you plan on using the API,
-        <a href="https://github.com/wger-project/wger" class="alert-link">
-            we'd love to hear from  you
-        </a>.
+        Note that the open api documentation is very new and things are bound
+        to change somewhat. If you plan to use it to generate a client or
+        similar drop us a line first!
     </div>
-
-    <p><a class="btn btn-light"  href="{% url 'schema' %}">Download openAPI3 schema file</a></p>
-    </p>
 {% endblock %}
