@@ -357,7 +357,7 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     Read-only info API endpoint for nutrition plan objects. Returns nested data
     structures for more easy parsing.
     """
-    serializer_class = NutritionPlanInfoSerializer(read_only=True)
+    serializer_class = NutritionPlanInfoSerializer
 
 
 class MealViewSet(WgerOwnerObjectModelViewSet):
