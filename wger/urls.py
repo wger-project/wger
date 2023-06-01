@@ -53,7 +53,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 # admin.autodiscover()
 
 #
@@ -94,7 +93,7 @@ router.register(
     basename='setting-repetition-unit'
 )
 router.register(
-    r'setting-weightunit', core_api_views.WeightUnitViewSet, basename='setting-weight-unit'
+    r'setting-weightunit', core_api_views.RoutineWeightUnitViewSet, basename='setting-weight-unit'
 )
 
 # Exercises app

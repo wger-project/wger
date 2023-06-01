@@ -62,7 +62,7 @@ from wger.core.api.serializers import (
     UserApiSerializer,
     UserprofileSerializer,
     UserRegistrationSerializer,
-    WeightUnitSerializer,
+    RoutineWeightUnitSerializer,
 )
 from wger.core.forms import UserLoginForm
 from wger.core.models import (
@@ -75,7 +75,6 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
-
 
 logger = logging.getLogger(__name__)
 
@@ -170,7 +169,7 @@ class ApplicationVersionView(viewsets.ViewSet):
     """
     Returns the application's version
     """
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     @staticmethod
     @extend_schema(
@@ -187,7 +186,7 @@ class PermissionView(viewsets.ViewSet):
     """
     Checks whether the user has a django permission
     """
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     @staticmethod
     @extend_schema(
@@ -201,13 +200,13 @@ class PermissionView(viewsets.ViewSet):
         ],
         responses={
             201:
-            inline_serializer(name='PermissionResponse', fields={
-                'result': BooleanField(),
-            }),
+                inline_serializer(name='PermissionResponse', fields={
+                    'result': BooleanField(),
+                }),
             400:
-            OpenApiResponse(
-                description="Please pass a permission name in the 'permission' parameter"
-            ),
+                OpenApiResponse(
+                    description="Please pass a permission name in the 'permission' parameter"
+                ),
         },
     )
     def get(request):
@@ -230,7 +229,7 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
     Returns the minimum required version of flutter app to access this server
     such as 1.4.2 or 3.0.0
     """
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     @staticmethod
     @extend_schema(
@@ -250,7 +249,7 @@ class UserAPILoginView(viewsets.ViewSet):
 
     Note that it is recommended to use token authorization instead.
     """
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
     queryset = User.objects.all()
     serializer_class = UserApiSerializer
     throttle_scope = 'login'
@@ -271,10 +270,10 @@ class UserAPILoginView(viewsets.ViewSet):
         parameters=[],
         responses={
             status.HTTP_200_OK:
-            inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
+                inline_serializer(
+                    name='loginSerializer',
+                    fields={'token': CharField()},
+                ),
         }
     )
     def post(self, request):
@@ -307,7 +306,7 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
     """
     API endpoint
     """
-    permission_classes = (AllowRegisterUser, )
+    permission_classes = (AllowRegisterUser,)
     serializer_class = UserRegistrationSerializer
 
     def get_queryset(self):
@@ -320,10 +319,10 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         parameters=[],
         responses={
             status.HTTP_200_OK:
-            inline_serializer(
-                name='loginSerializer',
-                fields={'token': CharField()},
-            ),
+                inline_serializer(
+                    name='loginSerializer',
+                    fields={'token': CharField()},
+                ),
         }
     )
     def post(self, request):
@@ -370,7 +369,7 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('day_of_week', )
+    filterset_fields = ('day_of_week',)
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
@@ -394,14 +393,14 @@ class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = RepetitionUnit.objects.all()
     serializer_class = RepetitionUnitSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
 
 
-class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
+class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for weight units objects
     """
     queryset = WeightUnit.objects.all()
-    serializer_class = WeightUnitSerializer
+    serializer_class = RoutineWeightUnitSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
