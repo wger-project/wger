@@ -102,7 +102,7 @@ All the code and the content is available on github:
 ## Translation
 Translate the app to your language on [Weblate](https://hosted.weblate.org/engage/wger/).
 
-[![translation status](https://hosted.weblate.org/widgets/wger/-/web/multi-blue.svg)](https://hosted.weblate.org/engage/wger/)
+[![translation status](https://hosted.weblate.org/widgets/wger/-/multi-blue.svg)](https://hosted.weblate.org/engage/wger/)
 
 
 ## License
