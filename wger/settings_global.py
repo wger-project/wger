@@ -24,7 +24,6 @@ from datetime import timedelta
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -172,7 +171,7 @@ TEMPLATES = [
                 'django.template.loaders.app_directories.Loader',
             ],
             'debug':
-            False
+                False
         },
     },
 ]
@@ -255,7 +254,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -453,36 +452,23 @@ REST_FRAMEWORK = {
 # yapf: enable
 
 # Api docs
+# yapf: disable
 SPECTACULAR_SETTINGS = {
-    'TITLE':
-    'wger',
+    'TITLE': 'wger',
     'SERVERS': [
-        {
-            'url': '/',
-            'description': 'This server'
-        },
-        {
-            'url': 'https://wger.de',
-            'description': 'The "official" upstream wger instance'
-        },
+        {'url': '/', 'description': 'This server'},
+        {'url': 'https://wger.de', 'description': 'The "official" upstream wger instance'},
     ],
-    'DESCRIPTION':
-    'Self hosted FLOSS workout and fitness tracker',
-    'VERSION':
-    get_version(),
-    'SERVE_INCLUDE_SCHEMA':
-    True,
-    'SCHEMA_PATH_PREFIX':
-    '/api/v[0-9]',
-    'SWAGGER_UI_DIST':
-    'SIDECAR',
-    'SWAGGER_UI_FAVICON_HREF':
-    'SIDECAR',
-    'REDOC_DIST':
-    'SIDECAR',
-    'COMPONENT_SPLIT_REQUEST':
-    True
+    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
+    'VERSION': get_version(),
+    'SERVE_INCLUDE_SCHEMA': True,
+    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'COMPONENT_SPLIT_REQUEST': True
 }
+# yapf: enable
 
 #
 # Django Rest Framework SimpleJWT
@@ -504,7 +490,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
