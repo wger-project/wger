@@ -172,7 +172,7 @@ TEMPLATES = [
                 'django.template.loaders.app_directories.Loader',
             ],
             'debug':
-            False
+                False
         },
     },
 ]
