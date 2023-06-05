@@ -19,7 +19,7 @@
     "Sortable": "RubaXa/Sortable#1.15.0",
     "bootstrap": "5.3.0",
     "components-font-awesome": "5.9.0",
-    "d3": "^7.8.4",
+    "d3": "^7.8.5",
     "datatables": "^1.10.18",
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.7.0",
