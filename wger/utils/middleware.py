@@ -65,11 +65,10 @@ def get_user(request):
 
         # Django didn't find a user, so create one now
         if settings.WGER_SETTINGS['ALLOW_GUEST_USERS'] and \
-                request.method == 'GET' and \
-                create_user and not user.is_authenticated:
-
+            request.method == 'GET' and \
+            create_user and not user.is_authenticated:
             logger.debug('creating a new guest user now')
-            user = create_temporary_user()
+            user = create_temporary_user(request)
             django_login(request, user)
 
         request._cached_user = user
@@ -116,9 +115,7 @@ class JavascriptAJAXRedirectionMiddleware(MiddlewareMixin):
     """
 
     def process_response(self, request, response):
-
         if request.META.get('HTTP_X_WGER_NO_MESSAGES') and b'has-error' not in response.content:
-
             logger.debug('Sending X-wger-redirect')
             response['X-wger-redirect'] = request.path
             response.content = request.path

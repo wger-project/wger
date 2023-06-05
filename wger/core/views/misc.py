@@ -88,7 +88,7 @@ def demo_entries(request):
         # If we reach this from a page that has no user created by the
         # middleware, do that now
         if not request.user.is_authenticated:
-            user = create_temporary_user()
+            user = create_temporary_user(request)
             django_login(request, user)
 
         # OK, continue
@@ -157,7 +157,6 @@ def dashboard(request):
     context['weekdays'] = week_day_result
 
     if plan:
-
         # Load the nutritional info
         context['nutritional_info'] = plan.get_nutritional_values()
 

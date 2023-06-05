@@ -19,6 +19,7 @@ import random
 # Django
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from django.http import HttpRequest
 from django.urls import reverse
 
 # wger
@@ -183,14 +184,16 @@ class DemoUserTestCase(WgerTestCase):
         Tests that old demo users are deleted by the management command
         """
 
+        request = HttpRequest()
+
         # Create some new demo users
         for i in range(0, 15):
-            create_temporary_user()
+            create_temporary_user(request)
         User.objects.filter().update(date_joined='2013-01-01 00:00+01:00')
 
         # These ones keep the date_joined field
-        create_temporary_user()
-        create_temporary_user()
+        create_temporary_user(request)
+        create_temporary_user(request)
 
         # Check and delete
         self.assertEqual(self.count_temp_users(), 18)

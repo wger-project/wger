@@ -17,6 +17,7 @@ from unittest import TestCase
 
 # Django
 from django.contrib.auth.models import User
+from django.http import HttpRequest
 from django.urls import (
     reverse,
     reverse_lazy,
@@ -266,6 +267,7 @@ class UserDetailPageTestCase2(WgerAccessTestCase):
 
 
 class UserTrustworthinessTestCase(WgerTestCase):
+    request = HttpRequest()
 
     def test_temporary_user_no_permissions(self):
         """
@@ -274,7 +276,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         """
 
         # Get a temporary user
-        user = create_temporary_user()
+        user = create_temporary_user(self.request)
 
         # User does not pass trustworthiness check
         self.assertFalse(user.userprofile.is_trustworthy)
@@ -285,7 +287,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         """
 
         # Get a temporary user
-        user = create_temporary_user()
+        user = create_temporary_user(self.request)
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = True
         user.date_joined = datetime.datetime.now()
@@ -299,7 +301,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         """
 
         # Get a temporary user
-        user = create_temporary_user()
+        user = create_temporary_user(self.request)
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = False
         user.date_joined = datetime.datetime.now() - datetime.timedelta(days=30)
@@ -313,7 +315,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         """
 
         # Get a temporary user
-        user = create_temporary_user()
+        user = create_temporary_user(self.request)
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = True
         user.date_joined = datetime.datetime.now() - datetime.timedelta(days=30)
@@ -327,7 +329,7 @@ class UserTrustworthinessTestCase(WgerTestCase):
         """
 
         # Get a temporary user
-        user = create_temporary_user()
+        user = create_temporary_user(self.request)
         user.is_superuser = True
         user.userprofile.is_temporary = False
         user.userprofile.email_verified = False
