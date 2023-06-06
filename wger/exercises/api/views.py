@@ -283,7 +283,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
             'term',
             OpenApiTypes.STR,
             OpenApiParameter.QUERY,
-            description='The name of the exercise to search"',
+            description='The name of the exercise to search',
             required=True,
         ),
         OpenApiParameter(

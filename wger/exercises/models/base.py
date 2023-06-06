@@ -35,6 +35,11 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
+from wger.exercises.managers import (
+    ExerciseBaseManagerAll,
+    ExerciseBaseManagerNoTranslations,
+    ExerciseBaseManagerTranslations,
+)
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -52,6 +57,13 @@ from .variation import Variation
 class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise base
+    """
+
+    objects = ExerciseBaseManagerTranslations()
+    no_translations = ExerciseBaseManagerNoTranslations()
+    all = ExerciseBaseManagerAll()
+    """
+    Custom Query Manager
     """
 
     uuid = models.UUIDField(
