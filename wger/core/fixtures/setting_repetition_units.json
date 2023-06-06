@@ -40,5 +40,12 @@
             "name": "Kilometers"
         },
         "model": "core.repetitionunit"
+    },
+    {
+        "model": "core.repetitionunit",
+        "pk": 7,
+        "fields": {
+            "name": "Max Reps"
+        }
     }
 ]
