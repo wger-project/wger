@@ -22,6 +22,7 @@ from typing import (
 )
 
 # Django
+from django.core.checks import Warning
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
@@ -146,6 +147,24 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         Returns the canonical URL to view an exercise
         """
         return reverse('exercise:exercise:view-base', kwargs={'pk': self.id})
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super().check(**kwargs)
+
+        no_translations = cls.no_translations.all().count()
+        if no_translations:
+            errors.append(
+                Warning(
+                    'exercises without translations',
+                    hint=f'There are {no_translations} exercises without translations, this will '
+                    'cause problems! You can output or delete them with "python manage.py '
+                    'exercises-health-check"',
+                    id='wger.W002',
+                )
+            )
+
+        return errors
 
     #
     # Own methods
