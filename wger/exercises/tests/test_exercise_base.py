@@ -133,3 +133,24 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
 
         exercise = ExerciseBase.objects.get(pk=self.pk)
         self.assertEqual(exercise.license_id, CC_BY_SA_4_ID)
+
+
+class ExerciseBaseTranslationHandlingTestCase(WgerTestCase):
+    """
+    Test the logic used to handle bases without translations
+    """
+
+    def setUp(self):
+        super().setUp()
+        Exercise.objects.get(pk=1).delete()
+        Exercise.objects.get(pk=5).delete()
+
+    def test_managers(self):
+        self.assertEqual(ExerciseBase.objects.all().count(), 7)
+        self.assertEqual(ExerciseBase.no_translations.all().count(), 1)
+        self.assertEqual(ExerciseBase.all.all().count(), 8)
+
+    def test_checks(self):
+        out = ExerciseBase.check()
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0].id, 'wger.W002')

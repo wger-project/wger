@@ -24,6 +24,7 @@ class ExerciseConfig(AppConfig):
 
     def ready(self):
         import wger.exercises.signals
+
         from actstream import registry
         registry.register(self.get_model('Alias'))
         registry.register(self.get_model('Exercise'))
