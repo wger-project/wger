@@ -40,7 +40,7 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -111,9 +111,9 @@ INSTALLED_APPS = (
 
     # Fontawesome
     'fontawesomefree',
-)
+]
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -139,7 +139,7 @@ MIDDLEWARE = (
 
     # Django Axes
     'axes.middleware.AxesMiddleware',  # should be the last one in the list
-)
+]
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
