@@ -40,7 +40,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
-import openfoodfacts as off
+import openfoodfacts
 
 # wger
 from wger.core.models import Language
@@ -459,9 +459,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         Searches OFF by barcode and creates a local ingredient from the result
         """
         # wger
-        from wger.nutrition.models.off import extract_info_from_off
+        from wger.nutrition.off import extract_info_from_off
 
-        result = off.products.get_product(code)
+        result = openfoodfacts.products.get_product(code)
         if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
             return None
 
