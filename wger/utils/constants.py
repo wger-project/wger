@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -50,18 +48,19 @@ PAGINATION_OBJECTS_PER_PAGE = 25
 PAGINATION_MAX_TOTAL_PAGES = 10
 PAGINATION_PAGES_AROUND_CURRENT = 5
 
-# Minimum edit distance from all existing exercises for a new exercise submission
-# to be accepted
-MIN_EDIT_DISTANCE_THRESHOLD = 2
-
 # Important license IDs
 CC_BY_SA_4_ID = 2
 CC_BY_SA_3_LICENSE_ID = 1
+CC_ODBL_LICENSE_ID = 5
 
-# Default language
+# Default/fallback language
 ENGLISH_SHORT_NAME = 'en'
 
 # Possible values for ingredient image download
 DOWNLOAD_INGREDIENT_WGER = 'WGER'
 DOWNLOAD_INGREDIENT_OFF = 'OFF'
 DOWNLOAD_INGREDIENT_OPTIONS = (DOWNLOAD_INGREDIENT_WGER, DOWNLOAD_INGREDIENT_OFF, None)
+
+# OFF Api
+OFF_SEARCH_PRODUCT_FOUND = 1
+OFF_SEARCH_PRODUCT_NOT_FOUND = 0

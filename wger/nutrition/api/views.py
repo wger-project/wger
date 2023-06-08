@@ -17,6 +17,7 @@
 
 # Standard Library
 import datetime
+import logging
 
 # Django
 from django.conf import settings
@@ -73,12 +74,14 @@ from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
 
+logger = logging.getLogger(__name__)
+
+
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for ingredient objects. For a read-only endpoint with all
     the information of an ingredient, see /api/v2/ingredientinfo/
     """
-    queryset = Ingredient.objects.accepted()
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -104,6 +107,21 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        """H"""
+        qs = Ingredient.objects.accepted()
+
+        code = self.request.query_params.get('code')
+        if not code:
+            return qs
+
+        qs = qs.filter(code=code)
+        if qs.count() == 0:
+            logger.debug('code not found locally, fetching code from off')
+            Ingredient.fetch_ingredient_from_off(code)
+
+        return qs
 
     @action(detail=True)
     def get_values(self, request, pk):
