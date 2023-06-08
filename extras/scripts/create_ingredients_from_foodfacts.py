@@ -20,6 +20,8 @@ import os
 import django
 import sys
 
+from wger.nutrition.models.off import extract_info_from_off
+
 sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
@@ -138,76 +140,45 @@ print('***********************************')
 print(languages.keys())
 print('***********************************')
 
+required_top_level = [
+    'product_name',
+    'code',
+    'nutriments'
+]
+required_nutriments = [
+    'energy-kcal_100g',
+    'proteins_100g',
+    'carbohydrates_100g',
+    'sugars_100g',
+    'fat_100g',
+    'saturated-fat_100g'
+]
+
 for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'complete': 1}):
-    lang = product['lang']
 
-    main_details = ['product_name', 'code']
-    if all(req in product for req in main_details):
-        name = product['product_name']
-        code = product['code']
-
-    # Some products have no name or name is too long, skipping
-    if not name or len(name) > 200:
-        # print(f'-> skipping due to name requirements')
+    if not all(req in product for req in required_top_level):
         counter['skipped'] += 1
         continue
 
-    # print(f'Processing "{name}"...')
-
-    required = ['energy-kcal_100g',
-                'proteins_100g',
-                'carbohydrates_100g',
-                'sugars_100g',
-                'fat_100g',
-                'saturated-fat_100g']
-    if 'nutriments' in product and all(req in product['nutriments'] for req in required):
-        energy = product['nutriments']['energy-kcal_100g']
-        protein = product['nutriments']['proteins_100g']
-        carbs = product['nutriments']['carbohydrates_100g']
-        sugars = product['nutriments']['sugars_100g']
-        fat = product['nutriments']['fat_100g']
-        saturated = product['nutriments']['saturated-fat_100g']
-    else:
+    if not all(req in product['nutriments'] for req in required_nutriments):
         # print(f'-> skipping due to required nutriments')
         counter['skipped'] += 1
         continue
 
-    # these are optional
-    sodium = product['nutriments'].get('sodium_100g', None)
-    fibre = product['nutriments'].get('fiber_100g', None)
-    common_name = product.get('generic_name', None)
-    brand = product.get('brands', None)
+    ingredient_data = extract_info_from_off(product, languages[product['lang']])
 
-    if common_name and len(common_name) > 200:
+    # Some products have no name or name is too long, skipping
+    name = ingredient_data['name']
+    if not name or len(name) > 200:
+        counter['skipped'] += 1
         continue
 
-    source_name = Source.OPEN_FOOD_FACTS.value
-    source_url = f'https://world.openfoodfacts.org/api/v2/product/{code}.json'
-    authors = ', '.join(product.get('editors_tags', ['open food facts']))
+    common_name = ingredient_data['common_name']
+    if not common_name or len(common_name) > 200:
+        counter['skipped'] += 1
+        continue
 
-    ingredient_data = {
-        'language': languages[lang],
-        'name': name,
-        'energy': energy,
-        'protein': protein,
-        'carbohydrates': carbs,
-        'carbohydrates_sugar': sugars,
-        'fat': fat,
-        'fat_saturated': saturated,
-        'fibres': fibre,
-        'sodium': sodium,
-        'code': code,
-        'source_name': source_name,
-        'source_url': source_url,
-        'common_name': common_name,
-        'brand': brand,
-        'status': 2,
-        'license_id': 5,
-        'license_author': authors,
-        'license_title': name,
-        'license_object_url': f'https://world.openfoodfacts.org/product/{code}/'
-    }
-
+    #
     # Add entries as new products
     if MODE == Mode.INSERT:
         bulk_update_bucket.append(Ingredient(**ingredient_data))
@@ -239,7 +210,10 @@ for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'compl
             # Update an existing product (look-up key is the code) or create a new
             # one. While this might not be the most efficient query (there will always
             # be a SELECT first), it's ok because this script is run very rarely.
-            obj, created = Ingredient.objects.update_or_create(code=code, defaults=ingredient_data)
+            obj, created = Ingredient.objects.update_or_create(
+                code=ingredient_data['code'],
+                defaults=ingredient_data
+            )
 
             if created:
                 counter['new'] += 1

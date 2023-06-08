@@ -88,13 +88,13 @@ class MockLicenseResponse:
 
     def __init__(self):
         self.status_code = 200
-        self.content = b'1234'
+        self.content = b''
 
     # yapf: disable
     @staticmethod
     def json():
         return {
-            "count": 24,
+            "count": 4,
             "next": None,
             "previous": None,
             "results": [
@@ -109,6 +109,12 @@ class MockLicenseResponse:
                     "full_name": " Another cool license 2.1",
                     "short_name": "ACL 2.1",
                     "url": "https://another-cool-license.org/acl-2.1"
+                },
+                {
+                    "id": 5,
+                    "url": "https://another-cool-license.org/acl-2.2",
+                    "full_name": "Another cool license 2.2",
+                    "short_name": "ACL 2.2"
                 },
                 {
                     "id": 3,
@@ -544,7 +550,7 @@ class TestSyncMethods(WgerTestCase):
 
     @patch('requests.get', return_value=MockLicenseResponse())
     def test_license_sync(self, mock_request):
-        self.assertEqual(License.objects.count(), 2)
+        self.assertEqual(License.objects.count(), 3)
         self.assertEqual(License.objects.get(pk=1).url, '')
 
         sync_licenses(lambda x: x)
@@ -553,12 +559,14 @@ class TestSyncMethods(WgerTestCase):
             headers=wger_headers(),
         )
         self.assertEqual(
-            License.objects.get(pk=1).url, 'http://creativecommons.org/licenses/aca/fl/4.0/'
+            License.objects.get(pk=1).url,
+            'http://creativecommons.org/licenses/aca/fl/4.0/',
         )
         self.assertEqual(
-            License.objects.get(pk=3).full_name, 'Creative Commons Attribution Share Alike 4'
+            License.objects.get(pk=6).full_name,
+            'Creative Commons Attribution Share Alike 4',
         )
-        self.assertEqual(License.objects.count(), 3)
+        self.assertEqual(License.objects.count(), 4)
 
     @patch('requests.get', return_value=MockCategoryResponse())
     def test_categories_sync(self, mock_request):

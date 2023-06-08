@@ -17,15 +17,21 @@
 import datetime
 import json
 from decimal import Decimal
+from unittest.mock import patch
 
 # Django
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
+# Third Party
+from rest_framework import status
+
 # wger
 from wger.core.models import Language
 from wger.core.tests import api_base_test
+from wger.core.tests.api_base_test import ApiBaseTestCase
 from wger.core.tests.base_testcase import (
+    BaseTestCase,
     WgerAddTestCase,
     WgerDeleteTestCase,
     WgerEditTestCase,
@@ -35,7 +41,11 @@ from wger.nutrition.models import (
     Ingredient,
     Meal,
 )
-from wger.utils.constants import NUTRITION_TAB
+from wger.utils.constants import (
+    NUTRITION_TAB,
+    OFF_SEARCH_PRODUCT_FOUND,
+    OFF_SEARCH_PRODUCT_NOT_FOUND,
+)
 
 
 class IngredientRepresentationTestCase(WgerTestCase):
@@ -88,7 +98,10 @@ class EditIngredientTestCase(WgerEditTestCase):
         """
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=1)
-            self.assertEqual(ingredient.update_date, datetime.date.today())
+            self.assertEqual(
+                ingredient.update_date.replace(microsecond=0),
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+            )
 
 
 class AddIngredientTestCase(WgerAddTestCase):
@@ -119,7 +132,10 @@ class AddIngredientTestCase(WgerAddTestCase):
         """
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
-            self.assertEqual(ingredient.creation_date, datetime.date.today())
+            self.assertEqual(
+                ingredient.creation_date.replace(microsecond=0),
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+            )
             self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
@@ -439,3 +455,94 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = False
     overview_cached = True
     data = {'language': 1, 'license': 2}
+
+
+class IngredientModelTestCase(WgerTestCase):
+    """
+    Tests the ingredient model functions
+    """
+
+    off_response = {
+        'status': OFF_SEARCH_PRODUCT_FOUND,
+        'product': {
+            'code': '1234',
+            'lang': 'de',
+            'product_name': 'Foo with chocolate',
+            'generic_name': 'Foo with chocolate, 250g package',
+            'brands': 'The bar company',
+            'editors_tags': ['open food facts', 'MrX'],
+            'nutriments': {
+                'energy-kcal_100g': 120,
+                'proteins_100g': 10,
+                'carbohydrates_100g': 20,
+                'sugars_100g': 30,
+                'fat_100g': 40,
+                'saturated-fat_100g': 11,
+                'sodium_100g': 5,
+                'fiber_100g': None
+            },
+        }
+    }
+
+    off_response_no_results = {
+        'status': OFF_SEARCH_PRODUCT_NOT_FOUND,
+        'status_verbose': 'product not found'
+    }
+
+    @patch('openfoodfacts.products.get_product')
+    def test_fetch_from_off_success(self, mock_get_product):
+        """
+        Tests creating an ingredient from OFF
+        """
+        mock_get_product.return_value = self.off_response
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+
+        self.assertEqual(ingredient.name, 'Foo with chocolate')
+        self.assertEqual(ingredient.code, '1234')
+        self.assertEqual(ingredient.energy, 120)
+        self.assertEqual(ingredient.protein, 10)
+        self.assertEqual(ingredient.carbohydrates, 20)
+        self.assertEqual(ingredient.fat, 40)
+        self.assertEqual(ingredient.fat_saturated, 11)
+        self.assertEqual(ingredient.sodium, 5)
+        self.assertEqual(ingredient.fibres, None)
+        self.assertEqual(ingredient.brand, 'The bar company')
+        self.assertEqual(ingredient.license_author, 'open food facts, MrX')
+
+    @patch('openfoodfacts.products.get_product')
+    def test_fetch_from_off_no_results(self, mock_get_product):
+        """
+        Tests creating an ingredient from OFF
+        """
+        mock_get_product.return_value = self.off_response_no_results
+
+        ingredient = Ingredient.fetch_ingredient_from_off('1234')
+        self.assertIsNone(ingredient)
+
+
+class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
+
+    url = '/api/v2/ingredient/'
+
+    @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
+    def test_search_existing_code(self, mock_fetch_from_off):
+        """
+        Test that when a code already exists, no off sync happens
+        """
+        response = self.client.get(self.url + '?code=1234567890987654321')
+        mock_fetch_from_off.assert_not_called()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 1)
+
+    @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
+    def test_search_new_code(self, mock_fetch_from_off):
+        """
+        Test that when a code isn't present, it will be fetched
+        """
+        response = self.client.get(self.url + '?code=122333444455555666666')
+        mock_fetch_from_off.assert_called_with('122333444455555666666')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 0)

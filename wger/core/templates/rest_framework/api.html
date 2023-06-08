@@ -34,11 +34,11 @@
 {#                             #}
 <div>
 
-    <div class="request-info" style="clear: both" aria-label="{% trans "request info" %}">
+    <div class="request-info" style="clear: both">
         <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
     </div>
 
-    <div class="response-info" aria-label="{% trans "response info" %}">
+    <div class="response-info">
         <pre class="prettyprint">
             <span class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>
                 {% for key, val in response_headers|items %}
