@@ -90,6 +90,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'carbohydrates',
         'carbohydrates_sugar',
         'creation_date',
+        'update_date',
         'energy',
         'fat',
         'fat_saturated',

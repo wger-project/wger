@@ -98,7 +98,10 @@ class EditIngredientTestCase(WgerEditTestCase):
         """
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=1)
-            self.assertEqual(ingredient.update_date, datetime.date.today())
+            self.assertEqual(
+                ingredient.update_date.replace(microsecond=0),
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+            )
 
 
 class AddIngredientTestCase(WgerAddTestCase):
@@ -129,7 +132,10 @@ class AddIngredientTestCase(WgerAddTestCase):
         """
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
-            self.assertEqual(ingredient.creation_date, datetime.date.today())
+            self.assertEqual(
+                ingredient.creation_date.replace(microsecond=0),
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+            )
             self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
