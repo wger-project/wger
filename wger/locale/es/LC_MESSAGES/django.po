@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-04-22 02:47+0000\n"
-"Last-Translator: Sergio Varela <sergitroll9@gmail.com>\n"
+"PO-Revision-Date: 2023-06-11 13:50+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1064,11 +1064,11 @@ msgstr "El equipo de %(site_name)s"
 
 #: core/templates/rest_framework/api.html:37
 msgid "request info"
-msgstr ""
+msgstr "solicitar información"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
-msgstr ""
+msgstr "información de la respuesta"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
@@ -2128,10 +2128,8 @@ msgid "Biceps"
 msgstr "Bíceps"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
-msgstr "Peso corporal"
+msgstr "Peso"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2174,10 +2172,8 @@ msgid "Kilometers"
 msgstr "Kilómetros"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Kilómetros"
+msgstr "Kilómetros por hora"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2197,7 +2193,7 @@ msgstr "Millas"
 
 #: i18n.tpl:24
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Millas por hora"
 
 #: i18n.tpl:25
 msgid "Minutes"
@@ -2205,7 +2201,7 @@ msgstr "Minutos"
 
 #: i18n.tpl:26
 msgid "Plates"
-msgstr ""
+msgstr "Platos"
 
 #: i18n.tpl:27
 msgid "Pull-up bar"
@@ -3873,35 +3869,27 @@ msgstr "Sí, eliminar"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "El título original de este objeto, si está disponible"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Enlace al objeto original, si está disponible"
 
 #: utils/models.py:63
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
-msgstr "Autor"
+msgstr "Autor(es)"
 
 #: utils/models.py:67
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Si no eres el autor, ingresa el nombre del mismo o la fuente. Es necesario "
-"para algunas licencias, ej.: CC-BY-SA."
+msgstr "Si no es usted el autor, introduce aquí el nombre o la fuente."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Enlace al perfil del autor, si está disponible"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Enlace a la fuente original, si se trata de una obra derivada"
 
 #: utils/models.py:79
 msgid ""
@@ -3909,6 +3897,9 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Tenga en cuenta que una obra derivada es aquella que no sólo se basa en una "
+"obra anterior, sino que además contiene suficiente contenido nuevo y "
+"creativo como para tener derecho a sus propios derechos de autor."
 
 #: utils/models.py:128
 msgid "Pending"
