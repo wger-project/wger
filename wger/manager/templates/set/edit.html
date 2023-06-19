@@ -19,7 +19,7 @@
 
     {% csrf_token %}
     {% for formset in formsets %}
-        {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset helper=helper %}
+        {% include 'set/formset.html' with base=formset.base formset=formset.formset helper=helper %}
     {% endfor %}
 
      <input type="submit" class="btn btn-primary btn-success btn-block" value="{% translate 'Update' %}">

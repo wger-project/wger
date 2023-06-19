@@ -464,9 +464,19 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         result = openfoodfacts.products.get_product(code)
         if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
             return None
-
         product = result['product']
-        ingredient_data = extract_info_from_off(product, load_language(product['lang']))
+
+        try:
+            ingredient_data = extract_info_from_off(product, load_language(product['lang']))
+        except KeyError:
+            return None
+
+        if not ingredient_data['name']:
+            return
+
+        if not ingredient_data['common_name']:
+            return
+
         ingredient = cls(**ingredient_data)
         ingredient.save()
         return ingredient

@@ -19,10 +19,30 @@ from wger.utils.constants import CC_ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
 
+OFF_REQUIRED_TOP_LEVEL = ['product_name', 'code', 'nutriments']
+OFF_REQUIRED_NUTRIMENTS = [
+    'energy-kcal_100g', 'proteins_100g', 'carbohydrates_100g', 'sugars_100g', 'fat_100g',
+    'saturated-fat_100g'
+]
+
+
 def extract_info_from_off(product, language):
+
+    if not all(req in product for req in OFF_REQUIRED_TOP_LEVEL):
+        raise KeyError(f'Missing required top-level key')
+
+    if not all(req in product['nutriments'] for req in OFF_REQUIRED_NUTRIMENTS):
+        raise KeyError(f'Missing required nutrition key')
 
     # Basics
     name = product['product_name']
+    if len(name) > 200:
+        name = name[:200]
+
+    common_name = product.get('generic_name', None)
+    if len(common_name) > 200:
+        common_name = common_name[:200]
+
     code = product['code']
     energy = product['nutriments']['energy-kcal_100g']
     protein = product['nutriments']['proteins_100g']
@@ -34,7 +54,6 @@ def extract_info_from_off(product, language):
     # these are optional
     sodium = product['nutriments'].get('sodium_100g', None)
     fibre = product['nutriments'].get('fiber_100g', None)
-    common_name = product.get('generic_name', None)
     brand = product.get('brands', None)
 
     # License and author info
