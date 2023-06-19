@@ -16,6 +16,7 @@
 
 # Standard Library
 import logging
+from copy import deepcopy
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -42,6 +43,8 @@ from django.views.generic import (
     UpdateView,
 )
 
+from django.db import transaction
+
 # Third Party
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -58,7 +61,7 @@ from wger.nutrition.consts import (
     MEALITEM_WEIGHT_GRAM,
     MEALITEM_WEIGHT_UNIT,
 )
-from wger.nutrition.models import NutritionPlan
+from wger.nutrition.models import NutritionPlan, Meal, MealItem
 from wger.utils.generic_views import (
     WgerDeleteMixin,
     WgerFormMixin,
@@ -203,33 +206,40 @@ def copy(request, pk):
     Copy the nutrition plan
     """
 
-    plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
+    orig_plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
-    # Copy plan
-    meals = plan.meal_set.all()
-
-    plan_copy = plan
-    plan_copy.pk = None
+    # make new Plan, Meal, and MealItem objects using the values for the fields from the original object
+    plan_copy = NutritionPlan(
+        user=orig_plan.user,
+        language=orig_plan.language,
+        description=orig_plan.description,
+        has_goal_calories=orig_plan.has_goal_calories
+    )
     plan_copy.save()
 
-    # Copy the meals
-    for meal in meals:
-        meal_items = meal.mealitem_set.all()
-
-        meal_copy = meal
-        meal_copy.pk = None
-        meal_copy.plan = plan_copy
+    orig_meals = orig_plan.meal_set.all()
+    for orig_meal in orig_meals:
+        meal_copy = Meal(
+            plan=plan_copy,
+            name=orig_meal.name,
+            time=orig_meal.time,
+            order=orig_meal.order
+        )
         meal_copy.save()
 
-        # Copy the individual meal entries
-        for item in meal_items:
-            item_copy = item
-            item_copy.pk = None
-            item_copy.meal = meal_copy
-            item.save()
+        orig_meal_items = orig_meal.mealitem_set.all()
+        for orig_meal_item in orig_meal_items:
+            meal_item_copy = MealItem(
+                meal=meal_copy,
+                ingredient=orig_meal_item.ingredient,
+                weight_unit=orig_meal_item.weight_unit,
+                order=orig_meal_item.order,
+                amount=orig_meal_item.amount
+            )
+            meal_item_copy.save()
 
     # Redirect
-    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
+    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan_copy.id}))
 
 
 def export_pdf(request, id, uidb64=None, token=None):

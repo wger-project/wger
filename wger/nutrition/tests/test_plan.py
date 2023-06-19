@@ -14,7 +14,7 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.urls import reverse
+from django.urls import reverse, resolve
 
 # wger
 from wger.core.tests import api_base_test
@@ -189,3 +189,41 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = True
     special_endpoints = ('nutritional_values', )
     data = {'description': 'The description', 'language': 1}
+
+
+class PlanCopyTestCase(WgerTestCase):
+
+    def test_copy_plan(self):
+        """ 
+        Tests making a copy of a meal plan
+        """
+        self.user_login()
+        orig_plan = NutritionPlan.objects.get(pk=2)
+        response = self.client.get(reverse("nutrition:plan:copy", kwargs={"pk": 2}))
+        copied_plan_pk = int(resolve(response.url).kwargs["id"])
+        copied_plan = NutritionPlan.objects.get(pk=copied_plan_pk)
+
+        # fields for each object to test for equality
+        plan_fields = ("user", "language", "description", "has_goal_calories",)
+        meal_fields = ("name", "time", "order",)
+        meal_item_fields = ("ingredient", "weight_unit", "order", "amount",)
+
+        # test each Plan object's fields are equal
+        for field in plan_fields:
+            self.assertEqual(getattr(orig_plan, field), getattr(copied_plan, field))
+
+        orig_plan_meals = orig_plan.meal_set.all()
+        copied_plan_meals = copied_plan.meal_set.all()
+        
+        for meal_cnt, orig_meal in enumerate(orig_plan_meals):
+            # test that the fields are equal for each Meal object for each Plan
+            for field in meal_fields:
+                self.assertEqual(getattr(orig_meal, field), getattr(copied_plan_meals[meal_cnt], field))
+
+            orig_plan_meal_items = orig_plan_meals[meal_cnt].mealitem_set.all()
+            copied_plan_meal_items = copied_plan_meals[meal_cnt].mealitem_set.all()
+
+            # test that the fields are equal for each MealItem object for each Meal
+            for item_cnt, orig_meal_item in enumerate(orig_plan_meal_items):
+                for field in meal_item_fields:
+                    self.assertEqual(getattr(orig_meal_item, field), getattr(copied_plan_meal_items[item_cnt], field))
