@@ -140,41 +140,21 @@ print('***********************************')
 print(languages.keys())
 print('***********************************')
 
-required_top_level = [
-    'product_name',
-    'code',
-    'nutriments'
-]
-required_nutriments = [
-    'energy-kcal_100g',
-    'proteins_100g',
-    'carbohydrates_100g',
-    'sugars_100g',
-    'fat_100g',
-    'saturated-fat_100g'
-]
-
 for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'complete': 1}):
 
-    if not all(req in product for req in required_top_level):
+    try:
+        ingredient_data = extract_info_from_off(product, languages[product['lang']])
+    except KeyError as e:
+        # print('--> KeyError while extracting info from OFF', e)
         counter['skipped'] += 1
         continue
-
-    if not all(req in product['nutriments'] for req in required_nutriments):
-        # print(f'-> skipping due to required nutriments')
-        counter['skipped'] += 1
-        continue
-
-    ingredient_data = extract_info_from_off(product, languages[product['lang']])
 
     # Some products have no name or name is too long, skipping
-    name = ingredient_data['name']
-    if not name or len(name) > 200:
+    if not ingredient_data['name']:
         counter['skipped'] += 1
         continue
 
-    common_name = ingredient_data['common_name']
-    if not common_name or len(common_name) > 200:
+    if not ingredient_data['common_name']:
         counter['skipped'] += 1
         continue
 
