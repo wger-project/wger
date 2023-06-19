@@ -208,7 +208,7 @@ class PlanCopyTestCase(WgerTestCase):
         meal_fields = ("name", "time", "order",)
         meal_item_fields = ("ingredient", "weight_unit", "order", "amount",)
 
-        # test each Plan object's fields are equal
+        # test each Plan's fields are equal
         for field in plan_fields:
             self.assertEqual(getattr(orig_plan, field), getattr(copied_plan, field))
 
@@ -216,14 +216,14 @@ class PlanCopyTestCase(WgerTestCase):
         copied_plan_meals = copied_plan.meal_set.all()
         
         for meal_cnt, orig_meal in enumerate(orig_plan_meals):
-            # test that the fields are equal for each Meal object for each Plan
+            # test that the fields are equal for each Meal for each Plan
             for field in meal_fields:
                 self.assertEqual(getattr(orig_meal, field), getattr(copied_plan_meals[meal_cnt], field))
 
             orig_plan_meal_items = orig_plan_meals[meal_cnt].mealitem_set.all()
             copied_plan_meal_items = copied_plan_meals[meal_cnt].mealitem_set.all()
 
-            # test that the fields are equal for each MealItem object for each Meal
+            # test that the fields are equal for each MealItem for each Meal
             for item_cnt, orig_meal_item in enumerate(orig_plan_meal_items):
                 for field in meal_item_fields:
                     self.assertEqual(getattr(orig_meal_item, field), getattr(copied_plan_meal_items[item_cnt], field))

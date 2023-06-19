@@ -16,7 +16,6 @@
 
 # Standard Library
 import logging
-from copy import deepcopy
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -42,8 +41,6 @@ from django.views.generic import (
     DeleteView,
     UpdateView,
 )
-
-from django.db import transaction
 
 # Third Party
 from reportlab.lib import colors
