@@ -31,7 +31,7 @@ jobs:
           context: .
           push: true
           file: extras/docker/demo/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: wger/demo:latest,wger/demo:2.2-dev,wger/apache:latest,wger/apache:2.2-dev
 
   prod:
