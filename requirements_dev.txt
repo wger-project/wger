@@ -9,7 +9,7 @@
 wheel==0.40.0
 
 # for ingredient import script from OFF
-pymongo==4.3.3
+pymongo==4.4.0
 
 # Development packages
 coverage==7.2.7
