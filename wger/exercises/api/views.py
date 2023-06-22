@@ -37,6 +37,7 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from easy_thumbnails.alias import aliases
+from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
@@ -348,7 +349,11 @@ def search(request):
             image_obj = translation.main_image
             image = image_obj.image.url
             t = get_thumbnailer(image_obj.image)
-            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+            thumbnail = None
+            try:
+                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+            except InvalidImageFormatError:
+                pass
 
         result_json = {
             'value': translation.name,

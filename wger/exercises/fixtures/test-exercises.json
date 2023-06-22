@@ -27,7 +27,7 @@
     "pk": 1,
     "model": "exercises.exercisebase",
     "fields": {
-      "uuid": "acad394936fb44819a72be2ddae2bc05",
+      "uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
       "category": 2,
       "creation_date": "2020-01-10",
       "update_date": "2020-11-01T22:10:00+01:00",
@@ -63,7 +63,7 @@
     "pk": 3,
     "model": "exercises.exercisebase",
     "fields": {
-      "uuid": "c2dc11e9b14a49cb9d11d1b9441f16f4",
+      "uuid": "c2dc11e9-b14a-49cb-9d11-d1b9441f16f4",
       "category": 3,
       "creation_date": "2020-01-10",
       "update_date": "2020-11-01T22:10:00+01:00",
@@ -141,7 +141,7 @@
     "model": "exercises.exercise",
     "fields": {
       "uuid": "9838235ce38f4ca6921e9d237d8e0813",
-      "language": 1,
+      "language": 2,
       "exercise_base": 1,
       "description": "Lorem ipsum dolor sit amet",
       "name": "An exercise",
@@ -167,7 +167,7 @@
     "model": "exercises.exercise",
     "fields": {
       "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
-      "language": 1,
+      "language": 2,
       "exercise_base": 3,
       "description": "",
       "name": "Boring exercise",
@@ -180,7 +180,7 @@
     "model": "exercises.exercise",
     "fields": {
       "uuid": "5e80d257-3ece-43a1-b01d-2b28c6c288be",
-      "language": 1,
+      "language": 2,
       "description": "",
       "exercise_base": 4,
       "license_author": "test",
@@ -235,7 +235,7 @@
     "model": "exercises.exercise",
     "fields": {
       "uuid": "e75c421a-6839-4c14-b89a-bd2023818089",
-      "language": 1,
+      "language": 2,
       "exercise_base": 5,
       "description": "",
       "name": "Needed for demo user",

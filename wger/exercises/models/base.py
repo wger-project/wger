@@ -127,7 +127,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     @property
     def total_authors_history(self):
         """
-        All athors history related to the BaseExercise.
+        All authors history related to the BaseExercise.
         """
         collect_for_models = [
             *self.exercises.all(),
@@ -159,7 +159,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                     'exercises without translations',
                     hint=f'There are {no_translations} exercises without translations, this will '
                     'cause problems! You can output or delete them with "python manage.py '
-                    'exercises-health-check"',
+                    'exercises-health-check --help"',
                     id='wger.W002',
                 )
             )
