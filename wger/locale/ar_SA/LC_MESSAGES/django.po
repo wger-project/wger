@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2022-10-17 00:56+0000\n"
-"Last-Translator: Hissabat Manager <hissabatmanager@gmail.com>\n"
+"PO-Revision-Date: 2023-06-24 20:53+0000\n"
+"Last-Translator: SlyBat <aw9gm3@gmail.com>\n"
 "Language-Team: Arabic (Saudi Arabia) <https://hosted.weblate.org/projects/"
 "wger/web/ar_SA/>\n"
 "Language: ar_SA\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -101,12 +101,12 @@ msgstr "تسجيل الدخول"
 #: core/forms.py:108 core/forms.py:209 gym/views/export.py:63
 #: gym/views/gym.py:218
 msgid "First name"
-msgstr ""
+msgstr "الاسم الاول"
 
 #: core/forms.py:109 core/forms.py:210 core/templates/user/overview.html:267
 #: gym/views/export.py:64 gym/views/gym.py:218
 msgid "Last name"
-msgstr ""
+msgstr "الاسم الاخير"
 
 #: core/forms.py:111 core/forms.py:176 core/templates/user/overview.html:271
 #: gym/models/contract.py:253 gym/models/gym.py:58
@@ -116,52 +116,52 @@ msgstr ""
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr ""
+msgstr "البريد الألكتروني"
 
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
-msgstr ""
+msgstr "يستخدم لأعادة تعيين كلمة السر, واختيارياً لتنبيهات البريد"
 
 #: core/forms.py:116 core/models/profile.py:224
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "تاريخ الميلاد"
 
 #: core/forms.py:148
 msgid "Personal data"
-msgstr ""
+msgstr "المعلومات الشخصية"
 
 #: core/forms.py:156
 msgid "Workout reminders"
-msgstr ""
+msgstr "تنبيهات و اشعارات التدريب"
 
 #: core/forms.py:163
 msgid "Other settings"
-msgstr ""
+msgstr "أعدادات اخرى"
 
 #: core/forms.py:170 core/views/user.py:615 core/views/user.py:630
 #: core/views/user.py:642 gym/forms.py:72 manager/templates/log/add.html:65
 #: manager/templates/set/add.html:70 manager/views/workout.py:205
 #: utils/generic_views.py:143
 msgid "Save"
-msgstr ""
+msgstr "الحفظ"
 
 #: core/forms.py:177
 msgid "Used for password resets and, optionally, email reminders."
-msgstr ""
+msgstr "يستخدم للأعادة تعيين كلمة المرور, وتنبيهات البريد."
 
 #: core/forms.py:205
 msgid "This e-mail address is already in use."
-msgstr ""
+msgstr "البريد الذي ادخلته مستخدم مسبقاً."
 
 #: core/forms.py:225 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
 msgid "Password"
-msgstr ""
+msgstr "كلمة السر"
 
 #: core/forms.py:227
 msgid "Please enter your current password."
-msgstr ""
+msgstr "الرجاء ادخال كلمة المرور الحالية."
 
 #: core/forms.py:236 core/templates/language/view.html:68
 #: core/templates/license/list.html:19 core/templates/misc/license/list.html:22
@@ -190,7 +190,7 @@ msgstr "حذف"
 
 #: core/forms.py:245
 msgid "Invalid password"
-msgstr ""
+msgstr "الرمز غير صحيح"
 
 #: core/forms.py:257 core/forms.py:327
 msgid "The form is secured with reCAPTCHA"
@@ -201,28 +201,28 @@ msgstr ""
 #: core/templates/user/login.html:20 core/views/user.py:300
 #: software/templates/features.html:80 software/templates/features.html:415
 msgid "Register"
-msgstr ""
+msgstr "التسجيل"
 
 #: core/forms.py:305
 msgid "Contact"
-msgstr ""
+msgstr "الوصول الى الدعم"
 
 #: core/forms.py:306
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr ""
+msgstr "طريقة للأجابة على مشكلتك (بريدك الألكتروني أو وسيلة اخرى)"
 
 #: core/forms.py:314 exercises/models/comment.py:42 manager/models/set.py:60
 #: manager/models/setting.py:111 nutrition/models/log.py:71
 msgid "Comment"
-msgstr ""
+msgstr "ملاحظة"
 
 #: core/forms.py:315
 msgid "What do you want to say?"
-msgstr ""
+msgstr "ما الذي تريد قوله؟"
 
 #: core/models/days_of_week.py:29
 msgid "Day of the week"
-msgstr ""
+msgstr "تحديد يوم الأسبوع"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -234,7 +234,7 @@ msgstr "الاسم الكامل للغة"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "الأسم الكامل"
 
 #: core/models/license.py:31
 msgid ""
@@ -244,11 +244,11 @@ msgstr ""
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr ""
+msgstr "كتابة أسم قصيرمثلاً : CC-BY-SA 3"
 
 #: core/models/license.py:45 nutrition/models/ingredient.py:202
 msgid "Link"
-msgstr ""
+msgstr "الرابط"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
@@ -257,39 +257,39 @@ msgstr ""
 #: core/models/profile.py:56
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "تاريخ الميلاد غير صالح %(birthdate)s"
 
 #: core/models/profile.py:65
 msgid "Male"
-msgstr ""
+msgstr "ذكر"
 
 #: core/models/profile.py:66
 msgid "Female"
-msgstr ""
+msgstr "انثى"
 
 #: core/models/profile.py:73
 msgid "Low"
-msgstr ""
+msgstr "قليل"
 
 #: core/models/profile.py:74
 msgid "Medium"
-msgstr ""
+msgstr "متوسط"
 
 #: core/models/profile.py:75
 msgid "High"
-msgstr ""
+msgstr "عالي"
 
 #: core/models/profile.py:81
 msgid "Metric (kilogram)"
-msgstr ""
+msgstr "نظام متري (كيلوغرام)"
 
 #: core/models/profile.py:82
 msgid "Imperial (pound)"
-msgstr ""
+msgstr "النظام الامبراطوري (باوند)"
 
 #: core/models/profile.py:118
 msgid "Show exercise comments"
-msgstr ""
+msgstr "اظهار ملاحظات التدريب"
 
 #: core/models/profile.py:119
 msgid "Check to show exercise comments on the workout view"
@@ -297,7 +297,7 @@ msgstr ""
 
 #: core/models/profile.py:130
 msgid "Also use ingredients in English"
-msgstr ""
+msgstr "أيضاً استعمل المكونات في اللغة الأنجليزية"
 
 #: core/models/profile.py:132
 msgid ""
@@ -3179,7 +3179,7 @@ msgstr ""
 
 #: nutrition/templates/plan/view.html:211
 msgid "Add a new meal"
-msgstr ""
+msgstr "اضافة اكلة جديدة"
 
 #: nutrition/templates/plan/view.html:221 nutrition/views/plan.py:368
 msgid "Nutritional data"
@@ -3212,7 +3212,7 @@ msgstr ""
 
 #: nutrition/templates/plan/view.html:376
 msgid "Goal"
-msgstr ""
+msgstr "الهدف"
 
 #: nutrition/templates/plan/view.html:387
 msgid ""
@@ -3398,7 +3398,7 @@ msgstr ""
 
 #: software/templates/about_us.html:39 software/templates/features.html:496
 msgid "Translation"
-msgstr ""
+msgstr "الترجمة"
 
 #: software/templates/about_us.html:41
 msgid ""
@@ -3430,7 +3430,7 @@ msgstr ""
 
 #: software/templates/features.html:50
 msgid "Mobile app"
-msgstr ""
+msgstr "تطبيق الهاتف"
 
 #: software/templates/features.html:56 software/templates/features.html:312
 msgid "Donate"
@@ -3455,7 +3455,7 @@ msgstr ""
 
 #: software/templates/features.html:113
 msgid "Get Started"
-msgstr ""
+msgstr "البدء"
 
 #: software/templates/features.html:123
 msgid "people <br> using wger"
@@ -3522,15 +3522,15 @@ msgstr ""
 
 #: software/templates/features.html:238
 msgid "Add custom notes"
-msgstr ""
+msgstr "اضافة ملاحظات يدوياً"
 
 #: software/templates/features.html:241
 msgid "Record your weight"
-msgstr ""
+msgstr "تسجيل وزنك"
 
 #: software/templates/features.html:244
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "الابقاء على سجل للصور لمراقبة تطور المستوى"
 
 #: software/templates/features.html:247
 msgid "Use the calendar view to see past entries"
@@ -3805,7 +3805,7 @@ msgstr ""
 
 #: weight/views.py:115
 msgid "Successfully deleted."
-msgstr ""
+msgstr "تم الحذف بنجاح."
 
 #: weight/views.py:119
 #, python-format
