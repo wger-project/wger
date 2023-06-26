@@ -8,8 +8,8 @@ from wger.settings_global import *
 import environ
 
 env = environ.Env(
-    # set casting, default value
-    DJANGO_DEBUG=(bool, False)
+    # If debug is not set to true js and css files won't load correctly
+    DJANGO_DEBUG=(bool, True)
 )
 
 # Use 'DEBUG = True' to get more details for server errors
