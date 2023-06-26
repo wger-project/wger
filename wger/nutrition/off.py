@@ -19,27 +19,38 @@ from wger.utils.constants import CC_ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
 
-OFF_REQUIRED_TOP_LEVEL = ['product_name', 'code', 'nutriments']
+OFF_REQUIRED_TOP_LEVEL = [
+    'product_name',
+    'code',
+    'nutriments',
+]
 OFF_REQUIRED_NUTRIMENTS = [
-    'energy-kcal_100g', 'proteins_100g', 'carbohydrates_100g', 'sugars_100g', 'fat_100g',
-    'saturated-fat_100g'
+    'energy-kcal_100g',
+    'proteins_100g',
+    'carbohydrates_100g',
+    'sugars_100g',
+    'fat_100g',
+    'saturated-fat_100g',
 ]
 
 
 def extract_info_from_off(product, language):
 
     if not all(req in product for req in OFF_REQUIRED_TOP_LEVEL):
-        raise KeyError(f'Missing required top-level key')
+        raise KeyError('Missing required top-level key')
 
     if not all(req in product['nutriments'] for req in OFF_REQUIRED_NUTRIMENTS):
-        raise KeyError(f'Missing required nutrition key')
+        raise KeyError('Missing required nutrition key')
 
     # Basics
     name = product['product_name']
+    if name is None:
+        raise KeyError('Product name is None')
     if len(name) > 200:
         name = name[:200]
 
-    common_name = product.get('generic_name', None)
+    common_name = product.get('generic_name', '')
+    common_name = '' if common_name is None else common_name
     if len(common_name) > 200:
         common_name = common_name[:200]
 
