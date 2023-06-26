@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-26 15:52+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2023-06-26 20:12+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -544,7 +544,7 @@ msgstr ""
 #: nutrition/templates/plan/view.html:368
 #: nutrition/templates/plan/view.html:378
 msgid "kcal"
-msgstr ""
+msgstr "kcal"
 
 #: core/templates/index.html:74 nutrition/templates/plan/view.html:353
 msgid "Add custom diary entry"
@@ -966,12 +966,12 @@ msgstr ""
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
-msgstr ""
+msgstr "prethodno"
 
 #: core/templates/tags/pagination.html:31
 #: core/templates/tags/pagination.html:35
 msgid "next"
-msgstr ""
+msgstr "dalje"
 
 #: core/templates/tags/render_day.html:34
 msgid "Add weight log"
@@ -1315,7 +1315,7 @@ msgstr ""
 
 #: core/templatetags/wger_extras.py:204
 msgid "kg"
-msgstr ""
+msgstr "kg"
 
 #: core/templatetags/wger_extras.py:206
 #: nutrition/templates/ingredient/view.html:86
@@ -1331,7 +1331,7 @@ msgstr ""
 
 #: core/templatetags/wger_extras.py:209
 msgid "lb"
-msgstr ""
+msgstr "funta"
 
 #: core/templatetags/wger_extras.py:211
 msgctxt "weight unit, i.e. ounces"
@@ -2832,7 +2832,7 @@ msgstr ""
 #: nutrition/templates/ingredient/view.html:80
 #: nutrition/templates/plan/view.html:62 nutrition/templates/plan/view.html:249
 msgid "kJ"
-msgstr ""
+msgstr "kJ"
 
 #: nutrition/templates/ingredient/view.html:101
 #: nutrition/templates/ingredient/view.html:117
@@ -2889,7 +2889,7 @@ msgstr ""
 
 #: nutrition/templates/log/detail.html:170
 msgid "g"
-msgstr ""
+msgstr "g"
 
 #: nutrition/templates/log/overview.html:53
 #: nutrition/templates/plan/view.html:335
