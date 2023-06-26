@@ -32,7 +32,7 @@ pillow==9.5.0
 reportlab==4.0.4
 requests==2.31.0
 tzdata==2023.3
-celery[redis]==5.3.0
+celery[redis]==5.3.1
 flower==1.2.0
 
 
