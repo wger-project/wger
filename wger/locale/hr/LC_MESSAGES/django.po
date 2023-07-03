@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-26 15:52+0200\n"
-"PO-Revision-Date: 2023-07-02 13:53+0000\n"
+"PO-Revision-Date: 2023-07-04 19:10+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -239,6 +239,8 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"Ako je licenca lokalizirana, npr. licencz Creative Commons za različite "
+"zemlje, dodaj ih ovdje kao zasebne unose."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -334,6 +336,8 @@ msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
 msgstr ""
+"Stndardno trajanje treninga u tjednima koji nisu u rasporedu. Koristi se za "
+"e-mail podsjetnike treninga."
 
 #: core/models/profile.py:178
 msgid "Notification language"
@@ -408,13 +412,16 @@ msgstr "Jedinica težine"
 
 #: core/models/profile.py:343
 msgid "Allow external access"
-msgstr ""
+msgstr "Dozvoli eksterni pristup"
 
 #: core/models/profile.py:345
 msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
 msgstr ""
+"Dopusti eksternim korisnicima pristup tvojim treninzima i zapisima bez "
+"mogućnosti mijenjanja. Ovo moraš postaviti prije dijeljenja poveznica, npr. "
+"na društvene medije."
 
 #: core/models/profile.py:354
 msgid "Automatic reminders for weight entries"
@@ -517,6 +524,8 @@ msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
+"Pritisni za dodavanje zapisa težine danu treniranja\n"
+"                            u tvom trenutačnom treningu:"
 
 #: core/templates/index.html:37 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -579,6 +588,8 @@ msgid ""
 "The current workout is selected from your active schedule or, if you don't "
 "have one, simply by date."
 msgstr ""
+"Trenutačni trening odabire se iz tvog aktivnog rasporeda ili ako ga nemaš, "
+"jednostavno po datumu."
 
 #: core/templates/index.html:147 manager/templates/calendar/month.html:188
 msgid "Add new log"
@@ -750,12 +761,14 @@ msgid ""
 "Before you share links on social media you need to allow external\n"
 "                            access."
 msgstr ""
+"Prije dijeljenja poveznica na društvenim mrežama moraš dopustiti\n"
+"                            eksterni pristup."
 
 #: core/templates/misc/fragments/shariff_modal.html:26
 #: nutrition/templates/plan/view.html:390
 #: nutrition/templates/plan/view.html:399
 msgid "That's done here"
-msgstr ""
+msgstr "To se obavlja ovdje"
 
 #: core/templates/misc/license/list.html:47
 msgid ""
@@ -763,10 +776,12 @@ msgid ""
 "            licenses for the different countries, add them as separate "
 "entries here."
 msgstr ""
+"Ako je licenca lokalizirana, npr. Creative Commons\n"
+"            licence za različite zemlje, dodaj ih kao zasebne unose ovdje."
 
 #: core/templates/navigation.html:27 software/templates/features.html:430
 msgid "Training"
-msgstr "Trening"
+msgstr "Treniranje"
 
 #: core/templates/navigation.html:34 core/templates/user/overview.html:25
 msgid "Workouts"
@@ -810,7 +825,7 @@ msgstr "Administracija"
 
 #: core/templates/navigation.html:95
 msgid "Exercise edit history"
-msgstr ""
+msgstr "Povijest uređivanja vježbe"
 
 #: core/templates/navigation.html:100 exercises/models/base.py:101
 msgid "Equipment"
@@ -948,6 +963,8 @@ msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
+"Poslali smo ti e-mail s uputama za postavljanje lozinke na tvoju e-mail "
+"adresu. E-mail ćeš uskoro primiti."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -1404,7 +1421,7 @@ msgstr "Povratne informacije"
 
 #: core/views/misc.py:202 weight/templates/import_csv_form.html:9
 msgid "Submit"
-msgstr "Podnesi"
+msgstr "Pošalji"
 
 #: core/views/misc.py:210
 msgid "Your feedback was successfully sent. Thank you!"
@@ -2086,7 +2103,7 @@ msgstr "s komentarima"
 
 #: manager/management/commands/email-reminders.py:123
 msgid "Workout will expire soon"
-msgstr ""
+msgstr "Trening će uskoro isteći"
 
 #: manager/models/day.py:39
 msgid ""
@@ -2151,13 +2168,13 @@ msgstr "Dobro"
 
 #: manager/models/session.py:76
 msgid "Any notes you might want to save about this workout session."
-msgstr ""
+msgstr "Sve bilješke koje možda želiš spremiti o ovoj sesiji treninga."
 
 #: manager/models/session.py:89
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
-msgstr ""
+msgstr "Tvoj dojam o ovom treningu. Jesi li vježbao/la koliko si mogao/la?"
 
 #: manager/models/session.py:97
 msgid "Start time"
@@ -2201,6 +2218,8 @@ msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
 msgstr ""
+"Označavanje treninga kao predloška će ga zamrznuti i omogućiti ti da ga "
+"kopiraš"
 
 #: manager/models/workout.py:81
 msgid "Public template"
@@ -2208,65 +2227,70 @@ msgstr "Javni predložak"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "Javni predložak je dostupan drugim korisnicima"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
 msgstr ""
+"Ovaj trening moraš označiti kao predložak prije nego što ga javno objaviš"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:32
 msgid "Workout log"
-msgstr ""
+msgstr "Zapis treninga"
 
 #: manager/templates/calendar/day.html:13
 #, python-format
 msgid "Workout log for %(username)s for %(date)s"
-msgstr ""
+msgstr "Zapis treninga za %(username)s za %(date)s"
 
 #: manager/templates/calendar/month.html:13
 #, python-format
 msgid "Calendar for %(username)s"
-msgstr ""
+msgstr "Kalendar za %(username)s"
 
 #: manager/templates/calendar/month.html:53
 msgid "Detail page"
-msgstr ""
+msgstr "Stranica s detaljima"
 
 #: manager/templates/calendar/month.html:120
 msgid ""
 "Click to add weight logs to a training\n"
 "day in your current workout:"
 msgstr ""
+"Pritisni za dodavanje zapisa težine za\n"
+"dan treniranja u tvom trenutačnom treningu:"
 
 #: manager/templates/calendar/month.html:145
 msgid ""
 "The coloured days in the calendar have weight logs,\n"
 "you can click on them to see the details."
 msgstr ""
+"Obojeni dani u kalendaru imaju zapise težine,\n"
+"pritisni ih za prikaz detalja."
 
 #: manager/templates/calendar/month.html:157
 msgid "Go to current month"
-msgstr ""
+msgstr "Idi na aktualni mjesec"
 
 #: manager/templates/calendar/partial_overview_table.html:5
 msgid "Log overview"
-msgstr ""
+msgstr "Pregled zapisa"
 
 #: manager/templates/calendar/partial_overview_table.html:12
 msgid "Workout session"
-msgstr ""
+msgstr "Sesija treninga"
 
 #: manager/templates/calendar/partial_overview_table.html:27
 msgid "Delete with logs"
-msgstr ""
+msgstr "Izbriži sa zapisima"
 
 #: manager/templates/calendar/partial_overview_table.html:33
 msgid "Add workout impression"
-msgstr ""
+msgstr "Dodaj dojam treninga"
 
 #: manager/templates/log/add.html:20
 msgid "New weight log"
-msgstr ""
+msgstr "Zapis nove težine"
 
 #: manager/templates/log/add.html:76
 msgid ""
@@ -2278,18 +2302,18 @@ msgstr ""
 
 #: manager/templates/schedule/overview.html:5
 msgid "Your schedules"
-msgstr ""
+msgstr "Tvoji rasporedi"
 
 #: manager/templates/schedule/overview.html:19
 #: manager/templates/schedule/view.html:132
 #: manager/templates/schedule/view.html:184
 #: manager/templates/workout/overview.html:16
 msgid "active"
-msgstr ""
+msgstr "aktivni"
 
 #: manager/templates/schedule/overview.html:28
 msgid "No schedules found."
-msgstr ""
+msgstr "Nijedan raspored nije pronađen."
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
@@ -2393,6 +2417,11 @@ msgid ""
 "                        an appointment for each training day with the "
 "appropriate exercises."
 msgstr ""
+"Zatim možeš uvesti datoteku u svoju aplikaciju\n"
+"                        kalendara, na primjer google kalendar, outlook ili "
+"iCal. To će stvoriti\n"
+"                        termin za svaki dan treninga s odgovarajućim "
+"vježbama."
 
 #: manager/templates/schedule/view.html:259
 #: manager/templates/schedule/view.html:295
@@ -2489,7 +2518,7 @@ msgstr "Trenirani mišići"
 #: manager/templates/workout/view.html:54
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
-msgstr ""
+msgstr "Slike prikazuju mišiće koji se treniraju vježbama tijekom treninga."
 
 #: manager/templates/workout/template_view.html:89
 msgid "Use this template"
@@ -2678,12 +2707,12 @@ msgstr "Sastojak je uspješno dodan u opću bazu podataka"
 
 #: nutrition/models/ingredient.py:405
 msgid "New user submitted ingredient"
-msgstr "Novi korisnik je podnio sastojak"
+msgstr "Novi korisnik je poslao sastojak"
 
 #: nutrition/models/ingredient.py:407
 #, python-brace-format
 msgid "The user {0} submitted a new ingredient \"{1}\"."
-msgstr "Korisnik {0} je podnio novi sastojak „{1}”."
+msgstr "Korisnik {0} je poslao novi sastojak „{1}”."
 
 #: nutrition/models/ingredient_category.py:30
 msgid "Ingredient Categories"
@@ -2792,13 +2821,13 @@ msgstr ""
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
-msgstr ""
+msgstr "Slanje sastojaka"
 
 #: nutrition/templates/ingredient/form.html:5
 msgid ""
 "Thank you for submitting an ingredient. This is much\n"
 "appreciated!"
-msgstr ""
+msgstr "Puno ti hvala na slanju sastojka!"
 
 #: nutrition/templates/ingredient/form.html:8
 msgid ""
@@ -2809,10 +2838,16 @@ msgid ""
 "when you registered, you will get notified when the process is completed "
 "sucessfully."
 msgstr ""
+"Nakon što pošalješ obrazac, administratori će se obavijestiti.\n"
+"Nakon pregleda će se dodati u bazu podataka. Sve dok se ne pregleda, neće "
+"se\n"
+"vidjeti u pregledu ili pretrazi. U slučaju da si dodao/la svoju e-mail "
+"adresu\n"
+"prilikom registracije, dobit ćeš obavijest kada postupak uspješno završi."
 
 #: nutrition/templates/ingredient/overview.html:51
 msgid "No ingredients."
-msgstr ""
+msgstr "Nema satojaka."
 
 #: nutrition/templates/ingredient/overview.html:63
 msgid "Search"
@@ -2833,7 +2868,7 @@ msgstr "Ovo je dozvoljeno samo registriranim korisnicima"
 
 #: nutrition/templates/ingredient/pending.html:14
 msgid "Submission date"
-msgstr ""
+msgstr "Datum slanja"
 
 #: nutrition/templates/ingredient/view.html:27
 msgid "Ingredient is pending review"
@@ -2846,6 +2881,9 @@ msgid ""
 "or\n"
 "the search."
 msgstr ""
+"Ovaj sastojak koji je poslao korisnik čeka odluku o uključivanju u\n"
+"bazu podataka. Sve dok se ne pregleda, neće se vidjeti u pregledu ili\n"
+"pretrazi."
 
 #: nutrition/templates/ingredient/view.html:31
 msgid "Please select one of the options below."
@@ -3274,7 +3312,7 @@ msgstr "ljudi koji <br> koriste wger"
 
 #: software/templates/features.html:127
 msgid "exercises <br> for workout creation"
-msgstr "vježbe za <br> sastavljanje treninga"
+msgstr "vježbe <br> za sastavljanje treninga"
 
 #: software/templates/features.html:131
 msgid "foods <br> for meal planing"
@@ -3611,10 +3649,12 @@ msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
+"Ovdje možeš ispraviti popis i ponovo ga poslati\n"
+"koliko god puta želiš."
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
-msgstr ""
+msgstr "Pošalji ponovo"
 
 #: weight/templates/overview.html:52
 msgid "Export as CSV"
