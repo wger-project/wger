@@ -12,6 +12,11 @@
   "addEntry": "Add entry",
   "currentWeight": "Current weight",
   "workout": "Workout",
+  "seeDetails": "See details",
+  "actions": "Actions",
+  "notes": "Notes",
+  "value": "Value",
+  "unit": "Unit",
   "exercises": {
     "contributeExercise": "Contribute an exercise",
     "step1HeaderBasics": "Basics in English",
@@ -63,7 +68,11 @@
     "supportedImageFormats": "Only JPEG, PNG and WEBP files below 20Mb are supported",
     "valueTooShort": "The value is too short",
     "valueTooLong": "The value is too long",
-    "fieldRequired": "This field is required"
+    "fieldRequired": "This field is required",
+    "maxLength": "Please enter less than {{chars}} characters",
+    "minLength": "Please enter more than {{chars}} characters",
+    "minValue": "The value for this field has to be higher than {{value}}",
+    "maxValue": "The value for this field has to be less than {{value}}"
   },
   "name": "Name",
   "category": "Category",
@@ -82,7 +91,12 @@
     "logsFilterNote": "Note that only entries with a weight unit of kg or lb and repetitions are charted, other combinations such as time or until failure are ignored here",
     "addLogToDay": "Add log to this day",
     "routine": "Routine",
-    "routines": "Routines"
+    "routines": "Routines",
+    "rir": "RiR"
+  },
+  "measurements": {
+    "measurements": "Measurements",
+    "unitFormHelpText": "The unit in which the category will be measured, such as cm or %"
   },
   "server": {
     "abs": "Abs",
@@ -105,6 +119,7 @@
     "kilometers_per_hour": "Kilometers per hour",
     "lats": "Lats",
     "legs": "Legs",
+    "max_reps": "Max reps",
     "miles": "Miles",
     "miles_per_hour": "Miles per hour",
     "minutes": "Minutes",
