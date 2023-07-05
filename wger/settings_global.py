@@ -238,6 +238,7 @@ AVAILABLE_LANGUAGES = (
     ('es-ni', 'Nicaraguan Spanish'),
     ('es-ve', 'Venezuelan Spanish'),
     ('fr', 'French'),
+    ('hr', 'Croatian'),
     ('it', 'Italian'),
     ('nl', 'Dutch'),
     ('nb', 'Norwegian'),
