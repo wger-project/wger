@@ -88,7 +88,14 @@
         "dumbbell": "Mancuerna",
         "gym_mat": "Colchoneta",
         "incline_bench": "Banco inclinado",
-        "cardio": "Cardio"
+        "cardio": "Cardio",
+        "max_reps": "Número máximo de repeticiones",
+        "kg": "kg",
+        "lb": "lb",
+        "miles_per_hour": "Millas por hora",
+        "plates": "Platos",
+        "body_weight": "Peso corporal",
+        "kilometers_per_hour": "Kilómetros por hora"
     },
     "English": "Inglés",
     "name": "Nombre",
@@ -108,5 +115,15 @@
     "preferences": "Preferencias",
     "cancel": "Cancelar",
     "noResults": "Sin resultados",
-    "success": "¡Exitoso!"
+    "success": "¡Éxito!",
+    "routines": {
+        "rir": "Repeticiones",
+        "addDay": "Añadir un día de entrenamiento",
+        "addWeightLog": "Añadir el registro del peso",
+        "addLogToDay": "Añadir un registro a este día",
+        "routine": "Rutina",
+        "logsHeader": "Registro del peso para el entrenamiento",
+        "logsFilterNote": "Ten en cuenta que sólo se registran las entradas con una unidad de peso de kg o lb y las repeticiones, aquí se ignoran otras combinaciones como el tiempo o hasta los errores",
+        "routines": "Rutinas"
+    }
 }

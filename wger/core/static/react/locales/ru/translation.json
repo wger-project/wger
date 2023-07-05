@@ -22,7 +22,8 @@
         "notes": "Заметки",
         "primaryMuscles": "Крупные мышцы",
         "searchExerciseName": "Поиск по названию",
-        "secondaryMuscles": "Вторичные мышцы"
+        "secondaryMuscles": "Вторичные мышцы",
+        "checkInformationBeforeSubmitting": "Перед отправкой упражнения проверьте правильность введенной информации"
     },
     "noResults": "Нет результатов",
     "noResultsDescription": "Для этого запроса не найдено результатов, рассмотрите возможность уменьшения количества фильтров.",
@@ -54,5 +55,8 @@
     "submit": "Отправить",
     "weight": "Вес",
     "workout": "Тренировка",
-    "loading": "Загрузка..."
+    "loading": "Загрузка...",
+    "translation": "Перевод",
+    "language": "Язык",
+    "images": "Изображения"
 }

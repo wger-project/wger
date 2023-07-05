@@ -84,7 +84,13 @@
         "lats": "Grand dorsal",
         "biceps": "Biceps",
         "hamstrings": "Ischio-jambiers",
-        "lower_back": "Bas du dos"
+        "lower_back": "Bas du dos",
+        "plates": "Disques",
+        "body_weight": "Poids corporel",
+        "kilometers_per_hour": "Kilomètres par heure",
+        "miles_per_hour": "Miles par heure",
+        "kg": "kg",
+        "lb": "lb"
     },
     "noResults": "Aucun résultats",
     "noResultsDescription": "Aucun résultats n'a été trouvé avec cette requête, essayez de réduire le nombre de filtres.",
@@ -114,5 +120,14 @@
     "translation": "Traduction",
     "description": "Description",
     "images": "Photos",
-    "overview": "Vue d'ensemble"
+    "overview": "Vue d'ensemble",
+    "routines": {
+        "addDay": "Ajouter un jour d'entraînement",
+        "addWeightLog": "Ajouter un historique de poids",
+        "logsFilterNote": "Notez que seules les entrées avec un poids dont l'unité est kg ou lb et contenant des répétitions sont classées, les autres combinaisons telles que le temps ou jusqu'à l'échec sont ignorées",
+        "addLogToDay": "Ajouter un journal à ce jour",
+        "routine": "Routine",
+        "routines": "Routines",
+        "logsHeader": "Journal de poids pour cet entraînement"
+    }
 }

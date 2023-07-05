@@ -71,7 +71,8 @@
         "submitExercise": "Enviar exercício",
         "successfullyUpdated": "O exercício foi atualizado com sucesso. Devido ao caching, poderá levar algum tempo até que as alterações sejam visíveis ao longo de toda a aplicação.",
         "exerciseNotTranslated": "Sem traduções disponíveis",
-        "exerciseNotTranslatedBody": "Este exercício não está atualmente disponível na língua atualmente selecionada. Quer contribuir com uma tradução?"
+        "exerciseNotTranslatedBody": "Este exercício não está atualmente disponível na língua atualmente selecionada. Quer contribuir com uma tradução?",
+        "step1HeaderBasics": "Conceitos básicos em inglês"
     },
     "noResults": "Sem resultados",
     "noResultsDescription": "Nenhum resultado encontrado para essa consulta, considere reduzir o número de filtros.",
@@ -118,7 +119,13 @@
         "calves": "Panturrilha",
         "chest": "Peito",
         "lats": "Dorsal",
-        "glutes": "Glúteos"
+        "glutes": "Glúteos",
+        "body_weight": "Peso corporal",
+        "miles_per_hour": "Milhas por hora",
+        "kilometers_per_hour": "Quilômetros por hora",
+        "kg": "kg",
+        "lb": "lb",
+        "plates": "Pratos"
     },
     "description": "Descrição",
     "translation": "Tradução",
@@ -126,9 +133,18 @@
     "name": "Nome",
     "category": "Categoria",
     "English": "Inglês",
-    "language": "Linguagem",
+    "language": "Idioma",
     "save": "Salvar",
     "success": "Sucesso!",
     "videos": "Vídeos",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "routines": {
+        "addDay": "Adicionar dia de treino",
+        "addWeightLog": "Adicionar registro de peso",
+        "addLogToDay": "Adicionar registro para este dia",
+        "routine": "Rotina",
+        "routines": "Rotinas",
+        "logsFilterNote": "Note que apenas entradas com uma unidade de massa de kg ou lb e repetições aparecem no gráfico. Outras combinações tais como tempo ou até falha são ignoradas aqui",
+        "logsHeader": "Registro de peso para treino"
+    }
 }
