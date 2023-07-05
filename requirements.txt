@@ -18,7 +18,7 @@ django-crispy-forms~=2.0
 crispy-bootstrap4==2022.1
 django-simple-history~=3.3
 django-email-verification~=0.3.1
-django_compressor~=4.3
+django_compressor~=4.4
 django_extensions~=3.2
 django-storages~=1.13
 django-environ==0.10.0
