@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-26 15:52+0200\n"
-"PO-Revision-Date: 2023-07-05 15:35+0000\n"
+"PO-Revision-Date: 2023-07-07 20:49+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -1542,7 +1542,7 @@ msgstr "3D"
 
 #: exercises/models/image.py:58
 msgid "Low-poly"
-msgstr ""
+msgstr "Mali broj poligona"
 
 #: exercises/models/image.py:59
 msgid "Photo"
@@ -2094,7 +2094,8 @@ msgstr ""
 msgid ""
 "You can search for more than one exercise, they will be grouped together for "
 "a superset."
-msgstr "Možeš tražiti više vježbi. Grupirat će su u jedan nadskup vježbi."
+msgstr ""
+"Možeš tražiti više od jedne vježbe. Vježbe će se grupirati u jedan nadskup."
 
 #: manager/forms.py:143 nutrition/forms.py:248
 msgid "Also search for names in English"
@@ -3387,7 +3388,7 @@ msgstr "ljudi koji <br> koriste wger"
 
 #: software/templates/features.html:127
 msgid "exercises <br> for workout creation"
-msgstr "vježbe <br> za sastavljanje treninga"
+msgstr "vježbe za <br> sastavljanje treninga"
 
 #: software/templates/features.html:131
 msgid "foods <br> for meal planing"
@@ -3395,7 +3396,7 @@ msgstr "namirnice za <br> planiranje obroka"
 
 #: software/templates/features.html:135
 msgid "stars <br> on GitHub"
-msgstr "doprinositelja <br> na GitHubu"
+msgstr "ljudi koji prate wger <br> na GitHubu"
 
 #: software/templates/features.html:159
 msgid "Craft your perfect <span>workout routines</span>"
@@ -3407,7 +3408,9 @@ msgstr "Koristi više od 100 vježbi za sastavljanje tjednog plana treninga"
 
 #: software/templates/features.html:166
 msgid "Set reps and sets, duration, or distance goals for each exercise"
-msgstr "Postavi broj ponavljanja i serije, trajanje ili ciljeve za svaku vježbu"
+msgstr ""
+"Postavi broj ponavljanja i serija, trajanje ili ciljanu udaljenost za svaku "
+"vježbu"
 
 #: software/templates/features.html:169
 msgid "Get guided through your workouts step by step"
