@@ -2,13 +2,7 @@
   "name": "wger",
   "version": "2.2.dev1",
   "description": "Self hosted FLOSS fitness/workout and weight tracker",
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wger-project/wger/wger.git"
-  },
+  "repository": "github:wger-project/wger",
   "author": "",
   "license": "AGPL-3.0",
   "bugs": {
