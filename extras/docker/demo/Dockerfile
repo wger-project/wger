@@ -8,10 +8,10 @@
 # docker run -ti --name wger.demo --publish 8000:80 wger/demo
 #
 # To stop the container:
-# sudo docker container stop wger.apache
+# sudo docker container stop wger.demo
 #
-# To start developing again
-# sudo docker container start --attach wger.apache
+# To start again
+# sudo docker container start --attach wger.demo
 #
 
 ##########
