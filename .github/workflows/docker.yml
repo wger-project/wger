@@ -79,7 +79,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
-          tags: wger/server:latest,wger/server:2.2-dev,wger/devel:latest,wger/devel:2.2-dev
+          #tags: wger/server:latest,wger/server:2.2-dev,wger/devel:latest,wger/devel:2.2-dev
 
       - name: Export digest
         run: |
