@@ -58,7 +58,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           tags: |
-            latest=true,enable={{is_default_branch}}
+            type=raw,value=latest
             type=raw,value=2.2-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
