@@ -16,15 +16,12 @@ LABEL maintainer="Roland Geider <roland@geider.net>"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
-      git \
       locales \
       nodejs \
       npm \
-      python3-venv \
       python3-pip \
       sqlite3 \
       wget \
-      libpq5 \
   && rm -rf /var/lib/apt/lists/* \
   && npm install -g yarn sass\
   && locale-gen en_US.UTF-8

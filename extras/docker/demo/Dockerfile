@@ -17,28 +17,33 @@
 ##########
 # Builder
 ##########
-FROM ubuntu:22.04 as builder
+FROM wger/base:latest as builder
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
       build-essential \
       python3-dev \
-      python3-pip \
       python3-wheel \
       pkg-config \
       libcairo2-dev \
-      git
+      libjpeg8-dev \
+      libwebp-dev \
+      libpq-dev \
+      rustc \
+      cargo \
+  && pip install --upgrade pip
 
-# Set up the application
+# Build the necessary python wheels
+# Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
 COPY requirements* ./
-RUN pip3 wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements_dev.txt
+RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt
 
 
 ########
 # Final
 ########
-FROM wger/base:2.2-dev
+FROM wger/base:latest
 LABEL maintainer="Roland Geider <roland@geider.net>"
 
 ARG DOCKER_DIR=./extras/docker/demo
@@ -50,6 +55,7 @@ RUN apt-get update \
   && apt-get install --no-install-recommends -y \
     apache2 \
     cron \
+    python3-venv \
     libapache2-mod-wsgi-py3 \
     python3-wheel \
   && rm -rf /var/lib/apt/lists/*
