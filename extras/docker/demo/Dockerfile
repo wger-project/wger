@@ -78,7 +78,7 @@ RUN chmod 0644 /etc/cron.d/wger \
   && chmod +x /home/wger/venvwrapper /home/wger/entrypoint.sh \
   && touch /var/log/cron.log
 
-COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /wheels /wheels
 COPY --chown=wger:www-data . /home/wger/src
 
 # Set up the application
