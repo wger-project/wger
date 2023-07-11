@@ -51,14 +51,12 @@ EXPOSE 80
 
 
 # Install dependencies
-RUN apt-get update \
-  && apt-get install --no-install-recommends -y \
+RUN apt-get install --no-install-recommends -y \
     apache2 \
     cron \
     python3-venv \
     libapache2-mod-wsgi-py3 \
-    python3-wheel \
-  && rm -rf /var/lib/apt/lists/*
+    python3-wheel
 
 # Configure apache
 COPY ${DOCKER_DIR}/wger.conf /etc/apache2/sites-available/
