@@ -57,6 +57,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
+          # Think if we want to also build branches, PRs, tags, etc.
+          # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
             type=raw,value=2.2-dev
