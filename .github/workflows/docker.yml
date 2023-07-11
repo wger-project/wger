@@ -8,6 +8,7 @@ on:
 
 env:
   REGISTRY_IMAGE: wger/server
+  REGISTRY_IMAGE_ALT: wger/devel
 
 jobs:
   demo:
@@ -55,8 +56,13 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
+        tags: |
+          latest=true
+          type=raw,value=2.2-dev
         with:
-          images: ${{ env.REGISTRY_IMAGE }}
+          images: |
+            ${{ env.REGISTRY_IMAGE }}
+            ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.2.0
@@ -79,7 +85,6 @@ jobs:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
-          #tags: wger/server:latest,wger/server:2.2-dev,wger/devel:latest,wger/devel:2.2-dev
 
       - name: Export digest
         run: |
