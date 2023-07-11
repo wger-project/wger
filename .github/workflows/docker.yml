@@ -56,10 +56,10 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
-        tags: |
-          latest=true
-          type=raw,value=2.2-dev
         with:
+          tags: |
+            latest=true
+            type=raw,value=2.2-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
             ${{ env.REGISTRY_IMAGE_ALT }}
