@@ -1,9 +1,13 @@
+# https://docs.docker.com/build/ci/github-actions/multi-platform/
 name: Build and push Docker images
 
 on:
   push:
     branches:
       - master
+
+env:
+  REGISTRY_IMAGE: wger/server
 
 jobs:
   apache:
@@ -34,12 +38,25 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: wger/demo:latest,wger/demo:2.2-dev,wger/apache:latest,wger/apache:2.2-dev
 
-  prod:
+  build-prod:
     name: Build production image
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm/v7
+          - linux/arm64
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.2.0
@@ -47,17 +64,68 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2.9.0
 
-      - name: Login to DockerHub
+      - name: Login to Docker Hub
         uses: docker/login-action@v2.2.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build image
-        uses: docker/build-push-action@v4.1.0
+      - name: Build and push by digest
+        id: build
+        uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
-          file: extras/docker/development/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
           tags: wger/server:latest,wger/server:2.2-dev,wger/devel:latest,wger/devel:2.2-dev
+
+      - name: Export digest
+        run: |
+          mkdir -p /tmp/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "/tmp/digests/${digest#sha256:}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v3
+        with:
+          name: digests
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge:
+    runs-on: ubuntu-latest
+    needs:
+      - build-prod
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v3
+        with:
+          name: digests
+          path: /tmp/digests
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Create manifest list and push
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+          $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
