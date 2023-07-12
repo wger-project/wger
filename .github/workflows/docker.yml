@@ -1,4 +1,4 @@
-# https://docs.docker.com/build/ci/github-actions/multi-platform/
+#  https://docs.docker.com/build/ci/github-actions/multi-platform/
 name: Build and push Docker images
 
 on:
