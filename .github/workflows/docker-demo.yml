@@ -1,19 +1,21 @@
-name: Build and push base Docker images
+name: Build and push demo Docker image
 
-# Only build when the dockerfile has changed, otherwise scheduled on the first
-# of each month
+# Only build when the dockerfile has changed, otherwise scheduled every two weeks
+# (on the 1st and 15th every month) since it's not so important to keep this image
+# exactly in sync with master
 on:
   push:
     branches:
-      '- "master"'
+      - 'master'
     paths:
-      - 'extras/docker/base/Dockerfile'
-      - '.github/workflows/docker-base.yml'
+      - 'extras/docker/demo/Dockerfile'
+      - '.github/workflows/docker-demo.yml'
   schedule:
-    - cron: '0 5 1 * *'
+    - cron: '0 6 1,15 * *'
 
 jobs:
-  path-context:
+  demo:
+    name: Build demo image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,11 +33,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build base image
+      - name: Build image
         uses: docker/build-push-action@v4.1.0
         with:
           context: .
           push: true
-          file: extras/docker/base/Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: wger/base:latest,wger/base:2.2-dev
+          file: extras/docker/demo/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          tags: wger/demo:latest,wger/demo:2.2-dev,wger/apache:latest,wger/apache:2.2-dev
