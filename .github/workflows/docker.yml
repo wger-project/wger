@@ -70,6 +70,7 @@ jobs:
         uses: docker/setup-qemu-action@v2.2.0
 
       - name: Set up Docker Buildx
+        id: buildx
         uses: docker/setup-buildx-action@v2.9.0
         with:
           install: true
@@ -94,12 +95,14 @@ jobs:
         with:
           context: .
           file: extras/docker/development/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+
+          # https://github.com/moby/buildkit#--export-cache-options
+          # https://github.com/docker/buildx#--cache-tonametypetypekeyvalue
           cache-from: type=local,src=/tmp/.buildx-cache
-          # More: https://github.com/moby/buildkit#--export-cache-options
-          # And: https://github.com/docker/buildx#--cache-tonametypetypekeyvalue
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
 
       - name: Export digest
