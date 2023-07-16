@@ -41,7 +41,7 @@ class LogItem(BaseMealItem, models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "datetime",
+            "-datetime",
         ]
 
     plan = models.ForeignKey(
