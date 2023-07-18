@@ -82,7 +82,7 @@ def sync_exercises(
         muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
         muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-        base, base_created = ExerciseBase.all.update_or_create(
+        base, base_created = ExerciseBase.objects.update_or_create(
             uuid=uuid,
             defaults={'category_id': category_id},
         )

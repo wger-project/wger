@@ -146,9 +146,9 @@ class ExerciseBaseTranslationHandlingTestCase(WgerTestCase):
         Exercise.objects.get(pk=5).delete()
 
     def test_managers(self):
-        self.assertEqual(ExerciseBase.objects.all().count(), 7)
+        self.assertEqual(ExerciseBase.translations.all().count(), 7)
         self.assertEqual(ExerciseBase.no_translations.all().count(), 1)
-        self.assertEqual(ExerciseBase.all.all().count(), 8)
+        self.assertEqual(ExerciseBase.objects.all().count(), 8)
 
     def test_checks(self):
         out = ExerciseBase.check()

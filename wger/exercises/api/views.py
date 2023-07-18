@@ -101,7 +101,7 @@ class ExerciseBaseViewSet(ModelViewSet):
 
     For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
-    queryset = ExerciseBase.objects.all()
+    queryset = ExerciseBase.translations.all()
     serializer_class = ExerciseBaseSerializer
     permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'

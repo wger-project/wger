@@ -60,9 +60,9 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     Model for an exercise base
     """
 
-    objects = ExerciseBaseManagerTranslations()
+    objects = ExerciseBaseManagerAll()
     no_translations = ExerciseBaseManagerNoTranslations()
-    all = ExerciseBaseManagerAll()
+    translations = ExerciseBaseManagerTranslations()
     """
     Custom Query Manager
     """

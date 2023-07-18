@@ -29,9 +29,10 @@ RUN apt-get install --no-install-recommends -y \
   && pip install --upgrade pip
 
 # Build the necessary python wheels
-# Note that the --mount is a workaround for https://github.com/rust-lang/cargo/issues/8719
-COPY requirements* ./
-RUN --mount=type=tmpfs,target=/root/.cargo pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt
+# Note that the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
+COPY requirements* .
+RUN --mount=type=tmpfs,target=/root/.cargo \
+    pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt
 
 
 

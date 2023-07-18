@@ -87,7 +87,7 @@ class Command(BaseCommand):
 
         self.english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
-        for base in ExerciseBase.all.all():
+        for base in ExerciseBase.objects.all():
             self.handle_untranslated(base, delete_untranslated)
             self.handle_no_english(base, delete_no_english)
             self.handle_duplicate_translations(base, delete_duplicates)
