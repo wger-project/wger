@@ -16,8 +16,11 @@
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
 
-from wger.exercises.api.serializers import ExerciseInfoSerializer, ExerciseBaseInfoSerializer
 # wger
+from wger.exercises.api.serializers import (
+    ExerciseBaseInfoSerializer,
+    ExerciseInfoSerializer,
+)
 from wger.exercises.models import ExerciseBase
 from wger.utils.cache import CacheKeyMapper
 
