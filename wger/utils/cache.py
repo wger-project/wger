@@ -58,6 +58,7 @@ class CacheKeyMapper:
     WORKOUT_CANONICAL_REPRESENTATION = 'workout-canonical-representation-{0}'
     WORKOUT_LOG_LIST = 'workout-log-hash-{0}'
     NUTRITION_CACHE_KEY = 'nutrition-cache-log-{0}'
+    EXERCISE_API_KEY = 'base-uuid-{0}'
 
     def get_pk(self, param):
         """
@@ -94,6 +95,13 @@ class CacheKeyMapper:
         get nutritional info values canonical representation  using primary key.
         """
         return self.NUTRITION_CACHE_KEY.format(self.get_pk(params))
+
+    @classmethod
+    def get_exercise_api_key(cls, base_uuid: str):
+        """
+        get the exercise base cache key used in the API
+        """
+        return cls.EXERCISE_API_KEY.format(base_uuid)
 
 
 cache_mapper = CacheKeyMapper()

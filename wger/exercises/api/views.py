@@ -422,10 +422,6 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
-    def dispatch(self, request: HttpRequest, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     """

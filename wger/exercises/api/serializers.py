@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models import Q
 
 # Third Party
@@ -32,6 +34,7 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
+from wger.utils.cache import CacheKeyMapper
 
 
 class ExerciseBaseSerializer(serializers.ModelSerializer):
@@ -418,3 +421,17 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "author_history",
             "total_authors_history",
         ]
+
+    def to_representation(self, instance):
+        """
+        Cache the response
+        """
+        key = CacheKeyMapper.get_exercise_api_key(instance.uuid)
+
+        representation = cache.get(key)
+        if representation:
+            return representation
+
+        representation = super().to_representation(instance)
+        cache.set(key, representation, settings.WGER_SETTINGS['EXERCISE_CACHE_TTL'])
+        return representation
