@@ -87,8 +87,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
-    author_history = serializers.ListSerializer(child=serializers.CharField())
-
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
 
     class Meta:
