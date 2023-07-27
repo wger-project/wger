@@ -75,14 +75,19 @@ class ExerciseBaseModelTestCase(WgerTestCase):
             datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc)
         )
 
-    def get_exercise_en(self):
+    def test_exercise_en(self):
         translation = self.exercise.get_exercise()
         self.assertEqual(translation.language.short_name, 'en')
 
-    def get_exercise_fr(self):
+    def test_get_exercise_fr(self):
         translation = self.exercise.get_exercise('fr')
         self.assertEqual(translation.language.short_name, 'fr')
 
-    def get_exercise_unknown(self):
+    def test_get_exercise_unknown(self):
         translation = self.exercise.get_exercise('kg')
         self.assertEqual(translation.language.short_name, 'en')
+
+    def test_get_languages(self):
+        languages = self.exercise.languages
+        self.assertEqual(languages[0].short_name, 'en')
+        self.assertEqual(languages[1].short_name, 'fr')

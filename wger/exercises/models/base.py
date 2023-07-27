@@ -191,7 +191,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         return self.exerciseimage_set.all().filter(is_main=True).first()
 
     @property
-    def get_languages(self) -> List[Language]:
+    def languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base
         """
