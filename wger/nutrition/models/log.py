@@ -25,7 +25,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
-
 # Local
 from .ingredient import Ingredient
 from .ingredient_weight_unit import IngredientWeightUnit
@@ -49,6 +48,9 @@ class LogItem(BaseMealItem, models.Model):
         verbose_name=_('Nutrition plan'),
         on_delete=models.CASCADE,
     )
+    """
+    The plan this log belongs to
+    """
 
     meal = models.ForeignKey(
         Meal,
@@ -59,7 +61,7 @@ class LogItem(BaseMealItem, models.Model):
         null=True
     )
     """
-    The plan this log belongs to
+    The meal this log belongs to (optional)
     """
 
     datetime = models.DateTimeField(verbose_name=_('Date and Time (Approx.)'), default=timezone.now)

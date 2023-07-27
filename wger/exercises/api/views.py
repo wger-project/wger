@@ -18,18 +18,16 @@
 # Standard Library
 import logging
 
-# Django
-from django.conf import settings
-from django.db.models import Q
-from django.http import HttpRequest
-from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
-from django.views.decorators.cache import cache_page
-
 # Third Party
 import bleach
 from actstream import action as actstream_action
 from bleach.css_sanitizer import CSSSanitizer
+# Django
+from django.conf import settings
+from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.utils.translation import gettext as _
+from django.views.decorators.cache import cache_page
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -91,7 +89,6 @@ from wger.utils.constants import (
 )
 from wger.utils.language import load_language
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -145,7 +142,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
-        'creation_date',
+        'created',
         'exercise_base',
         'description',
         'name',
@@ -214,7 +211,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
-        'creation_date',
+        'created',
         'exercise_base',
         'description',
         'language',
@@ -380,7 +377,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
-        'creation_date',
+        'created',
         'description',
         'name',
         'exercise_base',

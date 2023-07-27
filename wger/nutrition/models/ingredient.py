@@ -19,6 +19,8 @@ import logging
 import uuid as uuid
 from decimal import Decimal
 
+# Third Party
+import openfoodfacts
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -39,9 +41,6 @@ from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-# Third Party
-import openfoodfacts
-
 # wger
 from wger.core.models import Language
 from wger.nutrition.consts import ENERGY_FACTOR
@@ -57,10 +56,8 @@ from wger.utils.models import (
     AbstractLicenseModel,
     AbstractSubmissionModel,
 )
-
 # Local
 from .ingredient_category import IngredientCategory
-
 
 logger = logging.getLogger(__name__)
 
@@ -92,13 +89,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateTimeField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
     )
     """Date when the ingredient was created"""
 
-    update_date = models.DateTimeField(
+    last_update = models.DateTimeField(
         _('Date'),
         auto_now=True,
         blank=True,

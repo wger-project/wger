@@ -16,7 +16,6 @@
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
-
 # Third Party
 from rest_framework import serializers
 
@@ -47,8 +46,8 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'creation_date',
-            'update_date',
+            'created',
+            'last_update',
             'category',
             'muscles',
             'muscles_secondary',
@@ -241,7 +240,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "category",
             "muscles",
             "muscles_secondary",
@@ -276,7 +275,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "language",
             "aliases",
             "notes",
@@ -309,7 +308,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "language",
             'license_author',
         )
@@ -367,7 +366,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             "uuid",
             "exercise_base_id",
             "description",
-            "creation_date",
+            "created",
             "category",
             "muscles",
             "muscles_secondary",
@@ -398,6 +397,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
     author_history = serializers.ListSerializer(child=serializers.CharField())
     total_authors_history = serializers.ListSerializer(child=serializers.CharField())
+    last_update_global = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = ExerciseBase
@@ -405,7 +405,9 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "uuid",
-            "creation_date",
+            "created",
+            "last_update",
+            "last_update_global",
             "category",
             "muscles",
             "muscles_secondary",

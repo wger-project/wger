@@ -17,15 +17,14 @@
 # Standard Library
 import uuid
 
+# Third Party
+import bleach
 # Django
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-
-# Third Party
-import bleach
 from simple_history.models import HistoricalRecords
 
 # wger
@@ -55,15 +54,13 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """The exercise's name"""
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
-        null=True,
-        blank=True,
     )
     """The submission date"""
 
-    update_date = models.DateTimeField(
+    last_update = models.DateTimeField(
         _('Date'),
         auto_now=True,
     )

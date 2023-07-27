@@ -30,7 +30,6 @@ from django.utils.translation import (
     get_language,
     gettext_lazy as _,
 )
-
 # Third Party
 from simple_history.models import HistoricalRecords
 
@@ -47,7 +46,6 @@ from wger.utils.models import (
     AbstractLicenseModel,
     collect_models_author_history,
 )
-
 # Local
 from .category import ExerciseCategory
 from .equipment import Equipment
@@ -112,29 +110,20 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Variations of this exercise"""
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
     )
-    """The submission date"""
+    """The submission datetime"""
 
-    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
     """Datetime of last modification"""
 
     history = HistoricalRecords()
     """Edit history"""
-
-    @property
-    def total_authors_history(self):
-        """
-        All authors history related to the BaseExercise.
-        """
-        collect_for_models = [
-            *self.exercises.all(),
-            *self.exercisevideo_set.all(),
-            *self.exerciseimage_set.all(),
-        ]
-        return self.author_history.union(collect_models_author_history(collect_for_models))
 
     def __str__(self):
         """
@@ -169,6 +158,30 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     #
     # Own methods
     #
+
+    @property
+    def total_authors_history(self):
+        """
+        All authors history related to the BaseExercise.
+        """
+        collect_for_models = [
+            *self.exercises.all(),
+            *self.exercisevideo_set.all(),
+            *self.exerciseimage_set.all(),
+        ]
+        return self.author_history.union(collect_models_author_history(collect_for_models))
+
+    @property
+    def last_update_global(self):
+        """
+        The latest update datetime of all exercises, videos and images.
+        """
+        return max(
+            self.last_update,
+            *[image.last_update for image in self.exerciseimage_set.all()],
+            *[video.last_update for video in self.exercisevideo_set.all()],
+            *[translation.last_update for translation in self.exercises.all()],
+        )
 
     @property
     def main_image(self):

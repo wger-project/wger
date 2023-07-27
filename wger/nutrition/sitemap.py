@@ -29,4 +29,4 @@ class NutritionSitemap(Sitemap):
         return Ingredient.objects.accepted()
 
     def lastmod(self, obj):
-        return obj.update_date
+        return obj.last_update

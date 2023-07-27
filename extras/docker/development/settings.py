@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# wger
-from wger.settings_global import *
 
 # Third Party
 import environ
+
+# wger
+from wger.settings_global import *
 
 env = environ.Env(
     # set casting, default value

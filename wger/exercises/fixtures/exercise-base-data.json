@@ -493,8 +493,8 @@
             "uuid": "1b020b3a-3732-4c7e-92fd-a0cec90ed69b",
             "category": 10,
             "variations": 47,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.914Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.914Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -511,8 +511,8 @@
             "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.779Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.779Z",
             "muscles": [
                 8
             ],
@@ -529,8 +529,8 @@
             "uuid": "f24cb758-9c0d-42d4-ad9e-6025c527dd13",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.727Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.727Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -547,8 +547,8 @@
             "uuid": "f2733700-aa5d-4df7-bc52-1876ab4fb479",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.930Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.930Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -565,8 +565,8 @@
             "uuid": "a6bced3c-72f5-42a3-9438-5569d46f49fd",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.832Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.832Z",
             "muscles": [
                 14
             ],
@@ -585,8 +585,8 @@
             "uuid": "dae6f6ed-9408-4e62-a59a-1a33f4e8ab36",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.746Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.746Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -603,8 +603,8 @@
             "uuid": "04e7d7e4-f8d2-406d-97df-3df3bceec22c",
             "category": 9,
             "variations": 13,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.797Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.797Z",
             "muscles": [
                 10
             ],
@@ -625,8 +625,8 @@
             "uuid": "67c26c9b-32f3-4b8b-b13a-4d8be4803975",
             "category": 8,
             "variations": 42,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.867Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.867Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -644,8 +644,8 @@
             "uuid": "13234b53-ea0c-41f1-9069-776865ea8eff",
             "category": 8,
             "variations": 17,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.849Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.849Z",
             "muscles": [
                 5
             ],
@@ -667,8 +667,8 @@
             "uuid": "cfb6a754-57be-431b-b8d0-d9963120bd5a",
             "category": 8,
             "variations": 42,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.899Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.899Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -686,8 +686,8 @@
             "uuid": "03db11cc-8079-463c-9399-6f346b100ce6",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.947Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.947Z",
             "muscles": [
                 6
             ],
@@ -708,8 +708,8 @@
             "uuid": "b7267f90-8706-442b-b918-507e16092b8e",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.883Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.883Z",
             "muscles": [
                 2,
                 7,
@@ -740,8 +740,8 @@
             "uuid": "046fce45-69f2-46f7-a5b6-79a25a485af1",
             "category": 9,
             "variations": 25,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.387Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.387Z",
             "muscles": [
                 10
             ],
@@ -758,8 +758,8 @@
             "uuid": "3717d144-7815-4a97-9a56-956fb889c996",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.274Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.274Z",
             "muscles": [
                 4
             ],
@@ -782,8 +782,8 @@
             "uuid": "28321cf3-70e6-48a4-ade1-d11382180cb3",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.206Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.206Z",
             "muscles": [
                 4
             ],
@@ -806,8 +806,8 @@
             "uuid": "3db63138-a047-4a4d-b616-1a0b7dfca105",
             "category": 8,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.306Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.306Z",
             "muscles": [
                 5
             ],
@@ -830,8 +830,8 @@
             "uuid": "01271ea0-088c-4e2b-95ad-876af7127057",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.402Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.402Z",
             "muscles": [
                 9
             ],
@@ -850,8 +850,8 @@
             "uuid": "94a5c406-7bcd-47f3-9687-bdf92a763932",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.096Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.096Z",
             "muscles": [
                 12
             ],
@@ -871,8 +871,8 @@
             "uuid": "6f79b381-98a4-40d5-8a45-3bb0558be6fe",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.175Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.175Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -890,8 +890,8 @@
             "uuid": "4af6dbd9-8991-484b-9810-68f117c21edf",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.028Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.028Z",
             "muscles": [
                 12
             ],
@@ -913,8 +913,8 @@
             "uuid": "2f0ddf9a-f520-4c55-8883-f0d4a789f481",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.965Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.965Z",
             "muscles": [
                 12
             ],
@@ -936,8 +936,8 @@
             "uuid": "7b99a081-6b1a-4aa5-b86a-5a935d083a35",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.242Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.242Z",
             "muscles": [
                 1
             ],
@@ -958,8 +958,8 @@
             "uuid": "1ae6a28d-10e7-4ecf-af4f-905f8193e2c6",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.996Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.996Z",
             "muscles": [
                 1
             ],
@@ -980,8 +980,8 @@
             "uuid": "42227131-9b1e-4220-b082-c523f0651057",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.132Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.132Z",
             "muscles": [
                 1
             ],
@@ -1002,8 +1002,8 @@
             "uuid": "bcb7020c-8678-496d-8f4d-aad0e233a5bd",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.338Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.338Z",
             "muscles": [
                 1
             ],
@@ -1020,8 +1020,8 @@
             "uuid": "d551f24d-44fe-4761-9448-edf14d627827",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.067Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.067Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -1038,8 +1038,8 @@
             "uuid": "8c6428f3-d41d-4ffc-8444-bb9b823bc42b",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.430Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.430Z",
             "muscles": [
                 10
             ],
@@ -1058,8 +1058,8 @@
             "uuid": "5c414175-fe72-455a-ba8f-a0575cf792bd",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.235Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.235Z",
             "muscles": [
                 4
             ],
@@ -1076,8 +1076,8 @@
             "uuid": "48ee1385-47c5-4821-8b6a-57fac6130776",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.555Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.555Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -1092,8 +1092,8 @@
             "uuid": "99449eae-0eae-44ab-a57f-fc094bbdda13",
             "category": 11,
             "variations": 41,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.531Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.531Z",
             "muscles": [
                 4
             ],
@@ -1112,8 +1112,8 @@
             "uuid": "80ff0a3a-ae45-497d-8c27-2b12e3b6e1b8",
             "category": 11,
             "variations": 41,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.488Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.488Z",
             "muscles": [
                 4
             ],
@@ -1130,8 +1130,8 @@
             "uuid": "a6605e9c-887d-45e0-8282-617a8ec5fea2",
             "category": 13,
             "variations": 41,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:17.283Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:17.283Z",
             "muscles": [
                 2
             ],
@@ -1148,8 +1148,8 @@
             "uuid": "dc3a2072-abc3-4ef9-b8e6-f5ae6b11bc7f",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.282Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.282Z",
             "muscles": [
                 2
             ],
@@ -1166,8 +1166,8 @@
             "uuid": "c867836d-2929-4977-b23c-014bc21ec08d",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.267Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.267Z",
             "muscles": [
                 14
             ],
@@ -1184,8 +1184,8 @@
             "uuid": "0d79f259-3b28-4258-8a08-cffec062a710",
             "category": 14,
             "variations": 6,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.446Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.446Z",
             "muscles": [
                 7,
                 15
@@ -1203,8 +1203,8 @@
             "uuid": "95a9cc46-270e-45f2-8a17-5665a23ff70b",
             "category": 14,
             "variations": 6,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.474Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.474Z",
             "muscles": [
                 7
             ],
@@ -1223,8 +1223,8 @@
             "uuid": "87e6abc5-a701-442a-b4fb-bb2a7598a754",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.299Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.299Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -1241,8 +1241,8 @@
             "uuid": "424da49e-d155-4247-bbb2-161a5c797789",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.461Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.461Z",
             "muscles": [
                 12
             ],
@@ -1261,8 +1261,8 @@
             "uuid": "63fbb8e5-6ebc-4def-8844-3e65e097213b",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.415Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.415Z",
             "muscles": [
                 12
             ],
@@ -1279,8 +1279,8 @@
             "uuid": "6e00afb6-272d-44a2-8ae3-e7fa41b50f06",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.244Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.244Z",
             "muscles": [
                 12,
                 4,
@@ -1301,8 +1301,8 @@
             "uuid": "36391719-d4ad-4e0f-991f-8eafd5947108",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.516Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.516Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -1317,8 +1317,8 @@
             "uuid": "b186f1f8-4957-44dc-bf30-d0b00064ce6f",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:17.312Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:17.312Z",
             "muscles": [
                 6
             ],
@@ -1339,8 +1339,8 @@
             "uuid": "7de7b8a8-313d-465f-bb22-8527ae45110a",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:17.268Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:17.268Z",
             "muscles": [
                 6
             ],
@@ -1359,8 +1359,8 @@
             "uuid": "401989e0-64c3-459d-bc47-2c171ab4f41d",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.544Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.544Z",
             "muscles": [
                 6
             ],
@@ -1377,8 +1377,8 @@
             "uuid": "29175281-afaf-4ffd-85e8-cfc38493e304",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.502Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.502Z",
             "muscles": [
                 6
             ],
@@ -1395,8 +1395,8 @@
             "uuid": "b7ff64bc-7a7c-4dbc-af6f-fabc20425f5f",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.227Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.227Z",
             "muscles": [
                 6
             ],
@@ -1415,8 +1415,8 @@
             "uuid": "8dedde58-a5dc-4a23-ad20-fd7cf524f8b5",
             "category": 15,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.259Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.259Z",
             "muscles": [
                 14,
                 9
@@ -1442,8 +1442,8 @@
             "uuid": "d4db2355-4c99-4d80-a179-6aeced7c7fed",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.274Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.274Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -1458,8 +1458,8 @@
             "uuid": "74d4697d-8a97-4ea2-9d05-fa4d2bd7221e",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.251Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.251Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -1474,8 +1474,8 @@
             "uuid": "ee8e8db4-2d82-49e1-ab7f-891e9a354934",
             "category": 12,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.341Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.341Z",
             "muscles": [
                 12
             ],
@@ -1496,8 +1496,8 @@
             "uuid": "bcd801f0-9a38-4615-a91c-900153c8c234",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.387Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.387Z",
             "muscles": [
                 4
             ],
@@ -1516,8 +1516,8 @@
             "uuid": "dda69c96-62d4-4690-aa07-a4a0f6ceb63a",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.400Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.400Z",
             "muscles": [
                 4
             ],
@@ -1536,8 +1536,8 @@
             "uuid": "b99c91be-8805-4e15-9cb6-486b55b81ae1",
             "category": 11,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.419Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.419Z",
             "muscles": [
                 4
             ],
@@ -1558,8 +1558,8 @@
             "uuid": "e7a964cd-e68e-4926-bc7c-577065137e18",
             "category": 12,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.317Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.317Z",
             "muscles": [],
             "muscles_secondary": [
                 11,
@@ -1582,8 +1582,8 @@
             "uuid": "14d5cdbc-9b17-4296-a282-0a81cd3c4c4e",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.358Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.358Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -1600,8 +1600,8 @@
             "uuid": "09dd3e3c-e53a-4e2c-a2e3-645d334f53e2",
             "category": 11,
             "variations": 19,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.495Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.495Z",
             "muscles": [
                 4,
                 5
@@ -1623,8 +1623,8 @@
             "uuid": "7c8eb1ac-2d7e-4ca7-919a-1848ba38e0f4",
             "category": 8,
             "variations": 19,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.505Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.505Z",
             "muscles": [
                 5
             ],
@@ -1643,8 +1643,8 @@
             "uuid": "46e0f60c-fdc0-489a-82e4-a5b7476a5c21",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.478Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.478Z",
             "muscles": [
                 13
             ],
@@ -1665,8 +1665,8 @@
             "uuid": "b7c6a444-90ea-4f5b-9fea-748311606eaa",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.368Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.368Z",
             "muscles": [
                 10
             ],
@@ -1685,8 +1685,8 @@
             "uuid": "43e85cb8-51d0-4892-b1bf-80a3cb111ff6",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.469Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.469Z",
             "muscles": [
                 1
             ],
@@ -1707,8 +1707,8 @@
             "uuid": "2f1a2707-e7ff-46ac-9112-3e31e6e961ee",
             "category": 9,
             "variations": 13,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.410Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.410Z",
             "muscles": [
                 10
             ],
@@ -1729,8 +1729,8 @@
             "uuid": "dcc6e237-a8bb-4eca-bbc5-7fb852636f6a",
             "category": 9,
             "variations": 13,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.436Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.436Z",
             "muscles": [
                 10
             ],
@@ -1751,8 +1751,8 @@
             "uuid": "fe328b2b-cc6d-4f12-a2c6-85ce374217c7",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.514Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.514Z",
             "muscles": [
                 1
             ],
@@ -1769,8 +1769,8 @@
             "uuid": "d8bddb58-91b0-4d7b-8ec1-cd742584b607",
             "category": 8,
             "variations": 17,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.486Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.486Z",
             "muscles": [
                 5
             ],
@@ -1792,8 +1792,8 @@
             "uuid": "d7a418d4-d0cb-4f85-8a7c-1e9d97152cbd",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.349Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.349Z",
             "muscles": [
                 9
             ],
@@ -1810,8 +1810,8 @@
             "uuid": "fdc550b6-ec58-4023-ba62-b54045e9a10d",
             "category": 10,
             "variations": 11,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.330Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.330Z",
             "muscles": [
                 14,
                 6
@@ -1829,8 +1829,8 @@
             "uuid": "07c5b9f4-2be5-4a3d-b6d2-16235da1ae3a",
             "category": 11,
             "variations": 9,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.427Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.427Z",
             "muscles": [
                 4
             ],
@@ -1847,8 +1847,8 @@
             "uuid": "95d226ad-3bf7-4cd6-aa64-2f26b526d8b6",
             "category": 11,
             "variations": 9,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.459Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.459Z",
             "muscles": [
                 4
             ],
@@ -1867,8 +1867,8 @@
             "uuid": "55d0a5ec-b147-40c3-aa77-314e61c93689",
             "category": 11,
             "variations": 9,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.449Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.449Z",
             "muscles": [
                 4
             ],
@@ -1887,8 +1887,8 @@
             "uuid": "893c07ea-2e24-49b6-92e4-d0033eedec62",
             "category": 8,
             "variations": 18,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.655Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.655Z",
             "muscles": [
                 5
             ],
@@ -1908,8 +1908,8 @@
             "uuid": "95a7e546-e8f8-4521-a76b-983d94161b25",
             "category": 8,
             "variations": 18,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.667Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.667Z",
             "muscles": [
                 5
             ],
@@ -1929,8 +1929,8 @@
             "uuid": "68e0dbba-2d1e-4a56-8378-8824c1de3342",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.522Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.522Z",
             "muscles": [
                 2,
                 9
@@ -1948,8 +1948,8 @@
             "uuid": "9c35594c-bbcc-4656-bdcb-376814c90e96",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.572Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.572Z",
             "muscles": [
                 2
             ],
@@ -1969,8 +1969,8 @@
             "uuid": "d677de4c-5bd9-412a-91f1-857116a666a2",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.604Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.604Z",
             "muscles": [
                 8
             ],
@@ -1991,8 +1991,8 @@
             "uuid": "6260e3aa-e46b-4b4b-8ada-58bfd0922d3a",
             "category": 12,
             "variations": 34,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.700Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.700Z",
             "muscles": [
                 12
             ],
@@ -2016,8 +2016,8 @@
             "uuid": "5b4b94ca-f429-4394-9477-c00be8f2bb04",
             "category": 12,
             "variations": 34,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.688Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.688Z",
             "muscles": [
                 12
             ],
@@ -2040,8 +2040,8 @@
             "uuid": "e5a62151-5350-4c86-8a19-3e9ca7bf0f38",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.762Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.762Z",
             "muscles": [
                 8,
                 14,
@@ -2062,8 +2062,8 @@
             "uuid": "ceb0c2d0-06ac-4a49-89e7-8d7b1c1e5672",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.745Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.745Z",
             "muscles": [
                 8
             ],
@@ -2082,8 +2082,8 @@
             "uuid": "fb928a58-9e24-4e7b-b714-71a5f759e8d6",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.770Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.770Z",
             "muscles": [
                 11
             ],
@@ -2100,8 +2100,8 @@
             "uuid": "c0d9fe98-f4fe-49f3-8037-05e1984e7d2d",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.635Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.635Z",
             "muscles": [
                 1
             ],
@@ -2120,8 +2120,8 @@
             "uuid": "04365177-e078-489b-983a-8ac61b7346f1",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.624Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.624Z",
             "muscles": [
                 1
             ],
@@ -2140,8 +2140,8 @@
             "uuid": "4e238360-a4c1-4509-85c1-f96d01e69cf9",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.644Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.644Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -2156,8 +2156,8 @@
             "uuid": "7704e810-c05d-47cc-a384-265e0231a497",
             "category": 13,
             "variations": 43,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.718Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.718Z",
             "muscles": [
                 9,
                 5
@@ -2177,8 +2177,8 @@
             "uuid": "9b993e99-8701-43f0-84d6-689123183880",
             "category": 10,
             "variations": 11,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.544Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.544Z",
             "muscles": [
                 6
             ],
@@ -2197,8 +2197,8 @@
             "uuid": "8381f40c-3168-4d98-af60-6a89800dd308",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.708Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.708Z",
             "muscles": [
                 1,
                 13,
@@ -2219,8 +2219,8 @@
             "uuid": "3edbb63e-f326-4bd0-8af3-2d5deabb864f",
             "category": 15,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.614Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.614Z",
             "muscles": [
                 11,
                 7,
@@ -2244,8 +2244,8 @@
             "uuid": "b526b17b-408d-4da2-8940-ceaf9dae9d93",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.737Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.737Z",
             "muscles": [
                 2
             ],
@@ -2264,8 +2264,8 @@
             "uuid": "1d610575-eed0-42cf-8737-29788a372af6",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.591Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.591Z",
             "muscles": [
                 10
             ],
@@ -2284,8 +2284,8 @@
             "uuid": "541941e0-0fa5-4474-a382-9baf04948f8d",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.676Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.676Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -2302,8 +2302,8 @@
             "uuid": "19a289c0-33af-4055-bb34-3570c2975d3d",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.729Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.729Z",
             "muscles": [
                 8
             ],
@@ -2323,8 +2323,8 @@
             "uuid": "d059c63d-0a81-48a3-912a-44070c0def2e",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.754Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.754Z",
             "muscles": [
                 14,
                 6
@@ -2345,8 +2345,8 @@
             "uuid": "37f6bd56-815a-4975-99af-05e749fae4b2",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.583Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.583Z",
             "muscles": [
                 9
             ],
@@ -2363,8 +2363,8 @@
             "uuid": "55ff32e6-24ab-4303-9b50-176d60d48796",
             "category": 11,
             "variations": 9,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.911Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.911Z",
             "muscles": [
                 4
             ],
@@ -2384,8 +2384,8 @@
             "uuid": "27eb3d4a-8677-4c1f-bf34-251e2b4741cb",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.780Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.780Z",
             "muscles": [],
             "muscles_secondary": [
                 12
@@ -2405,8 +2405,8 @@
             "uuid": "aae91ecf-ffa4-4730-812c-cb00e423f91c",
             "category": 10,
             "variations": 45,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.039Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.039Z",
             "muscles": [
                 6
             ],
@@ -2425,8 +2425,8 @@
             "uuid": "312017c4-c431-46b2-86dd-b9f480617d6f",
             "category": 11,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.884Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.884Z",
             "muscles": [
                 4
             ],
@@ -2445,8 +2445,8 @@
             "uuid": "2f5032de-df6d-406b-b709-9223ef5c3e24",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.852Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.852Z",
             "muscles": [
                 4
             ],
@@ -2467,8 +2467,8 @@
             "uuid": "eeeb42ae-6a41-4127-b2ec-72376119531b",
             "category": 15,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.129Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.129Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -2483,8 +2483,8 @@
             "uuid": "4d255f25-f199-401a-bc81-7ffab1d0ed24",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.922Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.922Z",
             "muscles": [
                 10
             ],
@@ -2501,8 +2501,8 @@
             "uuid": "b16e3e5d-8401-4d2b-919c-15b536f9ec5e",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.106Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.106Z",
             "muscles": [
                 4
             ],
@@ -2521,8 +2521,8 @@
             "uuid": "8b311259-4f67-4dbf-9574-8c38faa92160",
             "category": 9,
             "variations": 47,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.062Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.062Z",
             "muscles": [
                 8
             ],
@@ -2543,8 +2543,8 @@
             "uuid": "316aca47-6f5b-40b7-b04f-f69e68387354",
             "category": 9,
             "variations": 15,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.897Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.897Z",
             "muscles": [
                 10
             ],
@@ -2563,8 +2563,8 @@
             "uuid": "91c47c8b-6290-4885-8921-df9aa7958c00",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.086Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.086Z",
             "muscles": [
                 2
             ],
@@ -2586,8 +2586,8 @@
             "uuid": "63375f5b-2d81-471c-bea4-fc3d207e96cb",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.841Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.841Z",
             "muscles": [
                 2
             ],
@@ -2606,8 +2606,8 @@
             "uuid": "57263316-6f34-4539-952b-b07e09bac3ba",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.832Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.832Z",
             "muscles": [
                 2
             ],
@@ -2624,8 +2624,8 @@
             "uuid": "dac3c714-f0c6-4d97-8283-17be7dd77b65",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.872Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.872Z",
             "muscles": [
                 2,
                 9
@@ -2645,8 +2645,8 @@
             "uuid": "8c496646-baa8-4ed3-97b1-702e213fdeca",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.803Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.803Z",
             "muscles": [
                 12
             ],
@@ -2663,8 +2663,8 @@
             "uuid": "fff05d7a-f374-4c8a-9885-39f49076918f",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.814Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.814Z",
             "muscles": [
                 12
             ],
@@ -2681,8 +2681,8 @@
             "uuid": "48836f44-efcd-4471-a456-5f024936025a",
             "category": 9,
             "variations": 14,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.861Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.861Z",
             "muscles": [
                 11,
                 8
@@ -2700,8 +2700,8 @@
             "uuid": "3bc8b411-a28d-4e1c-a6d1-769e18fe9881",
             "category": 9,
             "variations": 14,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.792Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.792Z",
             "muscles": [
                 11
             ],
@@ -2718,8 +2718,8 @@
             "uuid": "440a5184-de58-4a86-a7ba-76ddeafaa855",
             "category": 9,
             "variations": 14,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:32.823Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:32.823Z",
             "muscles": [
                 11
             ],
@@ -2736,8 +2736,8 @@
             "uuid": "49189e88-40b6-4c0d-a784-0cc3abbb8e75",
             "category": 9,
             "variations": 14,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.055Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.055Z",
             "muscles": [
                 11
             ],
@@ -2754,8 +2754,8 @@
             "uuid": "62170477-90ec-463c-907e-9e523abc0a15",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.221Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.221Z",
             "muscles": [
                 10
             ],
@@ -2772,8 +2772,8 @@
             "uuid": "66a42396-c207-44da-bc75-758a89d32404",
             "category": 9,
             "variations": 15,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.121Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.121Z",
             "muscles": [
                 11,
                 7,
@@ -2796,8 +2796,8 @@
             "uuid": "5f0b757c-0d6a-430b-9d5e-3bfba202878e",
             "category": 9,
             "variations": 15,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.095Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.095Z",
             "muscles": [
                 10
             ],
@@ -2816,8 +2816,8 @@
             "uuid": "661287d4-d1dc-485c-896b-73f90b000536",
             "category": 9,
             "variations": 15,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.111Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.111Z",
             "muscles": [
                 10
             ],
@@ -2836,8 +2836,8 @@
             "uuid": "18104387-4567-4c1e-8d03-db0b274646dd",
             "category": 9,
             "variations": 15,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.075Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.075Z",
             "muscles": [
                 10
             ],
@@ -2854,8 +2854,8 @@
             "uuid": "c2078aac-e4e2-4103-a845-6252a3eb795e",
             "category": 9,
             "variations": 11,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.315Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.315Z",
             "muscles": [
                 14,
                 6
@@ -2873,8 +2873,8 @@
             "uuid": "9e34bc01-9cec-4ee2-a9bb-9c937a471c24",
             "category": 10,
             "variations": 11,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.300Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.300Z",
             "muscles": [
                 6
             ],
@@ -2895,8 +2895,8 @@
             "uuid": "5f514f9e-6bd9-408e-85b2-c25eb04af33b",
             "category": 10,
             "variations": 11,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.271Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.271Z",
             "muscles": [
                 6
             ],
@@ -2915,8 +2915,8 @@
             "uuid": "82aec7f9-ee03-4b24-8994-f6bde07c6a41",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.285Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.285Z",
             "muscles": [
                 4
             ],
@@ -2933,8 +2933,8 @@
             "uuid": "fd595232-b9ad-4216-bba1-92298f993ea9",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.162Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.162Z",
             "muscles": [
                 12
             ],
@@ -2951,8 +2951,8 @@
             "uuid": "16089e03-5afc-4a18-a40a-beb337806ac0",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.139Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.139Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -2967,8 +2967,8 @@
             "uuid": "de22963a-5d42-4999-860e-377f64359432",
             "category": 11,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.257Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.257Z",
             "muscles": [
                 4
             ],
@@ -2989,8 +2989,8 @@
             "uuid": "a7e6c20a-6ddc-4401-9935-ace2d02e3995",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.008Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.008Z",
             "muscles": [
                 12
             ],
@@ -3010,8 +3010,8 @@
             "uuid": "77c98954-b50d-46f0-9912-3981f856d5a6",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.186Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.186Z",
             "muscles": [
                 12
             ],
@@ -3031,8 +3031,8 @@
             "uuid": "183e7279-f052-4c70-8381-bbbda3bb9afe",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.033Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.033Z",
             "muscles": [
                 8,
                 10
@@ -3052,8 +3052,8 @@
             "uuid": "aa3b4ebe-6dee-45ad-a345-cf2acebf4159",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.044Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.044Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -3070,8 +3070,8 @@
             "uuid": "7b1e458f-1857-4c2f-8463-7d67d4b2db93",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.236Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.236Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -3088,8 +3088,8 @@
             "uuid": "0027b172-a83e-4f79-af47-483302a22c02",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.130Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.130Z",
             "muscles": [
                 1,
                 11
@@ -3109,8 +3109,8 @@
             "uuid": "cbc5fbc9-9bca-4766-941d-4b6903d4a521",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:44.204Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:44.204Z",
             "muscles": [
                 6
             ],
@@ -3127,8 +3127,8 @@
             "uuid": "c7058ff8-ca3b-4822-abdb-6341ce37c4d1",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:53:48.073Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:53:48.073Z",
             "muscles": [
                 1
             ],
@@ -3145,8 +3145,8 @@
             "uuid": "bc45125b-58da-4ee9-8895-16a7b930b789",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.162Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.162Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3161,8 +3161,8 @@
             "uuid": "6441ff9e-037e-48d9-8800-67b430dc8e37",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:48:15.265Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:48:15.265Z",
             "muscles": [
                 4
             ],
@@ -3184,8 +3184,8 @@
             "uuid": "748e9635-7958-4a41-b1ed-93de74c7ef72",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.151Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.151Z",
             "muscles": [
                 12,
                 9
@@ -3208,8 +3208,8 @@
             "uuid": "98d73d2c-b8ee-44f4-a245-a7934adfbaef",
             "category": 11,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:51:33.748Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:51:33.748Z",
             "muscles": [
                 4
             ],
@@ -3226,8 +3226,8 @@
             "uuid": "3b96a05b-9705-48da-b43e-6e098234bb35",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.184Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.184Z",
             "muscles": [
                 4
             ],
@@ -3248,8 +3248,8 @@
             "uuid": "fe04cf35-1af5-4b51-89d4-c38d7eaa0db1",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:48:02.454Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:48:02.454Z",
             "muscles": [
                 11,
                 8
@@ -3271,8 +3271,8 @@
             "uuid": "c9e57bbe-e839-44c6-861d-1c8dd2845e36",
             "category": 10,
             "variations": 45,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:53:48.083Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:53:48.083Z",
             "muscles": [
                 14,
                 6
@@ -3296,8 +3296,8 @@
             "uuid": "dd52fb99-9426-4a78-b446-20a8e3e4ec47",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:48:15.274Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:48:15.274Z",
             "muscles": [
                 13
             ],
@@ -3318,8 +3318,8 @@
             "uuid": "9cb69afc-7a44-4a22-b9a9-7bde8aca5b11",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:51:33.739Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:51:33.739Z",
             "muscles": [
                 9
             ],
@@ -3336,8 +3336,8 @@
             "uuid": "8e420408-0682-4ab6-89f5-2681e54c7ce0",
             "category": 12,
             "variations": 40,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:51:33.777Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:51:33.777Z",
             "muscles": [
                 12
             ],
@@ -3360,8 +3360,8 @@
             "uuid": "7f834f07-fa7b-46b6-8ffa-45930b0602db",
             "category": 12,
             "variations": 40,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:51:33.764Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:51:33.764Z",
             "muscles": [
                 12
             ],
@@ -3382,8 +3382,8 @@
             "uuid": "4284336c-6cfa-4c4d-a440-26b30db035d1",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:48:15.255Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:48:15.255Z",
             "muscles": [
                 9
             ],
@@ -3402,8 +3402,8 @@
             "uuid": "5930ce9c-dfbd-452c-9949-dd34c5e41fd6",
             "category": 8,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:48:15.284Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:48:15.284Z",
             "muscles": [
                 5
             ],
@@ -3426,8 +3426,8 @@
             "uuid": "a6c2a970-a621-4e03-be1d-4a29118b1687",
             "category": 12,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:47:50.174Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:47:50.174Z",
             "muscles": [
                 8
             ],
@@ -3446,8 +3446,8 @@
             "uuid": "3f93459a-d06e-465c-85db-2137da759440",
             "category": 13,
             "variations": 4,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:48:02.445Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:48:02.445Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -3464,8 +3464,8 @@
             "uuid": "2b6c09f7-dbf1-45ea-baf6-9a12e0b12396",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.957Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.957Z",
             "muscles": [
                 12,
                 9
@@ -3485,8 +3485,8 @@
             "uuid": "834c639f-4c82-404d-909f-4c75275465a0",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.946Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.946Z",
             "muscles": [
                 1
             ],
@@ -3505,8 +3505,8 @@
             "uuid": "2cd5e3c6-a8c0-456a-ab47-5e7b3a435407",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.927Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.927Z",
             "muscles": [
                 1,
                 13
@@ -3529,8 +3529,8 @@
             "uuid": "1b95d961-1d5c-4ded-b25e-c090295ffe37",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.083Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.083Z",
             "muscles": [
                 4,
                 5
@@ -3553,8 +3553,8 @@
             "uuid": "09349391-375b-42d5-8979-00a5d7196a5b",
             "category": 10,
             "variations": 45,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.167Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.167Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3569,8 +3569,8 @@
             "uuid": "7671b16c-5023-4663-b00d-86dd018e024f",
             "category": 8,
             "variations": 19,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.022Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.022Z",
             "muscles": [
                 5
             ],
@@ -3587,8 +3587,8 @@
             "uuid": "af2f774c-296c-4d14-8e4a-fad77175ae37",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.060Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.060Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3603,8 +3603,8 @@
             "uuid": "2e7ffff9-e603-4b28-98c8-31d1a6ce8cd9",
             "category": 9,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.044Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.044Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -3621,8 +3621,8 @@
             "uuid": "4b7cb037-0789-4014-ab6f-a451716b7538",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.992Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.992Z",
             "muscles": [
                 12,
                 9
@@ -3646,8 +3646,8 @@
             "uuid": "88dbcc74-0304-4fcf-8a47-92d14a484b0a",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.012Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.012Z",
             "muscles": [
                 12
             ],
@@ -3664,8 +3664,8 @@
             "uuid": "00fcf603-b0d0-48d2-9b5e-c7f0d510d46c",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.935Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.935Z",
             "muscles": [
                 12
             ],
@@ -3682,8 +3682,8 @@
             "uuid": "32c129f7-cc28-4ebc-8465-e4fa62e220b1",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.967Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.967Z",
             "muscles": [
                 12
             ],
@@ -3704,8 +3704,8 @@
             "uuid": "58416166-7a3a-470d-b493-27332799dcdf",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.002Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.002Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3720,8 +3720,8 @@
             "uuid": "d9e306b6-d6ff-4e61-b283-4b085d8edaaf",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.034Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.034Z",
             "muscles": [
                 12
             ],
@@ -3743,8 +3743,8 @@
             "uuid": "a48295d8-21da-4625-8a85-331d7ced8d8b",
             "category": 15,
             "variations": 44,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.140Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.140Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3759,8 +3759,8 @@
             "uuid": "6cf55ecc-86ee-492d-a7f6-977bf61758b3",
             "category": 15,
             "variations": 44,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.092Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.092Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3775,8 +3775,8 @@
             "uuid": "654793c2-e0e3-41fd-a549-0ece0f4378e8",
             "category": 15,
             "variations": 44,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.052Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.052Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -3791,8 +3791,8 @@
             "uuid": "57e17672-52b9-43cf-8d0d-4b3f06a0c0d0",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.124Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.124Z",
             "muscles": [
                 4
             ],
@@ -3815,8 +3815,8 @@
             "uuid": "275fb49f-975c-4d6e-9d63-2c86ed740f40",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.102Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.102Z",
             "muscles": [
                 4
             ],
@@ -3839,8 +3839,8 @@
             "uuid": "60e9a0c0-5458-46cd-ab41-7d7b85225cf8",
             "category": 11,
             "variations": 7,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.152Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.152Z",
             "muscles": [
                 4
             ],
@@ -3860,8 +3860,8 @@
             "uuid": "5912d7ed-6a0e-4b4c-b30a-fc9f3f890fc1",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.071Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.071Z",
             "muscles": [
                 2
             ],
@@ -3880,8 +3880,8 @@
             "uuid": "e28b0685-7a8f-4343-9c0b-63b38386d30b",
             "category": 10,
             "variations": 11,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.916Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.916Z",
             "muscles": [
                 6
             ],
@@ -3898,8 +3898,8 @@
             "uuid": "cc5bf1a3-29b5-4c5a-8600-5e35c79ab4bf",
             "category": 8,
             "variations": 18,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:12.979Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:12.979Z",
             "muscles": [
                 5
             ],
@@ -3919,8 +3919,8 @@
             "uuid": "919bb48a-42fe-4a11-9078-ea2b5087c49f",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:54.191Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:54.191Z",
             "muscles": [
                 14
             ],
@@ -3941,8 +3941,8 @@
             "uuid": "169896b2-90e3-4497-9d73-56bee4a34697",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.180Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.180Z",
             "muscles": [
                 12
             ],
@@ -3959,8 +3959,8 @@
             "uuid": "8b0a0371-c0a9-42a7-aab7-68d520542fb2",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.263Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.263Z",
             "muscles": [
                 2
             ],
@@ -3979,8 +3979,8 @@
             "uuid": "87affa4b-395b-437c-9581-2bd20ea5aa7c",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.254Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.254Z",
             "muscles": [
                 2
             ],
@@ -3999,8 +3999,8 @@
             "uuid": "141bc870-56be-4749-a3b9-e56d5d5618b4",
             "category": 13,
             "variations": 5,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.233Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.233Z",
             "muscles": [
                 2
             ],
@@ -4017,8 +4017,8 @@
             "uuid": "f956977e-cc05-4db2-a387-ba6140b1ef34",
             "category": 13,
             "variations": 38,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.420Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.420Z",
             "muscles": [
                 9
             ],
@@ -4037,8 +4037,8 @@
             "uuid": "270e108d-3cd2-45a9-807b-c357317eb15c",
             "category": 13,
             "variations": 38,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.336Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.336Z",
             "muscles": [
                 2
             ],
@@ -4057,8 +4057,8 @@
             "uuid": "72a945ec-3a7f-424b-9a05-1616ef7dce91",
             "category": 13,
             "variations": 38,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.371Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.371Z",
             "muscles": [
                 2
             ],
@@ -4077,8 +4077,8 @@
             "uuid": "6199b3c7-3ccb-47fa-89bb-ef7fef12c0e3",
             "category": 13,
             "variations": 38,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.353Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.353Z",
             "muscles": [
                 2
             ],
@@ -4097,8 +4097,8 @@
             "uuid": "2f8ee51b-f493-47f7-8b2a-1da16c128f73",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.325Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.325Z",
             "muscles": [
                 14
             ],
@@ -4119,8 +4119,8 @@
             "uuid": "cf1f0fed-6310-4210-8f7d-22e375e6c60c",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.293Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.293Z",
             "muscles": [
                 14
             ],
@@ -4141,8 +4141,8 @@
             "uuid": "d9f6c15a-b224-4ef6-93e9-fd6509b66add",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.344Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.344Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -4157,8 +4157,8 @@
             "uuid": "e1b99153-0102-47fc-b0cd-c21509827b0b",
             "category": 10,
             "variations": 45,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:29.582Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:29.582Z",
             "muscles": [
                 6
             ],
@@ -4179,8 +4179,8 @@
             "uuid": "9374fdaf-411f-4ae6-8f0c-21cc2d3dc667",
             "category": 11,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.303Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.303Z",
             "muscles": [
                 2,
                 14,
@@ -4200,8 +4200,8 @@
             "uuid": "c85e6137-2577-4e28-82c2-427407d534eb",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.273Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.273Z",
             "muscles": [
                 1
             ],
@@ -4220,8 +4220,8 @@
             "uuid": "6e46833d-fd83-4c1a-90af-eb3f3a917199",
             "category": 14,
             "variations": 6,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.283Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.283Z",
             "muscles": [
                 15
             ],
@@ -4240,8 +4240,8 @@
             "uuid": "f38e9c23-031d-44d0-ac27-7f1026212c73",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.244Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.244Z",
             "muscles": [
                 6
             ],
@@ -4258,8 +4258,8 @@
             "uuid": "e60125f0-3a88-4707-815f-fe0e2b4be3c4",
             "category": 15,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.386Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.386Z",
             "muscles": [
                 7
             ],
@@ -4276,8 +4276,8 @@
             "uuid": "092d0fbb-0409-470e-a087-beb9a378f3f7",
             "category": 8,
             "variations": 18,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.313Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.313Z",
             "muscles": [
                 5
             ],
@@ -4296,8 +4296,8 @@
             "uuid": "8161de8b-7802-46c0-9bd4-db60f39b7677",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.223Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.223Z",
             "muscles": [
                 2
             ],
@@ -4316,8 +4316,8 @@
             "uuid": "b1051c3e-78a9-4b73-899c-c700098cf1a8",
             "category": 9,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.214Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.214Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -4332,8 +4332,8 @@
             "uuid": "eaf6f39e-d46d-4460-b5a9-71e814b18f89",
             "category": 10,
             "variations": 10,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:13.204Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:13.204Z",
             "muscles": [
                 14
             ],
@@ -4350,8 +4350,8 @@
             "uuid": "5c0824dc-f2fb-4d19-a1e5-7c33219ad51d",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:03.294Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:03.294Z",
             "muscles": [
                 10
             ],
@@ -4368,8 +4368,8 @@
             "uuid": "a2f5b6ef-b780-49c0-8d96-fdaff23e27ce",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:03.324Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:03.324Z",
             "muscles": [
                 10
             ],
@@ -4390,8 +4390,8 @@
             "uuid": "30ac081b-fb79-4253-9457-8efc07568790",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:01.959Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:01.959Z",
             "muscles": [
                 8,
                 10,
@@ -4413,8 +4413,8 @@
             "uuid": "eb61c7a1-e1c9-4c44-a8ce-2bbe98a39857",
             "category": 8,
             "variations": 16,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.369Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.369Z",
             "muscles": [
                 1,
                 13
@@ -4436,8 +4436,8 @@
             "uuid": "7ce443b6-eb84-4f65-b05f-461c1cc8bcc0",
             "category": 14,
             "variations": 6,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:03.283Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:03.283Z",
             "muscles": [
                 7
             ],
@@ -4456,8 +4456,8 @@
             "uuid": "7dc59fa0-5552-4ffa-954f-9bc8c22740bf",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.457Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.457Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -4472,8 +4472,8 @@
             "uuid": "4d5decb3-5fbe-45c1-9ad5-ff715e53cb34",
             "category": 15,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:01.935Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:01.935Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -4488,8 +4488,8 @@
             "uuid": "22c59ede-970b-43e1-bb51-ac1c2be0b0e0",
             "category": 9,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:03.275Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:03.275Z",
             "muscles": [
                 11
             ],
@@ -4510,8 +4510,8 @@
             "uuid": "0f5fc602-afb6-4500-87da-f115f3ef3f47",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:54.200Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:54.200Z",
             "muscles": [
                 12
             ],
@@ -4530,8 +4530,8 @@
             "uuid": "2f7149c3-77ce-4313-a59c-aef82b5a730a",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:01.926Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:01.926Z",
             "muscles": [
                 12
             ],
@@ -4550,8 +4550,8 @@
             "uuid": "0c2d9b74-3d1e-481f-a7bf-3b3532f7d6b0",
             "category": 9,
             "variations": 3,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:01.945Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:01.945Z",
             "muscles": [
                 10
             ],
@@ -4568,8 +4568,8 @@
             "uuid": "0a5a7661-1e24-4c15-bb2b-503672141307",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:55:54.226Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:55:54.226Z",
             "muscles": [
                 8,
                 10
@@ -4589,8 +4589,8 @@
             "uuid": "66c90ca7-23d8-47b1-820f-dc0c8140603b",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.439Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.439Z",
             "muscles": [
                 8,
                 12
@@ -4610,8 +4610,8 @@
             "uuid": "51420ded-5c17-4ce0-b005-89f1b67b7c65",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:56:03.303Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:56:03.303Z",
             "muscles": [
                 2
             ],
@@ -4632,8 +4632,8 @@
             "uuid": "5915fabe-c941-4dac-b196-bc4e8c7ce57b",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.390Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.390Z",
             "muscles": [
                 5
             ],
@@ -4652,8 +4652,8 @@
             "uuid": "3188868c-84e2-4a3b-b7dc-f79d8650988d",
             "category": 8,
             "variations": 17,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.403Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.403Z",
             "muscles": [
                 5
             ],
@@ -4670,8 +4670,8 @@
             "uuid": "f00630d6-578f-487f-8bf5-39c96366ccb8",
             "category": 8,
             "variations": 17,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.420Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.420Z",
             "muscles": [
                 5
             ],
@@ -4688,8 +4688,8 @@
             "uuid": "6c671e43-497f-4863-8d78-b592f3b5e7c6",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.449Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.449Z",
             "muscles": [
                 5
             ],
@@ -4706,8 +4706,8 @@
             "uuid": "90e9f590-7d68-4afb-9f95-8429246ea4aa",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.127Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.127Z",
             "muscles": [
                 14
             ],
@@ -4726,8 +4726,8 @@
             "uuid": "8766d43c-e035-4c37-b824-b94dce5bf710",
             "category": 12,
             "variations": 1,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.467Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.467Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -4744,8 +4744,8 @@
             "uuid": "309bfd2b-1af4-49db-b64b-d7d7c7dd39bb",
             "category": 10,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.418Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.418Z",
             "muscles": [
                 2,
                 8,
@@ -4772,8 +4772,8 @@
             "uuid": "52dec48d-25a4-4a78-b66b-ad6a773e143a",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.500Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.500Z",
             "muscles": [
                 4
             ],
@@ -4792,8 +4792,8 @@
             "uuid": "76965848-9776-4be5-b879-e3c97033b80f",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.466Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.466Z",
             "muscles": [
                 12
             ],
@@ -4812,8 +4812,8 @@
             "uuid": "f4467e9a-9bb1-4e93-bec6-10a5d7738ffb",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.145Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.145Z",
             "muscles": [
                 2
             ],
@@ -4832,8 +4832,8 @@
             "uuid": "6fc4815a-8852-4e89-a10b-bd36a9029dbb",
             "category": 11,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.118Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.118Z",
             "muscles": [
                 14
             ],
@@ -4852,8 +4852,8 @@
             "uuid": "738137c0-5387-4215-b457-ea7af113b3ba",
             "category": 13,
             "variations": 46,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.099Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.099Z",
             "muscles": [
                 2,
                 9
@@ -4873,8 +4873,8 @@
             "uuid": "5d40c67d-be59-4092-9c9c-301ca5310e2b",
             "category": 13,
             "variations": 46,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.078Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.078Z",
             "muscles": [
                 2,
                 9
@@ -4896,8 +4896,8 @@
             "uuid": "01976085-6701-45ea-b152-5c46ba60550d",
             "category": 13,
             "variations": 46,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.479Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.479Z",
             "muscles": [
                 2,
                 9
@@ -4919,8 +4919,8 @@
             "uuid": "d847301e-1613-4987-85cd-61d3ff9d7ef8",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.490Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.490Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -4935,8 +4935,8 @@
             "uuid": "4e752292-051a-4043-8f80-a390c23875e6",
             "category": 14,
             "variations": 6,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.509Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.509Z",
             "muscles": [
                 7
             ],
@@ -4953,8 +4953,8 @@
             "uuid": "0d68029a-f025-41fe-9c56-6ccbc32bc43d",
             "category": 13,
             "variations": 43,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.427Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.427Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -4971,8 +4971,8 @@
             "uuid": "51a80676-92d8-4f91-b51a-4666888e40db",
             "category": 8,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.088Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.088Z",
             "muscles": [
                 2,
                 4,
@@ -4998,8 +4998,8 @@
             "uuid": "f1946fd4-793d-47a5-b66f-599b7f53695d",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.136Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.136Z",
             "muscles": [
                 1,
                 11,
@@ -5022,8 +5022,8 @@
             "uuid": "46ee5805-512a-43a2-944c-97f7744b0078",
             "category": 9,
             "variations": 12,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:04:54.477Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:04:54.477Z",
             "muscles": [
                 11,
                 10
@@ -5043,8 +5043,8 @@
             "uuid": "591992cb-48ee-4b39-b790-e05b4a2c11e3",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:11.109Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:11.109Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -5059,8 +5059,8 @@
             "uuid": "55b9d286-c4cc-4a29-97ad-58cb13c2bb7e",
             "category": 12,
             "variations": 2,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T19:05:08.446Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T19:05:08.446Z",
             "muscles": [
                 12
             ],
@@ -5077,8 +5077,8 @@
             "uuid": "68e5eae7-7fd0-4d69-9b50-d0df15feac91",
             "category": 11,
             "variations": 8,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.765Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.765Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -5095,8 +5095,8 @@
             "uuid": "072a9fa8-1028-47b3-b958-d8052c6b8661",
             "category": 9,
             "variations": 13,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:01.815Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:01.815Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -5113,8 +5113,8 @@
             "uuid": "f8d69dd4-3c35-49c7-8cbe-f0132eca4c52",
             "category": 8,
             "variations": 17,
-            "creation_date": "2022-10-11",
-            "update_date": "2023-02-05T18:45:02.373Z",
+            "created": "2022-10-11",
+            "last_update": "2023-02-05T18:45:02.373Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -5129,8 +5129,8 @@
             "uuid": "9f9edad8-7da0-448c-bfcb-ec61f2d28162",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-10-13",
-            "update_date": "2023-02-05T18:45:01.698Z",
+            "created": "2022-10-13",
+            "last_update": "2023-02-05T18:45:01.698Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -5147,8 +5147,8 @@
             "uuid": "ea63d85c-8579-4dda-b99f-c4c8930f9af6",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-11-24",
-            "update_date": "2022-11-24T19:35:57.567Z",
+            "created": "2022-11-24",
+            "last_update": "2022-11-24T19:35:57.567Z",
             "muscles": [
                 5
             ],
@@ -5165,8 +5165,8 @@
             "uuid": "0ecd5f3a-f156-4f1b-b29e-16fb80802a50",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-11-27",
-            "update_date": "2022-11-27T21:03:46.890Z",
+            "created": "2022-11-27",
+            "last_update": "2022-11-27T21:03:46.890Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -5181,8 +5181,8 @@
             "uuid": "a540925e-fe66-47cc-ae28-ecdce408fb6d",
             "category": 8,
             "variations": null,
-            "creation_date": "2022-11-27",
-            "update_date": "2022-11-27T21:09:30.022Z",
+            "created": "2022-11-27",
+            "last_update": "2022-11-27T21:09:30.022Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -5199,8 +5199,8 @@
             "uuid": "5d244235-cd56-472a-876e-6e530a899ef2",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-11-30",
-            "update_date": "2022-11-30T17:39:24.448Z",
+            "created": "2022-11-30",
+            "last_update": "2022-11-30T17:39:24.448Z",
             "muscles": [
                 2,
                 9
@@ -5220,8 +5220,8 @@
             "uuid": "d3b21677-7311-40f8-a321-0ad4f7dfc3a9",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-11-30",
-            "update_date": "2022-11-30T18:06:01.827Z",
+            "created": "2022-11-30",
+            "last_update": "2022-11-30T18:06:01.827Z",
             "muscles": [
                 2
             ],
@@ -5238,8 +5238,8 @@
             "uuid": "70c99a4e-3340-4993-a7f1-2d2709dada1a",
             "category": 12,
             "variations": null,
-            "creation_date": "2022-12-20",
-            "update_date": "2022-12-20T00:08:20.514Z",
+            "created": "2022-12-20",
+            "last_update": "2022-12-20T00:08:20.514Z",
             "muscles": [
                 2,
                 9
@@ -5259,8 +5259,8 @@
             "uuid": "dc400220-b483-4b60-8f52-c36c70a782b5",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-12-20",
-            "update_date": "2022-12-20T00:13:58.907Z",
+            "created": "2022-12-20",
+            "last_update": "2022-12-20T00:13:58.907Z",
             "muscles": [
                 2,
                 9
@@ -5282,8 +5282,8 @@
             "uuid": "fb0c8c53-27ec-4aac-ab6e-403b7d7f250b",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-12-22",
-            "update_date": "2022-12-22T18:25:51.980Z",
+            "created": "2022-12-22",
+            "last_update": "2022-12-22T18:25:51.980Z",
             "muscles": [
                 10
             ],
@@ -5304,8 +5304,8 @@
             "uuid": "4ad16bf0-dc2c-49da-8c74-6bc3dcc58444",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-12-22",
-            "update_date": "2022-12-22T18:26:00.758Z",
+            "created": "2022-12-22",
+            "last_update": "2022-12-22T18:26:00.758Z",
             "muscles": [
                 10
             ],
@@ -5326,8 +5326,8 @@
             "uuid": "0b84816e-3d11-47f0-a043-2a3f20504a48",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-12-22",
-            "update_date": "2022-12-22T18:50:49.612Z",
+            "created": "2022-12-22",
+            "last_update": "2022-12-22T18:50:49.612Z",
             "muscles": [
                 10
             ],
@@ -5346,8 +5346,8 @@
             "uuid": "7b6460b2-49d2-40b0-a4f6-4780c79f7e25",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-12-22",
-            "update_date": "2022-12-22T19:28:27.043Z",
+            "created": "2022-12-22",
+            "last_update": "2022-12-22T19:28:27.043Z",
             "muscles": [
                 8
             ],
@@ -5366,8 +5366,8 @@
             "uuid": "50edc0f5-e9d0-471c-9fd7-fd691162b447",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-12-22",
-            "update_date": "2022-12-22T19:30:05.000Z",
+            "created": "2022-12-22",
+            "last_update": "2022-12-22T19:30:05.000Z",
             "muscles": [
                 8
             ],
@@ -5386,8 +5386,8 @@
             "uuid": "af0be7c9-2b9d-47fd-abee-84edd8207b9b",
             "category": 9,
             "variations": null,
-            "creation_date": "2022-12-22",
-            "update_date": "2022-12-22T19:31:14.070Z",
+            "created": "2022-12-22",
+            "last_update": "2022-12-22T19:31:14.070Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -5402,8 +5402,8 @@
             "uuid": "ed00a43f-f761-41f2-94d4-056120bc5f6d",
             "category": 13,
             "variations": null,
-            "creation_date": "2022-12-25",
-            "update_date": "2022-12-25T22:14:51.123Z",
+            "created": "2022-12-25",
+            "last_update": "2022-12-25T22:14:51.123Z",
             "muscles": [
                 2,
                 5
@@ -5423,8 +5423,8 @@
             "uuid": "89c3d614-e841-4c04-bee8-6761567e4b7c",
             "category": 15,
             "variations": null,
-            "creation_date": "2023-01-01",
-            "update_date": "2023-01-01T12:14:33.522Z",
+            "created": "2023-01-01",
+            "last_update": "2023-01-01T12:14:33.522Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -5439,8 +5439,8 @@
             "uuid": "6cbdd70c-0691-4288-b58a-24001384f1b3",
             "category": 9,
             "variations": null,
-            "creation_date": "2023-01-01",
-            "update_date": "2023-01-01T13:02:41.287Z",
+            "created": "2023-01-01",
+            "last_update": "2023-01-01T13:02:41.287Z",
             "muscles": [
                 10
             ],
@@ -5460,8 +5460,8 @@
             "uuid": "9b0f7101-b78a-4c47-b680-fbef15469a8a",
             "category": 9,
             "variations": null,
-            "creation_date": "2023-01-01",
-            "update_date": "2023-01-01T13:43:10.403Z",
+            "created": "2023-01-01",
+            "last_update": "2023-01-01T13:43:10.403Z",
             "muscles": [
                 11
             ],
@@ -5480,8 +5480,8 @@
             "uuid": "76a2f8a6-374b-42c8-b8ac-e8d64612f046",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T06:50:51.887Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T06:50:51.887Z",
             "muscles": [
                 5
             ],
@@ -5498,8 +5498,8 @@
             "uuid": "36274d27-3812-4b8c-80e2-ab59acf82c4d",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:06:00.628Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:06:00.628Z",
             "muscles": [
                 1
             ],
@@ -5516,8 +5516,8 @@
             "uuid": "edc44b1a-35d7-4c37-ab20-05842fb40576",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:08:00.200Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:08:00.200Z",
             "muscles": [
                 1
             ],
@@ -5536,8 +5536,8 @@
             "uuid": "960697af-9a0e-4bfd-a8ba-989718b6b5c7",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:10:01.541Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:10:01.541Z",
             "muscles": [
                 1
             ],
@@ -5556,8 +5556,8 @@
             "uuid": "3d85bdce-e1a9-48a2-b14d-8032820ebf25",
             "category": 13,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:14:15.881Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:14:15.881Z",
             "muscles": [
                 2
             ],
@@ -5574,8 +5574,8 @@
             "uuid": "cbf4cf16-f188-4a60-a223-aa50b163f4b7",
             "category": 13,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:18:46.543Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:18:46.543Z",
             "muscles": [
                 2
             ],
@@ -5594,8 +5594,8 @@
             "uuid": "ca16aa3c-9b43-4d81-ae60-1e225163b767",
             "category": 13,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:20:13.837Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:20:13.837Z",
             "muscles": [
                 2
             ],
@@ -5614,8 +5614,8 @@
             "uuid": "6d010eae-2e36-4ec6-b191-c0373f237bb4",
             "category": 13,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:22:34.080Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:22:34.080Z",
             "muscles": [
                 2
             ],
@@ -5634,8 +5634,8 @@
             "uuid": "1eeccede-29c5-4f38-9ba7-d77c7c47993d",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:26:00.815Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:26:00.815Z",
             "muscles": [
                 12,
                 9
@@ -5655,8 +5655,8 @@
             "uuid": "887fea99-352d-45ff-8e06-ef95eaa37902",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:28:09.039Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:28:09.039Z",
             "muscles": [
                 12
             ],
@@ -5673,8 +5673,8 @@
             "uuid": "d6e9ed59-497a-4c93-ac7d-f9696fcd21ab",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:30:10.957Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:30:10.957Z",
             "muscles": [
                 12
             ],
@@ -5691,8 +5691,8 @@
             "uuid": "ad3716b1-5fc9-45aa-9de4-9a1c0153915d",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:31:52.933Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:31:52.933Z",
             "muscles": [
                 12
             ],
@@ -5709,8 +5709,8 @@
             "uuid": "dab7400b-e86e-4224-bcea-4a915dc928e0",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:33:53.249Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:33:53.249Z",
             "muscles": [
                 12
             ],
@@ -5729,8 +5729,8 @@
             "uuid": "40d35363-0579-4f0f-aac6-a32a6de3f08a",
             "category": 11,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:38:47.652Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:38:47.652Z",
             "muscles": [
                 4
             ],
@@ -5747,8 +5747,8 @@
             "uuid": "ef2df6a2-41df-4a25-b2e0-4808dc2c3305",
             "category": 11,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:40:51.556Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:40:51.556Z",
             "muscles": [
                 4
             ],
@@ -5765,8 +5765,8 @@
             "uuid": "1e827ef8-0a01-4b26-9e26-eff9d200acca",
             "category": 11,
             "variations": null,
-            "creation_date": "2023-01-18",
-            "update_date": "2023-01-18T07:44:26.147Z",
+            "created": "2023-01-18",
+            "last_update": "2023-01-18T07:44:26.147Z",
             "muscles": [
                 4
             ],
@@ -5783,8 +5783,8 @@
             "uuid": "e0d9e9ef-09ee-4d26-9504-622093810414",
             "category": 15,
             "variations": null,
-            "creation_date": "2023-01-20",
-            "update_date": "2023-01-20T06:20:20.708Z",
+            "created": "2023-01-20",
+            "last_update": "2023-01-20T06:20:20.708Z",
             "muscles": [
                 4
             ],
@@ -5803,8 +5803,8 @@
             "uuid": "80c167b9-3749-48a1-8686-fc2163a1e7fb",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-01-20",
-            "update_date": "2023-01-20T07:22:56.589Z",
+            "created": "2023-01-20",
+            "last_update": "2023-01-20T07:22:56.589Z",
             "muscles": [
                 2,
                 8,
@@ -5828,8 +5828,8 @@
             "uuid": "596b9d2d-0f01-41a0-97e1-1839ffdb824d",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-20",
-            "update_date": "2023-01-20T12:28:38.702Z",
+            "created": "2023-01-20",
+            "last_update": "2023-01-20T12:28:38.702Z",
             "muscles": [
                 1
             ],
@@ -5848,8 +5848,8 @@
             "uuid": "e2599e86-d8b0-434e-8a48-aa3c2df7e790",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-20",
-            "update_date": "2023-01-20T12:48:23.369Z",
+            "created": "2023-01-20",
+            "last_update": "2023-01-20T12:48:23.369Z",
             "muscles": [
                 2,
                 1,
@@ -5870,8 +5870,8 @@
             "uuid": "d813ef7c-b10a-4c5c-ba55-6b9518e7ff4c",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-22",
-            "update_date": "2023-01-22T17:51:04.851Z",
+            "created": "2023-01-22",
+            "last_update": "2023-01-22T17:51:04.851Z",
             "muscles": [
                 2,
                 8
@@ -5895,8 +5895,8 @@
             "uuid": "6c8b0c67-68af-4473-907e-31fb1e48430c",
             "category": 15,
             "variations": null,
-            "creation_date": "2023-01-22",
-            "update_date": "2023-01-22T22:16:39.072Z",
+            "created": "2023-01-22",
+            "last_update": "2023-01-22T22:16:39.072Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": []
@@ -5911,8 +5911,8 @@
             "uuid": "95a300de-2ad8-492e-9364-13766d9e7618",
             "category": 15,
             "variations": null,
-            "creation_date": "2023-01-25",
-            "update_date": "2023-01-25T22:14:28.949Z",
+            "created": "2023-01-25",
+            "last_update": "2023-01-25T22:14:28.949Z",
             "muscles": [
                 8,
                 10,
@@ -5937,8 +5937,8 @@
             "uuid": "3de523ee-d359-4044-a792-6de22eef0495",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-01-26",
-            "update_date": "2023-01-26T06:29:26.045Z",
+            "created": "2023-01-26",
+            "last_update": "2023-01-26T06:29:26.045Z",
             "muscles": [
                 1
             ],
@@ -5957,8 +5957,8 @@
             "uuid": "d7d4fc16-08cd-4568-87e7-d9e4e2f77393",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-01-26",
-            "update_date": "2023-01-26T16:44:27.268Z",
+            "created": "2023-01-26",
+            "last_update": "2023-01-26T16:44:27.268Z",
             "muscles": [
                 1
             ],
@@ -5977,8 +5977,8 @@
             "uuid": "346634cf-3896-4c10-bd66-28fb69d02573",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-27",
-            "update_date": "2023-01-27T11:00:21.160Z",
+            "created": "2023-01-27",
+            "last_update": "2023-01-27T11:00:21.160Z",
             "muscles": [
                 6
             ],
@@ -5997,8 +5997,8 @@
             "uuid": "151434a5-c046-459f-a3a9-c3125075856f",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-27",
-            "update_date": "2023-01-27T12:14:35.439Z",
+            "created": "2023-01-27",
+            "last_update": "2023-01-27T12:14:35.439Z",
             "muscles": [
                 8,
                 10,
@@ -6019,8 +6019,8 @@
             "uuid": "f4991a98-6422-4884-8ad3-43412f91fac1",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-28",
-            "update_date": "2023-01-28T18:03:51.348Z",
+            "created": "2023-01-28",
+            "last_update": "2023-01-28T18:03:51.348Z",
             "muscles": [
                 6
             ],
@@ -6041,8 +6041,8 @@
             "uuid": "b2025776-2397-4de7-a49e-296321169481",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-01-28",
-            "update_date": "2023-01-28T18:27:59.375Z",
+            "created": "2023-01-28",
+            "last_update": "2023-01-28T18:27:59.375Z",
             "muscles": [
                 6
             ],
@@ -6064,8 +6064,8 @@
             "uuid": "e872658a-3bac-4d9e-bcf2-15919ebea43a",
             "category": 10,
             "variations": null,
-            "creation_date": "2023-02-03",
-            "update_date": "2023-02-03T14:48:13.828Z",
+            "created": "2023-02-03",
+            "last_update": "2023-02-03T14:48:13.828Z",
             "muscles": [
                 2,
                 1,
@@ -6087,8 +6087,8 @@
             "uuid": "9e6dae29-5d03-440a-bdf1-2cb25a5179c2",
             "category": 9,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:11.167Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:11.167Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6105,8 +6105,8 @@
             "uuid": "db5bd076-2f1d-4b72-9be9-610e5c3f5724",
             "category": 15,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:12.131Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:12.131Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6123,8 +6123,8 @@
             "uuid": "3284fd27-5402-4821-9c32-29066d4e2667",
             "category": 9,
             "variations": 13,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:12.500Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:12.500Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6141,8 +6141,8 @@
             "uuid": "a9633731-1d86-4b4a-996f-33a1dee0b0e1",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:12.811Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:12.811Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6159,8 +6159,8 @@
             "uuid": "9801e20b-69c3-43d0-9066-450a68230c42",
             "category": 9,
             "variations": 48,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:13.225Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:13.225Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6177,8 +6177,8 @@
             "uuid": "fa9838ed-84e8-476c-8157-1774a9c90aff",
             "category": 9,
             "variations": 48,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:13.687Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:13.687Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6195,8 +6195,8 @@
             "uuid": "7ce489d2-1948-46de-aa80-277b2ca737aa",
             "category": 9,
             "variations": 48,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:13.947Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:13.947Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6213,8 +6213,8 @@
             "uuid": "44afe80f-1ab2-4149-adbf-d8e0ece990ce",
             "category": 9,
             "variations": 48,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:14.266Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:14.266Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6231,8 +6231,8 @@
             "uuid": "6ddea666-5a57-4ac0-926f-01f8cfdaa4fd",
             "category": 9,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:14.612Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:14.612Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6249,8 +6249,8 @@
             "uuid": "80d83f98-efe5-4d87-a403-c0feadc8650f",
             "category": 9,
             "variations": 48,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:14.952Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:14.952Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6267,8 +6267,8 @@
             "uuid": "1d8599d8-59a5-4faf-a9cf-b81639cbf68b",
             "category": 9,
             "variations": 48,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:15.228Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:15.228Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6285,8 +6285,8 @@
             "uuid": "cd51aa2a-52b3-43df-8011-0c8ef4b7ed11",
             "category": 15,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:15.634Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:15.634Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6303,8 +6303,8 @@
             "uuid": "9d9c4c9f-045f-4af5-adf2-8bb07c3516dc",
             "category": 8,
             "variations": 49,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:16.035Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:16.035Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6321,8 +6321,8 @@
             "uuid": "69b3da17-11cc-41fe-bbc1-ee6c45ced41c",
             "category": 8,
             "variations": 49,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:16.366Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:16.366Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6339,8 +6339,8 @@
             "uuid": "53324f8e-df38-456f-9b7d-8f3a43f45f31",
             "category": 11,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:16.599Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:16.599Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6357,8 +6357,8 @@
             "uuid": "18d277a0-7222-46e7-b2bf-47c8ed169c30",
             "category": 11,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:16.955Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:16.955Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6375,8 +6375,8 @@
             "uuid": "853e4429-da4a-492d-b042-5c124282c005",
             "category": 11,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:17.229Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:17.229Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6393,8 +6393,8 @@
             "uuid": "616f9026-1a1d-4ed8-b068-cfbb81b6a000",
             "category": 9,
             "variations": 13,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:17.507Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:17.507Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6411,8 +6411,8 @@
             "uuid": "cf79d9fb-ffce-4648-a64f-27e4274e4c20",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:17.775Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:17.775Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6429,8 +6429,8 @@
             "uuid": "b2b40a54-e42b-49ec-97da-4c929ae41d42",
             "category": 11,
             "variations": 45,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:18.042Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:18.042Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6447,8 +6447,8 @@
             "uuid": "6e1af72c-f9f5-490d-8977-564df4f24b6f",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:18.318Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:18.318Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6465,8 +6465,8 @@
             "uuid": "9b5f8c6e-2436-4ded-aea9-8c698b0c8768",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:18.612Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:18.612Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6483,8 +6483,8 @@
             "uuid": "4b278f57-4505-419a-8b34-172b53eb4adc",
             "category": 12,
             "variations": 50,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:18.843Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:18.843Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6501,8 +6501,8 @@
             "uuid": "1a40cc23-4609-4951-9b76-237715ae85ed",
             "category": 12,
             "variations": 50,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:19.109Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:19.109Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6519,8 +6519,8 @@
             "uuid": "04e7fd92-e2e5-4212-ad7c-7542e98f7d83",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:19.361Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:19.361Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6537,8 +6537,8 @@
             "uuid": "336e224a-a7a1-4808-9871-1ad8cfc3fee7",
             "category": 13,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:19.519Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:19.519Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6555,8 +6555,8 @@
             "uuid": "2ecf2e55-c1f3-40ac-b20e-0954f41a2021",
             "category": 13,
             "variations": 51,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:19.715Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:19.715Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6573,8 +6573,8 @@
             "uuid": "7ea504e7-3310-4638-a111-054fabfd4b80",
             "category": 13,
             "variations": 51,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:19.911Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:19.911Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6591,8 +6591,8 @@
             "uuid": "b646e62d-c616-4460-b4d1-23cc6a6ddb51",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:20.175Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:20.175Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6609,8 +6609,8 @@
             "uuid": "dcbfa3f0-ba88-4633-a30d-c188dccc5d3f",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:20.520Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:20.520Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6627,8 +6627,8 @@
             "uuid": "a136959c-b0c8-49d3-99b9-0a5f41abf00e",
             "category": 8,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:20.901Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:20.901Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6645,8 +6645,8 @@
             "uuid": "7f8997d2-e21f-492f-a470-b9f0c5e54f1d",
             "category": 12,
             "variations": 52,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:20.949Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:20.949Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6663,8 +6663,8 @@
             "uuid": "8374a856-9293-4b90-900e-00c3bfe21cc4",
             "category": 12,
             "variations": 52,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:20.992Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:20.992Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6681,8 +6681,8 @@
             "uuid": "b50a3d3e-cf75-42de-8729-80e163748fb1",
             "category": 12,
             "variations": 53,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.051Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.051Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6699,8 +6699,8 @@
             "uuid": "00ecb956-9483-4d08-a9b1-6a236d4d8ff3",
             "category": 12,
             "variations": 53,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.100Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.100Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6717,8 +6717,8 @@
             "uuid": "8bffd3b2-663a-4617-9d95-dce24e795470",
             "category": 12,
             "variations": 53,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.142Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.142Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6735,8 +6735,8 @@
             "uuid": "36eaf240-db34-4d83-bba9-94d0e989c9e2",
             "category": 12,
             "variations": null,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.197Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.197Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6753,8 +6753,8 @@
             "uuid": "5e2761cf-839e-435e-bedb-35e132dcb5ce",
             "category": 10,
             "variations": 45,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.225Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.225Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6771,8 +6771,8 @@
             "uuid": "ec9dca8d-1456-430a-abed-70b8bab4779a",
             "category": 9,
             "variations": 12,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.565Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.565Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
@@ -6789,8 +6789,8 @@
             "uuid": "04ba9a37-4725-43f0-a0b6-767cdab9a79e",
             "category": 14,
             "variations": 6,
-            "creation_date": "2023-02-05",
-            "update_date": "2023-02-05T19:05:21.838Z",
+            "created": "2023-02-05",
+            "last_update": "2023-02-05T19:05:21.838Z",
             "muscles": [],
             "muscles_secondary": [],
             "equipment": [
