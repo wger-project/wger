@@ -25,7 +25,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
-
 # Local
 from .ingredient import Ingredient
 from .ingredient_weight_unit import IngredientWeightUnit
@@ -56,7 +55,7 @@ class LogItem(BaseMealItem, models.Model):
     meal = models.ForeignKey(
         Meal,
         verbose_name=_('Meal'),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="log_items",
         blank=True,
         null=True
