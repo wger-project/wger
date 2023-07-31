@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-26 15:52+0200\n"
-"PO-Revision-Date: 2023-07-07 20:49+0000\n"
+"PO-Revision-Date: 2023-08-01 21:07+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -3369,7 +3369,7 @@ msgstr "Zajednica"
 
 #: software/templates/features.html:100
 msgid "Track your <br> way to your <br> ideal body"
-msgstr "Prati svoj <br> put do svog <br> idealnog tijela"
+msgstr "Prati svoj <br> put do tvog <br> idealnog tijela"
 
 #: software/templates/features.html:103
 msgid ""
@@ -3444,11 +3444,11 @@ msgstr ""
 
 #: software/templates/features.html:230
 msgid "Keep track of <span>your progress</span>"
-msgstr "Prati <span>svoj napredak</span>"
+msgstr "Prati <span>tvoj napredak</span>"
 
 #: software/templates/features.html:235
 msgid "Track and annotate everything about your meals and workouts"
-msgstr "Prati i komentiraj sve o svojim obrocima i treninzima"
+msgstr "Prati i komentiraj sve o tvojim obrocima i treninzima"
 
 #: software/templates/features.html:238
 msgid "Add custom notes"
