@@ -38,6 +38,7 @@ from wger.utils.units import (
     AbstractWeight,
 )
 from wger.weight.models import WeightEntry
+
 # Local
 from .language import Language
 
@@ -522,9 +523,9 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         if (
             not WeightEntry.objects.filter(user=self.user).exists() or (
-            datetime.date.today() - WeightEntry.objects.filter(user=self.user).latest().date >
-            datetime.timedelta(days=3)
-        )
+                datetime.date.today() - WeightEntry.objects.filter(user=self.user).latest().date
+                > datetime.timedelta(days=3)
+            )
         ):
             entry = WeightEntry()
             entry.weight = weight

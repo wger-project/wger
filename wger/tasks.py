@@ -23,14 +23,16 @@ import tempfile
 
 # Django
 import django
-# Third Party
-import requests
 from django.core.management import (
     call_command,
     execute_from_command_line,
 )
 from django.utils.crypto import get_random_string
+
+# Third Party
+import requests
 from invoke import task
+
 
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'

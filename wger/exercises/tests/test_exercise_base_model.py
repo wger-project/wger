@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
 import datetime
 
 # wger
@@ -56,13 +57,11 @@ class ExerciseBaseModelTestCase(WgerTestCase):
     def test_access_date(self):
         utc = datetime.timezone.utc
         self.assertEqual(
-            self.exercise.last_update_global,
-            datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc)
+            self.exercise.last_update_global, datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc)
         )
 
         self.assertEqual(
-            self.exercise.last_update,
-            datetime.datetime(2020, 11, 1, 21, 10, tzinfo=utc)
+            self.exercise.last_update, datetime.datetime(2020, 11, 1, 21, 10, tzinfo=utc)
         )
 
         self.assertEqual(

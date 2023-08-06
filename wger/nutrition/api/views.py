@@ -24,6 +24,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
+
 # Third Party
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
@@ -71,6 +72,7 @@ from wger.nutrition.models import (
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
+
 
 logger = logging.getLogger(__name__)
 

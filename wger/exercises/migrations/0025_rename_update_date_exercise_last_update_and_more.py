@@ -49,22 +49,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='exercise',
             name='created',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now,
-                                       verbose_name='Date'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='exercisebase',
             name='created',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now,
-                                       verbose_name='Date'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='exerciseimage',
             name='created',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now,
-                                       verbose_name='Date'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -75,8 +78,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='exercisevideo',
             name='created',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now,
-                                       verbose_name='Date'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -87,43 +91,49 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='historicalexercise',
             name='last_update',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now,
-                                       editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='historicalexercisebase',
             name='last_update',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now,
-                                       editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='historicalexerciseimage',
             name='created',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now,
-                                       editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='historicalexerciseimage',
             name='last_update',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now,
-                                       editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='historicalexercisevideo',
             name='created',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now,
-                                       editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='historicalexercisevideo',
             name='last_update',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now,
-                                       editable=False, verbose_name='Date'),
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False, verbose_name='Date'
+            ),
             preserve_default=False,
         ),
     ]
