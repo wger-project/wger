@@ -23,16 +23,14 @@ import tempfile
 
 # Django
 import django
+# Third Party
+import requests
 from django.core.management import (
     call_command,
     execute_from_command_line,
 )
 from django.utils.crypto import get_random_string
-
-# Third Party
-import requests
 from invoke import task
-
 
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
@@ -251,7 +249,7 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", "muscles.json")
     call_command("loaddata", "categories.json")
     call_command("loaddata", "exercise-base-data.json")
-    call_command("loaddata", "exercises.json")
+    call_command("loaddata", "translations.json")
 
     # Gym
     call_command("loaddata", "gym.json")

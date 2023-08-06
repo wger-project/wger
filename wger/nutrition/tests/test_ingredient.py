@@ -22,7 +22,6 @@ from unittest.mock import patch
 # Django
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-
 # Third Party
 from rest_framework import status
 
@@ -99,7 +98,7 @@ class EditIngredientTestCase(WgerEditTestCase):
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=1)
             self.assertEqual(
-                ingredient.update_date.replace(microsecond=0),
+                ingredient.last_update.replace(microsecond=0),
                 datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
             )
 
@@ -133,7 +132,7 @@ class AddIngredientTestCase(WgerAddTestCase):
         if self.current_user == 'admin':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(
-                ingredient.creation_date.replace(microsecond=0),
+                ingredient.created.replace(microsecond=0),
                 datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
             )
             self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
@@ -188,7 +187,7 @@ class IngredientNameShortTestCase(WgerTestCase):
 
         ingredient = Ingredient.objects.get(pk=1)
         # Ingredient was not edited
-        self.assertNotEqual(ingredient.update_date, datetime.date.today())
+        self.assertNotEqual(ingredient.last_update.date(), datetime.date.today())
 
 
 class IngredientDetailTestCase(WgerTestCase):

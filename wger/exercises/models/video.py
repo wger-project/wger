@@ -22,10 +22,8 @@ import uuid
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 # Third Party
 from simple_history.models import HistoricalRecords
-
 
 try:
     # Third Party
@@ -155,6 +153,18 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         editable=False,
     )
     """The video codec, in full"""
+
+    created = models.DateTimeField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The creation time"""
+
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
+    """Datetime of last modification"""
 
     history = HistoricalRecords()
     """Edit history"""

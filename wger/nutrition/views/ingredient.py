@@ -59,7 +59,6 @@ from wger.utils.generic_views import (
 )
 from wger.utils.language import load_language
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -192,8 +191,7 @@ class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, Lis
         """
         Only show ingredients pending review
         """
-        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING) \
-            .order_by('-creation_date')
+        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING).order_by('-created')
 
 
 @permission_required('nutrition.add_ingredient')

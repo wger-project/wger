@@ -21,7 +21,6 @@ import uuid
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 # Third Party
 from simple_history.models import HistoricalRecords
 
@@ -101,6 +100,18 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
         default=PHOTO,
     )
     """The art style of the image"""
+
+    created = models.DateTimeField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The creation time"""
+
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
+    """Datetime of last modification"""
 
     history = HistoricalRecords()
     """Edit history"""

@@ -24,7 +24,6 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-
 # Third Party
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
@@ -73,7 +72,6 @@ from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -89,8 +87,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'code',
         'carbohydrates',
         'carbohydrates_sugar',
-        'creation_date',
-        'update_date',
+        'created',
+        'last_update',
         'energy',
         'fat',
         'fat_saturated',
@@ -99,7 +97,6 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
         'protein',
         'sodium',
         'status',
-        'update_date',
         'language',
         'license',
         'license_author',
@@ -490,7 +487,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         if getattr(self, "swagger_fake_view", False):
             return LogItem.objects.none()
 
-        return LogItem.objects.filter(plan__user=self.request.user)
+        return LogItem.objects.select_related('plan').filter(plan__user=self.request.user)
 
     def get_owner_objects(self):
         """

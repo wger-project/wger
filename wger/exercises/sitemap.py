@@ -29,4 +29,4 @@ class ExercisesSitemap(Sitemap):
         return Exercise.objects.all()
 
     def lastmod(self, obj):
-        return obj.creation_date
+        return obj.last_update
