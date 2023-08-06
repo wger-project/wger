@@ -55,65 +55,6 @@ def features(request):
             "nr_stars": result_github_api.get("stargazers_count", "2000"),
         }
 
-        comma_countries = [
-            "ca",
-            "en",
-            "en-au",
-            "en-gb",
-            "en",
-            "es-ar",
-            "es-co",
-            "zh-hans",
-        ]
-
-        period_countries = ["de", "es-mx", "es-ni", "el", "es-ve", "it", "nl", "tr"]
-
-        space_countries = [
-            "bg",
-            "es",
-            "fr",
-            "hr",
-            "nb",
-            "pl",
-            "pt",
-            "pt-br",
-            "ru",
-            "sv",
-            "uk",
-        ]
-
-        def get_format(lang_code):
-            if lang_code in comma_countries:
-                context["nr_users"] = f"{context['nr_users']:,}"
-                context["nr_exercises"] = f"{context['nr_exercises']:,}"
-                context["nr_ingredients"] = f"{context['nr_ingredients']:,}"
-                context["nr_stars"] = f"{context['nr_stars']:,}"
-            elif lang_code in period_countries:
-                context["nr_users"] = f"{context['nr_users']:,}".replace(",", ".")
-                context["nr_exercises"] = f"{context['nr_exercises']:,}".replace(
-                    ",", "."
-                )
-                context["nr_ingredients"] = f"{context['nr_ingredients']:,}".replace(
-                    ",", "."
-                )
-                context["nr_stars"] = f"{context['nr_stars']:,}".replace(",", ".")
-            elif lang_code in space_countries:
-                context["nr_users"] = f"{context['nr_users']:,}".replace(",", " ")
-                context["nr_exercises"] = f"{context['nr_exercises']:,}".replace(
-                    ",", " "
-                )
-                context["nr_ingredients"] = f"{context['nr_ingredients']:,}".replace(
-                    ",", " "
-                )
-                context["nr_stars"] = f"{context['nr_stars']:,}".replace(",", " ")
-            else:
-                context["nr_users"] = f"{context['nr_users']:,}"
-                context["nr_exercises"] = f"{context['nr_exercises']:,}"
-                context["nr_ingredients"] = f"{context['nr_ingredients']:,}"
-                context["nr_stars"] = f"{context['nr_stars']:,}"
-
-        get_format(request.LANGUAGE_CODE)
-
         cache.set(CACHE_KEY, context, 60 * 60 * 24 * 7)  # one week
 
     FormClass = (
