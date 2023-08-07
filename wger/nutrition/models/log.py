@@ -25,6 +25,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.nutrition.helpers import BaseMealItem
+
 # Local
 from .ingredient import Ingredient
 from .ingredient_weight_unit import IngredientWeightUnit
