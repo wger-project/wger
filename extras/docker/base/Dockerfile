@@ -22,6 +22,7 @@ RUN apt-get update \
       python3-pip \
       sqlite3 \
       wget \
+      tzdata \
   && npm install -g yarn sass\
   && locale-gen en_US.UTF-8
 
