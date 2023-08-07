@@ -3,9 +3,10 @@ name: Build and push base Docker images
 # Only build when the dockerfile has changed, otherwise scheduled on the first
 # of each month
 on:
+  workflow_dispatch:
   push:
     branches:
-      '- "master"'
+      - master
     paths:
       - 'extras/docker/base/Dockerfile'
       - '.github/workflows/docker-base.yml'

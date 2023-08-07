@@ -2,6 +2,7 @@
 name: Build and push production Docker images
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master

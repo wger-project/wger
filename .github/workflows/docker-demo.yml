@@ -4,6 +4,7 @@ name: Build and push demo Docker image
 # (on the 1st and 15th every month) since it's not so important to keep this image
 # exactly in sync with master
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'master'
