@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-01-28 07:51+0000\n"
-"Last-Translator: clafalco <claudio.falco1973@libero.it>\n"
+"PO-Revision-Date: 2023-08-09 13:48+0000\n"
+"Last-Translator: Armando La Placa <armando.laplaca@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -530,34 +530,32 @@ msgstr "Sei sicuro/a di volerlo eliminare? Questa azione sarà permanente."
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "Email verificata"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, la tua email è stata verificata"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Errore, token di verifica non valido"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Configurazione"
+msgstr "Conferma email"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Calendario per %(username)s"
+msgstr "Ci sei quasi, %(username)s"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Per favore clicca <a href=\"%(link)s\">qui</a> per confermare la tua email"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
@@ -902,10 +900,8 @@ msgid "Administration"
 msgstr "Amministrazione"
 
 #: core/templates/navigation.html:95
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Giorno di allenamento"
+msgstr "Aggiorna storico esercizi"
 
 #: core/templates/navigation.html:100 exercises/models/base.py:88
 msgid "Equipment"
@@ -1075,7 +1071,7 @@ msgstr "I creatori di %(site_name)s"
 
 #: core/templates/rest_framework/api.html:37
 msgid "request info"
-msgstr ""
+msgstr "richiedi informazioni"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
@@ -1423,22 +1419,20 @@ msgid "Preferences"
 msgstr "Preferenze"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Invia e-mail"
+msgstr "Email verificata"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "Email non verificata"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "Invia email di verifica"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "Devi confermare l'email per contribuire agli esercizi"
 
 #: core/templates/user/preferences.html:50 core/views/user.py:603
 msgid "Change password"
@@ -1576,7 +1570,7 @@ msgstr "Palestra"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "Un'email di verifica è stata inviata a %(email)s"
 
 #: exercises/models/base.py:67 nutrition/models/ingredient.py:224
 msgid "Category"
@@ -1614,10 +1608,8 @@ msgid "Language"
 msgstr "Lingua"
 
 #: exercises/models/exercise_alias.py:43
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "Correggere un esercizio"
+msgstr "Sinonimi di un esercizio"
 
 #: exercises/models/image.py:56
 msgid "Line"
@@ -1672,20 +1664,17 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "In latino es. «Pectoralis major»"
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "Nome esercizio"
+msgstr "Nome alternativo"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Un nome più semplice per il muscolo"
 
 #: exercises/models/video.py:49
-#, fuzzy, python-format
-#| msgid "Maximum file size is 100MB."
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "La dimensione massima del file è 100 MB."
+msgstr "La dimensione massima del file è %(size)sMB."
 
 #: exercises/models/video.py:56 exercises/models/video.py:64
 msgid "File type is not supported"
@@ -1737,16 +1726,12 @@ msgid "Add new equipment"
 msgstr "Aggiungi nuova attrezzatura"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Giorno di allenamento"
+msgstr "Storico allenamenti admin"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Azioni"
+msgstr "Azione"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1767,29 +1752,24 @@ msgid "Object"
 msgstr "Oggetto"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Variazione"
+msgstr "Variazioni"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "Ripristina"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "Vedi Oggetto"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Guarda records"
+msgstr "Guarda cambiamenti"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "Ripristina cambiamenti"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -2152,10 +2132,8 @@ msgid "Bench"
 msgstr "Panca Orizzontale"
 
 #: i18n.tpl:7
-#, fuzzy
-#| msgid "Biceps brachii"
 msgid "Biceps"
-msgstr "Bicipite brachiale"
+msgstr "Bicipiti"
 
 #: i18n.tpl:8
 #, fuzzy
@@ -2169,7 +2147,7 @@ msgstr "Polpacci"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Cardio"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -2180,10 +2158,8 @@ msgid "Dumbbell"
 msgstr "Manubrio"
 
 #: i18n.tpl:13
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minuti"
+msgstr "Glutei"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -2191,7 +2167,7 @@ msgstr "Tappetino"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr ""
+msgstr "Tendini del ginocchio"
 
 #: i18n.tpl:16
 msgid "Incline bench"
@@ -2206,14 +2182,12 @@ msgid "Kilometers"
 msgstr "Chilometri"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Chilometri"
+msgstr "Chilometri all'ora"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "Dorsali"
 
 #: i18n.tpl:21
 msgid "Legs"
@@ -2229,7 +2203,7 @@ msgstr "Miglia"
 
 #: i18n.tpl:24
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Miglia all'ora"
 
 #: i18n.tpl:25
 msgid "Minutes"
@@ -2237,7 +2211,7 @@ msgstr "Minuti"
 
 #: i18n.tpl:26
 msgid "Plates"
-msgstr ""
+msgstr "Piatti"
 
 #: i18n.tpl:27
 msgid "Pull-up bar"
@@ -2245,7 +2219,7 @@ msgstr "Spalliera"
 
 #: i18n.tpl:28
 msgid "Quads"
-msgstr ""
+msgstr "Quadricipiti"
 
 #: i18n.tpl:29 manager/forms.py:185 manager/models/log.py:73
 #: manager/templates/set/add.html:54
@@ -2269,10 +2243,8 @@ msgid "Swiss Ball"
 msgstr "Palla Da Ginnastica"
 
 #: i18n.tpl:34
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
-msgstr "Tricipite brachiale"
+msgstr "Tricipiti"
 
 #: i18n.tpl:35
 msgid "Until Failure"
@@ -2354,10 +2326,8 @@ msgid ""
 msgstr "Puoi cercare più di un esercizio, saranno raggruppati in un Superset."
 
 #: manager/forms.py:143 nutrition/forms.py:248
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Usa anche gli ingredienti in inglese"
+msgstr "Usa anche i nomi in inglese"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2627,12 +2597,6 @@ msgstr ""
 "successione."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2641,9 +2605,9 @@ msgid ""
 "C and so on."
 msgstr ""
 "Puoi indicare per quanto tempo vuoi fare ogni allenamento\n"
-"prima di saltare al prossimo. È anche possibile creare un ciclo, quindi tu\n"
-"fai sempre gli stessi allenamenti in successione, ad es. A> B> C> A> B> C e "
-"così via."
+"prima di saltare al prossimo. È anche possibile creare un ciclo, in modo da "
+"fare\n"
+"gli stessi allenamenti in successione, ad es. A> B> C> A> B> C e così via."
 
 #: manager/templates/schedule/overview.html:43
 #, fuzzy
@@ -2693,13 +2657,7 @@ msgid "Start schedule"
 msgstr "Inizia programmazione"
 
 #: manager/templates/schedule/view.html:188
-#, fuzzy, python-format
-#| msgid ""
-#| "%(weeks)s Week\n"
-#| "                    "
-#| msgid_plural ""
-#| "%(weeks)s Weeks\n"
-#| "                    "
+#, python-format
 msgid ""
 "%(weeks)s Week\n"
 "                                    "
@@ -2707,11 +2665,11 @@ msgid_plural ""
 "%(weeks)s Weeks\n"
 "                                "
 msgstr[0] ""
-"%(weeks)s Settimana\n"
-"                    "
+"Settimana %(weeks)s\n"
+"                                    "
 msgstr[1] ""
-"%(weeks)s Settimane\n"
-"                    "
+"Settimane %(weeks)s\n"
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
