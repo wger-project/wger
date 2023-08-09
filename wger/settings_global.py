@@ -206,6 +206,7 @@ LOGIN_REDIRECT_URL = '/'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
