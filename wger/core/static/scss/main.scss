@@ -3,8 +3,6 @@
  *
  * https://coolors.co/e63946-a8dadc-457b9d-1d3557-cba328-296713-266dd3-a5a5b6
  */
-@import "../yarn/bootstrap/scss/functions";
-@import "../yarn/bootstrap/scss/variables";
 
 $wger-blue: #2A4C7D !default;
 $wger-blue-2: #266dd3 !default;
@@ -16,6 +14,10 @@ $wger-red: #e63946 !default;
 $wger-yellow: #cba328 !default;
 $wger-green: #307916 !default;
 
+$link-color: $wger-blue-2 !default;
+
+@import "../yarn/bootstrap/scss/functions";
+@import "../yarn/bootstrap/scss/variables";
 
 $theme-colors: (
     "primary": $wger-blue,
@@ -27,9 +29,6 @@ $theme-colors: (
     "light": $wger-light,
     "dark": $dark
 );
-
-
-$link-color: $wger-blue-2 !default;
 
 $font-family-sans-serif: "Open Sans Light";
 
