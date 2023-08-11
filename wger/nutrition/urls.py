@@ -24,6 +24,7 @@ from django.urls import (
 )
 
 # wger
+from wger.core.views.react import ReactView
 from wger.nutrition.views import (
     bmi,
     calculator,
@@ -36,38 +37,22 @@ from wger.nutrition.views import (
     unit_ingredient,
 )
 
-
 # sub patterns for nutritional plans
 patterns_plan = [
     path(
         'overview/',
-        plan.overview,
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     path(
-        'add/',
-        plan.add,
-        name='add',
-    ),
-    path(
         '<int:id>/view/',
-        plan.view,
+        ReactView.as_view(login_required=True),
         name='view',
     ),
     path(
         '<int:pk>/copy/',
         plan.copy,
         name='copy',
-    ),
-    path(
-        '<int:pk>/delete/',
-        login_required(plan.PlanDeleteView.as_view()),
-        name='delete',
-    ),
-    path(
-        '<int:pk>/edit/',
-        login_required(plan.PlanEditView.as_view()),
-        name='edit',
     ),
     re_path(
         r'^(?P<id>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})',
@@ -253,7 +238,7 @@ patterns_calories = [
 patterns_diary = [
     path(
         '<int:pk>',
-        log.overview,
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     re_path(
