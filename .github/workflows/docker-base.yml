@@ -39,4 +39,4 @@ jobs:
           push: true
           file: extras/docker/base/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: wger/base:latest,wger/base:2.2-dev
+          tags: ${{ env.REGISTRY_REPO }}/base:latest,${{ env.REGISTRY_REPO }}/base:2.2-dev
