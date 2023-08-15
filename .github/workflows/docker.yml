@@ -8,8 +8,8 @@ on:
       - master
 
 env:
-  REGISTRY_IMAGE: ${{ env.REGISTRY_REPO }}/server
-  REGISTRY_IMAGE_ALT: ${{ env.REGISTRY_REPO }}/devel
+  REGISTRY_IMAGE: ${{ REGISTRY_REPO }}/server
+  REGISTRY_IMAGE_ALT: ${{ REGISTRY_REPO }}/devel
 
 jobs:
   build-prod:
