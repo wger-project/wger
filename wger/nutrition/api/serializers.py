@@ -104,6 +104,31 @@ class IngredientImageSerializer(serializers.ModelSerializer):
         ]
 
 
+class IngredientInfoImageSerializer(serializers.ModelSerializer):
+    """
+    Image serializer
+    """
+
+    class Meta:
+        model = Image
+        fields = [
+            'id',
+            'uuid',
+            'image',
+            'created',
+            'last_update',
+            'size',
+            'width',
+            'height',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+        ]
+
+
 class IngredientSerializer(serializers.ModelSerializer):
     """
     Ingredient serializer
@@ -141,7 +166,8 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     Ingredient info serializer
     """
 
-    ingredientweightunit_set = IngredientWeightUnitInfoSerializer(many=True)
+    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+    image = IngredientInfoImageSerializer(read_only=True)
 
     class Meta:
         model = Ingredient
@@ -160,10 +186,15 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'fat_saturated',
             'fibres',
             'sodium',
-            'license',
-            'license_author',
-            'ingredientweightunit_set',
+            'weight_units',
             'language',
+            'image',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
         ]
 
 
