@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -16,7 +14,6 @@
 
 # Standard Library
 import argparse
-import csv
 import datetime
 import os
 import random
@@ -26,8 +23,9 @@ import uuid
 # Django
 import django
 from django.db import IntegrityError
-from django.utils import timezone
 from django.utils.text import slugify
+
+import csv
 
 sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
@@ -40,7 +38,6 @@ from django.contrib.auth.models import User
 # wger
 from wger.core.models import (
     DaysOfWeek,
-    Language,
 )
 from wger.exercises.models import Exercise
 from wger.gym.models import (
@@ -60,13 +57,6 @@ from wger.manager.models import (
 from wger.measurements.models import (
     Category,
     Measurement,
-)
-from wger.nutrition.models import (
-    Ingredient,
-    LogItem,
-    Meal,
-    MealItem,
-    NutritionPlan,
 )
 from wger.weight.models import WeightEntry
 
@@ -566,89 +556,10 @@ if hasattr(args, 'number_measurement'):
 # Nutrition Generator
 #
 if hasattr(args, 'number_nutrition_plans'):
-    print("** Generating {0} nutrition plan(s) per user".format(args.number_nutrition_plans))
-
-    if args.add_to_user:
-        userlist = [User.objects.get(pk=args.add_to_user)]
-    else:
-        userlist = User.objects.all()
-
-    # Load all ingredients to a list
-    ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
-
-    # Total meals per plan
-    TOTAL_MEALS = 4
-
-    for user in userlist:
-        print('   - generating for {0}'.format(user.username))
-
-        # Add nutrition plan
-        for i in range(0, args.number_nutrition_plans):
-            uid = str(uuid.uuid4()).split('-')
-            start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
-            nutrition_plan = NutritionPlan(
-                language=Language.objects.all()[1],
-                description='Dummy nutrition plan - {0}'.format(uid[1]),
-                creation_date=start_date,
-            )
-            nutrition_plan.user = user
-
-            nutrition_plan.save()
-
-            # Add meals to plan
-            order = 1
-            for j in range(0, TOTAL_MEALS):
-                meal = Meal(
-                    plan=nutrition_plan,
-                    order=order,
-                    time=datetime.time(hour=random.randint(0, 23), minute=random.randint(0, 59))
-                )
-                meal.save()
-                for k in range(0, random.randint(1, 5)):
-                    ingredient = random.choice(ingredient_list)
-                    meal_item = MealItem(
-                        meal=meal,
-                        ingredient=ingredient,
-                        weight_unit=None,
-                        order=order,
-                        amount=random.randint(10, 250)
-                    )
-                    meal_item.save()
-                order = order + 1
+    print("*** Please use 'python manage.py dummy-generator-nutrition' instead")
 
 #
 # Nutrition diary Generator
 #
 if hasattr(args, 'number_nutrition_logs'):
-    print("** Generating {0} nutrition diary entries per user".format(args.number_nutrition_logs))
-
-    if args.add_to_user:
-        userlist = [User.objects.get(pk=args.add_to_user)]
-    else:
-        userlist = User.objects.all()
-
-    # Load all ingredients to a list
-    ingredient_list = [i for i in Ingredient.objects.order_by('?').all()[:100]]
-
-    for user in userlist:
-        plan_list = NutritionPlan.objects.order_by('?').filter(user=user)
-        print('   - generating for {0}'.format(user.username))
-
-        # Add diary entries
-        for plan in NutritionPlan.objects.filter(user=user):
-            for i in range(0, args.number_diary_dates):
-                date = timezone.now() - datetime.timedelta(
-                    days=random.randint(0, 100),
-                    hours=random.randint(0, 12),
-                    minutes=random.randint(0, 59)
-                )
-                for j in range(0, args.number_nutrition_logs):
-                    ingredient = random.choice(ingredient_list)
-                    log = LogItem(
-                        plan=plan,
-                        datetime=date,
-                        ingredient=ingredient,
-                        weight_unit=None,
-                        amount=random.randint(10, 300)
-                    )
-                    log.save()
+    print("*** Please use 'python manage.py dummy-generator-nutrition' instead")
