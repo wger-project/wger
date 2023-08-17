@@ -46,6 +46,10 @@ from rest_framework.fields import (
 from rest_framework.response import Response
 
 # wger
+from wger.nutrition.api.filtersets import (
+    IngredientFilterSet,
+    LogItemFilterSet,
+)
 from wger.nutrition.api.serializers import (
     IngredientImageSerializer,
     IngredientInfoSerializer,
@@ -84,25 +88,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
-    filterset_fields = (
-        'uuid',
-        'code',
-        'carbohydrates',
-        'carbohydrates_sugar',
-        'created',
-        'last_update',
-        'energy',
-        'fat',
-        'fat_saturated',
-        'fibres',
-        'name',
-        'protein',
-        'sodium',
-        'status',
-        'language',
-        'license',
-        'license_author',
-    )
+    filterset_class = IngredientFilterSet
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
@@ -474,12 +460,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = LogItemSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = (
-        'amount',
-        'ingredient',
-        'plan',
-        'weight_unit',
-    )
+    filterset_class = LogItemFilterSet
 
     def get_queryset(self):
         """
