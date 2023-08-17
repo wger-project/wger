@@ -36,6 +36,7 @@ from wger.nutrition.models import (
     NutritionPlan,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -52,7 +53,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
 
         parser.add_argument(
-            '--number-plans',
+            '--plans',
             action='store',
             default=10,
             dest='nr_plans',
@@ -60,7 +61,7 @@ class Command(BaseCommand):
             help='The number of nutritional plans to create per user (default: 10)'
         )
         parser.add_argument(
-            '--number-diary-entries',
+            '--diary-entries',
             action='store',
             default=30,
             dest='nr_diary_entries',
@@ -68,7 +69,7 @@ class Command(BaseCommand):
             help='The number of nutrition logs to create per day (default: 30)'
         )
         parser.add_argument(
-            '--number-diary-dates',
+            '--diary-dates',
             action='store',
             default=30,
             dest='nr_diary_dates',
@@ -84,9 +85,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-        self.stdout.write(
-            f"** Generating {options['nr_plans']} dummy nutritional plan(s) per user"
-        )
+        self.stdout.write(f"** Generating {options['nr_plans']} dummy nutritional plan(s) per user")
 
         users = [User.objects.get(pk=options['user_id'])
                  ] if options['user_id'] else User.objects.all()
