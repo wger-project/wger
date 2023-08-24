@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-08-23 16:49+0000\n"
+"PO-Revision-Date: 2023-08-25 18:50+0000\n"
 "Last-Translator: CaptainDolphy <captain.x.dolphy@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -494,12 +494,7 @@ msgid "Something happened that caused an error."
 msgstr "Nastalo něco, co způsobilo chybu."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -508,7 +503,8 @@ msgid ""
 msgstr ""
 "Prohlížíš web\n"
 "jako uživatel \"%(current_user)s\". Všechny akce jsou prováděny na jeho "
-"datech."
+"datech.\n"
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -537,17 +533,14 @@ msgid "Error, invalid verification token"
 msgstr "Chyba, chybně zadaný ověřovací token"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Konfigurace"
+msgstr "Konfirmační Email"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Kalendář uživatele %(username)s"
+msgstr "Už to skoro bude, %(username)s"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -580,16 +573,13 @@ msgid "Add log to day"
 msgstr "Přidat záznam ke dni"
 
 #: core/templates/index.html:24
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
 "Klikněte na přidat záznam váhy do\n"
-"tréninkového dne v aktuálním tréninku."
+"                                                                tréninkového "
+"dne v aktuálním tréninku."
 
 #: core/templates/index.html:37 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -875,16 +865,12 @@ msgid "Gallery"
 msgstr "Galerie"
 
 #: core/templates/navigation.html:65
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Trénink je kompletní!"
+msgstr "Tréninkové šablony"
 
 #: core/templates/navigation.html:71 manager/views/workout.py:84
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Tvé rozvrhy"
+msgstr "Tvé šablony"
 
 #: core/templates/navigation.html:79 manager/views/workout.py:98
 msgid "Public templates"
@@ -901,10 +887,8 @@ msgid "Administration"
 msgstr "Administrace"
 
 #: core/templates/navigation.html:95
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Cvičební den"
+msgstr "Historie úprav cvičení"
 
 #: core/templates/navigation.html:100 exercises/models/base.py:88
 msgid "Equipment"
@@ -1074,7 +1058,7 @@ msgstr "Tým %(site_name)s"
 
 #: core/templates/rest_framework/api.html:37
 msgid "request info"
-msgstr ""
+msgstr "žádané info"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
@@ -1419,10 +1403,8 @@ msgid "Preferences"
 msgstr "Nastavení"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Odeslat emaily"
+msgstr "Ověřený email"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
@@ -1631,10 +1613,8 @@ msgid "Photo"
 msgstr "Foto"
 
 #: exercises/models/image.py:60
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Další"
+msgstr "Ostatní"
 
 #: exercises/models/image.py:79 gallery/models/image.py:56
 #: nutrition/models/image.py:60
