@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-09-03 10:50+0000\n"
+"PO-Revision-Date: 2023-09-05 05:55+0000\n"
 "Last-Translator: CaptainDolphy <captain.x.dolphy@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
@@ -1801,10 +1801,8 @@ msgid "This will delete the exercise from all workouts."
 msgstr "To smaže všechny cviky ze všech tréninků."
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Přidat nový obrázek"
+msgstr "Přidat obrázek"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2166,10 +2164,8 @@ msgid "Dumbbell"
 msgstr "Jednoruční činka"
 
 #: i18n.tpl:13
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minuty"
+msgstr ""
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -2192,10 +2188,8 @@ msgid "Kilometers"
 msgstr "Kilometry"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Kilometry"
+msgstr "Kilometry za hodinu"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2206,10 +2200,8 @@ msgid "Legs"
 msgstr "Nohy"
 
 #: i18n.tpl:22
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Opakování"
+msgstr "Maximum Opakování"
 
 #: i18n.tpl:23
 msgid "Miles"
@@ -2217,7 +2209,7 @@ msgstr "Míle"
 
 #: i18n.tpl:24
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Míle za hodinu"
 
 #: i18n.tpl:25
 msgid "Minutes"
@@ -2225,7 +2217,7 @@ msgstr "Minuty"
 
 #: i18n.tpl:26
 msgid "Plates"
-msgstr ""
+msgstr "Kotouče"
 
 #: i18n.tpl:27
 msgid "Pull-up bar"
@@ -2324,10 +2316,8 @@ msgid "Correction"
 msgstr "Oprava"
 
 #: manager/forms.py:92 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Vytvořit kopii tohoto tréninku"
+msgstr "Jméno tréninku"
 
 #: manager/forms.py:96 manager/models/workout.py:66
 msgid ""
@@ -2345,10 +2335,8 @@ msgstr ""
 "Můžete vyhledat více jak jeden cvik. Cviky pak budou zařazeny do supersérie."
 
 #: manager/forms.py:143 nutrition/forms.py:248
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Použít také složky v Angličtině"
+msgstr "Použít také jména v Angličtině"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2494,10 +2482,8 @@ msgstr "Datum vytvoření"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Trénink je kompletní!"
+msgstr "Tréninková šablona"
 
 #: manager/models/workout.py:74
 msgid ""
