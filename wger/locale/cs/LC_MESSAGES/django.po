@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-09-05 05:55+0000\n"
+"PO-Revision-Date: 2023-09-06 09:53+0000\n"
 "Last-Translator: CaptainDolphy <captain.x.dolphy@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
@@ -1649,10 +1649,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "v latině, např. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "jméno cviku"
+msgstr "Alternativní jméno"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1671,13 +1669,11 @@ msgstr "Typ souboru není podporován"
 #, fuzzy
 #| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s není správné datum narození"
+msgstr "Soubor není podporované video"
 
 #: exercises/models/video.py:101
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Hlavní obrázek"
+msgstr "Hlavní video"
 
 #: exercises/models/video.py:107
 msgid "Video"
@@ -1696,16 +1692,12 @@ msgid "Width"
 msgstr "Šířka"
 
 #: exercises/models/video.py:137
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Váha"
+msgstr "Výška"
 
 #: exercises/models/video.py:144
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Kód"
+msgstr "Kodeks"
 
 #: exercises/models/video.py:152
 msgid "Codec, long name"
@@ -1721,10 +1713,8 @@ msgid "Add new equipment"
 msgstr "Přidat nové nářadí"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Cvičební den"
+msgstr "Administrativní historie cvičení"
 
 #: exercises/templates/history/overview.html:27
 #, fuzzy
@@ -1744,18 +1734,12 @@ msgid "User"
 msgstr "Uživatel"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Předmět"
+msgstr "Objekt"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Změna"
+msgstr "Změny"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
@@ -1766,10 +1750,8 @@ msgid "View Object"
 msgstr "Zobrazit objekt"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Zobrazit záznamy"
+msgstr "Zobrazit změny"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
@@ -3860,14 +3842,12 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:306
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
 msgstr "Přispějte!"
 
 #: software/templates/features.html:330
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Zaregistrujte se zdarma"
 
 #: software/templates/features.html:343
 msgid "Web version not enough?"
