@@ -20,7 +20,7 @@
     "masonry-layout": "^4.2.2",
     "metrics-graphics": "^2.15.6",
     "popper.js": "^1.16.1",
-    "shariff": "^3.2.1",
+    "shariff": "^3.3.0",
     "tinymce": "^5.10.7",
     "yarn": "^1.22.19"
   },
