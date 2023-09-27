@@ -26,22 +26,13 @@ from django.http import (
 )
 from django.shortcuts import (
     get_object_or_404,
-    render,
 )
-from django.template.context_processors import csrf
 from django.urls import (
     reverse,
-    reverse_lazy,
 )
 from django.utils.translation import (
     gettext as _,
-    gettext_lazy,
 )
-from django.views.generic import (
-    DeleteView,
-    UpdateView,
-)
-
 # Third Party
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -56,18 +47,11 @@ from reportlab.platypus import (
 # wger
 from wger.nutrition.consts import (
     MEALITEM_WEIGHT_GRAM,
-    MEALITEM_WEIGHT_UNIT,
 )
 from wger.nutrition.models import NutritionPlan
-from wger.utils.generic_views import (
-    WgerDeleteMixin,
-    WgerFormMixin,
-)
 from wger.utils.helpers import (
     check_token,
-    make_token,
 )
-from wger.utils.language import load_language
 from wger.utils.pdf import (
     get_logo,
     header_colour,
@@ -76,125 +60,11 @@ from wger.utils.pdf import (
     styleSheet,
 )
 
-
 logger = logging.getLogger(__name__)
 
 # ************************
 # Plan functions
 # ************************
-
-
-@login_required
-def overview(request):
-    template_data = {}
-    template_data.update(csrf(request))
-
-    plans = NutritionPlan.objects.filter(user=request.user)
-    template_data['plans'] = plans
-
-    return render(request, 'plan/overview.html', template_data)
-
-
-@login_required
-def add(request):
-    """
-    Add a new nutrition plan and redirect to its page
-    """
-
-    plan = NutritionPlan()
-    plan.user = request.user
-    plan.language = load_language()
-    plan.save()
-
-    return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
-
-
-class PlanDeleteView(WgerDeleteMixin, DeleteView):
-    """
-    Generic view to delete a nutritional plan
-    """
-
-    model = NutritionPlan
-    success_url = reverse_lazy('nutrition:plan:overview')
-    messages = gettext_lazy('Successfully deleted')
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(PlanDeleteView, self).get_context_data(**kwargs)
-        context['title'] = _('Delete {0}?').format(self.object)
-        return context
-
-
-class PlanEditView(WgerFormMixin, UpdateView):
-    """
-    Generic view to update an existing nutritional plan
-    """
-
-    model = NutritionPlan
-    fields = ('description', 'has_goal_calories')
-
-    def get_context_data(self, **kwargs):
-        """
-        Send some additional data to the template
-        """
-        context = super(PlanEditView, self).get_context_data(**kwargs)
-        context['title'] = _('Edit {0}').format(self.object)
-        return context
-
-
-def view(request, id):
-    """
-    Show the nutrition plan with the given ID
-    """
-    template_data = {}
-
-    plan = get_object_or_404(NutritionPlan, pk=id)
-    user = plan.user
-    is_owner = request.user == user
-
-    if not is_owner and not user.userprofile.ro_access:
-        return HttpResponseForbidden()
-
-    uid, token = make_token(user)
-
-    # Process and show the last 5 diary entries
-    log_data = []
-    planned_calories = plan.get_nutritional_values()['total']['energy']
-    for item in plan.get_log_overview()[:5]:
-        log_data.append(
-            {
-                'date': item['date'],
-                'planned_calories': planned_calories,
-                'logged_calories': item['energy'],
-                'difference': item['energy'] - planned_calories
-            }
-        )
-
-    # Load the language and pass it to the template
-    language = load_language()
-    template_data['language'] = language
-    template_data['MEALITEM_WEIGHT_GRAM'] = MEALITEM_WEIGHT_GRAM
-    template_data['MEALITEM_WEIGHT_UNIT'] = MEALITEM_WEIGHT_UNIT
-
-    # Get the nutritional info
-    template_data['plan'] = plan
-    template_data['nutritional_data'] = \
-        plan.get_nutritional_values()
-
-    # Get the weight entry used
-    template_data['weight_entry'] = plan.get_closest_weight_entry()
-
-    # Tokens for the links
-    template_data['uid'] = uid
-    template_data['log_data'] = log_data
-    template_data['token'] = token
-    template_data['owner_user'] = user
-    template_data['is_owner'] = is_owner
-    template_data['show_shariff'] = is_owner
-
-    return render(request, 'plan/view.html', template_data)
 
 
 @login_required
