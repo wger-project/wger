@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-07-07 20:49+0000\n"
-"Last-Translator: George Koikas <gkoi2000@hotmail.gr>\n"
+"PO-Revision-Date: 2023-09-28 19:00+0000\n"
+"Last-Translator: Antonis-geo <antgeoath@csd.auth.gr>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/wger/web/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -117,12 +117,10 @@ msgid "Email"
 msgstr "Email"
 
 #: core/forms.py:112
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Χρησιμοποιείται για ανάκτηση κωδικού και κατα περίπτωση, υπενθυμίσεις "
-"μηνυμάτων"
+"Χρησιμοποιείται για επαναφορά κωδικού πρόσβασης και, προαιρετικά, "
+"υπενθυμίσεις ηλεκτρονικού ταχυδρομείου."
 
 #: core/forms.py:116 core/models/profile.py:224
 #: gym/templates/gym/new_user.html:38
@@ -198,7 +196,7 @@ msgstr "Λάθος κωδικός"
 
 #: core/forms.py:257 core/forms.py:327
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Η φόρμα είναι ασφαλισμένη με reCAPTCHA"
 
 #: core/forms.py:271 core/forms.py:292 core/templates/navigation.html:258
 #: core/templates/navigation.html:269 core/templates/template.html:150
@@ -247,6 +245,8 @@ msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"Εάν μια άδεια έχει εντοπιστεί, π.χ. τις άδειες Creative Commons για διάφορες "
+"χώρες, προσθέστε τις ως ξεχωριστές εγγραφές εδώ."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -430,14 +430,19 @@ msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
 msgstr ""
+"Επιτρέψτε σε εξωτερικούς χρήστες να έχουν πρόσβαση στις προπονήσεις και τα "
+"αρχεία καταγραφής σας σε λειτουργία μόνο για ανάγνωση. Πρέπει να το "
+"ρυθμίσετε πριν μοιραστείτε συνδέσμους π.χ. στα μέσα κοινωνικής δικτύωσης."
 
 #: core/models/profile.py:354
 msgid "Automatic reminders for weight entries"
-msgstr ""
+msgstr "Αυτόματες υπενθυμίσεις για καταχωρήσεις βάρους"
 
 #: core/models/profile.py:356
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
+"Αριθμός ημερών μετά την τελευταία καταχώριση βάρους (πληκτρολογήστε 0 για "
+"απενεργοποίηση)"
 
 #: core/models/profile.py:422
 msgid "The sum of all hours has to be 24"
@@ -492,6 +497,10 @@ msgid ""
 "actions are performed on their data.\n"
 "            "
 msgstr ""
+"Περιηγείστε\n"
+"στον ιστότοπο ως χρήστης «%(current_user)s», όλες οι ενέργειες εκτελούνται "
+"στα δεδομένα τους.\n"
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -514,15 +523,15 @@ msgstr "Η διεύθυνση ηλεκτρονικού ταχυδρομίου ε
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, το email σας επαληθεύτηκε"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Σφάλμα, μη έγκυρο διακριτικό επαλήθευσης"
 
 #: core/templates/email_verification/email_body_html.tpl:6
 msgid "Email Confirmation"
-msgstr ""
+msgstr "Eπιβεβαίωση ηλεκτρονικού ταχυδρομείου"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
@@ -534,12 +543,14 @@ msgstr ""
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Παρακαλώ πατήστε <a href=\"%(link)s\">εδώ</a> για να επιβεβαιώσετε το email "
+"σας"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Το διακριτικό λήγει σε %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
@@ -550,6 +561,7 @@ msgstr "η Ομάδα wger"
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"Κάντε κλικ στον παρακάτω σύνδεσμο για να επιβεβαιώσετε το email σας: %(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:425
 msgid "Dashboard"
@@ -560,16 +572,12 @@ msgid "Add log to day"
 msgstr "Προσθήκη ιστορικού στην μέρα"
 
 #: core/templates/index.html:24
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
-"Επιλέξτε για την εισαγωγή ιστορικού βαρών σε μιά μέρα \n"
-"προπόνησης στην τρέχουσα προπόνηση:"
+"Κάντε κλικ για να προσθέσετε αρχεία καταγραφής βάρους σε μια\n"
+"ημέρα προπόνησης στην τρέχουσα προπόνησή σας:"
 
 #: core/templates/index.html:37 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -583,7 +591,7 @@ msgstr "Κλείσιμο"
 
 #: core/templates/index.html:49 core/templates/index.html:213
 msgid "Add new diary entry"
-msgstr ""
+msgstr "Προσθήκη νέας καταχώρισης ημερολογίου"
 
 #: core/templates/index.html:54
 msgid ""
@@ -803,6 +811,9 @@ msgid ""
 "Before you share links on social media you need to allow external\n"
 "                            access."
 msgstr ""
+"Προτού κοινοποιήσετε συνδέσμους στα μέσα κοινωνικής δικτύωσης, πρέπει να "
+"επιτρέψετε την εξωτερική\n"
+"πρόσβαση."
 
 #: core/templates/misc/fragments/shariff_modal.html:26
 #: nutrition/templates/plan/view.html:390
@@ -816,6 +827,8 @@ msgid ""
 "            licenses for the different countries, add them as separate "
 "entries here."
 msgstr ""
+"Εάν μια άδεια έχει εντοπιστεί, π.χ. τις άδειες Creative Commons\n"
+"για τις διάφορες χώρες, προσθέστε τις ως ξεχωριστές εγγραφές εδώ."
 
 #: core/templates/navigation.html:27 software/templates/features.html:430
 msgid "Training"
@@ -840,16 +853,12 @@ msgid "Gallery"
 msgstr ""
 
 #: core/templates/navigation.html:65
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Ολοκλήρωση προπόνησης!"
+msgstr "Πρότυπα προπόνησης"
 
 #: core/templates/navigation.html:71 manager/views/workout.py:84
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Τα προγράμματα σας"
+msgstr "Τα πρότυπά σας"
 
 #: core/templates/navigation.html:79 manager/views/workout.py:98
 msgid "Public templates"
@@ -866,10 +875,8 @@ msgid "Administration"
 msgstr "Διαχείριση"
 
 #: core/templates/navigation.html:95
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Μέρα προπόνησης"
+msgstr "Ιστορικό επεξεργασίας της άσκησης"
 
 #: core/templates/navigation.html:100 exercises/models/base.py:88
 msgid "Equipment"
@@ -1005,14 +1012,13 @@ msgid "Password reset successful"
 msgstr "Επιτυχής αλλαγή κωδικού"
 
 #: core/templates/registration/password_reset_done.html:8
-#, fuzzy
 msgid ""
 "We've e-mailed you instructions for setting your password to the e-mail "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
-"Σας έχουμε στείλει οδηγίες για να ρυθμίσετε τον κωδικό σας στην διεύθυνση "
-"ηλεκτρονικό ταχυδρομείο που μας έχετε υποβάλλει. Θα πρέπει να τις παραλάβετε "
-"σύντομα."
+"Σας έχουμε στείλει με e-mail οδηγίες για να ορίσετε τον κωδικό πρόσβασής σας "
+"στη διεύθυνση ηλεκτρονικού ταχυδρομείου που υποβάλατε. Θα πρέπει να το "
+"λάβετε σύντομα."
 
 #: core/templates/registration/password_reset_email.html:2
 #, python-format
@@ -1579,10 +1585,8 @@ msgid "Language"
 msgstr "Γλώσσα"
 
 #: exercises/models/exercise_alias.py:43
-#, fuzzy
-#| msgid "Add new exercise"
 msgid "Alias for an exercise"
-msgstr "Νέα άσκηση"
+msgstr "Ψευδώνυμο για μια άσκηση"
 
 #: exercises/models/image.py:56
 msgid "Line"
@@ -1601,8 +1605,6 @@ msgid "Photo"
 msgstr ""
 
 #: exercises/models/image.py:60
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
 msgstr "Άλλα"
 
@@ -1639,10 +1641,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Στα λατινικά, π.χ. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "ονομασία άσκησης"
+msgstr "Εναλλακτικό όνομα"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1658,10 +1658,8 @@ msgid "File type is not supported"
 msgstr ""
 
 #: exercises/models/video.py:69
-#, fuzzy
-#| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s δεν είναι σωστή ημερομηνία γέννησης"
+msgstr "Το αρχείο δεν είναι έγκυρο βίντεο"
 
 #: exercises/models/video.py:101
 msgid "Main video"
@@ -1684,10 +1682,8 @@ msgid "Width"
 msgstr ""
 
 #: exercises/models/video.py:137
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Βάρος"
+msgstr "Ύψος"
 
 #: exercises/models/video.py:144
 #, fuzzy
@@ -1712,13 +1708,11 @@ msgstr "Νέο όργανο"
 #, fuzzy
 #| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Μέρα προπόνησης"
+msgstr "Ιστορικό διαχειριστή της άσκησης"
 
 #: exercises/templates/history/overview.html:27
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Ενέργειες"
+msgstr "Δράση"
 
 #: exercises/templates/history/overview.html:28 gallery/models/image.py:51
 #: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
@@ -1736,10 +1730,8 @@ msgid "Object"
 msgstr ""
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgid "Change password"
 msgid "Changes"
-msgstr "Αλλαγή κωδικού"
+msgstr "Αλλαγές"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
