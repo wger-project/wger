@@ -41,50 +41,7 @@
             </div>
         </div>
     {% endif %}
-    {% if plan %}
-        <div class="modal fade" id="nutrition-diary-popup">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">{% translate 'Add new diary entry' %}</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            {% blocktranslate trimmed %}Click to add an entry to your nutrition diary for
-                                today. You can either log a meal as you defined it, or entry any number of
-                                custom entries.{% endblocktranslate %}
-                        </p>
 
-                        {% for meal in plan.meal_set.all %}
-                            <a href="{% url 'nutrition:log:log_meal' meal.pk %}" class="btn btn-block btn-light">
-                                {{ meal.time }}
-                                - {{ meal.get_nutritional_values.energy|floatformat:0}}{% translate "kcal" %}
-                                <br>
-                                <small>
-                                    {% for item in meal.mealitem_set.select_related %}
-                                        {{ item.ingredient }}
-                                        {% if not forloop.last %} / {% endif %}
-                                    {% endfor %}
-                                </small>
-                            </a>
-                        {% endfor %}
-
-                        <a href="{% url 'nutrition:log:add' plan.pk %}" class="btn btn-block btn-light">
-                            {% translate "Add custom diary entry" %}
-                        </a>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-light"
-                                data-bs-dismiss="modal">
-                            {% translate "Close" %}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
 
 
     <div class="container">
@@ -159,61 +116,7 @@
 
             <div class="col-sm-6 col-md-4">
                 <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{% translate "Nutrition plan" %}</h5>
-                        <div class="card-text">
-                            {% if plan %}
-                                <p>
-                                    <a href="{{ plan.get_absolute_url }}">{{ plan }}</a>
-                                </p>
-                                <p>
-                                    – {{ plan.creation_date }}
-                                </p>
-                            {% endif %}
-                            <table class="table table-hover table-sm">
-                                <tr>
-                                    <td>{% translate "Energy" %}</td>
-                                    <td>
-                                        {{ nutritional_info.total.energy|floatformat|default:"-/-"}} {% translate "kcal" %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{% translate "Protein" %}</td>
-                                    <td>
-                                        {{ nutritional_info.total.protein|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{% translate "Carbohydrates" %}</td>
-                                    <td>
-                                        {{ nutritional_info.total.carbohydrates|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{% translate "Fat" %}</td>
-                                    <td>
-                                        {{ nutritional_info.total.fat|floatformat|default:"-/-"}} {% trans_weight_unit 'g' user %}
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="nutrition_diary_chart"></div>
-                    </div>
-                    <div class="card-footer">
-                        {% if not plan %}
-                            <a href="{% url 'nutrition:plan:add' %}" class="btn btn-sm btn-block btn-success">
-                                {% translate "No nutrition plans." %} {% translate "Add one now." %}
-                            </a>
-                        {% else %}
-                            <a href="#"
-                               id="nutrition-diary-link"
-                               data-bs-toggle="modal"
-                               data-bs-target="#nutrition-diary-popup"
-                               class="btn btn-success btn-sm">
-                                {% translate "Add new diary entry" %}
-                            </a>
-                        {% endif %}
-                    </div>
+                   <div id="react-nutrition-dashboard"></div>
                 </div>
             </div>
 

@@ -11,7 +11,7 @@
     "nutritionalPlan": "Plan nutricional",
     "submit": "Enviar",
     "weight": "Peso",
-    "workout": "Rutina",
+    "workout": "Entrenamiento",
     "exercises": {
         "secondaryMuscles": "Músculos secundarios",
         "contributeExercise": "Aporta un ejercicio",
@@ -51,7 +51,7 @@
         "identicalExercise": "Evitar los ejercicios duplicados",
         "cacheWarning": "Debido al almacenamiento en caché, puede pasar algún tiempo hasta que los cambios sean visibles en toda la aplicación."
     },
-    "loading": "Cargando...",
+    "loading": "Cargando…",
     "images": "Imágenes",
     "translation": "Traducción",
     "description": "Descripción",
@@ -110,12 +110,16 @@
         "supportedImageFormats": "Solo se admiten archivos JPEG, PNG y WEBP de menos de 20 Mb",
         "valueTooShort": "El valor es demasiado corto",
         "valueTooLong": "El valor es demasiado largo",
-        "fieldRequired": "Este campo es obligatorio"
+        "fieldRequired": "Este campo es obligatorio",
+        "minValue": "El valor de este campo tiene que ser superior a {{value}}",
+        "minLength": "Por favor, introduce más de {{chars}} caracteres",
+        "maxLength": "Por favor, escribe menos de {{chars}} caracteres",
+        "maxValue": "El valor de este campo tiene que ser inferior a {{value}}"
     },
     "preferences": "Preferencias",
     "cancel": "Cancelar",
     "noResults": "Sin resultados",
-    "success": "¡Éxito!",
+    "success": "¡Éxitoso!",
     "routines": {
         "rir": "Repeticiones",
         "addDay": "Añadir un día de entrenamiento",
@@ -125,5 +129,16 @@
         "logsHeader": "Registro del peso para el entrenamiento",
         "logsFilterNote": "Ten en cuenta que sólo se registran las entradas con una unidad de peso de kg o lb y las repeticiones, aquí se ignoran otras combinaciones como el tiempo o hasta los errores",
         "routines": "Rutinas"
-    }
+    },
+    "actions": "Acciones",
+    "value": "Valor",
+    "unit": "Unidad",
+    "notes": "Notas personales",
+    "seeDetails": "Ver los detalles",
+    "measurements": {
+        "measurements": "Mediciones",
+        "unitFormHelpText": "La unidad en la que se medirá la categoría, como cm o %",
+        "deleteInfo": "Esto eliminará la categoría así como todas sus entradas"
+    },
+    "deleteConfirmation": "¿Estás seguro de que quieres borrar \"{{name}}\"?"
 }
