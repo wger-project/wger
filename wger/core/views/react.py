@@ -33,9 +33,9 @@ class ReactView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         """
-        Can only add contract types in own gym
+        Only logged-in users are allowed to access this page
         """
         if self.login_required and not request.user.is_authenticated:
-            return HttpResponseForbidden('You are not allowed to access this object')
+            return HttpResponseForbidden('You are not allowed to access this page')
 
         return super().dispatch(request, *args, **kwargs)
