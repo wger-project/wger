@@ -210,4 +210,3 @@ class NutritionPlan(models.Model):
             date = datetime.date.today()
 
         return self.logitem_set.filter(datetime__date=date).select_related()
-
