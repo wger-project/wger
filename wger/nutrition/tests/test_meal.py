@@ -18,10 +18,7 @@ import datetime
 
 # wger
 from wger.core.tests import api_base_test
-from wger.nutrition.models import (
-    Meal,
-)
-
+from wger.nutrition.models import Meal
 
 
 class MealApiTestCase(api_base_test.ApiBaseResourceTestCase):

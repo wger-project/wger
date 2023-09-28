@@ -18,7 +18,6 @@ from wger.core.tests import api_base_test
 from wger.nutrition.models import MealItem
 
 
-
 class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the meal overview resource

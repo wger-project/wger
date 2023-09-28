@@ -24,15 +24,10 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect,
 )
-from django.shortcuts import (
-    get_object_or_404,
-)
-from django.urls import (
-    reverse,
-)
-from django.utils.translation import (
-    gettext as _,
-)
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from django.utils.translation import gettext as _
+
 # Third Party
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -45,13 +40,9 @@ from reportlab.platypus import (
 )
 
 # wger
-from wger.nutrition.consts import (
-    MEALITEM_WEIGHT_GRAM,
-)
+from wger.nutrition.consts import MEALITEM_WEIGHT_GRAM
 from wger.nutrition.models import NutritionPlan
-from wger.utils.helpers import (
-    check_token,
-)
+from wger.utils.helpers import check_token
 from wger.utils.pdf import (
     get_logo,
     header_colour,

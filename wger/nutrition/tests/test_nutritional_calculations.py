@@ -32,7 +32,7 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
     """
 
     def test_calculations(self):
-        plan = models.NutritionPlan(user_id=1, language_id=1)
+        plan = models.NutritionPlan(user_id=1)
         plan.save()
 
         meal = models.Meal(order=1)

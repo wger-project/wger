@@ -302,7 +302,6 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'creation_date',
-        'language',
         'description',
         'has_goal_calories',
     )
@@ -321,7 +320,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         """
         Set the owner
         """
-        serializer.save(user=self.request.user, language=load_language())
+        serializer.save(user=self.request.user)
 
     @action(detail=True)
     def nutritional_values(self, request, pk):
@@ -329,31 +328,6 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         Return an overview of the nutritional plan's values
         """
         return Response(NutritionPlan.objects.get(pk=pk).get_nutritional_values())
-
-    @action(detail=True)
-    def get_log_overview(self, request, pk):
-        """
-        Return a list of log diary entries for the nutrition plan
-        """
-        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
-        return Response(plan.get_log_overview())
-
-    @action(detail=True)
-    def log_summary(self, request, pk):
-        """
-        Return a summary of the nutrition diary for a given date
-        """
-        today = datetime.date.today()
-        year = request.GET.get('year', today.year)
-        month = request.GET.get('month', today.month)
-        day = request.GET.get('day', today.day)
-        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
-
-        try:
-            date = datetime.date(year=int(year), month=int(month), day=int(day))
-        except ValueError:
-            date = today
-        return Response(plan.get_log_summary(date))
 
 
 class NutritionPlanInfoViewSet(NutritionPlanViewSet):

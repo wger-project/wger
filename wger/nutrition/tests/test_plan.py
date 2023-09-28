@@ -25,5 +25,6 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 4
     resource = NutritionPlan
     private_resource = True
+    overview_cached = False
     special_endpoints = ('nutritional_values', )
-    data = {'description': 'The description', 'language': 1}
+    data = {'description': 'The description'}
