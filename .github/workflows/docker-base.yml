@@ -33,7 +33,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build base image
-        uses: docker/build-push-action@v4.1.0
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
