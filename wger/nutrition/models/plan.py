@@ -70,6 +70,13 @@ class NutritionPlan(models.Model):
             '"Gain mass" or "Prepare for summer"'
         ),
     )
+
+    only_logging = models.BooleanField(
+        verbose_name='Only logging',
+        default=False,
+    )
+    """Flag to indicate that the nutritional plan will only used for logging"""
+
     has_goal_calories = models.BooleanField(
         verbose_name=_('Use daily calories'),
         default=False,

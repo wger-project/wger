@@ -177,14 +177,9 @@ class ApiGetTestCase:
         if self.overview_cached:
             cache_length = len(locmem._caches['wger-cache'])
             self.assertNotEqual(cache_length, 0)
-
-        # TODO: Commented out because the nutritional plan caused this to fail.
-        #       Since we do everything over the API now, we should decide one of
-        #       these days if we want to move the calculations for the nutritional
-        #       values out of the client and just read this
-        # else:
-        #     cache_length = len(locmem._caches['wger-cache'])
-        #     self.assertEqual(cache_length, 0)
+        else:
+            cache_length = len(locmem._caches['wger-cache'])
+            self.assertEqual(cache_length, 0)
 
     def test_special_endpoints(self):
         """

@@ -16,12 +16,10 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
 import logging
 
 # Django
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -76,7 +74,6 @@ from wger.nutrition.models import (
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
-
 
 logger = logging.getLogger(__name__)
 

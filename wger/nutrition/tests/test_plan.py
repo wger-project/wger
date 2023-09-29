@@ -21,10 +21,13 @@ from wger.nutrition.models import NutritionPlan
 class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the nutritional plan overview resource
+
+    TODO: setting overview_cached to true since get_nutritional_values is
+          cached, but we don't really use it. This should be removed
     """
     pk = 4
     resource = NutritionPlan
     private_resource = True
-    overview_cached = False
+    overview_cached = True
     special_endpoints = ('nutritional_values', )
     data = {'description': 'The description'}

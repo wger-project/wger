@@ -26,4 +26,9 @@ class Migration(migrations.Migration):
                 verbose_name='Meal'
             ),
         ),
+        migrations.AddField(
+            model_name='nutritionplan',
+            name='only_logging',
+            field=models.BooleanField(default=False, verbose_name='Only logging'),
+        ),
     ]

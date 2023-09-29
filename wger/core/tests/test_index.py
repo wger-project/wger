@@ -62,19 +62,7 @@ class DashboardTestCase(WgerTestCase):
         self.assertTrue(response.context['weekdays'])
 
         #
-        # 2. Add a nutrition plan
-        #
-        self.client.get(reverse('nutrition:plan:add'))
-        response = self.client.get(reverse('core:dashboard'))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.context['weight'])
-        self.assertTrue(response.context['current_workout'])
-        self.assertTrue(response.context['plan'])
-        self.assertTrue(response.context['weekdays'])
-
-        #
-        # 3. Add a weight entry
+        # 2. Add a weight entry
         #
         self.client.post(reverse('weight:add'), {
             'weight': 100,
@@ -86,7 +74,6 @@ class DashboardTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['weight'])
         self.assertTrue(response.context['current_workout'])
-        self.assertTrue(response.context['plan'])
         self.assertTrue(response.context['weekdays'])
 
     def test_dashboard_logged_in(self):

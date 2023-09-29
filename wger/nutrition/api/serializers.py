@@ -174,6 +174,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
         depth = 1
         fields = [
             'id',
+            'uuid',
             'code',
             'name',
             'created',
@@ -323,6 +324,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'id',
             'creation_date',
             'description',
+            'only_logging',
             'get_nutritional_values',
         ]
 
