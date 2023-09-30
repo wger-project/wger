@@ -41,7 +41,7 @@ flower==2.0.1
 
 # REST API
 django-cors-headers==4.2.0
-django-filter==23.2
+django-filter==23.3
 djangorestframework~=3.14
 djangorestframework-simplejwt[crypto]==5.2.2
 
