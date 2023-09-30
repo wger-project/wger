@@ -58,6 +58,7 @@ target/
 
 # IDE
 .idea/
+.vscode/
 
 # External Libraries
 wger/core/static/yarn
@@ -66,6 +67,7 @@ node_modules
 # Virtual envs
 venv
 venv-wger
+.python-version
 
 # Dummy translation files to copy to react or flutter repo
 /wger/i18n.tsx
@@ -75,3 +77,6 @@ venv-wger
 /wger/app_en.arb
 /coverage.lcov
 /media/
+
+# macOS
+.DS_Store
