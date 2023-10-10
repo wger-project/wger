@@ -285,6 +285,11 @@ LOGGING = {
         'wger': {
             'handlers': ['console'],
             'level': 'DEBUG',
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         }
     }
 }

@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2022-08-16 04:15+0000\n"
-"Last-Translator: cld4h <hao@24601.xyz>\n"
+"PO-Revision-Date: 2023-09-05 05:55+0000\n"
+"Last-Translator: Scotee007 <huangzhenjiao@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -128,8 +128,9 @@ msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 
 #: core/forms.py:116 core/models/profile.py:224
 #: gym/templates/gym/new_user.html:38
+#, fuzzy
 msgid "Date of Birth"
-msgstr ""
+msgstr "生日"
 
 #: core/forms.py:148
 msgid "Personal data"
@@ -515,7 +516,7 @@ msgstr "你确定要删除这条记录？删除动作是不可撤销的。"
 
 #: core/templates/email_verification/confirm_template.html:4
 msgid "Email verified"
-msgstr ""
+msgstr "邮箱验证"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -524,40 +525,40 @@ msgstr ""
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "错误，无效的验证Token"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "配置"
+msgstr "邮箱确认"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
 #, python-format
 msgid "You are almost there, %(username)s!"
-msgstr ""
+msgstr "你即将完成，%(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
-msgstr ""
+msgstr "请点击 <a href=\"%(link)s\">这里</a> 来验证你的邮箱"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "此token将在 %(time)s过期"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "维格小组"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"请点击以下连接以确认您的邮箱：\n"
+"%(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:425
 msgid "Dashboard"
@@ -568,16 +569,12 @@ msgid "Add log to day"
 msgstr "添加日志"
 
 #: core/templates/index.html:24
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
-"点击添加体重日志到\n"
-"现时锻炼计划的一个训练日："
+"点击添加体重日志\n"
+"                            到您目前锻炼计划的一个训练日："
 
 #: core/templates/index.html:37 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -882,10 +879,8 @@ msgid "Administration"
 msgstr "管理"
 
 #: core/templates/navigation.html:95
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "训练日"
+msgstr "训练变更记录"
 
 #: core/templates/navigation.html:100 exercises/models/base.py:88
 msgid "Equipment"
@@ -1052,11 +1047,11 @@ msgstr "%(site_name)s 团队"
 
 #: core/templates/rest_framework/api.html:37
 msgid "request info"
-msgstr ""
+msgstr "请求信息"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
-msgstr ""
+msgstr "响应信息"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
@@ -1379,7 +1374,7 @@ msgstr "配置"
 
 #: core/templates/user/overview.html:454 gym/models/user_config.py:92
 msgid "Include in inactive overview"
-msgstr ""
+msgstr "包含在非活动概览中"
 
 #: core/templates/user/overview.html:487
 #, python-format
@@ -1396,19 +1391,19 @@ msgstr "首选项"
 
 #: core/templates/user/preferences.html:19
 msgid "Verified email"
-msgstr ""
+msgstr "已验证邮箱"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
-msgstr ""
+msgstr "未验证的邮箱"
 
 #: core/templates/user/preferences.html:26
 msgid "Send verification email"
-msgstr ""
+msgstr "发送验证邮件"
 
 #: core/templates/user/preferences.html:30
 msgid "You need to verify your email to contribute exercises"
-msgstr ""
+msgstr "您需要验证您的邮箱来添加锻炼项目"
 
 #: core/templates/user/preferences.html:50 core/views/user.py:603
 msgid "Change password"
@@ -1545,7 +1540,7 @@ msgstr "健身房"
 #: core/views/user.py:652
 #, python-format
 msgid "A verification email was sent to %(email)s"
-msgstr ""
+msgstr "一封验证邮箱已发送至 %(email)s"
 
 #: exercises/models/base.py:67 nutrition/models/ingredient.py:224
 msgid "Category"
@@ -1637,7 +1632,7 @@ msgstr ""
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
-msgstr ""
+msgstr "拉丁语中的\"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
 #, fuzzy
@@ -1652,7 +1647,7 @@ msgstr ""
 #: exercises/models/video.py:49
 #, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr ""
+msgstr "最大文件尺寸为 %(size)sMB."
 
 #: exercises/models/video.py:56 exercises/models/video.py:64
 msgid "File type is not supported"

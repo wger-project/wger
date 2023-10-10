@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-02-13 10:39+0000\n"
-"Last-Translator: Roman Kalivoda <kalivodaroman@gmail.com>\n"
+"PO-Revision-Date: 2023-09-06 09:53+0000\n"
+"Last-Translator: CaptainDolphy <captain.x.dolphy@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -78,8 +78,6 @@ msgid "Another sample day"
 msgstr "Další ukázkový den"
 
 #: core/demo.py:211
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
 msgstr "Ukázkový nutriční plán."
 
@@ -218,10 +216,8 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: core/forms.py:306
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Nějaký kontakt na váš (email, apod.)"
+msgstr "Nějaký kontakt na vás (email, apod.)"
 
 #: core/forms.py:314 exercises/models/comment.py:42 manager/models/set.py:60
 #: manager/models/setting.py:111 nutrition/models/log.py:71
@@ -498,12 +494,7 @@ msgid "Something happened that caused an error."
 msgstr "Nastalo něco, co způsobilo chybu."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -512,7 +503,8 @@ msgid ""
 msgstr ""
 "Prohlížíš web\n"
 "jako uživatel \"%(current_user)s\". Všechny akce jsou prováděny na jeho "
-"datech."
+"datech.\n"
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -541,17 +533,14 @@ msgid "Error, invalid verification token"
 msgstr "Chyba, chybně zadaný ověřovací token"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Konfigurace"
+msgstr "Konfirmační Email"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Kalendář uživatele %(username)s"
+msgstr "Už to skoro bude, %(username)s"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -584,16 +573,13 @@ msgid "Add log to day"
 msgstr "Přidat záznam ke dni"
 
 #: core/templates/index.html:24
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
 msgstr ""
 "Klikněte na přidat záznam váhy do\n"
-"tréninkového dne v aktuálním tréninku."
+"                                                                tréninkového "
+"dne v aktuálním tréninku."
 
 #: core/templates/index.html:37 core/templates/index.html:81
 #: core/templates/misc/fragments/shariff_modal.html:33
@@ -879,16 +865,12 @@ msgid "Gallery"
 msgstr "Galerie"
 
 #: core/templates/navigation.html:65
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout templates"
-msgstr "Trénink je kompletní!"
+msgstr "Tréninkové šablony"
 
 #: core/templates/navigation.html:71 manager/views/workout.py:84
-#, fuzzy
-#| msgid "Your schedules"
 msgid "Your templates"
-msgstr "Tvé rozvrhy"
+msgstr "Tvé šablony"
 
 #: core/templates/navigation.html:79 manager/views/workout.py:98
 msgid "Public templates"
@@ -905,10 +887,8 @@ msgid "Administration"
 msgstr "Administrace"
 
 #: core/templates/navigation.html:95
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise edit history"
-msgstr "Cvičební den"
+msgstr "Historie úprav cvičení"
 
 #: core/templates/navigation.html:100 exercises/models/base.py:88
 msgid "Equipment"
@@ -1078,7 +1058,7 @@ msgstr "Tým %(site_name)s"
 
 #: core/templates/rest_framework/api.html:37
 msgid "request info"
-msgstr ""
+msgstr "žádané info"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
@@ -1423,10 +1403,8 @@ msgid "Preferences"
 msgstr "Nastavení"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
-#| msgid "Send emails"
 msgid "Verified email"
-msgstr "Odeslat emaily"
+msgstr "Ověřený email"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
@@ -1620,7 +1598,7 @@ msgstr "Oprava cviku"
 
 #: exercises/models/image.py:56
 msgid "Line"
-msgstr ""
+msgstr "Řádek"
 
 #: exercises/models/image.py:57
 msgid "3D"
@@ -1635,10 +1613,8 @@ msgid "Photo"
 msgstr "Foto"
 
 #: exercises/models/image.py:60
-#, fuzzy
-#| msgid "Others"
 msgid "Other"
-msgstr "Další"
+msgstr "Ostatní"
 
 #: exercises/models/image.py:79 gallery/models/image.py:56
 #: nutrition/models/image.py:60
@@ -1673,10 +1649,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "v latině, např. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "jméno cviku"
+msgstr "Alternativní jméno"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1695,13 +1669,11 @@ msgstr "Typ souboru není podporován"
 #, fuzzy
 #| msgid "%(birthdate)s is not a valid birthdate"
 msgid "File is not a valid video"
-msgstr "%(birthdate)s není správné datum narození"
+msgstr "Soubor není podporované video"
 
 #: exercises/models/video.py:101
-#, fuzzy
-#| msgid "Main picture"
 msgid "Main video"
-msgstr "Hlavní obrázek"
+msgstr "Hlavní video"
 
 #: exercises/models/video.py:107
 msgid "Video"
@@ -1720,16 +1692,12 @@ msgid "Width"
 msgstr "Šířka"
 
 #: exercises/models/video.py:137
-#, fuzzy
-#| msgid "Weight"
 msgid "Height"
-msgstr "Váha"
+msgstr "Výška"
 
 #: exercises/models/video.py:144
-#, fuzzy
-#| msgid "Code"
 msgid "Codec"
-msgstr "Kód"
+msgstr "Kodeks"
 
 #: exercises/models/video.py:152
 msgid "Codec, long name"
@@ -1745,10 +1713,8 @@ msgid "Add new equipment"
 msgstr "Přidat nové nářadí"
 
 #: exercises/templates/history/overview.html:11
-#, fuzzy
-#| msgid "Exercise day"
 msgid "Exercise admin history"
-msgstr "Cvičební den"
+msgstr "Administrativní historie cvičení"
 
 #: exercises/templates/history/overview.html:27
 #, fuzzy
@@ -1768,18 +1734,12 @@ msgid "User"
 msgstr "Uživatel"
 
 #: exercises/templates/history/overview.html:29
-#, fuzzy
-#| msgctxt "As in \"email subject\""
-#| msgid "Subject"
 msgid "Object"
-msgstr "Předmět"
+msgstr "Objekt"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
-#| msgctxt "Noun, not verb"
-#| msgid "Change"
 msgid "Changes"
-msgstr "Změna"
+msgstr "Změny"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
@@ -1790,10 +1750,8 @@ msgid "View Object"
 msgstr "Zobrazit objekt"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
-#| msgid "View logs"
 msgid "View changes"
-msgstr "Zobrazit záznamy"
+msgstr "Zobrazit změny"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
@@ -1825,10 +1783,8 @@ msgid "This will delete the exercise from all workouts."
 msgstr "To smaže všechny cviky ze všech tréninků."
 
 #: gallery/templates/images/overview.html:62
-#, fuzzy
-#| msgid "Add new image"
 msgid "Add image"
-msgstr "Přidat nový obrázek"
+msgstr "Přidat obrázek"
 
 #: gym/forms.py:59 gym/templates/gym/member_list.html:44
 msgid "Trainer"
@@ -2190,10 +2146,8 @@ msgid "Dumbbell"
 msgstr "Jednoruční činka"
 
 #: i18n.tpl:13
-#, fuzzy
-#| msgid "Minutes"
 msgid "Glutes"
-msgstr "Minuty"
+msgstr ""
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -2216,10 +2170,8 @@ msgid "Kilometers"
 msgstr "Kilometry"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Kilometry"
+msgstr "Kilometry za hodinu"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2230,10 +2182,8 @@ msgid "Legs"
 msgstr "Nohy"
 
 #: i18n.tpl:22
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Opakování"
+msgstr "Maximum Opakování"
 
 #: i18n.tpl:23
 msgid "Miles"
@@ -2241,7 +2191,7 @@ msgstr "Míle"
 
 #: i18n.tpl:24
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Míle za hodinu"
 
 #: i18n.tpl:25
 msgid "Minutes"
@@ -2249,7 +2199,7 @@ msgstr "Minuty"
 
 #: i18n.tpl:26
 msgid "Plates"
-msgstr ""
+msgstr "Kotouče"
 
 #: i18n.tpl:27
 msgid "Pull-up bar"
@@ -2348,10 +2298,8 @@ msgid "Correction"
 msgstr "Oprava"
 
 #: manager/forms.py:92 manager/models/workout.py:59
-#, fuzzy
-#| msgid "Make a copy of this workout"
 msgid "The name of the workout"
-msgstr "Vytvořit kopii tohoto tréninku"
+msgstr "Jméno tréninku"
 
 #: manager/forms.py:96 manager/models/workout.py:66
 msgid ""
@@ -2369,10 +2317,8 @@ msgstr ""
 "Můžete vyhledat více jak jeden cvik. Cviky pak budou zařazeny do supersérie."
 
 #: manager/forms.py:143 nutrition/forms.py:248
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Použít také složky v Angličtině"
+msgstr "Použít také jména v Angličtině"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2518,10 +2464,8 @@ msgstr "Datum vytvoření"
 
 #: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
-#, fuzzy
-#| msgid "Workout complete!"
 msgid "Workout template"
-msgstr "Trénink je kompletní!"
+msgstr "Tréninková šablona"
 
 #: manager/models/workout.py:74
 msgid ""
@@ -3898,14 +3842,12 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:306
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
 msgstr "Přispějte!"
 
 #: software/templates/features.html:330
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Zaregistrujte se zdarma"
 
 #: software/templates/features.html:343
 msgid "Web version not enough?"

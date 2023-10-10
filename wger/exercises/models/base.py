@@ -13,8 +13,8 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # Standard Library
+import datetime
 import uuid
 from typing import (
     List,
@@ -149,8 +149,8 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 Warning(
                     'exercises without translations',
                     hint=f'There are {no_translations} exercises without translations, this will '
-                    'cause problems! You can output or delete them with "python manage.py '
-                    'exercises-health-check --help"',
+                         'cause problems! You can output or delete them with "python manage.py '
+                         'exercises-health-check --help"',
                     id='wger.W002',
                 )
             )
@@ -183,6 +183,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             *[image.last_update for image in self.exerciseimage_set.all()],
             *[video.last_update for video in self.exercisevideo_set.all()],
             *[translation.last_update for translation in self.exercises.all()],
+            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
         )
 
     @property

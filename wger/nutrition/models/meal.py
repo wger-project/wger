@@ -29,7 +29,6 @@ from wger.utils.fields import Html5TimeField
 # Local
 from .plan import NutritionPlan
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -85,10 +84,11 @@ class Meal(models.Model):
         """
         Sums the nutritional info of all items in the meal
 
-        :param use_metric Flag that controls the units used
+        :param: use_metric Flag that controls the units used
         """
         nutritional_info = {
             'energy': 0,
+            'energy_kilojoule': 0,
             'protein': 0,
             'carbohydrates': 0,
             'carbohydrates_sugar': 0,
