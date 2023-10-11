@@ -17,6 +17,7 @@
 
 # Standard Library
 import logging
+from dataclasses import asdict
 
 # Django
 from django.conf import settings
@@ -56,6 +57,7 @@ from wger.nutrition.api.serializers import (
     LogItemSerializer,
     MealItemSerializer,
     MealSerializer,
+    NutritionalValuesSerializer,
     NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
     WeightUnitSerializer,
@@ -74,6 +76,7 @@ from wger.nutrition.models import (
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
+
 
 logger = logging.getLogger(__name__)
 
@@ -145,10 +148,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             item.weight_unit_id = unit_id
             item.amount = form.cleaned_data['amount']
 
-            result = item.get_nutritional_values()
-
-            for i in result:
-                result[i] = '{0:f}'.format(result[i])
+            result = item.get_nutritional_values().to_dict
         else:
             result['errors'] = form.errors
 
@@ -324,7 +324,10 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(NutritionPlan.objects.get(pk=pk).get_nutritional_values())
+        serializer = NutritionalValuesSerializer(
+            NutritionPlan.objects.get(pk=pk).get_nutritional_values()['total'],
+        )
+        return Response(serializer.data)
 
 
 class NutritionPlanInfoViewSet(NutritionPlanViewSet):
@@ -375,7 +378,8 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(Meal.objects.get(pk=pk).get_nutritional_values())
+        serializer = NutritionalValuesSerializer(Meal.objects.get(pk=pk).get_nutritional_values())
+        return Response(serializer.data)
 
 
 class MealItemViewSet(WgerOwnerObjectModelViewSet):

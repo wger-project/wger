@@ -28,6 +28,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.nutrition.consts import ENERGY_FACTOR
+from wger.nutrition.helpers import NutritionalValues
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.weight.models import WeightEntry
@@ -110,19 +111,11 @@ class NutritionPlan(models.Model):
         """
         nutritional_representation = cache.get(cache_mapper.get_nutrition_cache_by_key(self.pk))
         if not nutritional_representation:
+            nutritional_values = NutritionalValues()
             use_metric = self.user.userprofile.use_metric
             unit = 'kg' if use_metric else 'lb'
             result = {
-                'total': {
-                    'energy': 0,
-                    'protein': 0,
-                    'carbohydrates': 0,
-                    'carbohydrates_sugar': 0,
-                    'fat': 0,
-                    'fat_saturated': 0,
-                    'fibres': 0,
-                    'sodium': 0
-                },
+                'total': NutritionalValues(),
                 'percent': {
                     'protein': 0,
                     'carbohydrates': 0,
@@ -137,29 +130,29 @@ class NutritionPlan(models.Model):
 
             # Energy
             for meal in self.meal_set.select_related():
-                values = meal.get_nutritional_values(use_metric=use_metric)
-                for key in result['total'].keys():
-                    result['total'][key] += values[key]
+                nutritional_values += meal.get_nutritional_values(use_metric=use_metric)
+            result['total'] = nutritional_values
 
-            energy = result['total']['energy']
-            result['total']['energy_kilojoule'] = result['total']['energy'] * Decimal(4.184)
+            energy = nutritional_values.energy
 
             # In percent
             if energy:
-                for key in result['percent'].keys():
-                    result['percent'][key] = \
-                        result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
+                result['percent']['protein'] = nutritional_values.protein * \
+                                               ENERGY_FACTOR['protein'][unit] / energy * 100
+                result['percent']['carbohydrates'] = nutritional_values.carbohydrates * \
+                                                     ENERGY_FACTOR['carbohydrates'][
+                                                         unit] / energy * 100
+                result['percent']['fat'] = nutritional_values.fat * \
+                                           ENERGY_FACTOR['fat'][unit] / energy * 100
 
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
             if weight_entry and weight_entry.weight:
-                for key in result['per_kg'].keys():
-                    result['per_kg'][key] = result['total'][key] / weight_entry.weight
+                result['per_kg']['protein'] = nutritional_values.protein / weight_entry.weight
+                result['per_kg']['carbohydrates'
+                                 ] = nutritional_values.carbohydrates / weight_entry.weight
+                result['per_kg']['fat'] = nutritional_values.fat / weight_entry.weight
 
-            # Only 2 decimal places, anything else doesn't make sense
-            for key in result.keys():
-                for i in result[key]:
-                    result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
             nutritional_representation = result
             cache.set(cache_mapper.get_nutrition_cache_by_key(self.pk), nutritional_representation)
         return nutritional_representation

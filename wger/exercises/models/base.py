@@ -149,8 +149,8 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 Warning(
                     'exercises without translations',
                     hint=f'There are {no_translations} exercises without translations, this will '
-                         'cause problems! You can output or delete them with "python manage.py '
-                         'exercises-health-check --help"',
+                    'cause problems! You can output or delete them with "python manage.py '
+                    'exercises-health-check --help"',
                     id='wger.W002',
                 )
             )
@@ -179,8 +179,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         The latest update datetime of all exercises, videos and images.
         """
         return max(
-            self.last_update,
-            *[image.last_update for image in self.exerciseimage_set.all()],
+            self.last_update, *[image.last_update for image in self.exerciseimage_set.all()],
             *[video.last_update for video in self.exercisevideo_set.all()],
             *[translation.last_update for translation in self.exercises.all()],
             datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)

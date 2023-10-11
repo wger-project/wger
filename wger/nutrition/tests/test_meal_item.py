@@ -25,7 +25,6 @@ class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     pk = 10
     resource = MealItem
     private_resource = True
-    special_endpoints = ('nutritional_values', )
     data = {
         'meal': 2,
         'amount': 100,

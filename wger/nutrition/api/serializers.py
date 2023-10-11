@@ -298,7 +298,10 @@ class MealInfoSerializer(serializers.ModelSerializer):
 
     meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
     plan = serializers.PrimaryKeyRelatedField(read_only=True)
-    get_nutritional_values = NutritionalValuesSerializer(read_only=True)
+    nutritional_values = NutritionalValuesSerializer(
+        source='get_nutritional_values',
+        read_only=True,
+    )
 
     class Meta:
         model = Meal
@@ -309,7 +312,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
             'time',
             'name',
             'meal_items',
-            'get_nutritional_values',
+            'nutritional_values',
         ]
 
 
@@ -318,6 +321,8 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
     Nutritional plan serializer
     """
 
+    # nutritional_values = NutritionalValuesSerializer(source='get_nutritional_values.total')
+
     class Meta:
         model = NutritionPlan
         fields = [
@@ -325,7 +330,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'creation_date',
             'description',
             'only_logging',
-            'get_nutritional_values',
+            # 'nutritional_values',
         ]
 
 
@@ -334,9 +339,6 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     Nutritional plan info serializer
     """
     meals = MealInfoSerializer(source='meal_set', many=True)
-    get_nutritional_values = NutritionalValuesSerializer(
-        source='get_nutritional_values.total', read_only=True
-    )
 
     class Meta:
         model = NutritionPlan
@@ -345,6 +347,5 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
             'id',
             'creation_date',
             'description',
-            'get_nutritional_values',
             'meals',
         ]

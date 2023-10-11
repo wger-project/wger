@@ -27,7 +27,9 @@ from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
 
 # Local
+from ..helpers import NutritionalValues
 from .plan import NutritionPlan
+
 
 logger = logging.getLogger(__name__)
 
@@ -86,29 +88,9 @@ class Meal(models.Model):
 
         :param: use_metric Flag that controls the units used
         """
-        nutritional_info = {
-            'energy': 0,
-            'energy_kilojoule': 0,
-            'protein': 0,
-            'carbohydrates': 0,
-            'carbohydrates_sugar': 0,
-            'fat': 0,
-            'fat_saturated': 0,
-            'fibres': 0,
-            'sodium': 0
-        }
+        nutritional_values = NutritionalValues()
 
-        # Get the calculated values from the meal item and add them
         for item in self.mealitem_set.select_related():
+            nutritional_values += item.get_nutritional_values(use_metric=use_metric)
 
-            values = item.get_nutritional_values(use_metric=use_metric)
-            for key in nutritional_info.keys():
-                nutritional_info[key] += values[key]
-
-        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
-
-        # Only 2 decimal places, anything else doesn't make sense
-        for i in nutritional_info:
-            nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
-
-        return nutritional_info
+        return nutritional_values

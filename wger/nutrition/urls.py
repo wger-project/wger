@@ -34,6 +34,7 @@ from wger.nutrition.views import (
     unit_ingredient,
 )
 
+
 # sub patterns for nutritional plans
 patterns_plan = [
     path(

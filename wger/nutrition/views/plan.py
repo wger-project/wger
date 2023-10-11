@@ -51,6 +51,7 @@ from wger.utils.pdf import (
     styleSheet,
 )
 
+
 logger = logging.getLogger(__name__)
 
 # ************************
@@ -207,7 +208,6 @@ def export_pdf(request, id, uidb64=None, token=None):
 
     # Set the title (if available)
     if plan.description:
-
         p = Paragraph(
             '<para align="center"><strong>%(description)s</strong></para>' %
             {'description': plan.description}, styleSheet["HeaderBold"]
@@ -242,13 +242,13 @@ def export_pdf(request, id, uidb64=None, token=None):
     data.append(
         [
             Paragraph(_('Energy'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['energy']), styleSheet["Normal"])
+            Paragraph(str(plan_data['total'].energy), styleSheet["Normal"])
         ]
     )
     data.append(
         [
             Paragraph(_('Protein'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['protein']), styleSheet["Normal"]),
+            Paragraph(str(plan_data['total'].protein), styleSheet["Normal"]),
             Paragraph(str(plan_data['percent']['protein']), styleSheet["Normal"]),
             Paragraph(str(plan_data['per_kg']['protein']), styleSheet["Normal"])
         ]
@@ -256,7 +256,7 @@ def export_pdf(request, id, uidb64=None, token=None):
     data.append(
         [
             Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['carbohydrates']), styleSheet["Normal"]),
+            Paragraph(str(plan_data['total'].carbohydrates), styleSheet["Normal"]),
             Paragraph(str(plan_data['percent']['carbohydrates']), styleSheet["Normal"]),
             Paragraph(str(plan_data['per_kg']['carbohydrates']), styleSheet["Normal"])
         ]
@@ -264,13 +264,13 @@ def export_pdf(request, id, uidb64=None, token=None):
     data.append(
         [
             Paragraph("    " + _('Sugar content in carbohydrates'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['carbohydrates_sugar']), styleSheet["Normal"])
+            Paragraph(str(plan_data['total'].carbohydrates_sugar), styleSheet["Normal"])
         ]
     )
     data.append(
         [
             Paragraph(_('Fat'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['fat']), styleSheet["Normal"]),
+            Paragraph(str(plan_data['total'].fat), styleSheet["Normal"]),
             Paragraph(str(plan_data['percent']['fat']), styleSheet["Normal"]),
             Paragraph(str(plan_data['per_kg']['fat']), styleSheet["Normal"])
         ]
@@ -278,19 +278,19 @@ def export_pdf(request, id, uidb64=None, token=None):
     data.append(
         [
             Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['fat_saturated']), styleSheet["Normal"])
+            Paragraph(str(plan_data['total'].fat_saturated), styleSheet["Normal"])
         ]
     )
     data.append(
         [
             Paragraph(_('Fibres'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['fibres']), styleSheet["Normal"])
+            Paragraph(str(plan_data['total'].fibres), styleSheet["Normal"])
         ]
     )
     data.append(
         [
             Paragraph(_('Sodium'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total']['sodium']), styleSheet["Normal"])
+            Paragraph(str(plan_data['total'].sodium), styleSheet["Normal"])
         ]
     )
 
