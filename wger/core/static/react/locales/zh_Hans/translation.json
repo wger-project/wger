@@ -18,7 +18,7 @@
         "alsoKnownAs": "也被称为：",
         "notes": "注",
         "description": "描述",
-        "contributeExercise": "贡献一个新动作",
+        "contributeExercise": "添加一个新动作",
         "exercises": "动作",
         "missingExercise": "缺少某项动作？",
         "missingExerciseDescription": "通过添加贡献来帮助社区！",
@@ -53,5 +53,6 @@
     },
     "noResults": "无结果",
     "noResultsDescription": "找不到此查询的结果，请考虑减少过滤器的数量。",
-    "loading": "加载中..."
+    "loading": "加载中…",
+    "deleteConfirmation": "你确定要删除 \"{{name}}\"吗?"
 }

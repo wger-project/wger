@@ -101,7 +101,6 @@ class Command(BaseCommand):
                 uid = str(uuid4()).split('-')
                 start_date = datetime.date.today() - datetime.timedelta(days=randint(0, 100))
                 plan = NutritionPlan(
-                    language=Language.objects.all()[1],
                     description=f'Dummy nutritional plan - {uid[1]}',
                     creation_date=start_date,
                     user=user

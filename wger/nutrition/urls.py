@@ -29,9 +29,6 @@ from wger.nutrition.views import (
     bmi,
     calculator,
     ingredient,
-    log,
-    meal,
-    meal_item,
     plan,
     unit,
     unit_ingredient,
@@ -63,44 +60,6 @@ patterns_plan = [
         '<int:id>/pdf/',
         plan.export_pdf,
         name='export-pdf',
-    ),
-]
-
-# sub patterns for meals
-patterns_meal = [
-    path(
-        '<int:plan_pk>/meal/add/',
-        login_required(meal.MealCreateView.as_view()),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit/',
-        login_required(meal.MealEditView.as_view()),
-        name='edit',
-    ),
-    path(
-        '<int:id>/delete/',
-        meal.delete_meal,
-        name='delete',
-    ),
-]
-
-# sub patterns for meal items
-patterns_meal_item = [
-    path(
-        '<int:meal_id>/item/add/',
-        login_required(meal_item.MealItemCreateView.as_view()),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit/',
-        login_required(meal_item.MealItemEditView.as_view()),
-        name='edit',
-    ),
-    path(
-        '<int:item_id>/delete/',
-        meal_item.delete_meal_item,
-        name='delete',
     ),
 ]
 
@@ -234,52 +193,10 @@ patterns_calories = [
     ),  # JS
 ]
 
-# sub patterns for calories dairy
-patterns_diary = [
-    path(
-        '<int:pk>',
-        ReactView.as_view(login_required=True),
-        name='overview',
-    ),
-    re_path(
-        r'^(?P<pk>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$',
-        log.detail,
-        name='detail',
-    ),
-    path(
-        'entry/<int:pk>/delete',
-        log.LogDeleteView.as_view(),
-        name='delete',
-    ),
-    path(
-        'plan/<int:plan_pk>/add',
-        log.LogCreateView.as_view(),
-        name='add',
-    ),
-    path(
-        'log-meal/<int:meal_pk>',
-        log.log_meal,
-        name='log_meal',
-    ),
-    path(
-        'log-plan/<int:plan_pk>',
-        log.log_plan,
-        name='log_plan',
-    )
-]
-
 urlpatterns = [
     path('', include(
         (patterns_plan, "plan"),
         namespace="plan",
-    )),
-    path('meal/', include(
-        (patterns_meal, "meal"),
-        namespace="meal",
-    )),
-    path('meal/item/', include(
-        (patterns_meal_item, "meal_item"),
-        namespace="meal_item",
     )),
     path('ingredient/', include(
         (patterns_ingredient, "ingredient"),
@@ -303,9 +220,5 @@ urlpatterns = [
     path('calculator/calories/', include(
         (patterns_calories, "calories"),
         namespace="calories",
-    )),
-    path('diary/', include(
-        (patterns_diary, "log"),
-        namespace="log",
     )),
 ]
