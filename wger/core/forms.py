@@ -196,7 +196,8 @@ class UserEmailForm(forms.ModelForm):
         if not email:
             return email
         try:
-            user = User.objects.get(email=email)
+            #Performs a case-insensitive lookup
+            user = User.objects.get(email__iexact=email)
             if user.email == self.instance.email:
                 return email
         except User.DoesNotExist:
