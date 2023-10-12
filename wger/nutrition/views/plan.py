@@ -202,7 +202,6 @@ def copy(request, pk):
     """
     Copy the nutrition plan
     """
-    logger.debug(request.user)
     plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
     # Copy plan
@@ -211,7 +210,6 @@ def copy(request, pk):
     plan_copy = plan
     plan_copy.pk = None
     plan_copy.save()
-    
     # Copy the meals
     for meal in meals:
         meal_items = meal.mealitem_set.select_related()
