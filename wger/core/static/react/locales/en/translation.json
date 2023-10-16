@@ -62,6 +62,7 @@
   },
   "nutrition": {
     "plans": "Nutritional plans",
+    "copyPlan": "Make a copy of this plan",
     "plan": "Nutritional plan",
     "onlyLoggingHelpText": "Only track calories. Check the box if you only want to log your calories and don't want to setup a detailed nutritional plan with specific meals",
     "goalsTitle": "Goals",
@@ -109,6 +110,7 @@
     "valueRemaining": "remaining",
     "valueTooMany": "too many"
   },
+  "downloadAsPdf": "Download as PDF",
   "total": "Total",
   "description": "Description",
   "translation": "Translation",

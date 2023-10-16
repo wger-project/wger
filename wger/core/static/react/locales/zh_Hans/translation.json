@@ -54,6 +54,6 @@
     "noResults": "无结果",
     "noResultsDescription": "找不到此查询的结果，请考虑减少过滤器的数量。",
     "loading": "加载中…",
-  "deleteConfirmation": "你确定要删除 \"{{name}}\"吗?",
-  "seeDetails": "查看详情"
+    "deleteConfirmation": "你确定要删除 \"{{name}}\"吗?",
+    "seeDetails": "查看详情"
 }
