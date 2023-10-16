@@ -330,6 +330,10 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'creation_date',
             'description',
             'only_logging',
+            'goal_energy',
+            'goal_protein',
+            'goal_carbohydrates',
+            'goal_fat',
             # 'nutritional_values',
         ]
 

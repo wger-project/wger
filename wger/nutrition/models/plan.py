@@ -78,6 +78,26 @@ class NutritionPlan(models.Model):
     )
     """Flag to indicate that the nutritional plan will only used for logging"""
 
+    goal_energy = models.IntegerField(
+        null=True,
+        default=None
+    )
+
+    goal_protein = models.IntegerField(
+        null=True,
+        default=None
+    )
+
+    goal_carbohydrates = models.IntegerField(
+        null=True,
+        default=None
+    )
+
+    goal_fat = models.IntegerField(
+        null=True,
+        default=None
+    )
+
     has_goal_calories = models.BooleanField(
         verbose_name=_('Use daily calories'),
         default=False,
