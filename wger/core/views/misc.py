@@ -17,10 +17,6 @@
 # Standard Library
 import logging
 
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
-
 # Django
 from django.conf import settings
 from django.contrib import messages
@@ -38,6 +34,10 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from django.views.generic.edit import FormView
 
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
 # wger
 from wger.core.demo import (
     create_demo_entries,
@@ -49,6 +49,7 @@ from wger.core.forms import (
 )
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
+
 
 logger = logging.getLogger(__name__)
 
