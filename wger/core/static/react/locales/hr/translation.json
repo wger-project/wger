@@ -105,7 +105,11 @@
         "supportedImageFormats": "Podržane su samo JPEG, PNG i WEBP datoteke manje od 20 Mb",
         "valueTooLong": "Vrijednost je predugačka",
         "valueTooShort": "Vrijednost je prekratka",
-        "fieldRequired": "Ovo je obavezno polje"
+        "fieldRequired": "Ovo je obavezno polje",
+        "maxLength": "Upiši manje od {{chars}} znakova",
+        "minLength": "Upiši više od {{chars}} znakova",
+        "minValue": "Vrijednost za ovo polje mora biti veća od {{value}}",
+        "maxValue": "Vrijednost za ovo polje mora biti manja od {{value}}"
     },
     "English": "Engleski",
     "name": "Ime",
@@ -129,5 +133,16 @@
         "logsHeader": "Dnevnik težine za trening",
         "rir": "PUR"
     },
-    "preferences": "Postavke"
+    "preferences": "Postavke",
+    "notes": "Bilješke",
+    "value": "Vrijednost",
+    "unit": "Jedinica",
+    "seeDetails": "Pogledaj detalje",
+    "actions": "Radnje",
+    "measurements": {
+        "measurements": "Mjerenja",
+        "unitFormHelpText": "Jedinica za mjerenje kategorije, npr. cm ili %",
+        "deleteInfo": "Ovo će izbrisati kategoriju kao i sve njezine unose"
+    },
+    "deleteConfirmation": "Stvarno želiš izbrisati „{{name}}”?"
 }

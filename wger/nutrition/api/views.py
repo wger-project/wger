@@ -16,12 +16,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import datetime
 import logging
+from dataclasses import asdict
 
 # Django
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -46,6 +45,10 @@ from rest_framework.fields import (
 from rest_framework.response import Response
 
 # wger
+from wger.nutrition.api.filtersets import (
+    IngredientFilterSet,
+    LogItemFilterSet,
+)
 from wger.nutrition.api.serializers import (
     IngredientImageSerializer,
     IngredientInfoSerializer,
@@ -54,6 +57,7 @@ from wger.nutrition.api.serializers import (
     LogItemSerializer,
     MealItemSerializer,
     MealSerializer,
+    NutritionalValuesSerializer,
     NutritionPlanInfoSerializer,
     NutritionPlanSerializer,
     WeightUnitSerializer,
@@ -84,25 +88,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     """
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
-    filterset_fields = (
-        'uuid',
-        'code',
-        'carbohydrates',
-        'carbohydrates_sugar',
-        'created',
-        'last_update',
-        'energy',
-        'fat',
-        'fat_saturated',
-        'fibres',
-        'name',
-        'protein',
-        'sodium',
-        'status',
-        'language',
-        'license',
-        'license_author',
-    )
+    filterset_class = IngredientFilterSet
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
@@ -162,10 +148,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             item.weight_unit_id = unit_id
             item.amount = form.cleaned_data['amount']
 
-            result = item.get_nutritional_values()
-
-            for i in result:
-                result[i] = '{0:f}'.format(result[i])
+            result = item.get_nutritional_values().to_dict
         else:
             result['errors'] = form.errors
 
@@ -316,7 +299,6 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'creation_date',
-        'language',
         'description',
         'has_goal_calories',
     )
@@ -335,39 +317,17 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         """
         Set the owner
         """
-        serializer.save(user=self.request.user, language=load_language())
+        serializer.save(user=self.request.user)
 
     @action(detail=True)
     def nutritional_values(self, request, pk):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(NutritionPlan.objects.get(pk=pk).get_nutritional_values())
-
-    @action(detail=True)
-    def get_log_overview(self, request, pk):
-        """
-        Return a list of log diary entries for the nutrition plan
-        """
-        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
-        return Response(plan.get_log_overview())
-
-    @action(detail=True)
-    def log_summary(self, request, pk):
-        """
-        Return a summary of the nutrition diary for a given date
-        """
-        today = datetime.date.today()
-        year = request.GET.get('year', today.year)
-        month = request.GET.get('month', today.month)
-        day = request.GET.get('day', today.day)
-        plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
-
-        try:
-            date = datetime.date(year=int(year), month=int(month), day=int(day))
-        except ValueError:
-            date = today
-        return Response(plan.get_log_summary(date))
+        serializer = NutritionalValuesSerializer(
+            NutritionPlan.objects.get(pk=pk).get_nutritional_values()['total'],
+        )
+        return Response(serializer.data)
 
 
 class NutritionPlanInfoViewSet(NutritionPlanViewSet):
@@ -418,7 +378,8 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         """
         Return an overview of the nutritional plan's values
         """
-        return Response(Meal.objects.get(pk=pk).get_nutritional_values())
+        serializer = NutritionalValuesSerializer(Meal.objects.get(pk=pk).get_nutritional_values())
+        return Response(serializer.data)
 
 
 class MealItemViewSet(WgerOwnerObjectModelViewSet):
@@ -474,12 +435,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
     serializer_class = LogItemSerializer
     is_private = True
     ordering_fields = '__all__'
-    filterset_fields = (
-        'amount',
-        'ingredient',
-        'plan',
-        'weight_unit',
-    )
+    filterset_class = LogItemFilterSet
 
     def get_queryset(self):
         """

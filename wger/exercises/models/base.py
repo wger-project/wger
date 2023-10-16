@@ -13,8 +13,8 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # Standard Library
+import datetime
 import uuid
 from typing import (
     List,
@@ -179,10 +179,10 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         The latest update datetime of all exercises, videos and images.
         """
         return max(
-            self.last_update,
-            *[image.last_update for image in self.exerciseimage_set.all()],
+            self.last_update, *[image.last_update for image in self.exerciseimage_set.all()],
             *[video.last_update for video in self.exercisevideo_set.all()],
             *[translation.last_update for translation in self.exercises.all()],
+            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
         )
 
     @property

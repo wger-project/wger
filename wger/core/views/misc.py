@@ -17,13 +17,16 @@
 # Standard Library
 import logging
 
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
 # Django
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login as django_login
 from django.contrib.auth.decorators import login_required
 from django.core import mail
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -33,12 +36,7 @@ from django.urls import (
 )
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
-from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
 
 # wger
 from wger.core.demo import (
@@ -51,10 +49,6 @@ from wger.core.forms import (
 )
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
-from wger.nutrition.models import NutritionPlan
-from wger.weight.helpers import get_last_entries
-from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 
@@ -121,21 +115,6 @@ def dashboard(request):
     context['current_workout'] = current_workout
     context['schedule'] = schedule
 
-    # Load the last nutritional plan, if one exists
-    try:
-        plan = NutritionPlan.objects.filter(user=request.user).latest('creation_date')
-    except ObjectDoesNotExist:
-        plan = False
-    context['plan'] = plan
-
-    # Load the last logged weight entry, if one exists
-    try:
-        weight = WeightEntry.objects.filter(user=request.user).latest('date')
-    except ObjectDoesNotExist:
-        weight = False
-    context['weight'] = weight
-    context['last_weight_entries'] = get_last_entries(request.user)
-
     # Format a bit the days, so it doesn't have to be done in the template
     used_days = {}
     if current_workout:
@@ -155,10 +134,6 @@ def dashboard(request):
             week_day_result.append((_(week.day_of_week), _('Rest day'), False))
 
     context['weekdays'] = week_day_result
-
-    if plan:
-        # Load the nutritional info
-        context['nutritional_info'] = plan.get_nutritional_values()
 
     return render(request, 'index.html', context)
 

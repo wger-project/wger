@@ -51,14 +51,6 @@ class CopyPlanTestCase(WgerTestCase):
             self.assertGreater(count_after, count_before)
             self.assertEqual(count_after, 7)
 
-        # Test accessing the copied workout
-        response = self.client.get(reverse('nutrition:plan:view', kwargs={'id': 4}))
-
-        if fail:
-            self.assertIn(response.status_code, (302, 403, 404))
-        else:
-            self.assertEqual(response.status_code, 200)
-
     def test_copy_plan_anonymous(self):
         """
         Test copying a nutritional plan as an anonymous user

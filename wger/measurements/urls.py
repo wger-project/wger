@@ -23,12 +23,12 @@ from wger.core.views.react import ReactView
 urlpatterns = [
     path(
         '',
-        ReactView.as_view(div_id='react-measurements-overview', login_required=True),
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     path(
         'category/<int:pk>',
-        ReactView.as_view(div_id='react-measurements-detail', login_required=True),
+        ReactView.as_view(login_required=True),
         name='detail',
     ),
 ]

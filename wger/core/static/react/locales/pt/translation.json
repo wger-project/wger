@@ -60,7 +60,7 @@
         "identicalExercise": "Evitar exercícios duplicados",
         "notesHelpText": "As notas são breves comentários sobre como realizar o exercício, tais como \"manter o corpo direito\"",
         "deleteExerciseBody": "Quer apagar o exercício \"{{nome}}\"? Pode apagar a tradução atual {{{língua}} ou o exercício completo com todas as traduções, imagens, etc.",
-        "notEnoughRights": "Só pode contribuir com exercícios se a sua conta tiver mais de {{dia}} dias e tiver verificado o seu e-mail",
+        "notEnoughRights": "Você só pode contribuir com exercícios se sua conta tiver mais de {{days}} dias e tiver verificado seu e-mail",
         "whatVariationsExist": "Que variações deste exercício existem, se é que existem?",
         "filterVariations": "Introduzir o nome do exercício para filtrar variações",
         "identicalExercisePleaseDiscard": "Se notar um exercício que seja idêntico ao que está a acrescentar, por favor descarte o seu rascunho e em vez disso edite esse exercício.",
@@ -85,7 +85,11 @@
         "fieldRequired": "Esse campo é obrigatório",
         "supportedImageFormats": "São aceitos somente JPEG, PNG e WEBP menores de 20Mb",
         "valueTooShort": "O valor é muito curto",
-        "valueTooLong": "O valor é muito longo"
+        "valueTooLong": "O valor é muito longo",
+        "minValue": "O valor para esse campo deve ser maior que {{value}}",
+        "maxLength": "Por favor, entre com menos de {{chars}} caracteres",
+        "minLength": "Por favor, use mais que {{chars}} caracteres",
+        "maxValue": "O valor para esse campo deve ser menor que {{value}}"
     },
     "cannotBeUndone": "Essa ação é irreversível.",
     "server": {
@@ -94,7 +98,7 @@
         "sz_bar": "Barra SZ",
         "pull_up_bar": "Puxar barra",
         "kettlebell": "Kettlebell",
-        "biceps": "Biceps",
+        "biceps": "Bíceps",
         "triceps": "Tríceps",
         "quads": "Quadríceps",
         "miles": "Milhas",
@@ -125,7 +129,8 @@
         "kilometers_per_hour": "Quilômetros por hora",
         "kg": "kg",
         "lb": "lb",
-        "plates": "Pratos"
+        "plates": "Pratos",
+        "max_reps": "Número máximo de repetições"
     },
     "description": "Descrição",
     "translation": "Tradução",
@@ -145,6 +150,18 @@
         "routine": "Rotina",
         "routines": "Rotinas",
         "logsFilterNote": "Note que apenas entradas com uma unidade de massa de kg ou lb e repetições aparecem no gráfico. Outras combinações tais como tempo ou até falha são ignoradas aqui",
-        "logsHeader": "Registro de peso para treino"
-    }
+        "logsHeader": "Registro de peso para treino",
+        "rir": "ReR"
+    },
+    "measurements": {
+        "measurements": "Medidas",
+        "unitFormHelpText": "A unidade de medida a ser usada para a categoria, ex. cm ou %",
+        "deleteInfo": "Isso vai apagar a categoria e todas as suas entradas"
+    },
+    "deleteConfirmation": "Tem certeza que deseja deletar \"{{name}}\"?",
+    "seeDetails": "Ver detalhes",
+    "actions": "Ações",
+    "notes": "Notas",
+    "value": "Valor",
+    "unit": "Unidade"
 }
