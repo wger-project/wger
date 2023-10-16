@@ -48,17 +48,12 @@ patterns_plan = [
         name='view',
     ),
     path(
-        '<int:pk>/copy/',
+        '<int:pk>/copy',
         plan.copy,
         name='copy',
     ),
-    re_path(
-        r'^(?P<id>\d+)/pdf/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,33})',
-        plan.export_pdf,
-        name='export-pdf',
-    ),
     path(
-        '<int:id>/pdf/',
+        '<int:id>/pdf',
         plan.export_pdf,
         name='export-pdf',
     ),

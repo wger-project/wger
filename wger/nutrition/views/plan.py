@@ -94,7 +94,7 @@ def copy(request, pk):
     return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
 
 
-def export_pdf(request, id, uidb64=None, token=None):
+def export_pdf(request, id: int):
     """
     Generates a PDF with the contents of a nutrition plan
 
@@ -102,17 +102,10 @@ def export_pdf(request, id, uidb64=None, token=None):
     * http://www.blog.pythonlibrary.org/2010/09/21/reportlab
     * http://www.reportlab.com/apis/reportlab/dev/platypus.html
     """
-
     # Load the plan
-    if uidb64 is not None and token is not None:
-        if check_token(uidb64, token):
-            plan = get_object_or_404(NutritionPlan, pk=id)
-        else:
-            return HttpResponseForbidden()
-    else:
-        if request.user.is_anonymous:
-            return HttpResponseForbidden()
-        plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
+    if request.user.is_anonymous:
+        return HttpResponseForbidden()
+    plan = get_object_or_404(NutritionPlan, pk=id, user=request.user)
 
     plan_data = plan.get_nutritional_values()
 
