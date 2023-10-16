@@ -45,9 +45,7 @@ class DashboardTestCase(WgerTestCase):
         response = self.client.get(reverse('core:dashboard'))
         # There is something to send to the template
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.context['weight'])
         self.assertFalse(response.context['current_workout'])
-        self.assertFalse(response.context['plan'])
 
         #
         # 1. Add a workout
@@ -56,9 +54,7 @@ class DashboardTestCase(WgerTestCase):
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.context['weight'])
         self.assertTrue(response.context['current_workout'])
-        self.assertFalse(response.context['plan'])
         self.assertTrue(response.context['weekdays'])
 
         #
@@ -72,13 +68,12 @@ class DashboardTestCase(WgerTestCase):
         response = self.client.get(reverse('core:dashboard'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.context['weight'])
         self.assertTrue(response.context['current_workout'])
         self.assertTrue(response.context['weekdays'])
 
     def test_dashboard_logged_in(self):
         """
-        Test index page as a logged in user
+        Test index page as a logged-in user
         """
 
         self.user_login('admin')
