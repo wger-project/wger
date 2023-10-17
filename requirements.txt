@@ -3,7 +3,7 @@
 #
 
 # Application
-bleach[css]~=6.0
+bleach[css]~=6.1
 crispy-bootstrap5==0.7
 
 # this is a fork of django-bootstrap-breadcrumbs
