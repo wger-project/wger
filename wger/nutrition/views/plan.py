@@ -68,7 +68,7 @@ def copy(request, pk):
     plan = get_object_or_404(NutritionPlan, pk=pk, user=request.user)
 
     # Copy plan
-    meals = plan.meal_set.all()
+    meals = plan.meal_set.select_related()
 
     plan_copy = plan
     plan_copy.pk = None
@@ -76,7 +76,7 @@ def copy(request, pk):
 
     # Copy the meals
     for meal in meals:
-        meal_items = meal.mealitem_set.all()
+        meal_items = meal.mealitem_set.select_related()
 
         meal_copy = meal
         meal_copy.pk = None
@@ -88,7 +88,7 @@ def copy(request, pk):
             item_copy = item
             item_copy.pk = None
             item_copy.meal = meal_copy
-            item.save()
+            item_copy.save()
 
     # Redirect
     return HttpResponseRedirect(reverse('nutrition:plan:view', kwargs={'id': plan.id}))
