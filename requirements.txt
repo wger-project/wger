@@ -12,7 +12,7 @@ django-bootstrap-breadcrumbs2==1.0.0
 django-formtools~=2.4
 django-recaptcha~=3.0.0
 Django==4.2.6
-django-activity-stream==1.4.2
+django-activity-stream==2.0.0
 django-axes==6.1.1
 django-crispy-forms~=2.0
 crispy-bootstrap4==2023.1
