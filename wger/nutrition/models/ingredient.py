@@ -41,7 +41,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
-import openfoodfacts
+from openfoodfacts import API
 
 # wger
 from wger.core.models import Language
@@ -464,9 +464,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         logger.info(f'Searching for ingredient {code} in OFF')
         try:
-            result = openfoodfacts.products.get_product(code)
-        except JSONDecodeError:
-            logger.info('Got JSONDecodeError from OFF')
+            api = API()
+            result = api.product.get(code)
+        except JSONDecodeError as e:
+            logger.info(f'Got JSONDecodeError from OFF: {e}')
             return None
         if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
             return None

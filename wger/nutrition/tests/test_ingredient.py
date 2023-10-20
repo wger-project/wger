@@ -493,12 +493,12 @@ class IngredientModelTestCase(WgerTestCase):
             'status_verbose': 'product not found'
         }
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_success(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_success(self, mock_api):
         """
         Tests creating an ingredient from OFF
         """
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
 
@@ -514,8 +514,8 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_success_long_name(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_success_long_name(self, mock_api):
         """
         Tests creating an ingredient from OFF - name gets truncated
         """
@@ -524,39 +524,39 @@ class IngredientModelTestCase(WgerTestCase):
         small-to-medium breed, it is the smallest of the six original and distinct spitz
         breeds of dog native to Japan.[1] Its name literally translates to "brushwood dog",
         as it is used to flush game."""
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertEqual(len(ingredient.name), 200)
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_key_missing_1(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_key_missing_1(self, mock_api):
         """
         Tests creating an ingredient from OFF - missing key in nutriments
         """
         del self.off_response['product']['nutriments']['energy-kcal_100g']
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_key_missing_2(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_key_missing_2(self, mock_api):
         """
         Tests creating an ingredient from OFF - missing name
         """
         del self.off_response['product']['product_name']
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_no_results(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_no_results(self, mock_api):
         """
         Tests creating an ingredient from OFF
         """
-        mock_get_product.return_value = self.off_response_no_results
+        mock_api.return_value = self.off_response_no_results
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
