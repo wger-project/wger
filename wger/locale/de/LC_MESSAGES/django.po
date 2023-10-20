@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-06-16 17:48+0000\n"
-"Last-Translator: StefMe <steffenmenk@gmail.com>\n"
+"PO-Revision-Date: 2023-10-21 12:02+0000\n"
+"Last-Translator: m4skedbyte <weblate@m4skedbyte.xyz>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.1\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -2127,8 +2127,6 @@ msgid "Biceps"
 msgstr "Bizeps"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
 msgstr "Körpergewicht"
 
@@ -2173,10 +2171,8 @@ msgid "Kilometers"
 msgstr "Kilometer"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Kilometer"
+msgstr "Kilometer pro Stunde"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2196,7 +2192,7 @@ msgstr "Meilen"
 
 #: i18n.tpl:24
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Meilen pro Stunde"
 
 #: i18n.tpl:25
 msgid "Minutes"
@@ -2321,10 +2317,8 @@ msgstr ""
 "einen Supersatz gruppiert."
 
 #: manager/forms.py:143 nutrition/forms.py:248
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Auch Zutaten auf Englisch anzeigen"
+msgstr "Auch Zutaten auf Englisch suchen"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2983,22 +2977,16 @@ msgid "Value"
 msgstr "Wert"
 
 #: nutrition/forms.py:116
-#, fuzzy
-#| msgid "Height (cm)"
 msgid "Height (in)"
-msgstr "Größe (cm)"
+msgstr "Größe (zoll)"
 
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "Gewichtslog"
+msgstr "Gewicht (kg)"
 
 #: nutrition/forms.py:118
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "Gewichtslog"
+msgstr "Gewicht (lbs)"
 
 #: nutrition/forms.py:129
 msgid "Calculate"
@@ -3564,6 +3552,7 @@ msgstr ""
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
 msgstr ""
+"Bitte stelle sicher, dass deine Grösse innerhalb des erlaubten Bereichs ist."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
@@ -3692,16 +3681,12 @@ msgstr ""
 "veröffentlicht."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
 "Wger Workout Manager ist eine kostenlose open Source-Web-Anwendung, die "
-"deine Übungen und Trainingspläne verwaltet. "
+"deine Übungen und Trainingspläne verwaltet."
 
 #: software/templates/features.html:45
 msgid "About"
@@ -3709,7 +3694,7 @@ msgstr "Impressum"
 
 #: software/templates/features.html:50
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobile app"
 
 #: software/templates/features.html:56 software/templates/features.html:312
 msgid "Donate"
@@ -3727,7 +3712,7 @@ msgstr "Kommentar"
 
 #: software/templates/features.html:100
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Tracke deinen <br> Weg zum <br> idealen Körper"
 
 #: software/templates/features.html:103
 msgid ""
@@ -3830,7 +3815,7 @@ msgstr "Führe ein Fotoprotokoll, um deine Fortschritte zu verfolgen"
 
 #: software/templates/features.html:247
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Nutze den Kalender um frühere Einträge zu sehen"
 
 #: software/templates/features.html:266
 #, fuzzy
@@ -3853,6 +3838,8 @@ msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Wir schalten keine Werbung, verkaufen deine Daten nicht und wir "
+"veröffentlichen den Quellcode unter einer freien und open-source Lizenz."
 
 #: software/templates/features.html:297
 msgid "Pitch in and help make wger even better!"
