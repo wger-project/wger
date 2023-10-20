@@ -22,7 +22,8 @@
 
 {% if perms.gym.gym_trainer %}
 
-<h4>{% translate "Workouts" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
+    <h4>{% translate "Routines" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %}
+        )</small></h4>
 {% if perms.gym.gym_trainer %}
 <a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
 <a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% translate "Add workout" %}</a>

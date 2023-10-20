@@ -22,7 +22,7 @@
                     </div>
                     <div class="modal-body">
                         <p>{% blocktranslate %}Click to add weight logs to a training
-                            day in your current workout:{% endblocktranslate %} <strong>{{ current_workout }}</strong>
+                            day in your current routine:{% endblocktranslate %} <strong>{{ current_workout }}</strong>
                         </p>
 
                         {% for day in current_workout.day_set.all %}
@@ -49,7 +49,7 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">{% translate "Workout" %}</h5>
+                        <h5 class="card-title">{% translate "Routine" %}</h5>
                         <div class="card-text">
                             {% if current_workout %}
                                 <p>
@@ -57,7 +57,7 @@
                                         {% if current_workout.comment %}
                                             {{ current_workout.comment }}
                                         {% else %}
-                                            {% translate "Workout" %}
+                                            {% translate "Routine" %}
                                         {% endif %}
                                     </a>
                                 </p>
@@ -83,12 +83,12 @@
 
                             {% if schedule %}
                                 <p>
-                                    → {% translate "This workout is part of a schedule:" %}
+                                    → {% translate "This routine is part of a schedule:" %}
                                     <a href="{{ schedule.get_absolute_url }}">{{ schedule.name }}</a>
                                 </p>
                             {% endif %}
                             <p><em>
-                                {% blocktranslate trimmed %}The current workout is selected from your active
+                                {% blocktranslate trimmed %}The current routine is selected from your active
                                     schedule or, if you don't have one, simply by date.{% endblocktranslate %}
                             </em></p>
                         </div>

@@ -16,7 +16,7 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% translate "Workout" %}{% endblock %}
+{% block title %}{% translate "Routine" %}{% endblock %}
 
 
 {#        #}
@@ -143,7 +143,7 @@
     </div>
 
     {% if workout.canonical_representation.day_list %}
-        <h4>{% translate "Logs" %}</h4>
+        <h4>{% translate "Training logs" %}</h4>
         <p>
             <a href="{% url 'manager:log:log' workout.id %}">{% translate 'View logs' %}</a>
         </p>

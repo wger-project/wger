@@ -118,7 +118,7 @@ $(document).ready(function() {
             <div class="modal-body">
                 {% if current_workout %}
                 <p>{% blocktranslate %}Click to add weight logs to a training
-day in your current workout:{% endblocktranslate %} <strong>{{current_workout}}</strong></p>
+                    day in your current routine:{% endblocktranslate %} <strong>{{ current_workout }}</strong></p>
 
                 {% for day in current_workout.day_set.all %}
                     <a href="{% url 'manager:day:log' day.pk %}" class="btn btn-block btn-light">{{day.description}}</a>
