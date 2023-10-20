@@ -166,7 +166,7 @@
     "pk": 3,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
+      "uuid": "946afe7b-54a6-44a6-9c36-c3e31e6b4c3b",
       "language": 2,
       "exercise_base": 3,
       "description": "",
