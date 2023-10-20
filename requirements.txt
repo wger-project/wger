@@ -16,7 +16,7 @@ django-activity-stream==1.4.2
 django-axes==6.1.1
 django-crispy-forms~=2.0
 crispy-bootstrap4==2022.1
-django-simple-history~=3.3
+django-simple-history~=3.4
 django-email-verification~=0.3.3
 django_compressor~=4.4
 django_extensions~=3.2
