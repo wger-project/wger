@@ -77,7 +77,7 @@
                         application for example google calendar, outlook or iCal. This will create
                         an appointment for each training day with the appropriate exercises.{% endblocktranslate %}</p>
                     <p>
-                        <a href="{% url 'manager:workout:ical' workout.id uid token %}" class="btn btn-block btn-light">
+                        <a href="{% url 'manager:routine:ical' workout.id uid token %}" class="btn btn-block btn-light">
                             {% translate "Export calendar file" %}
                         </a>
                     </p>
@@ -166,7 +166,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupWorkout">
                 {% if is_owner %}
-                    <a href="{% url 'manager:workout:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
+                    <a href="{% url 'manager:routine:edit' workout.id %}" class="dropdown-item wger-modal-dialog">
                         <span class="{% fa_class 'edit' %}"></span>
                         {% translate "Edit" %}
                     </a>
@@ -179,13 +179,13 @@
                     <span class="{% fa_class 'calendar' %}"></span>
                     {% translate "Export calendar file" %}
                 </a>
-                <a href="{% url 'manager:workout:make-template' workout.id %}" class="dropdown-item wger-modal-dialog">
+                <a href="{% url 'manager:routine:make-template' workout.id %}" class="dropdown-item wger-modal-dialog">
                     <span class="{% fa_class 'clone' %}"></span>
                     {% translate "Mark as template" %}
                 </a>
                 {% if is_owner %}
                     <div class="dropdown-divider"></div>
-                    <a href="{% url 'manager:workout:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
+                    <a href="{% url 'manager:routine:delete' workout.id %}" class="dropdown-item wger-modal-dialog">
                         <span class="{% fa_class 'trash' %}"></span>
                         {% translate "Delete" %}
                     </a>

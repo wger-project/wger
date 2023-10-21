@@ -64,7 +64,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
         user = User.objects.get(username='test')
         uid, token = make_token(user)
         response = self.client.get(
-            reverse('manager:workout:ical', kwargs={
+            reverse('manager:routine:ical', kwargs={
                 'pk': 3,
                 'uidb64': uid,
                 'token': token
@@ -89,7 +89,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
         uid = 'AB'
         token = 'abc-11223344556677889900'
         response = self.client.get(
-            reverse('manager:workout:ical', kwargs={
+            reverse('manager:routine:ical', kwargs={
                 'pk': 3,
                 'uidb64': uid,
                 'token': token
@@ -103,7 +103,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
         Helper function
         """
 
-        response = self.client.get(reverse('manager:workout:ical', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:routine:ical', kwargs={'pk': 3}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))

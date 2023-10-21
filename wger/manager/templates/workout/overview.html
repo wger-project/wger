@@ -24,7 +24,7 @@
             {% if template_overview %}
                 {% translate "No templates found." %}
             {% else %}
-                <a href="{% url 'manager:workout:add' %}" class="list-group-item list-group-item-action">
+                <a href="{% url 'manager:routine:add' %}" class="list-group-item list-group-item-action">
                     {% translate "No workouts found." %}<br>{% translate "Add one now." %}
                 </a>
             {% endif %}
@@ -35,7 +35,7 @@
 
 {% block options %}
     {% if not template_overview %}
-        <a href="{% url 'manager:workout:add' %}" class="btn btn-success btn-sm">
+        <a href="{% url 'manager:routine:add' %}" class="btn btn-success btn-sm">
             {% translate "Add workout" %}
         </a>
     {% endif %}

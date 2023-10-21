@@ -247,7 +247,7 @@ class WorkoutDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = Workout
-    success_url = reverse_lazy('manager:workout:overview')
+    success_url = reverse_lazy('manager:routine:overview')
     messages = gettext_lazy('Successfully deleted')
 
     def get_context_data(self, **kwargs):

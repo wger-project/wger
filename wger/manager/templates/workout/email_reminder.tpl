@@ -16,5 +16,5 @@ option in your settings.{% endblocktranslate %}
 
 
 * https://{{site}}{{workout.get_absolute_url}}
-* https://{{site}}{% url 'manager:workout:add' %}
+* https://{{site}}{% url 'manager:routine:add' %}
 * https://{{site}}{% url 'core:user:preferences' %}

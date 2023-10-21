@@ -50,7 +50,7 @@ $(document).ready(function() {
         <h3>
             {{date}}
             <small>
-                <a href="{% url 'manager:workout:calendar-day' owner_user date.year date.month date.day %}">{% translate 'Detail page' %}</a>
+                <a href="{% url 'manager:routine:calendar-day' owner_user date.year date.month date.day %}">{% translate 'Detail page' %}</a>
             </small>
         </h3>
 
@@ -127,7 +127,7 @@ $(document).ready(function() {
                 {% else %}
                 <p><em>{% translate "No workouts found." %}</em></p>
                 <p>
-                <a href="{% url 'manager:workout:add' %}" class="btn btn-block btn-light">
+                    <a href="{% url 'manager:routine:add' %}" class="btn btn-block btn-light">
                     <span class="{% fa_class 'plus' %}"></span>
                     {% translate "Add one now." %}
                 </a>
@@ -152,7 +152,7 @@ you can click on them to see the details.{% endblocktranslate %}</p>
 </p>
 
 <p>
-    <a href="{% url 'manager:workout:calendar' owner_user %}">
+    <a href="{% url 'manager:routine:calendar' owner_user %}">
         <span class="{% fa_class 'calendar' %}"></span>
         {% translate "Go to current month" %}</a>
 </p>
@@ -172,7 +172,8 @@ you can click on them to see the details.{% endblocktranslate %}</p>
             <div id="collapse{{ year.grouper }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ year.grouper }}">
                 <div class="list-group">
                     {% for month in year.list %}
-                        <a href="{% url 'manager:workout:calendar' owner_user year.grouper month.month %}" class="list-group-item">{{month|date:"F"}}</a>
+                        <a href="{% url 'manager:routine:calendar' owner_user year.grouper month.month %}"
+                           class="list-group-item">{{ month|date:"F"}}</a>
                     {% endfor %}
                 </div>
             </div>

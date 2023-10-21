@@ -71,7 +71,7 @@ class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('manager:workout:calendar')
+        return reverse('manager:routine:calendar')
 
 
 class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
@@ -116,7 +116,7 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return reverse('manager:workout:calendar')
+        return reverse('manager:routine:calendar')
 
     def form_valid(self, form):
         """
@@ -136,7 +136,7 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = WorkoutSession
-    success_url = reverse_lazy('manager:workout:overview')
+    success_url = reverse_lazy('manager:routine:overview')
     messages = gettext_lazy('Successfully deleted')
 
     def form_valid(self, form):

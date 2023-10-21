@@ -38,13 +38,13 @@ class CopyWorkoutTestCase(WgerTestCase):
         """
 
         # Open the copy workout form
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 200)
 
         # Copy the workout
         count_before = Workout.objects.count()
         self.client.post(
-            reverse('manager:workout:copy', kwargs={'pk': '3'}),
+            reverse('manager:routine:copy', kwargs={'pk': '3'}),
             {'name': 'A copied workout'},
         )
         count_after = Workout.objects.count()
@@ -54,7 +54,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         self.assertTemplateUsed('workout/view.html')
 
         # Test accessing the copied workout
-        response = self.client.get(reverse('manager:workout:view', kwargs={'pk': 4}))
+        response = self.client.get(reverse('manager:routine:view', kwargs={'pk': 4}))
         self.assertEqual(response.status_code, 200)
 
         workout_original = Workout.objects.get(pk=3)
@@ -111,7 +111,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         Test copying a workout (not template)
         """
         self.user_login('test')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 200)
 
     def test_copy_workout_other(self):
@@ -119,7 +119,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         Test copying a workout (not template) from another user
         """
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 403)
 
     def test_copy_template_no_public_other_user(self):
@@ -131,7 +131,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         workout.save()
 
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 403)
 
     def test_copy_template_no_public_owner_user(self):
@@ -143,7 +143,7 @@ class CopyWorkoutTestCase(WgerTestCase):
         workout.save()
 
         self.user_login('test')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 200)
 
     def test_copy_template_public_other_user(self):
@@ -156,5 +156,5 @@ class CopyWorkoutTestCase(WgerTestCase):
         workout.save()
 
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:copy', kwargs={'pk': '3'}))
+        response = self.client.get(reverse('manager:routine:copy', kwargs={'pk': '3'}))
         self.assertEqual(response.status_code, 200)

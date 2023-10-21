@@ -84,7 +84,7 @@
 {# Options #}
 {#         #}
 {% block options %}
-<a href="{% url 'manager:workout:copy' workout.id %}" class="btn btn-success">
+    <a href="{% url 'manager:routine:copy' workout.id %}" class="btn btn-success">
    <span class="{% fa_class 'clone' %}"></span>
    {% translate "Use this template" %}
 </a>

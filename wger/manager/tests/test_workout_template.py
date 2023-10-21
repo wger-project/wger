@@ -56,15 +56,15 @@ class SwitchViewsTestCase(WgerTestCase):
         """
         Test accessing the template view for a regular workout
         """
-        response = self.client.get(reverse('manager:workout:make-template', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:routine:make-template', kwargs={'pk': 3}))
         self.assertEqual(response.status_code, 403)
 
         self.user_login('test')
-        response = self.client.get(reverse('manager:workout:make-template', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:routine:make-template', kwargs={'pk': 3}))
         self.assertEqual(response.status_code, 200)
 
         self.user_login('admin')
-        response = self.client.get(reverse('manager:workout:make-template', kwargs={'pk': 3}))
+        response = self.client.get(reverse('manager:routine:make-template', kwargs={'pk': 3}))
         self.assertEqual(response.status_code, 403)
 
     def test_make_workout(self):

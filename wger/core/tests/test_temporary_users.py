@@ -145,7 +145,7 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
-        self.client.get(reverse('manager:workout:overview'))
+        self.client.get(reverse('manager:routine:overview'))
         self.assertEqual(self.count_temp_users(), 1)
 
         self.user_logout()
@@ -172,7 +172,7 @@ class DemoUserTestCase(WgerTestCase):
         demo_notice_text = 'You are using a guest account'
         self.user_login('demo')
         self.assertContains(self.client.get(reverse('core:dashboard')), demo_notice_text)
-        self.assertContains(self.client.get(reverse('manager:workout:overview')), demo_notice_text)
+        self.assertContains(self.client.get(reverse('manager:routine:overview')), demo_notice_text)
         self.assertContains(
             self.client.get(reverse('exercise:exercise:overview')), demo_notice_text
         )

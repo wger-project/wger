@@ -40,7 +40,7 @@ class AddWorkoutTestCase(WgerTestCase):
 
         # Create a workout
         count_before = Workout.objects.count()
-        response = self.client.get(reverse('manager:workout:add'))
+        response = self.client.get(reverse('manager:routine:add'))
         count_after = Workout.objects.count()
 
         # There is always a redirect
@@ -50,7 +50,7 @@ class AddWorkoutTestCase(WgerTestCase):
         self.assertGreater(count_after, count_before)
 
         # Test accessing workout
-        response = self.client.get(reverse('manager:workout:view', kwargs={'pk': 1}))
+        response = self.client.get(reverse('manager:routine:view', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 200)
 
     def test_create_workout_logged_in(self):
@@ -69,7 +69,7 @@ class DeleteTestWorkoutTestCase(WgerDeleteTestCase):
     """
 
     object_class = Workout
-    url = 'manager:workout:delete'
+    url = 'manager:routine:delete'
     pk = 3
     user_success = 'test'
     user_fail = 'admin'
@@ -81,7 +81,7 @@ class EditWorkoutTestCase(WgerEditTestCase):
     """
 
     object_class = Workout
-    url = 'manager:workout:edit'
+    url = 'manager:routine:edit'
     pk = 3
     user_success = 'test'
     user_fail = 'admin'
@@ -98,7 +98,7 @@ class WorkoutOverviewTestCase(WgerTestCase):
         Helper function to test the workout overview
         """
 
-        response = self.client.get(reverse('manager:workout:overview'))
+        response = self.client.get(reverse('manager:routine:overview'))
 
         # Page exists
         self.assertEqual(response.status_code, 200)

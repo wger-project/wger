@@ -87,7 +87,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
     form_class = WorkoutLogForm
 
     def get_success_url(self):
-        return reverse('manager:workout:view', kwargs={'pk': self.object.workout_id})
+        return reverse('manager:routine:view', kwargs={'pk': self.object.workout_id})
 
 
 class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
@@ -99,7 +99,7 @@ class WorkoutLogDeleteView(WgerDeleteMixin, DeleteView, LoginRequiredMixin):
     title = gettext_lazy('Delete workout log')
 
     def get_success_url(self):
-        return reverse('manager:workout:view', kwargs={'pk': self.object.workout_id})
+        return reverse('manager:routine:view', kwargs={'pk': self.object.workout_id})
 
 
 def add(request, pk):
