@@ -233,6 +233,7 @@ def gym_new_user_info_export(request):
     return response
 
 
+@login_required
 def reset_user_password(request, user_pk):
     """
     Resets the password of the selected user to random password

@@ -36,7 +36,7 @@ from wger.utils.cache import (
 
 class Workout(models.Model):
     """
-    Model for a training schedule
+    Model for a training routine
     """
 
     objects = WorkoutManager()
@@ -45,7 +45,7 @@ class Workout(models.Model):
 
     class Meta:
         """
-        Meta class to set some other properties
+        Metaclass to set some other properties
         """
         ordering = [
             "-creation_date",
@@ -56,22 +56,19 @@ class Workout(models.Model):
         verbose_name=_('Name'),
         max_length=100,
         blank=True,
-        help_text=_("The name of the workout"),
+        help_text="The name of the routine",
     )
     description = models.TextField(
         verbose_name=_('Description'),
         max_length=1000,
         blank=True,
-        help_text=_(
-            "A short description or goal of the workout. For "
-            "example 'Focus on back' or 'Week 1 of program "
-            "xy'."
-        ),
+        help_text="A short description or goal of the routine. For example 'Focus on back' or "
+                  "'Week 1 of program xy'."
     )
     is_template = models.BooleanField(
-        verbose_name=_('Workout template'),
+        verbose_name=_('Routine template'),
         help_text=_(
-            'Marking a workout as a template will freeze it and allow you to '
+            'Marking a routine as a template will freeze it and allow you to '
             'make copies of it'
         ),
         default=False,
@@ -106,12 +103,12 @@ class Workout(models.Model):
         if self.name:
             return self.name
         else:
-            return "{0} ({1})".format(_('Workout'), self.creation_date)
+            return "{0} ({1})".format(_('Routine'), self.creation_date)
 
     def clean(self):
         if self.is_public and not self.is_template:
             raise ValidationError(
-                _('You must mark this workout as a template before declaring it public')
+                _('You must mark this routine as a template before declaring it public')
             )
 
     def save(self, *args, **kwargs):
@@ -137,14 +134,14 @@ class Workout(models.Model):
     @property
     def canonical_representation(self):
         """
-        Returns a canonical representation of the workout
+        Returns a canonical representation of the routine
 
         This form makes it easier to cache and use everywhere where all or part
         of a workout structure is needed. As an additional benefit, the template
         caches are not needed anymore.
         """
-        workout_canonical_form = cache.get(cache_mapper.get_workout_canonical(self.pk))
-        if not workout_canonical_form:
+        routine_canonical_form = cache.get(cache_mapper.get_workout_canonical(self.pk))
+        if not routine_canonical_form:
             day_canonical_repr = []
             muscles_front = []
             muscles_back = []
@@ -174,7 +171,7 @@ class Workout(models.Model):
 
                 day_canonical_repr.append(canonical_repr_day)
 
-            workout_canonical_form = {
+            routine_canonical_form = {
                 'obj': self,
                 'muscles': {
                     'front': muscles_front,
@@ -185,6 +182,6 @@ class Workout(models.Model):
                 'day_list': day_canonical_repr
             }
             # Save to cache
-            cache.set(cache_mapper.get_workout_canonical(self.pk), workout_canonical_form)
+            cache.set(cache_mapper.get_workout_canonical(self.pk), routine_canonical_form)
 
-        return workout_canonical_form
+        return routine_canonical_form
