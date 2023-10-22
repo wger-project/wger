@@ -140,7 +140,7 @@
     "pk": 1,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "9838235ce38f4ca6921e9d237d8e0813",
+      "uuid": "9838235c-e38f-4ca6-921e-9d237d8e0813",
       "language": 2,
       "exercise_base": 1,
       "description": "Lorem ipsum dolor sit amet",

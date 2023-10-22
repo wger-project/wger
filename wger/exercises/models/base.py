@@ -234,3 +234,19 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             exercise = self.exercises.filter(language__short_name=language).first()
 
         return exercise
+
+    def delete(self, using=None, keep_parents=False, replace_by: str = None):
+        """
+        Save entry to log
+        """
+        # wger
+        from wger.exercises.models import DeletionLog
+        log = DeletionLog(
+            model_type=DeletionLog.MODEL_BASE,
+            uuid=self.uuid,
+            comment=f"Exercise base of {self.get_exercise(ENGLISH_SHORT_NAME).name}",
+            replaced_by=replace_by,
+        )
+        log.save()
+
+        return super().delete(using, keep_parents)
