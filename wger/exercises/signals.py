@@ -34,7 +34,6 @@ from easy_thumbnails.signals import saved_file
 from wger.exercises.models import (
     DeletionLog,
     Exercise,
-    ExerciseBase,
     ExerciseImage,
     ExerciseVideo,
 )
