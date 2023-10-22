@@ -21,7 +21,7 @@
     "metrics-graphics": "^2.15.6",
     "popper.js": "^1.16.1",
     "shariff": "^3.3.0",
-    "tinymce": "^5.10.7",
+    "tinymce": "^5.10.8",
     "yarn": "^1.22.19"
   },
   "scripts": {
