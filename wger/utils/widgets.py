@@ -116,7 +116,7 @@ class ExerciseAjaxSelect(SelectMultiple):
             value = []
 
         output = [
-            '<div>', '<input type="text" id="exercise-search" class="form-control">', '</div>',
+            '<div>', '<input type="text" id="exercise-search" class="form-control" required>', '</div>',
             '<div id="exercise-search-log">'
         ]
 
