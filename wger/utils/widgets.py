@@ -116,8 +116,8 @@ class ExerciseAjaxSelect(SelectMultiple):
             value = []
 
         output = [
-            '<div>', '<input type="text" id="exercise-search" class="form-control" required>', '</div>',
-            '<div id="exercise-search-log">'
+            '<div>', '<input type="text" id="exercise-search" class="form-control" required>',
+            '</div>', '<div id="exercise-search-log">'
         ]
 
         options = self.render_options(choices, value)
