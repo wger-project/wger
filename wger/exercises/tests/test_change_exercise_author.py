@@ -60,7 +60,7 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
 
         exercise_base = ExerciseBase.objects.get(id=2)
-        self.assertEquals(exercise_base.license_author, "tom")
+        self.assertEqual(exercise_base.license_author, "tom")
 
     def test_can_update_exercise(self):
         """
@@ -74,4 +74,4 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
 
         exercise = Exercise.objects.get(id=1)
-        self.assertEquals(exercise.license_author, "tom")
+        self.assertEqual(exercise.license_author, "tom")
