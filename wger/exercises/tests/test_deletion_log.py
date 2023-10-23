@@ -85,6 +85,22 @@ class DeletionLogTestCase(WgerTestCase):
         self.assertEqual(log.uuid, base.uuid)
         self.assertEqual(log.replaced_by, UUID('ae3328ba-9a35-4731-bc23-5da50720c5aa'))
 
+    def test_base_with_nonexistent_replaced_by(self):
+        """
+        Test that an entry is generated when a base is deleted and the replaced by is
+        set correctly. If the UUID is not found in the DB, it's set to None
+        """
+        self.assertEqual(DeletionLog.objects.all().count(), 0)
+
+        base = ExerciseBase.objects.get(pk=1)
+        base.delete(replace_by="12345678-1234-1234-1234-1234567890ab")
+
+        # Base is deleted
+        log = DeletionLog.objects.get(pk=1)
+
+        self.assertEqual(log.model_type, 'base')
+        self.assertEqual(log.replaced_by, None)
+
     def test_translation(self):
         """
         Test that an entry is generated when a translation is deleted

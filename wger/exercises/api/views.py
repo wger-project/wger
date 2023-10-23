@@ -17,6 +17,7 @@
 
 # Standard Library
 import logging
+from uuid import UUID
 
 # Django
 from django.conf import settings
@@ -132,6 +133,17 @@ class ExerciseBaseViewSet(ModelViewSet):
             verb=StreamVerbs.UPDATED.value,
             action_object=serializer.instance,
         )
+
+    def perform_destroy(self, instance: ExerciseBase):
+        """Manually delete the exercise and set the replacement, if any"""
+
+        uuid = self.request.query_params.get('replaced_by', '')
+        try:
+            UUID(uuid, version=4)
+        except ValueError:
+            uuid = None
+
+        instance.delete(replace_by=uuid)
 
 
 class ExerciseTranslationViewSet(ModelViewSet):

@@ -241,6 +241,13 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         # wger
         from wger.exercises.models import DeletionLog
+
+        if replace_by:
+            try:
+                ExerciseBase.objects.get(uuid=replace_by)
+            except ExerciseBase.DoesNotExist:
+                replace_by = None
+
         log = DeletionLog(
             model_type=DeletionLog.MODEL_BASE,
             uuid=self.uuid,
