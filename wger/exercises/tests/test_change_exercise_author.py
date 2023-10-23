@@ -53,7 +53,7 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         Test to ensure command can handle an exercise base id passed
         """
         exercise_base = ExerciseBase.objects.get(id=2)
-        self.assertNotEquals(exercise_base.license_author, "tom")
+        self.assertNotEqual(exercise_base.license_author, "tom")
 
         args = ["--author-name", "tom", "--exercise-base-id", "2"]
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
@@ -67,7 +67,7 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         Test to ensure command can handle an exercise id passed
         """
         exercise = Exercise.objects.get(id=1)
-        self.assertNotEquals(exercise.license_author, "tom")
+        self.assertNotEqual(exercise.license_author, "tom")
 
         args = ["--author-name", "tom", "--exercise-id", "1"]
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
