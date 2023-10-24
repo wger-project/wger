@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-
+{% load i18n static crispy_forms_tags %}
 
 <!--
         Title
@@ -21,7 +21,11 @@
     {% for formset in formsets %}
         {% include 'set/formset.html' with base=formset.base formset=formset.formset helper=helper %}
     {% endfor %}
-
+    <div class="form-group">
+        <label for="id_comment" class="control-label">{% translate "Comment" %}:</label>
+        <input id="id_comment" name="comment" class="form-control" type="text" value="{{ comment }}">
+    </div>    
+    <br>
      <input type="submit" class="btn btn-primary btn-success btn-block" value="{% translate 'Update' %}">
 </form>
 {% endblock %}

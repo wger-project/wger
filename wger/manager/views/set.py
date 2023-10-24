@@ -192,6 +192,9 @@ def edit(request, pk):
         formsets.append({'base': base, 'formset': formset})
 
     if request.method == "POST":
+        set_obj.comment = request.POST.get('comment',"")  # Update the comment value for the Set object
+        set_obj.save()  # Save the changes to the Set object
+
         formsets = []
         for base in set_obj.exercise_bases:
             formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(base.id))
@@ -205,18 +208,18 @@ def edit(request, pk):
 
         if all_valid:
             for formset in formsets:
-                instances = formset['formset'].save(commit=False)
+                  instances = formset['formset'].save(commit=False)
 
-                for instance in instances:
-                    # Double check that we are allowed to edit the set
-                    if instance.get_owner_object().user != request.user:
-                        return HttpResponseForbidden()
-                    instance.save()
+            for instance in instances:
+                # Double check that we are allowed to edit the set
+                if instance.get_owner_object().user != request.user:
+                    return HttpResponseForbidden()
+                instance.save()
 
             return HttpResponseRedirect(
                 reverse('manager:workout:view', kwargs={'pk': set_obj.get_owner_object().id})
             )
 
     # Other context we need
-    context = {'formsets': formsets, 'helper': WorkoutLogFormHelper()}
+    context = {'formsets': formsets, 'helper': WorkoutLogFormHelper(),'comment': set_obj.comment }
     return render(request, 'set/edit.html', context)
