@@ -28,8 +28,8 @@ fontawesomefree~=6.4.2
 icalendar==5.0.10
 invoke==2.2.0
 openfoodfacts==0.1.10
-pillow==10.0.1
-reportlab==4.0.5
+pillow==10.1.0
+reportlab==4.0.6
 requests==2.31.0
 tzdata==2023.3
 celery[redis]==5.3.4
