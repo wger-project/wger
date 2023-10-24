@@ -208,13 +208,13 @@ def edit(request, pk):
 
         if all_valid:
             for formset in formsets:
-                  instances = formset['formset'].save(commit=False)
+                instances = formset['formset'].save(commit=False)
 
-            for instance in instances:
-                # Double check that we are allowed to edit the set
-                if instance.get_owner_object().user != request.user:
-                    return HttpResponseForbidden()
-                instance.save()
+                for instance in instances:
+                    # Double check that we are allowed to edit the set
+                    if instance.get_owner_object().user != request.user:
+                        return HttpResponseForbidden()
+                    instance.save()
 
             return HttpResponseRedirect(
                 reverse('manager:workout:view', kwargs={'pk': set_obj.get_owner_object().id})
