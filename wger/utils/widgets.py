@@ -37,8 +37,8 @@ from django.utils.html import (
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 #
 # Date and time related fields
@@ -116,9 +116,7 @@ class ExerciseAjaxSelect(SelectMultiple):
             value = []
 
         output = [
-            '<div>',
-            '<input type="text" id="exercise-search" class="form-control">',
-            '</div>',
+            '<div>', '<input type="text" id="exercise-search" class="form-control">', '</div>',
             '<div id="exercise-search-log">'
         ]
 
