@@ -29,7 +29,7 @@ from wger.exercises.models import (
 
 class TestSyncManagementCommands(SimpleTestCase):
 
-    @patch('wger.exercises.sync.delete_entries')
+    @patch('wger.exercises.sync.handle_deleted_entries')
     @patch('wger.exercises.sync.sync_muscles')
     @patch('wger.exercises.sync.sync_languages')
     @patch('wger.exercises.sync.sync_exercises')
