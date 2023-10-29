@@ -145,7 +145,7 @@
     {% if workout.canonical_representation.day_list %}
         <h4>{% translate "Logs" %}</h4>
         <p>
-            <button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='{% url 'manager:log:log' workout.id %}'">{% translate 'View logs' %}</button>
+            <a class="btn btn-primary btn-sm" href="{% url 'manager:log:log' workout.id %}">{% translate 'View logs' %}</a>
         </p>
     {% endif %}
 
