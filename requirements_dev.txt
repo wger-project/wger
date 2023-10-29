@@ -14,5 +14,5 @@ pymongo==4.5.0
 # Development packages
 coverage==7.3.2
 django-debug-toolbar==4.2.0
-tblib==2.0.0
+tblib==3.0.0
 isort==5.12.0
