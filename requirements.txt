@@ -25,7 +25,7 @@ django-environ==0.11.2
 drf-spectacular[sidecar]==0.26.5
 easy-thumbnails==2.8.5
 fontawesomefree~=6.4.2
-icalendar==5.0.10
+icalendar==5.0.11
 invoke==2.2.0
 openfoodfacts==0.1.11
 pillow==10.1.0
