@@ -29,7 +29,7 @@ icalendar==5.0.11
 invoke==2.2.0
 openfoodfacts==0.1.11
 pillow==10.1.0
-reportlab==4.0.6
+reportlab==4.0.7
 requests==2.31.0
 tzdata==2023.3
 celery[redis]==5.3.4
