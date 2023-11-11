@@ -1,4 +1,4 @@
-﻿# wger
+# wger
 <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png" width="100" height="100" />
 
 wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that helps
@@ -9,6 +9,31 @@ integration with other projects and tools.
 For a live system, refer to the project's site: <https://wger.de/>
 
 ![Workout plan](https://raw.githubusercontent.com/wger-project/wger/master/wger/software/static/images/workout.png)
+
+## Web app tutorial
+First, you will need to create an account with a valid email address and password. Once completed, you will be greeted with the following screen:
+
+![TutorialImage1](wger/core/static/images/tutorialImage3.png)
+
+There are three main sections for users to track their progress: **workout**, **nutrition** and **weight**. On the navigation bar at the top there are options to further explore these categories. Let’s start by exploring the training dropdown:
+
+![TutorialImage2](wger/core/static/images/tutorialImage4.png)
+
+As seen above, there are options to create workout routines that we would like to remember or track, as well as a calendar in which we can see our workout schedule. To create workouts, we can use our own custom templates or public templates created by other users. Feel free to explore the various options.
+
+Moving on to the nutrition tab we can see that we have access to different options:
+
+![TutorialImage3](wger/core/static/images/tutorialImage2.png)
+
+Here we can plan out our nutrition schedule as well as calculate our BMI. There is also the option to check the amount of recommended calories a user should be consuming. In the Ingredient overview section we can check the amount of calories and nutrition information on various common ingredients, which has been uploaded and supplied by other users.
+
+Finally, we move on to the Body Weight dropdown:
+
+![TutorialImage4](wger/core/static/images/tutorialImage1.png)
+
+Weight overview will take us to a time chart which tracks our entered weight fluctuations over time. Add weight entry allows us to update this information with a current entry of weight. Both of these options can be viewed and accessed from the larger ‘Weight’ box on the home page.
+
+This tutorial serves as a guide to get you started exploring the options available in the application. Please feel free to edit and make changes by contributing to the community. Thank you for taking the time to check out wger!
 
 
 ## Mobile app
