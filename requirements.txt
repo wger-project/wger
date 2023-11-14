@@ -40,7 +40,7 @@ flower==2.0.1
 #boto3
 
 # REST API
-django-cors-headers==4.3.0
+django-cors-headers==4.3.1
 django-filter==23.3
 djangorestframework~=3.14
 djangorestframework-simplejwt[crypto]==5.3.0
