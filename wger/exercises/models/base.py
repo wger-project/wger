@@ -13,8 +13,8 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # Standard Library
+import datetime
 import uuid
 from typing import (
     List,
@@ -179,10 +179,10 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         The latest update datetime of all exercises, videos and images.
         """
         return max(
-            self.last_update,
-            *[image.last_update for image in self.exerciseimage_set.all()],
+            self.last_update, *[image.last_update for image in self.exerciseimage_set.all()],
             *[video.last_update for video in self.exercisevideo_set.all()],
             *[translation.last_update for translation in self.exercises.all()],
+            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
         )
 
     @property
@@ -234,3 +234,26 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             exercise = self.exercises.filter(language__short_name=language).first()
 
         return exercise
+
+    def delete(self, using=None, keep_parents=False, replace_by: str = None):
+        """
+        Save entry to log
+        """
+        # wger
+        from wger.exercises.models import DeletionLog
+
+        if replace_by:
+            try:
+                ExerciseBase.objects.get(uuid=replace_by)
+            except ExerciseBase.DoesNotExist:
+                replace_by = None
+
+        log = DeletionLog(
+            model_type=DeletionLog.MODEL_BASE,
+            uuid=self.uuid,
+            comment=f"Exercise base of {self.get_exercise(ENGLISH_SHORT_NAME).name}",
+            replaced_by=replace_by,
+        )
+        log.save()
+
+        return super().delete(using, keep_parents)

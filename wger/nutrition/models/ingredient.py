@@ -18,6 +18,7 @@
 import logging
 import uuid as uuid
 from decimal import Decimal
+from json import JSONDecodeError
 
 # Django
 from django.conf import settings
@@ -40,7 +41,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
-import openfoodfacts
+from openfoodfacts import API
 
 # wger
 from wger.core.models import Language
@@ -461,7 +462,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         # wger
         from wger.nutrition.off import extract_info_from_off
 
-        result = openfoodfacts.products.get_product(code)
+        logger.info(f'Searching for ingredient {code} in OFF')
+        try:
+            api = API()
+            result = api.product.get(code)
+        except JSONDecodeError as e:
+            logger.info(f'Got JSONDecodeError from OFF: {e}')
+            return None
         if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
             return None
         product = result['product']
@@ -479,4 +486,5 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         ingredient = cls(**ingredient_data)
         ingredient.save()
+        logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
         return ingredient

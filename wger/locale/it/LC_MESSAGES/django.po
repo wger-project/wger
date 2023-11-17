@@ -16,15 +16,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-08-09 13:48+0000\n"
-"Last-Translator: Armando La Placa <armando.laplaca@gmail.com>\n"
+"PO-Revision-Date: 2023-08-28 12:54+0000\n"
+"Last-Translator: Marco Accorinti <accosk8@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -498,22 +498,17 @@ msgid "Something happened that caused an error."
 msgstr "È successo qualcosa che ha causato un errore."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
 "actions are performed on their data.\n"
 "            "
 msgstr ""
-"Tu sei\n"
+"Stai\n"
 " visitando il sito come «%(current_user)s», tutte le azioni sono memorizzate "
 "per questo utente.\n"
-"    "
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -549,7 +544,7 @@ msgstr "Conferma email"
 #: core/templates/email_verification/email_body_txt.tpl:3
 #, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Ci sei quasi, %(username)s"
+msgstr "Ci sei quasi, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -566,12 +561,12 @@ msgstr ""
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "Il team wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
-#, python-format
+#, fuzzy, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
-msgstr ""
+msgstr "Clicca sul seguente link per confermare la tua email: %(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:425
 msgid "Dashboard"
@@ -826,15 +821,12 @@ msgid "Share this page"
 msgstr "Condividi questa pagina"
 
 #: core/templates/misc/fragments/shariff_modal.html:20
-#, fuzzy
-#| msgid ""
-#| "Before you share links on social media you need to allow external access."
 msgid ""
 "Before you share links on social media you need to allow external\n"
 "                            access."
 msgstr ""
-"Prima di condividere collegamenti sulle reti sociali devi consentire "
-"l'accesso esterno."
+"Prima di condividere collegamenti sulle reti sociali\n"
+"                                  devi consentire l'accesso esterno."
 
 #: core/templates/misc/fragments/shariff_modal.html:26
 #: nutrition/templates/plan/view.html:390
@@ -1075,7 +1067,7 @@ msgstr "richiedi informazioni"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
-msgstr ""
+msgstr "risposta informazioni"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
@@ -3568,15 +3560,15 @@ msgstr ""
 
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
-msgstr ""
+msgstr "Assicurarsi che la vostra altezza sia all'interno dell'intervallo."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "140 a 230"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "56 a 90"
 
 #: nutrition/views/ingredient.py:165
 msgid "Add a new ingredient"
@@ -3706,23 +3698,26 @@ msgid ""
 "your exercises and workouts."
 msgstr ""
 "wger Workout Manager è un'applicazione web gratuita e open source che "
-"gestisce i tuoi esercizi e allenamenti. "
+"gestisce i tuoi esercizi e allenamenti."
 
 #: software/templates/features.html:45
 msgid "About"
 msgstr "Informazioni"
 
 #: software/templates/features.html:50
+#, fuzzy
 msgid "Mobile app"
-msgstr ""
+msgstr "App mobile"
 
 #: software/templates/features.html:56 software/templates/features.html:312
+#, fuzzy
 msgid "Donate"
-msgstr ""
+msgstr "Dona"
 
 #: software/templates/features.html:61
+#, fuzzy
 msgid "Develop"
-msgstr ""
+msgstr "Sviluppa"
 
 #: software/templates/features.html:66 software/templates/features.html:448
 #, fuzzy
@@ -3738,6 +3733,8 @@ msgstr ""
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Unisciti a wger, il <b>fitness tracker open-source e gratuito</b> gestito "
+"dalla comunità"
 
 #: software/templates/features.html:113
 #, fuzzy
@@ -3747,7 +3744,7 @@ msgstr "Ottieni il codice"
 
 #: software/templates/features.html:123
 msgid "people <br> using wger"
-msgstr ""
+msgstr "persone che <br> usano wger"
 
 #: software/templates/features.html:127
 #, fuzzy
@@ -3756,12 +3753,14 @@ msgid "exercises <br> for workout creation"
 msgstr "Aggiungi esercizi per questo giorno di allenamento"
 
 #: software/templates/features.html:131
+#, fuzzy
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "alimenti <br> per la pianificazione dei pasti"
 
 #: software/templates/features.html:135
+#, fuzzy
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "stelle <br> su GitHub"
 
 #: software/templates/features.html:159
 msgid "Craft your perfect <span>workout routines</span>"
@@ -3857,10 +3856,8 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:306
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "Contribuisci!"
+msgstr "Contribuisci"
 
 #: software/templates/features.html:330
 msgid "Sign Up Now For Free"
@@ -3871,10 +3868,8 @@ msgid "Web version not enough?"
 msgstr ""
 
 #: software/templates/features.html:345
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Ottieni il codice"
+msgstr "Ottieni il codice!"
 
 #: software/templates/features.html:356
 msgid "Set up a private server for your gym"
@@ -3920,7 +3915,7 @@ msgstr "Promemoria allenamento"
 
 #: software/templates/features.html:463
 msgid "Discord"
-msgstr "Discord"
+msgstr ""
 
 #: software/templates/features.html:478
 msgid "Software"

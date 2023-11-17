@@ -98,7 +98,7 @@
     "addEntry": "Ajouter une entrée",
     "currentWeight": "Poids actuel",
     "workout": "Entraînement",
-    "loading": "Chargement",
+    "loading": "Chargement…",
     "continue": "Continuer",
     "preferences": "Préférences",
     "goBack": "Retour",
@@ -107,7 +107,9 @@
         "supportedImageFormats": "Seuls les fichiers JPEG, PNG et WEBP de moins de 20 Mo sont pris en charge",
         "valueTooShort": "La valeur est trop courte",
         "fieldRequired": "Le champ est requis",
-        "valueTooLong": "La valeur est trop longue"
+        "valueTooLong": "La valeur est trop longue",
+        "minLength": "Veuillez saisir plus de {{chars}} caractères",
+        "maxLength": "Veuillez saisir moins de {{chars}} caractères"
     },
     "name": "Nom",
     "category": "Catégorie",
@@ -129,5 +131,11 @@
         "routine": "Routine",
         "routines": "Routines",
         "logsHeader": "Journal de poids pour cet entraînement"
-    }
+    },
+    "value": "Valeur",
+    "deleteConfirmation": "Êtes-vous certain de vouloir supprimer \"{{name}}\" ?",
+    "notes": "Notes",
+    "seeDetails": "Voir les détails",
+    "actions": "Actions",
+    "unit": "Unité"
 }

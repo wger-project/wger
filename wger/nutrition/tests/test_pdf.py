@@ -28,32 +28,6 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
     Tests exporting a nutritional plan as a pdf
     """
 
-    def export_pdf_token(self):
-        """
-        Helper function to test exporting a nutritional plan as a pdf using
-        a token as access (no fails)
-        """
-
-        user = User.objects.get(pk=2)
-        uid, token = make_token(user)
-        response = self.client.get(
-            reverse('nutrition:plan:export-pdf', kwargs={
-                'id': 4,
-                'uidb64': uid,
-                'token': token
-            })
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'application/pdf')
-        self.assertEqual(
-            response['Content-Disposition'], 'attachment; filename=nutritional-plan.pdf'
-        )
-
-        # Approximate size
-        self.assertGreater(int(response['Content-Length']), 38000)
-        self.assertLess(int(response['Content-Length']), 42000)
-
     def export_pdf(self, fail=False):
         """
         Helper function to test exporting a nutritional plan as a pdf
@@ -103,7 +77,6 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
         """
 
         self.export_pdf(fail=True)
-        self.export_pdf_token()
 
     def test_export_pdf_owner(self):
         """
@@ -112,7 +85,6 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
 
         self.user_login('test')
         self.export_pdf(fail=False)
-        self.export_pdf_token()
 
     def test_export_pdf_other(self):
         """
@@ -121,4 +93,3 @@ class NutritionalPlanPdfExportTestCase(WgerTestCase):
 
         self.user_login('admin')
         self.export_pdf(fail=True)
-        self.export_pdf_token()

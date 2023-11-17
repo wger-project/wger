@@ -78,6 +78,7 @@ class DeletionLogSerializer(serializers.ModelSerializer):
         fields = [
             'model_type',
             'uuid',
+            'replaced_by',
             'timestamp',
             'comment',
         ]

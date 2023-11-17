@@ -42,7 +42,7 @@ from wger.manager.views import (
 patterns_log = [
     path(
         '<int:pk>/view',
-        ReactView.as_view(div_id='react-routine-logs', login_required=True),
+        ReactView.as_view(login_required=True),
         name='log',
     ),
     path(
@@ -85,7 +85,7 @@ patterns_templates = [
 patterns_workout = [
     path(
         'overview',
-        ReactView.as_view(div_id='react-routine-overview', login_required=True),
+        ReactView.as_view(login_required=True),
         name='overview',
     ),
     path(
@@ -115,7 +115,7 @@ patterns_workout = [
     ),
     path(
         '<int:pk>/view',
-        # ReactView.as_view(div_id='react-routine-detail', login_required=True),
+        # ReactView.as_view(login_required=True),
         workout.view,
         name='view',
     ),

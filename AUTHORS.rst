@@ -74,6 +74,7 @@ Developers
 * Bernardo Koen - https://github.com/BernardoKoen
 * Gabriel Liss - https://github.com/gabeliss
 * Alexandra Rhodes - https://github.com/arhodes130
+* Jayanth Bontha - https://github.com/JayanthBontha
 
 Translators
 -----------

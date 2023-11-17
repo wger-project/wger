@@ -285,6 +285,11 @@ LOGGING = {
         'wger': {
             'handlers': ['console'],
             'level': 'DEBUG',
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         }
     }
 }
@@ -546,7 +551,7 @@ def email_verified_callback(user):
     user.userprofile.save()
 
 
-EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_MAIL_CALLBACK = email_verified_callback
 EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
@@ -556,7 +561,7 @@ EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
-# Django activity stream
+# Django-activity stream
 #
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,

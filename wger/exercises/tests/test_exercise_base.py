@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from uuid import UUID
+
 # Third Party
 from rest_framework import status
 
@@ -19,6 +22,7 @@ from rest_framework import status
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
+    DeletionLog,
     Exercise,
     ExerciseBase,
 )
@@ -104,6 +108,21 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
 
     def get_resource_name(self):
         return 'exercise-base'
+
+    def test_delete_replace_by(self):
+        """Test that setting the replaced_by attribute works"""
+
+        self.authenticate('admin')
+
+        url = self.url_detail + '?replaced_by=ae3328ba-9a35-4731-bc23-5da50720c5aa'
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        log = DeletionLog.objects.get(pk=1)
+
+        self.assertEqual(log.model_type, 'base')
+        self.assertEqual(log.uuid, UUID('acad3949-36fb-4481-9a72-be2ddae2bc05'))
+        self.assertEqual(log.replaced_by, UUID('ae3328ba-9a35-4731-bc23-5da50720c5aa'))
 
     def test_cant_change_license(self):
         """

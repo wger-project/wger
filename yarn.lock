@@ -16,10 +16,10 @@ Sortable@RubaXa/Sortable#1.15.0:
   version "1.15.0"
   resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/babf6ab85fdfc5e13be1027827cecfbba2fb0d1e"
 
-bootstrap@5.3.1:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.1.tgz#8ca07040ad15d7f75891d1504cf14c5dedfb1cfe"
-  integrity sha512-jzwza3Yagduci2x0rr9MeFSORjcHpt0lRZukZPZQJT1Dth5qzV7XcgGqYzi39KGAVYR8QEDVoO0ubFKOxzMG+g==
+bootstrap@5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.2.tgz#97226583f27aae93b2b28ab23f4c114757ff16ae"
+  integrity sha512-D32nmNWiQHo94BKHLmOrdjlL05q1c8oxbtBphQFb9Z5to6eGRDCm0QgeaZ4zFBHzfg2++rqa2JkqCcxDy0sH0g==
 
 commander@2:
   version "2.20.3"
@@ -682,10 +682,10 @@ iconv-lite@0.6:
   resolved "https://registry.yarnpkg.com/internmap/-/internmap-2.0.1.tgz#33d0fa016185397549fb1a14ea3dbe5a2949d1cd"
   integrity sha512-Ujwccrj9FkGqjbY3iVoxD1VV+KdZZeENx0rphrtzmRXbFvkFO88L80BL/zeSIguX/7T+y8k04xqtgWgS5vxwxw==
 
-jquery@>=1.7, jquery@^3.4.1, jquery@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.0.tgz#fe2c01a05da500709006d8790fe21c8a39d75612"
-  integrity sha512-umpJ0/k8X0MvD1ds0P9SfowREz2LenHsQaxSohMZ5OMNEU2r0tf8pdeEFTHMFxWVxKNyU9rTtK3CWzUCTKJUeQ==
+jquery@>=1.7, jquery@^3.4.1, jquery@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 masonry-layout@^4.2.2:
   version "4.2.2"
@@ -731,18 +731,18 @@ rw@1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-shariff@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/shariff/-/shariff-3.2.1.tgz#ba517b3dd0af1499756aa844c75bb691a193c722"
-  integrity sha512-+J4RDqL5ddEsEdX/z/8OkuJsfUPkTTLwdINbTvKPJ0FAT4RuDgdA1xf8gOJMBfeK8IJnMkcNtuaUR7f8tjPNig==
+shariff@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/shariff/-/shariff-3.3.0.tgz#567b23f929298442a593af2f30258bd13ef4d587"
+  integrity sha512-k8aITaDpbdIlun3mJ/SlfSRrc5vvyl4wjsJ0gTrclCNo/wemCVhhY7wEk5HqOy4y/3msVDEarwuF/SU2j7+Auw==
   dependencies:
     "@fortawesome/fontawesome-free" "^5.8.2"
     jquery "^3.4.1"
 
-tinymce@^5.10.7:
-  version "5.10.7"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.7.tgz#d89d446f1962f2a1df6b2b70018ce475ec7ffb80"
-  integrity sha512-9UUjaO0R7FxcFo0oxnd1lMs7H+D0Eh+dDVo5hKbVe1a+VB0nit97vOqlinj+YwgoBDt6/DSCUoWqAYlLI8BLYA==
+tinymce@^5.10.8:
+  version "5.10.8"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.8.tgz#c85758fa3cca2cbb4b14dd037a0b315b6462c50e"
+  integrity sha512-iyoo3VGMAJhLMDdblAefKvYgBRk9kQi58GTwAmoieqsyggGsKZWlQl/YY6nTILFHUCA1FhYu0HdmM5YYjs17UQ==
 
 xmlhttprequest@1:
   version "1.8.0"

@@ -316,18 +316,19 @@ class IngredientValuesTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 9)
+        self.assertEqual(len(result), 8)
         self.assertEqual(
-            result, {
-                'sodium': '0.01',
-                'energy': '1.76',
-                'energy_kilojoule': '7.36',
-                'fat': '0.08',
-                'carbohydrates_sugar': '0.00',
-                'fat_saturated': '0.03',
-                'fibres': '0.00',
-                'protein': '0.26',
-                'carbohydrates': '0.00'
+            result,
+            {
+                'sodium': 0.00549,
+                'energy': 1.76,
+                # 'energy_kilojoule': '7.36',
+                'fat': 0.0819,
+                'carbohydrates_sugar': None,
+                'fat_saturated': 0.03244,
+                'fibres': None,
+                'protein': 0.2563,
+                'carbohydrates': 0.00125
             }
         )
 
@@ -342,18 +343,19 @@ class IngredientValuesTestCase(WgerTestCase):
 
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result), 9)
+        self.assertEqual(len(result), 8)
         self.assertEqual(
-            result, {
-                'sodium': '0.61',
-                'energy': '196.24',
-                'energy_kilojoule': '821.07',
-                'fat': '9.13',
-                'carbohydrates_sugar': '0.00',
-                'fat_saturated': '3.62',
-                'fibres': '0.00',
-                'protein': '28.58',
-                'carbohydrates': '0.14'
+            result,
+            {
+                'sodium': 0.612135,
+                'energy': 196.24,
+                # 'energy_kilojoule': '821.07',
+                'fat': 9.13185,
+                'carbohydrates_sugar': None,
+                'fat_saturated': 3.61706,
+                'fibres': None,
+                'protein': 28.57745,
+                'carbohydrates': 0.139375
             }
         )
 
@@ -491,12 +493,12 @@ class IngredientModelTestCase(WgerTestCase):
             'status_verbose': 'product not found'
         }
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_success(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_success(self, mock_api):
         """
         Tests creating an ingredient from OFF
         """
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
 
@@ -512,8 +514,8 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_success_long_name(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_success_long_name(self, mock_api):
         """
         Tests creating an ingredient from OFF - name gets truncated
         """
@@ -522,46 +524,45 @@ class IngredientModelTestCase(WgerTestCase):
         small-to-medium breed, it is the smallest of the six original and distinct spitz
         breeds of dog native to Japan.[1] Its name literally translates to "brushwood dog",
         as it is used to flush game."""
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertEqual(len(ingredient.name), 200)
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_key_missing_1(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_key_missing_1(self, mock_api):
         """
         Tests creating an ingredient from OFF - missing key in nutriments
         """
         del self.off_response['product']['nutriments']['energy-kcal_100g']
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_key_missing_2(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_key_missing_2(self, mock_api):
         """
         Tests creating an ingredient from OFF - missing name
         """
         del self.off_response['product']['product_name']
-        mock_get_product.return_value = self.off_response
+        mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
 
-    @patch('openfoodfacts.products.get_product')
-    def test_fetch_from_off_no_results(self, mock_get_product):
+    @patch('openfoodfacts.api.ProductResource.get')
+    def test_fetch_from_off_no_results(self, mock_api):
         """
         Tests creating an ingredient from OFF
         """
-        mock_get_product.return_value = self.off_response_no_results
+        mock_api.return_value = self.off_response_no_results
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
         self.assertIsNone(ingredient)
 
 
 class IngredientApiCodeSearch(BaseTestCase, ApiBaseTestCase):
-
     url = '/api/v2/ingredient/'
 
     @patch('wger.nutrition.models.Ingredient.fetch_ingredient_from_off')
