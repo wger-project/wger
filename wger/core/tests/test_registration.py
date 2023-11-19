@@ -26,6 +26,7 @@ from wger.core.forms import (
 )
 from wger.core.tests.base_testcase import WgerTestCase
 
+
 logger = logging.getLogger(__name__)
 
 
