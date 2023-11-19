@@ -24,6 +24,7 @@ from datetime import timedelta
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
+
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -171,7 +172,7 @@ TEMPLATES = [
                 'django.template.loaders.app_directories.Loader',
             ],
             'debug':
-                False
+            False
         },
     },
 ]
@@ -256,7 +257,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -497,7 +498,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
 
 #
 # Password rules
