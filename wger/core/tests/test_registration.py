@@ -26,7 +26,6 @@ from wger.core.forms import (
 )
 from wger.core.tests.base_testcase import WgerTestCase
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -46,6 +45,7 @@ class RegistrationTestCase(WgerTestCase):
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'TWITTER': False,
+                'MASTODON': False,
                 'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
@@ -58,6 +58,7 @@ class RegistrationTestCase(WgerTestCase):
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': True,
                 'TWITTER': False,
+                'MASTODON': False,
                 'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
@@ -65,7 +66,6 @@ class RegistrationTestCase(WgerTestCase):
             self.assertIsInstance(response.context['form'], RegistrationFormNoCaptcha)
 
     def test_register(self):
-
         # Fetch the registration page
         response = self.client.get(reverse('core:user:registration'))
         self.assertEqual(response.status_code, 200)
@@ -181,7 +181,6 @@ class RegistrationTestCase(WgerTestCase):
                 'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):
-
             # Fetch the registration page
             response = self.client.get(reverse('core:user:registration'))
             self.assertEqual(response.status_code, 302)
