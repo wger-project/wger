@@ -133,22 +133,6 @@ function getProfileField(field) {
 }
 
 
-function wgerToggleComments() {
-  $('#exercise-comments-toggle').click(function (e) {
-    var showComment;
-    e.preventDefault();
-
-    showComment = getProfileField('show_comments');
-    if (!showComment) {
-      $('.exercise-comments').show();
-    } else {
-      $('.exercise-comments').hide();
-    }
-
-    // Update user profile
-    setProfileField('show_comments', !showComment);
-  });
-}
 
 function wgerToggleReadOnlyAccess() {
   $('#toggle-ro-access').click(function (e) {
@@ -173,28 +157,6 @@ function wgerToggleReadOnlyAccess() {
   });
 }
 
-/*
- Init calls for tinyMCE editor
- */
-function wgerInitTinymce() {
-  // Only try to init it on pages that loaded its JS file (so they probably need it)
-  //
-  // See the following links on detail about configuring the menus
-  // http://www.tinymce.com/wiki.php/Configuration:toolbar
-  // http://www.tinymce.com/wiki.php/Configuration:menu
-  if (typeof tinyMCE !== 'undefined') {
-    tinyMCE.init({
-      // General options
-      mode: 'textareas',
-      width: '100%',
-
-      entity_encoding: 'raw',
-      plugins: "lists",
-      menubar: false,
-      toolbar: 'undo redo | bold italic | bullist numlist '
-    });
-  }
-}
 
 /*
  Open a modal dialog for form editing
