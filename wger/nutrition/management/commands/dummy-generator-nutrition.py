@@ -42,13 +42,10 @@ logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     """
-    One off script
-
-    This is intended to download all images from Open Food Facts for the all
-    currently used ingredients
+    Dummy generator for nutritional plans
     """
 
-    help = 'Download images of all Open Food Facts ingredients that are used in a nutritional plan'
+    help = 'Dummy generator for nutritional plans'
 
     def add_arguments(self, parser):
 
