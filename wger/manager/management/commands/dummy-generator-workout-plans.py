@@ -32,6 +32,7 @@ from wger.manager.models import (
     Workout,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

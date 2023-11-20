@@ -27,6 +27,7 @@ from wger.measurements.models import (
     Measurement,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
