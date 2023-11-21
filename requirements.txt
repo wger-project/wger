@@ -27,7 +27,7 @@ easy-thumbnails==2.8.5
 fontawesomefree~=6.4.2
 icalendar==5.0.11
 invoke==2.2.0
-openfoodfacts==0.1.11
+openfoodfacts==0.1.12
 pillow==10.1.0
 reportlab==4.0.7
 requests==2.31.0
