@@ -36,8 +36,6 @@ from django.forms import (
 from django.utils.translation import gettext as _
 
 # Third Party
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV3
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -48,6 +46,8 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
@@ -196,7 +196,7 @@ class UserEmailForm(forms.ModelForm):
         if not email:
             return email
         try:
-            #Performs a case-insensitive lookup
+            # Performs a case-insensitive lookup
             user = User.objects.get(email__iexact=email)
             if user.email == self.instance.email:
                 return email
