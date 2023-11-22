@@ -69,7 +69,7 @@ INSTALLED_APPS = (
     'wger.measurements',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
-    'captcha',
+    'django_recaptcha',
 
     # The sitemaps app
     'django.contrib.sitemaps',
