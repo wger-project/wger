@@ -4,7 +4,7 @@
 
 # Application
 bleach[css]~=6.1
-crispy-bootstrap5==0.7
+crispy-bootstrap5==2023.10
 
 # this is a fork of django-bootstrap-breadcrumbs
 # we might need to think about migrating away from this completely
