@@ -51,7 +51,7 @@ PAGINATION_PAGES_AROUND_CURRENT = 5
 # Important license IDs
 CC_BY_SA_4_ID = 2
 CC_BY_SA_3_LICENSE_ID = 1
-CC_ODBL_LICENSE_ID = 5
+ODBL_LICENSE_ID = 5
 
 # Default/fallback language
 ENGLISH_SHORT_NAME = 'en'

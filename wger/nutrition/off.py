@@ -12,10 +12,10 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # wger
-from wger.core.models import Language
 from wger.nutrition.models import Source
-from wger.utils.constants import CC_ODBL_LICENSE_ID
+from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
 
@@ -50,7 +50,6 @@ def extract_info_from_off(product, language):
         name = name[:200]
 
     common_name = product.get('generic_name', '')
-    common_name = '' if common_name is None else common_name
     if len(common_name) > 200:
         common_name = common_name[:200]
 
@@ -71,6 +70,7 @@ def extract_info_from_off(product, language):
     source_name = Source.OPEN_FOOD_FACTS.value
     source_url = f'https://world.openfoodfacts.org/api/v2/product/{code}.json'
     authors = ', '.join(product.get('editors_tags', ['open food facts']))
+    object_url = f'https://world.openfoodfacts.org/product/{code}/'
 
     return {
         'name': name,
@@ -89,8 +89,8 @@ def extract_info_from_off(product, language):
         'common_name': common_name,
         'brand': brand,
         'status': AbstractSubmissionModel.STATUS_ACCEPTED,
-        'license_id': CC_ODBL_LICENSE_ID,
+        'license_id': ODBL_LICENSE_ID,
         'license_author': authors,
         'license_title': name,
-        'license_object_url': f'https://world.openfoodfacts.org/product/{code}/'
+        'license_object_url': object_url
     }

@@ -20,15 +20,13 @@ import os
 import django
 import sys
 
-from wger.nutrition.models.off import extract_info_from_off
-
 sys.path.insert(0, os.path.join('..', '..'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
 from django.conf import settings  # noqa: E402
 
 from wger.nutrition.models import Ingredient  # noqa: E402
-from wger.nutrition.models.sources import Source
+from wger.nutrition.off import extract_info_from_off
 from wger.core.models import Language  # noqa: E402
 
 """
@@ -95,21 +93,23 @@ class Mode(enum.Enum):
 
 
 MODE = Mode.UPDATE
-
-languages = {l.short_name: l for l in Language.objects.all()}
-
 BULK_SIZE = 500
-bulk_update_bucket = []
-counter = Counter()
 
-# for lang in languages.keys():
-#    count = db.products.count_documents({'lang': lang, 'complete': 1})
-#    total = db.products.count_documents({'lang': lang})
-#    print(f'Lang {lang} has {count} completed products out of {total}')
+# The completeness is a value between 0 and 1.1 and shows how much product information
+# is in the open food facts DB
+COMPLETENESS = 0.7
+
+
+# Get some completeness statistics
+# for lang in ['de', 'es', 'en']:
+#     count = db.products.count_documents({'lang': lang, 'completeness': {"$gt": COMPLETENESS}})
+#    # count = db.products.count_documents({'lang': lang, 'complete': 1})
+#     total = db.products.count_documents({'lang': lang})
+#     print(f'Lang {lang} has {count} completed products out of {total}')
 # import sys
 # sys.exit()
 
-# Completeness status of ingredients as of 2023-04-08
+# Completed ingredients as of 2023-04-08
 #
 # Lang az has 0 completed products out of 40
 # Lang id has 6 completed products out of 981
@@ -136,77 +136,99 @@ counter = Counter()
 # Lang fa has 0 completed products out of 575
 # Lang zh has 2 completed products out of 935
 
-print('***********************************')
-print(languages.keys())
-print('***********************************')
+# 2023-11-22
+# completeness > 0.7
+# Lang de has 47605 completed products out of 195056
+# Lang es has 23187 completed products out of 311365
+# Lang en has 39555 completed products out of 979534
 
-for product in db.products.find({'lang': {"$in": list(languages.keys())}, 'complete': 1}):
+def main():
+    languages = {l.short_name: l for l in Language.objects.all()}
 
-    try:
-        ingredient_data = extract_info_from_off(product, languages[product['lang']])
-    except KeyError as e:
-        # print('--> KeyError while extracting info from OFF', e)
-        counter['skipped'] += 1
-        continue
+    bulk_update_bucket = []
+    counter = Counter()
 
-    # Some products have no name or name is too long, skipping
-    if not ingredient_data['name']:
-        counter['skipped'] += 1
-        continue
+    print('***********************************')
+    print(languages.keys())
+    print('***********************************')
 
-    if not ingredient_data['common_name']:
-        counter['skipped'] += 1
-        continue
+    for product in db.products.find({
+        'lang': {"$in": list(languages.keys())},
+        'completeness': {"$gt": COMPLETENESS}
+    }):
 
-    #
-    # Add entries as new products
-    if MODE == Mode.INSERT:
-        bulk_update_bucket.append(Ingredient(**ingredient_data))
-        if len(bulk_update_bucket) > BULK_SIZE:
-            try:
-                Ingredient.objects.bulk_create(bulk_update_bucket)
-                print('***** Bulk adding products *****')
-            except Exception as e:
-                print('--> Error while saving the product bucket. Saving individually')
-                print(e)
-
-                # Try saving the ingredients individually as most will be correct
-                for ingredient in bulk_update_bucket:
-                    try:
-                        ingredient.save()
-
-                    # ¯\_(ツ)_/¯
-                    except Exception as e:
-                        print('--> Error while saving the product individually')
-                        print(e)
-
-            counter['new'] += BULK_SIZE
-            bulk_update_bucket = []
-
-    # Update existing entries
-    else:
         try:
-
-            # Update an existing product (look-up key is the code) or create a new
-            # one. While this might not be the most efficient query (there will always
-            # be a SELECT first), it's ok because this script is run very rarely.
-            obj, created = Ingredient.objects.update_or_create(
-                code=ingredient_data['code'],
-                defaults=ingredient_data
-            )
-
-            if created:
-                counter['new'] += 1
-                # print('-> added to the database')
-            else:
-                counter['edited'] += 1
-                # print('-> updated')
-
-        except Exception as e:
-            print('--> Error while performing update_or_create')
-            print(e)
+            ingredient_data = extract_info_from_off(product, languages[product['lang']])
+        except KeyError as e:
+            print('--> KeyError while extracting info from OFF', e)
+            counter['skipped'] += 1
             continue
 
-print('***********************************')
-print(counter)
-print('***********************************')
+        # Some products have no name or name is too long, skipping
+        if not ingredient_data['name']:
+            counter['skipped'] += 1
+            continue
+
+        if not ingredient_data['common_name']:
+            counter['skipped'] += 1
+            continue
+
+        #
+        # Add entries as new products
+        if MODE == Mode.INSERT:
+            bulk_update_bucket.append(Ingredient(**ingredient_data))
+            if len(bulk_update_bucket) > BULK_SIZE:
+                try:
+                    Ingredient.objects.bulk_create(bulk_update_bucket)
+                    print('***** Bulk adding products *****')
+                except Exception as e:
+                    print('--> Error while saving the product bucket. Saving individually')
+                    print(e)
+
+                    # Try saving the ingredients individually as most will be correct
+                    for ingredient in bulk_update_bucket:
+                        try:
+                            ingredient.save()
+
+                        # ¯\_(ツ)_/¯
+                        except Exception as e:
+                            print('--> Error while saving the product individually')
+                            print(e)
+
+                counter['new'] += BULK_SIZE
+                bulk_update_bucket = []
+
+        # Update existing entries
+        else:
+            try:
+
+                # Update an existing product (look-up key is the code) or create a new
+                # one. While this might not be the most efficient query (there will always
+                # be a SELECT first), it's ok because this script is run very rarely.
+                obj, created = Ingredient.objects.update_or_create(
+                    code=ingredient_data['code'],
+                    defaults=ingredient_data
+                )
+
+                if created:
+                    counter['new'] += 1
+                    # print('-> added to the database')
+                else:
+                    counter['edited'] += 1
+                    # print('-> updated')
+
+            except Exception as e:
+                print('--> Error while performing update_or_create')
+                print(f'  ingredient: {ingredient_data["name"]}')
+                print(e)
+                print(ingredient_data)
+                counter['error'] += 1
+                continue
+
+    print('***********************************')
+    print(counter)
+    print('***********************************')
+
+
+if __name__ == "__main__":
+    main()
