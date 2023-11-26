@@ -48,5 +48,5 @@ hard disk
 
 ```shell
 docker compose down
-rm dump -r openfoodfacts-mongodbdump.tar.gz dump/off
+rm dump -r openfoodfacts-mongodbdump.tar.gz dump/dump
 ```
