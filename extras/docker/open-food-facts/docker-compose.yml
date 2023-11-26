@@ -1,10 +1,3 @@
-#
-# Please consult the `Deployment` section in the readme if you want to deploy
-# this. You *need* to keep this nginx service, even if you have your own,
-# otherwise the static files will not be served correctly! If you do remove
-# it, configure yours similarly to what's in config/nginx.conf
-# Also take a look at the "Static files" section in the .env file
-
 services:
   mongodb:
     image: mongo
