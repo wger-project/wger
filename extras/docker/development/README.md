@@ -5,8 +5,7 @@ you manage your personal workouts, weight and diet plans and can also be used
 as a simple gym management utility. It offers a REST API as well, for easy
 integration with other projects and tools.
 
-Please note that this image is intended for development, if you want to
-host your own instance, take a look at the provided docker compose file:
+If you want to host your own instance, take a look at the provided docker compose file:
 
 <https://github.com/wger-project/docker>
 

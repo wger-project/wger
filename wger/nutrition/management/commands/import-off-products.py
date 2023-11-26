@@ -25,7 +25,6 @@ from wger.core.models import Language
 from wger.nutrition.models import Ingredient
 from wger.nutrition.off import extract_info_from_off
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -57,8 +56,8 @@ class Command(BaseCommand):
             dest='mode',
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-            'entries in the database, while update will try to update them if they are '
-            'already present. Deault: insert'
+                 'entries in the database, while update will try to update them if they are '
+                 'already present. Deault: insert'
         )
         parser.add_argument(
             '--completeness',
@@ -67,10 +66,11 @@ class Command(BaseCommand):
             dest='completeness',
             type=float,
             help='Completeness threshold for importing the products. Products in OFF have '
-            'completeness score that ranges from 0 to 1.1. Default: 0.7'
+                 'completeness score that ranges from 0 to 1.1. Default: 0.7'
         )
 
     def handle(self, **options):
+
         try:
             # Third Party
             from pymongo import MongoClient
@@ -94,7 +94,7 @@ class Command(BaseCommand):
         client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
         db = client.admin
 
-        languages = {l.short_name: l for l in Language.objects.all()}
+        languages = {l.short_name: l.pk for l in Language.objects.all()}
 
         bulk_update_bucket = []
         counter = Counter()
@@ -114,6 +114,7 @@ class Command(BaseCommand):
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
             except KeyError as e:
                 # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                # self.stdout.write(f'--> Product: {product}')
                 counter['skipped'] += 1
                 continue
 

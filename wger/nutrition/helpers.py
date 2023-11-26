@@ -26,9 +26,8 @@ from typing import Union
 from wger.nutrition.consts import (
     MEALITEM_WEIGHT_GRAM,
     MEALITEM_WEIGHT_UNIT,
+    KJ_PER_KCAL,
 )
-from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight
 
 
 class BaseMealItem:
@@ -116,7 +115,7 @@ class NutritionalValues:
 
     @property
     def energy_kilojoule(self):
-        return self.energy * 4.184
+        return self.energy * KJ_PER_KCAL
 
     def __add__(self, other: 'NutritionalValues'):
         """
@@ -127,15 +126,15 @@ class NutritionalValues:
             protein=self.protein + other.protein,
             carbohydrates=self.carbohydrates + other.carbohydrates,
             carbohydrates_sugar=self.carbohydrates_sugar +
-            other.carbohydrates_sugar if self.carbohydrates_sugar and other.carbohydrates_sugar else
+                                other.carbohydrates_sugar if self.carbohydrates_sugar and other.carbohydrates_sugar else
             self.carbohydrates_sugar or other.carbohydrates_sugar,
             fat=self.fat + other.fat,
             fat_saturated=self.fat_saturated + other.fat_saturated if self.fat_saturated
-            and other.fat_saturated else self.fat_saturated or other.fat_saturated,
+                                                                      and other.fat_saturated else self.fat_saturated or other.fat_saturated,
             fibres=self.fibres +
-            other.fibres if self.fibres and other.fibres else self.fibres or other.fibres,
+                   other.fibres if self.fibres and other.fibres else self.fibres or other.fibres,
             sodium=self.sodium +
-            other.sodium if self.sodium and other.sodium else self.sodium or other.sodium,
+                   other.sodium if self.sodium and other.sodium else self.sodium or other.sodium,
         )
 
     @property

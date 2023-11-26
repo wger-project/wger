@@ -45,7 +45,10 @@ from openfoodfacts import API
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.consts import ENERGY_FACTOR
+from wger.nutrition.consts import (
+    ENERGY_FACTOR,
+    KJ_PER_KCAL,
+)
 from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import (
@@ -61,7 +64,6 @@ from wger.utils.models import (
 
 # Local
 from .ingredient_category import IngredientCategory
-
 
 logger = logging.getLogger(__name__)
 
@@ -423,7 +425,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         returns kilojoules for current ingredient, 0 if energy is uninitialized
         """
         if self.energy:
-            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+            return Decimal(self.energy * KJ_PER_KCAL).quantize(TWOPLACES)
         else:
             return 0
 
@@ -474,7 +476,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         product = result['product']
 
         try:
-            ingredient_data = extract_info_from_off(product, load_language(product['lang']))
+            ingredient_data = extract_info_from_off(product, load_language(product['lang']).pk)
         except KeyError:
             return None
 
