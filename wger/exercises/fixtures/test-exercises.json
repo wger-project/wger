@@ -140,7 +140,7 @@
     "pk": 1,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "9838235ce38f4ca6921e9d237d8e0813",
+      "uuid": "9838235c-e38f-4ca6-921e-9d237d8e0813",
       "language": 2,
       "exercise_base": 1,
       "description": "Lorem ipsum dolor sit amet",
@@ -166,7 +166,7 @@
     "pk": 3,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
+      "uuid": "946afe7b-54a6-44a6-9c36-c3e31e6b4c3b",
       "language": 2,
       "exercise_base": 3,
       "description": "",

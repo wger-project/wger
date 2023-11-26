@@ -78,6 +78,7 @@ class DeletionLogSerializer(serializers.ModelSerializer):
         fields = [
             'model_type',
             'uuid',
+            'replaced_by',
             'timestamp',
             'comment',
         ]
@@ -124,6 +125,35 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'uuid',
             'exercise_base',
             'exercise_base_uuid',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+            'author_history',
+        ]
+
+
+class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
+    """
+    ExerciseVideo serializer for the info endpoint
+    """
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
+
+    class Meta:
+        model = ExerciseVideo
+        fields = [
+            'id',
+            'uuid',
             'video',
             'is_main',
             'size',
@@ -394,7 +424,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
-    videos = ExerciseVideoSerializer(source='exercisevideo_set', many=True, read_only=True)
+    videos = ExerciseVideoInfoSerializer(source='exercisevideo_set', many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
     author_history = serializers.ListSerializer(child=serializers.CharField())
     total_authors_history = serializers.ListSerializer(child=serializers.CharField())

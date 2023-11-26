@@ -23,7 +23,7 @@ from django.core.validators import URLValidator
 
 # wger
 from wger.exercises.sync import (
-    delete_entries,
+    handle_deleted_entries,
     sync_categories,
     sync_equipment,
     sync_exercises,
@@ -88,4 +88,4 @@ class Command(BaseCommand):
         sync_licenses(self.stdout.write, self.remote_url, self.style.SUCCESS)
         sync_exercises(self.stdout.write, self.remote_url, self.style.SUCCESS)
         if not options['skip_delete']:
-            delete_entries(self.stdout.write, self.remote_url, self.style.SUCCESS)
+            handle_deleted_entries(self.stdout.write, self.remote_url, self.style.SUCCESS)

@@ -8,7 +8,7 @@
 from .celery_configuration import app
 
 
-MIN_APP_VERSION = (1, 5, 0, 'final', 1)
+MIN_APP_VERSION = (1, 5, 6, 'final', 1)
 
 VERSION = (2, 2, 0, 'alpha', 4)
 RELEASE = True

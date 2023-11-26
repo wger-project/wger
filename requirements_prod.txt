@@ -6,4 +6,4 @@
 -r requirements.txt
 
 psycopg2-binary==2.9.9
-django-redis==5.3.0
+django-redis==5.4.0

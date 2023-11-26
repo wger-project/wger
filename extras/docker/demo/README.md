@@ -5,7 +5,6 @@ you manage your personal workouts, weight and diet plans and can also be used
 as a simple gym management utility. It offers a REST API as well, for easy
 integration with other projects and tools.
 
-
 Please note that this image will overwrite your data when you pull a new version,
 it is only intended as an easy to setup demo. If you want to host your own
 instance, take a look at the provided docker compose file. That config will
@@ -19,7 +18,6 @@ Installation
 This docker image contains an instance of the application running as a WSGI
 process under apache with a sqlite database. It is useful to just try it out and
 play around. To start it:
-
 
 ```docker run -ti --name wger.demo --publish 8000:80 wger/demo```
 
@@ -51,9 +49,9 @@ didn't behave as you expected. We can't fix what we don't know about, so please
 report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
-* discord: <https://discord.gg/rPWFv6W>
-* issue tracker: <https://github.com/wger-project/wger/issues>
-* twitter: <https://twitter.com/wger_project>
+* Discord: <https://discord.gg/rPWFv6W>
+* Issue tracker: <https://github.com/wger-project/wger/issues>
+* Mastodon: <https://fosstodon.org/@wger>
 
 Sources
 -------

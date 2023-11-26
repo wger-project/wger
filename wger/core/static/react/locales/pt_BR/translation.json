@@ -138,5 +138,9 @@
     "submit": "Enviar",
     "edit": "Editar",
     "add": "Adicionar",
-    "deleteConfirmation": "Tem certeza que deseja apagar \"{{name}}\"?"
+    "deleteConfirmation": "Tem certeza que deseja apagar \"{{name}}\"?",
+    "close": "Fechar",
+    "total": "Total",
+    "alsoSearchEnglish": "Pesquise também por nomes em inglês",
+    "timeOfDay": "Hora do dia"
 }

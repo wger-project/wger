@@ -4,13 +4,13 @@
 
 # Application
 bleach[css]~=6.1
-crispy-bootstrap5==0.7
+crispy-bootstrap5==2023.10
 
 # this is a fork of django-bootstrap-breadcrumbs
 # we might need to think about migrating away from this completely
 django-bootstrap-breadcrumbs2==1.0.0
 django-formtools~=2.4
-django-recaptcha~=3.0.0
+django-recaptcha~=4.0.0
 Django==4.2.6
 django-activity-stream==2.0.0
 django-axes==6.1.1
@@ -25,14 +25,14 @@ django-environ==0.11.2
 drf-spectacular[sidecar]==0.26.5
 easy-thumbnails==2.8.5
 fontawesomefree~=6.4.2
-icalendar==5.0.10
+icalendar==5.0.11
 invoke==2.2.0
-openfoodfacts==0.1.10
-pillow==10.0.1
-reportlab==4.0.5
+openfoodfacts==0.1.12
+pillow==10.1.0
+reportlab==4.0.7
 requests==2.31.0
 tzdata==2023.3
-celery[redis]==5.3.4
+celery[redis]==5.3.6
 flower==2.0.1
 
 
@@ -40,8 +40,8 @@ flower==2.0.1
 #boto3
 
 # REST API
-django-cors-headers==4.3.0
-django-filter==23.3
+django-cors-headers==4.3.1
+django-filter==23.4
 djangorestframework~=3.14
 djangorestframework-simplejwt[crypto]==5.3.0
 

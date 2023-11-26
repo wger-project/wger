@@ -54,6 +54,16 @@ class DeletionLog(models.Model):
         verbose_name='UUID',
     )
 
+    replaced_by = models.UUIDField(
+        default=None,
+        unique=False,
+        editable=False,
+        null=True,
+        verbose_name='Replaced by',
+        help_text='UUID of the object replaced by the deleted one. At the moment only available '
+        'for exercise bases',
+    )
+
     timestamp = models.DateTimeField(auto_now=True)
 
     comment = models.CharField(max_length=200, default='')

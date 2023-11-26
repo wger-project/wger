@@ -1,4 +1,4 @@
-name: Continous Integration
+name: Continuous Integration
 
 on:
   push:
@@ -51,22 +51,21 @@ jobs:
 
       # Only run the tests with coverage for one version of python
       - name: Test the application with coverage
+        if: matrix.python-version == 3.11
         run: |
           wger create-settings
           coverage run --source='.' ./manage.py test
           coverage lcov
-        if: matrix.python-version == 3.11
 
       - name: Test the application
+        if: matrix.python-version != 3.11
         run: |
           wger create-settings
           python manage.py test
-        if: matrix.python-version != 3.11
 
       - name: Coveralls
+        if: matrix.python-version == 3.11
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage.lcov
-        if: matrix.python-version == 3.11
-

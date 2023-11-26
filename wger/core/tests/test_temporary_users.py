@@ -65,6 +65,7 @@ class DemoUserTestCase(WgerTestCase):
                 'ALLOW_REGISTRATION': True,
                 'ALLOW_GUEST_USERS': False,
                 'TWITTER': False,
+                'MASTODON': False,
                 'MIN_ACCOUNT_AGE_TO_TRUST': 21,
             }
         ):

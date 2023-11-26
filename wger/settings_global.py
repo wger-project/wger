@@ -69,7 +69,7 @@ INSTALLED_APPS = (
     'wger.measurements',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
-    'captcha',
+    'django_recaptcha',
 
     # The sitemaps app
     'django.contrib.sitemaps',
@@ -537,6 +537,7 @@ WGER_SETTINGS = {
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'TWITTER': False,
+    'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
