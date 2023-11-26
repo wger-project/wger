@@ -25,6 +25,7 @@ from wger.core.models import Language
 from wger.nutrition.models import Ingredient
 from wger.nutrition.off import extract_info_from_off
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -56,8 +57,8 @@ class Command(BaseCommand):
             dest='mode',
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-                 'entries in the database, while update will try to update them if they are '
-                 'already present. Deault: insert'
+            'entries in the database, while update will try to update them if they are '
+            'already present. Deault: insert'
         )
         parser.add_argument(
             '--completeness',
@@ -66,7 +67,7 @@ class Command(BaseCommand):
             dest='completeness',
             type=float,
             help='Completeness threshold for importing the products. Products in OFF have '
-                 'completeness score that ranges from 0 to 1.1. Default: 0.7'
+            'completeness score that ranges from 0 to 1.1. Default: 0.7'
         )
 
     def handle(self, **options):
