@@ -20,12 +20,15 @@ import random
 # Django
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+
+# Third Party
 from faker import Faker
 from faker.providers import DynamicProvider
 
-from wger.gym.models import Gym
 # wger
+from wger.gym.models import Gym
 from wger.weight.models import WeightEntry
+
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +54,6 @@ class Command(BaseCommand):
         "Pumping",
         "Results",
         "Top",
-
     ]
     names_second = [
         "Academy",
@@ -86,10 +88,7 @@ class Command(BaseCommand):
             elements=self.names_first,
         )
 
-        gym_names_2 = DynamicProvider(
-            provider_name="gym_names2",
-            elements=self.names_second
-        )
+        gym_names_2 = DynamicProvider(provider_name="gym_names2", elements=self.names_second)
 
         faker = Faker()
         faker.add_provider(gym_names_1)

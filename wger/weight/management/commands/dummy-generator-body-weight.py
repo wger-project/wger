@@ -20,12 +20,14 @@ import random
 # Django
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+
+# Third Party
+from faker import Faker
 from faker.providers import DynamicProvider
 
 # wger
 from wger.weight.models import WeightEntry
 
-from faker import Faker
 
 logger = logging.getLogger(__name__)
 
