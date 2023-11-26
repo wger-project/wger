@@ -25,14 +25,14 @@ from wger.core.models import Language
 from wger.nutrition.models import Ingredient
 from wger.nutrition.off import extract_info_from_off
 
-
 logger = logging.getLogger(__name__)
 
 
 # Mode for this script. When using 'insert', the script will bulk-insert the new
 # ingredients, which is very efficient. Importing the whole database will require
 # barely a minute. When using 'update', existing ingredients will be updated, which
-# requires two queries per product.
+# requires two queries per product and is needed when there are already existing
+# entries in the local ingredient table.
 class Mode(enum.Enum):
     INSERT = enum.auto()
     UPDATE = enum.auto()
@@ -56,8 +56,8 @@ class Command(BaseCommand):
             dest='mode',
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-            'entries in the database, while update will try to update them if they are '
-            'already present. Deault: insert'
+                 'entries in the database, while update will try to update them if they are '
+                 'already present. Deault: insert'
         )
         parser.add_argument(
             '--completeness',
@@ -66,7 +66,7 @@ class Command(BaseCommand):
             dest='completeness',
             type=float,
             help='Completeness threshold for importing the products. Products in OFF have '
-            'completeness score that ranges from 0 to 1.1'
+                 'completeness score that ranges from 0 to 1.1. Default: 0.7'
         )
 
     def handle(self, **options):
@@ -85,11 +85,10 @@ class Command(BaseCommand):
             return
         self.completeness = options['completeness']
 
-        self.stdout.write(self.style.SUCCESS('Importing entries from Open Food Facts'))
-        self.stdout.write(self.style.SUCCESS(f' - Completeness threshold: {self.completeness}'))
-        self.stdout.write(self.style.SUCCESS(f' - Mode: {self.mode}'))
-        # self.stdout.write(self.style.SUCCESS('**************************************'))
-        self.stdout.write(self.style.SUCCESS(''))
+        self.stdout.write('Importing entries from Open Food Facts')
+        self.stdout.write(f' - Completeness threshold: {self.completeness}')
+        self.stdout.write(f' - {self.mode}')
+        self.stdout.write('')
 
         client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
         db = client.admin
@@ -113,16 +112,18 @@ class Command(BaseCommand):
             try:
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
             except KeyError as e:
-                self.stdout.write('--> KeyError while extracting info from OFF', e)
+                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
                 counter['skipped'] += 1
                 continue
 
             # Some products have no name or name is too long, skipping
             if not ingredient_data['name']:
+                # self.stdout.write('--> Ingredient has no name field')
                 counter['skipped'] += 1
                 continue
 
             if not ingredient_data['common_name']:
+                # self.stdout.write('--> Ingredient has no common name field')
                 counter['skipped'] += 1
                 continue
 
@@ -177,7 +178,5 @@ class Command(BaseCommand):
                     counter['error'] += 1
                     continue
 
-        self.stdout.write(self.style.SUCCESS('**************************************'))
         self.stdout.write(self.style.SUCCESS('Finished!'))
         self.stdout.write(self.style.SUCCESS(str(counter)))
-        self.stdout.write(self.style.SUCCESS('**************************************'))
