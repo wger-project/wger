@@ -36,7 +36,6 @@ from wger.nutrition.models import (
     NutritionPlan,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -60,10 +59,10 @@ class Command(BaseCommand):
         parser.add_argument(
             '--diary-entries',
             action='store',
-            default=30,
+            default=20,
             dest='nr_diary_entries',
             type=int,
-            help='The number of nutrition logs to create per day (default: 30)'
+            help='The number of nutrition logs to create per day (default: 20)'
         )
         parser.add_argument(
             '--diary-dates',

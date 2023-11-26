@@ -24,7 +24,6 @@ from django.core.management.base import BaseCommand
 # wger
 from wger.measurements.models import Category
 
-
 logger = logging.getLogger(__name__)
 
 
