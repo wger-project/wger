@@ -25,7 +25,6 @@ from wger.core.models import Language
 from wger.nutrition.models import Ingredient
 from wger.nutrition.off import extract_info_from_off
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -57,8 +56,8 @@ class Command(BaseCommand):
             dest='mode',
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-            'entries in the database, while update will try to update them if they are '
-            'already present. Deault: insert'
+                 'entries in the database, while update will try to update them if they are '
+                 'already present. Deault: insert'
         )
         parser.add_argument(
             '--completeness',
@@ -67,7 +66,7 @@ class Command(BaseCommand):
             dest='completeness',
             type=float,
             help='Completeness threshold for importing the products. Products in OFF have '
-            'completeness score that ranges from 0 to 1.1. Default: 0.7'
+                 'completeness score that ranges from 0 to 1.1. Default: 0.7'
         )
 
     def handle(self, **options):
@@ -115,17 +114,24 @@ class Command(BaseCommand):
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
             except KeyError as e:
                 # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                # self.stdout.write(
+                #    '***********************************************************************************************')
+                # self.stdout.write(
+                #    '***********************************************************************************************')
+                # self.stdout.write(
+                #    '***********************************************************************************************')
+                # pprint(product)
                 # self.stdout.write(f'--> Product: {product}')
                 counter['skipped'] += 1
                 continue
 
             # Some products have no name or name is too long, skipping
-            if not ingredient_data['name']:
+            if not ingredient_data.name:
                 # self.stdout.write('--> Ingredient has no name field')
                 counter['skipped'] += 1
                 continue
 
-            if not ingredient_data['common_name']:
+            if not ingredient_data.common_name:
                 # self.stdout.write('--> Ingredient has no common name field')
                 counter['skipped'] += 1
                 continue
@@ -133,7 +139,7 @@ class Command(BaseCommand):
             #
             # Add entries as new products
             if self.mode == Mode.INSERT:
-                bulk_update_bucket.append(Ingredient(**ingredient_data))
+                bulk_update_bucket.append(Ingredient(**ingredient_data.dict()))
                 if len(bulk_update_bucket) > self.bulk_size:
                     try:
                         Ingredient.objects.bulk_create(bulk_update_bucket)
@@ -165,7 +171,8 @@ class Command(BaseCommand):
                     # one. While this might not be the most efficient query (there will always
                     # be a SELECT first), it's ok because this script is run very rarely.
                     obj, created = Ingredient.objects.update_or_create(
-                        code=ingredient_data['code'], defaults=ingredient_data
+                        code=ingredient_data.code,
+                        defaults=ingredient_data.dict(),
                     )
 
                     if created:
@@ -177,7 +184,7 @@ class Command(BaseCommand):
 
                 except Exception as e:
                     self.stdout.write('--> Error while performing update_or_create')
-                    self.stdout.write(e)
+                    self.stdout.write(str(e))
                     counter['error'] += 1
                     continue
 
