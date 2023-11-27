@@ -13,12 +13,14 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from dataclasses import dataclass, asdict
+from typing import Optional
+
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
-
 
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
@@ -28,10 +30,36 @@ OFF_REQUIRED_TOP_LEVEL = [
 OFF_REQUIRED_NUTRIMENTS = [
     'proteins_100g',
     'carbohydrates_100g',
-    'sugars_100g',
     'fat_100g',
     'saturated-fat_100g',
 ]
+
+
+@dataclass
+class IngredientData:
+    name: str
+    language_id: int
+    energy: float
+    protein: float
+    carbohydrates: float
+    carbohydrates_sugar: float
+    fat: float
+    fat_saturated: float
+    fibres: Optional[float]
+    sodium: Optional[float]
+    code: str
+    source_name: str
+    source_url: str
+    common_name: str
+    brand: str
+    status: str
+    license_id: int
+    license_author: str
+    license_title: str
+    license_object_url: str
+
+    def dict(self):
+        return asdict(self)
 
 
 def extract_info_from_off(product_data, language: int):
@@ -63,9 +91,9 @@ def extract_info_from_off(product_data, language: int):
     code = product_data['code']
     protein = product_data['nutriments']['proteins_100g']
     carbs = product_data['nutriments']['carbohydrates_100g']
-    sugars = product_data['nutriments']['sugars_100g']
+    sugars = product_data['nutriments'].get('sugars_100g', 0)
     fat = product_data['nutriments']['fat_100g']
-    saturated = product_data['nutriments']['saturated-fat_100g']
+    saturated = product_data['nutriments'].get('saturated-fat_100g', 0)
 
     # these are optional
     sodium = product_data['nutriments'].get('sodium_100g', None)
@@ -78,25 +106,25 @@ def extract_info_from_off(product_data, language: int):
     authors = ', '.join(product_data.get('editors_tags', ['open food facts']))
     object_url = f'https://world.openfoodfacts.org/product/{code}/'
 
-    return {
-        'name': name,
-        'language_id': language,
-        'energy': energy,
-        'protein': protein,
-        'carbohydrates': carbs,
-        'carbohydrates_sugar': sugars,
-        'fat': fat,
-        'fat_saturated': saturated,
-        'fibres': fibre,
-        'sodium': sodium,
-        'code': code,
-        'source_name': source_name,
-        'source_url': source_url,
-        'common_name': common_name,
-        'brand': brand,
-        'status': AbstractSubmissionModel.STATUS_ACCEPTED,
-        'license_id': ODBL_LICENSE_ID,
-        'license_author': authors,
-        'license_title': name,
-        'license_object_url': object_url
-    }
+    return IngredientData(
+        name=name,
+        language_id=language,
+        energy=energy,
+        protein=protein,
+        carbohydrates=carbs,
+        carbohydrates_sugar=sugars,
+        fat=fat,
+        fat_saturated=saturated,
+        fibres=fibre,
+        sodium=sodium,
+        code=code,
+        source_name=source_name,
+        source_url=source_url,
+        common_name=common_name,
+        brand=brand,
+        status=AbstractSubmissionModel.STATUS_ACCEPTED,
+        license_id=ODBL_LICENSE_ID,
+        license_author=authors,
+        license_title=name,
+        license_object_url=object_url
+    )

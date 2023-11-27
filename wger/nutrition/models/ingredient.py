@@ -65,7 +65,6 @@ from wger.utils.models import (
 # Local
 from .ingredient_category import IngredientCategory
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -481,13 +480,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         except KeyError:
             return None
 
-        if not ingredient_data['name']:
+        if not ingredient_data.name:
             return
 
-        if not ingredient_data['common_name']:
+        if not ingredient_data.common_name:
             return
 
-        ingredient = cls(**ingredient_data)
+        ingredient = cls(**ingredient_data.dict())
         ingredient.save()
         logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
         return ingredient

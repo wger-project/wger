@@ -17,7 +17,10 @@
 from django.test import SimpleTestCase
 
 # wger
-from wger.nutrition.off import extract_info_from_off
+from wger.nutrition.off import (
+    extract_info_from_off,
+    IngredientData
+)
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
@@ -54,30 +57,30 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         Test that the function can read the regular case
         """
         result = extract_info_from_off(self.off_data1, 1)
-        test = {
-            'name': 'Foo with chocolate',
-            'language_id': 1,
-            'energy': 120,
-            'protein': 10,
-            'carbohydrates': 20,
-            'carbohydrates_sugar': 30,
-            'fat': 40,
-            'fat_saturated': 11,
-            'fibres': None,
-            'sodium': 5,
-            'code': '1234',
-            'source_name': 'Open Food Facts',
-            'source_url': 'https://world.openfoodfacts.org/api/v2/product/1234.json',
-            'common_name': 'Foo with chocolate, 250g package',
-            'brand': 'The bar company',
-            'status': AbstractSubmissionModel.STATUS_ACCEPTED,
-            'license_id': ODBL_LICENSE_ID,
-            'license_author': 'open food facts, MrX',
-            'license_title': 'Foo with chocolate',
-            'license_object_url': 'https://world.openfoodfacts.org/product/1234/'
-        }
+        data = IngredientData(
+            name='Foo with chocolate',
+            language_id=1,
+            energy=120,
+            protein=10,
+            carbohydrates=20,
+            carbohydrates_sugar=30,
+            fat=40,
+            fat_saturated=11,
+            fibres=None,
+            sodium=5,
+            code='1234',
+            source_name='Open Food Facts',
+            source_url='https://world.openfoodfacts.org/api/v2/product/1234.json',
+            common_name='Foo with chocolate, 250g package',
+            brand='The bar company',
+            status=AbstractSubmissionModel.STATUS_ACCEPTED,
+            license_id=ODBL_LICENSE_ID,
+            license_author='open food facts, MrX',
+            license_title='Foo with chocolate',
+            license_object_url='https://world.openfoodfacts.org/product/1234/'
+        )
 
-        self.assertDictEqual(result, test)
+        self.assertEqual(result, data)
 
     def test_convert_kj(self):
         """
@@ -90,7 +93,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         result = extract_info_from_off(self.off_data1, 1)
 
         # 120 / KJ_PER_KCAL
-        self.assertAlmostEqual(result['energy'], 28.6806, 3)
+        self.assertAlmostEqual(result.energy, 28.6806, 3)
 
     def test_no_energy(self):
         """
@@ -99,3 +102,14 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         del self.off_data1['nutriments']['energy-kcal_100g']
 
         self.assertRaises(KeyError, extract_info_from_off, self.off_data1, 1)
+
+    def test_no_sugar_or_saturated_fat(self):
+        """
+        No sugar or saturated fat available
+        """
+        del self.off_data1['nutriments']['sugars_100g']
+        del self.off_data1['nutriments']['saturated-fat_100g']
+        result = extract_info_from_off(self.off_data1, 1)
+
+        self.assertEqual(result.carbohydrates_sugar, 0)
+        self.assertEqual(result.fat_saturated, 0)
