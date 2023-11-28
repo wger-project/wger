@@ -24,7 +24,7 @@ django-storages~=1.14
 django-environ==0.11.2
 drf-spectacular[sidecar]==0.26.5
 easy-thumbnails==2.8.5
-fontawesomefree~=6.4.2
+fontawesomefree~=6.5.0
 icalendar==5.0.11
 invoke==2.2.0
 openfoodfacts==0.1.12
