@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2023-05-30 17:48+0000\n"
-"Last-Translator: Célian <gallcelian@gmail.com>\n"
+"PO-Revision-Date: 2023-12-01 13:05+0000\n"
+"Last-Translator: yoyomax80400 <archie.maxime80@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -503,12 +503,7 @@ msgid "Something happened that caused an error."
 msgstr "Quelque-chose s'est passé et a causé un erreur."
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -516,9 +511,9 @@ msgid ""
 "            "
 msgstr ""
 "Vous êtes\n"
-"    en train de naviguer sur le site en tant qu’utilisateur « "
-"%(current_user)s », toutes les actions sont effectuées sur ses données.\n"
-"    "
+"    en train de naviguer sur le site en tant qu’utilisateur « %(current_user)"
+"s », toutes les actions sont effectuées sur ses données.\n"
+"            "
 
 #: core/templates/base.html:16 core/templates/base_wide.html:14
 #, python-format
@@ -1075,11 +1070,11 @@ msgstr "L’équipe de %(site_name)s"
 
 #: core/templates/rest_framework/api.html:37
 msgid "request info"
-msgstr ""
+msgstr "Demande d'info"
 
 #: core/templates/rest_framework/api.html:41
 msgid "response info"
-msgstr ""
+msgstr "informations sur la réponse"
 
 #: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
 msgid "previous"
@@ -2157,7 +2152,7 @@ msgstr "Mollets"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Cardio"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -2192,10 +2187,8 @@ msgid "Kilometers"
 msgstr "kilomètres"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "kilomètres"
+msgstr "Kilomètres par heure"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2215,7 +2208,7 @@ msgstr "Miles"
 
 #: i18n.tpl:24
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Miles par heure\""
 
 #: i18n.tpl:25
 msgid "Minutes"
@@ -2223,7 +2216,7 @@ msgstr "Minutes"
 
 #: i18n.tpl:26
 msgid "Plates"
-msgstr ""
+msgstr "Plaques"
 
 #: i18n.tpl:27
 msgid "Pull-up bar"
@@ -2341,10 +2334,8 @@ msgstr ""
 "ensemble."
 
 #: manager/forms.py:143 nutrition/forms.py:248
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Afficher les ingrédients en anglais"
+msgstr "Recherchez également des noms en anglais"
 
 #: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2612,12 +2603,6 @@ msgstr ""
 "les uns après les autres."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2679,13 +2664,7 @@ msgid "Start schedule"
 msgstr "Démarrer le programme"
 
 #: manager/templates/schedule/view.html:188
-#, fuzzy, python-format
-#| msgid ""
-#| "%(weeks)s Week\n"
-#| "                    "
-#| msgid_plural ""
-#| "%(weeks)s Weeks\n"
-#| "                    "
+#, python-format
 msgid ""
 "%(weeks)s Week\n"
 "                                    "
@@ -2694,10 +2673,10 @@ msgid_plural ""
 "                                "
 msgstr[0] ""
 "%(weeks)s semaine\n"
-"                    "
+"                                "
 msgstr[1] ""
 "%(weeks)s semaines\n"
-"                    "
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
@@ -3010,16 +2989,12 @@ msgid "Height (in)"
 msgstr "Taille (cm)"
 
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "Journal de pesée"
+msgstr "\"Poids (kg)\""
 
 #: nutrition/forms.py:118
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "Journal de pesée"
+msgstr "Poids (lbs)"
 
 #: nutrition/forms.py:129
 msgid "Calculate"
@@ -3592,15 +3567,15 @@ msgstr ""
 
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
-msgstr ""
+msgstr "Veuillez vous assurer que votre taille est dans la plage appropriée."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "140 à 230"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "56 à 90"
 
 #: nutrition/views/ingredient.py:165
 msgid "Add a new ingredient"
@@ -3704,33 +3679,23 @@ msgid "Our goal"
 msgstr "Notre objectif"
 
 #: software/templates/about_us.html:53
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
 "complete list of exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"Le but est de construire un entraîneur de conditionnement physique "
-"impressionnant et flexible, ainsi qu’une liste exhaustive et complète "
-"d’exercices et d’ingrédients, tous publiés sous une licence libre."
+"L'objectif est de créer un gestionnaire de fitness impressionnant et "
+"flexible, ainsi qu’une liste exhaustive et complète d’exercices et d’"
+"ingrédients, le tous publiés sous une licence libre."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
-"wger Workout Manager est une application web open source gratuit qui gère "
-"vos exercices et séances d’entraînement. "
+"Le gestionnaire d'entraînement wger est une application web gratuite et open "
+"source qui gère vos exercices et entraînements"
 
 #: software/templates/features.html:45
 msgid "About"
@@ -3738,40 +3703,38 @@ msgstr "À propos"
 
 #: software/templates/features.html:50
 msgid "Mobile app"
-msgstr ""
+msgstr "Application mobile"
 
 #: software/templates/features.html:56 software/templates/features.html:312
 msgid "Donate"
-msgstr ""
+msgstr "Faire un don"
 
 #: software/templates/features.html:61
 msgid "Develop"
-msgstr ""
+msgstr "Développer"
 
 #: software/templates/features.html:66 software/templates/features.html:448
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Commentaire"
+msgstr "Communauté"
 
 #: software/templates/features.html:100
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Suivez votre <br> progressions vers votre <br> corps idéal"
 
 #: software/templates/features.html:103
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Rejoignez wger, le tracker de fitness <b>gratuit et open source</b> piloté "
+"par la communauté"
 
 #: software/templates/features.html:113
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Récupérer le code"
+msgstr "Commencer"
 
 #: software/templates/features.html:123
 msgid "people <br> using wger"
-msgstr ""
+msgstr "Personnes <br> utilisant wger"
 
 #: software/templates/features.html:127
 #, fuzzy
