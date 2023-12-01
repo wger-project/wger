@@ -6,10 +6,13 @@
 -r requirements.txt
 
 # Building/installing
-wheel==0.41.2
+wheel==0.42.0
 
 # for ingredient import script from OFF
 pymongo==4.6.0
+
+# for running the dummy entry generators
+faker==20.1.0
 
 # Development packages
 coverage==7.3.2

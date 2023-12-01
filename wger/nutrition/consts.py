@@ -34,3 +34,5 @@ ENERGY_FACTOR = {
 """
 Simple approximation of energy (kcal) provided per gram or ounce
 """
+
+KJ_PER_KCAL = 4.184

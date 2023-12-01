@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 11:42+0200\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2023-11-24 01:08+0000\n"
+"Last-Translator: dimii27 <dimitrieietcu@gmail.com>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/wger/web/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -21,17 +21,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 5.2.1-rc\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
-msgstr ""
+msgstr "Sala implicită"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"Selectați sala implicită pentru această instalare. Asta va aloca toți "
+"utilizatorii noi înregistrați la această sală și va actualiza toți "
+"utilizatorii existenți fără o sală."
 
 #: config/views/gym_config.py:41 core/templates/language/view.html:63
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:18
@@ -62,38 +65,39 @@ msgstr "Editare"
 
 #: core/demo.py:95
 msgid "Sample workout"
-msgstr ""
+msgstr "Workout de probă"
 
 #: core/demo.py:99
 msgid "Sample day"
-msgstr ""
+msgstr "Zi de probă"
 
 #: core/demo.py:103
 msgid "Another sample day"
-msgstr ""
+msgstr "Altă zi de probă"
 
 #: core/demo.py:211
 msgid "Sample nutritional plan"
-msgstr ""
+msgstr "Plan nutrițional de probă"
 
 #: core/demo.py:343 core/demo.py:345 core/demo.py:347
 #, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
-msgstr ""
+msgstr "Substituent workout nr {0} pentru program"
 
 #: core/demo.py:352
+#, fuzzy
 msgid "My cool workout schedule"
-msgstr ""
+msgstr "Programul meu cool de antrenament"
 
 #: core/demo.py:391 core/demo.py:406
 msgid "Empty placeholder schedule"
-msgstr ""
+msgstr "Program substituent gol"
 
 #: core/forms.py:69 core/templates/navigation.html:258
 #: core/templates/navigation.html:264 core/templates/user/login.html:4
 #: software/templates/features.html:75 software/templates/features.html:420
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: core/forms.py:108 core/forms.py:209 gym/views/export.py:63
 #: gym/views/gym.py:218
@@ -116,17 +120,15 @@ msgid "Email"
 msgstr "Adresa de email"
 
 #: core/forms.py:112
-#, fuzzy
-#| msgid "Used for password resets and, optionally, email reminders."
 msgid "Used for password resets and, optionally, e-mail reminders."
 msgstr ""
-"Folosit pentru resetarea parolei și, opțional, pentru memento-uri prin e-"
-"mail."
+"Folosit pentru resetarea parolei și, opțional, pentru memento-uri prin "
+"e-mail."
 
 #: core/forms.py:116 core/models/profile.py:224
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Data nașterii"
 
 #: core/forms.py:148
 msgid "Personal data"
@@ -154,10 +156,8 @@ msgstr ""
 "mail."
 
 #: core/forms.py:205
-#, fuzzy
-#| msgid "This email is already used."
 msgid "This e-mail address is already in use."
-msgstr "Acest email este deja folosit."
+msgstr "Acest email este deja în uz."
 
 #: core/forms.py:225 gym/templates/gym/new_user.html:26
 #: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
@@ -199,7 +199,7 @@ msgstr "Parola incorectă"
 
 #: core/forms.py:257 core/forms.py:327
 msgid "The form is secured with reCAPTCHA"
-msgstr ""
+msgstr "Acest formular este securizat cu reCAPTCHA"
 
 #: core/forms.py:271 core/forms.py:292 core/templates/navigation.html:258
 #: core/templates/navigation.html:269 core/templates/template.html:150
@@ -213,10 +213,8 @@ msgid "Contact"
 msgstr "Contact"
 
 #: core/forms.py:306
-#, fuzzy
-#| msgid "Some way of answering you (email, etc.)"
 msgid "Some way of answering you (e-mail, etc.)"
-msgstr "Metodă de contactare (email, etc)"
+msgstr "Metodă de contactare (e-mail, etc.)"
 
 #: core/forms.py:314 exercises/models/comment.py:42 manager/models/set.py:60
 #: manager/models/setting.py:111 nutrition/models/log.py:71
@@ -229,7 +227,7 @@ msgstr "Ce vrei să spui?"
 
 #: core/models/days_of_week.py:29
 msgid "Day of the week"
-msgstr ""
+msgstr "Zi a săptămânii"
 
 #: core/models/language.py:31 core/templates/language/view.html:21
 msgid "Language short name"
@@ -241,25 +239,27 @@ msgstr "Denumirea limbii complet"
 
 #: core/models/license.py:29
 msgid "Full name"
-msgstr ""
+msgstr "Nume complet"
 
 #: core/models/license.py:31
 msgid ""
 "If a license has been localized, e.g. the Creative Commons licenses for the "
 "different countries, add them as separate entries here."
 msgstr ""
+"Dacă o licență a fost localizată, de ex. licențele Creative Commons pentru "
+"diferite țări, adăugați-le ca intrări separate aici."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
-msgstr ""
+msgstr "Nume scurt, de ex. CC-BY-SA 3"
 
 #: core/models/license.py:45 nutrition/models/ingredient.py:202
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: core/models/license.py:46
 msgid "Link to license text or other information"
-msgstr ""
+msgstr "Link către textul licenței sau alte informații"
 
 #: core/models/profile.py:56
 #, python-format
@@ -332,18 +332,24 @@ msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
 msgstr ""
+"Bifează pentru a activa mementourile automate pentru antrenamente. Trebuie "
+"să furnizezi un e-mail valid pentru ca acest lucru să funcționeze."
 
 #: core/models/profile.py:152
 msgid "Remind before expiration"
-msgstr ""
+msgstr "Memento înainte de expirare"
 
 #: core/models/profile.py:153
+#, fuzzy
 msgid "The number of days you want to be reminded before a workout expires."
 msgstr ""
+"Numărul de zile în avans în care vrei sa ți se amintească înainte ca un "
+"workout să expire."
 
 #: core/models/profile.py:159
+#, fuzzy
 msgid "Default duration of workouts"
-msgstr ""
+msgstr "Durata implicită a antrenamentelor"
 
 #: core/models/profile.py:161
 msgid ""

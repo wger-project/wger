@@ -24,11 +24,10 @@ from typing import Union
 
 # wger
 from wger.nutrition.consts import (
+    KJ_PER_KCAL,
     MEALITEM_WEIGHT_GRAM,
     MEALITEM_WEIGHT_UNIT,
 )
-from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight
 
 
 class BaseMealItem:
@@ -116,7 +115,7 @@ class NutritionalValues:
 
     @property
     def energy_kilojoule(self):
-        return self.energy * 4.184
+        return self.energy * KJ_PER_KCAL
 
     def __add__(self, other: 'NutritionalValues'):
         """
