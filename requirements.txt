@@ -43,7 +43,7 @@ flower==2.0.1
 django-cors-headers==4.3.1
 django-filter==23.4
 djangorestframework~=3.14
-djangorestframework-simplejwt[crypto]==5.3.0
+djangorestframework-simplejwt[crypto]==5.3.1
 
 # Not used anymore, but needed because some modules are imported in DB migration
 # files
