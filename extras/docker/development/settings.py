@@ -79,7 +79,7 @@ if os.environ.get("ENABLE_EMAIL"):
     EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
     EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
-    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", True)
+    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", False)
     EMAIL_TIMEOUT = 60
 
 # Sender address used for sent emails
