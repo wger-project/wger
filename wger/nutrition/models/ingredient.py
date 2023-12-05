@@ -65,6 +65,7 @@ from wger.utils.models import (
 # Local
 from .ingredient_category import IngredientCategory
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -13,7 +13,11 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from dataclasses import dataclass, asdict
+# Standard Library
+from dataclasses import (
+    asdict,
+    dataclass,
+)
 from typing import Optional
 
 # wger
@@ -21,6 +25,7 @@ from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
+
 
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
