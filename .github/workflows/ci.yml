@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           cache: 'pip'
           python-version: ${{ matrix.python-version }}
