@@ -34,7 +34,7 @@ jobs:
           # https://github.com/docker/metadata-action
           tags: |
             type=raw,value=latest
-            type=raw,value=2.2-dev
+            type=raw,value=2.3-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
             ${{ env.REGISTRY_IMAGE_ALT }}
@@ -114,12 +114,10 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
-        # Think if we want to also build branches, PRs, tags, etc.
-        # https://github.com/docker/metadata-action
         with:
           tags: |
             type=raw,value=latest
-            type=raw,value=2.2-dev
+            type=raw,value=2.3-dev
           images: |
             ${{ env.REGISTRY_IMAGE }}
             ${{ env.REGISTRY_IMAGE_ALT }}
