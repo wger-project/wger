@@ -1,15 +1,13 @@
 # Development image for wger
+
 wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that help
 you manage your personal workouts, weight and diet plans and can also be used
 as a simple gym management utility. It offers a REST API as well, for easy
 integration with other projects and tools.
 
-Please note that this image is intended for development, if you want to
-host your own instance, take a look at the provided docker compose file:
+If you want to host your own instance, take a look at the provided docker compose file:
 
 <https://github.com/wger-project/docker>
-
-
 
 ## Usage
 
@@ -21,7 +19,6 @@ it is self-contained).
 A more comfortable development version is provided in the compose folder.
 
 ### 1 - Start the container
-
 
     docker run -ti  \
        -v /path/to/your/wger/checkout:/home/wger/src \
@@ -66,7 +63,6 @@ project root!
 
 ```docker build -f extras/docker/development/Dockerfile --tag wger/server .```
 
-
 ## Contact
 
 Feel free to contact us if you found this useful or if there was something that
@@ -74,9 +70,9 @@ didn't behave as you expected. We can't fix what we don't know about, so please
 report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
-* discord: <https://discord.gg/rPWFv6W>
-* issue tracker: <https://github.com/wger-project/wger/issues>
-* twitter: <https://twitter.com/wger_project>
+* Discord: <https://discord.gg/rPWFv6W>
+* Issue tracker: <https://github.com/wger-project/wger/issues>
+* Mastodon: <https://fosstodon.org/@wger>
 
 ## Sources
 

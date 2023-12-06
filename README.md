@@ -1,4 +1,5 @@
 ﻿# wger
+
 <img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png" width="100" height="100" />
 
 wger (ˈvɛɡɐ) Workout Manager is a free, open source web application that helps
@@ -10,15 +11,14 @@ For a live system, refer to the project's site: <https://wger.de/>
 
 ![Workout plan](https://raw.githubusercontent.com/wger-project/wger/master/wger/software/static/images/workout.png)
 
-
 ## Mobile app
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-      alt="Get it on Google Play"
-      height="80">](https://play.google.com/store/apps/details?id=de.wger.flutter)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-      alt="Get it on F-Droid"
-      height="80">](https://f-droid.org/packages/de.wger.flutter/)
 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+alt="Get it on Google Play"
+height="80">](https://play.google.com/store/apps/details?id=de.wger.flutter)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+alt="Get it on F-Droid"
+height="80">](https://f-droid.org/packages/de.wger.flutter/)
 
 ## Installation
 
@@ -29,7 +29,6 @@ as an administration guide available at <https://wger.readthedocs.io> or in the
 
 Please consult the commands' help for further information and available
 parameters.
-
 
 ### Production
 
@@ -67,7 +66,7 @@ docker run -ti  \
 Then just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
 For more info, check the [README in wger/extras/developemt](
- ./extras/docker/development/README.md
+./extras/docker/development/README.md
 ).
 
 Alternatively you can use the production compose file for development as well,
@@ -79,7 +78,6 @@ file for details). You will also probably want to set `DJANGO_DEBUG to false
 If you prefer a local installation, consult the
 [development documentation](https://wger.readthedocs.io/en/latest/development.html)
 
-
 ## Contact
 
 Feel free to contact us if you found this useful or if there was something that
@@ -87,10 +85,9 @@ didn't behave as you expected. We can't fix what we don't know about, so please
 report liberally. If you're not sure if something is a bug or not, feel free to
 file a bug anyway.
 
-* **discord:** <https://discord.gg/rPWFv6W>
-* **issue tracker:** <https://github.com/wger-project/wger/issues>
-* **twitter:** <https://twitter.com/wger_project>
-
+* **Discord:** <https://discord.gg/rPWFv6W>
+* **Issue tracker:** <https://github.com/wger-project/wger/issues>
+* **Mastodon:** <https://fosstodon.org/@wger>
 
 ## Sources
 
@@ -98,12 +95,11 @@ All the code and the content is available on github:
 
 <https://github.com/wger-project/wger>
 
-
 ## Translation
+
 Translate the app to your language on [Weblate](https://hosted.weblate.org/engage/wger/).
 
-[![translation status](https://hosted.weblate.org/widgets/wger/-/web/multi-blue.svg)](https://hosted.weblate.org/engage/wger/)
-
+[![translation status](https://hosted.weblate.org/widgets/wger/-/multi-blue.svg)](https://hosted.weblate.org/engage/wger/)
 
 ## License
 

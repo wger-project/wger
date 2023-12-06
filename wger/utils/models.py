@@ -49,19 +49,19 @@ class AbstractLicenseModel(models.Model):
 
     license_title = models.CharField(
         verbose_name=_('The original title of this object, if available'),
-        max_length=200,
+        max_length=300,
         blank=True,
     )
 
     license_object_url = models.URLField(
         verbose_name=_('Link to original object, if available'),
-        max_length=100,
+        max_length=200,
         blank=True,
     )
 
     license_author = models.CharField(
         verbose_name=_('Author(s)'),
-        max_length=200,
+        max_length=600,
         blank=True,
         null=True,
         help_text=_('If you are not the author, enter the name or source here.')
@@ -69,7 +69,7 @@ class AbstractLicenseModel(models.Model):
 
     license_author_url = models.URLField(
         verbose_name=_('Link to author profile, if available'),
-        max_length=100,
+        max_length=200,
         blank=True,
     )
 
@@ -80,7 +80,7 @@ class AbstractLicenseModel(models.Model):
             'work, but which also contains sufficient new, creative content to entitle it '
             'to its own copyright.'
         ),
-        max_length=100,
+        max_length=200,
         blank=True,
     )
 

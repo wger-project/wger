@@ -17,11 +17,11 @@
 
 # Standard Library
 import logging
+from uuid import UUID
 
 # Django
 from django.conf import settings
 from django.db.models import Q
-from django.http import HttpRequest
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
@@ -37,6 +37,7 @@ from drf_spectacular.utils import (
     inline_serializer,
 )
 from easy_thumbnails.alias import aliases
+from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.files import get_thumbnailer
 from rest_framework import viewsets
 from rest_framework.decorators import (
@@ -100,7 +101,7 @@ class ExerciseBaseViewSet(ModelViewSet):
 
     For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
-    queryset = ExerciseBase.objects.all()
+    queryset = ExerciseBase.translations.all()
     serializer_class = ExerciseBaseSerializer
     permission_classes = (CanContributeExercises, )
     ordering_fields = '__all__'
@@ -133,6 +134,17 @@ class ExerciseBaseViewSet(ModelViewSet):
             action_object=serializer.instance,
         )
 
+    def perform_destroy(self, instance: ExerciseBase):
+        """Manually delete the exercise and set the replacement, if any"""
+
+        uuid = self.request.query_params.get('replaced_by', '')
+        try:
+            UUID(uuid, version=4)
+        except ValueError:
+            uuid = None
+
+        instance.delete(replace_by=uuid)
+
 
 class ExerciseTranslationViewSet(ModelViewSet):
     """
@@ -144,7 +156,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
-        'creation_date',
+        'created',
         'exercise_base',
         'description',
         'name',
@@ -213,7 +225,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'uuid',
-        'creation_date',
+        'created',
         'exercise_base',
         'description',
         'language',
@@ -283,7 +295,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
             'term',
             OpenApiTypes.STR,
             OpenApiParameter.QUERY,
-            description='The name of the exercise to search"',
+            description='The name of the exercise to search',
             required=True,
         ),
         OpenApiParameter(
@@ -348,7 +360,11 @@ def search(request):
             image_obj = translation.main_image
             image = image_obj.image.url
             t = get_thumbnailer(image_obj.image)
-            thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+            thumbnail = None
+            try:
+                thumbnail = t.get_thumbnail(aliases.get('micro_cropped')).url
+            except InvalidImageFormatError:
+                pass
 
         result_json = {
             'value': translation.name,
@@ -375,7 +391,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
-        'creation_date',
+        'created',
         'description',
         'name',
         'exercise_base',
@@ -416,10 +432,6 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license',
         'license_author',
     )
-
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
-    def dispatch(self, request: HttpRequest, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
 
 class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):

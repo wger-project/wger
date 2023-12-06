@@ -156,6 +156,18 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """The video codec, in full"""
 
+    created = models.DateTimeField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The creation time"""
+
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
+    """Datetime of last modification"""
+
     history = HistoricalRecords()
     """Edit history"""
 

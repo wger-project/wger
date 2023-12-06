@@ -519,10 +519,19 @@
                                    rel="noopener noreferrer">
                                     <i class="fab fa-discord px-2"></i>
                                 </a>
-                                <a href="https://twitter.com/wger_project" target="_blank"
-                                   rel="noopener noreferrer">
-                                    <i class="fab fa-twitter px-2" aria-hidden="true"></i>
-                                </a>
+                                {% if twitter %}
+                                    <a href="https://twitter.com/{{ twitter }}" target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i class="fab fa-twitter px-2" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if mastodon %}
+                                    <a href="{{ mastodon }}" target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i class="fab fa-mastodon px-2" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                             </h1>
                         </li>
                         <li class="list-group-item bg-transparent border-0">

@@ -23,6 +23,7 @@ import uuid
 # Django
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.http import HttpRequest
 from django.utils.translation import gettext as _
 
 # wger
@@ -60,7 +61,7 @@ UUID_CRUNCHES = 'b186f1f8-4957-44dc-bf30-d0b00064ce6f'
 UUID_LEG_RAISES = 'c2078aac-e4e2-4103-a845-6252a3eb795e'
 
 
-def create_temporary_user():
+def create_temporary_user(request: HttpRequest):
     """
     Creates a temporary user
     """
@@ -75,7 +76,7 @@ def create_temporary_user():
     user_profile.age = 25
     user_profile.height = 175
     user_profile.save()
-    user = authenticate(username=username, password=password)
+    user = authenticate(request=request, username=username, password=password)
     return user
 
 

@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'wger.measurements',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
-    'captcha',
+    'django_recaptcha',
 
     # The sitemaps app
     'django.contrib.sitemaps',
@@ -205,6 +205,7 @@ LOGIN_REDIRECT_URL = '/'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -237,6 +238,7 @@ AVAILABLE_LANGUAGES = (
     ('es-ni', 'Nicaraguan Spanish'),
     ('es-ve', 'Venezuelan Spanish'),
     ('fr', 'French'),
+    ('hr', 'Croatian'),
     ('it', 'Italian'),
     ('nl', 'Dutch'),
     ('nb', 'Norwegian'),
@@ -282,6 +284,11 @@ LOGGING = {
         'wger': {
             'handlers': ['console'],
             'level': 'DEBUG',
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         }
     }
 }
@@ -529,6 +536,7 @@ WGER_SETTINGS = {
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'TWITTER': False,
+    'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
@@ -543,7 +551,7 @@ def email_verified_callback(user):
     user.userprofile.save()
 
 
-EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_MAIL_CALLBACK = email_verified_callback
 EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
@@ -553,7 +561,7 @@ EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
-# Django activity stream
+# Django-activity stream
 #
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,

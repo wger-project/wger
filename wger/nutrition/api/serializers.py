@@ -104,6 +104,31 @@ class IngredientImageSerializer(serializers.ModelSerializer):
         ]
 
 
+class IngredientInfoImageSerializer(serializers.ModelSerializer):
+    """
+    Image serializer
+    """
+
+    class Meta:
+        model = Image
+        fields = [
+            'id',
+            'uuid',
+            'image',
+            'created',
+            'last_update',
+            'size',
+            'width',
+            'height',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+        ]
+
+
 class IngredientSerializer(serializers.ModelSerializer):
     """
     Ingredient serializer
@@ -116,8 +141,8 @@ class IngredientSerializer(serializers.ModelSerializer):
             'uuid',
             'code',
             'name',
-            'creation_date',
-            'update_date',
+            'created',
+            'last_update',
             'energy',
             'protein',
             'carbohydrates',
@@ -141,17 +166,19 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     Ingredient info serializer
     """
 
-    ingredientweightunit_set = IngredientWeightUnitInfoSerializer(many=True)
+    weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
+    image = IngredientInfoImageSerializer(read_only=True)
 
     class Meta:
         model = Ingredient
         depth = 1
         fields = [
             'id',
+            'uuid',
             'code',
             'name',
-            'creation_date',
-            'update_date',
+            'created',
+            'last_update',
             'energy',
             'protein',
             'carbohydrates',
@@ -160,10 +187,15 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
             'fat_saturated',
             'fibres',
             'sodium',
-            'license',
-            'license_author',
-            'ingredientweightunit_set',
+            'weight_units',
             'language',
+            'image',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
         ]
 
 
@@ -266,7 +298,10 @@ class MealInfoSerializer(serializers.ModelSerializer):
 
     meal_items = MealItemInfoSerializer(source='mealitem_set', many=True)
     plan = serializers.PrimaryKeyRelatedField(read_only=True)
-    get_nutritional_values = NutritionalValuesSerializer(read_only=True)
+    nutritional_values = NutritionalValuesSerializer(
+        source='get_nutritional_values',
+        read_only=True,
+    )
 
     class Meta:
         model = Meal
@@ -277,7 +312,7 @@ class MealInfoSerializer(serializers.ModelSerializer):
             'time',
             'name',
             'meal_items',
-            'get_nutritional_values',
+            'nutritional_values',
         ]
 
 
@@ -286,9 +321,21 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
     Nutritional plan serializer
     """
 
+    # nutritional_values = NutritionalValuesSerializer(source='get_nutritional_values.total')
+
     class Meta:
         model = NutritionPlan
-        exclude = ('user', )
+        fields = [
+            'id',
+            'creation_date',
+            'description',
+            'only_logging',
+            'goal_energy',
+            'goal_protein',
+            'goal_carbohydrates',
+            'goal_fat',
+            # 'nutritional_values',
+        ]
 
 
 class NutritionPlanInfoSerializer(serializers.ModelSerializer):
@@ -296,18 +343,13 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     Nutritional plan info serializer
     """
     meals = MealInfoSerializer(source='meal_set', many=True)
-    get_nutritional_values = NutritionalValuesSerializer(
-        source='get_nutritional_values.total', read_only=True
-    )
 
     class Meta:
         model = NutritionPlan
         depth = 1
         fields = [
             'id',
-            'language',
             'creation_date',
             'description',
-            'get_nutritional_values',
             'meals',
         ]

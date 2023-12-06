@@ -30,7 +30,7 @@ from wger.nutrition.sync import download_ingredient_images
 
 class Command(BaseCommand):
     """
-    Download ingredient images from wger.de and updates the local database
+    Download ingredient images from a wger instance and updates the local database
 
     Both the ingredients and the images are identified by their UUID, which can't
     be modified via the GUI.

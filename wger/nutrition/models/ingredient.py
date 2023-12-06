@@ -18,6 +18,7 @@
 import logging
 import uuid as uuid
 from decimal import Decimal
+from json import JSONDecodeError
 
 # Django
 from django.conf import settings
@@ -39,10 +40,22 @@ from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from openfoodfacts import API
+
 # wger
 from wger.core.models import Language
+from wger.nutrition.consts import (
+    ENERGY_FACTOR,
+    KJ_PER_KCAL,
+)
+from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import TWOPLACES
+from wger.utils.constants import (
+    OFF_SEARCH_PRODUCT_FOUND,
+    TWOPLACES,
+)
+from wger.utils.language import load_language
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
@@ -50,9 +63,7 @@ from wger.utils.models import (
 )
 
 # Local
-from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
-from .sources import Source
 
 
 logger = logging.getLogger(__name__)
@@ -85,13 +96,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
     )
     """Date when the ingredient was created"""
 
-    update_date = models.DateField(
+    last_update = models.DateTimeField(
         _('Date'),
         auto_now=True,
         blank=True,
@@ -415,7 +426,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         returns kilojoules for current ingredient, 0 if energy is uninitialized
         """
         if self.energy:
-            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+            return Decimal(self.energy * KJ_PER_KCAL).quantize(TWOPLACES)
         else:
             return 0
 
@@ -445,3 +456,38 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         # wger
         from wger.nutrition.tasks import fetch_ingredient_image_task
         fetch_ingredient_image_task.delay(self.pk)
+
+    @classmethod
+    def fetch_ingredient_from_off(cls, code: str):
+        """
+        Searches OFF by barcode and creates a local ingredient from the result
+        """
+        # wger
+        from wger.nutrition.off import extract_info_from_off
+
+        logger.info(f'Searching for ingredient {code} in OFF')
+        try:
+            api = API()
+            result = api.product.get(code)
+        except JSONDecodeError as e:
+            logger.info(f'Got JSONDecodeError from OFF: {e}')
+            return None
+        if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
+            return None
+        product = result['product']
+
+        try:
+            ingredient_data = extract_info_from_off(product, load_language(product['lang']).pk)
+        except KeyError:
+            return None
+
+        if not ingredient_data.name:
+            return
+
+        if not ingredient_data.common_name:
+            return
+
+        ingredient = cls(**ingredient_data.dict())
+        ingredient.save()
+        logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
+        return ingredient

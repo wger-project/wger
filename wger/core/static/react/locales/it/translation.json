@@ -73,5 +73,11 @@
     "save": "Salva",
     "category": "Categoria",
     "name": "Nome",
-    "loading": "Caricamento..."
+    "loading": "Caricamento…",
+    "actions": "Azioni",
+    "seeDetails": "Vedere dettagli",
+    "deleteConfirmation": "Sei sicuro di voler cancellare \"{{name}}\"?",
+    "notes": "Note",
+    "value": "Valore",
+    "unit": "Unità"
 }

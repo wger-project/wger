@@ -102,6 +102,18 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
     )
     """The art style of the image"""
 
+    created = models.DateTimeField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """The creation time"""
+
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
+    """Datetime of last modification"""
+
     history = HistoricalRecords()
     """Edit history"""
 

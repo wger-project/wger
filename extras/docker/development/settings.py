@@ -1,11 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# wger
-from wger.settings_global import *
 
 # Third Party
 import environ
+
+# wger
+from wger.settings_global import *
 
 env = environ.Env(
     # set casting, default value
@@ -73,14 +72,14 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Configure a real backend in production
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-if os.environ.get("ENABLE_EMAIL"):
+if env.bool("ENABLE_EMAIL", False):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = env.str("EMAIL_HOST")
     EMAIL_PORT = env.int("EMAIL_PORT")
     EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
     EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
-    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", True)
+    EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", False)
     EMAIL_TIMEOUT = 60
 
 # Sender address used for sent emails

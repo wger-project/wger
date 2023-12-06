@@ -251,7 +251,7 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", "muscles.json")
     call_command("loaddata", "categories.json")
     call_command("loaddata", "exercise-base-data.json")
-    call_command("loaddata", "exercises.json")
+    call_command("loaddata", "translations.json")
 
     # Gym
     call_command("loaddata", "gym.json")

@@ -25,9 +25,9 @@ from celery.schedules import crontab
 # wger
 from wger.celery_configuration import app
 from wger.exercises.sync import (
-    delete_entries,
     download_exercise_images,
     download_exercise_videos,
+    handle_deleted_entries,
     sync_categories,
     sync_equipment,
     sync_exercises,
@@ -51,7 +51,7 @@ def sync_exercises_task():
     sync_muscles(logger.info)
     sync_equipment(logger.info)
     sync_exercises(logger.info)
-    delete_entries(logger.info)
+    handle_deleted_entries(logger.info)
 
 
 @app.task

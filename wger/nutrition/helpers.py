@@ -15,15 +15,19 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+from dataclasses import (
+    asdict,
+    dataclass,
+)
 from decimal import Decimal
+from typing import Union
 
 # wger
 from wger.nutrition.consts import (
+    KJ_PER_KCAL,
     MEALITEM_WEIGHT_GRAM,
     MEALITEM_WEIGHT_UNIT,
 )
-from wger.utils.constants import TWOPLACES
-from wger.utils.units import AbstractWeight
 
 
 class BaseMealItem:
@@ -51,55 +55,88 @@ class BaseMealItem:
 
         :param use_metric Flag that controls the units used
         """
-        nutritional_info = {
-            'energy': 0,
-            'protein': 0,
-            'carbohydrates': 0,
-            'carbohydrates_sugar': 0,
-            'fat': 0,
-            'fat_saturated': 0,
-            'fibres': 0,
-            'sodium': 0
-        }
+        values = NutritionalValues()
+
         # Calculate the base weight of the item
         if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
             item_weight = self.amount
         else:
             item_weight = (self.amount * self.weight_unit.amount * self.weight_unit.gram)
 
-        nutritional_info['energy'] += self.ingredient.energy * item_weight / 100
-        nutritional_info['protein'] += self.ingredient.protein * item_weight / 100
-        nutritional_info['carbohydrates'] += self.ingredient.carbohydrates * item_weight / 100
-        nutritional_info['fat'] += self.ingredient.fat * item_weight / 100
+        values.energy = self.ingredient.energy * item_weight / 100
+        values.protein = self.ingredient.protein * item_weight / 100
+        values.carbohydrates = self.ingredient.carbohydrates * item_weight / 100
+        values.fat = self.ingredient.fat * item_weight / 100
 
         if self.ingredient.carbohydrates_sugar:
-            nutritional_info['carbohydrates_sugar'] += \
-                self.ingredient.carbohydrates_sugar * item_weight / 100
+            values.carbohydrates_sugar = self.ingredient.carbohydrates_sugar * item_weight / 100
 
         if self.ingredient.fat_saturated:
-            nutritional_info['fat_saturated'] += self.ingredient.fat_saturated * item_weight / 100
+            values.fat_saturated = self.ingredient.fat_saturated * item_weight / 100
 
         if self.ingredient.fibres:
-            nutritional_info['fibres'] += self.ingredient.fibres * item_weight / 100
+            values.fibres = self.ingredient.fibres * item_weight / 100
 
         if self.ingredient.sodium:
-            nutritional_info['sodium'] += self.ingredient.sodium * item_weight / 100
+            values.sodium = self.ingredient.sodium * item_weight / 100
 
-        # If necessary, convert weight units
-        if not use_metric:
-            for key, value in nutritional_info.items():
-
-                # Energy is not a weight!
-                if key == 'energy':
-                    continue
-
-                # Everything else, to ounces
-                nutritional_info[key] = AbstractWeight(value, 'g').oz
-
-        nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
+        # # If necessary, convert weight units
+        # if not use_metric:
+        #     for key, value in nutritional_info.items():
+        #
+        #         # Energy is not a weight!
+        #         if key == 'energy':
+        #             continue
+        #
+        #         # Everything else, to ounces
+        #         nutritional_info[key] = AbstractWeight(value, 'g').oz
+        #
+        # nutritional_info['energy_kilojoule'] = Decimal(nutritional_info['energy']) * Decimal(4.184)
 
         # Only 2 decimal places, anything else doesn't make sense
-        for i in nutritional_info:
-            nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
+        # for i in nutritional_info:
+        #     nutritional_info[i] = Decimal(nutritional_info[i]).quantize(TWOPLACES)
 
-        return nutritional_info
+        return values
+
+
+@dataclass
+class NutritionalValues:
+    # TODO: replace the Union with | when we drop support for python 3.9
+
+    energy: Union[Decimal, int, float] = 0
+    protein: Union[Decimal, int, float] = 0
+    carbohydrates: Union[Decimal, int, float] = 0
+    carbohydrates_sugar: Union[Decimal, int, float, None] = None
+    fat: Union[Decimal, int, float] = 0
+    fat_saturated: Union[Decimal, int, float, None] = None
+    fibres: Union[Decimal, int, float, None] = None
+    sodium: Union[Decimal, int, float, None] = None
+
+    @property
+    def energy_kilojoule(self):
+        return self.energy * KJ_PER_KCAL
+
+    def __add__(self, other: 'NutritionalValues'):
+        """
+        Allow adding nutritional values
+        """
+        return NutritionalValues(
+            energy=self.energy + other.energy,
+            protein=self.protein + other.protein,
+            carbohydrates=self.carbohydrates + other.carbohydrates,
+            carbohydrates_sugar=self.carbohydrates_sugar +
+            other.carbohydrates_sugar if self.carbohydrates_sugar and other.carbohydrates_sugar else
+            self.carbohydrates_sugar or other.carbohydrates_sugar,
+            fat=self.fat + other.fat,
+            fat_saturated=self.fat_saturated + other.fat_saturated if self.fat_saturated
+            and other.fat_saturated else self.fat_saturated or other.fat_saturated,
+            fibres=self.fibres +
+            other.fibres if self.fibres and other.fibres else self.fibres or other.fibres,
+            sodium=self.sodium +
+            other.sodium if self.sodium and other.sodium else self.sodium or other.sodium,
+        )
+
+    @property
+    def to_dict(self):
+        return asdict(self)

@@ -144,7 +144,6 @@
 <h4>{% translate "Nutrition plans" %} <small>({% blocktranslate with number=5 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
     <a href="{{trainer_login}}?next={% url 'nutrition:plan:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
-    <a href="{{trainer_login}}?next={% url 'nutrition:plan:add' %}" class="btn btn-light btn-sm">{% translate "Add nutrition plan" %}</a>
 {% endif %}
 
 <table class="table">

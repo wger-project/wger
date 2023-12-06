@@ -75,7 +75,7 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
 
         # 0 hits, "Pending exercise"
-        response = self.client.get(reverse('exercise-search'), {'term': 'Pending'})
+        response = self.client.get(reverse('exercise-search'), {'term': 'Foobar'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 0)
@@ -340,14 +340,14 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         exercise translation.
         """
         exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.language_id, 1)
+        self.assertEqual(exercise.language_id, 2)
 
         self.authenticate('trainer1')
-        response = self.client.patch(self.url_detail, data={'language': 2})
+        response = self.client.patch(self.url_detail, data={'language': 1})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.exercise_base_id, 1)
+        self.assertEqual(exercise.language_id, 2)
 
     def test_cant_change_license(self):
         """

@@ -1,0 +1,12 @@
+{
+    "weight": "எடை",
+    "date": "தேதி",
+    "add": "சேர்",
+    "days": "நாட்கள்",
+    "currentWeight": "தற்போதைய எடை",
+    "workout": "பயிற்சி",
+    "submit": "சமர்ப்பி",
+    "delete": "நீக்கு",
+    "deleteConfirmation": "\"{{name}}\" ஐ நிச்சயமாக நீக்க விரும்புகிறீர்களா?",
+    "nutritionalPlan": "ஊட்டச்சத்து திட்டம்"
+}

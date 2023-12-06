@@ -49,10 +49,10 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'yarn/metrics-graphics/dist/metricsgraphics.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/metricsgraphics-custom.css' %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'fontawesomefree/css/all.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'react/main.css' %}" id="react-css">
     {% endcompress %}
 
@@ -63,9 +63,9 @@
         <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'yarn/Sortable/Sortable.min.js' %}"></script>
         <script src="{% static 'yarn/d3/dist/d3.js' %}"></script>
-        <script src="{% static 'yarn/metrics-graphics/dist/metricsgraphics.min.js' %}"></script>
         <script src="{% static 'yarn/popper.js/dist/umd/popper.js' %}"></script>
-        <script src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
+        <script
+            src="{% static 'yarn/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
@@ -112,7 +112,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="ajax-info-title">Modal title</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="ajax-info-content">
                     </div>
@@ -140,7 +141,8 @@
                 {% translate "You are using a guest account, data entered will be deleted after a week." %}
                 {% if not has_demo_data %}
                     <br>
-                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow" class="btn btn-link btn-sm">
+                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow"
+                       class="btn btn-link btn-sm">
                         {% translate "Create some demo entries" %}
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>

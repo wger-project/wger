@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models import Q
 
 # Third Party
@@ -32,6 +34,7 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
+from wger.utils.cache import CacheKeyMapper
 
 
 class ExerciseBaseSerializer(serializers.ModelSerializer):
@@ -44,8 +47,8 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'creation_date',
-            'update_date',
+            'created',
+            'last_update',
             'category',
             'muscles',
             'muscles_secondary',
@@ -75,6 +78,7 @@ class DeletionLogSerializer(serializers.ModelSerializer):
         fields = [
             'model_type',
             'uuid',
+            'replaced_by',
             'timestamp',
             'comment',
         ]
@@ -84,8 +88,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
-    author_history = serializers.ListSerializer(child=serializers.CharField())
-
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
 
     class Meta:
@@ -113,7 +116,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     ExerciseVideo serializer
     """
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
-    author_history = serializers.ListSerializer(child=serializers.CharField())
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
 
     class Meta:
         model = ExerciseVideo
@@ -122,6 +125,35 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
             'uuid',
             'exercise_base',
             'exercise_base_uuid',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+            'author_history',
+        ]
+
+
+class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
+    """
+    ExerciseVideo serializer for the info endpoint
+    """
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
+
+    class Meta:
+        model = ExerciseVideo
+        fields = [
+            'id',
+            'uuid',
             'video',
             'is_main',
             'size',
@@ -239,7 +271,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "category",
             "muscles",
             "muscles_secondary",
@@ -274,7 +306,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "language",
             "aliases",
             "notes",
@@ -307,7 +339,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "language",
             'license_author',
         )
@@ -365,7 +397,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             "uuid",
             "exercise_base_id",
             "description",
-            "creation_date",
+            "created",
             "category",
             "muscles",
             "muscles_secondary",
@@ -392,10 +424,11 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
-    videos = ExerciseVideoSerializer(source='exercisevideo_set', many=True, read_only=True)
+    videos = ExerciseVideoInfoSerializer(source='exercisevideo_set', many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
     author_history = serializers.ListSerializer(child=serializers.CharField())
     total_authors_history = serializers.ListSerializer(child=serializers.CharField())
+    last_update_global = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = ExerciseBase
@@ -403,7 +436,9 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "uuid",
-            "creation_date",
+            "created",
+            "last_update",
+            "last_update_global",
             "category",
             "muscles",
             "muscles_secondary",
@@ -418,3 +453,17 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "author_history",
             "total_authors_history",
         ]
+
+    def to_representation(self, instance):
+        """
+        Cache the response
+        """
+        key = CacheKeyMapper.get_exercise_api_key(instance.uuid)
+
+        representation = cache.get(key)
+        if representation:
+            return representation
+
+        representation = super().to_representation(instance)
+        cache.set(key, representation, settings.WGER_SETTINGS['EXERCISE_CACHE_TTL'])
+        return representation

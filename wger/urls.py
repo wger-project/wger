@@ -20,7 +20,6 @@ from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.contrib.sitemaps.views import (
     index,
     sitemap,
@@ -230,6 +229,10 @@ urlpatterns = i18n_patterns(
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
+    path(
+        'measurement/',
+        include(('wger.measurements.urls', 'measurements'), namespace='measurements')
+    ),
     path('email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path(
@@ -304,6 +307,7 @@ urlpatterns += [
 #
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
 
 urlpatterns += [
     path('prometheus-xyzabc/', include('django_prometheus.urls'))

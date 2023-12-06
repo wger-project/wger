@@ -55,15 +55,13 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """The exercise's name"""
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
-        null=True,
-        blank=True,
     )
     """The submission date"""
 
-    update_date = models.DateTimeField(
+    last_update = models.DateTimeField(
         _('Date'),
         auto_now=True,
     )

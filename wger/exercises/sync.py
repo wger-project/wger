@@ -53,6 +53,10 @@ from wger.exercises.models import (
     ExerciseVideo,
     Muscle,
 )
+from wger.manager.models import (
+    Setting,
+    WorkoutLog,
+)
 from wger.utils.requests import (
     get_paginated,
     wger_headers,
@@ -75,6 +79,7 @@ def sync_exercises(
     for data in result:
 
         uuid = data['uuid']
+        created = data['created']
         license_id = data['license']['id']
         category_id = data['category']['id']
         license_author = data['license_author']
@@ -84,7 +89,10 @@ def sync_exercises(
 
         base, base_created = ExerciseBase.objects.update_or_create(
             uuid=uuid,
-            defaults={'category_id': category_id},
+            defaults={
+                'category_id': category_id,
+                'created': created
+            },
         )
         print_fn(f"{'created' if base_created else 'updated'} exercise {uuid}")
 
@@ -272,13 +280,18 @@ def sync_equipment(
     print_fn(style_fn('done!\n'))
 
 
-def delete_entries(
-    print_fn,
+def handle_deleted_entries(
+    print_fn=None,
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
+    if not print_fn:
+
+        def print_fn(_):
+            return None
+
     """Delete exercises that were removed on the server"""
-    print_fn('*** Deleting exercises data that was removed on the server...')
+    print_fn('*** Deleting exercise data that was removed on the server...')
 
     headers = wger_headers()
     url = make_uri(DELETION_LOG_ENDPOINT, server_url=remote_url, query={'limit': 100})
@@ -286,13 +299,38 @@ def delete_entries(
 
     for data in result:
         uuid = data['uuid']
+        replaced_by_uuid = data['replaced_by']
         model_type = data['model_type']
 
         if model_type == DeletionLog.MODEL_BASE:
+            obj_replaced = None
+            nr_settings = None
+            nr_logs = None
+            try:
+                obj_replaced = ExerciseBase.objects.get(uuid=replaced_by_uuid)
+            except ExerciseBase.DoesNotExist:
+                pass
+
             try:
                 obj = ExerciseBase.objects.get(uuid=uuid)
+
+                # Replace exercise in workouts and logs
+                if obj_replaced:
+                    nr_settings = (
+                        Setting.objects.filter(exercise_base=obj
+                                               ).update(exercise_base=obj_replaced)
+                    )
+                    nr_logs = (
+                        WorkoutLog.objects.filter(exercise_base=obj
+                                                  ).update(exercise_base=obj_replaced)
+                    )
+
                 obj.delete()
                 print_fn(f'Deleted exercise base {uuid}')
+                if nr_settings:
+                    print_fn(f'- replaced {nr_settings} time(s) in workouts by {replaced_by_uuid}')
+                if nr_logs:
+                    print_fn(f'- replaced {nr_logs} time(s) in workout logs by {replaced_by_uuid}')
             except ExerciseBase.DoesNotExist:
                 pass
 

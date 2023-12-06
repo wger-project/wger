@@ -50,6 +50,16 @@
                                         {% translate "Calendar" %}
                                     </a>
                                 </li>
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="{% url 'measurements:overview' %}" rel="nofollow">
+                                        {% if not user.is_authenticated %}
+                                            <span class="{% fa_class 'lock' %}"></span>
+                                        {% endif %}
+                                        {% translate "Measurements" %}
+                                    </a>
+                                </li>
                             {% endif %}
 
                             <li>
@@ -60,6 +70,7 @@
                                     {% translate "Gallery" %}
                                 </a>
                             </li>
+
 
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Workout templates" %}</li>
@@ -179,7 +190,8 @@
                             <a href="{% url 'weight:overview' %}"
                                class="dropdown-toggle nav-link text-white {% if active_tab == 'weight' %}active{% endif %}"
                                data-bs-toggle="dropdown"
-                               rel="nofollow">{% translate "Body weight" %} <b class="caret"></b></a>
+                               rel="nofollow">{% translate "Body weight" %} <b
+                                class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item"
@@ -206,7 +218,8 @@
                     <li class="nav-item dropdown">
                         <a href=""
                            class="dropdown-toggle nav-link text-white {% if active_tab == 'software' %}active{% endif %}"
-                           data-bs-toggle="dropdown">{% translate "About this software" %} <b class="caret"></b></a>
+                           data-bs-toggle="dropdown">{% translate "About this software" %} <b
+                            class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item"
@@ -216,7 +229,8 @@
                             </li>
                             <li class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'software:api' %}">{% translate "REST API" %}</a>
+                                <a class="dropdown-item"
+                                   href="{% url 'software:api' %}">{% translate "REST API" %}</a>
                             </li>
                             <li>
                                 <a class="dropdown-item"
@@ -232,13 +246,15 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="https://github.com/wger-project/wger">
+                                <a class="dropdown-item"
+                                   href="https://github.com/wger-project/wger">
                                     <span class="{% fa_class 'external-link-alt' %}"></span>
                                     {% translate "Get the code" %} (Github)
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="https://hosted.weblate.org/engage/wger/">
+                                <a class="dropdown-item"
+                                   href="https://hosted.weblate.org/engage/wger/">
                                     <span class="{% fa_class 'external-link-alt' %}"></span>
                                     {% translate "Translate" %}
                                 </a>
@@ -254,7 +270,8 @@
                 {% if not user.is_authenticated or user.userprofile.is_temporary %}
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="dropdown nav-item">
-                            <a href="#" class="dropdown-toggle nav-link text-white" data-bs-toggle="dropdown">
+                            <a href="#" class="dropdown-toggle nav-link text-white"
+                               data-bs-toggle="dropdown">
                                 {% translate "Login" %} / {% translate "Register" %}
                                 <span class="caret"></span>
                             </a>
@@ -265,12 +282,14 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'core:user:registration' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'core:user:registration' %}">
                                         {% translate "Register" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'core:user:password_reset' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'core:user:password_reset' %}">
                                         {% translate "Reset password" %}
                                     </a>
                                 </li>
@@ -280,20 +299,23 @@
                 {% else %}
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="dropdown nav-item">
-                            <a href="#" class="dropdown-toggle nav-link text-white" data-bs-toggle="dropdown">
+                            <a href="#" class="dropdown-toggle nav-link text-white"
+                               data-bs-toggle="dropdown">
                                 {{ user|format_username }}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end">
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'core:user:preferences' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'core:user:preferences' %}">
                                         {% translate "My preferences" %}
                                     </a>
                                 </li>
                                 {% if not trainer_identity %}
                                     <li class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" href="{% url 'core:user:logout' %}">
+                                        <a class="dropdown-item"
+                                           href="{% url 'core:user:logout' %}">
                                             <span class="{% fa_class 'sign-out-alt' %}"></span>
                                             {% translate "Logout" %}
                                         </a>
@@ -308,40 +330,46 @@
                                     <li class="dropdown-header">{% translate "Administration" %}</li>
                                     {% if perms.core.change_language %}
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'core:language:overview' %}">
+                                            <a class="dropdown-item"
+                                               href="{% url 'core:language:overview' %}">
                                                 {% translate "Languages" %}
                                             </a>
                                         </li>
                                     {% endif %}
                                     {% if perms.core.change_license %}
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'core:license:list' %}">
+                                            <a class="dropdown-item"
+                                               href="{% url 'core:license:list' %}">
                                                 {% translate "Licenses" %}
                                             </a>
                                         </li>
                                     {% endif %}
                                     {% if perms.core.change_repetitionunit %}
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'core:repetition-unit:list' %}">
+                                            <a class="dropdown-item"
+                                               href="{% url 'core:repetition-unit:list' %}">
                                                 {% translate "Repetition units" %}
                                             </a>
                                         </li>
                                     {% endif %}
                                     {% if perms.core.change_weightunit %}
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'core:weight-unit:list' %}">
+                                            <a class="dropdown-item"
+                                               href="{% url 'core:weight-unit:list' %}">
                                                 {% translate "Weight units" %}
                                             </a>
                                         </li>
                                     {% endif %}
                                     {% if perms.gym.manage_gyms %}
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'core:user:list' %}">
+                                            <a class="dropdown-item"
+                                               href="{% url 'core:user:list' %}">
                                                 {% translate "User list" %}
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="{% url 'gym:gym:list' %}">
+                                            <a class="dropdown-item"
+                                               href="{% url 'gym:gym:list' %}">
                                                 {% translate "Gyms" %}
                                             </a>
                                         </li>

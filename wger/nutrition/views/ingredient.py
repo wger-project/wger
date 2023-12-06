@@ -192,8 +192,7 @@ class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, Lis
         """
         Only show ingredients pending review
         """
-        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING) \
-            .order_by('-creation_date')
+        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING).order_by('-created')
 
 
 @permission_required('nutrition.add_ingredient')

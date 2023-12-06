@@ -36,8 +36,6 @@ from django.forms import (
 from django.utils.translation import gettext as _
 
 # Third Party
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV3
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -48,6 +46,8 @@ from crispy_forms.layout import (
     Row,
     Submit,
 )
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
 
 # wger
 from wger.core.models import UserProfile
@@ -196,7 +196,8 @@ class UserEmailForm(forms.ModelForm):
         if not email:
             return email
         try:
-            user = User.objects.get(email=email)
+            # Performs a case-insensitive lookup
+            user = User.objects.get(email__iexact=email)
             if user.email == self.instance.email:
                 return email
         except User.DoesNotExist:
@@ -268,7 +269,7 @@ class RegistrationForm(UserCreationForm, UserEmailForm):
                 Column('password2', css_class='col-md-6 col-12'),
                 css_class='form-row'
             ), 'captcha',
-            ButtonHolder(Submit('submit', _("Register"), css_class='btn-success btn-block'))
+            ButtonHolder(Submit('submitBtn', _("Register"), css_class='btn-success btn-block'))
         )
 
 

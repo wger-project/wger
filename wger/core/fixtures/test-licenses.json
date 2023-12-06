@@ -16,5 +16,14 @@
             "full_name": "Another cool license 2.1",
             "short_name": "ACL 2.1"
         }
+    },
+    {
+        "pk": 5,
+        "model": "core.license",
+        "fields": {
+            "url": "https://another-cool-license.org/acl-2.2",
+            "full_name": "Another cool license 2.2",
+            "short_name": "ACL 2.2"
+        }
     }
 ]

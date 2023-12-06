@@ -41,7 +41,7 @@ class LogItem(BaseMealItem, models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "datetime",
+            "-datetime",
         ]
 
     plan = models.ForeignKey(
@@ -49,17 +49,20 @@ class LogItem(BaseMealItem, models.Model):
         verbose_name=_('Nutrition plan'),
         on_delete=models.CASCADE,
     )
+    """
+    The plan this log belongs to
+    """
 
     meal = models.ForeignKey(
         Meal,
         verbose_name=_('Meal'),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="log_items",
         blank=True,
         null=True
     )
     """
-    The plan this log belongs to
+    The meal this log belongs to (optional)
     """
 
     datetime = models.DateTimeField(verbose_name=_('Date and Time (Approx.)'), default=timezone.now)

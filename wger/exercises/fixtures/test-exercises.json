@@ -27,10 +27,10 @@
     "pk": 1,
     "model": "exercises.exercisebase",
     "fields": {
-      "uuid": "acad394936fb44819a72be2ddae2bc05",
+      "uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
       "category": 2,
-      "creation_date": "2020-01-10",
-      "update_date": "2020-11-01T22:10:00+01:00",
+      "created": "2020-01-10T00:00:00+01:00",
+      "last_update": "2020-11-01T22:10:00+01:00",
       "muscles": [
         1,
         2
@@ -47,8 +47,8 @@
     "fields": {
       "uuid": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
       "category": 2,
-      "creation_date": "2014-11-01",
-      "update_date": "2018-11-01T00:00:00+01:00",
+      "created": "2014-11-01T00:00:00+01:00",
+      "last_update": "2018-11-01T00:00:00+01:00",
       "muscles": [
         2
       ],
@@ -63,10 +63,10 @@
     "pk": 3,
     "model": "exercises.exercisebase",
     "fields": {
-      "uuid": "c2dc11e9b14a49cb9d11d1b9441f16f4",
+      "uuid": "c2dc11e9-b14a-49cb-9d11-d1b9441f16f4",
       "category": 3,
-      "creation_date": "2020-01-10",
-      "update_date": "2020-11-01T22:10:00+01:00",
+      "created": "2020-01-10T00:00:00+01:00",
+      "last_update": "2020-11-01T22:10:00+01:00",
       "muscles": [
         1
       ],
@@ -79,8 +79,8 @@
     "fields": {
       "uuid": "a2f5b6ef-b780-49c0-8d96-fdaff23e27ce",
       "category": 3,
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00",
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00",
       "muscles": [
         1
       ],
@@ -94,8 +94,8 @@
     "fields": {
       "uuid": "1ae6a28d-10e7-4ecf-af4f-905f8193e2c6",
       "category": 1,
-      "creation_date": "2002-08-15",
-      "update_date": "2008-08-08T08:08:08+01:00",
+      "created": "2002-08-15T00:00:00+01:00",
+      "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
       "variations": null
     }
@@ -106,8 +106,8 @@
     "fields": {
       "uuid": "95a7e546-e8f8-4521-a76b-983d94161b25",
       "category": 1,
-      "creation_date": "2002-08-15",
-      "update_date": "2008-08-08T08:08:08+01:00",
+      "created": "2002-08-15T00:00:00+01:00",
+      "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
       "variations": null
     }
@@ -118,8 +118,8 @@
     "fields": {
       "uuid": "b186f1f8-4957-44dc-bf30-d0b00064ce6f",
       "category": 1,
-      "creation_date": "2002-08-15",
-      "update_date": "2008-08-08T08:08:08+01:00",
+      "created": "2002-08-15T00:00:00+01:00",
+      "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
       "variations": null
     }
@@ -130,8 +130,8 @@
     "fields": {
       "uuid": "c2078aac-e4e2-4103-a845-6252a3eb795e",
       "category": 1,
-      "creation_date": "2002-08-15",
-      "update_date": "2008-08-08T08:08:08+01:00",
+      "created": "2002-08-15T00:00:00+01:00",
+      "last_update": "2008-08-08T08:08:08+01:00",
       "muscles": [],
       "variations": null
     }
@@ -140,13 +140,13 @@
     "pk": 1,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "9838235ce38f4ca6921e9d237d8e0813",
-      "language": 1,
+      "uuid": "9838235c-e38f-4ca6-921e-9d237d8e0813",
+      "language": 2,
       "exercise_base": 1,
       "description": "Lorem ipsum dolor sit amet",
       "name": "An exercise",
-      "creation_date": "2002-08-15",
-      "update_date": "2008-08-08T08:08:08+01:00"
+      "created": "2002-08-15T00:00:00+01:00",
+      "last_update": "2008-08-08T08:08:08+01:00"
     }
   },
   {
@@ -158,21 +158,21 @@
       "exercise_base": 2,
       "description": "",
       "name": "Very cool exercise",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
     "pk": 3,
     "model": "exercises.exercise",
     "fields": {
-      "uuid": "946afe7b54a644a69c36c3e31e6b4c3b",
-      "language": 1,
+      "uuid": "946afe7b-54a6-44a6-9c36-c3e31e6b4c3b",
+      "language": 2,
       "exercise_base": 3,
       "description": "",
       "name": "Boring exercise",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -180,13 +180,13 @@
     "model": "exercises.exercise",
     "fields": {
       "uuid": "5e80d257-3ece-43a1-b01d-2b28c6c288be",
-      "language": 1,
+      "language": 2,
       "description": "",
       "exercise_base": 4,
       "license_author": "test",
       "name": "Pending exercise",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -199,8 +199,8 @@
       "exercise_base": 1,
       "license_author": "test",
       "name": "Test exercise 123",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -213,8 +213,8 @@
       "exercise_base": 3,
       "license_author": "test",
       "name": "Some other exercise",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -226,8 +226,8 @@
       "exercise_base": 4,
       "description": "",
       "name": "Weitere Testübung",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -235,12 +235,12 @@
     "model": "exercises.exercise",
     "fields": {
       "uuid": "e75c421a-6839-4c14-b89a-bd2023818089",
-      "language": 1,
+      "language": 2,
       "exercise_base": 5,
       "description": "",
       "name": "Needed for demo user",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -252,8 +252,8 @@
       "exercise_base": 6,
       "description": "",
       "name": "Needed for demo user",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -265,8 +265,8 @@
       "exercise_base": 7,
       "description": "",
       "name": "Needed for demo user",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
@@ -278,8 +278,8 @@
       "exercise_base": 8,
       "description": "",
       "name": "Needed for demo user",
-      "creation_date": "2022-01-10",
-      "update_date": "2022-02-02T06:45:11+01:00"
+      "created": "2022-01-10T00:00:00+01:00",
+      "last_update": "2022-02-02T06:45:11+01:00"
     }
   },
   {
