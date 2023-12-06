@@ -114,8 +114,11 @@ class Command(BaseCommand):
             /// in English and need to be translated here in the application (there are
             /// probably better ways to do this, but that's the way it is right now).
 
+            import 'dart:developer';
+
             import 'package:flutter/widgets.dart';
             import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+            import 'package:logging/logging.dart';
 
             String getTranslation(String value, BuildContext context) {
                   switch (value) {'''
@@ -127,8 +130,10 @@ class Command(BaseCommand):
 
             out += '''
                 default:
-                    throw FormatException('Could not translate the server string $value');
-                    }}'''
+                    log('Could not translate the server string $value', level: Level.WARNING.value);
+                    return value;
+                }
+            }'''
 
             f.write(out)
             self.stdout.write(self.style.SUCCESS('Wrote content to wger/i18n.dart'))
