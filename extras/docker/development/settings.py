@@ -72,7 +72,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Configure a real backend in production
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-if os.environ.get("ENABLE_EMAIL"):
+if env.bool("ENABLE_EMAIL", False):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = env.str("EMAIL_HOST")
     EMAIL_PORT = env.int("EMAIL_PORT")
