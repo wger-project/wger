@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-04 18:26+0100\n"
+"POT-Creation-Date: 2023-12-07 17:25+0100\n"
 "PO-Revision-Date: 2023-06-07 12:57+0000\n"
 "Last-Translator: Dan <jonweblin2205@protonmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/wger/web/uk/>\n"
@@ -252,7 +252,7 @@ msgstr ""
 msgid "Short name, e.g. CC-BY-SA 3"
 msgstr "Коротке ім'я, н-д CC-BY-SA 3"
 
-#: core/models/license.py:45 nutrition/models/ingredient.py:212
+#: core/models/license.py:45 nutrition/models/ingredient.py:213
 msgid "Link"
 msgstr "Посилання"
 
@@ -455,7 +455,7 @@ msgstr "Сума всіх годин повинна дорівнювати 24"
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:96
 #: gym/views/gym.py:156 manager/models/schedule.py:55
 #: manager/models/workout.py:56 measurements/models/category.py:37
-#: nutrition/models/ingredient.py:123
+#: nutrition/models/ingredient.py:124
 #: nutrition/models/ingredient_category.py:26 nutrition/models/meal.py:67
 #: nutrition/models/weight_unit.py:38
 #: nutrition/templates/ingredient/pending.html:15
@@ -485,13 +485,9 @@ msgstr "Сталася помилка"
 
 #: core/templates/500.html:8
 msgid ""
-"\n"
-"            There was an error on the server while processing your request. "
-"Try refreshing your\n"
-"            browser and if that doesn't help, please try again at a later "
-"time. If the problem\n"
-"            persists, you can seek help in ways listed below:\n"
-"        "
+"There was an error on the server while processing your request. Try "
+"refreshing your browser and if that doesn't help, please try again at a "
+"later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
@@ -1133,8 +1129,8 @@ msgstr "Додати тренування"
 #: exercises/models/video.py:160 exercises/models/video.py:166
 #: gallery/models/image.py:47 manager/helpers.py:86 manager/models/log.py:100
 #: manager/models/session.py:67 measurements/models/measurement.py:48
-#: nutrition/models/ingredient.py:99 nutrition/models/ingredient.py:105
-#: nutrition/models/ingredient.py:220 weight/models.py:32
+#: nutrition/models/ingredient.py:100 nutrition/models/ingredient.py:106
+#: nutrition/models/ingredient.py:221 weight/models.py:32
 #: weight/templates/import_csv_preview.html:13
 #: weight/templates/import_csv_preview.html:42 weight/views.py:142
 msgid "Date"
@@ -1180,22 +1176,22 @@ msgstr "Примітки"
 msgid "Time"
 msgstr "Час"
 
-#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:128
+#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:129
 #: nutrition/templates/ingredient/view.html:77 nutrition/views/plan.py:237
 msgid "Energy"
 msgstr "Енергія"
 
-#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:135
+#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:136
 #: nutrition/templates/ingredient/view.html:84 nutrition/views/plan.py:243
 msgid "Protein"
 msgstr "Білок"
 
-#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:143
+#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:144
 #: nutrition/templates/ingredient/view.html:90 nutrition/views/plan.py:251
 msgid "Carbohydrates"
 msgstr "Вуглеводи"
 
-#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:161
+#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:162
 #: nutrition/templates/ingredient/view.html:106 nutrition/views/plan.py:265
 msgid "Fat"
 msgstr "Жири"
@@ -1480,7 +1476,7 @@ msgstr "Тренажерний зал"
 msgid "A verification email was sent to %(email)s"
 msgstr "Підтверджувальний лист було надіслано на електронну адресу %(email)s"
 
-#: exercises/models/base.py:80 nutrition/models/ingredient.py:234
+#: exercises/models/base.py:80 nutrition/models/ingredient.py:235
 msgid "Category"
 msgstr "Категорія"
 
@@ -1510,7 +1506,7 @@ msgstr "Вправа"
 msgid "A comment about how to correctly do this exercise."
 msgstr "Коментар про те, як правильно виконувати цю вправу."
 
-#: exercises/models/exercise.py:72 nutrition/models/ingredient.py:93
+#: exercises/models/exercise.py:72 nutrition/models/ingredient.py:94
 #: nutrition/models/weight_unit.py:32
 msgid "Language"
 msgstr "Мова"
@@ -2895,46 +2891,46 @@ msgstr ""
 msgid "Ingredient"
 msgstr "Інгредієнт"
 
-#: nutrition/models/ingredient.py:129
+#: nutrition/models/ingredient.py:130
 msgid "In kcal per 100g"
 msgstr "В ккал на 100 г"
 
-#: nutrition/models/ingredient.py:136 nutrition/models/ingredient.py:144
-#: nutrition/models/ingredient.py:154 nutrition/models/ingredient.py:162
-#: nutrition/models/ingredient.py:172 nutrition/models/ingredient.py:182
-#: nutrition/models/ingredient.py:192
+#: nutrition/models/ingredient.py:137 nutrition/models/ingredient.py:145
+#: nutrition/models/ingredient.py:155 nutrition/models/ingredient.py:163
+#: nutrition/models/ingredient.py:173 nutrition/models/ingredient.py:183
+#: nutrition/models/ingredient.py:193
 msgid "In g per 100g of product"
 msgstr "В г на 100г продукту"
 
-#: nutrition/models/ingredient.py:153
+#: nutrition/models/ingredient.py:154
 #: nutrition/templates/ingredient/view.html:96 nutrition/views/plan.py:259
 msgid "Sugar content in carbohydrates"
 msgstr "Вміст цукру в вуглеводах"
 
-#: nutrition/models/ingredient.py:171
+#: nutrition/models/ingredient.py:172
 #: nutrition/templates/ingredient/view.html:112 nutrition/views/plan.py:273
 msgid "Saturated fat content in fats"
 msgstr "Вміст жиру у жирах"
 
-#: nutrition/models/ingredient.py:181
+#: nutrition/models/ingredient.py:182
 #: nutrition/templates/ingredient/view.html:134 nutrition/views/plan.py:279
 msgid "Fibres"
 msgstr "Волокна"
 
-#: nutrition/models/ingredient.py:191
+#: nutrition/models/ingredient.py:192
 #: nutrition/templates/ingredient/view.html:144 nutrition/views/plan.py:285
 msgid "Sodium"
 msgstr "Натрій"
 
-#: nutrition/models/ingredient.py:213
+#: nutrition/models/ingredient.py:214
 msgid "Link to product"
 msgstr "Посилання на виріб"
 
-#: nutrition/models/ingredient.py:242
+#: nutrition/models/ingredient.py:243
 msgid "Brand name of product"
 msgstr "Торгова марка виробу"
 
-#: nutrition/models/ingredient.py:302
+#: nutrition/models/ingredient.py:303
 #, python-brace-format
 msgid ""
 "The total energy ({energy}kcal) is not the approximate sum of the energy "
@@ -2945,15 +2941,15 @@ msgstr ""
 "забезпечують білки, вуглеводи та жири ({energy_calculated} ккал +/- "
 "{energy_approx}%)"
 
-#: nutrition/models/ingredient.py:384 nutrition/views/ingredient.py:207
+#: nutrition/models/ingredient.py:385 nutrition/views/ingredient.py:207
 msgid "Ingredient was successfully added to the general database"
 msgstr "Інгредієнт успішно додано до загальної бази даних"
 
-#: nutrition/models/ingredient.py:408
+#: nutrition/models/ingredient.py:409
 msgid "New user submitted ingredient"
 msgstr "Новий інгредієнт поданий користувачем"
 
-#: nutrition/models/ingredient.py:410
+#: nutrition/models/ingredient.py:411
 #, python-brace-format
 msgid "The user {0} submitted a new ingredient \"{1}\"."
 msgstr "Користувач {0} подав новий інгредієнт \"{1}\"."
