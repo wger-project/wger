@@ -11,7 +11,7 @@ crispy-bootstrap5==2023.10
 django-bootstrap-breadcrumbs2==1.0.0
 django-formtools~=2.4
 django-recaptcha~=4.0.0
-Django==4.2.6
+Django==5.0
 django-activity-stream==2.0.0
 django-axes==6.1.1
 django-crispy-forms~=2.1
