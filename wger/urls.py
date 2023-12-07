@@ -52,7 +52,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 # admin.autodiscover()
 
 #
@@ -309,6 +308,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
 
-urlpatterns += [
-    path('prometheus-xyzabc/', include('django_prometheus.urls'))
-]
+if settings.PROMETHEUS_METRICS:
+    urlpatterns += [
+        path('prometheus-wger/', include('django_prometheus.urls'))
+    ]

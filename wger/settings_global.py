@@ -542,6 +542,11 @@ WGER_SETTINGS = {
     'WGER_INSTANCE': 'https://wger.de',
 }
 
+#
+# Prometheus metrics
+#
+PROMETHEUS_METRICS = False
+
 
 #
 # Django email verification

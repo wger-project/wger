@@ -153,3 +153,8 @@ if env.bool('X_FORWARDED_PROTO_HEADER_SET', False):
 #
 CELERY_BROKER_URL = env.str("CELERY_BROKER", "redis://cache:6379/2")
 CELERY_RESULT_BACKEND = env.str("CELERY_BACKEND", "redis://cache:6379/2")
+
+#
+# Prometheus metrics
+#
+PROMETHEUS_METRICS = env.bool('PROMETHEUS_METRICS', False)
