@@ -26,7 +26,6 @@ from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
-
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
     'code',
@@ -36,7 +35,6 @@ OFF_REQUIRED_NUTRIMENTS = [
     'proteins_100g',
     'carbohydrates_100g',
     'fat_100g',
-    'saturated-fat_100g',
 ]
 
 
