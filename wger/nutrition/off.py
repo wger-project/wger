@@ -26,6 +26,7 @@ from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
+
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
     'code',
