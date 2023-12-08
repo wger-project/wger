@@ -123,9 +123,12 @@ EMAIL_PAGE_DOMAIN = SITE_URL
 # Django Axes
 #
 AXES_ENABLED = env.bool('AXES_ENABLED', True)
+AXES_LOCKOUT_PARAMETERS = env.str('AXES_LOCKOUT_PARAMETERS', "['ip-address']")
 AXES_FAILURE_LIMIT = env.int('AXES_FAILURE_LIMIT', 10)
 AXES_COOLOFF_TIME = timedelta(minutes=env.float('AXES_COOLOFF_TIME', 30))
 AXES_HANDLER = env.str('AXES_HANDLER', 'axes.handlers.cache.AxesCacheHandler')
+AXES_IPWARE_PROXY_COUNT = env.int('AXES_IPWARE_PROXY_COUNT', 0)
+AXES_IPWARE_META_PRECEDENCE_ORDER = env.str('AXES_IPWARE_META_PRECEDENCE_ORDER', "['REMOTE_ADDR']")
 
 #
 # Django Rest Framework SimpleJWT
