@@ -63,6 +63,7 @@ $(document).ready(function () {
     {% endfor %}
     <div class="form-group">
         <input type="submit" name="submit" value="{% translate 'Save' %}" class="btn btn-primary btn-success btn-block" id="submit-id-submit">
+        <a href="{% url 'manager:log:log' day.training_id %}"><input type="button" name="cancel" value="{% translate 'Cancel' %}" class="btn btn-primary btn-block"></a>
     </div>
 </form>
 {% endblock %}

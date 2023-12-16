@@ -134,3 +134,34 @@ class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     private_resource = True
     special_endpoints = ('canonical_representation', )
     data = {'name': 'A new comment'}
+
+class AddWorkoutLogTestCase(WgerTestCase):
+    """
+    Tests adding log to a Workout
+    """
+
+    def create_workout_log(self):
+        """
+        Helper function to test creating workouts
+        """
+
+        # Create a workout
+        count_before = Workout.objects.log.count()
+        response = self.client.get(reverse('manager:log:add'))
+        count_after = Workout.objects.log.count()
+
+        # Test adding a log
+        self.assertGreater(count_after, count_before)
+
+        # Test accessing the workout log
+        response = self.client.get(reverse('manager:log:log', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_workout_logged_in(self):
+        """
+        Test creating a workout out log for a logged in user
+        """
+
+        self.user_login()
+        self.create_workout_log()
+        self.user_logout()
