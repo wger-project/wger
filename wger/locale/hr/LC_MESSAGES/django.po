@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-07 17:25+0100\n"
-"PO-Revision-Date: 2023-10-20 04:16+0000\n"
+"PO-Revision-Date: 2023-12-21 23:06+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -507,25 +507,21 @@ msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "Stvarno želiš ovo izbrisati? Ova je nepovratna radnja."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
-msgstr "E-mail adresa ovjerena"
+msgstr "Ovjeravanje e-mail adrese"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr "%(username)s, tvoja e-mail adresa je ovjerena"
+msgstr "%(username)s, tvoja je e-mail adresa ovjerena"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr "Greška, neispavni token ovjere"
+msgstr "Greška, neispravni token ovjere"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Konfiguracija"
+msgstr "Potvrđivanje e-mail adrese"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
@@ -538,22 +534,24 @@ msgstr "Kalendar za %(username)s"
 #, python-format
 msgid "Please click <a href=\"%(link)s\">here</a> to confirm your email"
 msgstr ""
+"Pritisni <a href=\"%(link)s\">ovdje</a> za potvrđivanje tvoje e-mail adrese"
 
 #: core/templates/email_verification/email_body_html.tpl:12
 #: core/templates/email_verification/email_body_txt.tpl:5
 #, python-format
 msgid "The token expires on %(time)s"
-msgstr ""
+msgstr "Token isteče %(time)s"
 
 #: core/templates/email_verification/email_body_html.tpl:14
 #: core/templates/email_verification/email_body_txt.tpl:8
 msgid "the wger Team"
-msgstr ""
+msgstr "wger tim"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
 #, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr ""
+"Pritisni sljedeću poveznicu za potvrđivanje tvoje e-mail adrese: %(link)s"
 
 #: core/templates/index.html:4 software/templates/features.html:425
 msgid "Dashboard"
@@ -2660,10 +2658,9 @@ msgstr ""
 #: manager/templates/workout/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
 #: nutrition/templates/ingredient/email_new.tpl:9
-#, fuzzy, python-format
-#| msgid "The %(site_name)s team"
+#, python-format
 msgid "The %(site)s team"
-msgstr "%(site_name)s tim"
+msgstr "%(site)s tim"
 
 #: manager/templates/workout/email_weight_reminder.tpl:3
 #, python-format
@@ -3040,12 +3037,13 @@ msgstr ""
 "Inače će se ovdje upisana težina spremiti u novi unos."
 
 #: nutrition/templates/ingredient/email_new.tpl:1
-#, fuzzy, python-format
-#| msgid "Ingredient was successfully added to the general database"
+#, python-format
 msgid ""
 "Your ingredient '%(ingredient)s' was successfully added to the general\n"
 "database."
-msgstr "Sastojak je uspješno dodan u opću bazu podataka"
+msgstr ""
+"Tvoj sastojak '%(ingredient)s' je uspješno dodan u opću\n"
+"bazu podataka."
 
 #: nutrition/templates/ingredient/email_new.tpl:4
 msgid ""
