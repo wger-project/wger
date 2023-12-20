@@ -154,6 +154,8 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'exercise_base',
+            'exercise_base_uuid',
             'video',
             'is_main',
             'size',
