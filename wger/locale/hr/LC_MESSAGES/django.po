@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-07 17:25+0100\n"
-"PO-Revision-Date: 2023-12-21 23:06+0000\n"
+"PO-Revision-Date: 2023-12-24 20:07+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -459,7 +459,7 @@ msgstr "Zabranjeno!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to acces this page"
-msgstr ""
+msgstr "Ne smiješ spristupiti ovoj stranici"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -749,10 +749,8 @@ msgid "Calendar"
 msgstr "Kalendar"
 
 #: core/templates/navigation.html:60
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "Makronutrijenti"
+msgstr "Mjerenja"
 
 #: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -1994,121 +1992,115 @@ msgstr "Uredi teretanu"
 
 #: i18n.tpl:2
 msgid "Abs"
-msgstr ""
+msgstr "Trbuh"
 
 #: i18n.tpl:3
 msgid "Arms"
-msgstr ""
+msgstr "Ruke"
 
 #: i18n.tpl:4
 msgid "Back"
-msgstr ""
+msgstr "Leđa"
 
 #: i18n.tpl:5
 msgid "Barbell"
-msgstr ""
+msgstr "Šipka"
 
 #: i18n.tpl:6
 msgid "Bench"
-msgstr ""
+msgstr "Klupa"
 
 #: i18n.tpl:7
 msgid "Biceps"
-msgstr ""
+msgstr "Bicepsi"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
 msgstr "Tjelesna težina"
 
 #: i18n.tpl:9
 msgid "Calves"
-msgstr ""
+msgstr "Lisni mišići"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Kardio"
 
 #: i18n.tpl:11
 msgid "Chest"
-msgstr ""
+msgstr "Prsa"
 
 #: i18n.tpl:12
 msgid "Dumbbell"
-msgstr ""
+msgstr "Ručni uteg"
 
 #: i18n.tpl:13
 msgid "Glutes"
-msgstr ""
+msgstr "Stražnjica"
 
 #: i18n.tpl:14
-#, fuzzy
-#| msgid "Gym manager"
 msgid "Gym mat"
-msgstr "Menadžer teretane"
+msgstr "Podloga za treniranje"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr ""
+msgstr "Tetive koljena"
 
 #: i18n.tpl:16
 msgid "Incline bench"
-msgstr ""
+msgstr "Nagnuta klupa"
 
 #: i18n.tpl:17
 msgid "Kettlebell"
-msgstr ""
+msgstr "Kuglasti uteg"
 
 #: i18n.tpl:18
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilometri"
 
 #: i18n.tpl:19
 msgid "Kilometers Per Hour"
-msgstr ""
+msgstr "Kilometara na sat"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "Leđni mišići"
 
 #: i18n.tpl:21
 msgid "Legs"
-msgstr ""
+msgstr "Noge"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Donji dio leđa"
 
 #: i18n.tpl:23
-#, fuzzy
-#| msgid "Reps"
 msgid "Max Reps"
-msgstr "Ponavljanja"
+msgstr "Maks. broj ponavljanja"
 
 #: i18n.tpl:24
 msgid "Miles"
-msgstr ""
+msgstr "Milje"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Milja na sat"
 
 #: i18n.tpl:26
 msgid "Minutes"
-msgstr ""
+msgstr "Minute"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Ploče"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
-msgstr ""
+msgstr "Šipka za povlačenje"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "Ekstenzije nogu"
 
 #: i18n.tpl:30 manager/forms.py:185 manager/models/log.py:73
 #: manager/templates/set/add.html:54
@@ -2117,31 +2109,31 @@ msgstr "Ponavljanja"
 
 #: i18n.tpl:31
 msgid "SZ-Bar"
-msgstr ""
+msgstr "Zaobljena šipka"
 
 #: i18n.tpl:32
 msgid "Seconds"
-msgstr ""
+msgstr "Sekunde"
 
 #: i18n.tpl:33
 msgid "Shoulders"
-msgstr ""
+msgstr "Ramena"
 
 #: i18n.tpl:34
 msgid "Swiss Ball"
-msgstr ""
+msgstr "Gimnastička lopta"
 
 #: i18n.tpl:35
 msgid "Triceps"
-msgstr ""
+msgstr "Triceps"
 
 #: i18n.tpl:36
 msgid "Until Failure"
-msgstr ""
+msgstr "Do neuspjeha"
 
 #: i18n.tpl:39
 msgid "none (bodyweight exercise)"
-msgstr ""
+msgstr "ništa (vježba za tjelesnu težinu)"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
@@ -3052,12 +3044,8 @@ msgid ""
 msgstr ""
 
 #: nutrition/templates/ingredient/email_new.tpl:8
-#, fuzzy
-#| msgid ""
-#| "Thank you for submitting an ingredient. This is much\n"
-#| "appreciated!"
 msgid "Thank you for contributing and making this site better!"
-msgstr "Puno ti hvala na slanju sastojka!"
+msgstr "Hvala ti na doprinošenju i poboljšanju ove stranice!"
 
 #: nutrition/templates/ingredient/form.html:4
 msgid "Submitting an ingredient"
