@@ -23,7 +23,7 @@ django_compressor~=4.4
 django_extensions~=3.2
 django-storages~=1.14
 django-environ==0.11.2
-drf-spectacular[sidecar]==0.26.5
+drf-spectacular[sidecar]==0.27.0
 easy-thumbnails==2.8.5
 fontawesomefree~=6.5.1
 icalendar==5.0.11
