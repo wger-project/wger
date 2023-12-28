@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-07 17:25+0100\n"
-"PO-Revision-Date: 2021-04-15 07:27+0000\n"
-"Last-Translator: László Mócsy <studiolamax@gmail.com>\n"
+"PO-Revision-Date: 2023-12-29 22:12+0000\n"
+"Last-Translator: Adam Cool <anthony.kek21@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/wger/web/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -29,6 +29,9 @@ msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
+"Válaszd ki az alapértelmezett edzőtermet ehhez az installációhoz. Ez "
+"hozzárendeli az összes újonnan regisztrált felhasználót ehhez az "
+"edzőteremhez, és frissíti az összes meglévő edzőterem nélküli felhasználót."
 
 #: config/views/gym_config.py:41 core/templates/language/view.html:63
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:18
@@ -121,7 +124,7 @@ msgstr ""
 #: core/forms.py:116 core/models/profile.py:224
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
-msgstr ""
+msgstr "Születés Időpontja"
 
 #: core/forms.py:148
 msgid "Personal data"
@@ -252,7 +255,7 @@ msgstr "Link a licenc szöveghez vagy egyéb információkhoz"
 #: core/models/profile.py:56
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr ""
+msgstr "%(birthdate)-ek érvénytelen Születési idő"
 
 #: core/models/profile.py:65
 msgid "Male"
