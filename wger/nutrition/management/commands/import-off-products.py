@@ -15,6 +15,7 @@
 # Standard Library
 import enum
 import logging
+import os
 from collections import Counter
 
 # Django
@@ -58,7 +59,7 @@ class Command(BaseCommand):
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
             'entries in the database, while update will try to update them if they are '
-            'already present. Deault: insert'
+            'already present. Default: insert'
         )
         parser.add_argument(
             '--completeness',
@@ -70,14 +71,62 @@ class Command(BaseCommand):
             'completeness score that ranges from 0 to 1.1. Default: 0.7'
         )
 
-    def handle(self, **options):
-
+        parser.add_argument(
+            '--jsonl',
+            action='store_true',
+            default=False,
+            dest='usejsonl',
+            help='Use the JSONL dump of the Open Food Facts database.'
+            '(this option does not require mongo)'
+        )
+    
+    def products_mongo(self,filterdict):
+        """returns a mongo iterator with filtered prodcuts"""
         try:
             # Third Party
             from pymongo import MongoClient
         except ImportError:
             self.stdout.write('Please install pymongo, `pip install pymongo`')
             return
+
+        client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
+        db = client.admin
+        return db.products.find(filterdict)
+    
+    def products_jsonl(self,languages,completeness):
+        import json
+        import requests
+        from gzip import GzipFile
+        off_url='https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
+        download_dir=os.path.expanduser('~/.cache/off_cache')
+        os.makedirs(download_dir,exist_ok=True)
+        gzipdb=os.path.join(download_dir,os.path.basename(off_url))
+        if os.path.exists(gzipdb):
+            self.stdout.write(f'Already downloaded {gzipdb}, skipping download')
+        else:
+            self.stdout.write(f'downloading {gzipdb}... (this may take a while)')
+            req=requests.get(off_url,stream=True)
+            with open(gzipdb,'wb') as fid:
+                for chunk in req.iter_content(chunk_size=50*1024):
+                    fid.write(chunk)
+        with GzipFile(gzipdb,'rb') as gzid:
+            for line in gzid:
+                try:
+                    product=json.loads(line)
+                    if product['completeness'] < completeness:
+                        continue
+                    if not product['lang'] in languages:
+                        continue
+                    yield product
+                except:
+                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
+                    continue
+
+                    
+
+         
+    def handle(self, **options):
+
 
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
@@ -92,25 +141,25 @@ class Command(BaseCommand):
         self.stdout.write(f' - {self.mode}')
         self.stdout.write('')
 
-        client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
-        db = client.admin
 
         languages = {l.short_name: l.pk for l in Language.objects.all()}
 
         bulk_update_bucket = []
         counter = Counter()
-
-        for product in db.products.find(
-            {
+        if options['usejsonl']:
+            products=self.products_jsonl(languages=list(languages.keys()),completeness=self.completeness)
+        else:
+            filterdict={
                 'lang': {
                     "$in": list(languages.keys())
                 },
                 'completeness': {
                     "$gt": self.completeness
                 }
-            }
-        ):
+                }
+            products=self.products_mongo(filterdict)
 
+        for product in products:
             try:
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
             except KeyError as e:
@@ -149,7 +198,7 @@ class Command(BaseCommand):
                         self.stdout.write(
                             '--> Error while saving the product bucket. Saving individually'
                         )
-                        self.stdout.write(e)
+                        self.stdout.write(str(e))
 
                         # Try saving the ingredients individually as most will be correct
                         for ingredient in bulk_update_bucket:
@@ -159,7 +208,7 @@ class Command(BaseCommand):
                             # ¯\_(ツ)_/¯
                             except Exception as e:
                                 self.stdout.write('--> Error while saving the product individually')
-                                self.stdout.write(e)
+                                self.stdout.write(str(e))
 
                     counter['new'] += self.bulk_size
                     bulk_update_bucket = []
