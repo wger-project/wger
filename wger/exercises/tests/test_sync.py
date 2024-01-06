@@ -396,7 +396,10 @@ class MockExerciseResponse:
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
-                                "Kettlebell mit zwei Händen"
+                                {
+                                    "id": 1,
+                                    "alias": "Kettlebell mit zwei Händen"
+                                }
                             ],
                             "notes": [
                                 {
@@ -498,8 +501,14 @@ class MockExerciseResponse:
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
-                                "A new alias here",
-                                "yet another name"
+                                {
+                                    "id": 2,
+                                    "alias": "A new alias here"
+                                },
+                                {
+                                    "id": 500,
+                                    "alias": "yet another name"
+                                },
                             ],
                             "notes": [
                                 {
