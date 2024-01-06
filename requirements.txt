@@ -9,7 +9,7 @@ crispy-bootstrap5==2023.10
 # this is a fork of django-bootstrap-breadcrumbs
 # we might need to think about migrating away from this completely
 django-bootstrap-breadcrumbs2==1.0.0
-django-formtools~=2.4
+django-formtools~=2.5
 django-recaptcha~=4.0.0
 Django==4.2.6
 django-activity-stream==2.0.0
