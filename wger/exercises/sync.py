@@ -130,6 +130,7 @@ def sync_exercises(
 
             Alias.objects.filter(exercise=translation).delete()
             for alias in translation_data['aliases']:
+                print(alias)
                 Alias.objects.get_or_create(exercise=translation, alias=alias['alias'])
 
         print_fn('')

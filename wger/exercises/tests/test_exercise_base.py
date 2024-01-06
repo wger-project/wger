@@ -57,7 +57,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         """
         Test that the base correctly returns translated exercises
         """
-        exercise = ExerciseBase.objects.get(pk=1).get_exercise('de')
+        exercise = ExerciseBase.objects.get(pk=1).get_translation('de')
         self.assertEqual(exercise.name, 'An exercise')
 
     def test_language_utils_no_translation_exists(self):
@@ -65,7 +65,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         Test that the base correctly returns the English translation if the
         requested language does not exist
         """
-        exercise = ExerciseBase.objects.get(pk=1).get_exercise('fr')
+        exercise = ExerciseBase.objects.get(pk=1).get_translation('fr')
         self.assertEqual(exercise.name, 'Test exercise 123')
 
     def test_language_utils_no_translation_fallback(self):
@@ -73,7 +73,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         Test that the base correctly returns the first translation if for whatever
         reason English is not available
         """
-        exercise = ExerciseBase.objects.get(pk=2).get_exercise('pt')
+        exercise = ExerciseBase.objects.get(pk=2).get_translation('pt')
 
         self.assertEqual(exercise.name, 'Very cool exercise')
 

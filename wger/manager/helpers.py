@@ -93,7 +93,7 @@ def render_workout_day(day, nr_of_weeks=7, images=False, comments=False, only_ta
 
         # Exercises
         for base in set_obj.exercise_bases:
-            exercise = base.get_exercise()
+            exercise = base.get_translation()
             group_exercise_marker[set_obj.id]['end'] = len(data)
 
             # Process the settings

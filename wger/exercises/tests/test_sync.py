@@ -689,7 +689,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual([m.id for m in new_base.muscles.all()], [2])
         self.assertEqual([m.id for m in new_base.muscles_secondary.all()], [4])
 
-        translation_de = new_base.get_exercise('de')
+        translation_de = new_base.get_translation('de')
         self.assertEqual(translation_de.language_id, 1)
         self.assertEqual(translation_de.name, 'Zweihandiges Kettlebell')
         self.assertEqual(translation_de.description, 'Hier könnte Ihre Werbung stehen!')
@@ -699,7 +699,7 @@ class TestSyncMethods(WgerTestCase):
             'Wichtig die Übung richtig zu machen',
         )
 
-        translation_en = new_base.get_exercise('en')
+        translation_en = new_base.get_translation('en')
         self.assertEqual(translation_en.language_id, 2)
         self.assertEqual(translation_en.name, '2 Handed Kettlebell Swing')
         self.assertEqual(translation_en.description, 'TBD')
@@ -708,15 +708,15 @@ class TestSyncMethods(WgerTestCase):
         base = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
         self.assertEqual(base.category_id, 3)
 
-        translation_de = base.get_exercise('de')
+        translation_de = base.get_translation('de')
         self.assertEqual(translation_de.name, 'A new, better, updated name')
         self.assertEqual(translation_de.pk, 2)
         self.assertEqual(translation_de.alias_set.count(), 2)
-        self.assertEqual(translation_de.alias_set.all()[0].alias, 'yet another name')
-        self.assertEqual(translation_de.alias_set.all()[1].alias, 'A new alias here')
+        self.assertEqual(translation_de.alias_set.all()[0].alias, 'A new alias here')
+        self.assertEqual(translation_de.alias_set.all()[1].alias, 'yet another name')
 
         self.assertEqual(translation_de.exercisecomment_set.count(), 1)
         self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
 
-        translation_fr = base.get_exercise('fr')
+        translation_fr = base.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
