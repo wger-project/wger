@@ -284,6 +284,7 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
+
         def print_fn(_):
             return None
 
