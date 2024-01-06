@@ -18,7 +18,7 @@
 Simple script that filters the output of django's dumpdata command into more
 manageable chunks.
 
-After dumping the databas (or parts of it), just copy the file and filter it:
+After dumping the database (or parts of it), just copy the file and filter it:
     python ./manage.py dumpdata --indent 4 --natural-foreign > extras/scripts/data.json
     cd extras/scripts
     python3 filter-fixtures.py
