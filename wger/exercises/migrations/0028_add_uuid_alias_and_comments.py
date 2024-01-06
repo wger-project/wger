@@ -32,28 +32,40 @@ class Migration(migrations.Migration):
             model_name="exercisecomment",
             name="uuid",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, unique=False, verbose_name="UUID",
+                default=uuid.uuid4,
+                editable=False,
+                unique=False,
+                verbose_name="UUID",
             ),
         ),
         migrations.AddField(
             model_name="historicalexercisecomment",
             name="uuid",
             field=models.UUIDField(
-                db_index=True, default=uuid.uuid4, editable=False, verbose_name="UUID",
+                db_index=True,
+                default=uuid.uuid4,
+                editable=False,
+                verbose_name="UUID",
             ),
         ),
         migrations.AddField(
             model_name="alias",
             name="uuid",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, unique=False, verbose_name="UUID",
+                default=uuid.uuid4,
+                editable=False,
+                unique=False,
+                verbose_name="UUID",
             ),
         ),
         migrations.AddField(
             model_name="historicalalias",
             name="uuid",
             field=models.UUIDField(
-                db_index=True, default=uuid.uuid4, editable=False, verbose_name="UUID",
+                db_index=True,
+                default=uuid.uuid4,
+                editable=False,
+                verbose_name="UUID",
             ),
         ),
         migrations.RunPython(
@@ -68,14 +80,20 @@ class Migration(migrations.Migration):
             model_name="exercisecomment",
             name="uuid",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, unique=True, verbose_name="UUID",
+                default=uuid.uuid4,
+                editable=False,
+                unique=True,
+                verbose_name="UUID",
             ),
         ),
         migrations.AlterField(
             model_name="alias",
             name="uuid",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, unique=True, verbose_name="UUID",
+                default=uuid.uuid4,
+                editable=False,
+                unique=True,
+                verbose_name="UUID",
             ),
         )
     ]
