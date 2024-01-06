@@ -63,7 +63,9 @@ filter_dump(('exercises.muscle',), 'muscles.json')
 filter_dump(('exercises.exercisecategory',), 'categories.json')
 filter_dump(('exercises.exerciseimage',), 'exercise-images.json')
 filter_dump(('exercises.exercisebase', 'exercises.variation',), 'exercise-base-data.json')
-filter_dump(('exercises.exercise', 'exercises.exercisecomment',), 'exercises.json')
+filter_dump(
+    ('exercises.exercise', 'exercises.exercisecomment', 'exercises.alias'),
+    'translations.json')
 filter_dump(('exercises.equipment', 'exercises.equipment',), 'equipment.json')
 
 #
