@@ -149,8 +149,8 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 Warning(
                     'exercises without translations',
                     hint=f'There are {no_translations} exercises without translations, this will '
-                    'cause problems! You can output or delete them with "python manage.py '
-                    'exercises-health-check --help"',
+                         'cause problems! You can output or delete them with "python manage.py '
+                         'exercises-health-check --help"',
                     id='wger.W002',
                 )
             )
@@ -224,16 +224,16 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         language = language or get_language()
 
         try:
-            exercise = self.exercises.get(language__short_name=language)
+            translation = self.exercises.get(language__short_name=language)
         except Exercise.DoesNotExist:
             try:
-                exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
+                translation = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
             except Exercise.DoesNotExist:
-                exercise = self.exercises.first()
+                translation = self.exercises.first()
         except Exercise.MultipleObjectsReturned:
-            exercise = self.exercises.filter(language__short_name=language).first()
+            translation = self.exercises.filter(language__short_name=language).first()
 
-        return exercise
+        return translation
 
     def delete(self, using=None, keep_parents=False, replace_by: str = None):
         """
@@ -251,7 +251,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         log = DeletionLog(
             model_type=DeletionLog.MODEL_BASE,
             uuid=self.uuid,
-            comment=f"Exercise base of {self.get_exercise(ENGLISH_SHORT_NAME).name}",
+            comment=f"Exercise base of {self.get_exercise(ENGLISH_SHORT_NAME)}",
             replaced_by=replace_by,
         )
         log.save()

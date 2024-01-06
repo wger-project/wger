@@ -73,8 +73,7 @@ def sync_exercises(
     print_fn('*** Synchronizing exercises...')
 
     url = make_uri(EXERCISE_ENDPOINT, server_url=remote_url, query={'limit': 100})
-    headers = wger_headers()
-    result = get_paginated(url, headers=headers)
+    result = get_paginated(url, headers=wger_headers())
 
     for data in result:
 
@@ -168,11 +167,10 @@ def sync_licenses(
     remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
     style_fn=lambda x: x,
 ):
-    """Synchronize the lincenses from the remote server"""
+    """Synchronize the licenses from the remote server"""
     print_fn('*** Synchronizing licenses...')
-    headers = wger_headers()
     url = make_uri(LICENSE_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
+    result = get_paginated(url, headers=wger_headers())
     for data in result:
         short_name = data['short_name']
         full_name = data['full_name']
@@ -200,9 +198,8 @@ def sync_categories(
     """Synchronize the categories from the remote server"""
 
     print_fn('*** Synchronizing categories...')
-    headers = wger_headers()
     url = make_uri(CATEGORY_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
+    result = get_paginated(url, headers=wger_headers())
     for data in result:
         category_id = data['id']
         category_name = data['name']
@@ -226,9 +223,8 @@ def sync_muscles(
     """Synchronize the muscles from the remote server"""
 
     print_fn('*** Synchronizing muscles...')
-    headers = wger_headers()
     url = make_uri(MUSCLE_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
+    result = get_paginated(url, headers=wger_headers())
 
     for data in result:
         muscle_id = data['id']
@@ -263,9 +259,8 @@ def sync_equipment(
     """Synchronize the equipment from the remote server"""
     print_fn('*** Synchronizing equipment...')
 
-    headers = wger_headers()
     url = make_uri(EQUIPMENT_ENDPOINT, server_url=remote_url)
-    result = get_paginated(url, headers=headers)
+    result = get_paginated(url, headers=wger_headers())
 
     for data in result:
         equipment_id = data['id']
@@ -288,16 +283,14 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
-
         def print_fn(_):
             return None
 
     """Delete exercises that were removed on the server"""
     print_fn('*** Deleting exercise data that was removed on the server...')
 
-    headers = wger_headers()
     url = make_uri(DELETION_LOG_ENDPOINT, server_url=remote_url, query={'limit': 100})
-    result = get_paginated(url, headers=headers)
+    result = get_paginated(url, headers=wger_headers())
 
     for data in result:
         uuid = data['uuid']
