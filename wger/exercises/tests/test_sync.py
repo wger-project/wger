@@ -398,12 +398,14 @@ class MockExerciseResponse:
                             "aliases": [
                                 {
                                     "id": 1,
+                                    "uuid": "9a9ab323-5f47-431f-9289-cc21ad1de171",
                                     "alias": "Kettlebell mit zwei Händen"
                                 }
                             ],
                             "notes": [
                                 {
                                     "id": 1,
+                                    "uuid": "f46e1610-b729-4948-b80a-c5ae52672c6a",
                                     "exercise": 100,
                                     "comment": "Wichtig die Übung richtig zu machen"
                                 },
@@ -503,16 +505,19 @@ class MockExerciseResponse:
                             "aliases": [
                                 {
                                     "id": 2,
+                                    "uuid": "65250c7c-d02e-4f3d-be01-beb39ff5ef0f",
                                     "alias": "A new alias here"
                                 },
                                 {
                                     "id": 500,
+                                    "uuid": "6544ce61-69a8-413e-9662-189d3aadd1b9",
                                     "alias": "yet another name"
                                 },
                             ],
                             "notes": [
                                 {
                                     "id": 147,
+                                    "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
                                     "exercise": 123,
                                     "comment": "Foobar"
                                 },

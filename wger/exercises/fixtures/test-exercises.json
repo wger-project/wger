@@ -286,6 +286,7 @@
     "pk": 1,
     "model": "exercises.exercisecomment",
     "fields": {
+      "uuid": "2275a647-4185-431c-87a8-2992c2d30cc6",
       "comment": "test 123",
       "exercise": 1
     }
@@ -294,6 +295,7 @@
     "pk": 2,
     "model": "exercises.exercisecomment",
     "fields": {
+      "uuid": "a0271147-faca-4a08-af5e-0c02e8ae1310",
       "comment": "Foobar",
       "exercise": 2
     }
@@ -302,6 +304,7 @@
     "pk": 1,
     "model": "exercises.alias",
     "fields": {
+      "uuid": "48694b73-6cb8-4c34-a602-f0566c1ccb7c",
       "alias": "a different name",
       "exercise": 1
     }
@@ -310,6 +313,7 @@
     "pk": 2,
     "model": "exercises.alias",
     "fields": {
+      "uuid": "cdee2830-a0b6-4a23-ab8c-46c53e0c9722",
       "alias": "yet another name",
       "exercise": 2
     }

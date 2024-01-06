@@ -184,6 +184,7 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         model = ExerciseComment
         fields = [
             'id',
+            'uuid',
             'exercise',
             'comment',
         ]
@@ -196,7 +197,12 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = ['id', 'exercise', 'alias']
+        fields = [
+            'id',
+            'uuid',
+            'exercise',
+            'alias',
+        ]
 
 
 class ExerciseVariationSerializer(serializers.ModelSerializer):
@@ -218,7 +224,11 @@ class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = ['id', 'alias']
+        fields = [
+            'id',
+            'uuid',
+            'alias',
+        ]
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):

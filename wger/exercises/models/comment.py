@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import uuid
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -32,11 +35,20 @@ class ExerciseComment(models.Model):
     """
     Model for an exercise comment
     """
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+        verbose_name='UUID',
+    )
+    """Globally unique ID, to identify the comment across installations"""
+
     exercise = models.ForeignKey(
         Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
+
     comment = models.CharField(
         max_length=200,
         verbose_name=_('Comment'),

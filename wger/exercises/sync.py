@@ -121,17 +121,36 @@ def sync_exercises(
                   f"{translation.language.short_name} {trans_uuid} - {name}"
             print_fn(out)
 
+            # TODO: currently (2024-01-06) we always delete all the comments and the aliases
+            #       when synchronizing the data, even though we could identify them via the
+            #       UUID. However, the UUID created when running the database migrations will
+            #       be unique as well, so we will never update. We need to wait a while till
+            #       most local instances have run the sync script so that the UUID is the same
+            #       locally as well.
+            #
+            #       -> remove the `.delete()` after the 2024-06-01
+
             ExerciseComment.objects.filter(exercise=translation).delete()
             for note in translation_data['notes']:
-                ExerciseComment.objects.get_or_create(
-                    exercise=translation,
-                    comment=note['comment'],
+                ExerciseComment.objects.update_or_create(
+                    uuid=note['uuid'],
+                    defaults={
+                        'uuid': note['uuid'],
+                        'exercise': translation,
+                        'comment': note['comment'],
+                    }
                 )
 
             Alias.objects.filter(exercise=translation).delete()
             for alias in translation_data['aliases']:
-                print(alias)
-                Alias.objects.get_or_create(exercise=translation, alias=alias['alias'])
+                Alias.objects.update_or_create(
+                    uuid=alias['uuid'],
+                    defaults={
+                        'uuid': alias['uuid'],
+                        'exercise': translation,
+                        'alias': alias['alias'],
+                    }
+                )
 
         print_fn('')
 
