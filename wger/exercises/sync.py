@@ -122,14 +122,16 @@ def sync_exercises(
                   f"{translation.language.short_name} {trans_uuid} - {name}"
             print_fn(out)
 
+            ExerciseComment.objects.filter(exercise=translation).delete()
             for note in translation_data['notes']:
                 ExerciseComment.objects.get_or_create(
                     exercise=translation,
                     comment=note['comment'],
                 )
 
+            Alias.objects.filter(exercise=translation).delete()
             for alias in translation_data['aliases']:
-                Alias.objects.get_or_create(exercise=translation, alias=alias)
+                Alias.objects.get_or_create(exercise=translation, alias=alias['alias'])
 
         print_fn('')
 
