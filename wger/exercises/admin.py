@@ -18,7 +18,7 @@ from django.contrib import admin
 # wger
 from wger.core.models import Language
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseCategory,
     ExerciseComment,
     Muscle,
@@ -31,11 +31,10 @@ class ExerciseCommentInline(admin.TabularInline):  # admin.StackedInline
 
 
 class ExerciseAdmin(admin.ModelAdmin):
-
     inlines = [ExerciseCommentInline]
 
 
-admin.site.register(Exercise, ExerciseAdmin)
+admin.site.register(Translation, ExerciseAdmin)
 admin.site.register(ExerciseCategory)
 admin.site.register(Language)
 admin.site.register(Muscle)

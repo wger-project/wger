@@ -29,14 +29,13 @@ from wger.core.models import (
 from wger.exercises.models import (
     Alias,
     Equipment,
-    Exercise,
+    Translation,
     ExerciseBase,
     ExerciseCategory,
     ExerciseVideo,
     Variation,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
-
 
 UUID_NEW = 'NEW'
 VIDEO_AUTHOR = 'Goulart'
@@ -200,12 +199,12 @@ class Command(BaseCommand):
                 if not new_translation:
                     continue
 
-                translation = Exercise.objects.get_or_create(
+                translation = Translation.objects.get_or_create(
                     uuid=exercise_uuid, defaults={
                         'exercise_base': base,
                         'language': language
                     }
-                )[0] if not new_translation else Exercise()
+                )[0] if not new_translation else Translation()
                 translation.exercise_base = base
                 translation.language = language
                 translation.name = exercise_name
@@ -276,15 +275,15 @@ class Command(BaseCommand):
 
             if translation_uuid:
                 try:
-                    Exercise.objects.filter(uuid=translation_uuid).delete()
+                    Translation.objects.filter(uuid=translation_uuid).delete()
                     self.stdout.write(f'* Deleted translation {translation_uuid}')
-                except Exercise.DoesNotExist:
+                except Translation.DoesNotExist:
                     pass
 
             if variation_id:
                 try:
                     Variation.objects.filter(id=variation_id).delete()
                     self.stdout.write(f'* Deleted variation {variation_id}')
-                except Exercise.DoesNotExist:
+                except Translation.DoesNotExist:
                     pass
         csv_file.close()

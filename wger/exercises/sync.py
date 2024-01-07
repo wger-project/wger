@@ -45,7 +45,7 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Exercise,
+    Translation,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
@@ -106,7 +106,7 @@ def sync_exercises(
             description = translation_data['description']
             language_id = translation_data['language']
 
-            translation, translation_created = Exercise.objects.update_or_create(
+            translation, translation_created = Translation.objects.update_or_create(
                 uuid=trans_uuid,
                 defaults={
                     'exercise_base': base,
@@ -303,7 +303,6 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
-
         def print_fn(_):
             return None
 
@@ -352,10 +351,10 @@ def handle_deleted_entries(
 
         elif model_type == DeletionLog.MODEL_TRANSLATION:
             try:
-                obj = Exercise.objects.get(uuid=uuid)
+                obj = Translation.objects.get(uuid=uuid)
                 obj.delete()
                 print_fn(f"Deleted translation {uuid} ({data['comment']})")
-            except Exercise.DoesNotExist:
+            except Translation.DoesNotExist:
                 pass
 
         elif model_type == DeletionLog.MODEL_IMAGE:

@@ -13,9 +13,6 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-"""
-This file contains forms used in the application
-"""
 
 # Django
 from django.forms import (
@@ -49,10 +46,7 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import (
-    Exercise,
-    ExerciseBase,
-)
+from wger.exercises.models import ExerciseBase
 from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
     Day,
@@ -69,7 +63,6 @@ from wger.utils.widgets import (
 
 
 class WorkoutForm(ModelForm):
-
     class Meta:
         model = Workout
         fields = (
@@ -79,7 +72,6 @@ class WorkoutForm(ModelForm):
 
 
 class WorkoutMakeTemplateForm(ModelForm):
-
     class Meta:
         model = Workout
         fields = (
@@ -102,10 +94,9 @@ class WorkoutCopyForm(Form):
 
 
 class DayForm(ModelForm):
-
     class Meta:
         model = Day
-        exclude = ('training', )
+        exclude = ('training',)
         widgets = {'day': TranslatedSelectMultiple()}
 
     def __init__(self, *args, **kwargs):
@@ -151,7 +142,6 @@ class SetForm(ModelForm):
 
 
 class SettingForm(ModelForm):
-
     class Meta:
         model = Setting
         exclude = ('set', 'exercise', 'order', 'name')
@@ -198,7 +188,7 @@ class WorkoutLogForm(ModelForm):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('workout', )
+        exclude = ('workout',)
 
 
 class WorkoutLogFormHelper(FormHelper):

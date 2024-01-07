@@ -21,7 +21,7 @@ from django.core.management.base import BaseCommand
 # wger
 from wger.core.models import Language
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 
@@ -60,14 +60,16 @@ class Command(BaseCommand):
                     'author': ''
                 }
 
-                exercise = Exercise.objects.filter(exercise_base=base, language=language).first()
-                if exercise:
-                    exercise_data['uuid'] = exercise.uuid
-                    exercise_data['name'] = exercise.name
-                    exercise_data['description'] = exercise.description
-                    exercise_data['license'] = exercise.license.short_name
-                    exercise_data['author'] = exercise.license_author
-                    exercise_data['aliases'] = ','.join([a.alias for a in exercise.alias_set.all()])
+                translation = Translation.objects.filter(exercise_base=base,
+                                                         language=language).first()
+                if translation:
+                    exercise_data['uuid'] = translation.uuid
+                    exercise_data['name'] = translation.name
+                    exercise_data['description'] = translation.description
+                    exercise_data['license'] = translation.license.short_name
+                    exercise_data['author'] = translation.license_author
+                    exercise_data['aliases'] = ','.join(
+                        [a.alias for a in translation.alias_set.all()])
 
                 data[language.short_name] = exercise_data
             out.append(data)

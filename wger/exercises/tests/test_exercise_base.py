@@ -23,7 +23,7 @@ from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     DeletionLog,
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
@@ -43,14 +43,14 @@ class ExerciseBaseTestCase(WgerTestCase):
         """
         Test that the properties return the correct data
         """
-        exercise = Exercise.objects.get(pk=1)
-        base = exercise.exercise_base
-        self.assertEqual(base.category, exercise.category)
-        self.assertListEqual(self.get_ids(base.equipment), self.get_ids(exercise.equipment))
-        self.assertListEqual(self.get_ids(base.muscles), self.get_ids(exercise.muscles))
+        translation = Translation.objects.get(pk=1)
+        base = translation.exercise_base
+        self.assertEqual(base.category, translation.category)
+        self.assertListEqual(self.get_ids(base.equipment), self.get_ids(translation.equipment))
+        self.assertListEqual(self.get_ids(base.muscles), self.get_ids(translation.muscles))
         self.assertListEqual(
             self.get_ids(base.muscles_secondary),
-            self.get_ids(exercise.muscles_secondary),
+            self.get_ids(translation.muscles_secondary),
         )
 
     def test_language_utils_translation_exists(self):
@@ -90,9 +90,9 @@ class ExerciseBaseTestCase(WgerTestCase):
 
     def test_images(self):
         """Test that the correct images are returned for the exercises"""
-        exercise = Exercise.objects.get(pk=1)
-        base = exercise.exercise_base
-        self.assertListEqual(self.get_ids(exercise.images), self.get_ids(base.exerciseimage_set))
+        translation = Translation.objects.get(pk=1)
+        base = translation.exercise_base
+        self.assertListEqual(self.get_ids(translation.images), self.get_ids(base.exerciseimage_set))
 
 
 class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):

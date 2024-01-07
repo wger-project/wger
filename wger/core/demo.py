@@ -29,7 +29,7 @@ from django.utils.translation import gettext as _
 # wger
 from wger.core.models import DaysOfWeek
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 from wger.manager.models import (
@@ -50,7 +50,6 @@ from wger.nutrition.models import (
 )
 from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 

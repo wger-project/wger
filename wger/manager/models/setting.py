@@ -28,7 +28,7 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 from wger.utils.cache import reset_workout_canonical_form

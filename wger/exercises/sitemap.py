@@ -18,7 +18,7 @@
 from django.contrib.sitemaps import Sitemap
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 
 
 class ExercisesSitemap(Sitemap):
@@ -26,7 +26,7 @@ class ExercisesSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Exercise.objects.all()
+        return Translation.objects.all()
 
     def lastmod(self, obj):
         return obj.last_update

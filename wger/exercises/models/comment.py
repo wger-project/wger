@@ -28,7 +28,7 @@ from simple_history.models import HistoricalRecords
 from wger.utils.cache import reset_workout_canonical_form
 
 # Local
-from .exercise import Exercise
+from .translation import Translation
 
 
 class ExerciseComment(models.Model):
@@ -44,7 +44,7 @@ class ExerciseComment(models.Model):
     """Globally unique ID, to identify the comment across installations"""
 
     exercise = models.ForeignKey(
-        Exercise,
+        Translation,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )

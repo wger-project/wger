@@ -28,7 +28,7 @@ from simple_history.models import HistoricalRecords
 from wger.utils.cache import reset_workout_canonical_form
 
 # Local
-from .exercise import Exercise
+from .translation import Translation
 
 
 class Alias(models.Model):
@@ -44,7 +44,7 @@ class Alias(models.Model):
     """Globally unique ID, to identify the alias across installations"""
 
     exercise = models.ForeignKey(
-        Exercise,
+        Translation,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )

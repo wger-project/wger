@@ -16,7 +16,7 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 
 
 class Command(BaseCommand):
@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
 
-        exercises = Exercise.objects.all()
+        exercises = Translation.objects.all()
         usernames = []
         for exercise in exercises:
             if exercise.user not in usernames:

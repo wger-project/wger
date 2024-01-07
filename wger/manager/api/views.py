@@ -19,7 +19,6 @@
 import json
 
 # Django
-from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404
 
 # Third Party
@@ -28,10 +27,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.models import (
-    Exercise,
-    ExerciseBase,
-)
+from wger.exercises.models import ExerciseBase
 from wger.manager.api.serializers import (
     DaySerializer,
     ScheduleSerializer,

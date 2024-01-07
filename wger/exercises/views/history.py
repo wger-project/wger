@@ -33,11 +33,10 @@ from actstream.models import Action
 # wger
 from wger.exercises.views.helper import StreamVerbs
 
-
 logger = logging.getLogger(__name__)
 
 
-@permission_required('exercises.change_exercise')
+@permission_required('exercises.change_translation')
 def control(request):
     """
     Admin view of the history of the exercises
@@ -74,7 +73,7 @@ def control(request):
     )
 
 
-@permission_required('exercises.change_exercise')
+@permission_required('exercises.change_translation')
 def history_revert(request, history_pk, content_type_id):
     """
     Used to revert history objects

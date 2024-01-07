@@ -25,7 +25,7 @@ from wger.core.tests.base_testcase import (
     WgerTestCase,
 )
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseImage,
 )
 
@@ -53,8 +53,8 @@ class MainImageTestCase(WgerTestCase):
         Tests that the first uploaded image is automatically a main image
         """
 
-        exercise = Exercise.objects.get(pk=2)
-        pk = self.save_image(exercise, 'protestschwein.jpg')
+        translation = Translation.objects.get(pk=2)
+        pk = self.save_image(translation, 'protestschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk)
         self.assertTrue(image.is_main)
@@ -64,9 +64,9 @@ class MainImageTestCase(WgerTestCase):
         Tests that there is always a main image after deleting one
         """
 
-        exercise = Exercise.objects.get(pk=2)
-        pk1 = self.save_image(exercise, 'protestschwein.jpg')
-        pk2 = self.save_image(exercise, 'wildschwein.jpg')
+        translation = Translation.objects.get(pk=2)
+        pk1 = self.save_image(translation, 'protestschwein.jpg')
+        pk2 = self.save_image(translation, 'wildschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk1)
         self.assertTrue(image.is_main)
@@ -79,12 +79,12 @@ class MainImageTestCase(WgerTestCase):
         Tests that there is always a main image after deleting one
         """
 
-        exercise = Exercise.objects.get(pk=2)
-        pk1 = self.save_image(exercise, 'protestschwein.jpg')
-        pk2 = self.save_image(exercise, 'protestschwein.jpg')
-        pk3 = self.save_image(exercise, 'wildschwein.jpg')
-        pk4 = self.save_image(exercise, 'wildschwein.jpg')
-        pk5 = self.save_image(exercise, 'wildschwein.jpg')
+        translation = Translation.objects.get(pk=2)
+        pk1 = self.save_image(translation, 'protestschwein.jpg')
+        pk2 = self.save_image(translation, 'protestschwein.jpg')
+        pk3 = self.save_image(translation, 'wildschwein.jpg')
+        pk4 = self.save_image(translation, 'wildschwein.jpg')
+        pk5 = self.save_image(translation, 'wildschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk1)
         self.assertTrue(image.is_main)

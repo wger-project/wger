@@ -24,14 +24,13 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.core.models import DaysOfWeek
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 from wger.manager.models import (
     Day,
     Set,
     Setting,
     Workout,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -96,7 +95,7 @@ class Command(BaseCommand):
                 random.shuffle(day_list)
 
                 # Load all exercises to a list
-                exercise_list = [i for i in Exercise.objects.filter(language_id=2)]
+                exercise_list = [i for i in Translation.objects.filter(language_id=2)]
 
                 for day in day_list[0:nr_of_days]:
                     uid = str(uuid.uuid4()).split('-')

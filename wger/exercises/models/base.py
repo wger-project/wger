@@ -150,8 +150,8 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 Warning(
                     'exercises without translations',
                     hint=f'There are {no_translations} exercises without translations, this will '
-                    'cause problems! You can output or delete them with "python manage.py '
-                    'exercises-health-check --help"',
+                         'cause problems! You can output or delete them with "python manage.py '
+                         'exercises-health-check --help"',
                     id='wger.W002',
                 )
             )
@@ -220,18 +220,18 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         have deleted the English translation or similar
         """
         # wger
-        from wger.exercises.models import Exercise
+        from wger.exercises.models import Translation
 
         language = language or get_language()
 
         try:
             translation = self.exercises.get(language__short_name=language)
-        except Exercise.DoesNotExist:
+        except Translation.DoesNotExist:
             try:
                 translation = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
-            except Exercise.DoesNotExist:
+            except Translation.DoesNotExist:
                 translation = self.exercises.first()
-        except Exercise.MultipleObjectsReturned:
+        except Translation.MultipleObjectsReturned:
             translation = self.exercises.filter(language__short_name=language).first()
 
         return translation

@@ -38,7 +38,7 @@ from wger.utils.models import (
 )
 
 
-class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
+class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise
     """
@@ -99,6 +99,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     # Django methods
     #
     class Meta:
+        db_table = 'exercises_exercise'
         base_manager_name = 'objects'
         ordering = [
             "name",
@@ -119,7 +120,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Reset all cached infos
         """
-        super(Exercise, self).save(*args, **kwargs)
+        super(Translation, self).save(*args, **kwargs)
 
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():
@@ -133,7 +134,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
-        super(Exercise, self).delete(*args, **kwargs)
+        super(Translation, self).delete(*args, **kwargs)
 
     def __str__(self):
         """

@@ -48,9 +48,9 @@ class CanContributeExercises(BasePermission):
         if request.method in self.ADD_METHODS:
             return (
                 request.user.userprofile.is_trustworthy
-                or request.user.has_perm('exercises.add_exercise')
+                or request.user.has_perm('exercises.add_translation')
             )
 
         # Only admins are allowed to delete entries
         if request.method in self.DELETE_METHODS:
-            return request.user.has_perm('exercises.delete_exercise')
+            return request.user.has_perm('exercises.delete_translation')

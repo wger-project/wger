@@ -16,39 +16,16 @@
 import datetime
 import logging
 import random
-import uuid
-from random import (
-    choice,
-    randint,
-)
-from uuid import uuid4
 
 # Django
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 
 # wger
-from wger.core.models import (
-    DaysOfWeek,
-    Language,
-)
-from wger.exercises.models import Exercise
 from wger.manager.models import (
-    Day,
-    Set,
-    Setting,
     Workout,
     WorkoutLog,
 )
-from wger.nutrition.models import (
-    Ingredient,
-    LogItem,
-    Meal,
-    MealItem,
-    NutritionPlan,
-)
-
 
 logger = logging.getLogger(__name__)
 
