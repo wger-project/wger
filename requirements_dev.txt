@@ -12,7 +12,7 @@ wheel==0.42.0
 pymongo==4.6.0
 
 # for running the dummy entry generators
-faker==20.1.0
+faker==22.1.0
 
 # Development packages
 coverage==7.3.4
