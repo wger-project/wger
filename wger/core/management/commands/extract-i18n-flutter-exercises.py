@@ -20,8 +20,10 @@ from wger.exercises.models import Exercise
 
 
 class Command(BaseCommand):
-    help = ("Helper command to extract translations for the exercises used in the flutter repo for "
-            "the screenshots for the play store")
+    help = (
+        "Helper command to extract translations for the exercises used in the flutter repo for "
+        "the screenshots for the play store"
+    )
 
     uuids = {
         'squats': '30ac081b-fb79-4253-9457-8efc07568790',
@@ -52,7 +54,8 @@ class Command(BaseCommand):
                     languages.append(translation.language)
 
                 self.stdout.write(
-                    f"- translation {translation.language.short_name}: {translation.name}")
+                    f"- translation {translation.language.short_name}: {translation.name}"
+                )
 
                 out.append(
                     f"""
@@ -73,8 +76,7 @@ class Command(BaseCommand):
 
         for language in languages:
             out.insert(
-                0,
-                f"""const tLanguage{language.id} =  Language(
+                0, f"""const tLanguage{language.id} =  Language(
                     id: {language.id},
                     shortName: '{language.short_name}',
                     fullName: '{language.full_name}',
