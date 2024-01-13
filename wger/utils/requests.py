@@ -62,7 +62,9 @@ def get_paginated_generator(url: str, headers=None):
 
     while True:
         response = requests.get(url, headers=headers).json()
-        yield response['results']
+
+        for result in response['results']:
+            yield result
 
         url = response['next']
         if not url:
