@@ -32,7 +32,7 @@ openfoodfacts==0.1.12
 pillow==10.2.0
 reportlab==4.0.8
 requests==2.31.0
-tzdata==2023.3
+tzdata==2023.4
 celery[redis]==5.3.6
 flower==2.0.1
 
