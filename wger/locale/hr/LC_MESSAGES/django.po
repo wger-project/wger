@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-07 17:25+0100\n"
-"PO-Revision-Date: 2023-12-24 20:07+0000\n"
+"PO-Revision-Date: 2024-01-14 12:31+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -479,6 +479,9 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Dogodila se greška na poslužitelju tijekom obrade tvog zahtjeva. Pokušaj "
+"aktualizirati preglednik i ako to ne pomogne, pokušaj ponovo kasnije. Ako "
+"problem ustraje, potraži pomoć na dolje navedene načine:"
 
 #: core/templates/base.html:12 core/templates/base_wide.html:10
 #, python-format
@@ -525,10 +528,9 @@ msgstr "Potvrđivanje e-mail adrese"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Kalendar za %(username)s"
+msgstr "Skoro si gotov/a, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
@@ -2626,12 +2628,12 @@ msgstr "Aktualiziraj"
 #: manager/templates/workout/email_reminder.tpl:3
 #, python-format
 msgid "Your current workout '%(workout)s' expired %(days)s days ago."
-msgstr ""
+msgstr "Tvoj aktualni trening „%(workout)s” je istekao prije %(days)s dana."
 
 #: manager/templates/workout/email_reminder.tpl:5
 #, python-format
 msgid "Your current workout '%(workout)s' is about to expire in %(days)s days."
-msgstr ""
+msgstr "Tvoj aktualni trening „%(workout)s” će isteći za %(days)s dana."
 
 #: manager/templates/workout/email_reminder.tpl:9
 msgid ""
@@ -2639,6 +2641,9 @@ msgid ""
 "Alternatively you can add workouts to a loop schedule, such schedules\n"
 "never produce reminders."
 msgstr ""
+"Redovito ćeš primati takve podsjetnike dok ne dodaš novi trening.\n"
+"Alternativno možeš dodati trening u ponavljajući raspored. Takvi rasporedi\n"
+"nikada ne proizvode podsjetnike."
 
 #: manager/templates/workout/email_reminder.tpl:12
 #: manager/templates/workout/email_weight_reminder.tpl:9
@@ -2646,6 +2651,8 @@ msgid ""
 "If you don't want to ever receive email reminders, deactivate the\n"
 "option in your settings."
 msgstr ""
+"Ako ne želiš primati e-mail podsjetnike, deaktiviraj\n"
+"opcija u tvojim postavkama."
 
 #: manager/templates/workout/email_reminder.tpl:15
 #: manager/templates/workout/email_weight_reminder.tpl:12
@@ -2660,11 +2667,13 @@ msgid ""
 "Your last weight entry is from %(date)s (%(days)s days ago).\n"
 "Please click the link to access the application and enter a new one."
 msgstr ""
+"Tvoj zadnji unos težine je od %(date)s (prije %(days)s dana).\n"
+"Pritisni poveznicu za pristup aplikaciji i unesi novu težinu."
 
 #: manager/templates/workout/email_weight_reminder.tpl:8
 msgid ""
 "You will regularly receive such reminders till you enter your current weight."
-msgstr ""
+msgstr "Takve podsjetnike ćeš primati sve dok ne uneseš svoju aktualnu težinu."
 
 #: manager/templates/workout/log.html:10 manager/templates/workout/log.html:11
 msgid "Weight log"
@@ -3042,6 +3051,8 @@ msgid ""
 "It is now available on the ingredient overview and can be\n"
 "added to nutrition plans. You can access it on this address:"
 msgstr ""
+"Sada je dostupan na pregledu sastojaka i može se\n"
+"dodati u planove prehrane. Možeš mu pristupiti na ovoj adresi:"
 
 #: nutrition/templates/ingredient/email_new.tpl:8
 msgid "Thank you for contributing and making this site better!"
@@ -3338,7 +3349,7 @@ msgstr "Pošalji pozdrav!"
 #: software/templates/about_us.html:34
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
-"Ako želiš s nama razgovarati, skoči na Discord server i kontaktiraj nas"
+"Ako želiš s nama razgovarati prijeđi na Discord poslužitelj i kontaktiraj nas"
 
 #: software/templates/about_us.html:39 software/templates/features.html:496
 msgid "Translation"
