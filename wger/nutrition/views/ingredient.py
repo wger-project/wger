@@ -82,14 +82,6 @@ class IngredientListView(ListView):
         language = load_language()
         return Ingredient.objects.accepted().filter(language=language).only('id', 'name')
 
-    def get_context_data(self, **kwargs):
-        """
-        Pass additional data to the template
-        """
-        context = super(IngredientListView, self).get_context_data(**kwargs)
-        context['show_shariff'] = True
-        return context
-
 
 def view(request, pk, slug=None):
     context = {}
@@ -108,7 +100,6 @@ def view(request, pk, slug=None):
         }
     )
 
-    context['show_shariff'] = True
     return render(request, 'ingredient/view.html', context)
 
 

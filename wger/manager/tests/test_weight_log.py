@@ -67,26 +67,6 @@ class WeightLogAccessTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class CalendarShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        url = reverse('manager:workout:calendar', kwargs={'username': 'admin'})
-
-        response = self.client.get(url)
-        self.assertFalse(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(url)
-        self.assertFalse(response.context['show_shariff'])
-
-
 class CalendarAccessTestCase(WgerTestCase):
     """
     Test accessing the calendar page

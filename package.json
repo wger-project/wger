@@ -19,7 +19,6 @@
     "jquery": "^3.7.1",
     "masonry-layout": "^4.2.2",
     "popper.js": "^1.16.1",
-    "shariff": "^3.3.0",
     "yarn": "^1.22.21"
   },
   "scripts": {

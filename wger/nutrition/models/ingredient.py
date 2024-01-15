@@ -301,8 +301,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 raise ValidationError(
                     _(
                         'The total energy ({energy}kcal) is not the approximate sum of the '
-                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal '
-                        '+/-{energy_approx}%)'.format(
+                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
+                        ' +/-{energy_approx}%)'.format(
                             energy=self.energy,
                             energy_calculated=energy_calculated,
                             energy_approx=self.ENERGY_APPROXIMATION
@@ -473,6 +473,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             logger.info(f'Got JSONDecodeError from OFF: {e}')
             return None
         if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
+            logger.info('Product not found')
             return None
         product = result['product']
 
