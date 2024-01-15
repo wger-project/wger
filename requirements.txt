@@ -13,8 +13,7 @@ django-formtools~=2.5
 django-recaptcha~=4.0.0
 Django==4.2.6
 django-activity-stream==2.0.0
-django-axes==6.3.0
-django-ipware==6.0.3
+django-axes[ipware]==6.3.0
 django-crispy-forms~=2.1
 crispy-bootstrap4==2023.1
 django-simple-history~=3.4
