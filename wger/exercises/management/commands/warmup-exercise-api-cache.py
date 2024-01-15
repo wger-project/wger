@@ -13,13 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.core.cache import cache
 from django.core.management.base import BaseCommand
 
 # wger
 from wger.exercises.api.serializers import ExerciseBaseInfoSerializer
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import CacheKeyMapper
+from wger.utils.cache import reset_exercise_api_cache
 
 
 class Command(BaseCommand):
@@ -62,7 +61,7 @@ class Command(BaseCommand):
             self.stdout.write(f"Warming cache for exercise base {exercise.uuid}")
 
         if force:
-            cache.delete(CacheKeyMapper.get_exercise_api_key(exercise.uuid))
+            reset_exercise_api_cache(exercise.uuid)
 
         serializer = ExerciseBaseInfoSerializer(exercise)
         serializer.data

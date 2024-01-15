@@ -25,7 +25,10 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 
 # wger
-from wger.utils.cache import reset_workout_canonical_form
+from wger.utils.cache import (
+    reset_exercise_api_cache,
+    reset_workout_canonical_form,
+)
 
 # Local
 from .exercise import Exercise
@@ -63,6 +66,15 @@ class Alias(models.Model):
         """
         return self.alias
 
+    def save(self, *args, **kwargs):
+        """
+        Reset cached workouts
+        """
+        # Api cache
+        reset_exercise_api_cache(self.exercise.exercise_base.uuid)
+
+        super().save(*args, **kwargs)
+
     def delete(self, *args, **kwargs):
         """
         Reset cached workouts
@@ -70,7 +82,10 @@ class Alias(models.Model):
         for setting in self.exercise.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
-        super(Alias, self).delete(*args, **kwargs)
+        # Api cache
+        reset_exercise_api_cache(self.exercise.exercise_base.uuid)
+
+        super().delete(*args, **kwargs)
 
     def get_owner_object(self):
         """

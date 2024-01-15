@@ -42,6 +42,7 @@ from wger.exercises.managers import (
     ExerciseBaseManagerNoTranslations,
     ExerciseBaseManagerTranslations,
 )
+from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -236,6 +237,11 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         return translation
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        reset_exercise_api_cache(self.uuid)
+
     def delete(self, using=None, keep_parents=False, replace_by: str = None):
         """
         Save entry to log
@@ -256,5 +262,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             replaced_by=replace_by,
         )
         log.save()
+
+        reset_exercise_api_cache(self.uuid)
 
         return super().delete(using, keep_parents)

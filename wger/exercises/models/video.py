@@ -26,6 +26,8 @@ from django.utils.translation import gettext_lazy as _
 # Third Party
 from simple_history.models import HistoricalRecords
 
+# wger
+from wger.utils.cache import reset_exercise_api_cache
 
 try:
     # Third Party
@@ -210,4 +212,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 self.codec = stream['codec_name']
                 self.codec_long = stream['codec_long_name']
 
-        super(ExerciseVideo, self).save(*args, **kwargs)
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
+        super().save(*args, **kwargs)
