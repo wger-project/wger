@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         #TODO: pypy3 has problems compiling lxml
-        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
+        python-version: [ '3.10', '3.11', '3.12' ]
     name: CI job (python ${{ matrix.python-version }})
 
     steps:
@@ -46,6 +46,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install wheel coverage
+          pip install -r requirements_dev.txt
           pip install -r requirements_prod.txt
           pip install -e .
 
