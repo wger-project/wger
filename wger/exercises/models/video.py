@@ -29,6 +29,7 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.utils.cache import reset_exercise_api_cache
 
+
 try:
     # Third Party
     import ffmpeg
