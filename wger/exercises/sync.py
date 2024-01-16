@@ -58,6 +58,7 @@ from wger.manager.models import (
     WorkoutLog,
 )
 from wger.utils.requests import (
+    get_all_paginated,
     get_paginated,
     wger_headers,
 )
@@ -165,7 +166,7 @@ def sync_languages(
     headers = wger_headers()
     url = make_uri(LANGUAGE_ENDPOINT, server_url=remote_url)
 
-    for data in get_paginated(url, headers=headers):
+    for data in get_all_paginated(url, headers=headers):
         short_name = data['short_name']
         full_name = data['full_name']
 
@@ -189,7 +190,7 @@ def sync_licenses(
     print_fn('*** Synchronizing licenses...')
     url = make_uri(LICENSE_ENDPOINT, server_url=remote_url)
 
-    for data in get_paginated(url, headers=wger_headers()):
+    for data in get_all_paginated(url, headers=wger_headers()):
         short_name = data['short_name']
         full_name = data['full_name']
         license_url = data['url']
@@ -218,7 +219,7 @@ def sync_categories(
     print_fn('*** Synchronizing categories...')
     url = make_uri(CATEGORY_ENDPOINT, server_url=remote_url)
 
-    for data in get_paginated(url, headers=wger_headers()):
+    for data in get_all_paginated(url, headers=wger_headers()):
         category_id = data['id']
         category_name = data['name']
 
@@ -243,7 +244,7 @@ def sync_muscles(
     print_fn('*** Synchronizing muscles...')
     url = make_uri(MUSCLE_ENDPOINT, server_url=remote_url)
 
-    for data in get_paginated(url, headers=wger_headers()):
+    for data in get_all_paginated(url, headers=wger_headers()):
         muscle_id = data['id']
         muscle_name = data['name']
         muscle_is_front = data['is_front']
@@ -278,7 +279,7 @@ def sync_equipment(
 
     url = make_uri(EQUIPMENT_ENDPOINT, server_url=remote_url)
 
-    for data in get_paginated(url, headers=wger_headers()):
+    for data in get_all_paginated(url, headers=wger_headers()):
         equipment_id = data['id']
         equipment_name = data['name']
 

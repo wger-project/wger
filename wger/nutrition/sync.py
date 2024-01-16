@@ -41,10 +41,11 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_WGER,
 )
 from wger.utils.requests import (
-    get_paginated_generator,
+    get_paginated,
     wger_headers,
 )
 from wger.utils.url import make_uri
+
 
 logger = logging.getLogger(__name__)
 
@@ -166,7 +167,7 @@ def download_ingredient_images(
     url = make_uri(IMAGE_ENDPOINT, server_url=remote_url, query={'limit': 100})
 
     print_fn('*** Processing ingredient images ***')
-    for image_data in get_paginated_generator(url, headers=headers):
+    for image_data in get_paginated(url, headers=headers):
         image_uuid = image_data['uuid']
         print_fn(f'Processing image {image_uuid}')
 
@@ -200,7 +201,7 @@ def sync_ingredients(
     print_fn('*** Synchronizing ingredients...')
 
     url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query={'limit': API_MAX_ITEMS})
-    for data in get_paginated_generator(url, headers=wger_headers()):
+    for data in get_paginated(url, headers=wger_headers()):
         uuid = data['uuid']
         name = data['name']
 
