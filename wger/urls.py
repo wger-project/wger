@@ -53,8 +53,6 @@ from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
 
-# admin.autodiscover()
-
 #
 # REST API
 #
@@ -219,7 +217,6 @@ sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    # url(r'^admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
     path('routine/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
