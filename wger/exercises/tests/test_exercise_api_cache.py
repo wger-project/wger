@@ -16,9 +16,7 @@
 from django.core.cache import cache
 
 # wger
-from wger.core.tests.base_testcase import (
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Alias,
     Exercise,

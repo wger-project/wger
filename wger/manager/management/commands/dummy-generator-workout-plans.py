@@ -54,14 +54,6 @@ class Command(BaseCommand):
             help='The number of workout plans to create per user (default: 10)'
         )
         parser.add_argument(
-            '--diary-entries',
-            action='store',
-            default=30,
-            dest='nr_diary_entries',
-            type=int,
-            help='The number of workout logs to create per day (default: 30)'
-        )
-        parser.add_argument(
             '--user-id',
             action='store',
             dest='user_id',
@@ -80,7 +72,7 @@ class Command(BaseCommand):
             self.stdout.write(f'- processing user {user.username}')
 
             # Add plan
-            for _ in range(0, options['nr_plans']):
+            for _ in range(options['nr_plans']):
                 uid = str(uuid.uuid4()).split('-')
                 start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
                 workout = Workout(

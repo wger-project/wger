@@ -13,12 +13,9 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import datetime
 import logging
-import random
 
 # Django
-from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 # Third Party
@@ -27,8 +24,6 @@ from faker.providers import DynamicProvider
 
 # wger
 from wger.gym.models import Gym
-from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 
@@ -88,7 +83,10 @@ class Command(BaseCommand):
             elements=self.names_first,
         )
 
-        gym_names_2 = DynamicProvider(provider_name="gym_names2", elements=self.names_second)
+        gym_names_2 = DynamicProvider(
+            provider_name="gym_names2",
+            elements=self.names_second,
+        )
 
         faker = Faker()
         faker.add_provider(gym_names_1)
@@ -97,13 +95,14 @@ class Command(BaseCommand):
         self.stdout.write(f"** Generating {options['number_gyms']} gyms")
 
         gym_list = []
-        for i in range(1, options['number_gyms']):
+        for i in range(options['number_gyms']):
             found = False
+
+            # We don't want names like "Iron Iron"
             while not found:
                 part1 = faker.gym_names()
                 part2 = faker.gym_names2()
 
-                # We don't want names like "Iron Iron"
                 if part1 != part2:
                     found = True
 

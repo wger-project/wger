@@ -95,7 +95,7 @@ class Command(BaseCommand):
                     for workout_set in day.set_set.all():
                         for setting in workout_set.setting_set.all():
                             for reps in (8, 10, 12):
-                                for i in range(1, options['nr_diary_entries']):
+                                for i in range(options['nr_diary_entries']):
                                     date = datetime.date.today() - datetime.timedelta(weeks=i)
                                     log = WorkoutLog(
                                         user=user,
