@@ -25,6 +25,7 @@ from faker.providers import DynamicProvider
 # wger
 from wger.gym.models import Gym
 
+
 logger = logging.getLogger(__name__)
 
 
