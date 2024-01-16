@@ -58,20 +58,23 @@
 
                                 {% if is_owner %}
                                     <span class="dropdown">
-                        <div class="float-end">
-                            <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-bs-toggle="dropdown">
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Edit' %}
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Delete' %}
-                                </a>
-                            </div>
-                        </div>
-                    </span>
+                                        <div class="float-end">
+                                            <button type="button" class="btn btn-link dropdown-toggle btn-sm"
+                                                    data-bs-toggle="dropdown">
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a href="{% url 'manager:log:edit' log.pk %}"
+                                                   class="wger-modal-dialog dropdown-item">
+                                                    {% translate 'Edit' %}
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="{% url 'manager:log:delete' log.pk %}"
+                                                   class="wger-modal-dialog dropdown-item">
+                                                    {% translate 'Delete' %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </span>
                                 {% endif %}
                             </td>
                         </tr>
