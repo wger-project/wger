@@ -49,7 +49,7 @@ class Command(BaseCommand):
             dest='remote_url',
             default=settings.WGER_SETTINGS['WGER_INSTANCE'],
             help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
-                 f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
+            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
         )
 
     def handle(self, **options):
