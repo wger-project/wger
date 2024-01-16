@@ -75,6 +75,7 @@ Developers
 * Gabriel Liss - https://github.com/gabeliss
 * Alexandra Rhodes - https://github.com/arhodes130
 * Jayanth Bontha - https://github.com/JayanthBontha
+* Adriain Lopez - https://github.com/adrianlzt
 
 Translators
 -----------

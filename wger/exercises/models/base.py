@@ -132,7 +132,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return a more human-readable representation
         """
-        return f"base {self.uuid} ({self.get_translation()})"
+        return f"{self.get_translation()}"
 
     def get_absolute_url(self):
         """
