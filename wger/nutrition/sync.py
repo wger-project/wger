@@ -25,17 +25,20 @@ from django.db import IntegrityError
 import requests
 
 # wger
-from wger.nutrition.api.endpoints import IMAGE_ENDPOINT, INGREDIENTS_ENDPOINT
+from wger.nutrition.api.endpoints import (
+    IMAGE_ENDPOINT,
+    INGREDIENTS_ENDPOINT,
+)
 from wger.nutrition.models import (
     Image,
     Ingredient,
     Source,
 )
 from wger.utils.constants import (
+    API_MAX_ITEMS,
     CC_BY_SA_3_LICENSE_ID,
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
-    API_MAX_ITEMS,
 )
 from wger.utils.requests import (
     get_paginated_generator,
@@ -209,13 +212,11 @@ def sync_ingredients(
                 'language_id': data['language'],
                 'created': data['created'],
                 'license_id': data['license'],
-
                 'license_object_url': data['license_object_url'],
                 'license_author': data['license_author_url'],
                 'license_author_url': data['license_author_url'],
                 'license_title': data['license_title'],
                 'license_derivative_source_url': data['license_derivative_source_url'],
-
                 'energy': data['energy'],
                 'carbohydrates': data['carbohydrates'],
                 'carbohydrates_sugar': data['carbohydrates_sugar'],
