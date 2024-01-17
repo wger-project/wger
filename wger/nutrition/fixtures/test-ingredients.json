@@ -1,333 +1,430 @@
 [
-    {
-        "pk": 1,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "wger test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-01-01",
-            "name": "Test ingredient 1",
-            "language": 2,
-            "sodium": "0.549",
-            "energy": 176,
-            "fat": "8.19",
-            "carbohydrates_sugar": "0.0",
-            "fat_saturated": "3.244",
-            "fibres": "0.0",
-            "protein": "25.63",
-            "carbohydrates": "0.1251"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "wger test",
-            "name": "Ingredient, test, 2, organic, raw",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-01-01",
-            "language": 2,
-            "sodium": "0.1",
-            "energy": 300,
-            "fat": "9",
-            "carbohydrates_sugar": "1",
-            "fat_saturated": "3",
-            "fibres": "5.0",
-            "protein": "25.63",
-            "carbohydrates": "0.1251"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "wger test",
-            "update_date": "2013-03-22",
-            "creation_date": "2013-02-03",
-            "name": "Bachelor chow, now with flavour!",
-            "language": 2,
-            "sodium": "0.1",
-            "energy": 300,
-            "fat": "9",
-            "carbohydrates_sugar": "1",
-            "fat_saturated": "3",
-            "fibres": "5.0",
-            "protein": "25.63",
-            "carbohydrates": "0.1551"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "wger test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Slurm",
-            "language": 2,
-            "sodium": "0.1",
-            "energy": 500,
-            "fat": "1",
-            "carbohydrates_sugar": "99",
-            "fat_saturated": "0",
-            "fibres": "0",
-            "protein": "0",
-            "carbohydrates": "99.0"
-        }
-    },
-    {
-        "pk": 5,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "wger test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Another tasty ingredient",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 10,
-            "fat": "1",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "0",
-            "protein": "0",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 6,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "wger test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Raw ingredient",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 7,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "1",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Pending ingredient",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 2126,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 154,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 5370,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 1643,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 17,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 3208,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-    {
-        "pk": 196,
-        "model": "nutrition.ingredient",
-        "fields": {
-            "status": "2",
-            "license_author": "test",
-            "update_date": "2013-02-12",
-            "creation_date": "2013-04-05",
-            "name": "Needed for guest user",
-            "language": 2,
-            "sodium": "2.1",
-            "energy": 180,
-            "fat": "2",
-            "carbohydrates_sugar": "4",
-            "fat_saturated": "0",
-            "fibres": "20",
-            "protein": "10",
-            "carbohydrates": "5.0"
-        }
-    },
-
-    {
-        "pk": 1,
-        "model": "nutrition.ingredientweightunit",
-        "fields": {
-            "amount": "1",
-            "gram": 109,
-            "unit": 4,
-            "ingredient": 1
-        }
-    },
-    {
-        "pk": 2,
-        "model": "nutrition.ingredientweightunit",
-        "fields": {
-            "amount": "0.5",
-            "gram": 223,
-            "unit": 5,
-            "ingredient": 1
-        }
-    },
-    {
-        "pk": 3,
-        "model": "nutrition.ingredientweightunit",
-        "fields": {
-            "amount": "1",
-            "gram": 12,
-            "unit": 6,
-            "ingredient": 1
-        }
-    },
-    {
-        "pk": 9874,
-        "model": "nutrition.ingredientweightunit",
-        "fields": {
-            "amount": "1",
-            "gram": 12,
-            "unit": 6,
-            "ingredient": 1
-        }
-    },
-    {
-        "pk": 5950,
-        "model": "nutrition.ingredientweightunit",
-        "fields": {
-            "amount": "1",
-            "gram": 12,
-            "unit": 6,
-            "ingredient": 1
-        }
+  {
+    "pk": 1,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "7908c204-907f-4b1e-ad4e-f482e9769ade",
+      "status": "2",
+      "license_author": "wger test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-01-01T10:23:00+01:00",
+      "name": "Test ingredient 1",
+      "language": 2,
+      "sodium": "0.549",
+      "energy": 176,
+      "fat": "8.19",
+      "carbohydrates_sugar": "0.0",
+      "fat_saturated": "3.244",
+      "fibres": "0.0",
+      "protein": "25.63",
+      "carbohydrates": "0.1251",
+      "code": "1234567890987654321",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
     }
+  },
+  {
+    "pk": 2,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "44dc5966-73a2-4df7-8b15-f6d37a8990d9",
+      "status": "2",
+      "license_author": "wger test",
+      "name": "Ingredient, test, 2, organic, raw",
+      "last_update": "2013-02-12T15:12:00+01:00",
+      "created": "2013-01-01T23:54:11+02:00",
+      "language": 2,
+      "sodium": "0.1",
+      "energy": 300,
+      "fat": "9",
+      "carbohydrates_sugar": "1",
+      "fat_saturated": "3",
+      "fibres": "5.0",
+      "protein": "25.63",
+      "carbohydrates": "0.1251",
+      "code": "1234567890",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-10T12:37:35.903Z",
+      "common_name": "ing 2",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "f28c8a68-ecda-42db-a9c4-781ee2aee472",
+      "status": "2",
+      "license_author": "wger test",
+      "last_update": "2013-03-22T18:32:15+01:00",
+      "created": "2013-02-03T16:16:50+01:00",
+      "name": "Bachelor chow, now with flavour!",
+      "language": 2,
+      "sodium": "0.1",
+      "energy": 300,
+      "fat": "9",
+      "carbohydrates_sugar": "1",
+      "fat_saturated": "3",
+      "fibres": "5.0",
+      "protein": "25.63",
+      "carbohydrates": "0.1551",
+      "code": "1223334444",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-31T12:37:35.903Z",
+      "common_name": "the everything food",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "fdd662aa-696c-46c6-acae-b192ccc25f11",
+      "status": "2",
+      "license_author": "wger test",
+      "last_update": "2013-02-12T12:17:45+01:00",
+      "created": "2013-04-05T12:12:12+01:00",
+      "name": "Slurm",
+      "language": 2,
+      "sodium": "0.1",
+      "energy": 500,
+      "fat": "1",
+      "carbohydrates_sugar": "99",
+      "fat_saturated": "0",
+      "fibres": "0",
+      "protein": "0",
+      "carbohydrates": "99.0",
+      "code": "0987654321",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "293957df-b5bb-4ca6-b883-2234185c5372",
+      "status": "2",
+      "license_author": "wger test",
+      "last_update": "2013-02-12T14:14:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Another tasty ingredient",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 10,
+      "fat": "1",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "0",
+      "protein": "0",
+      "carbohydrates": "5.0",
+      "code": "555555555",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "dfc5c622-027b-4f17-8141-dadd1ce7e3f1",
+      "status": "2",
+      "license_author": "wger test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Raw ingredient",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "1112222333333334444444",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "42a41805-2caf-4c7e-9ff3-decbfee5f695",
+      "status": "1",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Pending ingredient",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "11222222333",
+      "source_name": "wger",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 2126,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "db9e0502-2a54-472d-97e2-3761d1b286ee",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "9988877766655",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 154,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "7164629a-9f58-450b-8316-ad7954564171",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "123454321",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 5370,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "9d53cf0e-5100-480f-a320-2de51c70603b",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "0009999888777",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 1643,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "0187406a-7290-4199-a4dc-ccceb8cb55ea",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "7787878787878787",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "16ade127-00b0-4bcf-906e-dd9730f5ade1",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "29292929292929",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 3208,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "59a73b2c-ead1-4001-b6a0-355c9cb366a7",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "19191919191",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 196,
+    "model": "nutrition.ingredient",
+    "fields": {
+      "uuid": "a18665d0-24e3-4255-88aa-92f2831d568a",
+      "status": "2",
+      "license_author": "test",
+      "last_update": "2013-02-12T01:00:00+01:00",
+      "created": "2013-04-05T01:00:00+01:00",
+      "name": "Needed for guest user",
+      "language": 2,
+      "sodium": "2.1",
+      "energy": 180,
+      "fat": "2",
+      "carbohydrates_sugar": "4",
+      "fat_saturated": "0",
+      "fibres": "20",
+      "protein": "10",
+      "carbohydrates": "5.0",
+      "code": "4444444444444",
+      "source_name": "Open Food Facts",
+      "source_url": "https://world.openfoodfacts.org/api/v2/product/5055365635003.json",
+      "last_imported": "2022-12-01T12:37:35.903Z",
+      "common_name": "foo",
+      "brand": "the food brand"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "nutrition.ingredientweightunit",
+    "fields": {
+      "amount": "1",
+      "gram": 109,
+      "unit": 4,
+      "ingredient": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "nutrition.ingredientweightunit",
+    "fields": {
+      "amount": "0.5",
+      "gram": 223,
+      "unit": 5,
+      "ingredient": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "nutrition.ingredientweightunit",
+    "fields": {
+      "amount": "1",
+      "gram": 12,
+      "unit": 6,
+      "ingredient": 1
+    }
+  },
+  {
+    "pk": 9874,
+    "model": "nutrition.ingredientweightunit",
+    "fields": {
+      "amount": "1",
+      "gram": 12,
+      "unit": 6,
+      "ingredient": 1
+    }
+  },
+  {
+    "pk": 5950,
+    "model": "nutrition.ingredientweightunit",
+    "fields": {
+      "amount": "1",
+      "gram": 12,
+      "unit": 6,
+      "ingredient": 1
+    }
+  }
 ]

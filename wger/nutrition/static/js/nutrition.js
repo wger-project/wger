@@ -59,67 +59,7 @@ function wgerInitIngredientDetail(url) {
   });
 }
 
-/*
- * Update the user's preferences
- */
-function wgerInitIngredientAutocompleter() {
-  // Init the autocompleter
-  $('#id_ingredient_searchfield').autocomplete({
-    serviceUrl: '/api/v2/ingredient/search/',
-    paramName: 'term',
-    minChars: 3,
-    onSelect: function (suggestion) {
-      var ingredientId = suggestion.data.id;
 
-      // After clicking on a result set the value of the hidden field
-
-      $('#id_ingredient').val(ingredientId);
-      $('#ingredient_name').html(suggestion.value);
-
-      // See if the ingredient has any units and set the values for the forms
-      $.get('/api/v2/ingredientweightunit/?ingredient=' + ingredientId, function (unitData) {
-        // Remove any old units, if any
-        var options = $('#id_weight_unit').find('option');
-        $.each(options, function (index, optionObj) {
-          if (optionObj.value !== '') {
-            $(optionObj).remove();
-          }
-        });
-
-        // Add new units, if any
-        $.each(unitData.results, function (index, value) {
-          $.get('/api/v2/weightunit/' + value.unit + '/', function (unit) {
-            var unitName = unit.name + ' (' + value.gram + 'g)';
-            $('#id_unit').append(new Option(unitName, value.id));
-            $('#id_weight_unit').append(new Option(unitName, value.id));
-          });
-        });
-      });
-    }
-  });
-}
-
-function wgerDrawNutritionDiaryChart(planPk) {
-  d3.json('/api/v2/nutritionplan/' + planPk + '/get_log_overview/').then(function (data) {
-    if (data.length > 0) {
-      $.getJSON('/api/v2/nutritionplan/' + planPk + '/nutritional_values/',
-        function (nutritionalValues) {
-          MG.data_graphic({
-            data: data,
-            chart_type: 'bar',
-            y_accessor: 'energy',
-            x_accessor: 'date',
-            decimals: 0,
-            full_width: true,
-            baselines: [{ value: nutritionalValues.total.energy,
-                          label: 'Planned (' + nutritionalValues.total.energy + 'kcal)' }],
-            target: '#nutrition_diary_chart',
-            colors: '#307916'
-          });
-        });
-    }
-  });
-}
 
 /*
  * Draw the BMI chart
@@ -148,7 +88,7 @@ function wgerRenderBodyMassIndex() {
 
   heightFactor = (widthFactor / 600) * 300;
 
-  margin = { top: 20, right: 80, bottom: 30, left: 50 };
+  margin = {top: 20, right: 80, bottom: 30, left: 50};
   width = widthFactor - margin.left - margin.right;
   height = heightFactor - margin.top - margin.bottom;
 
@@ -288,7 +228,7 @@ function wgerInitCaloriesCalculator() {
       $.ajax({
         url: '/api/v2/userprofile/' + userprofile.results[0].user + '/',
         type: 'PATCH',
-        data: { calories: totalCalories }
+        data: {calories: totalCalories}
       });
     });
   });

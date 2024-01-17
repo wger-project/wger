@@ -16,9 +16,11 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
-from django.urls import path
+from django.urls import (
+    path,
+    re_path,
+)
 
 # wger
 from wger.weight import views
@@ -51,7 +53,7 @@ urlpatterns = [
         login_required(views.WeightCsvImportFormPreview(WeightCsvImportForm)),
         name='import-csv',
     ),
-    url(
+    re_path(
         'overview',
         views.overview,
         name='overview',

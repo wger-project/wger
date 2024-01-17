@@ -17,7 +17,6 @@ import json
 
 # Django
 from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
 from django.template import (
     Context,
     Template,
@@ -39,10 +38,7 @@ from wger.exercises.models import (
     Muscle,
 )
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import (
-    DEFAULT_LICENSE_ID,
-    WORKOUT_TAB,
-)
+from wger.utils.constants import CC_BY_SA_4_ID
 
 
 class ExerciseRepresentationTestCase(WgerTestCase):
@@ -79,7 +75,7 @@ class ExercisesTestCase(WgerTestCase):
         self.assertEqual(result['suggestions'][0]['data']['image_thumbnail'], None)
 
         # 0 hits, "Pending exercise"
-        response = self.client.get(reverse('exercise-search'), {'term': 'Pending'})
+        response = self.client.get(reverse('exercise-search'), {'term': 'Foobar'})
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.content.decode('utf8'))
         self.assertEqual(len(result['suggestions']), 0)
@@ -113,18 +109,6 @@ class ExercisesTestCase(WgerTestCase):
 
         exercise = Exercise.objects.get(pk=2)
         self.assertEqual(len(exercise.history.all()), 1)
-
-
-class DeleteExercisesTestCase(WgerDeleteTestCase):
-    """
-    Exercise test case
-    """
-
-    object_class = Exercise
-    url = 'exercise:exercise:delete'
-    pk = 2
-    user_success = 'admin'
-    user_fail = 'test'
 
 
 class MuscleTemplateTagTest(WgerTestCase):
@@ -356,14 +340,14 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         exercise translation.
         """
         exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.language_id, 1)
+        self.assertEqual(exercise.language_id, 2)
 
         self.authenticate('trainer1')
-        response = self.client.patch(self.url_detail, data={'language': 2})
+        response = self.client.patch(self.url_detail, data={'language': 1})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.exercise_base_id, 1)
+        self.assertEqual(exercise.language_id, 2)
 
     def test_cant_change_license(self):
         """
@@ -392,7 +376,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, DEFAULT_LICENSE_ID)
+        self.assertEqual(exercise.license_id, CC_BY_SA_4_ID)
 
     def test_patch_clean_html(self):
         """

@@ -1,0 +1,40 @@
+{% extends "base_wide.html" %}
+{% load i18n static wger_extras thumbnail cache django_bootstrap_breadcrumbs %}
+
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+{% endblock %}
+{% block opengraphimages %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% endblock %}
+
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+    <div id="{{ div_id }}"></div>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% endblock %}

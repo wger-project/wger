@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -15,6 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models import Q
 
 # Third Party
@@ -23,6 +23,7 @@ from rest_framework import serializers
 # wger
 from wger.exercises.models import (
     Alias,
+    DeletionLog,
     Equipment,
     Exercise,
     ExerciseBase,
@@ -33,6 +34,7 @@ from wger.exercises.models import (
     Muscle,
     Variation,
 )
+from wger.utils.cache import CacheKeyMapper
 
 
 class ExerciseBaseSerializer(serializers.ModelSerializer):
@@ -45,8 +47,8 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
-            'creation_date',
-            'update_date',
+            'created',
+            'last_update',
             'category',
             'muscles',
             'muscles_secondary',
@@ -66,16 +68,46 @@ class EquipmentSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class DeletionLogSerializer(serializers.ModelSerializer):
+    """
+    Deletion log serializer
+    """
+
+    class Meta:
+        model = DeletionLog
+        fields = [
+            'model_type',
+            'uuid',
+            'replaced_by',
+            'timestamp',
+            'comment',
+        ]
+
+
 class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
+    exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
 
     class Meta:
         model = ExerciseImage
         fields = [
-            'id', 'uuid', 'exercise_base', 'image', 'is_main', 'style', 'license', 'license_author',
-            'author_history'
+            'id',
+            'uuid',
+            'exercise_base',
+            'exercise_base_uuid',
+            'image',
+            'is_main',
+            'style',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+            'author_history',
         ]
 
 
@@ -84,13 +116,60 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     ExerciseVideo serializer
     """
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
 
     class Meta:
         model = ExerciseVideo
         fields = [
-            'id', 'uuid', 'exercise_base', 'exercise_base_uuid', 'video', 'is_main', 'size',
-            'duration', 'width', 'height', 'codec', 'codec_long', 'license', 'license_author',
-            'author_history'
+            'id',
+            'uuid',
+            'exercise_base',
+            'exercise_base_uuid',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+            'author_history',
+        ]
+
+
+class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
+    """
+    ExerciseVideo serializer for the info endpoint
+    """
+    author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
+
+    class Meta:
+        model = ExerciseVideo
+        fields = [
+            'id',
+            'uuid',
+            'exercise_base',
+            'video',
+            'is_main',
+            'size',
+            'duration',
+            'width',
+            'height',
+            'codec',
+            'codec_long',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+            'author_history',
         ]
 
 
@@ -105,6 +184,7 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         model = ExerciseComment
         fields = [
             'id',
+            'uuid',
             'exercise',
             'comment',
         ]
@@ -117,7 +197,12 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = ['id', 'exercise', 'alias']
+        fields = [
+            'id',
+            'uuid',
+            'exercise',
+            'alias',
+        ]
 
 
 class ExerciseVariationSerializer(serializers.ModelSerializer):
@@ -139,7 +224,11 @@ class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = ['id', 'alias']
+        fields = [
+            'id',
+            'uuid',
+            'alias',
+        ]
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
@@ -156,6 +245,8 @@ class MuscleSerializer(serializers.ModelSerializer):
     """
     Muscle serializer
     """
+    image_url_main = serializers.CharField()
+    image_url_secondary = serializers.CharField()
 
     class Meta:
         model = Muscle
@@ -181,6 +272,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
     equipment = serializers.PrimaryKeyRelatedField(many=True, queryset=Equipment.objects.all())
     variations = serializers.PrimaryKeyRelatedField(many=True, queryset=Variation.objects.all())
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = Exercise
@@ -190,7 +282,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "category",
             "muscles",
             "muscles_secondary",
@@ -215,6 +307,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     )
     aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
     notes = ExerciseCommentSerializer(source='exercisecomment_set', many=True, read_only=True)
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = Exercise
@@ -224,10 +317,16 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "language",
             "aliases",
             "notes",
+            "license",
+            "license_title",
+            "license_object_url",
+            "license_author",
+            "license_author_url",
+            "license_derivative_source_url",
             "author_history",
         )
 
@@ -251,7 +350,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             "name",
             "exercise_base",
             "description",
-            "creation_date",
+            "created",
             "language",
             'license_author',
         )
@@ -297,6 +396,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     equipment = EquipmentSerializer(many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
+    author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
         model = Exercise
@@ -308,7 +408,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
             "uuid",
             "exercise_base_id",
             "description",
-            "creation_date",
+            "created",
             "category",
             "muscles",
             "muscles_secondary",
@@ -335,8 +435,11 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
-    videos = ExerciseVideoSerializer(source='exercisevideo_set', many=True, read_only=True)
+    videos = ExerciseVideoInfoSerializer(source='exercisevideo_set', many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
+    author_history = serializers.ListSerializer(child=serializers.CharField())
+    total_authors_history = serializers.ListSerializer(child=serializers.CharField())
+    last_update_global = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = ExerciseBase
@@ -344,12 +447,15 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "uuid",
-            "creation_date",
+            "created",
+            "last_update",
+            "last_update_global",
             "category",
             "muscles",
             "muscles_secondary",
             "equipment",
             "license",
+            "license_author",
             "images",
             "exercises",
             "variations",
@@ -358,3 +464,17 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             "author_history",
             "total_authors_history",
         ]
+
+    def to_representation(self, instance):
+        """
+        Cache the response
+        """
+        key = CacheKeyMapper.get_exercise_api_key(instance.uuid)
+
+        representation = cache.get(key)
+        if representation:
+            return representation
+
+        representation = super().to_representation(instance)
+        cache.set(key, representation, settings.WGER_SETTINGS['EXERCISE_CACHE_TTL'])
+        return representation

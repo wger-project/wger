@@ -37,10 +37,13 @@ from wger.utils.constants import TWOPLACES
 STATUS_CODES_FAIL = (302, 403, 404)
 
 
-def get_reverse(url, kwargs={}):
+def get_reverse(url, kwargs=None):
     """
     Helper function to get the reverse URL
     """
+    if kwargs is None:
+        kwargs = {}
+
     try:
         url = reverse(url, kwargs=kwargs)
     except NoReverseMatch:
@@ -89,13 +92,15 @@ def delete_testcase_add_methods(cls):
         setattr(cls, f'test_authorized_{user}', test_authorized)
 
 
-class BaseTestCase():
+class BaseTestCase:
     """
     Base test case.
 
     Generic base testcase that is used for both the regular tests and the
     REST API tests
     """
+
+    media_root = None
 
     fixtures = (
         'days_of_week',
@@ -148,13 +153,12 @@ class BaseTestCase():
         # Set logging level
         logging.disable(logging.INFO)
 
-        # Set MEDIA_ROOT
-        self.media_root = tempfile.mkdtemp()
-        settings.MEDIA_ROOT = self.media_root
-
         # Disable django-axes
         # https://django-axes.readthedocs.io/en/latest/3_usage.html#authenticating-users
         settings.AXES_ENABLED = False
+
+        settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] = False
+        settings.WGER_SETTINGS['USE_CELERY'] = False
 
     def tearDown(self):
         """
@@ -164,7 +168,33 @@ class BaseTestCase():
         cache.clear()
 
         # Clear MEDIA_ROOT folder
-        shutil.rmtree(self.media_root)
+        if self.media_root:
+            shutil.rmtree(self.media_root)
+
+    def init_media_root(self):
+        """
+        Init the media root and copy the used images to it
+
+        This is error-prone and ugly, but it's probably ok for the time being
+        """
+        self.media_root = tempfile.mkdtemp()
+        settings.MEDIA_ROOT = self.media_root
+
+        os.makedirs(self.media_root + '/exercise-images/1/')
+        os.makedirs(self.media_root + '/exercise-images/2/')
+
+        shutil.copy(
+            'wger/exercises/tests/protestschwein.jpg',
+            self.media_root + '/exercise-images/1/protestschwein.jpg'
+        )
+        shutil.copy(
+            'wger/exercises/tests/wildschwein.jpg',
+            self.media_root + '/exercise-images/1/wildschwein.jpg'
+        )
+        shutil.copy(
+            'wger/exercises/tests/wildschwein.jpg',
+            self.media_root + '/exercise-images/2/wildschwein.jpg'
+        )
 
 
 class WgerTestCase(BaseTestCase, TestCase):
@@ -283,7 +313,9 @@ class WgerDeleteTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 302)
             self.assertEqual(count_before - 1, count_after)
             self.assertRaises(
-                self.object_class.DoesNotExist, self.object_class.objects.get, pk=self.pk
+                self.object_class.DoesNotExist,
+                self.object_class.objects.get,
+                pk=self.pk,
             )
 
             # TODO: the redirection page might not have a language prefix (e.g. /user/login
@@ -309,7 +341,7 @@ class WgerDeleteTestCase(WgerTestCase):
 
     def test_delete_object_other(self):
         """
-        Tests deleting the object as the unauthorized, logged in users
+        Tests deleting the object as the unauthorized, logged-in users
         """
         if self.user_fail and not isinstance(self.user_success, tuple):
             for user in get_user_list(self.user_fail):

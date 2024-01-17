@@ -19,9 +19,7 @@ from collections.abc import Iterable
 
 # Django
 from django import template
-from django.conf import settings
 from django.templatetags.static import static
-from django.utils.html import strip_spaces_between_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import (
     gettext_lazy as _,
@@ -34,6 +32,7 @@ from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT,
 )
+from wger.utils.language import get_language_data
 
 
 register = template.Library()
@@ -107,27 +106,6 @@ def render_weight_log(log, div_uuid, user=None):
     }
 
 
-@register.inclusion_tag('tags/react_static.html')
-def react_static():
-    """
-    Renders the necessary tags to load react's static files
-
-    This is a temporary solution until we have a proper react setup used
-    in more templates, then this can go to the main template
-    """
-
-    return {}
-
-
-@register.inclusion_tag('tags/license-sidebar.html')
-def license_sidebar(license, author=None):
-    """
-    Renders the license notice for exercises
-    """
-
-    return {'license': license, 'author': author}
-
-
 @register.inclusion_tag('tags/muscles.html')
 def render_muscles(muscles=None, muscles_sec=None):
     """
@@ -163,11 +141,7 @@ def language_select(context, language):
     Renders a link to change the current language.
     """
 
-    return {
-        'language_name': language[1],
-        'path': f'images/icons/flag-{language[0]}.svg',
-        'i18n_path': context['i18n_path'][language[0]]
-    }
+    return {**get_language_data(language), 'i18n_path': context['i18n_path'][language[0]]}
 
 
 @register.filter
@@ -201,6 +175,7 @@ def fa_class(class_name='', icon_type='fas', fixed_width=True):
 
     :param class_name: the CSS class name, without the "fa-" prefix
     :param fixed_width: toggle for fixed icon width
+    :param icon_type; icon type (
     :return: the complete CSS classes
     """
     css = ''

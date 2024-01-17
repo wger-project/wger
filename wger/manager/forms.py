@@ -127,7 +127,6 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
 
 
 class SetForm(ModelForm):
-
     exercises = OrderedModelMultipleChoiceField(
         queryset=ExerciseBase.objects.all(),
         label=_('Exercises'),
@@ -138,6 +137,12 @@ class SetForm(ModelForm):
             'exercise, they will be grouped '
             'together for a superset.'
         )
+    )
+
+    english_results = BooleanField(
+        label=gettext_lazy("Also search for names in English"),
+        initial=True,
+        required=False,
     )
 
     class Meta:
@@ -204,11 +209,11 @@ class WorkoutLogFormHelper(FormHelper):
         self.layout = Layout(
             'id',
             Row(
-                Column('reps', css_class='form-group col-2 mb-0'),
-                Column('repetition_unit', css_class='form-group col-3 mb-0'),
-                Column('weight', css_class='form-group col-2 mb-0'),
-                Column('weight_unit', css_class='form-group col-3 mb-0'),
-                Column('rir', css_class='form-group col-2 mb-0'),
+                Column('reps', css_class='col-2'),
+                Column('repetition_unit', css_class='col-3'),
+                Column('weight', css_class='col-2'),
+                Column('weight_unit', css_class='col-3'),
+                Column('rir', css_class='col-2'),
                 css_class='form-row'
             ),
         )
@@ -232,14 +237,14 @@ class HelperWorkoutSessionForm(ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='form-group col-6 mb-0'),
-                Column('impression', css_class='form-group col-6 mb-0'),
+                Column('date', css_class='col-6'),
+                Column('impression', css_class='col-6'),
                 css_class='form-row'
             ),
             'notes',
             Row(
-                Column('time_start', css_class='form-group col-6 mb-0'),
-                Column('time_end', css_class='form-group col-6 mb-0'),
+                Column('time_start', css_class='col-6'),
+                Column('time_end', css_class='col-6'),
                 css_class='form-row'
             ),
         )
@@ -262,8 +267,8 @@ class WorkoutSessionForm(ModelForm):
             'impression',
             'notes',
             Row(
-                Column('time_start', css_class='form-group col-6 mb-0'),
-                Column('time_end', css_class='form-group col-6 mb-0'),
+                Column('time_start', css_class='col-6'),
+                Column('time_end', css_class='col-6'),
                 css_class='form-row'
             ),
         )

@@ -38,5 +38,5 @@ patterns_email = [
 ]
 
 urlpatterns = [
-    path('email', include((patterns_email, 'email'), namespace="email")),
+    path('', include((patterns_email, 'email'), namespace="email")),
 ]

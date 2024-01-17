@@ -20,7 +20,6 @@ from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.contrib.sitemaps.views import (
     index,
     sitemap,
@@ -29,6 +28,11 @@ from django.urls import path
 
 # Third Party
 from django_email_verification import urls as email_urls
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -89,7 +93,7 @@ router.register(
     basename='setting-repetition-unit'
 )
 router.register(
-    r'setting-weightunit', core_api_views.WeightUnitViewSet, basename='setting-weight-unit'
+    r'setting-weightunit', core_api_views.RoutineWeightUnitViewSet, basename='setting-weight-unit'
 )
 
 # Exercises app
@@ -121,7 +125,12 @@ router.register(
 router.register(
     r'equipment',
     exercises_api_views.EquipmentViewSet,
-    basename='api',
+    basename='equipment',
+)
+router.register(
+    r'deletion-log',
+    exercises_api_views.DeletionLogViewSet,
+    basename='deletion-log',
 )
 router.register(
     r'exercisecategory',
@@ -181,12 +190,13 @@ router.register(
 router.register(r'nutritiondiary', nutrition_api_views.LogItemViewSet, basename='nutritiondiary')
 router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
 router.register(r'mealitem', nutrition_api_views.MealItemViewSet, basename='mealitem')
+router.register(r'ingredient-image', nutrition_api_views.ImageViewSet, basename='ingredientimage')
 
 # Weight app
 router.register(r'weightentry', weight_api_views.WeightEntryViewSet, basename='weightentry')
 
 # Gallery app
-router.register(r'gallery', gallery_api_views.ImageViewSet, basename='gallery')
+router.register(r'gallery', gallery_api_views.GalleryImageViewSet, basename='gallery')
 
 # Measurements app
 router.register(
@@ -211,7 +221,7 @@ sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
 urlpatterns = i18n_patterns(
     # url(r'^admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
-    path('workout/', include(('wger.manager.urls', 'manager'), namespace='manager')),
+    path('routine/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
     path('weight/', include(('wger.weight.urls', 'weight'), namespace='weight')),
     path('nutrition/', include(('wger.nutrition.urls', 'nutrition'), namespace='nutrition')),
@@ -219,7 +229,11 @@ urlpatterns = i18n_patterns(
     path('config/', include(('wger.config.urls', 'config'), namespace='config')),
     path('gym/', include(('wger.gym.urls', 'gym'), namespace='gym')),
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
-    path('email', include(('wger.mailer.urls', 'email'), namespace='email')),
+    path(
+        'measurement/',
+        include(('wger.measurements.urls', 'measurements'), namespace='measurements')
+    ),
+    path('email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path(
         'sitemap-<section>.xml',
@@ -236,7 +250,6 @@ urlpatterns += [
 
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
-    path('api/v2/exerciseinfo/search/', exercises_api_views.search, name='exercise-info'),
     path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/', include(router.urls)),
 
@@ -269,6 +282,23 @@ urlpatterns += [
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
         name='min_app_version'
     ),
+
+    # Api documentation
+    path(
+        'api/v2/schema',
+        SpectacularAPIView.as_view(),
+        name='schema',
+    ),
+    path(
+        'api/v2/schema/ui',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='api-swagger-ui',
+    ),
+    path(
+        'api/v2/schema/redoc',
+        SpectacularRedocView.as_view(url_name='schema'),
+        name='api-redoc',
+    ),
     path('email/', include(email_urls)),
 ]
 
@@ -277,3 +307,4 @@ urlpatterns += [
 #
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))

@@ -91,7 +91,6 @@ class LicenseDeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredM
     """
 
     model = License
-    fields = ['full_name', 'short_name', 'url']
     success_url = reverse_lazy('core:license:list')
     permission_required = 'core.delete_license'
 

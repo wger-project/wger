@@ -45,8 +45,7 @@ FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
         'port':
         'Port to use. Default: 8000',
         'settings-path':
-        'Path to settings file (absolute path). Leave empty for '
-        'default',
+        'Path to settings file (absolute path). Leave empty for default',
         'extra-args':
         'Additional arguments to pass to the builtin server. Pass as string: '
         '"--arg1 --arg2=value". Default: none'
@@ -252,7 +251,7 @@ def load_fixtures(context, settings_path=None):
     call_command("loaddata", "muscles.json")
     call_command("loaddata", "categories.json")
     call_command("loaddata", "exercise-base-data.json")
-    call_command("loaddata", "exercises.json")
+    call_command("loaddata", "translations.json")
 
     # Gym
     call_command("loaddata", "gym.json")

@@ -19,11 +19,12 @@
 {% load i18n static wger_extras compress django_bootstrap_breadcrumbs %}
 <html lang="de">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Roland Geider">
 
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'yarn/components-font-awesome/css/all.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
@@ -37,62 +38,48 @@
 </head>
 
 <body>
-{#            #}
-{# Navigation #}
-{#            #}
-<nav class="navbar navbar-expand-lg navbar-dark bg-wger-primary">
-    <div class="container">
-        <a class="navbar-brand extra-bold" href="{% url 'core:index' %}">
-            <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 38px;">
-        </a>
-        </div>
-    </div>
-</nav>
-
-
-
 
 {#              #}
 {# Main content #}
 {#              #}
 <div id="main">
-    <div class="container pt-4">
-        <div class="row">
-        <div class="col-12 col-md-8">
-            <h2 id="page-title" class="page-header">
-                {% block title %}{% endblock %}
-            </h2>
-            <hr>
+    <div class="container pt-4 text-center">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <h2 id="page-title" class="page-header">
+                    {% block title %}{% endblock %}
+                </h2>
+                <hr>
+            </div>
         </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 order-2 order-sm-1 mt-3" id="main-content">
-            <div id="content">
-                {% block content %}{% endblock %}
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 mt-3" id="main-content">
+                <div id="content">
+                    {% block content %}{% endblock %}
+                    <p>
+                        {% if twitter %}
+                            <a href="https://twitter.com/{{ twitter }}" target="_blank"
+                               rel="noopener noreferrer"><i
+                                class="fab fa-twitter p-2 fa-2x" aria-hidden="true"></i></a>
+                        {% endif %}
+                        <a href="https://discord.gg/rPWFv6W" target="_blank"
+                           rel="noopener noreferrer"><i
+                            class="fab fa-discord p-2 fa-2x"></i></a>
+                        {% if mastodon %}
+                            <a href="{{ mastodon }}" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-mastodon p-2 fa-2x" aria-hidden="true"></i></a>
+                        {% endif %}
+                        <a href="https://github.com/wger-project/wger/issues/new/choose"
+                           target="_blank"
+                           rel="noopener noreferrer"><i
+                            class="fab fa-github p-2 fa-2x" aria-hidden="true"></i></a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-
-
-
-
-<footer id="main-footer" class="bg-wger-light border-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <ul class="list-unstyled mb-0 pt-2">
-                    <li><a href="{% url 'core:imprint' %}" class="text-muted small">{% translate "Imprint" %}</a></li>
-                    <li><a href="{% url 'software:tos' %}" class="text-muted small">{% translate "Terms of service" %}</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="{% static 'yarn/shariff/dist/shariff.min.js' %}"></script>
 </body>
 </html>

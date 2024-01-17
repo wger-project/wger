@@ -18,28 +18,21 @@
 import uuid
 
 # Django
-from django.conf import settings
-from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
-from django.core import mail
 from django.core.validators import MinLengthValidator
 from django.db import models
-from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
 import bleach
-from actstream import action
 from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
 from wger.utils.cache import (
-    delete_template_fragment_cache,
+    reset_exercise_api_cache,
     reset_workout_canonical_form,
 )
 from wger.utils.models import (
@@ -65,15 +58,16 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """The exercise's name"""
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
-        null=True,
-        blank=True,
     )
     """The submission date"""
 
-    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
     """Datetime of the last modification"""
 
     language = models.ForeignKey(
@@ -86,6 +80,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
+        unique=True,
         verbose_name='UUID',
     )
     """Globally unique ID, to identify the exercise across installations"""
@@ -127,7 +122,10 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Reset all cached infos
         """
-        super(Exercise, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
 
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():
@@ -141,7 +139,10 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
-        super(Exercise, self).delete(*args, **kwargs)
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         """

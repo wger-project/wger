@@ -1,5 +1,3 @@
-# -*- coding: utf-8 *-*
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -17,6 +15,7 @@
 # Standard Library
 import csv
 import pathlib
+import re
 
 # Django
 from django.core.files import File
@@ -36,7 +35,7 @@ from wger.exercises.models import (
     ExerciseVideo,
     Variation,
 )
-from wger.utils.constants import DEFAULT_LICENSE_ID
+from wger.utils.constants import CC_BY_SA_4_ID
 
 
 UUID_NEW = 'NEW'
@@ -77,7 +76,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         self.process_new_exercises(options)
-        self.delete_duplicates(options)
+        # self.delete_duplicates(options)
 
     def process_new_exercises(self, options):
         csv_file = open('exercises_cleanup.csv', 'r', newline='')
@@ -86,19 +85,16 @@ class Command(BaseCommand):
         #
         # Sanity check
         #
-        available_languages = [
-            'en', 'de', 'fr', 'it', 'es', 'nl', 'pt', 'ru', 'cs', 'uk', 'tr', 'sv', 'bg'
-        ]
+        languages = Language.objects.all()
         columns = ['uuid', 'name', 'description', 'aliases', 'license', 'author']
 
-        for language in available_languages:
+        for language in [l.short_name for l in languages]:
             for column in columns:
                 name = '{0}:{1}'.format(language, column)
                 assert (name in file_reader.fieldnames
                         ), '{0} not in {1}'.format(name, file_reader.fieldnames)
 
-        language_objs = [Language.objects.get(short_name=l) for l in available_languages]
-        default_license = License.objects.get(pk=DEFAULT_LICENSE_ID)
+        default_license = License.objects.get(pk=CC_BY_SA_4_ID)
 
         #
         # Process the exercises
@@ -120,18 +116,21 @@ class Command(BaseCommand):
             #
             # Load and update the base data
             #
-            if not options['create_on_new'] and base_uuid == UUID_NEW:
+            new_base = base_uuid == UUID_NEW
+            if not options['create_on_new'] and new_base:
                 self.stdout.write(f'    Skipping creating new exercise base...\n')
                 continue
-            try:
-                base = ExerciseBase.objects.get(uuid=base_uuid
-                                                ) if base_uuid != UUID_NEW else ExerciseBase()
-            except ExerciseBase.DoesNotExist:
-                base = ExerciseBase(uuid=base_uuid)
+
+            base = ExerciseBase.objects.get_or_create(
+                uuid=base_uuid,
+                defaults={'category': ExerciseCategory.objects.get(name=base_category)}
+            )[0] if not new_base else ExerciseBase()
 
             # Update the base data
             base.category = ExerciseCategory.objects.get(name=base_category)
-            base.save()
+
+            if new_base:
+                base.save()
 
             base_equipment_list = []
             if base_equipment:
@@ -142,9 +141,7 @@ class Command(BaseCommand):
 
             # Variations
             if base_variation_id:
-                # First element from get_or_create is the object, the second whether
-                # it was created or updated
-                variation = Variation.objects.get_or_create(id=base_variation_id)[0]
+                variation, created = Variation.objects.get_or_create(id=base_variation_id)
                 base.variations = variation
 
             base.save()
@@ -179,7 +176,7 @@ class Command(BaseCommand):
             #
             # Process the translations and create new exercises if necessary
             #
-            for language in language_objs:
+            for language in languages:
                 language_short = language.short_name
                 exercise_uuid = row[f'{language_short}:uuid']
                 exercise_name = row[f'{language_short}:name']
@@ -199,25 +196,21 @@ class Command(BaseCommand):
                 if not exercise_name:
                     continue
 
-                if not options['create_on_new'] and exercise_uuid == UUID_NEW:
-                    self.stdout.write(f'    Skipping creating new translation ...\n')
+                new_translation = exercise_uuid == UUID_NEW
+                if not new_translation:
                     continue
 
-                try:
-                    exercise = Exercise.objects.get(uuid=exercise_uuid
-                                                    ) if exercise_uuid != UUID_NEW else Exercise()
-                except Exercise.DoesNotExist:
-                    # self.stdout.write(
-                    #     self.style.
-                    #     WARNING(f'    Exercise translation isnt known locally: {exercise_uuid}!')
-                    # )
-                    exercise = Exercise(uuid=exercise_uuid)
-
-                exercise.exercise_base = base
-                exercise.language = language
-                exercise.name = exercise_name
-                exercise.name_original = exercise_name
-                exercise.description = exercise_description
+                translation = Exercise.objects.get_or_create(
+                    uuid=exercise_uuid, defaults={
+                        'exercise_base': base,
+                        'language': language
+                    }
+                )[0] if not new_translation else Exercise()
+                translation.exercise_base = base
+                translation.language = language
+                translation.name = exercise_name
+                translation.name_original = exercise_name
+                translation.description = exercise_description
 
                 # Set the license
                 if exercise_license:
@@ -231,20 +224,34 @@ class Command(BaseCommand):
                         exercise_license = default_license
                 else:
                     exercise_license = default_license
-                exercise.license = exercise_license
-                exercise.license_author = exercise_author
+                translation.license = exercise_license
+                translation.license_author = exercise_author
 
-                if not exercise.id:
-                    message = f'    New translation saved - {exercise_name}'
+                if not translation.id:
+                    message = f'    New translation saved - {exercise_name} ({translation.uuid})'
                     self.stdout.write(self.style.SUCCESS(message))
 
-                exercise.save()
+                if '(imported from Feeel)' in exercise_author:
+                    exercise_author = re.sub('\(imported from Feeel\)', '', exercise_author)
+                    for author in exercise_author.split(','):
+                        author = author.strip()
+                        author = f'{author} (imported from Feeel)'
+                        self.stdout.write(f'    - Saving individual author {author}')
+                        if len(author) >= 60:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f'      Author name is longer than 60 characters, skipping...'
+                                )
+                            )
+                            continue
+                        translation.license_author = author
+                        translation.save()
 
                 # Set the aliases (replaces existing ones)
                 if exercise_aliases:
-                    Alias.objects.filter(exercise=exercise).delete()
-                    for a in exercise_aliases.split('/'):
-                        Alias(exercise=exercise, alias=a.strip()).save()
+                    Alias.objects.filter(exercise=translation).delete()
+                    for a in exercise_aliases.split(','):
+                        Alias(exercise=translation, alias=a.strip()).save()
 
         csv_file.close()
 

@@ -9,7 +9,8 @@
     <meta property="og:title" content="{% translate 'Workout log' %}">
 
     {% with username=owner_user.username %}
-        <meta property="og:description" content="{% blocktranslate %}Workout log for {{username}} for {{date}}{% endblocktranslate %}">
+        <meta property="og:description"
+              content="{% blocktranslate %}Workout log for {{ username }} for {{ date }}{% endblocktranslate %}">
     {% endwith %}
 {% endblock %}
 
@@ -28,60 +29,63 @@
 {#       #}
 {# Title #}
 {#       #}
-{% block title %}{% translate "Workout log" %} – {{date}}{% endblock %}
+{% block title %}{% translate "Workout log" %} – {{ date }}{% endblock %}
 
 
 {#         #}
 {# Content #}
 {#         #}
 {% block content %}
-{% if logs %}
-    {% for date, value in logs.items %}
+    {% if logs %}
+        {% for date, value in logs.items %}
 
-        {% include 'calendar/partial_overview_table.html' %}
+            {% include 'calendar/partial_overview_table.html' %}
 
-        {% for exercise, logs in value.logs.items %}
-            <table class="table table-hover table-bordered" style="margin-top: 2em;">
-            <tr class="active">
-                <th><a href="{{ exercise.get_absolute_url }}">{{ exercise }}</a></th>
-            </tr>
-            {% for log in logs %}
-            <tr>
-                <td>
-                    {{log.reps}}
-                    {% if not log.repetition_unit.is_repetition %}
-                        {% translate log.repetition_unit.name %}
-                    {% endif %}
-                    ×
-                    {{log.weight}} {% translate log.weight_unit.name %}
+            {% for exercise, logs in value.logs.items %}
+                <table class="table table-hover table-bordered" style="margin-top: 2em;">
+                    <tr class="active">
+                        <th><a href="{{ exercise.get_absolute_url }}">{{ exercise }}</a></th>
+                    </tr>
+                    {% for log in logs %}
+                        <tr>
+                            <td>
+                                {{ log.reps }}
+                                {% if not log.repetition_unit.is_repetition %}
+                                    {% translate log.repetition_unit.name %}
+                                {% endif %}
+                                ×
+                                {{ log.weight }} {% translate log.weight_unit.name %}
 
-                    {% if is_owner %}
-                    <span class="dropdown">
-                        <div class="float-right">
-                            <button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown">
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="{% url 'manager:log:edit' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Edit' %}
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{% url 'manager:log:delete' log.pk %}" class="wger-modal-dialog dropdown-item">
-                                    {% translate 'Delete' %}
-                                </a>
-                            </div>
-                        </div>
-                    </span>
-                    {% endif %}
-                </td>
-            </tr>
+                                {% if is_owner %}
+                                    <span class="dropdown">
+                                        <div class="float-end">
+                                            <button type="button" class="btn btn-link dropdown-toggle btn-sm"
+                                                    data-bs-toggle="dropdown">
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a href="{% url 'manager:log:edit' log.pk %}"
+                                                   class="wger-modal-dialog dropdown-item">
+                                                    {% translate 'Edit' %}
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="{% url 'manager:log:delete' log.pk %}"
+                                                   class="wger-modal-dialog dropdown-item">
+                                                    {% translate 'Delete' %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
             {% endfor %}
-            </table>
-
         {% endfor %}
-    {% endfor %}
-{% else %}
-    {% translate "Nothing found" %}
-{% endif %}
+    {% else %}
+        {% translate "Nothing found" %}
+    {% endif %}
 {% endblock %}
 
 

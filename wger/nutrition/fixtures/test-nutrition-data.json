@@ -5,7 +5,6 @@
         "fields": {
             "description": "Description 1",
             "user": 1,
-            "language": 2,
             "creation_date": "2012-11-19"
         }
     },
@@ -15,7 +14,6 @@
         "fields": {
             "description": "My plan to do xyz",
             "user": 2,
-            "language": 2,
             "creation_date": "2012-11-12"
         }
     },
@@ -25,7 +23,6 @@
         "fields": {
             "description": "",
             "user": 1,
-            "language": 2,
             "creation_date": "2012-11-09"
         }
     },
@@ -35,7 +32,6 @@
         "fields": {
             "description": "",
             "user": 1,
-            "language": 2,
             "creation_date": "2012-10-29"
         }
     },
@@ -45,7 +41,6 @@
         "fields": {
             "description": "",
             "user": 2,
-            "language": 2,
             "creation_date": "2012-09-22"
         }
     },

@@ -28,68 +28,6 @@ from wger.core.tests.base_testcase import (
 from wger.manager.models import Workout
 
 
-class WorkoutShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        workout = Workout.objects.get(pk=1)
-
-        response = self.client.get(workout.get_absolute_url())
-        self.assertFalse(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertFalse(response.context['show_shariff'])
-
-
-class WorkoutAccessTestCase(WgerTestCase):
-    """
-    Test accessing the workout page
-    """
-
-    def test_access_shared(self):
-        """
-        Test accessing the URL of a shared workout
-        """
-        workout = Workout.objects.get(pk=1)
-
-        self.user_login('admin')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-        self.user_login('test')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-        self.user_logout()
-        response = self.client.get(workout.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-    def test_access_not_shared(self):
-        """
-        Test accessing the URL of a private workout
-        """
-        workout = Workout.objects.get(pk=3)
-
-        self.user_login('admin')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertEqual(response.status_code, 403)
-
-        self.user_login('test')
-        response = self.client.get(workout.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-        self.user_logout()
-        response = self.client.get(workout.get_absolute_url())
-        self.assertEqual(response.status_code, 403)
-
-
 class AddWorkoutTestCase(WgerTestCase):
     """
     Tests adding a Workout
@@ -113,9 +51,6 @@ class AddWorkoutTestCase(WgerTestCase):
 
         # Test accessing workout
         response = self.client.get(reverse('manager:workout:view', kwargs={'pk': 1}))
-
-        workout = Workout.objects.get(pk=1)
-        self.assertEqual(response.context['workout'], workout)
         self.assertEqual(response.status_code, 200)
 
     def test_create_workout_logged_in(self):
@@ -167,14 +102,6 @@ class WorkoutOverviewTestCase(WgerTestCase):
 
         # Page exists
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['workouts']), 2)
-
-    def test_dashboard_logged_in(self):
-        """
-        Test creating a workout a logged in user
-        """
-        self.user_login()
-        self.get_workout_overview()
 
 
 class WorkoutModelTestCase(WgerTestCase):

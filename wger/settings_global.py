@@ -15,10 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import re
+import sys
 from datetime import timedelta
+
+# wger
+from wger import get_version
+from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
 
 """
@@ -65,7 +69,7 @@ INSTALLED_APPS = (
     'wger.measurements',
 
     # reCaptcha support, see https://github.com/praekelt/django-recaptcha
-    'captcha',
+    'django_recaptcha',
 
     # The sitemaps app
     'django.contrib.sitemaps',
@@ -78,12 +82,15 @@ INSTALLED_APPS = (
 
     # Form renderer helper
     'crispy_forms',
+    'crispy_bootstrap5',
 
     # REST-API
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 
     # Breadcrumbs
     'django_bootstrap_breadcrumbs',
@@ -144,7 +151,6 @@ AUTHENTICATION_BACKENDS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'wger.utils.context_processor.processor',
@@ -200,6 +206,7 @@ LOGIN_REDIRECT_URL = '/'
 USE_TZ = True
 USE_I18N = True
 USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -210,26 +217,40 @@ USE_L10N = True
 # system time zone.
 TIME_ZONE = 'UTC'
 
-# Restrict the available languages
-LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'German'),
+# Available languages. Needs to be kept in sync with sufficiently
+# translated languages: https://hosted.weblate.org/projects/wger/web/
+#
+# Translated languages for which a country specific locale exists in django
+# upstream need to be added here as well (plus their country flag)
+# https://github.com/django/django/blob/main/django/conf/global_settings.py
+AVAILABLE_LANGUAGES = (
     ('bg', 'Bulgarian'),
-    ('es', 'Spanish'),
-    ('ru', 'Russian'),
-    ('nl', 'Dutch'),
-    ('pt', 'Portuguese'),
-    ('el', 'Greek'),
-    ('cs', 'Czech'),
-    ('sv', 'Swedish'),
-    ('no', 'Norwegian'),
-    ('fr', 'French'),
-    ('it', 'Italian'),
-    ('pl', 'Polish'),
-    ('uk', 'Ukrainian'),
-    ('tr', 'Turkish'),
-    ('zh', 'Chinese simplified'),
     ('ca', 'Catalan'),
+    ('cs', 'Czech'),
+    ('de', 'German'),
+    ('el', 'Greek'),
+    ('en', 'English'),
+    ('en-au', 'Australian English'),
+    ('en-gb', 'British English'),
+    ('es', 'Spanish'),
+    ('es-ar', 'Argentinian Spanish'),
+    ('es-co', 'Colombian Spanish'),
+    ('es-mx', 'Mexican Spanish'),
+    ('es-ni', 'Nicaraguan Spanish'),
+    ('es-ve', 'Venezuelan Spanish'),
+    ('fr', 'French'),
+    ('hr', 'Croatian'),
+    ('it', 'Italian'),
+    ('nl', 'Dutch'),
+    ('nb', 'Norwegian'),
+    ('pl', 'Polish'),
+    ('pt', 'Portuguese'),
+    ('pt-br', 'Brazilian Portuguese'),
+    ('ru', 'Russian'),
+    ('sv', 'Swedish'),
+    ('tr', 'Turkish'),
+    ('uk', 'Ukrainian'),
+    ('zh-hans', 'Chinese simplified'),
 )
 
 # Default language code for this installation.
@@ -264,6 +285,11 @@ LOGGING = {
         'wger': {
             'handlers': ['console'],
             'level': 'DEBUG',
+        },
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         }
     }
 }
@@ -304,7 +330,8 @@ AXES_CACHE = 'default'
 #
 # Django Crispy Templates
 #
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 #
 # Easy thumbnails
@@ -396,7 +423,8 @@ else:
 # The default is not DEBUG, override if needed
 # COMPRESS_ENABLED = True
 COMPRESS_CSS_FILTERS = (
-    'compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
 )
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
@@ -407,16 +435,13 @@ COMPRESS_ROOT = STATIC_ROOT
 #
 # Django Rest Framework
 #
+# yapf: disable
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission', ),
-    'DEFAULT_PAGINATION_CLASS':
-    'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':
-    20,
-    'PAGINATE_BY_PARAM':
-    'limit',  # Allow client to override, using `?limit=xxx`.
-    'TEST_REQUEST_DEFAULT_FORMAT':
-    'json',
+    'DEFAULT_PERMISSION_CLASSES': ('wger.utils.permissions.WgerPermission',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
+    'PAGINATE_BY_PARAM': 'limit',  # Allow client to override, using `?limit=xxx`.
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -428,9 +453,30 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_THROTTLE_CLASSES': ['rest_framework.throttling.ScopedRateThrottle'],
     'DEFAULT_THROTTLE_RATES': {
-        'login': '3/min'
-    }
+        'login': '10/min'
+    },
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+# yapf: enable
+
+# Api docs
+# yapf: disable
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'wger',
+    'SERVERS': [
+        {'url': '/', 'description': 'This server'},
+        {'url': 'https://wger.de', 'description': 'The "official" upstream wger instance'},
+    ],
+    'DESCRIPTION': 'Self hosted FLOSS workout and fitness tracker',
+    'VERSION': get_version(),
+    'SERVE_INCLUDE_SCHEMA': True,
+    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'COMPONENT_SPLIT_REQUEST': True
+}
+# yapf: enable
 
 #
 # Django Rest Framework SimpleJWT
@@ -483,11 +529,19 @@ WGER_SETTINGS = {
     'ALLOW_GUEST_USERS': True,
     'ALLOW_REGISTRATION': True,
     'ALLOW_UPLOAD_VIDEOS': False,
-    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+    'SYNC_EXERCISES_CELERY': False,
+    'SYNC_EXERCISE_IMAGES_CELERY': False,
+    'SYNC_EXERCISE_VIDEOS_CELERY': False,
+    'SYNC_INGREDIENTS_CELERY': False,
     'TWITTER': False,
-    'USE_RECAPTCHA': False
+    'MASTODON': 'https://fosstodon.org/@wger',
+    'USE_CELERY': False,
+    'USE_RECAPTCHA': False,
+    'WGER_INSTANCE': 'https://wger.de',
 }
 
 
@@ -499,7 +553,7 @@ def email_verified_callback(user):
     user.userprofile.save()
 
 
-EMAIL_VERIFIED_CALLBACK = email_verified_callback
+EMAIL_MAIL_CALLBACK = email_verified_callback
 EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
@@ -509,8 +563,11 @@ EMAIL_MAIL_PAGE_TEMPLATE = 'email_verification/confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
 
 #
-# Django activity stream
+# Django-activity stream
 #
 ACTSTREAM_SETTINGS = {
     'USE_JSONFIELD': True,
 }
+
+# Whether the application is being run regularly or during tests
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'

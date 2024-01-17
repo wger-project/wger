@@ -12,42 +12,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Standard Library
-import json
-
-# Django
-from django.core import mail
-from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
-from django.template import (
-    Context,
-    Template,
-)
-from django.urls import reverse
-
-# Third Party
-from rest_framework import status
-
 # wger
-from wger.core.tests import api_base_test
-from wger.core.tests.api_base_test import (
-    ApiBaseTestCase,
-    ExerciseCrudApiTestCase,
-)
-from wger.core.tests.base_testcase import (
-    STATUS_CODES_FAIL,
-    WgerDeleteTestCase,
-    WgerTestCase,
-)
-from wger.exercises.models import (
-    Alias,
-    Exercise,
-    ExerciseCategory,
-    Muscle,
-)
-from wger.utils.cache import cache_mapper
-from wger.utils.constants import WORKOUT_TAB
-from wger.utils.helpers import random_string
+from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 
 
 class AliasCustomApiTestCase(ExerciseCrudApiTestCase):

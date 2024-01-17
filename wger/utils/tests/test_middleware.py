@@ -61,7 +61,7 @@ class RobotsExclusionMiddlewareTestCase(WgerTestCase):
         response = self.client.get(reverse('nutrition:ingredient:list'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'id': 1}))
+        response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 1}))
         self.assertFalse(response.get('X-Robots-Tag'))
 
         response = self.client.get(reverse('nutrition:plan:overview'))
@@ -75,5 +75,5 @@ class RobotsExclusionMiddlewareTestCase(WgerTestCase):
         response = self.client.get(reverse('exercise:exercise:overview'))
         self.assertFalse(response.get('X-Robots-Tag'))
 
-        response = self.client.get(reverse('exercise:exercise:view', kwargs={'id': 1}))
+        response = self.client.get(reverse('exercise:exercise:view-base', kwargs={'pk': 1}))
         self.assertFalse(response.get('X-Robots-Tag'))

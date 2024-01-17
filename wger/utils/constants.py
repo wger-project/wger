@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -41,7 +39,7 @@ DATE_FORMATS = [
 
 # Allowed tags, attributes and styles allowed in textareas edited with a JS
 # editor. Everything not in these whitelists is stripped.
-HTML_TAG_WHITELIST = ('b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'p')
+HTML_TAG_WHITELIST = {'b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'p'}
 HTML_ATTRIBUTES_WHITELIST = {'*': 'style'}
 HTML_STYLES_WHITELIST = ('text-decoration', )
 
@@ -50,12 +48,27 @@ PAGINATION_OBJECTS_PER_PAGE = 25
 PAGINATION_MAX_TOTAL_PAGES = 10
 PAGINATION_PAGES_AROUND_CURRENT = 5
 
-# Minimum edit distance from all existing exercises for a new exercise submission
-# to be accepted
-MIN_EDIT_DISTANCE_THRESHOLD = 2
+# Important license IDs
+CC_BY_SA_4_ID = 2
+CC_BY_SA_3_LICENSE_ID = 1
+ODBL_LICENSE_ID = 5
 
-# CC-BY-SA-4
-DEFAULT_LICENSE_ID = 2
-
-# Default language
+# Default/fallback language
 ENGLISH_SHORT_NAME = 'en'
+
+# Possible values for ingredient image download
+DOWNLOAD_INGREDIENT_WGER = 'WGER'
+DOWNLOAD_INGREDIENT_OFF = 'OFF'
+DOWNLOAD_INGREDIENT_NONE = 'None'
+DOWNLOAD_INGREDIENT_OPTIONS = (
+    DOWNLOAD_INGREDIENT_WGER,
+    DOWNLOAD_INGREDIENT_OFF,
+    DOWNLOAD_INGREDIENT_NONE,
+)
+
+# OFF Api
+OFF_SEARCH_PRODUCT_FOUND = 1
+OFF_SEARCH_PRODUCT_NOT_FOUND = 0
+
+# API
+API_MAX_ITEMS = 999

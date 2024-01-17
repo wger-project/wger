@@ -1,11 +1,14 @@
-name: Continous Integration
+name: Continuous Integration
 
 on:
   push:
+    branches: [ master, ]
     paths:
       - '**.py'
       - 'requirements.txt'
   pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master, ]
     paths:
       - '**.py'
       - 'requirements.txt'
@@ -16,13 +19,22 @@ jobs:
     strategy:
       matrix:
         #TODO: pypy3 has problems compiling lxml
-        python-version: [ '3.9', '3.10' ]
+        python-version: [ '3.10', '3.11', '3.12' ]
     name: CI job (python ${{ matrix.python-version }})
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        uses: actions/cache@v3.3.1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           cache: 'pip'
           python-version: ${{ matrix.python-version }}
@@ -32,30 +44,29 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install wheel coverage
+          pip install -r requirements_dev.txt
           pip install -r requirements_prod.txt
-          pip3 install -e .
+          pip install -e .
 
       # Only run the tests with coverage for one version of python
       - name: Test the application with coverage
+        if: matrix.python-version == 3.11
         run: |
           wger create-settings
           coverage run --source='.' ./manage.py test
           coverage lcov
-        if: matrix.python-version == 3.10
 
       - name: Test the application
+        if: matrix.python-version != 3.11
         run: |
           wger create-settings
           python manage.py test
-        if: matrix.python-version != 3.10
-
 
       - name: Coveralls
+        if: matrix.python-version == 3.11
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: coverage.lcov
-        if: matrix.python-version == 3.10
-

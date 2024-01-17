@@ -22,10 +22,6 @@ import logging
 # Django
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import (
-    Max,
-    Min,
-)
 from django.http import (
     HttpResponse,
     HttpResponseRedirect,
@@ -44,8 +40,6 @@ from django.views.generic import (
 
 # Third Party
 from formtools.preview import FormPreview
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
 # wger
 from wger.utils.generic_views import (
@@ -118,8 +112,6 @@ class WeightDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
     """
 
     model = WeightEntry
-    fields = ('weight', )
-
     messages = gettext_lazy('Successfully deleted.')
 
     def get_context_data(self, **kwargs):
@@ -167,7 +159,6 @@ def overview(request, username=None):
     context = {
         'is_owner': is_owner,
         'owner_user': user,
-        'show_shariff': False,
     }
     return render(request, 'overview.html', context)
 

@@ -12,22 +12,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.core.cache import cache
-from django.urls import reverse
-
 # wger
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
-from wger.core.tests.base_testcase import (
-    WgerAddTestCase,
-    WgerEditTestCase,
-    WgerTestCase,
-)
-from wger.exercises.models import (
-    Exercise,
-    ExerciseComment,
-)
-from wger.utils.cache import cache_mapper
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models import ExerciseComment
 
 
 class ExerciseCommentRepresentationTestCase(WgerTestCase):
@@ -40,118 +28,6 @@ class ExerciseCommentRepresentationTestCase(WgerTestCase):
         Test that the representation of an object is correct
         """
         self.assertEqual("{0}".format(ExerciseComment.objects.get(pk=1)), 'test 123')
-
-
-class AddExerciseCommentTestCase(WgerAddTestCase):
-    """
-    Tests adding a comment to an exercise
-    """
-
-    object_class = ExerciseComment
-    url = reverse('exercise:comment:add', kwargs={'exercise_pk': 1})
-    user_fail = False
-    data = {'comment': 'a new cool comment'}
-
-
-class EditExerciseCommentTestCase(WgerEditTestCase):
-    """
-    Tests editing a comment to an exercise
-    """
-
-    object_class = ExerciseComment
-    url = 'exercise:comment:edit'
-    pk = 1
-    data = {'comment': 'an edited comment'}
-
-
-class ExercisecommentsTestCase(WgerTestCase):
-
-    def exercise_delete_comment(self, fail=True):
-        """
-        Tests the deletion of exercise comments
-        """
-
-        # Load the exercise
-        exercise_1 = Exercise.objects.get(pk=1)
-
-        # Comments are loaded
-        comments = exercise_1.exercisecomment_set.all()
-        comment_1: ExerciseComment = comments[0]
-        self.assertEqual(comment_1.id, 1)
-        self.assertEqual(comment_1.comment, "test 123")
-        self.assertEqual(len(comments), 1)
-
-        # Delete the comment
-        response = self.client.post(reverse('exercise:comment:delete', kwargs={'id': 1}))
-        comments = exercise_1.exercisecomment_set.all()
-
-        self.assertEqual(response.status_code, 302)
-        if fail:
-            comments = exercise_1.exercisecomment_set.all()
-            self.assertEqual(len(comments), 1)
-
-        else:
-            self.assertEqual(len(comments), 0)
-
-    def test_exercise_delete_comment_no_authorized(self):
-        """
-        Tests the exercise comments
-        """
-
-        self.user_login('test')
-        self.exercise_delete_comment(fail=True)
-        self.user_logout()
-
-    def test_exercise_delete_comment_not_logged_in(self):
-        """
-        Tests the exercise comments
-        """
-
-        self.exercise_delete_comment(fail=True)
-
-    def test_exercise_delete_comment_authorized(self):
-        """
-        Tests the exercise comments
-        """
-
-        self.user_login()
-        self.exercise_delete_comment(fail=False)
-
-
-class WorkoutCacheTestCase(WgerTestCase):
-    """
-    Workout cache test case
-    """
-
-    def test_canonical_form_cache_save(self):
-        """
-        Tests the workout cache when saving
-        """
-        comment = ExerciseComment.objects.get(pk=1)
-        for setting in comment.exercise.exercise_base.setting_set.all():
-            setting.set.exerciseday.training.canonical_representation
-            workout_id = setting.set.exerciseday.training_id
-            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-            comment.save()
-            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-    def test_canonical_form_cache_delete(self):
-        """
-        Tests the workout cache when deleting
-        """
-        comment = ExerciseComment.objects.get(pk=1)
-
-        workout_ids = []
-        for setting in comment.exercise.exercise_base.setting_set.all():
-            workout_id = setting.set.exerciseday.training_id
-            workout_ids.append(workout_id)
-            setting.set.exerciseday.training.canonical_representation
-            self.assertTrue(cache.get(cache_mapper.get_workout_canonical(workout_id)))
-
-        comment.delete()
-        for workout_id in workout_ids:
-            self.assertFalse(cache.get(cache_mapper.get_workout_canonical(workout_id)))
 
 
 class ExerciseCommentApiTestCase(ExerciseCrudApiTestCase):

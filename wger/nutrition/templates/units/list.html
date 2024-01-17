@@ -7,30 +7,32 @@
 
 
 {% block content %}
-<ul class="list-group">
-    {% for unit in unit_list %}
-    <li class="list-group-item ">
-        <div class="btn-group float-right">
-            <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
-                <span class="{% fa_class 'cog' %}"></span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                <a href="{% url 'nutrition:weight_unit:edit' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
-                <div class="dropdown-divider"></div>
-                <a href="{% url 'nutrition:weight_unit:delete' unit.id %}" class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
-            </div>
-        </div>
-        {{unit.name}}
-    </li>
-    {% empty %}
-        <li class="list-group-item">
-            {% translate "Nothing found" %}
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="list-group">
+        {% for unit in unit_list %}
+            <li class="list-group-item ">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        <span class="{% fa_class 'cog' %}"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <a href="{% url 'nutrition:weight_unit:edit' unit.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Edit' %}</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'nutrition:weight_unit:delete' unit.id %}"
+                           class="wger-modal-dialog dropdown-item">{% translate 'Delete' %}</a>
+                    </div>
+                </div>
+                {{ unit.name }}
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+                {% translate "Nothing found" %}
+            </li>
+        {% endfor %}
+    </ul>
 
 
-{% pagination paginator page_obj %}
+    {% pagination paginator page_obj %}
 {% endblock %}
 
 

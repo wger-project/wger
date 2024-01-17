@@ -12,27 +12,35 @@
 ##########
 # Builder
 ##########
-FROM ubuntu:22.04 as builder
+FROM wger/base:latest as builder
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-  && apt-get install --no-install-recommends -y \
+RUN apt update \
+    && apt install --no-install-recommends -y \
       build-essential \
       python3-dev \
-      python3-pip \
       python3-wheel \
-      git
+      pkg-config \
+      libcairo2-dev \
+      libjpeg8-dev \
+      libwebp-dev \
+      libpq-dev \
+      rustc \
+      cargo \
+  && pip install --upgrade pip
 
 # Build the necessary python wheels
-COPY requirements* ./
-RUN pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_prod.txt
+# Note that the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
+COPY requirements* .
+RUN --mount=type=tmpfs,target=/root/.cargo \
+    pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt
 
 
 
 ########
 # Final
 ########
-FROM wger/base:2.2-dev
+FROM wger/base:latest
 LABEL maintainer="Roland Geider <roland@geider.net>"
 ARG DOCKER_DIR=./extras/docker/development
 ENV PATH="/home/wger/.local/bin:$PATH"
@@ -47,15 +55,21 @@ COPY --from=builder /wheels /wheels
 COPY ${DOCKER_DIR}/settings.py /home/wger/src
 COPY ${DOCKER_DIR}/settings.py /tmp/
 COPY ${DOCKER_DIR}/entrypoint.sh /home/wger/entrypoint.sh
-RUN chmod +x /home/wger/entrypoint.sh
-RUN pip3 install --no-cache /wheels/*
-
-RUN chown -R wger:wger .
+COPY ${DOCKER_DIR}/celery/beat/start /start-beat
+COPY ${DOCKER_DIR}/celery/worker/start /start-worker
+COPY ${DOCKER_DIR}/celery/flower/start /start-flower
+RUN chmod +x /home/wger/entrypoint.sh \
+    && chmod +x /start-beat \
+    && chmod +x /start-worker \
+    && chmod +x /start-flower \
+    && pip3 install --no-cache /wheels/* \
+    && chown -R wger:wger .
 
 USER wger
-RUN mkdir ~/media \
-    && pip3 install -e . \
+RUN pip3 install -e . \
+    && mkdir ~/media \
     && mkdir ~/static \
+    && mkdir ~/beat \
     && mkdir ~/db/
 
 CMD ["/home/wger/entrypoint.sh"]

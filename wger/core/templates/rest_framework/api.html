@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% load rest_framework wger_extras django_bootstrap_breadcrumbs static crispy_forms_tags %}
+{% load rest_framework wger_extras django_bootstrap_breadcrumbs static crispy_forms_tags i18n %}
 
 {% block header %}
-<link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
-<script src="{% static 'rest_framework/js/prettify-min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'rest_framework/css/prettify.css' %}"/>
+    <script src="{% static 'rest_framework/js/prettify-min.js' %}"></script>
 
-<script>
-    $(document).ready(function() {
-        prettyPrint();
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            prettyPrint();
+        });
+    </script>
 {% endblock %}
 
 {% block title %}REST API - {{ name }}{% endblock %}
@@ -23,86 +23,31 @@
     {% breadcrumb "Api Documentation" "software:api" %}
     {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
         {% breadcrumb_raw breadcrumb_name breadcrumb_url %}
-    {% endfor  %}
+    {% endfor %}
 {% endblock %}
 
 
 
 {% block content %}
-    {#            #}
-    {# GET button #}
-    {#            #}
-    {% if 'GET' in allowed_methods %}
-        <form id="get-form" class="float-right">
-            <fieldset>
-                <div class="btn-group format-selection">
-                    <a class="btn btn-primary js-tooltip" href='{{ request.get_full_path }}' rel="nofollow" title="Make a GET request on the {{ name }} resource">GET</a>
+{#                             #}
+{# Object/endpoint description #}
+{#                             #}
+<div>
 
-                    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" title="Specify a format for the GET request">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        {% for format in available_formats %}
-                            <li>
-                                <a class="js-tooltip format-option dropdown-item" href='{% add_query_param request api_settings.URL_FORMAT_OVERRIDE format %}' rel="nofollow" title="Make a GET request on the {{ name }} resource with the format set to `{{ format }}`">{{ format }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-            </fieldset>
-        </form>
-    {% endif %}
-
-    {#                #}
-    {# OPTIONS button #}
-    {#                #}
-    {% if options_form %}
-        <form class="float-right" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
-            {% csrf_token %}
-            <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="OPTIONS" />
-            <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the {{ name }} resource">OPTIONS</button>
-        </form>
-    {% endif %}
-
-    {#               #}
-    {# DELETE button #}
-    {#               #}
-    {% if delete_form %}
-        <form class="float-right" action="{{ request.get_full_path }}" method="POST" style="margin-right: 1em;">
-            {% csrf_token %}
-            <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
-            <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the {{ name }} resource">DELETE</button>
-        </form>
-    {% endif %}
-    <div class="clearfix"></div>
-
-
-
-    {#                             #}
-    {# Object/endpoint description #}
-    {#                             #}
-    <div>
-        <!--<h4>{{ name }}</h4>-->
-
-
-        {% block description %}
-        <p>{{ description }}</p>
-        {% endblock %}
-
-        <div class="request-info" style="clear: both" >
-            <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
-        </div>
-        <div class="response-info">
-            <pre class="prettyprint">
-                <div class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% autoescape off %}
-                {% for key, val in response_headers.items %}
-                    <b>{{ key }}:</b>
-                    <span class="lit">{{ val|break_long_headers|urlize }}</span>
-                {% endfor %}
-                </div>{{ content|urlize }}
-            </pre>
-            {% endautoescape %}
-        </div>
+    <div class="request-info" style="clear: both">
+        <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
     </div>
+
+    <div class="response-info">
+        <pre class="prettyprint">
+            <span class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>
+                {% for key, val in response_headers|items %}
+                    <b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize }}</span>
+                {% endfor %}
+
+            </span>{{ content|urlize }}</pre>
+    </div>
+
+
+</div>
 {% endblock %}

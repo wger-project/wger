@@ -20,6 +20,12 @@
                 minChars: 3,
                 onSelect: function (suggestion) {
                      window.location.href = '/nutrition/ingredient/' + suggestion.data.id + '/view/'
+                },
+                formatResult: function (suggestion) {
+                    if (suggestion.data.image_thumbnail) {
+                        return '<div><img src="' + suggestion.data.image_thumbnail + '" /> ' + suggestion.value + '</div>';
+                    }
+                    return '<div>' + suggestion.value + '</div>';
                 }
             });
         });

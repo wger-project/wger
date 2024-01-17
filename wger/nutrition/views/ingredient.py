@@ -82,33 +82,25 @@ class IngredientListView(ListView):
         language = load_language()
         return Ingredient.objects.accepted().filter(language=language).only('id', 'name')
 
-    def get_context_data(self, **kwargs):
-        """
-        Pass additional data to the template
-        """
-        context = super(IngredientListView, self).get_context_data(**kwargs)
-        context['show_shariff'] = True
-        return context
 
+def view(request, pk, slug=None):
+    context = {}
 
-def view(request, id, slug=None):
-    template_data = {}
-
-    ingredient = cache.get(cache_mapper.get_ingredient_key(int(id)))
+    ingredient = cache.get(cache_mapper.get_ingredient_key(int(pk)))
     if not ingredient:
-        ingredient = get_object_or_404(Ingredient, pk=id)
+        ingredient = get_object_or_404(Ingredient, pk=pk)
         cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
-    template_data['ingredient'] = ingredient
-    template_data['form'] = UnitChooserForm(
+    context['ingredient'] = ingredient
+    context['image'] = ingredient.get_image(request)
+    context['form'] = UnitChooserForm(
         data={
             'ingredient_id': ingredient.id,
             'amount': 100,
             'unit': None
         }
     )
-    template_data['show_shariff'] = True
 
-    return render(request, 'ingredient/view.html', template_data)
+    return render(request, 'ingredient/view.html', context)
 
 
 class IngredientDeleteView(
@@ -122,17 +114,6 @@ class IngredientDeleteView(
     """
 
     model = Ingredient
-    fields = (
-        'name',
-        'energy',
-        'protein',
-        'carbohydrates',
-        'carbohydrates_sugar',
-        'fat',
-        'fat_saturated',
-        'fibres',
-        'sodium',
-    )
     template_name = 'delete.html'
     success_url = reverse_lazy('nutrition:ingredient:list')
     messages = gettext_lazy('Successfully deleted')
@@ -175,7 +156,6 @@ class IngredientCreateView(WgerFormMixin, CreateView):
     title = gettext_lazy('Add a new ingredient')
 
     def form_valid(self, form):
-
         form.instance.language = load_language()
         form.instance.set_author(self.request)
         return super(IngredientCreateView, self).form_valid(form)
@@ -203,8 +183,7 @@ class PendingIngredientListView(LoginRequiredMixin, PermissionRequiredMixin, Lis
         """
         Only show ingredients pending review
         """
-        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING) \
-            .order_by('-creation_date')
+        return Ingredient.objects.filter(status=Ingredient.STATUS_PENDING).order_by('-created')
 
 
 @permission_required('nutrition.add_ingredient')

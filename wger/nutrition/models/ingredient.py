@@ -16,7 +16,9 @@
 
 # Standard Library
 import logging
+import uuid as uuid
 from decimal import Decimal
+from json import JSONDecodeError
 
 # Django
 from django.conf import settings
@@ -33,16 +35,29 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+# Third Party
+from openfoodfacts import API
+
 # wger
 from wger.core.models import Language
+from wger.nutrition.consts import (
+    ENERGY_FACTOR,
+    KJ_PER_KCAL,
+)
+from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import TWOPLACES
+from wger.utils.constants import (
+    OFF_SEARCH_PRODUCT_FOUND,
+    TWOPLACES,
+)
+from wger.utils.language import load_language
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
@@ -50,7 +65,6 @@ from wger.utils.models import (
 )
 
 # Local
-from ..consts import ENERGY_FACTOR
 from .ingredient_category import IngredientCategory
 
 logger = logging.getLogger(__name__)
@@ -76,13 +90,27 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateField(_('Date'), auto_now_add=True)
-    update_date = models.DateField(
+    created = models.DateTimeField(
+        _('Date'),
+        auto_now_add=True,
+    )
+    """Date when the ingredient was created"""
+
+    last_update = models.DateTimeField(
         _('Date'),
         auto_now=True,
         blank=True,
         editable=False,
     )
+    """Last update time"""
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        editable=False,
+        verbose_name='UUID',
+    )
+    """Globally unique ID, to identify the ingredient across installations"""
 
     # Product infos
     name = models.CharField(
@@ -235,9 +263,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         """
         slug = slugify(self.name)
         if not slug:
-            return reverse('nutrition:ingredient:view', kwargs={'id': self.id})
+            return reverse('nutrition:ingredient:view', kwargs={'pk': self.id})
         else:
-            return reverse('nutrition:ingredient:view', kwargs={'id': self.id, 'slug': slug})
+            return reverse('nutrition:ingredient:view', kwargs={'pk': self.id, 'slug': slug})
 
     def clean(self):
         """
@@ -277,8 +305,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 raise ValidationError(
                     _(
                         'The total energy ({energy}kcal) is not the approximate sum of the '
-                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal '
-                        '+/-{energy_approx}%)'.format(
+                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
+                        ' +/-{energy_approx}%)'.format(
                             energy=self.energy,
                             energy_calculated=energy_calculated,
                             energy_approx=self.ENERGY_APPROXIMATION
@@ -308,10 +336,21 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         logger.debug('Overwritten behaviour: comparing ingredients on values, not PK.')
         equal = True
         if isinstance(other, self.__class__):
-            for i in self._meta.fields:
+            for i in (
+                'carbohydrates',
+                'carbohydrates_sugar',
+                'creation_date',
+                'energy',
+                'fat',
+                'fat_saturated',
+                'fibres',
+                'name',
+                'protein',
+                'sodium',
+            ):
                 if (
-                    hasattr(self, i.name) and hasattr(other, i.name)
-                    and (getattr(self, i.name, None) != getattr(other, i.name, None))
+                    hasattr(self, i) and hasattr(other, i)
+                    and (getattr(self, i, None) != getattr(other, i, None))
                 ):
                     equal = False
         else:
@@ -333,20 +372,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
-    def compare_with_database(self):
-        """
-        Compares the current ingredient with the version saved in the database.
-
-        If the current object has no PK, returns false
-        """
-        if not self.pk:
-            return False
-
-        ingredient = Ingredient.objects.get(pk=self.pk)
-        if self != ingredient:
-            return False
-        else:
-            return True
 
     def send_email(self, request):
         """
@@ -405,6 +430,69 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         returns kilojoules for current ingredient, 0 if energy is uninitialized
         """
         if self.energy:
-            return Decimal(self.energy * 4.184).quantize(TWOPLACES)
+            return Decimal(self.energy * KJ_PER_KCAL).quantize(TWOPLACES)
         else:
             return 0
+
+    @property
+    def off_link(self):
+        if self.source_name == Source.OPEN_FOOD_FACTS.value:
+            return f'https://world.openfoodfacts.org/product/{self.code}/'
+
+    def get_image(self, request: HttpRequest):
+        """
+        Returns the ingredient image
+
+        If it is not available locally, it is fetched from Open Food Facts servers
+        """
+
+        if hasattr(self, 'image'):
+            return self.image
+
+        if not request.user.is_authenticated:
+            return
+
+        if not settings.WGER_SETTINGS['USE_CELERY']:
+            logger.info('Celery deactivated, skipping retrieving ingredient image')
+            return
+
+        # Let celery fetch the image
+        # wger
+        from wger.nutrition.tasks import fetch_ingredient_image_task
+        fetch_ingredient_image_task.delay(self.pk)
+
+    @classmethod
+    def fetch_ingredient_from_off(cls, code: str):
+        """
+        Searches OFF by barcode and creates a local ingredient from the result
+        """
+        # wger
+        from wger.nutrition.off import extract_info_from_off
+
+        logger.info(f'Searching for ingredient {code} in OFF')
+        try:
+            api = API()
+            result = api.product.get(code)
+        except JSONDecodeError as e:
+            logger.info(f'Got JSONDecodeError from OFF: {e}')
+            return None
+        if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
+            logger.info('Product not found')
+            return None
+        product = result['product']
+
+        try:
+            ingredient_data = extract_info_from_off(product, load_language(product['lang']).pk)
+        except KeyError:
+            return None
+
+        if not ingredient_data.name:
+            return
+
+        if not ingredient_data.common_name:
+            return
+
+        ingredient = cls(**ingredient_data.dict())
+        ingredient.save()
+        logger.info(f'Ingredient found and saved to local database: {ingredient.uuid}')
+        return ingredient

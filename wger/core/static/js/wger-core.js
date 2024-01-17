@@ -82,16 +82,16 @@ function wgerSetupSortable() {
             $.ajax({
               url: '/api/v2/set/' + setId + '/',
               type: 'PATCH',
-              data: { order: eventIndex + 1 }
+              data: {order: eventIndex + 1}
             });
           }
         });
 
         // Replace the content of the table with a fresh version that has
         // correct indexes.
-        $.get('/' + getCurrentLanguage() + '/workout/day/' + dayId + '/view/');
+        $.get('/' + getCurrentLanguage() + '/routine/day/' + dayId + '/view/');
         $('#div-day-' + dayId)
-          .load('/' + getCurrentLanguage() + '/workout/day/' + dayId + '/view/');
+          .load('/' + getCurrentLanguage() + '/routine/day/' + dayId + '/view/');
       }
     });
   });
@@ -109,9 +109,9 @@ function setProfileField(field, newValue) {
   var dataDict = {};
   dataDict[field] = newValue;
   $.post({
-      url: '/api/v2/userprofile/',
-      data: dataDict
-    });
+    url: '/api/v2/userprofile/',
+    data: dataDict
+  });
 }
 
 /*
@@ -130,70 +130,6 @@ function getProfileField(field) {
     }
   });
   return result;
-}
-
-
-function wgerToggleComments() {
-  $('#exercise-comments-toggle').click(function (e) {
-    var showComment;
-    e.preventDefault();
-
-    showComment = getProfileField('show_comments');
-    if (!showComment) {
-      $('.exercise-comments').show();
-    } else {
-      $('.exercise-comments').hide();
-    }
-
-    // Update user profile
-    setProfileField('show_comments', !showComment);
-  });
-}
-
-function wgerToggleReadOnlyAccess() {
-  $('#toggle-ro-access').click(function (e) {
-    var $shariffModal;
-    var roAccess;
-    e.preventDefault();
-    roAccess = getProfileField('ro_access');
-
-    // Update user profile
-    setProfileField('ro_access', !roAccess);
-
-    // Hide and show appropriate divs
-
-    $shariffModal = $('#shariffModal');
-    if (!roAccess) {
-      $shariffModal.find('.shariff').removeClass('d-none');
-      $shariffModal.find('.noRoAccess').addClass('d-none');
-    } else {
-      $shariffModal.find('.shariff').addClass('d-none');
-      $shariffModal.find('.noRoAccess').removeClass('d-none');
-    }
-  });
-}
-
-/*
- Init calls for tinyMCE editor
- */
-function wgerInitTinymce() {
-  // Only try to init it on pages that loaded its JS file (so they probably need it)
-  //
-  // See the following links on detail about configuring the menus
-  // http://www.tinymce.com/wiki.php/Configuration:toolbar
-  // http://www.tinymce.com/wiki.php/Configuration:menu
-  if (typeof tinyMCE !== 'undefined') {
-    tinyMCE.init({
-      // General options
-      mode: 'textareas',
-      width: '100%',
-
-      entity_encoding: 'raw',
-      plugins: "lists",
-      menubar: false,
-      toolbar: 'undo redo | bold italic | bullist numlist '
-    });
-  }
 }
 
 /*
@@ -389,7 +325,7 @@ function getExerciseFormset(baseId) {
   setValue = $('#id_sets').val();
   if (setValue && parseInt(setValue, 10) && baseId && parseInt(baseId, 10)) {
     formsetUrl = '/' + getCurrentLanguage() +
-      '/workout/set/get-formset/' + baseId + '/' + setValue;
+      '/routine/set/get-formset/' + baseId + '/' + setValue;
 
     $.get(formsetUrl, function (data) {
       var $formsets;
@@ -416,7 +352,7 @@ function updateAllExerciseFormset() {
       promise = $().promise();
       if (exerciseId && parseInt(exerciseId, 10)) {
         formsetUrl = '/' + getCurrentLanguage() +
-          '/workout/set/' +
+          '/routine/set/' +
           'get-formset/' + exerciseId + '/' + setValue;
         promise.done(function () {
           promise = $.get(formsetUrl, function (data) {
@@ -447,10 +383,22 @@ function initRemoveExerciseFormset() {
   });
 }
 
+function getSearchLanguages() {
+  let search_languages = getCurrentLanguage();
+  let search_english = $('#id_english_results')[0].checked;
+  if (search_english === true) {
+    search_languages = search_languages + ',' + 'en';
+  }
+
+  return search_languages;
+}
+
 function wgerInitEditSet() {
   // Initialise the autocompleter (our widget, defined above)
   $('#exercise-search').autocomplete({
-    serviceUrl: '/api/v2/exercise/search/?language=' + getCurrentLanguage(),
+    serviceUrl: function () {
+      return '/api/v2/exercise/search/?language=' + getSearchLanguages()
+    },
     showNoSuggestionNotice: true,
     groupBy: 'category',
     paramName: 'term',
@@ -624,7 +572,7 @@ $(document).ready(function () {
 
     // Put together and redirect
     targetUrl = '/' + getCurrentLanguage() +
-      '/workout/' + workoutId + '/pdf' +
+      '/routine/' + workoutId + '/pdf' +
       '/' + downloadType +
       '/' + downloadImages +
       '/' + downloadComments +
@@ -656,7 +604,7 @@ $(document).ready(function () {
 
     // Put together and redirect
     targetUrl = '/' + getCurrentLanguage() +
-      '/workout/schedule/' + scheduleId + '/pdf' +
+      '/routine/schedule/' + scheduleId + '/pdf' +
       '/' + downloadType +
       '/' + downloadImages +
       '/' + downloadComments +

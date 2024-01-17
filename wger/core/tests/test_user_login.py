@@ -1,8 +1,16 @@
 # Standard Library
 from unittest import mock
 
+# Third Party
+from rest_framework import status
+from rest_framework.exceptions import ErrorDetail
+
 # wger
-from wger.core.tests.base_testcase import WgerTestCase
+from wger.core.tests.api_base_test import ApiBaseTestCase
+from wger.core.tests.base_testcase import (
+    BaseTestCase,
+    WgerTestCase,
+)
 from wger.core.views.user import trainer_login
 
 
@@ -69,3 +77,75 @@ class TrainerLoginTestCase(WgerTestCase):
             resp = trainer_login(request, 'primary-key-not-needed-because-of-mock')
 
         self.assertEqual(404, resp.status_code)
+
+
+class UserApiLoginApiTestCase(BaseTestCase, ApiBaseTestCase):
+    url = '/api/v2/login/'
+
+    def test_access_logged_out(self):
+        """
+        Logged-out users are also allowed to use the search
+        """
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_login_username_success(self):
+        response = self.client.post(
+            self.url,
+            {
+                'username': 'admin',
+                'password': 'adminadmin'
+            },
+        )
+        result = response.data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result, {'token': 'apikey-admin'})
+
+    def test_login_username_fail(self):
+        response = self.client.post(self.url, {'username': 'admin', 'password': 'adminadmin123'})
+        result = response.data
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            result['non_field_errors'],
+            [ErrorDetail(string='Username or password unknown', code='invalid')]
+        )
+
+    def test_login_email_success(self):
+        response = self.client.post(
+            self.url,
+            {
+                'email': 'admin@example.com',
+                'password': 'adminadmin'
+            },
+        )
+        result = response.data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result, {'token': 'apikey-admin'})
+
+    def test_login_email_fail(self):
+        response = self.client.post(
+            self.url, {
+                'email': 'admin@example.com',
+                'password': 'adminadmin123'
+            }
+        )
+        result = response.data
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            result['non_field_errors'],
+            [ErrorDetail(string='Username or password unknown', code='invalid')]
+        )
+
+    def test_no_parameters(self):
+        response = self.client.post(self.url, {'foo': 'bar', 'password': 'adminadmin123'})
+        result = response.data
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            result['non_field_errors'],
+            [ErrorDetail(string='Please provide an "email" or a "username"', code='invalid')]
+        )

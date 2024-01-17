@@ -70,7 +70,7 @@ class WeightUnitIngredientCreateView(
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('nutrition:ingredient:view', kwargs={'id': self.kwargs['ingredient_pk']})
+        return reverse('nutrition:ingredient:view', kwargs={'pk': self.kwargs['ingredient_pk']})
 
     def form_valid(self, form):
         ingredient = get_object_or_404(Ingredient, pk=self.kwargs['ingredient_pk'])
@@ -107,7 +107,7 @@ class WeightUnitIngredientUpdateView(
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('nutrition:ingredient:view', kwargs={'id': self.object.ingredient.id})
+        return reverse('nutrition:ingredient:view', kwargs={'pk': self.object.ingredient.id})
 
     def get_form_class(self):
         """
@@ -135,9 +135,8 @@ class WeightUnitIngredientDeleteView(
     """
 
     model = IngredientWeightUnit
-    fields = ('unit', 'gram', 'amount')
     title = gettext_lazy('Delete?')
     permission_required = 'nutrition.add_ingredientweightunit'
 
     def get_success_url(self):
-        return reverse('nutrition:ingredient:view', kwargs={'id': self.object.ingredient.id})
+        return reverse('nutrition:ingredient:view', kwargs={'pk': self.object.ingredient.id})

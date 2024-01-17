@@ -20,7 +20,7 @@
 {% for ingredient in ingredient_list %}
 <tr>
     <td>
-        {{ingredient.creation_date}}
+        {{ ingredient.created }}
     </td>
     <td><a href="{{ ingredient.get_absolute_url }}">{{ingredient.name}}</a></td>
     <td>{{ingredient.user.username}}</td>

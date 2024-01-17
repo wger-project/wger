@@ -64,7 +64,7 @@ class WgerMultiplePermissionRequiredMixin(PermissionRequiredMixin):
         return False
 
 
-class WgerPermissionMixin(object):
+class WgerPermissionMixin:
     """
     Custom permission mixim
 
@@ -254,7 +254,7 @@ class WgerFormMixin(ModelFormMixin):
         return super(WgerFormMixin, self).form_valid(form)
 
 
-class WgerDeleteMixin(ModelFormMixin):
+class WgerDeleteMixin:
     form_action = ''
     form_action_urlname = ''
     title = ''

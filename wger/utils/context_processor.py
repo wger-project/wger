@@ -16,32 +16,36 @@
 # Django
 from django.conf import settings
 from django.templatetags.static import static
+from django.utils.translation import get_language
 
 # wger
 from wger.config.models import GymConfig
 from wger.utils import constants
-from wger.utils.language import load_language
+from wger.utils.constants import ENGLISH_SHORT_NAME
+from wger.utils.language import get_language_data
 
 
 def processor(request):
-
-    language = load_language()
+    languages_dict = dict(settings.AVAILABLE_LANGUAGES)
     full_path = request.get_full_path()
     i18n_path = {}
     static_path = static('images/logos/logo-social.png')
+    is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
-    for lang in settings.LANGUAGES:
-        i18n_path[lang[0]] = '/{0}{1}'.format(lang[0], full_path[3:])
+    for lang in settings.AVAILABLE_LANGUAGES:
+        i18n_path[lang[0]] = '/{0}/{1}'.format(lang[0], '/'.join(full_path.split('/')[2:]))
 
+    # yapf: disable
     context = {
-        # Twitter handle for this instance
+        'mastodon': settings.WGER_SETTINGS['MASTODON'],
         'twitter': settings.WGER_SETTINGS['TWITTER'],
 
-        # User language
-        'language': language,
-
-        # Available application languages
-        'languages': settings.LANGUAGES,
+        # Languages
+        'i18n_language':
+            get_language_data(
+                (get_language(), languages_dict.get(get_language(), ENGLISH_SHORT_NAME)),
+            ),
+        'languages': settings.AVAILABLE_LANGUAGES,
 
         # The current path
         'request_full_path': full_path,
@@ -69,16 +73,16 @@ def processor(request):
         # current gym, if available
         'custom_header': get_custom_header(request),
 
-        # Template to extend in forms, kinda ugly
-        'extend_template': 'base_empty.html' if request.is_ajax() else 'base.html'
+        # Template to extend in forms, kinda ugly but will be removed in the future
+        'extend_template': 'base_empty.html' if is_ajax else 'base.html',
     }
+    # yapf: enable
 
     # Pseudo-intelligent navigation here
     if '/software/' in request.get_full_path() \
-       or '/contact' in request.get_full_path() \
-       or '/api/v2' in request.get_full_path():
+        or '/contact' in request.get_full_path() \
+        or '/api/v2' in request.get_full_path():
         context['active_tab'] = constants.SOFTWARE_TAB
-        context['show_shariff'] = True
 
     elif '/exercise/' in request.get_full_path():
         context['active_tab'] = constants.WORKOUT_TAB

@@ -29,11 +29,15 @@ class Language(models.Model):
     short_name = models.CharField(
         max_length=2,
         verbose_name=_('Language short name'),
+        help_text='ISO 639-1',
         unique=True,
     )
 
     # e.g. 'Deutsch'
-    full_name = models.CharField(max_length=30, verbose_name=_('Language full name'))
+    full_name = models.CharField(
+        max_length=30,
+        verbose_name=_('Language full name'),
+    )
 
     class Meta:
         """
@@ -66,3 +70,7 @@ class Language(models.Model):
         Muscle has no owner information
         """
         return False
+
+    @property
+    def static_path(self):
+        return f'images/icons/flags/{self.short_name}.svg'

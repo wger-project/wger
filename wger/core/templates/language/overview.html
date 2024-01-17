@@ -7,20 +7,17 @@
 {% block content %}
     <div class="list-group">
         {% for language in language_list %}
-            <a href="{% url 'core:language:view' language.id %}" class="list-group-item">
-                <span class="glyphicon glyphicon-chevron-right float-right"></span>
-                {% with 'images/icons/flag-'|add:language.short_name|add:'.svg' as flagname %}
-                <img src="{% static flagname %}"
+            <a href="{% url 'core:language:view' language.id %}" class="list-group-item list-group-item-action">
+                <span class="glyphicon glyphicon-chevron-right float-end"></span>
+                <img src="{% static language.static_path %}"
                      width="18"
                      alt="{% translate language.full_name %}"
-                     title="{% translate language.full_name %}"
-                     style="">
-                {% endwith %}
+                     title="{% translate language.full_name %}">
                 {{ language.full_name }}
             </a>
-        {% empty %}
+            {% empty %}
             <a href="{% url 'core:language:add' %}" class="list-group-item">
-            {% translate "Nothing found." %}<br>{% translate "Add one now." %}
+                {% translate "Nothing found." %}<br>{% translate "Add one now." %}
             </a>
         {% endfor %}
     </div>

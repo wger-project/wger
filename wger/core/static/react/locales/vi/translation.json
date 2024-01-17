@@ -1,1 +1,10 @@
-{}
+{
+    "weight": "cân nặng",
+    "date": "ngày",
+    "submit": "nộp",
+    "delete": "xóa bỏ",
+    "edit": "biên tập",
+    "add": "thêm vào",
+    "currentWeight": "cân nặng hiện tại",
+    "workout": "tập thể dục"
+}

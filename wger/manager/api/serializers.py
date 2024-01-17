@@ -58,16 +58,6 @@ class WorkoutTemplateSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'creation_date', 'description', 'is_public')
 
 
-class WorkoutAndTemplateSerializer(serializers.ModelSerializer):
-    """
-    Workout or template serializer
-    """
-
-    class Meta:
-        model = Workout
-        fields = ('id', 'name', 'creation_date', 'description', 'is_template', 'is_public')
-
-
 class WorkoutSessionSerializer(serializers.ModelSerializer):
     """
     Workout session serializer

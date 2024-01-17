@@ -167,7 +167,6 @@ class DeleteView(WgerDeleteMixin, LoginRequiredMixin, PermissionRequiredMixin, D
     """
 
     model = AdminUserNote
-    fields = ('note', )
     permission_required = 'gym.delete_adminusernote'
 
     def get_success_url(self):

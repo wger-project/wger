@@ -79,8 +79,8 @@
 {# Gym details #}
 {#             #}
 {% if perms.gym.change_gym %}
-<div class="dropdown float-right">
-    <a type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+<div class="dropdown float-end">
+    <a type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -132,8 +132,8 @@
 {# Gym configuration #}
 {#                   #}
 {% if perms.gym.change_gymconfig %}
-<div class="dropdown float-right">
-    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+<div class="dropdown float-end">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
@@ -167,9 +167,9 @@
 {# Admin configuration #}
 {#                     #}
 {% if user.gymadminconfig and user.userprofile.gym_id == gym.id %}
-<div class="dropdown float-right">
+<div class="dropdown float-end">
     <div class="btn-group ">
-        <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+        <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
             {% translate "Actions" %} <span class="caret"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -202,8 +202,8 @@
     <h4>{% translate "Contracts" %}</h4>
 {% endif %}
 {% if perms.gym.change_contracttype %}
-<div class="dropdown float-right">
-    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+<div class="dropdown float-end">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -235,8 +235,8 @@
 
 
 {% if perms.gym.change_contractoption %}
-<div class="dropdown float-right">
-    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+<div class="dropdown float-end">
+    <button type="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </button>
     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -272,8 +272,8 @@
 {# Email lists #}
 {#             #}
 {% if perms.mailer.change_log %}
-<div class="dropdown float-right">
-    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown">
+<div class="dropdown float-end">
+    <a role="button" class="btn btn-light dropdown-toggle btn-sm" data-bs-toggle="dropdown">
         {% translate "Actions" %} <span class="caret"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" role="menu">

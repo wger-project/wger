@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
+import datetime
 import uuid
 from typing import (
     List,
@@ -22,7 +23,7 @@ from typing import (
 )
 
 # Django
-from django.core.checks import translation
+from django.core.checks import Warning
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
@@ -36,6 +37,12 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
+from wger.exercises.managers import (
+    ExerciseBaseManagerAll,
+    ExerciseBaseManagerNoTranslations,
+    ExerciseBaseManagerTranslations,
+)
+from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -55,7 +62,19 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     Model for an exercise base
     """
 
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')
+    objects = ExerciseBaseManagerAll()
+    no_translations = ExerciseBaseManagerNoTranslations()
+    translations = ExerciseBaseManagerTranslations()
+    """
+    Custom Query Manager
+    """
+
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+        verbose_name='UUID',
+    )
     """Globally unique ID, to identify the base across installations"""
 
     category = models.ForeignKey(
@@ -95,22 +114,59 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """Variations of this exercise"""
 
-    creation_date = models.DateField(
+    created = models.DateTimeField(
         _('Date'),
         auto_now_add=True,
     )
-    """The submission date"""
+    """The submission datetime"""
 
-    update_date = models.DateTimeField(_('Date'), auto_now=True)
+    last_update = models.DateTimeField(
+        _('Date'),
+        auto_now=True,
+    )
     """Datetime of last modification"""
 
     history = HistoricalRecords()
     """Edit history"""
 
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f"base {self.uuid} ({self.get_translation()})"
+
+    def get_absolute_url(self):
+        """
+        Returns the canonical URL to view an exercise
+        """
+        return reverse('exercise:exercise:view-base', kwargs={'pk': self.id})
+
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super().check(**kwargs)
+
+        no_translations = cls.no_translations.all().count()
+        if no_translations:
+            errors.append(
+                Warning(
+                    'exercises without translations',
+                    hint=f'There are {no_translations} exercises without translations, this will '
+                    'cause problems! You can output or delete them with "python manage.py '
+                    'exercises-health-check --help"',
+                    id='wger.W002',
+                )
+            )
+
+        return errors
+
+    #
+    # Own methods
+    #
+
     @property
     def total_authors_history(self):
         """
-        All athors history related to the BaseExercise.
+        All authors history related to the BaseExercise.
         """
         collect_for_models = [
             *self.exercises.all(),
@@ -119,21 +175,17 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         ]
         return self.author_history.union(collect_models_author_history(collect_for_models))
 
-    def __str__(self):
+    @property
+    def last_update_global(self):
         """
-        Return a more human-readable representation
+        The latest update datetime of all exercises, videos and images.
         """
-        return f"base {self.uuid} ({self.get_exercise(ENGLISH_SHORT_NAME).name})"
-
-    def get_absolute_url(self):
-        """
-        Returns the canonical URL to view an exercise
-        """
-        return reverse('exercise:exercise:view-base', kwargs={'pk': self.id})
-
-    #
-    # Own methods
-    #
+        return max(
+            self.last_update, *[image.last_update for image in self.exerciseimage_set.all()],
+            *[video.last_update for video in self.exercisevideo_set.all()],
+            *[translation.last_update for translation in self.exercises.all()],
+            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
+        )
 
     @property
     def main_image(self):
@@ -143,7 +195,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         return self.exerciseimage_set.all().filter(is_main=True).first()
 
     @property
-    def get_languages(self) -> List[Language]:
+    def languages(self) -> List[Language]:
         """
         Returns the languages from the exercises that use this base
         """
@@ -158,7 +210,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             return []
         return self.variations.exercisebase_set.filter(~Q(id=self.id))
 
-    def get_exercise(self, language: Optional[str] = None):
+    def get_translation(self, language: Optional[str] = None):
         """
         Returns the exercise for the given language. If the language is not
         available, return the English translation.
@@ -174,13 +226,43 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         language = language or get_language()
 
         try:
-            exercise = self.exercises.get(language__short_name=language)
+            translation = self.exercises.get(language__short_name=language)
         except Exercise.DoesNotExist:
             try:
-                exercise = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
+                translation = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
             except Exercise.DoesNotExist:
-                exercise = self.exercises.first()
+                translation = self.exercises.first()
         except Exercise.MultipleObjectsReturned:
-            exercise = self.exercises.filter(language__short_name=language).first()
+            translation = self.exercises.filter(language__short_name=language).first()
 
-        return exercise
+        return translation
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        reset_exercise_api_cache(self.uuid)
+
+    def delete(self, using=None, keep_parents=False, replace_by: str = None):
+        """
+        Save entry to log
+        """
+        # wger
+        from wger.exercises.models import DeletionLog
+
+        if replace_by:
+            try:
+                ExerciseBase.objects.get(uuid=replace_by)
+            except ExerciseBase.DoesNotExist:
+                replace_by = None
+
+        log = DeletionLog(
+            model_type=DeletionLog.MODEL_BASE,
+            uuid=self.uuid,
+            comment=f"Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}",
+            replaced_by=replace_by,
+        )
+        log.save()
+
+        reset_exercise_api_cache(self.uuid)
+
+        return super().delete(using, keep_parents)

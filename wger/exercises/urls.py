@@ -16,17 +16,16 @@
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.conf.urls import (
-    include,
-    url,
+from django.conf.urls import include
+from django.urls import (
+    path,
+    re_path,
 )
-from django.urls import path
-from django.views.generic import TemplateView
 
 # wger
+from wger.core.views.react import ReactView
 from wger.exercises.views import (
     categories,
-    comments,
     equipment,
     exercises,
     history,
@@ -64,25 +63,6 @@ patterns_muscle = [
     path(
         '<int:pk>/delete/',
         muscles.MuscleDeleteView.as_view(),
-        name='delete',
-    ),
-]
-
-# sub patterns for exercise comments
-patterns_comment = [
-    path(
-        '<int:exercise_pk>/comment/add/',
-        comments.ExerciseCommentAddView.as_view(),
-        name='add',
-    ),
-    path(
-        '<int:pk>/edit/',
-        comments.ExerciseCommentEditView.as_view(),
-        name='edit',
-    ),
-    path(
-        '<int:id>/delete/',
-        comments.delete,
         name='delete',
     ),
 ]
@@ -139,7 +119,7 @@ patterns_equipment = [
 patterns_exercise = [
     path(
         'overview/',
-        exercises.ExerciseListView.as_view(),
+        ReactView.as_view(div_id='react-exercise-overview'),
         name='overview',
     ),
     path(
@@ -147,36 +127,30 @@ patterns_exercise = [
         exercises.view,
         name='view',
     ),
-    url(
+    re_path(
         r'^(?P<id>\d+)/view/(?P<slug>[-\w]*)/?$',
         exercises.view,
         name='view',
     ),
     path(
         '<int:pk>/view-base',
-        TemplateView.as_view(template_name='exercise/view-base.html'),
+        ReactView.as_view(div_id='react-exercise-overview'),
         name='view-base',
     ),
     path(
         '<int:pk>/view-base/<slug:slug>',
-        TemplateView.as_view(template_name='exercise/view-base.html'),
+        ReactView.as_view(div_id='react-exercise-detail'),
         name='view-base',
     ),
     path(
         'contribute',
-        TemplateView.as_view(template_name='exercise/contribute.html'),
+        ReactView.as_view(div_id='react-exercise-contribute'),
         name='contribute',
-    ),
-    path(
-        '<int:pk>/delete/',
-        exercises.ExerciseDeleteView.as_view(),
-        name='delete',
     ),
 ]
 
 urlpatterns = [
     path('muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    path('comment/', include((patterns_comment, 'comment'), namespace="comment")),
     path('category/', include((patterns_category, 'category'), namespace="category")),
     path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
     path('history/', include((patterns_history, 'history'), namespace="history")),
