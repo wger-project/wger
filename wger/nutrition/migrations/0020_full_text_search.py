@@ -23,7 +23,7 @@ def forwards(apps, schema_editor):
                 WHERE id = NEW.language_id;
 
                 -- If the language is not known values, just use English
-                IF NEW.index_language IS NULL OR NEW.index_language NOT IN (SELECT unnest(known_values))  THEN
+                IF NEW.index_language IS NULL OR NEW.index_language NOT IN (SELECT unnest(known_values)) THEN
                     NEW.index_language = 'english';
                 END IF;
             ELSE
@@ -31,12 +31,12 @@ def forwards(apps, schema_editor):
                 NEW.index_language = 'english';
             END IF;
 
-          new.search_column :=
-             setweight(to_tsvector(new.index_language::regconfig, coalesce(new.name,'')), 'A') ||
-             setweight(to_tsvector(new.index_language::regconfig, coalesce(new.brand,'')), 'B')||
-             setweight(to_tsvector(new.index_language::regconfig, coalesce(new.common_name,'')), 'C') ;
+            NEW.search_column :=
+                setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.name,'')), 'A') ||
+                setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.brand,'')), 'B')||
+                setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.common_name,'')), 'C');
 
-            RETURN new;
+            RETURN NEW;
         END
         $$ LANGUAGE plpgsql;
 
