@@ -73,6 +73,7 @@ from wger.nutrition.models import (
     WeightUnit,
 )
 from wger.utils.constants import ENGLISH_SHORT_NAME
+from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
@@ -215,13 +216,18 @@ def search(request):
         return Response(json_response)
 
     languages = [load_language(l) for l in language_codes.split(',')]
-    ingredients = Ingredient.objects.filter(
-        search_column=term,
+    query = Ingredient.objects.filter(
         language__in=languages,
         status=Ingredient.STATUS_ACCEPTED,
-    ).only('name')[:100]
+    ).only('name')
 
-    for ingredient in ingredients:
+    # Postgres uses a full-text search
+    if is_postgres_db():
+        query = query.filter(search_column=term)
+    else:
+        query = query.filter(name__icontains=term)
+
+    for ingredient in query[:100]:
         if hasattr(ingredient, 'image'):
             image_obj = ingredient.image
             image = image_obj.image.url
