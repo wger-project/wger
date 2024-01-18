@@ -246,7 +246,10 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     )
     """The language used for the full text search"""
 
-    search_column = SearchVectorField(null=True)
+    search_column = SearchVectorField(
+        null=True,
+        editable=False,
+    )
     """Column used for full text search"""
 
     # Metaclass to set some other properties

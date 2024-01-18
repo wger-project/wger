@@ -76,7 +76,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ingredient',
             name='search_column',
-            field=django.contrib.postgres.search.SearchVectorField(null=True),
+            field=django.contrib.postgres.search.SearchVectorField(editable=False, null=True),
         ),
         migrations.AddIndex(
             model_name='ingredient',
