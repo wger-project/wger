@@ -17,14 +17,11 @@
 
 # Standard Library
 import logging
-from dataclasses import asdict
-import datetime
 
 # Django
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django.shortcuts import get_object_or_404
 
 # Third Party
 from drf_spectacular.types import OpenApiTypes
@@ -78,7 +75,6 @@ from wger.nutrition.models import (
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
-
 
 logger = logging.getLogger(__name__)
 
@@ -183,23 +179,22 @@ class IngredientInfoViewSet(IngredientViewSet):
         ),
     ],
     responses={
-        200:
-        inline_serializer(
+        200: inline_serializer(
             name='IngredientSearchResponse',
             fields={
                 'value':
-                CharField(),
+                    CharField(),
                 'data':
-                inline_serializer(
-                    name='IngredientSearchItemResponse',
-                    fields={
-                        'id': IntegerField(),
-                        'name': CharField(),
-                        'category': CharField(),
-                        'image': CharField(),
-                        'image_thumbnail': CharField()
-                    }
-                )
+                    inline_serializer(
+                        name='IngredientSearchItemResponse',
+                        fields={
+                            'id': IntegerField(),
+                            'name': CharField(),
+                            'category': CharField(),
+                            'image': CharField(),
+                            'image_thumbnail': CharField()
+                        }
+                    )
             }
         )
     },
@@ -224,7 +219,7 @@ def search(request):
         search_column=term,
         language__in=languages,
         status=Ingredient.STATUS_ACCEPTED,
-    )[:100]
+    ).only('name')[:100]
 
     for ingredient in ingredients:
         if hasattr(ingredient, 'image'):

@@ -4,7 +4,8 @@
     "pk": 1,
     "fields": {
       "short_name": "de",
-      "full_name": "Deutsch"
+      "full_name": "Deutsch",
+      "full_name_en": "German"
     }
   },
   {
@@ -12,7 +13,8 @@
     "pk": 2,
     "fields": {
       "short_name": "en",
-      "full_name": "English"
+      "full_name": "English",
+      "full_name_en": "English"
     }
   },
   {
@@ -20,7 +22,8 @@
     "pk": 3,
     "fields": {
       "short_name": "bg",
-      "full_name": "Български език"
+      "full_name": "Български език",
+      "full_name_en": "Bulgarian"
     }
   },
   {
@@ -28,7 +31,8 @@
     "pk": 4,
     "fields": {
       "short_name": "es",
-      "full_name": "Español"
+      "full_name": "Español",
+      "full_name_en": "Spanish"
     }
   },
   {
@@ -36,7 +40,8 @@
     "pk": 5,
     "fields": {
       "short_name": "ru",
-      "full_name": "Русский"
+      "full_name": "Русский",
+      "full_name_en": "Russian"
     }
   },
   {
@@ -44,7 +49,8 @@
     "pk": 6,
     "fields": {
       "short_name": "nl",
-      "full_name": "Nederlands"
+      "full_name": "Nederlands",
+      "full_name_en": "Dutch"
     }
   },
   {
@@ -52,7 +58,8 @@
     "pk": 7,
     "fields": {
       "short_name": "pt",
-      "full_name": "Português"
+      "full_name": "Português",
+      "full_name_en": "Portuguese"
     }
   },
   {
@@ -60,7 +67,8 @@
     "pk": 8,
     "fields": {
       "short_name": "el",
-      "full_name": "Ελληνικά"
+      "full_name": "Ελληνικά",
+      "full_name_en": "Greek"
     }
   },
   {
@@ -68,7 +76,8 @@
     "pk": 9,
     "fields": {
       "short_name": "cs",
-      "full_name": "Čeština"
+      "full_name": "Čeština",
+      "full_name_en": "Czech"
     }
   },
   {
@@ -76,7 +85,8 @@
     "pk": 10,
     "fields": {
       "short_name": "sv",
-      "full_name": "Svenska"
+      "full_name": "Svenska",
+      "full_name_en": "Swedish"
     }
   },
   {
@@ -84,7 +94,8 @@
     "pk": 11,
     "fields": {
       "short_name": "no",
-      "full_name": "Norsk"
+      "full_name": "Norsk",
+      "full_name_en": "Norwegian"
     }
   },
   {
@@ -92,7 +103,8 @@
     "pk": 12,
     "fields": {
       "short_name": "fr",
-      "full_name": "Français"
+      "full_name": "Français",
+      "full_name_en": "French"
     }
   },
   {
@@ -100,7 +112,8 @@
     "pk": 13,
     "fields": {
       "short_name": "it",
-      "full_name": "Italian"
+      "full_name": "Italiano",
+      "full_name_en": "Italian"
     }
   },
   {
@@ -108,7 +121,8 @@
     "pk": 14,
     "fields": {
       "short_name": "pl",
-      "full_name": "Polish"
+      "full_name": "Polski",
+      "full_name_en": "Polish"
     }
   },
   {
@@ -116,7 +130,8 @@
     "pk": 15,
     "fields": {
       "short_name": "uk",
-      "full_name": "Українська мова"
+      "full_name": "Українська мова",
+      "full_name_en": "Ukrainian"
     }
   },
   {
@@ -124,7 +139,8 @@
     "pk": 16,
     "fields": {
       "short_name": "tr",
-      "full_name": "Türkçe"
+      "full_name": "Türkçe",
+      "full_name_en": "Turkish"
     }
   },
   {
@@ -132,7 +148,8 @@
     "pk": 17,
     "fields": {
       "short_name": "ar",
-      "full_name": "اَللُّغَةُ اَلْعَرَبِيَّة"
+      "full_name": "اَللُّغَةُ اَلْعَرَبِيَّة",
+      "full_name_en": "Arabic"
     }
   },
   {
@@ -140,7 +157,8 @@
     "pk": 18,
     "fields": {
       "short_name": "az",
-      "full_name": "Azərbaycan dili"
+      "full_name": "Azərbaycan dili",
+      "full_name_en": "Azerbaijani"
     }
   },
   {
@@ -148,7 +166,8 @@
     "pk": 19,
     "fields": {
       "short_name": "eo",
-      "full_name": "Esperanto"
+      "full_name": "Esperanto",
+      "full_name_en": "Esperanto"
     }
   },
   {
@@ -156,7 +175,8 @@
     "pk": 20,
     "fields": {
       "short_name": "fa",
-      "full_name": "زبان فارسی"
+      "full_name": "زبان فارسی",
+      "full_name_en": "Persian"
     }
   },
   {
@@ -164,7 +184,8 @@
     "pk": 21,
     "fields": {
       "short_name": "he",
-      "full_name": "עברית"
+      "full_name": "עברית",
+      "full_name_en": "Hebrew"
     }
   },
   {
@@ -172,7 +193,8 @@
     "pk": 22,
     "fields": {
       "short_name": "hr",
-      "full_name": "Hrvatski jezik"
+      "full_name": "Hrvatski jezik",
+      "full_name_en": "Croatian"
     }
   },
   {
@@ -180,7 +202,8 @@
     "pk": 23,
     "fields": {
       "short_name": "id",
-      "full_name": "Bahasa Indonesia"
+      "full_name": "Bahasa Indonesia",
+      "full_name_en": "Indonesian"
     }
   },
   {
@@ -188,7 +211,8 @@
     "pk": 24,
     "fields": {
       "short_name": "zh",
-      "full_name": "漢語"
+      "full_name": "漢語",
+      "full_name_en": "Chinese"
     }
   }
 ]

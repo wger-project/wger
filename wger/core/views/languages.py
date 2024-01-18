@@ -42,7 +42,6 @@ from wger.utils.generic_views import (
     WgerFormMixin,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -69,7 +68,7 @@ class LanguageCreateView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMi
     """
 
     model = Language
-    fields = ['short_name', 'full_name']
+    fields = ['short_name', 'full_name', 'full_name_en']
     title = gettext_lazy('Add')
     permission_required = 'core.add_language'
 
@@ -99,7 +98,7 @@ class LanguageEditView(WgerFormMixin, LoginRequiredMixin, PermissionRequiredMixi
     """
 
     model = Language
-    fields = ['short_name', 'full_name']
+    fields = ['short_name', 'full_name', 'full_name_en']
     permission_required = 'core.change_language'
 
     def get_context_data(self, **kwargs):

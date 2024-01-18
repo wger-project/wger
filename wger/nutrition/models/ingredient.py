@@ -239,6 +239,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         blank=True,
     )
 
+    index_language = models.CharField(
+        default='english',
+        editable=False,
+        max_length=30,
+    )
+    """The language used for the full text search"""
+
     search_column = SearchVectorField(null=True)
     """Column used for full text search"""
 
