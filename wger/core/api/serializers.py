@@ -37,7 +37,6 @@ from wger.core.models import (
     WeightUnit,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -153,7 +152,12 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = ['id', 'short_name', 'full_name']
+        fields = [
+            'id',
+            'short_name',
+            'full_name',
+            'full_name_en',
+        ]
 
 
 class DaysOfWeekSerializer(serializers.ModelSerializer):
