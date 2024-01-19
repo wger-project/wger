@@ -10,46 +10,46 @@ def forwards(apps, schema_editor):
         return
 
     schema_editor.execute('''
-        CREATE OR REPLACE FUNCTION update_ingredient_index() RETURNS trigger AS $$
-        DECLARE
-            known_values TEXT[];
-        BEGIN
-            SELECT ARRAY(SELECT cfgname FROM pg_ts_config) INTO known_values;
+    CREATE OR REPLACE FUNCTION update_ingredient_index() RETURNS trigger AS $$
+    DECLARE
+        known_langs TEXT[];
+    BEGIN
+        SELECT ARRAY(SELECT cfgname FROM pg_ts_config) INTO known_langs;
 
-            -- Map the ingredient language to the list of known languages
-            IF NEW.language_id IS NOT NULL THEN
+        -- Map the ingredient language to the list of known languages
+        IF NEW.language_id IS NOT NULL THEN
             SELECT lower(full_name_en) INTO NEW.index_language
-                FROM core_language
-                WHERE id = NEW.language_id;
+            FROM core_language
+            WHERE id = NEW.language_id;
 
-                -- If the language is not known values, just use English
-                IF NEW.index_language IS NULL OR NEW.index_language NOT IN (SELECT unnest(known_values)) THEN
-                    NEW.index_language = 'english';
-                END IF;
-            ELSE
-                -- If language_id is NULL, just set to English
+            -- If the language is not known values, just use English
+            IF NEW.index_language IS NULL OR NEW.index_language NOT IN (SELECT unnest(known_langs)) THEN
                 NEW.index_language = 'english';
             END IF;
+        ELSE
+            -- If language_id is NULL, just set to English
+            NEW.index_language = 'english';
+        END IF;
 
-            NEW.search_column :=
-                setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.name,'')), 'A') ||
-                setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.brand,'')), 'B')||
-                setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.common_name,'')), 'C');
+        NEW.search_column :=
+            setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.name,'')), 'A') ||
+            setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.brand,'')), 'B') ||
+            setweight(to_tsvector(NEW.index_language::regconfig, coalesce(new.common_name,'')), 'C');
 
-            RETURN NEW;
-        END
-        $$ LANGUAGE plpgsql;
+        RETURN NEW;
+    END
+    $$ LANGUAGE plpgsql;
 
-        -- Create the trigger
-        CREATE OR REPLACE TRIGGER ingredient_search_column_trigger
-        BEFORE INSERT OR UPDATE
-        ON nutrition_ingredient
-        FOR EACH ROW EXECUTE FUNCTION
-            update_ingredient_index();
+    -- Create the trigger
+    CREATE OR REPLACE TRIGGER ingredient_search_column_trigger
+    BEFORE INSERT OR UPDATE
+    ON nutrition_ingredient
+    FOR EACH ROW EXECUTE FUNCTION
+        update_ingredient_index();
 
-        -- Force an update of the search index
-        UPDATE nutrition_ingredient SET name = name WHERE true;
-        ''')
+    -- Force an update of the search index
+    UPDATE nutrition_ingredient SET name = name WHERE true;
+    ''')
 
 
 def backwards(apps, schema_editor):

@@ -40,7 +40,8 @@ class DeletionLogTestCase(WgerTestCase):
 
         # Base is deleted
         count_base_logs = DeletionLog.objects.filter(
-            model_type=DeletionLog.MODEL_BASE, uuid=base.uuid
+            model_type=DeletionLog.MODEL_BASE,
+            uuid=base.uuid,
         ).count()
         log = DeletionLog.objects.get(pk=1)
 

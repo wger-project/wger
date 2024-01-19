@@ -20,6 +20,7 @@ import logging
 
 # Django
 from django.conf import settings
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -223,7 +224,11 @@ def search(request):
 
     # Postgres uses a full-text search
     if is_postgres_db():
-        query = query.filter(search_column=term)
+        vector = SearchVector('search_column')
+        search_query = SearchQuery(term, search_type="websearch")
+        query = query.annotate(rank=SearchRank(vector, search_query)) \
+            .filter(search_column=search_query) \
+            .order_by('-rank', 'name')
     else:
         query = query.filter(name__icontains=term)
 
