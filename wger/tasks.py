@@ -20,6 +20,7 @@ import os
 import pathlib
 import sys
 import tempfile
+from tqdm import tqdm
 
 # Django
 import django
@@ -275,15 +276,24 @@ def load_online_fixtures(context, settings_path=None):
 
         print(f'Downloading fixture data from {url}...')
         response = requests.get(url, stream=True)
+        total_size = int(response.headers.get("content-length", 0))
         size = int(response.headers["content-length"]) / (1024 * 1024)
         print(f'-> fixture size: {size:.3} MB')
 
         # Save to temporary file and load the data
-        f = tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip')
-        print(f'-> saving to temp file {f.name}')
-        f.write(response.content)
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip') as f:
+            print(f'-> saving to temp file {f.name}')
+            with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
+                for data in response.iter_content(chunk_size=1024):
+                    f.write(data)
+                    pbar.update(len(data))
+
+
+        # f = tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip')
+        # print(f'-> saving to temp file {f.name}')
+        # f.write(response.content)
         f.close()
-        call_command("loaddata", f.name)
+        call_command("loaddata-progress", f.name)
         print('-> removing temp file')
         print('')
         os.unlink(f.name)
