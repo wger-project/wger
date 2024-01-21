@@ -287,11 +287,6 @@ def load_online_fixtures(context, settings_path=None):
                 for data in response.iter_content(chunk_size=1024):
                     f.write(data)
                     pbar.update(len(data))
-
-
-        # f = tempfile.NamedTemporaryFile(delete=False, suffix='.json.zip')
-        # print(f'-> saving to temp file {f.name}')
-        # f.write(response.content)
         f.close()
         call_command("loaddata-progress", f.name)
         print('-> removing temp file')
