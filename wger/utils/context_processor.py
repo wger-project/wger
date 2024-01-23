@@ -83,7 +83,6 @@ def processor(request):
         or '/contact' in request.get_full_path() \
         or '/api/v2' in request.get_full_path():
         context['active_tab'] = constants.SOFTWARE_TAB
-        context['show_shariff'] = True
 
     elif '/exercise/' in request.get_full_path():
         context['active_tab'] = constants.WORKOUT_TAB

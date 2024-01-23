@@ -96,7 +96,7 @@ def get_events_workout(calendar, workout, duration, start_date=None):
         description_list = []
         for set_obj in day.set_set.all():
             for base in set_obj.exercise_bases:
-                description_list.append(str(base.get_exercise()))
+                description_list.append(str(base.get_translation()))
         description = ', '.join(description_list) if description_list else day.description
 
         # Make an event for each weekday

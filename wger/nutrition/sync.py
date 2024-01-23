@@ -25,19 +25,23 @@ from django.db import IntegrityError
 import requests
 
 # wger
-from wger.nutrition.api.endpoints import IMAGE_ENDPOINT
+from wger.nutrition.api.endpoints import (
+    IMAGE_ENDPOINT,
+    INGREDIENTS_ENDPOINT,
+)
 from wger.nutrition.models import (
     Image,
     Ingredient,
     Source,
 )
 from wger.utils.constants import (
+    API_MAX_ITEMS,
     CC_BY_SA_3_LICENSE_ID,
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_WGER,
 )
 from wger.utils.requests import (
-    get_paginated_generator,
+    get_paginated,
     wger_headers,
 )
 from wger.utils.url import make_uri
@@ -162,30 +166,69 @@ def download_ingredient_images(
     headers = wger_headers()
     url = make_uri(IMAGE_ENDPOINT, server_url=remote_url, query={'limit': 100})
 
-    print_fn('*** Processing images ***')
-    for result in get_paginated_generator(url, headers=headers):
+    print_fn('*** Processing ingredient images ***')
+    for image_data in get_paginated(url, headers=headers):
+        image_uuid = image_data['uuid']
+        print_fn(f'Processing image {image_uuid}')
 
-        for image_data in result:
-            image_uuid = image_data['uuid']
+        try:
+            ingredient = Ingredient.objects.get(uuid=image_data['ingredient_uuid'])
+        except Ingredient.DoesNotExist:
+            print_fn('    Remote ingredient not found in local DB, skipping...')
+            continue
 
-            print_fn(f'Processing image {image_uuid}')
+        if hasattr(ingredient, 'image'):
+            continue
 
-            try:
-                ingredient = Ingredient.objects.get(uuid=image_data['ingredient_uuid'])
-            except Ingredient.DoesNotExist:
-                print_fn('    Remote ingredient not found in local DB, skipping...')
-                continue
+        try:
+            Image.objects.get(uuid=image_uuid)
+            print_fn('    Image already present locally, skipping...')
+            continue
+        except Image.DoesNotExist:
+            print_fn('    Image not found in local DB, creating now...')
+            retrieved_image = requests.get(image_data['image'], headers=headers)
+            Image.from_json(ingredient, retrieved_image, image_data)
 
-            if hasattr(ingredient, 'image'):
-                continue
+        print_fn(style_fn('    successfully saved'))
 
-            try:
-                Image.objects.get(uuid=image_uuid)
-                print_fn('    Image already present locally, skipping...')
-                continue
-            except Image.DoesNotExist:
-                print_fn('    Image not found in local DB, creating now...')
-                retrieved_image = requests.get(image_data['image'], headers=headers)
-                Image.from_json(ingredient, retrieved_image, image_data)
 
-            print_fn(style_fn('    successfully saved'))
+def sync_ingredients(
+    print_fn,
+    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    style_fn=lambda x: x,
+):
+    """Synchronize the ingredients from the remote server"""
+    print_fn('*** Synchronizing ingredients...')
+
+    url = make_uri(INGREDIENTS_ENDPOINT, server_url=remote_url, query={'limit': API_MAX_ITEMS})
+    for data in get_paginated(url, headers=wger_headers()):
+        uuid = data['uuid']
+        name = data['name']
+
+        ingredient, created = Ingredient.objects.update_or_create(
+            uuid=uuid,
+            defaults={
+                'name': name,
+                'code': data['code'],
+                'language_id': data['language'],
+                'created': data['created'],
+                'license_id': data['license'],
+                'license_object_url': data['license_object_url'],
+                'license_author': data['license_author_url'],
+                'license_author_url': data['license_author_url'],
+                'license_title': data['license_title'],
+                'license_derivative_source_url': data['license_derivative_source_url'],
+                'energy': data['energy'],
+                'carbohydrates': data['carbohydrates'],
+                'carbohydrates_sugar': data['carbohydrates_sugar'],
+                'fat': data['fat'],
+                'fat_saturated': data['fat_saturated'],
+                'protein': data['protein'],
+                'fibres': data['fibres'],
+                'sodium': data['sodium'],
+            },
+        )
+
+        print_fn(f"{'created' if created else 'updated'} ingredient {uuid} - {name}")
+
+    print_fn(style_fn('done!\n'))

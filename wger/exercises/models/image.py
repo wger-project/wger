@@ -27,6 +27,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.exercises.models import ExerciseBase
+from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.helpers import BaseImage
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -145,14 +146,17 @@ class ExerciseImage(AbstractLicenseModel, AbstractHistoryMixin, models.Model, Ba
                 .count():
                 self.is_main = True
 
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
         # And go on
-        super(ExerciseImage, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
         Reset all cached infos
         """
-        super(ExerciseImage, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
 
         # Make sure there is always a main image
         if not ExerciseImage.objects.all().filter(exercise_base=self.exercise_base, is_main=True

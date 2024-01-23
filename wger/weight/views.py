@@ -159,7 +159,6 @@ def overview(request, username=None):
     context = {
         'is_owner': is_owner,
         'owner_user': user,
-        'show_shariff': False,
     }
     return render(request, 'overview.html', context)
 

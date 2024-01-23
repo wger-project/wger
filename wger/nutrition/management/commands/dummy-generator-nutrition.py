@@ -27,7 +27,6 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 # wger
-from wger.core.models import Language
 from wger.nutrition.models import (
     Ingredient,
     LogItem,

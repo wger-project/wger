@@ -105,6 +105,7 @@ class Command(BaseCommand):
             else User.objects.all()
 
         if options['nr_categories'] > 10:
+            print(options['nr_categories'])
             print('10 Categories is the maximum allowed')
             sys.exit()
 

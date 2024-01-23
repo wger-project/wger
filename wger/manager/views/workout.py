@@ -120,7 +120,6 @@ def view(request, pk):
         'token': token,
         'is_owner': is_owner,
         'owner_user': user,
-        'show_shariff': is_owner,
     }
 
     return render(request, 'workout/view.html', context)

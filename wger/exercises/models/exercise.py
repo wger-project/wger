@@ -31,7 +31,10 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.core.models import Language
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import reset_workout_canonical_form
+from wger.utils.cache import (
+    reset_exercise_api_cache,
+    reset_workout_canonical_form,
+)
 from wger.utils.models import (
     AbstractHistoryMixin,
     AbstractLicenseModel,
@@ -119,7 +122,10 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Reset all cached infos
         """
-        super(Exercise, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
 
         # Cached workouts
         for setting in self.exercise_base.setting_set.all():
@@ -133,7 +139,10 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         for setting in self.exercise_base.setting_set.all():
             reset_workout_canonical_form(setting.set.exerciseday.training.pk)
 
-        super(Exercise, self).delete(*args, **kwargs)
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         """

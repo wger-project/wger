@@ -75,15 +75,15 @@ class ExerciseBaseModelTestCase(WgerTestCase):
         )
 
     def test_exercise_en(self):
-        translation = self.exercise.get_exercise()
+        translation = self.exercise.get_translation()
         self.assertEqual(translation.language.short_name, 'en')
 
     def test_get_exercise_fr(self):
-        translation = self.exercise.get_exercise('fr')
+        translation = self.exercise.get_translation('fr')
         self.assertEqual(translation.language.short_name, 'fr')
 
     def test_get_exercise_unknown(self):
-        translation = self.exercise.get_exercise('kg')
+        translation = self.exercise.get_translation('kg')
         self.assertEqual(translation.language.short_name, 'en')
 
     def test_get_languages(self):

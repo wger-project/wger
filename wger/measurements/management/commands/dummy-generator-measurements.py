@@ -70,26 +70,29 @@ class Command(BaseCommand):
             if options['user_id'] \
             else User.objects.all()
 
-        categories = [Category.objects.get(pk=options['category_id'])] \
-            if options['category_id'] \
-            else Category.objects.all()
-
         new_entries = []
         for user in users:
+
+            categories = [Category.objects.get(pk=options['category_id'])] \
+                if options['category_id'] \
+                else Category.objects.filter(user=user)
+
             self.stdout.write(f'- processing user {user.username}')
 
             for category in categories:
                 base_value = random.randint(10, 100)
 
-                for i in range(1, options['nr_measurements']):
+                for i in range(options['nr_measurements']):
                     date = datetime.date.today() - datetime.timedelta(days=2 * i)
-                    if not Measurement.objects.filter(category=category, date=date).exists():
-                        measurement = Measurement(
-                            category=category,
-                            value=base_value + 0.5 * i + random.randint(-20, 10),
-                            date=date,
-                        )
-                        new_entries.append(measurement)
+                    if Measurement.objects.filter(category=category, date=date).exists():
+                        continue
+
+                    measurement = Measurement(
+                        category=category,
+                        value=base_value + 0.5 * i + random.randint(-20, 10),
+                        date=date,
+                    )
+                    new_entries.append(measurement)
 
         # Bulk-create the entries
         Measurement.objects.bulk_create(new_entries)

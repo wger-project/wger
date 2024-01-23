@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-07 17:25+0100\n"
-"PO-Revision-Date: 2023-12-21 23:06+0000\n"
-"Last-Translator: Alessandro Faucci <silenzio.canguro@gmail.com>\n"
+"PO-Revision-Date: 2024-01-07 23:06+0000\n"
+"Last-Translator: oarion <michaelgalati@protonmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/wger/web/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -28,14 +28,14 @@ msgstr ""
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
-msgstr "Palestra di default"
+msgstr "Palestra Predefinita"
 
 #: config/models/gym_config.py:48
 msgid ""
 "Select the default gym for this installation. This will assign all new "
 "registered users to this gym and update all existing users without a gym."
 msgstr ""
-"Seleziona la palestra di default per questa installazione. Questa palestra "
+"Seleziona la palestra predefinita per questa installazione. Questa palestra "
 "sarà assegnata a tutti i nuovi utenti e a tutti gli utenti già registrati "
 "che non ne hanno una."
 
@@ -118,7 +118,7 @@ msgstr "Cognome"
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
 msgid "Email"
-msgstr "E-mail"
+msgstr "Email"
 
 #: core/forms.py:112
 msgid "Used for password resets and, optionally, e-mail reminders."
@@ -198,7 +198,7 @@ msgstr "Password non valida"
 
 #: core/forms.py:258 core/forms.py:328
 msgid "The form is secured with reCAPTCHA"
-msgstr "Quest formulario è protetto con reCAPTCHA"
+msgstr "Questo modulo è protetto con reCAPTCHA"
 
 #: core/forms.py:272 core/forms.py:293 core/templates/navigation.html:275
 #: core/templates/navigation.html:287 core/templates/template.html:152
@@ -246,7 +246,7 @@ msgid ""
 "different countries, add them as separate entries here."
 msgstr ""
 "Se una licenza è stata localizzata, ad es. le licenze Creative Commons per i "
-"diversi paesi, aggiungili come voci separate qui."
+"diversi paesi, aggiungile come voci separate qui."
 
 #: core/models/license.py:40
 msgid "Short name, e.g. CC-BY-SA 3"
@@ -263,7 +263,7 @@ msgstr "Link al testo della licenza o altre informazioni"
 #: core/models/profile.py:56
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "%(birthdate)s non è un compleanno valido"
+msgstr "%(birthdate)s non è un data di nascita valida"
 
 #: core/models/profile.py:65
 msgid "Male"
@@ -295,7 +295,7 @@ msgstr "Imperiali (libbra)"
 
 #: core/models/profile.py:118
 msgid "Show exercise comments"
-msgstr "Mostra commenti agli esercizi"
+msgstr "Mostra commenti sugli esercizi"
 
 #: core/models/profile.py:119
 msgid "Check to show exercise comments on the workout view"
@@ -307,17 +307,18 @@ msgid "Also use ingredients in English"
 msgstr "Usa anche gli ingredienti in inglese"
 
 #: core/models/profile.py:132
+#, fuzzy
 msgid ""
 "Check to also show ingredients in English while creating\n"
 "a nutritional plan. These ingredients are extracted from a list provided\n"
 "by the US Department of Agriculture. It is extremely complete, with around\n"
 "7000 entries, but can be somewhat overwhelming and make the search difficult."
 msgstr ""
-"Verifica anche di mostrare gli ingredienti in Inglese durante la creazione\n"
+"Spunta per mostrare gli ingredienti in Inglese durante la creazione\n"
 "di un piano nutrizionale. Questi ingredienti sono estratti da un elenco "
 "fornito\n"
 "dal Dipartimento dell'Agricoltura degli Stati Uniti. È estremamente "
-"completo, con in giro\n"
+"completo, con circa\n"
 "7000 voci, ma può essere alquanto travolgente e rendere la ricerca difficile."
 
 #: core/models/profile.py:141
@@ -330,21 +331,21 @@ msgid ""
 "valid email for this to work."
 msgstr ""
 "Spunta per attivare i promemoria automatici per gli allenamenti. Devi "
-"inserire una e-mail valida perché funzioni."
+"inserire una e-mail valida affinchè funzioni."
 
 #: core/models/profile.py:152
 msgid "Remind before expiration"
 msgstr "Ricorda prima della scadenza"
 
 #: core/models/profile.py:153
+#, fuzzy
 msgid "The number of days you want to be reminded before a workout expires."
 msgstr ""
-"Il numero di giorni che si desidera essere informati prima che un "
-"allenamento scada."
+"Quanti giorni prima si desidera essere informati che un allenamento scada."
 
 #: core/models/profile.py:159
 msgid "Default duration of workouts"
-msgstr "errore durata di allenamento"
+msgstr "Durata predefinita dell'allenamento"
 
 #: core/models/profile.py:161
 msgid ""
@@ -568,7 +569,7 @@ msgid "the wger Team"
 msgstr "Il team wger"
 
 #: core/templates/email_verification/email_body_txt.tpl:4
-#, fuzzy, python-format
+#, python-format
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr "Clicca sul seguente link per confermare la tua email: %(link)s"
 
@@ -2055,10 +2056,8 @@ msgid "Biceps"
 msgstr "Bicipiti"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
-msgstr "Peso corporeo"
+msgstr "Peso Corporeo"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2114,7 +2113,7 @@ msgstr "Gambe"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "Zona Lombare"
 
 #: i18n.tpl:23
 msgid "Max Reps"
@@ -2508,10 +2507,6 @@ msgid "No schedules found."
 msgstr "Nessuna programmazione trovata."
 
 #: manager/templates/schedule/overview.html:36
-#, fuzzy
-#| msgid ""
-#| "Schedules are collections of workouts that you do in\n"
-#| "succession."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
@@ -2533,12 +2528,6 @@ msgstr ""
 "gli stessi allenamenti in successione, ad es. A> B> C> A> B> C e così via."
 
 #: manager/templates/schedule/overview.html:43
-#, fuzzy
-#| msgid ""
-#| "The currently active schedule will remain active (and be\n"
-#| "shown e.g. in your dashboard) till it reaches the last workout or till "
-#| "you\n"
-#| "deactivate it, if it is a loop."
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
@@ -2546,9 +2535,9 @@ msgid ""
 "        deactivate it, if it is a loop."
 msgstr ""
 "Il programma attualmente attivo rimarrà attivo (e sarà\n"
-"mostrato ad es. nella tua bacheca) fino a quando non raggiunge l'ultimo "
-"allenamento o fin quando te\n"
-"non lo disattivi, se è un ciclo."
+"mostrato ad es. nella tua bacheca) fino a quando non raggiungierà l'ultimo "
+"allenamento o se è un ciclo fin quando\n"
+"non lo disattiverai."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"

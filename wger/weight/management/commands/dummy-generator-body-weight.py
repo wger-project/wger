@@ -21,10 +21,6 @@ import random
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
-# Third Party
-from faker import Faker
-from faker.providers import DynamicProvider
-
 # wger
 from wger.weight.models import WeightEntry
 
@@ -75,7 +71,7 @@ class Command(BaseCommand):
             existing_entries = [i.date for i in WeightEntry.objects.filter(user=user)]
 
             # Weight entries
-            for i in range(1, options['nr_entries']):
+            for i in range(options['nr_entries']):
 
                 creation_date = datetime.date.today() - datetime.timedelta(days=i)
                 if creation_date not in existing_entries:

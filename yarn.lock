@@ -2,19 +2,15 @@
 # yarn lockfile v1
 
 
-"@fortawesome/fontawesome-free@^5.8.2":
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz#a371e91029ebf265015e64f81bfbf7d228c9681f"
-  integrity sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==
-
 "@types/jquery@^2.0.32":
   version "2.0.54"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.54.tgz#d7999245f77c3fab5d84e7d32b8a6c20bfd1f072"
   integrity sha512-D/PomKwNkDfSKD13DEVQT/pq2TUjN54c6uB341fEZanIzkjfGe7UaFuuaLZbpEiS5j7Wk2MUHAZqZIoECw29lg==
 
-Sortable@RubaXa/Sortable#1.15.0:
-  version "1.15.0"
-  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/babf6ab85fdfc5e13be1027827cecfbba2fb0d1e"
+Sortable@RubaXa/Sortable#1.15.2:
+  version "1.15.2"
+  uid "07708fa1e7d9cf9d4563a7b1a09f7a47771522ed"
+  resolved "https://codeload.github.com/RubaXa/Sortable/tar.gz/07708fa1e7d9cf9d4563a7b1a09f7a47771522ed"
 
 bootstrap@5.3.2:
   version "5.3.2"
@@ -331,7 +327,7 @@ iconv-lite@0.6:
   resolved "https://registry.yarnpkg.com/internmap/-/internmap-2.0.1.tgz#33d0fa016185397549fb1a14ea3dbe5a2949d1cd"
   integrity sha512-Ujwccrj9FkGqjbY3iVoxD1VV+KdZZeENx0rphrtzmRXbFvkFO88L80BL/zeSIguX/7T+y8k04xqtgWgS5vxwxw==
 
-jquery@>=1.7, jquery@^3.4.1, jquery@^3.7.1:
+jquery@>=1.7, jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -372,14 +368,6 @@ rw@1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-
-shariff@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/shariff/-/shariff-3.3.0.tgz#567b23f929298442a593af2f30258bd13ef4d587"
-  integrity sha512-k8aITaDpbdIlun3mJ/SlfSRrc5vvyl4wjsJ0gTrclCNo/wemCVhhY7wEk5HqOy4y/3msVDEarwuF/SU2j7+Auw==
-  dependencies:
-    "@fortawesome/fontawesome-free" "^5.8.2"
-    jquery "^3.4.1"
 
 yarn@^1.22.21:
   version "1.22.21"

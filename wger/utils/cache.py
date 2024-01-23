@@ -35,6 +35,10 @@ def reset_workout_canonical_form(workout_id):
     cache.delete(cache_mapper.get_workout_canonical(workout_id))
 
 
+def reset_exercise_api_cache(uuid: str):
+    cache.delete(cache_mapper.get_exercise_api_key(uuid))
+
+
 def reset_workout_log(user_pk, year, month, day=None):
     """
     Resets the cached workout logs

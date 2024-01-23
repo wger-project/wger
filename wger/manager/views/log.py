@@ -296,7 +296,6 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
         context['workout_log'] = workout_log
         context['owner_user'] = self.owner_user
         context['is_owner'] = is_owner
-        context['show_shariff'] = is_owner
 
         return context
 
@@ -337,7 +336,6 @@ def calendar(request, username=None, year=None, month=None):
     context['is_owner'] = is_owner
     context['impressions'] = WorkoutSession.IMPRESSION
     context['month_list'] = WorkoutLog.objects.filter(user=user).dates('date', 'month')
-    context['show_shariff'] = is_owner and user.userprofile.ro_access
     return render(request, 'calendar/month.html', context)
 
 
@@ -357,6 +355,5 @@ def day(request, username, year, month, day):
     context['date'] = date
     context['owner_user'] = user
     context['is_owner'] = is_owner
-    context['show_shariff'] = is_owner and user.userprofile.ro_access
 
     return render(request, 'calendar/day.html', context)

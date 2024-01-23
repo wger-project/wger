@@ -1,8 +1,5 @@
 {% extends "template.html" %}{% load i18n wger_extras django_bootstrap_breadcrumbs %}
 {% block template %}
-    {% if show_shariff %}
-        {% include 'misc/fragments/shariff_modal.html' %}
-    {% endif %}
 
 
     {% if trainer_identity %}
@@ -29,16 +26,6 @@
 
                 {% block options %}
                 {% endblock %}
-
-                {% if show_shariff %}
-                    <button type="button"
-                            class="btn btn-light btn-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target="#shariffModal">
-                        <span class="glyphicon glyphicon-retweet"></span>
-                        {% trans "Share" %}
-                    </button>
-                {% endif %}
             </div>
         </div>
     </div>
