@@ -281,7 +281,7 @@ def load_online_fixtures(context, settings_path=None):
                     pbar.update(len(data))
         f.close()
         print('Loading downloaded data, this may take a while...')
-        call_command("loaddata", f.name)
+        call_command("loaddata", f.name, '--verbosity=3')
         print('-> removing temp file')
         print('')
         os.unlink(f.name)
