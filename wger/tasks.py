@@ -34,22 +34,18 @@ from django.utils.crypto import get_random_string
 import requests
 from invoke import task
 
-
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
 
 @task(
     help={
-        'address':
-        'Address to bind to. Default: localhost',
-        'port':
-        'Port to use. Default: 8000',
-        'settings-path':
-        'Path to settings file (absolute path). Leave empty for default',
+        'address': 'Address to bind to. Default: localhost',
+        'port': 'Port to use. Default: 8000',
+        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
         'extra-args':
-        'Additional arguments to pass to the builtin server. Pass as string: '
-        '"--arg1 --arg2=value". Default: none'
+            'Additional arguments to pass to the builtin server. Pass as string: '
+            '"--arg1 --arg2=value". Default: none'
     }
 )
 def start(context, address='localhost', port=8000, settings_path=None, extra_args=''):
@@ -70,10 +66,8 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
 
 @task(
     help={
-        'settings-path': 'Path to settings file (absolute path). Leave empty for '
-        'default',
-        'database-path': 'Path to sqlite database (absolute path). Leave empty '
-        'for default'
+        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
+        'database-path': 'Path to sqlite database (absolute path). Leave empty for default'
     }
 )
 def bootstrap(context, settings_path=None, database_path=None):
@@ -104,12 +98,9 @@ def bootstrap(context, settings_path=None, database_path=None):
 
 @task(
     help={
-        'settings-path': 'Path to settings file (absolute path). Leave empty for '
-        'default',
-        'database-path': 'Path to sqlite database (absolute path). Leave empty '
-        'for default',
-        'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: '
-        'sqlite3',
+        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
+        'database-path': 'Path to sqlite database (absolute path). Leave empty for default',
+        'database-type': 'Database type to use. Supported: sqlite3, postgresql. Default: sqlite3',
         'key-length': 'Length of the generated secret key. Default: 50'
     }
 )
@@ -181,8 +172,7 @@ def create_settings(
         settings_file.write(settings_content)
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def create_or_reset_admin(context, settings_path=None):
     """
     Creates an admin user or resets the password for an existing one
@@ -207,8 +197,7 @@ def create_or_reset_admin(context, settings_path=None):
     call_command("loaddata", path + "users.json")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def migrate_db(context, settings_path=None):
     """
     Run all database migrations
@@ -220,8 +209,7 @@ def migrate_db(context, settings_path=None):
     call_command("migrate")
 
 
-@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+@task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for default'})
 def load_fixtures(context, settings_path=None):
     """
     Loads all fixtures
@@ -261,13 +249,13 @@ def load_fixtures(context, settings_path=None):
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-            'default'})
+                             'default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
     """
 
-    # Find the path to the settings and setup the django environment
+    # Find the path to the settings and set up the django environment
     setup_django_environment(settings_path)
 
     # Prepare the download
@@ -288,7 +276,8 @@ def load_online_fixtures(context, settings_path=None):
                     f.write(data)
                     pbar.update(len(data))
         f.close()
-        call_command("loaddata-progress", f.name)
+        print('Loading downloaded data, this may take a while...')
+        call_command("loaddata", f.name)
         print('-> removing temp file')
         print('')
         os.unlink(f.name)
