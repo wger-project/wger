@@ -192,6 +192,9 @@ def edit(request, pk):
         formsets.append({'base': base, 'formset': formset})
 
     if request.method == "POST":
+        set_obj.comment = request.POST.get('comment',"")  # Update the comment value for the Set object
+        set_obj.save()  # Save the changes to the Set object
+
         formsets = []
         for base in set_obj.exercise_bases:
             formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(base.id))
@@ -218,5 +221,5 @@ def edit(request, pk):
             )
 
     # Other context we need
-    context = {'formsets': formsets, 'helper': WorkoutLogFormHelper()}
+    context = {'formsets': formsets, 'helper': WorkoutLogFormHelper(),'comment': set_obj.comment }
     return render(request, 'set/edit.html', context)
