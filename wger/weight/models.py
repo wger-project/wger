@@ -31,7 +31,7 @@ class WeightEntry(models.Model):
     """
     date = models.DateField(verbose_name=_('Date'))
     weight = models.DecimalField(
-        verbose_name=_('Weight'),
+        verbose_name=_('Weight (kg)'),
         max_digits=5,
         decimal_places=2,
         validators=[MinValueValidator(30), MaxValueValidator(600)]
