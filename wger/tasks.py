@@ -20,7 +20,6 @@ import os
 import pathlib
 import sys
 import tempfile
-from tqdm import tqdm
 
 # Django
 import django
@@ -33,6 +32,8 @@ from django.utils.crypto import get_random_string
 # Third Party
 import requests
 from invoke import task
+from tqdm import tqdm
+
 
 logger = logging.getLogger(__name__)
 FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
@@ -40,12 +41,15 @@ FIXTURE_URL = 'https://github.com/wger-project/data/raw/master/fixtures/'
 
 @task(
     help={
-        'address': 'Address to bind to. Default: localhost',
-        'port': 'Port to use. Default: 8000',
-        'settings-path': 'Path to settings file (absolute path). Leave empty for default',
+        'address':
+        'Address to bind to. Default: localhost',
+        'port':
+        'Port to use. Default: 8000',
+        'settings-path':
+        'Path to settings file (absolute path). Leave empty for default',
         'extra-args':
-            'Additional arguments to pass to the builtin server. Pass as string: '
-            '"--arg1 --arg2=value". Default: none'
+        'Additional arguments to pass to the builtin server. Pass as string: '
+        '"--arg1 --arg2=value". Default: none'
     }
 )
 def start(context, address='localhost', port=8000, settings_path=None, extra_args=''):
@@ -249,7 +253,7 @@ def load_fixtures(context, settings_path=None):
 
 
 @task(help={'settings-path': 'Path to settings file (absolute path). Leave empty for '
-                             'default'})
+            'default'})
 def load_online_fixtures(context, settings_path=None):
     """
     Downloads fixtures from server and installs them (at the moment only ingredients)
