@@ -16,13 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get dependencies
-        run: pip install yapf isort
+      - name: Format the code
+        run: ruff format
 
-      - name: Format the code with yapf
-        run: yapf --recursive --in-place wger
-
-      - name: Sort the imports with isort
+      # While ruff can also do some sorting, isort can still be configured to do more,
+      # like grouping imports, etc.
+      - name: Sort the imports
         run: isort .
 
       - name: Push a commit with the changed files
