@@ -229,8 +229,7 @@ urlpatterns = i18n_patterns(
     path(
         'measurement/',
         include(('wger.measurements.urls', 'measurements'), namespace='measurements')
-    ),
-    path('email/', include(('wger.mailer.urls', 'email'), namespace='email')),
+    ), path('email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path(
         'sitemap-<section>.xml',

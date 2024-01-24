@@ -5,6 +5,7 @@
 # Application
 bleach[css]~=6.1
 crispy-bootstrap5==2023.10
+tqdm==4.66.1
 
 # this is a fork of django-bootstrap-breadcrumbs
 # we might need to think about migrating away from this completely
@@ -22,7 +23,7 @@ django_compressor~=4.4
 django_extensions~=3.2
 django-storages~=1.14
 django-environ==0.11.2
-drf-spectacular[sidecar]==0.27.0
+drf-spectacular[sidecar]==0.27.1
 easy-thumbnails==2.8.5
 fontawesomefree~=6.5.1
 icalendar==5.0.11
