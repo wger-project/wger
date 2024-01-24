@@ -75,7 +75,9 @@ Developers
 * Gabriel Liss - https://github.com/gabeliss
 * Alexandra Rhodes - https://github.com/arhodes130
 * Jayanth Bontha - https://github.com/JayanthBontha
+* Roelof Rietbroek  https://github.com/strawpants
 * Ethan Winters - https://github.com/ebwinters
+
 
 Translators
 -----------
