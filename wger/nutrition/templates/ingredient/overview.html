@@ -5,31 +5,6 @@
 {% load cache %}
 
 {% block header %}
-    <script>
-        $(document).ready(function () {
-            // Prevent the form from being submited if JavaScript is enabled
-            $("#search_form").submit(function () {
-                return false;
-            });
-
-            // Init the autocompleter
-            $("#ingredient-search").autocomplete({
-                serviceUrl: '/api/v2/ingredient/search/',
-                dataType: 'json',
-                paramName: 'term',
-                minChars: 3,
-                onSelect: function (suggestion) {
-                    window.location.href = '/nutrition/ingredient/' + suggestion.data.id + '/view/'
-                },
-                formatResult: function (suggestion) {
-                    if (suggestion.data.image_thumbnail) {
-                        return '<div><img src="' + suggestion.data.image_thumbnail + '" /> ' + suggestion.value + '</div>';
-                    }
-                    return '<div>' + suggestion.value + '</div>';
-                }
-            });
-        });
-    </script>
 {% endblock %}
 
 {% block title %}{% translate "Ingredient overview" %}{% endblock %}
@@ -72,17 +47,8 @@
 
 {% block sidebar %}
     <h4>{% translate "Search" %}</h4>
-    <form action="{% url 'ingredient-search' %}"
-          method="get"
-          id="search_form">
-        {% csrf_token %}
-        <input name="term"
-               type="search"
-               id="ingredient-search"
-               class="ajax-form-element form-control"
-               placeholder="{% translate 'ingredient name' %}"
-               style="width:100%;">
-    </form>
+    <div id="react-ingredient-search"></div>
+    
 {% endblock %}
 
 

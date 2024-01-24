@@ -58,5 +58,6 @@
     "loading": "Загрузка...",
     "translation": "Перевод",
     "language": "Язык",
-    "images": "Изображения"
+    "images": "Изображения",
+    "timeOfDay": "Время дня"
 }
