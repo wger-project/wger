@@ -19,7 +19,7 @@
                 paramName: 'term',
                 minChars: 3,
                 onSelect: function (suggestion) {
-                     window.location.href = '/nutrition/ingredient/' + suggestion.data.id + '/view/'
+                    window.location.href = '/nutrition/ingredient/' + suggestion.data.id + '/view/'
                 },
                 formatResult: function (suggestion) {
                     if (suggestion.data.image_thumbnail) {
@@ -59,7 +59,6 @@
 {% endblock %}
 
 {% block sidebar %}
-
     <h4>{% translate "Search" %}</h4>
     <form action="{% url 'ingredient-search' %}"
           method="get"
@@ -79,17 +78,10 @@
 {# Options #}
 {#         #}
 {% block options %}
-    {% if user.is_authenticated and not user.userprofile.is_temporary %}
+    {% if perms.nutrition.add_ingredient and  user.is_authenticated and not user.userprofile.is_temporary %}
         <a href="{% url 'nutrition:ingredient:add' %}"
            class="btn btn-success btn-sm">
             {% translate "Add ingredient" %}
-        </a>
-    {% else %}
-        <a href="#" class="btn btn-success btn-sm disabled">
-            {% translate "Add ingredient" %}<br>
-            <small>
-                {% translate "Only registered users can do this" %}
-            </small>
         </a>
     {% endif %}
 {% endblock %}
