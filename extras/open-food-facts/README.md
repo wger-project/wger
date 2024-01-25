@@ -41,6 +41,17 @@ Run the import script
 python manage.py import-off-products
 ```
 
+To update the data fixtures:
+
+```shell
+python manage.py dumpdata nutrition > extras/scripts/data.json
+cd extras/scripts
+python filter-fixtures.py
+zip ingredients.json.zip ingredients.json 
+zip weight_units.json.zip weight_units.json
+zip ingredient_units.json.zip ingredient_units.json
+```
+
 ## 4
 
 Don't forget to delete the dump and remove the containers if you love your
