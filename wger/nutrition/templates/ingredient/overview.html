@@ -22,7 +22,7 @@
                         <img src="{{ ingredient.image.image.url }}"
                              class="img-fluid"
                              alt="{{ ingredient.name }}"
-                             style="height: 40px; width: 40px; border-radius: 50%;">
+                             style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover;">
                     {% else %}
                         <i class="fas fa-camera fa-sx" style="text-align:center; width: 40px;"></i>
                     {% endif %}
@@ -48,7 +48,7 @@
 {% block sidebar %}
     <h4>{% translate "Search" %}</h4>
     <div id="react-ingredient-search"></div>
-    
+
 {% endblock %}
 
 
