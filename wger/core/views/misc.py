@@ -50,7 +50,6 @@ from wger.core.forms import (
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -107,36 +106,7 @@ def dashboard(request):
     Show the index page, in our case, the last workout and nutritional plan
     and the current weight
     """
-
-    context = {}
-
-    # Load the last workout, either from a schedule or a 'regular' one
-    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-
-    context['current_workout'] = current_workout
-    context['schedule'] = schedule
-
-    # Format a bit the days, so it doesn't have to be done in the template
-    used_days = {}
-    if current_workout:
-        for day in current_workout.day_set.select_related():
-            for day_of_week in day.day.select_related():
-                used_days[day_of_week.id] = day.description
-
-    week_day_result = []
-    for week in DaysOfWeek.objects.all():
-        day_has_workout = False
-
-        if week.id in used_days:
-            day_has_workout = True
-            week_day_result.append((_(week.day_of_week), used_days[week.id], True))
-
-        if not day_has_workout:
-            week_day_result.append((_(week.day_of_week), _('Rest day'), False))
-
-    context['weekdays'] = week_day_result
-
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 
 class FeedbackClass(FormView):

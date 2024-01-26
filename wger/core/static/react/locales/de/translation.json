@@ -54,7 +54,7 @@
     "changeExerciseLanguage": "Ändere die Sprache dieser Übung",
     "identicalExercise": "Vermeide doppelte Übungen",
     "cacheWarning": "Aufgrund von Caching kann es einige Zeit dauern, bis Änderungen in der ganzen Anwendung sichtbar sind.",
-    "replacements": "Ersätze",
+    "replacements": "Ersätzen",
     "replacementsInfoText": "Optional können Sie auch eine Übung auswählen, die diese ersetzen soll (z. B. weil sie zweimal eingereicht wurde oder ähnliches). Dadurch wird die Übung in Routinen sowie Trainingsprotokollen ersetzt, anstatt sie einfach zu löschen. Diese Änderungen werden auch auf alle Instanzen übertragen, die die Übungen von dieser übernehmen.",
     "replacementsSearch": "Suche nach Übungen oder kopiere eine Bekannte ID in das Feld und drücke den \"Laden\" Button.",
     "noReplacementSelected": " Keine Übung zum ersätzen ausgewählt"
