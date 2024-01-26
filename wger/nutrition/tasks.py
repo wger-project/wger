@@ -30,6 +30,7 @@ from wger.nutrition.sync import (
     sync_ingredients,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

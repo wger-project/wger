@@ -22,10 +22,11 @@ from django.urls import (
     re_path,
 )
 
-from wger.core.views.react import ReactView
 # wger
+from wger.core.views.react import ReactView
 from wger.weight import views
 from wger.weight.forms import WeightCsvImportForm
+
 
 urlpatterns = [
     path(

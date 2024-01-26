@@ -51,6 +51,7 @@ from wger.weight import helpers
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
 
+
 logger = logging.getLogger(__name__)
 
 

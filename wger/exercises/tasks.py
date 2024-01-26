@@ -36,6 +36,7 @@ from wger.exercises.sync import (
     sync_muscles,
 )
 
+
 logger = logging.getLogger(__name__)
 
 
