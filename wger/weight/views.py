@@ -51,7 +51,6 @@ from wger.weight import helpers
 from wger.weight.forms import WeightForm
 from wger.weight.models import WeightEntry
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -148,19 +147,6 @@ def export_csv(request):
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
     response['Content-Length'] = len(response.content)
     return response
-
-
-@login_required
-def overview(request, username=None):
-    """
-    Shows a plot with the weight data
-    """
-    is_owner, user = check_access(request.user, username)
-    context = {
-        'is_owner': is_owner,
-        'owner_user': user,
-    }
-    return render(request, 'overview.html', context)
 
 
 class WeightCsvImportFormPreview(FormPreview):

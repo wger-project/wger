@@ -22,10 +22,10 @@ from django.urls import (
     re_path,
 )
 
+from wger.core.views.react import ReactView
 # wger
 from wger.weight import views
 from wger.weight.forms import WeightCsvImportForm
-
 
 urlpatterns = [
     path(
@@ -55,7 +55,7 @@ urlpatterns = [
     ),
     re_path(
         'overview',
-        views.overview,
+        ReactView.as_view(div_id='react-weight-overview'),
         name='overview',
     ),
 ]
