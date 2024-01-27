@@ -89,7 +89,7 @@ RUN python3 -m venv /home/wger/venv
 RUN . /home/wger/venv/bin/activate \
     && pip install --upgrade pip \
     && pip install --no-cache /wheels/* \
-    && pip install -e . \
+    && pip install . \
     && wger create-settings --database-path /home/wger/db/database.sqlite \
     && wger bootstrap \
     && wger load-online-fixtures \
