@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-07 17:25+0100\n"
-"PO-Revision-Date: 2023-10-21 12:02+0000\n"
-"Last-Translator: m4skedbyte <weblate@m4skedbyte.xyz>\n"
+"PO-Revision-Date: 2024-01-28 21:01+0000\n"
+"Last-Translator: Roland Geider <roland@geider.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -519,10 +519,8 @@ msgstr ""
 "rückgängig gemacht werden."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
-msgstr "E-Mail verifiziert"
+msgstr "E-Mail-Verifizierung"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -577,10 +575,6 @@ msgid "Add log to day"
 msgstr "Logbucheintrag zum Tag hinzufügen"
 
 #: core/templates/index.html:24
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
 msgid ""
 "Click to add weight logs to a training\n"
 "                            day in your current workout:"
@@ -741,10 +735,6 @@ msgid "That's done here"
 msgstr "Das wird hier gemacht"
 
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
@@ -772,10 +762,8 @@ msgid "Calendar"
 msgstr "Kalender"
 
 #: core/templates/navigation.html:60
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "Makronährstoffe"
+msgstr "Messungen"
 
 #: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -2515,12 +2503,6 @@ msgstr ""
 "machst."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -3495,10 +3477,8 @@ msgid "Develop"
 msgstr "Entwickeln"
 
 #: software/templates/features.html:66 software/templates/features.html:448
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Kommentar"
+msgstr "Community"
 
 #: software/templates/features.html:100
 msgid "Track your <br> way to your <br> ideal body"
@@ -3508,22 +3488,19 @@ msgstr "Tracke deinen <br> Weg zum <br> idealen Körper"
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Mach bei wger mit, dem <b>kostenlosen und quelloffenen Fitness-Tracker</b>"
 
 #: software/templates/features.html:113
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Quellcode"
+msgstr "Loslegen"
 
 #: software/templates/features.html:123
 msgid "people <br> using wger"
-msgstr ""
+msgstr "Leute <br> die wger benutzen"
 
 #: software/templates/features.html:127
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Übungen zu diesem Trainingstag hinzufügen"
+msgstr ""
 
 #: software/templates/features.html:131
 msgid "foods <br> for meal planing"
@@ -3588,16 +3565,12 @@ msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
 
 #: software/templates/features.html:238
-#, fuzzy
-#| msgid "Add custom diary entry"
 msgid "Add custom notes"
-msgstr "Benutzerdefinierten Tagebucheintrag hinzufügen"
+msgstr ""
 
 #: software/templates/features.html:241
-#, fuzzy
-#| msgid "Body weight"
 msgid "Record your weight"
-msgstr "Körpergewicht"
+msgstr "Erfasse dein Gewicht"
 
 #: software/templates/features.html:244
 msgid "Keep a photo log to see your progress"
@@ -3608,8 +3581,6 @@ msgid "Use the calendar view to see past entries"
 msgstr "Nutze den Kalender um frühere Einträge zu sehen"
 
 #: software/templates/features.html:266
-#, fuzzy
-#| msgid "Try it now"
 msgid "Try wger now"
 msgstr "Probiere es jetzt"
 
@@ -3622,6 +3593,9 @@ msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger wird von der Open-Source-Community finanziert und erstellt: Menschen "
+"wie du übersetzen, fügen Übungen und Nährwertangaben hinzu, entwickeln und "
+"vieles mehr."
 
 #: software/templates/features.html:292
 msgid ""
@@ -3636,8 +3610,6 @@ msgid "Pitch in and help make wger even better!"
 msgstr ""
 
 #: software/templates/features.html:306
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
 msgstr "Mach mit!"
 
@@ -3650,10 +3622,8 @@ msgid "Web version not enough?"
 msgstr "Webversion nicht genug?"
 
 #: software/templates/features.html:345
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Quellcode"
+msgstr "Hol dir auch den Quellcode!"
 
 #: software/templates/features.html:356
 msgid "Set up a private server for your gym"
@@ -3676,10 +3646,8 @@ msgid "wger offers an open API that you can use for your app."
 msgstr "wger bietet eine offene API, die du für deine Anwendung nutzen kannst."
 
 #: software/templates/features.html:387
-#, fuzzy
-#| msgid "Current version"
 msgid "Create your own version"
-msgstr "Aktuelle Version"
+msgstr "Erstelle deine eigene Version"
 
 #: software/templates/features.html:390
 msgid ""
@@ -3690,16 +3658,12 @@ msgstr ""
 "auf GitHub zu forken."
 
 #: software/templates/features.html:411
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Menge"
+msgstr "Account"
 
 #: software/templates/features.html:457
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "Trainingsplanerinnerungen"
+msgstr "Trainingspläne"
 
 #: software/templates/features.html:463
 msgid "Discord"
@@ -3714,8 +3678,6 @@ msgid "Report an issue"
 msgstr "Ein Problem melden"
 
 #: software/templates/features.html:490
-#, fuzzy
-#| msgid "Source code"
 msgid "Source Code"
 msgstr "Quelltext"
 
@@ -3725,7 +3687,7 @@ msgstr "Löschen bestätigen"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Der Originaltitel dieses Objekts, falls verfügbar"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
