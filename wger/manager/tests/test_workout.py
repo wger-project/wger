@@ -116,13 +116,10 @@ class WorkoutModelTestCase(WgerTestCase):
 
         workout = Workout()
         workout.creation_date = datetime.date.today()
-        self.assertEqual(
-            '{0}'.format(workout),
-            '{0} ({1})'.format('Workout', datetime.date.today()),
-        )
+        self.assertEqual(str(workout), f'Workout ({datetime.date.today()})', )
 
         workout.name = 'my description'
-        self.assertEqual('{0}'.format(workout), 'my description')
+        self.assertEqual(str(workout), 'my description')
 
 
 class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):

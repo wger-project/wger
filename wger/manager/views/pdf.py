@@ -118,7 +118,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = 'attachment; filename=Workout-{0}-log.pdf'.format(id)
+    response['Content-Disposition'] = f'attachment; filename=Workout-{id}-log.pdf'
     response['Content-Length'] = len(response.content)
     return response
 
@@ -191,6 +191,6 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = 'attachment; filename=Workout-{0}-table.pdf'.format(id)
+    response['Content-Disposition'] = f'attachment; filename=Workout-{id}-table.pdf'
     response['Content-Length'] = len(response.content)
     return response

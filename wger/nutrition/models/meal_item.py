@@ -77,7 +77,7 @@ class MealItem(BaseMealItem, models.Model):
         """
         Return a more human-readable representation
         """
-        return '{0}g ingredient {1}'.format(self.amount, self.ingredient_id)
+        return f'{self.amount}g ingredient {self.ingredient_id}'
 
     def get_owner_object(self):
         """

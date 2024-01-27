@@ -136,9 +136,7 @@ def export(request, pk, uidb64=None, token=None):
 
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
-    response['Content-Disposition'] = 'attachment; filename=Calendar-workout-{0}.ics'.format(
-        workout.pk
-    )
+    response['Content-Disposition'] = f'attachment; filename=Calendar-workout-{workout.pk}.ics'
     response.write(calendar.to_ical())
     response['Content-Length'] = len(response.content)
     return response
@@ -171,9 +169,7 @@ def export_schedule(request, pk, uidb64=None, token=None):
 
     # Send the file to the user
     response = HttpResponse(content_type='text/calendar')
-    response['Content-Disposition'] = 'attachment; filename=Calendar-schedule-{0}.ics'.format(
-        schedule.pk
-    )
+    response['Content-Disposition'] = f'attachment; filename=Calendar-schedule-{schedule.pk}.ics'
     response.write(calendar.to_ical())
     response['Content-Length'] = len(response.content)
     return response

@@ -45,9 +45,7 @@ class GymMembersCsvExportTestCase(WgerTestCase):
             filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.format(
                 t=today, gym=gym.id
             )
-            self.assertEqual(
-                response['Content-Disposition'], 'attachment; filename={0}'.format(filename)
-            )
+            self.assertEqual(response['Content-Disposition'], f'attachment; filename={filename}')
             self.assertGreaterEqual(len(response.content), 1000)
             self.assertLessEqual(len(response.content), 1300)
 

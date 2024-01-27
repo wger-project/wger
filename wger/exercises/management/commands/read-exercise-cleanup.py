@@ -90,10 +90,8 @@ class Command(BaseCommand):
 
         for language in [l.short_name for l in languages]:
             for column in columns:
-                name = '{0}:{1}'.format(language, column)
-                assert name in file_reader.fieldnames, '{0} not in {1}'.format(
-                    name, file_reader.fieldnames
-                )
+                name = f'{language}:{column}'
+                assert name in file_reader.fieldnames, f'{name} not in {file_reader.fieldnames}'
 
         default_license = License.objects.get(pk=CC_BY_SA_4_ID)
 

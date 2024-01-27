@@ -106,7 +106,7 @@ class Workout(models.Model):
         if self.name:
             return self.name
         else:
-            return '{0} ({1})'.format(_('Workout'), self.creation_date)
+            return f'{_("Workout")} ({self.creation_date})'
 
     def clean(self):
         if self.is_public and not self.is_template:

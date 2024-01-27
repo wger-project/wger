@@ -81,7 +81,7 @@ class Command(BaseCommand):
             last_name = faker.last_name()
 
             username = slugify(f"{first_name}, {last_name} - {str(uid).split('-')[1]}")
-            email = '{0}@example.com'.format(username)
+            email = f'{username}@example.com'
             password = username
 
             try:

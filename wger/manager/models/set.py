@@ -70,7 +70,7 @@ class Set(models.Model):
         """
         Return a more human-readable representation
         """
-        return 'Set-ID {0}'.format(self.id)
+        return f'Set-ID {self.id}'
 
     def get_owner_object(self):
         """
@@ -174,7 +174,7 @@ class Set(models.Model):
             "Until Failure" unit
             """
             if setting.repetition_unit_id != 2:
-                reps = '{0} {1}'.format(setting.reps, rep_unit).strip()
+                reps = f'{setting.reps} {rep_unit}'.strip()
             else:
                 reps = '∞'
             return reps
@@ -211,12 +211,12 @@ class Set(models.Model):
             weight_unit = settings[0].weight_unit.name
             weight = normalize_weight(current_setting)
             rir = get_rir_representation(current_setting)
-            out = '{0} × {1}'.format(self.sets, reps).strip() if not multi else reps
+            out = f'{self.sets} × {reps}'.strip() if not multi else reps
             if weight:
                 rir_text = f', {rir}' if rir else ''
                 out += f' ({weight} {weight_unit}{rir_text})'
             else:
-                out += ' ({0})'.format(rir) if rir else ''
+                out += f' ({rir})' if rir else ''
 
             return out
 

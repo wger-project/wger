@@ -65,7 +65,7 @@ class GymConfig(m.Model):
         """
         Return a more human-readable representation
         """
-        return gettext('Configuration for {}'.format(self.gym.name))
+        return gettext(f'Configuration for {self.gym.name}')
 
     def get_owner_object(self):
         """

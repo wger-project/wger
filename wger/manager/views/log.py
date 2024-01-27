@@ -344,7 +344,7 @@ def day(request, username, year, month, day):
     try:
         date = datetime.date(int(year), int(month), int(day))
     except ValueError as e:
-        logger.error('Error on date: {0}'.format(e))
+        logger.error(f'Error on date: {e}')
         return HttpResponseForbidden()
     context['logs'] = group_log_entries(user, date.year, date.month, date.day)
     context['date'] = date

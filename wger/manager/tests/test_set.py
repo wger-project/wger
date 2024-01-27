@@ -215,13 +215,13 @@ class TestSetOrderTestCase(WgerTestCase):
             'sets': nr_sets,
         }
         for exercise_id in exercises_id:
-            post_data['exercise{0}-TOTAL_FORMS'.format(exercise_id)] = nr_sets
-            post_data['exercise{0}-INITIAL_FORMS'.format(exercise_id)] = 0
-            post_data['exercise{0}-MAX_NUM_FORMS'.format(exercise_id)] = 1000
+            post_data[f'exercise{exercise_id}-TOTAL_FORMS'] = nr_sets
+            post_data[f'exercise{exercise_id}-INITIAL_FORMS'] = 0
+            post_data[f'exercise{exercise_id}-MAX_NUM_FORMS'] = 1000
             for set_nr in range(0, nr_sets):
-                post_data['exercise{0}-{1}-repetition_unit'.format(exercise_id, set_nr)] = 1
-                post_data['exercise{0}-{1}-weight_unit'.format(exercise_id, set_nr)] = 1
-                post_data['exercise{0}-{1}-reps'.format(exercise_id, set_nr)] = 8
+                post_data[f'exercise{exercise_id}-{set_nr}-repetition_unit'] = 1
+                post_data[f'exercise{exercise_id}-{set_nr}-weight_unit'] = 1
+                post_data[f'exercise{exercise_id}-{set_nr}-reps'] = 8
 
         response = self.client.post(reverse('manager:set:add', kwargs={'day_pk': 5}), post_data)
 

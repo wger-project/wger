@@ -111,7 +111,7 @@ class Command(BaseCommand):
             gym.name = name
             gym_list.append(gym)
 
-            self.stdout.write('   - {0}'.format(gym.name))
+            self.stdout.write(f'   - {gym.name}')
 
         # Bulk-create the entries
         Gym.objects.bulk_create(gym_list)

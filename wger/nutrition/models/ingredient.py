@@ -301,13 +301,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
                 raise ValidationError(
                     _(
-                        'The total energy ({energy}kcal) is not the approximate sum of the '
-                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
-                        ' +/-{energy_approx}%)'.format(
-                            energy=self.energy,
-                            energy_calculated=energy_calculated,
-                            energy_approx=self.ENERGY_APPROXIMATION,
-                        )
+                        f'The total energy ({self.energy}kcal) is not the approximate sum of the '
+                        f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
+                        f' +/-{self.ENERGY_APPROXIMATION}%)'
                     )
                 )
 
@@ -411,9 +407,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             # Send email to administrator
             subject = _('New user submitted ingredient')
             message = _(
-                """The user {0} submitted a new ingredient "{1}".""".format(
-                    request.user.username, self.name
-                )
+                f'The user {request.user.username} submitted a new ingredient "{self.name}".'
             )
             mail.mail_admins(subject, message, fail_silently=True)
 

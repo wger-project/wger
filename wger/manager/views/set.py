@@ -188,13 +188,13 @@ def edit(request, pk):
     formsets = []
     for base in set_obj.exercise_bases:
         queryset = Setting.objects.filter(set=set_obj, exercise_base=base)
-        formset = SettingFormsetEdit(queryset=queryset, prefix='exercise{0}'.format(base.id))
+        formset = SettingFormsetEdit(queryset=queryset, prefix=f'exercise{base.id}')
         formsets.append({'base': base, 'formset': formset})
 
     if request.method == 'POST':
         formsets = []
         for base in set_obj.exercise_bases:
-            formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(base.id))
+            formset = SettingFormsetEdit(request.POST, prefix=f'exercise{base.id}')
             formsets.append({'base': base, 'formset': formset})
 
         # If all formsets validate, save them

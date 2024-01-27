@@ -50,7 +50,7 @@ class ExerciseRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(Exercise.objects.get(pk=1)), 'An exercise')
+        self.assertEqual(str(Exercise.objects.get(pk=1)), 'An exercise')
 
 
 class ExercisesTestCase(WgerTestCase):

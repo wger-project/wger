@@ -44,7 +44,7 @@ class Command(BaseCommand):
 
         for gym in Gym.objects.all():
             if int(options['verbosity']) >= 2:
-                self.stdout.write("* Processing gym '{}' ".format(gym))
+                self.stdout.write(f"* Processing gym '{gym}' ")
 
             user_list = []
             trainer_list = []

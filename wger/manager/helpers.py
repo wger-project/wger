@@ -238,13 +238,13 @@ class WorkoutCalendar(HTMLCalendar):
         formatted_date = date_obj.strftime('%Y-%m-%d')
         body = []
         body.append(
-            '<a href="{0}" '
-            'data-log="log-{1}" '
-            'class="btn btn-block {2} calendar-link">'.format(url, formatted_date, background_css)
+            f'<a href="{url}" '
+            f'data-log="log-{formatted_date}" '
+            f'class="btn btn-block {background_css} calendar-link">'
         )
         body.append(repr(day))
         body.append('</a>')
-        return self.day_cell(cssclass, '{0}'.format(''.join(body)))
+        return self.day_cell(cssclass, ''.join(body))
 
     def formatmonth(self, year, month):
         """
@@ -268,4 +268,4 @@ class WorkoutCalendar(HTMLCalendar):
         """
         Renders a day cell
         """
-        return '<td class="{0}" style="vertical-align: middle;">{1}</td>'.format(cssclass, body)
+        return f'<td class="{cssclass}" style="vertical-align: middle;">{body}</td>'

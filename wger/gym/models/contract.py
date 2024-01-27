@@ -67,7 +67,7 @@ class ContractType(m.Model):
         """
         Return a more human-readable representation
         """
-        return '{}'.format(self.name)
+        return self.name
 
     def get_owner_object(self):
         """
@@ -118,7 +118,7 @@ class ContractOption(m.Model):
         """
         Return a more human-readable representation
         """
-        return '{}'.format(self.name)
+        return self.name
 
     def get_owner_object(self):
         """
@@ -314,7 +314,7 @@ class Contract(m.Model):
         """
         Return a more human-readable representation
         """
-        return '#{}'.format(self.id)
+        return f'#{self.id}'
 
     def get_absolute_url(self):
         """

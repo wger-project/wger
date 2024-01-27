@@ -33,7 +33,7 @@ class ExerciseCategoryRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(ExerciseCategory.objects.get(pk=1)), 'Category')
+        self.assertEqual(str(ExerciseCategory.objects.get(pk=1)), 'Category')
 
 
 class CategoryOverviewTestCase(WgerAccessTestCase):

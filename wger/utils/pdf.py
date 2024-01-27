@@ -74,12 +74,9 @@ def render_footer(url, date=None):
         date = datetime.date.today().strftime('%d.%m.%Y')
 
     p = Paragraph(
-        """<para>
-                        {date} -
-                        <a href="{url}">{url}</a> -
-                        wger Workout Manager
-                        {version}
-                    </para>""".format(date=date, url=url, version=get_version()),
+        f"""<para>
+                {date} - <a href="{url}">{url}</a> - wger Workout Manager {get_version()}
+            </para>""",
         styleSheet['Normal'],
     )
     return p

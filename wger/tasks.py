@@ -60,7 +60,7 @@ def start(context, address='localhost', port=8000, settings_path=None, extra_arg
     if extra_args != '':
         for argument in extra_args.split(' '):
             argv.append(argument)
-    argv.append('{0}:{1}'.format(address, port))
+    argv.append(f'{address}:{port}')
     execute_from_command_line(argv)
 
 
@@ -114,7 +114,7 @@ def create_settings(
         settings_path = get_path('settings.py')
 
     settings_module = os.path.dirname(settings_path)
-    print('*** Creating settings file at {0}'.format(settings_module))
+    print(f'*** Creating settings file at {settings_module}')
 
     if database_path is None:
         database_path = get_path('database.sqlite').as_posix()
@@ -289,9 +289,9 @@ def config_location(context):
     Returns the default location for the settings file and the data folder
     """
     print('Default locations:')
-    print('* settings:      {0}'.format(get_path('settings.py')))
-    print('* media folder:  {0}'.format(get_path('media')))
-    print('* database path: {0}'.format(get_path('database.sqlite')))
+    print(f'* settings:      {get_path("settings.py")}')
+    print(f'* media folder:  {get_path("media")}')
+    print(f'* database path: {get_path("database.sqlite")}')
 
 
 #
@@ -323,7 +323,7 @@ def setup_django_environment(settings_path):
     # Use default settings if the user didn't specify something else
     if settings_path is None:
         settings_path = get_path('settings.py').as_posix()
-        print('*** No settings given, using {0}'.format(settings_path))
+        print(f'*** No settings given, using {settings_path}')
 
     # Find out file path and fine name of settings and setup django
     settings_file = os.path.basename(settings_path)

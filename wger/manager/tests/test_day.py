@@ -35,7 +35,7 @@ class DayRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(Day.objects.get(pk=1)), 'A day')
+        self.assertEqual(str(Day.objects.get(pk=1)), 'A day')
 
 
 class AddWorkoutDayTestCase(WgerAddTestCase):

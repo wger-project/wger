@@ -67,7 +67,7 @@ class Command(BaseCommand):
 
                 if datetime.timedelta(days=profile.workout_reminder) > delta:
                     if int(options['verbosity']) >= 3:
-                        self.stdout.write("* Workout '{0}' overdue".format(current_workout))
+                        self.stdout.write(f"* Workout '{current_workout}' overdue")
                     counter += 1
 
                     self.send_email(
@@ -86,14 +86,14 @@ class Command(BaseCommand):
                     if datetime.timedelta(days=profile.workout_reminder) > delta:
                         if int(options['verbosity']) >= 3:
                             self.stdout.write(
-                                "* Workout '{0}' overdue - schedule".format(schedule_step.workout)
+                                f"* Workout '{schedule_step.workout}' overdue - schedule"
                             )
 
                         counter += 1
                         self.send_email(profile.user, current_workout, delta)
 
         if counter and int(options['verbosity']) >= 2:
-            self.stdout.write('Sent {0} email reminders'.format(counter))
+            self.stdout.write(f'Sent {counter} email reminders')
 
     @staticmethod
     def send_email(user, workout, delta):

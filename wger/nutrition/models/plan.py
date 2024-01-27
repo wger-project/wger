@@ -101,9 +101,9 @@ class NutritionPlan(models.Model):
         Return a more human-readable representation
         """
         if self.description:
-            return '{0}'.format(self.description)
+            return self.description
         else:
-            return '{0}'.format(_('Nutrition plan'))
+            return str(_('Nutrition plan'))
 
     def get_absolute_url(self):
         """

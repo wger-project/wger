@@ -42,7 +42,7 @@ class WeightUnitIngredientRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
+        self.assertEqual(str(IngredientWeightUnit.objects.get(pk=1)), 'Spoon (109g)')
 
 
 class AddWeightUnitIngredientTestCase(WgerAddTestCase):

@@ -37,7 +37,7 @@ class EquipmentRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(Equipment.objects.get(pk=1)), 'Dumbbells')
+        self.assertEqual(str(Equipment.objects.get(pk=1)), 'Dumbbells')
 
 
 class AddEquipmentTestCase(WgerAddTestCase):

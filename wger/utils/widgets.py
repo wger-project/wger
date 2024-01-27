@@ -40,6 +40,7 @@ from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
+
 #
 # Date and time related fields
 #
@@ -192,7 +193,7 @@ class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
 
     def __init__(self, name, value, attrs, choice, index):
         if _(choice[1]) != choice[1]:
-            choice = (choice[0], '{0} ({1})'.format(choice[1], _(choice[1])))
+            choice = (choice[0], f'{choice[1]} ({_(choice[1])})')
         else:
             choice = (choice[0], _(choice[1]))
 

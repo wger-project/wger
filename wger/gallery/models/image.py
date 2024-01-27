@@ -30,11 +30,7 @@ def gallery_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return 'gallery/{0}/{1}{2}'.format(
-        instance.user.id,
-        uuid.uuid4(),
-        pathlib.Path(filename).suffix,
-    )
+    return f'gallery/{instance.user.id}/{uuid.uuid4()}{pathlib.Path(filename).suffix}'
 
 
 class Image(models.Model):

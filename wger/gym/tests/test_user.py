@@ -128,9 +128,7 @@ class GymAddUserTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'text/csv')
             today = datetime.date.today()
             filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-cletus.csv'.format(t=today)
-            self.assertEqual(
-                response['Content-Disposition'], 'attachment; filename={}'.format(filename)
-            )
+            self.assertEqual(response['Content-Disposition'], f'attachment; filename={filename}')
             self.assertGreaterEqual(len(response.content), 90)
             self.assertLessEqual(len(response.content), 120)
 

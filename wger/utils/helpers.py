@@ -85,7 +85,6 @@ def disable_for_loaddata(signal_handler):
     @wraps(signal_handler)
     def wrapper(*args, **kwargs):
         if kwargs['raw']:
-            # print "Skipping signal for {0} {1}".format(args, kwargs)
             return
         signal_handler(*args, **kwargs)
 
@@ -145,7 +144,7 @@ def check_token(uidb64, token):
         try:
             uid = int(urlsafe_base64_decode(uidb64))
         except ValueError as e:
-            logger.info('Could not decode UID: {0}'.format(e))
+            logger.info(f'Could not decode UID: {e}')
             return False
 
         try:

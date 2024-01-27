@@ -54,6 +54,7 @@ from wger.utils.pdf import (
 
 logger = logging.getLogger(__name__)
 
+
 # ************************
 # Plan functions
 # ************************
@@ -139,18 +140,14 @@ def export_pdf(request, id: int):
 
         if not meal.time:
             p = Paragraph(
-                '<para align="center"><strong>{nr} {meal_nr}</strong></para>'.format(
-                    nr=_('Nr.'), meal_nr=i
-                ),
+                f'<para align="center"><strong>{_("Nr.")} {i}</strong></para>',
                 styleSheet['SubHeader'],
             )
         else:
             p = Paragraph(
-                '<para align="center"><strong>'
-                '{nr} {meal_nr} - {meal_time}'
-                '</strong></para>'.format(
-                    nr=_('Nr.'), meal_nr=i, meal_time=meal.time.strftime('%H:%M')
-                ),
+                f'<para align="center"><strong>'
+                f'{_("Nr.")} {i} - {meal.time.strftime("%H:%M")}'
+                f'</strong></para>',
                 styleSheet['SubHeader'],
             )
         data.append([p])
@@ -159,7 +156,7 @@ def export_pdf(request, id: int):
         for item in meal.mealitem_set.select_related():
             ingredient_markers.append(len(data))
 
-            p = Paragraph('<para>{0}</para>'.format(item.ingredient.name), styleSheet['Normal'])
+            p = Paragraph(f'<para>{item.ingredient.name}</para>', styleSheet['Normal'])
             if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                 unit_name = 'g'
             else:
@@ -222,7 +219,7 @@ def export_pdf(request, id: int):
     data.append(
         [
             Paragraph(
-                '<para align="center">{0}</para>'.format(_('Nutritional data')),
+                f'<para align="center">{_("Nutritional data")}</para>',
                 styleSheet['SubHeaderBlack'],
             )
         ]

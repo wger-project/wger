@@ -62,7 +62,7 @@ class GymConfig(models.Model):
         """
         Return a more human-readable representation
         """
-        return 'Default gym {0}'.format(self.default_gym)
+        return f'Default gym {self.default_gym}'
 
     def save(self, *args, **kwargs):
         """
@@ -83,6 +83,6 @@ class GymConfig(models.Model):
                         config.gym = self.default_gym
                         config.user = user
                         config.save()
-                        logger.debug('Creating GymUserConfig for user {0}'.format(user.username))
+                        logger.debug(f'Creating GymUserConfig for user {user.username}')
 
         return super(GymConfig, self).save(*args, **kwargs)

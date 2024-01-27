@@ -230,7 +230,7 @@ def gym_new_user_info_export(request):
     filename = 'User-data-{t.year}-{t.month:02d}-{t.day:02d}-{user}.csv'.format(
         t=today, user=new_username
     )
-    response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+    response['Content-Disposition'] = f'attachment; filename={filename}'
     response['Content-Length'] = len(response.content)
     return response
 

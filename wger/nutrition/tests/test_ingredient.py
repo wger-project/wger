@@ -57,7 +57,7 @@ class IngredientRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
+        self.assertEqual(str(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
 
 
 class DeleteIngredientTestCase(WgerDeleteTestCase):

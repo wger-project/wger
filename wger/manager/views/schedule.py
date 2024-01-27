@@ -150,21 +150,21 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject='Schedule for {0}'.format(request.user.username),
+        subject=f'Schedule for {request.user.username}',
     )
 
     # container for the 'Flowable' objects
     elements = []
 
     # Set the title
-    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet['HeaderBold'])
+    p = Paragraph(f'<para align="center">{schedule}</para>', styleSheet['HeaderBold'])
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
         p = Paragraph(
-            '<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+            f'<para>{step.duration} {_("Weeks")}</para>',
             styleSheet['HeaderBold'],
         )
         elements.append(p)
@@ -183,7 +183,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
 
     # write the document and send the response to the browser
     doc.build(elements)
-    response['Content-Disposition'] = 'attachment; filename=Schedule-{0}-log.pdf'.format(pk)
+    response['Content-Disposition'] = f'attachment; filename=Schedule-{pk}-log.pdf'
     response['Content-Length'] = len(response.content)
     return response
 
@@ -220,21 +220,21 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject='Schedule for {0}'.format(request.user.username),
+        subject=f'Schedule for {request.user.username}',
     )
 
     # container for the 'Flowable' objects
     elements = []
 
     # Set the title
-    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet['HeaderBold'])
+    p = Paragraph(f'<para align="center">{schedule}</para>', styleSheet['HeaderBold'])
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
     # Iterate through the Workout and render the training days
     for step in schedule.schedulestep_set.all():
         p = Paragraph(
-            '<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
+            f'<para>{step.duration} {_("Weeks")}</para>',
             styleSheet['HeaderBold'],
         )
         elements.append(p)
@@ -259,7 +259,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
 
     # write the document and send the response to the browser
     doc.build(elements)
-    response['Content-Disposition'] = 'attachment; filename=Schedule-{0}-table.pdf'.format(pk)
+    response['Content-Disposition'] = f'attachment; filename=Schedule-{pk}-table.pdf'
     response['Content-Length'] = len(response.content)
     return response
 

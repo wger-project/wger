@@ -27,7 +27,7 @@ class ExerciseCommentRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(ExerciseComment.objects.get(pk=1)), 'test 123')
+        self.assertEqual(str(ExerciseComment.objects.get(pk=1)), 'test 123')
 
 
 class ExerciseCommentApiTestCase(ExerciseCrudApiTestCase):

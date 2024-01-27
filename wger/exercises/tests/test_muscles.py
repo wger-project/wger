@@ -33,7 +33,7 @@ class MuscleRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(Muscle.objects.get(pk=1)), 'Anterior testoid')
+        self.assertEqual(str(Muscle.objects.get(pk=1)), 'Anterior testoid')
 
         # Check image URL properties
         self.assertIn('images/muscles/main/muscle-2.svg', Muscle.objects.get(pk=2).image_url_main)

@@ -113,7 +113,7 @@ class LogItem(BaseMealItem, models.Model):
         """
         Return a more human-readable representation
         """
-        return 'Diary entry for {}, plan {}'.format(self.datetime, self.plan.pk)
+        return f'Diary entry for {self.datetime}, plan {self.plan.pk}'
 
     def get_owner_object(self):
         """

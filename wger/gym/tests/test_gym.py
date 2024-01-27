@@ -38,7 +38,7 @@ class GymRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual('{0}'.format(Gym.objects.get(pk=1)), 'Test 123')
+        self.assertEqual(str(Gym.objects.get(pk=1)), 'Test 123')
 
 
 class GymOverviewTest(WgerAccessTestCase):

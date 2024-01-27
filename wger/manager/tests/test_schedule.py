@@ -92,7 +92,7 @@ class ScheduleRepresentationTestCase(WgerTestCase):
         Test that the representation of an object is correct
         """
         self.assertEqual(
-            '{0}'.format(Schedule.objects.get(pk=1)),
+            str(Schedule.objects.get(pk=1)),
             'my cool schedule that i found on the internet',
         )
 
@@ -482,7 +482,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         uid, token = make_token(user)
         response = self.client.get(
             reverse(
-                'manager:schedule:pdf-{0}'.format(pdf_type),
+                f'manager:schedule:pdf-{pdf_type}',
                 kwargs={'pk': 1, 'uidb64': uid, 'token': token},
             )
         )
@@ -491,7 +491,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         self.assertEqual(response['Content-Type'], 'application/pdf')
         self.assertEqual(
             response['Content-Disposition'],
-            'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type),
+            f'attachment; filename=Schedule-1-{pdf_type}.pdf',
         )
 
         # Approximate size only
@@ -503,7 +503,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         token = '3xv-57ef74923091fe7f186e'
         response = self.client.get(
             reverse(
-                'manager:schedule:pdf-{0}'.format(pdf_type),
+                f'manager:schedule:pdf-{pdf_type}',
                 kwargs={'pk': 1, 'uidb64': uid, 'token': token},
             )
         )
@@ -514,9 +514,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         Helper function to test exporting a workout as a pdf
         """
 
-        response = self.client.get(
-            reverse('manager:schedule:pdf-{0}'.format(pdf_type), kwargs={'pk': 1})
-        )
+        response = self.client.get(reverse(f'manager:schedule:pdf-{pdf_type}', kwargs={'pk': 1}))
 
         if fail:
             self.assertIn(response.status_code, (403, 404, 302))
@@ -525,7 +523,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type),
+                f'attachment; filename=Schedule-1-{pdf_type}.pdf',
             )
 
             # Approximate size only
@@ -541,7 +539,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         uid, token = make_token(user)
         response = self.client.get(
             reverse(
-                'manager:schedule:pdf-{0}'.format(pdf_type),
+                f'manager:schedule:pdf-{pdf_type}',
                 kwargs={'pk': 3, 'images': 0, 'comments': 1, 'uidb64': uid, 'token': token},
             )
         )
@@ -553,7 +551,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type),
+                f'attachment; filename=Schedule-3-{pdf_type}.pdf',
             )
 
             # Approximate size only
@@ -568,7 +566,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         uid, token = make_token(user)
         response = self.client.get(
             reverse(
-                'manager:schedule:pdf-{0}'.format(pdf_type),
+                f'manager:schedule:pdf-{pdf_type}',
                 kwargs={'pk': 3, 'images': 1, 'comments': 0, 'uidb64': uid, 'token': token},
             )
         )
@@ -580,7 +578,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type),
+                f'attachment; filename=Schedule-3-{pdf_type}.pdf',
             )
 
             # Approximate size only
@@ -596,7 +594,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         uid, token = make_token(user)
         response = self.client.get(
             reverse(
-                'manager:schedule:pdf-{0}'.format(pdf_type),
+                f'manager:schedule:pdf-{pdf_type}',
                 kwargs={'pk': 3, 'images': 1, 'comments': 1, 'uidb64': uid, 'token': token},
             )
         )
@@ -608,7 +606,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type),
+                f'attachment; filename=Schedule-3-{pdf_type}.pdf',
             )
 
             # Approximate size only

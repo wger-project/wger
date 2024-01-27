@@ -76,7 +76,7 @@ class Command(BaseCommand):
                 start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
                 workout = Workout(
                     user=user,
-                    name='Dummy workout - {0}'.format(uid[1]),
+                    name=f'Dummy workout - {uid[1]}',
                     creation_date=start_date,
                 )
                 workout.save()
@@ -95,7 +95,7 @@ class Command(BaseCommand):
 
                     day = Day(
                         training=workout,
-                        description='Dummy day - {0}'.format(uid[0]),
+                        description=f'Dummy day - {uid[0]}',
                     )
                     day.save()
                     day.day.add(weekday)
