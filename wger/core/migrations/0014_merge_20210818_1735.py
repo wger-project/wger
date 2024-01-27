@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0013_auto_20210726_1729'),
         ('core', '0013_userprofile_email_verified'),

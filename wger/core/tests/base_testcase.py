@@ -185,15 +185,15 @@ class BaseTestCase:
 
         shutil.copy(
             'wger/exercises/tests/protestschwein.jpg',
-            self.media_root + '/exercise-images/1/protestschwein.jpg'
+            self.media_root + '/exercise-images/1/protestschwein.jpg',
         )
         shutil.copy(
             'wger/exercises/tests/wildschwein.jpg',
-            self.media_root + '/exercise-images/1/wildschwein.jpg'
+            self.media_root + '/exercise-images/1/wildschwein.jpg',
         )
         shutil.copy(
             'wger/exercises/tests/wildschwein.jpg',
-            self.media_root + '/exercise-images/2/wildschwein.jpg'
+            self.media_root + '/exercise-images/2/wildschwein.jpg',
         )
 
 
@@ -253,7 +253,6 @@ class WgerTestCase(BaseTestCase, TestCase):
 
         # Uploaded image or file, compare the filename
         elif current_field_class in ('ImageFieldFile', 'FieldFile'):
-
             # We can only compare the extensions, since the names can be changed
             # Ideally we would check that the byte length is the same
             self.assertEqual(pathlib.Path(field.name).suffix, pathlib.Path(value.name).suffix)
@@ -564,7 +563,6 @@ class WgerAccessTestCase(WgerTestCase):
     anonymous_fail = True
 
     def access(self, fail=True):
-
         # Only perform the checks on derived classes
         if self.__class__.__name__ == 'WgerAccessTestCase':
             return

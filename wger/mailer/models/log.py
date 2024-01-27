@@ -29,7 +29,7 @@ class Log(models.Model):
 
     class Meta:
         ordering = [
-            "-date",
+            '-date',
         ]
 
     date = models.DateField(auto_now=True)

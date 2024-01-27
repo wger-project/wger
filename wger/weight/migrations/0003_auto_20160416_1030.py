@@ -5,7 +5,6 @@ import django.core.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('weight', '0002_auto_20150604_2139'),
     ]
@@ -19,9 +18,9 @@ class Migration(migrations.Migration):
                 verbose_name='Weight',
                 validators=[
                     django.core.validators.MinValueValidator(30),
-                    django.core.validators.MaxValueValidator(600)
+                    django.core.validators.MaxValueValidator(600),
                 ],
-                max_digits=5
+                max_digits=5,
             ),
         ),
     ]

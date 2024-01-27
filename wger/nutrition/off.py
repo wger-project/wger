@@ -130,5 +130,5 @@ def extract_info_from_off(product_data, language: int):
         license_id=ODBL_LICENSE_ID,
         license_author=authors,
         license_title=name,
-        license_object_url=object_url
+        license_object_url=object_url,
     )

@@ -113,6 +113,7 @@ class ExerciseImagesApiTestCase(
     """
     Tests the exercise image resource
     """
+
     pk = 1
     private_resource = False
     resource = ExerciseImage

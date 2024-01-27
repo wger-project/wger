@@ -7,13 +7,13 @@ def update_permission_names(apps, schema_editor):
     """
     Updates the wording of our three custom gym permissions
     """
-    Permission = apps.get_model("auth", "Permission")
+    Permission = apps.get_model('auth', 'Permission')
 
     for name in [
-        'Trainer, can see the users for a gym', 'Admin, can manage users for a gym',
-        'Admin, can administrate the different gyms'
+        'Trainer, can see the users for a gym',
+        'Admin, can manage users for a gym',
+        'Admin, can administrate the different gyms',
     ]:
-
         permissions = Permission.objects.filter(name=name)
         if permissions.exists():
             permissions[0].name = name.replace(',', ':')
@@ -21,7 +21,6 @@ def update_permission_names(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('gym', '0005_auto_20151023_1522'),
     ]

@@ -203,6 +203,7 @@ class MealItemSerializer(serializers.ModelSerializer):
     """
     MealItem serializer
     """
+
     meal = serializers.PrimaryKeyRelatedField(label='Nutrition plan', queryset=Meal.objects.all())
 
     class Meta:
@@ -267,6 +268,7 @@ class MealSerializer(serializers.ModelSerializer):
     """
     Meal serializer
     """
+
     plan = serializers.PrimaryKeyRelatedField(
         label='Nutrition plan',
         queryset=NutritionPlan.objects.all(),
@@ -281,6 +283,7 @@ class NutritionalValuesSerializer(serializers.Serializer):
     """
     Nutritional values serializer
     """
+
     energy = serializers.FloatField()
     protein = serializers.FloatField()
     carbohydrates = serializers.FloatField()
@@ -342,6 +345,7 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
     """
     Nutritional plan info serializer
     """
+
     meals = MealInfoSerializer(source='meal_set', many=True)
 
     class Meta:

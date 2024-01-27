@@ -59,6 +59,7 @@ class WeightAddView(WgerFormMixin, CreateView):
     """
     Generic view to add a new weight entry
     """
+
     model = WeightEntry
     form_class = WeightForm
     title = gettext_lazy('Add weight entry')
@@ -90,6 +91,7 @@ class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
+
     model = WeightEntry
     form_class = WeightForm
 

@@ -32,6 +32,7 @@ class Command(BaseCommand):
     """
     Sends overviews of inactive users to gym trainers
     """
+
     help = 'Send out emails to trainers with users that have not shown recent activity'
 
     def handle(self, **options):
@@ -52,7 +53,7 @@ class Command(BaseCommand):
 
             if not weeks:
                 if int(options['verbosity']) >= 2:
-                    self.stdout.write("  Reminders deactivatd, skipping")
+                    self.stdout.write('  Reminders deactivatd, skipping')
                 continue
 
             for profile in gym.userprofile_set.all():
@@ -82,7 +83,6 @@ class Command(BaseCommand):
 
             if user_list or user_list_no_activity:
                 for trainer in trainer_list:
-
                     # Profile might not have email
                     if not trainer.email:
                         continue
@@ -96,7 +96,7 @@ class Command(BaseCommand):
                     context = {
                         'weeks': weeks,
                         'user_list': user_list,
-                        'user_list_no_activity': user_list_no_activity
+                        'user_list_no_activity': user_list_no_activity,
                     }
                     message = render_to_string('gym/email_inactive_members.html', context)
                     mail.send_mail(

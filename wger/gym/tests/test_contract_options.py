@@ -106,6 +106,7 @@ class AccessContractOptionOverviewTestCase(WgerAccessTestCase):
     """
     Test accessing the contract option page
     """
+
     url = reverse('gym:contract-option:list', kwargs={'gym_pk': 1})
     user_success = ('manager1', 'manager2')
     user_fail = (

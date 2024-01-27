@@ -57,7 +57,7 @@ class IngredientRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
+        self.assertEqual('{0}'.format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
 
 
 class DeleteIngredientTestCase(WgerDeleteTestCase):
@@ -89,7 +89,7 @@ class EditIngredientTestCase(WgerEditTestCase):
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
-        'license_author': 'me!'
+        'license_author': 'me!',
     }
 
     def post_test_hook(self):
@@ -100,7 +100,7 @@ class EditIngredientTestCase(WgerEditTestCase):
             ingredient = Ingredient.objects.get(pk=1)
             self.assertEqual(
                 ingredient.last_update.replace(microsecond=0),
-                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
 
 
@@ -123,7 +123,7 @@ class AddIngredientTestCase(WgerAddTestCase):
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
-        'license_author': 'me!'
+        'license_author': 'me!',
     }
 
     def post_test_hook(self):
@@ -134,7 +134,7 @@ class AddIngredientTestCase(WgerAddTestCase):
             ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(
                 ingredient.created.replace(microsecond=0),
-                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
             self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
@@ -146,6 +146,7 @@ class IngredientNameShortTestCase(WgerTestCase):
     """
     Tests that ingredient cannot have name with length less than 3
     """
+
     data = {
         'name': 'Ui',
         'sodium': 2,
@@ -157,7 +158,7 @@ class IngredientNameShortTestCase(WgerTestCase):
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
-        'license_author': 'me!'
+        'license_author': 'me!',
     }
 
     def test_add_ingredient_short_name(self):
@@ -307,11 +308,8 @@ class IngredientValuesTestCase(WgerTestCase):
 
         # Get the nutritional values in 1 gram of product
         response = self.client.get(
-            reverse('api-ingredient-get-values', kwargs={'pk': 1}), {
-                'amount': 1,
-                'ingredient': 1,
-                'unit': ''
-            }
+            reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+            {'amount': 1, 'ingredient': 1, 'unit': ''},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -328,17 +326,14 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat_saturated': 0.03244,
                 'fibres': None,
                 'protein': 0.2563,
-                'carbohydrates': 0.00125
-            }
+                'carbohydrates': 0.00125,
+            },
         )
 
         # Get the nutritional values in 1 unit of product
         response = self.client.get(
-            reverse('api-ingredient-get-values', kwargs={'pk': 1}), {
-                'amount': 1,
-                'ingredient': 1,
-                'unit': 2
-            }
+            reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+            {'amount': 1, 'ingredient': 1, 'unit': 2},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -355,8 +350,8 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat_saturated': 3.61706,
                 'fibres': None,
                 'protein': 28.57745,
-                'carbohydrates': 0.139375
-            }
+                'carbohydrates': 0.139375,
+            },
         )
 
     def test_calculate_value_anonymous(self):
@@ -452,6 +447,7 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the ingredient API resource
     """
+
     pk = 4
     resource = Ingredient
     private_resource = False
@@ -483,14 +479,14 @@ class IngredientModelTestCase(WgerTestCase):
                     'fat_100g': 40,
                     'saturated-fat_100g': 11,
                     'sodium_100g': 5,
-                    'fiber_100g': None
+                    'fiber_100g': None,
                 },
-            }
+            },
         }
 
         self.off_response_no_results = {
             'status': OFF_SEARCH_PRODUCT_NOT_FOUND,
-            'status_verbose': 'product not found'
+            'status_verbose': 'product not found',
         }
 
     @patch('openfoodfacts.api.ProductResource.get')

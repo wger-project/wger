@@ -5,7 +5,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0020_historicalexerciseimage_historicalexercisevideo'),
     ]
@@ -18,17 +17,19 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'model_type',
                     models.CharField(
                         choices=[
-                            ('base', 'base'), ('translation', 'translation'), ('image', 'image'),
-                            ('video', 'video')
+                            ('base', 'base'),
+                            ('translation', 'translation'),
+                            ('image', 'image'),
+                            ('video', 'video'),
                         ],
-                        max_length=11
-                    )
+                        max_length=11,
+                    ),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
                 ('timestamp', models.DateTimeField(auto_now=True)),

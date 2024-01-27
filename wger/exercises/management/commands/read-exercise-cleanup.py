@@ -63,7 +63,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='process_videos',
             default=False,
-            help='Flag indicating whether to process and add videos to the exercises'
+            help='Flag indicating whether to process and add videos to the exercises',
         )
 
         parser.add_argument(
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='create_on_new',
             default=True,
-            help="Controls whether we create new bases or exercises if they have the UUID 'NEW'"
+            help="Controls whether we create new bases or exercises if they have the UUID 'NEW'",
         )
 
     def handle(self, **options):
@@ -91,8 +91,9 @@ class Command(BaseCommand):
         for language in [l.short_name for l in languages]:
             for column in columns:
                 name = '{0}:{1}'.format(language, column)
-                assert (name in file_reader.fieldnames
-                        ), '{0} not in {1}'.format(name, file_reader.fieldnames)
+                assert name in file_reader.fieldnames, '{0} not in {1}'.format(
+                    name, file_reader.fieldnames
+                )
 
         default_license = License.objects.get(pk=CC_BY_SA_4_ID)
 
@@ -121,10 +122,14 @@ class Command(BaseCommand):
                 self.stdout.write(f'    Skipping creating new exercise base...\n')
                 continue
 
-            base = ExerciseBase.objects.get_or_create(
-                uuid=base_uuid,
-                defaults={'category': ExerciseCategory.objects.get(name=base_category)}
-            )[0] if not new_base else ExerciseBase()
+            base = (
+                ExerciseBase.objects.get_or_create(
+                    uuid=base_uuid,
+                    defaults={'category': ExerciseCategory.objects.get(name=base_category)},
+                )[0]
+                if not new_base
+                else ExerciseBase()
+            )
 
             # Update the base data
             base.category = ExerciseCategory.objects.get(name=base_category)
@@ -200,12 +205,13 @@ class Command(BaseCommand):
                 if not new_translation:
                     continue
 
-                translation = Exercise.objects.get_or_create(
-                    uuid=exercise_uuid, defaults={
-                        'exercise_base': base,
-                        'language': language
-                    }
-                )[0] if not new_translation else Exercise()
+                translation = (
+                    Exercise.objects.get_or_create(
+                        uuid=exercise_uuid, defaults={'exercise_base': base, 'language': language}
+                    )[0]
+                    if not new_translation
+                    else Exercise()
+                )
                 translation.exercise_base = base
                 translation.language = language
                 translation.name = exercise_name
@@ -218,8 +224,9 @@ class Command(BaseCommand):
                         exercise_license = License.objects.get(short_name=exercise_license)
                     except License.DoesNotExist:
                         self.stdout.write(
-                            self.style.
-                            WARNING(f'    License does not exist: {exercise_license}!!!\n')
+                            self.style.WARNING(
+                                f'    License does not exist: {exercise_license}!!!\n'
+                            )
                         )
                         exercise_license = default_license
                 else:

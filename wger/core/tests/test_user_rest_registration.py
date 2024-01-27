@@ -19,7 +19,6 @@ from wger.core.tests.base_testcase import WgerTestCase
 
 
 class CreateUserCommand(WgerTestCase):
-
     def setUp(self):
         super(CreateUserCommand, self).setUp()
         self.out = StringIO()
@@ -68,20 +67,17 @@ class CreateUserCommand(WgerTestCase):
         count_before = User.objects.count()
 
         response = self.client.post(
-            reverse('api_register'), {
-                'username': 'restapi',
-                'email': 'abc@cde.fg',
-                'password': 'AekaiLe0ga'
-            },
-            Authorization=f'Token {token.key}'
+            reverse('api_register'),
+            {'username': 'restapi', 'email': 'abc@cde.fg', 'password': 'AekaiLe0ga'},
+            Authorization=f'Token {token.key}',
         )
         count_after = User.objects.count()
         self.assertEqual(response.status_code, HTTP_201_CREATED)
 
         new_user = User.objects.get(username='restapi')
         token = Token.objects.get(user=new_user)
-        self.assertEqual(response.data["message"], "api user successfully registered")
-        self.assertEqual(response.data["token"], token.key)
+        self.assertEqual(response.data['message'], 'api user successfully registered')
+        self.assertEqual(response.data['token'], token.key)
         self.assertEqual(count_after, count_before + 1)
 
     def test_post_valid_api_user_creation_no_email(self):
@@ -93,19 +89,17 @@ class CreateUserCommand(WgerTestCase):
         count_before = User.objects.count()
 
         response = self.client.post(
-            reverse('api_register'), {
-                'username': 'restapi',
-                'password': 'AekaiLe0ga'
-            },
-            Authorization=f'Token {token.key}'
+            reverse('api_register'),
+            {'username': 'restapi', 'password': 'AekaiLe0ga'},
+            Authorization=f'Token {token.key}',
         )
         count_after = User.objects.count()
         self.assertEqual(response.status_code, HTTP_201_CREATED)
 
         new_user = User.objects.get(username='restapi')
         token = Token.objects.get(user=new_user)
-        self.assertEqual(response.data["message"], "api user successfully registered")
-        self.assertEqual(response.data["token"], token.key)
+        self.assertEqual(response.data['message'], 'api user successfully registered')
+        self.assertEqual(response.data['token'], token.key)
         self.assertEqual(count_after, count_before + 1)
 
     def test_post_not_allowed_api_user_creation(self):
@@ -115,11 +109,8 @@ class CreateUserCommand(WgerTestCase):
         count_before = User.objects.count()
 
         response = self.client.post(
-            reverse('api_register'), {
-                'username': 'restapi',
-                'email': 'abc@cde.fg',
-                'password': 'AekaiLe0ga'
-            }
+            reverse('api_register'),
+            {'username': 'restapi', 'email': 'abc@cde.fg', 'password': 'AekaiLe0ga'},
         )
         count_after = User.objects.count()
 
@@ -149,12 +140,9 @@ class CreateUserCommand(WgerTestCase):
         token = Token.objects.get(user=user)
 
         response = self.client.post(
-            reverse('api_register'), {
-                'username': 'restapi',
-                'email': 'example.com',
-                'password': 'AekaiLe0ga'
-            },
-            Authorization=f'Token {token.key}'
+            reverse('api_register'),
+            {'username': 'restapi', 'email': 'example.com', 'password': 'AekaiLe0ga'},
+            Authorization=f'Token {token.key}',
         )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
@@ -167,12 +155,9 @@ class CreateUserCommand(WgerTestCase):
         token = Token.objects.get(user=user)
 
         response = self.client.post(
-            reverse('api_register'), {
-                'username': 'restapi',
-                'email': 'admin@example.com',
-                'password': 'AekaiLe0ga'
-            },
-            Authorization=f'Token {token.key}'
+            reverse('api_register'),
+            {'username': 'restapi', 'email': 'admin@example.com', 'password': 'AekaiLe0ga'},
+            Authorization=f'Token {token.key}',
         )
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)

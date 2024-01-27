@@ -34,7 +34,7 @@ class RepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(f"{WeightUnit.objects.get(pk=1)}", 'kg')
+        self.assertEqual(f'{WeightUnit.objects.get(pk=1)}', 'kg')
 
 
 class OverviewTest(WgerAccessTestCase):
@@ -54,7 +54,7 @@ class AddTestCase(WgerAddTestCase):
     object_class = WeightUnit
     url = 'core:weight-unit:add'
     data = {'name': 'Furlongs'}
-    user_success = 'admin',
+    user_success = ('admin',)
     user_fail = (
         'general_manager1',
         'general_manager2',
@@ -75,7 +75,7 @@ class DeleteTestCase(WgerDeleteTestCase):
     pk = 1
     object_class = WeightUnit
     url = 'core:weight-unit:delete'
-    user_success = 'admin',
+    user_success = ('admin',)
     user_fail = (
         'general_manager1',
         'general_manager2',
@@ -97,7 +97,7 @@ class EditTestCase(WgerEditTestCase):
     object_class = WeightUnit
     url = 'core:weight-unit:edit'
     data = {'name': 'Furlongs'}
-    user_success = 'admin',
+    user_success = ('admin',)
     user_fail = (
         'general_manager1',
         'general_manager2',
@@ -114,6 +114,7 @@ class ApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the unit resource
     """
+
     pk = 1
     resource = WeightUnit
     private_resource = False

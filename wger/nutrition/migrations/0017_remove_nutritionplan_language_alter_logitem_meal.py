@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.SET_NULL,
                 related_name='log_items',
                 to='nutrition.meal',
-                verbose_name='Meal'
+                verbose_name='Meal',
             ),
         ),
         migrations.AddField(

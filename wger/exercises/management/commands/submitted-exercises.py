@@ -29,7 +29,6 @@ class Command(BaseCommand):
     help = 'Read out the user submitted exercise'
 
     def handle(self, **options):
-
         exercises = Exercise.objects.all()
         usernames = []
         for exercise in exercises:

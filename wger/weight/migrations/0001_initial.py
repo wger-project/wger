@@ -6,7 +6,6 @@ import django.core.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
@@ -19,7 +18,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 ('creation_date', models.DateField(verbose_name='Date')),
                 (
@@ -30,15 +29,15 @@ class Migration(migrations.Migration):
                         decimal_places=2,
                         validators=[
                             django.core.validators.MinValueValidator(30),
-                            django.core.validators.MaxValueValidator(300)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(300),
+                        ],
+                    ),
                 ),
                 (
                     'user',
                     models.ForeignKey(
                         verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE
-                    )
+                    ),
                 ),
             ],
             options={
@@ -46,7 +45,7 @@ class Migration(migrations.Migration):
                 'get_latest_by': 'creation_date',
                 'verbose_name': 'Weight entry',
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
             name='weightentry',

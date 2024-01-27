@@ -86,6 +86,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint for ingredient objects. For a read-only endpoint with all
     the information of an ingredient, see /api/v2/ingredientinfo/
     """
+
     serializer_class = IngredientSerializer
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
@@ -129,14 +130,13 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             'fat_saturated': 0,
             'fibres': 0,
             'sodium': 0,
-            'errors': []
+            'errors': [],
         }
         ingredient = self.get_object()
 
         form = UnitChooserForm(request.GET)
 
         if form.is_valid():
-
             # Create a temporary MealItem object
             if form.cleaned_data['unit']:
                 unit_id = form.cleaned_data['unit'].id
@@ -160,6 +160,7 @@ class IngredientInfoViewSet(IngredientViewSet):
     Read-only info API endpoint for ingredient objects. Returns nested data
     structures for more easy parsing.
     """
+
     serializer_class = IngredientInfoSerializer
 
 
@@ -181,24 +182,21 @@ class IngredientInfoViewSet(IngredientViewSet):
         ),
     ],
     responses={
-        200:
-        inline_serializer(
+        200: inline_serializer(
             name='IngredientSearchResponse',
             fields={
-                'value':
-                CharField(),
-                'data':
-                inline_serializer(
+                'value': CharField(),
+                'data': inline_serializer(
                     name='IngredientSearchItemResponse',
                     fields={
                         'id': IntegerField(),
                         'name': CharField(),
                         'category': CharField(),
                         'image': CharField(),
-                        'image_thumbnail': CharField()
-                    }
-                )
-            }
+                        'image_thumbnail': CharField(),
+                    },
+                ),
+            },
         )
     },
 )
@@ -241,8 +239,8 @@ def search(request):
                 'id': ingredient.id,
                 'name': ingredient.name,
                 'image': image,
-                'image_thumbnail': thumbnail
-            }
+                'image_thumbnail': thumbnail,
+            },
         }
         results.append(ingredient_json)
     json_response['suggestions'] = results
@@ -254,6 +252,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for ingredient images
     """
+
     queryset = Image.objects.all()
     serializer_class = IngredientImageSerializer
     ordering_fields = '__all__'
@@ -268,6 +267,7 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for weight unit objects
     """
+
     queryset = WeightUnit.objects.all()
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
@@ -278,6 +278,7 @@ class IngredientWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for many-to-many table ingredient-weight unit objects
     """
+
     queryset = IngredientWeightUnit.objects.all()
     serializer_class = IngredientWeightUnitSerializer
     ordering_fields = '__all__'
@@ -294,6 +295,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
     API endpoint for nutrition plan objects. For a read-only endpoint with all
     the information of nutritional plan(s), see /api/v2/nutritionplaninfo/
     """
+
     serializer_class = NutritionPlanSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -308,7 +310,7 @@ class NutritionPlanViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return NutritionPlan.objects.none()
 
         return NutritionPlan.objects.filter(user=self.request.user)
@@ -335,6 +337,7 @@ class NutritionPlanInfoViewSet(NutritionPlanViewSet):
     Read-only info API endpoint for nutrition plan objects. Returns nested data
     structures for more easy parsing.
     """
+
     serializer_class = NutritionPlanInfoSerializer
 
 
@@ -342,6 +345,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for meal objects
     """
+
     serializer_class = MealSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -356,7 +360,7 @@ class MealViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Meal.objects.none()
 
         return Meal.objects.filter(plan__user=self.request.user)
@@ -386,6 +390,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for meal item objects
     """
+
     serializer_class = MealItemSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -402,7 +407,7 @@ class MealItemViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return MealItem.objects.none()
 
         return MealItem.objects.filter(meal__plan__user=self.request.user)
@@ -442,7 +447,7 @@ class LogItemViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return LogItem.objects.none()
 
         return LogItem.objects.select_related('plan').filter(plan__user=self.request.user)

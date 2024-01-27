@@ -23,6 +23,7 @@ class ExerciseCategory(models.Model):
     """
     Model for an exercise category
     """
+
     name = models.CharField(
         max_length=100,
         verbose_name=_('Name'),
@@ -30,9 +31,9 @@ class ExerciseCategory(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        verbose_name_plural = _("Exercise Categories")
+        verbose_name_plural = _('Exercise Categories')
         ordering = [
-            "name",
+            'name',
         ]
 
     def __str__(self):

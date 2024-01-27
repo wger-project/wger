@@ -128,8 +128,9 @@ class Day(models.Model):
                     elif not muscle.is_front and muscle.id not in muscles_back:
                         muscles_back_secondary.append(muscle)
 
-                for setting in Setting.objects.filter(set=set_obj,
-                                                      exercise_base=base).order_by('order', 'id'):
+                for setting in Setting.objects.filter(set=set_obj, exercise_base=base).order_by(
+                    'order', 'id'
+                ):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
@@ -137,7 +138,7 @@ class Day(models.Model):
 
                 # Exercise comments
                 comment_list = []
-                #for i in base.exercisecomment_set.all():
+                # for i in base.exercisecomment_set.all():
                 #    comment_list.append(i.comment)
 
                 # Flag indicating whether any of the settings has saved weight
@@ -164,7 +165,7 @@ class Day(models.Model):
                         'setting_text': setting_text,
                         'has_weight': has_weight,
                         'comment_list': comment_list,
-                        'image_list': exercise_images_tmp
+                        'image_list': exercise_images_tmp,
                     }
                 )
 
@@ -195,8 +196,8 @@ class Day(models.Model):
                         'back': muscles_back,
                         'front': muscles_front,
                         'frontsecondary': muscles_front_secondary,
-                        'backsecondary': muscles_front_secondary
-                    }
+                        'backsecondary': muscles_front_secondary,
+                    },
                 }
             )
 
@@ -209,13 +210,13 @@ class Day(models.Model):
             'obj': self,
             'days_of_week': {
                 'text': ', '.join([str(_(i.day_of_week)) for i in tmp_days_of_week]),
-                'day_list': tmp_days_of_week
+                'day_list': tmp_days_of_week,
             },
             'muscles': {
                 'back': muscles_back,
                 'front': muscles_front,
                 'frontsecondary': muscles_front_secondary,
-                'backsecondary': muscles_front_secondary
+                'backsecondary': muscles_front_secondary,
             },
-            'set_list': canonical_repr
+            'set_list': canonical_repr,
         }

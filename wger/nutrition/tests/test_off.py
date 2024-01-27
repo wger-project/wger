@@ -29,6 +29,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
     """
     Test the extract_info_from_off function
     """
+
     off_data1 = {}
 
     def setUp(self):
@@ -48,8 +49,8 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
                 'fiber_100g': None,
-                'other_stuff': 'is ignored'
-            }
+                'other_stuff': 'is ignored',
+            },
         }
 
     def test_regular_response(self):
@@ -77,7 +78,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             license_id=ODBL_LICENSE_ID,
             license_author='open food facts, MrX',
             license_title='Foo with chocolate',
-            license_object_url='https://world.openfoodfacts.org/product/1234/'
+            license_object_url='https://world.openfoodfacts.org/product/1234/',
         )
 
         self.assertEqual(result, data)

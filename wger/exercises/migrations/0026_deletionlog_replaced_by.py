@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 editable=False,
                 help_text='UUID of the object ',
                 null=True,
-                verbose_name='Replaced by'
+                verbose_name='Replaced by',
             ),
         ),
     ]

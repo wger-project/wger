@@ -81,8 +81,8 @@ def overview(request):
     """
 
     template_data = {}
-    template_data['schedules'] = (
-        Schedule.objects.filter(user=request.user).order_by('-is_active', '-start_date')
+    template_data['schedules'] = Schedule.objects.filter(user=request.user).order_by(
+        '-is_active', '-start_date'
     )
     return render(request, 'schedule/overview.html', template_data)
 
@@ -150,14 +150,14 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject='Schedule for {0}'.format(request.user.username)
+        subject='Schedule for {0}'.format(request.user.username),
     )
 
     # container for the 'Flowable' objects
     elements = []
 
     # Set the title
-    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
+    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet['HeaderBold'])
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
@@ -165,7 +165,7 @@ def export_pdf_log(request, pk, images=False, comments=False, uidb64=None, token
     for step in schedule.schedulestep_set.all():
         p = Paragraph(
             '<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
-            styleSheet["HeaderBold"],
+            styleSheet['HeaderBold'],
         )
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))
@@ -220,14 +220,14 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject='Schedule for {0}'.format(request.user.username)
+        subject='Schedule for {0}'.format(request.user.username),
     )
 
     # container for the 'Flowable' objects
     elements = []
 
     # Set the title
-    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet["HeaderBold"])
+    p = Paragraph('<para align="center">{0}</para>'.format(schedule), styleSheet['HeaderBold'])
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
 
@@ -235,7 +235,7 @@ def export_pdf_table(request, pk, images=False, comments=False, uidb64=None, tok
     for step in schedule.schedulestep_set.all():
         p = Paragraph(
             '<para>{0} {1}</para>'.format(step.duration, _('Weeks')),
-            styleSheet["HeaderBold"],
+            styleSheet['HeaderBold'],
         )
         elements.append(p)
         elements.append(Spacer(10 * cm, 0.5 * cm))

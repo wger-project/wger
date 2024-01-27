@@ -44,14 +44,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for workout plans'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--plans',
             action='store',
             default=10,
             dest='nr_plans',
             type=int,
-            help='The number of workout plans to create per user (default: 10)'
+            help='The number of workout plans to create per user (default: 10)',
         )
         parser.add_argument(
             '--user-id',
@@ -64,9 +63,9 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.stdout.write(f"** Generating {options['nr_plans']} dummy workout plan(s) per user")
 
-        users = [User.objects.get(pk=options['user_id'])] \
-            if options['user_id'] \
-            else User.objects.all()
+        users = (
+            [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
+        )
 
         for user in users:
             self.stdout.write(f'- processing user {user.username}')

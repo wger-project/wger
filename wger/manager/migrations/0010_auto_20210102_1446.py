@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0009_auto_20201202_1559'),
     ]
@@ -16,12 +15,20 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 choices=[
-                    (None, '------'), ('0', 0), ('0.5', 0.5), ('1', 1), ('1.5', 1.5), ('2', 2),
-                    ('2.5', 2.5), ('3', 3), ('3.5', 3.5), ('4', 4)
+                    (None, '------'),
+                    ('0', 0),
+                    ('0.5', 0.5),
+                    ('1', 1),
+                    ('1.5', 1.5),
+                    ('2', 2),
+                    ('2.5', 2.5),
+                    ('3', 3),
+                    ('3.5', 3.5),
+                    ('4', 4),
                 ],
                 max_length=3,
                 null=True,
-                verbose_name='RiR'
+                verbose_name='RiR',
             ),
         ),
         migrations.AlterField(
@@ -30,12 +37,20 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 choices=[
-                    (None, '------'), ('0', 0), ('0.5', 0.5), ('1', 1), ('1.5', 1.5), ('2', 2),
-                    ('2.5', 2.5), ('3', 3), ('3.5', 3.5), ('4', 4)
+                    (None, '------'),
+                    ('0', 0),
+                    ('0.5', 0.5),
+                    ('1', 1),
+                    ('1.5', 1.5),
+                    ('2', 2),
+                    ('2.5', 2.5),
+                    ('3', 3),
+                    ('3.5', 3.5),
+                    ('4', 4),
                 ],
                 max_length=3,
                 null=True,
-                verbose_name='RiR'
+                verbose_name='RiR',
             ),
         ),
     ]

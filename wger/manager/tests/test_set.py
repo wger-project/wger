@@ -236,11 +236,11 @@ class TestSetOrderTestCase(WgerTestCase):
         order = ()
 
         for day_set in day.set_set.select_related():
-            order += (day_set.id, )
+            order += (day_set.id,)
 
         return order
 
-    @skip("Fix later")
+    @skip('Fix later')
     def test_set_order(self, logged_in=False):
         """
         Helper function that add some sets and checks the order
@@ -252,7 +252,7 @@ class TestSetOrderTestCase(WgerTestCase):
         for i in range(0, 7):
             self.add_set([exercises[i]])
             prev = self.get_order()
-            orig += (i + 4, )
+            orig += (i + 4,)
             self.assertEqual(orig, prev)
 
 
@@ -268,10 +268,7 @@ class TestSetAddFormset(WgerTestCase):
         """
         base = ExerciseBase.objects.get(pk=1)
         response = self.client.get(
-            reverse('manager:set:get-formset', kwargs={
-                'base_pk': 1,
-                'reps': 4
-            })
+            reverse('manager:set:get-formset', kwargs={'base_pk': 1, 'reps': 4})
         )
 
         self.assertEqual(response.status_code, 200)
@@ -308,7 +305,8 @@ class SetEditEditTestCase(WgerTestCase):
 
         # Try to edit the object
         response = self.client.post(
-            reverse('manager:set:edit', kwargs={'pk': 3}), {
+            reverse('manager:set:edit', kwargs={'pk': 3}),
+            {
                 'exercise2-TOTAL_FORMS': 1,
                 'exercise2-INITIAL_FORMS': 1,
                 'exercise2-MAX_NUM_FORMS': 1,
@@ -318,7 +316,7 @@ class SetEditEditTestCase(WgerTestCase):
                 'exercise2-0-repetition_unit': 2,
                 'exercise2-0-weight_unit': 3,
                 'exercise2-0-rir': '1.5',
-            }
+            },
         )
 
         entry_after = Set.objects.get(pk=3)
@@ -485,8 +483,7 @@ class SetSmartReprTestCase(WgerTestCase):
         setting_text = set_obj.reps_smart_text(ExerciseBase.objects.get(pk=1))
         self.assertEqual(
             setting_text,
-            '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – '
-            '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)',
+            '8 (90 kg, 3 RiR) – 10 (80 kg, 2.5 RiR) – ' '10 (80 kg, 2 RiR) – 12 (80 kg, 1 RiR)',
         )
 
     def test_synthetic_settings(self):
@@ -537,6 +534,7 @@ class SetApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the set overview resource
     """
+
     pk = 3
     resource = Set
     private_resource = True

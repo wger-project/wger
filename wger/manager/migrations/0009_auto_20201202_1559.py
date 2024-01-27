@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0008_auto_20190618_1617'),
     ]
@@ -16,13 +15,21 @@ class Migration(migrations.Migration):
             field=models.DecimalField(
                 blank=True,
                 choices=[
-                    (None, '------'), (0, 0), (0.5, 0.5), (1, 1), (1.5, 1.5), (2, 2), (2.5, 2.5),
-                    (3, 3), (3.5, 3.5), (4, 4)
+                    (None, '------'),
+                    (0, 0),
+                    (0.5, 0.5),
+                    (1, 1),
+                    (1.5, 1.5),
+                    (2, 2),
+                    (2.5, 2.5),
+                    (3, 3),
+                    (3.5, 3.5),
+                    (4, 4),
                 ],
                 decimal_places=1,
                 max_digits=3,
                 null=True,
-                verbose_name='RiR'
+                verbose_name='RiR',
             ),
         ),
         migrations.AddField(
@@ -31,13 +38,21 @@ class Migration(migrations.Migration):
             field=models.DecimalField(
                 blank=True,
                 choices=[
-                    (None, '------'), (0, 0), (0.5, 0.5), (1, 1), (1.5, 1.5), (2, 2), (2.5, 2.5),
-                    (3, 3), (3.5, 3.5), (4, 4)
+                    (None, '------'),
+                    (0, 0),
+                    (0.5, 0.5),
+                    (1, 1),
+                    (1.5, 1.5),
+                    (2, 2),
+                    (2.5, 2.5),
+                    (3, 3),
+                    (3.5, 3.5),
+                    (4, 4),
                 ],
                 decimal_places=1,
                 max_digits=3,
                 null=True,
-                verbose_name='RiR'
+                verbose_name='RiR',
             ),
         ),
     ]

@@ -7,7 +7,6 @@ import wger.exercises.models.video
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0013_auto_20210726_1729'),
         ('exercises', '0014_exerciseimage_style'),
@@ -19,11 +18,15 @@ class Migration(migrations.Migration):
             name='style',
             field=models.CharField(
                 choices=[
-                    ('1', 'Line'), ('2', '3D'), ('3', 'Low-poly'), ('4', 'Photo'), ('5', 'Other')
+                    ('1', 'Line'),
+                    ('2', '3D'),
+                    ('3', 'Low-poly'),
+                    ('4', 'Photo'),
+                    ('5', 'Other'),
                 ],
                 default='4',
                 help_text='The art style of your image',
-                max_length=1
+                max_length=1,
             ),
         ),
         migrations.CreateModel(
@@ -33,18 +36,17 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'license_author',
                     models.CharField(
                         blank=True,
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                        help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=50,
                         null=True,
-                        verbose_name='Author'
-                    )
+                        verbose_name='Author',
+                    ),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
                 ('is_main', models.BooleanField(default=False, verbose_name='Main video')),
@@ -53,8 +55,8 @@ class Migration(migrations.Migration):
                     models.FileField(
                         upload_to=wger.exercises.models.video.exercise_video_upload_dir,
                         validators=[wger.exercises.models.video.validate_video],
-                        verbose_name='Video'
-                    )
+                        verbose_name='Video',
+                    ),
                 ),
                 ('size', models.IntegerField(default=0, editable=False, verbose_name='Size')),
                 (
@@ -64,8 +66,8 @@ class Migration(migrations.Migration):
                         default=0,
                         editable=False,
                         max_digits=12,
-                        verbose_name='Duration'
-                    )
+                        verbose_name='Duration',
+                    ),
                 ),
                 ('width', models.IntegerField(default=0, editable=False, verbose_name='Width')),
                 ('height', models.IntegerField(default=0, editable=False, verbose_name='Height')),
@@ -73,21 +75,21 @@ class Migration(migrations.Migration):
                     'codec',
                     models.CharField(
                         default='', editable=False, max_length=30, verbose_name='Codec'
-                    )
+                    ),
                 ),
                 (
                     'codec_long',
                     models.CharField(
                         default='', editable=False, max_length=100, verbose_name='Codec, long name'
-                    )
+                    ),
                 ),
                 (
                     'exercise_base',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to='exercises.exercisebase',
-                        verbose_name='Exercise'
-                    )
+                        verbose_name='Exercise',
+                    ),
                 ),
                 (
                     'license',
@@ -95,8 +97,8 @@ class Migration(migrations.Migration):
                         default=2,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
             ],
             options={

@@ -123,7 +123,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=200,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AddField(
@@ -329,7 +329,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -340,7 +340,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -351,7 +351,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -362,7 +362,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -373,7 +373,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -384,7 +384,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -395,7 +395,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -406,7 +406,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=200,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
     ]

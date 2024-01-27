@@ -36,14 +36,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for weight entries'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--nr-entries',
             action='store',
             default=40,
             dest='nr_entries',
             type=int,
-            help='The number of measurement entries per category (default: 40)'
+            help='The number of measurement entries per category (default: 40)',
         )
         parser.add_argument(
             '--user-id',
@@ -58,9 +57,9 @@ class Command(BaseCommand):
 
         base_weight = 80
 
-        users = [User.objects.get(pk=options['user_id'])] \
-            if options['user_id'] \
-            else User.objects.all()
+        users = (
+            [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
+        )
 
         print(f"** Generating {options['nr_entries']} weight entries per user")
 
@@ -72,13 +71,12 @@ class Command(BaseCommand):
 
             # Weight entries
             for i in range(options['nr_entries']):
-
                 creation_date = datetime.date.today() - datetime.timedelta(days=i)
                 if creation_date not in existing_entries:
                     entry = WeightEntry(
                         user=user,
                         weight=base_weight + 0.5 * i + random.randint(1, 3),
-                        date=creation_date
+                        date=creation_date,
                     )
                     new_entries.append(entry)
 

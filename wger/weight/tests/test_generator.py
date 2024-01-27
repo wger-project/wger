@@ -21,7 +21,6 @@ from wger.weight.models import WeightEntry
 
 
 class WeightEntryGeneratorTestCase(WgerTestCase):
-
     def test_generator(self):
         # Arrange
         WeightEntry.objects.all().delete()

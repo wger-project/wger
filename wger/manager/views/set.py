@@ -61,7 +61,7 @@ SettingFormset = modelformset_factory(
     fields=SETTING_FORMSET_FIELDS,
     can_delete=False,
     can_order=False,
-    extra=1
+    extra=1,
 )
 
 
@@ -80,7 +80,7 @@ def create(request, day_pk):
     form = SetForm(initial={'sets': Set.DEFAULT_SETS})
 
     # If the form and all formsets validate, save them
-    if request.method == "POST":
+    if request.method == 'POST':
         form = SetForm(request.POST)
         if form.is_valid():
             for base in form.cleaned_data['exercises']:
@@ -145,7 +145,7 @@ def get_formset(request, base_pk, reps=Set.DEFAULT_SETS):
     )
     context = {'formset': formset, 'helper': WorkoutLogFormHelper(), 'base': base}
 
-    return render(request, "set/formset.html", context)
+    return render(request, 'set/formset.html', context)
 
 
 @login_required
@@ -179,10 +179,10 @@ def edit(request, pk):
     SettingFormsetEdit = modelformset_factory(
         Setting,
         form=SettingForm,
-        fields=SETTING_FORMSET_FIELDS + ('id', ),
+        fields=SETTING_FORMSET_FIELDS + ('id',),
         can_delete=False,
         can_order=True,
-        extra=0
+        extra=0,
     )
 
     formsets = []
@@ -191,7 +191,7 @@ def edit(request, pk):
         formset = SettingFormsetEdit(queryset=queryset, prefix='exercise{0}'.format(base.id))
         formsets.append({'base': base, 'formset': formset})
 
-    if request.method == "POST":
+    if request.method == 'POST':
         formsets = []
         for base in set_obj.exercise_bases:
             formset = SettingFormsetEdit(request.POST, prefix='exercise{0}'.format(base.id))

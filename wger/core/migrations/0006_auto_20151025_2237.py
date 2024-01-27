@@ -7,13 +7,12 @@ def create_usercache(apps, schema_editor):
     """
     Creates a usercache table for all users
     """
-    User = apps.get_model("auth", "User")
-    Usercache = apps.get_model("core", "Usercache")
-    WorkoutLog = apps.get_model("manager", "WorkoutLog")
-    WorkoutSession = apps.get_model("manager", "WorkoutSession")
+    User = apps.get_model('auth', 'User')
+    Usercache = apps.get_model('core', 'Usercache')
+    WorkoutLog = apps.get_model('manager', 'WorkoutLog')
+    WorkoutSession = apps.get_model('manager', 'WorkoutSession')
 
     for user in User.objects.all():
-
         #
         # This is the logic of get_user_last_activity at the time this migration
         # was created.
@@ -46,13 +45,12 @@ def delete_usercache(apps, schema_editor):
     """
     Deletes the usercache table for all users
     """
-    Usercache = apps.get_model("core", "Usercache")
+    Usercache = apps.get_model('core', 'Usercache')
     for cache in Usercache.objects.all():
         cache.delete()
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0005_auto_20151025_2236'),
         ('auth', '0006_require_contenttypes_0002'),

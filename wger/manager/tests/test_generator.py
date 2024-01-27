@@ -24,7 +24,6 @@ from wger.manager.models import (
 
 
 class RoutineGeneratorTestCase(WgerTestCase):
-
     def test_generator_routines(self):
         # Arrange
         Workout.objects.all().delete()

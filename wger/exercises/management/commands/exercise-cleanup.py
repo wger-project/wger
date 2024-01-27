@@ -40,13 +40,12 @@ class Command(BaseCommand):
 
         languages = Language.objects.all()
         for base in ExerciseBase.objects.all():
-
             data = {
                 'base': {
                     'uuid': base.uuid,
                     'category': base.category.name,
                     'equipment': ','.join([e.name for e in base.equipment.all()]),
-                    'variations': base.variations.id if base.variations else ''
+                    'variations': base.variations.id if base.variations else '',
                 }
             }
 
@@ -57,7 +56,7 @@ class Command(BaseCommand):
                     'description': '',
                     'aliases': '',
                     'license': '',
-                    'author': ''
+                    'author': '',
                 }
 
                 exercise = Exercise.objects.filter(exercise_base=base, language=language).first()
@@ -73,7 +72,9 @@ class Command(BaseCommand):
             out.append(data)
 
         with open('exercise_cleanup.csv', 'w', newline='') as csvfile:
-            file_writer = csv.writer(csvfile, )
+            file_writer = csv.writer(
+                csvfile,
+            )
 
             header = ['base:uuid', 'base:category', 'base:equipment', 'base:variations']
             for language in languages:

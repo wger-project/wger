@@ -15,10 +15,9 @@ class Migration(migrations.Migration):
             field=models.UUIDField(
                 default=None,
                 editable=False,
-                help_text=
-                'UUID of the object replaced by the deleted one. At the moment only available for exercise bases',
+                help_text='UUID of the object replaced by the deleted one. At the moment only available for exercise bases',
                 null=True,
-                verbose_name='Replaced by'
+                verbose_name='Replaced by',
             ),
         ),
         migrations.AlterField(
@@ -29,7 +28,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -42,9 +41,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -58,7 +56,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -69,7 +67,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -82,9 +80,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -98,7 +95,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -109,7 +106,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -122,9 +119,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -138,7 +134,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -149,7 +145,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -162,9 +158,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -178,7 +173,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -189,7 +184,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -202,9 +197,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -218,7 +212,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -229,7 +223,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -242,9 +236,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -258,7 +251,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -269,7 +262,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -282,9 +275,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -298,7 +290,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
         migrations.AlterField(
@@ -309,7 +301,7 @@ class Migration(migrations.Migration):
                 help_text='If you are not the author, enter the name or source here.',
                 max_length=600,
                 null=True,
-                verbose_name='Author(s)'
+                verbose_name='Author(s)',
             ),
         ),
         migrations.AlterField(
@@ -322,9 +314,8 @@ class Migration(migrations.Migration):
             name='license_derivative_source_url',
             field=models.URLField(
                 blank=True,
-                help_text=
-                'Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
-                verbose_name='Link to the original source, if this is a derivative work'
+                help_text='Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.',
+                verbose_name='Link to the original source, if this is a derivative work',
             ),
         ),
         migrations.AlterField(
@@ -338,7 +329,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 max_length=300,
-                verbose_name='The original title of this object, if available'
+                verbose_name='The original title of this object, if available',
             ),
         ),
     ]

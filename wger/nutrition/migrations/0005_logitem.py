@@ -7,7 +7,6 @@ import wger.nutrition.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0004_auto_20200819_2310'),
     ]
@@ -20,7 +19,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 ('datetime', models.DateTimeField(auto_now=True)),
                 ('comment', models.TextField(blank=True, null=True, verbose_name='Comment')),
@@ -31,18 +30,18 @@ class Migration(migrations.Migration):
                         max_digits=6,
                         validators=[
                             django.core.validators.MinValueValidator(1),
-                            django.core.validators.MaxValueValidator(1000)
+                            django.core.validators.MaxValueValidator(1000),
                         ],
-                        verbose_name='Amount'
-                    )
+                        verbose_name='Amount',
+                    ),
                 ),
                 (
                     'ingredient',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to='nutrition.ingredient',
-                        verbose_name='Ingredient'
-                    )
+                        verbose_name='Ingredient',
+                    ),
                 ),
                 (
                     'plan',
@@ -50,8 +49,8 @@ class Migration(migrations.Migration):
                         editable=False,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='nutrition.nutritionplan',
-                        verbose_name='Nutrition plan'
-                    )
+                        verbose_name='Nutrition plan',
+                    ),
                 ),
                 (
                     'weight_unit',
@@ -60,8 +59,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='nutrition.ingredientweightunit',
-                        verbose_name='Weight unit'
-                    )
+                        verbose_name='Weight unit',
+                    ),
                 ),
             ],
             options={

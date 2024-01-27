@@ -28,7 +28,6 @@ from wger.exercises.models import (
 
 
 class TestSyncManagementCommands(SimpleTestCase):
-
     @patch('wger.exercises.sync.handle_deleted_entries')
     @patch('wger.exercises.sync.sync_muscles')
     @patch('wger.exercises.sync.sync_languages')
@@ -70,7 +69,6 @@ class TestSyncManagementCommands(SimpleTestCase):
 
 
 class TestHealthCheckManagementCommands(WgerTestCase):
-
     def setUp(self):
         super().setUp()
         self.out = StringIO()
@@ -85,16 +83,16 @@ class TestHealthCheckManagementCommands(WgerTestCase):
 
         call_command('exercises-health-check', stdout=self.out)
         self.assertIn(
-            "Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has no translations!",
-            self.out.getvalue()
+            'Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has no translations!',
+            self.out.getvalue(),
         )
-        self.assertNotIn("-> deleted", self.out.getvalue())
+        self.assertNotIn('-> deleted', self.out.getvalue())
 
     def atest_fix_untranslated(self):
         Exercise.objects.get(pk=1).delete()
 
         call_command('exercises-health-check', '--delete-untranslated', stdout=self.out)
-        self.assertIn("-> deleted", self.out.getvalue())
+        self.assertIn('-> deleted', self.out.getvalue())
         self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
 
     def test_find_no_english_translation(self):
@@ -102,16 +100,16 @@ class TestHealthCheckManagementCommands(WgerTestCase):
 
         call_command('exercises-health-check', stdout=self.out)
         self.assertIn(
-            "Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has no English translation!",
-            self.out.getvalue()
+            'Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has no English translation!',
+            self.out.getvalue(),
         )
-        self.assertNotIn("-> deleted", self.out.getvalue())
+        self.assertNotIn('-> deleted', self.out.getvalue())
 
     def test_fix_no_english_translation(self):
         Exercise.objects.get(pk=1).delete()
 
         call_command('exercises-health-check', '--delete-no-english', stdout=self.out)
-        self.assertIn("-> deleted", self.out.getvalue())
+        self.assertIn('-> deleted', self.out.getvalue())
         self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
 
     def test_find_duplicate_translations(self):
@@ -121,10 +119,10 @@ class TestHealthCheckManagementCommands(WgerTestCase):
 
         call_command('exercises-health-check', stdout=self.out)
         self.assertIn(
-            "Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has duplicate translations!",
-            self.out.getvalue()
+            'Exercise acad3949-36fb-4481-9a72-be2ddae2bc05 has duplicate translations!',
+            self.out.getvalue(),
         )
-        self.assertNotIn("-> deleted", self.out.getvalue())
+        self.assertNotIn('-> deleted', self.out.getvalue())
 
     def test_fix_duplicate_translations(self):
         exercise = Exercise.objects.get(pk=1)
@@ -132,5 +130,5 @@ class TestHealthCheckManagementCommands(WgerTestCase):
         exercise.save()
 
         call_command('exercises-health-check', '--delete-duplicate-translations', stdout=self.out)
-        self.assertIn("Deleting all but first fr translation", self.out.getvalue())
+        self.assertIn('Deleting all but first fr translation', self.out.getvalue())
         self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=5)

@@ -50,6 +50,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available setting units
     """
+
     model = RepetitionUnit
     permission_required = 'core.add_repetitionunit'
     template_name = 'repetition_unit/list.html'

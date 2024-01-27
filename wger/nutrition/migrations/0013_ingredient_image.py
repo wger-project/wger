@@ -18,10 +18,10 @@ def generate_uuids(apps, schema_editor):
     :param schema_editor:
     :return:
     """
-    Ingredient = apps.get_model("nutrition", "Ingredient")
+    Ingredient = apps.get_model('nutrition', 'Ingredient')
     for ingredient in Ingredient.objects.all():
         ingredient.uuid = uuid.uuid4()
-        ingredient.save(update_fields=["uuid"])
+        ingredient.save(update_fields=['uuid'])
 
 
 class Migration(migrations.Migration):
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                         serialize=False,
                         verbose_name='ID',
-                    )
+                    ),
                 ),
                 (
                     'license_author',
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                         max_length=60,
                         null=True,
                         verbose_name='Author',
-                    )
+                    ),
                 ),
                 (
                     'uuid',
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                         editable=False,
                         unique=True,
                         verbose_name='UUID',
-                    )
+                    ),
                 ),
                 (
                     'image',
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
                         verbose_name='Image',
                         height_field='height',
                         width_field='width',
-                    )
+                    ),
                 ),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('last_update', models.DateTimeField(auto_now=True)),
@@ -92,8 +92,8 @@ class Migration(migrations.Migration):
                     models.OneToOneField(
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='nutrition.ingredient'
-                    )
+                        to='nutrition.ingredient',
+                    ),
                 ),
                 (
                     'license',
@@ -101,8 +101,8 @@ class Migration(migrations.Migration):
                         default=2,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
             ],
             options={
@@ -120,5 +120,5 @@ class Migration(migrations.Migration):
                 unique=True,
                 verbose_name='UUID',
             ),
-        )
+        ),
     ]

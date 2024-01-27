@@ -31,7 +31,7 @@ class License(models.Model):
             'If a license has been localized, e.g. the Creative '
             'Commons licenses for the different countries, add '
             'them as separate entries here.'
-        )
+        ),
     )
     """Full name"""
 
@@ -45,7 +45,7 @@ class License(models.Model):
         verbose_name=_('Link'),
         help_text=_('Link to license text or other information'),
         blank=True,
-        null=True
+        null=True,
     )
     """URL to full license text or other information"""
 
@@ -53,8 +53,9 @@ class License(models.Model):
         """
         Set Meta options
         """
+
         ordering = [
-            "full_name",
+            'full_name',
         ]
 
     #
@@ -64,7 +65,7 @@ class License(models.Model):
         """
         Return a more human-readable representation
         """
-        return f"{self.full_name} ({self.short_name})"
+        return f'{self.full_name} ({self.short_name})'
 
     #
     # Own methods

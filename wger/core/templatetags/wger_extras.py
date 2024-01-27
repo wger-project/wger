@@ -72,7 +72,6 @@ def pagination(paginator, page):
     # we muck around here to remove the pages not inmediately 'around' the current
     # one, otherwise we end up with a useless block with 300 pages.
     if paginator.num_pages > PAGINATION_MAX_TOTAL_PAGES:
-
         start_page = page.number - PAGINATION_PAGES_AROUND_CURRENT
         for i in range(page.number - PAGINATION_PAGES_AROUND_CURRENT, page.number + 1):
             if i > 0:
@@ -111,7 +110,7 @@ def render_muscles(muscles=None, muscles_sec=None):
     """
     Renders the given muscles
     """
-    out = {"backgrounds": []}
+    out = {'backgrounds': []}
     if not muscles and not muscles_sec:
         return out
 
@@ -124,13 +123,15 @@ def render_muscles(muscles=None, muscles_sec=None):
         out_secondary = muscles_sec if isinstance(muscles_sec, Iterable) else [muscles_sec]
 
     if out_main:
-        front_back = "front" if out_main[0].is_front else "back"
+        front_back = 'front' if out_main[0].is_front else 'back'
     else:
-        front_back = "front" if out_secondary[0].is_front else "back"
+        front_back = 'front' if out_secondary[0].is_front else 'back'
 
-    out['backgrounds'] = [i.image_url_main for i in out_main] \
-                         + [i.image_url_secondary for i in out_secondary] \
-                         + [static(f"images/muscles/muscular_system_{front_back}.svg")]
+    out['backgrounds'] = (
+        [i.image_url_main for i in out_main]
+        + [i.image_url_secondary for i in out_secondary]
+        + [static(f'images/muscles/muscular_system_{front_back}.svg')]
+    )
 
     return out
 
@@ -203,12 +204,12 @@ def trans_weight_unit(unit, user=None):
         if unit == 'kg':
             return _('kg')
         if unit == 'g':
-            return pgettext("weight unit, i.e. grams", "g")
+            return pgettext('weight unit, i.e. grams', 'g')
     else:
         if unit == 'kg':
             return _('lb')
         if unit == 'g':
-            return pgettext("weight unit, i.e. ounces", "oz")
+            return pgettext('weight unit, i.e. ounces', 'oz')
 
 
 @register.filter

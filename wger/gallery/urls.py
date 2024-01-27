@@ -50,5 +50,5 @@ patterns_images = [
 # All patterns for this app
 #
 urlpatterns = [
-    path('', include((patterns_images, 'images'), namespace="images")),
+    path('', include((patterns_images, 'images'), namespace='images')),
 ]

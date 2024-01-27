@@ -66,11 +66,10 @@ def control(request):
         'history/overview.html',
         {
             'context': out,
-
             # We can't pass the enum to the template, so we have to do this
             # https://stackoverflow.com/questions/35953132/
-            'verbs': StreamVerbs.__members__
-        }
+            'verbs': StreamVerbs.__members__,
+        },
     )
 
 
@@ -88,7 +87,7 @@ def history_revert(request, history_pk, content_type_id):
         request.user,
         verb=StreamVerbs.UPDATED.value,
         action_object=history.instance,
-        info='reverted history by admin'
+        info='reverted history by admin',
     )
 
     return HttpResponseRedirect(reverse('exercise:history:overview'))

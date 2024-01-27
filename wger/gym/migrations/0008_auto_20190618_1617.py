@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('gym', '0007_auto_20170123_0920'),
     ]
@@ -17,7 +16,7 @@ class Migration(migrations.Migration):
             field=models.BooleanField(
                 default=False,
                 help_text='Show the name of the gym in the site header',
-                verbose_name='Show name in header'
+                verbose_name='Show name in header',
             ),
         ),
     ]

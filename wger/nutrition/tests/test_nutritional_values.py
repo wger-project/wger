@@ -41,7 +41,7 @@ class NutritionalValuesTestCase(SimpleTestCase):
             fat=60,
             fat_saturated=50,
             fibres=40,
-            sodium=30
+            sodium=30,
         )
         values2 = NutritionalValues(
             energy=10,
@@ -51,7 +51,7 @@ class NutritionalValuesTestCase(SimpleTestCase):
             fat=6,
             fat_saturated=5,
             fibres=4,
-            sodium=3
+            sodium=3,
         )
         values3 = values1 + values2
 
@@ -65,7 +65,7 @@ class NutritionalValuesTestCase(SimpleTestCase):
                 fat=66,
                 fat_saturated=55,
                 fibres=44,
-                sodium=33
+                sodium=33,
             ),
         )
 
@@ -86,6 +86,6 @@ class NutritionalValuesTestCase(SimpleTestCase):
                 fat=0,
                 fat_saturated=20,
                 fibres=30,
-                sodium=40
+                sodium=40,
             ),
         )

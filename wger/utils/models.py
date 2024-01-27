@@ -64,7 +64,7 @@ class AbstractLicenseModel(models.Model):
         max_length=600,
         blank=True,
         null=True,
-        help_text=_('If you are not the author, enter the name or source here.')
+        help_text=_('If you are not the author, enter the name or source here.'),
     )
 
     license_author_url = models.URLField(
@@ -102,8 +102,10 @@ class AbstractLicenseModel(models.Model):
         out += f' is licensed under <a href="{self.license.url}">{self.license.short_name}</a>'
 
         if self.license_derivative_source_url:
-            out += f'/ A derivative work from <a href="{self.license_derivative_source_url}">the ' \
-                   f'original work</a>'
+            out += (
+                f'/ A derivative work from <a href="{self.license_derivative_source_url}">the '
+                f'original work</a>'
+            )
 
         return out
 

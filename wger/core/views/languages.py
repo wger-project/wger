@@ -50,6 +50,7 @@ class LanguageListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Show an overview of all languages
     """
+
     model = Language
     template_name = 'language/overview.html'
     context_object_name = 'language_list'

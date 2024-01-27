@@ -27,17 +27,18 @@ class ExerciseCommentRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(ExerciseComment.objects.get(pk=1)), 'test 123')
+        self.assertEqual('{0}'.format(ExerciseComment.objects.get(pk=1)), 'test 123')
 
 
 class ExerciseCommentApiTestCase(ExerciseCrudApiTestCase):
     """
     Tests the exercise comment overview resource
     """
+
     pk = 1
     resource = ExerciseComment
     data = {
-        "comment": "a cool comment",
-        "exercise": "1",
-        "id": 1,
+        'comment': 'a cool comment',
+        'exercise': '1',
+        'id': 1,
     }

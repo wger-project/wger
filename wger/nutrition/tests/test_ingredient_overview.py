@@ -30,18 +30,18 @@ class IngredientOverviewTestCase(WgerTestCase):
         # Add more ingredients so we can test the pagination
         self.user_login('admin')
         data = {
-            "name": "Test ingredient",
-            "language": 2,
-            "sodium": 10.54,
-            "energy": 176,
-            "fat": 8.19,
-            "carbohydrates_sugar": 0.0,
-            "fat_saturated": 3.24,
-            "fibres": 0.0,
-            "protein": 25.63,
-            "carbohydrates": 0.0,
+            'name': 'Test ingredient',
+            'language': 2,
+            'sodium': 10.54,
+            'energy': 176,
+            'fat': 8.19,
+            'carbohydrates_sugar': 0.0,
+            'fat_saturated': 3.24,
+            'fibres': 0.0,
+            'protein': 25.63,
+            'carbohydrates': 0.0,
             'license': 1,
-            'license_author': 'internet'
+            'license_author': 'internet',
         }
         for i in range(0, 50):
             self.client.post(reverse('nutrition:ingredient:add'), data)

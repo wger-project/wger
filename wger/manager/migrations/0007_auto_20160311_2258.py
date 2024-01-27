@@ -25,7 +25,6 @@ def convert_settings(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0006_auto_20160303_2138'),
     ]

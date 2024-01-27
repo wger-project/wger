@@ -20,47 +20,43 @@ from wger.utils.url import make_uri
 
 
 class TestMakeUri(unittest.TestCase):
-
     def test_make_uri(self):
         # Test default server_url
         self.assertEqual(
-            make_uri("test"),
-            "https://wger.de/api/v2/test/",
+            make_uri('test'),
+            'https://wger.de/api/v2/test/',
         )
 
         # Test custom server_url
         self.assertEqual(
-            make_uri("test", server_url="https://api.example.com"),
-            "https://api.example.com/api/v2/test/"
+            make_uri('test', server_url='https://api.example.com'),
+            'https://api.example.com/api/v2/test/',
         )
 
         # Test with id
         self.assertEqual(
-            make_uri("test", id=123),
-            "https://wger.de/api/v2/test/123/",
+            make_uri('test', id=123),
+            'https://wger.de/api/v2/test/123/',
         )
 
         # Test with object_method
         self.assertEqual(
-            make_uri("test", object_method="create"),
-            "https://wger.de/api/v2/test/create/",
+            make_uri('test', object_method='create'),
+            'https://wger.de/api/v2/test/create/',
         )
 
         # Test with query parameters
         self.assertEqual(
-            make_uri("endpoint", query={
-                "key1": "value1",
-                "key2": "value2"
-            }),
-            "https://wger.de/api/v2/endpoint/?key1=value1&key2=value2",
+            make_uri('endpoint', query={'key1': 'value1', 'key2': 'value2'}),
+            'https://wger.de/api/v2/endpoint/?key1=value1&key2=value2',
         )
 
         # Test with all parameters
         self.assertEqual(
-            make_uri("test", id=123, object_method="create", query={"key1": "value1"}),
-            "https://wger.de/api/v2/test/123/create/?key1=value1",
+            make_uri('test', id=123, object_method='create', query={'key1': 'value1'}),
+            'https://wger.de/api/v2/test/123/create/?key1=value1',
         )
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

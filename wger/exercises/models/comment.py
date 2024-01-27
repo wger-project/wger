@@ -38,6 +38,7 @@ class ExerciseComment(models.Model):
     """
     Model for an exercise comment
     """
+
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
@@ -55,7 +56,7 @@ class ExerciseComment(models.Model):
     comment = models.CharField(
         max_length=200,
         verbose_name=_('Comment'),
-        help_text=_('A comment about how to correctly do this exercise.')
+        help_text=_('A comment about how to correctly do this exercise.'),
     )
 
     history = HistoricalRecords()

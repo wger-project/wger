@@ -25,10 +25,11 @@ class MealApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the meal overview resource
     """
+
     pk = 2
     resource = Meal
     private_resource = True
-    special_endpoints = ('nutritional_values', )
+    special_endpoints = ('nutritional_values',)
     data = {
         'time': datetime.time(9, 2),
         'plan': 4,

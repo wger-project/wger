@@ -69,7 +69,7 @@ patterns_user = [
     path(
         'login',
         views.LoginView.as_view(template_name='user/login.html', authentication_form=UserLoginForm),
-        name='login'
+        name='login',
     ),
     path('logout', user.logout, name='logout'),
     path('delete', user.delete, name='delete'),
@@ -85,7 +85,6 @@ patterns_user = [
     path('<int:pk>/edit', user.UserEditView.as_view(), name='edit'),
     path('<int:pk>/overview', user.UserDetailView.as_view(), name='overview'),
     path('list', user.UserListView.as_view(), name='list'),
-
     # Password reset is implemented by Django, no need to cook our own soup here
     # (besides the templates)
     path(
@@ -191,17 +190,14 @@ patterns_weight_units = [
 # Actual patterns
 #
 urlpatterns = [
-
     # The landing page
     path('', misc.index, name='index'),
-
     # The dashboard
     path('dashboard', misc.dashboard, name='dashboard'),
-
     # Others
     path(
         'imprint',
-        TemplateView.as_view(template_name="misc/about.html"),
+        TemplateView.as_view(template_name='misc/about.html'),
         name='imprint',
     ),
     path(
@@ -209,12 +205,12 @@ urlpatterns = [
         misc.FeedbackClass.as_view(),
         name='feedback',
     ),
-    path('language/', include((patterns_language, 'language'), namespace="language")),
-    path('user/', include((patterns_user, 'user'), namespace="user")),
-    path('license/', include((patterns_license, 'license'), namespace="license")),
+    path('language/', include((patterns_language, 'language'), namespace='language')),
+    path('user/', include((patterns_user, 'user'), namespace='user')),
+    path('license/', include((patterns_license, 'license'), namespace='license')),
     path(
         'repetition-unit/',
-        include((patterns_repetition_units, 'repetition-unit'), namespace="repetition-unit")
+        include((patterns_repetition_units, 'repetition-unit'), namespace='repetition-unit'),
     ),
-    path('weight-unit/', include((patterns_weight_units, 'weight-unit'), namespace="weight-unit")),
+    path('weight-unit/', include((patterns_weight_units, 'weight-unit'), namespace='weight-unit')),
 ]

@@ -22,7 +22,7 @@ from wger.nutrition.models import Ingredient
 
 
 class NutritionSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = 'monthly'
     priority = 0.5
 
     def items(self):

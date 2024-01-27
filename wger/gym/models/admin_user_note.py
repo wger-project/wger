@@ -29,8 +29,9 @@ class AdminUserNote(m.Model):
         """
         Order by time
         """
+
         ordering = [
-            "-timestamp_created",
+            '-timestamp_created',
         ]
 
     user = m.ForeignKey(

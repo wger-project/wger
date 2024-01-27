@@ -61,8 +61,7 @@ def set_user_age(sender, instance, **kwargs):
         today = datetime.date.today()
         birthday = instance.birthdate
         instance.age = (
-            today.year - birthday.year -
-            ((today.month, today.day) < (birthday.month, birthday.day))
+            today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
         )
 
 

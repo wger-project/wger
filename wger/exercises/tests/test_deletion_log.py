@@ -76,7 +76,7 @@ class DeletionLogTestCase(WgerTestCase):
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
         base = ExerciseBase.objects.get(pk=1)
-        base.delete(replace_by="ae3328ba-9a35-4731-bc23-5da50720c5aa")
+        base.delete(replace_by='ae3328ba-9a35-4731-bc23-5da50720c5aa')
 
         # Base is deleted
         log = DeletionLog.objects.get(pk=1)
@@ -93,7 +93,7 @@ class DeletionLogTestCase(WgerTestCase):
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
         base = ExerciseBase.objects.get(pk=1)
-        base.delete(replace_by="12345678-1234-1234-1234-1234567890ab")
+        base.delete(replace_by='12345678-1234-1234-1234-1234567890ab')
 
         # Base is deleted
         log = DeletionLog.objects.get(pk=1)

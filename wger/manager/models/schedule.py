@@ -54,8 +54,7 @@ class Schedule(models.Model):
     name = models.CharField(
         verbose_name=_('Name'),
         max_length=100,
-        help_text=_("Name or short description of the schedule. "
-                    "For example 'Program XYZ'."),
+        help_text=_('Name or short description of the schedule. ' "For example 'Program XYZ'."),
     )
     """Name or short description of the schedule."""
 
@@ -66,10 +65,10 @@ class Schedule(models.Model):
         verbose_name=_('Schedule active'),
         default=True,
         help_text=_(
-            "Tick the box if you want to mark this schedule "
-            "as your active one (will be shown e.g. on your "
-            "dashboard). All other schedules will then be "
-            "marked as inactive"
+            'Tick the box if you want to mark this schedule '
+            'as your active one (will be shown e.g. on your '
+            'dashboard). All other schedules will then be '
+            'marked as inactive'
         ),
     )
     """A flag indicating whether the schedule is active (needed for dashboard)"""
@@ -78,8 +77,8 @@ class Schedule(models.Model):
         verbose_name=_('Is a loop'),
         default=False,
         help_text=_(
-            "Tick the box if you want to repeat the schedules "
-            "in a loop (i.e. A, B, C, A, B, C, and so on)"
+            'Tick the box if you want to repeat the schedules '
+            'in a loop (i.e. A, B, C, A, B, C, and so on)'
         ),
     )
     """A flag indicating whether the schedule should act as a loop"""
