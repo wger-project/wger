@@ -52,7 +52,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 #
 # REST API
 #
@@ -256,9 +255,9 @@ urlpatterns += [
         core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
         name='api_register',
     ),
-    path('api/v2/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/v2/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/v2/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('api/v2/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
     # Others
     path(
         'api/v2/version/',
