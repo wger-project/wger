@@ -22,7 +22,6 @@ from wger.core.tests.base_testcase import BaseTestCase
 
 
 class CheckPermissionApiTestCase(BaseTestCase, ApiBaseTestCase):
-
     url = '/api/v2/check-permission/'
     error_message = "Please pass a permission name in the 'permission' parameter"
 

@@ -113,13 +113,13 @@ class WorkoutLog(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        ordering = ["date", "reps"]
+        ordering = ['date', 'reps']
 
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return "Log entry: {0} - {1} kg on {2}".format(self.reps, self.weight, self.date)
+        return 'Log entry: {0} - {1} kg on {2}'.format(self.reps, self.weight, self.date)
 
     def get_owner_object(self):
         """

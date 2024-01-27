@@ -51,13 +51,14 @@ class GymAddUserTestCase(WgerTestCase):
             self.assertEqual(response.status_code, 200)
 
         response = self.client.post(
-            reverse('gym:gym:add-user', kwargs={'gym_pk': 1}), {
+            reverse('gym:gym:add-user', kwargs={'gym_pk': 1}),
+            {
                 'first_name': 'Cletus',
                 'last_name': 'Spuckle',
                 'username': 'cletus',
                 'email': 'cletus@spuckle-megacorp.com',
                 'role': 'admin',
-            }
+            },
         )
         count_after = User.objects.all().count()
         if fail:

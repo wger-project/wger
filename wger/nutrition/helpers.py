@@ -61,7 +61,7 @@ class BaseMealItem:
         if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
             item_weight = self.amount
         else:
-            item_weight = (self.amount * self.weight_unit.amount * self.weight_unit.gram)
+            item_weight = self.amount * self.weight_unit.amount * self.weight_unit.gram
 
         values.energy = self.ingredient.energy * item_weight / 100
         values.protein = self.ingredient.protein * item_weight / 100
@@ -125,16 +125,19 @@ class NutritionalValues:
             energy=self.energy + other.energy,
             protein=self.protein + other.protein,
             carbohydrates=self.carbohydrates + other.carbohydrates,
-            carbohydrates_sugar=self.carbohydrates_sugar +
-            other.carbohydrates_sugar if self.carbohydrates_sugar and other.carbohydrates_sugar else
-            self.carbohydrates_sugar or other.carbohydrates_sugar,
+            carbohydrates_sugar=self.carbohydrates_sugar + other.carbohydrates_sugar
+            if self.carbohydrates_sugar and other.carbohydrates_sugar
+            else self.carbohydrates_sugar or other.carbohydrates_sugar,
             fat=self.fat + other.fat,
-            fat_saturated=self.fat_saturated + other.fat_saturated if self.fat_saturated
-            and other.fat_saturated else self.fat_saturated or other.fat_saturated,
-            fibres=self.fibres +
-            other.fibres if self.fibres and other.fibres else self.fibres or other.fibres,
-            sodium=self.sodium +
-            other.sodium if self.sodium and other.sodium else self.sodium or other.sodium,
+            fat_saturated=self.fat_saturated + other.fat_saturated
+            if self.fat_saturated and other.fat_saturated
+            else self.fat_saturated or other.fat_saturated,
+            fibres=self.fibres + other.fibres
+            if self.fibres and other.fibres
+            else self.fibres or other.fibres,
+            sodium=self.sodium + other.sodium
+            if self.sodium and other.sodium
+            else self.sodium or other.sodium,
         )
 
     @property

@@ -74,7 +74,6 @@ class CopyWorkoutTestCase(WgerTestCase):
             sets_copy = days_copy[i].set_set.all()
 
             for j in range(days_original[i].set_set.count()):
-
                 self.assertEqual(sets_original[j].sets, sets_copy[j].sets)
                 self.assertEqual(sets_original[j].order, sets_copy[j].order)
                 self.assertEqual(sets_original[j].comment, sets_copy[j].comment)

@@ -9,7 +9,6 @@ import wger.exercises.models.video
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0014_merge_20210818_1735'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -24,18 +23,17 @@ class Migration(migrations.Migration):
                     'id',
                     models.IntegerField(
                         auto_created=True, blank=True, db_index=True, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'license_author',
                     models.CharField(
                         blank=True,
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                        help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=50,
                         null=True,
-                        verbose_name='Author'
-                    )
+                        verbose_name='Author',
+                    ),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
                 ('is_main', models.BooleanField(default=False, verbose_name='Main video')),
@@ -44,8 +42,8 @@ class Migration(migrations.Migration):
                     models.TextField(
                         max_length=100,
                         validators=[wger.exercises.models.video.validate_video],
-                        verbose_name='Video'
-                    )
+                        verbose_name='Video',
+                    ),
                 ),
                 ('size', models.IntegerField(default=0, editable=False, verbose_name='Size')),
                 (
@@ -55,8 +53,8 @@ class Migration(migrations.Migration):
                         default=0,
                         editable=False,
                         max_digits=12,
-                        verbose_name='Duration'
-                    )
+                        verbose_name='Duration',
+                    ),
                 ),
                 ('width', models.IntegerField(default=0, editable=False, verbose_name='Width')),
                 ('height', models.IntegerField(default=0, editable=False, verbose_name='Height')),
@@ -64,13 +62,13 @@ class Migration(migrations.Migration):
                     'codec',
                     models.CharField(
                         default='', editable=False, max_length=30, verbose_name='Codec'
-                    )
+                    ),
                 ),
                 (
                     'codec_long',
                     models.CharField(
                         default='', editable=False, max_length=100, verbose_name='Codec, long name'
-                    )
+                    ),
                 ),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
                 ('history_date', models.DateTimeField(db_index=True)),
@@ -78,9 +76,8 @@ class Migration(migrations.Migration):
                 (
                     'history_type',
                     models.CharField(
-                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')],
-                        max_length=1
-                    )
+                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1
+                    ),
                 ),
                 (
                     'exercise_base',
@@ -91,8 +88,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercisebase',
-                        verbose_name='Exercise'
-                    )
+                        verbose_name='Exercise',
+                    ),
                 ),
                 (
                     'history_user',
@@ -100,8 +97,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name='+',
-                        to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
                 (
                     'license',
@@ -113,8 +110,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
             ],
             options={
@@ -132,18 +129,17 @@ class Migration(migrations.Migration):
                     'id',
                     models.IntegerField(
                         auto_created=True, blank=True, db_index=True, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'license_author',
                     models.CharField(
                         blank=True,
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                        help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=50,
                         null=True,
-                        verbose_name='Author'
-                    )
+                        verbose_name='Author',
+                    ),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
                 (
@@ -151,29 +147,31 @@ class Migration(migrations.Migration):
                     models.TextField(
                         help_text='Only PNG and JPEG formats are supported',
                         max_length=100,
-                        verbose_name='Image'
-                    )
+                        verbose_name='Image',
+                    ),
                 ),
                 (
                     'is_main',
                     models.BooleanField(
                         default=False,
-                        help_text=
-                        'Tick the box if you want to set this image as the main one for the exercise (will be shown e.g. in the search). The first image is automatically marked by the system.',
-                        verbose_name='Main picture'
-                    )
+                        help_text='Tick the box if you want to set this image as the main one for the exercise (will be shown e.g. in the search). The first image is automatically marked by the system.',
+                        verbose_name='Main picture',
+                    ),
                 ),
                 (
                     'style',
                     models.CharField(
                         choices=[
-                            ('1', 'Line'), ('2', '3D'), ('3', 'Low-poly'), ('4', 'Photo'),
-                            ('5', 'Other')
+                            ('1', 'Line'),
+                            ('2', '3D'),
+                            ('3', 'Low-poly'),
+                            ('4', 'Photo'),
+                            ('5', 'Other'),
                         ],
                         default='4',
                         help_text='The art style of your image',
-                        max_length=1
-                    )
+                        max_length=1,
+                    ),
                 ),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
                 ('history_date', models.DateTimeField(db_index=True)),
@@ -181,9 +179,8 @@ class Migration(migrations.Migration):
                 (
                     'history_type',
                     models.CharField(
-                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')],
-                        max_length=1
-                    )
+                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1
+                    ),
                 ),
                 (
                     'exercise_base',
@@ -194,8 +191,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercisebase',
-                        verbose_name='Exercise'
-                    )
+                        verbose_name='Exercise',
+                    ),
                 ),
                 (
                     'history_user',
@@ -203,8 +200,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name='+',
-                        to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
                 (
                     'license',
@@ -216,8 +213,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
             ],
             options={

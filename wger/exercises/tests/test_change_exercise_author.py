@@ -44,7 +44,7 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         """
         Test to ensure command handles a missing exercise parameters
         """
-        args = ["--author-name", "tom"]
+        args = ['--author-name', 'tom']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn('Please enter an exercise base or exercise ID', self.out.getvalue())
 
@@ -53,25 +53,25 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         Test to ensure command can handle an exercise base id passed
         """
         exercise_base = ExerciseBase.objects.get(id=2)
-        self.assertNotEqual(exercise_base.license_author, "tom")
+        self.assertNotEqual(exercise_base.license_author, 'tom')
 
-        args = ["--author-name", "tom", "--exercise-base-id", "2"]
+        args = ['--author-name', 'tom', '--exercise-base-id', '2']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
 
         exercise_base = ExerciseBase.objects.get(id=2)
-        self.assertEqual(exercise_base.license_author, "tom")
+        self.assertEqual(exercise_base.license_author, 'tom')
 
     def test_can_update_exercise(self):
         """
         Test to ensure command can handle an exercise id passed
         """
         exercise = Exercise.objects.get(id=1)
-        self.assertNotEqual(exercise.license_author, "tom")
+        self.assertNotEqual(exercise.license_author, 'tom')
 
-        args = ["--author-name", "tom", "--exercise-id", "1"]
+        args = ['--author-name', 'tom', '--exercise-id', '1']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
 
         exercise = Exercise.objects.get(id=1)
-        self.assertEqual(exercise.license_author, "tom")
+        self.assertEqual(exercise.license_author, 'tom')

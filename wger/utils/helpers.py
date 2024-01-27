@@ -42,7 +42,6 @@ logger = logging.getLogger(__name__)
 
 
 class EmailAuthBackend:
-
     def authenticate(self, request, username=None, password=None):
         try:
             user = User.objects.get(email=username)
@@ -146,7 +145,7 @@ def check_token(uidb64, token):
         try:
             uid = int(urlsafe_base64_decode(uidb64))
         except ValueError as e:
-            logger.info("Could not decode UID: {0}".format(e))
+            logger.info('Could not decode UID: {0}'.format(e))
             return False
 
         try:
@@ -169,7 +168,7 @@ def password_generator(length=15):
     :return: the generated password
     """
     chars = string.ascii_letters + string.digits
-    random.seed = (os.urandom(1024))
+    random.seed = os.urandom(1024)
     for char in ('I', '1', 'l', 'O', '0', 'o'):
         chars = chars.replace(char, '')
 
@@ -219,7 +218,7 @@ def normalize_decimal(d):
     normalized = d.normalize()
     sign, digits, exponent = normalized.as_tuple()
     if exponent > 0:
-        return decimal.Decimal((sign, digits + (0, ) * exponent, 0))
+        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
     else:
         return normalized
 
@@ -232,7 +231,6 @@ def random_string(length=32):
 
 
 class BaseImage:
-
     def save_image(self, retrieved_image, json_data: dict):
         # Save the downloaded image
         # http://stackoverflow.com/questions/1308386/programmatically-saving-image-to

@@ -231,7 +231,7 @@ class ApiPostTestCase:
             response = self.client.post(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Authorized user (owner)
@@ -239,7 +239,7 @@ class ApiPostTestCase:
             response = self.client.post(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Different logged in user
@@ -247,7 +247,7 @@ class ApiPostTestCase:
             response = self.client.post(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
     def test_post(self):
@@ -279,7 +279,7 @@ class ApiPostTestCase:
             response = self.client.post(self.url, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Logged in user
@@ -287,7 +287,7 @@ class ApiPostTestCase:
             response = self.client.post(self.url, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Different logged in user
@@ -298,7 +298,7 @@ class ApiPostTestCase:
             else:
                 self.assertIn(
                     response.status_code,
-                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
                 )
 
     def test_post_special_endpoints(self):
@@ -362,7 +362,7 @@ class ApiPatchTestCase:
             response = self.client.patch(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Authorized user (owner)
@@ -370,7 +370,7 @@ class ApiPatchTestCase:
             response = self.client.patch(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Different logged in user
@@ -381,7 +381,7 @@ class ApiPatchTestCase:
             else:
                 self.assertIn(
                     response.status_code,
-                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
                 )
 
     def test_patch(self):
@@ -398,7 +398,7 @@ class ApiPatchTestCase:
             response = self.client.patch(self.url, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
         # Logged in user
@@ -488,7 +488,7 @@ class ApiPutTestCase:
             response = self.client.put(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Authorized user (owner)
@@ -496,7 +496,7 @@ class ApiPutTestCase:
             response = self.client.put(self.url_detail, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Different logged in user
@@ -507,7 +507,7 @@ class ApiPutTestCase:
             else:
                 self.assertIn(
                     response.status_code,
-                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                    (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
                 )
 
     def test_put(self):
@@ -525,7 +525,7 @@ class ApiPutTestCase:
             response = self.client.put(self.url, data=self.data)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
         # Authorized user (owner)
@@ -601,7 +601,7 @@ class ApiDeleteTestCase:
             response = self.client.delete(self.url_detail)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Logged in user
@@ -609,7 +609,7 @@ class ApiDeleteTestCase:
             response = self.client.delete(self.url_detail)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Different logged in user
@@ -617,7 +617,7 @@ class ApiDeleteTestCase:
             response = self.client.delete(self.url_detail)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
     def test_delete(self):
@@ -643,7 +643,7 @@ class ApiDeleteTestCase:
             response = self.client.delete(self.url)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Authorized user (owner)
@@ -651,7 +651,7 @@ class ApiDeleteTestCase:
             response = self.client.delete(self.url)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
             # Different logged in user
@@ -659,7 +659,7 @@ class ApiDeleteTestCase:
             response = self.client.delete(self.url)
             self.assertIn(
                 response.status_code,
-                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN)
+                (status.HTTP_405_METHOD_NOT_ALLOWED, status.HTTP_403_FORBIDDEN),
             )
 
     def test_delete_special_endpoints(self):
@@ -700,6 +700,7 @@ class ApiBaseResourceTestCase(
 
     All logic happens in the Api*TestCase classes
     """
+
     pass
 
 

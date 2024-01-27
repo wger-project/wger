@@ -45,6 +45,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise
     """
+
     description = models.TextField(
         max_length=2000,
         verbose_name=_('Description'),
@@ -104,7 +105,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     class Meta:
         base_manager_name = 'objects'
         ordering = [
-            "name",
+            'name',
         ]
 
     def get_absolute_url(self):

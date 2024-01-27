@@ -41,4 +41,4 @@ class UserCache(models.Model):
         """
         Return a more human-readable representation
         """
-        return f"Cache for user {self.user}"
+        return f'Cache for user {self.user}'

@@ -99,11 +99,11 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
     pk = 1
 
     data = {
-        "category": 3,
-        "muscles": [1, 3],
-        "muscles_secondary": [2],
-        "equipment": [3],
-        "variations": 4
+        'category': 3,
+        'muscles': [1, 3],
+        'muscles_secondary': [2],
+        'equipment': [3],
+        'variations': 4,
     }
 
     def get_resource_name(self):

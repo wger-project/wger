@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0011_auto_20201201_0653'),
         ('exercises', '0007_auto_20201203_1042'),
@@ -20,7 +19,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'license_author',
@@ -32,8 +31,8 @@ class Migration(migrations.Migration):
                                                                CC-BY-SA.',
                         max_length=50,
                         null=True,
-                        verbose_name='Author'
-                    )
+                        verbose_name='Author',
+                    ),
                 ),
                 (
                     'status',
@@ -41,22 +40,22 @@ class Migration(migrations.Migration):
                         choices=[('1', 'Pending'), ('2', 'Accepted'), ('3', 'Declined')],
                         default='1',
                         editable=False,
-                        max_length=2
-                    )
+                        max_length=2,
+                    ),
                 ),
                 (
                     'category',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to='exercises.exercisecategory',
-                        verbose_name='Category'
-                    )
+                        verbose_name='Category',
+                    ),
                 ),
                 (
                     'equipment',
                     models.ManyToManyField(
                         blank=True, to='exercises.Equipment', verbose_name='Equipment'
-                    )
+                    ),
                 ),
                 (
                     'license',
@@ -64,14 +63,14 @@ class Migration(migrations.Migration):
                         default=2,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
                 (
                     'muscles',
                     models.ManyToManyField(
                         blank=True, to='exercises.Muscle', verbose_name='Primary muscles'
-                    )
+                    ),
                 ),
                 (
                     'muscles_secondary',
@@ -79,8 +78,8 @@ class Migration(migrations.Migration):
                         blank=True,
                         related_name='secondary_muscles_base',
                         to='exercises.Muscle',
-                        verbose_name='Secondary muscles'
-                    )
+                        verbose_name='Secondary muscles',
+                    ),
                 ),
                 (
                     'variations',
@@ -88,8 +87,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         to='exercises.variation',
-                        verbose_name='Variations'
-                    )
+                        verbose_name='Variations',
+                    ),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
             ],
@@ -106,7 +105,7 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name='exercises',
                 to='exercises.exercisebase',
-                verbose_name='ExerciseBase'
+                verbose_name='ExerciseBase',
             ),
         ),
         migrations.AlterField(
@@ -115,7 +114,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.exercisebase',
-                verbose_name='Exercise'
+                verbose_name='Exercise',
             ),
         ),
     ]

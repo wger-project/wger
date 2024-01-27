@@ -4,7 +4,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('gym', '0003_auto_20151003_2008'),
     ]

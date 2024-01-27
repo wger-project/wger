@@ -41,7 +41,7 @@ class WeightUnit(models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "name",
+            'name',
         ]
 
     def __str__(self):

@@ -48,6 +48,7 @@ class ExerciseBaseModelTestCase(WgerTestCase):
     """
     Test custom model logic
     """
+
     exercise: ExerciseBase
 
     def setUp(self):
@@ -66,12 +67,12 @@ class ExerciseBaseModelTestCase(WgerTestCase):
 
         self.assertEqual(
             max(*[translation.last_update for translation in self.exercise.exercises.all()]),
-            datetime.datetime(2022, 2, 2, 5, 45, 11, tzinfo=utc)
+            datetime.datetime(2022, 2, 2, 5, 45, 11, tzinfo=utc),
         )
 
         self.assertEqual(
             max(*[video.last_update for video in self.exercise.exerciseimage_set.all()]),
-            datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc)
+            datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc),
         )
 
     def test_exercise_en(self):

@@ -38,6 +38,7 @@ class Set(models.Model):
     """
     Model for a set of exercises
     """
+
     DEFAULT_SETS = 4
     MAX_SETS = 10
 
@@ -62,14 +63,14 @@ class Set(models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "order",
+            'order',
         ]
 
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return "Set-ID {0}".format(self.id)
+        return 'Set-ID {0}'.format(self.id)
 
     def get_owner_object(self):
         """
@@ -160,9 +161,9 @@ class Set(models.Model):
             """
 
             if setting.rir:
-                rir = f"{setting.rir} RiR"
+                rir = f'{setting.rir} RiR'
             else:
-                rir = ""
+                rir = ''
             return rir
 
         def get_reps_reprentation(setting, rep_unit):
@@ -173,7 +174,7 @@ class Set(models.Model):
             "Until Failure" unit
             """
             if setting.repetition_unit_id != 2:
-                reps = "{0} {1}".format(setting.reps, rep_unit).strip()
+                reps = '{0} {1}'.format(setting.reps, rep_unit).strip()
             else:
                 reps = '∞'
             return reps

@@ -129,8 +129,9 @@ class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the workout overview resource
     """
+
     pk = 3
     resource = Workout
     private_resource = True
-    special_endpoints = ('canonical_representation', )
+    special_endpoints = ('canonical_representation',)
     data = {'name': 'A new comment'}

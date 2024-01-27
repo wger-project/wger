@@ -42,12 +42,10 @@ def users(request, gym_pk):
     """
     gym = get_object_or_404(Gym, pk=gym_pk)
 
-    if not request.user.has_perm('gym.manage_gyms') \
-            and not request.user.has_perm('gym.manage_gym'):
+    if not request.user.has_perm('gym.manage_gyms') and not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    if request.user.has_perm('gym.manage_gym') \
-            and request.user.userprofile.gym != gym:
+    if request.user.has_perm('gym.manage_gym') and request.user.userprofile.gym != gym:
         return HttpResponseForbidden()
 
     # Create CSV 'file'
@@ -67,7 +65,7 @@ def users(request, gym_pk):
             _('ZIP code'),
             _('City'),
             _('Street'),
-            _('Phone')
+            _('Phone'),
         ]
     )
     for user in Gym.objects.get_members(gym_pk):

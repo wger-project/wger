@@ -31,11 +31,10 @@ from wger.measurements.models import Category
 
 
 class Measurement(models.Model):
-
     class Meta:
         unique_together = ('date', 'category')
         ordering = [
-            "-date",
+            '-date',
         ]
 
     category = models.ForeignKey(
@@ -56,7 +55,7 @@ class Measurement(models.Model):
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5000),
-        ]
+        ],
     )
 
     notes = models.CharField(

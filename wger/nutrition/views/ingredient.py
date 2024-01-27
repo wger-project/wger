@@ -70,6 +70,7 @@ class IngredientListView(ListView):
     """
     Show an overview of all ingredients
     """
+
     model = Ingredient
     template_name = 'ingredient/overview.html'
     context_object_name = 'ingredients_list'
@@ -93,11 +94,7 @@ def view(request, pk, slug=None):
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)
     context['form'] = UnitChooserForm(
-        data={
-            'ingredient_id': ingredient.id,
-            'amount': 100,
-            'unit': None
-        }
+        data={'ingredient_id': ingredient.id, 'amount': 100, 'unit': None}
     )
 
     return render(request, 'ingredient/view.html', context)
@@ -150,6 +147,7 @@ class IngredientCreateView(WgerFormMixin, CreateView):
     """
     Generic view to add a new ingredient
     """
+
     template_name = 'form.html'
     model = Ingredient
     form_class = IngredientForm

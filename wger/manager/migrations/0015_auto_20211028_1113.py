@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0014_auto_20210717_1858'),
     ]
@@ -21,7 +20,7 @@ class Migration(migrations.Migration):
             field=models.BooleanField(
                 default=False,
                 help_text='A public template is available to other users',
-                verbose_name='Public template'
+                verbose_name='Public template',
             ),
         ),
         migrations.AlterField(
@@ -29,9 +28,8 @@ class Migration(migrations.Migration):
             name='is_template',
             field=models.BooleanField(
                 default=False,
-                help_text=
-                'Marking a workout as a template will freeze it and allow you to make copies of it',
-                verbose_name='Workout template'
+                help_text='Marking a workout as a template will freeze it and allow you to make copies of it',
+                verbose_name='Workout template',
             ),
         ),
     ]

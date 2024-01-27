@@ -10,7 +10,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0018_delete_pending_exercises'),
     ]
@@ -54,7 +53,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
                 to='exercises.variation',
-                verbose_name='Variations'
+                verbose_name='Variations',
             ),
         ),
         migrations.AlterField(
@@ -63,7 +62,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.exercise',
-                verbose_name='Exercise'
+                verbose_name='Exercise',
             ),
         ),
         migrations.CreateModel(
@@ -73,15 +72,15 @@ class Migration(migrations.Migration):
                     'id',
                     models.IntegerField(
                         auto_created=True, blank=True, db_index=True, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'comment',
                     models.CharField(
                         help_text='A comment about how to correctly do this exercise.',
                         max_length=200,
-                        verbose_name='Comment'
-                    )
+                        verbose_name='Comment',
+                    ),
                 ),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
                 ('history_date', models.DateTimeField(db_index=True)),
@@ -89,9 +88,8 @@ class Migration(migrations.Migration):
                 (
                     'history_type',
                     models.CharField(
-                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')],
-                        max_length=1
-                    )
+                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1
+                    ),
                 ),
                 (
                     'exercise',
@@ -102,8 +100,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercise',
-                        verbose_name='Exercise'
-                    )
+                        verbose_name='Exercise',
+                    ),
                 ),
                 (
                     'history_user',
@@ -111,8 +109,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name='+',
-                        to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
             ],
             options={
@@ -130,27 +128,26 @@ class Migration(migrations.Migration):
                     'id',
                     models.IntegerField(
                         auto_created=True, blank=True, db_index=True, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'license_author',
                     models.CharField(
                         blank=True,
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                        help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=50,
                         null=True,
-                        verbose_name='Author'
-                    )
+                        verbose_name='Author',
+                    ),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
                 (
                     'creation_date',
-                    models.DateField(blank=True, editable=False, verbose_name='Date')
+                    models.DateField(blank=True, editable=False, verbose_name='Date'),
                 ),
                 (
                     'update_date',
-                    models.DateTimeField(blank=True, editable=False, verbose_name='Date')
+                    models.DateTimeField(blank=True, editable=False, verbose_name='Date'),
                 ),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
                 ('history_date', models.DateTimeField(db_index=True)),
@@ -158,9 +155,8 @@ class Migration(migrations.Migration):
                 (
                     'history_type',
                     models.CharField(
-                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')],
-                        max_length=1
-                    )
+                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1
+                    ),
                 ),
                 (
                     'category',
@@ -171,8 +167,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercisecategory',
-                        verbose_name='Category'
-                    )
+                        verbose_name='Category',
+                    ),
                 ),
                 (
                     'history_user',
@@ -180,8 +176,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name='+',
-                        to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
                 (
                     'license',
@@ -193,8 +189,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
                 (
                     'variations',
@@ -205,8 +201,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.variation',
-                        verbose_name='Variations'
-                    )
+                        verbose_name='Variations',
+                    ),
                 ),
             ],
             options={
@@ -224,35 +220,34 @@ class Migration(migrations.Migration):
                     'id',
                     models.IntegerField(
                         auto_created=True, blank=True, db_index=True, verbose_name='ID'
-                    )
+                    ),
                 ),
                 (
                     'license_author',
                     models.CharField(
                         blank=True,
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                        help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=50,
                         null=True,
-                        verbose_name='Author'
-                    )
+                        verbose_name='Author',
+                    ),
                 ),
                 (
                     'description',
                     models.TextField(
                         max_length=2000,
                         validators=[django.core.validators.MinLengthValidator(40)],
-                        verbose_name='Description'
-                    )
+                        verbose_name='Description',
+                    ),
                 ),
                 ('name', models.CharField(max_length=200, verbose_name='Name')),
                 (
                     'creation_date',
-                    models.DateField(blank=True, editable=False, null=True, verbose_name='Date')
+                    models.DateField(blank=True, editable=False, null=True, verbose_name='Date'),
                 ),
                 (
                     'update_date',
-                    models.DateTimeField(blank=True, editable=False, verbose_name='Date')
+                    models.DateTimeField(blank=True, editable=False, verbose_name='Date'),
                 ),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='UUID')),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
@@ -261,9 +256,8 @@ class Migration(migrations.Migration):
                 (
                     'history_type',
                     models.CharField(
-                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')],
-                        max_length=1
-                    )
+                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1
+                    ),
                 ),
                 (
                     'exercise_base',
@@ -275,8 +269,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercisebase',
-                        verbose_name='ExerciseBase'
-                    )
+                        verbose_name='ExerciseBase',
+                    ),
                 ),
                 (
                     'history_user',
@@ -284,8 +278,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name='+',
-                        to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
                 (
                     'language',
@@ -296,8 +290,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='core.language',
-                        verbose_name='Language'
-                    )
+                        verbose_name='Language',
+                    ),
                 ),
                 (
                     'license',
@@ -309,8 +303,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='core.license',
-                        verbose_name='License'
-                    )
+                        verbose_name='License',
+                    ),
                 ),
             ],
             options={
@@ -328,7 +322,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.IntegerField(
                         auto_created=True, blank=True, db_index=True, verbose_name='ID'
-                    )
+                    ),
                 ),
                 ('alias', models.CharField(max_length=200, verbose_name='Alias for an exercise')),
                 ('history_id', models.AutoField(primary_key=True, serialize=False)),
@@ -337,9 +331,8 @@ class Migration(migrations.Migration):
                 (
                     'history_type',
                     models.CharField(
-                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')],
-                        max_length=1
-                    )
+                        choices=[('+', 'Created'), ('~', 'Changed'), ('-', 'Deleted')], max_length=1
+                    ),
                 ),
                 (
                     'exercise',
@@ -350,8 +343,8 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name='+',
                         to='exercises.exercise',
-                        verbose_name='Exercise'
-                    )
+                        verbose_name='Exercise',
+                    ),
                 ),
                 (
                     'history_user',
@@ -359,8 +352,8 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name='+',
-                        to=settings.AUTH_USER_MODEL
-                    )
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
             ],
             options={
@@ -383,7 +376,7 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name='exercises',
                 to='exercises.exercisebase',
-                verbose_name='ExerciseBase'
+                verbose_name='ExerciseBase',
             ),
         ),
         migrations.AlterField(
@@ -397,7 +390,7 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.DO_NOTHING,
                 related_name='+',
                 to='exercises.exercisebase',
-                verbose_name='ExerciseBase'
+                verbose_name='ExerciseBase',
             ),
         ),
     ]

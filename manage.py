@@ -12,6 +12,7 @@ from wger.tasks import (
     setup_django_environment,
 )
 
+
 if __name__ == '__main__':
     # If user passed the settings flag ignore the default wger settings
     if not any('--settings' in s for s in sys.argv):

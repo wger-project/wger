@@ -37,11 +37,9 @@ class Command(BaseCommand):
     help = 'Send out automatic emails to remind the user to enter the weight'
 
     def handle(self, **options):
-
         profile_list = UserProfile.objects.filter(num_days_weight_reminder__gt=0)
 
         for profile in profile_list:
-
             # Only continue if the user has provided an email address.
             # Checking it here so we check for NULL values and emtpy strings
             if not profile.user.email:
@@ -74,14 +72,11 @@ class Command(BaseCommand):
             'site': Site.objects.get_current(),
             'date': last_entry,
             'days': datediff,
-            'user': user
+            'user': user,
         }
 
         subject = _('You have to enter your weight')
         message = loader.render_to_string('workout/email_weight_reminder.tpl', context)
         mail.send_mail(
-            subject,
-            message,
-            settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
-            fail_silently=True
+            subject, message, settings.WGER_SETTINGS['EMAIL_FROM'], [user.email], fail_silently=True
         )

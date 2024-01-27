@@ -20,7 +20,7 @@ from django.apps import AppConfig
 
 class ConfigConfig(AppConfig):
     name = 'wger.config'
-    verbose_name = "Config"
+    verbose_name = 'Config'
 
     def ready(self):
         import wger.config.signals

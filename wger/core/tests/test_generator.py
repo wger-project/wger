@@ -22,7 +22,6 @@ from wger.gym.models import Gym
 
 
 class UserGeneratorTestCase(WgerTestCase):
-
     def test_generator(self):
         # Arrange
         User.objects.all().delete()

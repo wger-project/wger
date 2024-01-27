@@ -50,6 +50,7 @@ class ExerciseCategoryListView(LoginRequiredMixin, PermissionRequiredMixin, List
     """
     Overview of all categories, for administration purposes
     """
+
     model = ExerciseCategory
     permission_required = 'exercises.change_exercisecategory'
     template_name = 'categories/admin-overview.html'
@@ -115,7 +116,7 @@ class ExerciseCategoryDeleteView(
     """
 
     model = ExerciseCategory
-    fields = ('name', )
+    fields = ('name',)
     success_url = reverse_lazy('exercise:category:list')
     delete_message_extra = gettext_lazy('This will also delete all exercises in this category.')
     messages = gettext_lazy('Successfully deleted')

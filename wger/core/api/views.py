@@ -88,6 +88,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     returns the data for the currently logged-in user's profile. To update
     the profile, use a POST request with the new data, not a PATCH.
     """
+
     serializer_class = UserprofileSerializer
     permission_classes = (
         IsAuthenticated,
@@ -99,7 +100,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return UserProfile.objects.none()
 
         return UserProfile.objects.filter(user=self.request.user)
@@ -159,10 +160,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
         send_email(request.user)
         return Response(
-            {
-                'status': 'sent',
-                'message': f'A verification email was sent to {request.user.email}'
-            }
+            {'status': 'sent', 'message': f'A verification email was sent to {request.user.email}'}
         )
 
 
@@ -170,7 +168,8 @@ class ApplicationVersionView(viewsets.ViewSet):
     """
     Returns the application's version
     """
-    permission_classes = (AllowAny, )
+
+    permission_classes = (AllowAny,)
 
     @staticmethod
     @extend_schema(
@@ -187,7 +186,8 @@ class PermissionView(viewsets.ViewSet):
     """
     Checks whether the user has a django permission
     """
-    permission_classes = (AllowAny, )
+
+    permission_classes = (AllowAny,)
 
     @staticmethod
     @extend_schema(
@@ -200,12 +200,13 @@ class PermissionView(viewsets.ViewSet):
             ),
         ],
         responses={
-            201:
-            inline_serializer(name='PermissionResponse', fields={
-                'result': BooleanField(),
-            }),
-            400:
-            OpenApiResponse(
+            201: inline_serializer(
+                name='PermissionResponse',
+                fields={
+                    'result': BooleanField(),
+                },
+            ),
+            400: OpenApiResponse(
                 description="Please pass a permission name in the 'permission' parameter"
             ),
         },
@@ -230,7 +231,8 @@ class RequiredApplicationVersionView(viewsets.ViewSet):
     Returns the minimum required version of flutter app to access this server
     such as 1.4.2 or 3.0.0
     """
-    permission_classes = (AllowAny, )
+
+    permission_classes = (AllowAny,)
 
     @staticmethod
     @extend_schema(
@@ -250,7 +252,8 @@ class UserAPILoginView(viewsets.ViewSet):
 
     Note that it is recommended to use token authorization instead.
     """
-    permission_classes = (AllowAny, )
+
+    permission_classes = (AllowAny,)
     queryset = User.objects.all()
     serializer_class = UserLoginSerializer
     throttle_scope = 'login'
@@ -261,12 +264,11 @@ class UserAPILoginView(viewsets.ViewSet):
     @extend_schema(
         parameters=[],
         responses={
-            status.HTTP_200_OK:
-            inline_serializer(
+            status.HTTP_200_OK: inline_serializer(
                 name='loginSerializer',
                 fields={'token': CharField()},
             ),
-        }
+        },
     )
     def post(self, request):
         serializer = self.serializer_class(data=request.data, request=request)
@@ -292,8 +294,8 @@ class UserAPILoginView(viewsets.ViewSet):
             data={'token': token.key},
             status=status.HTTP_200_OK,
             headers={
-                "Deprecation": "Sat, 01 Oct 2022 23:59:59 GMT",
-            }
+                'Deprecation': 'Sat, 01 Oct 2022 23:59:59 GMT',
+            },
         )
 
 
@@ -301,7 +303,8 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
     """
     API endpoint
     """
-    permission_classes = (AllowRegisterUser, )
+
+    permission_classes = (AllowRegisterUser,)
     serializer_class = UserRegistrationSerializer
 
     def get_queryset(self):
@@ -313,12 +316,11 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
     @extend_schema(
         parameters=[],
         responses={
-            status.HTTP_200_OK:
-            inline_serializer(
+            status.HTTP_200_OK: inline_serializer(
                 name='loginSerializer',
                 fields={'token': CharField()},
             ),
-        }
+        },
     )
     def post(self, request):
         data = request.data
@@ -333,11 +335,8 @@ class UserAPIRegistrationViewSet(viewsets.ViewSet):
         send_email(user)
 
         return Response(
-            {
-                'message': 'api user successfully registered',
-                'token': token.key
-            },
-            status=status.HTTP_201_CREATED
+            {'message': 'api user successfully registered', 'token': token.key},
+            status=status.HTTP_201_CREATED,
         )
 
 
@@ -345,6 +344,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for the languages used in the application
     """
+
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
     ordering_fields = '__all__'
@@ -361,16 +361,18 @@ class DaysOfWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
     This has historical reasons, and it's better and easier to just define a simple enum
     """
+
     queryset = DaysOfWeek.objects.all()
     serializer_class = DaysOfWeekSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('day_of_week', )
+    filterset_fields = ('day_of_week',)
 
 
 class LicenseViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for license objects
     """
+
     queryset = License.objects.all()
     serializer_class = LicenseSerializer
     ordering_fields = '__all__'
@@ -385,17 +387,19 @@ class RepetitionUnitViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for repetition units objects
     """
+
     queryset = RepetitionUnit.objects.all()
     serializer_class = RepetitionUnitSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
 
 
 class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for weight units objects
     """
+
     queryset = WeightUnit.objects.all()
     serializer_class = RoutineWeightUnitSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)

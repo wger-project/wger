@@ -32,7 +32,6 @@ class ChangePasswordTestCase(WgerTestCase):
     """
 
     def change_password(self, fail=True):
-
         # Fetch the change passwort page
         response = self.client.get(reverse('core:user:change-password'))
 

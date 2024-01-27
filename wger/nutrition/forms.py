@@ -57,14 +57,15 @@ class UnitChooserForm(forms.Form):
     """
     A small form to select an amount and a unit for an ingredient
     """
+
     amount = forms.DecimalField(
-        decimal_places=2, label=gettext_lazy("Amount"), max_digits=5, localize=True
+        decimal_places=2, label=gettext_lazy('Amount'), max_digits=5, localize=True
     )
     unit = forms.ModelChoiceField(
         queryset=IngredientWeightUnit.objects.none(),
-        label=gettext_lazy("Unit"),
-        empty_label="g",
-        required=False
+        label=gettext_lazy('Unit'),
+        empty_label='g',
+        required=False,
     )
 
     def __init__(self, *args, **kwargs):
@@ -88,7 +89,7 @@ class UnitChooserForm(forms.Form):
             Row(
                 Column('amount', css_class='col-6'),
                 Column('unit', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             )
         )
         self.helper.form_tag = False
@@ -106,16 +107,18 @@ class BmiForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('height', )
+        fields = ('height',)
 
     def __init__(self, *args, **kwargs):
         super(BmiForm, self).__init__(*args, **kwargs)
 
         if 'initial' in kwargs:  # if the form is rendering for the first time
-            self['height'].label = _('Height (cm)'
-                                     ) if kwargs['initial']['use_metric'] else _('Height (in)')
-            self['weight'].label = _('Weight (kg)'
-                                     ) if kwargs['initial']['use_metric'] else _('Weight (lbs)')
+            self['height'].label = (
+                _('Height (cm)') if kwargs['initial']['use_metric'] else _('Height (in)')
+            )
+            self['weight'].label = (
+                _('Weight (kg)') if kwargs['initial']['use_metric'] else _('Weight (lbs)')
+            )
 
         self.helper = FormHelper()
         self.helper.form_action = reverse('nutrition:bmi:calculate')
@@ -125,8 +128,9 @@ class BmiForm(forms.ModelForm):
             Row(
                 Column('height', css_class='col-6'),
                 Column('weight', css_class='col-6'),
-                css_class='form-row'
-            ), ButtonHolder(Submit('submit', _("Calculate"), css_class='btn-success'))
+                css_class='form-row',
+            ),
+            ButtonHolder(Submit('submit', _('Calculate'), css_class='btn-success')),
         )
 
 
@@ -134,6 +138,7 @@ class BmrForm(forms.ModelForm):
     """
     Form for the basal metabolic rate
     """
+
     weight = forms.DecimalField(widget=Html5NumberInput())
 
     class Meta:
@@ -144,10 +149,10 @@ class BmrForm(forms.ModelForm):
         super(BmrForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            "age",
-            "height",
-            "gender",
-            "weight",
+            'age',
+            'height',
+            'gender',
+            'weight',
         )
         self.helper.form_tag = False
 
@@ -173,22 +178,22 @@ class PhysicalActivitiesForm(forms.ModelForm):
         super(PhysicalActivitiesForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            "sleep_hours",
+            'sleep_hours',
             Row(
                 Column('work_hours', css_class='col-6'),
                 Column('work_intensity', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             ),
             Row(
                 Column('sport_hours', css_class='col-6'),
                 Column('sport_intensity', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             ),
             Row(
                 Column('freetime_hours', css_class='col-6'),
                 Column('freetime_intensity', css_class='col-6'),
-                css_class='form-row'
-            )
+                css_class='form-row',
+            ),
         )
         self.helper.form_tag = False
 
@@ -200,10 +205,9 @@ class DailyCaloriesForm(forms.ModelForm):
 
     base_calories = forms.IntegerField(
         label=_('Basic caloric intake'),
-        help_text=_('Your basic caloric intake as calculated for '
-                    'your data'),
+        help_text=_('Your basic caloric intake as calculated for ' 'your data'),
         required=False,
-        widget=Html5NumberInput()
+        widget=Html5NumberInput(),
     )
     additional_calories = forms.IntegerField(
         label=_('Additional calories'),
@@ -214,12 +218,12 @@ class DailyCaloriesForm(forms.ModelForm):
         ),
         initial=0,
         required=False,
-        widget=Html5NumberInput()
+        widget=Html5NumberInput(),
     )
 
     class Meta:
         model = UserProfile
-        fields = ('calories', )
+        fields = ('calories',)
 
     def __init__(self, *args, **kwargs):
         super(DailyCaloriesForm, self).__init__(*args, **kwargs)
@@ -231,7 +235,7 @@ class DailyCaloriesForm(forms.ModelForm):
 class MealItemForm(forms.ModelForm):
     weight_unit = forms.ModelChoiceField(
         queryset=IngredientWeightUnit.objects.none(),
-        empty_label="g",
+        empty_label='g',
         required=False,
     )
     ingredient = forms.ModelChoiceField(
@@ -241,11 +245,11 @@ class MealItemForm(forms.ModelForm):
 
     ingredient_searchfield = forms.CharField(
         required=False,
-        label=gettext_lazy("Ingredient"),
+        label=gettext_lazy('Ingredient'),
     )
 
     english_results = BooleanField(
-        label=gettext_lazy("Also search for names in English"),
+        label=gettext_lazy('Also search for names in English'),
         initial=True,
         required=False,
     )
@@ -273,18 +277,21 @@ class MealItemForm(forms.ModelForm):
 
         # Filter the available ingredients
         if ingredient_id:
-            self.fields['weight_unit'].queryset = \
-                IngredientWeightUnit.objects.filter(ingredient_id=ingredient_id)
+            self.fields['weight_unit'].queryset = IngredientWeightUnit.objects.filter(
+                ingredient_id=ingredient_id
+            )
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'ingredient', 'ingredient_searchfield', 'english_results',
+            'ingredient',
+            'ingredient_searchfield',
+            'english_results',
             HTML('<div id="ingredient_name"></div>'),
             Row(
                 Column('amount', css_class='col-6'),
                 Column('weight_unit', css_class='col-6'),
-                css_class='form-row'
-            )
+                css_class='form-row',
+            ),
         )
 
 
@@ -295,13 +302,9 @@ class MealLogItemForm(MealItemForm):
     datetime = forms.DateTimeField(
         input_formats=[datetime_format],
         widget=forms.DateTimeInput(
-            attrs={
-                'type': 'datetime-local',
-                'class': 'form-control',
-                'value': now
-            },
+            attrs={'type': 'datetime-local', 'class': 'form-control', 'value': now},
             format=datetime_format,
-        )
+        ),
     )
 
     class Meta:
@@ -317,16 +320,18 @@ class MealLogItemForm(MealItemForm):
         super(MealLogItemForm, self).__init__(*args, **kwargs)
 
         self.helper.layout = Layout(
-            'ingredient', 'ingredient_searchfield', 'english_results',
+            'ingredient',
+            'ingredient_searchfield',
+            'english_results',
             Row(
                 Column('amount', css_class='col-6'),
                 Column('weight_unit', css_class='col-6'),
-            ), Row(Column('datetime', css_class='col-6'), css_class='form-row')
+            ),
+            Row(Column('datetime', css_class='col-6'), css_class='form-row'),
         )
 
 
 class IngredientForm(forms.ModelForm):
-
     class Meta:
         model = Ingredient
         fields = [
@@ -352,25 +357,25 @@ class IngredientForm(forms.ModelForm):
             Row(
                 Column('name', css_class='col-6'),
                 Column('brand', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             ),
             'energy',
             'protein',
             Row(
                 Column('carbohydrates', css_class='col-6'),
                 Column('carbohydrates_sugar', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             ),
             Row(
                 Column('fat', css_class='col-6'),
                 Column('fat_saturated', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             ),
             'fibres',
             'sodium',
             Row(
                 Column('license', css_class='col-6'),
                 Column('license_author', css_class='col-6'),
-                css_class='form-row'
+                css_class='form-row',
             ),
         )

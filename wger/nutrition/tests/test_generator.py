@@ -21,7 +21,6 @@ from wger.nutrition.models import NutritionPlan
 
 
 class NutritionalPlansGeneratorTestCase(WgerTestCase):
-
     def test_generator(self):
         # Arrange
         NutritionPlan.objects.all().delete()

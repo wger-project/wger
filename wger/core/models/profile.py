@@ -116,8 +116,7 @@ class UserProfile(models.Model):
 
     show_comments = models.BooleanField(
         verbose_name=_('Show exercise comments'),
-        help_text=_('Check to show exercise comments on the '
-                    'workout view'),
+        help_text=_('Check to show exercise comments on the ' 'workout view'),
         default=True,
     )
     """
@@ -134,7 +133,7 @@ a nutritional plan. These ingredients are extracted from a list provided
 by the US Department of Agriculture. It is extremely complete, with around
 7000 entries, but can be somewhat overwhelming and make the search difficult."""
         ),
-        default=True
+        default=True,
     )
 
     workout_reminder_active = models.BooleanField(
@@ -145,15 +144,14 @@ by the US Department of Agriculture. It is extremely complete, with around
             'to provide a valid email for this '
             'to work.'
         ),
-        default=False
+        default=False,
     )
 
     workout_reminder = IntegerField(
         verbose_name=_('Remind before expiration'),
-        help_text=_('The number of days you want to be reminded '
-                    'before a workout expires.'),
+        help_text=_('The number of days you want to be reminded ' 'before a workout expires.'),
         default=14,
-        validators=[MinValueValidator(1), MaxValueValidator(30)]
+        validators=[MinValueValidator(1), MaxValueValidator(30)],
     )
     workout_duration = IntegerField(
         verbose_name=_('Default duration of workouts'),
@@ -163,7 +161,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             'reminders.'
         ),
         default=12,
-        validators=[MinValueValidator(1), MaxValueValidator(30)]
+        validators=[MinValueValidator(1), MaxValueValidator(30)],
     )
     last_workout_notification = models.DateField(editable=False, blank=False, null=True)
     """
@@ -183,7 +181,7 @@ by the US Department of Agriculture. It is extremely complete, with around
             'language used on the website.'
         ),
         default=2,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     @property
@@ -216,7 +214,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         verbose_name=_('Age'),
         blank=False,
         null=True,
-        validators=[MinValueValidator(10), MaxValueValidator(100)]
+        validators=[MinValueValidator(10), MaxValueValidator(100)],
     )
     """The user's age"""
 
@@ -232,7 +230,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         verbose_name=_('Height (cm)'),
         blank=False,
         validators=[MinValueValidator(140), MaxValueValidator(230)],
-        null=True
+        null=True,
     )
     """The user's height"""
 
@@ -251,7 +249,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=7,
         blank=False,
         null=True,
-        validators=[MinValueValidator(4), MaxValueValidator(10)]
+        validators=[MinValueValidator(4), MaxValueValidator(10)],
     )
     """The average hours of sleep per day"""
 
@@ -261,7 +259,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=8,
         blank=False,
         null=True,
-        validators=[MinValueValidator(1), MaxValueValidator(15)]
+        validators=[MinValueValidator(1), MaxValueValidator(15)],
     )
     """The average hours at work per day"""
 
@@ -272,7 +270,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         choices=INTENSITY,
         default=INTENSITY_LOW,
         blank=False,
-        null=True
+        null=True,
     )
     """Physical intensity of work"""
 
@@ -282,7 +280,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=3,
         blank=False,
         null=True,
-        validators=[MinValueValidator(1), MaxValueValidator(30)]
+        validators=[MinValueValidator(1), MaxValueValidator(30)],
     )
     """The average hours performing sports per week"""
 
@@ -293,7 +291,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         choices=INTENSITY,
         default=INTENSITY_MEDIUM,
         blank=False,
-        null=True
+        null=True,
     )
     """Physical intensity of sport activities"""
 
@@ -303,7 +301,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=8,
         blank=False,
         null=True,
-        validators=[MinValueValidator(1), MaxValueValidator(15)]
+        validators=[MinValueValidator(1), MaxValueValidator(15)],
     )
     """The average hours of free time per day"""
 
@@ -314,7 +312,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         choices=INTENSITY,
         default=INTENSITY_LOW,
         blank=False,
-        null=True
+        null=True,
     )
     """Physical intensity during free time"""
 
@@ -324,7 +322,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         default=2500,
         blank=False,
         null=True,
-        validators=[MinValueValidator(1500), MaxValueValidator(5000)]
+        validators=[MinValueValidator(1500), MaxValueValidator(5000)],
     )
     """Basic caloric intake based on physical activity"""
 
@@ -346,18 +344,15 @@ by the US Department of Agriculture. It is extremely complete, with around
             'logs in a read-only mode. You need to set this '
             'before you can share links e.g. to social media.'
         ),
-        default=False
+        default=False,
     )
     """Allow anonymous read-only access"""
 
     num_days_weight_reminder = models.IntegerField(
-        verbose_name=_('Automatic reminders for weight '
-                       'entries'),
-        help_text=_('Number of days after the last '
-                    'weight entry (enter 0 to '
-                    'deactivate)'),
+        verbose_name=_('Automatic reminders for weight ' 'entries'),
+        help_text=_('Number of days after the last ' 'weight entry (enter 0 to ' 'deactivate)'),
         validators=[MinValueValidator(0), MaxValueValidator(30)],
-        default=0
+        default=0,
     )
     """Number of Days for email weight reminder"""
 
@@ -415,17 +410,16 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         Make sure the total amount of hours is 24
         """
-        if (
-            (self.sleep_hours and self.freetime_hours and self.work_hours)
-            and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24
-        ):
+        if (self.sleep_hours and self.freetime_hours and self.work_hours) and (
+            self.sleep_hours + self.freetime_hours + self.work_hours
+        ) > 24:
             raise ValidationError(_('The sum of all hours has to be 24'))
 
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return f"Profile for user {self.user}"
+        return f'Profile for user {self.user}'
 
     @property
     def use_metric(self):
@@ -521,11 +515,9 @@ by the US Department of Agriculture. It is extremely complete, with around
         """
         Create a new weight entry as needed
         """
-        if (
-            not WeightEntry.objects.filter(user=self.user).exists() or (
-                datetime.date.today() - WeightEntry.objects.filter(user=self.user).latest().date
-                > datetime.timedelta(days=3)
-            )
+        if not WeightEntry.objects.filter(user=self.user).exists() or (
+            datetime.date.today() - WeightEntry.objects.filter(user=self.user).latest().date
+            > datetime.timedelta(days=3)
         ):
             entry = WeightEntry()
             entry.weight = weight

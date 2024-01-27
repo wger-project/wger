@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0009_auto_20160303_2340'),
         ('manager', '0005_auto_20160303_2008'),

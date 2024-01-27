@@ -34,6 +34,7 @@ class GymConfigUpdateView(WgerFormMixin, UpdateView):
     """
     Generic view to edit the gym config table
     """
+
     model = GymConfig
     fields = ['default_gym']
     permission_required = 'config.change_gymconfig'

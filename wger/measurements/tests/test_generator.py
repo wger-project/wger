@@ -24,7 +24,6 @@ from wger.measurements.models import (
 
 
 class MeasurementGeneratorTestCase(WgerTestCase):
-
     def test_generator_categories(self):
         # Arrange
         Category.objects.all().delete()

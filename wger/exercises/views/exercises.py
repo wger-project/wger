@@ -52,10 +52,7 @@ def view(request, id, slug=None):
 
     return HttpResponsePermanentRedirect(
         reverse(
-            'exercise:exercise:view-base', kwargs={
-                'pk': exercise.exercise_base_id,
-                'slug': slug
-            }
+            'exercise:exercise:view-base', kwargs={'pk': exercise.exercise_base_id, 'slug': slug}
         )
     )
 

@@ -51,18 +51,18 @@ class Muscle(models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "name",
+            'name',
         ]
 
     # Image to use when displaying this as a main muscle in an exercise
     @property
     def image_url_main(self):
-        return static(f"images/muscles/main/muscle-{self.id}.svg")
+        return static(f'images/muscles/main/muscle-{self.id}.svg')
 
     # Image to use when displaying this as a secondary muscle in an exercise
     @property
     def image_url_secondary(self):
-        return static(f"images/muscles/secondary/muscle-{self.id}.svg")
+        return static(f'images/muscles/secondary/muscle-{self.id}.svg')
 
     def __str__(self):
         """

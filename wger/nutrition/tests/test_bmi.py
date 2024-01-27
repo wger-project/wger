@@ -52,10 +52,7 @@ class BmiTestCase(WgerTestCase):
 
         self.user_login('test')
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 180,
-                'weight': 80
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 180, 'weight': 80}
         )
         self.assertEqual(response.status_code, 200)
         bmi = json.loads(response.content.decode('utf8'))
@@ -72,10 +69,7 @@ class BmiTestCase(WgerTestCase):
         profile = UserProfile.objects.get(user__username='test')
         profile.save()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 115,
-                'weight': 76
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 115, 'weight': 76}
         )
         self.assertEqual(response.status_code, 406)
         response = json.loads(response.content.decode('utf8'))
@@ -90,10 +84,7 @@ class BmiTestCase(WgerTestCase):
         profile = UserProfile.objects.get(user__username='test')
         profile.save()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 250,
-                'weight': 82
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 250, 'weight': 82}
         )
         self.assertEqual(response.status_code, 406)
         response = json.loads(response.content.decode('utf8'))
@@ -109,10 +100,7 @@ class BmiTestCase(WgerTestCase):
         profile.weight_unit = 'lb'
         profile.save()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 73,
-                'weight': 176
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 73, 'weight': 176}
         )
         self.assertEqual(response.status_code, 200)
         bmi = json.loads(response.content.decode('utf8'))
@@ -130,10 +118,7 @@ class BmiTestCase(WgerTestCase):
         profile.weight_unit = 'lb'
         profile.save()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 48,
-                'weight': 145
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 48, 'weight': 145}
         )
         self.assertEqual(response.status_code, 406)
         response = json.loads(response.content.decode('utf8'))
@@ -149,10 +134,7 @@ class BmiTestCase(WgerTestCase):
         profile.weight_unit = 'lb'
         profile.save()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 98,
-                'weight': 145
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 98, 'weight': 145}
         )
         self.assertEqual(response.status_code, 406)
         response = json.loads(response.content.decode('utf8'))
@@ -169,10 +151,7 @@ class BmiTestCase(WgerTestCase):
         # Existing weight entry is old, a new one is created
         entry1 = WeightEntry.objects.filter(user=user).latest()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 180,
-                'weight': 80
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 180, 'weight': 80}
         )
         self.assertEqual(response.status_code, 200)
         entry2 = WeightEntry.objects.filter(user=user).latest()
@@ -184,10 +163,7 @@ class BmiTestCase(WgerTestCase):
         entry1.date = datetime.date.today()
         entry1.save()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 180,
-                'weight': 80
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 180, 'weight': 80}
         )
         self.assertEqual(response.status_code, 200)
         entry2 = WeightEntry.objects.filter(user=user).latest()
@@ -197,10 +173,7 @@ class BmiTestCase(WgerTestCase):
         # No existing entries
         WeightEntry.objects.filter(user=user).delete()
         response = self.client.post(
-            reverse('nutrition:bmi:calculate'), {
-                'height': 180,
-                'weight': 80
-            }
+            reverse('nutrition:bmi:calculate'), {'height': 180, 'weight': 80}
         )
         self.assertEqual(response.status_code, 200)
         entry = WeightEntry.objects.filter(user=user).latest()

@@ -11,7 +11,7 @@ def increment_order(apps, schema_editor):
     exercises could be ordered alphabetically.
     """
 
-    WorkoutSet = apps.get_model("manager", "Set")
+    WorkoutSet = apps.get_model('manager', 'Set')
 
     for workout_set in WorkoutSet.objects.all():
         counter = 1
@@ -23,7 +23,6 @@ def increment_order(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0010_auto_20210102_1446'),
     ]

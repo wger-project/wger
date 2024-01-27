@@ -75,11 +75,8 @@ def demo_entries(request):
         return HttpResponseRedirect(reverse('software:features'))
 
     if (
-        (
-            (not request.user.is_authenticated or request.user.userprofile.is_temporary)
-            and not request.session['has_demo_data']
-        )
-    ):
+        not request.user.is_authenticated or request.user.userprofile.is_temporary
+    ) and not request.session['has_demo_data']:
         # If we reach this from a page that has no user created by the
         # middleware, do that now
         if not request.user.is_authenticated:
@@ -96,7 +93,7 @@ def demo_entries(request):
                 'logs, (body) weight and nutrition plan entries so you can '
                 'better see what  this site can do. Feel free to edit or '
                 'delete them!'
-            )
+            ),
         )
     return HttpResponseRedirect(reverse('core:dashboard'))
 

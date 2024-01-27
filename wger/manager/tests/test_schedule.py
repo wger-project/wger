@@ -92,8 +92,8 @@ class ScheduleRepresentationTestCase(WgerTestCase):
         Test that the representation of an object is correct
         """
         self.assertEqual(
-            "{0}".format(Schedule.objects.get(pk=1)),
-            'my cool schedule that i found on the internet'
+            '{0}'.format(Schedule.objects.get(pk=1)),
+            'my cool schedule that i found on the internet',
         )
 
 
@@ -110,7 +110,7 @@ class CreateScheduleTestCase(WgerAddTestCase):
         'name': 'My cool schedule',
         'start_date': datetime.date.today(),
         'is_active': True,
-        'is_loop': True
+        'is_loop': True,
     }
 
 
@@ -138,7 +138,7 @@ class EditScheduleTestCase(WgerEditTestCase):
         'name': 'An updated name',
         'start_date': datetime.date.today(),
         'is_active': True,
-        'is_loop': True
+        'is_loop': True,
     }
 
 
@@ -473,7 +473,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
     Test exporting a schedule as a pdf
     """
 
-    def export_pdf_token(self, pdf_type="log"):
+    def export_pdf_token(self, pdf_type='log'):
         """
         Helper function to test exporting a workout as a pdf using tokens
         """
@@ -483,11 +483,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         response = self.client.get(
             reverse(
                 'manager:schedule:pdf-{0}'.format(pdf_type),
-                kwargs={
-                    'pk': 1,
-                    'uidb64': uid,
-                    'token': token
-                }
+                kwargs={'pk': 1, 'uidb64': uid, 'token': token},
             )
         )
 
@@ -495,7 +491,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         self.assertEqual(response['Content-Type'], 'application/pdf')
         self.assertEqual(
             response['Content-Disposition'],
-            'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type)
+            'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type),
         )
 
         # Approximate size only
@@ -508,16 +504,12 @@ class SchedulePdfExportTestCase(WgerTestCase):
         response = self.client.get(
             reverse(
                 'manager:schedule:pdf-{0}'.format(pdf_type),
-                kwargs={
-                    'pk': 1,
-                    'uidb64': uid,
-                    'token': token
-                }
+                kwargs={'pk': 1, 'uidb64': uid, 'token': token},
             )
         )
         self.assertEqual(response.status_code, 403)
 
-    def export_pdf(self, fail=False, pdf_type="log"):
+    def export_pdf(self, fail=False, pdf_type='log'):
         """
         Helper function to test exporting a workout as a pdf
         """
@@ -533,14 +525,14 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type)
+                'attachment; filename=Schedule-1-{0}.pdf'.format(pdf_type),
             )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
-    def export_pdf_with_comments(self, fail=False, pdf_type="log"):
+    def export_pdf_with_comments(self, fail=False, pdf_type='log'):
         """
         Helper function to test exporting a workout as a pdf, with exercise coments
         """
@@ -550,13 +542,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         response = self.client.get(
             reverse(
                 'manager:schedule:pdf-{0}'.format(pdf_type),
-                kwargs={
-                    'pk': 3,
-                    'images': 0,
-                    'comments': 1,
-                    'uidb64': uid,
-                    'token': token
-                }
+                kwargs={'pk': 3, 'images': 0, 'comments': 1, 'uidb64': uid, 'token': token},
             )
         )
 
@@ -567,14 +553,14 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type)
+                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type),
             )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
-    def export_pdf_with_images(self, fail=False, pdf_type="log"):
+    def export_pdf_with_images(self, fail=False, pdf_type='log'):
         """
         Helper function to test exporting a workout as a pdf, with exercise images
         """
@@ -583,13 +569,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         response = self.client.get(
             reverse(
                 'manager:schedule:pdf-{0}'.format(pdf_type),
-                kwargs={
-                    'pk': 3,
-                    'images': 1,
-                    'comments': 0,
-                    'uidb64': uid,
-                    'token': token
-                }
+                kwargs={'pk': 3, 'images': 1, 'comments': 0, 'uidb64': uid, 'token': token},
             )
         )
 
@@ -600,14 +580,14 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type)
+                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type),
             )
 
             # Approximate size only
             self.assertGreater(int(response['Content-Length']), 29000)
             self.assertLess(int(response['Content-Length']), 35000)
 
-    def export_pdf_with_images_and_comments(self, fail=False, pdf_type="log"):
+    def export_pdf_with_images_and_comments(self, fail=False, pdf_type='log'):
         """
         Helper function to test exporting a workout as a pdf, with images and comments
         """
@@ -617,13 +597,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
         response = self.client.get(
             reverse(
                 'manager:schedule:pdf-{0}'.format(pdf_type),
-                kwargs={
-                    'pk': 3,
-                    'images': 1,
-                    'comments': 1,
-                    'uidb64': uid,
-                    'token': token
-                }
+                kwargs={'pk': 3, 'images': 1, 'comments': 1, 'uidb64': uid, 'token': token},
             )
         )
 
@@ -634,7 +608,7 @@ class SchedulePdfExportTestCase(WgerTestCase):
             self.assertEqual(response['Content-Type'], 'application/pdf')
             self.assertEqual(
                 response['Content-Disposition'],
-                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type)
+                'attachment; filename=Schedule-3-{0}.pdf'.format(pdf_type),
             )
 
             # Approximate size only
@@ -691,16 +665,15 @@ class SchedulePdfExportTestCase(WgerTestCase):
         self.export_pdf_with_images_and_comments(fail=False)
         self.export_pdf_token()
 
-
-#   #####TABLE#####
+    #   #####TABLE#####
 
     def test_export_pdf_table_anonymous(self):
         """
         Tests exporting a workout as a pdf as an anonymous user
         """
 
-        self.export_pdf(fail=True, pdf_type="table")
-        self.export_pdf_token(pdf_type="table")
+        self.export_pdf(fail=True, pdf_type='table')
+        self.export_pdf_token(pdf_type='table')
 
     def test_export_pdf_table_owner(self):
         """
@@ -708,8 +681,8 @@ class SchedulePdfExportTestCase(WgerTestCase):
         """
 
         self.user_login('test')
-        self.export_pdf(fail=False, pdf_type="table")
-        self.export_pdf_token(pdf_type="table")
+        self.export_pdf(fail=False, pdf_type='table')
+        self.export_pdf_token(pdf_type='table')
 
     def test_export_pdf_table_other(self):
         """
@@ -717,38 +690,39 @@ class SchedulePdfExportTestCase(WgerTestCase):
         """
 
         self.user_login('admin')
-        self.export_pdf(fail=True, pdf_type="table")
-        self.export_pdf_token(pdf_type="table")
+        self.export_pdf(fail=True, pdf_type='table')
+        self.export_pdf_token(pdf_type='table')
 
     def test_export_pdf_table_with_comments(self, fail=False):
         """
         Tests exporting a workout as a pdf as the owner user with comments
         """
         self.user_login('test')
-        self.export_pdf_with_comments(fail=False, pdf_type="table")
-        self.export_pdf_token(pdf_type="table")
+        self.export_pdf_with_comments(fail=False, pdf_type='table')
+        self.export_pdf_token(pdf_type='table')
 
     def test_export_pdf_table_with_images(self, fail=False):
         """
         Tests exporting a workout as a pdf as the owner user with images
         """
         self.user_login('test')
-        self.export_pdf_with_images(fail=False, pdf_type="table")
-        self.export_pdf_token(pdf_type="table")
+        self.export_pdf_with_images(fail=False, pdf_type='table')
+        self.export_pdf_token(pdf_type='table')
 
     def test_export_pdf_table_with_images_and_comments(self, fail=False):
         """
         Tests exporting a workout as a pdf as the owner user with images andcomments
         """
         self.user_login('test')
-        self.export_pdf_with_images_and_comments(fail=False, pdf_type="table")
-        self.export_pdf_token(pdf_type="table")
+        self.export_pdf_with_images_and_comments(fail=False, pdf_type='table')
+        self.export_pdf_token(pdf_type='table')
 
 
 class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the schedule overview resource
     """
+
     pk = 1
     resource = Schedule
     private_resource = True
@@ -756,5 +730,5 @@ class ScheduleApiTestCase(api_base_test.ApiBaseResourceTestCase):
         'name': 'An updated name',
         'start_date': datetime.date.today(),
         'is_active': True,
-        'is_loop': True
+        'is_loop': True,
     }

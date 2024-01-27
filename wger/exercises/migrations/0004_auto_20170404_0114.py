@@ -6,7 +6,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0003_auto_20160921_2000'),
     ]
@@ -33,7 +32,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 related_name='secondary_muscles',
                 to='exercises.Muscle',
-                verbose_name='Secondary muscles'
+                verbose_name='Secondary muscles',
             ),
         ),
         migrations.AlterField(
@@ -43,7 +42,7 @@ class Migration(migrations.Migration):
                 choices=[('1', 'Pending'), ('2', 'Accepted'), ('3', 'Declined')],
                 default='1',
                 editable=False,
-                max_length=2
+                max_length=2,
             ),
         ),
         migrations.AlterField(
@@ -56,9 +55,8 @@ class Migration(migrations.Migration):
             name='is_main',
             field=models.BooleanField(
                 default=False,
-                help_text=
-                'Tick the box if you want to set this image as the main one for the exercise (will be shown e.g. in the search). The first image is automatically marked by the system.',
-                verbose_name='Main picture'
+                help_text='Tick the box if you want to set this image as the main one for the exercise (will be shown e.g. in the search). The first image is automatically marked by the system.',
+                verbose_name='Main picture',
             ),
         ),
         migrations.AlterField(
@@ -68,7 +66,7 @@ class Migration(migrations.Migration):
                 choices=[('1', 'Pending'), ('2', 'Accepted'), ('3', 'Declined')],
                 default='1',
                 editable=False,
-                max_length=2
+                max_length=2,
             ),
         ),
     ]

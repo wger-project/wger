@@ -81,7 +81,7 @@ class Setting(models.Model):
         decimal_places=2,
         blank=True,
         null=True,
-        validators=[MinValueValidator(0), MaxValueValidator(1500)]
+        validators=[MinValueValidator(0), MaxValueValidator(1500)],
     )
     """Planed weight for the repetitions"""
 
@@ -112,13 +112,13 @@ class Setting(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-        ordering = ["order", "id"]
+        ordering = ['order', 'id']
 
     def __str__(self):
         """
         Return a more human-readable representation
         """
-        return f"setting {self.id} for exercise base {self.exercise_base_id} in set {self.set_id}"
+        return f'setting {self.id} for exercise base {self.exercise_base_id} in set {self.set_id}'
 
     def save(self, *args, **kwargs):
         """

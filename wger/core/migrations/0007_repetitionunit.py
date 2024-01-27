@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0006_auto_20151025_2237'),
     ]
@@ -17,7 +16,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, primary_key=True, auto_created=True
-                    )
+                    ),
                 ),
                 ('name', models.CharField(verbose_name='Name', max_length=100)),
             ],

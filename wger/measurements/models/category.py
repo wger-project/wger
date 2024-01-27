@@ -21,10 +21,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Category(models.Model):
-
     class Meta:
         ordering = [
-            "-name",
+            '-name',
         ]
 
     user = models.ForeignKey(

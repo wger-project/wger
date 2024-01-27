@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Get dependencies
+        run: pip install ruff isort
+
       - name: Format the code
         run: ruff format
 

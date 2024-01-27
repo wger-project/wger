@@ -39,7 +39,7 @@ class WorkoutSession(models.Model):
     IMPRESSION_GOOD = '3'
 
     IMPRESSION = (
-        (IMPRESSION_BAD, _("Bad")),
+        (IMPRESSION_BAD, _('Bad')),
         (IMPRESSION_NEUTRAL, _('Neutral')),
         (IMPRESSION_GOOD, _('Good')),
     )
@@ -73,8 +73,7 @@ class WorkoutSession(models.Model):
         verbose_name=_('Notes'),
         null=True,
         blank=True,
-        help_text=_('Any notes you might want to save about this workout '
-                    'session.')
+        help_text=_('Any notes you might want to save about this workout ' 'session.'),
     )
     """
     User notes about the workout
@@ -86,9 +85,8 @@ class WorkoutSession(models.Model):
         choices=IMPRESSION,
         default=IMPRESSION_NEUTRAL,
         help_text=_(
-            'Your impression about this workout session. '
-            'Did you exercise as well as you could?'
-        )
+            'Your impression about this workout session. ' 'Did you exercise as well as you could?'
+        ),
     )
     """
     The user's general impression of workout
@@ -108,16 +106,17 @@ class WorkoutSession(models.Model):
         """
         Return a more human-readable representation
         """
-        return "{0} - {1}".format(self.workout, self.date)
+        return '{0} - {1}'.format(self.workout, self.date)
 
     class Meta:
         """
         Set other properties
         """
+
         ordering = [
-            "date",
+            'date',
         ]
-        unique_together = ("date", "user")
+        unique_together = ('date', 'user')
 
     def clean(self):
         """
@@ -125,10 +124,10 @@ class WorkoutSession(models.Model):
         """
 
         if (not self.time_end and self.time_start) or (self.time_end and not self.time_start):
-            raise ValidationError(_("If you enter a time, you must enter both start and end time."))
+            raise ValidationError(_('If you enter a time, you must enter both start and end time.'))
 
         if self.time_end and self.time_start and self.time_start > self.time_end:
-            raise ValidationError(_("The start time cannot be after the end time."))
+            raise ValidationError(_('The start time cannot be after the end time.'))
 
     def get_owner_object(self):
         """

@@ -35,4 +35,4 @@ class Command(BaseCommand):
         site.domain = domain
         site.name = settings.SITE_URL
         site.save()
-        self.stdout.write(self.style.SUCCESS(f"Set site URL to {domain}"))
+        self.stdout.write(self.style.SUCCESS(f'Set site URL to {domain}'))

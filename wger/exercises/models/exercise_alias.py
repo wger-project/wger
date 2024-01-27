@@ -38,6 +38,7 @@ class Alias(models.Model):
     """
     Model for an exercise (name)alias
     """
+
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,

@@ -90,8 +90,7 @@ class GymUserConfig(AbstractGymUserConfigModel, m.Model):
 
     include_inactive = m.BooleanField(
         verbose_name=_('Include in inactive overview'),
-        help_text=_('Include this user in the email list with '
-                    'inactive members'),
+        help_text=_('Include this user in the email list with ' 'inactive members'),
         default=True,
     )
     """

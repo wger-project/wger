@@ -84,7 +84,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject=_('Workout for %s') % request.user.username
+        subject=_('Workout for %s') % request.user.username,
     )
 
     # container for the 'Flowable' objects
@@ -96,7 +96,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
 
     # Set the title
     p = Paragraph(
-        f'<para align="center"><strong>{workout.name}</strong></para>', styleSheet["HeaderBold"]
+        f'<para align="center"><strong>{workout.name}</strong></para>', styleSheet['HeaderBold']
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
@@ -160,7 +160,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject=_('Workout for %s') % request.user.username
+        subject=_('Workout for %s') % request.user.username,
     )
 
     # container for the 'Flowable' objects
@@ -173,7 +173,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     # Set the title
     p = Paragraph(
         '<para align="center"><strong>%(description)s</strong></para>' % {'description': workout},
-        styleSheet["HeaderBold"]
+        styleSheet['HeaderBold'],
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 1.5 * cm))

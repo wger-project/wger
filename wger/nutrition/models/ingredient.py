@@ -73,6 +73,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
+
     objects = SubmissionManager()
     """Custom manager"""
 
@@ -85,7 +86,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "name",
+            'name',
         ]
 
     # Meta data
@@ -305,7 +306,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                         ' +/-{energy_approx}%)'.format(
                             energy=self.energy,
                             energy_calculated=energy_calculated,
-                            energy_approx=self.ENERGY_APPROXIMATION
+                            energy_approx=self.ENERGY_APPROXIMATION,
                         )
                     )
                 )
@@ -345,7 +346,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 'sodium',
             ):
                 if (
-                    hasattr(self, i) and hasattr(other, i)
+                    hasattr(self, i)
+                    and hasattr(other, i)
                     and (getattr(self, i, None) != getattr(other, i, None))
                 ):
                     equal = False
@@ -386,14 +388,15 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             context = {
                 'ingredient': self.name,
                 'url': url,
-                'site': Site.objects.get_current().domain
+                'site': Site.objects.get_current().domain,
             }
             message = render_to_string('ingredient/email_new.tpl', context)
             mail.send_mail(
                 subject,
                 message,
-                settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
-                fail_silently=True
+                settings.WGER_SETTINGS['EMAIL_FROM'],
+                [user.email],
+                fail_silently=True,
             )
 
     def set_author(self, request):
@@ -455,6 +458,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         # Let celery fetch the image
         # wger
         from wger.nutrition.tasks import fetch_ingredient_image_task
+
         fetch_ingredient_image_task.delay(self.pk)
 
     @classmethod

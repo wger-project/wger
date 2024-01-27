@@ -57,6 +57,7 @@ class ImageAddView(WgerFormMixin, CreateView):
     """
     Generic view to add a new weight entry
     """
+
     model = Image
     form_class = ImageForm
     title = _('Add')
@@ -88,6 +89,7 @@ class ImageUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
+
     model = Image
     form_class = ImageForm
 

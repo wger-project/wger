@@ -77,7 +77,7 @@ def exercise_video_upload_dir(instance, filename):
     Returns the upload target for exercise videos
     """
     ext = pathlib.Path(filename).suffix
-    return f"exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}"
+    return f'exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}'
 
 
 class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -184,6 +184,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Set default ordering
         """
+
         ordering = ['-is_main', 'id']
 
     def get_owner_object(self):
@@ -203,7 +204,6 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
             # Streams are stored in a list, and we don't know which one is the video stream
             for stream in probe_result['streams']:
-
                 if stream['codec_type'] != 'video':
                     continue
 

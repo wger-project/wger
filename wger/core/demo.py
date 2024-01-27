@@ -122,7 +122,7 @@ def create_demo_entries(user):
                 workout=workout,
                 reps=reps,
                 weight=18 - reps + random.randint(1, 4),
-                date=datetime.date.today() - datetime.timedelta(weeks=i)
+                date=datetime.date.today() - datetime.timedelta(weeks=i),
             )
             weight_log.append(log)
 
@@ -142,7 +142,7 @@ def create_demo_entries(user):
                 workout=workout,
                 reps=reps,
                 weight=30 - reps + random.randint(1, 4),
-                date=datetime.date.today() - datetime.timedelta(weeks=i)
+                date=datetime.date.today() - datetime.timedelta(weeks=i),
             )
             weight_log.append(log)
 
@@ -162,7 +162,7 @@ def create_demo_entries(user):
                 workout=workout,
                 reps=reps,
                 weight=110 - reps + random.randint(1, 10),
-                date=datetime.date.today() - datetime.timedelta(weeks=i)
+                date=datetime.date.today() - datetime.timedelta(weeks=i),
             )
             weight_log.append(log)
 

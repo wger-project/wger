@@ -113,7 +113,7 @@ def login(request):
     Small wrapper around the django login view
     """
 
-    next_url = "?next=" + request.GET.get('next') if request.GET.get('next') else ''
+    next_url = '?next=' + request.GET.get('next') if request.GET.get('next') else ''
 
     form = UserLoginForm
     form.helper.form_action = reverse('core:user:login') + next_url
@@ -135,12 +135,13 @@ def delete(request, user_pk=None):
 
         # Forbidden if the user has not enough rights, doesn't belong to the
         # gym or is an admin as well. General admins can delete all users.
-        if not request.user.has_perm('gym.manage_gyms') \
-            and (not request.user.has_perm('gym.manage_gym')
-                 or request.user.userprofile.gym_id != user.userprofile.gym_id
-                 or user.has_perm('gym.manage_gym')
-                 or user.has_perm('gym.gym_trainer')
-                 or user.has_perm('gym.manage_gyms')):
+        if not request.user.has_perm('gym.manage_gyms') and (
+            not request.user.has_perm('gym.manage_gym')
+            or request.user.userprofile.gym_id != user.userprofile.gym_id
+            or user.has_perm('gym.manage_gym')
+            or user.has_perm('gym.gym_trainer')
+            or user.has_perm('gym.manage_gyms')
+        ):
             return HttpResponseForbidden()
     else:
         user = request.user
@@ -150,11 +151,9 @@ def delete(request, user_pk=None):
     if request.method == 'POST':
         form = PasswordConfirmationForm(data=request.POST, user=request.user)
         if form.is_valid():
-
             user.delete()
             messages.success(
-                request,
-                _('Account "{0}" was successfully deleted').format(user.username)
+                request, _('Account "{0}" was successfully deleted').format(user.username)
             )
 
             if not user_pk:
@@ -178,15 +177,15 @@ def trainer_login(request, user_pk):
     orig_user_pk = request.user.pk
 
     # No changing if identity is not set
-    if not request.user.has_perm('gym.gym_trainer') \
-        and not request.session.get('trainer.identity'):
+    if not request.user.has_perm('gym.gym_trainer') and not request.session.get('trainer.identity'):
         return HttpResponseForbidden()
 
     # Changing between trainers or managers is not allowed
-    if request.user.has_perm('gym.gym_trainer') \
-        and (user.has_perm('gym.gym_trainer')
-             or user.has_perm('gym.manage_gym')
-             or user.has_perm('gym.manage_gyms')):
+    if request.user.has_perm('gym.gym_trainer') and (
+        user.has_perm('gym.gym_trainer')
+        or user.has_perm('gym.manage_gym')
+        or user.has_perm('gym.manage_gyms')
+    ):
         return HttpResponseForbidden()
 
     # Changing is only allowed between the same gym
@@ -201,7 +200,8 @@ def trainer_login(request, user_pk):
     # Check if we're switching back to our original account
     own = False
     if (
-        user.has_perm('gym.gym_trainer') or user.has_perm('gym.manage_gym')
+        user.has_perm('gym.gym_trainer')
+        or user.has_perm('gym.manage_gym')
         or user.has_perm('gym.manage_gyms')
     ):
         own = True
@@ -209,7 +209,7 @@ def trainer_login(request, user_pk):
     # Note: when logging without authenticating, it is necessary to set the
     # authentication backend
     if own:
-        del (request.session['trainer.identity'])
+        del request.session['trainer.identity']
     django_login(request, user, 'django.contrib.auth.backends.ModelBackend')
 
     if not own:
@@ -248,8 +248,9 @@ def registration(request):
     template_data.update(csrf(request))
 
     # Don't show captcha if the global parameter is false
-    FormClass = RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] \
-        else RegistrationFormNoCaptcha
+    FormClass = (
+        RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
+    )
 
     # Redirect regular users, in case they reached the registration page
     if request.user.is_authenticated and not request.user.userprofile.is_temporary:
@@ -313,7 +314,6 @@ def preferences(request):
 
     # Process the preferences form
     if request.method == 'POST':
-
         form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
         form.user = request.user
 
@@ -325,7 +325,7 @@ def preferences(request):
         data = {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
-            'email': request.user.email
+            'email': request.user.email,
         }
 
         form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
@@ -336,7 +336,6 @@ def preferences(request):
         email_form = UserPersonalInformationForm(data=request.POST, instance=request.user)
 
         if email_form.is_valid() and redirect:
-
             # If the user changes the email, it is no longer verified
             if user_email != email_form.instance.email:
                 logger.debug('resetting verified flag')
@@ -366,6 +365,7 @@ class UserDeactivateView(
     """
     Deactivates a user
     """
+
     permanent = False
     model = User
     permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
@@ -379,8 +379,9 @@ class UserDeactivateView(
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
-        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
-            and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+        if (
+            request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
+        ) and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
             return HttpResponseForbidden()
 
         return super(UserDeactivateView, self).dispatch(request, *args, **kwargs)
@@ -401,6 +402,7 @@ class UserActivateView(
     """
     Activates a previously deactivated user
     """
+
     permanent = False
     model = User
     permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
@@ -414,8 +416,9 @@ class UserActivateView(
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
 
-        if (request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')) \
-            and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
+        if (
+            request.user.has_perm('gym.manage_gym') or request.user.has_perm('gym.gym_trainer')
+        ) and edit_user.userprofile.gym_id != request.user.userprofile.gym_id:
             return HttpResponseForbidden()
 
         return super(UserActivateView, self).dispatch(request, *args, **kwargs)
@@ -454,9 +457,11 @@ class UserEditView(
         if not user.is_authenticated:
             return HttpResponseForbidden()
 
-        if user.has_perm('gym.manage_gym') \
-            and not user.has_perm('gym.manage_gyms') \
-            and user.userprofile.gym != self.get_object().userprofile.gym:
+        if (
+            user.has_perm('gym.manage_gym')
+            and not user.has_perm('gym.manage_gyms')
+            and user.userprofile.gym != self.get_object().userprofile.gym
+        ):
             return HttpResponseForbidden()
 
         return super(UserEditView, self).dispatch(request, *args, **kwargs)
@@ -502,6 +507,7 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
     """
     User overview for gyms
     """
+
     model = User
     permission_required = ('gym.manage_gym', 'gym.manage_gyms', 'gym.gym_trainer')
     template_name = 'user/overview.html'
@@ -519,9 +525,11 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
         if not user.is_authenticated:
             return HttpResponseForbidden()
 
-        if (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer')) \
-            and not user.has_perm('gym.manage_gyms') \
-            and user.userprofile.gym != self.get_object().userprofile.gym:
+        if (
+            (user.has_perm('gym.manage_gym') or user.has_perm('gym.gym_trainer'))
+            and not user.has_perm('gym.manage_gyms')
+            and user.userprofile.gym != self.get_object().userprofile.gym
+        ):
             return HttpResponseForbidden()
 
         return super(UserDetailView, self).dispatch(request, *args, **kwargs)
@@ -539,14 +547,16 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
                 {
                     'workout': workout,
                     'logs': logs.dates('date', 'day').count(),
-                    'last_log': logs.last()
+                    'last_log': logs.last(),
                 }
             )
         context['workouts'] = out
-        context['weight_entries'] = WeightEntry.objects.filter(user=self.object) \
-                                        .order_by('-date')[:5]
-        context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object) \
-                                         .order_by('-creation_date')[:5]
+        context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
+            :5
+        ]
+        context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
+            '-creation_date'
+        )[:5]
         context['session'] = WorkoutSession.objects.filter(user=self.object).order_by('-date')[:10]
         context['admin_notes'] = AdminUserNote.objects.filter(member=self.object)[:5]
         context['contracts'] = Contract.objects.filter(member=self.object)[:5]
@@ -563,8 +573,9 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all users in the instance
     """
+
     model = User
-    permission_required = ('gym.manage_gyms', )
+    permission_required = ('gym.manage_gyms',)
     template_name = 'user/list.html'
 
     def get_queryset(self):
@@ -592,7 +603,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
                 _('Last activity'),
                 _('Gym'),
             ],
-            'users': context['object_list']['members']
+            'users': context['object_list']['members'],
         }
         return context
 
@@ -600,7 +611,7 @@ class UserListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class WgerPasswordChangeView(PasswordChangeView):
     template_name = 'form.html'
     success_url = reverse_lazy('core:user:preferences')
-    title = gettext_lazy("Change password")
+    title = gettext_lazy('Change password')
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordChangeView, self).get_form(form_class)
@@ -611,8 +622,9 @@ class WgerPasswordChangeView(PasswordChangeView):
             Row(
                 Column('new_password1', css_class='col-6'),
                 Column('new_password2', css_class='col-6'),
-                css_class='form-row'
-            ), ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+                css_class='form-row',
+            ),
+            ButtonHolder(Submit('submit', _('Save'), css_class='btn-success btn-block')),
         )
         return form
 
@@ -627,7 +639,7 @@ class WgerPasswordResetView(PasswordResetView):
         form = super(WgerPasswordResetView, self).get_form(form_class)
         form.helper = FormHelper()
         form.helper.form_class = 'wger-form'
-        form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))
         return form
 
 
@@ -639,7 +651,7 @@ class WgerPasswordResetConfirmView(PasswordResetConfirmView):
         form = super(WgerPasswordResetConfirmView, self).get_form(form_class)
         form.helper = FormHelper()
         form.helper.form_class = 'wger-form'
-        form.helper.add_input(Submit('submit', _("Save"), css_class='btn-success btn-block'))
+        form.helper.add_input(Submit('submit', _('Save'), css_class='btn-success btn-block'))
         return form
 
 
@@ -648,8 +660,7 @@ def confirm_email(request):
     if not request.user.userprofile.email_verified:
         send_email(request.user)
         messages.success(
-            request,
-            _('A verification email was sent to %(email)s') % {'email': request.user.email}
+            request, _('A verification email was sent to %(email)s') % {'email': request.user.email}
         )
 
     return HttpResponseRedirect(reverse('core:dashboard'))

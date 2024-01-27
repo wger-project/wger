@@ -45,7 +45,6 @@ from wger.utils.requests import wger_headers
 
 
 class MockLanguageResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -89,7 +88,6 @@ class MockLanguageResponse:
 
 
 class MockLicenseResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -132,7 +130,6 @@ class MockLicenseResponse:
 
 
 class MockCategoryResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -175,7 +172,6 @@ class MockCategoryResponse:
 
 
 class MockMuscleResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -226,7 +222,6 @@ class MockMuscleResponse:
 
 
 class MockEquipmentResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -261,7 +256,6 @@ class MockEquipmentResponse:
 
 
 class MockDeletionLogResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -329,7 +323,6 @@ class MockDeletionLogResponse:
 
 
 class MockExerciseResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -562,7 +555,6 @@ class MockExerciseResponse:
 
 
 class TestSyncMethods(WgerTestCase):
-
     @patch('requests.get', return_value=MockLanguageResponse())
     def test_language_sync(self, mock_request):
         self.assertEqual(Language.objects.count(), 3)

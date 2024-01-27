@@ -30,7 +30,7 @@ def gallery_upload_dir(instance, filename):
     """
     Returns the upload target for exercise images
     """
-    return "gallery/{0}/{1}{2}".format(
+    return 'gallery/{0}/{1}{2}'.format(
         instance.user.id,
         uuid.uuid4(),
         pathlib.Path(filename).suffix,
@@ -38,10 +38,9 @@ def gallery_upload_dir(instance, filename):
 
 
 class Image(models.Model):
-
     class Meta:
         ordering = [
-            "-date",
+            '-date',
         ]
 
     date = models.DateField(_('Date'), default=datetime.datetime.now)
@@ -90,7 +89,6 @@ def auto_delete_file_on_delete(sender, instance: Image, **kwargs):
     when corresponding `MediaFile` object is deleted.
     """
     if instance.image:
-
         path = pathlib.Path(instance.image.path)
         if path.exists():
             path.unlink()

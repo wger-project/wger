@@ -4,7 +4,6 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0001_initial'),
     ]
@@ -14,10 +13,9 @@ class Migration(migrations.Migration):
             model_name='userprofile',
             name='ro_access',
             field=models.BooleanField(
-                help_text=
-                'Allow anonymous users to access your workouts and logs in a read-only mode. You can  then share the links to social media.',
+                help_text='Allow anonymous users to access your workouts and logs in a read-only mode. You can  then share the links to social media.',
                 verbose_name='Allow read-only access',
-                default=False
+                default=False,
             ),
             preserve_default=True,
         ),
@@ -30,7 +28,7 @@ class Migration(migrations.Migration):
                 max_length=1,
                 help_text='Approximately',
                 default='1',
-                verbose_name='Physical intensity'
+                verbose_name='Physical intensity',
             ),
             preserve_default=True,
         ),
@@ -51,7 +49,7 @@ class Migration(migrations.Migration):
                 max_length=1,
                 help_text='Approximately',
                 default='2',
-                verbose_name='Physical intensity'
+                verbose_name='Physical intensity',
             ),
             preserve_default=True,
         ),
@@ -62,7 +60,7 @@ class Migration(migrations.Migration):
                 choices=[('kg', 'Metric (kilogram)'), ('lb', 'Imperial (pound)')],
                 verbose_name='Weight unit',
                 max_length=2,
-                default='kg'
+                default='kg',
             ),
             preserve_default=True,
         ),
@@ -75,7 +73,7 @@ class Migration(migrations.Migration):
                 max_length=1,
                 help_text='Approximately',
                 default='1',
-                verbose_name='Physical intensity'
+                verbose_name='Physical intensity',
             ),
             preserve_default=True,
         ),

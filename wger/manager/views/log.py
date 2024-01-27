@@ -83,6 +83,7 @@ class WorkoutLogUpdateView(WgerFormMixin, UpdateView, LoginRequiredMixin):
     """
     Generic view to edit an existing workout log weight entry
     """
+
     model = WorkoutLog
     form_class = WorkoutLogForm
 
@@ -126,7 +127,6 @@ def add(request, pk):
 
     for set_set in day.set_set.all():
         for base in set_set.exercise_bases:
-
             # Maximum possible values
             total_sets += int(set_set.sets)
             counter_before = counter
@@ -137,7 +137,7 @@ def add(request, pk):
             exercise_base_list[base.id] = {
                 'obj': base,
                 'sets': int(set_set.sets),
-                'form_ids': form_id_range
+                'form_ids': form_id_range,
             }
 
             counter += 1
@@ -151,7 +151,6 @@ def add(request, pk):
     )
     # Process the request
     if request.method == 'POST':
-
         # Make a copy of the POST data and go through it. The reason for this is
         # that the form expects a value for the exercise which is not present in
         # the form (for space and usability reasons)
@@ -187,7 +186,6 @@ def add(request, pk):
             # Log entries (only the ones with actual content)
             log_instances = [i for i in formset.save(commit=False) if i.reps]
             for log_instance in log_instances:
-
                 # Set the weight unit in kg
                 if not hasattr(log_instance, 'weight_unit'):
                     log_instance.weight_unit = WeightUnit.objects.get(pk=1)
@@ -212,11 +210,9 @@ def add(request, pk):
         formset = WorkoutLogFormSet(
             queryset=WorkoutLog.objects.none(),
             initial=[
-                {
-                    'weight_unit': user_weight_unit,
-                    'repetition_unit': 1
-                } for x in range(0, total_sets)
-            ]
+                {'weight_unit': user_weight_unit, 'repetition_unit': 1}
+                for x in range(0, total_sets)
+            ],
         )
 
         # Depending on whether there is already a workout session for today, update
@@ -231,7 +227,7 @@ def add(request, pk):
     for base in exercise_base_list:
         form_id_from = min(exercise_base_list[base]['form_ids'])
         form_id_to = max(exercise_base_list[base]['form_ids'])
-        exercise_base_list[base]['forms'] = formset[form_id_from:form_id_to + 1]
+        exercise_base_list[base]['forms'] = formset[form_id_from : form_id_to + 1]
 
     context = {
         'day': day,
@@ -240,7 +236,7 @@ def add(request, pk):
         'helper': WorkoutLogFormHelper(),
         'session_form': session_form,
         'form': session_form,
-        'form_action': request.path
+        'form_action': request.path,
     }
 
     return render(request, 'log/add.html', context)
@@ -257,7 +253,6 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
     owner_user = None
 
     def get_context_data(self, **kwargs):
-
         # Call the base implementation first to get a context
         context = super(WorkoutLogDetailView, self).get_context_data(**kwargs)
         is_owner = self.owner_user == self.request.user
@@ -279,7 +274,7 @@ class WorkoutLogDetailView(DetailView, LoginRequiredMixin):
                         user=self.owner_user,
                         weight_unit__in=(1, 2),
                         repetition_unit=1,
-                        workout=self.object
+                        workout=self.object,
                     )
                     entry_log, chart_data = process_log_entries(logs)
                     if entry_log:
@@ -349,7 +344,7 @@ def day(request, username, year, month, day):
     try:
         date = datetime.date(int(year), int(month), int(day))
     except ValueError as e:
-        logger.error("Error on date: {0}".format(e))
+        logger.error('Error on date: {0}'.format(e))
         return HttpResponseForbidden()
     context['logs'] = group_log_entries(user, date.year, date.month, date.day)
     context['date'] = date

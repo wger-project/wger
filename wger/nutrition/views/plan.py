@@ -141,15 +141,17 @@ def export_pdf(request, id: int):
             p = Paragraph(
                 '<para align="center"><strong>{nr} {meal_nr}</strong></para>'.format(
                     nr=_('Nr.'), meal_nr=i
-                ), styleSheet["SubHeader"]
+                ),
+                styleSheet['SubHeader'],
             )
         else:
             p = Paragraph(
                 '<para align="center"><strong>'
                 '{nr} {meal_nr} - {meal_time}'
                 '</strong></para>'.format(
-                    nr=_('Nr.'), meal_nr=i, meal_time=meal.time.strftime("%H:%M")
-                ), styleSheet["SubHeader"]
+                    nr=_('Nr.'), meal_nr=i, meal_time=meal.time.strftime('%H:%M')
+                ),
+                styleSheet['SubHeader'],
             )
         data.append([p])
 
@@ -157,14 +159,14 @@ def export_pdf(request, id: int):
         for item in meal.mealitem_set.select_related():
             ingredient_markers.append(len(data))
 
-            p = Paragraph('<para>{0}</para>'.format(item.ingredient.name), styleSheet["Normal"])
+            p = Paragraph('<para>{0}</para>'.format(item.ingredient.name), styleSheet['Normal'])
             if item.get_unit_type() == MEALITEM_WEIGHT_GRAM:
                 unit_name = 'g'
             else:
                 unit_name = ' × ' + item.weight_unit.unit.name
 
             data.append(
-                [Paragraph("{0:.0f}{1}".format(item.amount, unit_name), styleSheet["Normal"]), p]
+                [Paragraph('{0:.0f}{1}'.format(item.amount, unit_name), styleSheet['Normal']), p]
             )
 
         # Add filler
@@ -192,7 +194,7 @@ def export_pdf(request, id: int):
     # There is nothing to output
     else:
         t = Paragraph(
-            _('<i>This is an empty plan, what did you expect on the PDF?</i>'), styleSheet["Normal"]
+            _('<i>This is an empty plan, what did you expect on the PDF?</i>'), styleSheet['Normal']
         )
 
     # Add site logo
@@ -202,8 +204,9 @@ def export_pdf(request, id: int):
     # Set the title (if available)
     if plan.description:
         p = Paragraph(
-            '<para align="center"><strong>%(description)s</strong></para>' %
-            {'description': plan.description}, styleSheet["HeaderBold"]
+            '<para align="center"><strong>%(description)s</strong></para>'
+            % {'description': plan.description},
+            styleSheet['HeaderBold'],
         )
         elements.append(p)
 
@@ -212,7 +215,7 @@ def export_pdf(request, id: int):
 
     # append the table to the document
     elements.append(t)
-    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet["Normal"]))
+    elements.append(Paragraph('<para>&nbsp;</para>', styleSheet['Normal']))
 
     # Create table with nutritional calculations
     data = []
@@ -220,70 +223,70 @@ def export_pdf(request, id: int):
         [
             Paragraph(
                 '<para align="center">{0}</para>'.format(_('Nutritional data')),
-                styleSheet["SubHeaderBlack"]
+                styleSheet['SubHeaderBlack'],
             )
         ]
     )
     data.append(
         [
-            Paragraph(_('Macronutrients'), styleSheet["Normal"]),
-            Paragraph(_('Total'), styleSheet["Normal"]),
-            Paragraph(_('Percent of energy'), styleSheet["Normal"]),
-            Paragraph(_('g per body kg'), styleSheet["Normal"])
+            Paragraph(_('Macronutrients'), styleSheet['Normal']),
+            Paragraph(_('Total'), styleSheet['Normal']),
+            Paragraph(_('Percent of energy'), styleSheet['Normal']),
+            Paragraph(_('g per body kg'), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Energy'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].energy), styleSheet["Normal"])
+            Paragraph(_('Energy'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].energy), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Protein'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].protein), styleSheet["Normal"]),
-            Paragraph(str(plan_data['percent']['protein']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['per_kg']['protein']), styleSheet["Normal"])
+            Paragraph(_('Protein'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].protein), styleSheet['Normal']),
+            Paragraph(str(plan_data['percent']['protein']), styleSheet['Normal']),
+            Paragraph(str(plan_data['per_kg']['protein']), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Carbohydrates'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].carbohydrates), styleSheet["Normal"]),
-            Paragraph(str(plan_data['percent']['carbohydrates']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['per_kg']['carbohydrates']), styleSheet["Normal"])
+            Paragraph(_('Carbohydrates'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].carbohydrates), styleSheet['Normal']),
+            Paragraph(str(plan_data['percent']['carbohydrates']), styleSheet['Normal']),
+            Paragraph(str(plan_data['per_kg']['carbohydrates']), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph("    " + _('Sugar content in carbohydrates'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].carbohydrates_sugar), styleSheet["Normal"])
+            Paragraph('    ' + _('Sugar content in carbohydrates'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].carbohydrates_sugar), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Fat'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].fat), styleSheet["Normal"]),
-            Paragraph(str(plan_data['percent']['fat']), styleSheet["Normal"]),
-            Paragraph(str(plan_data['per_kg']['fat']), styleSheet["Normal"])
+            Paragraph(_('Fat'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fat), styleSheet['Normal']),
+            Paragraph(str(plan_data['percent']['fat']), styleSheet['Normal']),
+            Paragraph(str(plan_data['per_kg']['fat']), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Saturated fat content in fats'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].fat_saturated), styleSheet["Normal"])
+            Paragraph(_('Saturated fat content in fats'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fat_saturated), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Fibres'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].fibres), styleSheet["Normal"])
+            Paragraph(_('Fibres'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fibres), styleSheet['Normal']),
         ]
     )
     data.append(
         [
-            Paragraph(_('Sodium'), styleSheet["Normal"]),
-            Paragraph(str(plan_data['total'].sodium), styleSheet["Normal"])
+            Paragraph(_('Sodium'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].sodium), styleSheet['Normal']),
         ]
     )
 
