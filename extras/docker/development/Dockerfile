@@ -66,7 +66,7 @@ RUN chmod +x /home/wger/entrypoint.sh \
     && chown -R wger:wger .
 
 USER wger
-RUN pip3 install . \
+RUN pip3 install -e . \
     && mkdir ~/media \
     && mkdir ~/static \
     && mkdir ~/beat \
