@@ -24,7 +24,7 @@ Note that we are running this as a manual step since the import takes a while
 
 ```shell
 docker compose up
-docker compose exec mongodb mongorestore --username off --password off-wger -d admin -c products /dump/dump/off/products.bson
+docker compose exec mongodb mongorestore --username off --password off-wger -d admin -c products /dump/off/products.bson
 ```
 
 There is also an admin interface available at <http://localhost:8081>, log in with
@@ -39,6 +39,17 @@ Run the import script
 
 ```shell
 python manage.py import-off-products
+```
+
+To update the data fixtures:
+
+```shell
+python manage.py dumpdata nutrition > extras/scripts/data.json
+cd extras/scripts
+python filter-fixtures.py
+zip ingredients.json.zip ingredients.json 
+zip weight_units.json.zip weight_units.json
+zip ingredient_units.json.zip ingredient_units.json
 ```
 
 ## 4

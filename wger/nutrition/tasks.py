@@ -67,9 +67,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_INGREDIENTS_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=random.randint(0, 23),
-                minute=random.randint(0, 59),
-                day_of_week=random.randint(0, 6),
+                hour=str(random.randint(0, 23)),
+                minute=str(random.randint(0, 59)),
+                day_of_month=f'{random.randint(1, 12)},{random.randint(18, 28)}',
             ),
             sync_all_ingredients_task.s(),
             name='Sync exercises',

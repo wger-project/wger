@@ -152,19 +152,6 @@ def export_csv(request):
     return response
 
 
-@login_required
-def overview(request, username=None):
-    """
-    Shows a plot with the weight data
-    """
-    is_owner, user = check_access(request.user, username)
-    context = {
-        'is_owner': is_owner,
-        'owner_user': user,
-    }
-    return render(request, 'overview.html', context)
-
-
 class WeightCsvImportFormPreview(FormPreview):
     preview_template = 'import_csv_preview.html'
     form_template = 'import_csv_form.html'
