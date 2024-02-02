@@ -10,6 +10,14 @@
   "close": "Close",
   "difference": "Difference",
   "days": "Days",
+  "licenses": {
+    "authors": "Author(s)",
+    "authorProfile": "Link to author website or profile, if available",
+    "derivativeSourceUrl": "Link to the original source, if this is a derivative work",
+    "derivativeSourceUrlHelper": "Note that a derivative work is one which is not only based on a previous work, but which also contains sufficient new, creative content to entitle it to its own copyright.",
+    "originalObjectUrl": "Link to the source website, if available",
+    "originalTitle": "Title"
+  },
   "loading": "Loading...",
   "nutritionalPlan": "Nutritional plan",
   "addEntry": "Add entry",
@@ -66,7 +74,13 @@
     "missingExerciseDescription": "Help out the community by contributing it!",
     "searchExerciseName": "Search by exercise name",
     "newNote": "New note",
-    "notesHelpText": "Notes are short comments on how to perform the exercise such as \"keep your body straight\""
+    "notesHelpText": "Notes are short comments on how to perform the exercise such as \"keep your body straight\"",
+    "imageStylePhoto": "Photo",
+    "imageStyle3D": "3D",
+    "imageStyleLine": "Line",
+    "imageStyleLowPoly": "Low-Poly",
+    "imageStyleOther": "Other",
+    "imageDetails": "Image details"
   },
   "nutrition": {
     "plans": "Nutritional plans",
