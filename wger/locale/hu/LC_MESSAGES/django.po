@@ -255,7 +255,7 @@ msgstr "Link a licenc szöveghez vagy egyéb információkhoz"
 #: core/models/profile.py:56
 #, python-format
 msgid "%(birthdate)s is not a valid birthdate"
-msgstr "%(birthdate)-ek érvénytelen Születési idő"
+msgstr "%(birthdate)s-ek érvénytelen Születési idő"
 
 #: core/models/profile.py:65
 msgid "Male"
