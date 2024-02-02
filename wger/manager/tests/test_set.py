@@ -266,13 +266,13 @@ class TestSetAddFormset(WgerTestCase):
         """
         Helper function
         """
-        base = ExerciseBase.objects.get(pk=1)
+        exercise = ExerciseBase.objects.get(pk=1)
         response = self.client.get(
             reverse('manager:set:get-formset', kwargs={'base_pk': 1, 'reps': 4})
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['base'], base)
+        self.assertEqual(response.context['exercise'], exercise)
         self.assertTrue(response.context['formset'])
 
     def test_get_formset_logged_in(self):

@@ -106,11 +106,11 @@ def create_demo_entries(user):
     day2.day.add(wednesday)
 
     # Biceps curls with dumbbell
-    base = ExerciseBase.objects.get(uuid=UUID_CURLS)
+    exercise = ExerciseBase.objects.get(uuid=UUID_CURLS)
     day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
 
-    setting = Setting(set=day_set, exercise_base=base, reps=8, order=1)
+    setting = Setting(set=day_set, exercise_base=exercise, reps=8, order=1)
     setting.save()
 
     # Weight log entries
@@ -118,7 +118,7 @@ def create_demo_entries(user):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise_base=base,
+                exercise_base=exercise,
                 workout=workout,
                 reps=reps,
                 weight=18 - reps + random.randint(1, 4),
@@ -127,18 +127,18 @@ def create_demo_entries(user):
             weight_log.append(log)
 
     # French press
-    base = ExerciseBase.objects.get(uuid=UUID_FRENCH_PRESS)
+    exercise = ExerciseBase.objects.get(uuid=UUID_FRENCH_PRESS)
     day_set = Set(exerciseday=day, sets=4, order=2)
     day_set.save()
 
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=8, order=1))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=8, order=1))
 
     # Weight log entries
     for reps in (7, 10):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise_base=base,
+                exercise_base=exercise,
                 workout=workout,
                 reps=reps,
                 weight=30 - reps + random.randint(1, 4),
@@ -147,18 +147,18 @@ def create_demo_entries(user):
             weight_log.append(log)
 
     # Squats
-    base = ExerciseBase.objects.get(uuid=UUID_SQUATS)
+    exercise = ExerciseBase.objects.get(uuid=UUID_SQUATS)
     day_set = Set(exerciseday=day, sets=4, order=3)
     day_set.save()
 
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=10, order=1))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=10, order=1))
 
     # Weight log entries
     for reps in (5, 10, 12):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise_base=base,
+                exercise_base=exercise,
                 workout=workout,
                 reps=reps,
                 weight=110 - reps + random.randint(1, 10),
@@ -167,20 +167,20 @@ def create_demo_entries(user):
             weight_log.append(log)
 
     # Crunches
-    base = ExerciseBase.objects.get(uuid=UUID_CRUNCHES)
+    exercise = ExerciseBase.objects.get(uuid=UUID_CRUNCHES)
     day_set = Set(exerciseday=day, sets=4, order=4)
     day_set.save()
 
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=30, order=1))
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=99, order=2))
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=35, order=3))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=99, order=2))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=35, order=3))
 
     # Leg raises, supersets with crunches
-    base = ExerciseBase.objects.get(uuid=UUID_LEG_RAISES)
+    exercise = ExerciseBase.objects.get(uuid=UUID_LEG_RAISES)
 
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=30, order=1))
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=40, order=2))
-    setting_list.append(Setting(set=day_set, exercise_base=base, reps=99, order=3))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=30, order=1))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=40, order=2))
+    setting_list.append(Setting(set=day_set, exercise_base=exercise, reps=99, order=3))
 
     Setting.objects.bulk_create(setting_list)
 

@@ -122,11 +122,11 @@ def add(request, pk):
     # exercise they belong besides the form-ID, from Django's formset
     counter = 0
     total_sets = 0
-    exercise_base_list = {}
+    exercise_list = {}
     form_to_exercise_base = {}
 
     for set_set in day.set_set.all():
-        for base in set_set.exercise_bases:
+        for exercise in set_set.exercise_bases:
             # Maximum possible values
             total_sets += int(set_set.sets)
             counter_before = counter
@@ -134,8 +134,8 @@ def add(request, pk):
             form_id_range = range(counter_before, counter + 1)
 
             # Add to list
-            exercise_base_list[base.id] = {
-                'obj': base,
+            exercise_list[exercise.id] = {
+                'obj': exercise,
                 'sets': int(set_set.sets),
                 'form_ids': form_id_range,
             }
@@ -143,11 +143,14 @@ def add(request, pk):
             counter += 1
             # Helper mapping form-ID <--> Exercise base
             for id in form_id_range:
-                form_to_exercise_base[id] = base
+                form_to_exercise_base[id] = exercise
 
     # Define the formset here because now we know the value to pass to 'extra'
     WorkoutLogFormSet = modelformset_factory(
-        WorkoutLog, form=WorkoutLogForm, exclude=('date', 'workout'), extra=total_sets
+        WorkoutLog,
+        form=WorkoutLogForm,
+        exclude=('date', 'workout'),
+        extra=total_sets,
     )
     # Process the request
     if request.method == 'POST':
@@ -224,14 +227,14 @@ def add(request, pk):
             session_form = HelperWorkoutSessionForm()
 
     # Pass the correct forms to the exercise list
-    for base in exercise_base_list:
-        form_id_from = min(exercise_base_list[base]['form_ids'])
-        form_id_to = max(exercise_base_list[base]['form_ids'])
-        exercise_base_list[base]['forms'] = formset[form_id_from : form_id_to + 1]
+    for exercise in exercise_list:
+        form_id_from = min(exercise_list[exercise]['form_ids'])
+        form_id_to = max(exercise_list[exercise]['form_ids'])
+        exercise_list[exercise]['forms'] = formset[form_id_from : form_id_to + 1]
 
     context = {
         'day': day,
-        'bases': exercise_base_list,
+        'exercise_list': exercise_list,
         'formset': formset,
         'helper': WorkoutLogFormHelper(),
         'session_form': session_form,

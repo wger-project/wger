@@ -131,7 +131,7 @@ def get_formset(request, base_pk, reps=Set.DEFAULT_SETS):
     """
     Returns a formset. This is then rendered inside the new set template
     """
-    base = ExerciseBase.objects.get(pk=base_pk)
+    exercise = ExerciseBase.objects.get(pk=base_pk)
     SettingFormSet = inlineformset_factory(
         Set,
         Setting,
@@ -143,7 +143,7 @@ def get_formset(request, base_pk, reps=Set.DEFAULT_SETS):
         queryset=Setting.objects.none(),
         prefix=f'base{base_pk}',
     )
-    context = {'formset': formset, 'helper': WorkoutLogFormHelper(), 'base': base}
+    context = {'formset': formset, 'helper': WorkoutLogFormHelper(), 'exercise': exercise}
 
     return render(request, 'set/formset.html', context)
 
