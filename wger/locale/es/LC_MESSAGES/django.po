@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2023-12-09 19:03+0000\n"
+"PO-Revision-Date: 2024-02-07 20:01+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -1785,10 +1785,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Mostrar el nombre del gimnasio en la cabecera"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "Configuración para {}"
+msgstr "Configuración para {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -2894,7 +2893,7 @@ msgstr "Marca del producto"
 #: nutrition/models/ingredient.py:304
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
-msgstr ""
+msgstr "La energía total ({self.energy}kcal) no es la suma aproximada de las "
 
 #: nutrition/models/ingredient.py:383 nutrition/views/ingredient.py:196
 msgid "Ingredient was successfully added to the general database"
@@ -2905,11 +2904,12 @@ msgid "New user submitted ingredient"
 msgstr "Nuevo ingrediente enviado por un usuario"
 
 #: nutrition/models/ingredient.py:410
-#, fuzzy, python-brace-format
-#| msgid "The user {0} submitted a new ingredient \"{1}\"."
+#, python-brace-format
 msgid ""
 "The user {request.user.username} submitted a new ingredient \"{self.name}\"."
-msgstr "El usuario {0} ha enviado un nuevo ingrediente \"{1}\"."
+msgstr ""
+"El usuario {request.user.username} ha enviado un nuevo ingrediente \"{self."
+"name}\"."
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
