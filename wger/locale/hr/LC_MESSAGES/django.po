@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-01-14 12:31+0000\n"
+"PO-Revision-Date: 2024-02-19 05:04+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -1441,7 +1441,7 @@ msgstr "3D"
 
 #: exercises/models/image.py:59
 msgid "Low-poly"
-msgstr "Mali broj poligona"
+msgstr "Grubi poligoni"
 
 #: exercises/models/image.py:60
 msgid "Photo"
@@ -1754,10 +1754,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Prikaži ime teretane u zaglavlju web stranice"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "Konfiguracija za {}"
+msgstr "Konfiguracija za {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -2856,7 +2855,7 @@ msgstr "Ime proizvoda"
 #: nutrition/models/ingredient.py:304
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
-msgstr ""
+msgstr "Ukupna energija ({self.energy} kcal) nije približni zbroj od "
 
 #: nutrition/models/ingredient.py:383 nutrition/views/ingredient.py:196
 msgid "Ingredient was successfully added to the general database"
@@ -2867,11 +2866,10 @@ msgid "New user submitted ingredient"
 msgstr "Novi korisnik je poslao sastojak"
 
 #: nutrition/models/ingredient.py:410
-#, fuzzy, python-brace-format
-#| msgid "The user {0} submitted a new ingredient \"{1}\"."
+#, python-brace-format
 msgid ""
 "The user {request.user.username} submitted a new ingredient \"{self.name}\"."
-msgstr "Korisnik {0} je poslao novi sastojak „{1}”."
+msgstr "{request.user.username} je poslao/la novi sastojak „{self.name}”."
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
