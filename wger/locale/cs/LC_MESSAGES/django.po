@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-02-19 05:04+0000\n"
+"PO-Revision-Date: 2024-02-21 11:02+0000\n"
 "Last-Translator: Fjuro <fjuro@alius.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/wger/web/cs/>\n"
 "Language: cs\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -1937,7 +1937,7 @@ msgstr "Upravit posilovnu"
 
 #: i18n.tpl:2
 msgid "Abs"
-msgstr "Břicho"
+msgstr "Břišní svaly"
 
 #: i18n.tpl:3
 msgid "Arms"
@@ -1957,7 +1957,7 @@ msgstr "Lavice"
 
 #: i18n.tpl:7
 msgid "Biceps"
-msgstr "Biceps"
+msgstr "Bicepsy"
 
 #: i18n.tpl:8
 msgid "Body Weight"
@@ -1965,7 +1965,7 @@ msgstr "Tělesná hmotnost"
 
 #: i18n.tpl:9
 msgid "Calves"
-msgstr "Lýtko"
+msgstr "Lýtka"
 
 #: i18n.tpl:10
 msgid "Cardio"
@@ -1973,7 +1973,7 @@ msgstr "Kardio"
 
 #: i18n.tpl:11
 msgid "Chest"
-msgstr "Prsa"
+msgstr "Hrudník"
 
 #: i18n.tpl:12
 msgid "Dumbbell"
@@ -2021,7 +2021,7 @@ msgstr "Dolní část zad"
 
 #: i18n.tpl:23
 msgid "Max Reps"
-msgstr "Maximum Opakování"
+msgstr "Max. opakování"
 
 #: i18n.tpl:24
 msgid "Miles"
@@ -2037,7 +2037,7 @@ msgstr "Minuty"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr "Kotouče"
+msgstr "Závaží"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2070,15 +2070,15 @@ msgstr "Gymnastický míč"
 
 #: i18n.tpl:35
 msgid "Triceps"
-msgstr "Triceps"
+msgstr "Tricepsy"
 
 #: i18n.tpl:36
 msgid "Until Failure"
-msgstr "Do Selhání"
+msgstr "Do selhání"
 
 #: i18n.tpl:39
 msgid "none (bodyweight exercise)"
-msgstr "nic (cvičení s tělesnou váhou)"
+msgstr "žádný (cvičení s vlastní vahou)"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
