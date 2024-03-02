@@ -239,25 +239,12 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         blank=True,
     )
 
-    index_language = models.CharField(
-        default='english',
-        editable=False,
-        max_length=30,
-    )
-    """The language used for the full text search"""
-
-    search_column = SearchVectorField(
-        null=True,
-        editable=False,
-    )
-    """Column used for full text search"""
-
     # Metaclass to set some other properties
     class Meta:
         ordering = [
             "name",
         ]
-        indexes = (GinIndex(fields=["search_column"]),)
+        indexes = (GinIndex(fields=["name"]),)
 
     #
     # Django methods

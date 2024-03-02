@@ -18,6 +18,7 @@
 import uuid
 
 # Django
+from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -38,6 +39,7 @@ class Alias(models.Model):
     """
     Model for an exercise (name)alias
     """
+
     uuid = models.UUIDField(
         default=uuid.uuid4,
         editable=False,
@@ -59,6 +61,9 @@ class Alias(models.Model):
 
     history = HistoricalRecords()
     """Edit history"""
+
+    class Meta:
+        indexes = (GinIndex(fields=["alias"]),)
 
     def __str__(self):
         """

@@ -17,18 +17,17 @@
 import logging
 from uuid import UUID
 
-# Django
-from django.conf import settings
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-from django.db.models import Q
-from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
-from django.views.decorators.cache import cache_page
-
 # Third Party
 import bleach
 from actstream import action as actstream_action
 from bleach.css_sanitizer import CSSSanitizer
+# Django
+from django.conf import settings
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.utils.translation import gettext as _
+from django.views.decorators.cache import cache_page
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -100,6 +99,7 @@ class ExerciseBaseViewSet(ModelViewSet):
 
     For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
+
     queryset = ExerciseBase.translations.all()
     serializer_class = ExerciseBaseSerializer
     permission_classes = (CanContributeExercises,)
@@ -149,6 +149,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     """
     API endpoint for editing or adding exercise translation objects.
     """
+
     queryset = Exercise.objects.all()
     permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseTranslationSerializer
@@ -350,15 +351,13 @@ def search(request):
 
     # Postgres uses a full-text search
     if is_postgres_db():
-        vector = SearchVector('search_column')
-        search_query = SearchQuery(q, search_type="websearch")
-        query = query.annotate(rank=SearchRank(vector, search_query)) \
-            .filter(search_column=search_query) \
-            .order_by('-rank', 'name')
+        query = (
+            query.annotate(similarity=TrigramSimilarity("name", q))
+            .filter(Q(similarity__gt=0.15) | Q(alias__alias__icontains=q))
+            .order_by("-similarity", "name")
+        )
     else:
         query = query.filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))
-
-    print(query.query)
 
     for translation in query:
         image = None
@@ -385,7 +384,7 @@ def search(request):
             }
         }
         results.append(result_json)
-    response['suggestions'] = results
+    response["suggestions"] = results
     return Response(response)
 
 

@@ -18,7 +18,7 @@
 import uuid
 
 # Django
-from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
@@ -96,19 +96,6 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     )
     """ Refers to the base exercise with non translated information """
 
-    search_column = SearchVectorField(
-        null=True,
-        editable=False,
-    )
-    """Column used for full text search"""
-
-    index_language = models.CharField(
-        default='english',
-        editable=False,
-        max_length=30,
-    )
-    """The language used for the full text search"""
-
     history = HistoricalRecords()
     """Edit history"""
 
@@ -120,6 +107,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         ordering = [
             "name",
         ]
+        indexes = (GinIndex(fields=["name"]),)
 
     def get_absolute_url(self):
         """
