@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 def update_language_full_name(apps, schema_editor):
-    mapper = {1: 'German', 2: 'English', 3: 'Bulgarian', 4: 'Spanish', 5: 'Russian', 6: 'Dutch',
-              7: 'Portuguese', 8: 'Greek', 9: 'Czech', 10: 'Swedish', 11: 'Norwegian', 12: 'French',
-              13: 'Italian', 14: 'Polish', 15: 'Ukrainian', 16: 'Turkish', 17: 'Arabic',
-              18: 'Azerbaijani', 19: 'Esperanto', 20: 'Persian', 21: 'Hebrew', 22: 'Croatian',
-              23: 'Indonesian', 24: 'Chinese', }
+    mapper = {'de': 'German', 'en': 'English', 'bg': 'Bulgarian', 'es': 'Spanish', 'ru': 'Russian',
+              'nl': 'Dutch', 'pt': 'Portuguese', 'el': 'Greek', 'cs': 'Czech', 'sv': 'Swedish',
+              'no': 'Norwegian', 'fr': 'French', 'it': 'Italian', 'pl': 'Polish', 'uk': 'Ukrainian',
+              'tr': 'Turkish', 'ar': 'Arabic', 'az': 'Azerbaijani', 'eo': 'Esperanto',
+              'fa': 'Persian', 'he': 'Hebrew', 'hr': 'Croatian', 'id': 'Indonesian',
+              'zh': 'Chinese', }
 
     Language = apps.get_model("core", "Language")
     for language in Language.objects.all():
-        language.full_name_en = mapper.get(language.id, 'English')
+        language.full_name_en = mapper.get(language.short_name, 'English')
         language.save()
 
 
