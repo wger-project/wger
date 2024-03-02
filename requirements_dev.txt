@@ -18,5 +18,5 @@ faker==23.2.1
 coverage==7.4.1
 django-debug-toolbar==4.3.0
 isort==5.13.2
-ruff==0.2.1
+ruff==0.3.0
 tblib==3.0.0
