@@ -27,7 +27,7 @@ icalendar==5.0.11
 invoke==2.2.0
 openfoodfacts==0.1.12
 pillow==10.2.0
-reportlab==4.0.9
+reportlab==4.1.0
 requests==2.31.0
 tqdm==4.66.2
 tzdata==2024.1
