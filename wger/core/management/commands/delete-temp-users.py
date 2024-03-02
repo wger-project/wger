@@ -31,14 +31,13 @@ class Command(BaseCommand):
     help = 'Deletes all temporary users older than 1 week'
 
     def handle(self, **options):
-
         profile_list = UserProfile.objects.filter(is_temporary=True)
         counter = 0
         for profile in profile_list:
             delta = now() - profile.user.date_joined
 
-            if (delta >= datetime.timedelta(7)):
+            if delta >= datetime.timedelta(7):
                 counter += 1
                 profile.user.delete()
 
-        self.stdout.write(f"Deleted {counter} temporary users")
+        self.stdout.write(f'Deleted {counter} temporary users')

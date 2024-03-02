@@ -44,12 +44,10 @@ class Command(BaseCommand):
             action='store',
             dest='remote_url',
             default='https://wger.de',
-            help='Remote URL to fetch the exercises from (default: '
-            'https://wger.de)'
+            help='Remote URL to fetch the exercises from (default: ' 'https://wger.de)',
         )
 
     def handle(self, **options):
-
         if not settings.MEDIA_ROOT:
             raise ImproperlyConfigured('Please set MEDIA_ROOT in your settings file')
 

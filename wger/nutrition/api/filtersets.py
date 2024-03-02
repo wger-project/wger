@@ -9,7 +9,6 @@ from wger.nutrition.models import (
 
 
 class LogItemFilterSet(filters.FilterSet):
-
     class Meta:
         model = LogItem
         fields = {
@@ -22,7 +21,6 @@ class LogItemFilterSet(filters.FilterSet):
 
 
 class IngredientFilterSet(filters.FilterSet):
-
     class Meta:
         model = Ingredient
         fields = {

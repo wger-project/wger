@@ -27,11 +27,7 @@ def gym_document_upload_dir(instance, filename):
     """
     Returns the upload target for documents
     """
-    return "gym/documents/{0}/{1}/{2}".format(
-        instance.member.userprofile.gym.id,
-        instance.member.id,
-        uuid.uuid4(),
-    )
+    return f'gym/documents/{instance.member.userprofile.gym.id}/{instance.member.id}/{uuid.uuid4()}'
 
 
 class UserDocument(m.Model):
@@ -43,8 +39,9 @@ class UserDocument(m.Model):
         """
         Order by time
         """
+
         ordering = [
-            "-timestamp_created",
+            '-timestamp_created',
         ]
 
     user = m.ForeignKey(User, editable=False, related_name='userdocument_user', on_delete=m.CASCADE)
@@ -106,9 +103,9 @@ class UserDocument(m.Model):
         Return a more human-readable representation
         """
         if self.name != self.original_name:
-            return "{} ({})".format(self.name, self.original_name)
+            return f'{self.name} ({self.original_name})'
         else:
-            return "{}".format(self.name)
+            return self.name
 
     def get_owner_object(self):
         """

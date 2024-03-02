@@ -53,7 +53,6 @@ class ScheduleManager(models.Manager):
 
         # there are no active schedules, just return the last workout
         except ObjectDoesNotExist:
-
             schedule = False
             try:
                 active_workout = Workout.objects.filter(user=user).latest('creation_date')
@@ -66,18 +65,15 @@ class ScheduleManager(models.Manager):
 
 
 class WorkoutManager(models.Manager):
-
     def get_queryset(self):
         return super().get_queryset().filter(is_template=False)
 
 
 class WorkoutTemplateManager(models.Manager):
-
     def get_queryset(self):
         return super().get_queryset().filter(is_template=True)
 
 
 class WorkoutAndTemplateManager(models.Manager):
-
     def get_queryset(self):
         return super().get_queryset()

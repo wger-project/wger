@@ -3,27 +3,25 @@
 #
 
 # Application
-bleach[css]~=6.1
-crispy-bootstrap5==2023.10
-
-# this is a fork of django-bootstrap-breadcrumbs
-# we might need to think about migrating away from this completely
-django-bootstrap-breadcrumbs2==1.0.0
-django-formtools~=2.5
-django-recaptcha~=4.0.0
 Django==4.2.6
+bleach[css]~=6.1
+celery[redis]==5.3.6
+crispy-bootstrap5==2023.10
 django-activity-stream==2.0.0
 django-axes[ipware]==6.3.0
+django-bootstrap-breadcrumbs2==1.0.0 # fork of django-bootstrap-breadcrumbs, we might need to migrate away completely
 django-crispy-forms~=2.1
-crispy-bootstrap4==2023.1
-django-simple-history~=3.4
 django-email-verification~=0.3.3
+django-environ==0.11.2
+django-formtools~=2.5
+django-recaptcha~=4.0.0
+django-simple-history~=3.4
+django-storages~=1.14
 django_compressor~=4.4
 django_extensions~=3.2
-django-storages~=1.14
-django-environ==0.11.2
-drf-spectacular[sidecar]==0.27.0
+drf-spectacular[sidecar]==0.27.1
 easy-thumbnails==2.8.5
+flower==2.0.1
 fontawesomefree~=6.5.1
 icalendar==5.0.11
 invoke==2.2.0
@@ -31,10 +29,8 @@ openfoodfacts==0.1.12
 pillow==10.2.0
 reportlab==4.0.9
 requests==2.31.0
+tqdm==4.66.1
 tzdata==2023.4
-celery[redis]==5.3.6
-flower==2.0.1
-
 
 # AWS
 #boto3

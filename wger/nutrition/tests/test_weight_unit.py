@@ -37,7 +37,7 @@ class WeightUnitRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(WeightUnit.objects.get(pk=1)), 'Scheibe')
+        self.assertEqual(str(WeightUnit.objects.get(pk=1)), 'Scheibe')
 
 
 class AddWeightUnitTestCase(WgerAddTestCase):
@@ -77,10 +77,9 @@ class WeightUnitOverviewTestCase(WgerTestCase):
     """
 
     def test_overview(self):
-
         # Add more ingredient units so we can test the pagination
         self.user_login('admin')
-        data = {"name": "A new, cool unit", "language": 2}
+        data = {'name': 'A new, cool unit', 'language': 2}
         for i in range(0, 50):
             self.client.post(reverse('nutrition:weight_unit:add'), data)
 
@@ -114,6 +113,7 @@ class WeightUnitApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the weight unit overview resource
     """
+
     pk = 1
     resource = WeightUnit
     private_resource = False

@@ -5,6 +5,6 @@
 # Regular packages
 -r requirements.txt
 
-gunicorn~=21.2
-psycopg2==2.9.9
 django-redis==5.4.0
+gunicorn==21.2
+psycopg2==2.9.9

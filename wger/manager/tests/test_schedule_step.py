@@ -38,7 +38,7 @@ class ScheduleStepRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(ScheduleStep.objects.get(pk=1)), 'A test workout')
+        self.assertEqual(str(ScheduleStep.objects.get(pk=1)), 'A test workout')
 
 
 class ScheduleStepTestCase(WgerTestCase):
@@ -96,6 +96,7 @@ class ScheduleStepApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the schedule step overview resource
     """
+
     pk = 4
     resource = ScheduleStep
     private_resource = True

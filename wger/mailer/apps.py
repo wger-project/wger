@@ -20,7 +20,7 @@ from django.apps import AppConfig
 
 class Config(AppConfig):
     name = 'wger.mailer'
-    verbose_name = "Email"
+    verbose_name = 'Email'
 
     def ready(self):
         pass

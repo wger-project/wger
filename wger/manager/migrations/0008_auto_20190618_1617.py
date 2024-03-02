@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0007_auto_20160311_2258'),
     ]
@@ -18,9 +17,9 @@ class Migration(migrations.Migration):
             field=models.IntegerField(
                 validators=[
                     django.core.validators.MinValueValidator(0),
-                    django.core.validators.MaxValueValidator(600)
+                    django.core.validators.MaxValueValidator(600),
                 ],
-                verbose_name='Amount'
+                verbose_name='Amount',
             ),
         ),
     ]

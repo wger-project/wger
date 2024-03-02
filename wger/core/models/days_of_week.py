@@ -32,8 +32,9 @@ class DaysOfWeek(models.Model):
         """
         Order by day-ID, this is needed for some DBs
         """
+
         ordering = [
-            "pk",
+            'pk',
         ]
 
     def __str__(self):

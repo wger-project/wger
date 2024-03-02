@@ -34,6 +34,6 @@ patterns_gym_config = [
 urlpatterns = [
     path(
         'gym-config/',
-        include((patterns_gym_config, 'gym_config'), namespace="gym_config"),
+        include((patterns_gym_config, 'gym_config'), namespace='gym_config'),
     ),
 ]

@@ -44,14 +44,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for users'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--nr-entries',
             action='store',
             default=20,
             dest='number_users',
             type=int,
-            help='The number of users to generate (default: 20)'
+            help='The number of users to generate (default: 20)',
         )
 
         parser.add_argument(
@@ -60,11 +59,10 @@ class Command(BaseCommand):
             default='auto',
             dest='add_to_gym',
             type=str,
-            help='Gym to assign the users to. Allowed values: auto, none, <gym_id>. Default: auto'
+            help='Gym to assign the users to. Allowed values: auto, none, <gym_id>. Default: auto',
         )
 
     def handle(self, **options):
-
         faker = Faker()
 
         self.stdout.write(f"** Generating {options['number_users']} users")
@@ -83,7 +81,7 @@ class Command(BaseCommand):
             last_name = faker.last_name()
 
             username = slugify(f"{first_name}, {last_name} - {str(uid).split('-')[1]}")
-            email = '{0}@example.com'.format(username)
+            email = f'{username}@example.com'
             password = username
 
             try:

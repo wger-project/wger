@@ -37,6 +37,7 @@ class Command(BaseCommand):
     """
     Synchronizes exercise data from a wger instance to the local database
     """
+
     remote_url = settings.WGER_SETTINGS['WGER_INSTANCE']
 
     help = """Synchronizes exercise data from a wger instance to the local database.
@@ -58,7 +59,7 @@ class Command(BaseCommand):
             dest='remote_url',
             default=settings.WGER_SETTINGS['WGER_INSTANCE'],
             help=f'Remote URL to fetch the exercises from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})'
+            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
         )
 
         parser.add_argument(
@@ -66,11 +67,10 @@ class Command(BaseCommand):
             action='store_true',
             dest='skip_delete',
             default=False,
-            help='Skips deleting any entries'
+            help='Skips deleting any entries',
         )
 
     def handle(self, **options):
-
         remote_url = options['remote_url']
 
         try:

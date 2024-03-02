@@ -39,7 +39,7 @@ class LanguageRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(f"{Language.objects.get(pk=1)}", 'Deutsch (de)')
+        self.assertEqual(f'{Language.objects.get(pk=1)}', 'Deutsch (de)')
 
 
 class LanguageOverviewTest(WgerAccessTestCase):
@@ -95,6 +95,7 @@ class LanguageApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the language overview resource
     """
+
     pk = 1
     resource = Language
     private_resource = False

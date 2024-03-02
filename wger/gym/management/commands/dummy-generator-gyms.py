@@ -37,55 +37,54 @@ class Command(BaseCommand):
     help = 'Dummy generator for gyms'
 
     names_first = [
-        "1st",
-        "Body",
-        "Energy",
-        "Granite",
-        "Hardcore",
-        "Intense",
-        "Iron",
-        "Muscle",
-        "Peak",
-        "Power",
-        "Pumping",
-        "Results",
-        "Top",
+        '1st',
+        'Body',
+        'Energy',
+        'Granite',
+        'Hardcore',
+        'Intense',
+        'Iron',
+        'Muscle',
+        'Peak',
+        'Power',
+        'Pumping',
+        'Results',
+        'Top',
     ]
     names_second = [
-        "Academy",
-        "Barbells",
-        "Body",
-        "Centre",
-        "Dumbbells",
-        "Factory",
-        "Fitness",
-        "Force",
-        "Gym",
-        "Iron",
-        "Pit",
-        "Team",
-        "Workout",
+        'Academy',
+        'Barbells',
+        'Body',
+        'Centre',
+        'Dumbbells',
+        'Factory',
+        'Fitness',
+        'Force',
+        'Gym',
+        'Iron',
+        'Pit',
+        'Team',
+        'Workout',
     ]
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--nr-entries',
             action='store',
             default=10,
             dest='number_gyms',
             type=int,
-            help='The number of gyms to generate (default: 10)'
+            help='The number of gyms to generate (default: 10)',
         )
 
     def handle(self, **options):
         gym_names_1 = DynamicProvider(
-            provider_name="gym_names",
+            provider_name='gym_names',
             elements=self.names_first,
         )
 
         gym_names_2 = DynamicProvider(
-            provider_name="gym_names2",
+            provider_name='gym_names2',
             elements=self.names_second,
         )
 
@@ -107,12 +106,12 @@ class Command(BaseCommand):
                 if part1 != part2:
                     found = True
 
-            name = f"{part1} {part2}"
+            name = f'{part1} {part2}'
             gym = Gym()
             gym.name = name
             gym_list.append(gym)
 
-            self.stdout.write('   - {0}'.format(gym.name))
+            self.stdout.write(f'   - {gym.name}')
 
         # Bulk-create the entries
         Gym.objects.bulk_create(gym_list)

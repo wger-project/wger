@@ -29,14 +29,17 @@ class Command(BaseCommand):
     """
     Performs some sanity checks on the exercise database
     """
+
     english: Language
 
-    help = "Performs some sanity checks on the exercise database. " \
-           "At the moment this script checks that each exercise:\n" \
-           "- has at least one translation\n" \
-           "- has a translation in English\n" \
-           "- has no duplicate translations\n\n" \
-           "Each problem can be fixed individually by using the --delete-* flags\n"
+    help = (
+        'Performs some sanity checks on the exercise database. '
+        'At the moment this script checks that each exercise:\n'
+        '- has at least one translation\n'
+        '- has a translation in English\n'
+        '- has no duplicate translations\n\n'
+        'Each problem can be fixed individually by using the --delete-* flags\n'
+    )
 
     def create_parser(self, *args, **kwargs):
         parser = super(Command, self).create_parser(*args, **kwargs)
@@ -44,14 +47,13 @@ class Command(BaseCommand):
         return parser
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--delete-untranslated',
             action='store_true',
             dest='delete_untranslated',
             default=False,
             help="Delete exercises without translations (safe to use since these can't be "
-            "accessed over the UI)",
+            'accessed over the UI)',
         )
 
         parser.add_argument(
@@ -80,7 +82,6 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
-
         delete_untranslated = options['delete_untranslated'] or options['delete_all']
         delete_duplicates = options['delete_duplicates'] or options['delete_all']
         delete_no_english = options['delete_no_english'] or options['delete_all']
@@ -120,7 +121,8 @@ class Command(BaseCommand):
         exercise_languages = base.exercises.values_list('language', flat=True)
         duplicates = [
             Language.objects.get(pk=item)
-            for item, count in collections.Counter(exercise_languages).items() if count > 1
+            for item, count in collections.Counter(exercise_languages).items()
+            if count > 1
         ]
 
         if not duplicates:

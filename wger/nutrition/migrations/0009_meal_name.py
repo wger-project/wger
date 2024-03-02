@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0008_auto_20210102_1446'),
     ]
@@ -15,10 +14,9 @@ class Migration(migrations.Migration):
             name='name',
             field=models.CharField(
                 blank=True,
-                help_text=
-                'Give meals a textual description / name such as "Breakfast" or "after workout"',
+                help_text='Give meals a textual description / name such as "Breakfast" or "after workout"',
                 max_length=25,
-                verbose_name='Name'
+                verbose_name='Name',
             ),
         ),
     ]

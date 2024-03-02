@@ -23,13 +23,14 @@ class IngredientCategory(models.Model):
     """
     Model for an Ingredient category
     """
+
     name = models.CharField(max_length=100, verbose_name=_('Name'))
 
     # Metaclass to set some other properties
     class Meta:
-        verbose_name_plural = _("Ingredient Categories")
+        verbose_name_plural = _('Ingredient Categories')
         ordering = [
-            "name",
+            'name',
         ]
 
     def __str__(self):

@@ -23,6 +23,7 @@ class AccessContractTestCase(WgerAccessTestCase):
     """
     Test accessing the detail page of a contract
     """
+
     url = reverse('email:email:overview', kwargs={'gym_pk': 1})
     user_success = ('manager1', 'manager2')
     user_fail = (

@@ -75,29 +75,29 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def template_overview(request):
-    """
-
-    """
+    """ """
     return render(
-        request, 'workout/overview.html', {
+        request,
+        'workout/overview.html',
+        {
             'workouts': Workout.templates.filter(user=request.user),
             'title': _('Your templates'),
-            'template_overview': True
-        }
+            'template_overview': True,
+        },
     )
 
 
 @login_required
 def public_template_overview(request):
-    """
-
-    """
+    """ """
     return render(
-        request, 'workout/overview.html', {
+        request,
+        'workout/overview.html',
+        {
             'workouts': Workout.templates.filter(is_public=True),
             'title': _('Public templates'),
-            'template_overview': True
-        }
+            'template_overview': True,
+        },
     )
 
 
@@ -159,7 +159,6 @@ def copy_workout(request, pk):
         workout_form = WorkoutCopyForm(request.POST)
 
         if workout_form.is_valid():
-
             # Copy workout
             workout_copy: Workout = copy.copy(workout)
             workout_copy.pk = None

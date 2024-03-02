@@ -59,6 +59,7 @@ class WeightAddView(WgerFormMixin, CreateView):
     """
     Generic view to add a new weight entry
     """
+
     model = WeightEntry
     form_class = WeightForm
     title = gettext_lazy('Add weight entry')
@@ -90,6 +91,7 @@ class WeightUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing weight entry
     """
+
     model = WeightEntry
     form_class = WeightForm
 
@@ -148,19 +150,6 @@ def export_csv(request):
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
     response['Content-Length'] = len(response.content)
     return response
-
-
-@login_required
-def overview(request, username=None):
-    """
-    Shows a plot with the weight data
-    """
-    is_owner, user = check_access(request.user, username)
-    context = {
-        'is_owner': is_owner,
-        'owner_user': user,
-    }
-    return render(request, 'overview.html', context)
 
 
 class WeightCsvImportFormPreview(FormPreview):

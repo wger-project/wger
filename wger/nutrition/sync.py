@@ -124,7 +124,7 @@ def fetch_image_from_off(ingredient):
 
     # Parse the file name, looks something like this:
     # https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg
-    image_id: str = image_url.rpartition("/")[2].partition(".")[0]
+    image_id: str = image_url.rpartition('/')[2].partition('.')[0]
 
     # Retrieve the uploader name
     try:
@@ -135,7 +135,9 @@ def fetch_image_from_off(ingredient):
         return
 
     # Save to DB
-    url = f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id={image_id}'
+    url = (
+        f'https://world.openfoodfacts.org/cgi/product_image.pl?code={ingredient.code}&id={image_id}'
+    )
     uploader_url = f'https://world.openfoodfacts.org/photographer/{uploader_name}'
     image_data = {
         'image': os.path.basename(image_url),
@@ -145,7 +147,7 @@ def fetch_image_from_off(ingredient):
         'license_author_url': uploader_url,
         'license_object_url': url,
         'license_derivative_source_url': '',
-        'size': len(response.content)
+        'size': len(response.content),
     }
     try:
         Image.from_json(ingredient, response, image_data, generate_uuid=True)

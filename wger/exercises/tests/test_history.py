@@ -76,8 +76,8 @@ class ExerciseHistoryControl(WgerTestCase):
                 'exercise:history:revert',
                 kwargs={
                     'history_pk': most_recent_history.history_id,
-                    'content_type_id': ContentType.objects.get_for_model(exercise).id
-                }
+                    'content_type_id': ContentType.objects.get_for_model(exercise).id,
+                },
             )
         )
 

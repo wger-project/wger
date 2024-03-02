@@ -27,6 +27,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
     """
     API endpoint for nutrition plan objects
     """
+
     serializer_class = WeightEntrySerializer
 
     is_private = True
@@ -38,7 +39,7 @@ class WeightEntryViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return WeightEntry.objects.none()
 
         return WeightEntry.objects.filter(user=self.request.user)

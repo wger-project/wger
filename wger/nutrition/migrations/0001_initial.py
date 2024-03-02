@@ -7,7 +7,6 @@ import django.core.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('core', '0001_initial'),
@@ -21,18 +20,17 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'license_author',
                     models.CharField(
-                        help_text=
-                        'If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
+                        help_text='If you are not the author, enter the name or source here. This is needed for some licenses e.g. the CC-BY-SA.',
                         max_length=50,
                         null=True,
                         verbose_name='Author',
-                        blank=True
-                    )
+                        blank=True,
+                    ),
                 ),
                 (
                     'status',
@@ -41,17 +39,20 @@ class Migration(migrations.Migration):
                         max_length=2,
                         editable=False,
                         choices=[
-                            (b'1', 'Pending'), (b'2', 'Accepted'), (b'3', 'Declined'),
-                            (b'4', 'Submitted by administrator'), (b'5', 'System ingredient')
-                        ]
-                    )
+                            (b'1', 'Pending'),
+                            (b'2', 'Accepted'),
+                            (b'3', 'Declined'),
+                            (b'4', 'Submitted by administrator'),
+                            (b'5', 'System ingredient'),
+                        ],
+                    ),
                 ),
                 ('creation_date', models.DateField(auto_now_add=True, verbose_name='Date')),
                 ('update_date', models.DateField(auto_now=True, verbose_name='Date')),
                 ('name', models.CharField(max_length=200, verbose_name='Name')),
                 (
                     'energy',
-                    models.IntegerField(help_text='In kcal per 100g', verbose_name='Energy')
+                    models.IntegerField(help_text='In kcal per 100g', verbose_name='Energy'),
                 ),
                 (
                     'protein',
@@ -62,9 +63,9 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(100),
+                        ],
+                    ),
                 ),
                 (
                     'carbohydrates',
@@ -75,9 +76,9 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(100),
+                        ],
+                    ),
                 ),
                 (
                     'carbohydrates_sugar',
@@ -85,14 +86,14 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
+                            django.core.validators.MaxValueValidator(100),
                         ],
                         max_digits=6,
                         blank=True,
                         help_text='In g per 100g of product',
                         null=True,
-                        verbose_name='Sugar content in carbohydrates'
-                    )
+                        verbose_name='Sugar content in carbohydrates',
+                    ),
                 ),
                 (
                     'fat',
@@ -103,9 +104,9 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(100),
+                        ],
+                    ),
                 ),
                 (
                     'fat_saturated',
@@ -113,14 +114,14 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
+                            django.core.validators.MaxValueValidator(100),
                         ],
                         max_digits=6,
                         blank=True,
                         help_text='In g per 100g of product',
                         null=True,
-                        verbose_name='Saturated fat content in fats'
-                    )
+                        verbose_name='Saturated fat content in fats',
+                    ),
                 ),
                 (
                     'fibres',
@@ -128,14 +129,14 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
+                            django.core.validators.MaxValueValidator(100),
                         ],
                         max_digits=6,
                         blank=True,
                         help_text='In g per 100g of product',
                         null=True,
-                        verbose_name='Fibres'
-                    )
+                        verbose_name='Fibres',
+                    ),
                 ),
                 (
                     'sodium',
@@ -143,14 +144,14 @@ class Migration(migrations.Migration):
                         decimal_places=3,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(100)
+                            django.core.validators.MaxValueValidator(100),
                         ],
                         max_digits=6,
                         blank=True,
                         help_text='In g per 100g of product',
                         null=True,
-                        verbose_name='Sodium'
-                    )
+                        verbose_name='Sodium',
+                    ),
                 ),
                 (
                     'language',
@@ -158,8 +159,8 @@ class Migration(migrations.Migration):
                         editable=False,
                         to='core.Language',
                         verbose_name='Language',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
                 (
                     'license',
@@ -167,8 +168,8 @@ class Migration(migrations.Migration):
                         default=2,
                         verbose_name='License',
                         to='core.License',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
                 (
                     'user',
@@ -178,14 +179,14 @@ class Migration(migrations.Migration):
                         to=settings.AUTH_USER_MODEL,
                         null=True,
                         verbose_name='User',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={
                 'ordering': ['name'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='IngredientWeightUnit',
@@ -194,7 +195,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 ('gram', models.IntegerField(verbose_name='Amount in grams')),
                 (
@@ -204,8 +205,8 @@ class Migration(migrations.Migration):
                         help_text='Unit amount, e.g. "1 Cup" or "1/2 spoon"',
                         verbose_name='Amount',
                         max_digits=5,
-                        decimal_places=2
-                    )
+                        decimal_places=2,
+                    ),
                 ),
                 (
                     'ingredient',
@@ -213,12 +214,12 @@ class Migration(migrations.Migration):
                         editable=False,
                         to='nutrition.Ingredient',
                         verbose_name='Ingredient',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Meal',
@@ -227,25 +228,25 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'order',
                     models.IntegerField(
                         verbose_name='Order', max_length=1, editable=False, blank=True
-                    )
+                    ),
                 ),
                 (
                     'time',
                     wger.utils.fields.Html5TimeField(
                         null=True, verbose_name='Time (approx)', blank=True
-                    )
+                    ),
                 ),
             ],
             options={
                 'ordering': ['time'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='MealItem',
@@ -254,13 +255,13 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'order',
                     models.IntegerField(
                         verbose_name='Order', max_length=1, editable=False, blank=True
-                    )
+                    ),
                 ),
                 (
                     'amount',
@@ -270,17 +271,17 @@ class Migration(migrations.Migration):
                         decimal_places=2,
                         validators=[
                             django.core.validators.MinValueValidator(1),
-                            django.core.validators.MaxValueValidator(1000)
-                        ]
-                    )
+                            django.core.validators.MaxValueValidator(1000),
+                        ],
+                    ),
                 ),
                 (
                     'ingredient',
                     models.ForeignKey(
                         verbose_name='Ingredient',
                         to='nutrition.Ingredient',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
                 (
                     'meal',
@@ -288,8 +289,8 @@ class Migration(migrations.Migration):
                         editable=False,
                         to='nutrition.Meal',
                         verbose_name='Nutrition plan',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
                 (
                     'weight_unit',
@@ -298,12 +299,12 @@ class Migration(migrations.Migration):
                         blank=True,
                         to='nutrition.IngredientWeightUnit',
                         null=True,
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={},
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='NutritionPlan',
@@ -312,30 +313,28 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 (
                     'creation_date',
-                    models.DateField(auto_now_add=True, verbose_name='Creation date')
+                    models.DateField(auto_now_add=True, verbose_name='Creation date'),
                 ),
                 (
                     'description',
                     models.TextField(
-                        help_text=
-                        'A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"',
+                        help_text='A description of the goal of the plan, e.g. "Gain mass" or "Prepare for summer"',
                         max_length=2000,
                         verbose_name='Description',
-                        blank=True
-                    )
+                        blank=True,
+                    ),
                 ),
                 (
                     'has_goal_calories',
                     models.BooleanField(
                         default=False,
-                        help_text=
-                        'Tick the box if you want to mark this plan as having a goal amount of calories. You can use the calculator or enter the value yourself.',
-                        verbose_name='Use daily calories'
-                    )
+                        help_text='Tick the box if you want to mark this plan as having a goal amount of calories. You can use the calculator or enter the value yourself.',
+                        verbose_name='Use daily calories',
+                    ),
                 ),
                 (
                     'language',
@@ -343,8 +342,8 @@ class Migration(migrations.Migration):
                         editable=False,
                         to='core.Language',
                         verbose_name='Language',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
                 (
                     'user',
@@ -352,14 +351,14 @@ class Migration(migrations.Migration):
                         editable=False,
                         to=settings.AUTH_USER_MODEL,
                         verbose_name='User',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={
                 'ordering': ['-creation_date'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='WeightUnit',
@@ -368,7 +367,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 ('name', models.CharField(max_length=200, verbose_name='Name')),
                 (
@@ -377,14 +376,14 @@ class Migration(migrations.Migration):
                         editable=False,
                         to='core.Language',
                         verbose_name='Language',
-                        on_delete=models.CASCADE
-                    )
+                        on_delete=models.CASCADE,
+                    ),
                 ),
             ],
             options={
                 'ordering': ['name'],
             },
-            bases=(models.Model, ),
+            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='meal',
@@ -393,7 +392,7 @@ class Migration(migrations.Migration):
                 editable=False,
                 to='nutrition.NutritionPlan',
                 verbose_name='Nutrition plan',
-                on_delete=models.CASCADE
+                on_delete=models.CASCADE,
             ),
             preserve_default=True,
         ),

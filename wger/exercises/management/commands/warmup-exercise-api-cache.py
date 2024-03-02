@@ -31,7 +31,7 @@ class Command(BaseCommand):
             '--exercise-base-id',
             action='store',
             dest='exercise_base_id',
-            help='The ID of the exercise base, otherwise all exercises will be updated'
+            help='The ID of the exercise base, otherwise all exercises will be updated',
         )
 
         parser.add_argument(
@@ -39,7 +39,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='force',
             default=False,
-            help='Force the update of the cache'
+            help='Force the update of the cache',
         )
 
     def handle(self, **options):
@@ -56,9 +56,9 @@ class Command(BaseCommand):
 
     def handle_cache(self, exercise: ExerciseBase, force: bool):
         if force:
-            self.stdout.write(f"Force updating cache for exercise base {exercise.uuid}")
+            self.stdout.write(f'Force updating cache for exercise base {exercise.uuid}')
         else:
-            self.stdout.write(f"Warming cache for exercise base {exercise.uuid}")
+            self.stdout.write(f'Warming cache for exercise base {exercise.uuid}')
 
         if force:
             reset_exercise_api_cache(exercise.uuid)

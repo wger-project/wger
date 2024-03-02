@@ -35,7 +35,7 @@ class LicenseRepresentationTestCase(WgerTestCase):
         Test that the representation of an object is correct
         """
         self.assertEqual(
-            f"{License.objects.get(pk=1)}",
+            f'{License.objects.get(pk=1)}',
             'A cool and free license - Germany (ACAFL - DE)',
         )
 
@@ -83,6 +83,7 @@ class LicenseApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the license resource
     """
+
     pk = 1
     resource = License
     private_resource = False

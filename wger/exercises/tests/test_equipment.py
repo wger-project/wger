@@ -37,7 +37,7 @@ class EquipmentRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Equipment.objects.get(pk=1)), 'Dumbbells')
+        self.assertEqual(str(Equipment.objects.get(pk=1)), 'Dumbbells')
 
 
 class AddEquipmentTestCase(WgerAddTestCase):
@@ -79,7 +79,7 @@ class EquipmentListTestCase(WgerTestCase):
     def test_overview(self):
         # Add more equipments so we can test the pagination
         self.user_login('admin')
-        data = {"name": "A new entry"}
+        data = {'name': 'A new entry'}
         for i in range(0, 50):
             self.client.post(reverse('exercise:equipment:add'), data)
 
@@ -113,6 +113,7 @@ class EquipmentApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the equipment overview resource
     """
+
     pk = 1
     resource = Equipment
     private_resource = False

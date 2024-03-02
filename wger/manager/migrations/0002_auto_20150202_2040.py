@@ -6,7 +6,6 @@ import sortedm2m.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('manager', '0001_initial'),
     ]

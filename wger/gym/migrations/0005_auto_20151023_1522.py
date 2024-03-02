@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('gym', '0004_auto_20151003_2357'),
     ]
@@ -17,12 +16,12 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         verbose_name='ID', serialize=False, auto_created=True, primary_key=True
-                    )
+                    ),
                 ),
                 ('name', models.CharField(max_length=25, verbose_name='Name')),
                 (
                     'description',
-                    models.TextField(null=True, verbose_name='Description', blank=True)
+                    models.TextField(null=True, verbose_name='Description', blank=True),
                 ),
                 ('gym', models.ForeignKey(editable=False, to='gym.Gym', on_delete=models.CASCADE)),
             ],

@@ -29,14 +29,13 @@ from wger.weight.models import WeightEntry
 
 
 class EmailWeightReminderTestCase(WgerTestCase):
-
     def test_without_email(self):
         user = User.objects.get(pk=2)
         user.email = ''
         user.num_days_weight_reminder = 3
         user.save()
 
-        call_command("email-weight-reminder")
+        call_command('email-weight-reminder')
         self.assertEqual(len(mail.outbox), 0)
 
     def test_without_num_days_weight_reminder(self):
@@ -47,7 +46,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.userprofile.num_days_weight_reminder = 0
         user.userprofile.save()
 
-        call_command("email-weight-reminder")
+        call_command('email-weight-reminder')
         self.assertEqual(len(mail.outbox), 0)
 
     def test_with_num_days_weight_reminder(self):
@@ -58,7 +57,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.userprofile.num_days_weight_reminder = 3
         user.userprofile.save()
 
-        call_command("email-weight-reminder")
+        call_command('email-weight-reminder')
         self.assertEqual(len(mail.outbox), 1)
 
     def test_send_email(self):
@@ -73,7 +72,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.userprofile.num_days_weight_reminder = 1
         user.userprofile.save()
 
-        call_command("email-weight-reminder")
+        call_command('email-weight-reminder')
         self.assertEqual(len(mail.outbox), 1)
 
     def test_send_email_zero_days_diff(self):
@@ -88,7 +87,7 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.userprofile.num_days_weight_reminder = 1
         user.userprofile.save()
 
-        call_command("email-weight-reminder")
+        call_command('email-weight-reminder')
         self.assertEqual(len(mail.outbox), 1)
 
     def test_not_send_email(self):
@@ -103,5 +102,5 @@ class EmailWeightReminderTestCase(WgerTestCase):
         user.userprofile.num_days_weight_reminder = 3
         user.userprofile.save()
 
-        call_command("email-weight-reminder")
+        call_command('email-weight-reminder')
         self.assertEqual(len(mail.outbox), 0)

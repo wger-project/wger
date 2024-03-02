@@ -39,7 +39,7 @@ patterns_history = [
     path(
         'admin-control/revert/<int:history_pk>/<int:content_type_id>',
         history.history_revert,
-        name='revert'
+        name='revert',
     ),
 ]
 
@@ -150,9 +150,9 @@ patterns_exercise = [
 ]
 
 urlpatterns = [
-    path('muscle/', include((patterns_muscle, 'muscle'), namespace="muscle")),
-    path('category/', include((patterns_category, 'category'), namespace="category")),
-    path('equipment/', include((patterns_equipment, 'equipment'), namespace="equipment")),
-    path('history/', include((patterns_history, 'history'), namespace="history")),
-    path('', include((patterns_exercise, 'exercise'), namespace="exercise")),
+    path('muscle/', include((patterns_muscle, 'muscle'), namespace='muscle')),
+    path('category/', include((patterns_category, 'category'), namespace='category')),
+    path('equipment/', include((patterns_equipment, 'equipment'), namespace='equipment')),
+    path('history/', include((patterns_history, 'history'), namespace='history')),
+    path('', include((patterns_exercise, 'exercise'), namespace='exercise')),
 ]

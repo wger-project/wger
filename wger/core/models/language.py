@@ -49,8 +49,9 @@ class Language(models.Model):
         """
         Set Meta options
         """
+
         ordering = [
-            "full_name",
+            'full_name',
         ]
 
     #
@@ -60,7 +61,7 @@ class Language(models.Model):
         """
         Return a more human-readable representation
         """
-        return f"{self.full_name} ({self.short_name})"
+        return f'{self.full_name} ({self.short_name})'
 
     def get_absolute_url(self):
         """

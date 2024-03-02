@@ -39,14 +39,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for measurement entries'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--nr-measurements',
             action='store',
             default=40,
             dest='nr_measurements',
             type=int,
-            help='The number of measurement entries per category (default: 40)'
+            help='The number of measurement entries per category (default: 40)',
         )
         parser.add_argument(
             '--category-id',
@@ -66,16 +65,17 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.stdout.write(f"** Generating {options['nr_measurements']} dummy measurements per user")
 
-        users = [User.objects.get(pk=options['user_id'])] \
-            if options['user_id'] \
-            else User.objects.all()
+        users = (
+            [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
+        )
 
         new_entries = []
         for user in users:
-
-            categories = [Category.objects.get(pk=options['category_id'])] \
-                if options['category_id'] \
+            categories = (
+                [Category.objects.get(pk=options['category_id'])]
+                if options['category_id']
                 else Category.objects.filter(user=user)
+            )
 
             self.stdout.write(f'- processing user {user.username}')
 

@@ -75,7 +75,6 @@ def sync_exercises(
 
     url = make_uri(EXERCISE_ENDPOINT, server_url=remote_url, query={'limit': 100})
     for data in get_paginated(url, headers=wger_headers()):
-
         uuid = data['uuid']
         created = data['created']
         license_id = data['license']['id']
@@ -87,10 +86,7 @@ def sync_exercises(
 
         base, base_created = ExerciseBase.objects.update_or_create(
             uuid=uuid,
-            defaults={
-                'category_id': category_id,
-                'created': created
-            },
+            defaults={'category_id': category_id, 'created': created},
         )
         print_fn(f"{'created' if base_created else 'updated'} exercise {uuid}")
 
@@ -116,8 +112,10 @@ def sync_exercises(
                     'language_id': language_id,
                 },
             )
-            out = f"- {'created' if translation_created else 'updated'} translation " \
-                  f"{translation.language.short_name} {trans_uuid} - {name}"
+            out = (
+                f"- {'created' if translation_created else 'updated'} translation "
+                f"{translation.language.short_name} {trans_uuid} - {name}"
+            )
             print_fn(out)
 
             # TODO: currently (2024-01-06) we always delete all the comments and the aliases
@@ -137,7 +135,7 @@ def sync_exercises(
                         'uuid': note['uuid'],
                         'exercise': translation,
                         'comment': note['comment'],
-                    }
+                    },
                 )
 
             Alias.objects.filter(exercise=translation).delete()
@@ -148,7 +146,7 @@ def sync_exercises(
                         'uuid': alias['uuid'],
                         'exercise': translation,
                         'alias': alias['alias'],
-                    }
+                    },
                 )
 
         print_fn('')
@@ -198,10 +196,7 @@ def sync_licenses(
 
         language, created = License.objects.update_or_create(
             short_name=short_name,
-            defaults={
-                'full_name': full_name,
-                'url': license_url
-            },
+            defaults={'full_name': full_name, 'url': license_url},
         )
 
         if created:
@@ -328,13 +323,11 @@ def handle_deleted_entries(
 
                 # Replace exercise in workouts and logs
                 if obj_replaced:
-                    nr_settings = (
-                        Setting.objects.filter(exercise_base=obj
-                                               ).update(exercise_base=obj_replaced)
+                    nr_settings = Setting.objects.filter(exercise_base=obj).update(
+                        exercise_base=obj_replaced
                     )
-                    nr_logs = (
-                        WorkoutLog.objects.filter(exercise_base=obj
-                                                  ).update(exercise_base=obj_replaced)
+                    nr_logs = WorkoutLog.objects.filter(exercise_base=obj).update(
+                        exercise_base=obj_replaced
                     )
 
                 obj.delete()
@@ -397,7 +390,7 @@ def download_exercise_images(
         print_fn(f'Processing image {image_uuid}')
 
         try:
-            exercise_base = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
+            exercise = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
         except ExerciseBase.DoesNotExist:
             print_fn('    Remote exercise base not found in local DB, skipping...')
             continue
@@ -409,7 +402,7 @@ def download_exercise_images(
         except ExerciseImage.DoesNotExist:
             print_fn('    Image not found in local DB, creating now...')
             retrieved_image = requests.get(image_data['image'], headers=headers)
-            image = ExerciseImage.from_json(exercise_base, retrieved_image, image_data)
+            image = ExerciseImage.from_json(exercise, retrieved_image, image_data)
 
         print_fn(style_fn('    successfully saved'))
 
@@ -429,7 +422,7 @@ def download_exercise_videos(
         print_fn(f'Processing video {video_uuid}')
 
         try:
-            exercise_base = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
+            exercise = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
         except ExerciseBase.DoesNotExist:
             print_fn('    Remote exercise base not found in local DB, skipping...')
             continue
@@ -441,7 +434,7 @@ def download_exercise_videos(
         except ExerciseVideo.DoesNotExist:
             print_fn('    Video not found in local DB, creating now...')
             video = ExerciseVideo()
-            video.exercise_base = exercise_base
+            video.exercise_base = exercise
             video.uuid = video_uuid
             video.is_main = video_data['is_main']
             video.license_id = video_data['license']

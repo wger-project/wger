@@ -25,7 +25,6 @@ from wger.utils.requests import wger_headers
 
 
 class MockIngredientResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -90,7 +89,6 @@ class MockIngredientResponse:
 
 
 class TestSyncMethods(WgerTestCase):
-
     @patch('requests.get', return_value=MockIngredientResponse())
     def test_ingredient_sync(self, mock_request):
         # Arrange

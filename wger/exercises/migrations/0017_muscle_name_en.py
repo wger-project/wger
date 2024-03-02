@@ -31,7 +31,6 @@ def set_names(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0016_exercisealias'),
     ]
@@ -44,7 +43,7 @@ class Migration(migrations.Migration):
                 default='',
                 help_text='A more basic name for the muscle',
                 max_length=50,
-                verbose_name='Alternative name'
+                verbose_name='Alternative name',
             ),
         ),
         migrations.RunPython(set_names),

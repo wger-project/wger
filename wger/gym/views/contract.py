@@ -191,6 +191,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available admin notes
     """
+
     model = Contract
     permission_required = 'gym.add_contract'
     template_name = 'contract/list.html'

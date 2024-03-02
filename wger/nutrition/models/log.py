@@ -41,7 +41,7 @@ class LogItem(BaseMealItem, models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "-datetime",
+            '-datetime',
         ]
 
     plan = models.ForeignKey(
@@ -57,9 +57,9 @@ class LogItem(BaseMealItem, models.Model):
         Meal,
         verbose_name=_('Meal'),
         on_delete=models.SET_NULL,
-        related_name="log_items",
+        related_name='log_items',
         blank=True,
-        null=True
+        null=True,
     )
     """
     The meal this log belongs to (optional)
@@ -113,7 +113,7 @@ class LogItem(BaseMealItem, models.Model):
         """
         Return a more human-readable representation
         """
-        return "Diary entry for {}, plan {}".format(self.datetime, self.plan.pk)
+        return f'Diary entry for {self.datetime}, plan {self.plan.pk}'
 
     def get_owner_object(self):
         """

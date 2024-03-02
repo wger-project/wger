@@ -4,11 +4,12 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('config', '0002_auto_20190618_1617'),
     ]
 
     operations = [
-        migrations.DeleteModel(name='LanguageConfig', ),
+        migrations.DeleteModel(
+            name='LanguageConfig',
+        ),
     ]

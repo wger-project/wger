@@ -60,7 +60,7 @@ def load_language():
 
     # No luck, load english as our fall-back language
     except ObjectDoesNotExist:
-        language = Language.objects.get(short_name="en")
+        language = Language.objects.get(short_name='en')
 
     return language
 
@@ -71,16 +71,13 @@ def render_footer(url, date=None):
     :return: a Paragraph object
     """
     if not date:
-        date = datetime.date.today().strftime("%d.%m.%Y")
+        date = datetime.date.today().strftime('%d.%m.%Y')
 
     p = Paragraph(
-        """<para>
-                        {date} -
-                        <a href="{url}">{url}</a> -
-                        wger Workout Manager
-                        {version}
-                    </para>""".format(date=date, url=url, version=get_version()),
-        styleSheet["Normal"]
+        f"""<para>
+                {date} - <a href="{url}">{url}</a> - wger Workout Manager {get_version()}
+            </para>""",
+        styleSheet['Normal'],
     )
     return p
 
@@ -110,22 +107,26 @@ pdfmetrics.registerFont(
 pdfmetrics.registerFont(
     TTFont(
         'OpenSans-Italic',
-        path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-LightItalic.ttf')
+        path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-LightItalic.ttf'),
     )
 )
 
 styleSheet = StyleSheet1()
-styleSheet.add(ParagraphStyle(
-    name='Normal',
-    fontName='OpenSans',
-    fontSize=10,
-    leading=12,
-))
-styleSheet.add(ParagraphStyle(
-    parent=styleSheet['Normal'],
-    fontSize=8,
-    name='Small',
-))
+styleSheet.add(
+    ParagraphStyle(
+        name='Normal',
+        fontName='OpenSans',
+        fontSize=10,
+        leading=12,
+    )
+)
+styleSheet.add(
+    ParagraphStyle(
+        parent=styleSheet['Normal'],
+        fontSize=8,
+        name='Small',
+    )
+)
 styleSheet.add(
     ParagraphStyle(
         parent=styleSheet['Normal'],
@@ -147,7 +148,7 @@ styleSheet.add(
         parent=styleSheet['Normal'],
         name='SubHeader',
         fontName='OpenSans-Bold',
-        textColor=colors.white
+        textColor=colors.white,
     )
 )
 styleSheet.add(
@@ -155,9 +156,9 @@ styleSheet.add(
         parent=styleSheet['Normal'],
         name='SubHeaderBlack',
         fontName='OpenSans-Bold',
-        textColor=colors.black
+        textColor=colors.black,
     )
 )
 
-header_colour = HexColor(0x24416b)
-row_color = HexColor(0xd1def0)
+header_colour = HexColor(0x24416B)
+row_color = HexColor(0xD1DEF0)

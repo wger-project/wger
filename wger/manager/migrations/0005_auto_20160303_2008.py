@@ -5,7 +5,6 @@ import django.core.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0007_repetitionunit'),
         ('manager', '0004_auto_20150609_1603'),
@@ -31,9 +30,8 @@ class Migration(migrations.Migration):
             name='description',
             field=models.CharField(
                 verbose_name='Description',
-                help_text=
-                'A description of what is done on this day (e.g. "Pull day") or what body parts are trained (e.g. "Arms and abs")',
-                max_length=100
+                help_text='A description of what is done on this day (e.g. "Pull day") or what body parts are trained (e.g. "Arms and abs")',
+                max_length=100,
             ),
         ),
         migrations.AlterField(
@@ -42,8 +40,7 @@ class Migration(migrations.Migration):
             field=models.BooleanField(
                 verbose_name='Is a loop',
                 default=False,
-                help_text=
-                'Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, B, C, and so on)'
+                help_text='Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, B, C, and so on)',
             ),
         ),
         migrations.AlterField(
@@ -58,8 +55,8 @@ class Migration(migrations.Migration):
                 verbose_name='Amount',
                 validators=[
                     django.core.validators.MinValueValidator(0),
-                    django.core.validators.MaxValueValidator(100)
-                ]
+                    django.core.validators.MaxValueValidator(100),
+                ],
             ),
         ),
         migrations.AlterField(
@@ -69,9 +66,8 @@ class Migration(migrations.Migration):
                 verbose_name='General impression',
                 default='2',
                 choices=[('1', 'Bad'), ('2', 'Neutral'), ('3', 'Good')],
-                help_text=
-                'Your impression about this workout session. Did you exercise as well as you could?',
-                max_length=2
+                help_text='Your impression about this workout session. Did you exercise as well as you could?',
+                max_length=2,
             ),
         ),
     ]

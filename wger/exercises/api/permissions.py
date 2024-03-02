@@ -35,7 +35,6 @@ class CanContributeExercises(BasePermission):
     DELETE_METHODS = ['DELETE']
 
     def has_permission(self, request, view):
-
         # Everybody can read
         if request.method in self.SAFE_METHODS:
             return True
@@ -46,9 +45,8 @@ class CanContributeExercises(BasePermission):
 
         # Creating or updating
         if request.method in self.ADD_METHODS:
-            return (
-                request.user.userprofile.is_trustworthy
-                or request.user.has_perm('exercises.add_exercise')
+            return request.user.userprofile.is_trustworthy or request.user.has_perm(
+                'exercises.add_exercise'
             )
 
         # Only admins are allowed to delete entries

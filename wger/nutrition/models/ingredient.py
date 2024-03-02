@@ -74,6 +74,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
+
     objects = SubmissionManager()
     """Custom manager"""
 
@@ -301,13 +302,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
                 raise ValidationError(
                     _(
-                        'The total energy ({energy}kcal) is not the approximate sum of the '
-                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
-                        ' +/-{energy_approx}%)'.format(
-                            energy=self.energy,
-                            energy_calculated=energy_calculated,
-                            energy_approx=self.ENERGY_APPROXIMATION
-                        )
+                        f'The total energy ({self.energy}kcal) is not the approximate sum of the '
+                        f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
+                        f' +/-{self.ENERGY_APPROXIMATION}%)'
                     )
                 )
 
@@ -346,7 +343,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 'sodium',
             ):
                 if (
-                    hasattr(self, i) and hasattr(other, i)
+                    hasattr(self, i)
+                    and hasattr(other, i)
                     and (getattr(self, i, None) != getattr(other, i, None))
                 ):
                     equal = False
@@ -387,14 +385,15 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             context = {
                 'ingredient': self.name,
                 'url': url,
-                'site': Site.objects.get_current().domain
+                'site': Site.objects.get_current().domain,
             }
             message = render_to_string('ingredient/email_new.tpl', context)
             mail.send_mail(
                 subject,
                 message,
-                settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
-                fail_silently=True
+                settings.WGER_SETTINGS['EMAIL_FROM'],
+                [user.email],
+                fail_silently=True,
             )
 
     def set_author(self, request):
@@ -409,9 +408,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             # Send email to administrator
             subject = _('New user submitted ingredient')
             message = _(
-                """The user {0} submitted a new ingredient "{1}".""".format(
-                    request.user.username, self.name
-                )
+                f'The user {request.user.username} submitted a new ingredient "{self.name}".'
             )
             mail.mail_admins(subject, message, fail_silently=True)
 
@@ -456,6 +453,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         # Let celery fetch the image
         # wger
         from wger.nutrition.tasks import fetch_ingredient_image_task
+
         fetch_ingredient_image_task.delay(self.pk)
 
     @classmethod

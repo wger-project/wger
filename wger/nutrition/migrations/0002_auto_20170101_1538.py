@@ -8,7 +8,7 @@ def copy_username(apps, schema_editor):
     """
     Copies the exercise name to the original name field
     """
-    Ingredient = apps.get_model("nutrition", "Ingredient")
+    Ingredient = apps.get_model('nutrition', 'Ingredient')
     for ingredient in Ingredient.objects.all():
         if ingredient.user:
             ingredient.license_author = ingredient.user.username
@@ -21,12 +21,11 @@ def update_status(apps, schema_editor):
     """
     Updates the status of the ingredients
     """
-    Ingredient = apps.get_model("nutrition", "Ingredient")
+    Ingredient = apps.get_model('nutrition', 'Ingredient')
     Ingredient.objects.filter(status__in=('5', '4')).update(status=2)
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0001_initial'),
     ]
@@ -51,7 +50,7 @@ class Migration(migrations.Migration):
                 choices=[('1', 'Pending'), ('2', 'Accepted'), ('3', 'Declined')],
                 default='1',
                 editable=False,
-                max_length=2
+                max_length=2,
             ),
         ),
     ]

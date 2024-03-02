@@ -8,7 +8,7 @@ def copy_name(apps, schema_editor):
     """
     Copies the exercise name to the original name field
     """
-    Excercise = apps.get_model("exercises", "Exercise")
+    Excercise = apps.get_model('exercises', 'Exercise')
     for exercise in Excercise.objects.all():
         exercise.name_original = exercise.name
         exercise.save()
@@ -31,14 +31,13 @@ def capitalize_name(apps, schema_editor):
                 out.append(word)
         return ' '.join(out)
 
-    Excercise = apps.get_model("exercises", "Exercise")
+    Excercise = apps.get_model('exercises', 'Exercise')
     for exercise in Excercise.objects.all():
         exercise.name = capitalize(exercise.name_original)
         exercise.save()
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0002_auto_20150307_1841'),
     ]

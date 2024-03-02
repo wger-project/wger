@@ -9,7 +9,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -24,7 +23,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.BigAutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 ('name', models.CharField(max_length=100, verbose_name='Name')),
                 ('unit', models.CharField(max_length=30, verbose_name='Unit')),
@@ -33,8 +32,8 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name='User'
-                    )
+                        verbose_name='User',
+                    ),
                 ),
             ],
             options={
@@ -48,7 +47,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.BigAutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 ('date', models.DateField(default=datetime.datetime.now, verbose_name='Date')),
                 (
@@ -58,10 +57,10 @@ class Migration(migrations.Migration):
                         max_digits=6,
                         validators=[
                             django.core.validators.MinValueValidator(0),
-                            django.core.validators.MaxValueValidator(5000)
+                            django.core.validators.MaxValueValidator(5000),
                         ],
-                        verbose_name='Value'
-                    )
+                        verbose_name='Value',
+                    ),
                 ),
                 ('notes', models.CharField(blank=True, max_length=100, verbose_name='Description')),
                 (
@@ -69,16 +68,16 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to='measurements.category',
-                        verbose_name='User'
-                    )
+                        verbose_name='User',
+                    ),
                 ),
                 (
                     'user',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name='User'
-                    )
+                        verbose_name='User',
+                    ),
                 ),
             ],
             options={

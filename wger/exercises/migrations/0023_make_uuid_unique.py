@@ -5,7 +5,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0022_alter_exercise_license_author_and_more'),
     ]

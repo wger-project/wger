@@ -42,8 +42,9 @@ class ScheduleStep(models.Model):
         """
         Set default ordering
         """
+
         ordering = [
-            "order",
+            'order',
         ]
 
     schedule = models.ForeignKey(Schedule, verbose_name=_('schedule'), on_delete=models.CASCADE)

@@ -41,7 +41,7 @@ DATE_FORMATS = [
 # editor. Everything not in these whitelists is stripped.
 HTML_TAG_WHITELIST = {'b', 'i', 'strong', 'em', 'ul', 'ol', 'li', 'p'}
 HTML_ATTRIBUTES_WHITELIST = {'*': 'style'}
-HTML_STYLES_WHITELIST = ('text-decoration', )
+HTML_STYLES_WHITELIST = ('text-decoration',)
 
 # Pagination
 PAGINATION_OBJECTS_PER_PAGE = 25

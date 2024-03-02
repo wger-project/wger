@@ -47,14 +47,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for nutritional plans'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--plans',
             action='store',
             default=10,
             dest='nr_plans',
             type=int,
-            help='The number of nutritional plans to create per user (default: 10)'
+            help='The number of nutritional plans to create per user (default: 10)',
         )
         parser.add_argument(
             '--diary-entries',
@@ -62,7 +61,7 @@ class Command(BaseCommand):
             default=20,
             dest='nr_diary_entries',
             type=int,
-            help='The number of nutrition logs to create per day (default: 20)'
+            help='The number of nutrition logs to create per day (default: 20)',
         )
         parser.add_argument(
             '--diary-dates',
@@ -83,8 +82,9 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.stdout.write(f"** Generating {options['nr_plans']} dummy nutritional plan(s) per user")
 
-        users = [User.objects.get(pk=options['user_id'])
-                 ] if options['user_id'] else User.objects.all()
+        users = (
+            [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
+        )
         ingredients = [i for i in Ingredient.objects.order_by('?').all()[:100]]
         meals_per_plan = 4
 
@@ -99,7 +99,7 @@ class Command(BaseCommand):
                 plan = NutritionPlan(
                     description=f'Dummy nutritional plan - {uid[1]}',
                     creation_date=start_date,
-                    user=user
+                    user=user,
                 )
                 plan.save()
 
@@ -112,7 +112,7 @@ class Command(BaseCommand):
                     meal = Meal(
                         plan=plan,
                         order=order,
-                        time=datetime.time(hour=randint(0, 23), minute=randint(0, 59))
+                        time=datetime.time(hour=randint(0, 23), minute=randint(0, 59)),
                     )
                     meal.save()
 
@@ -123,7 +123,7 @@ class Command(BaseCommand):
                             ingredient=choice(ingredients),
                             weight_unit=None,
                             order=order,
-                            amount=randint(10, 250)
+                            amount=randint(10, 250),
                         )
                         meal_item.save()
                         order = order + 1
@@ -141,7 +141,7 @@ class Command(BaseCommand):
                             datetime=date,
                             ingredient=choice(ingredients),
                             weight_unit=None,
-                            amount=randint(10, 300)
+                            amount=randint(10, 300),
                         )
                         diary_entries.append(log)
 

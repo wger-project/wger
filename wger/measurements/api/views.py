@@ -52,7 +52,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Category.objects.none()
 
         return Category.objects.filter(user=self.request.user)
@@ -85,7 +85,7 @@ class MeasurementViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Measurement.objects.none()
 
         return Measurement.objects.filter(category__user=self.request.user)

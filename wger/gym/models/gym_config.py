@@ -46,7 +46,7 @@ class GymConfig(m.Model):
             'Number of weeks since the last time a '
             'user logged his presence to be considered inactive'
         ),
-        default=4
+        default=4,
     )
     """
     Reminder of inactive members
@@ -65,7 +65,7 @@ class GymConfig(m.Model):
         """
         Return a more human-readable representation
         """
-        return gettext('Configuration for {}'.format(self.gym.name))
+        return gettext(f'Configuration for {self.gym.name}')
 
     def get_owner_object(self):
         """

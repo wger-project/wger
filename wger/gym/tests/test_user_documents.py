@@ -30,6 +30,7 @@ class UserDocumentOverviewTest(WgerAccessTestCase):
     """
     Tests accessing the user document overview page
     """
+
     url = reverse('gym:document:list', kwargs={'user_pk': 14})
     anonymous_fail = True
     user_success = (

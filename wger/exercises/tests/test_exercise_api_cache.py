@@ -73,7 +73,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.assertTrue(cache.get(self.cache_key))
 
         translation = Exercise.objects.get(pk=1)
-        translation.name = "something else"
+        translation.name = 'something else'
         translation.save()
 
         self.assertFalse(cache.get(self.cache_key))
@@ -100,7 +100,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.assertTrue(cache.get(self.cache_key))
 
         comment = ExerciseComment.objects.get(pk=1)
-        comment.name = "The Shiba Inu (柴犬) is a breed of hunting dog from Japan"
+        comment.name = 'The Shiba Inu (柴犬) is a breed of hunting dog from Japan'
         comment.save()
 
         self.assertFalse(cache.get(self.cache_key))
@@ -127,7 +127,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.assertTrue(cache.get(self.cache_key))
 
         alias = Alias.objects.get(pk=1)
-        alias.name = "Hachikō"
+        alias.name = 'Hachikō'
         alias.save()
 
         self.assertFalse(cache.get(self.cache_key))

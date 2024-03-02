@@ -51,6 +51,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available admin notes
     """
+
     model = AdminUserNote
     permission_required = 'gym.add_adminusernote'
     template_name = 'admin_notes/list.html'

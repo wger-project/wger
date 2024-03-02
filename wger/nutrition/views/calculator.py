@@ -48,13 +48,13 @@ def view(request):
         'age': request.user.userprofile.age,
         'height': request.user.userprofile.height,
         'gender': request.user.userprofile.gender,
-        'weight': request.user.userprofile.weight
+        'weight': request.user.userprofile.weight,
     }
 
     context = {
         'form': BmrForm(initial=form_data),
         'form_activities': PhysicalActivitiesForm(instance=request.user.userprofile),
-        'form_calories': DailyCaloriesForm(instance=request.user.userprofile)
+        'form_calories': DailyCaloriesForm(instance=request.user.userprofile),
     }
 
     return render(request, 'rate/form.html', context)

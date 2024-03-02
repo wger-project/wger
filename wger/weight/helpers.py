@@ -40,7 +40,6 @@ logger = logging.getLogger(__name__)
 
 
 def parse_weight_csv(request, cleaned_data):
-
     try:
         dialect = csv.Sniffer().sniff(cleaned_data['csv_input'])
     except csv.Error:
@@ -60,8 +59,9 @@ def parse_weight_csv(request, cleaned_data):
         try:
             parsed_date = datetime.datetime.strptime(row[0], cleaned_data['date_format'])
             parsed_weight = decimal.Decimal(row[1].replace(',', '.'))
-            duplicate_date_in_db = WeightEntry.objects.filter(date=parsed_date,
-                                                              user=request.user).exists()
+            duplicate_date_in_db = WeightEntry.objects.filter(
+                date=parsed_date, user=request.user
+            ).exists()
             # within the list there are no duplicate dates
             unique_among_csv = parsed_date not in entry_dates
 
@@ -130,7 +130,7 @@ def group_log_entries(user, year, month, day=None):
                     'date': entry.date,
                     'workout': entry.workout,
                     'session': entry.get_workout_session(),
-                    'logs': OrderedDict()
+                    'logs': OrderedDict(),
                 }
 
             if not out[entry.date]['logs'].get(entry.exercise_base):
@@ -145,7 +145,7 @@ def group_log_entries(user, year, month, day=None):
                     'date': entry.date,
                     'workout': entry.workout,
                     'session': entry,
-                    'logs': {}
+                    'logs': {},
                 }
 
         cache.set(cache_mapper.get_workout_log_list(log_hash), out)
@@ -165,7 +165,6 @@ def process_log_entries(logs):
 
     # Group by date
     for entry in logs:
-
         if not entry_log.get(entry.date):
             entry_log[entry.date] = []
         entry_log[entry.date].append(entry)
@@ -195,11 +194,7 @@ def process_log_entries(logs):
 
         entry_list[entry.reps]['seen'].append((entry.date, entry.reps, entry.weight))
         entry_list[entry.reps]['list'].append(
-            {
-                'date': entry.date,
-                'weight': entry.weight,
-                'reps': entry.reps
-            }
+            {'date': entry.date, 'weight': entry.weight, 'reps': entry.reps}
         )
     for rep in entry_list:
         chart_data.append(entry_list[rep]['list'])

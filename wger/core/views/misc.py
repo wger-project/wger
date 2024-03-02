@@ -75,11 +75,8 @@ def demo_entries(request):
         return HttpResponseRedirect(reverse('software:features'))
 
     if (
-        (
-            (not request.user.is_authenticated or request.user.userprofile.is_temporary)
-            and not request.session['has_demo_data']
-        )
-    ):
+        not request.user.is_authenticated or request.user.userprofile.is_temporary
+    ) and not request.session['has_demo_data']:
         # If we reach this from a page that has no user created by the
         # middleware, do that now
         if not request.user.is_authenticated:
@@ -96,7 +93,7 @@ def demo_entries(request):
                 'logs, (body) weight and nutrition plan entries so you can '
                 'better see what  this site can do. Feel free to edit or '
                 'delete them!'
-            )
+            ),
         )
     return HttpResponseRedirect(reverse('core:dashboard'))
 
@@ -107,36 +104,7 @@ def dashboard(request):
     Show the index page, in our case, the last workout and nutritional plan
     and the current weight
     """
-
-    context = {}
-
-    # Load the last workout, either from a schedule or a 'regular' one
-    (current_workout, schedule) = Schedule.objects.get_current_workout(request.user)
-
-    context['current_workout'] = current_workout
-    context['schedule'] = schedule
-
-    # Format a bit the days, so it doesn't have to be done in the template
-    used_days = {}
-    if current_workout:
-        for day in current_workout.day_set.select_related():
-            for day_of_week in day.day.select_related():
-                used_days[day_of_week.id] = day.description
-
-    week_day_result = []
-    for week in DaysOfWeek.objects.all():
-        day_has_workout = False
-
-        if week.id in used_days:
-            day_has_workout = True
-            week_day_result.append((_(week.day_of_week), used_days[week.id], True))
-
-        if not day_has_workout:
-            week_day_result.append((_(week.day_of_week), _('Rest day'), False))
-
-    context['weekdays'] = week_day_result
-
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 
 class FeedbackClass(FormView):

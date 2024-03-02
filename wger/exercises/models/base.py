@@ -133,7 +133,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Return a more human-readable representation
         """
-        return f"base {self.uuid} ({self.get_translation()})"
+        return f'base {self.uuid} ({self.get_translation()})'
 
     def get_absolute_url(self):
         """
@@ -181,10 +181,11 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         The latest update datetime of all exercises, videos and images.
         """
         return max(
-            self.last_update, *[image.last_update for image in self.exerciseimage_set.all()],
+            self.last_update,
+            *[image.last_update for image in self.exerciseimage_set.all()],
             *[video.last_update for video in self.exercisevideo_set.all()],
             *[translation.last_update for translation in self.exercises.all()],
-            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
+            datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc),
         )
 
     @property
@@ -258,7 +259,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         log = DeletionLog(
             model_type=DeletionLog.MODEL_BASE,
             uuid=self.uuid,
-            comment=f"Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}",
+            comment=f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
             replaced_by=replace_by,
         )
         log.save()

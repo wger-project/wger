@@ -22,6 +22,7 @@ class MealItemApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the meal overview resource
     """
+
     pk = 10
     resource = MealItem
     private_resource = True

@@ -44,10 +44,9 @@ class NutritionPlan(models.Model):
 
     # Metaclass to set some other properties
     class Meta:
-
         # Order by creation_date, descending (oldest first)
         ordering = [
-            "-creation_date",
+            '-creation_date',
         ]
 
     user = models.ForeignKey(
@@ -67,8 +66,7 @@ class NutritionPlan(models.Model):
         blank=True,
         verbose_name=_('Description'),
         help_text=_(
-            'A description of the goal of the plan, e.g. '
-            '"Gain mass" or "Prepare for summer"'
+            'A description of the goal of the plan, e.g. ' '"Gain mass" or "Prepare for summer"'
         ),
     )
 
@@ -90,10 +88,10 @@ class NutritionPlan(models.Model):
         verbose_name=_('Use daily calories'),
         default=False,
         help_text=_(
-            "Tick the box if you want to mark this "
-            "plan as having a goal amount of calories. "
-            "You can use the calculator or enter the "
-            "value yourself."
+            'Tick the box if you want to mark this '
+            'plan as having a goal amount of calories. '
+            'You can use the calculator or enter the '
+            'value yourself.'
         ),
     )
     """A flag indicating whether the plan has a goal amount of calories"""
@@ -103,9 +101,9 @@ class NutritionPlan(models.Model):
         Return a more human-readable representation
         """
         if self.description:
-            return "{0}".format(self.description)
+            return self.description
         else:
-            return "{0}".format(_("Nutrition plan"))
+            return str(_('Nutrition plan'))
 
     def get_absolute_url(self):
         """
@@ -124,16 +122,8 @@ class NutritionPlan(models.Model):
             unit = 'kg' if use_metric else 'lb'
             result = {
                 'total': NutritionalValues(),
-                'percent': {
-                    'protein': 0,
-                    'carbohydrates': 0,
-                    'fat': 0
-                },
-                'per_kg': {
-                    'protein': 0,
-                    'carbohydrates': 0,
-                    'fat': 0
-                },
+                'percent': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
+                'per_kg': {'protein': 0, 'carbohydrates': 0, 'fat': 0},
             }
 
             # Energy
@@ -145,20 +135,26 @@ class NutritionPlan(models.Model):
 
             # In percent
             if energy:
-                result['percent']['protein'] = nutritional_values.protein * \
-                                               ENERGY_FACTOR['protein'][unit] / energy * 100
-                result['percent']['carbohydrates'] = nutritional_values.carbohydrates * \
-                                                     ENERGY_FACTOR['carbohydrates'][
-                                                         unit] / energy * 100
-                result['percent']['fat'] = nutritional_values.fat * \
-                                           ENERGY_FACTOR['fat'][unit] / energy * 100
+                result['percent']['protein'] = (
+                    nutritional_values.protein * ENERGY_FACTOR['protein'][unit] / energy * 100
+                )
+                result['percent']['carbohydrates'] = (
+                    nutritional_values.carbohydrates
+                    * ENERGY_FACTOR['carbohydrates'][unit]
+                    / energy
+                    * 100
+                )
+                result['percent']['fat'] = (
+                    nutritional_values.fat * ENERGY_FACTOR['fat'][unit] / energy * 100
+                )
 
             # Per body weight
             weight_entry = self.get_closest_weight_entry()
             if weight_entry and weight_entry.weight:
                 result['per_kg']['protein'] = nutritional_values.protein / weight_entry.weight
-                result['per_kg']['carbohydrates'
-                                 ] = nutritional_values.carbohydrates / weight_entry.weight
+                result['per_kg']['carbohydrates'] = (
+                    nutritional_values.carbohydrates / weight_entry.weight
+                )
                 result['per_kg']['fat'] = nutritional_values.fat / weight_entry.weight
 
             nutritional_representation = result
@@ -171,10 +167,18 @@ class NutritionPlan(models.Model):
         Returns None if there are no entries.
         """
         target = self.creation_date
-        closest_entry_gte = WeightEntry.objects.filter(user=self.user) \
-            .filter(date__gte=target).order_by('date').first()
-        closest_entry_lte = WeightEntry.objects.filter(user=self.user) \
-            .filter(date__lte=target).order_by('-date').first()
+        closest_entry_gte = (
+            WeightEntry.objects.filter(user=self.user)
+            .filter(date__gte=target)
+            .order_by('date')
+            .first()
+        )
+        closest_entry_lte = (
+            WeightEntry.objects.filter(user=self.user)
+            .filter(date__lte=target)
+            .order_by('-date')
+            .first()
+        )
         if closest_entry_gte is None or closest_entry_lte is None:
             return closest_entry_gte or closest_entry_lte
         if abs(closest_entry_gte.date - target) < abs(closest_entry_lte.date - target):

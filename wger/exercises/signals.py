@@ -81,7 +81,6 @@ def auto_delete_video_on_delete(sender, instance: ExerciseVideo, **kwargs):
     Deletes file from filesystem when corresponding ExerciseVideo object is deleted
     """
     if instance.video:
-
         path = pathlib.Path(instance.video.path)
         if path.exists():
             path.unlink()

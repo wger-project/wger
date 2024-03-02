@@ -43,6 +43,7 @@ class Command(BaseCommand):
     """
     Import an Open Food facts Dump
     """
+
     mode = Mode.UPDATE
     bulk_size = 500
     completeness = 0.7
@@ -58,7 +59,7 @@ class Command(BaseCommand):
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
             'entries in the database, while update will try to update them if they are '
-            'already present. Deault: insert'
+            'already present. Deault: insert',
         )
         parser.add_argument(
             '--completeness',
@@ -67,11 +68,10 @@ class Command(BaseCommand):
             dest='completeness',
             type=float,
             help='Completeness threshold for importing the products. Products in OFF have '
-            'completeness score that ranges from 0 to 1.1. Default: 0.7'
+            'completeness score that ranges from 0 to 1.1. Default: 0.7',
         )
 
     def handle(self, **options):
-
         try:
             # Third Party
             from pymongo import MongoClient
@@ -101,16 +101,8 @@ class Command(BaseCommand):
         counter = Counter()
 
         for product in db.products.find(
-            {
-                'lang': {
-                    "$in": list(languages.keys())
-                },
-                'completeness': {
-                    "$gt": self.completeness
-                }
-            }
+            {'lang': {'$in': list(languages.keys())}, 'completeness': {'$gt': self.completeness}}
         ):
-
             try:
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
             except KeyError as e:
@@ -167,7 +159,6 @@ class Command(BaseCommand):
             # Update existing entries
             else:
                 try:
-
                     # Update an existing product (look-up key is the code) or create a new
                     # one. While this might not be the most efficient query (there will always
                     # be a SELECT first), it's ok because this script is run very rarely.

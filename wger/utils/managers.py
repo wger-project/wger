@@ -30,7 +30,6 @@ Custom managers and querysets
 
 
 class SubmissionQuerySet(QuerySet):
-
     def accepted(self):
         return self.filter(status=AbstractSubmissionModel.STATUS_ACCEPTED)
 
@@ -39,7 +38,6 @@ class SubmissionQuerySet(QuerySet):
 
 
 class SubmissionManager(models.Manager):
-
     def get_queryset(self):
         return SubmissionQuerySet(self.model, using=self._db)
 
