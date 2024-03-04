@@ -31,7 +31,11 @@ class Day(models.Model):
     Model for a training day
     """
 
-    training = models.ForeignKey(Workout, verbose_name=_('Workout'), on_delete=models.CASCADE)
+    training = models.ForeignKey(
+        Workout,
+        verbose_name=_('Workout'),
+        on_delete=models.CASCADE,
+    )
     description = models.CharField(
         max_length=100,
         verbose_name=_('Description'),
