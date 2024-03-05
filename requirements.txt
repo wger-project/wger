@@ -15,7 +15,7 @@ django-email-verification~=0.3.3
 django-environ==0.11.2
 django-formtools~=2.5
 django-recaptcha~=4.0.0
-django-simple-history~=3.4
+django-simple-history~=3.5
 django-storages~=1.14
 django_compressor~=4.4
 django_extensions~=3.2
