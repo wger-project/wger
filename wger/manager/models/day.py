@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -22,8 +25,65 @@ from django.utils.translation import gettext_lazy as _
 from wger.core.models import DaysOfWeek
 from wger.utils.cache import reset_workout_canonical_form
 
-# Local
-from .workout import Workout
+
+class DayNg(models.Model):
+    """
+    Model for a training day
+    """
+
+    routine = models.ForeignKey(
+        'Routine',
+        verbose_name=_('Routine'),
+        on_delete=models.CASCADE,
+    )
+
+    next_day = models.ForeignKey(
+        'self',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    description = models.CharField(
+        max_length=50,
+        verbose_name=_('Description'),
+    )
+
+    is_rest = models.BooleanField(
+        default=False,
+    )
+    """
+    Flag indicating that this day is a rest day.
+
+    Rest days have no exercises
+    """
+
+    need_logs_to_advance = models.BooleanField(
+        default=False,
+    )
+    """
+    Needs logs to advance to the next day
+    """
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return self.description
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.routine
+
+    def can_proceed(self, date: datetime.date):
+        if not self.need_logs_to_advance:
+            return True
+        elif self.workoutsession_set.filter(date=date).exists():
+            return True
+
+        return False
 
 
 class Day(models.Model):
@@ -32,10 +92,11 @@ class Day(models.Model):
     """
 
     training = models.ForeignKey(
-        Workout,
+        'Workout',
         verbose_name=_('Workout'),
         on_delete=models.CASCADE,
     )
+
     description = models.CharField(
         max_length=100,
         verbose_name=_('Description'),

@@ -24,9 +24,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.utils.cache import reset_workout_log
 from wger.utils.fields import Html5DateField
 
-# Local
-from .workout import Workout
-
 
 class WorkoutSession(models.Model):
     """
@@ -56,12 +53,21 @@ class WorkoutSession(models.Model):
     """
 
     workout = models.ForeignKey(
-        Workout,
+        'Workout',
         verbose_name=_('Workout'),
         on_delete=models.CASCADE,
     )
     """
     The workout the session belongs to
+    """
+
+    day = models.ForeignKey(
+        'DayNg',
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    """
+    The day the session belongs to
     """
 
     date = Html5DateField(verbose_name=_('Date'))

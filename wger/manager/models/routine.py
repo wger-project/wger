@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+import datetime
+
 # Django
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -31,6 +34,19 @@ class Routine(models.Model):
         ordering = [
             '-creation_date',
         ]
+
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+    )
+
+    first_day = models.ForeignKey(
+        'DayNg',
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='day',
+    )
 
     name = models.CharField(
         verbose_name=_('Name'),
@@ -54,12 +70,6 @@ class Routine(models.Model):
 
     end = models.DateField(
         _('End date'),
-    )
-
-    user = models.ForeignKey(
-        User,
-        verbose_name=_('User'),
-        on_delete=models.CASCADE,
     )
 
     def get_absolute_url(self):
@@ -87,9 +97,48 @@ class Routine(models.Model):
         return self
 
     def clean(self):
-        """
-        Perform some additional validations
-        """
+        """Validations"""
 
         if self.end and self.start and self.start > self.end:
             raise ValidationError(_('The start time cannot be after the end time.'))
+
+    @property
+    def day_sequence(self):
+        """
+        Return a sequence of days.
+
+        Each day object points to the next one in the sequence till it loops back
+        """
+
+        out = []
+        day = self.first_day
+        while day:
+            if day in out:
+                break
+            out.append(day)
+            day = day.next_day
+        return out
+
+    @property
+    def date_sequence(self):
+        """
+        Return a dictionary with specific dates and routine days
+
+        If a day needs logs to continue it will be repeated will the user adds one.
+        """
+
+        delta = datetime.timedelta(days=1)
+        current_date = self.start
+        current_day = self.first_day
+
+        out = {}
+
+        while current_date <= self.end:
+            out[current_date] = current_day
+
+            if current_day.can_proceed(current_date):
+                current_day = current_day.next_day
+
+            current_date += delta
+
+        return out

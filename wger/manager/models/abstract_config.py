@@ -23,18 +23,18 @@ from wger.manager.models.set_config import SetConfig
 
 
 class OperationChoices(models.TextChoices):
-    PLUS = "+"
-    MINUS = "-"
+    PLUS = '+'
+    MINUS = '-'
 
 
 class TriggerChoices(models.TextChoices):
-    SESSION = "session"
-    WEEK = "week"
+    SESSION = 'session'
+    WEEK = 'week'
 
 
 class StepChoices(models.TextChoices):
-    ABSOLUTE = "abs"
-    PERCENT = "percent"
+    ABSOLUTE = 'abs'
+    PERCENT = 'percent'
 
 
 class AbstractChangeConfig(models.Model):
@@ -49,6 +49,7 @@ class AbstractChangeConfig(models.Model):
 
     value = models.DecimalField(
         decimal_places=2,
+        max_digits=6,
     )
 
     set_config = models.ForeignKey(

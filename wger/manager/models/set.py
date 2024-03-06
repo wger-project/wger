@@ -34,6 +34,71 @@ from wger.utils.helpers import normalize_decimal
 from .day import Day
 
 
+class SetNg(models.Model):
+    """
+    Model for a set of exercises
+    """
+
+    DEFAULT_SETS = 4
+    MAX_SETS = 10
+
+    day = models.ForeignKey(
+        Day,
+        verbose_name=_('Exercise day'),
+        on_delete=models.CASCADE,
+    )
+
+    order = models.IntegerField(
+        default=1,
+        null=False,
+        verbose_name=_('Order'),
+    )
+
+    comment = models.CharField(
+        max_length=200,
+        verbose_name=_('Comment'),
+        blank=True,
+    )
+
+    is_dropset = models.BooleanField(
+        default=False,
+    )
+
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = [
+            'order',
+        ]
+
+    def __str__(self):
+        """
+        Return a more human-readable representation
+        """
+        return f'Set-ID {self.id}'
+
+    def get_owner_object(self):
+        """
+        Returns the object that has owner information
+        """
+        return self.day.training
+
+    def save(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+
+        reset_workout_canonical_form(self.exerciseday.training_id)
+        super(Set, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Reset all cached infos
+        """
+
+        reset_workout_canonical_form(self.exerciseday.training_id)
+        super(Set, self).delete(*args, **kwargs)
+
+
 class Set(models.Model):
     """
     Model for a set of exercises
