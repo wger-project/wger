@@ -24,6 +24,7 @@ from .log import WorkoutLog
 from .reps_config import RepsConfig
 from .rest_config import RestConfig
 from .rir_config import RiRConfig
+from .routine import Routine
 from .schedule import Schedule
 from .schedule_step import ScheduleStep
 from .session import WorkoutSession
@@ -31,6 +32,7 @@ from .set import (
     Set,
     SetNg,
 )
+from .set_config import SetConfig
 from .setting import Setting
 from .weight_config import WeightConfig
 from .workout import Workout

@@ -13,6 +13,8 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Standard Library
+import datetime
 
 # Django
 from django.contrib.auth.models import User
@@ -22,7 +24,6 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.utils.cache import reset_workout_log
-from wger.utils.fields import Html5DateField
 
 
 class WorkoutSession(models.Model):
@@ -70,7 +71,10 @@ class WorkoutSession(models.Model):
     The day the session belongs to
     """
 
-    date = Html5DateField(verbose_name=_('Date'))
+    date = models.DateField(
+        verbose_name=_('Date'),
+        default=datetime.date.today,
+    )
     """
     The date the workout session was performed
     """
@@ -98,12 +102,20 @@ class WorkoutSession(models.Model):
     The user's general impression of workout
     """
 
-    time_start = models.TimeField(verbose_name=_('Start time'), blank=True, null=True)
+    time_start = models.TimeField(
+        verbose_name=_('Start time'),
+        blank=True,
+        null=True,
+    )
     """
     Time the workout session started
     """
 
-    time_end = models.TimeField(verbose_name=_('Finish time'), blank=True, null=True)
+    time_end = models.TimeField(
+        verbose_name=_('Finish time'),
+        blank=True,
+        null=True,
+    )
     """
     Time the workout session ended
     """
@@ -146,11 +158,11 @@ class WorkoutSession(models.Model):
         Reset cache
         """
         reset_workout_log(self.user_id, self.date.year, self.date.month)
-        super(WorkoutSession, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
         Reset cache
         """
         reset_workout_log(self.user_id, self.date.year, self.date.month)
-        super(WorkoutSession, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)

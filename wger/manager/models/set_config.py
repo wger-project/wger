@@ -15,10 +15,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Django
-from django.core.validators import (
-    MaxValueValidator,
-    MinValueValidator,
-)
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -27,15 +23,12 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import (
-    Exercise,
-    ExerciseBase,
+from wger.exercises.models import ExerciseBase
+from wger.manager.models.abstract_config import (
+    AbstractChangeConfig,
+    OperationChoices,
+    StepChoices,
 )
-from wger.utils.cache import reset_workout_canonical_form
-
-# Local
-from ..consts import RIR_OPTIONS
-from .set import Set
 
 
 class SetConfig(models.Model):
@@ -44,20 +37,18 @@ class SetConfig(models.Model):
     """
 
     set = models.ForeignKey(
-        Set,
+        'Set',
         verbose_name=_('Sets'),
         on_delete=models.CASCADE,
     )
 
     exercise = models.ForeignKey(
         ExerciseBase,
-        verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )
 
     repetition_unit = models.ForeignKey(
         RepetitionUnit,
-        verbose_name=_('Unit'),
         default=1,
         on_delete=models.CASCADE,
     )
@@ -98,3 +89,32 @@ class SetConfig(models.Model):
         Returns the object that has owner information
         """
         return self.set.exerciseday.training
+
+    def calculate_config_value(self, configs: list[AbstractChangeConfig]):
+        out = 0
+
+        for config in configs:
+            if config.replace:
+                out = config.value
+                continue
+
+            step = config.value if config.step == StepChoices.ABSOLUTE else out * config.value / 100
+
+            if config.operation == OperationChoices.PLUS:
+                out += step
+            else:
+                out -= step
+
+        return out
+
+    def get_weight(self, iteration: int):
+        return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))
+
+    def get_reps(self, iteration: int):
+        return self.calculate_config_value(self.repsconfig_set.filter(iteration__lte=iteration))
+
+    def get_rir(self, iteration: int):
+        return self.calculate_config_value(self.rirconfig_set.filter(iteration__lte=iteration))
+
+    def get_rest(self, iteration: int):
+        return self.calculate_config_value(self.restconfig_set.filter(iteration__lte=iteration))

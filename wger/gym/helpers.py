@@ -42,12 +42,12 @@ def get_user_last_activity(user):
         last_session = last_session.date
 
     # Return the last one
-    if last_session:
-        if not last_activity:
-            last_activity = last_session
-
-        if last_activity < last_session:
-            last_activity = last_session
+    # if last_session:
+    #     if not last_activity:
+    #         last_activity = last_session
+    #
+    #     if last_activity < last_session:
+    #         last_activity = last_session
 
     return last_activity
 

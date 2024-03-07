@@ -17,6 +17,7 @@ import datetime
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.manager.dataclasses import WorkoutDay
 from wger.manager.models import (
     DayNg,
     WorkoutSession,
@@ -61,8 +62,10 @@ class RoutineTestCase(WgerTestCase):
 
         self.day1.next_day = self.day2
         self.day1.save()
+
         self.day2.next_day = self.day3
         self.day2.save()
+
         self.day3.next_day = self.day1
         self.day3.save()
 
@@ -82,16 +85,16 @@ class RoutineTestCase(WgerTestCase):
         self.assertEqual(
             self.routine.date_sequence,
             {
-                datetime.date(2024, 1, 1): self.day1,
-                datetime.date(2024, 1, 2): self.day2,
-                datetime.date(2024, 1, 3): self.day3,
-                datetime.date(2024, 1, 4): self.day1,
-                datetime.date(2024, 1, 5): self.day2,
-                datetime.date(2024, 1, 6): self.day3,
-                datetime.date(2024, 1, 7): self.day1,
-                datetime.date(2024, 1, 8): self.day2,
-                datetime.date(2024, 1, 9): self.day3,
-                datetime.date(2024, 1, 10): self.day1,
+                datetime.date(2024, 1, 1): WorkoutDay(day=self.day1, iteration=1),
+                datetime.date(2024, 1, 2): WorkoutDay(day=self.day2, iteration=1),
+                datetime.date(2024, 1, 3): WorkoutDay(day=self.day3, iteration=1),
+                datetime.date(2024, 1, 4): WorkoutDay(day=self.day1, iteration=2),
+                datetime.date(2024, 1, 5): WorkoutDay(day=self.day2, iteration=2),
+                datetime.date(2024, 1, 6): WorkoutDay(day=self.day3, iteration=2),
+                datetime.date(2024, 1, 7): WorkoutDay(day=self.day1, iteration=3),
+                datetime.date(2024, 1, 8): WorkoutDay(day=self.day2, iteration=3),
+                datetime.date(2024, 1, 9): WorkoutDay(day=self.day3, iteration=3),
+                datetime.date(2024, 1, 10): WorkoutDay(day=self.day1, iteration=4),
             },
         )
 
@@ -124,15 +127,15 @@ class RoutineTestCase(WgerTestCase):
         self.assertEqual(
             self.routine.date_sequence,
             {
-                datetime.date(2024, 1, 1): self.day1,
-                datetime.date(2024, 1, 2): self.day1,
-                datetime.date(2024, 1, 3): self.day1,
-                datetime.date(2024, 1, 4): self.day1,
-                datetime.date(2024, 1, 5): self.day2,
-                datetime.date(2024, 1, 6): self.day3,
-                datetime.date(2024, 1, 7): self.day1,
-                datetime.date(2024, 1, 8): self.day2,
-                datetime.date(2024, 1, 9): self.day3,
-                datetime.date(2024, 1, 10): self.day1,
+                datetime.date(2024, 1, 1): WorkoutDay(day=self.day1, iteration=1),
+                datetime.date(2024, 1, 2): WorkoutDay(day=self.day1, iteration=2),
+                datetime.date(2024, 1, 3): WorkoutDay(day=self.day1, iteration=3),
+                datetime.date(2024, 1, 4): WorkoutDay(day=self.day1, iteration=4),
+                datetime.date(2024, 1, 5): WorkoutDay(day=self.day2, iteration=1),
+                datetime.date(2024, 1, 6): WorkoutDay(day=self.day3, iteration=1),
+                datetime.date(2024, 1, 7): WorkoutDay(day=self.day1, iteration=5),
+                datetime.date(2024, 1, 8): WorkoutDay(day=self.day2, iteration=2),
+                datetime.date(2024, 1, 9): WorkoutDay(day=self.day3, iteration=2),
+                datetime.date(2024, 1, 10): WorkoutDay(day=self.day1, iteration=6),
             },
         )

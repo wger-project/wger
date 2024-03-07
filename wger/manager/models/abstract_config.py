@@ -16,10 +16,6 @@
 
 # Django
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-
-# wger
-from wger.manager.models.set_config import SetConfig
 
 
 class OperationChoices(models.TextChoices):
@@ -44,31 +40,21 @@ class AbstractChangeConfig(models.Model):
 
     class Meta:
         abstract = True
-
-    iteration = models.PositiveIntegerField()
-
-    value = models.DecimalField(
-        decimal_places=2,
-        max_digits=6,
-    )
+        ordering = ['set_config', 'iteration']
+        unique_together = ['set_config', 'iteration']
 
     set_config = models.ForeignKey(
-        SetConfig,
+        'SetConfig',
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateTimeField(
-        _('Creation date'),
-        auto_now_add=True,
-    )
+    iteration = models.PositiveIntegerField()
+    """
+    The iteration this takes effect on.
 
-    operation = models.CharField(
-        choices=OperationChoices.choices,
-        max_length=1,
-        default=OperationChoices.PLUS,
-        null=True,
-    )
-    """The operation"""
+    Note that what exactly an iteration is depends on the trigger type so
+    at the moment this can be session (so basically a day) or a week.
+    """
 
     trigger = models.CharField(
         choices=TriggerChoices.choices,
@@ -77,6 +63,20 @@ class AbstractChangeConfig(models.Model):
         null=True,
     )
     """When the changes are calculated"""
+
+    value = models.DecimalField(
+        decimal_places=2,
+        max_digits=6,
+    )
+    """The actual increment"""
+
+    operation = models.CharField(
+        choices=OperationChoices.choices,
+        max_length=1,
+        default=OperationChoices.PLUS,
+        null=True,
+    )
+    """The operation"""
 
     step = models.CharField(
         choices=StepChoices.choices,
@@ -92,6 +92,13 @@ class AbstractChangeConfig(models.Model):
     """
     Flag indicating that there is no increase, but that the value will simply
     be replaced with the new one
+    """
+
+    need_log_to_apply = models.BooleanField(
+        default=False,
+    )
+    """
+    Only apply the change if the user logged the last weight
     """
 
     code = models.CharField(

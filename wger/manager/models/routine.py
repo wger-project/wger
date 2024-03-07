@@ -16,6 +16,7 @@
 
 # Standard Library
 import datetime
+from collections import Counter
 
 # Django
 from django.contrib.auth.models import User
@@ -23,6 +24,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+# wger
+from wger.manager.dataclasses import WorkoutDay
 
 
 class Routine(models.Model):
@@ -130,11 +134,14 @@ class Routine(models.Model):
         delta = datetime.timedelta(days=1)
         current_date = self.start
         current_day = self.first_day
+        counter = Counter()
 
         out = {}
 
         while current_date <= self.end:
-            out[current_date] = current_day
+            counter[current_day] += 1
+            out[current_date] = WorkoutDay(day=current_day, iteration=counter[current_day])
+            # out[current_date] = current_day
 
             if current_day.can_proceed(current_date):
                 current_day = current_day.next_day

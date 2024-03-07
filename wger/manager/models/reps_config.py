@@ -23,7 +23,4 @@ class RepsConfig(AbstractChangeConfig):
     Model for a routine
     """
 
-    class Meta:
-        ordering = [
-            '-creation_date',
-        ]
+    pass

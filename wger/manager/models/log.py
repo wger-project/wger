@@ -14,6 +14,10 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+# Standard Library
+import datetime
+
 # Django
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
@@ -27,7 +31,6 @@ from wger.core.models import (
 )
 from wger.exercises.models import ExerciseBase
 from wger.utils.cache import reset_workout_log
-from wger.utils.fields import Html5DateField
 
 # Local
 from ..consts import RIR_OPTIONS
@@ -47,6 +50,13 @@ class WorkoutLog(models.Model):
         on_delete=models.CASCADE,
     )
 
+    session = models.ForeignKey(
+        'WorkoutSession',
+        verbose_name=_('Session'),
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
     exercise_base = models.ForeignKey(
         ExerciseBase,
         verbose_name=_('Exercise'),
@@ -57,6 +67,12 @@ class WorkoutLog(models.Model):
         Workout,
         verbose_name=_('Workout'),
         on_delete=models.CASCADE,
+    )
+
+    set_config = models.ForeignKey(
+        'SetConfig',
+        on_delete=models.CASCADE,
+        null=True,
     )
 
     repetition_unit = models.ForeignKey(
@@ -97,7 +113,10 @@ class WorkoutLog(models.Model):
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
     """
 
-    date = Html5DateField(verbose_name=_('Date'))
+    date = models.DateTimeField(
+        verbose_name=_('Date'),
+        default=datetime.datetime.now,
+    )
 
     rir = models.CharField(
         verbose_name=_('RiR'),
@@ -148,10 +167,10 @@ class WorkoutLog(models.Model):
         reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
 
         # If the user selected "Until Failure", do only 1 "repetition",
-        # everythin else doesn't make sense.
+        # everything else doesn't make sense.
         if self.repetition_unit == 2:
             self.reps = 1
-        super(WorkoutLog, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """
