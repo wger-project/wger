@@ -24,6 +24,7 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import ExerciseBase
+from wger.manager.dataclasses import SetConfigData
 from wger.manager.models.abstract_config import (
     AbstractChangeConfig,
     OperationChoices,
@@ -68,13 +69,11 @@ class SetConfig(models.Model):
 
     order = models.PositiveIntegerField(
         blank=True,
-        verbose_name=_('Order'),
     )
 
     comment = models.CharField(
         max_length=100,
         blank=True,
-        verbose_name=_('Comment'),
     )
 
     # Metaclass to set some other properties
@@ -106,6 +105,35 @@ class SetConfig(models.Model):
                 out -= step
 
         return out
+
+    def get_config(self, iteration: int):
+        max_iter_weight = 1
+        max_iter_reps = 1
+
+        for i in range(1, iteration + 1):
+            weight = self.get_weight(max_iter_weight)
+            reps = self.get_reps(max_iter_reps)
+
+            log_data = self.workoutlog_set.filter(iteration=i - 1)
+
+            # If any of the entries in last log is greater than the last config data,
+            # proceed. Otherwise, the weight won't change
+            if log_data.exists():
+                for log in log_data:
+                    if log.weight >= weight and log.reps >= reps:
+                        max_iter_weight = i
+                        max_iter_reps = i
+
+                    # As soon as we find a log that we didn't make, stop
+                    else:
+                        break
+
+        return SetConfigData(
+            weight=self.get_weight(max_iter_weight),
+            reps=self.get_reps(max_iter_reps),
+            rir=self.get_rir(iteration),
+            rest=self.get_rest(iteration),
+        )
 
     def get_weight(self, iteration: int):
         return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))

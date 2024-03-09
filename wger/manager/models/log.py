@@ -75,6 +75,10 @@ class WorkoutLog(models.Model):
         null=True,
     )
 
+    iteration = models.PositiveIntegerField(
+        null=True,
+    )
+
     repetition_unit = models.ForeignKey(
         RepetitionUnit,
         verbose_name=_('Unit'),
