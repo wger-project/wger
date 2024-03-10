@@ -7,13 +7,14 @@ describe('register form tests', () => {
     })
     
     it('Valid data ', () => {
-       cy.get('#id_username').type('gnoooooah');
-       cy.get('#id_email').type('hhr@example.com');
+       cy.get('#id_username').type('gnoYooah');
+       cy.get('#id_email').type('hhr@exYle.com');
        cy.get('#id_password1').type('HjKllpnnB');
        cy.get('#id_password2').type('HjKllpnnB');
        cy.get('#submit-id-submit').click();
        cy.wait(3000);
-       cy.url().should('include', 'dashboard');
+       cy.location('pathname').should('eq', '/en/dashboard');
+ 
        
       
     })

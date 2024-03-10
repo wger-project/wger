@@ -25,33 +25,33 @@ describe('dashboard page tests', () => {
         cy.get('#fat').type('117');
         cy.get('div[class="MuiStack-root css-zpn2w"]').find('button').click();
         cy.wait(2000);
-        cy.get('div[class="MuiCardContent-root css-1lcvsa9"]');
+        cy.get('div[class="MuiStack-root css-1xhj18k"]');
     })
     it('add weight entry', () => {
        
-      cy.get('[data-test ="add weight entry"]').click();    
-      cy.get('#id_weight').type(85);
-      cy.get('#submit-id-submit').click();
+      cy.get('#react-weight-dashboard').find('button').click();    
+      cy.get('#weight').clear().type(60);
+      cy.get('div[class="MuiStack-root css-zpn2w"]').find('button').click();
       cy.wait(2000);
-      cy.get('#main-content');
+      cy.get('#react-weight-dashboard');
       
         })
       
 
         it('add invalid data weight entry', () => {
        
-          cy.get('[data-test ="add weight entry"]').click();    
-          cy.get('#submit-id-submit').click();
+          cy.get('#react-weight-dashboard').find('button').click();     
+          cy.get('div[class="MuiStack-root css-zpn2w"]').find('button').click();
           cy.wait(2000);
-          cy.get('#enweightadd');
+          cy.get('form');
          })
 
 
             it('close weight entry', () => {
        
-              cy.get('[data-test ="add weight entry"]').click(); 
+              cy.get('#react-weight-dashboard').find('button').click();    
               cy.wait(3000);   
-              cy.get('[aria-label="Close"]').click();
+              cy.get('svg[class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-vubbuv"]').first().click();
               cy.wait(2000);
               cy.get('#content');
                })
@@ -63,11 +63,15 @@ describe('dashboard page tests', () => {
                   cy.get('h2').invoke('text').then((actualText) => {
                     const trimmedText = actualText.trim();
                     expect(trimmedText).to.equal('Gösterge Paneli');
+                    
                     cy.get('div[class="btn-group dropup"]').find('button').click();
                     cy.get('a[href="/zh-hans/dashboard"]').click();
                     cy.get('h2').invoke('text').then((actualText) => {
                       const trimmedText = actualText.trim();
                       expect(trimmedText).to.equal('儀表板');
+
+                    
+                      
                     })
                   });
               
