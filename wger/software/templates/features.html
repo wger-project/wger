@@ -103,14 +103,14 @@
                          class="header-hero-image">
                 </div>
                 <div class="col-lg-3 col-sm-5 col-11 d-flex py-3 flex-column align-items-start">
-                    <h1 class="font-bebas-neue display-3 uppercase">
+                    <h1 data-test ="Track your" class="font-bebas-neue display-3 uppercase">
                         {% translate "Track your <br> way to your <br> ideal body" %}
                     </h1>
                     <p>
                         {% translate "Join wger, the community-driven <b>free and open-source fitness tracker</b>" %}
                     </p>
 
-                    <a role="button"
+                    <a data-test ="get started" role="button" 
                        class="btn btn-primary rounded-1 bg-dark-blue py-2 px-5"
                        href="{% if user.is_authenticated %}
                                 {% url 'core:index' %}

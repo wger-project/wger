@@ -298,9 +298,9 @@ class RegistrationFormNoCaptcha(UserCreationForm, UserEmailForm):
                 css_class='form-row',
             ),
             ButtonHolder(
-                Submit('submit', _('Register'), css_class='btn-success col-sm-6 col-12'),
-                css_class='text-center',
-            ),
+                Submit('submit', _('Register'), css_class='btn-success col-sm-6 col-12', data_label='button-register'),
+                css_class='text-center'
+            )
         )
 
 

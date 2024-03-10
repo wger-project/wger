@@ -20,14 +20,14 @@
                     {#             #}
                     {# Workout tab #}
                     {#             #}
-                    <li class="nav-item dropdown">
+                    <li  data-cy="training" class="nav-item dropdown">
                         <a href="{% url 'manager:workout:overview' %}"
                            rel="nofollow"
                            class="nav-link dropdown-toggle text-white {% if active_tab == 'workout' %}active{% endif %}"
                            data-bs-toggle="dropdown">{% translate "Training" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:workout:overview' %}" rel="nofollow">
+                                <a data-cy="workout" class="dropdown-item" href="{% url 'manager:workout:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -35,7 +35,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">
+                                <a data-cy="schedule" class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -44,7 +44,7 @@
                             </li>
                             {% if user.is_authenticated %}
                                 <li>
-                                    <a class="dropdown-item"
+                                    <a data-cy="calendar"class="dropdown-item"
                                        href="{% url 'manager:workout:calendar' user.username %}"
                                        rel="nofollow">
                                         {% translate "Calendar" %}
@@ -52,7 +52,7 @@
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item"
+                                    <a data-cy="measurement"class="dropdown-item"
                                        href="{% url 'measurements:overview' %}" rel="nofollow">
                                         {% if not user.is_authenticated %}
                                             <span class="{% fa_class 'lock' %}"></span>
@@ -63,7 +63,7 @@
                             {% endif %}
 
                             <li>
-                                <a class="dropdown-item" href="{% url 'gallery:images:overview' %}" rel="nofollow">
+                                <a data-cy="gallery" class="dropdown-item" href="{% url 'gallery:images:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -75,7 +75,7 @@
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Workout templates" %}</li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:template:overview' %}" rel="nofollow">
+                                <a data-cy="your_templates" class="dropdown-item" href="{% url 'manager:template:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -83,7 +83,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:template:public' %}" rel="nofollow">
+                                <a data-cy="public_templates" class="dropdown-item" href="{% url 'manager:template:public' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -93,7 +93,7 @@
 
                             <li class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">
+                                <a data-cy="exercise" class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">
                                     {% translate "Exercises" %}
                                 </a>
                             </li>
@@ -129,14 +129,14 @@
                     {#               #}
                     {# Nutrition tab #}
                     {#               #}
-                    <li class="nav-item dropdown">
+                    <li  data-cy="nutrition" class="nav-item dropdown">
                         <a href="{% url 'nutrition:plan:overview' %}"
                            class="dropdown-toggle nav-link text-white {% if active_tab == 'nutrition' %}active{% endif %}"
                            data-bs-toggle="dropdown"
                            rel="nofollow">{% translate "Nutrition" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">
+                                <a  data-cy="nutrition_plans" class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -144,7 +144,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">
+                                <a data-cy="BMI_calculator" class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -152,7 +152,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">
+                                <a data-cy="daily_calories" class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -160,7 +160,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item"
+                                <a data-cy="ingredient_overview" class="dropdown-item"
                                    href="{% url 'nutrition:ingredient:list' %}">
                                     {% translate "Ingredient overview" %}
                                 </a>
@@ -186,7 +186,7 @@
                     {# Weight tab #}
                     {#            #}
                     {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
+                        <li data-cy="body_weight" class="nav-item dropdown">
                             <a href="{% url 'weight:overview' %}"
                                class="dropdown-toggle nav-link text-white {% if active_tab == 'weight' %}active{% endif %}"
                                data-bs-toggle="dropdown"
@@ -194,14 +194,14 @@
                                 class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item"
+                                    <a data-cy="weight_overview" class="dropdown-item"
                                        href="{% url 'weight:overview' %}"
                                        rel="nofollow">
                                         {% translate "Weight overview" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item"
+                                    <a data-cy="weight_add" class="dropdown-item"
                                        href="{% url 'weight:add' %}"
                                        rel="nofollow">
                                         {% translate "Add weight entry" %}
@@ -215,14 +215,14 @@
                     {#              #}
                     {# Software tab #}
                     {#              #}
-                    <li class="nav-item dropdown">
+                    <li data-cy="about-this-software" class="nav-item dropdown">
                         <a href=""
                            class="dropdown-toggle nav-link text-white {% if active_tab == 'software' %}active{% endif %}"
                            data-bs-toggle="dropdown">{% translate "About this software" %} <b
                             class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item"
+                                <a data-cy="about_us" class="dropdown-item"
                                    href="{% url 'software:about-us' %}">
                                     {% translate "About us" %}
                                 </a>

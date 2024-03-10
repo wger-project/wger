@@ -1,0 +1,28 @@
+{
+  "name": "uitests",
+  "version": "1.0.0",
+  "description": "UI tests",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "server": "cd ../ && python manage.py runserver",
+    "bootstrap": "cd ../ && wger bootstrap",
+    "cleandb": "rimraf ../database.sqlite && npm run bootstrap", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandie911/wger.git"
+  },
+  "author": "Ganna Fedorenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sandie911/wger/issues"
+  },
+  "homepage": "https://github.com/sandie911/wger#readme",
+  "devDependencies": {
+    "cypress": "^13.5.0",
+    "rimraf": "5.0.5",
+    "faker": "^6.6.6"
+  }
+}
