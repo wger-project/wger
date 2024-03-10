@@ -110,23 +110,36 @@ class SetConfig(models.Model):
         max_iter_weight = 1
         max_iter_reps = 1
 
+        weight = self.get_weight(max_iter_weight)
+        reps = self.get_reps(max_iter_reps)
+
         for i in range(1, iteration + 1):
-            weight = self.get_weight(max_iter_weight)
-            reps = self.get_reps(max_iter_reps)
 
-            log_data = self.workoutlog_set.filter(iteration=i - 1)
+            # We can't directly do a .get(iteration=i) because there probably isn't one
+            # so we simply take the last one, which will be responsible to calculate the
+            # weight for the current iteration
+            weight_config = self.weightconfig_set.filter(iteration__lte=i).last()
+            reps_config = self.repsconfig_set.filter(iteration__lte=i).last()
 
-            # If any of the entries in last log is greater than the last config data,
-            # proceed. Otherwise, the weight won't change
-            if log_data.exists():
-                for log in log_data:
-                    if log.weight >= weight and log.reps >= reps:
-                        max_iter_weight = i
-                        max_iter_reps = i
+            if not weight_config.need_log_to_apply and not reps_config.need_log_to_apply:
+                max_iter_weight = i
+                max_iter_reps = i
 
-                    # As soon as we find a log that we didn't make, stop
-                    else:
-                        break
+            elif weight_config.need_log_to_apply or reps_config.need_log_to_apply:
+                log_data = self.workoutlog_set.filter(iteration=i - 1)
+
+                # If any of the entries in last log is greater than the last config data,
+                # proceed. Otherwise, the weight won't change
+                if log_data.exists():
+                    for log in log_data:
+
+                        if log.weight >= weight and log.reps >= reps:
+                            max_iter_weight = i
+                            max_iter_reps = i
+
+                        # As soon as we find a log that we didn't make, stop
+                        else:
+                            break
 
         return SetConfigData(
             weight=self.get_weight(max_iter_weight),

@@ -98,7 +98,8 @@ class AbstractChangeConfig(models.Model):
         default=False,
     )
     """
-    Only apply the change if the user logged the last weight
+    Only apply the change if the user logged the last weight, otherwise
+    apply the rules anyway
     """
 
     code = models.CharField(

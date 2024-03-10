@@ -11,6 +11,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
+
 # Standard Library
 from decimal import Decimal
 
@@ -40,48 +41,26 @@ class SetConfigTestCase(WgerTestCase):
 
     def setUp(self):
         super().setUp()
-
-        self.set_config = SetConfig(
-            set_id=1,
-            exercise_id=1,
-            order=1,
-        )
+        self.set_config = SetConfig(set_id=1, exercise_id=1, order=1)
         self.set_config.save()
 
-    def test_weight_config_no_logs(self):
+    def test_weight_config(self):
         """
         Test that the weight is correctly calculated for each step / iteration
-        if there are no logs
         """
 
         # Initial value
-        WeightConfig(
-            set_config=self.set_config,
-            iteration=1,
-            value=80,
-        ).save()
+        WeightConfig(set_config=self.set_config, iteration=1, value=80).save()
 
         # Increase by 2.5
-        WeightConfig(
-            set_config=self.set_config,
-            iteration=3,
-            value=2.5,
-        ).save()
+        WeightConfig(set_config=self.set_config, iteration=3, value=2.5).save()
 
         # Replace with 42
-        WeightConfig(
-            set_config=self.set_config,
-            iteration=6,
-            value=42,
-            replace=True,
-        ).save()
+        WeightConfig(set_config=self.set_config, iteration=6, value=42, replace=True).save()
 
         # Reduce by 2
         WeightConfig(
-            set_config=self.set_config,
-            iteration=7,
-            value=2,
-            operation=OperationChoices.MINUS,
+            set_config=self.set_config, iteration=7, value=2, operation=OperationChoices.MINUS
         ).save()
 
         # Increase by 10%
@@ -108,38 +87,13 @@ class SetConfigTestCase(WgerTestCase):
         if there are logs
         """
 
-        self.maxDiff = None
-
         # Initial value
-        WeightConfig(
-            set_config=self.set_config,
-            iteration=1,
-            value=80,
-            need_log_to_apply=False,
-        ).save()
+        WeightConfig(set_config=self.set_config, iteration=1, value=80).save()
+        RepsConfig(set_config=self.set_config, iteration=1, value=5).save()
+        RestConfig(set_config=self.set_config, iteration=1, value=120).save()
+        RiRConfig(set_config=self.set_config, iteration=1, value=2).save()
 
-        RepsConfig(
-            set_config=self.set_config,
-            iteration=1,
-            value=5,
-            need_log_to_apply=False,
-        ).save()
-
-        RestConfig(
-            set_config=self.set_config,
-            iteration=1,
-            value=120,
-            need_log_to_apply=False,
-        ).save()
-
-        RiRConfig(
-            set_config=self.set_config,
-            iteration=1,
-            value=2,
-            need_log_to_apply=False,
-        ).save()
-
-        # Increase by 2.5
+        # Increase weight by 2.5 at iteration 2
         WeightConfig(
             set_config=self.set_config,
             iteration=2,
@@ -149,6 +103,18 @@ class SetConfigTestCase(WgerTestCase):
             step=StepChoices.ABSOLUTE,
         ).save()
 
+        # Replace weight with 42 at iteration 5, no logs needed
+        WeightConfig(
+            set_config=self.set_config,
+            iteration=5,
+            value=42,
+            replace=True,
+            need_log_to_apply=False,
+            operation=OperationChoices.PLUS,
+            step=StepChoices.ABSOLUTE,
+        ).save()
+
+        # Only did 4x82.5 at iteration 2
         WorkoutLog(
             exercise_base_id=1,
             user_id=1,
@@ -158,6 +124,8 @@ class SetConfigTestCase(WgerTestCase):
             weight=82.5,
             reps=4,
         ).save()
+
+        # Did 5x82.5 at iteration 3
         WorkoutLog(
             exercise_base_id=1,
             user_id=1,
@@ -170,37 +138,21 @@ class SetConfigTestCase(WgerTestCase):
 
         self.assertEqual(
             self.set_config.get_config(1),
-            SetConfigData(
-                weight=80,
-                reps=5,
-                rir=2,
-                rest=120,
-            ),
+            SetConfigData(weight=80, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(2),
-            SetConfigData(
-                weight=80,
-                reps=5,
-                rir=2,
-                rest=120,
-            ),
+            SetConfigData(weight=80, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(3),
-            SetConfigData(
-                weight=80,
-                reps=5,
-                rir=2,
-                rest=120,
-            ),
+            SetConfigData(weight=80, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(4),
-            SetConfigData(
-                weight=Decimal(82.5),
-                reps=5,
-                rir=2,
-                rest=120,
-            ),
+            SetConfigData(weight=Decimal(82.5), reps=5, rir=2, rest=120),
+        )
+        self.assertEqual(
+            self.set_config.get_config(5),
+            SetConfigData(weight=42, reps=5, rir=2, rest=120),
         )
