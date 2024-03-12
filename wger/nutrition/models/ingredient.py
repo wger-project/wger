@@ -67,6 +67,7 @@ from wger.utils.models import (
 # Local
 from .ingredient_category import IngredientCategory
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -243,9 +244,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "name",
+            'name',
         ]
-        indexes = (GinIndex(fields=["name"]),)
+        indexes = (GinIndex(fields=['name']),)
 
     #
     # Django methods

@@ -14,16 +14,16 @@ class Migration(migrations.Migration):
         BtreeGinExtension(),
         TrigramExtension(),
         migrations.AddIndex(
-            model_name="exercise",
+            model_name='exercise',
             index=django.contrib.postgres.indexes.GinIndex(
-                fields=["name"],
-                name="exercises_e_name_ac11f4_gin",
+                fields=['name'],
+                name='exercises_e_name_ac11f4_gin',
             ),
         ),
         migrations.AddIndex(
-            model_name="alias",
+            model_name='alias',
             index=django.contrib.postgres.indexes.GinIndex(
-                fields=["alias"], name="exercises_a_alias_227e38_gin"
+                fields=['alias'], name='exercises_a_alias_227e38_gin'
             ),
         ),
     ]

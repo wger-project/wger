@@ -7,14 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("nutrition", "0019_alter_image_license_author_and_more"),
+        ('nutrition', '0019_alter_image_license_author_and_more'),
     ]
 
     operations = [
         migrations.AddIndex(
-            model_name="ingredient",
+            model_name='ingredient',
             index=django.contrib.postgres.indexes.GinIndex(
-                fields=["name"], name="nutrition_i_search__f274b7_gin"
+                fields=['name'], name='nutrition_i_search__f274b7_gin'
             ),
         ),
     ]

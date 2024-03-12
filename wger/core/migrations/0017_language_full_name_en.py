@@ -4,14 +4,34 @@ from django.db import migrations, models
 
 
 def update_language_full_name(apps, schema_editor):
-    mapper = {'de': 'German', 'en': 'English', 'bg': 'Bulgarian', 'es': 'Spanish', 'ru': 'Russian',
-              'nl': 'Dutch', 'pt': 'Portuguese', 'el': 'Greek', 'cs': 'Czech', 'sv': 'Swedish',
-              'no': 'Norwegian', 'fr': 'French', 'it': 'Italian', 'pl': 'Polish', 'uk': 'Ukrainian',
-              'tr': 'Turkish', 'ar': 'Arabic', 'az': 'Azerbaijani', 'eo': 'Esperanto',
-              'fa': 'Persian', 'he': 'Hebrew', 'hr': 'Croatian', 'id': 'Indonesian',
-              'zh': 'Chinese', }
+    mapper = {
+        'de': 'German',
+        'en': 'English',
+        'bg': 'Bulgarian',
+        'es': 'Spanish',
+        'ru': 'Russian',
+        'nl': 'Dutch',
+        'pt': 'Portuguese',
+        'el': 'Greek',
+        'cs': 'Czech',
+        'sv': 'Swedish',
+        'no': 'Norwegian',
+        'fr': 'French',
+        'it': 'Italian',
+        'pl': 'Polish',
+        'uk': 'Ukrainian',
+        'tr': 'Turkish',
+        'ar': 'Arabic',
+        'az': 'Azerbaijani',
+        'eo': 'Esperanto',
+        'fa': 'Persian',
+        'he': 'Hebrew',
+        'hr': 'Croatian',
+        'id': 'Indonesian',
+        'zh': 'Chinese',
+    }
 
-    Language = apps.get_model("core", "Language")
+    Language = apps.get_model('core', 'Language')
     for language in Language.objects.all():
         language.full_name_en = mapper.get(language.short_name, 'English')
         language.save()
@@ -26,8 +46,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='language',
             name='full_name_en',
-            field=models.CharField(default='english', max_length=30,
-                                   verbose_name='Language full name in English', ),
+            field=models.CharField(
+                default='english',
+                max_length=30,
+                verbose_name='Language full name in English',
+            ),
             preserve_default=False,
         ),
         migrations.RunPython(

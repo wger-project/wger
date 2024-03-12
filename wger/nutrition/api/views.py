@@ -78,6 +78,7 @@ from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -224,9 +225,9 @@ def search(request):
     # Postgres uses a full-text search
     if is_postgres_db():
         query = (
-            query.annotate(similarity=TrigramSimilarity("name", term))
+            query.annotate(similarity=TrigramSimilarity('name', term))
             .filter(similarity__gt=0.15)
-            .order_by("-similarity", "name")
+            .order_by('-similarity', 'name')
         )
     else:
         query = query.filter(name__icontains=term)

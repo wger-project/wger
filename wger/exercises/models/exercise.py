@@ -108,7 +108,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         ordering = [
             'name',
         ]
-        indexes = (GinIndex(fields=["name"]),)
+        indexes = (GinIndex(fields=['name']),)
 
     def get_absolute_url(self):
         """

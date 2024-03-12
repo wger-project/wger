@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    :copyright: 2011, 2012 by OpenSlides team, see AUTHORS.
-    :license: GNU GPL, see LICENSE for more details.
+:copyright: 2011, 2012 by OpenSlides team, see AUTHORS.
+:license: GNU GPL, see LICENSE for more details.
 """
+
 # Local
 from .celery_configuration import app
 
