@@ -26,7 +26,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.manager.dataclasses import WorkoutDay
+from wger.manager.dataclasses import WorkoutDayData
 
 
 class Routine(models.Model):
@@ -92,7 +92,7 @@ class Routine(models.Model):
         if self.name:
             return self.name
         else:
-            return f'{_("Routine")} ({self.creation_date})'
+            return f'Routine {self.id} - created on {self.creation_date}'
 
     def get_owner_object(self):
         """
@@ -140,8 +140,7 @@ class Routine(models.Model):
 
         while current_date <= self.end:
             counter[current_day] += 1
-            out[current_date] = WorkoutDay(day=current_day, iteration=counter[current_day])
-            # out[current_date] = current_day
+            out[current_date] = WorkoutDayData(day=current_day, iteration=counter[current_day])
 
             if current_day.can_proceed(current_date):
                 current_day = current_day.next_day

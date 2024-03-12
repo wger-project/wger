@@ -139,7 +139,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('code', models.CharField(max_length=100)),
                 (
                     'set_config',
                     models.ForeignKey(
@@ -267,7 +266,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('code', models.CharField(max_length=100)),
                 (
                     'set_config',
                     models.ForeignKey(
@@ -325,7 +323,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('code', models.CharField(max_length=100)),
                 (
                     'set_config',
                     models.ForeignKey(
@@ -383,7 +380,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('code', models.CharField(max_length=100)),
                 (
                     'set_config',
                     models.ForeignKey(

@@ -156,3 +156,34 @@ class SetConfigTestCase(WgerTestCase):
             self.set_config.get_config(5),
             SetConfigData(weight=42, reps=5, rir=2, rest=120),
         )
+        self.assertEqual(
+            self.set_config.get_config(6),
+            SetConfigData(weight=42, reps=5, rir=2, rest=120),
+        )
+
+    def test_weight_config_custom_python_class(self):
+        """
+        Test that the weight is correctly calculated for each step / iteration
+        if there is custom python code defined
+        """
+
+        # Initial value with custom python code
+        self.set_config.class_name = 'dummy'
+        self.set_config.save()
+        WeightConfig(set_config=self.set_config, iteration=1, value=100, replace=True).save()
+        RepsConfig(set_config=self.set_config, iteration=1, value=5).save()
+        RestConfig(set_config=self.set_config, iteration=1, value=120).save()
+        RiRConfig(set_config=self.set_config, iteration=1, value=2).save()
+
+        self.assertEqual(
+            self.set_config.get_config(1),
+            SetConfigData(weight=24, reps=1, rir=2, rest=120),
+        )
+        self.assertEqual(
+            self.set_config.get_config(2),
+            SetConfigData(weight=42, reps=10, rir=1, rest=90),
+        )
+        self.assertEqual(
+            self.set_config.get_config(3),
+            SetConfigData(weight=42, reps=10, rir=1, rest=90),
+        )

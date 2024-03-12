@@ -101,12 +101,3 @@ class AbstractChangeConfig(models.Model):
     Only apply the change if the user logged the last weight, otherwise
     apply the rules anyway
     """
-
-    code = models.CharField(
-        max_length=100,
-    )
-    """
-    The name of a python class that will take care of the change logic.
-
-    If this is set, all other settings will be ignored.
-    """

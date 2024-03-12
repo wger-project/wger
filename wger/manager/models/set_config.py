@@ -13,6 +13,9 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Standard Library
+import importlib
+from typing import Optional
 
 # Django
 from django.db import models
@@ -76,6 +79,17 @@ class SetConfig(models.Model):
         blank=True,
     )
 
+    class_name = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+    )
+    """
+    The name of a python class that will take care of the change logic.
+
+    If this is set, all other settings will be ignored.
+    """
+
     # Metaclass to set some other properties
     class Meta:
         ordering = [
@@ -107,6 +121,24 @@ class SetConfig(models.Model):
         return out
 
     def get_config(self, iteration: int):
+        # If there is a custom class set, pass all responsibilities to it
+        if self.class_name:
+            try:
+                module = importlib.import_module(
+                    f'wger.manager.config_calculations.{self.class_name}'
+                )
+            except ImportError:
+                raise ImportError(f'Class {self.class_name} not found')
+            custom_logic = module.SetCalculations(
+                iteration=iteration,
+                weight_configs=self.weightconfig_set.filter(iteration__lte=iteration),
+                reps_configs=self.repsconfig_set.filter(iteration__lte=iteration),
+                rir_configs=self.rirconfig_set.filter(iteration__lte=iteration),
+                rest_configs=self.restconfig_set.filter(iteration__lte=iteration),
+            )
+
+            return custom_logic.calculate()
+
         max_iter_weight = 1
         max_iter_reps = 1
 
@@ -114,7 +146,6 @@ class SetConfig(models.Model):
         reps = self.get_reps(max_iter_reps)
 
         for i in range(1, iteration + 1):
-
             # We can't directly do a .get(iteration=i) because there probably isn't one
             # so we simply take the last one, which will be responsible to calculate the
             # weight for the current iteration
@@ -132,7 +163,6 @@ class SetConfig(models.Model):
                 # proceed. Otherwise, the weight won't change
                 if log_data.exists():
                     for log in log_data:
-
                         if log.weight >= weight and log.reps >= reps:
                             max_iter_weight = i
                             max_iter_reps = i

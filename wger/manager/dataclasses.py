@@ -7,7 +7,7 @@ from wger.manager.models import DayNg
 
 
 @dataclass
-class WorkoutDay:
+class WorkoutDayData:
     day: DayNg
     iteration: int
 
