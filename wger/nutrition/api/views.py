@@ -17,10 +17,10 @@
 
 # Standard Library
 import logging
-from dataclasses import asdict
 
 # Django
 from django.conf import settings
+from django.contrib.postgres.search import TrigramSimilarity
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -74,9 +74,9 @@ from wger.nutrition.models import (
     WeightUnit,
 )
 from wger.utils.constants import ENGLISH_SHORT_NAME
+from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
-
 
 logger = logging.getLogger(__name__)
 
@@ -216,13 +216,22 @@ def search(request):
         return Response(json_response)
 
     languages = [load_language(l) for l in language_codes.split(',')]
-    ingredients = Ingredient.objects.filter(
-        name__icontains=term,
+    query = Ingredient.objects.filter(
         language__in=languages,
         status=Ingredient.STATUS_ACCEPTED,
-    )[:100]
+    ).only('name')
 
-    for ingredient in ingredients:
+    # Postgres uses a full-text search
+    if is_postgres_db():
+        query = (
+            query.annotate(similarity=TrigramSimilarity("name", term))
+            .filter(similarity__gt=0.15)
+            .order_by("-similarity", "name")
+        )
+    else:
+        query = query.filter(name__icontains=term)
+
+    for ingredient in query[:100]:
         if hasattr(ingredient, 'image'):
             image_obj = ingredient.image
             image = image_obj.image.url

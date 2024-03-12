@@ -167,10 +167,11 @@ def sync_languages(
     for data in get_all_paginated(url, headers=headers):
         short_name = data['short_name']
         full_name = data['full_name']
+        full_name_en = data['full_name_en']
 
         language, created = Language.objects.update_or_create(
             short_name=short_name,
-            defaults={'full_name': full_name},
+            defaults={'full_name': full_name, 'full_name_en': full_name_en},
         )
 
         if created:
@@ -295,7 +296,6 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
-
         def print_fn(_):
             return None
 

@@ -18,6 +18,7 @@
 import uuid
 
 # Django
+from django.contrib.postgres.indexes import GinIndex
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
@@ -107,6 +108,7 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         ordering = [
             'name',
         ]
+        indexes = (GinIndex(fields=["name"]),)
 
     def get_absolute_url(self):
         """

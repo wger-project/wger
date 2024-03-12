@@ -19,6 +19,7 @@ from uuid import UUID
 
 # Django
 from django.conf import settings
+from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
@@ -87,8 +88,8 @@ from wger.utils.constants import (
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
 )
+from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
-
 
 logger = logging.getLogger(__name__)
 
@@ -345,14 +346,19 @@ def search(request):
         return Response(response)
 
     languages = [load_language(l) for l in language_codes.split(',')]
-    translations = (
-        Exercise.objects.filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))
-        .filter(language__in=languages)
-        .order_by('exercise_base__category__name', 'name')
-        .distinct()
-    )
+    query = Exercise.objects.filter(language__in=languages).only('name')
 
-    for translation in translations:
+    # Postgres uses a full-text search
+    if is_postgres_db():
+        query = (
+            query.annotate(similarity=TrigramSimilarity("name", q))
+            .filter(Q(similarity__gt=0.15) | Q(alias__alias__icontains=q))
+            .order_by("-similarity", "name")
+        )
+    else:
+        query = query.filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))
+
+    for translation in query:
         image = None
         thumbnail = None
         if translation.main_image:
@@ -377,7 +383,7 @@ def search(request):
             },
         }
         results.append(result_json)
-    response['suggestions'] = results
+    response["suggestions"] = results
     return Response(response)
 
 
