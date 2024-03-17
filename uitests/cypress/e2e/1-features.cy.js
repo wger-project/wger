@@ -7,6 +7,7 @@ describe('template spec', () => {
     cy.get('.header-hero-image')
   })
   it('Get started', () => {
-    cy.get('[data-test ="get started"]').click();
+    cy.get('a.btn.btn-primary.rounded-1.bg-dark-blue.py-2.px-5').click();
+    cy.url().should('include', 'login');
   })
 })

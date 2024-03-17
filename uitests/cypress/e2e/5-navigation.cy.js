@@ -11,38 +11,42 @@ describe('navigation dashboard page tests', () => {
       })
 
       it('Visible Training menu', () => {
-        cy.get('[data-cy="training"]').click();
+        cy.get('.nav-item.dropdown').first().click();
         cy.get('ul.dropdown-menu.show').should('be.visible');
-        
-        cy.get('[data-cy="workout"]').click();
+  
+        cy.get('a.dropdown-item').first().click();
         cy.location('pathname').should('eq', '/en/routine/overview');
-        cy.go('back').get('[data-cy="training"]').click();
+        cy.go('back').get('.nav-item.dropdown').first().click();
 
-        cy.get('[data-cy="schedule"]').click();
+        cy.get('a.dropdown-item').eq(1).click();
         cy.location('pathname').should('eq', '/en/routine/schedule/overview');
-        cy.go('back').get('[data-cy="training"]').click();
+        cy.go('back').get('.nav-item.dropdown').first().click();
+
         
-        cy.get('[data-cy="calendar"]').click();
+        cy.get('a.dropdown-item').eq(2).click();
         cy.get('#main-content');
-        cy.go('back').get('[data-cy="training"]').click();
+        cy.go('back').get('.nav-item.dropdown').first().click();
 
-        cy.get('[data-cy="measurement"]').click();
+
+        cy.get('a.dropdown-item').eq(3).click();
         cy.location('pathname').should('eq', '/en/measurement/');
-        cy.go('back').get('[data-cy="training"]').click();
+        cy.go('back').get('.nav-item.dropdown').first().click();
 
-        cy.get('[data-cy="gallery"]').click();
+        cy.get('a.dropdown-item').eq(4).click();
         cy.location('pathname').should('eq', '/en/gallery/overview');
-        cy.go('back').get('[data-cy="training"]').click();
-        
-        cy.get('[data-cy="your_templates"]').click();
-        cy.location('pathname').should('eq', '/en/routine/template/overview');
-        cy.go('back').get('[data-cy="training"]').click();
+        cy.go('back').get('.nav-item.dropdown').first().click();
 
-        cy.get('[data-cy="public_templates"]').click();
-        cy.location('pathname').should('eq', '/en/routine/template/public');
-        cy.go('back').get('[data-cy="training"]').click();
         
-        cy.get('[data-cy="exercise"]').click();
+        cy.get('a.dropdown-item').eq(5).click();
+        cy.location('pathname').should('eq', '/en/routine/template/overview');
+        cy.go('back').get('.nav-item.dropdown').first().click();
+
+
+        cy.get('a.dropdown-item').eq(6).click();
+        cy.location('pathname').should('eq', '/en/routine/template/public');
+        cy.go('back').get('.nav-item.dropdown').first().click();
+        
+        cy.get('a.dropdown-item').eq(7).click();
         cy.location('pathname').should('eq', '/en/exercise/overview/');
         cy.go('back');
 
@@ -50,40 +54,44 @@ describe('navigation dashboard page tests', () => {
       })
 
       it('Visible Nutrition menu', () => {
-        cy.get('[data-cy="nutrition"]').click();
+        cy.get('.nav-item.dropdown').eq(1).click();
         cy.get('ul.dropdown-menu.show').should('be.visible');
         
-        cy.get('[data-cy="nutrition_plans"]').click();
+        cy.get('a.dropdown-item').eq(8).click();
         cy.location('pathname').should('eq', '/en/nutrition/overview/');
-        cy.go('back').get('[data-cy="nutrition"]').click();
+        cy.go('back').get('.nav-item.dropdown').eq(1).click();
 
-        cy.get('[data-cy="BMI_calculator"]').click();
+        cy.get('a.dropdown-item').eq(9).click()
         cy.location('pathname').should('eq', '/en/nutrition/calculator/bmi/');
-        cy.go('back').get('[data-cy="nutrition"]').click();
+        cy.go('back').get('.nav-item.dropdown').eq(1).click();
+        
+        cy.get('a.dropdown-item').eq(10).click()
+        cy.location('pathname').should('eq', '/en/nutrition/calculator/calories/');
+        cy.go('back').get('.nav-item.dropdown').eq(1).click();
 
-        cy.get('[data-cy="ingredient_overview"]').click();
+        cy.get('a.dropdown-item').eq(11).click();
         cy.location('pathname').should('eq', '/en/nutrition/ingredient/overview/');
         cy.go('back');
       })
 
       it('Visible Body weight', () => {
-        cy.get('[data-cy="body_weight"]').click();
+        cy.get('.nav-item.dropdown').eq(2).click();
         cy.get('ul.dropdown-menu.show').should('be.visible');  
 
-        cy.get('[data-cy="weight_overview"]').click();
+        cy.get('a.dropdown-item').eq(12).click();
         cy.location('pathname').should('eq', '/en/weight/overview');
-        cy.go('back').get('[data-cy="body_weight"]').click();
+        cy.go('back').get('.nav-item.dropdown').eq(2).click();
 
-        cy.get('[data-cy="weight_add"]').click();
+        cy.get('a.dropdown-item').eq(13).click();
         cy.location('pathname').should('eq', '/en/weight/add/');
         cy.go('back');
       })
 
 
       it('Visible About this software', () => {
-        cy.get('[data-cy="about-this-software"]').click();
+        cy.get('.nav-item.dropdown').eq(3).click();
         cy.get('ul.dropdown-menu.show').should('be.visible'); 
-        cy.get('[data-cy="about_us"]').click();
+        cy.get('a.dropdown-item').eq(14).click();
         cy.location('pathname').should('eq', '/en/software/about-us');
         cy.go('back');
       })
