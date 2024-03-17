@@ -1,26 +1,29 @@
 [
-    {
-        "pk": 1,
-        "model": "core.language",
-        "fields": {
-            "full_name": "Deutsch",
-            "short_name": "de"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "core.language",
-        "fields": {
-            "full_name": "English",
-            "short_name": "en"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "core.language",
-        "fields": {
-            "full_name": "Français",
-            "short_name": "fr"
-        }
+  {
+    "pk": 1,
+    "model": "core.language",
+    "fields": {
+      "full_name": "Deutsch",
+      "short_name": "de",
+      "full_name_en": "German"
     }
+  },
+  {
+    "pk": 2,
+    "model": "core.language",
+    "fields": {
+      "full_name": "English",
+      "short_name": "en",
+      "full_name_en": "English"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "core.language",
+    "fields": {
+      "full_name": "Français",
+      "short_name": "fr",
+      "full_name_en": "French"
+    }
+  }
 ]
