@@ -15,10 +15,6 @@
 # Standard Library
 import datetime
 import logging
-from random import (
-    choice,
-    randint,
-)
 from uuid import uuid4
 
 # Django
@@ -34,6 +30,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -95,7 +92,7 @@ class Command(BaseCommand):
             # Add plan
             for _ in range(0, options['nr_plans']):
                 uid = str(uuid4()).split('-')
-                start_date = datetime.date.today() - datetime.timedelta(days=randint(0, 100))
+                start_date = datetime.date.today() - datetime.timedelta(days=secrets.SystemRandom().randint(0, 100))
                 plan = NutritionPlan(
                     description=f'Dummy nutritional plan - {uid[1]}',
                     creation_date=start_date,
@@ -112,18 +109,18 @@ class Command(BaseCommand):
                     meal = Meal(
                         plan=plan,
                         order=order,
-                        time=datetime.time(hour=randint(0, 23), minute=randint(0, 59)),
+                        time=datetime.time(hour=secrets.SystemRandom().randint(0, 23), minute=secrets.SystemRandom().randint(0, 59)),
                     )
                     meal.save()
 
                     # Add meal items
-                    for _ in range(0, randint(1, 5)):
+                    for _ in range(0, secrets.SystemRandom().randint(1, 5)):
                         meal_item = MealItem(
                             meal=meal,
-                            ingredient=choice(ingredients),
+                            ingredient=secrets.SystemRandom().choice(ingredients),
                             weight_unit=None,
                             order=order,
-                            amount=randint(10, 250),
+                            amount=secrets.SystemRandom().randint(10, 250),
                         )
                         meal_item.save()
                         order = order + 1
@@ -131,17 +128,17 @@ class Command(BaseCommand):
                 # Add diary entries
                 for _ in range(0, options['nr_diary_dates']):
                     date = timezone.now() - datetime.timedelta(
-                        days=randint(0, 100),
-                        hours=randint(0, 12),
-                        minutes=randint(0, 59),
+                        days=secrets.SystemRandom().randint(0, 100),
+                        hours=secrets.SystemRandom().randint(0, 12),
+                        minutes=secrets.SystemRandom().randint(0, 59),
                     )
                     for _ in range(0, options['nr_diary_entries']):
                         log = LogItem(
                             plan=plan,
                             datetime=date,
-                            ingredient=choice(ingredients),
+                            ingredient=secrets.SystemRandom().choice(ingredients),
                             weight_unit=None,
-                            amount=randint(10, 300),
+                            amount=secrets.SystemRandom().randint(10, 300),
                         )
                         diary_entries.append(log)
 

@@ -15,7 +15,6 @@
 # Standard Library
 import datetime
 import logging
-import random
 import uuid
 
 # Django
@@ -31,6 +30,7 @@ from wger.manager.models import (
     Setting,
     Workout,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -73,7 +73,7 @@ class Command(BaseCommand):
             # Add plan
             for _ in range(options['nr_plans']):
                 uid = str(uuid.uuid4()).split('-')
-                start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
+                start_date = datetime.date.today() - datetime.timedelta(days=secrets.SystemRandom().randint(0, 100))
                 workout = Workout(
                     user=user,
                     name=f'Dummy workout - {uid[1]}',
@@ -82,9 +82,9 @@ class Command(BaseCommand):
                 workout.save()
 
                 # Select a random number of workout days
-                nr_of_days = random.randint(1, 5)
+                nr_of_days = secrets.SystemRandom().randint(1, 5)
                 day_list = [i for i in range(1, 8)]
-                random.shuffle(day_list)
+                secrets.SystemRandom().shuffle(day_list)
 
                 # Load all exercises to a list
                 exercise_list = [i for i in Exercise.objects.filter(language_id=2)]
@@ -101,13 +101,13 @@ class Command(BaseCommand):
                     day.day.add(weekday)
 
                     # Select a random number of exercises
-                    nr_of_exercises = random.randint(3, 10)
-                    random.shuffle(exercise_list)
+                    nr_of_exercises = secrets.SystemRandom().randint(3, 10)
+                    secrets.SystemRandom().shuffle(exercise_list)
                     day_exercises = exercise_list[0:nr_of_exercises]
                     order = 1
                     for exercise in day_exercises:
-                        reps = random.choice([1, 3, 5, 8, 10, 12, 15])
-                        sets = random.randint(2, 4)
+                        reps = secrets.SystemRandom().choice([1, 3, 5, 8, 10, 12, 15])
+                        sets = secrets.SystemRandom().randint(2, 4)
 
                         day_set = Set(
                             exerciseday=day,

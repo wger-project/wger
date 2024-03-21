@@ -17,7 +17,6 @@
 # Standard Library
 import datetime
 import logging
-import random
 import uuid
 
 # Django
@@ -50,6 +49,7 @@ from wger.nutrition.models import (
 )
 from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -121,7 +121,7 @@ def create_demo_entries(user):
                 exercise_base=exercise,
                 workout=workout,
                 reps=reps,
-                weight=18 - reps + random.randint(1, 4),
+                weight=18 - reps + secrets.SystemRandom().randint(1, 4),
                 date=datetime.date.today() - datetime.timedelta(weeks=i),
             )
             weight_log.append(log)
@@ -141,7 +141,7 @@ def create_demo_entries(user):
                 exercise_base=exercise,
                 workout=workout,
                 reps=reps,
-                weight=30 - reps + random.randint(1, 4),
+                weight=30 - reps + secrets.SystemRandom().randint(1, 4),
                 date=datetime.date.today() - datetime.timedelta(weeks=i),
             )
             weight_log.append(log)
@@ -161,7 +161,7 @@ def create_demo_entries(user):
                 exercise_base=exercise,
                 workout=workout,
                 reps=reps,
-                weight=110 - reps + random.randint(1, 10),
+                weight=110 - reps + secrets.SystemRandom().randint(1, 10),
                 date=datetime.date.today() - datetime.timedelta(weeks=i),
             )
             weight_log.append(log)
@@ -197,7 +197,7 @@ def create_demo_entries(user):
         if creation_date not in existing_entries:
             entry = WeightEntry(
                 user=user,
-                weight=80 + 0.5 * i + random.randint(1, 3),
+                weight=80 + 0.5 * i + secrets.SystemRandom().randint(1, 3),
                 date=creation_date,
             )
             temp.append(entry)

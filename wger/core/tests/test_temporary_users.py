@@ -14,7 +14,6 @@
 
 # Standard Library
 import datetime
-import random
 
 # Django
 from django.contrib.auth.models import User
@@ -40,6 +39,7 @@ from wger.nutrition.models import (
     NutritionPlan,
 )
 from wger.weight.models import WeightEntry
+import secrets
 
 
 class DemoUserTestCase(WgerTestCase):
@@ -117,7 +117,7 @@ class DemoUserTestCase(WgerTestCase):
             creation_date = datetime.date.today() - datetime.timedelta(days=i)
             entry = WeightEntry(
                 user=user,
-                weight=80 + 0.5 * i + random.randint(1, 3),
+                weight=80 + 0.5 * i + secrets.SystemRandom().randint(1, 3),
                 date=creation_date,
             )
             temp.append(entry)
