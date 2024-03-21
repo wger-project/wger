@@ -23,7 +23,7 @@ drf-spectacular[sidecar]==0.27.1
 easy-thumbnails==2.8.5
 flower==2.0.1
 fontawesomefree~=6.5.1
-icalendar==5.0.11
+icalendar==5.0.12
 invoke==2.2.0
 openfoodfacts==0.2.0
 pillow==10.2.0
@@ -37,8 +37,8 @@ tzdata==2024.1
 
 # REST API
 django-cors-headers==4.3.1
-django-filter==23.5
-djangorestframework~=3.14
+django-filter==24.1
+djangorestframework==3.15.0
 djangorestframework-simplejwt[crypto]==5.3.1
 
 # Not used anymore, but needed because some modules are imported in DB migration
