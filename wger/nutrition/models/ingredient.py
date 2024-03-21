@@ -58,15 +58,16 @@ from wger.utils.constants import (
     TWOPLACES,
 )
 from wger.utils.language import load_language
-from wger.utils.requests import wger_user_agent
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
     AbstractLicenseModel,
     AbstractSubmissionModel,
 )
+from wger.utils.requests import wger_user_agent
 
 # Local
 from .ingredient_category import IngredientCategory
+
 
 logger = logging.getLogger(__name__)
 
