@@ -28,11 +28,16 @@ from wger.exercises.api.serializers import (
 from wger.manager.models import (
     Day,
     DayNg,
+    RepsConfig,
+    RestConfig,
+    RiRConfig,
     Routine,
     Schedule,
     ScheduleStep,
     Set,
+    SetConfig,
     Setting,
+    WeightConfig,
     Workout,
     WorkoutLog,
     WorkoutSession,
@@ -58,7 +63,7 @@ class RoutineSerializer(serializers.ModelSerializer):
 
 class DayNgSerializer(serializers.ModelSerializer):
     """
-    Routine serializer
+    Day serializer
     """
 
     class Meta:
@@ -70,6 +75,110 @@ class DayNgSerializer(serializers.ModelSerializer):
             'need_logs_to_advance',
             'next_day',
         )
+
+
+class SetConfigSerializer(serializers.ModelSerializer):
+    """
+    Day serializer
+    """
+
+    class Meta:
+        model = SetConfig
+        fields = (
+            'set',
+            'exercise',
+            'repetition_unit',
+            'weight_unit',
+            'order',
+            'comment',
+            'class_name',
+        )
+
+
+class WeightConfigSerializer(serializers.ModelSerializer):
+    """
+    Weight Config serializer
+    """
+
+    class Meta:
+        model = WeightConfig
+        fields = (
+            'set_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+            'need_log_to_apply',
+        )
+
+
+class RepetitionConfigSerializer(serializers.ModelSerializer):
+    """
+    Repetition Config serializer
+    """
+
+    class Meta:
+        model = RepsConfig
+        fields = (
+            'set_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+            'need_log_to_apply',
+        )
+
+
+class RiRConfigSerializer(serializers.ModelSerializer):
+    """
+    RiR Config serializer
+    """
+
+    class Meta:
+        model = RiRConfig
+        fields = (
+            'set_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+            'need_log_to_apply',
+        )
+
+
+class RestConfigSerializer(serializers.ModelSerializer):
+    """
+    Rest Config serializer
+    """
+
+    class Meta:
+        model = RestConfig
+        fields = (
+            'set_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+            'need_log_to_apply',
+        )
+
+
+class WorkoutDayDataSerializer(serializers.Serializer):
+    """
+    WorkoutDayData serializer
+    """
+
+    iteration = serializers.IntegerField()
+    date = serializers.DateField()
+    day = DayNgSerializer()
 
 
 class WorkoutSerializer(serializers.ModelSerializer):

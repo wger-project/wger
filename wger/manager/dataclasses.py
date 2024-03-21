@@ -1,4 +1,5 @@
 # Standard Library
+import datetime
 from dataclasses import dataclass
 from decimal import Decimal
 
@@ -9,6 +10,7 @@ from wger.manager.models import DayNg
 @dataclass
 class WorkoutDayData:
     day: DayNg
+    date: datetime.date
     iteration: int
 
 

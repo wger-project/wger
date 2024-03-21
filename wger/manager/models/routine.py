@@ -92,7 +92,7 @@ class Routine(models.Model):
         if self.name:
             return self.name
         else:
-            return f'Routine {self.id} - created on {self.creation_date}'
+            return f'Routine {self.id} - {self.created}'
 
     def get_owner_object(self):
         """
@@ -136,11 +136,13 @@ class Routine(models.Model):
         current_day = self.first_day
         counter = Counter()
 
-        out = {}
+        out = []
 
         while current_date <= self.end:
             counter[current_day] += 1
-            out[current_date] = WorkoutDayData(day=current_day, iteration=counter[current_day])
+            out.append(
+                WorkoutDayData(day=current_day, iteration=counter[current_day], date=current_date)
+            )
 
             if current_day.can_proceed(current_date):
                 current_day = current_day.next_day

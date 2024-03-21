@@ -31,7 +31,10 @@ from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.helpers import normalize_decimal
 
 # Local
-from .day import Day
+from .day import (
+    Day,
+    DayNg,
+)
 
 
 class SetNg(models.Model):
@@ -43,7 +46,7 @@ class SetNg(models.Model):
     MAX_SETS = 10
 
     day = models.ForeignKey(
-        Day,
+        DayNg,
         verbose_name=_('Exercise day'),
         on_delete=models.CASCADE,
     )
@@ -74,29 +77,13 @@ class SetNg(models.Model):
         """
         Return a more human-readable representation
         """
-        return f'Set-ID {self.id}'
+        return f'Set {self.id}'
 
     def get_owner_object(self):
         """
         Returns the object that has owner information
         """
-        return self.day.training
-
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        reset_workout_canonical_form(self.exerciseday.training_id)
-        super(Set, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        reset_workout_canonical_form(self.exerciseday.training_id)
-        super(Set, self).delete(*args, **kwargs)
+        return self.day.routine
 
 
 class Set(models.Model):

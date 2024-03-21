@@ -41,7 +41,7 @@ class SetConfig(models.Model):
     """
 
     set = models.ForeignKey(
-        'Set',
+        'SetNg',
         verbose_name=_('Sets'),
         on_delete=models.CASCADE,
     )
@@ -80,7 +80,7 @@ class SetConfig(models.Model):
     )
 
     class_name = models.CharField(
-        max_length=100,
+        max_length=50,
         null=True,
         blank=True,
     )
@@ -101,7 +101,7 @@ class SetConfig(models.Model):
         """
         Returns the object that has owner information
         """
-        return self.set.exerciseday.training
+        return self.set.day.routine
 
     @staticmethod
     def calculate_config_value(configs: list[AbstractChangeConfig]):
@@ -140,6 +140,7 @@ class SetConfig(models.Model):
 
             return custom_logic.calculate()
 
+        # Calculate the weights normally
         max_iter_weight = 1
         max_iter_reps = 1
 

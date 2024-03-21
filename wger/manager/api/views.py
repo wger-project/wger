@@ -37,6 +37,7 @@ from wger.manager.api.serializers import (
     SetSerializer,
     SettingSerializer,
     WorkoutCanonicalFormSerializer,
+    WorkoutDayDataSerializer,
     WorkoutLogSerializer,
     WorkoutSerializer,
     WorkoutSessionSerializer,
@@ -89,12 +90,19 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         serializer.save(user=self.request.user)
 
-    @action(detail=True)
+    @action(detail=True, url_path='day-sequence')
     def day_sequence(self, request, pk):
         """
         Return the day sequence of the routine
         """
         return Response(DayNgSerializer(self.get_object().day_sequence, many=True).data)
+
+    @action(detail=True, url_path='date-sequence')
+    def date_sequence(self, request, pk):
+        """
+        Return the day sequence of the routine
+        """
+        return Response(WorkoutDayDataSerializer(self.get_object().date_sequence, many=True).data)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):

@@ -77,13 +77,19 @@ class DayNg(models.Model):
         """
         return self.routine
 
-    def can_proceed(self, date: datetime.date):
+    def can_proceed(self, date: datetime.date) -> bool:
         if not self.need_logs_to_advance:
             return True
         elif self.workoutsession_set.filter(date=date).exists():
             return True
 
         return False
+
+    def get_sets(self, iteration: int):
+        """
+        Return the sets for this day
+        """
+        ...
 
 
 class Day(models.Model):

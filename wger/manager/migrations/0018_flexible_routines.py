@@ -38,54 +38,6 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
-        migrations.CreateModel(
-            name='SetConfig',
-            fields=[
-                (
-                    'id',
-                    models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    ),
-                ),
-                ('order', models.PositiveIntegerField(blank=True)),
-                ('comment', models.CharField(blank=True, max_length=100)),
-                ('class_name', models.CharField(blank=True, max_length=100, null=True)),
-                (
-                    'exercise',
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='exercises.exercisebase'
-                    ),
-                ),
-                (
-                    'repetition_unit',
-                    models.ForeignKey(
-                        default=1,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to='core.repetitionunit',
-                    ),
-                ),
-                (
-                    'set',
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.set',
-                        verbose_name='Sets',
-                    ),
-                ),
-                (
-                    'weight_unit',
-                    models.ForeignKey(
-                        default=1,
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to='core.weightunit',
-                        verbose_name='Unit',
-                    ),
-                ),
-            ],
-            options={
-                'ordering': ['order', 'id'],
-            },
-        ),
         migrations.AddField(
             model_name='workoutlog',
             name='iteration',
@@ -127,13 +79,61 @@ class Migration(migrations.Migration):
                     'day',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.day',
+                        to='manager.dayng',
                         verbose_name='Exercise day',
                     ),
                 ),
             ],
             options={
                 'ordering': ['order'],
+            },
+        ),
+        migrations.CreateModel(
+            name='SetConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                ('order', models.PositiveIntegerField(blank=True)),
+                ('comment', models.CharField(blank=True, max_length=100)),
+                ('class_name', models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    'exercise',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to='exercises.exercisebase'
+                    ),
+                ),
+                (
+                    'repetition_unit',
+                    models.ForeignKey(
+                        default=1,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='core.repetitionunit',
+                    ),
+                ),
+                (
+                    'set',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.setNg',
+                        verbose_name='Sets',
+                    ),
+                ),
+                (
+                    'weight_unit',
+                    models.ForeignKey(
+                        default=1,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='core.weightunit',
+                        verbose_name='Unit',
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['order', 'id'],
             },
         ),
         migrations.CreateModel(
