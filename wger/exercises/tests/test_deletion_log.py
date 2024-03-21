@@ -35,18 +35,19 @@ class DeletionLogTestCase(WgerTestCase):
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
-        exercise = ExerciseBase.objects.get(pk=1)
-        exercise.delete()
+        base = ExerciseBase.objects.get(pk=1)
+        base.delete()
 
         # Base is deleted
         count_base_logs = DeletionLog.objects.filter(
-            model_type=DeletionLog.MODEL_BASE, uuid=exercise.uuid
+            model_type=DeletionLog.MODEL_BASE,
+            uuid=base.uuid,
         ).count()
         log = DeletionLog.objects.get(pk=1)
 
         self.assertEqual(count_base_logs, 1)
         self.assertEqual(log.model_type, 'base')
-        self.assertEqual(log.uuid, exercise.uuid)
+        self.assertEqual(log.uuid, base.uuid)
         self.assertEqual(log.comment, 'Exercise base of An exercise')
         self.assertEqual(log.replaced_by, None)
 

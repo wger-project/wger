@@ -60,27 +60,32 @@ class MockLanguageResponse:
                 {
                     "id": 1,
                     "short_name": "de",
-                    "full_name": "Daitsch"
+                    "full_name": "Daitsch",
+                    "full_name_en": "Kraut"
                 },
                 {
                     "id": 2,
                     "short_name": "en",
-                    "full_name": "English"
+                    "full_name": "English",
+                    "full_name_en": "English"
                 },
                 {
                     "id": 3,
                     "short_name": "fr",
-                    "full_name": "Français"
+                    "full_name": "Français",
+                    "full_name_en": "French"
                 },
                 {
                     "id": 4,
                     "short_name": "es",
-                    "full_name": "Español"
+                    "full_name": "Español",
+                    "full_name_en": "Spanish"
                 },
                 {
                     "id": 19,
                     "short_name": "eo",
-                    "full_name": "Esperanto"
+                    "full_name": "Esperanto",
+                    "full_name_en": "Esperanto"
                 }
             ]
         }
@@ -557,15 +562,22 @@ class MockExerciseResponse:
 class TestSyncMethods(WgerTestCase):
     @patch('requests.get', return_value=MockLanguageResponse())
     def test_language_sync(self, mock_request):
+        language1 = Language.objects.get(pk=1)
         self.assertEqual(Language.objects.count(), 3)
-        self.assertEqual(Language.objects.get(pk=1).full_name, 'Deutsch')
+        self.assertEqual(language1.full_name, 'Deutsch')
+        self.assertEqual(language1.full_name_en, 'German')
 
+        # Act
         sync_languages(lambda x: x)
         mock_request.assert_called_with(
             'https://wger.de/api/v2/language/',
             headers=wger_headers(),
         )
-        self.assertEqual(Language.objects.get(pk=1).full_name, 'Daitsch')
+
+        # Assert
+        language1 = Language.objects.get(pk=1)
+        self.assertEqual(language1.full_name, 'Daitsch')
+        self.assertEqual(language1.full_name_en, 'Kraut')
         self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
 
