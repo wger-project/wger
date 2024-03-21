@@ -23,11 +23,12 @@ from wger.core.api.serializers import DaysOfWeekSerializer
 from wger.core.models import DaysOfWeek
 from wger.exercises.api.serializers import (
     ExerciseBaseInfoSerializer,
-    ExerciseSerializer,
     MuscleSerializer,
 )
 from wger.manager.models import (
     Day,
+    DayNg,
+    Routine,
     Schedule,
     ScheduleStep,
     Set,
@@ -36,6 +37,39 @@ from wger.manager.models import (
     WorkoutLog,
     WorkoutSession,
 )
+
+
+class RoutineSerializer(serializers.ModelSerializer):
+    """
+    Routine serializer
+    """
+
+    class Meta:
+        model = Routine
+        fields = (
+            'id',
+            'name',
+            'description',
+            'created',
+            'start',
+            'end',
+        )
+
+
+class DayNgSerializer(serializers.ModelSerializer):
+    """
+    Routine serializer
+    """
+
+    class Meta:
+        model = DayNg
+        fields = (
+            'id',
+            'description',
+            'is_rest',
+            'need_logs_to_advance',
+            'next_day',
+        )
 
 
 class WorkoutSerializer(serializers.ModelSerializer):

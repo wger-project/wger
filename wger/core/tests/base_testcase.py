@@ -132,6 +132,7 @@ class BaseTestCase:
         'test-workout-data',
         'test-workout-session',
         'test-schedules',
+        'test-routine-data',
         'test-gallery-images',
         'test-measurement-categories',
         'test-measurements',

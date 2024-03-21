@@ -103,7 +103,8 @@ class SetConfig(models.Model):
         """
         return self.set.exerciseday.training
 
-    def calculate_config_value(self, configs: list[AbstractChangeConfig]):
+    @staticmethod
+    def calculate_config_value(configs: list[AbstractChangeConfig]):
         out = 0
 
         for config in configs:

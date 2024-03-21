@@ -16,6 +16,7 @@
 import datetime
 
 # wger
+from wger.core.tests.api_base_test import ApiBaseResourceTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import WorkoutDayData
 from wger.manager.models import (
@@ -139,3 +140,18 @@ class RoutineTestCase(WgerTestCase):
                 datetime.date(2024, 1, 10): WorkoutDayData(day=self.day1, iteration=6),
             },
         )
+
+
+class RoutineApiTestCase(ApiBaseResourceTestCase):
+    """
+    Tests the routine api endpoint
+    """
+
+    pk = 1
+    resource = Routine
+    private_resource = True
+    data = {
+        'name': 'A new comment',
+        'start': '2024-03-11',
+        'end': '2024-06-20',
+    }

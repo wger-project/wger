@@ -19,7 +19,6 @@
 import json
 
 # Django
-from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404
 
 # Third Party
@@ -28,12 +27,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.models import (
-    Exercise,
-    ExerciseBase,
-)
+from wger.exercises.models import ExerciseBase
 from wger.manager.api.serializers import (
+    DayNgSerializer,
     DaySerializer,
+    RoutineSerializer,
     ScheduleSerializer,
     ScheduleStepSerializer,
     SetSerializer,
@@ -46,6 +44,7 @@ from wger.manager.api.serializers import (
 )
 from wger.manager.models import (
     Day,
+    Routine,
     Schedule,
     ScheduleStep,
     Set,
@@ -56,6 +55,46 @@ from wger.manager.models import (
 )
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 from wger.weight.helpers import process_log_entries
+
+
+class RoutineViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for routine objects
+    """
+
+    serializer_class = RoutineSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'name',
+        'description',
+        'created',
+        'start',
+        'end',
+    )
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return Routine.objects.none()
+
+        return Routine.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        """
+        Set the owner
+        """
+        serializer.save(user=self.request.user)
+
+    @action(detail=True)
+    def day_sequence(self, request, pk):
+        """
+        Return the day sequence of the routine
+        """
+        return Response(DayNgSerializer(self.get_object().day_sequence, many=True).data)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):

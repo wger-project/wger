@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
                     models.TextField(blank=True, max_length=1000, verbose_name='Description'),
                 ),
                 (
-                    'creation_date',
+                    'created',
                     models.DateTimeField(auto_now_add=True, verbose_name='Creation date'),
                 ),
                 ('start', models.DateField(verbose_name='Start date')),

@@ -36,7 +36,7 @@ class Routine(models.Model):
 
     class Meta:
         ordering = [
-            '-creation_date',
+            '-created',
         ]
 
     user = models.ForeignKey(
@@ -63,7 +63,7 @@ class Routine(models.Model):
         blank=True,
     )
 
-    creation_date = models.DateTimeField(
+    created = models.DateTimeField(
         _('Creation date'),
         auto_now_add=True,
     )
@@ -128,7 +128,7 @@ class Routine(models.Model):
         """
         Return a dictionary with specific dates and routine days
 
-        If a day needs logs to continue it will be repeated will the user adds one.
+        If a day needs logs to continue it will be repeated until the user adds one.
         """
 
         delta = datetime.timedelta(days=1)
