@@ -14,7 +14,6 @@
 
 # Standard Library
 import logging
-import random
 import uuid
 
 # Django
@@ -31,6 +30,7 @@ from wger.gym.models import (
     Gym,
     GymUserConfig,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -96,10 +96,10 @@ class Command(BaseCommand):
                 continue
 
             if gym_list:
-                gym_id = random.choice(gym_list)
+                gym_id = secrets.SystemRandom().choice(gym_list)
                 user.userprofile.gym_id = gym_id
-                user.userprofile.gender = random.choice(['1', '2'])
-                user.userprofile.age = random.randint(18, 45)
+                user.userprofile.gender = secrets.SystemRandom().choice(['1', '2'])
+                user.userprofile.age = secrets.SystemRandom().randint(18, 45)
                 user.userprofile.save()
 
                 config = GymUserConfig()

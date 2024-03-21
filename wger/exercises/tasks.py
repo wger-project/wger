@@ -14,7 +14,6 @@
 
 # Standard Library
 import logging
-import random
 
 # Django
 from django.conf import settings
@@ -35,6 +34,7 @@ from wger.exercises.sync import (
     sync_licenses,
     sync_muscles,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -75,9 +75,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISES_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=str(random.randint(0, 23)),
-                minute=str(random.randint(0, 59)),
-                day_of_week=str(random.randint(0, 6)),
+                hour=str(secrets.SystemRandom().randint(0, 23)),
+                minute=str(secrets.SystemRandom().randint(0, 59)),
+                day_of_week=str(secrets.SystemRandom().randint(0, 6)),
             ),
             sync_exercises_task.s(),
             name='Sync exercises',
@@ -86,9 +86,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISE_IMAGES_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=str(random.randint(0, 23)),
-                minute=str(random.randint(0, 59)),
-                day_of_week=str(random.randint(0, 6)),
+                hour=str(secrets.SystemRandom().randint(0, 23)),
+                minute=str(secrets.SystemRandom().randint(0, 59)),
+                day_of_week=str(secrets.SystemRandom().randint(0, 6)),
             ),
             sync_images_task.s(),
             name='Sync exercise images',
@@ -97,9 +97,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_EXERCISE_VIDEOS_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=str(random.randint(0, 23)),
-                minute=str(random.randint(0, 59)),
-                day_of_week=str(random.randint(0, 6)),
+                hour=str(secrets.SystemRandom().randint(0, 23)),
+                minute=str(secrets.SystemRandom().randint(0, 59)),
+                day_of_week=str(secrets.SystemRandom().randint(0, 6)),
             ),
             sync_videos_task.s(),
             name='Sync exercise videos',

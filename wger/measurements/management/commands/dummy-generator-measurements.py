@@ -15,7 +15,6 @@
 # Standard Library
 import datetime
 import logging
-import random
 
 # Django
 from django.contrib.auth.models import User
@@ -26,6 +25,7 @@ from wger.measurements.models import (
     Category,
     Measurement,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -80,7 +80,7 @@ class Command(BaseCommand):
             self.stdout.write(f'- processing user {user.username}')
 
             for category in categories:
-                base_value = random.randint(10, 100)
+                base_value = secrets.SystemRandom().randint(10, 100)
 
                 for i in range(options['nr_measurements']):
                     date = datetime.date.today() - datetime.timedelta(days=2 * i)
@@ -89,7 +89,7 @@ class Command(BaseCommand):
 
                     measurement = Measurement(
                         category=category,
-                        value=base_value + 0.5 * i + random.randint(-20, 10),
+                        value=base_value + 0.5 * i + secrets.SystemRandom().randint(-20, 10),
                         date=date,
                     )
                     new_entries.append(measurement)

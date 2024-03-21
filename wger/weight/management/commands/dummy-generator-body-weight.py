@@ -15,7 +15,6 @@
 # Standard Library
 import datetime
 import logging
-import random
 
 # Django
 from django.contrib.auth.models import User
@@ -23,6 +22,7 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.weight.models import WeightEntry
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 if creation_date not in existing_entries:
                     entry = WeightEntry(
                         user=user,
-                        weight=base_weight + 0.5 * i + random.randint(1, 3),
+                        weight=base_weight + 0.5 * i + secrets.SystemRandom().randint(1, 3),
                         date=creation_date,
                     )
                     new_entries.append(entry)

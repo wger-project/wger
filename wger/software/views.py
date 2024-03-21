@@ -45,7 +45,7 @@ def features(request):
 
     context = cache.get(CACHE_KEY)
     if not context:
-        result_github_api = requests.get('https://api.github.com/repos/wger-project/wger').json()
+        result_github_api = requests.get('https://api.github.com/repos/wger-project/wger', timeout=60).json()
         context = {
             'nr_users': User.objects.count(),
             'nr_exercises': ExerciseBase.objects.count(),

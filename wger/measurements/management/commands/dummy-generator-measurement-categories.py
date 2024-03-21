@@ -14,7 +14,6 @@
 
 # Standard Library
 import logging
-import random
 import sys
 
 # Django
@@ -23,6 +22,7 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.measurements.models import Category
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -82,7 +82,7 @@ class Command(BaseCommand):
         for user in users:
             self.stdout.write(f'- processing user {user.username}')
 
-            for measurement_cat in random.choices(self.categories, k=options['nr_categories']):
+            for measurement_cat in secrets.SystemRandom().choices(self.categories, k=options['nr_categories']):
                 cat = Category(
                     name=measurement_cat['name'],
                     unit=measurement_cat['unit'],

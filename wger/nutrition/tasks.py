@@ -14,7 +14,6 @@
 
 # Standard Library
 import logging
-import random
 
 # Django
 from django.conf import settings
@@ -29,6 +28,7 @@ from wger.nutrition.sync import (
     fetch_ingredient_image,
     sync_ingredients,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -67,9 +67,9 @@ def setup_periodic_tasks(sender, **kwargs):
     if settings.WGER_SETTINGS['SYNC_INGREDIENTS_CELERY']:
         sender.add_periodic_task(
             crontab(
-                hour=str(random.randint(0, 23)),
-                minute=str(random.randint(0, 59)),
-                day_of_month=f'{random.randint(1, 12)},{random.randint(18, 28)}',
+                hour=str(secrets.SystemRandom().randint(0, 23)),
+                minute=str(secrets.SystemRandom().randint(0, 59)),
+                day_of_month=f'{secrets.SystemRandom().randint(1, 12)},{secrets.SystemRandom().randint(18, 28)}',
             ),
             sync_all_ingredients_task.s(),
             name='Sync exercises',

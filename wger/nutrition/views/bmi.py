@@ -83,7 +83,7 @@ def calculate(request):
             'height': output_height,
         }
         data = json.dumps(result, cls=helpers.DecimalJsonEncoder)
-        response = HttpResponse(data, 'application/json')
+        response = HttpResponse(data, 'application/json', content_type="application/json")
     else:
         help_message = {
             ('error'): _('Please make sure your height is within the appropriate range.'),
@@ -93,7 +93,7 @@ def calculate(request):
         else:
             help_message['in_range'] = _('56 to 90')
         data = json.dumps(help_message)
-        response = HttpResponse(data, 'application/json')
+        response = HttpResponse(data, 'application/json', content_type="application/json")
         response.status_code = 406
     # Return the results to the client
     return response
@@ -156,4 +156,4 @@ def chart_data(request):
         )
 
     # Return the results to the client
-    return HttpResponse(data, 'application/json')
+    return HttpResponse(data, 'application/json', content_type="application/json")

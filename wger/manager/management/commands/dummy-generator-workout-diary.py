@@ -15,7 +15,6 @@
 # Standard Library
 import datetime
 import logging
-import random
 import uuid
 from random import (
     choice,
@@ -48,6 +47,7 @@ from wger.nutrition.models import (
     MealItem,
     NutritionPlan,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -101,7 +101,7 @@ class Command(BaseCommand):
                                         exercise_base=setting.exercise_base,
                                         workout=workout,
                                         reps=reps,
-                                        weight=50 - reps + random.randint(1, 10),
+                                        weight=50 - reps + secrets.SystemRandom().randint(1, 10),
                                         date=date,
                                     )
                                     weight_log.append(log)
