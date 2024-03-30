@@ -36,6 +36,7 @@ from wger.manager.models import (
     ScheduleStep,
     Set,
     SetConfig,
+    SetNg,
     Setting,
     WeightConfig,
     Workout,
@@ -74,6 +75,21 @@ class DayNgSerializer(serializers.ModelSerializer):
             'is_rest',
             'need_logs_to_advance',
             'next_day',
+        )
+
+
+class SetNgSerializer(serializers.ModelSerializer):
+    """
+    SetNg
+    """
+
+    class Meta:
+        model = SetNg
+        fields = (
+            'day',
+            'order',
+            'comment',
+            'is_dropset',
         )
 
 
@@ -171,6 +187,36 @@ class RestConfigSerializer(serializers.ModelSerializer):
         )
 
 
+class SetConfigDataSerializer(serializers.Serializer):
+    """
+    SetData serializer
+    """
+
+    weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    reps = serializers.DecimalField(max_digits=5, decimal_places=2)
+    rir = serializers.DecimalField(max_digits=5, decimal_places=2)
+    rest = serializers.DecimalField(max_digits=5, decimal_places=2)
+
+
+class SetExerciseDataSerializer(serializers.Serializer):
+    """
+    SetData serializer
+    """
+
+    # exercise = ExerciseBaseInfoSerializer()
+    data = SetConfigDataSerializer()
+    config = SetConfigSerializer()
+
+
+class SetDataSerializer(serializers.Serializer):
+    """
+    SetData serializer
+    """
+
+    set = SetNgSerializer()
+    exercise_data = SetExerciseDataSerializer(many=True)
+
+
 class WorkoutDayDataSerializer(serializers.Serializer):
     """
     WorkoutDayData serializer
@@ -179,6 +225,7 @@ class WorkoutDayDataSerializer(serializers.Serializer):
     iteration = serializers.IntegerField()
     date = serializers.DateField()
     day = DayNgSerializer()
+    sets = SetDataSerializer(many=True)
 
 
 class WorkoutSerializer(serializers.ModelSerializer):

@@ -13,9 +13,9 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # Standard Library
 import importlib
-from typing import Optional
 
 # Django
 from django.db import models
@@ -121,7 +121,7 @@ class SetConfig(models.Model):
 
         return out
 
-    def get_config(self, iteration: int):
+    def get_config(self, iteration: int) -> SetConfigData:
         # If there is a custom class set, pass all responsibilities to it
         if self.class_name:
             try:
@@ -136,6 +136,7 @@ class SetConfig(models.Model):
                 reps_configs=self.repsconfig_set.filter(iteration__lte=iteration),
                 rir_configs=self.rirconfig_set.filter(iteration__lte=iteration),
                 rest_configs=self.restconfig_set.filter(iteration__lte=iteration),
+                logs=self.workoutlog_set.filter(iteration__lte=iteration),
             )
 
             return custom_logic.calculate()
@@ -154,7 +155,10 @@ class SetConfig(models.Model):
             weight_config = self.weightconfig_set.filter(iteration__lte=i).last()
             reps_config = self.repsconfig_set.filter(iteration__lte=i).last()
 
-            if not weight_config.need_log_to_apply and not reps_config.need_log_to_apply:
+            if weight_config is None or reps_config is None:
+                break
+
+            elif not weight_config.need_log_to_apply and not reps_config.need_log_to_apply:
                 max_iter_weight = i
                 max_iter_reps = i
 

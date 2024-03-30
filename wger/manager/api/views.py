@@ -104,6 +104,13 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         return Response(WorkoutDayDataSerializer(self.get_object().date_sequence, many=True).data)
 
+    @action(detail=True, url_path='current-day')
+    def current_day(self, request, pk):
+        """
+        Return current day of the routine
+        """
+        return Response(WorkoutDayDataSerializer(self.get_object().current_day()).data)
+
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     """

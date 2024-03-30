@@ -41,6 +41,7 @@ class SetConfigTestCase(WgerTestCase):
 
     def setUp(self):
         super().setUp()
+
         self.set_config = SetConfig(set_id=1, exercise_id=1, order=1)
         self.set_config.save()
 

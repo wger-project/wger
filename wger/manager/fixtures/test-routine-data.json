@@ -49,5 +49,25 @@
       "next_day": 1,
       "is_rest": false
     }
+  },
+  {
+    "pk": 1,
+    "model": "manager.setng",
+    "fields": {
+      "day": 1,
+      "order": 1,
+      "comment": "test comment 123",
+      "is_dropset": false
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.setng",
+    "fields": {
+      "day": 1,
+      "order": 2,
+      "comment": "test comment 456",
+      "is_dropset": false
+    }
   }
 ]

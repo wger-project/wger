@@ -15,7 +15,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-import typing
+from typing import List
 
 # Django
 from django.core.validators import (
@@ -27,6 +27,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.exercises.models import ExerciseBase
+from wger.manager.dataclasses import SetExerciseData
 from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.helpers import normalize_decimal
 
@@ -84,6 +85,14 @@ class SetNg(models.Model):
         Returns the object that has owner information
         """
         return self.day.routine
+
+    def set_data(self, iteration: int) -> List[SetExerciseData]:
+        """Calculates the set data for a specific iteration"""
+
+        return [
+            SetExerciseData(data=s.get_config(iteration), exercise=s.exercise, config=s)
+            for s in self.setconfig_set.all()
+        ]
 
 
 class Set(models.Model):
@@ -147,7 +156,7 @@ class Set(models.Model):
         super(Set, self).delete(*args, **kwargs)
 
     @property
-    def exercise_bases(self) -> typing.List[ExerciseBase]:
+    def exercise_bases(self) -> List[ExerciseBase]:
         """Returns the exercises for this set"""
         out = list(
             dict.fromkeys([s.exercise_base for s in self.setting_set.select_related().all()])

@@ -22,7 +22,10 @@ from abc import (
 from decimal import Decimal
 
 # wger
-from wger.manager.models import AbstractChangeConfig
+from wger.manager.models import (
+    AbstractChangeConfig,
+    WorkoutLog,
+)
 
 
 class AbstractSetCalculations(ABC):
@@ -31,13 +34,23 @@ class AbstractSetCalculations(ABC):
     reps_configs: list[AbstractChangeConfig]
     rir_configs: list[AbstractChangeConfig]
     rest_configs: list[AbstractChangeConfig]
+    logs: list[WorkoutLog]
 
-    def __init__(self, iteration, weight_configs, reps_configs, rir_configs, rest_configs):
+    def __init__(
+        self,
+        iteration: int,
+        weight_configs: list[AbstractChangeConfig],
+        reps_configs: list[AbstractChangeConfig],
+        rir_configs: list[AbstractChangeConfig],
+        rest_configs: list[AbstractChangeConfig],
+        logs: list[WorkoutLog],
+    ):
         self.iteration = iteration
         self.weight_configs = weight_configs
         self.reps_configs = reps_configs
         self.rir_configs = rir_configs
         self.rest_configs = rest_configs
+        self.logs = logs
 
     @abstractmethod
     def calculate(self) -> Decimal | int:

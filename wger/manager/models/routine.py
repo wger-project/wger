@@ -17,6 +17,7 @@
 # Standard Library
 import datetime
 from collections import Counter
+from typing import List
 
 # Django
 from django.contrib.auth.models import User
@@ -124,9 +125,9 @@ class Routine(models.Model):
         return out
 
     @property
-    def date_sequence(self):
+    def date_sequence(self) -> List[WorkoutDayData]:
         """
-        Return a dictionary with specific dates and routine days
+        Return a list with specific dates and routine days
 
         If a day needs logs to continue it will be repeated until the user adds one.
         """
@@ -138,10 +139,18 @@ class Routine(models.Model):
 
         out = []
 
+        if current_day is None:
+            return out
+
         while current_date <= self.end:
             counter[current_day] += 1
             out.append(
-                WorkoutDayData(day=current_day, iteration=counter[current_day], date=current_date)
+                WorkoutDayData(
+                    day=current_day,
+                    iteration=counter[current_day],
+                    date=current_date,
+                    sets=current_day.get_sets(counter[current_day]),
+                )
             )
 
             if current_day.can_proceed(current_date):
@@ -150,3 +159,17 @@ class Routine(models.Model):
             current_date += delta
 
         return out
+
+    def current_day(self, date=None) -> WorkoutDayData | None:
+        """
+        Return the WorkoutDayData for the specified day. If no date is given, return
+        the results for "today"
+        """
+        if date is None:
+            date = datetime.date.today()
+
+        for data in self.date_sequence:
+            if data.date == date:
+                return data
+
+        return None
