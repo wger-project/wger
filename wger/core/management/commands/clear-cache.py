@@ -25,10 +25,7 @@ from wger.manager.models import (
     Workout,
     WorkoutLog,
 )
-from wger.utils.cache import (
-    reset_workout_canonical_form,
-    reset_workout_log,
-)
+from wger.utils.cache import reset_workout_log
 
 
 class Command(BaseCommand):
@@ -48,14 +45,6 @@ class Command(BaseCommand):
             dest='clear_template',
             default=False,
             help='Clear only template caches',
-        )
-
-        parser.add_argument(
-            '--clear-workout-cache',
-            action='store_true',
-            dest='clear_workout',
-            default=False,
-            help='Clear only the workout canonical view',
         )
 
         parser.add_argument(
@@ -104,11 +93,6 @@ class Command(BaseCommand):
                             if int(options['verbosity']) >= 3:
                                 self.stdout.write(f'      Day {day.day}')
                             reset_workout_log(user.id, entry.year, entry.month, day)
-
-        # Workout canonical form
-        if options['clear_workout']:
-            for w in Workout.objects.all():
-                reset_workout_canonical_form(w.pk)
 
         # Nuclear option, clear all
         if options['clear_all']:

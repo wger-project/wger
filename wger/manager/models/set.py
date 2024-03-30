@@ -28,7 +28,6 @@ from django.utils.translation import gettext_lazy as _
 # wger
 from wger.exercises.models import ExerciseBase
 from wger.manager.dataclasses import SetExerciseData
-from wger.utils.cache import reset_workout_canonical_form
 from wger.utils.helpers import normalize_decimal
 
 # Local
@@ -138,22 +137,6 @@ class Set(models.Model):
         Returns the object that has owner information
         """
         return self.exerciseday.training
-
-    def save(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        reset_workout_canonical_form(self.exerciseday.training_id)
-        super(Set, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """
-        Reset all cached infos
-        """
-
-        reset_workout_canonical_form(self.exerciseday.training_id)
-        super(Set, self).delete(*args, **kwargs)
 
     @property
     def exercise_bases(self) -> List[ExerciseBase]:
