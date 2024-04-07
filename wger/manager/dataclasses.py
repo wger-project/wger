@@ -24,9 +24,6 @@ from dataclasses import (
 from decimal import Decimal
 from typing import List
 
-# wger
-from wger.exercises.models import ExerciseBase
-
 
 @dataclass
 class SetConfigData:
@@ -35,12 +32,18 @@ class SetConfigData:
     rir: Decimal | int
     rest: Decimal | int
 
+    weight_unit: int = 1
+    reps_unit: int = 1
+
 
 @dataclass
 class SetExerciseData:
-    exercise: ExerciseBase
     config: 'SetConfig'
     data: SetConfigData
+
+    @property
+    def exercise(self):
+        return self.config.exercise
 
 
 @dataclass
@@ -54,4 +57,7 @@ class WorkoutDayData:
     day: 'DayNg'
     date: datetime.date
     iteration: int
-    sets: List[SetData] = field(default_factory=list)
+
+    @property
+    def sets(self) -> List[SetData]:
+        return self.day.get_sets(self.iteration)

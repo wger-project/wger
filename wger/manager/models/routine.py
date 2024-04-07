@@ -145,12 +145,7 @@ class Routine(models.Model):
         while current_date <= self.end:
             counter[current_day] += 1
             out.append(
-                WorkoutDayData(
-                    day=current_day,
-                    iteration=counter[current_day],
-                    date=current_date,
-                    sets=current_day.get_sets(counter[current_day]),
-                )
+                WorkoutDayData(iteration=counter[current_day], date=current_date, day=current_day)
             )
 
             if current_day.can_proceed(current_date):

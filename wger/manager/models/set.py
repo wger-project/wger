@@ -89,7 +89,7 @@ class SetNg(models.Model):
         """Calculates the set data for a specific iteration"""
 
         return [
-            SetExerciseData(data=s.get_config(iteration), exercise=s.exercise, config=s)
+            SetExerciseData(data=s.get_config(iteration), config=s)
             for s in self.setconfig_set.all()
         ]
 

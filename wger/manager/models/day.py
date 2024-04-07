@@ -79,9 +79,19 @@ class DayNg(models.Model):
         return self.routine
 
     def can_proceed(self, date: datetime.date) -> bool:
-        if not self.need_logs_to_advance:
-            return True
-        elif self.workoutsession_set.filter(date=date).exists():
+        """
+        Checks whether the user can proceed to the next day in the sequence
+
+        This is possible if
+        - the day doesn't require logs
+        - the day requires logs, and they exist
+        - the date is in the future (used e.g. for calendars where we assume we will proceed)
+        """
+        if (
+            not self.need_logs_to_advance
+            or self.workoutsession_set.filter(date=date).exists()
+            or date > datetime.date.today()
+        ):
             return True
 
         return False
@@ -91,7 +101,6 @@ class DayNg(models.Model):
         Return the sets for this day
         """
         return [SetData(set=s, exercise_data=s.set_data(iteration)) for s in self.setng_set.all()]
-        # return [s.set_data(iteration) for s in self.setng_set.all()]
 
 
 class Day(models.Model):

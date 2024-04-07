@@ -21,6 +21,7 @@ from abc import (
 )
 from decimal import Decimal
 
+from wger.manager.dataclasses import SetConfigData
 # wger
 from wger.manager.models import (
     AbstractChangeConfig,
@@ -53,5 +54,5 @@ class AbstractSetCalculations(ABC):
         self.logs = logs
 
     @abstractmethod
-    def calculate(self) -> Decimal | int:
+    def calculate(self) -> SetConfigData:
         raise NotImplementedError()

@@ -16,6 +16,7 @@
 
 # Standard Library
 import importlib
+from decimal import Decimal
 
 # Django
 from django.db import models
@@ -104,9 +105,8 @@ class SetConfig(models.Model):
         return self.set.day.routine
 
     @staticmethod
-    def calculate_config_value(configs: list[AbstractChangeConfig]):
-        out = 0
-
+    def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal:
+        out = Decimal(0)
         for config in configs:
             if config.replace:
                 out = config.value
@@ -179,7 +179,9 @@ class SetConfig(models.Model):
 
         return SetConfigData(
             weight=self.get_weight(max_iter_weight),
+            weight_unit=self.weight_unit.pk,
             reps=self.get_reps(max_iter_reps),
+            reps_unit=self.repetition_unit.pk,
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
         )

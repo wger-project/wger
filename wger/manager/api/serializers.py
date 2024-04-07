@@ -193,7 +193,9 @@ class SetConfigDataSerializer(serializers.Serializer):
     """
 
     weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    weight_unit = serializers.IntegerField()
     reps = serializers.DecimalField(max_digits=5, decimal_places=2)
+    reps_unit = serializers.IntegerField()
     rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     rest = serializers.DecimalField(max_digits=5, decimal_places=2)
 
@@ -259,7 +261,16 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutSession
-        fields = ['id', 'user', 'workout', 'date', 'notes', 'impression', 'time_start', 'time_end']
+        fields = [
+            'id',
+            'user',
+            'workout',
+            'date',
+            'notes',
+            'impression',
+            'time_start',
+            'time_end',
+        ]
 
 
 class WorkoutLogSerializer(serializers.ModelSerializer):

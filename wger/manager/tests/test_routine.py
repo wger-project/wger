@@ -105,7 +105,7 @@ class RoutineTestCase(WgerTestCase):
         """
         self.assertEqual(
             self.routine.current_day(datetime.date(2024, 1, 7)),
-            WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7), sets=[]),
+            WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7)),
         )
 
     def test_date_sequences_logs(self):
