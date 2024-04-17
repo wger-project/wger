@@ -35,6 +35,10 @@ class Routine(models.Model):
     Model for a routine
     """
 
+    # objects = WorkoutManager()
+    # templates = WorkoutTemplateManager()
+    # both = WorkoutAndTemplateManager()
+
     class Meta:
         ordering = [
             '-created',
@@ -58,12 +62,15 @@ class Routine(models.Model):
         max_length=50,
         blank=True,
     )
+
     description = models.TextField(
         verbose_name=_('Description'),
         max_length=1000,
         blank=True,
     )
 
+    # TODO: remove the auto_now_add during migration so we can set this to a custom
+    #       value and then set it back to auto_now_add
     created = models.DateTimeField(
         _('Creation date'),
         auto_now_add=True,
@@ -75,6 +82,21 @@ class Routine(models.Model):
 
     end = models.DateField(
         _('End date'),
+    )
+
+    is_template = models.BooleanField(
+        verbose_name=_('Workout template'),
+        help_text=_(
+            'Marking a workout as a template will freeze it and allow you to ' 'make copies of it'
+        ),
+        default=False,
+        null=False,
+    )
+    is_public = models.BooleanField(
+        verbose_name=_('Public template'),
+        help_text=_('A public template is available to other users'),
+        default=False,
+        null=False,
     )
 
     def get_absolute_url(self):

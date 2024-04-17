@@ -45,8 +45,13 @@ class DayNg(models.Model):
         on_delete=models.CASCADE,
     )
 
+    name = models.CharField(
+        max_length=20,
+        verbose_name=_('Description'),
+    )
+
     description = models.CharField(
-        max_length=50,
+        max_length=250,
         verbose_name=_('Description'),
     )
 

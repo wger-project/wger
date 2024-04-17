@@ -56,6 +56,7 @@ class RoutineSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
+            'first_day',
             'created',
             'start',
             'end',

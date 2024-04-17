@@ -21,8 +21,8 @@ from abc import (
 )
 from decimal import Decimal
 
-from wger.manager.dataclasses import SetConfigData
 # wger
+from wger.manager.dataclasses import SetConfigData
 from wger.manager.models import (
     AbstractChangeConfig,
     WorkoutLog,

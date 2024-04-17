@@ -13,6 +13,7 @@
 #
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # Standard Library
 import datetime
 
@@ -61,6 +62,12 @@ class WorkoutSession(models.Model):
     """
     The workout the session belongs to
     """
+
+    routine = models.ForeignKey(
+        'Routine',
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
     day = models.ForeignKey(
         'DayNg',

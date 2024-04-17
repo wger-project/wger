@@ -24,7 +24,8 @@ class Migration(migrations.Migration):
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
                     ),
                 ),
-                ('description', models.CharField(max_length=50, verbose_name='Description')),
+                ('name', models.CharField(max_length=20, verbose_name='Description')),
+                ('description', models.CharField(max_length=250, verbose_name='Description')),
                 ('is_rest', models.BooleanField(default=False)),
                 ('need_logs_to_advance', models.BooleanField(default=False)),
                 (
@@ -99,7 +100,7 @@ class Migration(migrations.Migration):
                 ),
                 ('order', models.PositiveIntegerField(blank=True)),
                 ('comment', models.CharField(blank=True, max_length=100)),
-                ('class_name', models.CharField(blank=True, max_length=100, null=True)),
+                ('class_name', models.CharField(blank=True, max_length=50, null=True)),
                 (
                     'exercise',
                     models.ForeignKey(
@@ -145,7 +146,7 @@ class Migration(migrations.Migration):
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
                     ),
                 ),
-                ('name', models.CharField(blank=True, max_length=50, verbose_name='Name')),
+                ('name', models.CharField(blank=True, max_length=100, verbose_name='Name')),
                 (
                     'description',
                     models.TextField(blank=True, max_length=1000, verbose_name='Description'),
@@ -173,9 +174,25 @@ class Migration(migrations.Migration):
                         verbose_name='User',
                     ),
                 ),
+                (
+                    'is_public',
+                    models.BooleanField(
+                        default=False,
+                        help_text='A public template is available to other users',
+                        verbose_name='Public template',
+                    ),
+                ),
+                (
+                    'is_template',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Marking a workout as a template will freeze it and allow you to make copies of it',
+                        verbose_name='Workout template',
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-creation_date'],
+                'ordering': ['-created'],
             },
         ),
         migrations.AddField(
@@ -195,10 +212,31 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AddField(
+            model_name='workoutlog',
+            name='routine',
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='manager.routine',
+                verbose_name='Workout',
+            ),
+        ),
+        migrations.AddField(
             model_name='workoutsession',
             name='day',
             field=models.ForeignKey(
-                null=True, on_delete=django.db.models.deletion.CASCADE, to='manager.dayng'
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='manager.dayng',
+            ),
+        ),
+        migrations.AddField(
+            model_name='workoutsession',
+            name='routine',
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='manager.routine',
             ),
         ),
         migrations.CreateModel(

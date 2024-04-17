@@ -43,6 +43,11 @@ class WorkoutLog(models.Model):
     A log entry for an exercise
     """
 
+    date = models.DateTimeField(
+        verbose_name=_('Date'),
+        default=datetime.datetime.now,
+    )
+
     user = models.ForeignKey(
         User,
         verbose_name=_('User'),
@@ -67,6 +72,13 @@ class WorkoutLog(models.Model):
         Workout,
         verbose_name=_('Workout'),
         on_delete=models.CASCADE,
+    )
+
+    routine = models.ForeignKey(
+        'Routine',
+        verbose_name=_('Workout'),
+        on_delete=models.CASCADE,
+        null=True,
     )
 
     set_config = models.ForeignKey(
@@ -116,11 +128,6 @@ class WorkoutLog(models.Model):
     """
     The weight unit of the log. This can be e.g. kg, lb, km/h, etc.
     """
-
-    date = models.DateTimeField(
-        verbose_name=_('Date'),
-        default=datetime.datetime.now,
-    )
 
     rir = models.CharField(
         verbose_name=_('RiR'),
