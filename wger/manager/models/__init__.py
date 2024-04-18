@@ -28,12 +28,10 @@ from .routine import Routine
 from .schedule import Schedule
 from .schedule_step import ScheduleStep
 from .session import WorkoutSession
-from .set import (
-    Set,
-    SetNg,
-)
-from .set_config import SetConfig
+from .set import Set
 from .sets_config import SetsConfig
 from .setting import Setting
+from .slot import Slot
+from .slot_config import SlotConfig
 from .weight_config import WeightConfig
 from .workout import Workout

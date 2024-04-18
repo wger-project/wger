@@ -52,7 +52,7 @@
   },
   {
     "pk": 1,
-    "model": "manager.setng",
+    "model": "manager.slot",
     "fields": {
       "day": 1,
       "order": 1,
@@ -62,7 +62,7 @@
   },
   {
     "pk": 2,
-    "model": "manager.setng",
+    "model": "manager.slot",
     "fields": {
       "day": 1,
       "order": 2,

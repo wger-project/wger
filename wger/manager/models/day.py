@@ -24,7 +24,7 @@ from django.utils.translation import gettext_lazy as _
 
 # wger
 from wger.core.models import DaysOfWeek
-from wger.manager.dataclasses import SetData
+from wger.manager.dataclasses import SlotData
 
 
 class DayNg(models.Model):
@@ -101,11 +101,11 @@ class DayNg(models.Model):
 
         return False
 
-    def get_sets(self, iteration: int) -> List[SetData]:
+    def get_sets(self, iteration: int) -> List[SlotData]:
         """
         Return the sets for this day
         """
-        return [SetData(set=s, exercise_data=s.set_data(iteration)) for s in self.setng_set.all()]
+        return [SlotData(slot=s, exercise_data=s.set_data(iteration)) for s in self.slot_set.all()]
 
 
 class Day(models.Model):

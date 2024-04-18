@@ -40,11 +40,11 @@ class AbstractChangeConfig(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['set_config', 'iteration']
-        unique_together = ['set_config', 'iteration']
+        ordering = ['slot_config', 'iteration']
+        unique_together = ['slot_config', 'iteration']
 
-    set_config = models.ForeignKey(
-        'SetConfig',
+    slot_config = models.ForeignKey(
+        'SlotConfig',
         on_delete=models.CASCADE,
     )
 

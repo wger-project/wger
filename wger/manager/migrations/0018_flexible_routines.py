@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
             field=models.DateField(default=datetime.date.today, verbose_name='Date'),
         ),
         migrations.CreateModel(
-            name='SetNg',
+            name='Slot',
             fields=[
                 (
                     'id',
@@ -90,7 +90,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='SetConfig',
+            name='SlotConfig',
             fields=[
                 (
                     'id',
@@ -116,11 +116,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    'set',
+                    'slot',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.setNg',
-                        verbose_name='Sets',
+                        to='manager.Slot',
                     ),
                 ),
                 (
@@ -206,9 +205,9 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='workoutlog',
-            name='set_config',
+            name='slot_config',
             field=models.ForeignKey(
-                null=True, on_delete=django.db.models.deletion.CASCADE, to='manager.setconfig'
+                null=True, on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
             ),
         ),
         migrations.AddField(
@@ -281,16 +280,16 @@ class Migration(migrations.Migration):
                 ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False)),
                 (
-                    'set_config',
+                    'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.setconfig'
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
                     ),
                 ),
             ],
             options={
-                'ordering': ['set_config', 'iteration'],
+                'ordering': ['slot_config', 'iteration'],
                 'abstract': False,
-                'unique_together': {('set_config', 'iteration')},
+                'unique_together': {('slot_config', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -335,16 +334,16 @@ class Migration(migrations.Migration):
                 ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False)),
                 (
-                    'set_config',
+                    'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.setconfig'
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
                     ),
                 ),
             ],
             options={
-                'ordering': ['set_config', 'iteration'],
+                'ordering': ['slot_config', 'iteration'],
                 'abstract': False,
-                'unique_together': {('set_config', 'iteration')},
+                'unique_together': {('slot_config', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -389,16 +388,16 @@ class Migration(migrations.Migration):
                 ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False)),
                 (
-                    'set_config',
+                    'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.setconfig'
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
                     ),
                 ),
             ],
             options={
-                'ordering': ['set_config', 'iteration'],
+                'ordering': ['slot_config', 'iteration'],
                 'abstract': False,
-                'unique_together': {('set_config', 'iteration')},
+                'unique_together': {('slot_config', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -443,16 +442,16 @@ class Migration(migrations.Migration):
                 ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False)),
                 (
-                    'set_config',
+                    'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.setconfig'
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
                     ),
                 ),
             ],
             options={
-                'ordering': ['set_config', 'iteration'],
+                'ordering': ['slot_config', 'iteration'],
                 'abstract': False,
-                'unique_together': {('set_config', 'iteration')},
+                'unique_together': {('slot_config', 'iteration')},
             },
         ),
         migrations.CreateModel(
@@ -500,17 +499,17 @@ class Migration(migrations.Migration):
                 ('replace', models.BooleanField(default=False)),
                 ('need_log_to_apply', models.BooleanField(default=False)),
                 (
-                    'set_config',
+                    'slot_config',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='manager.setconfig',
+                        to='manager.slotconfig',
                     ),
                 ),
             ],
             options={
-                'ordering': ['set_config', 'iteration'],
+                'ordering': ['slot_config', 'iteration'],
                 'abstract': False,
-                'unique_together': {('set_config', 'iteration')},
+                'unique_together': {('slot_config', 'iteration')},
             },
         ),
     ]

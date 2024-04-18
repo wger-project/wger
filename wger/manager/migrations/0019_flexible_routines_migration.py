@@ -18,8 +18,8 @@ def migrate_routines(apps):
     Workout = apps.get_model('manager', 'Workout')
     Routine = apps.get_model('manager', 'Routine')
     DayNg = apps.get_model('manager', 'DayNg')
-    SetNg = apps.get_model('manager', 'SetNg')
-    SetConfig = apps.get_model('manager', 'SetConfig')
+    Slot = apps.get_model('manager', 'Slot')
+    SlotConfig = apps.get_model('manager', 'SlotConfig')
     WeightConfig = apps.get_model('manager', 'WeightConfig')
     RepsConfig = apps.get_model('manager', 'RepsConfig')
     RiRConfig = apps.get_model('manager', 'RiRConfig')
@@ -68,22 +68,22 @@ def migrate_routines(apps):
                 # Set the exercises and repetitions
                 # TODO: properly handle number of sets
                 for set in day.set_set.all():
-                    set_ng = SetNg(day=day_ng, comment=set.comment, order=set.order)
-                    set_ng.save()
+                    slot = Slot(day=day_ng, comment=set.comment, order=set.order)
+                    slot.save()
                     for setting in set.setting_set.all():
-                        set_config = SetConfig(
-                            set=set_ng,
+                        slot_config = SlotConfig(
+                            slot=slot,
                             exercise=setting.exercise_base,
                             repetition_unit=setting.repetition_unit,
                             weight_unit=setting.weight_unit,
                             order=setting.order,
                             comment=setting.comment,
                         )
-                        set_config.save()
+                        slot_config.save()
 
                         if setting.weight:
                             WeightConfig(
-                                set_config=set_config,
+                                slot_config=slot_config,
                                 value=setting.weight,
                                 iteration=1,
                                 replace=True,
@@ -91,7 +91,7 @@ def migrate_routines(apps):
 
                         if setting.reps:
                             RepsConfig(
-                                set_config=set_config,
+                                slot_config=slot_config,
                                 value=setting.reps,
                                 iteration=1,
                                 replace=True,
@@ -99,14 +99,14 @@ def migrate_routines(apps):
 
                         if setting.rir:
                             RiRConfig(
-                                set_config=set_config,
+                                slot_config=slot_config,
                                 value=setting.rir,
                                 iteration=1,
                                 replace=True,
                             ).save()
 
                         RestConfig(
-                            set_config=set_config,
+                            slot_config=slot_config,
                             value=120,
                             iteration=1,
                             replace=True,

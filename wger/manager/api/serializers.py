@@ -35,9 +35,9 @@ from wger.manager.models import (
     Schedule,
     ScheduleStep,
     Set,
-    SetConfig,
-    SetNg,
     Setting,
+    Slot,
+    SlotConfig,
     WeightConfig,
     Workout,
     WorkoutLog,
@@ -80,13 +80,13 @@ class DayNgSerializer(serializers.ModelSerializer):
         )
 
 
-class SetNgSerializer(serializers.ModelSerializer):
+class SlotSerializer(serializers.ModelSerializer):
     """
-    SetNg
+    Slot
     """
 
     class Meta:
-        model = SetNg
+        model = Slot
         fields = (
             'id',
             'day',
@@ -102,10 +102,10 @@ class SetConfigSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = SetConfig
+        model = SlotConfig
         fields = (
             'id',
-            'set',
+            'slot',
             'exercise',
             'repetition_unit',
             'weight_unit',
@@ -123,7 +123,7 @@ class WeightConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeightConfig
         fields = (
-            'set_config',
+            'slot_config',
             'iteration',
             'trigger',
             'value',
@@ -142,7 +142,7 @@ class RepetitionConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = RepsConfig
         fields = (
-            'set_config',
+            'slot_config',
             'iteration',
             'trigger',
             'value',
@@ -161,7 +161,7 @@ class RiRConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = RiRConfig
         fields = (
-            'set_config',
+            'slot_config',
             'iteration',
             'trigger',
             'value',
@@ -180,7 +180,7 @@ class RestConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = RestConfig
         fields = (
-            'set_config',
+            'slot_config',
             'iteration',
             'trigger',
             'value',
@@ -222,7 +222,7 @@ class SetDataSerializer(serializers.Serializer):
     SetData serializer
     """
 
-    set = SetNgSerializer()
+    slot = SlotSerializer()
     exercise_data = SetExerciseDataSerializer(many=True)
 
 
@@ -234,7 +234,7 @@ class WorkoutDayDataSerializer(serializers.Serializer):
     iteration = serializers.IntegerField()
     date = serializers.DateField()
     day = DayNgSerializer()
-    sets = SetDataSerializer(many=True)
+    slots = SetDataSerializer(many=True)
 
 
 class WorkoutSerializer(serializers.ModelSerializer):

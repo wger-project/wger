@@ -41,7 +41,7 @@ class SetConfigData:
 
 @dataclass
 class SetExerciseData:
-    config: 'SetConfig'
+    config: 'SlotConfig'
     data: SetConfigData
 
     @property
@@ -50,8 +50,8 @@ class SetExerciseData:
 
 
 @dataclass
-class SetData:
-    set: 'SetNg'
+class SlotData:
+    slot: 'Slot'
     exercise_data: List[SetExerciseData] = field(default_factory=list)
 
 
@@ -62,5 +62,5 @@ class WorkoutDayData:
     iteration: int
 
     @property
-    def sets(self) -> List[SetData]:
+    def slots(self) -> List[SlotData]:
         return self.day.get_sets(self.iteration)

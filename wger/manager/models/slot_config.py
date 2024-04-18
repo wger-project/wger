@@ -36,14 +36,13 @@ from wger.manager.models.abstract_config import (
 )
 
 
-class SetConfig(models.Model):
+class SlotConfig(models.Model):
     """
     Set configuration for an exercise (weight, reps, etc.)
     """
 
-    set = models.ForeignKey(
-        'SetNg',
-        verbose_name=_('Sets'),
+    slot = models.ForeignKey(
+        'Slot',
         on_delete=models.CASCADE,
     )
 
@@ -108,7 +107,6 @@ class SetConfig(models.Model):
     def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal:
         out = Decimal(0)
         for config in configs:
-
             if config.replace:
                 out = config.value
                 continue
