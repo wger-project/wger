@@ -20,7 +20,7 @@ from wger.manager.models import AbstractChangeConfig
 
 class RestConfig(AbstractChangeConfig):
     """
-    Model for a routine
+    Configuration model for the rest time for a workout set
     """
 
     pass

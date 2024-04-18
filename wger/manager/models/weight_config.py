@@ -20,7 +20,7 @@ from wger.manager.models import AbstractChangeConfig
 
 class WeightConfig(AbstractChangeConfig):
     """
-    Model for a routine
+    Configuration model for the weight for a workout set
     """
 
     pass

@@ -31,6 +31,7 @@ from wger.manager.models import (
 
 class AbstractSetCalculations(ABC):
     iteration: int
+    sets_configs: list[AbstractChangeConfig]
     weight_configs: list[AbstractChangeConfig]
     reps_configs: list[AbstractChangeConfig]
     rir_configs: list[AbstractChangeConfig]
@@ -40,6 +41,7 @@ class AbstractSetCalculations(ABC):
     def __init__(
         self,
         iteration: int,
+        sets_configs: list[AbstractChangeConfig],
         weight_configs: list[AbstractChangeConfig],
         reps_configs: list[AbstractChangeConfig],
         rir_configs: list[AbstractChangeConfig],
@@ -47,6 +49,7 @@ class AbstractSetCalculations(ABC):
         logs: list[WorkoutLog],
     ):
         self.iteration = iteration
+        self.sets_configs = sets_configs
         self.weight_configs = weight_configs
         self.reps_configs = reps_configs
         self.rir_configs = rir_configs

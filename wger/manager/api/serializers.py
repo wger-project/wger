@@ -72,6 +72,7 @@ class DayNgSerializer(serializers.ModelSerializer):
         model = DayNg
         fields = (
             'id',
+            'name',
             'description',
             'is_rest',
             'need_logs_to_advance',
@@ -87,6 +88,7 @@ class SetNgSerializer(serializers.ModelSerializer):
     class Meta:
         model = SetNg
         fields = (
+            'id',
             'day',
             'order',
             'comment',
@@ -102,6 +104,7 @@ class SetConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = SetConfig
         fields = (
+            'id',
             'set',
             'exercise',
             'repetition_unit',
@@ -193,10 +196,13 @@ class SetConfigDataSerializer(serializers.Serializer):
     SetData serializer
     """
 
+    sets = serializers.IntegerField()
     weight = serializers.DecimalField(max_digits=5, decimal_places=2)
     weight_unit = serializers.IntegerField()
+    weight_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     reps = serializers.DecimalField(max_digits=5, decimal_places=2)
     reps_unit = serializers.IntegerField()
+    reps_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     rest = serializers.DecimalField(max_digits=5, decimal_places=2)
 

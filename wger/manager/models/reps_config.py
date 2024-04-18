@@ -20,7 +20,7 @@ from wger.manager.models import AbstractChangeConfig
 
 class RepsConfig(AbstractChangeConfig):
     """
-    Model for a routine
+    Configuration model for the number of reps for a workout set
     """
 
     pass

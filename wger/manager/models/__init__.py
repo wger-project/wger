@@ -33,6 +33,7 @@ from .set import (
     SetNg,
 )
 from .set_config import SetConfig
+from .sets_config import SetsConfig
 from .setting import Setting
 from .weight_config import WeightConfig
 from .workout import Workout

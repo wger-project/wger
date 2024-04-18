@@ -108,6 +108,7 @@ class SetConfig(models.Model):
     def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal:
         out = Decimal(0)
         for config in configs:
+
             if config.replace:
                 out = config.value
                 continue
@@ -132,6 +133,7 @@ class SetConfig(models.Model):
                 raise ImportError(f'Class {self.class_name} not found')
             custom_logic = module.SetCalculations(
                 iteration=iteration,
+                sets_configs=self.setsconfig_set.filter(iteration__lte=iteration),
                 weight_configs=self.weightconfig_set.filter(iteration__lte=iteration),
                 reps_configs=self.repsconfig_set.filter(iteration__lte=iteration),
                 rir_configs=self.rirconfig_set.filter(iteration__lte=iteration),
@@ -178,22 +180,34 @@ class SetConfig(models.Model):
                             break
 
         return SetConfigData(
+            sets=self.get_sets(iteration),
             weight=self.get_weight(max_iter_weight),
+            weight_rounding=self.get_weight_rounding(max_iter_weight),
             weight_unit=self.weight_unit.pk,
             reps=self.get_reps(max_iter_reps),
+            reps_rounding=self.get_reps_rounding(max_iter_reps),
             reps_unit=self.repetition_unit.pk,
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
         )
 
-    def get_weight(self, iteration: int):
+    def get_sets(self, iteration: int) -> Decimal:
+        return self.calculate_config_value(self.setsconfig_set.filter(iteration__lte=iteration))
+
+    def get_weight(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))
 
-    def get_reps(self, iteration: int):
+    def get_weight_rounding(self, iteration: int) -> Decimal:
+        return self.weightconfig_set.filter(iteration__lte=iteration).last().rounding
+
+    def get_reps(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.repsconfig_set.filter(iteration__lte=iteration))
 
-    def get_rir(self, iteration: int):
+    def get_reps_rounding(self, iteration: int) -> Decimal:
+        return self.repsconfig_set.filter(iteration__lte=iteration).last().rounding
+
+    def get_rir(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.rirconfig_set.filter(iteration__lte=iteration))
 
-    def get_rest(self, iteration: int):
+    def get_rest(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.restconfig_set.filter(iteration__lte=iteration))

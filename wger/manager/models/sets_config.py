@@ -18,9 +18,9 @@
 from wger.manager.models import AbstractChangeConfig
 
 
-class RiRConfig(AbstractChangeConfig):
+class SetsConfig(AbstractChangeConfig):
     """
-    Configuration model for the number of RiR for a workout set
+    Configuration model for the number of sets for a workout set
     """
 
     pass

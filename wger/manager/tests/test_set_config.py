@@ -22,6 +22,7 @@ from wger.manager.models import (
     RepsConfig,
     RestConfig,
     RiRConfig,
+    SetsConfig,
     WeightConfig,
     WorkoutLog,
 )
@@ -89,6 +90,7 @@ class SetConfigTestCase(WgerTestCase):
         """
 
         # Initial value
+        SetsConfig(set_config=self.set_config, iteration=1, value=4).save()
         WeightConfig(set_config=self.set_config, iteration=1, value=80).save()
         RepsConfig(set_config=self.set_config, iteration=1, value=5).save()
         RestConfig(set_config=self.set_config, iteration=1, value=120).save()
@@ -139,27 +141,27 @@ class SetConfigTestCase(WgerTestCase):
 
         self.assertEqual(
             self.set_config.get_config(1),
-            SetConfigData(weight=80, reps=5, rir=2, rest=120),
+            SetConfigData(sets=4, weight=80, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(2),
-            SetConfigData(weight=80, reps=5, rir=2, rest=120),
+            SetConfigData(sets=4, weight=80, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(3),
-            SetConfigData(weight=80, reps=5, rir=2, rest=120),
+            SetConfigData(sets=4, weight=80, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(4),
-            SetConfigData(weight=Decimal(82.5), reps=5, rir=2, rest=120),
+            SetConfigData(sets=4, weight=Decimal(82.5), reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(5),
-            SetConfigData(weight=42, reps=5, rir=2, rest=120),
+            SetConfigData(sets=4, weight=42, reps=5, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(6),
-            SetConfigData(weight=42, reps=5, rir=2, rest=120),
+            SetConfigData(sets=4, weight=42, reps=5, rir=2, rest=120),
         )
 
     def test_weight_config_custom_python_class(self):
@@ -171,6 +173,7 @@ class SetConfigTestCase(WgerTestCase):
         # Initial value with custom python code
         self.set_config.class_name = 'dummy'
         self.set_config.save()
+        SetsConfig(set_config=self.set_config, iteration=1, value=5).save()
         WeightConfig(set_config=self.set_config, iteration=1, value=100, replace=True).save()
         RepsConfig(set_config=self.set_config, iteration=1, value=5).save()
         RestConfig(set_config=self.set_config, iteration=1, value=120).save()
@@ -178,13 +181,13 @@ class SetConfigTestCase(WgerTestCase):
 
         self.assertEqual(
             self.set_config.get_config(1),
-            SetConfigData(weight=24, reps=1, rir=2, rest=120),
+            SetConfigData(sets=2, weight=24, reps=1, rir=2, rest=120),
         )
         self.assertEqual(
             self.set_config.get_config(2),
-            SetConfigData(weight=42, reps=10, rir=1, rest=90),
+            SetConfigData(sets=4, weight=42, reps=10, rir=1, rest=90),
         )
         self.assertEqual(
             self.set_config.get_config(3),
-            SetConfigData(weight=42, reps=10, rir=1, rest=90),
+            SetConfigData(sets=4, weight=42, reps=10, rir=1, rest=90),
         )

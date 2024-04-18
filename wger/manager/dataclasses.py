@@ -27,6 +27,7 @@ from typing import List
 
 @dataclass
 class SetConfigData:
+    sets: Decimal | int
     weight: Decimal | int
     reps: Decimal | int
     rir: Decimal | int
@@ -34,6 +35,8 @@ class SetConfigData:
 
     weight_unit: int = 1
     reps_unit: int = 1
+    weight_rounding: Decimal | int = 1.25
+    reps_rounding: Decimal | int = 1
 
 
 @dataclass

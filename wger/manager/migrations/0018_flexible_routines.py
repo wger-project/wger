@@ -259,6 +259,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -312,6 +313,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -365,6 +367,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -418,6 +421,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -442,6 +446,64 @@ class Migration(migrations.Migration):
                     'set_config',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE, to='manager.setconfig'
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['set_config', 'iteration'],
+                'abstract': False,
+                'unique_together': {('set_config', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
+            name='SetsConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('iteration', models.PositiveIntegerField()),
+                (
+                    'trigger',
+                    models.CharField(
+                        choices=[('session', 'Session'), ('week', 'Week')],
+                        default='session',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
+                (
+                    'operation',
+                    models.CharField(
+                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        default='+',
+                        max_length=1,
+                        null=True,
+                    ),
+                ),
+                (
+                    'step',
+                    models.CharField(
+                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        default='abs',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('replace', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
+                (
+                    'set_config',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.setconfig',
                     ),
                 ),
             ],
