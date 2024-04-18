@@ -5,7 +5,7 @@
 # Application
 Django==4.2.6
 bleach[css]~=6.1
-celery[redis]==5.3.6
+celery[redis]==5.4.0
 crispy-bootstrap5==2024.2
 django-activity-stream==2.0.0
 django-axes[ipware]==6.4.0
