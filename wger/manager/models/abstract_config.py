@@ -70,13 +70,6 @@ class AbstractChangeConfig(models.Model):
     )
     """The actual increment"""
 
-    rounding = models.DecimalField(decimal_places=2, max_digits=4, default=1)
-    """
-    The amount by which the value will be rounded
-
-    Note that this will happen in the UI, and not in the backend
-    """
-
     operation = models.CharField(
         choices=OperationChoices.choices,
         max_length=1,

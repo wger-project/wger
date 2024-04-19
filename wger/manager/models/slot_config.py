@@ -60,6 +60,17 @@ class SlotConfig(models.Model):
     The repetition unit of a set. This can be e.g. a repetition, a minute, etc.
     """
 
+    repetition_rounding = models.DecimalField(
+        decimal_places=2,
+        max_digits=4,
+        default=1,
+    )
+    """
+    The amount by which the repetitions will be rounded
+
+    Note that this will happen in the UI, and not in the backend
+    """
+
     weight_unit = models.ForeignKey(
         WeightUnit,
         verbose_name=_('Unit'),
@@ -68,6 +79,17 @@ class SlotConfig(models.Model):
     )
     """
     The weight unit of a set. This can be e.g. kg, lb, km/h, etc.
+    """
+
+    weight_rounding = models.DecimalField(
+        decimal_places=2,
+        max_digits=4,
+        default=1.25,
+    )
+    """
+    The amount by which the weight will be rounded
+
+    Note that this will happen in the UI, and not in the backend
     """
 
     order = models.PositiveIntegerField(
@@ -101,7 +123,7 @@ class SlotConfig(models.Model):
         """
         Returns the object that has owner information
         """
-        return self.set.day.routine
+        return self.slot.day.routine
 
     @staticmethod
     def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal:
@@ -180,10 +202,10 @@ class SlotConfig(models.Model):
         return SetConfigData(
             sets=self.get_sets(iteration),
             weight=self.get_weight(max_iter_weight),
-            weight_rounding=self.get_weight_rounding(max_iter_weight),
+            weight_rounding=self.weight_rounding,
             weight_unit=self.weight_unit.pk,
             reps=self.get_reps(max_iter_reps),
-            reps_rounding=self.get_reps_rounding(max_iter_reps),
+            reps_rounding=self.repetition_rounding,
             reps_unit=self.repetition_unit.pk,
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
@@ -195,14 +217,8 @@ class SlotConfig(models.Model):
     def get_weight(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))
 
-    def get_weight_rounding(self, iteration: int) -> Decimal:
-        return self.weightconfig_set.filter(iteration__lte=iteration).last().rounding
-
     def get_reps(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.repsconfig_set.filter(iteration__lte=iteration))
-
-    def get_reps_rounding(self, iteration: int) -> Decimal:
-        return self.repsconfig_set.filter(iteration__lte=iteration).last().rounding
 
     def get_rir(self, iteration: int) -> Decimal:
         return self.calculate_config_value(self.rirconfig_set.filter(iteration__lte=iteration))

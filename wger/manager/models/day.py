@@ -101,7 +101,7 @@ class DayNg(models.Model):
 
         return False
 
-    def get_sets(self, iteration: int) -> List[SlotData]:
+    def get_slots(self, iteration: int) -> List[SlotData]:
         """
         Return the sets for this day
         """

@@ -115,6 +115,8 @@ class Migration(migrations.Migration):
                         to='core.repetitionunit',
                     ),
                 ),
+                ('repetition_rounding',
+                 models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'slot',
                     models.ForeignKey(
@@ -131,6 +133,8 @@ class Migration(migrations.Migration):
                         verbose_name='Unit',
                     ),
                 ),
+                ('weight_rounding',
+                 models.DecimalField(decimal_places=2, default=1.25, max_digits=4, )),
             ],
             options={
                 'ordering': ['order', 'id'],
@@ -258,7 +262,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
-                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -312,7 +315,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
-                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -366,7 +368,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
-                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -420,7 +421,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
-                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(
@@ -477,7 +477,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
-                ('rounding', models.DecimalField(decimal_places=2, default=1, max_digits=4)),
                 (
                     'operation',
                     models.CharField(

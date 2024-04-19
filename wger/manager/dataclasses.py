@@ -63,4 +63,4 @@ class WorkoutDayData:
 
     @property
     def slots(self) -> List[SlotData]:
-        return self.day.get_sets(self.iteration)
+        return self.day.get_slots(self.iteration)
