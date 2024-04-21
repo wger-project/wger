@@ -36,10 +36,6 @@ class Slot(models.Model):
         blank=True,
     )
 
-    is_dropset = models.BooleanField(
-        default=False,
-    )
-
     # Metaclass to set some other properties
     class Meta:
         ordering = [

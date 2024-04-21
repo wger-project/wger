@@ -92,7 +92,6 @@ class SlotSerializer(serializers.ModelSerializer):
             'day',
             'order',
             'comment',
-            'is_dropset',
         )
 
 
@@ -107,8 +106,11 @@ class SetConfigSerializer(serializers.ModelSerializer):
             'id',
             'slot',
             'exercise',
+            'is_dropset',
             'repetition_unit',
+            'repetition_rounding',
             'weight_unit',
+            'weight_rounding',
             'order',
             'comment',
             'class_name',

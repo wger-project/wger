@@ -101,6 +101,10 @@ class SlotConfig(models.Model):
         blank=True,
     )
 
+    is_dropset = models.BooleanField(
+        default=False,
+    )
+
     class_name = models.CharField(
         max_length=50,
         null=True,

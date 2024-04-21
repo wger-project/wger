@@ -75,7 +75,6 @@ class Migration(migrations.Migration):
                 ),
                 ('order', models.IntegerField(default=1, verbose_name='Order')),
                 ('comment', models.CharField(blank=True, max_length=200, verbose_name='Comment')),
-                ('is_dropset', models.BooleanField(default=False)),
                 (
                     'day',
                     models.ForeignKey(
@@ -99,6 +98,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('order', models.PositiveIntegerField(blank=True)),
+                ('is_dropset', models.BooleanField(default=False)),
                 ('comment', models.CharField(blank=True, max_length=100)),
                 ('class_name', models.CharField(blank=True, max_length=50, null=True)),
                 (
