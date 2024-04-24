@@ -56,8 +56,7 @@
     "fields": {
       "day": 1,
       "order": 1,
-      "comment": "test comment 123",
-      "is_dropset": false
+      "comment": "test comment 123"
     }
   },
   {
@@ -66,8 +65,7 @@
     "fields": {
       "day": 1,
       "order": 2,
-      "comment": "test comment 456",
-      "is_dropset": false
+      "comment": "test comment 456"
     }
   }
 ]

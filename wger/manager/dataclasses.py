@@ -27,16 +27,16 @@ from typing import List
 
 @dataclass
 class SetConfigData:
-    sets: Decimal | int
-    weight: Decimal | int
-    reps: Decimal | int
-    rir: Decimal | int
-    rest: Decimal | int
+    weight: Decimal | int | None
+    reps: Decimal | int | None
+    rir: Decimal | int | None
+    rest: Decimal | int | None
 
-    weight_unit: int = 1
-    reps_unit: int = 1
-    weight_rounding: Decimal | int = 1.25
-    reps_rounding: Decimal | int = 1
+    sets: Decimal | int = 1
+    weight_unit: int | None = 1
+    reps_unit: int | None = 1
+    weight_rounding: Decimal | int | None = 1.25
+    reps_rounding: Decimal | int | None = 1
 
 
 @dataclass

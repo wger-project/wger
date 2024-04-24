@@ -115,8 +115,10 @@ class Migration(migrations.Migration):
                         to='core.repetitionunit',
                     ),
                 ),
-                ('repetition_rounding',
-                 models.DecimalField(decimal_places=2, default=1, max_digits=4)),
+                (
+                    'repetition_rounding',
+                    models.DecimalField(decimal_places=2, default=1, max_digits=4),
+                ),
                 (
                     'slot',
                     models.ForeignKey(
@@ -133,8 +135,14 @@ class Migration(migrations.Migration):
                         verbose_name='Unit',
                     ),
                 ),
-                ('weight_rounding',
-                 models.DecimalField(decimal_places=2, default=1.25, max_digits=4, )),
+                (
+                    'weight_rounding',
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=1.25,
+                        max_digits=4,
+                    ),
+                ),
             ],
             options={
                 'ordering': ['order', 'id'],

@@ -62,7 +62,10 @@ class SlotConfigTestCase(WgerTestCase):
 
         # Reduce by 2
         WeightConfig(
-            slot_config=self.slot_config, iteration=7, value=2, operation=OperationChoices.MINUS
+            slot_config=self.slot_config,
+            iteration=7,
+            value=2,
+            operation=OperationChoices.MINUS,
         ).save()
 
         # Increase by 10%
@@ -89,6 +92,10 @@ class SlotConfigTestCase(WgerTestCase):
         if there are logs
         """
 
+        self.slot_config.weight_rounding = 2.5
+        self.slot_config.repetition_rounding = 2
+        self.slot_config.save()
+
         # Initial value
         SetsConfig(slot_config=self.slot_config, iteration=1, value=4).save()
         RepsConfig(slot_config=self.slot_config, iteration=1, value=5).save()
@@ -98,7 +105,6 @@ class SlotConfigTestCase(WgerTestCase):
             slot_config=self.slot_config,
             iteration=1,
             value=80,
-            rounding=Decimal('2.5'),
         ).save()
 
         # Increase weight by 2.5 at iteration 2
@@ -106,7 +112,6 @@ class SlotConfigTestCase(WgerTestCase):
             slot_config=self.slot_config,
             iteration=2,
             value=2.5,
-            rounding=Decimal('1.25'),
             need_log_to_apply=True,
             operation=OperationChoices.PLUS,
             step=StepChoices.ABSOLUTE,
@@ -117,7 +122,6 @@ class SlotConfigTestCase(WgerTestCase):
             slot_config=self.slot_config,
             iteration=5,
             value=42,
-            rounding=Decimal('5'),
             replace=True,
             need_log_to_apply=False,
             operation=OperationChoices.PLUS,
@@ -153,7 +157,7 @@ class SlotConfigTestCase(WgerTestCase):
                 weight=80,
                 weight_rounding=Decimal('2.5'),
                 reps=5,
-                reps_rounding=1,
+                reps_rounding=2,
                 rir=2,
                 rest=120,
             ),
@@ -164,10 +168,11 @@ class SlotConfigTestCase(WgerTestCase):
             SetConfigData(
                 sets=4,
                 weight=80,
+                weight_rounding=Decimal('2.5'),
                 reps=5,
+                reps_rounding=2,
                 rir=2,
                 rest=120,
-                weight_rounding=Decimal('2.5'),
             ),
         )
 
@@ -176,10 +181,11 @@ class SlotConfigTestCase(WgerTestCase):
             SetConfigData(
                 sets=4,
                 weight=80,
+                weight_rounding=Decimal('2.5'),
                 reps=5,
+                reps_rounding=2,
                 rir=2,
                 rest=120,
-                weight_rounding=Decimal('2.5'),
             ),
         )
 
@@ -188,10 +194,11 @@ class SlotConfigTestCase(WgerTestCase):
             SetConfigData(
                 sets=4,
                 weight=Decimal(82.5),
+                weight_rounding=Decimal('2.5'),
                 reps=5,
+                reps_rounding=2,
                 rir=2,
                 rest=120,
-                weight_rounding=Decimal('1.25'),
             ),
         )
 
@@ -200,10 +207,11 @@ class SlotConfigTestCase(WgerTestCase):
             SetConfigData(
                 sets=4,
                 weight=42,
+                weight_rounding=Decimal('2.5'),
                 reps=5,
+                reps_rounding=2,
                 rir=2,
                 rest=120,
-                weight_rounding=5,
             ),
         )
 
@@ -212,10 +220,11 @@ class SlotConfigTestCase(WgerTestCase):
             SetConfigData(
                 sets=4,
                 weight=42,
+                weight_rounding=Decimal('2.5'),
                 reps=5,
+                reps_rounding=2,
                 rir=2,
                 rest=120,
-                weight_rounding=5,
             ),
         )
 
@@ -245,4 +254,24 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(3),
             SetConfigData(sets=4, weight=42, reps=10, rir=1, rest=90),
+        )
+
+    def test_empty_configs(self):
+        """
+        Test that the correct config is calculated if there are no configs at all
+        """
+
+        self.assertEqual(
+            self.slot_config.get_config(1),
+            SetConfigData(
+                sets=1,
+                weight=None,
+                weight_rounding=None,
+                weight_unit=None,
+                reps=None,
+                reps_rounding=None,
+                reps_unit=None,
+                rir=None,
+                rest=None,
+            ),
         )

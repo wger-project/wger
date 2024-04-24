@@ -130,7 +130,10 @@ class SlotConfig(models.Model):
         return self.slot.day.routine
 
     @staticmethod
-    def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal:
+    def calculate_config_value(configs: list[AbstractChangeConfig]) -> Decimal | None:
+        if not configs:
+            return None
+
         out = Decimal(0)
         for config in configs:
             if config.replace:
@@ -181,7 +184,7 @@ class SlotConfig(models.Model):
             weight_config = self.weightconfig_set.filter(iteration__lte=i).last()
             reps_config = self.repsconfig_set.filter(iteration__lte=i).last()
 
-            if weight_config is None or reps_config is None:
+            if not weight_config or not reps_config:
                 break
 
             elif not weight_config.need_log_to_apply and not reps_config.need_log_to_apply:
@@ -193,39 +196,44 @@ class SlotConfig(models.Model):
 
                 # If any of the entries in last log is greater than the last config data,
                 # proceed. Otherwise, the weight won't change
-                if log_data.exists():
-                    for log in log_data:
-                        if log.weight >= weight and log.reps >= reps:
-                            max_iter_weight = i
-                            max_iter_reps = i
+                for log in log_data:
+                    if log.weight >= weight and log.reps >= reps:
+                        # weight = log.weight
+                        # reps = log.reps
 
-                        # As soon as we find a log that we didn't make, stop
-                        else:
-                            break
+                        max_iter_weight = i
+                        max_iter_reps = i
+
+                        # As soon as we find a log, stop
+                        break
+
+        weight = self.get_weight(max_iter_weight)
+        reps = self.get_reps(max_iter_reps)
+        sets = self.get_sets(iteration)
 
         return SetConfigData(
-            sets=self.get_sets(iteration),
-            weight=self.get_weight(max_iter_weight),
-            weight_rounding=self.weight_rounding,
-            weight_unit=self.weight_unit.pk,
-            reps=self.get_reps(max_iter_reps),
-            reps_rounding=self.repetition_rounding,
-            reps_unit=self.repetition_unit.pk,
+            sets=sets if sets is not None else 1,
+            weight=weight,
+            weight_rounding=self.weight_rounding if weight is not None else None,
+            weight_unit=self.weight_unit.pk if weight is not None else None,
+            reps=reps,
+            reps_rounding=self.repetition_rounding if reps is not None else None,
+            reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
         )
 
-    def get_sets(self, iteration: int) -> Decimal:
+    def get_sets(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.setsconfig_set.filter(iteration__lte=iteration))
 
-    def get_weight(self, iteration: int) -> Decimal:
+    def get_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))
 
-    def get_reps(self, iteration: int) -> Decimal:
+    def get_reps(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.repsconfig_set.filter(iteration__lte=iteration))
 
-    def get_rir(self, iteration: int) -> Decimal:
+    def get_rir(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.rirconfig_set.filter(iteration__lte=iteration))
 
-    def get_rest(self, iteration: int) -> Decimal:
+    def get_rest(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.restconfig_set.filter(iteration__lte=iteration))
