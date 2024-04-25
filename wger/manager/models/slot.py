@@ -22,6 +22,7 @@ class Slot(models.Model):
         DayNg,
         verbose_name=_('Exercise day'),
         on_delete=models.CASCADE,
+        related_name='slots',
     )
 
     order = models.IntegerField(

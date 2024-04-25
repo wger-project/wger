@@ -29,9 +29,11 @@ from rest_framework.response import Response
 # wger
 from wger.exercises.models import ExerciseBase
 from wger.manager.api.serializers import (
-    DayNgSerializer,
+    DayNgDataSerializer,
     DaySerializer,
+    DayStructureSerializer,
     RoutineSerializer,
+    RoutineStructureSerializer,
     ScheduleSerializer,
     ScheduleStepSerializer,
     SetSerializer,
@@ -94,7 +96,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        return Response(DayNgSerializer(self.get_object().day_sequence, many=True).data)
+        return Response(DayNgDataSerializer(self.get_object().day_sequence, many=True).data)
 
     @action(detail=True, url_path='date-sequence')
     def date_sequence(self, request, pk):
@@ -109,6 +111,13 @@ class RoutineViewSet(viewsets.ModelViewSet):
         Return current day of the routine
         """
         return Response(WorkoutDayDataSerializer(self.get_object().current_day()).data)
+
+    @action(detail=True)
+    def structure(self, request, pk):
+        """
+        Return full object structure of the routine.
+        """
+        return Response(RoutineStructureSerializer(self.get_object()).data)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):

@@ -35,6 +35,7 @@ from wger.manager.models import (
     Schedule,
     ScheduleStep,
     Set,
+    SetsConfig,
     Setting,
     Slot,
     SlotConfig,
@@ -63,7 +64,7 @@ class RoutineSerializer(serializers.ModelSerializer):
         )
 
 
-class DayNgSerializer(serializers.ModelSerializer):
+class DayNgDataSerializer(serializers.ModelSerializer):
     """
     Day serializer
     """
@@ -81,10 +82,142 @@ class DayNgSerializer(serializers.ModelSerializer):
         )
 
 
+class WeightConfigSerializer(serializers.ModelSerializer):
+    """
+    Weight Config serializer
+    """
+
+    class Meta:
+        model = WeightConfig
+        fields = (
+            'id',
+            'slot_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+            'need_log_to_apply',
+        )
+
+
+class RepsConfigSerializer(serializers.ModelSerializer):
+    """
+    Repetition Config serializer
+    """
+
+    class Meta:
+        model = RepsConfig
+        fields = (
+            'id',
+            'slot_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+            'need_log_to_apply',
+        )
+
+
+class SetNrConfigSerializer(serializers.ModelSerializer):
+    """
+    Set Nr config serializer
+    """
+
+    class Meta:
+        model = SetsConfig
+        fields = (
+            'id',
+            'slot_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+        )
+
+
+class RiRConfigSerializer(serializers.ModelSerializer):
+    """
+    RiR Config serializer
+    """
+
+    class Meta:
+        model = RiRConfig
+        fields = (
+            'id',
+            'slot_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+        )
+
+
+class RestConfigSerializer(serializers.ModelSerializer):
+    """
+    Rest Config serializer
+    """
+
+    class Meta:
+        model = RestConfig
+        fields = (
+            'id',
+            'slot_config',
+            'iteration',
+            'trigger',
+            'value',
+            'operation',
+            'step',
+            'replace',
+        )
+
+
+class SlotConfigSerializer(serializers.ModelSerializer):
+    """
+    Slot configuration
+    """
+
+    weight_configs = WeightConfigSerializer(source='weightconfig_set', many=True)
+    reps_configs = RepsConfigSerializer(source='repsconfig_set', many=True)
+    set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
+    rir_configs = RiRConfigSerializer(source='rirconfig_set', many=True)
+    rest_configs = RestConfigSerializer(source='restconfig_set', many=True)
+
+    class Meta:
+        model = SlotConfig
+        fields = (
+            'id',
+            'slot',
+            'exercise',
+            'repetition_unit',
+            'repetition_rounding',
+            'weight_unit',
+            'weight_rounding',
+            'order',
+            'comment',
+            'is_dropset',
+            'class_name',
+            'weight_configs',
+            'reps_configs',
+            'set_nr_configs',
+            'rir_configs',
+            'rest_configs',
+        )
+
+
 class SlotSerializer(serializers.ModelSerializer):
     """
     Slot
     """
+
+    configs = SlotConfigSerializer(many=True)
 
     class Meta:
         model = Slot
@@ -93,6 +226,49 @@ class SlotSerializer(serializers.ModelSerializer):
             'day',
             'order',
             'comment',
+            'configs',
+        )
+
+
+class DayStructureSerializer(serializers.ModelSerializer):
+    """
+    Day serializer
+    """
+
+    slots = SlotSerializer(many=True)
+
+    class Meta:
+        model = DayNg
+        fields = (
+            'id',
+            'next_day',
+            'name',
+            'description',
+            'is_rest',
+            'last_day_in_week',
+            'need_logs_to_advance',
+            'slots',
+        )
+
+
+class RoutineStructureSerializer(serializers.ModelSerializer):
+    """
+    Routine structure serializer
+    """
+
+    days = DayStructureSerializer(many=True)
+
+    class Meta:
+        model = Routine
+        fields = (
+            'id',
+            'name',
+            'description',
+            'first_day',
+            'created',
+            'start',
+            'end',
+            'days',
         )
 
 
@@ -115,82 +291,6 @@ class SetConfigSerializer(serializers.ModelSerializer):
             'order',
             'comment',
             'class_name',
-        )
-
-
-class WeightConfigSerializer(serializers.ModelSerializer):
-    """
-    Weight Config serializer
-    """
-
-    class Meta:
-        model = WeightConfig
-        fields = (
-            'slot_config',
-            'iteration',
-            'trigger',
-            'value',
-            'operation',
-            'step',
-            'replace',
-            'need_log_to_apply',
-        )
-
-
-class RepetitionConfigSerializer(serializers.ModelSerializer):
-    """
-    Repetition Config serializer
-    """
-
-    class Meta:
-        model = RepsConfig
-        fields = (
-            'slot_config',
-            'iteration',
-            'trigger',
-            'value',
-            'operation',
-            'step',
-            'replace',
-            'need_log_to_apply',
-        )
-
-
-class RiRConfigSerializer(serializers.ModelSerializer):
-    """
-    RiR Config serializer
-    """
-
-    class Meta:
-        model = RiRConfig
-        fields = (
-            'slot_config',
-            'iteration',
-            'trigger',
-            'value',
-            'operation',
-            'step',
-            'replace',
-            'need_log_to_apply',
-        )
-
-
-class RestConfigSerializer(serializers.ModelSerializer):
-    """
-    Rest Config serializer
-    """
-
-    class Meta:
-        model = RestConfig
-        fields = (
-            'slot_config',
-            'iteration',
-            'trigger',
-            'value',
-            'operation',
-            'step',
-            'replace',
-            'need_log_to_apply',
         )
 
 
@@ -236,7 +336,7 @@ class WorkoutDayDataSerializer(serializers.Serializer):
 
     iteration = serializers.IntegerField()
     date = serializers.DateField()
-    day = DayNgSerializer()
+    day = DayNgDataSerializer()
     slots = SetDataSerializer(many=True)
 
 

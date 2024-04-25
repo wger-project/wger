@@ -118,7 +118,6 @@ class RoutineTestCase(WgerTestCase):
                 WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 5)),
                 WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 6)),
                 WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 7)),
-
                 # Monday
                 WorkoutDayData(day=self.day1, iteration=2, date=datetime.date(2024, 1, 8)),
                 WorkoutDayData(day=self.day2, iteration=2, date=datetime.date(2024, 1, 9)),

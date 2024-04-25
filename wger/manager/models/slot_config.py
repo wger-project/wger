@@ -41,10 +41,7 @@ class SlotConfig(models.Model):
     Set configuration for an exercise (weight, reps, etc.)
     """
 
-    slot = models.ForeignKey(
-        'Slot',
-        on_delete=models.CASCADE,
-    )
+    slot = models.ForeignKey('Slot', on_delete=models.CASCADE, related_name='configs')
 
     exercise = models.ForeignKey(
         ExerciseBase,

@@ -166,11 +166,10 @@ class Routine(models.Model):
             return out
 
         while current_date <= self.end:
-
             # Fill all days till the end of the week with empty workout days
             if skip_til_date:
                 out.append(WorkoutDayData(iteration=None, date=current_date, day=None))
-                current_date += delta
+                # current_date += delta
                 if current_date == skip_til_date:
                     skip_til_date = None
                 continue

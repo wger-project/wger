@@ -36,6 +36,7 @@ class DayNg(models.Model):
         'Routine',
         verbose_name=_('Routine'),
         on_delete=models.CASCADE,
+        related_name='days',
     )
 
     next_day = models.ForeignKey(
