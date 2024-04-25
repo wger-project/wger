@@ -158,6 +158,7 @@ class Routine(models.Model):
         current_date = self.start
         current_day = self.first_day
         counter = Counter()
+        skip_til_date = None
 
         out = []
 
@@ -165,7 +166,21 @@ class Routine(models.Model):
             return out
 
         while current_date <= self.end:
+
+            # Fill all days till the end of the week with empty workout days
+            if skip_til_date:
+                out.append(WorkoutDayData(iteration=None, date=current_date, day=None))
+                current_date += delta
+                if current_date == skip_til_date:
+                    skip_til_date = None
+                continue
+
             counter[current_day] += 1
+
+            if current_day.last_day_in_week:
+                days_til_monday = 7 - current_date.weekday()
+                skip_til_date = current_date + datetime.timedelta(days=days_til_monday)
+
             out.append(
                 WorkoutDayData(iteration=counter[current_day], date=current_date, day=current_day)
             )

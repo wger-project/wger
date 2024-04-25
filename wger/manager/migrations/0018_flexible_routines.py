@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=20, verbose_name='Description')),
                 ('description', models.CharField(max_length=250, verbose_name='Description')),
                 ('is_rest', models.BooleanField(default=False)),
+                ('last_day_in_week', models.BooleanField(default=False)),
                 ('need_logs_to_advance', models.BooleanField(default=False)),
                 (
                     'next_day',

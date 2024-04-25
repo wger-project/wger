@@ -59,8 +59,11 @@ class SlotData:
 class WorkoutDayData:
     day: 'DayNg'
     date: datetime.date
-    iteration: int
+    iteration: int | None
 
     @property
     def slots(self) -> List[SlotData]:
+        if not self.day:
+            return []
+
         return self.day.get_slots(self.iteration)

@@ -72,11 +72,12 @@ class DayNgSerializer(serializers.ModelSerializer):
         model = DayNg
         fields = (
             'id',
+            'next_day',
             'name',
             'description',
             'is_rest',
+            'last_day_in_week',
             'need_logs_to_advance',
-            'next_day',
         )
 
 

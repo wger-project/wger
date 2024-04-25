@@ -99,6 +99,33 @@ class RoutineTestCase(WgerTestCase):
             ],
         )
 
+    def test_date_sequence_week_skip(self):
+        """
+        Test that the last_day_in_week flag works
+        """
+
+        self.day3.last_day_in_week = True
+        self.day3.save()
+
+        self.assertListEqual(
+            self.routine.date_sequence,
+            [
+                # Monday
+                WorkoutDayData(day=self.day1, iteration=1, date=datetime.date(2024, 1, 1)),
+                WorkoutDayData(day=self.day2, iteration=1, date=datetime.date(2024, 1, 2)),
+                WorkoutDayData(day=self.day3, iteration=1, date=datetime.date(2024, 1, 3)),
+                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 4)),
+                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 5)),
+                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 6)),
+                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 7)),
+
+                # Monday
+                WorkoutDayData(day=self.day1, iteration=2, date=datetime.date(2024, 1, 8)),
+                WorkoutDayData(day=self.day2, iteration=2, date=datetime.date(2024, 1, 9)),
+                WorkoutDayData(day=self.day3, iteration=2, date=datetime.date(2024, 1, 10)),
+            ],
+        )
+
     def test_date_sequences_current(self):
         """
         Test that the correct active day is returned

@@ -71,6 +71,13 @@ class DayNg(models.Model):
     Needs logs to advance to the next day
     """
 
+    last_day_in_week = models.BooleanField(
+        default=False,
+    )
+    """
+    Flag indicating that this is the last workout day in the week
+    """
+
     def __str__(self):
         """
         Return a more human-readable representation
