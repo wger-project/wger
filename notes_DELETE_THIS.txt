@@ -1,0 +1,26 @@
+WGER NOTES
+
+Dynamic Measurements:
+
+When you call the front page, these are the APIs you hit
+"GET /api/v2/meal/?plan=1 HTTP/1.1" 200 52
+"GET /api/v2/nutritiondiary/?plan=1&limit=999 HTTP/1.1" 200 311
+"GET /api/v2/setting-repetitionunit/ HTTP/1.1" 200 245
+"GET /api/v2/setting-weightunit/ HTTP/1.1" 200 219
+
+When you enter the bmi calculator screen:
+Therefore, no APIS get called (super interesting, maybe we should add height to the database?)
+If height is added to the database, then we can access it later to make it part of the measurement
+"GET /en/nutrition/calculator/bmi/ HTTP/1.1" 200 31265
+"GET /nutrition/calculator/bmi/chart-data HTTP/1.1" 302 0
+"GET /en/nutrition/calculator/bmi/chart-data HTTP/1.1" 200 1031
+"POST /en/nutrition/calculator/bmi/calculate HTTP/1.1" 200 53
+
+Line 192 in urls.py has the weight-entry
+we should run a "heightentry" as well to get height
+
+We should also maybe look at adding height as a one time thing
+
+
+
+Encrypting Inputs:

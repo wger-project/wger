@@ -371,7 +371,8 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
             return Setting.objects.none()
-
+        print(Setting.objects.filter(set__exerciseday__training__user=self.request.user))
+        print("API ACCESS HERE")
         return Setting.objects.filter(set__exerciseday__training__user=self.request.user)
 
     def perform_create(self, serializer):
@@ -403,16 +404,17 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         'workout',
         'repetition_unit',
         'weight_unit',
+        'moved',
     )
 
     def get_queryset(self):
         """
         Only allow access to appropriate objects
         """
+        print("API CALL HERE?")
         # REST API generation
         if getattr(self, 'swagger_fake_view', False):
             return WorkoutLog.objects.none()
-
         return WorkoutLog.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):

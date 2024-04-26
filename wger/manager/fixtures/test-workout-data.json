@@ -157,10 +157,12 @@
             "weight_unit_id": 1,
             "weight": null,
             "order": 1,
-            "exercise_base": 2
+            "exercise_base": 2,
+            "moved": null
         }
     },
 
+    
     {
         "pk": 1,
         "model": "manager.workoutlog",
@@ -170,7 +172,8 @@
             "reps": 8,
             "user": 1,
             "date": "2012-10-01",
-            "exercise_base": 1
+            "exercise_base": 1,
+            "moved": 100
         }
     },
     {
@@ -194,7 +197,8 @@
             "reps": 8,
             "user": 1,
             "date": "2013-10-30",
-            "exercise_base": 1
+            "exercise_base": 1,
+            "moved": null
         }
     },
     {

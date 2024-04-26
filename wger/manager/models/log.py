@@ -110,6 +110,17 @@ class WorkoutLog(models.Model):
     Reps in reserve, RiR. The amount of reps that could realistically still be
     done in the set.
     """
+    moved = models.DecimalField(
+        verbose_name=_('Weight-Moved'),
+        max_digits=6,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0)],
+    )
+    """
+    The tonnage moved during this set
+    """
 
     # Metaclass to set some other properties
     class Meta:

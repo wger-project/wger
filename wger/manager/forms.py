@@ -192,6 +192,12 @@ class WorkoutLogForm(ModelForm):
         choices=RIR_OPTIONS,
         required=False,
     )
+    moved = DecimalField(
+        label=_('Moved'),
+        initial=0,
+        required=False,
+    )
+    
 
     class Meta:
         model = WorkoutLog
@@ -210,6 +216,7 @@ class WorkoutLogFormHelper(FormHelper):
                 Column('weight', css_class='col-2'),
                 Column('weight_unit', css_class='col-3'),
                 Column('rir', css_class='col-2'),
+                Column('moved',css_class='col-2'),
                 css_class='form-row',
             ),
         )
