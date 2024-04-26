@@ -67,6 +67,7 @@ class IngredientData:
 
 
 def extract_info_from_off(product_data, language: int):
+    print(product_data)
     if not all(req in product_data for req in OFF_REQUIRED_TOP_LEVEL):
         raise KeyError('Missing required top-level key')
 
@@ -98,6 +99,25 @@ def extract_info_from_off(product_data, language: int):
     sugars = product_data['nutriments'].get('sugars_100g', 0)
     fat = product_data['nutriments']['fat_100g']
     saturated = product_data['nutriments'].get('saturated-fat_100g', 0)
+
+    # List of target categories to check against
+    target_categories = ["Meals", "Snacks", "Spreads", "Beverages", "Breads", "Vegetables", "Fruits", "Grains", "Meats", "Protein Foods", "Dairy"]
+
+    # Retrieve the category string from product_data using product_data.get()
+    category_string = product_data.get('category')
+
+    # Split the category string into a list of individual categories
+    if category_string:
+        categories_list = [category.strip() for category in category_string.split(",")]
+    else:
+        categories_list = []
+
+    # Check if any API categories match the target categories
+    category = None
+    for api_category in categories_list:
+        if api_category in target_categories:
+            category = api_category
+            break
 
     # these are optional
     sodium = product_data['nutriments'].get('sodium_100g', None)
