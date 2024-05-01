@@ -115,6 +115,9 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
         }
     }
 
+    if os.environ.get('DJANGO_CACHE_CLIENT_PASSWORD'):
+        CACHES['default']['OPTIONS']['PASSWORD'] = env.str('DJANGO_CACHE_CLIENT_PASSWORD')
+
 # Folder for compressed CSS and JS files
 COMPRESS_ROOT = STATIC_ROOT
 
