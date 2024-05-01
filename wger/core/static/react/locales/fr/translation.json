@@ -51,7 +51,12 @@
         "replacementsInfoText": "En option, vous pouvez également sélectionner un exercice qui devrait remplacer celui-ci (par exemple, s'il a été soumis deux fois, ou similaire). Cela remplacera l'exercice dans les routines ainsi que dans les journaux d'entraînement, au lieu de simplement le supprimer. Ces modifications seront également propagées à toute instance synchronisant les exercices à partir de celui-ci.",
         "deleteExerciseReplace": "Supprimer et remplacer",
         "replacementsSearch": "Recherchez un exercice ou copiez-collez un identifiant connu dans le champ, puis cliquez sur le bouton \"Charger\".",
-        "noReplacementSelected": " Aucun exercice sélectionné pour le remplacement"
+        "noReplacementSelected": " Aucun exercice sélectionné pour le remplacement",
+        "imageStylePhoto": "Photo",
+        "imageStyle3D": "3D",
+        "imageStyleLine": "Ligne",
+        "imageDetails": "Détail des images",
+        "imageStyleOther": "Autre"
     },
     "server": {
         "arms": "Bras",
@@ -169,12 +174,28 @@
         "addMeal": "Ajouter un repas",
         "macronutrient": "Macronutriment",
         "gramShort": "g",
-        "searchIngredientName": "Rechercher par nom d'ingrédient"
+        "searchIngredientName": "Rechercher par nom d'ingrédient",
+        "planned": "Plannifié",
+        "today": "Aujourd'hui",
+        "difference": "Différence",
+        "energy": "Energie",
+        "protein": "Protéine",
+        "carbohydrates": "Glucides",
+        "fat": "Graisse",
+        "saturatedFat": "Graisse saturé",
+        "sodium": "Sodium",
+        "fibres": "Fibres",
+        "sugar": "Sucre",
+        "others": "Autres"
     },
     "nothingHereYet": "Rien ici pour le moment …",
     "total": "Total",
     "alsoSearchEnglish": "Recherchez également des noms en anglais",
     "timeOfDay": "Heure de la journée",
     "copyToClipboard": "Copier dans le presse-papiers",
-    "nothingHereYetAction": "Appuyez sur le bouton d'action pour commencer"
+    "nothingHereYetAction": "Appuyez sur le bouton d'action pour commencer",
+    "licenses": {
+        "originalTitle": "Titre",
+        "authors": "Auteur(s)"
+    }
 }

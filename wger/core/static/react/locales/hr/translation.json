@@ -51,7 +51,13 @@
         "replacementsInfoText": "Opcionalno možeš odabrati i vježbu koja bi trebala zamijeniti ovu (npr. zato što je poslana dva puta ili jer je slična). To će zamijeniti vježbu u rutinama kao i zapisnike treninga, umjesto da se samo izbrišu. Ove promjene će se također proširiti na bilo koju instancu koja sinkronizira vježbe iz ove.",
         "deleteExerciseReplace": "Izbriši i zamijeni",
         "replacementsSearch": "Traži vježbu ili kopiraj i umetni poznati ID u polje i pritisni gumb „Učitaj”.",
-        "noReplacementSelected": " Nije odabrana nijedna vježba za zamjenu"
+        "noReplacementSelected": " Nije odabrana nijedna vježba za zamjenu",
+        "imageStylePhoto": "Fotografija",
+        "imageStyle3D": "3D",
+        "imageStyleLine": "Linija",
+        "imageStyleLowPoly": "Grubi poligoni",
+        "imageStyleOther": "Drugo",
+        "imageDetails": "Detalji slike"
     },
     "noResults": "Nema rezultata",
     "noResultsDescription": "Za ovaj upit nisu pronađeni rezultati. Smanji broja filtara.",
@@ -207,5 +213,13 @@
     "timeOfDay": "Vrijeme dana",
     "nothingHereYet": "Ovdje još nema ničega …",
     "nothingHereYetAction": "Počni pritiskom gumba radnje",
-    "copyToClipboard": "Kopiraj u međuspremnik"
+    "copyToClipboard": "Kopiraj u međuspremnik",
+    "licenses": {
+        "authorProfile": "Poveži na web stranicu autora ili profil, ako postoji",
+        "originalObjectUrl": "Poveži na web stranicu izvora, ako postoji",
+        "originalTitle": "Naslov",
+        "authors": "Autori",
+        "derivativeSourceUrl": "Poveži na izvorni izvor, ako je ovo izvedeno djelo",
+        "derivativeSourceUrlHelper": "Izvedeni rad koji se ne temelji samo na prethodnom radu, te sadrži dovoljno novog, kreativnog sadržaja ima pravo na vlastito autorsko pravo."
+    }
 }

@@ -31,7 +31,7 @@
         "changeExerciseLanguage": "Modifica la lingua dell'esercizio",
         "filterVariations": "Inserisci il nome dell'esercizio per filtrare le varianti",
         "translateExerciseNow": "Traduci l'esercizio adesso",
-        "compatibleImagesCC": "Le immagini devono essere compatibili con la licenza CC BY SA. In caso di dubbi, inserisci una foto che hai fatto personalmente",
+        "compatibleImagesCC": "Le immagini devono essere compatibili con la licenza CC BY SA. In caso di dubbi, inserisci una foto che hai fatto personalmente.",
         "submitExercise": "Invia esercizio",
         "whatVariationsExist": "Quali varianti di questo esercizio esistono, se ce ne sono ?",
         "variations": "Variazioni",
@@ -50,7 +50,13 @@
         "deleteExerciseReplace": "Elimina e sostituisci",
         "deleteExerciseBody": "Vuoi eliminare l'esercizio \"{{name}}\"? Puoi eliminare la traduzione corrente in {{lingua}} o l'esercizio completo con tutte le traduzioni, immagini, ecc.",
         "replacementsSearch": "Cerca un esercizio oppure copia e incolla un ID conosciuto nel campo e clicca sul pulsante \"carica\".",
-        "noReplacementSelected": " Nessun esercizio selezionato per la sostituzione"
+        "noReplacementSelected": " Nessun esercizio selezionato per la sostituzione",
+        "imageStylePhoto": "Foto",
+        "imageStyle3D": "3D",
+        "imageStyleLowPoly": "Basso numero di poligoni",
+        "imageStyleOther": "Altro",
+        "imageDetails": "Dettagli immagine",
+        "imageStyleLine": "Linea"
     },
     "noResults": "Nessun risultato",
     "noResultsDescription": "Nessun risultato trovato. Prova a ridurre i termini di ricerca.",
@@ -77,7 +83,25 @@
         "shoulders": "Spalle",
         "swiss_ball": "Palla da ginnastica",
         "sz-bar": "SZ bar",
-        "until_failure": "A sfinimento"
+        "until_failure": "A sfinimento",
+        "biceps": "Bicipiti",
+        "cardio": "Cardio",
+        "glutes": "Glutei",
+        "hamstrings": "Bicipiti femorali",
+        "max_reps": "Ripetizioni massime",
+        "miles_per_hour": "Miglia all'ora",
+        "plates": "Dischi",
+        "pull_up_bar": "Barra per le trazioni",
+        "sz_bar": "Bilanciere SZ",
+        "kg": "kg",
+        "lb": "lb",
+        "none__bodyweight_exercise_": "nessuno (esercizio a corpo libero)",
+        "abs": "Addominali",
+        "lats": "Gran dorsale",
+        "quads": "Quadricipiti",
+        "body_weight": "Peso corporeo",
+        "triceps": "Tricipiti",
+        "kilometers_per_hour": "Chilometri all'ora"
     },
     "submit": "Invia",
     "weight": "Peso",
@@ -164,7 +188,37 @@
         "minLength": "Per favore inserisci più di {{chars}} caratteri",
         "supportedImageFormats": "Sono supportati solo file JPEG, PNG e WEBP al di sotto dei 20Mb",
         "valueTooShort": "Il valore è troppo corto",
-        "maxLength": "Per favore inserisci meno di {{chars}} caratteri"
+        "maxLength": "Per favore inserisci meno di {{chars}} caratteri",
+        "maxValue": "Il valore di questo campo deve essere minore di {{value}}",
+        "minValue": "Il valore di questo campo deve essere maggiore di {{value}}"
     },
-    "goBack": "Indietro"
+    "goBack": "Indietro",
+    "licenses": {
+        "authorProfile": "Link al sito web o al profilo dell'autore, se disponibile",
+        "derivativeSourceUrl": "Link alla risorsa originale, se è un'opera derivata",
+        "derivativeSourceUrlHelper": "Tieni presente che un'opera derivata è un'opera che non solo si basa solo su un'opera precedente, ma che contiene anche contenuti nuovi e creativi a sufficienza per darle diritto al proprio copyright.",
+        "originalObjectUrl": "Link al sito web della fonte, se disponibile",
+        "originalTitle": "Titolo",
+        "authors": "Autore(i)"
+    },
+    "cancel": "Annulla",
+    "routines": {
+        "routine": "Routine",
+        "routines": "Routine",
+        "rir": "RiR",
+        "addDay": "Aggiungi giorno di allenamento",
+        "addLogToDay": "Aggiungi registro a questo giorno",
+        "logsFilterNote": "Tieni presente che vengono tracciate solo le voci con un'unità di peso di kg o lb e le ripetizioni, altre combinazioni come il tempo o fino allo cedimento qui vengono ignorate",
+        "logsHeader": "Registro di allenamento per l'allenamento",
+        "addWeightLog": "Aggiungi registro di allenamento"
+    },
+    "measurements": {
+        "deleteInfo": "Ciò eliminerà la categoria e tutte le sue voci",
+        "measurements": "Misure",
+        "unitFormHelpText": "L'unità in cui la categoria verrà misurata, come cm o %"
+    },
+    "success": "Completato!",
+    "cannotBeUndone": "L'azione non può essere annullata.",
+    "English": "Inglese",
+    "videos": "Video"
 }

@@ -60,5 +60,13 @@
     "language": "Язык",
     "images": "Изображения",
     "timeOfDay": "Время дня",
-    "nothingHereYet": "Здесь пока ничего нет..."
+    "nothingHereYet": "Здесь пока ничего нет...",
+    "licenses": {
+        "authors": "Автор(ы)",
+        "authorProfile": "Ссылка на сайт или профиль автора, если доступна",
+        "originalObjectUrl": "Ссылка на сайт источника, если доступна",
+        "originalTitle": "Название",
+        "derivativeSourceUrl": "Ссылка на первоисточник, если это производная работа"
+    },
+    "deleteConfirmation": "Вы уверены, что хотите удалить \"{{name}}\"?"
 }
