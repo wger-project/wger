@@ -15,7 +15,7 @@ pymongo==4.7.1
 faker==25.0.0
 
 # Development packages
-coverage==7.4.4
+coverage==7.5.0
 django-debug-toolbar==4.3.0
 isort==5.13.2
 ruff==0.4.1
