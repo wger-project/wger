@@ -18,7 +18,11 @@ it is self-contained).
 
 A more comfortable development version is provided in the compose folder.
 
-### 1 - Obtaining/building the docker image
+### 1 - Installing docker
+
+Install docker, and the docker buildx tool (if they are separate packages on your system, e.g. on Arch Linux)
+
+### 2 - Obtaining/building the docker image
 
 We will run the `wger/server:latest` image in the next step.
 
@@ -30,7 +34,7 @@ To do this, you **must** build from the project root!
 
 ```docker build -f extras/docker/development/Dockerfile --tag wger/server .```
 
-### 2 - Start the container
+### 3 - Start the container
 
     docker run -ti  \
        -v /path/to/your/wger/checkout:/home/wger/src \
@@ -49,7 +53,7 @@ You might also want to download the exercise images and the ingredients
     docker exec wger.devel python3 manage.py download-exercise-images
     docker exec wger.devel wger load-online-fixtures
 
-### 3 - Open the Application
+### 4 - Open the Application
 
 Just open <http://localhost:8000> and log in as: **admin**, password **adminadmin**
 
@@ -61,7 +65,7 @@ To start developing again:
 
 ```sudo docker container start --attach wger.devel```
 
-### 4 - Other commands
+### 5 - Other commands
 
 If you need to update the CSS/JS libraries or just issue some other command:
 
