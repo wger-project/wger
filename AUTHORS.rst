@@ -76,6 +76,7 @@ Developers
 * Alexandra Rhodes - https://github.com/arhodes130
 * Jayanth Bontha - https://github.com/JayanthBontha
 * Ethan Winters - https://github.com/ebwinters
+* Andre Dyke - https://github.com/andre9836
 
 Translators
 -----------
