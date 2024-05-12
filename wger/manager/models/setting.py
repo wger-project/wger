@@ -109,7 +109,19 @@ class Setting(models.Model):
 
     order = models.IntegerField(blank=True, verbose_name=_('Order'))
     comment = models.CharField(max_length=100, blank=True, verbose_name=_('Comment'))
-
+    
+    """
+    The tonnage moved during this set
+    """
+    moved = models.DecimalField(
+        verbose_name=_('Weight-Moved'),
+        max_digits=6,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0), MaxValueValidator(1500)],
+    )
+    
     # Metaclass to set some other properties
     class Meta:
         ordering = ['order', 'id']
@@ -127,7 +139,7 @@ class Setting(models.Model):
         reset_workout_canonical_form(self.set.exerciseday.training_id)
 
         # If the user selected "Until Failure", do only 1 "repetition",
-        # everythin else doesn't make sense.
+        # everythi else doesn't make sense.
         if self.repetition_unit == 2:
             self.reps = 1
         super(Setting, self).save(*args, **kwargs)

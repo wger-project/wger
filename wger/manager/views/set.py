@@ -53,7 +53,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Set functions
 # ************************
-SETTING_FORMSET_FIELDS = ('reps', 'repetition_unit', 'weight', 'weight_unit', 'rir')
+SETTING_FORMSET_FIELDS = ('reps', 'repetition_unit', 'weight', 'weight_unit', 'rir', 'moved')
 
 SettingFormset = modelformset_factory(
     Setting,
@@ -78,16 +78,18 @@ def create(request, day_pk):
     context = {}
     formsets = []
     form = SetForm(initial={'sets': Set.DEFAULT_SETS})
-
+    print(request.POST)
     # If the form and all formsets validate, save them
     if request.method == 'POST':
         form = SetForm(request.POST)
         if form.is_valid():
+            print(form.cleaned_data)
             for base in form.cleaned_data['exercises']:
                 formset = SettingFormset(
                     request.POST, queryset=Setting.objects.none(), prefix=f'base{base.id}'
                 )
                 formsets.append({'exercise_base': base, 'formset': formset})
+                print(formsets)
         all_valid = True
 
         for formset in formsets:
@@ -99,7 +101,13 @@ def create(request, day_pk):
             max_order = day.set_set.select_related().aggregate(models.Max('order'))
             form.instance.order = (max_order['order__max'] or 0) + 1
             form.instance.exerciseday = day
-            set_obj = form.save()
+            # Need a try acccept for the case where we don't input any value for these
+            try:
+                reps = form.cleaned_data['reps']
+                weight = form.cleaned_data['weight']
+            except:
+                form.instance.moved = reps * weight
+                set_obj = form.save()
 
             order = 1
             for formset in formsets:
@@ -123,6 +131,7 @@ def create(request, day_pk):
     context['max_sets'] = Set.MAX_SETS
     context['formsets'] = formsets
     context['helper'] = WorkoutLogFormHelper()
+    print(context)
     return render(request, 'set/add.html', context)
 
 

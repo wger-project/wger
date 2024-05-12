@@ -145,6 +145,7 @@ class SettingSerializer(serializers.ModelSerializer):
             'rir',
             'order',
             'comment',
+            'moved',
         ]
 
 
