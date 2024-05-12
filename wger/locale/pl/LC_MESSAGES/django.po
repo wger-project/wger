@@ -9,6 +9,7 @@
 # Krzysztof Tataradziński <ktatar156@gmail.com>, 2016
 # Marius <mhrusz+github@gmail.com>, 2016
 # Michał Jastrzębowski <michal@jastrzebowski.pl>, 2017
+# Marcin Schoenknecht <marcinschoenknecht@gmail.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
