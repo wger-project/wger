@@ -473,7 +473,8 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         except JSONDecodeError as e:
             logger.info(f'Got JSONDecodeError from OFF: {e}')
             return None
-        if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
+
+        if not result:
             logger.info('Product not found')
             return None
         product = result['product']
