@@ -31,7 +31,7 @@ RUN apt update \
 
 # Build the necessary python wheels
 # Note that the --mount tmpfs is a workaround for https://github.com/rust-lang/cargo/issues/8719
-COPY requirements* .
+COPY requirements* ./
 RUN --mount=type=tmpfs,target=/root/.cargo \
     pip3 wheel --no-cache-dir --wheel-dir /wheels -r requirements_docker.txt
 
