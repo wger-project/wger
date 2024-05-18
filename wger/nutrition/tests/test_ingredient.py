@@ -41,11 +41,7 @@ from wger.nutrition.models import (
     Ingredient,
     Meal,
 )
-from wger.utils.constants import (
-    NUTRITION_TAB,
-    OFF_SEARCH_PRODUCT_FOUND,
-    OFF_SEARCH_PRODUCT_NOT_FOUND,
-)
+from wger.utils.constants import NUTRITION_TAB
 
 
 class IngredientRepresentationTestCase(WgerTestCase):
@@ -463,7 +459,6 @@ class IngredientModelTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.off_response = {
-            'status': OFF_SEARCH_PRODUCT_FOUND,
             'product': {
                 'code': '1234',
                 'lang': 'de',
@@ -484,10 +479,7 @@ class IngredientModelTestCase(WgerTestCase):
             },
         }
 
-        self.off_response_no_results = {
-            'status': OFF_SEARCH_PRODUCT_NOT_FOUND,
-            'status_verbose': 'product not found',
-        }
+        self.off_response_no_results = None
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success(self, mock_api):

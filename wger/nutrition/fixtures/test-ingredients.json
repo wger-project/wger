@@ -4,6 +4,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "7908c204-907f-4b1e-ad4e-f482e9769ade",
+      "remote_id": "1234567890987654321",
       "status": "2",
       "license_author": "wger test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -31,6 +32,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "44dc5966-73a2-4df7-8b15-f6d37a8990d9",
+      "remote_id": "1234567890",
       "status": "2",
       "license_author": "wger test",
       "name": "Ingredient, test, 2, organic, raw",
@@ -58,6 +60,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "f28c8a68-ecda-42db-a9c4-781ee2aee472",
+      "remote_id": "1223334444",
       "status": "2",
       "license_author": "wger test",
       "last_update": "2013-03-22T18:32:15+01:00",
@@ -85,6 +88,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "fdd662aa-696c-46c6-acae-b192ccc25f11",
+      "remote_id": "0987654321",
       "status": "2",
       "license_author": "wger test",
       "last_update": "2013-02-12T12:17:45+01:00",
@@ -112,6 +116,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "293957df-b5bb-4ca6-b883-2234185c5372",
+      "remote_id": "555555555",
       "status": "2",
       "license_author": "wger test",
       "last_update": "2013-02-12T14:14:00+01:00",
@@ -139,6 +144,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "dfc5c622-027b-4f17-8141-dadd1ce7e3f1",
+      "remote_id": "1112222333333334444444",
       "status": "2",
       "license_author": "wger test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -166,6 +172,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "42a41805-2caf-4c7e-9ff3-decbfee5f695",
+      "remote_id": "11222222333",
       "status": "1",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -193,6 +200,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "db9e0502-2a54-472d-97e2-3761d1b286ee",
+      "remote_id": "9988877766655",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -220,6 +228,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "7164629a-9f58-450b-8316-ad7954564171",
+      "remote_id": "123454321",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -247,6 +256,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "9d53cf0e-5100-480f-a320-2de51c70603b",
+      "remote_id": "0009999888777",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -274,6 +284,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "0187406a-7290-4199-a4dc-ccceb8cb55ea",
+      "remote_id": "7787878787878787",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -301,6 +312,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "16ade127-00b0-4bcf-906e-dd9730f5ade1",
+      "remote_id": "29292929292929",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -328,6 +340,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "59a73b2c-ead1-4001-b6a0-355c9cb366a7",
+      "remote_id": "19191919191",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",
@@ -355,6 +368,7 @@
     "model": "nutrition.ingredient",
     "fields": {
       "uuid": "a18665d0-24e3-4255-88aa-92f2831d568a",
+      "remote_id": "4444444444444",
       "status": "2",
       "license_author": "test",
       "last_update": "2013-02-12T01:00:00+01:00",

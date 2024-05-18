@@ -15,7 +15,6 @@
 # Standard Library
 from decimal import Decimal
 
-
 # Navigation
 WORKOUT_TAB = 'workout'
 EXERCISE_TAB = 'exercises'
@@ -65,10 +64,6 @@ DOWNLOAD_INGREDIENT_OPTIONS = (
     DOWNLOAD_INGREDIENT_OFF,
     DOWNLOAD_INGREDIENT_NONE,
 )
-
-# OFF Api
-OFF_SEARCH_PRODUCT_FOUND = 1
-OFF_SEARCH_PRODUCT_NOT_FOUND = 0
 
 # API
 API_MAX_ITEMS = 999

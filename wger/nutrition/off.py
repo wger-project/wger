@@ -14,18 +14,13 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Standard Library
-from dataclasses import (
-    asdict,
-    dataclass,
-)
-from typing import Optional
 
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
+from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
-
 
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
@@ -39,34 +34,7 @@ OFF_REQUIRED_NUTRIMENTS = [
 ]
 
 
-@dataclass
-class IngredientData:
-    name: str
-    language_id: int
-    energy: float
-    protein: float
-    carbohydrates: float
-    carbohydrates_sugar: float
-    fat: float
-    fat_saturated: float
-    fibres: Optional[float]
-    sodium: Optional[float]
-    code: str
-    source_name: str
-    source_url: str
-    common_name: str
-    brand: str
-    status: str
-    license_id: int
-    license_author: str
-    license_title: str
-    license_object_url: str
-
-    def dict(self):
-        return asdict(self)
-
-
-def extract_info_from_off(product_data, language: int):
+def extract_info_from_off(product_data: dict, language: int):
     if not all(req in product_data for req in OFF_REQUIRED_TOP_LEVEL):
         raise KeyError('Missing required top-level key')
 
@@ -95,12 +63,12 @@ def extract_info_from_off(product_data, language: int):
     code = product_data['code']
     protein = product_data['nutriments']['proteins_100g']
     carbs = product_data['nutriments']['carbohydrates_100g']
-    sugars = product_data['nutriments'].get('sugars_100g', 0)
     fat = product_data['nutriments']['fat_100g']
-    saturated = product_data['nutriments'].get('saturated-fat_100g', 0)
 
     # these are optional
+    saturated = product_data['nutriments'].get('saturated-fat_100g', None)
     sodium = product_data['nutriments'].get('sodium_100g', None)
+    sugars = product_data['nutriments'].get('sugars_100g', None)
     fibre = product_data['nutriments'].get('fiber_100g', None)
     brand = product_data.get('brands', None)
 
@@ -111,6 +79,7 @@ def extract_info_from_off(product_data, language: int):
     object_url = f'https://world.openfoodfacts.org/product/{code}/'
 
     return IngredientData(
+        remote_id=code,
         name=name,
         language_id=language,
         energy=energy,

@@ -114,6 +114,7 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'remote_id',
             'code',
             'name',
             'created',

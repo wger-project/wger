@@ -24,7 +24,6 @@ from json import JSONDecodeError
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.postgres.search import SearchVectorField
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
@@ -53,10 +52,7 @@ from wger.nutrition.consts import (
 )
 from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import (
-    OFF_SEARCH_PRODUCT_FOUND,
-    TWOPLACES,
-)
+from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
@@ -64,10 +60,8 @@ from wger.utils.models import (
     AbstractSubmissionModel,
 )
 from wger.utils.requests import wger_user_agent
-
 # Local
 from .ingredient_category import IngredientCategory
-
 
 logger = logging.getLogger(__name__)
 
@@ -197,7 +191,15 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         blank=True,
         db_index=True,
     )
-    """Internal ID of the source database, e.g. a barcode or similar"""
+    """The product's barcode"""
+
+    remote_id = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+    """ID of the product in the external source database. Used for updated during imports."""
 
     source_name = models.CharField(
         max_length=200,

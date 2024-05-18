@@ -18,9 +18,9 @@ from django.test import SimpleTestCase
 
 # wger
 from wger.nutrition.off import (
-    IngredientData,
     extract_info_from_off,
 )
+from wger.nutrition.dataclasses import IngredientData
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
@@ -60,6 +60,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         result = extract_info_from_off(self.off_data1, 1)
         data = IngredientData(
             name='Foo with chocolate',
+            remote_id='1234',
             language_id=1,
             energy=120,
             protein=10,
@@ -112,5 +113,5 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         del self.off_data1['nutriments']['saturated-fat_100g']
         result = extract_info_from_off(self.off_data1, 1)
 
-        self.assertEqual(result.carbohydrates_sugar, 0)
-        self.assertEqual(result.fat_saturated, 0)
+        self.assertEqual(result.carbohydrates_sugar, None)
+        self.assertEqual(result.fat_saturated, None)
