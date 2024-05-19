@@ -15,6 +15,7 @@
 # Standard Library
 from decimal import Decimal
 
+
 # Navigation
 WORKOUT_TAB = 'workout'
 EXERCISE_TAB = 'exercises'
@@ -50,6 +51,7 @@ PAGINATION_PAGES_AROUND_CURRENT = 5
 # Important license IDs
 CC_BY_SA_4_ID = 2
 CC_BY_SA_3_LICENSE_ID = 1
+CC_0_LICENSE_ID = 3
 ODBL_LICENSE_ID = 5
 
 # Default/fallback language

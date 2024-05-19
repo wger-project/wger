@@ -24,6 +24,7 @@ from django.core.management.base import BaseCommand
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Ingredient
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -49,6 +50,10 @@ class ImportProductCommand(BaseCommand):
 
     help = "Don't run this command directly. Use either import-off-products or import-usda-products"
 
+    def __init__(self, stdout=None, stderr=None, no_color=False, force_color=False):
+        super().__init__(stdout, stderr, no_color, force_color)
+        self.counter = Counter()
+
     def add_arguments(self, parser):
         parser.add_argument(
             '--set-mode',
@@ -57,15 +62,14 @@ class ImportProductCommand(BaseCommand):
             dest='mode',
             type=str,
             help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-                 'entries in the database, while update will try to update them if they are '
-                 'already present. Deault: insert',
+            'entries in the database, while update will try to update them if they are '
+            'already present. Default: update',
         )
 
     def handle(self, **options):
         raise NotImplementedError('Do not run this command on its own!')
 
     def handle_data(self, ingredient_data: IngredientData):
-
         #
         # Add entries as new products
         if self.mode == Mode.INSERT:

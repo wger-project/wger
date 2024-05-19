@@ -61,7 +61,7 @@ class AbstractLicenseModel(models.Model):
 
     license_author = models.CharField(
         verbose_name=_('Author(s)'),
-        max_length=600,
+        max_length=2500,
         blank=True,
         null=True,
         help_text=_('If you are not the author, enter the name or source here.'),

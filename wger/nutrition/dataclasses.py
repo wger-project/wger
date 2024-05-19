@@ -12,7 +12,11 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-from dataclasses import dataclass, asdict
+# Standard Library
+from dataclasses import (
+    asdict,
+    dataclass,
+)
 from typing import Optional
 
 
@@ -29,7 +33,7 @@ class IngredientData:
     fat_saturated: float
     fibres: Optional[float]
     sodium: Optional[float]
-    code: str
+    code: Optional[str]
     source_name: str
     source_url: str
     common_name: str

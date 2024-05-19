@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import enum
 import json
 import logging
 import os
@@ -21,131 +20,85 @@ import tempfile
 from json import JSONDecodeError
 from zipfile import ZipFile
 
+# Third Party
 import requests
 
-# Django
-from django.core.management.base import BaseCommand
+# wger
+from wger.core.models import Language
+from wger.nutrition.management.products import (
+    ImportProductCommand,
+    Mode,
+)
+from wger.nutrition.usda import extract_info_from_usda
+from wger.utils.constants import ENGLISH_SHORT_NAME
+
 
 logger = logging.getLogger(__name__)
 
 
-# Mode for this script. When using 'insert', the script will bulk-insert the new
-# ingredients, which is very efficient. Importing the whole database will require
-# barely a minute. When using 'update', existing ingredients will be updated, which
-# requires two queries per product and is needed when there are already existing
-# entries in the local ingredient table.
-class Mode(enum.Enum):
-    INSERT = enum.auto()
-    UPDATE = enum.auto()
-
-
-class Command(BaseCommand):
+class Command(ImportProductCommand):
     """
     Import an Open Food facts Dump
     """
-
-    mode = Mode.UPDATE
-
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--set-mode',
-            action='store',
-            default=10,
-            dest='mode',
-            type=str,
-            help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-                 'entries in the database, while update will try to update them if they are '
-                 'already present. Deault: insert',
-        )
 
     def handle(self, **options):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
+        usda_url = 'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2024-04-18.zip'
+        folder = '/Users/roland/Entwicklung/wger/server/extras/usda'
+
         self.stdout.write('Importing entries from USDA')
         self.stdout.write(f' - {self.mode}')
+        self.stdout.write(f' - {folder=}')
         self.stdout.write('')
 
-        usda_url = 'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2024-04-18.zip'
+        english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
-        with tempfile.TemporaryDirectory() as folder:
-            folder = '/Users/roland/Entwicklung/wger/server/extras/usda'
+        zip_file = os.path.join(folder, 'usda.zip')
+        if os.path.exists(zip_file):
+            self.stdout.write(f'File already downloaded {zip_file}, not downloading it again')
+        else:
+            self.stdout.write(f'Downloading {zip_file}... (this may take a while)')
+            req = requests.get(usda_url, stream=True)
+            with open(zip_file, 'wb') as fid:
+                for chunk in req.iter_content(chunk_size=50 * 1024):
+                    fid.write(chunk)
 
-            print(f'{folder=}')
-            zip_file = os.path.join(folder, 'usda.zip')
-            if os.path.exists(zip_file):
-                self.stdout.write(f'Already downloaded {zip_file}, skipping download')
-            else:
-                self.stdout.write(f'downloading {zip_file}... (this may take a while)')
-                req = requests.get(usda_url, stream=True)
-                with open(zip_file, 'wb') as fid:
-                    for chunk in req.iter_content(chunk_size=50 * 1024):
-                        fid.write(chunk)
+            self.stdout.write('download successful')
 
-                self.stdout.write('download successful')
+        with ZipFile(zip_file, 'r') as zip_ref:
+            file_list = zip_ref.namelist()
+            if not file_list:
+                raise Exception('No files found in the ZIP archive')
 
-            with ZipFile(zip_file, 'r') as zip_ref:
-                file_list = zip_ref.namelist()
-                if not file_list:
-                    raise Exception("No files found in the ZIP archive")
+            first_file = file_list[0]
+            self.stdout.write(f'Extracting {first_file=}')
+            extracted_file_path = zip_ref.extract(first_file, path=folder)
 
-                first_file = file_list[0]
-                self.stdout.write(f'Extracting {first_file=}')
-                extracted_file_path = zip_ref.extract(first_file, path=folder)
+        # Since the file is almost JSONL, just process each line individually
+        with open(extracted_file_path, 'r') as extracted_file:
+            for line in extracted_file.readlines():
+                # Skip the first and last lines in the file
+                if 'FoundationFoods' in line:
+                    continue
 
-            with open(extracted_file_path, "r") as extracted_file:
-                for line in extracted_file:
-                    self.process_product(line.strip().strip(','))
+                if line.strip() == '}':
+                    continue
 
-    def process_product(self, json_data):
-        try:
-            data = json.loads(json_data)
-        except JSONDecodeError as e:
-            # print(e)
-            # print(json_data)
-            # print('---------------')
-            return
+                try:
+                    json_data = json.loads(line.strip().strip(','))
+                except JSONDecodeError as e:
+                    self.stdout.write(f'--> Error while decoding JSON: {e}')
+                    continue
 
-        name = data['description']
-        fdc_id = data['fdcId']
+                try:
+                    ingredient_data = extract_info_from_usda(json_data, english.pk)
+                except KeyError as e:
+                    self.stdout.write(f'--> KeyError while extracting info from USDA: {e}')
+                    self.counter['skipped'] += 1
+                else:
+                    self.handle_data(ingredient_data)
 
-        if not data.get('foodNutrients'):
-            return
-
-        proteins = None
-        carbs = None
-        fats = None
-        energy = None
-        for d in data['foodNutrients']:
-
-            if not d.get("nutrient"):
-                return
-
-            nutrient = d.get("nutrient")
-            nutrient_id = nutrient.get("id")
-
-            match nutrient_id:
-                case 1003:
-                    proteins = float(d.get("amount"))
-
-                case 1004:
-                    carbs = float(d.get("amount"))
-
-                case 1005:
-                    fats = float(d.get("amount"))
-
-                case 2048:
-                    energy = float(d.get("amount"))
-
-        if not all([proteins, carbs, fats, energy]):
-            return
-
-        self.stdout.write(f' - {fdc_id}')
-        self.stdout.write(f' - {name}')
-        self.stdout.write(f' - {proteins=}')
-        self.stdout.write(f' - {carbs=}')
-        self.stdout.write(f' - {fats=}')
-        self.stdout.write(f' - {energy=}')
-
-        self.stdout.write('')
-        return
+        self.stdout.write(self.style.SUCCESS('Finished!'))
+        self.stdout.write(self.style.SUCCESS(str(self.counter)))

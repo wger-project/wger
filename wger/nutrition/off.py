@@ -22,6 +22,7 @@ from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
+
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
     'code',
@@ -34,7 +35,7 @@ OFF_REQUIRED_NUTRIMENTS = [
 ]
 
 
-def extract_info_from_off(product_data: dict, language: int):
+def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     if not all(req in product_data for req in OFF_REQUIRED_TOP_LEVEL):
         raise KeyError('Missing required top-level key')
 
@@ -70,7 +71,7 @@ def extract_info_from_off(product_data: dict, language: int):
     sodium = product_data['nutriments'].get('sodium_100g', None)
     sugars = product_data['nutriments'].get('sugars_100g', None)
     fibre = product_data['nutriments'].get('fiber_100g', None)
-    brand = product_data.get('brands', None)
+    brand = product_data.get('brands', '')
 
     # License and author info
     source_name = Source.OPEN_FOOD_FACTS.value

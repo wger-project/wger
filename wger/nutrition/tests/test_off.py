@@ -17,10 +17,8 @@
 from django.test import SimpleTestCase
 
 # wger
-from wger.nutrition.off import (
-    extract_info_from_off,
-)
 from wger.nutrition.dataclasses import IngredientData
+from wger.nutrition.off import extract_info_from_off
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 

@@ -34,4 +34,26 @@ class Migration(migrations.Migration):
             set_external_id,
             reverse_code=migrations.RunPython.noop,
         ),
+        migrations.AlterField(
+            model_name='image',
+            name='license_author',
+            field=models.CharField(
+                blank=True,
+                help_text='If you are not the author, enter the name or source here.',
+                max_length=2500,
+                null=True,
+                verbose_name='Author(s)',
+            ),
+        ),
+        migrations.AlterField(
+            model_name='ingredient',
+            name='license_author',
+            field=models.CharField(
+                blank=True,
+                help_text='If you are not the author, enter the name or source here.',
+                max_length=2500,
+                null=True,
+                verbose_name='Author(s)',
+            ),
+        ),
     ]
