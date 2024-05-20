@@ -36,7 +36,7 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
     def setUp(self):
         self.usda_data1 = {
             'foodClass': 'FinalFood',
-            'description': 'Foo with chocolate',
+            'description': 'FOO WITH CHOCOLATE',
             'foodNutrients': [
                 {
                     'type': 'FoodNutrient',
@@ -209,27 +209,27 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
 
         result = extract_info_from_usda(self.usda_data1, 1)
         data = IngredientData(
-            name='Foo with chocolate',
+            name='Foo With Chocolate',
             remote_id='1234567',
             language_id=1,
             energy=166.0,
             protein=32.1,
-            carbohydrates=3.24,
+            carbohydrates=0.0,
             carbohydrates_sugar=None,
-            fat=0.0,
+            fat=3.24,
             fat_saturated=None,
             fibres=None,
             sodium=None,
             code=None,
             source_name='USDA',
             source_url='https://fdc.nal.usda.gov/',
-            common_name='Foo with chocolate',
+            common_name='Foo With Chocolate',
             brand='',
             status=AbstractSubmissionModel.STATUS_ACCEPTED,
             license_id=CC_0_LICENSE_ID,
             license_author='U.S. Department of Agriculture, Agricultural Research Service, '
             'Beltsville Human Nutrition Research Center. FoodData Central.',
-            license_title='Foo with chocolate',
+            license_title='Foo With Chocolate',
             license_object_url='https://fdc.nal.usda.gov/fdc-app.html#/food-details/1234567/nutrients',
         )
 

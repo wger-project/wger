@@ -42,6 +42,9 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     if not product_data.get('foodNutrients'):
         raise KeyError('Missing key "foodNutrients"')
 
+    remote_id = str(product_data['fdcId'])
+    barcode = None
+
     energy = None
     protein = None
     carbs = None
@@ -52,6 +55,8 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     sodium = None
     fibre = None
 
+    brand = product_data.get('brandName', '')
+
     for nutrient in product_data['foodNutrients']:
         if not nutrient.get('nutrient'):
             raise KeyError('Missing key "nutrient"')
@@ -59,18 +64,18 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         nutrient_id = nutrient['nutrient']['id']
         match nutrient_id:
             case 1008:
-                energy = float(nutrient.get('amount'))
+                energy = float(nutrient.get('amount'))  # in kcal
 
             case 1003:
                 protein = convert_to_g_per_100g(nutrient)
 
-            case 1004:
+            case 1005:
                 carbs = convert_to_g_per_100g(nutrient)
 
-            case 1005:
+            # Total lipid (fat) | Total fat (NLEA)
+            case 1004 | 1085:
                 fats = convert_to_g_per_100g(nutrient)
 
-            # These are optional
             case 1093:
                 sodium = convert_to_g_per_100g(nutrient)
 
@@ -80,15 +85,11 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     macros = [energy, protein, carbs, fats]
     for value in macros:
         if value is None:
-            raise KeyError(f'Could not extract all basic macros: {macros=}')
+            raise KeyError(f'Could not extract all basic macros: {macros=} {remote_id=}')
 
-    name = product_data['description']
+    name = product_data['description'].title()
     if len(name) > 200:
         name = name[:200]
-
-    code = None
-    remote_id = str(product_data['fdcId'])
-    brand = ''
 
     # License and author info
     source_name = Source.USDA.value
@@ -100,7 +101,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     object_url = f'https://fdc.nal.usda.gov/fdc-app.html#/food-details/{remote_id}/nutrients'
 
     return IngredientData(
-        code=code,
+        code=barcode,
         remote_id=remote_id,
         name=name,
         common_name=name,

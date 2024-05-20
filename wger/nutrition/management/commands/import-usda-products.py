@@ -33,8 +33,12 @@ from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.requests import wger_headers
 
-
 logger = logging.getLogger(__name__)
+
+# Check https://fdc.nal.usda.gov/download-datasets.html for current file names
+# current_file = 'FoodData_Central_foundation_food_json_2024-04-18.zip'
+current_file = 'FoodData_Central_branded_food_json_2024-04-18.zip'
+download_folder = '/Users/roland/Entwicklung/wger/server/extras/usda'
 
 
 class Command(ImportProductCommand):
@@ -46,19 +50,18 @@ class Command(ImportProductCommand):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
-        current_file = 'FoodData_Central_foundation_food_json_2024-04-18.zip'
-
         usda_url = f'https://fdc.nal.usda.gov/fdc-datasets/{current_file}'
-        folder = '/Users/roland/Entwicklung/wger/server/extras/usda'
 
         self.stdout.write('Importing entries from USDA')
         self.stdout.write(f' - {self.mode}')
-        self.stdout.write(f' - {folder=}')
+        self.stdout.write(f' - dataset: {usda_url}')
+        self.stdout.write(f' - download folder: {download_folder}')
         self.stdout.write('')
 
         english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
-        zip_file = os.path.join(folder, current_file)
+        # Download the dataset
+        zip_file = os.path.join(download_folder, current_file)
         if os.path.exists(zip_file):
             self.stdout.write(f'File already downloaded {zip_file}, not downloading it again')
         else:
@@ -70,20 +73,21 @@ class Command(ImportProductCommand):
 
             self.stdout.write('download successful')
 
+        # Extract the first file from the ZIP archive
         with ZipFile(zip_file, 'r') as zip_ref:
             file_list = zip_ref.namelist()
             if not file_list:
                 raise Exception('No files found in the ZIP archive')
 
             first_file = file_list[0]
-            self.stdout.write(f'Extracting {first_file=}')
-            extracted_file_path = zip_ref.extract(first_file, path=folder)
+            self.stdout.write(f'Extracting {first_file}...')
+            extracted_file_path = zip_ref.extract(first_file, path=download_folder)
 
         # Since the file is almost JSONL, just process each line individually
         with open(extracted_file_path, 'r') as extracted_file:
             for line in extracted_file.readlines():
-                # Skip the first and last lines in the file
-                if 'FoundationFoods' in line:
+                # Try to skip the first and last lines in the file
+                if 'FoundationFoods' in line or 'BrandedFoods' in line:
                     continue
 
                 if line.strip() == '}':
@@ -98,9 +102,10 @@ class Command(ImportProductCommand):
                 try:
                     ingredient_data = extract_info_from_usda(json_data, english.pk)
                 except KeyError as e:
-                    self.stdout.write(f'--> KeyError while extracting info from USDA: {e}')
+                    self.stdout.write(f'--> KeyError while extracting ingredient info: {e}')
                     self.counter['skipped'] += 1
                 else:
+                    # pass
                     self.handle_data(ingredient_data)
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
