@@ -48,36 +48,36 @@ class Command(ImportProductCommand):
         super().add_arguments(parser)
 
         parser.add_argument(
-            '--use-folder',
+            '--folder',
             action='store',
             default='',
             dest='tmp_folder',
             type=str,
             help='Controls whether to use a temporary folder created by python (the default) or '
-            'the path provided for storing the downloaded dataset. If there are already '
-            'downloaded or extracted files here, they will be used instead of fetching them '
-            'again.',
+                 'the path provided for storing the downloaded dataset. If there are already '
+                 'downloaded or extracted files here, they will be used instead of fetching them '
+                 'again.',
         )
 
         parser.add_argument(
-            '--dataset-name',
+            '--dataset',
             action='store',
             default='FoodData_Central_branded_food_json_2024-04-18.zip',
-            dest='dataset_name',
+            dest='dataset',
             type=str,
             help='What dataset to download, this value will be appended to '
-            '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
-            'https://fdc.nal.usda.gov/download-datasets.html for current file names',
+                 '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
+                 'https://fdc.nal.usda.gov/download-datasets.html for current file names',
         )
 
     def handle(self, **options):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
-        usda_url = f'https://fdc.nal.usda.gov/fdc-datasets/{options["dataset_name"]}'
+        usda_url = f'https://fdc.nal.usda.gov/fdc-datasets/{options["dataset"]}'
 
-        if options['tmp_folder']:
-            download_folder = options['tmp_folder']
+        if options['folder']:
+            download_folder = options['folder']
 
             # Check whether the folder exists
             if not os.path.exists(download_folder):
@@ -96,7 +96,7 @@ class Command(ImportProductCommand):
         english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
         # Download the dataset
-        zip_file = os.path.join(download_folder, options['dataset_name'])
+        zip_file = os.path.join(download_folder, options['dataset'])
         if os.path.exists(zip_file):
             self.stdout.write(f'File already downloaded {zip_file}, not downloading it again')
         else:
@@ -158,7 +158,7 @@ class Command(ImportProductCommand):
                     self.match_existing_entry(ingredient_data)
                     # self.handle_data(ingredient_data)
 
-        if not options['tmp_folder']:
+        if not options['folder']:
             self.stdout.write(f'Removing temporary folder {download_folder}')
             tmp_folder.cleanup()
 
