@@ -118,4 +118,5 @@ class ImportProductCommand(BaseCommand):
             except Exception as e:
                 self.stdout.write('--> Error while performing update_or_create')
                 self.stdout.write(repr(e))
+                # self.stdout.write(repr(ingredient_data))
                 self.counter['error'] += 1

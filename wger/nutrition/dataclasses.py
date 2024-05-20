@@ -28,9 +28,9 @@ class IngredientData:
     energy: float
     protein: float
     carbohydrates: float
-    carbohydrates_sugar: float
+    carbohydrates_sugar: Optional[float]
     fat: float
-    fat_saturated: float
+    fat_saturated: Optional[float]
     fibres: Optional[float]
     sodium: Optional[float]
     code: Optional[str]

@@ -31,6 +31,7 @@ from wger.nutrition.management.products import (
 )
 from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
+from wger.utils.requests import wger_headers
 
 
 logger = logging.getLogger(__name__)
@@ -45,7 +46,9 @@ class Command(ImportProductCommand):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
-        usda_url = 'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2024-04-18.zip'
+        current_file = 'FoodData_Central_foundation_food_json_2024-04-18.zip'
+
+        usda_url = f'https://fdc.nal.usda.gov/fdc-datasets/{current_file}'
         folder = '/Users/roland/Entwicklung/wger/server/extras/usda'
 
         self.stdout.write('Importing entries from USDA')
@@ -55,12 +58,12 @@ class Command(ImportProductCommand):
 
         english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
-        zip_file = os.path.join(folder, 'usda.zip')
+        zip_file = os.path.join(folder, current_file)
         if os.path.exists(zip_file):
             self.stdout.write(f'File already downloaded {zip_file}, not downloading it again')
         else:
             self.stdout.write(f'Downloading {zip_file}... (this may take a while)')
-            req = requests.get(usda_url, stream=True)
+            req = requests.get(usda_url, stream=True, headers=wger_headers())
             with open(zip_file, 'wb') as fid:
                 for chunk in req.iter_content(chunk_size=50 * 1024):
                     fid.write(chunk)

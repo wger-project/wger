@@ -20,53 +20,74 @@ from wger.utils.constants import CC_0_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
 
+def convert_to_g_per_100g(entry: dict) -> float:
+    """
+    Convert a nutrient entry to grams per 100g
+    """
+
+    nutrient = entry['nutrient']
+    amount = float(entry['amount'])
+
+    if nutrient['unitName'] == 'g':
+        return amount
+
+    elif nutrient['unitName'] == 'mg':
+        return amount / 1000
+
+    else:
+        raise ValueError(f'Unknown unit: {nutrient["unitName"]}')
+
+
 def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     if not product_data.get('foodNutrients'):
         raise KeyError('Missing key "foodNutrients"')
 
-    energy = 0
-    protein = 0
-    carbs = 0
-    fats = 0
-    sugars = 0
-    saturated = 0
-    fat = 0
+    energy = None
+    protein = None
+    carbs = None
+    sugars = None
+    fats = None
+    fats_saturated = None
 
     sodium = None
     fibre = None
 
-    for d in product_data['foodNutrients']:
-        if not d.get('nutrient'):
+    for nutrient in product_data['foodNutrients']:
+        if not nutrient.get('nutrient'):
             raise KeyError('Missing key "nutrient"')
 
-        nutrient = d.get('nutrient')
-        nutrient_id = nutrient.get('id')
-
+        nutrient_id = nutrient['nutrient']['id']
         match nutrient_id:
+            case 1008:
+                energy = float(nutrient.get('amount'))
+
             case 1003:
-                protein = float(d.get('amount'))
+                protein = convert_to_g_per_100g(nutrient)
 
             case 1004:
-                carbs = float(d.get('amount'))
+                carbs = convert_to_g_per_100g(nutrient)
 
             case 1005:
-                fats = float(d.get('amount'))
+                fats = convert_to_g_per_100g(nutrient)
 
-            case 2048:
-                energy = float(d.get('amount'))
-
+            # These are optional
             case 1093:
-                sodium = float(d.get('amount'))
+                sodium = convert_to_g_per_100g(nutrient)
 
-    if not all([protein, carbs, fats, energy]):
-        raise KeyError('Could not extract all nutrition information')
+            case 1079:
+                fibre = convert_to_g_per_100g(nutrient)
+
+    macros = [energy, protein, carbs, fats]
+    for value in macros:
+        if value is None:
+            raise KeyError(f'Could not extract all basic macros: {macros=}')
 
     name = product_data['description']
     if len(name) > 200:
         name = name[:200]
 
     code = None
-    remote_id = product_data['fdcId']
+    remote_id = str(product_data['fdcId'])
     brand = ''
 
     # License and author info
@@ -76,7 +97,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         'U.S. Department of Agriculture, Agricultural Research Service, '
         'Beltsville Human Nutrition Research Center. FoodData Central.'
     )
-    object_url = f'https://api.nal.usda.gov/fdc/v1/food/{remote_id}'
+    object_url = f'https://fdc.nal.usda.gov/fdc-app.html#/food-details/{remote_id}/nutrients'
 
     return IngredientData(
         code=code,
@@ -88,8 +109,8 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         protein=protein,
         carbohydrates=carbs,
         carbohydrates_sugar=sugars,
-        fat=fat,
-        fat_saturated=saturated,
+        fat=fats,
+        fat_saturated=fats_saturated,
         fibres=fibre,
         sodium=sodium,
         source_name=source_name,
