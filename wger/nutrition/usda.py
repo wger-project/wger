@@ -48,7 +48,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     energy = None
     protein = None
     carbs = None
-    sugars = None
+    carbs_sugars = None
     fats = None
     fats_saturated = None
 
@@ -87,6 +87,10 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         if value is None:
             raise KeyError(f'Could not extract all basic macros: {macros=} {remote_id=}')
 
+    for value in [protein, fats, fats_saturated, carbs, carbs_sugars, sodium, fibre]:
+        if value and value > 100:
+            raise ValueError(f'Value for macronutrient is greater than 100! {macros=} {remote_id=}')
+
     name = product_data['description'].title()
     if len(name) > 200:
         name = name[:200]
@@ -109,7 +113,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         energy=energy,
         protein=protein,
         carbohydrates=carbs,
-        carbohydrates_sugar=sugars,
+        carbohydrates_sugar=carbs_sugars,
         fat=fats,
         fat_saturated=fats_saturated,
         fibres=fibre,

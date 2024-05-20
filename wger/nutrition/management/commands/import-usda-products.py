@@ -25,13 +25,16 @@ import requests
 
 # wger
 from wger.core.models import Language
+from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.management.products import (
     ImportProductCommand,
     Mode,
 )
+from wger.nutrition.models import Ingredient
 from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
 from wger.utils.requests import wger_headers
+
 
 logger = logging.getLogger(__name__)
 
@@ -51,9 +54,9 @@ class Command(ImportProductCommand):
             dest='tmp_folder',
             type=str,
             help='Controls whether to use a temporary folder created by python (the default) or '
-                 'the path provided for storing the downloaded dataset. If there are already '
-                 'downloaded or extracted files here, they will be used instead of fetching them '
-                 'again.'
+            'the path provided for storing the downloaded dataset. If there are already '
+            'downloaded or extracted files here, they will be used instead of fetching them '
+            'again.',
         )
 
         parser.add_argument(
@@ -63,8 +66,8 @@ class Command(ImportProductCommand):
             dest='dataset_name',
             type=str,
             help='What dataset to download, this value will be appended to '
-                 '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
-                 'https://fdc.nal.usda.gov/download-datasets.html for current file names',
+            '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
+            'https://fdc.nal.usda.gov/download-datasets.html for current file names',
         )
 
     def handle(self, **options):
@@ -147,9 +150,13 @@ class Command(ImportProductCommand):
                 except KeyError as e:
                     self.stdout.write(f'--> KeyError while extracting ingredient info: {e}')
                     self.counter['skipped'] += 1
+                except ValueError as e:
+                    self.stdout.write(f'--> ValueError while extracting ingredient info: {e}')
+                    self.counter['skipped'] += 1
                 else:
                     # pass
-                    self.handle_data(ingredient_data)
+                    self.match_existing_entry(ingredient_data)
+                    # self.handle_data(ingredient_data)
 
         if not options['tmp_folder']:
             self.stdout.write(f'Removing temporary folder {download_folder}')
@@ -157,3 +164,34 @@ class Command(ImportProductCommand):
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
         self.stdout.write(self.style.SUCCESS(str(self.counter)))
+
+    def match_existing_entry(self, ingredient_data: IngredientData):
+        """
+        One-off method.
+
+        There are currently some entries in the database that were imported from an old USDA
+        import but neither the original script nor the dump are available anymore, so we can't
+        really know which ones they are.
+
+        This method tries to match the ingredient_data.name with the name of an existing entry
+        and set the remote_id so that these can be updated regularly in the future.
+        """
+        try:
+            obj, created = Ingredient.objects.update_or_create(
+                name__iexact=ingredient_data.name,
+                code=None,
+                defaults=ingredient_data.dict(),
+            )
+
+            if created:
+                self.counter['new'] += 1
+                # self.stdout.write('-> added to the database')
+            else:
+                self.counter['edited'] += 1
+                self.stdout.write(f'-> found and updated {obj.name}')
+
+        except Exception as e:
+            # self.stdout.write('--> Error while performing update_or_create')
+            # self.stdout.write(repr(e))
+            # self.stdout.write(repr(ingredient_data))
+            self.counter['error'] += 1
