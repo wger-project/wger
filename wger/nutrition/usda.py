@@ -92,6 +92,8 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
             raise ValueError(f'Value for macronutrient is greater than 100! {macros=} {remote_id=}')
 
     name = product_data['description'].title()
+    if not name:
+        raise ValueError(f'Name is empty! {remote_id=}')
     if len(name) > 200:
         name = name[:200]
 

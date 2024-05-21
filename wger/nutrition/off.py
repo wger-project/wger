@@ -22,7 +22,6 @@ from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
-
 OFF_REQUIRED_TOP_LEVEL = [
     'product_name',
     'code',
@@ -43,9 +42,9 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         raise KeyError('Missing required nutrition key')
 
     # Basics
-    name = product_data['product_name']
-    if name is None:
-        raise KeyError('Product name is None')
+    name = product_data.get('product_name')
+    if not name:
+        raise KeyError('Product name is empty')
     if len(name) > 200:
         name = name[:200]
 
