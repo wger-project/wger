@@ -14,10 +14,11 @@ env = environ.Env(
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = env("DJANGO_DEBUG")
 
-ADMINS = (
-    ('Your name', 'your_email@example.com'),
-)
-MANAGERS = ADMINS
+if os.environ.get('DJANGO_ADMINS'):
+    ADMINS = (
+        env.list('DJANGO_ADMINS')
+    )
+    MANAGERS = ADMINS
 
 if os.environ.get("DJANGO_DB_ENGINE"):
     DATABASES = {
@@ -34,7 +35,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': '/home/wger/db/database.sqlite',
+            'NAME': env.str('DJANGO_DB_DATABASE', '/home/wger/db/database.sqlite'),
         }
     }
 
