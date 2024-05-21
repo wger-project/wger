@@ -16,7 +16,7 @@ def set_external_id(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('nutrition', '0020_full_text_search'),
+        ('nutrition', '0021_add_fibers_field'),
     ]
 
     operations = [
