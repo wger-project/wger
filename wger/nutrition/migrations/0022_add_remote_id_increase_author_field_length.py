@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 help_text='If you are not the author, enter the name or source here.',
-                max_length=2500,
+                max_length=3500,
                 null=True,
                 verbose_name='Author(s)',
             ),
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 blank=True,
                 help_text='If you are not the author, enter the name or source here.',
-                max_length=2500,
+                max_length=3500,
                 null=True,
                 verbose_name='Author(s)',
             ),

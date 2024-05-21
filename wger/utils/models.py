@@ -20,7 +20,6 @@ from django.utils.translation import gettext_lazy as _
 from wger.core.models import License
 from wger.utils.constants import CC_BY_SA_4_ID
 
-
 """
 Abstract model classes
 """
@@ -61,7 +60,7 @@ class AbstractLicenseModel(models.Model):
 
     license_author = models.CharField(
         verbose_name=_('Author(s)'),
-        max_length=2500,
+        max_length=3500,
         blank=True,
         null=True,
         help_text=_('If you are not the author, enter the name or source here.'),
