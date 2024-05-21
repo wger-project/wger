@@ -29,7 +29,7 @@ openfoodfacts==0.3.0
 pillow==10.3.0
 reportlab==4.1.0
 requests==2.32.0
-tqdm==4.66.3
+tqdm==4.66.4
 tzdata==2024.1
 
 # AWS
