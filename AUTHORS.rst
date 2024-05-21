@@ -169,6 +169,7 @@ Translators
   - Krzysztof Tataradziński
   - Marius
   - Michał Jastrzębowski
+  - Marcin Schoenknecht
 
 * Ukrainian
 
