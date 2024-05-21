@@ -484,10 +484,7 @@ class IngredientModelTestCase(WgerTestCase):
             },
         }
 
-        self.off_response_no_results = {
-            'status': OFF_SEARCH_PRODUCT_NOT_FOUND,
-            'status_verbose': 'product not found',
-        }
+        self.off_response_no_results = None
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success(self, mock_api):
