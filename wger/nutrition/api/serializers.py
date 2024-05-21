@@ -313,6 +313,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'goal_protein',
             'goal_carbohydrates',
             'goal_fat',
+            'goal_fibers',
             # 'nutritional_values',
         ]
 
@@ -336,5 +337,6 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
             'goal_protein',
             'goal_carbohydrates',
             'goal_fat',
+            'goal_fibers',
             'meals',
         ]
