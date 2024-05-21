@@ -232,7 +232,7 @@ def search(request):
     else:
         query = query.filter(name__icontains=term)
 
-    for ingredient in query[:100]:
+    for ingredient in query[:150]:
         if hasattr(ingredient, 'image'):
             image_obj = ingredient.image
             image = image_obj.image.url
