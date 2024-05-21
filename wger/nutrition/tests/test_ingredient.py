@@ -85,7 +85,7 @@ class EditIngredientTestCase(WgerEditTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
@@ -119,7 +119,7 @@ class AddIngredientTestCase(WgerAddTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
@@ -154,7 +154,7 @@ class IngredientNameShortTestCase(WgerTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
@@ -324,7 +324,7 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat': 0.0819,
                 'carbohydrates_sugar': None,
                 'fat_saturated': 0.03244,
-                'fibres': None,
+                'fiber': None,
                 'protein': 0.2563,
                 'carbohydrates': 0.00125,
             },
@@ -348,7 +348,7 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat': 9.13185,
                 'carbohydrates_sugar': None,
                 'fat_saturated': 3.61706,
-                'fibres': None,
+                'fiber': None,
                 'protein': 28.57745,
                 'carbohydrates': 0.139375,
             },
@@ -506,7 +506,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.fat, 40)
         self.assertEqual(ingredient.fat_saturated, 11)
         self.assertEqual(ingredient.sodium, 5)
-        self.assertEqual(ingredient.fibres, None)
+        self.assertEqual(ingredient.fiber, None)
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
 

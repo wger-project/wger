@@ -276,8 +276,8 @@ def export_pdf(request, id: int):
     )
     data.append(
         [
-            Paragraph(_('Fibres'), styleSheet['Normal']),
-            Paragraph(str(plan_data['total'].fibres), styleSheet['Normal']),
+            Paragraph(_('Fiber'), styleSheet['Normal']),
+            Paragraph(str(plan_data['total'].fiber), styleSheet['Normal']),
         ]
     )
     data.append(
@@ -299,7 +299,7 @@ def export_pdf(request, id: int):
     table_style.append(('BACKGROUND', (0, 6), (-1, 6), row_color))  # Fats
     table_style.append(('SPAN', (1, 7), (-1, 7)))  # Saturated fats
     table_style.append(('LEFTPADDING', (0, 7), (0, 7), 15))
-    table_style.append(('SPAN', (1, 8), (-1, 8)))  # Fibres
+    table_style.append(('SPAN', (1, 8), (-1, 8)))  # Fiber
     table_style.append(('SPAN', (1, 9), (-1, 9)))  # Sodium
     t = Table(data, style=table_style)
     t._argW[0] = 6 * cm

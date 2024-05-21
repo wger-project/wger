@@ -67,7 +67,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             carbohydrates_sugar=30,
             fat=40,
             fat_saturated=11,
-            fibres=None,
+            fiber=None,
             sodium=5,
             code='1234',
             source_name='Open Food Facts',

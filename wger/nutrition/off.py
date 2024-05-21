@@ -49,7 +49,7 @@ class IngredientData:
     carbohydrates_sugar: float
     fat: float
     fat_saturated: float
-    fibres: Optional[float]
+    fiber: Optional[float]
     sodium: Optional[float]
     code: str
     source_name: str
@@ -101,7 +101,7 @@ def extract_info_from_off(product_data, language: int):
 
     # these are optional
     sodium = product_data['nutriments'].get('sodium_100g', None)
-    fibre = product_data['nutriments'].get('fiber_100g', None)
+    fiber = product_data['nutriments'].get('fiber_100g', None)
     brand = product_data.get('brands', None)
 
     # License and author info
@@ -119,7 +119,7 @@ def extract_info_from_off(product_data, language: int):
         carbohydrates_sugar=sugars,
         fat=fat,
         fat_saturated=saturated,
-        fibres=fibre,
+        fiber=fiber,
         sodium=sodium,
         code=code,
         source_name=source_name,

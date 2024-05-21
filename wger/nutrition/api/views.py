@@ -129,7 +129,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             'carbohydrates_sugar': 0,
             'fat': 0,
             'fat_saturated': 0,
-            'fibres': 0,
+            'fiber': 0,
             'sodium': 0,
             'errors': [],
         }
