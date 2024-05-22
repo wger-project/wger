@@ -88,7 +88,7 @@ def calculate_bmr(request):
         # print(form.is_valid())
 
     # Return the results to the client
-    return HttpResponse(data, 'application/json')
+    return HttpResponse(data, 'application/json', content_type="application/json")
 
 
 @login_required
@@ -115,4 +115,4 @@ def calculate_activities(request):
         data = json.dumps(data)
 
     # Return the results to the client
-    return HttpResponse(data, 'application/json')
+    return HttpResponse(data, 'application/json', content_type="application/json")

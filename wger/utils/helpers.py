@@ -36,6 +36,7 @@ from django.utils.http import (
     urlsafe_base64_decode,
     urlsafe_base64_encode,
 )
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -171,7 +172,7 @@ def password_generator(length=15):
     for char in ('I', '1', 'l', 'O', '0', 'o'):
         chars = chars.replace(char, '')
 
-    return ''.join(random.choice(chars) for i in range(length))
+    return ''.join(secrets.SystemRandom().choice(chars) for i in range(length))
 
 
 def check_access(request_user, username=None):
@@ -226,7 +227,7 @@ def random_string(length=32):
     """
     Generates a random string
     """
-    return ''.join(random.choice(string.ascii_uppercase) for i in range(length))
+    return ''.join(secrets.SystemRandom().choice(string.ascii_uppercase) for i in range(length))
 
 
 class BaseImage:
