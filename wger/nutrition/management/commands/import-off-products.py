@@ -28,7 +28,6 @@ from wger.nutrition.management.products import (
 )
 from wger.nutrition.off import extract_info_from_off
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -39,6 +38,9 @@ class Command(ImportProductCommand):
 
     help = 'Import an Open Food Facts dump. Please consult extras/docker/open-food-facts'
 
+    deltas_base_url = 'https://static.openfoodfacts.org/data/delta/'
+    full_off_dump_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
+
     def add_arguments(self, parser):
         super().add_arguments(parser)
 
@@ -48,7 +50,7 @@ class Command(ImportProductCommand):
             default=False,
             dest='use_jsonl',
             help='Use the JSONL dump of the Open Food Facts database.'
-            '(this option does not require mongo)',
+                 '(this option does not require mongo)',
         )
 
         parser.add_argument(
@@ -65,23 +67,17 @@ class Command(ImportProductCommand):
         for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
             try:
                 ingredient_data = extract_info_from_off(product, languages[product['lang']])
-            except KeyError as e:
+            except (KeyError, ValueError) as e:
                 # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
-                # self.stdout.write(repr(e))
-                # pprint(product)
                 self.counter['skipped'] += 1
             else:
                 self.process_ingredient(ingredient_data)
 
-    def import_daily_delta(self, languages: dict[str:int]):
-        download_folder, tmp_folder = self.get_download_folder(
-            '/Users/roland/Entwicklung/wger/server/extras/usda'
-        )
-
-        base_url = 'https://static.openfoodfacts.org/data/delta/'
+    def import_daily_delta(self, languages: dict[str:int], destination: str):
+        download_folder, tmp_folder = self.get_download_folder(destination)
 
         # Fetch the index page with requests and read the result
-        index_url = base_url + 'index.txt'
+        index_url = self.deltas_base_url + 'index.txt'
         req = requests.get(index_url)
         index_content = req.text
         newest_entry = index_content.split('\n')[0]
@@ -89,14 +85,16 @@ class Command(ImportProductCommand):
         file_path = os.path.join(download_folder, newest_entry)
 
         # Fetch the newest entry and extract the contents
-        delta_url = base_url + newest_entry
+        delta_url = self.deltas_base_url + newest_entry
         self.download_file(delta_url, file_path)
 
         for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
             try:
                 ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
-            except KeyError as e:
-                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+            except (KeyError, ValueError) as e:
+                self.stdout.write(
+                    f'--> {ingredient_data.remote_id=} KeyError while extracting info from OFF: {e}'
+                )
                 self.counter['skipped'] += 1
             else:
                 self.process_ingredient(ingredient_data)
@@ -105,20 +103,16 @@ class Command(ImportProductCommand):
             self.stdout.write(f'Removing temporary folder {download_folder}')
             tmp_folder.cleanup()
 
-    def import_full_dump(self, languages: dict[str:int]):
-        off_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
+    def import_full_dump(self, languages: dict[str:int], destination: str):
+        download_folder, tmp_folder = self.get_download_folder(destination)
 
-        download_folder, tmp_folder = self.get_download_folder(
-            '/Users/roland/Entwicklung/wger/server/extras/open-food-facts/dump'
-        )
-
-        file_path = os.path.join(download_folder, os.path.basename(off_url))
-        self.download_file(off_url, file_path)
+        file_path = os.path.join(download_folder, os.path.basename(self.full_off_dump_url))
+        self.download_file(self.full_off_dump_url, file_path)
 
         for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
             try:
                 ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
-            except KeyError as e:
+            except (KeyError, ValueError) as e:
                 # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
                 self.counter['skipped'] += 1
             else:
@@ -141,13 +135,19 @@ class Command(ImportProductCommand):
 
         self.stdout.write('Importing entries from Open Food Facts')
         self.stdout.write(f' - {self.mode}')
+        if options['delta_updates']:
+            self.stdout.write(f' - importing only delta updates')
+        elif options['use_jsonl']:
+            self.stdout.write(f' - importing the full dump')
+        else:
+            self.stdout.write(f' - importing from mongo')
         self.stdout.write('')
 
         languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
         if options['delta_updates']:
-            self.import_daily_delta(languages)
+            self.import_daily_delta(languages, options['folder'])
         elif options['use_jsonl']:
-            self.import_full_dump(languages)
+            self.import_full_dump(languages, options['folder'])
         else:
             self.import_mongo(languages)
 

@@ -72,9 +72,11 @@ class ImportProductCommand(BaseCommand):
             default='update',
             dest='mode',
             type=str,
-            help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-            'entries in the database, while update will try to update them if they are '
-            'already present. Default: update',
+            help=(
+                'Script mode, "insert" or "update". Insert will insert the ingredients as new '
+                'entries in the database, while update will try to update them if they are '
+                'already present. Default: update'
+            ),
         )
 
         parser.add_argument(
@@ -83,10 +85,12 @@ class ImportProductCommand(BaseCommand):
             default='',
             dest='folder',
             type=str,
-            help='Controls whether to use a temporary folder created by python (the default) or '
-            'the path provided for storing the downloaded dataset. If there are already '
-            'downloaded or extracted files here, they will be used instead of fetching them '
-            'again.',
+            help=(
+                'Controls whether to use a temporary folder created by python (the default) or '
+                'the path provided for storing the downloaded dataset. If there are already '
+                'downloaded or extracted files here, they will be used instead of fetching them '
+                'again.'
+            ),
         )
 
     def handle(self, **options):
@@ -139,9 +143,8 @@ class ImportProductCommand(BaseCommand):
                     # self.stdout.write('-> updated')
 
             except Exception as e:
-                self.stdout.write('--> Error while performing update_or_create')
-                self.stdout.write(repr(e))
-                # self.stdout.write(repr(ingredient_data))
+                self.stdout.write(f'--> Error while performing update_or_create: {e}')
+                self.stdout.write(repr(ingredient_data))
                 self.counter['error'] += 1
 
     def get_download_folder(self, folder: str) -> tuple[str, Optional[tempfile.TemporaryDirectory]]:
@@ -157,17 +160,8 @@ class ImportProductCommand(BaseCommand):
             tmp_folder = tempfile.TemporaryDirectory()
             download_folder = tmp_folder.name
 
+        self.stdout.write(f'Using folder {download_folder} for storing downloaded files')
         return download_folder, tmp_folder
-
-    def parse_file_content(self, path: str):
-        with GzipFile(path, 'rb') as gzid:
-            for line in gzid:
-                try:
-                    product = json.loads(line)
-                    yield product
-                except JSONDecodeError as e:
-                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
-                    continue
 
     def iterate_gz_file_contents(self, path: str, languages: list[str]):
         with GzipFile(path, 'rb') as gzid:
@@ -183,13 +177,12 @@ class ImportProductCommand(BaseCommand):
 
     def download_file(self, url: str, destination: str) -> None:
         if os.path.exists(destination):
-            self.stdout.write(f'File already downloaded {destination}, not downloading it again')
+            self.stdout.write(f'File already downloaded at {destination}')
             return
 
         self.stdout.write(f'Downloading {url}... (this may take a while)')
         response = requests.get(url, stream=True, headers=wger_headers())
         total_size = int(response.headers.get('content-length', 0))
-        size = int(response.headers['content-length']) / (1024 * 1024)
 
         if response.status_code == 404:
             raise Exception(f'Could not open {url}!')
