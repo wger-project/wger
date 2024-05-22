@@ -103,6 +103,7 @@ class BmiForm(forms.ModelForm):
     weight = forms.DecimalField(
         widget=Html5NumberInput(),
         max_value=999,
+        label=_('Weight (kg)'),
     )
 
     class Meta:
