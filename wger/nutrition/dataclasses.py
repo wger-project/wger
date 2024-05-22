@@ -31,7 +31,7 @@ class IngredientData:
     carbohydrates_sugar: Optional[float]
     fat: float
     fat_saturated: Optional[float]
-    fibres: Optional[float]
+    fiber: Optional[float]
     sodium: Optional[float]
     code: Optional[str]
     source_name: str
@@ -58,7 +58,7 @@ class IngredientData:
             'carbohydrates',
             'carbohydrates_sugar',
             'sodium',
-            'fibres',
+            'fiber',
         ]
         for macro in macros:
             value = getattr(self, macro)

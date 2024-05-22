@@ -111,7 +111,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         carbohydrates_sugar=carbs_sugars,
         fat=fats,
         fat_saturated=fats_saturated,
-        fibres=fiber,
+        fiber=fiber,
         sodium=sodium,
         source_name=source_name,
         source_url=source_url,
