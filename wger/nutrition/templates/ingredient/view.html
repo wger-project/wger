@@ -131,10 +131,10 @@ the search.{% endblocktranslate %}
     </thead>
     <tbody>
         <tr>
-            <td>{% translate "Fibres" %}</td>
+            <td>{% translate "Fiber" %}</td>
             <td itemprop="fiberContent" class="text-right">
-                {% if ingredient.fibres %}
-                    <span id="value-fibres">{{ingredient.fibres|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
+                {% if ingredient.fiber %}
+                    <span id="value-fiber">{{ingredient.fiber|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% translate "n.A." %}
                 {% endif %}

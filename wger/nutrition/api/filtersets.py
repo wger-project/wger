@@ -34,7 +34,7 @@ class IngredientFilterSet(filters.FilterSet):
             'energy': ['exact'],
             'fat': ['exact'],
             'fat_saturated': ['exact'],
-            'fibres': ['exact'],
+            'fiber': ['exact'],
             'name': ['exact'],
             'protein': ['exact'],
             'sodium': ['exact'],

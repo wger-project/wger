@@ -39,7 +39,7 @@ function updateIngredientValue(url) {
     $('#value-carbohydrates-sugar').html(parseFloat(data.carbohydrates_sugar).toFixed(2));
     $('#value-fat').html(parseFloat(data.fat).toFixed(2));
     $('#value-fat-saturated').html(parseFloat(data.fat_saturated).toFixed(2));
-    $('#value-fibres').html(parseFloat(data.fibres).toFixed(2));
+    $('#value-fiber').html(parseFloat(data.fiber).toFixed(2));
     $('#value-sodium').html(parseFloat(data.sodium).toFixed(2));
   });
 }

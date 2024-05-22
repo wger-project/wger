@@ -167,12 +167,12 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
 
-    fibres = models.DecimalField(
+    fiber = models.DecimalField(
         decimal_places=3,
         max_digits=6,
         blank=True,
         null=True,
-        verbose_name=_('Fibres'),
+        verbose_name=_('Fiber'),
         help_text=_('In g per 100g of product'),
         validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
@@ -343,7 +343,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 'energy',
                 'fat',
                 'fat_saturated',
-                'fibres',
+                'fiber',
                 'name',
                 'protein',
                 'sodium',

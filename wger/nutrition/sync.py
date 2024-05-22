@@ -226,7 +226,7 @@ def sync_ingredients(
                 'fat': data['fat'],
                 'fat_saturated': data['fat_saturated'],
                 'protein': data['protein'],
-                'fibres': data['fibres'],
+                'fiber': data['fiber'],
                 'sodium': data['sodium'],
             },
         )

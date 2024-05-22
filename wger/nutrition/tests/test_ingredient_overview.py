@@ -37,7 +37,7 @@ class IngredientOverviewTestCase(WgerTestCase):
             'fat': 8.19,
             'carbohydrates_sugar': 0.0,
             'fat_saturated': 3.24,
-            'fibres': 0.0,
+            'fiber': 0.0,
             'protein': 25.63,
             'carbohydrates': 0.0,
             'license': 1,
