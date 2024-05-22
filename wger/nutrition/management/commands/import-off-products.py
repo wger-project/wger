@@ -16,6 +16,10 @@
 import logging
 import os
 
+# Third Party
+import requests
+from pymongo import MongoClient
+
 # wger
 from wger.core.models import Language
 from wger.nutrition.management.products import (
@@ -42,39 +46,87 @@ class Command(ImportProductCommand):
             '--jsonl',
             action='store_true',
             default=False,
-            dest='usejsonl',
+            dest='use_jsonl',
             help='Use the JSONL dump of the Open Food Facts database.'
-            '(this option does not require mongo)'
+            '(this option does not require mongo)',
         )
 
-    def products_jsonl(self,languages,completeness):
-        import json
-        import requests
-        from gzip import GzipFile
-        off_url='https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
-        download_dir=os.path.expanduser('~/.cache/off_cache')
-        os.makedirs(download_dir,exist_ok=True)
-        gzipdb=os.path.join(download_dir,os.path.basename(off_url))
-        if os.path.exists(gzipdb):
-            self.stdout.write(f'Already downloaded {gzipdb}, skipping download')
-        else:
-            self.stdout.write(f'downloading {gzipdb}... (this may take a while)')
-            req=requests.get(off_url,stream=True)
-            with open(gzipdb,'wb') as fid:
-                for chunk in req.iter_content(chunk_size=50*1024):
-                    fid.write(chunk)
-        with GzipFile(gzipdb,'rb') as gzid:
-            for line in gzid:
-                try:
-                    product=json.loads(line)
-                    if product['completeness'] < completeness:
-                        continue
-                    if not product['lang'] in languages:
-                        continue
-                    yield product
-                except:
-                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
-                    continue
+        parser.add_argument(
+            '--delta-updates',
+            action='store_true',
+            default=False,
+            dest='delta_updates',
+            help='Downloads and imports the most recent delta file',
+        )
+
+    def import_mongo(self, languages: dict[str:int]):
+        client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
+        db = client.admin
+        for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
+            try:
+                ingredient_data = extract_info_from_off(product, languages[product['lang']])
+            except KeyError as e:
+                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                # self.stdout.write(repr(e))
+                # pprint(product)
+                self.counter['skipped'] += 1
+            else:
+                self.process_ingredient(ingredient_data)
+
+    def import_daily_delta(self, languages: dict[str:int]):
+        download_folder, tmp_folder = self.get_download_folder(
+            '/Users/roland/Entwicklung/wger/server/extras/usda'
+        )
+
+        base_url = 'https://static.openfoodfacts.org/data/delta/'
+
+        # Fetch the index page with requests and read the result
+        index_url = base_url + 'index.txt'
+        req = requests.get(index_url)
+        index_content = req.text
+        newest_entry = index_content.split('\n')[0]
+
+        file_path = os.path.join(download_folder, newest_entry)
+
+        # Fetch the newest entry and extract the contents
+        delta_url = base_url + newest_entry
+        self.download_file(delta_url, file_path)
+
+        for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
+            try:
+                ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
+            except KeyError as e:
+                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                self.counter['skipped'] += 1
+            else:
+                self.process_ingredient(ingredient_data)
+
+        if tmp_folder:
+            self.stdout.write(f'Removing temporary folder {download_folder}')
+            tmp_folder.cleanup()
+
+    def import_full_dump(self, languages: dict[str:int]):
+        off_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
+
+        download_folder, tmp_folder = self.get_download_folder(
+            '/Users/roland/Entwicklung/wger/server/extras/open-food-facts/dump'
+        )
+
+        file_path = os.path.join(download_folder, os.path.basename(off_url))
+        self.download_file(off_url, file_path)
+
+        for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
+            try:
+                ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
+            except KeyError as e:
+                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                self.counter['skipped'] += 1
+            else:
+                self.process_ingredient(ingredient_data)
+
+        if tmp_folder:
+            self.stdout.write(f'Removing temporary folder {download_folder}')
+            tmp_folder.cleanup()
 
     def handle(self, **options):
         try:
@@ -91,21 +143,13 @@ class Command(ImportProductCommand):
         self.stdout.write(f' - {self.mode}')
         self.stdout.write('')
 
-        client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
-        db = client.admin
-
         languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
-
-        for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
-            try:
-                ingredient_data = extract_info_from_off(product, languages[product['lang']])
-            except KeyError as e:
-                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
-                # self.stdout.write(repr(e))
-                # pprint(product)
-                self.counter['skipped'] += 1
-            else:
-                self.handle_data(ingredient_data)
+        if options['delta_updates']:
+            self.import_daily_delta(languages)
+        elif options['use_jsonl']:
+            self.import_full_dump(languages)
+        else:
+            self.import_mongo(languages)
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
         self.stdout.write(self.style.SUCCESS(str(self.counter)))

@@ -14,15 +14,26 @@
 
 # Standard Library
 import enum
+import json
 import logging
+import os
+import tempfile
 from collections import Counter
+from gzip import GzipFile
+from json import JSONDecodeError
+from typing import Optional
 
 # Django
 from django.core.management.base import BaseCommand
 
+# Third Party
+import requests
+from tqdm import tqdm
+
 # wger
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Ingredient
+from wger.utils.requests import wger_headers
 
 
 logger = logging.getLogger(__name__)
@@ -66,10 +77,22 @@ class ImportProductCommand(BaseCommand):
             'already present. Default: update',
         )
 
+        parser.add_argument(
+            '--folder',
+            action='store',
+            default='',
+            dest='folder',
+            type=str,
+            help='Controls whether to use a temporary folder created by python (the default) or '
+            'the path provided for storing the downloaded dataset. If there are already '
+            'downloaded or extracted files here, they will be used instead of fetching them '
+            'again.',
+        )
+
     def handle(self, **options):
         raise NotImplementedError('Do not run this command on its own!')
 
-    def handle_data(self, ingredient_data: IngredientData):
+    def process_ingredient(self, ingredient_data: IngredientData):
         #
         # Add entries as new products
         if self.mode == Mode.INSERT:
@@ -120,3 +143,59 @@ class ImportProductCommand(BaseCommand):
                 self.stdout.write(repr(e))
                 # self.stdout.write(repr(ingredient_data))
                 self.counter['error'] += 1
+
+    def get_download_folder(self, folder: str) -> tuple[str, Optional[tempfile.TemporaryDirectory]]:
+        if folder:
+            tmp_folder = None
+            download_folder = folder
+
+            # Check whether the folder exists
+            if not os.path.exists(download_folder):
+                self.stdout.write(self.style.ERROR(f'Folder {download_folder} does not exist!'))
+                raise Exception('Folder does not exist')
+        else:
+            tmp_folder = tempfile.TemporaryDirectory()
+            download_folder = tmp_folder.name
+
+        return download_folder, tmp_folder
+
+    def parse_file_content(self, path: str):
+        with GzipFile(path, 'rb') as gzid:
+            for line in gzid:
+                try:
+                    product = json.loads(line)
+                    yield product
+                except JSONDecodeError as e:
+                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
+                    continue
+
+    def iterate_gz_file_contents(self, path: str, languages: list[str]):
+        with GzipFile(path, 'rb') as gzid:
+            for line in gzid:
+                try:
+                    product = json.loads(line)
+                    if not product['lang'] in languages:
+                        continue
+                    yield product
+                except JSONDecodeError as e:
+                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
+                    continue
+
+    def download_file(self, url: str, destination: str) -> None:
+        if os.path.exists(destination):
+            self.stdout.write(f'File already downloaded {destination}, not downloading it again')
+            return
+
+        self.stdout.write(f'Downloading {url}... (this may take a while)')
+        response = requests.get(url, stream=True, headers=wger_headers())
+        total_size = int(response.headers.get('content-length', 0))
+        size = int(response.headers['content-length']) / (1024 * 1024)
+
+        if response.status_code == 404:
+            raise Exception(f'Could not open {url}!')
+
+        with open(destination, 'wb') as fid:
+            with tqdm(total=total_size, unit='B', unit_scale=True, desc='Downloading') as pbar:
+                for chunk in response.iter_content(chunk_size=50 * 1024):
+                    fid.write(chunk)
+                    pbar.update(len(chunk))

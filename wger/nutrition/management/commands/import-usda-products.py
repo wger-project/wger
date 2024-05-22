@@ -16,12 +16,8 @@
 import json
 import logging
 import os
-import tempfile
 from json import JSONDecodeError
 from zipfile import ZipFile
-
-# Third Party
-import requests
 
 # wger
 from wger.core.models import Language
@@ -33,7 +29,6 @@ from wger.nutrition.management.products import (
 from wger.nutrition.models import Ingredient
 from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
-from wger.utils.requests import wger_headers
 
 
 logger = logging.getLogger(__name__)
@@ -48,73 +43,37 @@ class Command(ImportProductCommand):
         super().add_arguments(parser)
 
         parser.add_argument(
-            '--folder',
-            action='store',
-            default='',
-            dest='tmp_folder',
-            type=str,
-            help='Controls whether to use a temporary folder created by python (the default) or '
-                 'the path provided for storing the downloaded dataset. If there are already '
-                 'downloaded or extracted files here, they will be used instead of fetching them '
-                 'again.',
-        )
-
-        parser.add_argument(
             '--dataset',
             action='store',
             default='FoodData_Central_branded_food_json_2024-04-18.zip',
             dest='dataset',
             type=str,
             help='What dataset to download, this value will be appended to '
-                 '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
-                 'https://fdc.nal.usda.gov/download-datasets.html for current file names',
+            '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
+            'https://fdc.nal.usda.gov/download-datasets.html for current file names',
         )
 
     def handle(self, **options):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
-        usda_url = f'https://fdc.nal.usda.gov/fdc-datasets/{options["dataset"]}'
-
-        if options['folder']:
-            download_folder = options['folder']
-
-            # Check whether the folder exists
-            if not os.path.exists(download_folder):
-                self.stdout.write(self.style.ERROR(f'Folder {download_folder} does not exist!'))
-                return
-        else:
-            tmp_folder = tempfile.TemporaryDirectory()
-            download_folder = tmp_folder.name
+        dataset_url = f'https://fdc.nal.usda.gov/fdc-datasets/{options["dataset"]}'
+        download_folder, tmp_folder = self.get_download_folder(options['folder'])
 
         self.stdout.write('Importing entries from USDA')
         self.stdout.write(f' - {self.mode}')
-        self.stdout.write(f' - dataset: {usda_url}')
+        self.stdout.write(f' - dataset: {dataset_url}')
         self.stdout.write(f' - download folder: {download_folder}')
         self.stdout.write('')
 
         english = Language.objects.get(short_name=ENGLISH_SHORT_NAME)
 
         # Download the dataset
-        zip_file = os.path.join(download_folder, options['dataset'])
-        if os.path.exists(zip_file):
-            self.stdout.write(f'File already downloaded {zip_file}, not downloading it again')
-        else:
-            self.stdout.write(f'Downloading {usda_url}... (this may take a while)')
-            req = requests.get(usda_url, stream=True, headers=wger_headers())
-
-            if req.status_code == 404:
-                self.stdout.write(self.style.ERROR(f'Could not open {usda_url}!'))
-                return
-
-            with open(zip_file, 'wb') as fid:
-                for chunk in req.iter_content(chunk_size=50 * 1024):
-                    fid.write(chunk)
-
-            self.stdout.write('download successful')
+        zip_file_path = os.path.join(download_folder, options['dataset'])
+        self.download_file(dataset_url, zip_file_path)
 
         # Extract the first file from the ZIP archive
-        with ZipFile(zip_file, 'r') as zip_ref:
+        with ZipFile(zip_file_path, 'r') as zip_ref:
             file_list = zip_ref.namelist()
             if not file_list:
                 raise Exception('No files found in the ZIP archive')
@@ -154,11 +113,10 @@ class Command(ImportProductCommand):
                     self.stdout.write(f'--> ValueError while extracting ingredient info: {e}')
                     self.counter['skipped'] += 1
                 else:
-                    # pass
                     self.match_existing_entry(ingredient_data)
                     # self.handle_data(ingredient_data)
 
-        if not options['folder']:
+        if tmp_folder:
             self.stdout.write(f'Removing temporary folder {download_folder}')
             tmp_folder.cleanup()
 
