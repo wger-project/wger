@@ -14,6 +14,7 @@
 
 # Standard Library
 import logging
+import os
 
 # wger
 from wger.core.models import Language
@@ -33,6 +34,47 @@ class Command(ImportProductCommand):
     """
 
     help = 'Import an Open Food Facts dump. Please consult extras/docker/open-food-facts'
+
+    def add_arguments(self, parser):
+        super().add_arguments(parser)
+
+        parser.add_argument(
+            '--jsonl',
+            action='store_true',
+            default=False,
+            dest='usejsonl',
+            help='Use the JSONL dump of the Open Food Facts database.'
+            '(this option does not require mongo)'
+        )
+
+    def products_jsonl(self,languages,completeness):
+        import json
+        import requests
+        from gzip import GzipFile
+        off_url='https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
+        download_dir=os.path.expanduser('~/.cache/off_cache')
+        os.makedirs(download_dir,exist_ok=True)
+        gzipdb=os.path.join(download_dir,os.path.basename(off_url))
+        if os.path.exists(gzipdb):
+            self.stdout.write(f'Already downloaded {gzipdb}, skipping download')
+        else:
+            self.stdout.write(f'downloading {gzipdb}... (this may take a while)')
+            req=requests.get(off_url,stream=True)
+            with open(gzipdb,'wb') as fid:
+                for chunk in req.iter_content(chunk_size=50*1024):
+                    fid.write(chunk)
+        with GzipFile(gzipdb,'rb') as gzid:
+            for line in gzid:
+                try:
+                    product=json.loads(line)
+                    if product['completeness'] < completeness:
+                        continue
+                    if not product['lang'] in languages:
+                        continue
+                    yield product
+                except:
+                    self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
+                    continue
 
     def handle(self, **options):
         try:

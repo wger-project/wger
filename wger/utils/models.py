@@ -58,7 +58,7 @@ class AbstractLicenseModel(models.Model):
         blank=True,
     )
 
-    license_author = models.CharField(
+    license_author = models.TextField(
         verbose_name=_('Author(s)'),
         max_length=3500,
         blank=True,
