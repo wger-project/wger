@@ -19,7 +19,7 @@ from django.test import SimpleTestCase
 # wger
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.usda import (
-    convert_to_g_per_100g,
+    convert_to_grams,
     extract_info_from_usda,
 )
 from wger.utils.constants import CC_0_LICENSE_ID
@@ -255,7 +255,7 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
         """
 
         entry = {'nutrient': {'unitName': 'g'}, 'amount': '5.0'}
-        self.assertEqual(convert_to_g_per_100g(entry), 5.0)
+        self.assertEqual(convert_to_grams(entry), 5.0)
 
     def test_converting_milligrams(self):
         """
@@ -263,7 +263,7 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
         """
 
         entry = {'nutrient': {'unitName': 'mg'}, 'amount': '5000'}
-        self.assertEqual(convert_to_g_per_100g(entry), 5.0)
+        self.assertEqual(convert_to_grams(entry), 5.0)
 
     def test_converting_unknown_unit(self):
         """
@@ -271,7 +271,7 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
         """
 
         entry = {'nutrient': {'unitName': 'kg'}, 'amount': '5.0'}
-        self.assertRaises(ValueError, convert_to_g_per_100g, entry)
+        self.assertRaises(ValueError, convert_to_grams, entry)
 
     def test_converting_invalid_amount(self):
         """
@@ -279,4 +279,4 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
         """
 
         entry = {'nutrient': {'unitName': 'g'}, 'amount': 'invalid'}
-        self.assertRaises(ValueError, convert_to_g_per_100g, entry)
+        self.assertRaises(ValueError, convert_to_grams, entry)

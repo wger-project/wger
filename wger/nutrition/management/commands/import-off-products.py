@@ -49,8 +49,8 @@ class Command(ImportProductCommand):
             action='store_true',
             default=False,
             dest='use_jsonl',
-            help='Use the JSONL dump of the Open Food Facts database.'
-                 '(this option does not require mongo)',
+            help=('Use the JSONL dump of the Open Food Facts database.'
+                  '(this option does not require mongo)')
         )
 
         parser.add_argument(

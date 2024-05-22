@@ -44,14 +44,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
 
     # Basics
     name = product_data.get('product_name')
-    if not name:
-        raise KeyError('Product name is empty')
-    if len(name) > 200:
-        name = name[:200]
-
     common_name = product_data.get('generic_name', '')
-    if len(common_name) > 200:
-        common_name = common_name[:200]
 
     # If the energy is not available in kcal, convert from kJ
     if 'energy-kcal_100g' in product_data['nutriments']:
@@ -79,7 +72,7 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     authors = ', '.join(product_data.get('editors_tags', ['open food facts']))
     object_url = f'https://world.openfoodfacts.org/product/{code}/'
 
-    return IngredientData(
+    ingredient_data = IngredientData(
         remote_id=code,
         name=name,
         language_id=language,
@@ -102,3 +95,5 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         license_title=name,
         license_object_url=object_url,
     )
+    ingredient_data.sanity_checks()
+    return ingredient_data

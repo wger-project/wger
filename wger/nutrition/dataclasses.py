@@ -44,5 +44,29 @@ class IngredientData:
     license_title: str
     license_object_url: str
 
+    def sanity_checks(self):
+        if not self.name:
+            raise ValueError(f'Name is empty!')
+        self.name = self.name[:200]
+        self.brand = self.brand[:200]
+        self.common_name = self.common_name[:200]
+
+        macros = [
+            'protein',
+            'fat',
+            'fat_saturated',
+            'carbohydrates',
+            'carbohydrates_sugar',
+            'sodium',
+            'fibres',
+        ]
+        for macro in macros:
+            value = getattr(self, macro)
+            if value and value > 100:
+                raise ValueError(f'Value for {macro} is greater than 100: {value}')
+
+        if self.carbohydrates + self.protein + self.fat > 100:
+            raise ValueError(f'Total of carbohydrates, protein and fat is greater than 100!')
+
     def dict(self):
         return asdict(self)

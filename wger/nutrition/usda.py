@@ -20,9 +20,9 @@ from wger.utils.constants import CC_0_LICENSE_ID
 from wger.utils.models import AbstractSubmissionModel
 
 
-def convert_to_g_per_100g(entry: dict) -> float:
+def convert_to_grams(entry: dict) -> float:
     """
-    Convert a nutrient entry to grams per 100g
+    Convert a nutrient entry to grams
     """
 
     nutrient = entry['nutrient']
@@ -53,7 +53,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     fats_saturated = None
 
     sodium = None
-    fibre = None
+    fiber = None
 
     brand = product_data.get('brandName', '')
 
@@ -63,39 +63,32 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
 
         nutrient_id = nutrient['nutrient']['id']
         match nutrient_id:
+            # in kcal
             case 1008:
-                energy = float(nutrient.get('amount'))  # in kcal
+                energy = float(nutrient.get('amount'))
 
             case 1003:
-                protein = convert_to_g_per_100g(nutrient)
+                protein = convert_to_grams(nutrient)
 
             case 1005:
-                carbs = convert_to_g_per_100g(nutrient)
+                carbs = convert_to_grams(nutrient)
 
             # Total lipid (fat) | Total fat (NLEA)
             case 1004 | 1085:
-                fats = convert_to_g_per_100g(nutrient)
+                fats = convert_to_grams(nutrient)
 
             case 1093:
-                sodium = convert_to_g_per_100g(nutrient)
+                sodium = convert_to_grams(nutrient)
 
             case 1079:
-                fibre = convert_to_g_per_100g(nutrient)
+                fiber = convert_to_grams(nutrient)
 
     macros = [energy, protein, carbs, fats]
     for value in macros:
         if value is None:
             raise KeyError(f'Could not extract all basic macros: {macros=} {remote_id=}')
 
-    for value in [protein, fats, fats_saturated, carbs, carbs_sugars, sodium, fibre]:
-        if value and value > 100:
-            raise ValueError(f'Value for macronutrient is greater than 100! {macros=} {remote_id=}')
-
     name = product_data['description'].title()
-    if not name:
-        raise ValueError(f'Name is empty! {remote_id=}')
-    if len(name) > 200:
-        name = name[:200]
 
     # License and author info
     source_name = Source.USDA.value
@@ -106,7 +99,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
     )
     object_url = f'https://fdc.nal.usda.gov/fdc-app.html#/food-details/{remote_id}/nutrients'
 
-    return IngredientData(
+    ingredient_data = IngredientData(
         code=barcode,
         remote_id=remote_id,
         name=name,
@@ -118,7 +111,7 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         carbohydrates_sugar=carbs_sugars,
         fat=fats,
         fat_saturated=fats_saturated,
-        fibres=fibre,
+        fibres=fiber,
         sodium=sodium,
         source_name=source_name,
         source_url=source_url,
@@ -129,3 +122,5 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         license_title=name,
         license_object_url=object_url,
     )
+    ingredient_data.sanity_checks()
+    return ingredient_data
