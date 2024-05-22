@@ -15,9 +15,7 @@ env = environ.Env(
 DEBUG = env("DJANGO_DEBUG")
 
 if os.environ.get('DJANGO_ADMINS'):
-    ADMINS = (
-        env.list('DJANGO_ADMINS')
-    )
+    ADMINS = [env.tuple('DJANGO_ADMINS'), ]
     MANAGERS = ADMINS
 
 if os.environ.get("DJANGO_DB_ENGINE"):
