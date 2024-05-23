@@ -459,23 +459,21 @@ class IngredientModelTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.off_response = {
-            'product': {
-                'code': '1234',
-                'lang': 'de',
-                'product_name': 'Foo with chocolate',
-                'generic_name': 'Foo with chocolate, 250g package',
-                'brands': 'The bar company',
-                'editors_tags': ['open food facts', 'MrX'],
-                'nutriments': {
-                    'energy-kcal_100g': 120,
-                    'proteins_100g': 10,
-                    'carbohydrates_100g': 20,
-                    'sugars_100g': 30,
-                    'fat_100g': 40,
-                    'saturated-fat_100g': 11,
-                    'sodium_100g': 5,
-                    'fiber_100g': None,
-                },
+            'code': '1234',
+            'lang': 'de',
+            'product_name': 'Foo with chocolate',
+            'generic_name': 'Foo with chocolate, 250g package',
+            'brands': 'The bar company',
+            'editors_tags': ['open food facts', 'MrX'],
+            'nutriments': {
+                'energy-kcal_100g': 120,
+                'proteins_100g': 10,
+                'carbohydrates_100g': 20,
+                'sugars_100g': 30,
+                'fat_100g': 40,
+                'saturated-fat_100g': 11,
+                'sodium_100g': 5,
+                'fiber_100g': None,
             },
         }
 
@@ -507,7 +505,7 @@ class IngredientModelTestCase(WgerTestCase):
         """
         Tests creating an ingredient from OFF - name gets truncated
         """
-        self.off_response['product']['product_name'] = """
+        self.off_response['product_name'] = """
         The Shiba Inu (柴犬, Japanese: [ɕiba inɯ]) is a breed of hunting dog from Japan. A
         small-to-medium breed, it is the smallest of the six original and distinct spitz
         breeds of dog native to Japan.[1] Its name literally translates to "brushwood dog",
@@ -522,7 +520,7 @@ class IngredientModelTestCase(WgerTestCase):
         """
         Tests creating an ingredient from OFF - missing key in nutriments
         """
-        del self.off_response['product']['nutriments']['energy-kcal_100g']
+        del self.off_response['nutriments']['energy-kcal_100g']
         mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
@@ -533,7 +531,7 @@ class IngredientModelTestCase(WgerTestCase):
         """
         Tests creating an ingredient from OFF - missing name
         """
-        del self.off_response['product']['product_name']
+        del self.off_response['product_name']
         mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')

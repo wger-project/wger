@@ -3,7 +3,7 @@
 #
 
 # Application
-Django==4.2.6
+Django==4.2.13
 bleach[css]~=6.1
 celery[redis]==5.4.0
 crispy-bootstrap5==2024.2
@@ -27,9 +27,9 @@ icalendar==5.0.12
 invoke==2.2.0
 openfoodfacts==0.3.0
 pillow==10.3.0
-reportlab==4.1.0
-requests==2.31.0
-tqdm==4.66.2
+reportlab==4.2.0
+requests==2.32.0
+tqdm==4.66.4
 tzdata==2024.1
 
 # AWS

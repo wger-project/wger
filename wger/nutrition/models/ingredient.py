@@ -481,10 +481,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not result:
             logger.info('Product not found')
             return None
-        product = result['product']
 
         try:
-            ingredient_data = extract_info_from_off(product, load_language(product['lang']).pk)
+            ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
         except KeyError:
             return None
 
