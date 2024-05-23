@@ -115,7 +115,7 @@ class EmailListFormPreview(FormPreview):
                 mail.send_mail(
                     form.cleaned_data['subject'],
                     form.cleaned_data['body'],
-                    settings.WGER_SETTINGS.EMAIL_FROM,
+                    settings.WGER_SETTINGS.email_from,
                     [admin.email],
                     fail_silently=False,
                 )

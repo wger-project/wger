@@ -46,7 +46,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -69,9 +68,9 @@ def fetch_ingredient_image(pk: int):
         return
 
     logger.info(f'Fetching image for ingredient {pk}')
-    if settings.WGER_SETTINGS.DOWNLOAD_INGREDIENTS_FROM == DOWNLOAD_INGREDIENT_OFF:
+    if settings.WGER_SETTINGS.download_ingredients_from == DOWNLOAD_INGREDIENT_OFF:
         fetch_image_from_off(ingredient)
-    elif settings.WGER_SETTINGS.DOWNLOAD_INGREDIENTS_FROM == DOWNLOAD_INGREDIENT_WGER:
+    elif settings.WGER_SETTINGS.download_ingredients_from == DOWNLOAD_INGREDIENT_WGER:
         fetch_image_from_wger_instance(ingredient)
 
 
@@ -162,7 +161,7 @@ def fetch_image_from_off(ingredient):
 
 def download_ingredient_images(
     print_fn,
-    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
+    remote_url=settings.WGER_SETTINGS.wger_instance,
     style_fn=lambda x: x,
 ):
     headers = wger_headers()
@@ -196,7 +195,7 @@ def download_ingredient_images(
 
 def sync_ingredients(
     print_fn,
-    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
+    remote_url=settings.WGER_SETTINGS.wger_instance,
     style_fn=lambda x: x,
 ):
     """Synchronize the ingredients from the remote server"""

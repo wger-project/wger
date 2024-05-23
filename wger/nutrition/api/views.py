@@ -78,7 +78,6 @@ from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -92,7 +91,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.exercise_cache_ttl))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
@@ -268,7 +267,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.exercise_cache_ttl))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

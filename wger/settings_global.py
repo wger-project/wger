@@ -25,7 +25,6 @@ from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 from wger.wger_settings import WgerSettings
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -557,7 +556,7 @@ def email_verified_callback(user):
 
 
 EMAIL_MAIL_CALLBACK = email_verified_callback
-EMAIL_FROM_ADDRESS = WGER_SETTINGS.EMAIL_FROM
+EMAIL_FROM_ADDRESS = WGER_SETTINGS.email_from
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
 EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'

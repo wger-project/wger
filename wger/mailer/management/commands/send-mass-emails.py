@@ -37,7 +37,7 @@ class Command(BaseCommand):
                 mail.send_mail(
                     email.log.subject,
                     email.log.body,
-                    settings.WGER_SETTINGS.EMAIL_FROM,
+                    settings.WGER_SETTINGS.email_from,
                     [email.email],
                     fail_silently=True,
                 )

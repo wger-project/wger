@@ -102,7 +102,7 @@ class Command(BaseCommand):
                     mail.send_mail(
                         subject,
                         message,
-                        settings.WGER_SETTINGS.EMAIL_FROM,
+                        settings.WGER_SETTINGS.email_from,
                         [trainer.email],
                         fail_silently=True,
                     )

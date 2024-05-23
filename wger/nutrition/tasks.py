@@ -30,7 +30,6 @@ from wger.nutrition.sync import (
     sync_ingredients,
 )
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -64,7 +63,7 @@ def sync_all_ingredients_task():
 
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
-    if settings.WGER_SETTINGS.SYNC_INGREDIENTS_CELERY:
+    if settings.WGER_SETTINGS.sync_ingredients_celery:
         sender.add_periodic_task(
             crontab(
                 hour=str(random.randint(0, 23)),

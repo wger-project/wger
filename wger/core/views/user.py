@@ -104,7 +104,6 @@ from wger.utils.generic_views import (
 from wger.utils.language import load_language
 from wger.weight.models import WeightEntry
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -238,7 +237,7 @@ def registration(request):
     """
 
     # If global user registration is deactivated, redirect
-    if not settings.WGER_SETTINGS.ALLOW_REGISTRATION:
+    if not settings.WGER_SETTINGS.allow_registration:
         return HttpResponseRedirect(reverse('software:features'))
 
     template_data = {}
@@ -246,7 +245,7 @@ def registration(request):
 
     # Don't show captcha if the global parameter is false
     FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS.USE_RECAPTCHA else RegistrationFormNoCaptcha
+        RegistrationForm if settings.WGER_SETTINGS.use_recaptcha else RegistrationFormNoCaptcha
     )
 
     # Redirect regular users, in case they reached the registration page
@@ -549,8 +548,8 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
             )
         context['workouts'] = out
         context['weight_entries'] = WeightEntry.objects.filter(user=self.object).order_by('-date')[
-            :5
-        ]
+                                    :5
+                                    ]
         context['nutrition_plans'] = NutritionPlan.objects.filter(user=self.object).order_by(
             '-creation_date'
         )[:5]
@@ -630,7 +629,7 @@ class WgerPasswordResetView(PasswordResetView):
     template_name = 'form.html'
     email_template_name = 'registration/password_reset_email.html'
     success_url = reverse_lazy('core:user:password_reset_done')
-    from_email = settings.WGER_SETTINGS.EMAIL_FROM
+    from_email = settings.WGER_SETTINGS.email_from
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordResetView, self).get_form(form_class)

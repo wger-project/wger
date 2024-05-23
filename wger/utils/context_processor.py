@@ -37,8 +37,8 @@ def processor(request):
 
     # yapf: disable
     context = {
-        'mastodon': settings.WGER_SETTINGS.MASTODON,
-        'twitter': settings.WGER_SETTINGS.TWITTER,
+        'mastodon': settings.WGER_SETTINGS.mastodon,
+        'twitter': settings.WGER_SETTINGS.twitter,
 
         # Languages
         'i18n_language':

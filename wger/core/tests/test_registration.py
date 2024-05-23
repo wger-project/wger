@@ -27,7 +27,6 @@ from wger.core.forms import (
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.wger_settings import WgerSettings
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -43,9 +42,9 @@ class RegistrationTestCase(WgerTestCase):
         """
         with self.settings(
             WGER_SETTINGS=WgerSettings(
-                USE_RECAPTCHA=True,
-                ALLOW_REGISTRATION=True,
-                ALLOW_GUEST_USERS=True,
+                use_recaptcha=True,
+                allow_registration=True,
+                allow_guest_users=True,
             )
         ):
             response = self.client.get(reverse('core:user:registration'))
@@ -53,9 +52,9 @@ class RegistrationTestCase(WgerTestCase):
 
         with self.settings(
             WGER_SETTINGS=WgerSettings(
-                USE_RECAPTCHA=False,
-                ALLOW_REGISTRATION=True,
-                ALLOW_GUEST_USERS=True,
+                use_recaptcha=False,
+                allow_registration=True,
+                allow_guest_users=True,
             )
         ):
             response = self.client.get(reverse('core:user:registration'))
@@ -171,9 +170,9 @@ class RegistrationTestCase(WgerTestCase):
 
         with self.settings(
             WGER_SETTINGS=WgerSettings(
-                USE_RECAPTCHA=True,
-                ALLOW_GUEST_USERS=True,
-                ALLOW_REGISTRATION=False,
+                use_recaptcha=True,
+                allow_guest_users=True,
+                allow_registration=False,
             )
         ):
             # Fetch the registration page

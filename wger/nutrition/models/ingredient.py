@@ -64,7 +64,6 @@ from wger.utils.requests import wger_user_agent
 # Local
 from .ingredient_category import IngredientCategory
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -389,7 +388,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             mail.send_mail(
                 subject,
                 message,
-                settings.WGER_SETTINGS.EMAIL_FROM,
+                settings.WGER_SETTINGS.email_from,
                 [user.email],
                 fail_silently=True,
             )
@@ -444,7 +443,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not request.user.is_authenticated:
             return
 
-        if not settings.WGER_SETTINGS.USE_CELERY:
+        if not settings.WGER_SETTINGS.use_celery:
             logger.info('Celery deactivated, skipping retrieving ingredient image')
             return
 

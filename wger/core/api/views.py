@@ -76,7 +76,6 @@ from wger.core.models import (
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -350,7 +349,7 @@ class LanguageViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('full_name', 'short_name')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.exercise_cache_ttl))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

@@ -62,11 +62,11 @@ class DemoUserTestCase(WgerTestCase):
         """
         with self.settings(
             WGER_SETTINGS=WgerSettings(
-                USE_RECAPTCHA=True,
-                ALLOW_REGISTRATION=True,
-                ALLOW_GUEST_USERS=False,
-                TWITTER=None,
-                MASTODON=None,
+                use_recaptcha=True,
+                allow_registration=True,
+                allow_guest_users=False,
+                twitter=None,
+                mastodon=None,
             )
         ):
             self.assertEqual(self.count_temp_users(), 1)

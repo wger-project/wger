@@ -78,5 +78,5 @@ class Command(BaseCommand):
         subject = _('You have to enter your weight')
         message = loader.render_to_string('workout/email_weight_reminder.tpl', context)
         mail.send_mail(
-            subject, message, settings.WGER_SETTINGS.EMAIL_FROM, [user.email], fail_silently=True
+            subject, message, settings.WGER_SETTINGS.email_from, [user.email], fail_silently=True
         )

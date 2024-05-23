@@ -33,7 +33,6 @@ from django.utils.translation import activate
 # wger
 from wger.utils.constants import TWOPLACES
 
-
 STATUS_CODES_FAIL = (302, 403, 404)
 
 
@@ -76,7 +75,6 @@ def delete_testcase_add_methods(cls):
     """
 
     for user in get_user_list(cls.user_fail):
-
         def test_unauthorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
@@ -84,7 +82,6 @@ def delete_testcase_add_methods(cls):
         setattr(cls, f'test_unauthorized_{user}', test_unauthorized)
 
     for user in get_user_list(cls.user_success):
-
         def test_authorized(self):
             self.user_login(user)
             self.delete_object(fail=False)
@@ -157,8 +154,8 @@ class BaseTestCase:
         # https://django-axes.readthedocs.io/en/latest/3_usage.html#authenticating-users
         settings.AXES_ENABLED = False
 
-        settings.WGER_SETTINGS.DOWNLOAD_INGREDIENTS_FROM = False
-        settings.WGER_SETTINGS.USE_CELERY = False
+        settings.WGER_SETTINGS.download_ingredients_from = False
+        settings.WGER_SETTINGS.use_celery = False
 
     def tearDown(self):
         """

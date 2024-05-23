@@ -50,7 +50,6 @@ from wger.core.forms import (
 from wger.core.models import DaysOfWeek
 from wger.manager.models import Schedule
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -71,7 +70,7 @@ def demo_entries(request):
     """
     Creates a set of sample entries for guest users
     """
-    if not settings.WGER_SETTINGS.ALLOW_GUEST_USERS:
+    if not settings.WGER_SETTINGS.allow_guest_users:
         return HttpResponseRedirect(reverse('software:features'))
 
     if (

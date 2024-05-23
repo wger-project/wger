@@ -39,7 +39,7 @@ class Command(BaseCommand):
     Synchronizes ingredient data from a wger instance to the local database
     """
 
-    remote_url = settings.WGER_SETTINGS.WGER_INSTANCE
+    remote_url = settings.WGER_SETTINGS.wger_instance
 
     help = """Synchronizes ingredient data from a wger instance to the local database"""
 
@@ -48,9 +48,9 @@ class Command(BaseCommand):
             '--remote-url',
             action='store',
             dest='remote_url',
-            default=settings.WGER_SETTINGS.WGER_INSTANCE,
+            default=settings.WGER_SETTINGS.wger_instance,
             help=f'Remote URL to fetch the ingredients from (default: WGER_SETTINGS'
-            f'.WGER_INSTANCE - {settings.WGER_SETTINGS.WGER_INSTANCE})',
+                 f'.WGER_INSTANCE - {settings.WGER_SETTINGS.wger_instance})',
         )
 
     def handle(self, **options):

@@ -32,7 +32,6 @@ from wger.core.forms import (
 from wger.exercises.models import ExerciseBase
 from wger.nutrition.models import Ingredient
 
-
 logger = logging.getLogger(__name__)
 
 CACHE_KEY = 'landing-page-context'
@@ -55,13 +54,13 @@ def features(request):
         cache.set(CACHE_KEY, context, 60 * 60 * 24 * 7)  # one week
 
     FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS.USE_RECAPTCHA else RegistrationFormNoCaptcha
+        RegistrationForm if settings.WGER_SETTINGS.use_recaptcha else RegistrationFormNoCaptcha
     )
     form = FormClass()
     form.fields['username'].widget.attrs.pop('autofocus', None)
 
     context['form'] = form
-    context['allow_registration'] = settings.WGER_SETTINGS.ALLOW_REGISTRATION
-    context['allow_guest_users'] = settings.WGER_SETTINGS.ALLOW_GUEST_USERS
+    context['allow_registration'] = settings.WGER_SETTINGS.allow_registration
+    context['allow_guest_users'] = settings.WGER_SETTINGS.allow_guest_users
 
     return render(request, 'features.html', context)

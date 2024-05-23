@@ -28,7 +28,6 @@ from django.utils.functional import SimpleLazyObject
 # wger
 from wger.core.demo import create_temporary_user
 
-
 logger = logging.getLogger(__name__)
 
 SPECIAL_PATHS = ('dashboard',)
@@ -64,7 +63,7 @@ def get_user(request):
 
         # Django didn't find a user, so create one now
         if (
-            settings.WGER_SETTINGS.ALLOW_GUEST_USERS
+            settings.WGER_SETTINGS.allow_guest_users
             and request.method == 'GET'
             and create_user
             and not user.is_authenticated
