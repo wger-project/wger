@@ -9,14 +9,14 @@
 wheel==0.43.0
 
 # for ingredient import script from OFF
-pymongo==4.6.2
+pymongo==4.7.1
 
 # for running the dummy entry generators
-faker==24.3.0
+faker==25.0.0
 
 # Development packages
 coverage==7.4.4
 django-debug-toolbar==4.3.0
 isort==5.13.2
-ruff==0.3.3
+ruff==0.4.4
 tblib==3.0.0

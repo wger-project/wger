@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-01-28 21:01+0000\n"
-"Last-Translator: Roland Geider <roland@geider.net>\n"
+"PO-Revision-Date: 2024-05-07 00:42+0000\n"
+"Last-Translator: becothas <lukas.jedinger@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/wger/web/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5.4-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -470,7 +470,7 @@ msgstr "Verboten!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to acces this page"
-msgstr ""
+msgstr "Sie haben keine Berechtigung diese Seite zu besuchen"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -1774,10 +1774,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Den Namen des Fitnessstudios in der Kopfzeile der Website anzeigen"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "Konfiguration für {}"
+msgstr "Konfiguration für {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -2050,7 +2049,7 @@ msgstr "Minuten"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Scheiben"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"

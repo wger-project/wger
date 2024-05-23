@@ -14,10 +14,9 @@ env = environ.Env(
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = env("DJANGO_DEBUG")
 
-ADMINS = (
-    ('Your name', 'your_email@example.com'),
-)
-MANAGERS = ADMINS
+if os.environ.get('DJANGO_ADMINS'):
+    ADMINS = [env.tuple('DJANGO_ADMINS'), ]
+    MANAGERS = ADMINS
 
 if os.environ.get("DJANGO_DB_ENGINE"):
     DATABASES = {
@@ -34,7 +33,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': '/home/wger/db/database.sqlite',
+            'NAME': env.str('DJANGO_DB_DATABASE', '/home/wger/db/database.sqlite'),
         }
     }
 
@@ -99,6 +98,7 @@ WGER_SETTINGS["SYNC_EXERCISES_CELERY"] = env.bool("SYNC_EXERCISES_CELERY", False
 WGER_SETTINGS["SYNC_EXERCISE_IMAGES_CELERY"] = env.bool("SYNC_EXERCISE_IMAGES_CELERY", False)
 WGER_SETTINGS["SYNC_EXERCISE_VIDEOS_CELERY"] = env.bool("SYNC_EXERCISE_VIDEOS_CELERY", False)
 WGER_SETTINGS["SYNC_INGREDIENTS_CELERY"] = env.bool("SYNC_INGREDIENTS_CELERY", False)
+WGER_SETTINGS["USE_RECAPTCHA"] = env.bool("USE_RECAPTCHA", False)
 WGER_SETTINGS["USE_CELERY"] = env.bool("USE_CELERY", False)
 
 # Cache
@@ -113,6 +113,9 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             }
         }
     }
+
+    if os.environ.get('DJANGO_CACHE_CLIENT_PASSWORD'):
+        CACHES['default']['OPTIONS']['PASSWORD'] = env.str('DJANGO_CACHE_CLIENT_PASSWORD')
 
 # Folder for compressed CSS and JS files
 COMPRESS_ROOT = STATIC_ROOT
@@ -129,7 +132,8 @@ AXES_FAILURE_LIMIT = env.int('AXES_FAILURE_LIMIT', 10)
 AXES_COOLOFF_TIME = timedelta(minutes=env.float('AXES_COOLOFF_TIME', 30))
 AXES_HANDLER = env.str('AXES_HANDLER', 'axes.handlers.cache.AxesCacheHandler')
 AXES_IPWARE_PROXY_COUNT = env.int('AXES_IPWARE_PROXY_COUNT', 0)
-AXES_IPWARE_META_PRECEDENCE_ORDER = env.list('AXES_IPWARE_META_PRECEDENCE_ORDER', default=['REMOTE_ADDR'])
+AXES_IPWARE_META_PRECEDENCE_ORDER = env.list('AXES_IPWARE_META_PRECEDENCE_ORDER',
+                                             default=['REMOTE_ADDR'])
 
 #
 # Django Rest Framework SimpleJWT

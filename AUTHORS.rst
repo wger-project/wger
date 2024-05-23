@@ -76,6 +76,7 @@ Developers
 * Alexandra Rhodes - https://github.com/arhodes130
 * Jayanth Bontha - https://github.com/JayanthBontha
 * Ethan Winters - https://github.com/ebwinters
+* Dieter Plaetinck - https://github.com/Dieterbe
 
 Translators
 -----------
@@ -168,6 +169,7 @@ Translators
   - Krzysztof Tataradziński
   - Marius
   - Michał Jastrzębowski
+  - Marcin Schoenknecht
 
 * Ukrainian
 

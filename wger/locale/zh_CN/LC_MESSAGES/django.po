@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2023-09-05 05:55+0000\n"
-"Last-Translator: Scotee007 <huangzhenjiao@gmail.com>\n"
+"PO-Revision-Date: 2024-05-08 06:07+0000\n"
+"Last-Translator: Bingo_Yan <yanhuibin315@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.5.4-rc\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -463,7 +463,7 @@ msgstr "禁止!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to acces this page"
-msgstr ""
+msgstr "您无权访问该页面"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -482,7 +482,8 @@ msgid ""
 "There was an error on the server while processing your request. Try "
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
-msgstr ""
+msgstr "服务器在处理您的请求时出现错误。尝试刷新您的浏览器，如果没有帮助，请稍后再试"
+"。如果问题仍然存在，您可以通过以下方式寻求帮助："
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
 #, fuzzy, python-format
@@ -519,7 +520,7 @@ msgstr "邮箱验证"
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, 您的电子邮件已验证"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
@@ -1486,7 +1487,7 @@ msgstr ""
 
 #: exercises/models/image.py:99
 msgid "The art style of your image"
-msgstr ""
+msgstr "您的图片的艺术风格"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
@@ -1500,7 +1501,7 @@ msgstr "健身项目名称"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "肌肉的基本名称"
 
 #: exercises/models/video.py:52
 #, python-format
@@ -1541,11 +1542,11 @@ msgstr "身高"
 
 #: exercises/models/video.py:147
 msgid "Codec"
-msgstr ""
+msgstr "编码"
 
 #: exercises/models/video.py:155
 msgid "Codec, long name"
-msgstr ""
+msgstr "编解码器的全称"
 
 #: exercises/templates/equipment/admin-overview.html:4
 msgid "Equipment list"
@@ -1581,7 +1582,7 @@ msgstr "用户"
 
 #: exercises/templates/history/overview.html:29
 msgid "Object"
-msgstr ""
+msgstr "对象"
 
 #: exercises/templates/history/overview.html:31
 #, fuzzy
@@ -1591,11 +1592,11 @@ msgstr "修改密码"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
-msgstr ""
+msgstr "还原"
 
 #: exercises/templates/history/overview.html:64
 msgid "View Object"
-msgstr ""
+msgstr "查看对象"
 
 #: exercises/templates/history/overview.html:75
 msgid "View changes"

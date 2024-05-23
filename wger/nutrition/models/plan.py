@@ -82,6 +82,8 @@ class NutritionPlan(models.Model):
 
     goal_carbohydrates = models.IntegerField(null=True, default=None)
 
+    goal_fibers = models.IntegerField(null=True, default=None)
+
     goal_fat = models.IntegerField(null=True, default=None)
 
     has_goal_calories = models.BooleanField(

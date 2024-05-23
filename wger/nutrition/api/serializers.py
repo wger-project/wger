@@ -104,31 +104,6 @@ class IngredientImageSerializer(serializers.ModelSerializer):
         ]
 
 
-class IngredientInfoImageSerializer(serializers.ModelSerializer):
-    """
-    Image serializer
-    """
-
-    class Meta:
-        model = Image
-        fields = [
-            'id',
-            'uuid',
-            'image',
-            'created',
-            'last_update',
-            'size',
-            'width',
-            'height',
-            'license',
-            'license_title',
-            'license_object_url',
-            'license_author',
-            'license_author_url',
-            'license_derivative_source_url',
-        ]
-
-
 class IngredientSerializer(serializers.ModelSerializer):
     """
     Ingredient serializer
@@ -167,7 +142,7 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
     """
 
     weight_units = IngredientWeightUnitInfoSerializer(source='ingredientweightunit_set', many=True)
-    image = IngredientInfoImageSerializer(read_only=True)
+    image = IngredientImageSerializer(read_only=True)
 
     class Meta:
         model = Ingredient
@@ -337,6 +312,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'goal_protein',
             'goal_carbohydrates',
             'goal_fat',
+            'goal_fibers',
             # 'nutritional_values',
         ]
 
@@ -355,5 +331,11 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
             'id',
             'creation_date',
             'description',
+            'only_logging',
+            'goal_energy',
+            'goal_protein',
+            'goal_carbohydrates',
+            'goal_fat',
+            'goal_fibers',
             'meals',
         ]
