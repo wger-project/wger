@@ -121,5 +121,5 @@ class Command(BaseCommand):
         subject = _('Workout will expire soon')
         message = loader.render_to_string('workout/email_reminder.tpl', context)
         mail.send_mail(
-            subject, message, settings.WGER_SETTINGS['EMAIL_FROM'], [user.email], fail_silently=True
+            subject, message, settings.WGER_SETTINGS.EMAIL_FROM, [user.email], fail_silently=True
         )

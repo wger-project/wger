@@ -29,6 +29,7 @@ from wger.utils.constants import (
     DOWNLOAD_INGREDIENT_WGER,
 )
 from wger.utils.requests import wger_headers
+from wger.wger_settings import WgerSettings
 
 
 class MockOffResponse:
@@ -107,7 +108,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': True}):
+        with self.settings(WGER_SETTINGS=WgerSettings(DOWNLOAD_INGREDIENTS_FROM='1234')):
             result = fetch_ingredient_image(1)
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
@@ -123,7 +124,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         ingredient.source_name = 'blabla'
         ingredient.save()
 
-        with self.settings(WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': False}):
+        with self.settings(WGER_SETTINGS=WgerSettings(DOWNLOAD_INGREDIENTS_FROM='1234')):
             result = fetch_ingredient_image(1)
             mock_logger.assert_not_called()
             mock_request.assert_not_called()
@@ -142,7 +143,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_OFF},
+            WGER_SETTINGS=WgerSettings(DOWNLOAD_INGREDIENTS_FROM=DOWNLOAD_INGREDIENT_OFF),
             TESTING=False,
         ):
             result = fetch_ingredient_image(1)
@@ -181,7 +182,8 @@ class FetchIngredientImageTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER}, TESTING=False
+            WGER_SETTINGS=WgerSettings(DOWNLOAD_INGREDIENTS_FROM=DOWNLOAD_INGREDIENT_WGER),
+            TESTING=False,
         ):
             result = fetch_ingredient_image(1)
 

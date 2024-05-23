@@ -157,8 +157,8 @@ class BaseTestCase:
         # https://django-axes.readthedocs.io/en/latest/3_usage.html#authenticating-users
         settings.AXES_ENABLED = False
 
-        settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] = False
-        settings.WGER_SETTINGS['USE_CELERY'] = False
+        settings.WGER_SETTINGS.DOWNLOAD_INGREDIENTS_FROM = False
+        settings.WGER_SETTINGS.USE_CELERY = False
 
     def tearDown(self):
         """

@@ -238,7 +238,7 @@ def registration(request):
     """
 
     # If global user registration is deactivated, redirect
-    if not settings.WGER_SETTINGS['ALLOW_REGISTRATION']:
+    if not settings.WGER_SETTINGS.ALLOW_REGISTRATION:
         return HttpResponseRedirect(reverse('software:features'))
 
     template_data = {}
@@ -246,7 +246,7 @@ def registration(request):
 
     # Don't show captcha if the global parameter is false
     FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
+        RegistrationForm if settings.WGER_SETTINGS.USE_RECAPTCHA else RegistrationFormNoCaptcha
     )
 
     # Redirect regular users, in case they reached the registration page
@@ -630,7 +630,7 @@ class WgerPasswordResetView(PasswordResetView):
     template_name = 'form.html'
     email_template_name = 'registration/password_reset_email.html'
     success_url = reverse_lazy('core:user:password_reset_done')
-    from_email = settings.WGER_SETTINGS['EMAIL_FROM']
+    from_email = settings.WGER_SETTINGS.EMAIL_FROM
 
     def get_form(self, form_class=None):
         form = super(WgerPasswordResetView, self).get_form(form_class)

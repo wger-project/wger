@@ -235,7 +235,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
         'name',
     )
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -405,7 +405,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -450,7 +450,7 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name',)
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -480,7 +480,7 @@ class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name',)
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -501,7 +501,7 @@ class ExerciseImageViewSet(ModelViewSet):
         'license_author',
     )
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -683,6 +683,6 @@ class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('name', 'is_front', 'name_en')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)

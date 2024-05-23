@@ -55,13 +55,13 @@ def features(request):
         cache.set(CACHE_KEY, context, 60 * 60 * 24 * 7)  # one week
 
     FormClass = (
-        RegistrationForm if settings.WGER_SETTINGS['USE_RECAPTCHA'] else RegistrationFormNoCaptcha
+        RegistrationForm if settings.WGER_SETTINGS.USE_RECAPTCHA else RegistrationFormNoCaptcha
     )
     form = FormClass()
     form.fields['username'].widget.attrs.pop('autofocus', None)
 
     context['form'] = form
-    context['allow_registration'] = settings.WGER_SETTINGS['ALLOW_REGISTRATION']
-    context['allow_guest_users'] = settings.WGER_SETTINGS['ALLOW_GUEST_USERS']
+    context['allow_registration'] = settings.WGER_SETTINGS.ALLOW_REGISTRATION
+    context['allow_guest_users'] = settings.WGER_SETTINGS.ALLOW_GUEST_USERS
 
     return render(request, 'features.html', context)

@@ -15,7 +15,7 @@ def settings_check(app_configs, **kwargs):
     errors = []
 
     # Upstream wger instance should be configured
-    if not settings.WGER_SETTINGS.get('WGER_INSTANCE'):
+    if not settings.WGER_SETTINGS.WGER_INSTANCE:
         errors.append(
             Warning(
                 'wger instance not set',
@@ -26,7 +26,7 @@ def settings_check(app_configs, **kwargs):
         )
 
     # Only one setting should be set
-    if settings.WGER_SETTINGS['DOWNLOAD_INGREDIENTS_FROM'] not in DOWNLOAD_INGREDIENT_OPTIONS:
+    if settings.WGER_SETTINGS.DOWNLOAD_INGREDIENTS_FROM not in DOWNLOAD_INGREDIENT_OPTIONS:
         errors.append(
             Error(
                 'Ingredient images configuration error',

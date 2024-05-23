@@ -67,7 +67,7 @@ from wger.utils.url import make_uri
 
 def sync_exercises(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     """Synchronize the exercises from the remote server"""
@@ -156,7 +156,7 @@ def sync_exercises(
 
 def sync_languages(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     """Synchronize the languages from the remote server"""
@@ -182,7 +182,7 @@ def sync_languages(
 
 def sync_licenses(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     """Synchronize the licenses from the remote server"""
@@ -207,7 +207,7 @@ def sync_licenses(
 
 def sync_categories(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     """Synchronize the categories from the remote server"""
@@ -232,7 +232,7 @@ def sync_categories(
 
 def sync_muscles(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     """Synchronize the muscles from the remote server"""
@@ -267,7 +267,7 @@ def sync_muscles(
 
 def sync_equipment(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     """Synchronize the equipment from the remote server"""
@@ -292,7 +292,7 @@ def sync_equipment(
 
 def handle_deleted_entries(
     print_fn=None,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     if not print_fn:
@@ -367,7 +367,7 @@ def handle_deleted_entries(
 
 def download_exercise_images(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     headers = wger_headers()
@@ -410,7 +410,7 @@ def download_exercise_images(
 
 def download_exercise_videos(
     print_fn,
-    remote_url=settings.WGER_SETTINGS['WGER_INSTANCE'],
+    remote_url=settings.WGER_SETTINGS.WGER_INSTANCE,
     style_fn=lambda x: x,
 ):
     headers = wger_headers()

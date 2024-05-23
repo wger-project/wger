@@ -25,6 +25,7 @@ from wger.core.forms import (
     RegistrationFormNoCaptcha,
 )
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.wger_settings import WgerSettings
 
 
 logger = logging.getLogger(__name__)
@@ -41,27 +42,21 @@ class RegistrationTestCase(WgerTestCase):
         configuration settings
         """
         with self.settings(
-            WGER_SETTINGS={
-                'USE_RECAPTCHA': True,
-                'ALLOW_REGISTRATION': True,
-                'ALLOW_GUEST_USERS': True,
-                'TWITTER': False,
-                'MASTODON': False,
-                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
-            }
+            WGER_SETTINGS=WgerSettings(
+                USE_RECAPTCHA=True,
+                ALLOW_REGISTRATION=True,
+                ALLOW_GUEST_USERS=True,
+            )
         ):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIsInstance(response.context['form'], RegistrationForm)
 
         with self.settings(
-            WGER_SETTINGS={
-                'USE_RECAPTCHA': False,
-                'ALLOW_REGISTRATION': True,
-                'ALLOW_GUEST_USERS': True,
-                'TWITTER': False,
-                'MASTODON': False,
-                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
-            }
+            WGER_SETTINGS=WgerSettings(
+                USE_RECAPTCHA=False,
+                ALLOW_REGISTRATION=True,
+                ALLOW_GUEST_USERS=True,
+            )
         ):
             response = self.client.get(reverse('core:user:registration'))
             self.assertIsInstance(response.context['form'], RegistrationFormNoCaptcha)
@@ -175,12 +170,11 @@ class RegistrationTestCase(WgerTestCase):
         """
 
         with self.settings(
-            WGER_SETTINGS={
-                'USE_RECAPTCHA': False,
-                'ALLOW_GUEST_USERS': True,
-                'ALLOW_REGISTRATION': False,
-                'MIN_ACCOUNT_AGE_TO_TRUST': 21,
-            }
+            WGER_SETTINGS=WgerSettings(
+                USE_RECAPTCHA=True,
+                ALLOW_GUEST_USERS=True,
+                ALLOW_REGISTRATION=False,
+            )
         ):
             # Fetch the registration page
             response = self.client.get(reverse('core:user:registration'))

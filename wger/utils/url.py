@@ -31,7 +31,7 @@ def make_uri(
     id: Optional[int] = None,
     object_method: Optional[str] = None,
     query: Optional[Dict[str, any]] = None,
-    server_url: str = settings.WGER_SETTINGS['WGER_INSTANCE'],
+    server_url: str = settings.WGER_SETTINGS.WGER_INSTANCE,
 ):
     uri_server = urlparse(server_url)
     query = query or {}

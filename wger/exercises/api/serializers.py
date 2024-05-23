@@ -483,5 +483,5 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             return representation
 
         representation = super().to_representation(instance)
-        cache.set(key, representation, settings.WGER_SETTINGS['EXERCISE_CACHE_TTL'])
+        cache.set(key, representation, settings.WGER_SETTINGS.EXERCISE_CACHE_TTL)
         return representation

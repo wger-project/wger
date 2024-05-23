@@ -389,7 +389,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             mail.send_mail(
                 subject,
                 message,
-                settings.WGER_SETTINGS['EMAIL_FROM'],
+                settings.WGER_SETTINGS.EMAIL_FROM,
                 [user.email],
                 fail_silently=True,
             )
@@ -444,7 +444,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not request.user.is_authenticated:
             return
 
-        if not settings.WGER_SETTINGS['USE_CELERY']:
+        if not settings.WGER_SETTINGS.USE_CELERY:
             logger.info('Celery deactivated, skipping retrieving ingredient image')
             return
 

@@ -72,7 +72,7 @@ def sync_videos_task():
 
 @app.on_after_finalize.connect
 def setup_periodic_tasks(sender, **kwargs):
-    if settings.WGER_SETTINGS['SYNC_EXERCISES_CELERY']:
+    if settings.WGER_SETTINGS.SYNC_EXERCISES_CELERY:
         sender.add_periodic_task(
             crontab(
                 hour=str(random.randint(0, 23)),
@@ -83,7 +83,7 @@ def setup_periodic_tasks(sender, **kwargs):
             name='Sync exercises',
         )
 
-    if settings.WGER_SETTINGS['SYNC_EXERCISE_IMAGES_CELERY']:
+    if settings.WGER_SETTINGS.SYNC_EXERCISE_IMAGES_CELERY:
         sender.add_periodic_task(
             crontab(
                 hour=str(random.randint(0, 23)),
@@ -94,7 +94,7 @@ def setup_periodic_tasks(sender, **kwargs):
             name='Sync exercise images',
         )
 
-    if settings.WGER_SETTINGS['SYNC_EXERCISE_VIDEOS_CELERY']:
+    if settings.WGER_SETTINGS.SYNC_EXERCISE_VIDEOS_CELERY:
         sender.add_periodic_task(
             crontab(
                 hour=str(random.randint(0, 23)),

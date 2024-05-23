@@ -23,6 +23,7 @@ from datetime import timedelta
 # wger
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
+from wger.wger_settings import WgerSettings
 
 
 """
@@ -172,7 +173,7 @@ TEMPLATES = [
                 'django.template.loaders.app_directories.Loader',
             ],
             'debug':
-            False
+                False
         },
     },
 ]
@@ -257,7 +258,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -498,7 +499,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
@@ -525,24 +526,26 @@ USER_AGENTS_CACHE = 'default'
 #
 # Consult docs/settings.rst for more information
 #
-WGER_SETTINGS = {
-    'ALLOW_GUEST_USERS': True,
-    'ALLOW_REGISTRATION': True,
-    'ALLOW_UPLOAD_VIDEOS': False,
-    'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
-    'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
-    'EXERCISE_CACHE_TTL': 3600,
-    'MIN_ACCOUNT_AGE_TO_TRUST': 21,
-    'SYNC_EXERCISES_CELERY': False,
-    'SYNC_EXERCISE_IMAGES_CELERY': False,
-    'SYNC_EXERCISE_VIDEOS_CELERY': False,
-    'SYNC_INGREDIENTS_CELERY': False,
-    'TWITTER': False,
-    'MASTODON': 'https://fosstodon.org/@wger',
-    'USE_CELERY': False,
-    'USE_RECAPTCHA': False,
-    'WGER_INSTANCE': 'https://wger.de',
-}
+# WGER_SETTINGS = {
+#     'ALLOW_GUEST_USERS': True,
+#     'ALLOW_REGISTRATION': True,
+#     'ALLOW_UPLOAD_VIDEOS': False,
+#     'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
+#     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
+#     'EXERCISE_CACHE_TTL': 3600,
+#     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
+#     'SYNC_EXERCISES_CELERY': False,
+#     'SYNC_EXERCISE_IMAGES_CELERY': False,
+#     'SYNC_EXERCISE_VIDEOS_CELERY': False,
+#     'SYNC_INGREDIENTS_CELERY': False,
+#     'TWITTER': False,
+#     'MASTODON': 'https://fosstodon.org/@wger',
+#     'USE_CELERY': False,
+#     'USE_RECAPTCHA': False,
+#     'WGER_INSTANCE': 'https://wger.de',
+# }
+
+WGER_SETTINGS = WgerSettings()
 
 
 #
@@ -554,7 +557,7 @@ def email_verified_callback(user):
 
 
 EMAIL_MAIL_CALLBACK = email_verified_callback
-EMAIL_FROM_ADDRESS = WGER_SETTINGS['EMAIL_FROM']
+EMAIL_FROM_ADDRESS = WGER_SETTINGS.EMAIL_FROM
 EMAIL_MAIL_SUBJECT = 'Confirm your email'
 EMAIL_MAIL_HTML = 'email_verification/email_body_html.tpl'
 EMAIL_MAIL_PLAIN = 'email_verification/email_body_txt.tpl'

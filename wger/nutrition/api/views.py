@@ -92,7 +92,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
@@ -268,7 +268,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS.EXERCISE_CACHE_TTL))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

@@ -38,7 +38,7 @@ class Command(BaseCommand):
     Synchronizes exercise data from a wger instance to the local database
     """
 
-    remote_url = settings.WGER_SETTINGS['WGER_INSTANCE']
+    remote_url = settings.WGER_SETTINGS.WGER_INSTANCE
 
     help = """Synchronizes exercise data from a wger instance to the local database.
             This script also deletes entries that were removed on the server such
@@ -57,9 +57,9 @@ class Command(BaseCommand):
             '--remote-url',
             action='store',
             dest='remote_url',
-            default=settings.WGER_SETTINGS['WGER_INSTANCE'],
+            default=settings.WGER_SETTINGS.WGER_INSTANCE,
             help=f'Remote URL to fetch the exercises from (default: WGER_SETTINGS'
-            f'["WGER_INSTANCE"] - {settings.WGER_SETTINGS["WGER_INSTANCE"]})',
+            f'.WGER_INSTANCE - {settings.WGER_SETTINGS.WGER_INSTANCE})',
         )
 
         parser.add_argument(

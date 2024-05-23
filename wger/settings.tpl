@@ -9,12 +9,12 @@ from wger.settings_global import *
 DEBUG = True
 
 # Application settings
-WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
-WGER_SETTINGS["ALLOW_REGISTRATION"] = True
-WGER_SETTINGS["ALLOW_GUEST_USERS"] = True
-WGER_SETTINGS["ALLOW_UPLOAD_VIDEOS"] = False
-WGER_SETTINGS["MIN_ACCOUNT_AGE_TO_TRUST"] = 21  # in days
-WGER_SETTINGS["EXERCISE_CACHE_TTL"] = 3600  # in seconds
+WGER_SETTINGS.EMAIL_FROM = 'wger Workout Manager <wger@example.com>'
+WGER_SETTINGS.ALLOW_REGISTRATION = True
+WGER_SETTINGS.ALLOW_GUEST_USERS = True
+WGER_SETTINGS.ALLOW_UPLOAD_VIDEOS = False
+WGER_SETTINGS.MIN_ACCOUNT_AGE_TO_TRUST = 21  # in days
+WGER_SETTINGS.EXERCISE_CACHE_TTL = 3600  # in seconds
 
 DATABASES = {{
     'default': {{
@@ -28,7 +28,7 @@ DATABASES = {{
 }}  # yapf: disable
 
 # List of administrations
-ADMINS = (('Your name', 'your_email@example.com'), )
+ADMINS = (('Your name', 'your_email@example.com'),)
 MANAGERS = ADMINS
 
 # SERVER_EMAIL = 'info@my-domain.com'
@@ -69,7 +69,7 @@ ALLOWED_HOSTS = [
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-DEFAULT_FROM_EMAIL = WGER_SETTINGS['EMAIL_FROM']
+DEFAULT_FROM_EMAIL = WGER_SETTINGS.EMAIL_FROM
 
 # The site's domain as used by the email verification workflow
 EMAIL_PAGE_DOMAIN = SITE_URL

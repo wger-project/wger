@@ -71,7 +71,7 @@ def demo_entries(request):
     """
     Creates a set of sample entries for guest users
     """
-    if not settings.WGER_SETTINGS['ALLOW_GUEST_USERS']:
+    if not settings.WGER_SETTINGS.ALLOW_GUEST_USERS:
         return HttpResponseRedirect(reverse('software:features'))
 
     if (
