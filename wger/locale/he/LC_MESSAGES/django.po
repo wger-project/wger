@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-04-16 23:02+0000\n"
-"Last-Translator: \"n,rdo\" <ifhiwy0kjc@gonetor.com>\n"
+"PO-Revision-Date: 2024-05-24 13:09+0000\n"
+"Last-Translator: Tsz Hong CHAN <tomyan112@yahoo.com.hk>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/wger/web/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -1174,7 +1174,7 @@ msgstr ""
 #: core/templates/user/overview.html:412 gym/templates/document/list.html:32
 #: manager/forms.py:292 manager/templates/workout/view.html:134
 msgid "Download"
-msgstr ""
+msgstr "הורדה"
 
 #: core/templates/user/overview.html:450 gym/views/admin_config.py:44
 #: gym/views/admin_config.py:58 gym/views/user_config.py:46
