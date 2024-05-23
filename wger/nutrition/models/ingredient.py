@@ -24,7 +24,6 @@ from json import JSONDecodeError
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.postgres.search import SearchVectorField
 from django.contrib.sites.models import Site
 from django.core import mail
 from django.core.cache import cache
@@ -53,10 +52,7 @@ from wger.nutrition.consts import (
 )
 from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import (
-    OFF_SEARCH_PRODUCT_FOUND,
-    TWOPLACES,
-)
+from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.managers import SubmissionManager
 from wger.utils.models import (
@@ -477,10 +473,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         if not result:
             logger.info('Product not found')
             return None
-        product = result['product']
 
         try:
-            ingredient_data = extract_info_from_off(product, load_language(product['lang']).pk)
+            ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
         except KeyError:
             return None
 
