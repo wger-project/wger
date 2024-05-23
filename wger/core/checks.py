@@ -8,6 +8,7 @@ from django.core.checks import (
 
 # wger
 from wger.utils.constants import DOWNLOAD_INGREDIENT_OPTIONS
+from wger.wger_settings import WgerSettings
 
 
 @register()
@@ -25,7 +26,19 @@ def settings_check(app_configs, **kwargs):
             )
         )
 
-    # Only one setting should be set
+    # Use correct settings
+    if isinstance(settings.WGER_SETTINGS, WgerSettings):
+        errors.append(
+            Error(
+                'The WGER_SETTINGS object is not correctly configured',
+                hint='Instead of a dictionary, this config is now an instance of WgerSettings. '
+                     'The names of the options have remained the same.',
+                obj=settings,
+                id='wger.E002',
+            )
+        )
+
+    # Correct options are set
     if settings.WGER_SETTINGS.download_ingredients_from not in DOWNLOAD_INGREDIENT_OPTIONS:
         errors.append(
             Error(
@@ -36,4 +49,5 @@ def settings_check(app_configs, **kwargs):
                 id='wger.E001',
             )
         )
+
     return errors
