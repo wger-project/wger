@@ -16,7 +16,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='nutritionplan',
-            name='goal_fibers',
+            name='goal_fiber',
             field=models.IntegerField(default=None, null=True),
+        ),
+        migrations.RenameField(
+            model_name='ingredient',
+            old_name='fibres',
+            new_name='fiber',
         ),
     ]
