@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-05-08 06:07+0000\n"
-"Last-Translator: Bingo_Yan <yanhuibin315@163.com>\n"
+"PO-Revision-Date: 2024-05-24 13:09+0000\n"
+"Last-Translator: Tsz Hong CHAN <tomyan112@yahoo.com.hk>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -77,13 +77,11 @@ msgid "Another sample day"
 msgstr "另一个示例健身日"
 
 #: core/demo.py:212
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
-msgstr "示例营养计划"
+msgstr "营养计划範例"
 
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
 msgstr "健身计划中的占位符{0}"
 
@@ -127,7 +125,6 @@ msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 
 #: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
-#, fuzzy
 msgid "Date of Birth"
 msgstr "生日"
 
@@ -486,12 +483,7 @@ msgstr "服务器在处理您的请求时出现错误。尝试刷新您的浏览
 "。如果问题仍然存在，您可以通过以下方式寻求帮助："
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -500,7 +492,7 @@ msgid ""
 msgstr ""
 "你是\n"
 "    以用户\"%(current_user)s\"的身份浏览本网站，所有操作都对其数据执行。\n"
-"    "
+"            "
 
 #: core/templates/base.html:14 core/templates/base_wide.html:11
 #, python-format
@@ -512,8 +504,6 @@ msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "你确定要删除这条记录？删除动作是不可撤销的。"
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
 msgstr "邮箱验证"
 
@@ -641,10 +631,6 @@ msgid "Imprint"
 msgstr "版本说明"
 
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
@@ -672,10 +658,8 @@ msgid "Calendar"
 msgstr "日历"
 
 #: core/templates/navigation.html:60
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "常量营养物"
+msgstr "测量"
 
 #: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -1437,10 +1421,8 @@ msgid "Language"
 msgstr "语言"
 
 #: exercises/models/exercise_alias.py:58
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "修正健身项目中"
+msgstr "训练项目别称"
 
 #: exercises/models/image.py:57
 msgid "Line"
@@ -1494,10 +1476,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "拉丁语中的\"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "健身项目名称"
+msgstr "別称"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
