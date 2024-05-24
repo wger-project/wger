@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load static %}
-{% load wger_extras %}
+{% load i18n l10n static wger_extras %}
 
 {#           #}
 {# Opengraph #}
@@ -99,7 +97,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="wger-form">
-                        <div id="pdf-download-info" data-workout-id="{{ workout.id }}" data-uid="{{ uid }}"
+                        <div id="pdf-download-info" data-workout-id="{{ workout.id|unlocalize }}" data-uid="{{ uid }}"
                              data-token="{{ token }}"></div>
                         <div class="form-group form-check-inline">
                             <input type="radio" name="pdf_type" class="form-check-input" id="id_type_log" value="log"
