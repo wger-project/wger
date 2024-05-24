@@ -9,9 +9,9 @@ def set_external_id(apps, schema_editor):
     """Set remote_id, used by imported ingredients (OFF, etc.)"""
 
     Ingredient = apps.get_model('nutrition', 'Ingredient')
-    for ingredient in Ingredient.objects.filter(source_name=Source.OPEN_FOOD_FACTS.value):
-        ingredient.remote_id = ingredient.code
-        ingredient.save()
+    Ingredient.objects.filter(source_name=Source.OPEN_FOOD_FACTS.value).update(
+        remote_id=models.F('code')
+    )
 
 
 class Migration(migrations.Migration):

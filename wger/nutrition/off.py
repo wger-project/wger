@@ -13,8 +13,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.dataclasses import IngredientData
