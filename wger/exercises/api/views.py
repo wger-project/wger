@@ -87,6 +87,7 @@ from wger.utils.constants import (
     HTML_ATTRIBUTES_WHITELIST,
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
+    SEARCH_ALL_LANGUAGES,
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
@@ -346,8 +347,14 @@ def search(request):
     if not q:
         return Response(response)
 
+    # Filter the appropriate languages
     languages = [load_language(l) for l in language_codes.split(',')]
-    query = Exercise.objects.filter(language__in=languages).only('name')
+    if language_codes == SEARCH_ALL_LANGUAGES:
+        query = Exercise.objects.all()
+    else:
+        query = Exercise.objects.filter(language__in=languages)
+
+    query = query.only('name')
 
     # Postgres uses a full-text search
     if is_postgres_db():
