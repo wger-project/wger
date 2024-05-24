@@ -82,14 +82,17 @@
                                     {% translate "Your templates" %}
                                 </a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'manager:template:public' %}" rel="nofollow">
-                                    {% if not user.is_authenticated %}
-                                        <span class="{% fa_class 'lock' %}"></span>
-                                    {% endif %}
-                                    {% translate "Public templates" %}
-                                </a>
-                            </li>
+                            
+                            {% if perms.manager.view_workout %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'manager:template:public' %}" rel="nofollow">
+                                        {% if not user.is_authenticated %}
+                                            <span class="{% fa_class 'lock' %}"></span>
+                                        {% endif %}
+                                        {% translate "Public templates" %}
+                                    </a>
+                                </li>
+                            {% endif %}
 
                             <li class="dropdown-divider"></li>
                             <li>

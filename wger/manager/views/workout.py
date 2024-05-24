@@ -20,7 +20,10 @@ import logging
 
 # Django
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from django.http import (
     HttpResponseForbidden,
     HttpResponseRedirect,
@@ -40,6 +43,7 @@ from django.utils.translation import (
     gettext_lazy,
 )
 from django.views.generic import (
+    ListView,
     DeleteView,
     UpdateView,
 )
@@ -86,19 +90,20 @@ def template_overview(request):
         },
     )
 
+class PublicTemplateOverview(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = Workout
+    template_name = 'workout/overview.html'
+    context_object_name = 'workouts'
+    permission_required = 'manager.view_workout'
 
-@login_required
-def public_template_overview(request):
-    """ """
-    return render(
-        request,
-        'workout/overview.html',
-        {
-            'workouts': Workout.templates.filter(is_public=True),
-            'title': _('Public templates'),
-            'template_overview': True,
-        },
-    )
+    def get_queryset(self):
+        return Workout.templates.filter(is_public=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Public templates')
+        context['template_overview'] = True
+        return context
 
 
 def view(request, pk):
