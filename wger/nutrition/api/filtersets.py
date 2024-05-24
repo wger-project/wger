@@ -38,7 +38,6 @@ class IngredientFilterSet(filters.FilterSet):
             'name': ['exact'],
             'protein': ['exact'],
             'sodium': ['exact'],
-            'status': ['exact'],
             'language': ['exact'],
             'license': ['exact'],
             'license_author': ['exact'],

@@ -20,7 +20,6 @@ from wger.nutrition.consts import KJ_PER_KCAL
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
-from wger.utils.models import AbstractSubmissionModel
 
 
 OFF_REQUIRED_TOP_LEVEL = [
@@ -89,7 +88,6 @@ def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
         source_url=source_url,
         common_name=common_name,
         brand=brand,
-        status=AbstractSubmissionModel.STATUS_ACCEPTED,
         license_id=ODBL_LICENSE_ID,
         license_author=authors,
         license_title=name,

@@ -17,7 +17,6 @@
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Source
 from wger.utils.constants import CC_0_LICENSE_ID
-from wger.utils.models import AbstractSubmissionModel
 
 
 def convert_to_grams(entry: dict) -> float:
@@ -116,7 +115,6 @@ def extract_info_from_usda(product_data: dict, language: int) -> IngredientData:
         source_name=source_name,
         source_url=source_url,
         brand=brand,
-        status=AbstractSubmissionModel.STATUS_ACCEPTED,
         license_id=CC_0_LICENSE_ID,
         license_author=author,
         license_title=name,

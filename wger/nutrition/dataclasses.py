@@ -38,7 +38,6 @@ class IngredientData:
     source_url: str
     common_name: str
     brand: str
-    status: str
     license_id: int
     license_author: str
     license_title: str

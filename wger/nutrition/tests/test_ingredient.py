@@ -132,10 +132,8 @@ class AddIngredientTestCase(WgerAddTestCase):
                 ingredient.created.replace(microsecond=0),
                 datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
-            self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
-            self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
 class IngredientNameShortTestCase(WgerTestCase):
@@ -209,11 +207,9 @@ class IngredientDetailTestCase(WgerTestCase):
         if editor:
             self.assertContains(response, 'Edit ingredient')
             self.assertContains(response, 'Delete ingredient')
-            self.assertContains(response, 'pending review')
         else:
             self.assertNotContains(response, 'Edit ingredient')
             self.assertNotContains(response, 'Delete ingredient')
-            self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))
@@ -269,12 +265,6 @@ class IngredientSearchTestCase(WgerTestCase):
         self.assertEqual(result['suggestions'][1]['data']['name'], 'Test ingredient 1')
         self.assertEqual(result['suggestions'][1]['data']['image'], None)
         self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
-
-        # Search for an ingredient pending review (0 hits, "Pending ingredient")
-        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
-        self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result['suggestions']), 0)
 
     def test_search_ingredient_anonymous(self):
         """

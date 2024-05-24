@@ -20,7 +20,6 @@ from django.test import SimpleTestCase
 from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.off import extract_info_from_off
 from wger.utils.constants import ODBL_LICENSE_ID
-from wger.utils.models import AbstractSubmissionModel
 
 
 class ExtractInfoFromOffTestCase(SimpleTestCase):
@@ -73,7 +72,6 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             source_url='https://world.openfoodfacts.org/api/v2/product/1234.json',
             common_name='Foo with chocolate, 250g package',
             brand='The bar company',
-            status=AbstractSubmissionModel.STATUS_ACCEPTED,
             license_id=ODBL_LICENSE_ID,
             license_author='open food facts, MrX',
             license_title='Foo with chocolate',

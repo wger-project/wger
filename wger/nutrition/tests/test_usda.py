@@ -23,7 +23,6 @@ from wger.nutrition.usda import (
     extract_info_from_usda,
 )
 from wger.utils.constants import CC_0_LICENSE_ID
-from wger.utils.models import AbstractSubmissionModel
 
 
 class ExtractInfoFromUSDATestCase(SimpleTestCase):
@@ -225,10 +224,9 @@ class ExtractInfoFromUSDATestCase(SimpleTestCase):
             source_url='https://fdc.nal.usda.gov/',
             common_name='Foo With Chocolate',
             brand='',
-            status=AbstractSubmissionModel.STATUS_ACCEPTED,
             license_id=CC_0_LICENSE_ID,
             license_author='U.S. Department of Agriculture, Agricultural Research Service, '
-                           'Beltsville Human Nutrition Research Center. FoodData Central.',
+            'Beltsville Human Nutrition Research Center. FoodData Central.',
             license_title='Foo With Chocolate',
             license_object_url='https://fdc.nal.usda.gov/fdc-app.html#/food-details/1234567/nutrients',
         )

@@ -54,27 +54,19 @@ from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
-from wger.utils.managers import SubmissionManager
-from wger.utils.models import (
-    AbstractLicenseModel,
-    AbstractSubmissionModel,
-)
+from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
 
 # Local
 from .ingredient_category import IngredientCategory
 
-
 logger = logging.getLogger(__name__)
 
 
-class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class Ingredient(AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
-
-    objects = SubmissionManager()
-    """Custom manager"""
 
     ENERGY_APPROXIMATION = 15
     """
@@ -373,50 +365,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
-
-    def send_email(self, request):
-        """
-        Sends an email after being successfully added to the database (for user
-        submitted ingredients only)
-        """
-        try:
-            user = User.objects.get(username=self.license_author)
-        except User.DoesNotExist:
-            return
-
-        if self.license_author and user.email:
-            translation.activate(user.userprofile.notification_language.short_name)
-            url = request.build_absolute_uri(self.get_absolute_url())
-            subject = _('Ingredient was successfully added to the general database')
-            context = {
-                'ingredient': self.name,
-                'url': url,
-                'site': Site.objects.get_current().domain,
-            }
-            message = render_to_string('ingredient/email_new.tpl', context)
-            mail.send_mail(
-                subject,
-                message,
-                settings.WGER_SETTINGS['EMAIL_FROM'],
-                [user.email],
-                fail_silently=True,
-            )
-
     def set_author(self, request):
-        if request.user.has_perm('nutrition.add_ingredient'):
-            self.status = Ingredient.STATUS_ACCEPTED
-            if not self.license_author:
-                self.license_author = request.get_host().split(':')[0]
-        else:
-            if not self.license_author:
-                self.license_author = request.user.username
-
-            # Send email to administrator
-            subject = _('New user submitted ingredient')
-            message = _(
-                f'The user {request.user.username} submitted a new ingredient "{self.name}".'
-            )
-            mail.mail_admins(subject, message, fail_silently=True)
+        if not self.license_author:
+            self.license_author = request.get_host().split(':')[0]
 
     def get_owner_object(self):
         """

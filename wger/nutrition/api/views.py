@@ -98,7 +98,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         """H"""
-        qs = Ingredient.objects.accepted()
+        qs = Ingredient.objects.all()
 
         code = self.request.query_params.get('code')
         if not code:
@@ -219,7 +219,6 @@ def search(request):
     languages = [load_language(l) for l in language_codes.split(',')]
     query = Ingredient.objects.filter(
         language__in=languages,
-        status=Ingredient.STATUS_ACCEPTED,
     ).only('name')
 
     # Postgres uses a full-text search
