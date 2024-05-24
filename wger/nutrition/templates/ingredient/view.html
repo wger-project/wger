@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
+{% load i18n l10n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -59,7 +59,7 @@ the search.{% endblocktranslate %}
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
     <div id="calculator-errors"></div>
-    <input type="hidden" value="{{ingredient.id}}" name="ingredient">
+    <input type="hidden" value="{{ingredient.id|unlocalize}}" name="ingredient">
 
     {% crispy form %}
 </form>
