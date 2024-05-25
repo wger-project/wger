@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.AddIndex(
             model_name='ingredient',
             index=django.contrib.postgres.indexes.GinIndex(
-                fields=['name'], name='nutrition_i_search__f274b7_gin'
+                fields=['name'],
+                name='nutrition_i_search__f274b7_gin'
             ),
         ),
     ]
