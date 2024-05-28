@@ -22,10 +22,7 @@ from json import JSONDecodeError
 
 # Django
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.sites.models import Site
-from django.core import mail
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
@@ -35,9 +32,7 @@ from django.core.validators import (
 )
 from django.db import models
 from django.http import HttpRequest
-from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
