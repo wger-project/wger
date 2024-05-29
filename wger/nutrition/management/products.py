@@ -35,6 +35,7 @@ from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Ingredient
 from wger.utils.requests import wger_headers
 
+
 logger = logging.getLogger(__name__)
 
 

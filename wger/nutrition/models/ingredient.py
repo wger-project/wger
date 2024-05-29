@@ -55,6 +55,7 @@ from wger.utils.requests import wger_user_agent
 # Local
 from .ingredient_category import IngredientCategory
 
+
 logger = logging.getLogger(__name__)
 
 

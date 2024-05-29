@@ -21,14 +21,13 @@ from zipfile import ZipFile
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.management.products import (
     ImportProductCommand,
     Mode,
 )
-from wger.nutrition.models import Ingredient
 from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
+
 
 logger = logging.getLogger(__name__)
 
@@ -48,8 +47,8 @@ class Command(ImportProductCommand):
             dest='dataset',
             type=str,
             help='What dataset to download, this value will be appended to '
-                 '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
-                 'https://fdc.nal.usda.gov/download-datasets.html for current file names',
+            '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
+            'https://fdc.nal.usda.gov/download-datasets.html for current file names',
         )
 
     def handle(self, **options):

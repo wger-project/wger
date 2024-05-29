@@ -28,6 +28,7 @@ from wger.nutrition.management.products import (
 )
 from wger.nutrition.off import extract_info_from_off
 
+
 logger = logging.getLogger(__name__)
 
 
