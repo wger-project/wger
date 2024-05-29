@@ -171,8 +171,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-            False
+            'debug': False
         },
     },
 ]
@@ -257,7 +256,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -498,7 +497,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
@@ -537,6 +536,7 @@ WGER_SETTINGS = {
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'SYNC_INGREDIENTS_CELERY': False,
+    'SYNC_OFF_DAILY_DELTA_CELERY': False,
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,

@@ -343,7 +343,7 @@ class IngredientForm(forms.ModelForm):
             'carbohydrates_sugar',
             'fat',
             'fat_saturated',
-            'fibres',
+            'fiber',
             'sodium',
             'license',
             'license_author',
@@ -371,7 +371,7 @@ class IngredientForm(forms.ModelForm):
                 Column('fat_saturated', css_class='col-6'),
                 css_class='form-row',
             ),
-            'fibres',
+            'fiber',
             'sodium',
             Row(
                 Column('license', css_class='col-6'),

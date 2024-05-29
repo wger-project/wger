@@ -26,7 +26,7 @@ class NutritionSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Ingredient.objects.accepted()
+        return Ingredient.objects.all()
 
     def lastmod(self, obj):
         return obj.last_update

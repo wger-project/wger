@@ -41,11 +41,7 @@ from wger.nutrition.models import (
     Ingredient,
     Meal,
 )
-from wger.utils.constants import (
-    NUTRITION_TAB,
-    OFF_SEARCH_PRODUCT_FOUND,
-    OFF_SEARCH_PRODUCT_NOT_FOUND,
-)
+from wger.utils.constants import NUTRITION_TAB
 
 
 class IngredientRepresentationTestCase(WgerTestCase):
@@ -85,7 +81,7 @@ class EditIngredientTestCase(WgerEditTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
@@ -119,7 +115,7 @@ class AddIngredientTestCase(WgerAddTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
@@ -136,10 +132,8 @@ class AddIngredientTestCase(WgerAddTestCase):
                 ingredient.created.replace(microsecond=0),
                 datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
-            self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
-            self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
 class IngredientNameShortTestCase(WgerTestCase):
@@ -154,7 +148,7 @@ class IngredientNameShortTestCase(WgerTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
@@ -213,11 +207,9 @@ class IngredientDetailTestCase(WgerTestCase):
         if editor:
             self.assertContains(response, 'Edit ingredient')
             self.assertContains(response, 'Delete ingredient')
-            self.assertContains(response, 'pending review')
         else:
             self.assertNotContains(response, 'Edit ingredient')
             self.assertNotContains(response, 'Delete ingredient')
-            self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))
@@ -274,12 +266,6 @@ class IngredientSearchTestCase(WgerTestCase):
         self.assertEqual(result['suggestions'][1]['data']['image'], None)
         self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
 
-        # Search for an ingredient pending review (0 hits, "Pending ingredient")
-        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
-        self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result['suggestions']), 0)
-
     def test_search_ingredient_anonymous(self):
         """
         Test searching for an ingredient by an anonymous user
@@ -324,7 +310,7 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat': 0.0819,
                 'carbohydrates_sugar': None,
                 'fat_saturated': 0.03244,
-                'fibres': None,
+                'fiber': None,
                 'protein': 0.2563,
                 'carbohydrates': 0.00125,
             },
@@ -348,7 +334,7 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat': 9.13185,
                 'carbohydrates_sugar': None,
                 'fat_saturated': 3.61706,
-                'fibres': None,
+                'fiber': None,
                 'protein': 28.57745,
                 'carbohydrates': 0.139375,
             },
@@ -500,7 +486,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.fat, 40)
         self.assertEqual(ingredient.fat_saturated, 11)
         self.assertEqual(ingredient.sodium, 5)
-        self.assertEqual(ingredient.fibres, None)
+        self.assertEqual(ingredient.fiber, None)
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
 

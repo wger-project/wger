@@ -82,21 +82,6 @@ patterns_ingredient = [
         name='list',
     ),
     path(
-        'pending/',
-        ingredient.PendingIngredientListView.as_view(),
-        name='pending',
-    ),
-    path(
-        '<int:pk>/accept/',
-        ingredient.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        ingredient.decline,
-        name='decline',
-    ),
-    path(
         '<int:pk>/view/',
         ingredient.view,
         name='view',

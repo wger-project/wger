@@ -41,4 +41,4 @@ class SitemapTestCase(WgerTestCase):
             reverse('django.contrib.sitemaps.views.sitemap', kwargs={'section': 'nutrition'})
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['urlset']), 13)
+        self.assertEqual(len(response.context['urlset']), 14)
