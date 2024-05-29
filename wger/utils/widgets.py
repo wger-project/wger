@@ -40,6 +40,7 @@ from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
+
 #
 # Date and time related fields
 #
@@ -49,6 +50,7 @@ class Html5DateInput(DateInput):
     """
     Custom Input class that is rendered with an HTML5 type="date"
     """
+
     template_name = 'forms/html5_date.html'
     input_type = 'date'
 
@@ -66,6 +68,7 @@ class Html5FormDateField(fields.DateField):
     """
     HTML5 form date field
     """
+
     widget = Html5DateInput
 
 
@@ -76,6 +79,7 @@ class Html5TimeInput(TextInput):
     This is specially useful in mobile devices and not available
     with older versions of django.
     """
+
     input_type = 'time'
 
 
@@ -83,6 +87,7 @@ class Html5FormTimeField(fields.TimeField):
     """
     HTML5 form time field
     """
+
     widget = Html5TimeInput
 
 
@@ -98,6 +103,7 @@ class Html5NumberInput(TextInput):
     This is specially useful in mobile devices and not available
     with older versions of django.
     """
+
     input_type = 'number'
 
 
@@ -116,8 +122,10 @@ class ExerciseAjaxSelect(SelectMultiple):
             value = []
 
         output = [
-            '<div>', '<input type="text" id="exercise-search" class="form-control">', '</div>',
-            '<div id="exercise-search-log">'
+            '<div>',
+            '<input type="text" id="exercise-search" class="form-control">',
+            '</div>',
+            '<div id="exercise-search-log">',
         ]
 
         options = self.render_options(choices, value)
@@ -138,7 +146,6 @@ class ExerciseAjaxSelect(SelectMultiple):
     def render_option(self, selected_choices, option_value, option_label):
         option_value = force_str(option_value)
         if option_value in selected_choices:
-
             return """
                     <div id="a%(div_id)s" class="ajax-exercise-select">
                         <a href="#">
@@ -152,7 +159,7 @@ class ExerciseAjaxSelect(SelectMultiple):
             """ % {
                 'value': conditional_escape(force_str(option_label)),
                 'id': escape(option_value),
-                'div_id': uuid.uuid4()
+                'div_id': uuid.uuid4(),
             }
 
         else:
@@ -165,6 +172,7 @@ class CheckboxChoiceInputTranslated(CheckboxInput):
 
     This only translated the text for the select widgets
     """
+
     input_type = 'checkbox'
 
     def __init__(self, name, value, attrs, choice, index):
@@ -180,16 +188,18 @@ class CheckboxChoiceInputTranslatedOriginal(CheckboxInput):
     This only translated the text for the select widgets, showing the original
     string as well.
     """
+
     input_type = 'checkbox'
 
     def __init__(self, name, value, attrs, choice, index):
         if _(choice[1]) != choice[1]:
-            choice = (choice[0], "{0} ({1})".format(choice[1], _(choice[1])))
+            choice = (choice[0], f'{choice[1]} ({_(choice[1])})')
         else:
             choice = (choice[0], _(choice[1]))
 
-        super(CheckboxChoiceInputTranslatedOriginal,
-              self).__init__(name, value, attrs, choice, index)
+        super(CheckboxChoiceInputTranslatedOriginal, self).__init__(
+            name, value, attrs, choice, index
+        )
 
 
 class CheckboxFieldRendererTranslated(CheckboxSelectMultiple):
@@ -214,6 +224,7 @@ class TranslatedSelectMultiple(BootstrapSelectMultiple):
     """
     A SelectMultiple widget that translates the options
     """
+
     pass
 
 
@@ -223,6 +234,7 @@ class TranslatedOriginalSelectMultiple(BootstrapSelectMultipleTranslatedOriginal
     string as well. This is currently only used in the muscle list, where the
     translated muscles as well as the latin names are shown.
     """
+
     pass
 
 
@@ -232,5 +244,6 @@ class TranslatedSelect(Select):
     """
 
     def render_option(self, selected_choices, option_value, option_label):
-        return super(TranslatedSelect,
-                     self).render_option(selected_choices, option_value, _(option_label))
+        return super(TranslatedSelect, self).render_option(
+            selected_choices, option_value, _(option_label)
+        )

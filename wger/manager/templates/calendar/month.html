@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras %}
+{% load l10n i18n static wger_extras %}
 
 
 {#           #}
@@ -62,7 +62,7 @@ $(document).ready(function() {
                 <div class="card h-100">
                     <div class="card-header">
                         <a href="{{ exercise.get_absolute_url }}">
-                            {{ exercise }}
+                            {{ exercise.get_translation }}
                         </a>
                     </div>
                     <div class="card-body px-0 py-0">
@@ -159,6 +159,7 @@ you can click on them to see the details.{% endblocktranslate %}</p>
 
 
 {% regroup month_list by year as year_list %}
+{% localize off %}
     <div class="panel-group" id="accordion">
     {% for year in year_list reversed %}
         <div class="panel panel-default">
@@ -179,6 +180,7 @@ you can click on them to see the details.{% endblocktranslate %}</p>
         </div>
     {% endfor %}
     </div>
+{% endlocalize %}
 {% endblock %}
 
 

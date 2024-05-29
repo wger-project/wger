@@ -61,7 +61,7 @@ class BaseMealItem:
         if self.get_unit_type() == MEALITEM_WEIGHT_GRAM:
             item_weight = self.amount
         else:
-            item_weight = (self.amount * self.weight_unit.amount * self.weight_unit.gram)
+            item_weight = self.amount * self.weight_unit.amount * self.weight_unit.gram
 
         values.energy = self.ingredient.energy * item_weight / 100
         values.protein = self.ingredient.protein * item_weight / 100
@@ -74,8 +74,8 @@ class BaseMealItem:
         if self.ingredient.fat_saturated:
             values.fat_saturated = self.ingredient.fat_saturated * item_weight / 100
 
-        if self.ingredient.fibres:
-            values.fibres = self.ingredient.fibres * item_weight / 100
+        if self.ingredient.fiber:
+            values.fiber = self.ingredient.fiber * item_weight / 100
 
         if self.ingredient.sodium:
             values.sodium = self.ingredient.sodium * item_weight / 100
@@ -110,7 +110,7 @@ class NutritionalValues:
     carbohydrates_sugar: Union[Decimal, int, float, None] = None
     fat: Union[Decimal, int, float] = 0
     fat_saturated: Union[Decimal, int, float, None] = None
-    fibres: Union[Decimal, int, float, None] = None
+    fiber: Union[Decimal, int, float, None] = None
     sodium: Union[Decimal, int, float, None] = None
 
     @property
@@ -125,16 +125,19 @@ class NutritionalValues:
             energy=self.energy + other.energy,
             protein=self.protein + other.protein,
             carbohydrates=self.carbohydrates + other.carbohydrates,
-            carbohydrates_sugar=self.carbohydrates_sugar +
-            other.carbohydrates_sugar if self.carbohydrates_sugar and other.carbohydrates_sugar else
-            self.carbohydrates_sugar or other.carbohydrates_sugar,
+            carbohydrates_sugar=self.carbohydrates_sugar + other.carbohydrates_sugar
+            if self.carbohydrates_sugar and other.carbohydrates_sugar
+            else self.carbohydrates_sugar or other.carbohydrates_sugar,
             fat=self.fat + other.fat,
-            fat_saturated=self.fat_saturated + other.fat_saturated if self.fat_saturated
-            and other.fat_saturated else self.fat_saturated or other.fat_saturated,
-            fibres=self.fibres +
-            other.fibres if self.fibres and other.fibres else self.fibres or other.fibres,
-            sodium=self.sodium +
-            other.sodium if self.sodium and other.sodium else self.sodium or other.sodium,
+            fat_saturated=self.fat_saturated + other.fat_saturated
+            if self.fat_saturated and other.fat_saturated
+            else self.fat_saturated or other.fat_saturated,
+            fiber=self.fiber + other.fiber
+            if self.fiber and other.fiber
+            else self.fiber or other.fiber,
+            sodium=self.sodium + other.sodium
+            if self.sodium and other.sodium
+            else self.sodium or other.sodium,
         )
 
     @property

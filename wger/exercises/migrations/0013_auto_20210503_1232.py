@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0012_auto_20210327_1219'),
     ]
@@ -26,7 +25,7 @@ class Migration(migrations.Migration):
                 'CC-BY-SA.',
                 max_length=50,
                 null=True,
-                verbose_name='Author'
+                verbose_name='Author',
             ),
         ),
         migrations.AlterField(
@@ -37,7 +36,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.variation',
-                verbose_name='Variations'
+                verbose_name='Variations',
             ),
         ),
     ]

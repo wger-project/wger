@@ -13,18 +13,11 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Standard Library
-from dataclasses import (
-    asdict,
-    dataclass,
-)
-from typing import Optional
-
 # wger
 from wger.nutrition.consts import KJ_PER_KCAL
+from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Source
 from wger.utils.constants import ODBL_LICENSE_ID
-from wger.utils.models import AbstractSubmissionModel
 
 
 OFF_REQUIRED_TOP_LEVEL = [
@@ -36,38 +29,10 @@ OFF_REQUIRED_NUTRIMENTS = [
     'proteins_100g',
     'carbohydrates_100g',
     'fat_100g',
-    'saturated-fat_100g',
 ]
 
 
-@dataclass
-class IngredientData:
-    name: str
-    language_id: int
-    energy: float
-    protein: float
-    carbohydrates: float
-    carbohydrates_sugar: float
-    fat: float
-    fat_saturated: float
-    fibres: Optional[float]
-    sodium: Optional[float]
-    code: str
-    source_name: str
-    source_url: str
-    common_name: str
-    brand: str
-    status: str
-    license_id: int
-    license_author: str
-    license_title: str
-    license_object_url: str
-
-    def dict(self):
-        return asdict(self)
-
-
-def extract_info_from_off(product_data, language: int):
+def extract_info_from_off(product_data: dict, language: int) -> IngredientData:
     if not all(req in product_data for req in OFF_REQUIRED_TOP_LEVEL):
         raise KeyError('Missing required top-level key')
 
@@ -75,15 +40,8 @@ def extract_info_from_off(product_data, language: int):
         raise KeyError('Missing required nutrition key')
 
     # Basics
-    name = product_data['product_name']
-    if name is None:
-        raise KeyError('Product name is None')
-    if len(name) > 200:
-        name = name[:200]
-
+    name = product_data.get('product_name')
     common_name = product_data.get('generic_name', '')
-    if len(common_name) > 200:
-        common_name = common_name[:200]
 
     # If the energy is not available in kcal, convert from kJ
     if 'energy-kcal_100g' in product_data['nutriments']:
@@ -96,14 +54,14 @@ def extract_info_from_off(product_data, language: int):
     code = product_data['code']
     protein = product_data['nutriments']['proteins_100g']
     carbs = product_data['nutriments']['carbohydrates_100g']
-    sugars = product_data['nutriments'].get('sugars_100g', 0)
     fat = product_data['nutriments']['fat_100g']
-    saturated = product_data['nutriments'].get('saturated-fat_100g', 0)
 
     # these are optional
+    saturated = product_data['nutriments'].get('saturated-fat_100g', None)
     sodium = product_data['nutriments'].get('sodium_100g', None)
-    fibre = product_data['nutriments'].get('fiber_100g', None)
-    brand = product_data.get('brands', None)
+    sugars = product_data['nutriments'].get('sugars_100g', None)
+    fiber = product_data['nutriments'].get('fiber_100g', None)
+    brand = product_data.get('brands', '')
 
     # License and author info
     source_name = Source.OPEN_FOOD_FACTS.value
@@ -111,7 +69,8 @@ def extract_info_from_off(product_data, language: int):
     authors = ', '.join(product_data.get('editors_tags', ['open food facts']))
     object_url = f'https://world.openfoodfacts.org/product/{code}/'
 
-    return IngredientData(
+    ingredient_data = IngredientData(
+        remote_id=code,
         name=name,
         language_id=language,
         energy=energy,
@@ -120,16 +79,17 @@ def extract_info_from_off(product_data, language: int):
         carbohydrates_sugar=sugars,
         fat=fat,
         fat_saturated=saturated,
-        fibres=fibre,
+        fiber=fiber,
         sodium=sodium,
         code=code,
         source_name=source_name,
         source_url=source_url,
         common_name=common_name,
         brand=brand,
-        status=AbstractSubmissionModel.STATUS_ACCEPTED,
         license_id=ODBL_LICENSE_ID,
         license_author=authors,
         license_title=name,
-        license_object_url=object_url
+        license_object_url=object_url,
     )
+    ingredient_data.sanity_checks()
+    return ingredient_data

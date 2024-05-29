@@ -62,6 +62,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     """
     API endpoint for routine objects
     """
+
     serializer_class = WorkoutSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -72,7 +73,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Workout.objects.none()
 
         return Workout.objects.filter(user=self.request.user)
@@ -113,7 +114,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
             user=self.request.user,
             weight_unit__in=(1, 2),
             repetition_unit=1,
-            workout=self.get_object()
+            workout=self.get_object(),
         )
         entry_logs, chart_data = process_log_entries(logs)
         serialized_logs = {}
@@ -126,6 +127,7 @@ class UserWorkoutTemplateViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for routine template objects
     """
+
     serializer_class = WorkoutTemplateSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -136,7 +138,7 @@ class UserWorkoutTemplateViewSet(viewsets.ReadOnlyModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Workout.objects.none()
 
         return Workout.templates.filter(user=self.request.user)
@@ -152,6 +154,7 @@ class PublicWorkoutTemplateViewSet(viewsets.ModelViewSet):
     """
     API endpoint for public workout templates objects
     """
+
     serializer_class = WorkoutSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -193,7 +196,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
         """
 
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return WorkoutSession.objects.none()
 
         return WorkoutSession.objects.filter(user=self.request.user)
@@ -215,6 +218,7 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for schedule step objects
     """
+
     serializer_class = ScheduleStepSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -230,7 +234,7 @@ class ScheduleStepViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return ScheduleStep.objects.none()
 
         return ScheduleStep.objects.filter(schedule__user=self.request.user)
@@ -246,6 +250,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     """
     API endpoint for schedule objects
     """
+
     serializer_class = ScheduleSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -261,7 +266,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Schedule.objects.none()
 
         return Schedule.objects.filter(user=self.request.user)
@@ -277,6 +282,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for routine day objects
     """
+
     serializer_class = DaySerializer
     is_private = True
     ordering_fields = '__all__'
@@ -291,7 +297,7 @@ class DayViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Day.objects.none()
 
         return Day.objects.filter(training__user=self.request.user)
@@ -307,6 +313,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for workout set objects
     """
+
     serializer_class = SetSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -321,7 +328,7 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Set.objects.none()
 
         return Set.objects.filter(exerciseday__training__user=self.request.user)
@@ -344,6 +351,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for repetition setting objects
     """
+
     serializer_class = SettingSerializer
     is_private = True
     ordering_fields = '__all__'
@@ -361,7 +369,7 @@ class SettingViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return Setting.objects.none()
 
         return Setting.objects.filter(set__exerciseday__training__user=self.request.user)
@@ -383,11 +391,18 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     """
     API endpoint for workout log objects
     """
+
     serializer_class = WorkoutLogSerializer
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
-        'date', 'exercise_base', 'reps', 'weight', 'workout', 'repetition_unit', 'weight_unit'
+        'date',
+        'exercise_base',
+        'reps',
+        'weight',
+        'workout',
+        'repetition_unit',
+        'weight_unit',
     )
 
     def get_queryset(self):
@@ -395,7 +410,7 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         Only allow access to appropriate objects
         """
         # REST API generation
-        if getattr(self, "swagger_fake_view", False):
+        if getattr(self, 'swagger_fake_view', False):
             return WorkoutLog.objects.none()
 
         return WorkoutLog.objects.filter(user=self.request.user)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
+{% load i18n l10n static wger_extras django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block title %}{{ingredient.name}}{% endblock %}
 
@@ -22,32 +22,6 @@ $(document).ready(function() {
 
 {% block content %}
 
-{% if ingredient.status == ingredient.STATUS_PENDING %}
-<div class="alert">
-<h4>{% translate "Ingredient is pending review" %}</h4>
-<p>{% blocktranslate %}This user submitted ingredient is pending a decision to be
-included in the database. Till then, it will not be shown in the overview or
-the search.{% endblocktranslate %}
-{% if perms.nutrition.add_ingredient %}{% translate "Please select one of the options below." %}{% endif %}
-</p>
-
-{% if perms.nutrition.add_ingredient %}
-<div class="btn-group btn-group-justified" role="group">
-    <a href="{% url 'nutrition:ingredient:accept' ingredient.id %}" class="btn btn-light">
-        <span class="{% fa_class 'check' %}"></span>
-        {% translate "Accept" %}
-    </a>
-    <a href="{% url 'nutrition:ingredient:decline' ingredient.id %}" class="btn btn-light">
-        <span class="{% fa_class 'times' %}"></span>
-        {% translate "Decline" %}
-    </a>
-</div>
-{% endif %} {# end check permissions #}
-
-</div>
-{% endif %} {# end ingredient is pending review #}
-
-
 
 
 <div itemscope itemtype="http://schema.org/NutritionInformation">
@@ -59,7 +33,7 @@ the search.{% endblocktranslate %}
       id="nutritional-values-form"
       style="background-color: transparent; border-width: 0px; box-shadow: 0px 0px 0px 0px transparent;">
     <div id="calculator-errors"></div>
-    <input type="hidden" value="{{ingredient.id}}" name="ingredient">
+    <input type="hidden" value="{{ingredient.id|unlocalize}}" name="ingredient">
 
     {% crispy form %}
 </form>
@@ -131,10 +105,10 @@ the search.{% endblocktranslate %}
     </thead>
     <tbody>
         <tr>
-            <td>{% translate "Fibres" %}</td>
+            <td>{% translate "Fiber" %}</td>
             <td itemprop="fiberContent" class="text-right">
-                {% if ingredient.fibres %}
-                    <span id="value-fibres">{{ingredient.fibres|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
+                {% if ingredient.fiber %}
+                    <span id="value-fiber">{{ingredient.fiber|floatformat:1}}</span> {% translate "g" context "weight unit, i.e. grams" %}
                 {% else %}
                     {% translate "n.A." %}
                 {% endif %}

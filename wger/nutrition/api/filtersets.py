@@ -9,7 +9,6 @@ from wger.nutrition.models import (
 
 
 class LogItemFilterSet(filters.FilterSet):
-
     class Meta:
         model = LogItem
         fields = {
@@ -22,7 +21,6 @@ class LogItemFilterSet(filters.FilterSet):
 
 
 class IngredientFilterSet(filters.FilterSet):
-
     class Meta:
         model = Ingredient
         fields = {
@@ -36,11 +34,10 @@ class IngredientFilterSet(filters.FilterSet):
             'energy': ['exact'],
             'fat': ['exact'],
             'fat_saturated': ['exact'],
-            'fibres': ['exact'],
+            'fiber': ['exact'],
             'name': ['exact'],
             'protein': ['exact'],
             'sodium': ['exact'],
-            'status': ['exact'],
             'language': ['exact'],
             'license': ['exact'],
             'license_author': ['exact'],

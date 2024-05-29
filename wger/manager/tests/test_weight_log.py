@@ -67,26 +67,6 @@ class WeightLogAccessTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class CalendarShareButtonTestCase(WgerTestCase):
-    """
-    Test that the share button is correctly displayed and hidden
-    """
-
-    def test_share_button(self):
-        url = reverse('manager:workout:calendar', kwargs={'username': 'admin'})
-
-        response = self.client.get(url)
-        self.assertFalse(response.context['show_shariff'])
-
-        self.user_login('admin')
-        response = self.client.get(url)
-        self.assertTrue(response.context['show_shariff'])
-
-        self.user_login('test')
-        response = self.client.get(url)
-        self.assertFalse(response.context['show_shariff'])
-
-
 class CalendarAccessTestCase(WgerTestCase):
     """
     Test accessing the calendar page
@@ -302,7 +282,8 @@ class WeightLogEntryEditTestCase(WgerTestCase):
 
         date_before = WorkoutLog.objects.get(pk=1).date
         response = self.client.post(
-            reverse('manager:log:edit', kwargs={'pk': 1}), {
+            reverse('manager:log:edit', kwargs={'pk': 1}),
+            {
                 'date': '2012-01-01',
                 'reps': 10,
                 'repetition_unit': 2,
@@ -310,7 +291,7 @@ class WeightLogEntryEditTestCase(WgerTestCase):
                 'weight': 10,
                 'exercise_base': 1,
                 'rir': 2,
-            }
+            },
         )
 
         date_after = WorkoutLog.objects.get(pk=1).date
@@ -376,12 +357,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
         self.client.get(
             reverse(
                 'manager:workout:calendar-day',
-                kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10,
-                    'day': 1
-                }
+                kwargs={'username': 'admin', 'year': 2012, 'month': 10, 'day': 1},
             )
         )
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
@@ -396,11 +372,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
 
         self.client.get(
             reverse(
-                'manager:workout:calendar', kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10
-                }
+                'manager:workout:calendar', kwargs={'username': 'admin', 'year': 2012, 'month': 10}
             )
         )
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
@@ -416,12 +388,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
         self.client.get(
             reverse(
                 'manager:workout:calendar-day',
-                kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10,
-                    'day': 1
-                }
+                kwargs={'username': 'admin', 'year': 2012, 'month': 10, 'day': 1},
             )
         )
         self.assertTrue(cache.get(cache_mapper.get_workout_log_list(log_hash)))
@@ -437,12 +404,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
         self.client.get(
             reverse(
                 'manager:workout:calendar-day',
-                kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10,
-                    'day': 1
-                }
+                kwargs={'username': 'admin', 'year': 2012, 'month': 10, 'day': 1},
             )
         )
 
@@ -464,12 +426,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
         self.client.get(
             reverse(
                 'manager:workout:calendar-day',
-                kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10,
-                    'day': 1
-                }
+                kwargs={'username': 'admin', 'year': 2012, 'month': 10, 'day': 1},
             )
         )
 
@@ -491,12 +448,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
         self.client.get(
             reverse(
                 'manager:workout:calendar-day',
-                kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10,
-                    'day': 1
-                }
+                kwargs={'username': 'admin', 'year': 2012, 'month': 10, 'day': 1},
             )
         )
 
@@ -517,12 +469,7 @@ class WorkoutLogCacheTestCase(WgerTestCase):
         self.client.get(
             reverse(
                 'manager:workout:calendar-day',
-                kwargs={
-                    'username': 'admin',
-                    'year': 2012,
-                    'month': 10,
-                    'day': 1
-                }
+                kwargs={'username': 'admin', 'year': 2012, 'month': 10, 'day': 1},
             )
         )
 
@@ -537,15 +484,16 @@ class WorkoutLogApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the workout log overview resource
     """
+
     pk = 5
     resource = WorkoutLog
     private_resource = True
     data = {
-        "exercise_base": 1,
-        "workout": 3,
-        "reps": 3,
-        "repetition_unit": 1,
-        "weight_unit": 2,
-        "weight": 2,
-        "date": datetime.date.today()
+        'exercise_base': 1,
+        'workout': 3,
+        'reps': 3,
+        'repetition_unit': 1,
+        'weight_unit': 2,
+        'weight': 2,
+        'date': datetime.date.today(),
     }

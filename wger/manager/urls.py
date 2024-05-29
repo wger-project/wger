@@ -54,7 +54,7 @@ patterns_log = [
         '<int:pk>/delete',
         log.WorkoutLogDeleteView.as_view(),
         name='delete',
-    )
+    ),
 ]
 
 # sub patterns for templates
@@ -372,12 +372,12 @@ patterns_step = [
 ]
 
 urlpatterns = [
-    path('', include((patterns_workout, 'workout'), namespace="workout")),
-    path('template/', include((patterns_templates, 'template'), namespace="template")),
-    path('log/', include((patterns_log, 'log'), namespace="log")),
-    path('day/', include((patterns_day, 'day'), namespace="day")),
-    path('set/', include((patterns_set, 'set'), namespace="set")),
-    path('session/', include((patterns_session, 'session'), namespace="session")),
-    path('schedule/', include((patterns_schedule, 'schedule'), namespace="schedule")),
-    path('schedule/step/', include((patterns_step, 'step'), namespace="step")),
+    path('', include((patterns_workout, 'workout'), namespace='workout')),
+    path('template/', include((patterns_templates, 'template'), namespace='template')),
+    path('log/', include((patterns_log, 'log'), namespace='log')),
+    path('day/', include((patterns_day, 'day'), namespace='day')),
+    path('set/', include((patterns_set, 'set'), namespace='set')),
+    path('session/', include((patterns_session, 'session'), namespace='session')),
+    path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
+    path('schedule/step/', include((patterns_step, 'step'), namespace='step')),
 ]

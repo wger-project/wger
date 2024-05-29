@@ -29,7 +29,6 @@ class GymNameHeaderTestCase(WgerTestCase):
     """
 
     def check_header(self, gym=None):
-
         response = self.client.get(reverse('core:dashboard'))
         self.assertEqual(response.context['custom_header'], gym)
 

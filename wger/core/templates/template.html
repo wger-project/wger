@@ -50,8 +50,6 @@
         <link rel="stylesheet" type="text/css" href="{% static 'yarn/bootstrap-compiled.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
         <link rel="stylesheet" type="text/css"
-              href="{% static 'yarn/shariff/dist/shariff.min.css' %}">
-        <link rel="stylesheet" type="text/css"
               href="{% static 'fontawesomefree/css/all.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'react/main.css' %}" id="react-css">
     {% endcompress %}
@@ -86,9 +84,6 @@
 
             // Initialise the hook to reload the main-content
             wgerLoadMaincontent();
-
-            // Check for RO-access before allowing sharing
-            wgerToggleReadOnlyAccess();
         });
     </script>
 
@@ -226,6 +221,5 @@
     </div>
 </footer>
 
-<script src="{% static 'yarn/shariff/dist/shariff.min.js' %}"></script>
 </body>
 </html>

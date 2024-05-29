@@ -39,7 +39,7 @@ class LanguageRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(f"{Language.objects.get(pk=1)}", 'Deutsch (de)')
+        self.assertEqual(f'{Language.objects.get(pk=1)}', 'Deutsch (de)')
 
 
 class LanguageOverviewTest(WgerAccessTestCase):
@@ -67,7 +67,7 @@ class CreateLanguageTestCase(WgerAddTestCase):
 
     object_class = Language
     url = 'core:language:add'
-    data = {'short_name': 'dk', 'full_name': 'Dansk'}
+    data = {'short_name': 'dk', 'full_name': 'Dansk', 'full_name_en': 'Danish'}
 
 
 class EditLanguageTestCase(WgerEditTestCase):
@@ -78,7 +78,7 @@ class EditLanguageTestCase(WgerEditTestCase):
     object_class = Language
     url = 'core:language:edit'
     pk = 1
-    data = {'short_name': 'dk', 'full_name': 'Dansk'}
+    data = {'short_name': 'dk', 'full_name': 'Dansk', 'full_name_en': 'Danish'}
 
 
 class DeleteLanguageTestCase(WgerDeleteTestCase):
@@ -95,6 +95,7 @@ class LanguageApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the language overview resource
     """
+
     pk = 1
     resource = Language
     private_resource = False

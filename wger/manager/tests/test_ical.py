@@ -64,11 +64,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
         user = User.objects.get(username='test')
         uid, token = make_token(user)
         response = self.client.get(
-            reverse('manager:workout:ical', kwargs={
-                'pk': 3,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:workout:ical', kwargs={'pk': 3, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 200)
@@ -89,11 +85,7 @@ class WorkoutICalExportTestCase(WgerTestCase):
         uid = 'AB'
         token = 'abc-11223344556677889900'
         response = self.client.get(
-            reverse('manager:workout:ical', kwargs={
-                'pk': 3,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:workout:ical', kwargs={'pk': 3, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 403)
@@ -161,11 +153,7 @@ class ScheduleICalExportTestCase(WgerTestCase):
         user = User.objects.get(username='test')
         uid, token = make_token(user)
         response = self.client.get(
-            reverse('manager:schedule:ical', kwargs={
-                'pk': 2,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:schedule:ical', kwargs={'pk': 2, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 200)
@@ -186,11 +174,7 @@ class ScheduleICalExportTestCase(WgerTestCase):
         uid = 'AB'
         token = 'abc-11223344556677889900'
         response = self.client.get(
-            reverse('manager:schedule:ical', kwargs={
-                'pk': 2,
-                'uidb64': uid,
-                'token': token
-            })
+            reverse('manager:schedule:ical', kwargs={'pk': 2, 'uidb64': uid, 'token': token})
         )
 
         self.assertEqual(response.status_code, 403)

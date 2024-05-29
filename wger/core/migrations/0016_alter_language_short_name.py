@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0015_alter_language_short_name'),
     ]
@@ -14,10 +13,7 @@ class Migration(migrations.Migration):
             model_name='language',
             name='short_name',
             field=models.CharField(
-                help_text='ISO 639-1',
-                max_length=2,
-                unique=True,
-                verbose_name='Language short name'
+                help_text='ISO 639-1', max_length=2, unique=True, verbose_name='Language short name'
             ),
         ),
     ]

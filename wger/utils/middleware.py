@@ -31,7 +31,7 @@ from wger.core.demo import create_temporary_user
 
 logger = logging.getLogger(__name__)
 
-SPECIAL_PATHS = ('dashboard', )
+SPECIAL_PATHS = ('dashboard',)
 
 
 def check_current_request(request):
@@ -55,7 +55,6 @@ def check_current_request(request):
 
 def get_user(request):
     if not hasattr(request, '_cached_user'):
-
         create_user = check_current_request(request)
         user = auth.get_user(request)
 
@@ -64,9 +63,12 @@ def get_user(request):
             request.session['has_demo_data'] = False
 
         # Django didn't find a user, so create one now
-        if settings.WGER_SETTINGS['ALLOW_GUEST_USERS'] and \
-            request.method == 'GET' and \
-            create_user and not user.is_authenticated:
+        if (
+            settings.WGER_SETTINGS['ALLOW_GUEST_USERS']
+            and request.method == 'GET'
+            and create_user
+            and not user.is_authenticated
+        ):
             logger.debug('creating a new guest user now')
             user = create_temporary_user(request)
             django_login(request, user)
@@ -83,8 +85,8 @@ class WgerAuthenticationMiddleware(MiddlewareMixin):
     """
 
     def process_request(self, request):
-        assert hasattr(request, 'session'), "The Django authentication middleware requires "
-        "session middleware to be installed. Edit your MIDDLEWARE_CLASSES setting to insert"
+        assert hasattr(request, 'session'), 'The Django authentication middleware requires '
+        'session middleware to be installed. Edit your MIDDLEWARE_CLASSES setting to insert'
         "'django.contrib.sessions.middleware.SessionMiddleware'."
 
         request.user = SimpleLazyObject(lambda: get_user(request))

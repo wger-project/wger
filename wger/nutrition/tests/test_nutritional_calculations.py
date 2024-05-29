@@ -60,7 +60,7 @@ class NutritionalValuesCalculationsTestCase(WgerTestCase):
         self.assertAlmostEqual(item_values.fat, ingredient.fat, 2)
         self.assertAlmostEqual(item_values.fat_saturated, ingredient.fat_saturated, 2)
         self.assertAlmostEqual(item_values.sodium, ingredient.sodium, 2)
-        self.assertAlmostEqual(item_values.fibres, None, 2)
+        self.assertAlmostEqual(item_values.fiber, None, 2)
 
         meal_nutritional_values = meal.get_nutritional_values()
         self.assertEqual(item_values, meal_nutritional_values)

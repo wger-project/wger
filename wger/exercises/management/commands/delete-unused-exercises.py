@@ -38,7 +38,6 @@ class Command(BaseCommand):
             """
 
     def handle(self, **options):
-
         # Collect all exercise bases that are not used in any workout or log entry
         out = f'{ExerciseBase.objects.all().count()} exercises currently in the database'
         self.stdout.write(out)

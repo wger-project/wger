@@ -84,7 +84,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject=_('Workout for %s') % request.user.username
+        subject=_('Workout for %s') % request.user.username,
     )
 
     # container for the 'Flowable' objects
@@ -96,7 +96,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
 
     # Set the title
     p = Paragraph(
-        f'<para align="center"><strong>{workout.name}</strong></para>', styleSheet["HeaderBold"]
+        f'<para align="center"><strong>{workout.name}</strong></para>', styleSheet['HeaderBold']
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 0.5 * cm))
@@ -118,7 +118,7 @@ def workout_log(request, id, images=False, comments=False, uidb64=None, token=No
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = 'attachment; filename=Workout-{0}-log.pdf'.format(id)
+    response['Content-Disposition'] = f'attachment; filename=Workout-{id}-log.pdf'
     response['Content-Length'] = len(response.content)
     return response
 
@@ -160,7 +160,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
         bottomMargin=0.5 * cm,
         title=_('Workout'),
         author='wger Workout Manager',
-        subject=_('Workout for %s') % request.user.username
+        subject=_('Workout for %s') % request.user.username,
     )
 
     # container for the 'Flowable' objects
@@ -173,7 +173,7 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     # Set the title
     p = Paragraph(
         '<para align="center"><strong>%(description)s</strong></para>' % {'description': workout},
-        styleSheet["HeaderBold"]
+        styleSheet['HeaderBold'],
     )
     elements.append(p)
     elements.append(Spacer(10 * cm, 1.5 * cm))
@@ -191,6 +191,6 @@ def workout_view(request, id, images=False, comments=False, uidb64=None, token=N
     doc.build(elements)
 
     # Create the HttpResponse object with the appropriate PDF headers.
-    response['Content-Disposition'] = 'attachment; filename=Workout-{0}-table.pdf'.format(id)
+    response['Content-Disposition'] = f'attachment; filename=Workout-{id}-table.pdf'
     response['Content-Length'] = len(response.content)
     return response

@@ -25,9 +25,10 @@ class PlanApiTestCase(api_base_test.ApiBaseResourceTestCase):
     TODO: setting overview_cached to true since get_nutritional_values is
           cached, but we don't really use it. This should be removed
     """
+
     pk = 4
     resource = NutritionPlan
     private_resource = True
     overview_cached = False
-    special_endpoints = ('nutritional_values', )
+    special_endpoints = ('nutritional_values',)
     data = {'description': 'The description'}

@@ -24,10 +24,16 @@ fi
 wger bootstrap
 
 # Collect static files
+if [ "$DJANGO_CLEAR_STATIC_FIRST" == "False" ]; then
+    clear=""
+else
+    clear="--clear"
+fi
+
 if [[ "$DJANGO_DEBUG" == "False" ]];
 then
     echo "Running in production mode, running collectstatic now"
-    python3 manage.py collectstatic --no-input --clear
+    python3 manage.py collectstatic --no-input $clear
 fi
 
 # Perform database migrations

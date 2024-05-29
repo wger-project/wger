@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('config', '0001_initial'),
     ]
@@ -18,7 +17,9 @@ class Migration(migrations.Migration):
                 choices=[
                     ('1', 'Exercises'),
                     ('2', 'Ingredients'),
-                ], editable=False, max_length=2
+                ],
+                editable=False,
+                max_length=2,
             ),
         ),
     ]

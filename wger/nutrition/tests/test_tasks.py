@@ -32,7 +32,6 @@ from wger.utils.requests import wger_headers
 
 
 class MockOffResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'2000'
@@ -58,7 +57,6 @@ class MockOffResponse:
 
 
 class MockWgerApiResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'2000'
@@ -160,11 +158,11 @@ class FetchIngredientImageTestCase(WgerTestCase):
 
             mock_request.assert_any_call(
                 'https://world.openfoodfacts.org/api/v2/product/5055365635003.json?fields=images,image_front_url',
-                headers=wger_headers()
+                headers=wger_headers(),
             )
             mock_request.assert_any_call(
                 'https://images.openfoodfacts.org/images/products/00975957/front_en.5.400.jpg',
-                headers=wger_headers()
+                headers=wger_headers(),
             )
             mock_from_json.assert_called()
 
@@ -199,7 +197,7 @@ class FetchIngredientImageTestCase(WgerTestCase):
             )
             mock_request.assert_any_call(
                 'http://localhost:8000/media/ingredients/1/188324b5-587f-42d7-9abc-d2ca64c73d45.jpg',
-                headers=wger_headers()
+                headers=wger_headers(),
             )
             mock_from_json.assert_called()
 

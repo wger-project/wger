@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
 """
 Migration script to move foreign keys in Settings and WorkoutLog from
 Exercise to ExerciseBase. We first add a nullable FK to ExerciseBase,
@@ -28,7 +29,6 @@ def migrate_log_to_exercise_base(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0019_exercise_crowdsourcing_changes'),
         ('manager', '0015_auto_20211028_1113'),
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.exercisebase',
-                verbose_name='Exercises'
+                verbose_name='Exercises',
             ),
         ),
         migrations.RunPython(migrate_setting_to_exercise_base),
@@ -54,14 +54,13 @@ class Migration(migrations.Migration):
                 null=False,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.exercisebase',
-                verbose_name='Exercises'
+                verbose_name='Exercises',
             ),
         ),
         migrations.RemoveField(
             model_name='setting',
             name='exercise',
         ),
-
         # WorkoutLog
         migrations.AddField(
             model_name='workoutlog',
@@ -70,7 +69,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.exercisebase',
-                verbose_name='Exercises'
+                verbose_name='Exercises',
             ),
         ),
         migrations.RunPython(migrate_log_to_exercise_base),
@@ -81,7 +80,7 @@ class Migration(migrations.Migration):
                 null=False,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='exercises.exercisebase',
-                verbose_name='Exercises'
+                verbose_name='Exercises',
             ),
         ),
         migrations.RemoveField(

@@ -22,9 +22,7 @@ from json import JSONDecodeError
 
 # Django
 from django.conf import settings
-from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
-from django.core import mail
+from django.contrib.postgres.indexes import GinIndex
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import (
@@ -34,14 +32,13 @@ from django.core.validators import (
 )
 from django.db import models
 from django.http import HttpRequest
-from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils import translation
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from openfoodfacts import API
+from requests import ConnectTimeout
 
 # wger
 from wger.core.models import Language
@@ -51,16 +48,10 @@ from wger.nutrition.consts import (
 )
 from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import (
-    OFF_SEARCH_PRODUCT_FOUND,
-    TWOPLACES,
-)
+from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
-from wger.utils.managers import SubmissionManager
-from wger.utils.models import (
-    AbstractLicenseModel,
-    AbstractSubmissionModel,
-)
+from wger.utils.models import AbstractLicenseModel
+from wger.utils.requests import wger_user_agent
 
 # Local
 from .ingredient_category import IngredientCategory
@@ -69,12 +60,10 @@ from .ingredient_category import IngredientCategory
 logger = logging.getLogger(__name__)
 
 
-class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
+class Ingredient(AbstractLicenseModel, models.Model):
     """
     An ingredient, with some approximate nutrition values
     """
-    objects = SubmissionManager()
-    """Custom manager"""
 
     ENERGY_APPROXIMATION = 15
     """
@@ -82,13 +71,6 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     energy amount given (in percent).
     """
 
-    # Metaclass to set some other properties
-    class Meta:
-        ordering = [
-            "name",
-        ]
-
-    # Meta data
     language = models.ForeignKey(
         Language,
         verbose_name=_('Language'),
@@ -174,12 +156,12 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
 
-    fibres = models.DecimalField(
+    fiber = models.DecimalField(
         decimal_places=3,
         max_digits=6,
         blank=True,
         null=True,
-        verbose_name=_('Fibres'),
+        verbose_name=_('Fiber'),
         help_text=_('In g per 100g of product'),
         validators=[MinValueValidator(0), MaxValueValidator(100)],
     )
@@ -200,7 +182,15 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         blank=True,
         db_index=True,
     )
-    """Internal ID of the source database, e.g. a barcode or similar"""
+    """The product's barcode"""
+
+    remote_id = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+    """ID of the product in the external source database. Used for updated during imports."""
 
     source_name = models.CharField(
         max_length=200,
@@ -244,6 +234,13 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         null=True,
         blank=True,
     )
+
+    # Metaclass to set some other properties
+    class Meta:
+        ordering = [
+            'name',
+        ]
+        indexes = (GinIndex(fields=['name']),)
 
     #
     # Django methods
@@ -300,13 +297,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
             if not ((energy_upper > energy_calculated) and (energy_calculated > energy_lower)):
                 raise ValidationError(
                     _(
-                        'The total energy ({energy}kcal) is not the approximate sum of the '
-                        'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal '
-                        '+/-{energy_approx}%)'.format(
-                            energy=self.energy,
-                            energy_calculated=energy_calculated,
-                            energy_approx=self.ENERGY_APPROXIMATION
-                        )
+                        f'The total energy ({self.energy}kcal) is not the approximate sum of the '
+                        f'energy provided by protein, carbohydrates and fat ({energy_calculated}kcal'
+                        f' +/-{self.ENERGY_APPROXIMATION}%)'
                     )
                 )
 
@@ -339,13 +332,14 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                 'energy',
                 'fat',
                 'fat_saturated',
-                'fibres',
+                'fiber',
                 'name',
                 'protein',
                 'sodium',
             ):
                 if (
-                    hasattr(self, i) and hasattr(other, i)
+                    hasattr(self, i)
+                    and hasattr(other, i)
                     and (getattr(self, i, None) != getattr(other, i, None))
                 ):
                     equal = False
@@ -368,51 +362,9 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     #
     # Own methods
     #
-
-    def send_email(self, request):
-        """
-        Sends an email after being successfully added to the database (for user
-        submitted ingredients only)
-        """
-        try:
-            user = User.objects.get(username=self.license_author)
-        except User.DoesNotExist:
-            return
-
-        if self.license_author and user.email:
-            translation.activate(user.userprofile.notification_language.short_name)
-            url = request.build_absolute_uri(self.get_absolute_url())
-            subject = _('Ingredient was successfully added to the general database')
-            context = {
-                'ingredient': self.name,
-                'url': url,
-                'site': Site.objects.get_current().domain
-            }
-            message = render_to_string('ingredient/email_new.tpl', context)
-            mail.send_mail(
-                subject,
-                message,
-                settings.WGER_SETTINGS['EMAIL_FROM'], [user.email],
-                fail_silently=True
-            )
-
     def set_author(self, request):
-        if request.user.has_perm('nutrition.add_ingredient'):
-            self.status = Ingredient.STATUS_ACCEPTED
-            if not self.license_author:
-                self.license_author = request.get_host().split(':')[0]
-        else:
-            if not self.license_author:
-                self.license_author = request.user.username
-
-            # Send email to administrator
-            subject = _('New user submitted ingredient')
-            message = _(
-                """The user {0} submitted a new ingredient "{1}".""".format(
-                    request.user.username, self.name
-                )
-            )
-            mail.mail_admins(subject, message, fail_silently=True)
+        if not self.license_author:
+            self.license_author = request.get_host().split(':')[0]
 
     def get_owner_object(self):
         """
@@ -455,6 +407,7 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
         # Let celery fetch the image
         # wger
         from wger.nutrition.tasks import fetch_ingredient_image_task
+
         fetch_ingredient_image_task.delay(self.pk)
 
     @classmethod
@@ -467,17 +420,21 @@ class Ingredient(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
 
         logger.info(f'Searching for ingredient {code} in OFF')
         try:
-            api = API()
+            api = API(user_agent=wger_user_agent())
             result = api.product.get(code)
         except JSONDecodeError as e:
             logger.info(f'Got JSONDecodeError from OFF: {e}')
             return None
-        if result['status'] != OFF_SEARCH_PRODUCT_FOUND:
+        except ConnectTimeout:
+            logger.info('Timeout from OFF')
             return None
-        product = result['product']
+
+        if not result:
+            logger.info('Product not found')
+            return None
 
         try:
-            ingredient_data = extract_info_from_off(product, load_language(product['lang']).pk)
+            ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
         except KeyError:
             return None
 

@@ -20,7 +20,7 @@ from django.apps import AppConfig
 
 class ManagerConfig(AppConfig):
     name = 'wger.manager'
-    verbose_name = "Manager"
+    verbose_name = 'Manager'
 
     def ready(self):
         import wger.manager.signals

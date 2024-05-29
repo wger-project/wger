@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-04 18:26+0100\n"
-"PO-Revision-Date: 2023-02-02 15:38+0000\n"
+"POT-Creation-Date: 2024-02-02 12:42+0100\n"
+"PO-Revision-Date: 2024-02-17 18:02+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 5.4\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -34,7 +34,7 @@ msgstr ""
 "kullanıcıları bu spor salonuna atayacak ve spor salonu olmayan tüm mevcut "
 "kullanıcıları güncelleyecektir."
 
-#: config/views/gym_config.py:41 core/templates/language/view.html:63
+#: config/views/gym_config.py:42 core/templates/language/view.html:63
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:18
 #: core/templates/repetition_unit/list.html:18
 #: core/templates/tags/render_day.html:39
@@ -44,14 +44,14 @@ msgstr ""
 #: exercises/templates/categories/admin-overview.html:17
 #: exercises/templates/equipment/admin-overview.html:17
 #: exercises/templates/muscles/admin-overview.html:17
-#: gallery/views/images.py:96 gym/templates/admin_notes/list.html:32
+#: gallery/views/images.py:98 gym/templates/admin_notes/list.html:32
 #: gym/templates/contract/list.html:31 gym/templates/contract/view.html:107
 #: gym/templates/contract_option/list.html:32
 #: gym/templates/contract_type/list.html:32 gym/templates/document/list.html:38
 #: gym/templates/gym/list.html:20 gym/templates/gym/list.html:46
 #: gym/templates/gym/member_list.html:87 gym/templates/gym/member_list.html:140
 #: gym/templates/gym/member_list.html:176
-#: manager/templates/calendar/day.html:66
+#: manager/templates/calendar/day.html:68
 #: manager/templates/calendar/month.html:85
 #: manager/templates/calendar/partial_overview_table.html:18
 #: manager/templates/schedule/view.html:119
@@ -91,24 +91,24 @@ msgstr "Yer tutucu planı boş"
 
 #: core/forms.py:69 core/templates/navigation.html:275
 #: core/templates/navigation.html:281 core/templates/user/login.html:4
-#: software/templates/features.html:75 software/templates/features.html:420
+#: software/templates/features.html:82 software/templates/features.html:427
 msgid "Login"
 msgstr "Oturum aç"
 
-#: core/forms.py:108 core/forms.py:210 gym/views/export.py:63
-#: gym/views/gym.py:218
+#: core/forms.py:108 core/forms.py:214 gym/views/export.py:61
+#: gym/views/gym.py:217
 msgid "First name"
 msgstr "İsim"
 
-#: core/forms.py:109 core/forms.py:211 core/templates/user/overview.html:266
-#: gym/views/export.py:64 gym/views/gym.py:218
+#: core/forms.py:109 core/forms.py:215 core/templates/user/overview.html:266
+#: gym/views/export.py:62 gym/views/gym.py:217
 msgid "Last name"
 msgstr "Soyisim"
 
-#: core/forms.py:111 core/forms.py:176 core/templates/user/overview.html:270
-#: gym/models/contract.py:253 gym/models/gym.py:58
+#: core/forms.py:111 core/forms.py:180 core/templates/user/overview.html:270
+#: gym/models/contract.py:256 gym/models/gym.py:58
 #: gym/templates/contract/view.html:77 gym/templates/gym/member_list.html:104
-#: gym/templates/gym/new_user.html:30 gym/views/export.py:62
+#: gym/templates/gym/new_user.html:30 gym/views/export.py:60
 #: mailer/templates/mailer/gym/form.html:4
 #: mailer/templates/mailer/gym/overview.html:4
 #: mailer/templates/mailer/gym/preview.html:4
@@ -121,7 +121,7 @@ msgstr ""
 "Parola sıfırlamaları ve isteğe bağlı olarak e-posta hatırlatıcıları için "
 "kullanılır."
 
-#: core/forms.py:116 core/models/profile.py:224
+#: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
 msgid "Date of Birth"
 msgstr "Doğum tarihi"
@@ -130,41 +130,41 @@ msgstr "Doğum tarihi"
 msgid "Personal data"
 msgstr "Kişisel bilgiler"
 
-#: core/forms.py:156
+#: core/forms.py:159
 msgid "Workout reminders"
 msgstr "Antrenman hatırlatıcıları"
 
-#: core/forms.py:163
+#: core/forms.py:166
 msgid "Other settings"
 msgstr "Diğer ayarlar"
 
-#: core/forms.py:170 core/views/user.py:615 core/views/user.py:630
-#: core/views/user.py:642 gym/forms.py:72 manager/templates/log/add.html:65
-#: manager/templates/set/add.html:70 manager/views/workout.py:205
+#: core/forms.py:174 core/views/user.py:624 core/views/user.py:639
+#: core/views/user.py:651 gym/forms.py:73 manager/templates/log/add.html:65
+#: manager/templates/set/add.html:70 manager/views/workout.py:203
 #: utils/generic_views.py:143
 msgid "Save"
 msgstr "Kaydet"
 
-#: core/forms.py:177
+#: core/forms.py:181
 msgid "Used for password resets and, optionally, email reminders."
 msgstr ""
 "Parola sıfırlamaları ve isteğe bağlı olarak e-posta hatırlatıcıları için "
 "kullanılır."
 
-#: core/forms.py:206
+#: core/forms.py:210
 msgid "This e-mail address is already in use."
 msgstr "Bu e-posta adresi zaten kullanılıyor."
 
-#: core/forms.py:226 gym/templates/gym/new_user.html:26
-#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:218
+#: core/forms.py:231 gym/templates/gym/new_user.html:26
+#: gym/templates/gym/reset_user_password.html:24 gym/views/gym.py:217
 msgid "Password"
 msgstr "Parola"
 
-#: core/forms.py:228
+#: core/forms.py:233
 msgid "Please enter your current password."
 msgstr "Lütfen geçerli parolanızı girin."
 
-#: core/forms.py:237 core/templates/language/view.html:68
+#: core/forms.py:242 core/templates/language/view.html:68
 #: core/templates/license/list.html:19 core/templates/misc/license/list.html:22
 #: core/templates/repetition_unit/list.html:20
 #: core/templates/tags/render_day.html:45
@@ -176,7 +176,7 @@ msgstr "Lütfen geçerli parolanızı girin."
 #: gym/templates/admin_notes/list.html:40
 #: gym/templates/contract_option/list.html:41
 #: gym/templates/contract_type/list.html:41 gym/templates/document/list.html:46
-#: gym/templates/gym/list.html:22 manager/templates/calendar/day.html:70
+#: gym/templates/gym/list.html:22 manager/templates/calendar/day.html:73
 #: manager/templates/calendar/month.html:89
 #: manager/templates/calendar/partial_overview_table.html:23
 #: manager/templates/schedule/view.html:123
@@ -187,35 +187,35 @@ msgstr "Lütfen geçerli parolanızı girin."
 msgid "Delete"
 msgstr "Sil"
 
-#: core/forms.py:246
+#: core/forms.py:251
 msgid "Invalid password"
 msgstr "Geçersiz parola"
 
-#: core/forms.py:258 core/forms.py:328
+#: core/forms.py:263 core/forms.py:338
 msgid "The form is secured with reCAPTCHA"
 msgstr "Form reCAPTCHA ile güvence altına alındı"
 
-#: core/forms.py:272 core/forms.py:293 core/templates/navigation.html:275
-#: core/templates/navigation.html:287 core/templates/template.html:152
-#: core/templates/user/login.html:20 core/views/user.py:300
-#: software/templates/features.html:80 software/templates/features.html:415
+#: core/forms.py:279 core/forms.py:301 core/templates/navigation.html:275
+#: core/templates/navigation.html:287 core/templates/template.html:147
+#: core/templates/user/login.html:20 core/views/user.py:298
+#: software/templates/features.html:87 software/templates/features.html:422
 msgid "Register"
 msgstr "Kayıt ol"
 
-#: core/forms.py:306
+#: core/forms.py:315
 msgid "Contact"
 msgstr "İletişim"
 
-#: core/forms.py:307
+#: core/forms.py:316
 msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Size cevap vermenin bir yolu (e-posta vb.)"
 
-#: core/forms.py:315 exercises/models/comment.py:42 manager/models/set.py:60
+#: core/forms.py:324 exercises/models/comment.py:58 manager/models/set.py:61
 #: manager/models/setting.py:111 nutrition/models/log.py:74
 msgid "Comment"
 msgstr "Yorum"
 
-#: core/forms.py:316
+#: core/forms.py:325
 msgid "What do you want to say?"
 msgstr "Ne söylemek istiyorsun?"
 
@@ -247,7 +247,7 @@ msgstr ""
 msgid "Short name, e.g. CC-BY-SA 3"
 msgstr "Kısa ad, ör. CC-BY-SA 3"
 
-#: core/models/license.py:45 nutrition/models/ingredient.py:212
+#: core/models/license.py:45 nutrition/models/ingredient.py:214
 msgid "Link"
 msgstr "Bağlantı"
 
@@ -296,11 +296,11 @@ msgstr "Egzersiz yorumlarını göster"
 msgid "Check to show exercise comments on the workout view"
 msgstr "Antrenman görünümünde egzersiz yorumlarını göstermek için işaretleyin"
 
-#: core/models/profile.py:130
+#: core/models/profile.py:129
 msgid "Also use ingredients in English"
 msgstr "İngilizce malzemeleri de kullanın"
 
-#: core/models/profile.py:132
+#: core/models/profile.py:131
 msgid ""
 "Check to also show ingredients in English while creating\n"
 "a nutritional plan. These ingredients are extracted from a list provided\n"
@@ -312,11 +312,11 @@ msgstr ""
 "ABD Tarım Bakanlığı tarafından. Çevresinde son derece eksiksiz\n"
 "7000 giriş, ancak biraz bunaltıcı olabilir ve aramayı zorlaştırabilir."
 
-#: core/models/profile.py:141
+#: core/models/profile.py:140
 msgid "Activate workout reminders"
 msgstr "Antrenman hatırlatıcılarını aktifleştir"
 
-#: core/models/profile.py:143
+#: core/models/profile.py:142
 msgid ""
 "Check to activate automatic reminders for workouts. You need to provide a "
 "valid email for this to work."
@@ -324,20 +324,20 @@ msgstr ""
 "Antrenmanlar için otomatik hatırlatıcıları etkinleştirmek için işaretleyin. "
 "Bunun çalışması için geçerli bir e-posta adresi sağlamanız gerekiyor."
 
-#: core/models/profile.py:152
+#: core/models/profile.py:151
 msgid "Remind before expiration"
 msgstr "Son kullanma tarihinden önce hatırlat"
 
-#: core/models/profile.py:153
+#: core/models/profile.py:152
 msgid "The number of days you want to be reminded before a workout expires."
 msgstr ""
 "Bir antrenman sona ermeden önce hatırlatılmasını istediğiniz gün sayısı."
 
-#: core/models/profile.py:159
+#: core/models/profile.py:157
 msgid "Default duration of workouts"
 msgstr "Varsayılan antrenman süresi"
 
-#: core/models/profile.py:161
+#: core/models/profile.py:159
 msgid ""
 "Default duration in weeks of workouts not in a schedule. Used for email "
 "workout reminders."
@@ -345,11 +345,11 @@ msgstr ""
 "Bir programda olmayan antrenman haftaları için varsayılan süre. E-posta "
 "egzersiz hatırlatıcıları için kullanılır."
 
-#: core/models/profile.py:178
+#: core/models/profile.py:176
 msgid "Notification language"
 msgstr "Bildirim dili"
 
-#: core/models/profile.py:180
+#: core/models/profile.py:178
 msgid ""
 "Language to use when sending you email notifications, e.g. email reminders "
 "for workouts. This does not affect the language used on the website."
@@ -357,70 +357,70 @@ msgstr ""
 "Size e-posta bildirimleri gönderirken kullanılacak dil, ör. egzersizler için "
 "e-posta hatırlatıcıları. Bu, web sitesinde kullanılan dili etkilemez."
 
-#: core/models/profile.py:216 gym/views/export.py:66
+#: core/models/profile.py:214 gym/views/export.py:64
 msgid "Age"
 msgstr "Yaş"
 
-#: core/models/profile.py:232 nutrition/forms.py:115
+#: core/models/profile.py:230 nutrition/forms.py:117
 msgid "Height (cm)"
 msgstr "Boy (cm)"
 
-#: core/models/profile.py:249
+#: core/models/profile.py:247
 msgid "Hours of sleep"
 msgstr "Uyku saatleri"
 
-#: core/models/profile.py:250
+#: core/models/profile.py:248
 msgid "The average hours of sleep per day"
 msgstr "Günlük ortalama uyuma süresi"
 
-#: core/models/profile.py:259
+#: core/models/profile.py:257
 msgid "Work"
 msgstr "İş"
 
-#: core/models/profile.py:260 core/models/profile.py:302
+#: core/models/profile.py:258 core/models/profile.py:300
 msgid "Average hours per day"
 msgstr "Günlük ortalama saat"
 
-#: core/models/profile.py:269 core/models/profile.py:290
-#: core/models/profile.py:311
+#: core/models/profile.py:267 core/models/profile.py:288
+#: core/models/profile.py:309
 msgid "Physical intensity"
 msgstr "Fiziksel yoğunluk"
 
-#: core/models/profile.py:270 core/models/profile.py:291
-#: core/models/profile.py:312
+#: core/models/profile.py:268 core/models/profile.py:289
+#: core/models/profile.py:310
 msgid "Approximately"
 msgstr "Yaklaşık olarak"
 
-#: core/models/profile.py:280
+#: core/models/profile.py:278
 msgid "Sport"
 msgstr "Spor"
 
-#: core/models/profile.py:281
+#: core/models/profile.py:279
 msgid "Average hours per week"
 msgstr "Haftalık ortalama saat"
 
-#: core/models/profile.py:301
+#: core/models/profile.py:299
 msgid "Free time"
 msgstr "Boş zaman"
 
-#: core/models/profile.py:322 nutrition/templates/rate/form.html:66
+#: core/models/profile.py:320 nutrition/templates/rate/form.html:66
 msgid "Total daily calories"
 msgstr "Toplam günlük kalori"
 
-#: core/models/profile.py:323
+#: core/models/profile.py:321
 msgid "Total caloric intake, including e.g. any surplus"
 msgstr "Toplam kalori alımı, örn. herhangi bir fazlalık"
 
-#: core/models/profile.py:335 nutrition/models/ingredient_weight_unit.py:45
+#: core/models/profile.py:333 nutrition/models/ingredient_weight_unit.py:45
 #: nutrition/models/log.py:93 nutrition/models/meal_item.py:58
 msgid "Weight unit"
 msgstr "Ağırlık birimi"
 
-#: core/models/profile.py:343
+#: core/models/profile.py:341
 msgid "Allow external access"
 msgstr "Harici erişime izin ver"
 
-#: core/models/profile.py:345
+#: core/models/profile.py:343
 msgid ""
 "Allow external users to access your workouts and logs in a read-only mode. "
 "You need to set this before you can share links e.g. to social media."
@@ -429,30 +429,30 @@ msgstr ""
 "modda erişmesine izin verin. Bağlantıları paylaşmadan önce bunu ayarlamanız "
 "gerekir, ör. sosyal medyaya."
 
-#: core/models/profile.py:354
+#: core/models/profile.py:352
 msgid "Automatic reminders for weight entries"
 msgstr "Kilo girişleri için otomatik hatırlatıcılar"
 
-#: core/models/profile.py:356
+#: core/models/profile.py:353
 msgid "Number of days after the last weight entry (enter 0 to deactivate)"
 msgstr ""
 "Son ağırlık girişinden sonraki gün sayısı (devre dışı bırakmak için 0 girin)"
 
-#: core/models/profile.py:422
+#: core/models/profile.py:416
 msgid "The sum of all hours has to be 24"
 msgstr "Tüm saatlerin toplamı 24 olmalıdır"
 
-#: core/models/rep_unit.py:35 core/models/weight_unit.py:35
-#: core/templates/user/overview.html:262 core/views/user.py:591
-#: exercises/models/category.py:28 exercises/models/equipment.py:29
-#: exercises/models/exercise.py:54 exercises/models/muscle.py:36
-#: gym/models/contract.py:51 gym/models/contract.py:101 gym/models/gym.py:46
-#: gym/models/user_document.py:87 gym/templates/contract/view.html:50
+#: core/models/rep_unit.py:36 core/models/weight_unit.py:36
+#: core/templates/user/overview.html:262 core/views/user.py:599
+#: exercises/models/category.py:29 exercises/models/equipment.py:29
+#: exercises/models/exercise.py:58 exercises/models/muscle.py:36
+#: gym/models/contract.py:52 gym/models/contract.py:103 gym/models/gym.py:46
+#: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:96
-#: gym/views/gym.py:156 manager/models/schedule.py:55
-#: manager/models/workout.py:56 measurements/models/category.py:37
-#: nutrition/models/ingredient.py:123
-#: nutrition/models/ingredient_category.py:26 nutrition/models/meal.py:67
+#: gym/views/gym.py:158 manager/models/schedule.py:55
+#: manager/models/workout.py:57 measurements/models/category.py:36
+#: nutrition/models/ingredient.py:125
+#: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:67
 #: nutrition/models/weight_unit.py:38
 #: nutrition/templates/ingredient/pending.html:15
 #: nutrition/templates/ingredient/view.html:178
@@ -465,7 +465,7 @@ msgstr "Yasak!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to acces this page"
-msgstr ""
+msgstr "Bu sayfaya erişim izniniz yok"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -481,22 +481,16 @@ msgstr "Bir hata oluştu"
 
 #: core/templates/500.html:8
 msgid ""
-"\n"
-"            There was an error on the server while processing your request. "
-"Try refreshing your\n"
-"            browser and if that doesn't help, please try again at a later "
-"time. If the problem\n"
-"            persists, you can seek help in ways listed below:\n"
-"        "
+"There was an error on the server while processing your request. Try "
+"refreshing your browser and if that doesn't help, please try again at a "
+"later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"İsteğiniz işlenirken sunucuda bir hata oluştu. Tarayıcınızı yenilemeyi "
+"deneyin ve bu işe yaramazsa lütfen daha sonra tekrar deneyin. Sorun devam "
+"ederse, aşağıda listelenen yollarla yardım isteyebilirsiniz:"
 
-#: core/templates/base.html:12 core/templates/base_wide.html:10
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#: core/templates/base.html:10 core/templates/base_wide.html:7
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -504,28 +498,22 @@ msgid ""
 "            "
 msgstr ""
 "Siteye\n"
-"    \"%(current_user)s\" kullanıcısı olarak göz atıyorsunuz, tüm işlemler "
-"onların verileri üzerinde gerçekleştirilir.\n"
-"    "
+"                \"%(current_user)s\" kullanıcısı olarak göz atıyorsunuz, tüm "
+"işlemler onların verileri üzerinde gerçekleştirilir.\n"
+"            "
 
-#: core/templates/base.html:16 core/templates/base_wide.html:14
+#: core/templates/base.html:14 core/templates/base_wide.html:11
 #, python-format
 msgid "Back to \"%(target)s\""
 msgstr "\"%(target)s\" sayfasına geri dön"
-
-#: core/templates/base.html:42 core/templates/base_wide.html:39
-msgid "Share"
-msgstr "Paylaş"
 
 #: core/templates/delete.html:15
 msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "Bunu silmek istediğinizden emin misiniz? Bu eylem geri alınamaz."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
-msgstr "E-posta adresi doğrulandı"
+msgstr "E-posta doğrulaması"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -569,92 +557,9 @@ msgstr "wger Ekibi"
 msgid "Please click the following link to confirm your email: %(link)s"
 msgstr "E-posta adresinizi doğrulamak için lütfen tıklayın: %(link)s"
 
-#: core/templates/index.html:4 software/templates/features.html:425
+#: core/templates/index.html:4 software/templates/features.html:432
 msgid "Dashboard"
 msgstr "Gösterge Paneli"
-
-#: core/templates/index.html:20 manager/templates/calendar/month.html:115
-msgid "Add log to day"
-msgstr "Günlüğü güne ekle"
-
-#: core/templates/index.html:24
-#, fuzzy
-#| msgid ""
-#| "Click to add weight logs to a training\n"
-#| "day in your current workout:"
-msgid ""
-"Click to add weight logs to a training\n"
-"                            day in your current workout:"
-msgstr ""
-"Bir egzersize ağırlık günlükleri eklemek için tıklayın\n"
-"mevcut antrenmanınızdaki gün:"
-
-#: core/templates/index.html:37
-#: core/templates/misc/fragments/shariff_modal.html:33
-#: core/templates/template.html:125 manager/templates/calendar/month.html:138
-#: manager/templates/schedule/view.html:249
-#: manager/templates/schedule/view.html:270
-#: manager/templates/workout/view.html:86
-#: manager/templates/workout/view.html:139
-msgid "Close"
-msgstr "Kapat"
-
-#: core/templates/index.html:52 core/templates/index.html:60
-#: manager/models/day.py:34 manager/models/log.py:58
-#: manager/models/session.py:60 manager/models/workout.py:109
-#: manager/templates/schedule/view.html:103
-#: manager/templates/workout/view.html:11
-#: manager/templates/workout/view.html:19 manager/views/pdf.py:85
-#: manager/views/pdf.py:161 manager/views/schedule.py:152
-#: manager/views/schedule.py:222
-msgid "Workout"
-msgstr "Antrenman"
-
-#: core/templates/index.html:86
-msgid "This workout is part of a schedule:"
-msgstr "Bu antrenman bir programın parçasıdır:"
-
-#: core/templates/index.html:91
-msgid ""
-"The current workout is selected from your active schedule or, if you don't "
-"have one, simply by date."
-msgstr ""
-"Mevcut antrenman, aktif programınızdan veya eğer yoksa sadece tarihe göre "
-"seçilir."
-
-#: core/templates/index.html:104 manager/templates/calendar/month.html:188
-msgid "Add new log"
-msgstr "Yeni günlük ekle"
-
-#: core/templates/index.html:109 core/templates/user/overview.html:58
-#: manager/templates/calendar/month.html:128
-#: manager/templates/schedule/view.html:145
-#: manager/templates/workout/overview.html:28
-msgid "No workouts found."
-msgstr "Antrenman bulunamadı."
-
-#: core/templates/index.html:109 core/templates/language/overview.html:20
-#: manager/templates/calendar/month.html:132
-#: manager/templates/schedule/overview.html:28
-#: manager/templates/schedule/view.html:145
-#: manager/templates/workout/overview.html:28
-#: nutrition/templates/ingredient/overview.html:51
-msgid "Add one now."
-msgstr "Yeni ekle."
-
-#: core/templates/index.html:125 core/templates/user/overview.html:112
-#: core/templates/user/overview.html:121 manager/forms.py:189
-#: manager/helpers.py:87 manager/models/log.py:86 manager/models/setting.py:79
-#: manager/templates/log/add.html:54 manager/templates/set/formset.html:11
-#: weight/models.py:34 weight/templates/import_csv_preview.html:14
-#: weight/templates/import_csv_preview.html:43 weight/views.py:142
-msgid "Weight"
-msgstr "Kilo"
-
-#: core/templates/index.html:132 core/templates/navigation.html:207
-#: weight/views.py:64
-msgid "Add weight entry"
-msgstr "Kilo girişi ekleyin"
 
 #: core/templates/language/overview.html:4 core/templates/navigation.html:335
 msgid "Languages"
@@ -664,16 +569,25 @@ msgstr "Diller"
 msgid "Nothing found."
 msgstr "Bulunamadı."
 
+#: core/templates/language/overview.html:20
+#: manager/templates/calendar/month.html:132
+#: manager/templates/schedule/overview.html:28
+#: manager/templates/schedule/view.html:145
+#: manager/templates/workout/overview.html:28
+#: nutrition/templates/ingredient/overview.html:38
+msgid "Add one now."
+msgstr "Yeni ekle."
+
 #: core/templates/language/overview.html:33 core/templates/license/list.html:40
 #: core/templates/misc/license/list.html:43
 #: core/templates/repetition_unit/list.html:43
 #: core/templates/user/overview.html:326 core/templates/user/overview.html:365
 #: core/templates/user/overview.html:401
-#: core/templates/weight_unit/list.html:43 core/views/languages.py:73
-#: core/views/license.py:65 core/views/repetition_units.py:65
-#: core/views/weight_units.py:65
+#: core/templates/weight_unit/list.html:43 core/views/languages.py:74
+#: core/views/license.py:66 core/views/repetition_units.py:66
+#: core/views/weight_units.py:66
 #: exercises/templates/categories/admin-overview.html:38
-#: gallery/views/images.py:62 gym/templates/admin_notes/list.html:67
+#: gallery/views/images.py:63 gym/templates/admin_notes/list.html:67
 #: gym/templates/contract/list.html:73
 #: gym/templates/contract_option/list.html:72
 #: gym/templates/contract_type/list.html:72 gym/templates/document/list.html:79
@@ -685,13 +599,12 @@ msgid "Add"
 msgstr "Ekle"
 
 #: core/templates/language/view.html:58 core/templates/user/api_key.html:44
-#: core/templates/user/preferences.html:45 gym/models/contract.py:200
+#: core/templates/user/preferences.html:45 gym/models/contract.py:203
 #: gym/templates/contract/view.html:41 gym/templates/contract/view.html:106
 #: gym/templates/gym/member_list.html:248
 #: manager/templates/schedule/view.html:286
 #: manager/templates/workout/view.html:165
 #: nutrition/templates/ingredient/view.html:228
-#: weight/templates/overview.html:46
 msgid "Options"
 msgstr "Seçenekler"
 
@@ -715,49 +628,27 @@ msgstr "Lisans listesi"
 #: gym/templates/gym/member_list.html:262
 #: gym/templates/gym/member_list.html:299
 #: mailer/templates/mailer/gym/overview.html:30
-#: manager/templates/calendar/day.html:84
+#: manager/templates/calendar/day.html:87
 #: nutrition/templates/ingredient/pending.html:30
 #: nutrition/templates/units/list.html:29
 msgid "Nothing found"
 msgstr "Hiçbir şey Bulunamadı"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:178
+#: core/templates/misc/about.html:4 core/templates/template.html:173
 msgid "Imprint"
 msgstr "Künye"
 
-#: core/templates/misc/fragments/shariff_modal.html:6
-msgid "Share this page"
-msgstr "Bu sayfayı paylaş"
-
-#: core/templates/misc/fragments/shariff_modal.html:20
-#, fuzzy
-#| msgid ""
-#| "Before you share links on social media you need to allow external access."
-msgid ""
-"Before you share links on social media you need to allow external\n"
-"                            access."
-msgstr ""
-"Bağlantıları sosyal medyada paylaşmadan önce, harici erişime izin vermeniz "
-"gerekir."
-
-#: core/templates/misc/fragments/shariff_modal.html:26
-msgid "That's done here"
-msgstr "Bu burada yapılır"
-
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
 "entries here."
 msgstr ""
-"Bir lisans yerelleştirilmişse, ör. Creative Commons\n"
-"farklı ülkeler için lisanslar, bunları ayrı girişler olarak buraya ekleyin."
+"Bir lisans yerelleştirilmişse, örneğin farklı ülkeler için\n"
+"            Creative Commons lisansları, onları buraya ayrı girişler olarak "
+"ekleyin."
 
-#: core/templates/navigation.html:27 software/templates/features.html:430
+#: core/templates/navigation.html:27 software/templates/features.html:437
 msgid "Training"
 msgstr "Eğitim"
 
@@ -776,10 +667,8 @@ msgid "Calendar"
 msgstr "Takvim"
 
 #: core/templates/navigation.html:60
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "Makrobesinler"
+msgstr "Ölçümler"
 
 #: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -797,8 +686,9 @@ msgstr "Şablonlarınız"
 msgid "Public templates"
 msgstr "Herkese açık şablonlar"
 
-#: core/templates/navigation.html:97 manager/forms.py:132
-#: manager/models/setting.py:54 software/templates/features.html:452
+#: core/templates/navigation.html:97 manager/forms.py:129
+#: manager/models/setting.py:54 software/templates/features.html:51
+#: software/templates/features.html:459
 msgid "Exercises"
 msgstr "Egzersizler"
 
@@ -811,7 +701,7 @@ msgstr "Yönetim"
 msgid "Exercise edit history"
 msgstr "Egzersiz düzenleme geçmişi"
 
-#: core/templates/navigation.html:111 exercises/models/base.py:101
+#: core/templates/navigation.html:111 exercises/models/base.py:103
 msgid "Equipment"
 msgstr "Ekipman"
 
@@ -824,7 +714,7 @@ msgstr "Kaslar"
 msgid "Categories"
 msgstr "Kategoriler"
 
-#: core/templates/navigation.html:136 software/templates/features.html:440
+#: core/templates/navigation.html:136 software/templates/features.html:447
 msgid "Nutrition"
 msgstr "Beslenme"
 
@@ -841,7 +731,7 @@ msgid "Daily calories calculator"
 msgstr "Günlük kalori hesaplayıcı"
 
 #: core/templates/navigation.html:165
-#: nutrition/templates/ingredient/overview.html:35
+#: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
 msgstr "İçeriğe genel bakış"
 
@@ -854,14 +744,17 @@ msgstr "İçerik ağırlık birimleri"
 msgid "Ingredients pending review"
 msgstr "İncelenmeyi bekleyen malzemeler"
 
-#: core/templates/navigation.html:193 software/templates/features.html:435
+#: core/templates/navigation.html:193 software/templates/features.html:442
 msgid "Body weight"
 msgstr "Vücut ağırlığı"
 
 #: core/templates/navigation.html:200 core/templates/user/overview.html:114
-#: weight/templates/overview.html:7
 msgid "Weight overview"
 msgstr "Ağırlığa genel bakış"
+
+#: core/templates/navigation.html:207 weight/views.py:65
+msgid "Add weight entry"
+msgstr "Kilo girişi ekleyin"
 
 #: core/templates/navigation.html:221
 msgid "About this software"
@@ -871,7 +764,7 @@ msgstr "Bu yazılım hakkında"
 msgid "About us"
 msgstr "Hakkımızda"
 
-#: core/templates/navigation.html:233 software/templates/features.html:500
+#: core/templates/navigation.html:233 software/templates/features.html:507
 msgid "REST API"
 msgstr "REST API"
 
@@ -887,8 +780,8 @@ msgstr "Geliştirici belgeleri"
 msgid "Get the code"
 msgstr "Kodu alın"
 
-#: core/templates/navigation.html:259 core/templates/template.html:217
-#: software/templates/features.html:575
+#: core/templates/navigation.html:259 core/templates/template.html:212
+#: software/templates/features.html:582
 msgid "Translate"
 msgstr "Çevir"
 
@@ -1005,28 +898,36 @@ msgstr "Şimdi düzenleyin."
 msgid "Add exercises to this workout day"
 msgstr "Bu antrenman gününe egzersiz ekleyin"
 
-#: core/templates/tags/render_weight_log.html:17 manager/helpers.py:87
+#: core/templates/tags/render_weight_log.html:17 manager/helpers.py:86
 #: manager/models/setting.py:69 manager/templates/set/formset.html:9
 msgid "Reps"
 msgstr "Temsilciler"
 
-#: core/templates/tags/render_weight_log.html:30 manager/forms.py:194
+#: core/templates/tags/render_weight_log.html:30 manager/forms.py:191
 #: manager/models/log.py:103 manager/models/setting.py:99
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:13
 msgid "RiR"
 msgstr "RiR"
 
-#: core/templates/template.html:141
+#: core/templates/template.html:120 manager/templates/calendar/month.html:138
+#: manager/templates/schedule/view.html:249
+#: manager/templates/schedule/view.html:270
+#: manager/templates/workout/view.html:86
+#: manager/templates/workout/view.html:139
+msgid "Close"
+msgstr "Kapat"
+
+#: core/templates/template.html:136
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Misafir hesabı kullanıyorsunuz, girilen veriler bir hafta sonra silinecek."
 
-#: core/templates/template.html:146
+#: core/templates/template.html:141
 msgid "Create some demo entries"
 msgstr "Bazı demo girişleri oluşturun"
 
-#: core/templates/template.html:183 software/templates/features.html:540
+#: core/templates/template.html:178 software/templates/features.html:547
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Kullanım Şartları"
@@ -1076,7 +977,7 @@ msgstr "Mevcut API anahtarını silin ve yenisini oluşturun"
 msgid "Generate new API key"
 msgstr "Yeni API anahtarı oluşturun"
 
-#: core/templates/user/api_key.html:55 software/templates/features.html:505
+#: core/templates/user/api_key.html:55 software/templates/features.html:512
 msgid "Documentation"
 msgstr "Dokümantasyon"
 
@@ -1135,24 +1036,24 @@ msgstr "Antrenman ekle"
 
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:152
-#: exercises/models/base.py:116 exercises/models/base.py:122
-#: exercises/models/exercise.py:59 exercises/models/exercise.py:65
-#: exercises/models/image.py:106 exercises/models/image.py:112
-#: exercises/models/video.py:160 exercises/models/video.py:166
-#: gallery/models/image.py:47 manager/helpers.py:86 manager/models/log.py:100
-#: manager/models/session.py:67 measurements/models/measurement.py:48
-#: nutrition/models/ingredient.py:99 nutrition/models/ingredient.py:105
-#: nutrition/models/ingredient.py:220 weight/models.py:32
+#: exercises/models/base.py:118 exercises/models/base.py:124
+#: exercises/models/exercise.py:63 exercises/models/exercise.py:69
+#: exercises/models/image.py:107 exercises/models/image.py:113
+#: exercises/models/video.py:163 exercises/models/video.py:169
+#: gallery/models/image.py:42 manager/helpers.py:85 manager/models/log.py:100
+#: manager/models/session.py:67 measurements/models/measurement.py:47
+#: nutrition/models/ingredient.py:101 nutrition/models/ingredient.py:107
+#: nutrition/models/ingredient.py:222 weight/models.py:33
 #: weight/templates/import_csv_preview.html:13
-#: weight/templates/import_csv_preview.html:42 weight/views.py:142
+#: weight/templates/import_csv_preview.html:42 weight/views.py:144
 msgid "Date"
 msgstr "Tarih"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
-#: exercises/models/exercise.py:47 gallery/models/image.py:70
-#: gym/models/contract.py:57 gym/models/contract.py:107
-#: manager/models/day.py:37 manager/models/workout.py:62
-#: measurements/models/measurement.py:63 nutrition/models/plan.py:68
+#: exercises/models/exercise.py:51 gallery/models/image.py:65
+#: gym/models/contract.py:58 gym/models/contract.py:109
+#: manager/models/day.py:37 manager/models/workout.py:63
+#: measurements/models/measurement.py:62 nutrition/models/plan.py:67
 msgid "Description"
 msgstr "Açıklama"
 
@@ -1160,17 +1061,24 @@ msgstr "Açıklama"
 msgid "Number of logs (days)"
 msgstr "Günlük sayısı (gün)"
 
-#: core/templates/user/overview.html:37 core/views/user.py:592
-#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:157
+#: core/templates/user/overview.html:37 core/views/user.py:600
+#: gym/templates/gym/email_inactive_members.html:4 gym/views/gym.py:158
 msgid "Last activity"
 msgstr "Son Aktivite"
 
-#: core/templates/user/overview.html:68 manager/forms.py:283
+#: core/templates/user/overview.html:58
+#: manager/templates/calendar/month.html:128
+#: manager/templates/schedule/view.html:145
+#: manager/templates/workout/overview.html:28
+msgid "No workouts found."
+msgstr "Antrenman bulunamadı."
+
+#: core/templates/user/overview.html:68 manager/forms.py:280
 #: manager/templates/workout/view.html:108
 msgid "Log"
 msgstr "Kayıt"
 
-#: core/templates/user/overview.html:77 manager/models/session.py:84
+#: core/templates/user/overview.html:77 manager/models/session.py:83
 #: manager/templates/calendar/partial_overview_table.html:52
 msgid "General impression"
 msgstr "Genel izlenim"
@@ -1188,22 +1096,31 @@ msgstr "Notlar"
 msgid "Time"
 msgstr "Zaman"
 
-#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:128
+#: core/templates/user/overview.html:112 core/templates/user/overview.html:121
+#: manager/forms.py:186 manager/helpers.py:86 manager/models/log.py:86
+#: manager/models/setting.py:79 manager/templates/log/add.html:54
+#: manager/templates/set/formset.html:11 weight/models.py:35
+#: weight/templates/import_csv_preview.html:14
+#: weight/templates/import_csv_preview.html:43 weight/views.py:144
+msgid "Weight"
+msgstr "Kilo"
+
+#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:130
 #: nutrition/templates/ingredient/view.html:77 nutrition/views/plan.py:237
 msgid "Energy"
 msgstr "Enerji"
 
-#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:135
+#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:137
 #: nutrition/templates/ingredient/view.html:84 nutrition/views/plan.py:243
 msgid "Protein"
 msgstr "Protein"
 
-#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:143
+#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:145
 #: nutrition/templates/ingredient/view.html:90 nutrition/views/plan.py:251
 msgid "Carbohydrates"
 msgstr "Karbonhidratlar"
 
-#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:161
+#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:163
 #: nutrition/templates/ingredient/view.html:106 nutrition/views/plan.py:265
 msgid "Fat"
 msgstr "Yağ"
@@ -1211,7 +1128,7 @@ msgstr "Yağ"
 #: core/templates/user/overview.html:170
 #: nutrition/templates/ingredient/view.html:79
 msgid "kcal"
-msgstr "Kilokalori"
+msgstr "kilokalori"
 
 #: core/templates/user/overview.html:201 core/templates/user/overview.html:322
 #: core/templates/user/overview.html:361 core/templates/user/overview.html:397
@@ -1263,15 +1180,14 @@ msgstr "Evet"
 msgid "Details"
 msgstr "Detaylar"
 
-#: core/templates/user/overview.html:258 gym/views/export.py:59
-#: manager/helpers.py:87 manager/templates/schedule/view.html:99
-#: nutrition/views/plan.py:143 nutrition/views/plan.py:151
+#: core/templates/user/overview.html:258 gym/views/export.py:57
+#: manager/helpers.py:86 manager/templates/schedule/view.html:99
 msgid "Nr."
 msgstr "Nr."
 
-#: core/templates/user/overview.html:280 gym/models/contract.py:284
+#: core/templates/user/overview.html:280 gym/models/contract.py:287
 #: gym/models/gym.py:50 gym/templates/contract/view.html:75
-#: gym/templates/gym/member_list.html:100 gym/views/export.py:70
+#: gym/templates/gym/member_list.html:100 gym/views/export.py:68
 msgid "Phone"
 msgstr "Telefon"
 
@@ -1310,7 +1226,7 @@ msgid "Documents"
 msgstr "Belgeler"
 
 #: core/templates/user/overview.html:412 gym/templates/document/list.html:32
-#: manager/forms.py:295 manager/templates/workout/view.html:134
+#: manager/forms.py:292 manager/templates/workout/view.html:134
 msgid "Download"
 msgstr "İndir"
 
@@ -1355,15 +1271,15 @@ msgid "You need to verify your email to contribute exercises"
 msgstr ""
 "Egzersizlere katkıda bulunmak için e-posta adresinizi doğrulamanız gerekiyor"
 
-#: core/templates/user/preferences.html:50 core/views/user.py:603
+#: core/templates/user/preferences.html:50 core/views/user.py:611
 msgid "Change password"
 msgstr "Parola değiştir"
 
-#: core/templatetags/wger_extras.py:204 i18n.tpl:37
+#: core/templatetags/wger_extras.py:205 i18n.tpl:37
 msgid "kg"
 msgstr "kilogram"
 
-#: core/templatetags/wger_extras.py:206
+#: core/templatetags/wger_extras.py:207
 #: nutrition/templates/ingredient/view.html:86
 #: nutrition/templates/ingredient/view.html:92
 #: nutrition/templates/ingredient/view.html:99
@@ -1375,51 +1291,51 @@ msgctxt "weight unit, i.e. grams"
 msgid "g"
 msgstr "g"
 
-#: core/templatetags/wger_extras.py:209 i18n.tpl:38
+#: core/templatetags/wger_extras.py:210 i18n.tpl:38
 msgid "lb"
 msgstr "1 pound = 0.45 kg"
 
-#: core/templatetags/wger_extras.py:211
+#: core/templatetags/wger_extras.py:212
 msgctxt "weight unit, i.e. ounces"
 msgid "oz"
 msgstr "oz"
 
-#: core/views/languages.py:84 exercises/views/categories.py:121
-#: exercises/views/equipment.py:103 exercises/views/exercises.py:76
-#: exercises/views/muscles.py:98 manager/views/schedule.py:310
-#: manager/views/schedule_step.py:128 manager/views/workout.py:251
-#: manager/views/workout_session.py:140 nutrition/views/ingredient.py:128
+#: core/views/languages.py:85 exercises/views/categories.py:122
+#: exercises/views/equipment.py:103 exercises/views/exercises.py:73
+#: exercises/views/muscles.py:99 manager/views/schedule.py:309
+#: manager/views/schedule_step.py:128 manager/views/workout.py:249
+#: manager/views/workout_session.py:142 nutrition/views/ingredient.py:116
 #: nutrition/views/unit.py:110
 msgid "Successfully deleted"
 msgstr "Başarıyla silindi"
 
-#: core/views/languages.py:92 core/views/license.py:102
-#: core/views/repetition_units.py:114 core/views/weight_units.py:114
-#: exercises/views/categories.py:127 exercises/views/exercises.py:84
-#: exercises/views/muscles.py:105 gallery/views/images.py:120
-#: gym/views/admin_notes.py:195 gym/views/document.py:205 gym/views/gym.py:477
-#: manager/views/schedule.py:317 manager/views/schedule_step.py:138
-#: manager/views/workout.py:255 manager/views/workout_session.py:155
-#: nutrition/views/ingredient.py:135 nutrition/views/unit.py:117
+#: core/views/languages.py:93 core/views/license.py:103
+#: core/views/repetition_units.py:115 core/views/weight_units.py:115
+#: exercises/views/categories.py:128 exercises/views/exercises.py:81
+#: exercises/views/muscles.py:106 gallery/views/images.py:122
+#: gym/views/admin_notes.py:196 gym/views/document.py:206 gym/views/gym.py:481
+#: manager/views/schedule.py:316 manager/views/schedule_step.py:138
+#: manager/views/workout.py:253 manager/views/workout_session.py:156
+#: nutrition/views/ingredient.py:123 nutrition/views/unit.py:117
 #, python-brace-format
 msgid "Delete {0}?"
 msgstr "{0} silinsin mi?"
 
-#: core/views/languages.py:110 core/views/license.py:84
-#: core/views/repetition_units.py:85 core/views/user.py:472
-#: core/views/weight_units.py:85 exercises/views/categories.py:97
-#: exercises/views/equipment.py:81 exercises/views/muscles.py:86
-#: gym/views/admin_notes.py:160 gym/views/config.py:68
+#: core/views/languages.py:111 core/views/license.py:85
+#: core/views/repetition_units.py:86 core/views/user.py:474
+#: core/views/weight_units.py:86 exercises/views/categories.py:98
+#: exercises/views/equipment.py:81 exercises/views/muscles.py:87
+#: gym/views/admin_notes.py:161 gym/views/config.py:68
 #: gym/views/contract.py:186 gym/views/contract_option.py:123
-#: gym/views/contract_type.py:123 gym/views/document.py:170
-#: gym/views/gym.py:459 manager/views/day.py:100 manager/views/schedule.py:334
-#: manager/views/workout.py:269 nutrition/views/ingredient.py:154
+#: gym/views/contract_type.py:123 gym/views/document.py:171
+#: gym/views/gym.py:463 manager/views/day.py:100 manager/views/schedule.py:333
+#: manager/views/workout.py:267 nutrition/views/ingredient.py:142
 #: nutrition/views/unit.py:143
 #, python-brace-format
 msgid "Edit {0}"
 msgstr "{0} düzenleyin"
 
-#: core/views/misc.py:95
+#: core/views/misc.py:92
 msgid ""
 "We have created sample workout, workout schedules, weight logs, (body) "
 "weight and nutrition plan entries so you can better see what  this site can "
@@ -1429,36 +1345,32 @@ msgstr ""
 "egzersiz programları, ağırlık kayıtları, (vücut) ağırlık ve beslenme planı "
 "girişleri oluşturduk. Düzenlemekten veya silmekten çekinmeyin!"
 
-#: core/views/misc.py:135
-msgid "Rest day"
-msgstr "Dinlenme günü"
-
-#: core/views/misc.py:159
+#: core/views/misc.py:127
 msgid "Feedback"
 msgstr "geri bildirim"
 
-#: core/views/misc.py:178 weight/templates/import_csv_form.html:9
+#: core/views/misc.py:146 weight/templates/import_csv_form.html:9
 msgid "Submit"
 msgstr "Sunmak"
 
-#: core/views/misc.py:186
+#: core/views/misc.py:154
 msgid "Your feedback was successfully sent. Thank you!"
 msgstr "Geri bildiriminiz başarıyla gönderildi. Teşekkür ederim!"
 
-#: core/views/user.py:157
+#: core/views/user.py:156
 #, python-brace-format
 msgid "Account \"{0}\" was successfully deleted"
 msgstr "\"{0}\" hesabı başarıyla silindi"
 
-#: core/views/user.py:294
+#: core/views/user.py:292
 msgid "You were successfully registered"
 msgstr "Başarıyla kaydoldunuz"
 
-#: core/views/user.py:355
+#: core/views/user.py:351
 msgid "Settings successfully updated"
 msgstr "Ayarlar başarıyla güncellendi"
 
-#: core/views/user.py:392
+#: core/views/user.py:390
 msgid "The user was successfully deactivated"
 msgstr "Kullanıcı başarıyla devre dışı bırakıldı"
 
@@ -1470,101 +1382,101 @@ msgstr "Kullanıcı başarıyla etkinleştirildi"
 msgid "Edit user"
 msgstr "Kullanıcıyı düzenle"
 
-#: core/views/user.py:589 gym/templates/gym/member_list.html:26
-#: gym/views/gym.py:156
+#: core/views/user.py:597 gym/templates/gym/member_list.html:26
+#: gym/views/gym.py:158
 msgid "ID"
 msgstr "İD"
 
-#: core/views/user.py:590 gym/forms.py:94 gym/templates/contract/view.html:55
-#: gym/templates/gym/member_list.html:27 gym/views/export.py:61
-#: gym/views/gym.py:156 gym/views/gym.py:218
+#: core/views/user.py:598 gym/forms.py:95 gym/templates/contract/view.html:55
+#: gym/templates/gym/member_list.html:27 gym/views/export.py:59
+#: gym/views/gym.py:158 gym/views/gym.py:217
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: core/views/user.py:593 gym/templates/gym/new_user.html:34
-#: gym/views/export.py:60 gym/views/gym.py:218
+#: core/views/user.py:601 gym/templates/gym/new_user.html:34
+#: gym/views/export.py:58 gym/views/gym.py:217
 msgid "Gym"
 msgstr "Jimnastik"
 
-#: core/views/user.py:652
+#: core/views/user.py:660
 #, python-format
 msgid "A verification email was sent to %(email)s"
 msgstr "%(email)s adresine bir doğrulama e-postası gönderildi"
 
-#: exercises/models/base.py:80 nutrition/models/ingredient.py:234
+#: exercises/models/base.py:82 nutrition/models/ingredient.py:236
 msgid "Category"
 msgstr "Kategori"
 
-#: exercises/models/base.py:87
+#: exercises/models/base.py:89
 msgid "Primary muscles"
 msgstr "Birincil kaslar"
 
-#: exercises/models/base.py:93
+#: exercises/models/base.py:95
 msgid "Secondary muscles"
 msgstr "İkincil kaslar"
 
-#: exercises/models/base.py:108
+#: exercises/models/base.py:110
 msgid "Variations"
 msgstr "Varyasyonlar"
 
-#: exercises/models/category.py:33
+#: exercises/models/category.py:34
 msgid "Exercise Categories"
 msgstr "Egzersiz Kategorileri"
 
-#: exercises/models/comment.py:37 exercises/models/exercise_alias.py:37
-#: exercises/models/image.py:73 exercises/models/video.py:95
-#: manager/forms.py:181 manager/helpers.py:87 manager/models/log.py:52
+#: exercises/models/comment.py:52 exercises/models/exercise_alias.py:52
+#: exercises/models/image.py:74 exercises/models/video.py:98
+#: manager/forms.py:178 manager/helpers.py:86 manager/models/log.py:52
 msgid "Exercise"
 msgstr "Egzersiz"
 
-#: exercises/models/comment.py:43
+#: exercises/models/comment.py:59
 msgid "A comment about how to correctly do this exercise."
 msgstr "Bu alıştırmanın nasıl doğru bir şekilde yapılacağına dair bir yorum."
 
-#: exercises/models/exercise.py:72 nutrition/models/ingredient.py:93
+#: exercises/models/exercise.py:76 nutrition/models/ingredient.py:95
 #: nutrition/models/weight_unit.py:32
 msgid "Language"
 msgstr "Dil"
 
-#: exercises/models/exercise_alias.py:43
+#: exercises/models/exercise_alias.py:58
 msgid "Alias for an exercise"
 msgstr "Bir egzersizin takma adı"
 
-#: exercises/models/image.py:56
+#: exercises/models/image.py:57
 msgid "Line"
 msgstr "Çizgi"
 
-#: exercises/models/image.py:57
+#: exercises/models/image.py:58
 msgid "3D"
 msgstr "3B"
 
-#: exercises/models/image.py:58
+#: exercises/models/image.py:59
 msgid "Low-poly"
 msgstr "Düşük poli"
 
-#: exercises/models/image.py:59
+#: exercises/models/image.py:60
 msgid "Photo"
 msgstr "Fotoğraf"
 
-#: exercises/models/image.py:60
+#: exercises/models/image.py:61
 msgid "Other"
 msgstr "Diğer"
 
-#: exercises/models/image.py:79 gallery/models/image.py:56
+#: exercises/models/image.py:80 gallery/models/image.py:51
 #: nutrition/models/image.py:60
 msgid "Image"
 msgstr "Resim"
 
-#: exercises/models/image.py:80 gallery/models/image.py:57
+#: exercises/models/image.py:81 gallery/models/image.py:52
 #: nutrition/models/image.py:61
 msgid "Only PNG and JPEG formats are supported"
 msgstr "Yalnızca PNG ve JPEG formatları desteklenir"
 
-#: exercises/models/image.py:86
+#: exercises/models/image.py:87
 msgid "Main picture"
 msgstr "Ana resim"
 
-#: exercises/models/image.py:89
+#: exercises/models/image.py:90
 msgid ""
 "Tick the box if you want to set this image as the main one for the exercise "
 "(will be shown e.g. in the search). The first image is automatically marked "
@@ -1574,7 +1486,7 @@ msgstr ""
 "işaretleyin (örneğin aramada gösterilecektir). İlk görüntü sistem tarafından "
 "otomatik olarak işaretlenir."
 
-#: exercises/models/image.py:98
+#: exercises/models/image.py:99
 msgid "The art style of your image"
 msgstr "Resminizin sanat tarzı"
 
@@ -1590,48 +1502,48 @@ msgstr "Alternatif ad"
 msgid "A more basic name for the muscle"
 msgstr "Kas için daha temel bir isim"
 
-#: exercises/models/video.py:49
+#: exercises/models/video.py:52
 #, python-format
 msgid "Maximum file size is %(size)sMB."
 msgstr "Azami dosya boyutu %(size)sMB'dir."
 
-#: exercises/models/video.py:56 exercises/models/video.py:64
+#: exercises/models/video.py:59 exercises/models/video.py:67
 msgid "File type is not supported"
 msgstr "Dosya türü desteklenmiyor"
 
-#: exercises/models/video.py:69
+#: exercises/models/video.py:72
 msgid "File is not a valid video"
 msgstr "Dosya geçerli bir video değil"
 
-#: exercises/models/video.py:101
+#: exercises/models/video.py:104
 msgid "Main video"
 msgstr "Ana video"
 
-#: exercises/models/video.py:107
+#: exercises/models/video.py:110
 msgid "Video"
 msgstr "Video"
 
-#: exercises/models/video.py:114
+#: exercises/models/video.py:117
 msgid "Size"
 msgstr "Boyut"
 
-#: exercises/models/video.py:121 manager/models/schedule_step.py:56
+#: exercises/models/video.py:124 manager/models/schedule_step.py:57
 msgid "Duration"
 msgstr "Süresi"
 
-#: exercises/models/video.py:130
+#: exercises/models/video.py:133
 msgid "Width"
 msgstr "Genişlik"
 
-#: exercises/models/video.py:137
+#: exercises/models/video.py:140
 msgid "Height"
 msgstr "Yükseklik"
 
-#: exercises/models/video.py:144
+#: exercises/models/video.py:147
 msgid "Codec"
 msgstr "Kodek"
 
-#: exercises/models/video.py:152
+#: exercises/models/video.py:155
 msgid "Codec, long name"
 msgstr "Kodek, uzun ad"
 
@@ -1652,14 +1564,14 @@ msgstr "Egzersiz yönetici geçmişi"
 msgid "Action"
 msgstr "Eylem"
 
-#: exercises/templates/history/overview.html:28 gallery/models/image.py:51
-#: gym/forms.py:57 gym/templates/gym/email_inactive_members.html:4
+#: exercises/templates/history/overview.html:28 gallery/models/image.py:46
+#: gym/forms.py:58 gym/templates/gym/email_inactive_members.html:4
 #: gym/templates/gym/new_user.html:22
 #: gym/templates/gym/reset_user_password.html:20 manager/models/log.py:45
 #: manager/models/schedule.py:44 manager/models/session.py:49
-#: manager/models/workout.py:89 measurements/models/category.py:32
-#: measurements/models/measurement.py:43 nutrition/models/plan.py:55
-#: nutrition/templates/ingredient/pending.html:16 weight/models.py:41
+#: manager/models/workout.py:89 measurements/models/category.py:31
+#: measurements/models/measurement.py:42 nutrition/models/plan.py:54
+#: nutrition/templates/ingredient/pending.html:16 weight/models.py:42
 msgid "User"
 msgstr "Kullanıcı"
 
@@ -1692,15 +1604,15 @@ msgid "Muscle overview"
 msgstr "Kaslara genel bakış"
 
 #: exercises/templates/muscles/admin-overview.html:38
-#: exercises/views/muscles.py:67
+#: exercises/views/muscles.py:68
 msgid "Add muscle"
 msgstr "Kas ekleyin"
 
-#: exercises/views/categories.py:71
+#: exercises/views/categories.py:72
 msgid "Add category"
 msgstr "Kategori ekle"
 
-#: exercises/views/categories.py:120
+#: exercises/views/categories.py:121
 msgid "This will also delete all exercises in this category."
 msgstr "Bu aynı zamanda bu kategorideki tüm alıştırmaları da silecektir."
 
@@ -1708,7 +1620,7 @@ msgstr "Bu aynı zamanda bu kategorideki tüm alıştırmaları da silecektir."
 msgid "Delete equipment?"
 msgstr "Ekipman silinsin mi?"
 
-#: exercises/views/exercises.py:75
+#: exercises/views/exercises.py:72
 msgid "This will delete the exercise from all workouts."
 msgstr "Bu, egzersizi tüm egzersiz programlarından silecektir."
 
@@ -1716,30 +1628,30 @@ msgstr "Bu, egzersizi tüm egzersiz programlarından silecektir."
 msgid "Add image"
 msgstr "Resim ekle"
 
-#: gym/forms.py:59 gym/templates/gym/member_list.html:44
+#: gym/forms.py:60 gym/templates/gym/member_list.html:44
 msgid "Trainer"
 msgstr "Eğitimci"
 
-#: gym/forms.py:61
+#: gym/forms.py:62
 msgid "Gym administrator"
 msgstr "Spor salonu yöneticisi"
 
-#: gym/forms.py:63 gym/templates/gym/member_list.html:52
+#: gym/forms.py:64 gym/templates/gym/member_list.html:52
 msgid "General manager"
 msgstr "Genel Müdür"
 
-#: gym/forms.py:97
+#: gym/forms.py:98
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Gereklidir. 30 veya daha az karakter. Yalnızca harfler, rakamlar ve @ /. / "
 "+ / - / _."
 
-#: gym/forms.py:101
+#: gym/forms.py:100
 msgid "This value may contain only letters, numbers and @/.//-/_ characters."
 msgstr ""
 "Bu değer yalnızca harf, rakam ve @ /. // - / _ karakterleri içerebilir."
 
-#: gym/forms.py:116
+#: gym/forms.py:114
 msgid "A user with that username already exists."
 msgstr "Bu kullanıcı adına sahip bir kullanıcı zaten var."
 
@@ -1747,80 +1659,80 @@ msgstr "Bu kullanıcı adına sahip bir kullanıcı zaten var."
 msgid "Reminder of inactive members"
 msgstr "Aktif olmayan üyelerin hatırlatıcısı"
 
-#: gym/models/admin_user_note.py:66 gym/models/contract.py:302
-#: gym/models/user_document.py:96 gym/templates/contract/view.html:96
+#: gym/models/admin_user_note.py:67 gym/models/contract.py:305
+#: gym/models/user_document.py:93 gym/templates/contract/view.html:96
 msgid "Note"
 msgstr "Not"
 
-#: gym/models/contract.py:141
+#: gym/models/contract.py:143
 msgid "Yearly"
 msgstr "Yıllık"
 
-#: gym/models/contract.py:142
+#: gym/models/contract.py:144
 msgid "Half yearly"
 msgstr "Yarı yıllık"
 
-#: gym/models/contract.py:143
+#: gym/models/contract.py:145
 msgid "Monthly"
 msgstr "Aylık"
 
-#: gym/models/contract.py:144
+#: gym/models/contract.py:146
 msgid "Biweekly"
 msgstr "İki haftada bir"
 
-#: gym/models/contract.py:145
+#: gym/models/contract.py:147
 msgid "Weekly"
 msgstr "Haftalık"
 
-#: gym/models/contract.py:146
+#: gym/models/contract.py:148
 msgid "Daily"
 msgstr "Günlük"
 
-#: gym/models/contract.py:191 gym/templates/contract/view.html:34
+#: gym/models/contract.py:194 gym/templates/contract/view.html:34
 msgid "Contract type"
 msgstr "Sözleşme tipi"
 
-#: gym/models/contract.py:208 gym/templates/contract/view.html:59
-#: manager/templates/log/add.html:52 nutrition/forms.py:61
+#: gym/models/contract.py:211 gym/templates/contract/view.html:59
+#: manager/templates/log/add.html:52 nutrition/forms.py:62
 #: nutrition/models/ingredient_weight_unit.py:54 nutrition/models/log.py:105
 #: nutrition/models/meal_item.py:72
 msgid "Amount"
 msgstr "Miktar"
 
-#: gym/models/contract.py:218 gym/templates/contract/view.html:63
+#: gym/models/contract.py:221 gym/templates/contract/view.html:63
 msgid "Payment type"
 msgstr "Ödeme türü"
 
-#: gym/models/contract.py:222
+#: gym/models/contract.py:225
 msgid "How often the amount will be charged to the member"
 msgstr "Tutarın üyeden ne sıklıkla tahsil edileceği"
 
-#: gym/models/contract.py:228 gym/templates/contract/view.html:24
+#: gym/models/contract.py:231 gym/templates/contract/view.html:24
 msgid "Contract is active"
 msgstr "Sözleşme aktif"
 
-#: gym/models/contract.py:234 gym/templates/contract/view.html:69
-#: manager/models/schedule.py:62 manager/templates/schedule/view.html:68
+#: gym/models/contract.py:237 gym/templates/contract/view.html:69
+#: manager/models/schedule.py:61 manager/templates/schedule/view.html:68
 msgid "Start date"
 msgstr "Başlangıç tarihi"
 
-#: gym/models/contract.py:244 gym/templates/contract/view.html:71
+#: gym/models/contract.py:247 gym/templates/contract/view.html:71
 msgid "End date"
 msgstr "Bitiş tarihi"
 
-#: gym/models/contract.py:260 gym/models/gym.py:73 gym/views/export.py:67
+#: gym/models/contract.py:263 gym/models/gym.py:73 gym/views/export.py:65
 msgid "ZIP code"
 msgstr "posta kodu"
 
-#: gym/models/contract.py:268 gym/models/gym.py:81 gym/views/export.py:68
+#: gym/models/contract.py:271 gym/models/gym.py:81 gym/views/export.py:66
 msgid "City"
 msgstr "Şehir"
 
-#: gym/models/contract.py:276 gym/models/gym.py:89 gym/views/export.py:69
+#: gym/models/contract.py:279 gym/models/gym.py:89 gym/views/export.py:67
 msgid "Street"
 msgstr "Sokak"
 
-#: gym/models/contract.py:292 gym/templates/contract/view.html:92
+#: gym/models/contract.py:295 gym/templates/contract/view.html:92
 msgid "Profession"
 msgstr "Meslek"
 
@@ -1857,8 +1769,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Site başlığında spor salonunun adını gösterin"
 
 #: gym/models/gym_config.py:68
-msgid "Configuration for {}"
-msgstr "{} İçin yapılandırma"
+#, python-brace-format
+msgid "Configuration for {self.gym.name}"
+msgstr "{self.gym.name} için yapılandırma"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -1872,11 +1785,11 @@ msgstr "Etkin olmayan üyelerin e-posta incelemelerini alın"
 msgid "Include this user in the email list with inactive members"
 msgstr "Bu kullanıcıyı aktif olmayan üyelerle e-posta listesine ekle"
 
-#: gym/models/user_document.py:75
+#: gym/models/user_document.py:72
 msgid "Document"
 msgstr "Belge"
 
-#: gym/models/user_document.py:88
+#: gym/models/user_document.py:85
 msgid "Will use file name if nothing provided"
 msgstr "Hiçbir şey sağlanmazsa dosya adını kullanacak"
 
@@ -1916,7 +1829,7 @@ msgstr "Spor listesi"
 msgid "Global gym configuration"
 msgstr "Global spor salonu yapılandırması"
 
-#: gym/templates/gym/list.html:67 gym/views/gym.py:170
+#: gym/templates/gym/list.html:67 gym/views/gym.py:171
 msgid "Add new gym"
 msgstr "Yeni spor salonu ekle"
 
@@ -1997,7 +1910,7 @@ msgstr ""
 "Bu kullanıcının parolası sıfırlandı. Lütfen kullanıcıya yeni parolasını "
 "bildirin."
 
-#: gym/views/admin_notes.py:94 gym/views/document.py:94
+#: gym/views/admin_notes.py:95 gym/views/document.py:95
 msgid "Add note"
 msgstr "Not ekle"
 
@@ -2018,15 +1931,15 @@ msgstr "{0} öğesini sil"
 msgid "Add contract type"
 msgstr "Sözleşme türü ekleyin"
 
-#: gym/views/export.py:65
+#: gym/views/export.py:63
 msgid "Gender"
 msgstr "Cinsiyet"
 
-#: gym/views/gym.py:342
+#: gym/views/gym.py:344
 msgid "Add user to gym"
 msgstr "Spor salonuna kullanıcı ekle"
 
-#: gym/views/gym.py:438
+#: gym/views/gym.py:443
 msgid "Edit gym"
 msgstr "Spor salonunu düzenle"
 
@@ -2055,10 +1968,8 @@ msgid "Biceps"
 msgstr "Pazılar"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
-msgstr "Vücut ağırlığı"
+msgstr "Vücut Ağırlığı"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2066,7 +1977,7 @@ msgstr "Baldırlar"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Kardiyo"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -2101,10 +2012,8 @@ msgid "Kilometers"
 msgstr "Kilometre"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "Kilometre"
+msgstr "Kilometre/Saat"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2128,7 +2037,7 @@ msgstr "Mil"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Mil/Saat"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2136,7 +2045,7 @@ msgstr "Dakika"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Tabaklar"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2146,7 +2055,7 @@ msgstr "Barfiks çubuğu"
 msgid "Quads"
 msgstr "Quads kasları"
 
-#: i18n.tpl:30 manager/forms.py:185 manager/models/log.py:73
+#: i18n.tpl:30 manager/forms.py:182 manager/models/log.py:73
 #: manager/templates/set/add.html:54
 msgid "Repetitions"
 msgstr "Tekrarlar"
@@ -2232,11 +2141,11 @@ msgstr "E-postaları gönder"
 msgid "Correction"
 msgstr "Düzeltme"
 
-#: manager/forms.py:92 manager/models/workout.py:59
+#: manager/forms.py:90 manager/models/workout.py:60
 msgid "The name of the workout"
 msgstr "Antrenmanın adı"
 
-#: manager/forms.py:96 manager/models/workout.py:66
+#: manager/forms.py:94 manager/models/workout.py:67
 msgid ""
 "A short description or goal of the workout. For example 'Focus on back' or "
 "'Week 1 of program xy'."
@@ -2244,7 +2153,7 @@ msgstr ""
 "Antrenmanın kısa bir açıklaması veya hedefi. Örneğin, 'Sırta odaklan' veya "
 "'xy programının 1. haftası'."
 
-#: manager/forms.py:136
+#: manager/forms.py:133
 msgid ""
 "You can search for more than one exercise, they will be grouped together for "
 "a superset."
@@ -2252,40 +2161,47 @@ msgstr ""
 "Birden fazla egzersiz için arama yapabilirsiniz, bunlar bir üst set için "
 "birlikte gruplandırılır."
 
-#: manager/forms.py:143 nutrition/forms.py:248
-#, fuzzy
-#| msgid "Also use ingredients in English"
+#: manager/forms.py:140 nutrition/forms.py:252
 msgid "Also search for names in English"
-msgstr "İngilizce malzemeleri de kullanın"
+msgstr "Ayrıca İngilizce adları da arayın"
 
-#: manager/forms.py:171 manager/forms.py:176 manager/models/log.py:64
+#: manager/forms.py:168 manager/forms.py:173 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
 #: manager/models/setting.py:90 manager/templates/log/add.html:53
 #: manager/templates/log/add.html:55 manager/templates/set/formset.html:10
-#: manager/templates/set/formset.html:12 measurements/models/category.py:42
-#: nutrition/forms.py:65
+#: manager/templates/set/formset.html:12 measurements/models/category.py:41
+#: nutrition/forms.py:66
 msgid "Unit"
 msgstr "Birim"
 
-#: manager/forms.py:282
+#: manager/forms.py:279
 msgid "Type"
 msgstr "Tür"
 
-#: manager/forms.py:283 manager/templates/workout/view.html:115
+#: manager/forms.py:280 manager/templates/workout/view.html:115
 msgid "Table"
 msgstr "Tablo"
 
-#: manager/forms.py:285 manager/templates/workout/view.html:121
+#: manager/forms.py:282 manager/templates/workout/view.html:121
 msgid "with images"
 msgstr "resimlerle"
 
-#: manager/forms.py:286 manager/templates/workout/view.html:127
+#: manager/forms.py:283 manager/templates/workout/view.html:127
 msgid "with comments"
 msgstr "yorumlarla"
 
-#: manager/management/commands/email-reminders.py:123
+#: manager/management/commands/email-reminders.py:121
 msgid "Workout will expire soon"
 msgstr "Antrenman yakında sona erecek"
+
+#: manager/models/day.py:34 manager/models/log.py:58
+#: manager/models/session.py:60 manager/templates/schedule/view.html:103
+#: manager/templates/workout/view.html:11
+#: manager/templates/workout/view.html:19 manager/views/pdf.py:85
+#: manager/views/pdf.py:161 manager/views/schedule.py:151
+#: manager/views/schedule.py:221
+msgid "Workout"
+msgstr "Antrenman"
 
 #: manager/models/day.py:39
 msgid ""
@@ -2303,11 +2219,11 @@ msgstr "Gün"
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
 msgstr "Programın adı veya kısa açıklaması. Örneğin 'XYZ Programı'."
 
-#: manager/models/schedule.py:66 manager/templates/schedule/view.html:72
+#: manager/models/schedule.py:65 manager/templates/schedule/view.html:72
 msgid "Schedule active"
 msgstr "Etkin program"
 
-#: manager/models/schedule.py:69
+#: manager/models/schedule.py:68
 msgid ""
 "Tick the box if you want to mark this schedule as your active one (will be "
 "shown e.g. on your dashboard). All other schedules will then be marked as "
@@ -2317,11 +2233,11 @@ msgstr ""
 "işaretleyin (örneğin, kontrol panelinizde gösterilecektir). Diğer tüm "
 "programlar devre dışı olarak işaretlenecektir"
 
-#: manager/models/schedule.py:78 manager/templates/schedule/view.html:82
+#: manager/models/schedule.py:77 manager/templates/schedule/view.html:82
 msgid "Is a loop"
 msgstr "Bir döngü"
 
-#: manager/models/schedule.py:81
+#: manager/models/schedule.py:80
 msgid ""
 "Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
 "B, C, and so on)"
@@ -2329,15 +2245,15 @@ msgstr ""
 "Programları bir döngüde tekrarlamak istiyorsanız kutuyu işaretleyin (yani, "
 "A, B, C, A, B, C vb.)"
 
-#: manager/models/schedule_step.py:49
+#: manager/models/schedule_step.py:50
 msgid "schedule"
 msgstr "program"
 
-#: manager/models/schedule_step.py:57
+#: manager/models/schedule_step.py:58
 msgid "The duration in weeks"
 msgstr "Hafta cinsinden süre"
 
-#: manager/models/schedule_step.py:63 manager/models/set.py:52
+#: manager/models/schedule_step.py:64 manager/models/set.py:53
 #: manager/models/setting.py:110 nutrition/models/meal.py:55
 #: nutrition/models/meal_item.py:65
 msgid "Order"
@@ -2360,7 +2276,7 @@ msgid "Any notes you might want to save about this workout session."
 msgstr ""
 "Bu egzersiz seansı hakkında kaydetmek isteyebileceğiniz herhangi bir not."
 
-#: manager/models/session.py:89
+#: manager/models/session.py:88
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
@@ -2368,28 +2284,28 @@ msgstr ""
 "Bu egzersiz seansı hakkındaki izleniminiz. Yapabildiğin kadar iyi egzersiz "
 "yaptın mı?"
 
-#: manager/models/session.py:97
+#: manager/models/session.py:95
 msgid "Start time"
 msgstr "Başlangıç saati"
 
-#: manager/models/session.py:102
+#: manager/models/session.py:100
 msgid "Finish time"
 msgstr "Bitiş zamanı"
 
-#: manager/models/session.py:128
+#: manager/models/session.py:127
 msgid "If you enter a time, you must enter both start and end time."
 msgstr ""
 "Bir saat girerseniz, hem başlangıç hem de bitiş saatini girmeniz gerekir."
 
-#: manager/models/session.py:131
+#: manager/models/session.py:130
 msgid "The start time cannot be after the end time."
 msgstr "Başlangıç zamanı, bitiş zamanından sonra olamaz."
 
-#: manager/models/set.py:46
+#: manager/models/set.py:47
 msgid "Exercise day"
 msgstr "Egzersiz günü"
 
-#: manager/models/set.py:56
+#: manager/models/set.py:57
 msgid "Number of sets"
 msgstr "Set sayısı"
 
@@ -2397,16 +2313,16 @@ msgstr "Set sayısı"
 msgid "Sets"
 msgstr "Setleri"
 
-#: manager/models/workout.py:54 nutrition/models/plan.py:61
+#: manager/models/workout.py:55 nutrition/models/plan.py:60
 msgid "Creation date"
 msgstr "Oluşturulma tarihi"
 
-#: manager/models/workout.py:72 manager/templates/workout/template_view.html:11
+#: manager/models/workout.py:73 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19
 msgid "Workout template"
 msgstr "Antrenman şablonu"
 
-#: manager/models/workout.py:74
+#: manager/models/workout.py:75
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
@@ -2446,6 +2362,10 @@ msgstr "%(username)s için takvim"
 msgid "Detail page"
 msgstr "Ayrıntı sayfası"
 
+#: manager/templates/calendar/month.html:115
+msgid "Add log to day"
+msgstr "Günlüğü güne ekle"
+
 #: manager/templates/calendar/month.html:120
 msgid ""
 "Click to add weight logs to a training\n"
@@ -2465,6 +2385,10 @@ msgstr ""
 #: manager/templates/calendar/month.html:157
 msgid "Go to current month"
 msgstr "Geçerli aya git"
+
+#: manager/templates/calendar/month.html:188
+msgid "Add new log"
+msgstr "Yeni günlük ekle"
 
 #: manager/templates/calendar/partial_overview_table.html:5
 msgid "Log overview"
@@ -2513,24 +2437,14 @@ msgid "No schedules found."
 msgstr "Program bulunamadı."
 
 #: manager/templates/schedule/overview.html:36
-#, fuzzy
-#| msgid ""
-#| "Schedules are collections of workouts that you do in\n"
-#| "succession."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
 msgstr ""
-"Programlar, yaptığınız egzersiz koleksiyonlarıdır.\n"
-"halefiyet."
+"Programlar, art arda yaptığınız egzersizlerin bir\n"
+"        birleşimidir."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2538,26 +2452,23 @@ msgid ""
 "        always do the same workouts in succession, e.g. A > B > C > A > B > "
 "C and so on."
 msgstr ""
-"Her antrenmanı ne kadar süre yapmak istediğinizi belirtebilirsiniz\n"
-"bir sonrakine geçmeden önce. Bir döngü oluşturmak da mümkündür, böylece\n"
-"her zaman arka arkaya aynı antrenmanları yapın, ör. A> B> C> A> B> C vb."
+"Bir sonrakine geçmeden önce her bir antrenmanı ne kadar\n"
+"        süreyle yapmak istediğinizi belirtebilirsiniz. Bir döngü de "
+"oluşturabilirsiniz,\n"
+"        böylece her zaman aynı antrenmanları arka arkaya yaparsınız, örneğin "
+"A > B > C > A > B > C vb."
 
 #: manager/templates/schedule/overview.html:43
-#, fuzzy
-#| msgid ""
-#| "The currently active schedule will remain active (and be\n"
-#| "shown e.g. in your dashboard) till it reaches the last workout or till "
-#| "you\n"
-#| "deactivate it, if it is a loop."
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
 "till you\n"
 "        deactivate it, if it is a loop."
 msgstr ""
-"Halihazırda aktif olan program aktif kalacaktır (ve\n"
-"gösterilen örn. kontrol panelinizde) son antrenmana veya size kadar\n"
-"bir döngü ise devre dışı bırakın."
+"Şu anda etkin olan program, son antrenmana ulaşana\n"
+"        kadar veya bir döngü ise siz devre dışı bırakana kadar etkin "
+"kalacaktır\n"
+"        (ve örneğin gösterge panelinizde gösterilecektir)."
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
@@ -2575,8 +2486,7 @@ msgstr ""
 "Bu program bir döngüdür ve siz devre dışı bırakana kadar yukarıdaki "
 "antrenmanlardan geçecektir"
 
-#: manager/templates/schedule/view.html:104 manager/views/schedule.py:168
-#: manager/views/schedule.py:238
+#: manager/templates/schedule/view.html:104
 msgid "Weeks"
 msgstr "Haftalar"
 
@@ -2589,13 +2499,7 @@ msgid "Start schedule"
 msgstr "Programı başlat"
 
 #: manager/templates/schedule/view.html:188
-#, fuzzy, python-format
-#| msgid ""
-#| "%(weeks)s Week\n"
-#| "                    "
-#| msgid_plural ""
-#| "%(weeks)s Weeks\n"
-#| "                    "
+#, python-format
 msgid ""
 "%(weeks)s Week\n"
 "                                    "
@@ -2604,32 +2508,26 @@ msgid_plural ""
 "                                "
 msgstr[0] ""
 "%(weeks)s Hafta\n"
-"                    "
+"                                "
 msgstr[1] ""
 "%(weeks)s Hafta\n"
-"                    "
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
 msgstr "Antrenman ekleme"
 
 #: manager/templates/schedule/view.html:224
-#, fuzzy
-#| msgid ""
-#| "Add as many workouts to the schedule as you want. You can\n"
-#| "edit the order by dragging and dropping them. It's also possible to add "
-#| "one workout more\n"
-#| "than once."
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "            edit the order by dragging and dropping them. It's also possible "
 "to add one workout more\n"
 "            than once."
 msgstr ""
-"Programa istediğiniz kadar egzersiz ekleyin. Yapabilirsin\n"
-"sırayı sürükleyip bırakarak düzenleyin. Bir antrenman daha eklemek de "
-"mümkündür\n"
-"bir kereden."
+"Programa istediğiniz kadar antrenman ekleyin. Sıralamayı\n"
+"            sürükleyip bırakarak düzenleyebilirsiniz. Bir antrenmanı birden "
+"fazla kez de\n"
+"            ekleyebilirsiniz."
 
 #: manager/templates/schedule/view.html:233
 #: manager/templates/schedule/view.html:244
@@ -2646,12 +2544,6 @@ msgstr "Bu programı bir takvim dosyası olarak dışa aktarın."
 
 #: manager/templates/schedule/view.html:238
 #: manager/templates/workout/view.html:76
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "application for example google calendar, outlook or iCal. This will "
-#| "create\n"
-#| "an appointment for each training day with the appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2659,9 +2551,10 @@ msgid ""
 "                        an appointment for each training day with the "
 "appropriate exercises."
 msgstr ""
-"Daha sonra dosyayı takviminize aktarabilirsiniz\n"
-"örneğin google takvim, outlook veya iCal gibi uygulama. Bu yaratacak\n"
-"her eğitim günü için uygun egzersizlerle bir randevu."
+"Daha sonra dosyayı takvim uygulamanıza aktarabilirsiniz,\n"
+"                        örneğin google takvim, outlook veya iCal. Bu, her "
+"eğitim günü için uygun\n"
+"                        egzersizlerle birlikte bir randevu oluşturacaktır."
 
 #: manager/templates/schedule/view.html:259
 #: manager/templates/schedule/view.html:295
@@ -2861,7 +2754,7 @@ msgstr "Günlükleri görüntüle"
 msgid "Edit workout"
 msgstr "Antrenmanı düzenle"
 
-#: manager/templates/workout/view.html:184 manager/views/workout.py:283
+#: manager/templates/workout/view.html:184 manager/views/workout.py:281
 msgid "Mark as template"
 msgstr "Şablon olarak işaretle"
 
@@ -2869,7 +2762,7 @@ msgstr "Şablon olarak işaretle"
 msgid "Add workout day"
 msgstr "Egzersiz günü ekle"
 
-#: manager/views/log.py:99
+#: manager/views/log.py:100
 msgid "Delete workout log"
 msgstr "Antrenman günlüğünü sil"
 
@@ -2878,133 +2771,121 @@ msgstr "Antrenman günlüğünü sil"
 msgid "Workout for %s"
 msgstr "%s için egzersiz"
 
-#: manager/views/schedule.py:292
+#: manager/views/schedule.py:291
 msgid "Create schedule"
 msgstr "Program oluştur"
 
-#: manager/views/workout.py:211
+#: manager/views/workout.py:209
 msgid "Copy workout"
 msgstr "Antrenmanı kopyala"
 
-#: manager/views/workout.py:214
+#: manager/views/workout.py:212
 msgid "Copy"
 msgstr "Kopyala"
 
-#: manager/views/workout_session.py:69
+#: manager/views/workout_session.py:70
 #, python-brace-format
 msgid "Edit workout impression for {0}"
 msgstr "{0} için antrenman gösterimini düzenleyin"
 
-#: manager/views/workout_session.py:115
+#: manager/views/workout_session.py:117
 #, python-brace-format
 msgid "New workout impression for the {0}"
 msgstr "{0} için yeni antrenman izlenimi"
 
-#: manager/views/workout_session.py:157
+#: manager/views/workout_session.py:158
 msgid "This will delete all weight logs for this day as well."
 msgstr "Bu, o gün için tüm ağırlık günlüklerini de siler."
 
-#: measurements/models/measurement.py:53
+#: measurements/models/measurement.py:52
 msgid "Value"
 msgstr "Değer"
 
-#: nutrition/forms.py:116
-#, fuzzy
-#| msgid "Height (cm)"
-msgid "Height (in)"
-msgstr "Boy (cm)"
-
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Weight log"
+msgid "Height (in)"
+msgstr "Boy (inç)"
+
+#: nutrition/forms.py:120
 msgid "Weight (kg)"
-msgstr "Ağırlık günlüğü"
+msgstr "Ağırlık (kg)"
 
-#: nutrition/forms.py:118
-#, fuzzy
-#| msgid "Weight log"
+#: nutrition/forms.py:120
 msgid "Weight (lbs)"
-msgstr "Ağırlık günlüğü"
+msgstr "Ağırlık (paunt)"
 
-#: nutrition/forms.py:129
+#: nutrition/forms.py:133
 msgid "Calculate"
 msgstr "Hesaplamak"
 
-#: nutrition/forms.py:202 nutrition/templates/rate/form.html:76
+#: nutrition/forms.py:207 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
 msgstr "Temel kalori alımı"
 
-#: nutrition/forms.py:203
+#: nutrition/forms.py:208
 msgid "Your basic caloric intake as calculated for your data"
 msgstr "Verileriniz için hesaplanan temel kalori alımınız"
 
-#: nutrition/forms.py:209
+#: nutrition/forms.py:213
 msgid "Additional calories"
 msgstr "Ek kaloriler"
 
-#: nutrition/forms.py:211
+#: nutrition/forms.py:215
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
 msgstr ""
 "Baz orana eklenecek ek kaloriler (çıkarmak için negatif bir sayı girin)"
 
-#: nutrition/forms.py:244 nutrition/models/ingredient_weight_unit.py:39
+#: nutrition/forms.py:248 nutrition/models/ingredient_weight_unit.py:39
 #: nutrition/models/log.py:84 nutrition/models/meal_item.py:53
 msgid "Ingredient"
 msgstr "Bileşen"
 
-#: nutrition/models/ingredient.py:129
+#: nutrition/models/ingredient.py:131
 msgid "In kcal per 100g"
 msgstr "100 g başına kcal olarak"
 
-#: nutrition/models/ingredient.py:136 nutrition/models/ingredient.py:144
-#: nutrition/models/ingredient.py:154 nutrition/models/ingredient.py:162
-#: nutrition/models/ingredient.py:172 nutrition/models/ingredient.py:182
-#: nutrition/models/ingredient.py:192
+#: nutrition/models/ingredient.py:138 nutrition/models/ingredient.py:146
+#: nutrition/models/ingredient.py:156 nutrition/models/ingredient.py:164
+#: nutrition/models/ingredient.py:174 nutrition/models/ingredient.py:184
+#: nutrition/models/ingredient.py:194
 msgid "In g per 100g of product"
 msgstr "100 g ürün başına g cinsinden"
 
-#: nutrition/models/ingredient.py:153
+#: nutrition/models/ingredient.py:155
 #: nutrition/templates/ingredient/view.html:96 nutrition/views/plan.py:259
 msgid "Sugar content in carbohydrates"
 msgstr "Karbonhidratlardaki şeker içeriği"
 
-#: nutrition/models/ingredient.py:171
+#: nutrition/models/ingredient.py:173
 #: nutrition/templates/ingredient/view.html:112 nutrition/views/plan.py:273
 msgid "Saturated fat content in fats"
 msgstr "Yağlarda doymuş yağ içeriği"
 
-#: nutrition/models/ingredient.py:181
+#: nutrition/models/ingredient.py:183
 #: nutrition/templates/ingredient/view.html:134 nutrition/views/plan.py:279
 msgid "Fibres"
 msgstr "Lifler"
 
-#: nutrition/models/ingredient.py:191
+#: nutrition/models/ingredient.py:193
 #: nutrition/templates/ingredient/view.html:144 nutrition/views/plan.py:285
 msgid "Sodium"
 msgstr "Sodyum"
 
-#: nutrition/models/ingredient.py:213
+#: nutrition/models/ingredient.py:215
 msgid "Link to product"
 msgstr "Ürün bağlantısı"
 
-#: nutrition/models/ingredient.py:242
+#: nutrition/models/ingredient.py:244
 msgid "Brand name of product"
 msgstr "Ürünün marka adı"
 
-#: nutrition/models/ingredient.py:302
+#: nutrition/models/ingredient.py:304
 #, python-brace-format
-msgid ""
-"The total energy ({energy}kcal) is not the approximate sum of the energy "
-"provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
-"{energy_approx}%)"
-msgstr ""
-"Toplam enerji ({energy}kcal); protein, karbonhidratlar ve yağ tarafından "
-"sağlanan enerjinin yaklaşık toplamı değildir ({energy_calculated}kcal +/-"
-"{energy_approx}%)"
+msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
+msgstr "Toplam enerji ({self.energy} kcal), yaklaşık toplamı değil "
 
-#: nutrition/models/ingredient.py:384 nutrition/views/ingredient.py:207
+#: nutrition/models/ingredient.py:383 nutrition/views/ingredient.py:196
 msgid "Ingredient was successfully added to the general database"
 msgstr "İçerik genel veri tabanına başarıyla eklendi"
 
@@ -3014,10 +2895,12 @@ msgstr "Yeni kullanıcı tarafından gönderilen içerik"
 
 #: nutrition/models/ingredient.py:410
 #, python-brace-format
-msgid "The user {0} submitted a new ingredient \"{1}\"."
-msgstr "{0} kullanıcısı yeni bir içerik \"{1}\" gönderdi."
+msgid ""
+"The user {request.user.username} submitted a new ingredient \"{self.name}\"."
+msgstr ""
+"{request.user.username} kullanıcısı yeni bir içerik \"{self.name}\" gönderdi."
 
-#: nutrition/models/ingredient_category.py:30
+#: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
 msgstr "İçerik Kategorileri"
 
@@ -3030,7 +2913,7 @@ msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
 msgstr "Birim miktar, ör. \"1 Fincan\" veya \"1/2 kaşık\""
 
 #: nutrition/models/log.py:49 nutrition/models/meal.py:50
-#: nutrition/models/meal_item.py:47 nutrition/models/plan.py:108
+#: nutrition/models/meal_item.py:47 nutrition/models/plan.py:106
 msgid "Nutrition plan"
 msgstr "Beslenme planı"
 
@@ -3054,7 +2937,7 @@ msgstr ""
 "Yemeklere \"Kahvaltı\" veya \"antrenmandan sonra\" gibi metinsel bir "
 "açıklama / ad verin"
 
-#: nutrition/models/plan.py:70
+#: nutrition/models/plan.py:69
 msgid ""
 "A description of the goal of the plan, e.g. \"Gain mass\" or \"Prepare for "
 "summer\""
@@ -3062,11 +2945,11 @@ msgstr ""
 "Planın amacının bir açıklaması, ör. \"Kitle kazanın\" veya \"Yaza "
 "hazırlanın\""
 
-#: nutrition/models/plan.py:90
+#: nutrition/models/plan.py:88
 msgid "Use daily calories"
 msgstr "Günlük kalori kullanın"
 
-#: nutrition/models/plan.py:93
+#: nutrition/models/plan.py:91
 msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
@@ -3182,26 +3065,17 @@ msgstr ""
 "adresinizi\n"
 "eklemeniz durumunda, işlem başarıyla tamamlandığında size haber verilecektir."
 
-#: nutrition/templates/ingredient/overview.html:51
+#: nutrition/templates/ingredient/overview.html:38
 msgid "No ingredients."
 msgstr "İçerik yok."
 
-#: nutrition/templates/ingredient/overview.html:63
+#: nutrition/templates/ingredient/overview.html:49
 msgid "Search"
 msgstr "Ara"
 
-#: nutrition/templates/ingredient/overview.html:72
-msgid "ingredient name"
-msgstr "bileşen adı"
-
-#: nutrition/templates/ingredient/overview.html:85
-#: nutrition/templates/ingredient/overview.html:89
+#: nutrition/templates/ingredient/overview.html:62
 msgid "Add ingredient"
 msgstr "İçerik ekleyin"
-
-#: nutrition/templates/ingredient/overview.html:91
-msgid "Only registered users can do this"
-msgstr "Bunu sadece kayıtlı kullanıcılar yapabilir"
 
 #: nutrition/templates/ingredient/pending.html:14
 msgid "Submission date"
@@ -3353,40 +3227,36 @@ msgstr ""
 
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
-msgstr ""
+msgstr "Lütfen boyunuzun uygun aralıkta olduğundan emin olun."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "140 ile 230 arası"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "56 ile 90 arası"
 
-#: nutrition/views/ingredient.py:165
+#: nutrition/views/ingredient.py:154
 msgid "Add a new ingredient"
 msgstr "Yeni bir malzeme ekle"
 
-#: nutrition/views/ingredient.py:220
+#: nutrition/views/ingredient.py:209
 msgid "Ingredient was successfully marked as rejected"
 msgstr "İçerik başarıyla reddedildi olarak işaretlendi"
 
-#: nutrition/views/plan.py:119
+#: nutrition/views/plan.py:120
 msgid "Nutritional plan"
 msgstr "Beslenme planı"
 
-#: nutrition/views/plan.py:121
+#: nutrition/views/plan.py:122
 #, python-format
 msgid "Nutritional plan for %s"
 msgstr "%s için beslenme planı"
 
-#: nutrition/views/plan.py:195
+#: nutrition/views/plan.py:194
 msgid "<i>This is an empty plan, what did you expect on the PDF?</i>"
 msgstr "<i>Bu boş bir plan, PDF'den ne bekliyordunuz?</i>"
-
-#: nutrition/views/plan.py:222
-msgid "Nutritional data"
-msgstr "Beslenme verileri"
 
 #: nutrition/views/plan.py:230
 msgid "Total"
@@ -3450,7 +3320,7 @@ msgstr ""
 "Bizimle sohbet etmek istiyorsanız, Discord sunucusuna gelin ve iletişime "
 "geçin"
 
-#: software/templates/about_us.html:39 software/templates/features.html:496
+#: software/templates/about_us.html:39 software/templates/features.html:503
 msgid "Translation"
 msgstr "Çeviri"
 
@@ -3467,297 +3337,277 @@ msgid "Our goal"
 msgstr "Hedefimiz"
 
 #: software/templates/about_us.html:53
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
 "complete list of exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"Amaç, harika bir\n"
-"ve esnek fitness yöneticisi, kapsamlı ve eksiksiz bir egzersiz listesi ve\n"
-"malzemeler, tümü ücretsiz bir lisans altında yayınlanmıştır."
+"Amaç, tümü özgür bir lisans altında\n"
+"                yayınlanan kapsamlı ve eksiksiz bir egzersiz ve içerik "
+"listesi ile birlikte harika ve esnek\n"
+"                bir fitness yöneticisi oluşturmaktır."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
 "wger Workout Manager, egzersizlerinizi ve antrenmanlarınızı yöneten özgür, "
-"açık kaynaklı bir web uygulamasıdır. "
+"açık kaynaklı bir web uygulamasıdır."
 
 #: software/templates/features.html:45
 msgid "About"
 msgstr "hakkında"
 
-#: software/templates/features.html:50
+#: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Mobil uygulama"
 
-#: software/templates/features.html:56 software/templates/features.html:312
+#: software/templates/features.html:63 software/templates/features.html:319
 msgid "Donate"
-msgstr ""
+msgstr "Bağış yap"
 
-#: software/templates/features.html:61
+#: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Geliştir"
 
-#: software/templates/features.html:66 software/templates/features.html:448
-#, fuzzy
-#| msgid "Comment"
+#: software/templates/features.html:73 software/templates/features.html:455
 msgid "Community"
-msgstr "Yorum"
+msgstr "Topluluk"
 
-#: software/templates/features.html:100
+#: software/templates/features.html:107
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Hayal ettiğiniz <br> vücuda giden yolu <br> takip edin"
 
-#: software/templates/features.html:103
+#: software/templates/features.html:110
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Topluluk odaklı <b>özgür ve açık kaynaklı fitness takipçisi</b> wger'e "
+"katılın"
 
-#: software/templates/features.html:113
-#, fuzzy
-#| msgid "Get the code"
+#: software/templates/features.html:120
 msgid "Get Started"
-msgstr "Kodu alın"
+msgstr "Başlayın"
 
-#: software/templates/features.html:123
+#: software/templates/features.html:130
 msgid "people <br> using wger"
-msgstr ""
+msgstr "wger kullanan <br> kişiler"
 
-#: software/templates/features.html:127
-#, fuzzy
-#| msgid "Add exercises to this workout day"
+#: software/templates/features.html:134
 msgid "exercises <br> for workout creation"
-msgstr "Bu antrenman gününe egzersiz ekleyin"
+msgstr "antrenman oluşturmak için <br> egzersizler"
 
-#: software/templates/features.html:131
+#: software/templates/features.html:138
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "öğün planlaması için <br> yiyecekler"
 
-#: software/templates/features.html:135
+#: software/templates/features.html:142
 msgid "stars <br> on GitHub"
-msgstr ""
-
-#: software/templates/features.html:159
-msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
-
-#: software/templates/features.html:163
-msgid "Design a weekly workout plan from more than 100 exercises"
-msgstr ""
+msgstr "GitHub <br> yıldızları"
 
 #: software/templates/features.html:166
+msgid "Craft your perfect <span>workout routines</span>"
+msgstr "Mükemmel <span>antrenman programlarınızı</span> oluşturun"
+
+#: software/templates/features.html:170
+msgid "Design a weekly workout plan from more than 100 exercises"
+msgstr ""
+"100'den fazla egzersiz arasından haftalık bir antrenman programı tasarlayın"
+
+#: software/templates/features.html:173
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Her egzersiz için tekrarlar ve setler, süre veya mesafe hedefleri belirleyin"
 
-#: software/templates/features.html:169
+#: software/templates/features.html:176
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Antrenmanlarınız boyunca adım adım yönlendirilin"
 
-#: software/templates/features.html:172
+#: software/templates/features.html:179
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
-
-#: software/templates/features.html:193
-msgid "Plan your <span>daily meals</span>"
-msgstr ""
-
-#: software/templates/features.html:197
-msgid "Fill your week with nutritious meals that help you perform better"
-msgstr ""
+"Nasıl performans gösterdiğinizi hissettiğiniz de dahil olmak üzere "
+"yaptığınız antrenmanları takip edin"
 
 #: software/templates/features.html:200
+msgid "Plan your <span>daily meals</span>"
+msgstr "<span>Günlük öğünlerinizi</span> planlayın"
+
+#: software/templates/features.html:204
+msgid "Fill your week with nutritious meals that help you perform better"
+msgstr ""
+"Haftanızı daha iyi performans göstermenize yardımcı olacak besleyici "
+"öğünlerle doldurun"
+
+#: software/templates/features.html:207
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"2 milyondan fazla yiyecekten oluşan bir veri tabanından öğünler oluşturun"
 
-#: software/templates/features.html:203
+#: software/templates/features.html:210
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Hem tek tek öğünler hem de tüm haftalık planınız için otomatik olarak "
+"hesaplanan besin değerlerini (enerji, protein, karbonhidrat, ...) öğrenin"
 
-#: software/templates/features.html:230
+#: software/templates/features.html:237
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "<span>İlerlemenizi</span> takip edin"
 
-#: software/templates/features.html:235
+#: software/templates/features.html:242
 msgid "Track and annotate everything about your meals and workouts"
 msgstr ""
+"Öğünleriniz ve antrenmanlarınızla ilgili her şeyi takip edin ve not alın"
 
-#: software/templates/features.html:238
-#, fuzzy
-#| msgid "Add custom diary entry"
+#: software/templates/features.html:245
 msgid "Add custom notes"
-msgstr "Özel günlük girişi ekle"
+msgstr "Özel notlar ekleyin"
 
-#: software/templates/features.html:241
-#, fuzzy
-#| msgid "Body weight"
+#: software/templates/features.html:248
 msgid "Record your weight"
-msgstr "Vücut ağırlığı"
+msgstr "Ağırlığınızı kaydedin"
 
-#: software/templates/features.html:244
+#: software/templates/features.html:251
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "İlerlemenizi görmek için bir fotoğraf günlüğü tutun"
 
-#: software/templates/features.html:247
+#: software/templates/features.html:254
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Geçmiş kayıtları görmek için takvim görünümünü kullanın"
 
-#: software/templates/features.html:266
-#, fuzzy
-#| msgid "Try it now"
+#: software/templates/features.html:273
 msgid "Try wger now"
-msgstr "Şimdi dene"
+msgstr "wger'i şimdi dene"
 
-#: software/templates/features.html:283
+#: software/templates/features.html:290
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "<span>Topluluk</span> tarafından desteklenir"
 
-#: software/templates/features.html:286
+#: software/templates/features.html:293
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger açık kaynak topluluğu tarafından desteklenmekte ve geliştirilmektedir: "
+"sizin gibi insanlar çeviri yapmakta, egzersiz ve beslenme bilgileri "
+"eklemekte, geliştirmekte ve daha fazlasını yapmaktadır."
 
-#: software/templates/features.html:292
+#: software/templates/features.html:299
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Reklam kullanmıyoruz, kişisel bilgilerinizi satmıyoruz ve kodu özgür ve açık "
+"kaynaklı bir lisans altında paylaşıyoruz."
 
-#: software/templates/features.html:297
+#: software/templates/features.html:304
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Katkıda bulunun ve wger'in daha da iyi olmasına yardımcı olun!"
 
-#: software/templates/features.html:306
-#, fuzzy
-#| msgid "Contribute!"
+#: software/templates/features.html:313
 msgid "Contribute"
-msgstr "Katkıda bulun!"
+msgstr "Katkıda bulun"
 
-#: software/templates/features.html:330
+#: software/templates/features.html:337
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "Şimdi Ücretsiz Kaydolun"
 
-#: software/templates/features.html:343
+#: software/templates/features.html:350
 msgid "Web version not enough?"
-msgstr ""
+msgstr "Web sürümü yeterli değil mi?"
 
-#: software/templates/features.html:345
-#, fuzzy
-#| msgid "Get the code"
+#: software/templates/features.html:352
 msgid "Get the code, too!"
-msgstr "Kodu alın"
+msgstr "Kodu da edinin!"
 
-#: software/templates/features.html:356
+#: software/templates/features.html:363
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Spor salonunuz için özel bir sunucu kurun"
 
-#: software/templates/features.html:359
+#: software/templates/features.html:366
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Verilerinizin çevrim içi bir hizmette olmasını istemiyor musunuz? Kendi "
+"sunucunuzda ücretsiz bir wger örneği kurun!"
 
-#: software/templates/features.html:373
+#: software/templates/features.html:380
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Kendi uygulamanızla bütünleştirin"
 
-#: software/templates/features.html:376
+#: software/templates/features.html:383
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "wger, uygulamanız için kullanabileceğiniz açık bir API sunar."
 
-#: software/templates/features.html:387
-#, fuzzy
-#| msgid "Current version"
+#: software/templates/features.html:394
 msgid "Create your own version"
-msgstr "Şimdiki versiyonu"
+msgstr "Kendi sürümünüzü oluşturun"
 
-#: software/templates/features.html:390
+#: software/templates/features.html:397
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Kaynak kodu GNU AGPLv3 lisansı altında sunulmaktadır! GitHub'da çatallını "
+"oluşturmaktan çekinmeyin."
 
-#: software/templates/features.html:411
-#, fuzzy
-#| msgid "Amount"
+#: software/templates/features.html:418
 msgid "Account"
-msgstr "Miktar"
+msgstr "Hesap"
 
-#: software/templates/features.html:457
-#, fuzzy
-#| msgid "Workout reminders"
+#: software/templates/features.html:464
 msgid "Workout routines"
-msgstr "Antrenman hatırlatıcıları"
+msgstr "Antrenman programları"
 
-#: software/templates/features.html:463
+#: software/templates/features.html:470
 msgid "Discord"
 msgstr "Discord"
 
-#: software/templates/features.html:478
+#: software/templates/features.html:485
 msgid "Software"
-msgstr ""
+msgstr "Yazılım"
 
-#: software/templates/features.html:484
+#: software/templates/features.html:491
 msgid "Report an issue"
-msgstr ""
+msgstr "Sorun bildir"
 
-#: software/templates/features.html:490
-#, fuzzy
-#| msgid "Source code"
+#: software/templates/features.html:497
 msgid "Source Code"
-msgstr "Kaynak kodları"
+msgstr "Kaynak Kodları"
 
-#: utils/generic_views.py:262
+#: utils/generic_views.py:263
 msgid "Yes, delete"
 msgstr "Evet, sil"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Varsa, bu nesnenin asıl başlığı"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Varsa asıl nesnenin bağlantısı"
 
 #: utils/models.py:63
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
-msgstr "Yazar"
+msgstr "Yazar(lar)"
 
 #: utils/models.py:67
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Yazar değilseniz, adı veya kaynağı buraya girin. Bu, bazı lisanslar için "
-"gereklidir, örn. CC-BY-SA."
+msgstr "Yazar değilseniz, adı veya kaynağı buraya girin."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Varsa yazar profilinin bağlantısı"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Bu türev bir çalışma ise asıl kaynağın bağlantısı"
 
 #: utils/models.py:79
 msgid ""
@@ -3765,32 +3615,35 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Türev bir çalışmanın yalnızca önceki bir çalışmaya dayanmakla kalmayıp, aynı "
+"zamanda kendi telif hakkına hak kazanması için yeterli yeni, yaratıcı içerik "
+"içeren bir çalışma olduğunu unutmayın."
 
-#: utils/models.py:128
+#: utils/models.py:130
 msgid "Pending"
 msgstr "Bekliyor"
 
-#: utils/models.py:129
+#: utils/models.py:131
 msgid "Accepted"
 msgstr "Kabul edilmiş"
 
-#: utils/models.py:130
+#: utils/models.py:132
 msgid "Declined"
 msgstr "Reddedildi"
 
-#: weight/forms.py:53
+#: weight/forms.py:54
 msgid "Input"
 msgstr "Girdi"
 
-#: weight/forms.py:54
+#: weight/forms.py:55
 msgid "Date format"
 msgstr "Tarih Biçimi"
 
-#: weight/management/commands/email-weight-reminder.py:80
+#: weight/management/commands/email-weight-reminder.py:78
 msgid "You have to enter your weight"
 msgstr "Kilonuzu girmelisiniz"
 
-#: weight/models.py:58
+#: weight/models.py:60
 msgid "Weight entry"
 msgstr "Ağırlık girişi"
 
@@ -3921,27 +3774,87 @@ msgstr ""
 msgid "Re-Submit"
 msgstr "Yeniden Gönder"
 
-#: weight/templates/overview.html:52
-msgid "Export as CSV"
-msgstr "CSV olarak dışa aktar"
-
-#: weight/templates/overview.html:56
-msgid "Import from spreadsheet"
-msgstr "Elektronik tablodan içe aktar"
-
-#: weight/views.py:98
+#: weight/views.py:100
 #, python-format
 msgid "Edit weight entry for the %s"
 msgstr "%s için ağırlık girişini düzenleyin"
 
-#: weight/views.py:115
+#: weight/views.py:117
 msgid "Successfully deleted."
 msgstr "Başarıyla silindi."
 
-#: weight/views.py:119
+#: weight/views.py:121
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr "%s için ağırlık girişini silin"
+
+#~ msgid "Share"
+#~ msgstr "Paylaş"
+
+#, fuzzy
+#~| msgid ""
+#~| "Click to add weight logs to a training\n"
+#~| "day in your current workout:"
+#~ msgid ""
+#~ "Click to add weight logs to a training\n"
+#~ "                            day in your current workout:"
+#~ msgstr ""
+#~ "Bir egzersize ağırlık günlükleri eklemek için tıklayın\n"
+#~ "mevcut antrenmanınızdaki gün:"
+
+#~ msgid "This workout is part of a schedule:"
+#~ msgstr "Bu antrenman bir programın parçasıdır:"
+
+#~ msgid ""
+#~ "The current workout is selected from your active schedule or, if you "
+#~ "don't have one, simply by date."
+#~ msgstr ""
+#~ "Mevcut antrenman, aktif programınızdan veya eğer yoksa sadece tarihe göre "
+#~ "seçilir."
+
+#~ msgid "Share this page"
+#~ msgstr "Bu sayfayı paylaş"
+
+#, fuzzy
+#~| msgid ""
+#~| "Before you share links on social media you need to allow external access."
+#~ msgid ""
+#~ "Before you share links on social media you need to allow external\n"
+#~ "                            access."
+#~ msgstr ""
+#~ "Bağlantıları sosyal medyada paylaşmadan önce, harici erişime izin "
+#~ "vermeniz gerekir."
+
+#~ msgid "That's done here"
+#~ msgstr "Bu burada yapılır"
+
+#~ msgid "Rest day"
+#~ msgstr "Dinlenme günü"
+
+#, python-brace-format
+#~ msgid ""
+#~ "The total energy ({energy}kcal) is not the approximate sum of the energy "
+#~ "provided by protein, carbohydrates and fat ({energy_calculated}kcal +/-"
+#~ "{energy_approx}%)"
+#~ msgstr ""
+#~ "Toplam enerji ({energy}kcal); protein, karbonhidratlar ve yağ tarafından "
+#~ "sağlanan enerjinin yaklaşık toplamı değildir ({energy_calculated}kcal +/-"
+#~ "{energy_approx}%)"
+
+#~ msgid "ingredient name"
+#~ msgstr "bileşen adı"
+
+#~ msgid "Only registered users can do this"
+#~ msgstr "Bunu sadece kayıtlı kullanıcılar yapabilir"
+
+#~ msgid "Nutritional data"
+#~ msgstr "Beslenme verileri"
+
+#~ msgid "Export as CSV"
+#~ msgstr "CSV olarak dışa aktar"
+
+#~ msgid "Import from spreadsheet"
+#~ msgstr "Elektronik tablodan içe aktar"
 
 #~ msgid "Something happened that is not allowed."
 #~ msgstr "İzin verilmeyen bir şey oldu."
@@ -4801,7 +4714,3 @@ msgstr "%s için ağırlık girişini silin"
 
 #~ msgid "Translate with Transifex"
 #~ msgstr "Transifex ile çevirin"
-
-#~ msgid ""
-#~ "The total energy ({self.energy}kcal) is not the approximate sum of the "
-#~ msgstr "Toplam enerji ({self.energy} kcal), yaklaşık toplamı değil"

@@ -42,12 +42,10 @@ def users(request, gym_pk):
     """
     gym = get_object_or_404(Gym, pk=gym_pk)
 
-    if not request.user.has_perm('gym.manage_gyms') \
-            and not request.user.has_perm('gym.manage_gym'):
+    if not request.user.has_perm('gym.manage_gyms') and not request.user.has_perm('gym.manage_gym'):
         return HttpResponseForbidden()
 
-    if request.user.has_perm('gym.manage_gym') \
-            and request.user.userprofile.gym != gym:
+    if request.user.has_perm('gym.manage_gym') and request.user.userprofile.gym != gym:
         return HttpResponseForbidden()
 
     # Create CSV 'file'
@@ -67,7 +65,7 @@ def users(request, gym_pk):
             _('ZIP code'),
             _('City'),
             _('Street'),
-            _('Phone')
+            _('Phone'),
         ]
     )
     for user in Gym.objects.get_members(gym_pk):
@@ -94,6 +92,6 @@ def users(request, gym_pk):
     filename = 'User-data-gym-{gym}-{t.year}-{t.month:02d}-{t.day:02d}.csv'.format(
         t=today, gym=gym.id
     )
-    response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+    response['Content-Disposition'] = f'attachment; filename={filename}'
     response['Content-Length'] = len(response.content)
     return response

@@ -50,7 +50,7 @@ class ExerciseRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Exercise.objects.get(pk=1)), 'An exercise')
+        self.assertEqual(str(Exercise.objects.get(pk=1)), 'An exercise')
 
 
 class ExercisesTestCase(WgerTestCase):
@@ -112,15 +112,13 @@ class ExercisesTestCase(WgerTestCase):
 
 
 class MuscleTemplateTagTest(WgerTestCase):
-
     def test_render_main_muscles(self):
         """
         Test that the tag renders only the main muscles
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=2)})
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/', rendered_template)
@@ -131,9 +129,8 @@ class MuscleTemplateTagTest(WgerTestCase):
         Test that the tag works when giben main muscles and empty secondary ones
         """
 
-        context = Context({"muscles": Muscle.objects.get(pk=2), "muscles_sec": []})
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles muscles_sec %}')
+        context = Context({'muscles': Muscle.objects.get(pk=2), 'muscles_sec': []})
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-2.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/', rendered_template)
@@ -145,8 +142,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': Muscle.objects.get(pk=1)})
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles_sec=muscles %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles_sec=muscles %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/', rendered_template)
@@ -158,8 +154,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles_sec': Muscle.objects.get(pk=1), 'muscles': []})
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/', rendered_template)
@@ -171,8 +166,7 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles_sec': Muscle.objects.filter(is_front=True), 'muscles': []})
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/secondary/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/secondary/muscle-2.svg', rendered_template)
@@ -188,11 +182,10 @@ class MuscleTemplateTagTest(WgerTestCase):
         context = Context(
             {
                 'muscles_sec': Muscle.objects.filter(id__in=[5, 6]),
-                'muscles': Muscle.objects.filter(id__in=[1, 4])
+                'muscles': Muscle.objects.filter(id__in=[1, 4]),
             }
         )
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
         self.assertIn('images/muscles/main/muscle-1.svg', rendered_template)
         self.assertNotIn('images/muscles/main/muscle-2.svg', rendered_template)
@@ -209,20 +202,18 @@ class MuscleTemplateTagTest(WgerTestCase):
         """
 
         context = Context({'muscles': [], 'muscles_sec': []})
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles muscles muscles_sec %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles muscles muscles_sec %}')
         rendered_template = template.render(context)
-        self.assertEqual(rendered_template, "\n\n")
+        self.assertEqual(rendered_template, '\n\n')
 
     def test_render_no_parameters(self):
         """
         Test that the tag works when given no parameters
         """
 
-        template = Template('{% load wger_extras %}'
-                            '{% render_muscles %}')
+        template = Template('{% load wger_extras %}' '{% render_muscles %}')
         rendered_template = template.render(Context({}))
-        self.assertEqual(rendered_template, "\n\n")
+        self.assertEqual(rendered_template, '\n\n')
 
 
 class WorkoutCacheTestCase(WgerTestCase):
@@ -268,6 +259,7 @@ class ExerciseApiTestCase(
     """
     Tests the exercise overview resource
     """
+
     pk = 1
     resource = Exercise
     private_resource = False
@@ -282,6 +274,7 @@ class ExerciseInfoApiTestCase(
     """
     Tests the exercise info resource
     """
+
     pk = 1
     private_resource = False
     overview_cached = True
@@ -298,6 +291,7 @@ class ExerciseBaseInfoApiTestCase(
     """
     Tests the exercise base info resource
     """
+
     pk = 1
     private_resource = False
     overview_cached = True
@@ -313,7 +307,7 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         'name': 'A new name',
         'description': 'The wild boar is a suid native to much of Eurasia and North Africa',
         'language': 1,
-        'exercise_base': 2
+        'exercise_base': 2,
     }
 
     def get_resource_name(self):

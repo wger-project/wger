@@ -45,7 +45,6 @@ from wger.utils.requests import wger_headers
 
 
 class MockLanguageResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -61,27 +60,32 @@ class MockLanguageResponse:
                 {
                     "id": 1,
                     "short_name": "de",
-                    "full_name": "Daitsch"
+                    "full_name": "Daitsch",
+                    "full_name_en": "Kraut"
                 },
                 {
                     "id": 2,
                     "short_name": "en",
-                    "full_name": "English"
+                    "full_name": "English",
+                    "full_name_en": "English"
                 },
                 {
                     "id": 3,
                     "short_name": "fr",
-                    "full_name": "Français"
+                    "full_name": "Français",
+                    "full_name_en": "French"
                 },
                 {
                     "id": 4,
                     "short_name": "es",
-                    "full_name": "Español"
+                    "full_name": "Español",
+                    "full_name_en": "Spanish"
                 },
                 {
                     "id": 19,
                     "short_name": "eo",
-                    "full_name": "Esperanto"
+                    "full_name": "Esperanto",
+                    "full_name_en": "Esperanto"
                 }
             ]
         }
@@ -89,7 +93,6 @@ class MockLanguageResponse:
 
 
 class MockLicenseResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -132,7 +135,6 @@ class MockLicenseResponse:
 
 
 class MockCategoryResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b'1234'
@@ -175,7 +177,6 @@ class MockCategoryResponse:
 
 
 class MockMuscleResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -226,7 +227,6 @@ class MockMuscleResponse:
 
 
 class MockEquipmentResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -261,7 +261,6 @@ class MockEquipmentResponse:
 
 
 class MockDeletionLogResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -329,7 +328,6 @@ class MockDeletionLogResponse:
 
 
 class MockExerciseResponse:
-
     def __init__(self):
         self.status_code = 200
         self.content = b''
@@ -396,11 +394,16 @@ class MockExerciseResponse:
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
-                                "Kettlebell mit zwei Händen"
+                                {
+                                    "id": 1,
+                                    "uuid": "9a9ab323-5f47-431f-9289-cc21ad1de171",
+                                    "alias": "Kettlebell mit zwei Händen"
+                                }
                             ],
                             "notes": [
                                 {
                                     "id": 1,
+                                    "uuid": "f46e1610-b729-4948-b80a-c5ae52672c6a",
                                     "exercise": 100,
                                     "comment": "Wichtig die Übung richtig zu machen"
                                 },
@@ -498,12 +501,21 @@ class MockExerciseResponse:
                             "created": "2015-08-03",
                             "language": 1,
                             "aliases": [
-                                "A new alias here",
-                                "yet another name"
+                                {
+                                    "id": 2,
+                                    "uuid": "65250c7c-d02e-4f3d-be01-beb39ff5ef0f",
+                                    "alias": "A new alias here"
+                                },
+                                {
+                                    "id": 500,
+                                    "uuid": "6544ce61-69a8-413e-9662-189d3aadd1b9",
+                                    "alias": "yet another name"
+                                },
                             ],
                             "notes": [
                                 {
                                     "id": 147,
+                                    "uuid": "53906cd1-61f1-4d56-ac60-e4fcc5824861",
                                     "exercise": 123,
                                     "comment": "Foobar"
                                 },
@@ -548,18 +560,24 @@ class MockExerciseResponse:
 
 
 class TestSyncMethods(WgerTestCase):
-
     @patch('requests.get', return_value=MockLanguageResponse())
     def test_language_sync(self, mock_request):
+        language1 = Language.objects.get(pk=1)
         self.assertEqual(Language.objects.count(), 3)
-        self.assertEqual(Language.objects.get(pk=1).full_name, 'Deutsch')
+        self.assertEqual(language1.full_name, 'Deutsch')
+        self.assertEqual(language1.full_name_en, 'German')
 
+        # Act
         sync_languages(lambda x: x)
         mock_request.assert_called_with(
             'https://wger.de/api/v2/language/',
             headers=wger_headers(),
         )
-        self.assertEqual(Language.objects.get(pk=1).full_name, 'Daitsch')
+
+        # Assert
+        language1 = Language.objects.get(pk=1)
+        self.assertEqual(language1.full_name, 'Daitsch')
+        self.assertEqual(language1.full_name_en, 'Kraut')
         self.assertEqual(Language.objects.get(pk=5).full_name, 'Esperanto')
         self.assertEqual(Language.objects.count(), 5)
 
@@ -680,7 +698,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual([m.id for m in new_base.muscles.all()], [2])
         self.assertEqual([m.id for m in new_base.muscles_secondary.all()], [4])
 
-        translation_de = new_base.get_exercise('de')
+        translation_de = new_base.get_translation('de')
         self.assertEqual(translation_de.language_id, 1)
         self.assertEqual(translation_de.name, 'Zweihandiges Kettlebell')
         self.assertEqual(translation_de.description, 'Hier könnte Ihre Werbung stehen!')
@@ -690,7 +708,7 @@ class TestSyncMethods(WgerTestCase):
             'Wichtig die Übung richtig zu machen',
         )
 
-        translation_en = new_base.get_exercise('en')
+        translation_en = new_base.get_translation('en')
         self.assertEqual(translation_en.language_id, 2)
         self.assertEqual(translation_en.name, '2 Handed Kettlebell Swing')
         self.assertEqual(translation_en.description, 'TBD')
@@ -699,15 +717,15 @@ class TestSyncMethods(WgerTestCase):
         base = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
         self.assertEqual(base.category_id, 3)
 
-        translation_de = base.get_exercise('de')
+        translation_de = base.get_translation('de')
         self.assertEqual(translation_de.name, 'A new, better, updated name')
         self.assertEqual(translation_de.pk, 2)
         self.assertEqual(translation_de.alias_set.count(), 2)
-        self.assertEqual(translation_de.alias_set.all()[0].alias, 'yet another name')
-        self.assertEqual(translation_de.alias_set.all()[1].alias, 'A new alias here')
+        self.assertEqual(translation_de.alias_set.all()[0].alias, 'A new alias here')
+        self.assertEqual(translation_de.alias_set.all()[1].alias, 'yet another name')
 
         self.assertEqual(translation_de.exercisecomment_set.count(), 1)
         self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
 
-        translation_fr = base.get_exercise('fr')
+        translation_fr = base.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')

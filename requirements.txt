@@ -3,46 +3,42 @@
 #
 
 # Application
+Django==4.2.13
 bleach[css]~=6.1
-crispy-bootstrap5==2023.10
-
-# this is a fork of django-bootstrap-breadcrumbs
-# we might need to think about migrating away from this completely
-django-bootstrap-breadcrumbs2==1.0.0
-django-formtools~=2.4
-django-recaptcha~=4.0.0
-Django==4.2.6
+celery[redis]==5.4.0
+crispy-bootstrap5==2024.2
 django-activity-stream==2.0.0
-django-axes==6.1.1
+django-axes[ipware]==6.4.0
+django-bootstrap-breadcrumbs2==1.0.0 # fork of django-bootstrap-breadcrumbs, we might need to migrate away completely
 django-crispy-forms~=2.1
-crispy-bootstrap4==2023.1
-django-simple-history~=3.4
 django-email-verification~=0.3.3
+django-environ==0.11.2
+django-formtools~=2.5
+django-recaptcha~=4.0.0
+django-simple-history~=3.5
+django-storages~=1.14
 django_compressor~=4.4
 django_extensions~=3.2
-django-storages~=1.14
-django-environ==0.11.2
-drf-spectacular[sidecar]==0.26.5
+drf-spectacular[sidecar]==0.27.2
 easy-thumbnails==2.8.5
-fontawesomefree~=6.4.2
-icalendar==5.0.11
-invoke==2.2.0
-openfoodfacts==0.1.12
-pillow==10.1.0
-reportlab==4.0.7
-requests==2.31.0
-tzdata==2023.3
-celery[redis]==5.3.6
 flower==2.0.1
-
+fontawesomefree~=6.5.1
+icalendar==5.0.12
+invoke==2.2.0
+openfoodfacts==0.3.0
+pillow==10.3.0
+reportlab==4.2.0
+requests==2.32.0
+tqdm==4.66.4
+tzdata==2024.1
 
 # AWS
 #boto3
 
 # REST API
 django-cors-headers==4.3.1
-django-filter==23.4
-djangorestframework~=3.14
+django-filter==24.2
+djangorestframework==3.15.1
 djangorestframework-simplejwt[crypto]==5.3.1
 
 # Not used anymore, but needed because some modules are imported in DB migration

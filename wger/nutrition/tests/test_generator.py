@@ -13,17 +13,20 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.contrib import admin
+from django.core.management import call_command
 
 # wger
-from wger.core.models import UserProfile
-from wger.manager import models as manager_models
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.nutrition.models import NutritionPlan
 
 
-admin.site.register(manager_models.Workout)
-admin.site.register(manager_models.Set)
-admin.site.register(manager_models.Day)
-admin.site.register(manager_models.WorkoutLog)
-admin.site.register(UserProfile)
+class NutritionalPlansGeneratorTestCase(WgerTestCase):
+    def test_generator(self):
+        # Arrange
+        NutritionPlan.objects.all().delete()
 
-admin.site.register(manager_models.Setting)
+        # Act
+        call_command('dummy-generator-nutrition', '--plans', 10)
+
+        # Assert
+        self.assertEqual(NutritionPlan.objects.filter(user_id=1).count(), 10)

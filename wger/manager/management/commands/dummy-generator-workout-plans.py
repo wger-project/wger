@@ -44,22 +44,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for workout plans'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--plans',
             action='store',
             default=10,
             dest='nr_plans',
             type=int,
-            help='The number of workout plans to create per user (default: 10)'
-        )
-        parser.add_argument(
-            '--diary-entries',
-            action='store',
-            default=30,
-            dest='nr_diary_entries',
-            type=int,
-            help='The number of workout logs to create per day (default: 30)'
+            help='The number of workout plans to create per user (default: 10)',
         )
         parser.add_argument(
             '--user-id',
@@ -72,20 +63,20 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.stdout.write(f"** Generating {options['nr_plans']} dummy workout plan(s) per user")
 
-        users = [User.objects.get(pk=options['user_id'])] \
-            if options['user_id'] \
-            else User.objects.all()
+        users = (
+            [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
+        )
 
         for user in users:
             self.stdout.write(f'- processing user {user.username}')
 
             # Add plan
-            for _ in range(0, options['nr_plans']):
+            for _ in range(options['nr_plans']):
                 uid = str(uuid.uuid4()).split('-')
                 start_date = datetime.date.today() - datetime.timedelta(days=random.randint(0, 100))
                 workout = Workout(
                     user=user,
-                    name='Dummy workout - {0}'.format(uid[1]),
+                    name=f'Dummy workout - {uid[1]}',
                     creation_date=start_date,
                 )
                 workout.save()
@@ -104,7 +95,7 @@ class Command(BaseCommand):
 
                     day = Day(
                         training=workout,
-                        description='Dummy day - {0}'.format(uid[0]),
+                        description=f'Dummy day - {uid[0]}',
                     )
                     day.save()
                     day.day.add(weekday)

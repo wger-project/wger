@@ -39,12 +39,19 @@ class Language(models.Model):
         verbose_name=_('Language full name'),
     )
 
+    # e.g. 'German'
+    full_name_en = models.CharField(
+        max_length=30,
+        verbose_name=_('Language full name in English'),
+    )
+
     class Meta:
         """
         Set Meta options
         """
+
         ordering = [
-            "full_name",
+            'full_name',
         ]
 
     #
@@ -54,7 +61,7 @@ class Language(models.Model):
         """
         Return a more human-readable representation
         """
-        return f"{self.full_name} ({self.short_name})"
+        return f'{self.full_name} ({self.short_name})'
 
     def get_absolute_url(self):
         """

@@ -26,6 +26,9 @@ from django.utils.translation import gettext_lazy as _
 # Third Party
 from simple_history.models import HistoricalRecords
 
+# wger
+from wger.utils.cache import reset_exercise_api_cache
+
 
 try:
     # Third Party
@@ -74,7 +77,7 @@ def exercise_video_upload_dir(instance, filename):
     Returns the upload target for exercise videos
     """
     ext = pathlib.Path(filename).suffix
-    return f"exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}"
+    return f'exercise-video/{instance.exercise_base.id}/{instance.uuid}{ext}'
 
 
 class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
@@ -181,6 +184,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Set default ordering
         """
+
         ordering = ['-is_main', 'id']
 
     def get_owner_object(self):
@@ -200,7 +204,6 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
             # Streams are stored in a list, and we don't know which one is the video stream
             for stream in probe_result['streams']:
-
                 if stream['codec_type'] != 'video':
                     continue
 
@@ -210,4 +213,7 @@ class ExerciseVideo(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                 self.codec = stream['codec_name']
                 self.codec_long = stream['codec_long_name']
 
-        super(ExerciseVideo, self).save(*args, **kwargs)
+        # Api cache
+        reset_exercise_api_cache(self.exercise_base.uuid)
+
+        super().save(*args, **kwargs)

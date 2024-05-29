@@ -42,7 +42,7 @@ class Meal(models.Model):
     # Metaclass to set some other properties
     class Meta:
         ordering = [
-            "time",
+            'time',
         ]
 
     plan = models.ForeignKey(
@@ -74,7 +74,7 @@ class Meal(models.Model):
         """
         Return a more human-readable representation
         """
-        return "{0} Meal".format(self.order)
+        return f'{self.order} Meal'
 
     def get_owner_object(self):
         """

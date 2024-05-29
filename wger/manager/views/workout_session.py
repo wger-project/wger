@@ -61,6 +61,7 @@ class WorkoutSessionUpdateView(WgerFormMixin, LoginRequiredMixin, UpdateView):
     """
     Generic view to edit an existing workout session entry
     """
+
     model = WorkoutSession
     form_class = WorkoutSessionForm
 
@@ -78,6 +79,7 @@ class WorkoutSessionAddView(WgerFormMixin, LoginRequiredMixin, CreateView):
     """
     Generic view to add a new workout session entry
     """
+
     model = WorkoutSession
     form_class = WorkoutSessionForm
 
@@ -149,7 +151,6 @@ class WorkoutSessionDeleteView(WgerDeleteMixin, LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-
         logs = '' if not self.kwargs.get('logs') else self.kwargs['logs']
         context = super(WorkoutSessionDeleteView, self).get_context_data(**kwargs)
         context['title'] = _('Delete {0}?').format(self.object)

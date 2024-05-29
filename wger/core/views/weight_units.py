@@ -50,6 +50,7 @@ class ListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Overview of all available weight units
     """
+
     model = WeightUnit
     permission_required = 'core.add_weightunit'
     template_name = 'weight_unit/list.html'

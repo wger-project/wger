@@ -13,13 +13,12 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.core.cache import cache
 from django.core.management.base import BaseCommand
 
 # wger
 from wger.exercises.api.serializers import ExerciseBaseInfoSerializer
 from wger.exercises.models import ExerciseBase
-from wger.utils.cache import CacheKeyMapper
+from wger.utils.cache import reset_exercise_api_cache
 
 
 class Command(BaseCommand):
@@ -32,7 +31,7 @@ class Command(BaseCommand):
             '--exercise-base-id',
             action='store',
             dest='exercise_base_id',
-            help='The ID of the exercise base, otherwise all exercises will be updated'
+            help='The ID of the exercise base, otherwise all exercises will be updated',
         )
 
         parser.add_argument(
@@ -40,7 +39,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='force',
             default=False,
-            help='Force the update of the cache'
+            help='Force the update of the cache',
         )
 
     def handle(self, **options):
@@ -57,12 +56,12 @@ class Command(BaseCommand):
 
     def handle_cache(self, exercise: ExerciseBase, force: bool):
         if force:
-            self.stdout.write(f"Force updating cache for exercise base {exercise.uuid}")
+            self.stdout.write(f'Force updating cache for exercise base {exercise.uuid}')
         else:
-            self.stdout.write(f"Warming cache for exercise base {exercise.uuid}")
+            self.stdout.write(f'Warming cache for exercise base {exercise.uuid}')
 
         if force:
-            cache.delete(CacheKeyMapper.get_exercise_api_key(exercise.uuid))
+            reset_exercise_api_cache(exercise.uuid)
 
         serializer = ExerciseBaseInfoSerializer(exercise)
         serializer.data

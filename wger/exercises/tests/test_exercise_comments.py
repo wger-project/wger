@@ -12,22 +12,10 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Django
-from django.core.cache import cache
-from django.urls import reverse
-
 # wger
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
-from wger.core.tests.base_testcase import (
-    WgerAddTestCase,
-    WgerEditTestCase,
-    WgerTestCase,
-)
-from wger.exercises.models import (
-    Exercise,
-    ExerciseComment,
-)
-from wger.utils.cache import cache_mapper
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models import ExerciseComment
 
 
 class ExerciseCommentRepresentationTestCase(WgerTestCase):
@@ -39,17 +27,18 @@ class ExerciseCommentRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(ExerciseComment.objects.get(pk=1)), 'test 123')
+        self.assertEqual(str(ExerciseComment.objects.get(pk=1)), 'test 123')
 
 
 class ExerciseCommentApiTestCase(ExerciseCrudApiTestCase):
     """
     Tests the exercise comment overview resource
     """
+
     pk = 1
     resource = ExerciseComment
     data = {
-        "comment": "a cool comment",
-        "exercise": "1",
-        "id": 1,
+        'comment': 'a cool comment',
+        'exercise': '1',
+        'id': 1,
     }

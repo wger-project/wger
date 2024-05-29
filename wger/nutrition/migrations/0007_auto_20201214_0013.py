@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('nutrition', '0006_auto_20201201_0653'),
     ]
@@ -19,7 +18,7 @@ class Migration(migrations.Migration):
                     'id',
                     models.AutoField(
                         auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
-                    )
+                    ),
                 ),
                 ('name', models.CharField(max_length=100, verbose_name='Name')),
             ],
@@ -72,7 +71,7 @@ class Migration(migrations.Migration):
             field=models.CharField(
                 max_length=200,
                 validators=[django.core.validators.MinLengthValidator(3)],
-                verbose_name='Name'
+                verbose_name='Name',
             ),
         ),
         migrations.AddField(
@@ -83,7 +82,7 @@ class Migration(migrations.Migration):
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='nutrition.ingredientcategory',
-                verbose_name='Category'
+                verbose_name='Category',
             ),
         ),
     ]

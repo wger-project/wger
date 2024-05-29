@@ -17,18 +17,16 @@
 from django.test import SimpleTestCase
 
 # wger
-from wger.nutrition.off import (
-    IngredientData,
-    extract_info_from_off,
-)
+from wger.nutrition.dataclasses import IngredientData
+from wger.nutrition.off import extract_info_from_off
 from wger.utils.constants import ODBL_LICENSE_ID
-from wger.utils.models import AbstractSubmissionModel
 
 
 class ExtractInfoFromOffTestCase(SimpleTestCase):
     """
     Test the extract_info_from_off function
     """
+
     off_data1 = {}
 
     def setUp(self):
@@ -48,8 +46,8 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
                 'saturated-fat_100g': 11,
                 'sodium_100g': 5,
                 'fiber_100g': None,
-                'other_stuff': 'is ignored'
-            }
+                'other_stuff': 'is ignored',
+            },
         }
 
     def test_regular_response(self):
@@ -59,6 +57,7 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         result = extract_info_from_off(self.off_data1, 1)
         data = IngredientData(
             name='Foo with chocolate',
+            remote_id='1234',
             language_id=1,
             energy=120,
             protein=10,
@@ -66,18 +65,17 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
             carbohydrates_sugar=30,
             fat=40,
             fat_saturated=11,
-            fibres=None,
+            fiber=None,
             sodium=5,
             code='1234',
             source_name='Open Food Facts',
             source_url='https://world.openfoodfacts.org/api/v2/product/1234.json',
             common_name='Foo with chocolate, 250g package',
             brand='The bar company',
-            status=AbstractSubmissionModel.STATUS_ACCEPTED,
             license_id=ODBL_LICENSE_ID,
             license_author='open food facts, MrX',
             license_title='Foo with chocolate',
-            license_object_url='https://world.openfoodfacts.org/product/1234/'
+            license_object_url='https://world.openfoodfacts.org/product/1234/',
         )
 
         self.assertEqual(result, data)
@@ -111,5 +109,5 @@ class ExtractInfoFromOffTestCase(SimpleTestCase):
         del self.off_data1['nutriments']['saturated-fat_100g']
         result = extract_info_from_off(self.off_data1, 1)
 
-        self.assertEqual(result.carbohydrates_sugar, 0)
-        self.assertEqual(result.fat_saturated, 0)
+        self.assertEqual(result.carbohydrates_sugar, None)
+        self.assertEqual(result.fat_saturated, None)

@@ -52,7 +52,7 @@ class GymConfig(models.Model):
         ),
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     """
     Default gym for the wger installation
@@ -62,14 +62,13 @@ class GymConfig(models.Model):
         """
         Return a more human-readable representation
         """
-        return "Default gym {0}".format(self.default_gym)
+        return f'Default gym {self.default_gym}'
 
     def save(self, *args, **kwargs):
         """
         Perform additional tasks
         """
         if self.default_gym:
-
             # All users that have no gym set in the profile are edited
             UserProfile.objects.filter(gym=None).update(gym=self.default_gym)
 
@@ -84,6 +83,6 @@ class GymConfig(models.Model):
                         config.gym = self.default_gym
                         config.user = user
                         config.save()
-                        logger.debug('Creating GymUserConfig for user {0}'.format(user.username))
+                        logger.debug(f'Creating GymUserConfig for user {user.username}')
 
         return super(GymConfig, self).save(*args, **kwargs)

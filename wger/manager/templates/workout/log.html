@@ -57,7 +57,7 @@
         {% with day_list=workout_log|get_item:day.obj.id %}
         {% with exercise_list=day_list|get_item:base.obj.id %}
 
-            <h5 class="mt-4">{{ base.obj.get_exercise.name }}</h5>
+            <h5 class="mt-4">{{ base.obj.get_translation.name }}</h5>
             {% if exercise_list.log_by_date %}
                 {#  TODO: perhaps move the draw_weight_chart function to render_weight_log #}
                 {% with list=exercise_list.log_by_date %}

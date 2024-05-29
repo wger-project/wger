@@ -41,11 +41,7 @@ from wger.nutrition.models import (
     Ingredient,
     Meal,
 )
-from wger.utils.constants import (
-    NUTRITION_TAB,
-    OFF_SEARCH_PRODUCT_FOUND,
-    OFF_SEARCH_PRODUCT_NOT_FOUND,
-)
+from wger.utils.constants import NUTRITION_TAB
 
 
 class IngredientRepresentationTestCase(WgerTestCase):
@@ -57,7 +53,7 @@ class IngredientRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
+        self.assertEqual(str(Ingredient.objects.get(pk=1)), 'Test ingredient 1')
 
 
 class DeleteIngredientTestCase(WgerDeleteTestCase):
@@ -85,11 +81,11 @@ class EditIngredientTestCase(WgerEditTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
-        'license_author': 'me!'
+        'license_author': 'me!',
     }
 
     def post_test_hook(self):
@@ -100,7 +96,7 @@ class EditIngredientTestCase(WgerEditTestCase):
             ingredient = Ingredient.objects.get(pk=1)
             self.assertEqual(
                 ingredient.last_update.replace(microsecond=0),
-                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
 
 
@@ -119,11 +115,11 @@ class AddIngredientTestCase(WgerAddTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
-        'license_author': 'me!'
+        'license_author': 'me!',
     }
 
     def post_test_hook(self):
@@ -134,18 +130,17 @@ class AddIngredientTestCase(WgerAddTestCase):
             ingredient = Ingredient.objects.get(pk=self.pk_after)
             self.assertEqual(
                 ingredient.created.replace(microsecond=0),
-                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0)
+                datetime.datetime.now(tz=datetime.timezone.utc).replace(microsecond=0),
             )
-            self.assertEqual(ingredient.status, Ingredient.STATUS_ACCEPTED)
         elif self.current_user == 'test':
             ingredient = Ingredient.objects.get(pk=self.pk_after)
-            self.assertEqual(ingredient.status, Ingredient.STATUS_PENDING)
 
 
 class IngredientNameShortTestCase(WgerTestCase):
     """
     Tests that ingredient cannot have name with length less than 3
     """
+
     data = {
         'name': 'Ui',
         'sodium': 2,
@@ -153,11 +148,11 @@ class IngredientNameShortTestCase(WgerTestCase):
         'fat': 10,
         'carbohydrates_sugar': 5,
         'fat_saturated': 3.14,
-        'fibres': 2.1,
+        'fiber': 2.1,
         'protein': 20,
         'carbohydrates': 10,
         'license': 2,
-        'license_author': 'me!'
+        'license_author': 'me!',
     }
 
     def test_add_ingredient_short_name(self):
@@ -212,11 +207,9 @@ class IngredientDetailTestCase(WgerTestCase):
         if editor:
             self.assertContains(response, 'Edit ingredient')
             self.assertContains(response, 'Delete ingredient')
-            self.assertContains(response, 'pending review')
         else:
             self.assertNotContains(response, 'Edit ingredient')
             self.assertNotContains(response, 'Delete ingredient')
-            self.assertNotContains(response, 'pending review')
 
         # Non-existent ingredients throw a 404.
         response = self.client.get(reverse('nutrition:ingredient:view', kwargs={'pk': 42}))
@@ -273,12 +266,6 @@ class IngredientSearchTestCase(WgerTestCase):
         self.assertEqual(result['suggestions'][1]['data']['image'], None)
         self.assertEqual(result['suggestions'][1]['data']['image_thumbnail'], None)
 
-        # Search for an ingredient pending review (0 hits, "Pending ingredient")
-        response = self.client.get(reverse('ingredient-search'), {'term': 'Pending'}, **kwargs)
-        self.assertEqual(response.status_code, 200)
-        result = json.loads(response.content.decode('utf8'))
-        self.assertEqual(len(result['suggestions']), 0)
-
     def test_search_ingredient_anonymous(self):
         """
         Test searching for an ingredient by an anonymous user
@@ -307,11 +294,8 @@ class IngredientValuesTestCase(WgerTestCase):
 
         # Get the nutritional values in 1 gram of product
         response = self.client.get(
-            reverse('api-ingredient-get-values', kwargs={'pk': 1}), {
-                'amount': 1,
-                'ingredient': 1,
-                'unit': ''
-            }
+            reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+            {'amount': 1, 'ingredient': 1, 'unit': ''},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -326,19 +310,16 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat': 0.0819,
                 'carbohydrates_sugar': None,
                 'fat_saturated': 0.03244,
-                'fibres': None,
+                'fiber': None,
                 'protein': 0.2563,
-                'carbohydrates': 0.00125
-            }
+                'carbohydrates': 0.00125,
+            },
         )
 
         # Get the nutritional values in 1 unit of product
         response = self.client.get(
-            reverse('api-ingredient-get-values', kwargs={'pk': 1}), {
-                'amount': 1,
-                'ingredient': 1,
-                'unit': 2
-            }
+            reverse('api-ingredient-get-values', kwargs={'pk': 1}),
+            {'amount': 1, 'ingredient': 1, 'unit': 2},
         )
 
         self.assertEqual(response.status_code, 200)
@@ -353,10 +334,10 @@ class IngredientValuesTestCase(WgerTestCase):
                 'fat': 9.13185,
                 'carbohydrates_sugar': None,
                 'fat_saturated': 3.61706,
-                'fibres': None,
+                'fiber': None,
                 'protein': 28.57745,
-                'carbohydrates': 0.139375
-            }
+                'carbohydrates': 0.139375,
+            },
         )
 
     def test_calculate_value_anonymous(self):
@@ -452,6 +433,7 @@ class IngredientApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the ingredient API resource
     """
+
     pk = 4
     resource = Ingredient
     private_resource = False
@@ -467,31 +449,25 @@ class IngredientModelTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
         self.off_response = {
-            'status': OFF_SEARCH_PRODUCT_FOUND,
-            'product': {
-                'code': '1234',
-                'lang': 'de',
-                'product_name': 'Foo with chocolate',
-                'generic_name': 'Foo with chocolate, 250g package',
-                'brands': 'The bar company',
-                'editors_tags': ['open food facts', 'MrX'],
-                'nutriments': {
-                    'energy-kcal_100g': 120,
-                    'proteins_100g': 10,
-                    'carbohydrates_100g': 20,
-                    'sugars_100g': 30,
-                    'fat_100g': 40,
-                    'saturated-fat_100g': 11,
-                    'sodium_100g': 5,
-                    'fiber_100g': None
-                },
-            }
+            'code': '1234',
+            'lang': 'de',
+            'product_name': 'Foo with chocolate',
+            'generic_name': 'Foo with chocolate, 250g package',
+            'brands': 'The bar company',
+            'editors_tags': ['open food facts', 'MrX'],
+            'nutriments': {
+                'energy-kcal_100g': 120,
+                'proteins_100g': 10,
+                'carbohydrates_100g': 20,
+                'sugars_100g': 30,
+                'fat_100g': 40,
+                'saturated-fat_100g': 11,
+                'sodium_100g': 5,
+                'fiber_100g': None,
+            },
         }
 
-        self.off_response_no_results = {
-            'status': OFF_SEARCH_PRODUCT_NOT_FOUND,
-            'status_verbose': 'product not found'
-        }
+        self.off_response_no_results = None
 
     @patch('openfoodfacts.api.ProductResource.get')
     def test_fetch_from_off_success(self, mock_api):
@@ -510,7 +486,7 @@ class IngredientModelTestCase(WgerTestCase):
         self.assertEqual(ingredient.fat, 40)
         self.assertEqual(ingredient.fat_saturated, 11)
         self.assertEqual(ingredient.sodium, 5)
-        self.assertEqual(ingredient.fibres, None)
+        self.assertEqual(ingredient.fiber, None)
         self.assertEqual(ingredient.brand, 'The bar company')
         self.assertEqual(ingredient.license_author, 'open food facts, MrX')
 
@@ -519,7 +495,7 @@ class IngredientModelTestCase(WgerTestCase):
         """
         Tests creating an ingredient from OFF - name gets truncated
         """
-        self.off_response['product']['product_name'] = """
+        self.off_response['product_name'] = """
         The Shiba Inu (柴犬, Japanese: [ɕiba inɯ]) is a breed of hunting dog from Japan. A
         small-to-medium breed, it is the smallest of the six original and distinct spitz
         breeds of dog native to Japan.[1] Its name literally translates to "brushwood dog",
@@ -534,7 +510,7 @@ class IngredientModelTestCase(WgerTestCase):
         """
         Tests creating an ingredient from OFF - missing key in nutriments
         """
-        del self.off_response['product']['nutriments']['energy-kcal_100g']
+        del self.off_response['nutriments']['energy-kcal_100g']
         mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')
@@ -545,7 +521,7 @@ class IngredientModelTestCase(WgerTestCase):
         """
         Tests creating an ingredient from OFF - missing name
         """
-        del self.off_response['product']['product_name']
+        del self.off_response['product_name']
         mock_api.return_value = self.off_response
 
         ingredient = Ingredient.fetch_ingredient_from_off('1234')

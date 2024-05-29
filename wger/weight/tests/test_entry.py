@@ -40,7 +40,7 @@ class MealRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual("{0}".format(WeightEntry.objects.get(pk=1)), '2012-10-01: 77.00 kg')
+        self.assertEqual(str(WeightEntry.objects.get(pk=1)), '2012-10-01: 77.00 kg')
 
 
 class AddWeightEntryTestCase(WgerAddTestCase):
@@ -54,7 +54,7 @@ class AddWeightEntryTestCase(WgerAddTestCase):
     data = {
         'weight': decimal.Decimal(81.1).quantize(TWOPLACES),
         'date': datetime.date(2013, 2, 1),
-        'user': 1
+        'user': 1,
     }
 
 
@@ -91,6 +91,7 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the weight entry overview resource
     """
+
     pk = 3
     resource = WeightEntry
     private_resource = True

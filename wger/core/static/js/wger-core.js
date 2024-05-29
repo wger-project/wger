@@ -132,32 +132,6 @@ function getProfileField(field) {
   return result;
 }
 
-
-
-function wgerToggleReadOnlyAccess() {
-  $('#toggle-ro-access').click(function (e) {
-    var $shariffModal;
-    var roAccess;
-    e.preventDefault();
-    roAccess = getProfileField('ro_access');
-
-    // Update user profile
-    setProfileField('ro_access', !roAccess);
-
-    // Hide and show appropriate divs
-
-    $shariffModal = $('#shariffModal');
-    if (!roAccess) {
-      $shariffModal.find('.shariff').removeClass('d-none');
-      $shariffModal.find('.noRoAccess').addClass('d-none');
-    } else {
-      $shariffModal.find('.shariff').addClass('d-none');
-      $shariffModal.find('.noRoAccess').removeClass('d-none');
-    }
-  });
-}
-
-
 /*
  Open a modal dialog for form editing
  */

@@ -86,8 +86,9 @@ class DeleteUserByAdminTestCase(WgerTestCase):
         self.assertEqual(User.objects.filter(username='test').count(), 1)
         if fail:
             self.assertIn(
-                response.status_code, (302, 403),
-                f'Unexpected status code for user {self.current_user}'
+                response.status_code,
+                (302, 403),
+                f'Unexpected status code for user {self.current_user}',
             )
         else:
             self.assertEqual(

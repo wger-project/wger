@@ -117,20 +117,21 @@ class WorkoutModelTestCase(WgerTestCase):
         workout = Workout()
         workout.creation_date = datetime.date.today()
         self.assertEqual(
-            '{0}'.format(workout),
-            '{0} ({1})'.format('Workout', datetime.date.today()),
+            str(workout),
+            f'Workout ({datetime.date.today()})',
         )
 
         workout.name = 'my description'
-        self.assertEqual('{0}'.format(workout), 'my description')
+        self.assertEqual(str(workout), 'my description')
 
 
 class WorkoutApiTestCase(api_base_test.ApiBaseResourceTestCase):
     """
     Tests the workout overview resource
     """
+
     pk = 3
     resource = Workout
     private_resource = True
-    special_endpoints = ('canonical_representation', )
+    special_endpoints = ('canonical_representation',)
     data = {'name': 'A new comment'}

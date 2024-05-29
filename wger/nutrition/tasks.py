@@ -14,12 +14,24 @@
 
 # Standard Library
 import logging
+from random import (
+    choice,
+    randint,
+)
+
+# Django
+from django.conf import settings
+from django.core.management import call_command
+
+# Third Party
+from celery.schedules import crontab
 
 # wger
 from wger.celery_configuration import app
 from wger.nutrition.sync import (
     download_ingredient_images,
     fetch_ingredient_image,
+    sync_ingredients,
 )
 
 
@@ -44,3 +56,44 @@ def fetch_all_ingredient_images_task():
     Returns the image if it is already present in the DB
     """
     download_ingredient_images(logger.info)
+
+
+@app.task
+def sync_all_ingredients_task():
+    """
+    Fetches the current ingredients from the default wger instance
+    """
+    sync_ingredients(logger.info)
+
+
+@app.task
+def sync_off_daily_delta():
+    """
+    Fetches OFF's daily delta product updates
+    """
+    call_command('import-off-products', '--delta-updates')
+
+
+@app.on_after_finalize.connect
+def setup_periodic_tasks(sender, **kwargs):
+    if settings.WGER_SETTINGS['SYNC_INGREDIENTS_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=str(randint(0, 23)),
+                minute=str(randint(0, 59)),
+                day_of_month=str(randint(1, 28)),
+                month_of_year=choice(['1, 4, 7, 10', '2, 5, 8, 11', '3, 6, 9, 12']),
+            ),
+            sync_all_ingredients_task.s(),
+            name='Sync ingredients',
+        )
+
+    if settings.WGER_SETTINGS['SYNC_OFF_DAILY_DELTA_CELERY']:
+        sender.add_periodic_task(
+            crontab(
+                hour=str(randint(0, 23)),
+                minute=str(randint(0, 59)),
+            ),
+            sync_off_daily_delta.s(),
+            name='Sync OFF daily delta updates',
+        )

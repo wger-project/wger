@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of wger Workout Manager.
 #
 # wger Workout Manager is free software: you can redistribute it and/or modify
@@ -21,6 +19,7 @@ from uuid import UUID
 
 # Django
 from django.conf import settings
+from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
@@ -89,6 +88,7 @@ from wger.utils.constants import (
     HTML_STYLES_WHITELIST,
     HTML_TAG_WHITELIST,
 )
+from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 
 
@@ -101,9 +101,10 @@ class ExerciseBaseViewSet(ModelViewSet):
 
     For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
+
     queryset = ExerciseBase.translations.all()
     serializer_class = ExerciseBaseSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'category',
@@ -150,8 +151,9 @@ class ExerciseTranslationViewSet(ModelViewSet):
     """
     API endpoint for editing or adding exercise translation objects.
     """
+
     queryset = Exercise.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -173,7 +175,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
                 tags=HTML_TAG_WHITELIST,
                 attributes=HTML_ATTRIBUTES_WHITELIST,
                 css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
-                strip=True
+                strip=True,
             )
         super().perform_create(serializer)
 
@@ -202,7 +204,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
                 tags=HTML_TAG_WHITELIST,
                 attributes=HTML_ATTRIBUTES_WHITELIST,
                 css_sanitizer=CSSSanitizer(allowed_css_properties=HTML_STYLES_WHITELIST),
-                strip=True
+                strip=True,
             )
 
         super().perform_update(serializer)
@@ -219,8 +221,9 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
 
     This is only kept for backwards compatibility and will be removed in the future
     """
+
     queryset = Exercise.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -259,13 +262,13 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
             try:
                 qs = qs.filter(exercise_base__category_id=int(category))
             except ValueError:
-                logger.info(f"Got {category} as category ID")
+                logger.info(f'Got {category} as category ID')
 
         if muscles:
             try:
                 qs = qs.filter(exercise_base__muscles__in=[int(m) for m in muscles.split(',')])
             except ValueError:
-                logger.info(f"Got {muscles} as muscle IDs")
+                logger.info(f'Got {muscles} as muscle IDs')
 
         if muscles_secondary:
             try:
@@ -278,13 +281,13 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
             try:
                 qs = qs.filter(exercise_base__equipment__in=[int(e) for e in equipment.split(',')])
             except ValueError:
-                logger.info(f"Got {equipment} as equipment IDs")
+                logger.info(f'Got {equipment} as equipment IDs')
 
         if license:
             try:
                 qs = qs.filter(exercise_base__license_id=int(license))
             except ValueError:
-                logger.info(f"Got {license} as license ID")
+                logger.info(f'Got {license} as license ID')
 
         return qs
 
@@ -308,14 +311,11 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     ],
     # yapf: disable
     responses={
-        200:
-        inline_serializer(
+        200: inline_serializer(
             name='ExerciseSearchResponse',
             fields={
-                'value':
-                CharField(),
-                'data':
-                inline_serializer(
+                'value': CharField(),
+                'data': inline_serializer(
                     name='ExerciseSearchItemResponse',
                     fields={
                         'id': IntegerField(),
@@ -323,12 +323,12 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
                         'name': CharField(),
                         'category': CharField(),
                         'image': CharField(),
-                        'image_thumbnail': CharField()
-                    }
-                )
-            }
+                        'image_thumbnail': CharField(),
+                    },
+                ),
+            },
         )
-    }
+    },
     # yapf: enable
 )
 @api_view(['GET'])
@@ -347,13 +347,19 @@ def search(request):
         return Response(response)
 
     languages = [load_language(l) for l in language_codes.split(',')]
-    translations = Exercise.objects \
-        .filter(Q(name__icontains=q) | Q(alias__alias__icontains=q)) \
-        .filter(language__in=languages) \
-        .order_by('exercise_base__category__name', 'name') \
-        .distinct()
+    query = Exercise.objects.filter(language__in=languages).only('name')
 
-    for translation in translations:
+    # Postgres uses a full-text search
+    if is_postgres_db():
+        query = (
+            query.annotate(similarity=TrigramSimilarity('name', q))
+            .filter(Q(similarity__gt=0.15) | Q(alias__alias__icontains=q))
+            .order_by('-similarity', 'name')
+        )
+    else:
+        query = query.filter(Q(name__icontains=q) | Q(alias__alias__icontains=q))
+
+    for translation in query:
         image = None
         thumbnail = None
         if translation.main_image:
@@ -374,8 +380,8 @@ def search(request):
                 'name': translation.name,
                 'category': _(translation.category.name),
                 'image': image,
-                'image_thumbnail': thumbnail
-            }
+                'image_thumbnail': thumbnail,
+            },
         }
         results.append(result_json)
     response['suggestions'] = results
@@ -438,10 +444,11 @@ class EquipmentViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for equipment objects
     """
+
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
@@ -456,20 +463,22 @@ class DeletionLogViewSet(viewsets.ReadOnlyModelViewSet):
     as well when performing a sync (e.g. because many exercises where submitted at
     once or an image was uploaded that hasn't a CC license)
     """
+
     queryset = DeletionLog.objects.all()
     serializer_class = DeletionLogSerializer
     ordering_fields = '__all__'
-    filterset_fields = ('model_type', )
+    filterset_fields = ('model_type',)
 
 
 class ExerciseCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for exercise categories objects
     """
+
     queryset = ExerciseCategory.objects.all()
     serializer_class = ExerciseCategorySerializer
     ordering_fields = '__all__'
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)
 
     @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
@@ -483,7 +492,7 @@ class ExerciseImageViewSet(ModelViewSet):
 
     queryset = ExerciseImage.objects.all()
     serializer_class = ExerciseImageSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -511,7 +520,7 @@ class ExerciseImageViewSet(ModelViewSet):
             t = get_thumbnailer(image.image)
             thumbnails[alias] = {
                 'url': t.get_thumbnail(aliases.get(alias)).url,
-                'settings': aliases.get(alias)
+                'settings': aliases.get(alias),
             }
         thumbnails['original'] = image.image.url
         return Response(thumbnails)
@@ -543,9 +552,10 @@ class ExerciseVideoViewSet(ModelViewSet):
     """
     API endpoint for exercise video objects
     """
+
     queryset = ExerciseVideo.objects.all()
     serializer_class = ExerciseVideoSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = (
         'is_main',
@@ -581,8 +591,9 @@ class ExerciseCommentViewSet(ModelViewSet):
     """
     API endpoint for exercise comment objects
     """
+
     serializer_class = ExerciseCommentSerializer
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = ('comment', 'exercise')
 
@@ -622,9 +633,10 @@ class ExerciseAliasViewSet(ModelViewSet):
     """
     API endpoint for exercise aliases objects
     """
+
     serializer_class = ExerciseAliasSerializer
     queryset = Alias.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
     filterset_fields = ('alias', 'exercise')
 
@@ -655,15 +667,17 @@ class ExerciseVariationViewSet(ModelViewSet):
     """
     API endpoint for exercise variation objects
     """
+
     serializer_class = ExerciseVariationSerializer
     queryset = Variation.objects.all()
-    permission_classes = (CanContributeExercises, )
+    permission_classes = (CanContributeExercises,)
 
 
 class MuscleViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint for muscle objects
     """
+
     queryset = Muscle.objects.all()
     serializer_class = MuscleSerializer
     ordering_fields = '__all__'

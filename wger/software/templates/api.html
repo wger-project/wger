@@ -25,47 +25,72 @@
         workouts, you need to authenticate.</p>
 
     <h5>JWT Authentication</h5>
-
     <p>
-        This is the suggested way. Generate an access token from the <code>/token/</code>
-        endpoint. Send a username and password, and you will get the <code>access</code> token
-        which you can use to access the private endpoints.
+        This is the suggested way. You generate a temporary token which you send in
+        the header with each request that needs authorization
+    </p>
+
+    <h6>1. Get the tokens</h6>
+    <p>
+        Send your username and password to the <code>/api/v2/token</code>
+        endpoint, you will get an <code>access</code> and a <code>refresh</code> token
+        back.
     </p>
     <pre>
-curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"username": "example_username", "password": "example_password "}' \
-  https://wger.de/api/v2/token/
+result = requests.post(
+    'https://wger.de/api/v2/token',
+    data={'username': 'user', 'password': 'admin'}
+)
+access_token = result.json()['access']
+refresh_token = result.json()['refresh']
 
-...
-{
-  "access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNDU2LCJqdGkiOiJmZDJmOWQ1ZTFhN2M0MmU4OTQ5MzVlMzYyYmNhOGJjYSJ9.NHlztMGER7UADHZJlxNG0WSi22a2KaYSfd1S-AuT7lU",
-  "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImNvbGRfc3R1ZmYiOiLimIMiLCJleHAiOjIzNDU2NywianRpIjoiZGUxMmY0ZTY3MDY4NDI3ODg5ZjE1YWMyNzcwZGEwNTEifQ.aEoAYkSJjoWH1boshQAaTkf8G3yn0kapko6HFRt7Rh4"
-}
+print(result.json())
+>>> {'refresh': 'eyJhbGciOiJIUzI1...', 'access': 'eyJhbGciOiJIUzI...'}
+    </pre>
+
+    <h6>2. Authenticate</h6>
+    <p>
+        Pass the access token in the Authorization header as <code>"Bearer: your-token"</code>
+    </p>
+    <pre>
+result = requests.get(
+    'https://wger.de/api/v2/workout/',
+    headers={'Authorization': f'Bearer {access_token}'}
+)
+
+print(result.json())
+>>> {'count': 5, 'next': None, 'previous': None, 'results': [{'id':.....
 </pre>
 
     <p>
-        Additionally, you can send an access token to <code>/token/verify/</code>
-        endpoint to verify that token.
+        Additionally, you can send the access token to <code>/token/verify</code>
+        endpoint to verify it.
     </p>
 
+    <pre>
+result = requests.post('https://wger.de/api/v2/token/verify', data={'token': access_token})
+    </pre>
+
+    <h6>3. Refresh</h6>
     <p>
         When this short-lived access token expires, you can use the longer-lived
         <code>refresh</code> token to obtain another access token.
+    </p>
     <pre>
-curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImNvbGRfc3R1ZmYiOiLimIMiLCJleHAiOjIzNDU2NywianRpIjoiZGUxMmY0ZTY3MDY4NDI3ODg5ZjE1YWMyNzcwZGEwNTEifQ.aEoAYkSJjoWH1boshQAaTkf8G3yn0kapko6HFRt7Rh4"}' \
-  https://wger.de/api/v2/token/refresh/
+result = requests.post(
+    'https://wger.de/api/v2/token/refresh/',
+    data={'refresh': refresh_token}
+)
+token = result.json()
 
-...
-{"access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNTY3LCJqdGkiOiJjNzE4ZTVkNjgzZWQ0NTQyYTU0NWJkM2VmMGI0ZGQ0ZSJ9.ekxRxgb9OKmHkfy-zs1Ro_xs1eMLXiR17dIDBVxeT-w"}
+print(token)
+>>> {'access': 'eyJhbGciOiJI...'}
+
 </pre>
 
-    <h5>Token</h5>
+    <h5>Permanent Token</h5>
     <p>
+        Note that this method is not recommended.
         You can also pass a permanent token in the header to authenticate, but this
         method should be considered deprecated. If you want to generate a token
         <a href="{% url 'core:user:api-key' %}">use this page</a>.

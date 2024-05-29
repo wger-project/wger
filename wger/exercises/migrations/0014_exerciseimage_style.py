@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0013_auto_20210503_1232'),
     ]
@@ -15,11 +14,15 @@ class Migration(migrations.Migration):
             name='style',
             field=models.CharField(
                 choices=[
-                    ('1', 'Line'), ('2', '3D'), ('3', 'Low-poly'), ('4', 'Photo'), ('5', 'Other')
+                    ('1', 'Line'),
+                    ('2', '3D'),
+                    ('3', 'Low-poly'),
+                    ('4', 'Photo'),
+                    ('5', 'Other'),
                 ],
                 default='1',
                 help_text='The art style of your image',
-                max_length=1
+                max_length=1,
             ),
         ),
     ]

@@ -61,14 +61,13 @@ class Command(BaseCommand):
     help = 'Dummy generator for workout diary entries'
 
     def add_arguments(self, parser):
-
         parser.add_argument(
             '--diary-entries',
             action='store',
             default=30,
             dest='nr_diary_entries',
             type=int,
-            help='The number of workout logs to create per day (default: 30)'
+            help='The number of workout logs to create per day (default: 30)',
         )
         parser.add_argument(
             '--user-id',
@@ -81,9 +80,9 @@ class Command(BaseCommand):
     def handle(self, **options):
         self.stdout.write(f"** Generating {options['nr_diary_entries']} dummy diary entries")
 
-        users = [User.objects.get(pk=options['user_id'])] \
-            if options['user_id'] \
-            else User.objects.all()
+        users = (
+            [User.objects.get(pk=options['user_id'])] if options['user_id'] else User.objects.all()
+        )
 
         weight_log = []
         for user in users:
@@ -95,7 +94,7 @@ class Command(BaseCommand):
                     for workout_set in day.set_set.all():
                         for setting in workout_set.setting_set.all():
                             for reps in (8, 10, 12):
-                                for i in range(1, options['nr_diary_entries']):
+                                for i in range(options['nr_diary_entries']):
                                     date = datetime.date.today() - datetime.timedelta(weeks=i)
                                     log = WorkoutLog(
                                         user=user,
@@ -103,7 +102,7 @@ class Command(BaseCommand):
                                         workout=workout,
                                         reps=reps,
                                         weight=50 - reps + random.randint(1, 10),
-                                        date=date
+                                        date=date,
                                     )
                                     weight_log.append(log)
 

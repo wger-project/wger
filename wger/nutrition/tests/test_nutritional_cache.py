@@ -14,7 +14,6 @@ from wger.utils.cache import cache_mapper
 
 
 class NutritionalPlanCacheTestCase(WgerTestCase):
-
     def create_nutrition_plan(self):
         """
         Create a nutrition plan and set dummy attributes that are required
@@ -23,7 +22,7 @@ class NutritionalPlanCacheTestCase(WgerTestCase):
         """
         plan = NutritionPlan()
         plan.user = User.objects.create_user(username='example_user_1')
-        plan.language = Language.objects.get(short_name="en")
+        plan.language = Language.objects.get(short_name='en')
         plan.save()
         meal = Meal()
         meal.plan = plan

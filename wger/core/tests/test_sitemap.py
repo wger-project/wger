@@ -25,13 +25,11 @@ class SitemapTestCase(WgerTestCase):
     """
 
     def test_sitemap_index(self):
-
         response = self.client.get(reverse('sitemap'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['sitemaps']), 2)
 
     def test_sitemap_exercises(self):
-
         response = self.client.get(
             reverse('django.contrib.sitemaps.views.sitemap', kwargs={'section': 'exercises'})
         )
@@ -39,9 +37,8 @@ class SitemapTestCase(WgerTestCase):
         self.assertEqual(len(response.context['urlset']), 11)
 
     def test_sitemap_ingredients(self):
-
         response = self.client.get(
             reverse('django.contrib.sitemaps.views.sitemap', kwargs={'section': 'nutrition'})
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['urlset']), 13)
+        self.assertEqual(len(response.context['urlset']), 14)

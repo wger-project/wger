@@ -170,8 +170,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-                False
+            'debug': False
         },
     },
 ]
@@ -535,6 +534,8 @@ WGER_SETTINGS = {
     'SYNC_EXERCISES_CELERY': False,
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
+    'SYNC_INGREDIENTS_CELERY': False,
+    'SYNC_OFF_DAILY_DELTA_CELERY': False,
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,

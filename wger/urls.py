@@ -52,7 +52,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-# admin.autodiscover()
 
 #
 # REST API
@@ -89,7 +88,7 @@ router.register(r'userprofile', core_api_views.UserProfileViewSet, basename='use
 router.register(
     r'setting-repetitionunit',
     core_api_views.RepetitionUnitViewSet,
-    basename='setting-repetition-unit'
+    basename='setting-repetition-unit',
 )
 router.register(
     r'setting-weightunit', core_api_views.RoutineWeightUnitViewSet, basename='setting-weight-unit'
@@ -176,15 +175,13 @@ router.register(r'weightunit', nutrition_api_views.WeightUnitViewSet, basename='
 router.register(
     r'ingredientweightunit',
     nutrition_api_views.IngredientWeightUnitViewSet,
-    basename='ingredientweightunit'
+    basename='ingredientweightunit',
 )
 router.register(
     r'nutritionplan', nutrition_api_views.NutritionPlanViewSet, basename='nutritionplan'
 )
 router.register(
-    r'nutritionplaninfo',
-    nutrition_api_views.NutritionPlanInfoViewSet,
-    basename='nutritionplaninfo'
+    r'nutritionplaninfo', nutrition_api_views.NutritionPlanInfoViewSet, basename='nutritionplaninfo'
 )
 router.register(r'nutritiondiary', nutrition_api_views.LogItemViewSet, basename='nutritiondiary')
 router.register(r'meal', nutrition_api_views.MealViewSet, basename='meal')
@@ -218,7 +215,6 @@ sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
 # The actual URLs
 #
 urlpatterns = i18n_patterns(
-    # url(r'^admin/', admin.site.urls),
     path('', include(('wger.core.urls', 'core'), namespace='core')),
     path('routine/', include(('wger.manager.urls', 'manager'), namespace='manager')),
     path('exercise/', include(('wger.exercises.urls', 'exercise'), namespace='exercise')),
@@ -230,28 +226,27 @@ urlpatterns = i18n_patterns(
     path('gallery/', include(('wger.gallery.urls', 'gallery'), namespace='gallery')),
     path(
         'measurement/',
-        include(('wger.measurements.urls', 'measurements'), namespace='measurements')
+        include(('wger.measurements.urls', 'measurements'), namespace='measurements'),
     ),
     path('email/', include(('wger.mailer.urls', 'email'), namespace='email')),
     path('sitemap.xml', index, {'sitemaps': sitemaps}, name='sitemap'),
     path(
         'sitemap-<section>.xml',
-        sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap'
-    )
+        sitemap,
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap',
+    ),
 )
 
 #
 # URLs without language prefix
 #
 urlpatterns += [
-    path('robots.txt', TextTemplateView.as_view(template_name="robots.txt"), name='robots'),
-
+    path('robots.txt', TextTemplateView.as_view(template_name='robots.txt'), name='robots'),
     # API
     path('api/v2/exercise/search/', exercises_api_views.search, name='exercise-search'),
     path('api/v2/ingredient/search/', nutrition_api_views.search, name='ingredient-search'),
     path('api/v2/', include(router.urls)),
-
     # The api user login
     path(
         'api/v2/login/', core_api_views.UserAPILoginView.as_view({'post': 'post'}), name='api_user'
@@ -259,29 +254,27 @@ urlpatterns += [
     path(
         'api/v2/register/',
         core_api_views.UserAPIRegistrationViewSet.as_view({'post': 'post'}),
-        name='api_register'
+        name='api_register',
     ),
-    path('api/v2/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/v2/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/v2/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-
+    path('api/v2/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v2/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v2/token/verify', TokenVerifyView.as_view(), name='token_verify'),
     # Others
     path(
         'api/v2/version/',
         core_api_views.ApplicationVersionView.as_view({'get': 'get'}),
-        name='app_version'
+        name='app_version',
     ),
     path(
         'api/v2/check-permission/',
         core_api_views.PermissionView.as_view({'get': 'get'}),
-        name='permission'
+        name='permission',
     ),
     path(
         'api/v2/min-app-version/',
         core_api_views.RequiredApplicationVersionView.as_view({'get': 'get'}),
-        name='min_app_version'
+        name='min_app_version',
     ),
-
     # Api documentation
     path(
         'api/v2/schema',

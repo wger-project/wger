@@ -49,7 +49,18 @@
         "changeExerciseLanguage": "Cambiar el idioma de este ejercicio",
         "missingExercise": "¿Falta algún ejercicio?",
         "identicalExercise": "Evitar los ejercicios duplicados",
-        "cacheWarning": "Debido al almacenamiento en caché, puede pasar algún tiempo hasta que los cambios sean visibles en toda la aplicación."
+        "cacheWarning": "Debido al almacenamiento en caché, puede pasar algún tiempo hasta que los cambios sean visibles en toda la aplicación.",
+        "replacements": "Sustituciones",
+        "replacementsInfoText": "Opcionalmente, también puede seleccionar un ejercicio que debería sustituir a éste (por ejemplo, porque fue enviado dos veces, o similar). Esto sustituye el ejercicio en las rutinas así como en los registros de entrenamiento, en lugar de simplemente borrarlo. Estos cambios también se propagarán a cualquier instancia que sincronice los ejercicios.",
+        "deleteExerciseReplace": "Borrar y sustituir",
+        "replacementsSearch": "Busque un ejercicio o copie y pegue un ID conocido en el campo y pulse el botón \"cargar\".",
+        "noReplacementSelected": " Ningún ejercicio seleccionado para sustituir",
+        "imageStylePhoto": "Foto",
+        "imageStyle3D": "3D",
+        "imageStyleOther": "Otro",
+        "imageStyleLine": "Línea",
+        "imageDetails": "Detalles de la imagen",
+        "imageStyleLowPoly": "Bajo poligonaje (Low-Poly)"
     },
     "loading": "Cargando...",
     "images": "Imágenes",
@@ -197,5 +208,15 @@
     "alsoSearchEnglish": "Buscar también los nombres en inglés",
     "timeOfDay": "Hora del día",
     "nothingHereYet": "Todavía no hay nada aquí...",
-    "nothingHereYetAction": "Pulse el botón de acción para empezar"
+    "nothingHereYetAction": "Pulse el botón de acción para empezar",
+    "copyToClipboard": "Copiar al portapapeles",
+    "licenses": {
+        "authors": "Autor(es)",
+        "derivativeSourceUrl": "Enlace a la fuente original, si se trata de una obra derivada",
+        "originalObjectUrl": "Enlace al sitio web de origen, si está disponible",
+        "originalTitle": "Título",
+        "derivativeSourceUrlHelper": "Tenga en cuenta que una obra derivada es aquella que no sólo se basa en una obra anterior, sino que además contiene suficiente contenido nuevo y creativo como para tener derecho a sus propios derechos de autor.",
+        "authorProfile": "Enlace al sitio web o perfil del autor, si está disponible"
+    },
+    "filters": "Filtros"
 }

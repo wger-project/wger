@@ -40,8 +40,8 @@ class NutritionalValuesTestCase(SimpleTestCase):
             carbohydrates_sugar=70,
             fat=60,
             fat_saturated=50,
-            fibres=40,
-            sodium=30
+            fiber=40,
+            sodium=30,
         )
         values2 = NutritionalValues(
             energy=10,
@@ -50,8 +50,8 @@ class NutritionalValuesTestCase(SimpleTestCase):
             carbohydrates_sugar=7,
             fat=6,
             fat_saturated=5,
-            fibres=4,
-            sodium=3
+            fiber=4,
+            sodium=3,
         )
         values3 = values1 + values2
 
@@ -64,8 +64,8 @@ class NutritionalValuesTestCase(SimpleTestCase):
                 carbohydrates_sugar=77,
                 fat=66,
                 fat_saturated=55,
-                fibres=44,
-                sodium=33
+                fiber=44,
+                sodium=33,
             ),
         )
 
@@ -73,7 +73,7 @@ class NutritionalValuesTestCase(SimpleTestCase):
         """Test that the addition works correctly for the nullable values"""
 
         values1 = NutritionalValues()
-        values2 = NutritionalValues(carbohydrates_sugar=10, fat_saturated=20, fibres=30, sodium=40)
+        values2 = NutritionalValues(carbohydrates_sugar=10, fat_saturated=20, fiber=30, sodium=40)
         values3 = values1 + values2
 
         self.assertEqual(
@@ -85,7 +85,7 @@ class NutritionalValuesTestCase(SimpleTestCase):
                 carbohydrates_sugar=10,
                 fat=0,
                 fat_saturated=20,
-                fibres=30,
-                sodium=40
+                fiber=30,
+                sodium=40,
             ),
         )

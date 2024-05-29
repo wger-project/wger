@@ -82,21 +82,6 @@ patterns_ingredient = [
         name='list',
     ),
     path(
-        'pending/',
-        ingredient.PendingIngredientListView.as_view(),
-        name='pending',
-    ),
-    path(
-        '<int:pk>/accept/',
-        ingredient.accept,
-        name='accept',
-    ),
-    path(
-        '<int:pk>/decline/',
-        ingredient.decline,
-        name='decline',
-    ),
-    path(
         '<int:pk>/view/',
         ingredient.view,
         name='view',
@@ -190,31 +175,46 @@ patterns_calories = [
 ]
 
 urlpatterns = [
-    path('', include(
-        (patterns_plan, "plan"),
-        namespace="plan",
-    )),
-    path('ingredient/', include(
-        (patterns_ingredient, "ingredient"),
-        namespace="ingredient",
-    )),
-    path('unit/', include(
-        (patterns_weight_unit, "weight_unit"),
-        namespace="weight_unit",
-    )),
+    path(
+        '',
+        include(
+            (patterns_plan, 'plan'),
+            namespace='plan',
+        ),
+    ),
+    path(
+        'ingredient/',
+        include(
+            (patterns_ingredient, 'ingredient'),
+            namespace='ingredient',
+        ),
+    ),
+    path(
+        'unit/',
+        include(
+            (patterns_weight_unit, 'weight_unit'),
+            namespace='weight_unit',
+        ),
+    ),
     path(
         'unit-to-ingredient/',
         include(
-            (patterns_unit_ingredient, "unit_ingredient"),
-            namespace="unit_ingredient",
-        )
+            (patterns_unit_ingredient, 'unit_ingredient'),
+            namespace='unit_ingredient',
+        ),
     ),
-    path('calculator/bmi/', include(
-        (patterns_bmi, "bmi"),
-        namespace="bmi",
-    )),
-    path('calculator/calories/', include(
-        (patterns_calories, "calories"),
-        namespace="calories",
-    )),
+    path(
+        'calculator/bmi/',
+        include(
+            (patterns_bmi, 'bmi'),
+            namespace='bmi',
+        ),
+    ),
+    path(
+        'calculator/calories/',
+        include(
+            (patterns_calories, 'calories'),
+            namespace='calories',
+        ),
+    ),
 ]

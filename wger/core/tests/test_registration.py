@@ -134,23 +134,23 @@ class RegistrationTestCase(WgerTestCase):
         self.user_logout()
 
         # First password is missing
-        registration_data['password1'] = ""
+        registration_data['password1'] = ''
         response = self.client.post(reverse('core:user:registration'), registration_data)
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()
 
         # Second password is missing
-        registration_data['password2'] = ""
+        registration_data['password2'] = ''
         response = self.client.post(reverse('core:user:registration'), registration_data)
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()
 
         # Username is too long
         long_user = (
-            "my_username_is_"
-            "wayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-            "_toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
-            "_loooooooooooooooooooooooooooooooooooooooooooooooooooooooooong"
+            'my_username_is_'
+            'wayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
+            '_toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo'
+            '_loooooooooooooooooooooooooooooooooooooooooooooooooooooooooong'
         )
         registration_data['username'] = long_user
         response = self.client.post(reverse('core:user:registration'), registration_data)
@@ -158,13 +158,13 @@ class RegistrationTestCase(WgerTestCase):
         self.user_logout()
 
         # Username contains invalid symbol
-        registration_data['username'] = "username!"
+        registration_data['username'] = 'username!'
         response = self.client.post(reverse('core:user:registration'), registration_data)
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()
 
         # Username is missing
-        registration_data['username'] = ""
+        registration_data['username'] = ''
         response = self.client.post(reverse('core:user:registration'), registration_data)
         self.assertFalse(response.context['form'].is_valid())
         self.user_logout()

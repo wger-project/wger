@@ -29,6 +29,7 @@ class Command(BaseCommand):
     """
     Check that all gym trainers and users have configurations
     """
+
     help = 'Check that all gym trainers and users have configurations'
 
     def handle(self, **options):

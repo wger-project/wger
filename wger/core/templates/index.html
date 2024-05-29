@@ -12,129 +12,20 @@
 
 
 {% block content %}
-    {% if current_workout %}
-        <div class="modal fade" id="calendar-day-select-popup">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">{% translate 'Add log to day' %}</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>{% blocktranslate %}Click to add weight logs to a training
-                            day in your current workout:{% endblocktranslate %} <strong>{{ current_workout }}</strong>
-                        </p>
-
-                        {% for day in current_workout.day_set.all %}
-                            <a href="{% url 'manager:day:log' day.pk %}"
-                               class="btn btn-block btn-light">{{ day.description }}</a>
-                        {% endfor %}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-light"
-                                data-bs-dismiss="modal">
-                            {% translate "Close" %}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-
-
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-md-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{% translate "Workout" %}</h5>
-                        <div class="card-text">
-                            {% if current_workout %}
-                                <p>
-                                    <a href="{{ current_workout.get_absolute_url }}">
-                                        {% if current_workout.comment %}
-                                            {{ current_workout.comment }}
-                                        {% else %}
-                                            {% translate "Workout" %}
-                                        {% endif %}
-                                    </a>
-                                </p>
-                                <p>
-                                    – {{ current_workout.created }}
-                                <p>
-                            {% endif %}
-
-                            <table class="table table-hover table-sm">
-                                {% for day, exercise, is_workout in weekdays %}
-                                    <tr>
-                                        <td>
-                                            {{ day }}
-                                        </td>
-                                        <td>
-                                            {% if not is_workout %}<span class="text-muted">{% endif %}
-                                            {{ exercise }}
-                                            {% if not is_workout %}</span>{% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-
-                            {% if schedule %}
-                                <p>
-                                    → {% translate "This workout is part of a schedule:" %}
-                                    <a href="{{ schedule.get_absolute_url }}">{{ schedule.name }}</a>
-                                </p>
-                            {% endif %}
-                            <p><em>
-                                {% blocktranslate trimmed %}The current workout is selected from your active
-                                    schedule or, if you don't have one, simply by date.{% endblocktranslate %}
-                            </em></p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        {% if current_workout %}
-                            {% if current_workout.day_set.all %}
-                                <a href="#"
-                                   id="logging-popup-link"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#calendar-day-select-popup"
-                                   class="btn btn-success btn-sm btn-block">
-                                    {% translate "Add new log" %}
-                                </a>
-                            {% endif %}
-                        {% else %}
-                            <a href="{% url 'manager:workout:add' %}" class="btn btn-sm btn-success">
-                                {% translate "No workouts found." %} {% translate "Add one now." %}
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
+                <div id="react-routine-dashboard"></div>
             </div>
-
 
             <div class="col-sm-6 col-md-4">
                 <div id="react-nutrition-dashboard"></div>
             </div>
 
-
-            <div class="col-sm-12 col-md-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{% translate "Weight" %}</h5>
-                        <div class="card-text">
-                            <div id="react-weight-dashboard"></div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{% url 'weight:add' %}" class="btn btn-success btn-sm wger-modal-dialog" role="button">
-                            {% translate "Add weight entry" %}
-                        </a>
-                    </div>
-                </div>
+            <div class="col-sm-6 col-md-4">
+                <div id="react-weight-dashboard"></div>
             </div>
+
         </div>
     </div>
-
 {% endblock %}

@@ -49,6 +49,7 @@ class MuscleAdminListView(LoginRequiredMixin, PermissionRequiredMixin, ListView)
     """
     Overview of all muscles, for administration purposes
     """
+
     model = Muscle
     context_object_name = 'muscle_list'
     permission_required = 'exercises.change_muscle'

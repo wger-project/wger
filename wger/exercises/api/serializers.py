@@ -88,6 +88,7 @@ class ExerciseImageSerializer(serializers.ModelSerializer):
     """
     ExerciseImage serializer
     """
+
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
 
@@ -115,6 +116,7 @@ class ExerciseVideoSerializer(serializers.ModelSerializer):
     """
     ExerciseVideo serializer
     """
+
     exercise_base_uuid = serializers.ReadOnlyField(source='exercise_base.uuid')
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
 
@@ -147,6 +149,7 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
     """
     ExerciseVideo serializer for the info endpoint
     """
+
     author_history = serializers.ListSerializer(child=serializers.CharField(), read_only=True)
 
     class Meta:
@@ -154,6 +157,7 @@ class ExerciseVideoInfoSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'exercise_base',
             'video',
             'is_main',
             'size',
@@ -183,6 +187,7 @@ class ExerciseCommentSerializer(serializers.ModelSerializer):
         model = ExerciseComment
         fields = [
             'id',
+            'uuid',
             'exercise',
             'comment',
         ]
@@ -195,7 +200,12 @@ class ExerciseAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = ['id', 'exercise', 'alias']
+        fields = [
+            'id',
+            'uuid',
+            'exercise',
+            'alias',
+        ]
 
 
 class ExerciseVariationSerializer(serializers.ModelSerializer):
@@ -217,7 +227,11 @@ class ExerciseInfoAliasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Alias
-        fields = ['id', 'alias']
+        fields = [
+            'id',
+            'uuid',
+            'alias',
+        ]
 
 
 class ExerciseCategorySerializer(serializers.ModelSerializer):
@@ -234,6 +248,7 @@ class MuscleSerializer(serializers.ModelSerializer):
     """
     Muscle serializer
     """
+
     image_url_main = serializers.CharField()
     image_url_secondary = serializers.CharField()
 
@@ -256,6 +271,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     The fields from the new ExerciseBase are retrieved here as to retain
     compatibility with the old model where all the fields where in Exercise.
     """
+
     category = serializers.PrimaryKeyRelatedField(queryset=ExerciseCategory.objects.all())
     muscles = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
     muscles_secondary = serializers.PrimaryKeyRelatedField(many=True, queryset=Muscle.objects.all())
@@ -266,21 +282,21 @@ class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = (
-            "id",
-            "uuid",
-            "name",
-            "exercise_base",
-            "description",
-            "created",
-            "category",
-            "muscles",
-            "muscles_secondary",
-            "equipment",
-            "language",
-            "license",
-            "license_author",
-            "variations",
-            "author_history",
+            'id',
+            'uuid',
+            'name',
+            'exercise_base',
+            'description',
+            'created',
+            'category',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'language',
+            'license',
+            'license_author',
+            'variations',
+            'author_history',
         )
 
 
@@ -288,6 +304,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     """
     Exercise translation serializer for the base info endpoint
     """
+
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
     exercise_base = serializers.PrimaryKeyRelatedField(
@@ -301,22 +318,22 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = (
-            "id",
-            "uuid",
-            "name",
-            "exercise_base",
-            "description",
-            "created",
-            "language",
-            "aliases",
-            "notes",
-            "license",
-            "license_title",
-            "license_object_url",
-            "license_author",
-            "license_author_url",
-            "license_derivative_source_url",
-            "author_history",
+            'id',
+            'uuid',
+            'name',
+            'exercise_base',
+            'description',
+            'created',
+            'language',
+            'aliases',
+            'notes',
+            'license',
+            'license_title',
+            'license_object_url',
+            'license_author',
+            'license_author_url',
+            'license_derivative_source_url',
+            'author_history',
         )
 
 
@@ -324,6 +341,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     """
     Exercise translation serializer
     """
+
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
     exercise_base = serializers.PrimaryKeyRelatedField(
@@ -334,13 +352,13 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = (
-            "id",
-            "uuid",
-            "name",
-            "exercise_base",
-            "description",
-            "created",
-            "language",
+            'id',
+            'uuid',
+            'name',
+            'exercise_base',
+            'description',
+            'created',
+            'language',
             'license_author',
         )
 
@@ -391,25 +409,25 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
         model = Exercise
         depth = 1
         fields = [
-            "id",
-            "name",
-            "aliases",
-            "uuid",
-            "exercise_base_id",
-            "description",
-            "created",
-            "category",
-            "muscles",
-            "muscles_secondary",
-            "equipment",
-            "language",
-            "license",
-            "license_author",
-            "images",
-            "videos",
-            "comments",
-            "variations",
-            "author_history",
+            'id',
+            'name',
+            'aliases',
+            'uuid',
+            'exercise_base_id',
+            'description',
+            'created',
+            'category',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'language',
+            'license',
+            'license_author',
+            'images',
+            'videos',
+            'comments',
+            'variations',
+            'author_history',
         ]
 
 
@@ -434,24 +452,24 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
         model = ExerciseBase
         depth = 1
         fields = [
-            "id",
-            "uuid",
-            "created",
-            "last_update",
-            "last_update_global",
-            "category",
-            "muscles",
-            "muscles_secondary",
-            "equipment",
-            "license",
-            "license_author",
-            "images",
-            "exercises",
-            "variations",
-            "images",
-            "videos",
-            "author_history",
-            "total_authors_history",
+            'id',
+            'uuid',
+            'created',
+            'last_update',
+            'last_update_global',
+            'category',
+            'muscles',
+            'muscles_secondary',
+            'equipment',
+            'license',
+            'license_author',
+            'images',
+            'exercises',
+            'variations',
+            'images',
+            'videos',
+            'author_history',
+            'total_authors_history',
         ]
 
     def to_representation(self, instance):

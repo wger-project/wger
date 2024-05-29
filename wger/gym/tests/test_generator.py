@@ -13,10 +13,20 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.contrib import admin
+from django.core.management import call_command
 
 # wger
-from wger.weight.models import WeightEntry
+from wger.core.tests.base_testcase import WgerTestCase
+from wger.gym.models import Gym
 
 
-admin.site.register(WeightEntry)
+class GymGeneratorTestCase(WgerTestCase):
+    def test_generator(self):
+        # Arrange
+        Gym.objects.all().delete()
+
+        # Act
+        call_command('dummy-generator-gyms', '--nr-entries', 10)
+
+        # Assert
+        self.assertEqual(Gym.objects.count(), 10)

@@ -22,7 +22,7 @@ from wger.exercises.models import Exercise
 
 
 class ExercisesSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = 'monthly'
     priority = 0.5
 
     def items(self):

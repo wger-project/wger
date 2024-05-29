@@ -34,9 +34,9 @@ def load_language(language_code=None):
     """
 
     # Read the first part of a composite language, e.g. 'de-at'
-    used_language = translation.get_language().split('-')[0] \
-        if language_code is None \
-        else language_code
+    used_language = (
+        translation.get_language().split('-')[0] if language_code is None else language_code
+    )
 
     language = cache.get(cache_mapper.get_language_key(used_language))
     if language:
@@ -55,5 +55,5 @@ def get_language_data(language):
     return {
         'name': language[1],
         'code': language[0],
-        'path': f'images/icons/flags/{language[0]}.svg'
+        'path': f'images/icons/flags/{language[0]}.svg',
     }

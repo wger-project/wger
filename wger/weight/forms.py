@@ -50,6 +50,7 @@ class WeightCsvImportForm(Form):
     """
     A helper form with only a textarea
     """
+
     csv_input = CharField(widget=Textarea, label=_('Input'))
     date_format = forms.ChoiceField(choices=CSV_DATE_FORMAT, label=_('Date format'))
 
@@ -58,8 +59,8 @@ class WeightCsvImportForm(Form):
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            "csv_input",
-            "date_format",
+            'csv_input',
+            'date_format',
         )
         self.helper.form_tag = False
 

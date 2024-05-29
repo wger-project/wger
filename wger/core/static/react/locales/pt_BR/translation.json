@@ -142,5 +142,9 @@
     "close": "Fechar",
     "total": "Total",
     "alsoSearchEnglish": "Pesquise também por nomes em inglês",
-    "timeOfDay": "Hora do dia"
+    "timeOfDay": "Hora do dia",
+    "licenses": {
+        "authors": "Autor(es)",
+        "authorProfile": "Link para o website ou profile do autor, se disponível"
+    }
 }

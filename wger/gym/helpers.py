@@ -57,9 +57,11 @@ def is_any_gym_admin(user):
     Small utility that checks that the user object has any administrator
     permissions
     """
-    return user.has_perm('gym.manage_gym')\
-        or user.has_perm('gym.manage_gyms')\
+    return (
+        user.has_perm('gym.manage_gym')
+        or user.has_perm('gym.manage_gyms')
         or user.has_perm('gym.gym_trainer')
+    )
 
 
 def get_permission_list(user):

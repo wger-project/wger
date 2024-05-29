@@ -16,20 +16,17 @@ class Migration(migrations.Migration):
             name='description',
             field=models.TextField(
                 blank=True,
-                help_text="A short description or goal of the workout. For "
+                help_text='A short description or goal of the workout. For '
                 "example 'Focus on back' or 'Week 1 of program xy'.",
                 max_length=1000,
-                verbose_name='Description'
+                verbose_name='Description',
             ),
         ),
         migrations.AlterField(
             model_name='workout',
             name='name',
             field=models.CharField(
-                blank=True,
-                help_text='The name of the workout',
-                max_length=100,
-                verbose_name='Name'
+                blank=True, help_text='The name of the workout', max_length=100, verbose_name='Name'
             ),
         ),
         migrations.AlterField(
@@ -38,9 +35,9 @@ class Migration(migrations.Migration):
             field=models.IntegerField(
                 validators=[
                     django.core.validators.MinValueValidator(0),
-                    django.core.validators.MaxValueValidator(600)
+                    django.core.validators.MaxValueValidator(600),
                 ],
-                verbose_name='Reps'
+                verbose_name='Reps',
             ),
         ),
     ]

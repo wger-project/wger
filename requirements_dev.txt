@@ -6,16 +6,17 @@
 -r requirements.txt
 
 # Building/installing
-wheel==0.42.0
+wheel==0.43.0
 
 # for ingredient import script from OFF
-pymongo==4.6.0
+pymongo==4.7.1
 
 # for running the dummy entry generators
-faker==20.1.0
+faker==25.2.0
 
 # Development packages
-coverage==7.3.2
-django-debug-toolbar==4.2.0
+coverage==7.5.1
+django-debug-toolbar==4.3.0
+isort==5.13.2
+ruff==0.4.4
 tblib==3.0.0
-isort==5.12.0

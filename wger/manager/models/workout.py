@@ -47,8 +47,9 @@ class Workout(models.Model):
         """
         Meta class to set some other properties
         """
+
         ordering = [
-            "-creation_date",
+            '-creation_date',
         ]
 
     creation_date = models.DateField(_('Creation date'), auto_now_add=True)
@@ -56,14 +57,14 @@ class Workout(models.Model):
         verbose_name=_('Name'),
         max_length=100,
         blank=True,
-        help_text=_("The name of the workout"),
+        help_text=_('The name of the workout'),
     )
     description = models.TextField(
         verbose_name=_('Description'),
         max_length=1000,
         blank=True,
         help_text=_(
-            "A short description or goal of the workout. For "
+            'A short description or goal of the workout. For '
             "example 'Focus on back' or 'Week 1 of program "
             "xy'."
         ),
@@ -71,8 +72,7 @@ class Workout(models.Model):
     is_template = models.BooleanField(
         verbose_name=_('Workout template'),
         help_text=_(
-            'Marking a workout as a template will freeze it and allow you to '
-            'make copies of it'
+            'Marking a workout as a template will freeze it and allow you to ' 'make copies of it'
         ),
         default=False,
         null=False,
@@ -96,7 +96,7 @@ class Workout(models.Model):
         """
         return reverse(
             'manager:template:view' if self.is_template else 'manager:workout:view',
-            kwargs={'pk': self.id}
+            kwargs={'pk': self.id},
         )
 
     def __str__(self):
@@ -106,7 +106,7 @@ class Workout(models.Model):
         if self.name:
             return self.name
         else:
-            return "{0} ({1})".format(_('Workout'), self.creation_date)
+            return f'{_("Workout")} ({self.creation_date})'
 
     def clean(self):
         if self.is_public and not self.is_template:
@@ -180,9 +180,9 @@ class Workout(models.Model):
                     'front': muscles_front,
                     'back': muscles_back,
                     'frontsecondary': muscles_front_secondary,
-                    'backsecondary': muscles_back_secondary
+                    'backsecondary': muscles_back_secondary,
                 },
-                'day_list': day_canonical_repr
+                'day_list': day_canonical_repr,
             }
             # Save to cache
             cache.set(cache_mapper.get_workout_canonical(self.pk), workout_canonical_form)
