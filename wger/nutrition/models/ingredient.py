@@ -38,6 +38,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from openfoodfacts import API
+from requests import ConnectTimeout
 
 # wger
 from wger.core.models import Language
@@ -423,6 +424,9 @@ class Ingredient(AbstractLicenseModel, models.Model):
             result = api.product.get(code)
         except JSONDecodeError as e:
             logger.info(f'Got JSONDecodeError from OFF: {e}')
+            return None
+        except ConnectTimeout:
+            logger.info('Timeout from OFF')
             return None
 
         if not result:
