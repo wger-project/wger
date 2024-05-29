@@ -35,7 +35,6 @@ from wger.nutrition.dataclasses import IngredientData
 from wger.nutrition.models import Ingredient
 from wger.utils.requests import wger_headers
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -168,10 +167,10 @@ class ImportProductCommand(BaseCommand):
             for line in gzid:
                 try:
                     product = json.loads(line)
-                    if not product['lang'] in languages:
+                    if not product.get('lang') in languages:
                         continue
                     yield product
-                except JSONDecodeError as e:
+                except JSONDecodeError:
                     self.stdout.write(f' Error parsing and/or filtering  json record, skipping')
                     continue
 

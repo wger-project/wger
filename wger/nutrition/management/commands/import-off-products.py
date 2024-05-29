@@ -28,7 +28,6 @@ from wger.nutrition.management.products import (
 )
 from wger.nutrition.off import extract_info_from_off
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -91,12 +90,13 @@ class Command(ImportProductCommand):
         delta_url = self.deltas_base_url + newest_entry
         self.download_file(delta_url, file_path)
 
+        self.stdout.write('Start processing...')
         for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
             try:
                 ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
             except (KeyError, ValueError) as e:
                 self.stdout.write(
-                    f'--> {ingredient_data.remote_id=} KeyError while extracting info from OFF: {e}'
+                    f'--> {ingredient_data.remote_id=} Error while extracting info from OFF: {e}'
                 )
                 self.counter['skipped'] += 1
             else:
@@ -112,11 +112,12 @@ class Command(ImportProductCommand):
         file_path = os.path.join(download_folder, os.path.basename(self.full_off_dump_url))
         self.download_file(self.full_off_dump_url, file_path)
 
+        self.stdout.write('Start processing...')
         for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
             try:
                 ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
             except (KeyError, ValueError) as e:
-                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                self.stdout.write(f'--> Error while extracting info from OFF: {e}')
                 self.counter['skipped'] += 1
             else:
                 self.process_ingredient(ingredient_data)
