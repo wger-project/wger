@@ -46,7 +46,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -103,7 +102,11 @@ def fetch_image_from_off(ingredient):
 
     url = ingredient.source_url + '?fields=images,image_front_url'
     headers = wger_headers()
-    product_data = requests.get(url, headers=headers).json()
+    try:
+        product_data = requests.get(url, headers=headers).json()
+    except requests.JSONDecodeError:
+        logger.warning(f'Could not decode JSON response from {url}')
+        return
 
     try:
         image_url: Optional[str] = product_data['product'].get('image_front_url')
