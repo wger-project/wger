@@ -52,7 +52,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 #
 # REST API
 #
@@ -303,5 +302,5 @@ if settings.DEBUG:
 
 if settings.PROMETHEUS_METRICS:
     urlpatterns += [
-        path('prometheus-wger/', include('django_prometheus.urls'))
+        path(f'prometheus/{settings.PROMETHEUS_URL_PATH}/', include('django_prometheus.urls'))
     ]

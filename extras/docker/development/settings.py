@@ -167,3 +167,4 @@ CELERY_RESULT_BACKEND = env.str("CELERY_BACKEND", "redis://cache:6379/2")
 # Prometheus metrics
 #
 PROMETHEUS_METRICS = env.bool('PROMETHEUS_METRICS', False)
+PROMETHEUS_URL_PATH = env.str('PROMETHEUS_URL_PATH', 'cdeecf11-ea43-48c9-9cd4-f9084639762d')
