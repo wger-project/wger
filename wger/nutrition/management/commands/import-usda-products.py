@@ -30,7 +30,6 @@ from wger.nutrition.models import Ingredient
 from wger.nutrition.usda import extract_info_from_usda
 from wger.utils.constants import ENGLISH_SHORT_NAME
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -49,8 +48,8 @@ class Command(ImportProductCommand):
             dest='dataset',
             type=str,
             help='What dataset to download, this value will be appended to '
-            '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
-            'https://fdc.nal.usda.gov/download-datasets.html for current file names',
+                 '"https://fdc.nal.usda.gov/fdc-datasets/". Consult '
+                 'https://fdc.nal.usda.gov/download-datasets.html for current file names',
         )
 
     def handle(self, **options):
@@ -89,6 +88,7 @@ class Command(ImportProductCommand):
                 extracted_file_path = zip_ref.extract(first_file, path=download_folder)
 
         # Since the file is almost JSONL, just process each line individually
+        self.stdout.write('Start processing...')
         with open(extracted_file_path, 'r') as extracted_file:
             for line in extracted_file.readlines():
                 # Try to skip the first and last lines in the file
@@ -113,8 +113,7 @@ class Command(ImportProductCommand):
                     self.stdout.write(f'--> ValueError while extracting ingredient info: {e}')
                     self.counter['skipped'] += 1
                 else:
-                    self.match_existing_entry(ingredient_data)
-                    # self.handle_data(ingredient_data)
+                    self.process_ingredient(ingredient_data)
 
         if tmp_folder:
             self.stdout.write(f'Removing temporary folder {download_folder}')
@@ -122,34 +121,3 @@ class Command(ImportProductCommand):
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
         self.stdout.write(self.style.SUCCESS(str(self.counter)))
-
-    def match_existing_entry(self, ingredient_data: IngredientData):
-        """
-        One-off method.
-
-        There are currently some entries in the database that were imported from an old USDA
-        import but neither the original script nor the dump are available anymore, so we can't
-        really know which ones they are.
-
-        This method tries to match the ingredient_data.name with the name of an existing entry
-        and set the remote_id so that these can be updated regularly in the future.
-        """
-        try:
-            obj, created = Ingredient.objects.update_or_create(
-                name__iexact=ingredient_data.name,
-                code=None,
-                defaults=ingredient_data.dict(),
-            )
-
-            if created:
-                self.counter['new'] += 1
-                # self.stdout.write('-> added to the database')
-            else:
-                self.counter['edited'] += 1
-                self.stdout.write(f'-> found and updated {obj.name}')
-
-        except Exception as e:
-            # self.stdout.write('--> Error while performing update_or_create')
-            # self.stdout.write(repr(e))
-            # self.stdout.write(repr(ingredient_data))
-            self.counter['error'] += 1
