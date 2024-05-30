@@ -555,7 +555,8 @@ WGER_SETTINGS = {
 #
 # Prometheus metrics
 #
-PROMETHEUS_METRICS = False
+EXPOSE_PROMETHEUS_METRICS = False
+PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #
