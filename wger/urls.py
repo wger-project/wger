@@ -52,7 +52,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 #
 # REST API
 #
@@ -209,7 +208,7 @@ router.register(
 #
 # Sitemaps
 #
-sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
+sitemaps = {'exercises': ExercisesSitemap, }  # 'nutrition': NutritionSitemap}
 
 #
 # The actual URLs
