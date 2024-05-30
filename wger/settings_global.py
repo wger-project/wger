@@ -24,7 +24,6 @@ from datetime import timedelta
 from wger import get_version
 from wger.utils.constants import DOWNLOAD_INGREDIENT_WGER
 
-
 """
 This file contains the global settings that don't usually need to be changed.
 For a full list of options, visit:
@@ -41,7 +40,7 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -112,9 +111,15 @@ INSTALLED_APPS = (
 
     # Fontawesome
     'fontawesomefree',
-)
 
-MIDDLEWARE = (
+    # Prometheus
+    'django_prometheus',
+]
+
+MIDDLEWARE = [
+    # Prometheus
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,9 +143,12 @@ MIDDLEWARE = (
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
 
+    # Prometheus
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+
     # Django Axes
     'axes.middleware.AxesMiddleware',  # should be the last one in the list
-)
+]
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
@@ -543,6 +551,12 @@ WGER_SETTINGS = {
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
 }
+
+#
+# Prometheus metrics
+#
+EXPOSE_PROMETHEUS_METRICS = False
+PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #
