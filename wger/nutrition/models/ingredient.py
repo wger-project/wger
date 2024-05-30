@@ -38,7 +38,10 @@ from django.utils.translation import gettext_lazy as _
 
 # Third Party
 from openfoodfacts import API
-from requests import ConnectTimeout
+from requests import (
+    ConnectTimeout,
+    HTTPError,
+)
 
 # wger
 from wger.core.models import Language
@@ -427,6 +430,9 @@ class Ingredient(AbstractLicenseModel, models.Model):
             return None
         except ConnectTimeout:
             logger.info('Timeout from OFF')
+            return None
+        except HTTPError as e:
+            logger.info(f'Got HTTPError from OFF: {e}')
             return None
 
         if not result:
