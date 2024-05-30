@@ -59,7 +59,6 @@ from wger.utils.requests import wger_user_agent
 # Local
 from .ingredient_category import IngredientCategory
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -120,7 +119,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         verbose_name=_('Protein'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     carbohydrates = models.DecimalField(
@@ -128,7 +127,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         verbose_name=_('Carbohydrates'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     carbohydrates_sugar = models.DecimalField(
@@ -138,7 +137,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         null=True,
         verbose_name=_('Sugar content in carbohydrates'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     fat = models.DecimalField(
@@ -146,7 +145,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         max_digits=6,
         verbose_name=_('Fat'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     fat_saturated = models.DecimalField(
@@ -156,7 +155,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         null=True,
         verbose_name=_('Saturated fat content in fats'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     fiber = models.DecimalField(
@@ -166,7 +165,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         null=True,
         verbose_name=_('Fiber'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     sodium = models.DecimalField(
@@ -176,7 +175,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         null=True,
         verbose_name=_('Sodium'),
         help_text=_('In g per 100g of product'),
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))],
     )
 
     code = models.CharField(
