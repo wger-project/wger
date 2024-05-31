@@ -27,12 +27,17 @@ def settings_check(app_configs, **kwargs):
         )
 
     # Use correct settings
-    if isinstance(settings.WGER_SETTINGS, WgerSettings):
+    if not isinstance(settings.WGER_SETTINGS, WgerSettings):
         errors.append(
-            Error(
-                'The WGER_SETTINGS object is not correctly configured',
-                hint='Instead of a dictionary, this config is now an instance of WgerSettings. '
-                     'The names of the options have remained the same.',
+            Warning(
+                'The type of the WGER_SETTINGS configuration object has changed!',
+                hint='Instead of a dictionary, this config is now an instance of WgerSettings.\n'
+                     '          The names of the options have remained the same, but are a lower\n'
+                     '          case attribute of the instance, so for example\n'
+                     f'          WGER_SETTINGS["USE_CELERY"] becomes WGER_SETTINGS.use_celery\n'
+                     '\n'
+                     '          For compatibility purposes the old syntax is still accepted, but\n'
+                     '          you should update your settings file as soon as possible.\n',
                 obj=settings,
                 id='wger.E002',
             )

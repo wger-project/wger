@@ -143,3 +143,11 @@ class WgerSettings:
     """
     URL of the wger default instance to use for syncing exercises, ingredients and videos.
     """
+
+    def __setitem__(self, key, value):
+        """For compatibility purposes, accept the old dictionary syntax"""
+        setattr(self, key.lower(), value)
+
+    def __getitem__(self, item):
+        """For compatibility purposes, accept the old dictionary syntax"""
+        return getattr(self, item.lower())
