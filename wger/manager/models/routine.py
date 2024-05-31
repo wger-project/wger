@@ -147,6 +147,17 @@ class Routine(models.Model):
         return out
 
     @property
+    def label_dict(self) -> dict[datetime.date, str]:
+        out = {}
+        labels = self.labels.all()
+
+        for label in labels:
+            for i in range(label.start_offset, label.end_offset + 1):
+                out[self.start + datetime.timedelta(days=i)] = label.label
+
+        return out
+
+    @property
     def date_sequence(self) -> List[WorkoutDayData]:
         """
         Return a list with specific dates and routine days
@@ -154,6 +165,7 @@ class Routine(models.Model):
         If a day needs logs to continue it will be repeated until the user adds one.
         """
 
+        labels = self.label_dict
         delta = datetime.timedelta(days=1)
         current_date = self.start
         current_day = self.first_day
@@ -168,7 +180,14 @@ class Routine(models.Model):
         while current_date <= self.end:
             # Fill all days till the end of the week with empty workout days
             if skip_til_date:
-                out.append(WorkoutDayData(iteration=None, date=current_date, day=None))
+                out.append(
+                    WorkoutDayData(
+                        iteration=None,
+                        date=current_date,
+                        day=None,
+                        label=labels.get(current_date),
+                    )
+                )
                 # current_date += delta
                 if current_date == skip_til_date:
                     skip_til_date = None
@@ -181,7 +200,12 @@ class Routine(models.Model):
                 skip_til_date = current_date + datetime.timedelta(days=days_til_monday)
 
             out.append(
-                WorkoutDayData(iteration=counter[current_day], date=current_date, day=current_day)
+                WorkoutDayData(
+                    iteration=counter[current_day],
+                    date=current_date,
+                    day=current_day,
+                    label=labels.get(current_date),
+                )
             )
 
             if current_day.can_proceed(current_date):

@@ -21,6 +21,7 @@ from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import WorkoutDayData
 from wger.manager.models import (
     DayNg,
+    Label,
     WorkoutSession,
 )
 from wger.manager.models.routine import Routine
@@ -72,6 +73,9 @@ class RoutineTestCase(WgerTestCase):
 
         self.routine.first_day = self.day1
 
+        Label(routine=self.routine, start_offset=0, end_offset=3, label='First label').save()
+        Label(routine=self.routine, start_offset=4, end_offset=5, label='Second label').save()
+
     def test_day_sequences(self):
         self.assertListEqual(
             self.routine.day_sequence,
@@ -86,16 +90,66 @@ class RoutineTestCase(WgerTestCase):
         self.assertEqual(
             self.routine.date_sequence,
             [
-                WorkoutDayData(day=self.day1, iteration=1, date=datetime.date(2024, 1, 1)),
-                WorkoutDayData(day=self.day2, iteration=1, date=datetime.date(2024, 1, 2)),
-                WorkoutDayData(day=self.day3, iteration=1, date=datetime.date(2024, 1, 3)),
-                WorkoutDayData(day=self.day1, iteration=2, date=datetime.date(2024, 1, 4)),
-                WorkoutDayData(day=self.day2, iteration=2, date=datetime.date(2024, 1, 5)),
-                WorkoutDayData(day=self.day3, iteration=2, date=datetime.date(2024, 1, 6)),
-                WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7)),
-                WorkoutDayData(day=self.day2, iteration=3, date=datetime.date(2024, 1, 8)),
-                WorkoutDayData(day=self.day3, iteration=3, date=datetime.date(2024, 1, 9)),
-                WorkoutDayData(day=self.day1, iteration=4, date=datetime.date(2024, 1, 10)),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 1),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 2),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 3),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 4),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 5),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 6),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=3,
+                    date=datetime.date(2024, 1, 7),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=3,
+                    date=datetime.date(2024, 1, 8),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=3,
+                    date=datetime.date(2024, 1, 9),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=4,
+                    date=datetime.date(2024, 1, 10),
+                    label=None,
+                ),
             ],
         )
 
@@ -111,17 +165,67 @@ class RoutineTestCase(WgerTestCase):
             self.routine.date_sequence,
             [
                 # Monday
-                WorkoutDayData(day=self.day1, iteration=1, date=datetime.date(2024, 1, 1)),
-                WorkoutDayData(day=self.day2, iteration=1, date=datetime.date(2024, 1, 2)),
-                WorkoutDayData(day=self.day3, iteration=1, date=datetime.date(2024, 1, 3)),
-                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 4)),
-                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 5)),
-                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 6)),
-                WorkoutDayData(day=None, iteration=None, date=datetime.date(2024, 1, 7)),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 1),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 2),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 3),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=None,
+                    iteration=None,
+                    date=datetime.date(2024, 1, 4),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=None,
+                    iteration=None,
+                    date=datetime.date(2024, 1, 5),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=None,
+                    iteration=None,
+                    date=datetime.date(2024, 1, 6),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=None,
+                    iteration=None,
+                    date=datetime.date(2024, 1, 7),
+                    label=None,
+                ),
                 # Monday
-                WorkoutDayData(day=self.day1, iteration=2, date=datetime.date(2024, 1, 8)),
-                WorkoutDayData(day=self.day2, iteration=2, date=datetime.date(2024, 1, 9)),
-                WorkoutDayData(day=self.day3, iteration=2, date=datetime.date(2024, 1, 10)),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 8),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 9),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 10),
+                    label=None,
+                ),
             ],
         )
 
@@ -163,16 +267,66 @@ class RoutineTestCase(WgerTestCase):
         self.assertEqual(
             self.routine.date_sequence,
             [
-                WorkoutDayData(day=self.day1, iteration=1, date=datetime.date(2024, 1, 1)),
-                WorkoutDayData(day=self.day1, iteration=2, date=datetime.date(2024, 1, 2)),
-                WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 3)),
-                WorkoutDayData(day=self.day1, iteration=4, date=datetime.date(2024, 1, 4)),
-                WorkoutDayData(day=self.day2, iteration=1, date=datetime.date(2024, 1, 5)),
-                WorkoutDayData(day=self.day3, iteration=1, date=datetime.date(2024, 1, 6)),
-                WorkoutDayData(day=self.day1, iteration=5, date=datetime.date(2024, 1, 7)),
-                WorkoutDayData(day=self.day2, iteration=2, date=datetime.date(2024, 1, 8)),
-                WorkoutDayData(day=self.day3, iteration=2, date=datetime.date(2024, 1, 9)),
-                WorkoutDayData(day=self.day1, iteration=6, date=datetime.date(2024, 1, 10)),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 1),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 2),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=3,
+                    date=datetime.date(2024, 1, 3),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=4,
+                    date=datetime.date(2024, 1, 4),
+                    label='First label',
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 5),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=1,
+                    date=datetime.date(2024, 1, 6),
+                    label='Second label',
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=5,
+                    date=datetime.date(2024, 1, 7),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day2,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 8),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day3,
+                    iteration=2,
+                    date=datetime.date(2024, 1, 9),
+                    label=None,
+                ),
+                WorkoutDayData(
+                    day=self.day1,
+                    iteration=6,
+                    date=datetime.date(2024, 1, 10),
+                    label=None,
+                ),
             ],
         )
 

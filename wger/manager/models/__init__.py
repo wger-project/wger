@@ -20,6 +20,7 @@ from .day import (
     Day,
     DayNg,
 )
+from .label import Label
 from .log import WorkoutLog
 from .reps_config import RepsConfig
 from .rest_config import RestConfig

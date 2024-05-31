@@ -58,7 +58,4 @@ class Slot(models.Model):
     def set_data(self, iteration: int) -> List[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
 
-        return [
-            SetExerciseData(data=s.get_config(iteration), config=s)
-            for s in self.slotconfig_set.all()
-        ]
+        return [SetExerciseData(data=s.get_config(iteration), config=s) for s in self.configs.all()]

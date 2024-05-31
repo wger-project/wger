@@ -64,7 +64,7 @@ class RoutineSerializer(serializers.ModelSerializer):
         )
 
 
-class DayNgDataSerializer(serializers.ModelSerializer):
+class DayNgSerializer(serializers.ModelSerializer):
     """
     Day serializer
     """
@@ -336,7 +336,8 @@ class WorkoutDayDataSerializer(serializers.Serializer):
 
     iteration = serializers.IntegerField()
     date = serializers.DateField()
-    day = DayNgDataSerializer()
+    label = serializers.CharField()
+    day = DayNgSerializer()
     slots = SetDataSerializer(many=True)
 
 

@@ -60,6 +60,7 @@ class WorkoutDayData:
     day: 'DayNg'
     date: datetime.date
     iteration: int | None
+    label: str | None = None
 
     @property
     def slots(self) -> List[SlotData]:
