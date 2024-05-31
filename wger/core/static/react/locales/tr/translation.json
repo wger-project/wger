@@ -222,5 +222,6 @@
     "seeDetails": "Ayrıntıları gör",
     "total": "Toplam",
     "deleteConfirmation": "\"{{name}}\" silmek istediğinizden emin misiniz?",
-    "downloadAsPdf": "PDF olarak indir"
+    "downloadAsPdf": "PDF olarak indir",
+    "filters": "Filtreler"
 }

@@ -41,14 +41,13 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-    'django_extensions',
     'storages',
 
     # Uncomment the next line to enable the admin:
@@ -112,9 +111,15 @@ INSTALLED_APPS = (
 
     # Fontawesome
     'fontawesomefree',
-)
 
-MIDDLEWARE = (
+    # Prometheus
+    'django_prometheus',
+]
+
+MIDDLEWARE = [
+    # Prometheus
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,9 +143,12 @@ MIDDLEWARE = (
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
 
+    # Prometheus
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+
     # Django Axes
     'axes.middleware.AxesMiddleware',  # should be the last one in the list
-)
+]
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
@@ -171,8 +179,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-            False
+            'debug': False
         },
     },
 ]
@@ -257,7 +264,7 @@ AVAILABLE_LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 # All translation files are in one place
-LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'), )
+LOCALE_PATHS = (os.path.join(SITE_ROOT, 'locale'),)
 
 # Primary keys are AutoFields
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -498,7 +505,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 #
 # Ignore these URLs if they cause 404
 #
-IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'), )
+IGNORABLE_404_URLS = (re.compile(r'^/favicon\.ico$'),)
 
 #
 # Password rules
@@ -537,12 +544,19 @@ WGER_SETTINGS = {
     'SYNC_EXERCISE_IMAGES_CELERY': False,
     'SYNC_EXERCISE_VIDEOS_CELERY': False,
     'SYNC_INGREDIENTS_CELERY': False,
+    'SYNC_OFF_DAILY_DELTA_CELERY': False,
     'TWITTER': False,
     'MASTODON': 'https://fosstodon.org/@wger',
     'USE_CELERY': False,
     'USE_RECAPTCHA': False,
     'WGER_INSTANCE': 'https://wger.de',
 }
+
+#
+# Prometheus metrics
+#
+EXPOSE_PROMETHEUS_METRICS = False
+PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #

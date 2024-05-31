@@ -9,11 +9,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameIndex(
-            model_name='ingredient',
-            new_name='nutrition_i_name_8f538f_gin',
-            old_name='nutrition_i_search__f274b7_gin',
-        ),
         migrations.AddField(
             model_name='nutritionplan',
             name='goal_fibers',

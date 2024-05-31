@@ -98,7 +98,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         """H"""
-        qs = Ingredient.objects.accepted()
+        qs = Ingredient.objects.all()
 
         code = self.request.query_params.get('code')
         if not code:
@@ -129,7 +129,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             'carbohydrates_sugar': 0,
             'fat': 0,
             'fat_saturated': 0,
-            'fibres': 0,
+            'fiber': 0,
             'sodium': 0,
             'errors': [],
         }
@@ -219,7 +219,6 @@ def search(request):
     languages = [load_language(l) for l in language_codes.split(',')]
     query = Ingredient.objects.filter(
         language__in=languages,
-        status=Ingredient.STATUS_ACCEPTED,
     ).only('name')
 
     # Postgres uses a full-text search
@@ -232,7 +231,7 @@ def search(request):
     else:
         query = query.filter(name__icontains=term)
 
-    for ingredient in query[:100]:
+    for ingredient in query[:150]:
         if hasattr(ingredient, 'image'):
             image_obj = ingredient.image
             image = image_obj.image.url

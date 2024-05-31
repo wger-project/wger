@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2023-04-30 20:49+0000\n"
-"Last-Translator: Nick <weblate@b00m.eu>\n"
+"PO-Revision-Date: 2024-05-29 22:09+0000\n"
+"Last-Translator: SilverServerT <silver@silverserver.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/wger/web/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -715,9 +715,8 @@ msgid "Calendar"
 msgstr "Kalender"
 
 #: core/templates/navigation.html:60
-#, fuzzy
 msgid "Measurements"
-msgstr "Macrovoedingstoffen"
+msgstr "Afmetingen"
 
 #: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -1341,9 +1340,8 @@ msgid "Preferences"
 msgstr "Voorkeuren"
 
 #: core/templates/user/preferences.html:19
-#, fuzzy
 msgid "Verified email"
-msgstr "Verzend e-mails"
+msgstr "e-mail is gevalideerd"
 
 #: core/templates/user/preferences.html:24
 msgid "Unverified email"
@@ -1605,27 +1603,25 @@ msgstr ""
 "eerste afbeelding wordt automatisch aangeduid door het systeem."
 
 #: exercises/models/image.py:99 exercises/models/image.py:98
-#, fuzzy
 msgid "The art style of your image"
-msgstr "De artistieke stijl van je plaatje"
+msgstr "De artistieke stijl van de afbeelding"
 
 #: exercises/models/muscle.py:37
 msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "Latijns, bvb. \"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
 msgid "Alternative name"
-msgstr "naam oefening"
+msgstr "Alternatieve naam"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
-msgstr ""
+msgstr "Een bekendere naam voor deze spier"
 
 #: exercises/models/video.py:52 exercises/models/video.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "Maximum file size is %(size)sMB."
-msgstr "Maximale bestandsgrootte is 100MB"
+msgstr "Maximale bestandsgrootte is %(size)sMB."
 
 #: exercises/models/video.py:59 exercises/models/video.py:67
 #: exercises/models/video.py:56 exercises/models/video.py:64
@@ -1710,9 +1706,8 @@ msgid "Object"
 msgstr "Onderwerp"
 
 #: exercises/templates/history/overview.html:31
-#, fuzzy
 msgid "Changes"
-msgstr "Verander"
+msgstr "Veranderingen"
 
 #: exercises/templates/history/overview.html:32
 msgid "Revert"
@@ -1723,9 +1718,8 @@ msgid "View Object"
 msgstr "Bekijk Object"
 
 #: exercises/templates/history/overview.html:75
-#, fuzzy
 msgid "View changes"
-msgstr "Bekijk logs"
+msgstr "Bekijk veranderingen"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
@@ -1912,9 +1906,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Toon de naam van de gym in de hoofding van de site"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "Configuratie voor {}"
+msgstr "Configuratie voor {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -2105,14 +2099,12 @@ msgid "Bench"
 msgstr "Bank"
 
 #: i18n.tpl:7
-#, fuzzy
 msgid "Biceps"
-msgstr "Biceps brachii"
+msgstr "Biceps"
 
 #: i18n.tpl:8
-#, fuzzy
 msgid "Body Weight"
-msgstr "Lichaamsgewicht"
+msgstr "Gewicht"
 
 #: i18n.tpl:9
 msgid "Calves"
@@ -2133,7 +2125,7 @@ msgstr "Vrije halter"
 #: i18n.tpl:13
 #, fuzzy
 msgid "Glutes"
-msgstr "Minuten"
+msgstr "Bilspieren"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -2156,9 +2148,8 @@ msgid "Kilometers"
 msgstr "Kilometer"
 
 #: i18n.tpl:19
-#, fuzzy
 msgid "Kilometers Per Hour"
-msgstr "Kilometer"
+msgstr "Kilometer per uur"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2173,9 +2164,8 @@ msgid "Lower back"
 msgstr "Onder rug"
 
 #: i18n.tpl:23
-#, fuzzy
 msgid "Max Reps"
-msgstr "Herhalingen"
+msgstr "Maximaal aantal Reps"
 
 #: i18n.tpl:24
 msgid "Miles"
@@ -2183,7 +2173,7 @@ msgstr "Mijl"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Mijlen per uur"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2223,9 +2213,8 @@ msgid "Swiss Ball"
 msgstr "Kogelgewicht"
 
 #: i18n.tpl:35
-#, fuzzy
 msgid "Triceps"
-msgstr "Triceps brachii"
+msgstr "Triceps"
 
 #: i18n.tpl:36
 msgid "Until Failure"
@@ -2290,9 +2279,8 @@ msgstr "Verbetering"
 
 #: manager/forms.py:90 manager/models/workout.py:60 manager/forms.py:92
 #: manager/models/workout.py:59
-#, fuzzy
 msgid "The name of the workout"
-msgstr "Kopieer deze workout"
+msgstr "Naam van de training"
 
 #: manager/forms.py:94 manager/models/workout.py:67 manager/forms.py:96
 #: manager/models/workout.py:66
@@ -2313,9 +2301,8 @@ msgstr ""
 
 #: manager/forms.py:140 nutrition/forms.py:252 manager/forms.py:143
 #: nutrition/forms.py:248
-#, fuzzy
 msgid "Also search for names in English"
-msgstr "Gebruik ook engelstalige ingrediënten"
+msgstr "Zoek ook in Engelse namen"
 
 #: manager/forms.py:168 manager/forms.py:173 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2481,9 +2468,8 @@ msgstr "Creatiedatum"
 
 #: manager/models/workout.py:73 manager/templates/workout/template_view.html:11
 #: manager/templates/workout/template_view.html:19 manager/models/workout.py:72
-#, fuzzy
 msgid "Workout template"
-msgstr "Workout voltooid!"
+msgstr "Workout template"
 
 #: manager/models/workout.py:75 manager/models/workout.py:74
 msgid ""
@@ -2601,16 +2587,14 @@ msgid "No schedules found."
 msgstr "Geen schema's gevonden."
 
 #: manager/templates/schedule/overview.html:36
-#, fuzzy
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
 msgstr ""
 "Schema's zijn verzamelingen van oefeningen die je\n"
-"na mekaar uitvoert."
+"na elkaar uitvoert."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2621,7 +2605,7 @@ msgstr ""
 "Je kan aangeven hoe lang je elke workout wil doen\n"
 "alvorens naar de volgende te gaan. het is ook mogelijk een lus te creëren, "
 "zodat\n"
-"je altijd dezelfde workouits na mekaar doet. Bvb. A > B > C > A > B > C enz."
+"je altijd dezelfde workouits na elkaar doet. Bvb. A > B > C > A > B > C enz."
 
 #: manager/templates/schedule/overview.html:43
 #, fuzzy

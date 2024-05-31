@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load static wger_extras crispy_forms_tags %}
+{% load i18n static wger_extras crispy_forms_tags l10n %}
 
 {#           #}
 {# Opengraph #}
@@ -262,7 +261,7 @@
                 <div class="modal-body">
                     <form class="wger-form">
                         {% crispy download_form %}
-                        <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}"
+                        <div id="pdf-download-info" data-schedule-id="{{ schedule.id|unlocalize }}" data-uid="{{ uid }}"
                              data-token="{{ token }}"></div>
                     </form>
                 </div>

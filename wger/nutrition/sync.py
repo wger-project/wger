@@ -103,7 +103,11 @@ def fetch_image_from_off(ingredient):
 
     url = ingredient.source_url + '?fields=images,image_front_url'
     headers = wger_headers()
-    product_data = requests.get(url, headers=headers).json()
+    try:
+        product_data = requests.get(url, headers=headers).json()
+    except requests.JSONDecodeError:
+        logger.warning(f'Could not decode JSON response from {url}')
+        return
 
     try:
         image_url: Optional[str] = product_data['product'].get('image_front_url')
@@ -226,7 +230,7 @@ def sync_ingredients(
                 'fat': data['fat'],
                 'fat_saturated': data['fat_saturated'],
                 'protein': data['protein'],
-                'fibres': data['fibres'],
+                'fiber': data['fiber'],
                 'sodium': data['sodium'],
             },
         )
