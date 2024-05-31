@@ -41,6 +41,7 @@ from openfoodfacts import API
 from requests import (
     ConnectTimeout,
     HTTPError,
+    ReadTimeout,
 )
 
 # wger
@@ -423,12 +424,12 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         logger.info(f'Searching for ingredient {code} in OFF')
         try:
-            api = API(user_agent=wger_user_agent())
+            api = API(user_agent=wger_user_agent(), timeout=3)
             result = api.product.get(code)
         except JSONDecodeError as e:
             logger.info(f'Got JSONDecodeError from OFF: {e}')
             return None
-        except ConnectTimeout:
+        except (ReadTimeout, ConnectTimeout):
             logger.info('Timeout from OFF')
             return None
         except HTTPError as e:
