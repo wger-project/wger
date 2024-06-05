@@ -258,6 +258,7 @@ AVAILABLE_LANGUAGES = (
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
     ('zh-hans', 'Chinese simplified'),
+    ('zh-hant', 'Traditional Chinese'),
 )
 
 # Default language code for this installation.
