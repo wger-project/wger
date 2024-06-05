@@ -442,7 +442,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         try:
             ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
-        except KeyError:
+        except (KeyError, ValueError) as e:
+            logger.debug(f'Error extracting data from OFF: {e}')
             return None
 
         if not ingredient_data.name:
