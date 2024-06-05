@@ -2320,7 +2320,7 @@ msgstr "%(username)s在%(date)s的健身日志"
 #: manager/templates/calendar/month.html:13
 #, python-format
 msgid "Calendar for %(username)s"
-msgstr "%(用户名)s 的日历"
+msgstr "%(username)s 的日历"
 
 #: manager/templates/calendar/month.html:53
 msgid "Detail page"
