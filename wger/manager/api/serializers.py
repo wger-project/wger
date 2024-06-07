@@ -19,12 +19,7 @@
 from rest_framework import serializers
 
 # wger
-from wger.core.api.serializers import DaysOfWeekSerializer
 from wger.core.models import DaysOfWeek
-from wger.exercises.api.serializers import (
-    ExerciseBaseInfoSerializer,
-    MuscleSerializer,
-)
 from wger.manager.models import (
     Day,
     DayNg,
@@ -299,6 +294,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     SetData serializer
     """
 
+    exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
     weight = serializers.DecimalField(max_digits=5, decimal_places=2)
     weight_unit = serializers.IntegerField()
@@ -315,18 +311,18 @@ class SetExerciseDataSerializer(serializers.Serializer):
     SetData serializer
     """
 
-    # exercise = ExerciseBaseInfoSerializer()
     data = SetConfigDataSerializer()
     config = SetConfigSerializer()
 
 
-class SetDataSerializer(serializers.Serializer):
+class SlotDataSerializer(serializers.Serializer):
     """
-    SetData serializer
+    Slot Data serializer
     """
 
-    slot = SlotSerializer()
-    exercise_data = SetExerciseDataSerializer(many=True)
+    comment = serializers.CharField()
+    exercises = serializers.ListSerializer(child=serializers.IntegerField())
+    sets = SetConfigDataSerializer(many=True)
 
 
 class WorkoutDayDataSerializer(serializers.Serializer):
@@ -338,7 +334,7 @@ class WorkoutDayDataSerializer(serializers.Serializer):
     date = serializers.DateField()
     label = serializers.CharField()
     day = DayNgSerializer()
-    slots = SetDataSerializer(many=True)
+    slots = SlotDataSerializer(many=True)
 
 
 class WorkoutSerializer(serializers.ModelSerializer):

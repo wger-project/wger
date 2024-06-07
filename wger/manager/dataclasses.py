@@ -22,11 +22,16 @@ from dataclasses import (
     field,
 )
 from decimal import Decimal
-from typing import List
+from typing import (
+    Any,
+    List,
+)
 
 
 @dataclass
 class SetConfigData:
+    exercise: int  # 'ExerciseBase'
+
     weight: Decimal | int | None
     reps: Decimal | int | None
     rir: Decimal | int | None
@@ -41,7 +46,7 @@ class SetConfigData:
 
 @dataclass
 class SetExerciseData:
-    config: 'SlotConfig'
+    config: Any  # 'SlotConfig'
     data: SetConfigData
 
     @property
@@ -51,13 +56,14 @@ class SetExerciseData:
 
 @dataclass
 class SlotData:
-    slot: 'Slot'
-    exercise_data: List[SetExerciseData] = field(default_factory=list)
+    comment: str
+    exercises: List[int] = field(default_factory=list)
+    sets: List[SetConfigData] = field(default_factory=list)
 
 
 @dataclass
 class WorkoutDayData:
-    day: 'DayNg'
+    day: Any  # 'DayNg'
     date: datetime.date
     iteration: int | None
     label: str | None = None

@@ -23,6 +23,7 @@ class SetCalculations(AbstractSetCalculations):
     def calculate(self):
         if self.iteration == 1:
             return SetConfigData(
+                exercise=1,
                 sets=2,
                 weight=24,
                 reps=1,
@@ -31,6 +32,7 @@ class SetCalculations(AbstractSetCalculations):
             )
         else:
             return SetConfigData(
+                exercise=2,
                 sets=4,
                 weight=42,
                 reps=10,

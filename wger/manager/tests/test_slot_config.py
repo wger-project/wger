@@ -43,7 +43,11 @@ class SlotConfigTestCase(WgerTestCase):
     def setUp(self):
         super().setUp()
 
-        self.slot_config = SlotConfig(slot_id=1, exercise_id=1, order=1)
+        self.slot_config = SlotConfig(
+            slot_id=1,
+            exercise_id=1,
+            order=1,
+        )
         self.slot_config.save()
 
     def test_weight_config(self):
@@ -153,6 +157,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(1),
             SetConfigData(
+                exercise=1,
                 sets=4,
                 weight=80,
                 weight_rounding=Decimal('2.5'),
@@ -166,6 +171,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(2),
             SetConfigData(
+                exercise=1,
                 sets=4,
                 weight=80,
                 weight_rounding=Decimal('2.5'),
@@ -179,6 +185,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(3),
             SetConfigData(
+                exercise=1,
                 sets=4,
                 weight=80,
                 weight_rounding=Decimal('2.5'),
@@ -192,6 +199,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(4),
             SetConfigData(
+                exercise=1,
                 sets=4,
                 weight=Decimal(82.5),
                 weight_rounding=Decimal('2.5'),
@@ -205,6 +213,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(5),
             SetConfigData(
+                exercise=1,
                 sets=4,
                 weight=42,
                 weight_rounding=Decimal('2.5'),
@@ -218,6 +227,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(6),
             SetConfigData(
+                exercise=1,
                 sets=4,
                 weight=42,
                 weight_rounding=Decimal('2.5'),
@@ -245,15 +255,15 @@ class SlotConfigTestCase(WgerTestCase):
 
         self.assertEqual(
             self.slot_config.get_config(1),
-            SetConfigData(sets=2, weight=24, reps=1, rir=2, rest=120),
+            SetConfigData(exercise=1, sets=2, weight=24, reps=1, rir=2, rest=120),
         )
         self.assertEqual(
             self.slot_config.get_config(2),
-            SetConfigData(sets=4, weight=42, reps=10, rir=1, rest=90),
+            SetConfigData(exercise=2, sets=4, weight=42, reps=10, rir=1, rest=90),
         )
         self.assertEqual(
             self.slot_config.get_config(3),
-            SetConfigData(sets=4, weight=42, reps=10, rir=1, rest=90),
+            SetConfigData(exercise=2, sets=4, weight=42, reps=10, rir=1, rest=90),
         )
 
     def test_empty_configs(self):
@@ -261,9 +271,11 @@ class SlotConfigTestCase(WgerTestCase):
         Test that the correct config is calculated if there are no configs at all
         """
 
+        print(self.slot_config.get_config(1))
         self.assertEqual(
             self.slot_config.get_config(1),
             SetConfigData(
+                exercise=1,
                 sets=1,
                 weight=None,
                 weight_rounding=None,

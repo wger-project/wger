@@ -339,7 +339,7 @@ class RoutineApiTestCase(ApiBaseResourceTestCase):
     pk = 1
     resource = Routine
     private_resource = True
-    special_endpoints = ('day-sequence',)
+    # special_endpoints = ('day-sequence',)
     data = {
         'name': 'A new comment',
         'start': '2024-03-11',

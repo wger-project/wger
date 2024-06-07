@@ -113,7 +113,10 @@ class DayNg(models.Model):
         """
         Return the sets for this day
         """
-        return [SlotData(slot=s, exercise_data=s.set_data(iteration)) for s in self.slots.all()]
+        return [
+            SlotData(comment=s.comment, exercises=s.get_exercises(), sets=s.get_sets(iteration))
+            for s in self.slots.all()
+        ]
 
 
 class Day(models.Model):

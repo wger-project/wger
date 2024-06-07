@@ -209,6 +209,7 @@ class SlotConfig(models.Model):
         sets = self.get_sets(iteration)
 
         return SetConfigData(
+            exercise=self.exercise.id,
             sets=sets if sets is not None else 1,
             weight=weight,
             weight_rounding=self.weight_rounding if weight is not None else None,

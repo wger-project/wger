@@ -59,3 +59,44 @@ class Slot(models.Model):
         """Calculates the set data for a specific iteration"""
 
         return [SetExerciseData(data=s.get_config(iteration), config=s) for s in self.configs.all()]
+
+    def get_sets(self, iteration: int) -> list[SetExerciseData]:
+        """
+        Calculates the sets as they would be performed in the gym
+
+        Note that this is only different from the list of sets supersets, since
+        they will be "interleaved". E.g.:
+        - Exercise 1, 4 Sets
+        - Exercise 2, 3 Sets
+        - Exercise 3, 2 Sets
+        (the other weight, reps, etc. settings are not important)
+
+        Would result in:
+        - Exercise 1
+        - Exercise 2
+        - Exercise 3
+        - Exercise 1
+        - Exercise 2
+        - Exercise 3
+        - Exercise 1
+        - Exercise 2
+        - Exercise 1
+        """
+
+        result = []
+        set_data = self.set_data(iteration)
+
+        sets = [slot.data.sets for slot in set_data]  # Create a list of sets
+
+        while any(repeat > 0 for repeat in sets):
+            for i, slot in enumerate(set_data):
+                if sets[i] > 0:
+                    result.append(slot.data)
+                    sets[i] -= 1
+        return result
+
+    def get_exercises(self) -> List[int]:
+        """
+        Returns the list of distinct exercises in the configs
+        """
+        return [slot.exercise.id for slot in self.configs.all()]
