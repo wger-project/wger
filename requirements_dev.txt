@@ -12,7 +12,7 @@ wheel==0.43.0
 pymongo==4.7.1
 
 # for running the dummy entry generators
-faker==25.2.0
+faker==25.8.0
 
 # Development packages
 django-extensions~=3.2
