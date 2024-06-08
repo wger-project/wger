@@ -3,35 +3,43 @@ import os
 from django.core.management.base import BaseCommand
 from django.db import connection, transaction
 
+
 class Command(BaseCommand):
-    help = 'Synchronize core_language table with fixture data from languages.json'
+    """
+    Synchronize core_language table with fixture data from languages.json
+    """
+
+    help = (
+        'Synchronize core_language table with fixture data from languages.json'
+        'This is needed if a language has been deleted from the interface'
+        'and a sync of the exercises is done.'
+    )
 
     def handle(self, *args, **kwargs):
         try:
-            # Define the path to the languages.json file
+            # Define the standard path to the languages.json file
             json_file_path = os.path.join('wger', 'core', 'fixtures', 'languages.json')
-            self.stdout.write(self.style.NOTICE(f'JSON file path: {json_file_path}'))
-    
+
             # Check if the file exists
             if not os.path.exists(json_file_path):
-                self.stdout.write(self.style.ERROR(f'File not found: {json_file_path}'))
+                self.stdout.write(self.style.ERROR(f'Fixtures language file not found: {json_file_path}'))
                 return
-    
+
             # Load JSON data from languages.json
-            self.stdout.write(self.style.NOTICE('Loading data from languages.json'))
+            self.stdout.write('Loading data from languages.json')
             with open(json_file_path, 'r', encoding='utf-8') as file:
                 json_data = json.load(file)
-            
-            self.stdout.write(self.style.NOTICE(f'Successfully loaded JSON data. Records count: {len(json_data)}'))
-    
+
+            self.stdout.write(f'Successfully loaded JSON data. Records count: {len(json_data)}')
+
             with transaction.atomic():
                 with connection.cursor() as cursor:
                     # Disable foreign key constraints
-                    self.stdout.write(self.style.NOTICE('Disabling foreign key constraints'))
+                    self.stdout.write('Disabling foreign key constraints')
                     cursor.execute("SET session_replication_role = 'replica';")
-                    
+
                     # Create a temporary table
-                    self.stdout.write(self.style.NOTICE('Creating temporary table'))
+                    self.stdout.write('Creating temporary table')
                     cursor.execute("""
                         CREATE TEMP TABLE temp_core_language (
                             id INT PRIMARY KEY,
@@ -40,16 +48,16 @@ class Command(BaseCommand):
                             full_name_en VARCHAR(255)
                         );
                     """)
-                    
+
                     # Load fixture data into the temporary table
-                    self.stdout.write(self.style.NOTICE('Loading data into temporary table'))
+                    self.stdout.write('Loading data into temporary table')
                     for record in json_data:
                         pk = record["pk"]
                         fields = record["fields"]
                         short_name = fields["short_name"]
                         full_name = fields["full_name"]
                         full_name_en = fields["full_name_en"]
-                        
+
                         cursor.execute("""
                             INSERT INTO temp_core_language (id, short_name, full_name, full_name_en)
                             VALUES (%s, %s, %s, %s)
@@ -58,12 +66,12 @@ class Command(BaseCommand):
                                 full_name = EXCLUDED.full_name,
                                 full_name_en = EXCLUDED.full_name_en;
                         """, [pk, short_name, full_name, full_name_en])
-                    
+
                     # Correct IDs and update references
-                    self.stdout.write(self.style.NOTICE('Updating core_language table and correcting references'))
+                    self.stdout.write('Updating core_language table and correcting references')
                     cursor.execute("""
-                        DO $$ 
-                        DECLARE 
+                        DO $$
+                        DECLARE
                             rec RECORD;
                         BEGIN
                             FOR rec IN (SELECT * FROM temp_core_language) LOOP
@@ -92,12 +100,12 @@ class Command(BaseCommand):
                             END LOOP;
                         END $$;
                     """)
-                    
+
                     # Re-enable foreign key constraints
-                    self.stdout.write(self.style.NOTICE('Re-enabling foreign key constraints'))
+                    self.stdout.write('Re-enabling foreign key constraints')
                     cursor.execute("SET session_replication_role = 'origin';")
-                    
-                    self.stdout.write(self.style.SUCCESS('Successfully synchronized core_language table'))
+
+                    self.stdout.write('Successfully synchronized core_language table')
 
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error: {str(e)}'))
