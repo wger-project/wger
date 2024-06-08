@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
             # Check if the file exists
             if not os.path.exists(json_file_path):
-                self.stdout.write(self.style.ERROR(f'Fixtures language file not found: {json_file_path}'))
+                self.stdout.write(self.style.ERROR(f'Fixture file not found: {json_file_path}'))
                 return
 
             # Load JSON data from languages.json
@@ -76,12 +76,21 @@ class Command(BaseCommand):
                         BEGIN
                             FOR rec IN (SELECT * FROM temp_core_language) LOOP
                                 -- Update references if ID has changed
-                                IF EXISTS (SELECT 1 FROM core_language WHERE short_name = rec.short_name AND id <> rec.id) THEN
-                                    -- Inside the loop for updating core_language table and correcting references
-                                    UPDATE exercises_exercise SET language_id = rec.id WHERE language_id = (SELECT id FROM core_language WHERE short_name = rec.short_name);
-                                    UPDATE exercises_historicalexercise SET language_id = rec.id WHERE language_id = (SELECT id FROM core_language WHERE short_name = rec.short_name);
-                                    UPDATE nutrition_ingredient SET language_id = rec.id WHERE language_id = (SELECT id FROM core_language WHERE short_name = rec.short_name);
-                                    UPDATE nutrition_weightunit SET language_id = rec.id WHERE language_id = (SELECT id FROM core_language WHERE short_name = rec.short_name);
+                                IF EXISTS (SELECT 1 FROM core_language
+                                WHERE short_name = rec.short_name AND id <> rec.id) THEN
+                                    -- updating core_language table and correcting references
+                                    UPDATE exercises_exercise SET language_id = rec.id
+                                    WHERE language_id = (SELECT id FROM core_language
+                                                         WHERE short_name = rec.short_name);
+                                    UPDATE exercises_historicalexercise SET language_id = rec.id
+                                    WHERE language_id = (SELECT id FROM core_language
+                                                         WHERE short_name = rec.short_name);
+                                    UPDATE nutrition_ingredient SET language_id = rec.id
+                                    WHERE language_id = (SELECT id FROM core_language
+                                                         WHERE short_name = rec.short_name);
+                                    UPDATE nutrition_weightunit SET language_id = rec.id
+                                    WHERE language_id = (SELECT id FROM core_language
+                                                         WHERE short_name = rec.short_name);
                                     -- Add more tables as needed
                                     UPDATE core_language
                                     SET id = rec.id,
@@ -90,8 +99,18 @@ class Command(BaseCommand):
                                         full_name_en = rec.full_name_en
                                     WHERE short_name = rec.short_name;
                                 ELSE
-                                    INSERT INTO core_language (id, short_name, full_name, full_name_en)
-                                    VALUES (rec.id, rec.short_name, rec.full_name, rec.full_name_en)
+                                    INSERT INTO core_language (
+                                        id,
+                                        short_name,
+                                        full_name,
+                                        full_name_en
+                                        )
+                                    VALUES (
+                                        rec.id,
+                                        rec.short_name,
+                                        rec.full_name,
+                                        rec.full_name_en
+                                        )
                                     ON CONFLICT (id) DO UPDATE
                                     SET short_name = EXCLUDED.short_name,
                                         full_name = EXCLUDED.full_name,
