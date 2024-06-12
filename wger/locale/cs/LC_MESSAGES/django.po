@@ -465,7 +465,7 @@ msgid "Forbidden!"
 msgstr "Zakázané!"
 
 #: core/templates/403.html:7
-msgid "You are not allowed to acces this page"
+msgid "You are not allowed to access this page"
 msgstr "Nemáte povolení k přístupu k této stránce"
 
 #: core/templates/404.html:4
