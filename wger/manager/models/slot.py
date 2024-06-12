@@ -6,7 +6,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.manager.dataclasses import SetExerciseData, SetConfigData
+from wger.manager.dataclasses import (
+    SetConfigData,
+    SetExerciseData,
+)
 from wger.manager.models import DayNg
 
 

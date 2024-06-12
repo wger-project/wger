@@ -21,7 +21,10 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('name', models.CharField(max_length=20, verbose_name='Description')),
@@ -71,7 +74,10 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('order', models.IntegerField(default=1, verbose_name='Order')),
@@ -80,6 +86,7 @@ class Migration(migrations.Migration):
                     'day',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
+                        related_name='slots',
                         to='manager.dayng',
                         verbose_name='Exercise day',
                     ),
@@ -134,6 +141,7 @@ class Migration(migrations.Migration):
                     'slot',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
+                        related_name='configs',
                         to='manager.Slot',
                     ),
                 ),
@@ -165,17 +173,34 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
-                ('name', models.CharField(blank=True, max_length=100, verbose_name='Name')),
+                (
+                    'name',
+                    models.CharField(
+                        blank=True,
+                        max_length=50,
+                        verbose_name='Name',
+                    ),
+                ),
                 (
                     'description',
-                    models.TextField(blank=True, max_length=1000, verbose_name='Description'),
+                    models.TextField(
+                        blank=True,
+                        max_length=1000,
+                        verbose_name='Description',
+                    ),
                 ),
                 (
                     'created',
-                    models.DateTimeField(auto_now_add=True, verbose_name='Creation date'),
+                    models.DateTimeField(
+                        auto_now_add=True,
+                        verbose_name='Creation date',
+                    ),
                 ),
                 ('start', models.DateField(verbose_name='Start date')),
                 ('end', models.DateField(verbose_name='End date')),
@@ -221,6 +246,7 @@ class Migration(migrations.Migration):
             model_name='dayng',
             name='routine',
             field=models.ForeignKey(
+                related_name='days',
                 on_delete=django.db.models.deletion.CASCADE,
                 to='manager.routine',
                 verbose_name='Routine',
@@ -230,7 +256,20 @@ class Migration(migrations.Migration):
             model_name='workoutlog',
             name='slot_config',
             field=models.ForeignKey(
-                null=True, on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='manager.slotconfig',
+            ),
+        ),
+        migrations.AddField(
+            model_name='workoutlog',
+            name='next_log',
+            field=models.ForeignKey(
+                default=None,
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='manager.workoutlog',
             ),
         ),
         migrations.AddField(
@@ -267,7 +306,10 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
@@ -304,7 +346,8 @@ class Migration(migrations.Migration):
                 (
                     'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotconfig',
                     ),
                 ),
             ],
@@ -320,7 +363,10 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
@@ -357,7 +403,8 @@ class Migration(migrations.Migration):
                 (
                     'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotconfig',
                     ),
                 ),
             ],
@@ -373,7 +420,10 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
@@ -410,7 +460,8 @@ class Migration(migrations.Migration):
                 (
                     'slot_config',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotconfig',
                     ),
                 ),
             ],
@@ -426,7 +477,10 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
@@ -528,6 +582,45 @@ class Migration(migrations.Migration):
                 'ordering': ['slot_config', 'iteration'],
                 'abstract': False,
                 'unique_together': {('slot_config', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
+            name='Label',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'start_offset',
+                    models.PositiveIntegerField(default=1, verbose_name='Start'),
+                ),
+                (
+                    'end_offset',
+                    models.PositiveIntegerField(default=2, verbose_name='End'),
+                ),
+                ('label', models.CharField(max_length=35, verbose_name='Label')),
+                (
+                    'comment',
+                    models.CharField(default='', max_length=500, verbose_name='Comment'),
+                ),
+                (
+                    'routine',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='labels',
+                        to='manager.routine',
+                        verbose_name='Routine',
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['start_offset'],
             },
         ),
     ]

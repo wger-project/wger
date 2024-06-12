@@ -55,6 +55,18 @@ class WorkoutLog(models.Model):
         on_delete=models.CASCADE,
     )
 
+    next_log = models.ForeignKey(
+        'self',
+        editable=False,
+        on_delete=models.CASCADE,
+        null=True,
+        default=None,
+    )
+    """
+    If this is a log entry for a dropset or similar, this field will contain the
+    next log entry in the series
+    """
+
     session = models.ForeignKey(
         'WorkoutSession',
         verbose_name=_('Session'),
@@ -62,15 +74,9 @@ class WorkoutLog(models.Model):
         null=True,
     )
 
-    exercise_base = models.ForeignKey(
+    exercise = models.ForeignKey(
         ExerciseBase,
         verbose_name=_('Exercise'),
-        on_delete=models.CASCADE,
-    )
-
-    workout = models.ForeignKey(
-        Workout,
-        verbose_name=_('Workout'),
         on_delete=models.CASCADE,
     )
 
