@@ -36,12 +36,22 @@ from wger.manager.models.abstract_config import (
 )
 
 
+class SetType(models.TextChoices):
+    NORMAL = 'normal'
+    DROPSET = 'dropset'
+    MYO = 'myo'
+
+
 class SlotConfig(models.Model):
     """
     Set configuration for an exercise (weight, reps, etc.)
     """
 
-    slot = models.ForeignKey('Slot', on_delete=models.CASCADE, related_name='configs')
+    slot = models.ForeignKey(
+        'Slot',
+        on_delete=models.CASCADE,
+        related_name='configs',
+    )
 
     exercise = models.ForeignKey(
         ExerciseBase,
@@ -98,8 +108,11 @@ class SlotConfig(models.Model):
         blank=True,
     )
 
-    is_dropset = models.BooleanField(
-        default=False,
+    type = models.CharField(
+        choices=SetType.choices,
+        max_length=10,
+        default=SetType.NORMAL,
+        null=False,
     )
 
     class_name = models.CharField(
@@ -219,6 +232,7 @@ class SlotConfig(models.Model):
             reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
+            type=self.type,
         )
 
     def get_sets(self, iteration: int) -> Decimal | None:

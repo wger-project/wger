@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.manager.dataclasses import SetExerciseData
+from wger.manager.dataclasses import SetExerciseData, SetConfigData
 from wger.manager.models import DayNg
 
 
@@ -60,16 +60,16 @@ class Slot(models.Model):
 
         return [SetExerciseData(data=s.get_config(iteration), config=s) for s in self.configs.all()]
 
-    def get_sets(self, iteration: int) -> list[SetExerciseData]:
+    def get_sets(self, iteration: int) -> list[SetConfigData]:
         """
         Calculates the sets as they would be performed in the gym
 
-        Note that this is only different from the list of sets supersets, since
+        Note that this is only different from the list of sets in supersets, since
         they will be "interleaved". E.g.:
         - Exercise 1, 4 Sets
         - Exercise 2, 3 Sets
         - Exercise 3, 2 Sets
-        (the other weight, reps, etc. settings are not important)
+        (the other weight, reps, etc. settings are not important here)
 
         Would result in:
         - Exercise 1

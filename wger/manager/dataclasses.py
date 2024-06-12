@@ -30,7 +30,7 @@ from typing import (
 
 @dataclass
 class SetConfigData:
-    exercise: int  # 'ExerciseBase'
+    exercise: int
 
     weight: Decimal | int | None
     reps: Decimal | int | None
@@ -42,6 +42,9 @@ class SetConfigData:
     reps_unit: int | None = 1
     weight_rounding: Decimal | int | None = 1.25
     reps_rounding: Decimal | int | None = 1
+
+    type: str = 'normal'
+    slot_config_id: int | None = None
 
 
 @dataclass

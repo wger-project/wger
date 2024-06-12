@@ -87,11 +87,12 @@ class Routine(models.Model):
     is_template = models.BooleanField(
         verbose_name=_('Workout template'),
         help_text=_(
-            'Marking a workout as a template will freeze it and allow you to ' 'make copies of it'
+            'Marking a workout as a template will freeze it and allow you to make copies of it'
         ),
         default=False,
         null=False,
     )
+
     is_public = models.BooleanField(
         verbose_name=_('Public template'),
         help_text=_('A public template is available to other users'),

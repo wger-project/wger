@@ -197,7 +197,7 @@ class SlotConfigSerializer(serializers.ModelSerializer):
             'weight_rounding',
             'order',
             'comment',
-            'is_dropset',
+            'type',
             'class_name',
             'weight_configs',
             'reps_configs',
@@ -278,7 +278,7 @@ class SetConfigSerializer(serializers.ModelSerializer):
             'id',
             'slot',
             'exercise',
-            'is_dropset',
+            'type',
             'repetition_unit',
             'repetition_rounding',
             'weight_unit',
@@ -304,6 +304,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     reps_rounding = serializers.DecimalField(max_digits=4, decimal_places=2)
     rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     rest = serializers.DecimalField(max_digits=5, decimal_places=2)
+    type = serializers.CharField()
 
 
 class SetExerciseDataSerializer(serializers.Serializer):
