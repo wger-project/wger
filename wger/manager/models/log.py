@@ -56,7 +56,7 @@ class WorkoutLog(models.Model):
 
     next_log = models.ForeignKey(
         'self',
-        editable=False,
+        editable=True,
         on_delete=models.CASCADE,
         null=True,
         default=None,
@@ -72,6 +72,11 @@ class WorkoutLog(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+    """
+    The session this log belongs to.
+
+    If none is given, one will be automatically created on save.
+    """
 
     exercise = models.ForeignKey(
         ExerciseBase,

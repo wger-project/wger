@@ -266,7 +266,7 @@ class Migration(migrations.Migration):
             name='next_log',
             field=models.ForeignKey(
                 default=None,
-                editable=False,
+                editable=True,
                 null=True,
                 on_delete=django.db.models.deletion.CASCADE,
                 to='manager.workoutlog',
