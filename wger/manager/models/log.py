@@ -35,7 +35,6 @@ from wger.utils.cache import reset_workout_log
 # Local
 from ..consts import RIR_OPTIONS
 from .session import WorkoutSession
-from .workout import Workout
 
 
 class WorkoutLog(models.Model):

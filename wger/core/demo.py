@@ -34,6 +34,7 @@ from wger.exercises.models import (
 )
 from wger.manager.models import (
     Day,
+    Routine,
     Schedule,
     ScheduleStep,
     Set,
@@ -93,15 +94,20 @@ def create_demo_entries(user):
     #
     setting_list = []
     weight_log = []
-    workout = Workout(user=user, name=_('Sample workout'))
-    workout.save()
+    routine = Routine(
+        user=user,
+        name=_('Sample workout'),
+        start=datetime.date.today(),
+        end=datetime.date.today() + datetime.timedelta(days=60),
+    )
+    routine.save()
     monday = DaysOfWeek.objects.get(pk=1)
     wednesday = DaysOfWeek.objects.get(pk=3)
-    day = Day(training=workout, description=_('Sample day'))
+    day = Day(training=routine, description=_('Sample day'))
     day.save()
     day.day.add(monday)
 
-    day2 = Day(training=workout, description=_('Another sample day'))
+    day2 = Day(training=routine, description=_('Another sample day'))
     day2.save()
     day2.day.add(wednesday)
 
@@ -118,8 +124,8 @@ def create_demo_entries(user):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise_base=exercise,
-                workout=workout,
+                exercise=exercise,
+                routine=routine,
                 reps=reps,
                 weight=18 - reps + random.randint(1, 4),
                 date=datetime.date.today() - datetime.timedelta(weeks=i),
@@ -138,8 +144,8 @@ def create_demo_entries(user):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise_base=exercise,
-                workout=workout,
+                exercise=exercise,
+                routine=routine,
                 reps=reps,
                 weight=30 - reps + random.randint(1, 4),
                 date=datetime.date.today() - datetime.timedelta(weeks=i),
@@ -158,8 +164,8 @@ def create_demo_entries(user):
         for i in range(1, 8):
             log = WorkoutLog(
                 user=user,
-                exercise_base=exercise,
-                workout=workout,
+                exercise=exercise,
+                routine=routine,
                 reps=reps,
                 weight=110 - reps + random.randint(1, 10),
                 date=datetime.date.today() - datetime.timedelta(weeks=i),
@@ -366,7 +372,7 @@ def create_demo_entries(user):
 
     step = ScheduleStep()
     step.schedule = schedule
-    step.workout = workout
+    step.workout = routine
     step.duration = 4
     step.order = 2
     step.save()

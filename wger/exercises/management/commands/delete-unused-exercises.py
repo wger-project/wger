@@ -42,19 +42,19 @@ class Command(BaseCommand):
         out = f'{ExerciseBase.objects.all().count()} exercises currently in the database'
         self.stdout.write(out)
 
-        bases = set(Setting.objects.all().values_list('exercise_base', flat=True))
-        bases_logs = set(WorkoutLog.objects.all().values_list('exercise_base', flat=True))
-        bases.update(bases_logs)
+        exercises = set(Setting.objects.all().values_list('exercise_base', flat=True))
+        logs = set(WorkoutLog.objects.all().values_list('exercise', flat=True))
+        exercises.update(logs)
 
         # Ask for confirmation
-        out = f'{len(bases)} exercises are in use, delete the rest?'
+        out = f'{len(exercises)} exercises are in use, delete the rest?'
         self.stdout.write(out)
         response = ''
         while response not in ('y', 'n'):
             response = input('Type y to delete or n to exit: ')
 
         if response == 'y':
-            ExerciseBase.objects.exclude(pk__in=bases).delete()
+            ExerciseBase.objects.exclude(pk__in=exercises).delete()
             out = self.style.SUCCESS('Done! You can now run python manage.py sync-exercises')
             self.stdout.write(out)
         else:

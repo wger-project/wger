@@ -16,37 +16,15 @@
 import datetime
 import logging
 import random
-import uuid
-from random import (
-    choice,
-    randint,
-)
-from uuid import uuid4
 
 # Django
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 
 # wger
-from wger.core.models import (
-    DaysOfWeek,
-    Language,
-)
-from wger.exercises.models import Exercise
 from wger.manager.models import (
-    Day,
-    Set,
-    Setting,
-    Workout,
+    Routine,
     WorkoutLog,
-)
-from wger.nutrition.models import (
-    Ingredient,
-    LogItem,
-    Meal,
-    MealItem,
-    NutritionPlan,
 )
 
 
@@ -89,8 +67,8 @@ class Command(BaseCommand):
             self.stdout.write(f'- processing user {user.username}')
 
             # Create a log for each workout day, set, setting, reps, weight, date
-            for workout in Workout.objects.filter(user=user):
-                for day in workout.day_set.all():
+            for routine in Routine.objects.filter(user=user):
+                for day in routine.day_set.all():
                     for workout_set in day.set_set.all():
                         for setting in workout_set.setting_set.all():
                             for reps in (8, 10, 12):
@@ -98,8 +76,8 @@ class Command(BaseCommand):
                                     date = datetime.date.today() - datetime.timedelta(weeks=i)
                                     log = WorkoutLog(
                                         user=user,
-                                        exercise_base=setting.exercise_base,
-                                        workout=workout,
+                                        exercise=setting.exercise_base,
+                                        routine=routine,
                                         reps=reps,
                                         weight=50 - reps + random.randint(1, 10),
                                         date=date,

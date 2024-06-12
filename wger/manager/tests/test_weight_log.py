@@ -92,7 +92,7 @@ class CalendarAccessTestCase(WgerTestCase):
 
     def test_access_not_shared(self):
         """
-        Test accessing the URL of a unshared calendar page
+        Test accessing the URL of an unshared calendar page
         """
         url = reverse('manager:workout:calendar', kwargs={'username': 'test'})
 
@@ -220,7 +220,7 @@ class WeightlogTestCase(WgerTestCase):
         log = WorkoutLog()
         log.user = user1
         log.date = datetime.date(2014, 1, 5)
-        log.exercise_base = ExerciseBase.objects.get(pk=1)
+        log.exercise = ExerciseBase.objects.get(pk=1)
         log.workout = workout1
         log.weight = 10
         log.reps = 10
