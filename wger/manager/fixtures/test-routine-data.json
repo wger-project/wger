@@ -3,7 +3,7 @@
     "pk": 1,
     "model": "manager.routine",
     "fields": {
-      "user": 2,
+      "user": 1,
       "name": "A test routine",
       "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna",
       "created": "2024-03-01T23:34:30",
@@ -17,6 +17,18 @@
     "fields": {
       "user": 2,
       "name": "Empty routine",
+      "description": "",
+      "created": "2024-03-01T23:34:30",
+      "start": "2024-03-01",
+      "end": "2024-03-01"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.routine",
+    "fields": {
+      "user": 2,
+      "name": "Another empty routine",
       "description": "",
       "created": "2024-03-01T23:34:30",
       "start": "2024-03-01",

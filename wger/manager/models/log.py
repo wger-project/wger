@@ -175,13 +175,25 @@ class WorkoutLog(models.Model):
         # Reset cache
         reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
 
+        # If the routine does not belong to this user, do not save
+        if self.routine and self.routine.user != self.user:
+            return
+
+        # If the user of session is not this user, remove foreign key
+        if self.session and self.session.user != self.user:
+            self.session = None
+
         # If there is no session for this date and routine, create one
-        if not self.session_id:
+        if not self.session:
             self.session = WorkoutSession.objects.get_or_create(
                 user=self.user,
                 date=self.date,
                 routine=self.routine,
             )[0]
+
+        # If the user of next_log is not this user, remove foreign key
+        if self.next_log and self.next_log.user != self.user:
+            self.next_log = None
 
         # If the user selected "Until Failure", do only 1 "repetition",
         # anything else doesn't make sense.

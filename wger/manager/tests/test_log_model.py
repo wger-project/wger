@@ -60,3 +60,65 @@ class LogModelTestCase(WgerTestCase):
         log.session_id = 1
 
         self.assertEqual(WorkoutSession.objects.count(), 4)
+
+    def test_session_ownership(self):
+        """
+        Test that the session foreign key checks ownership
+        """
+        session1 = WorkoutSession.objects.get(pk=1)
+        session4 = WorkoutSession.objects.get(pk=4)
+
+        self.assertEqual(session1.user_id, 1)
+        self.assertEqual(session4.user_id, 2)
+
+        log = WorkoutLog.objects.get(pk=1)
+        log.session = session4
+        log.save()
+
+        self.assertNotEquals(log.session_id, 4)
+
+    def test_routine_ownership(self):
+        """
+        Test that the routine foreign key checks ownership
+        """
+
+        log = WorkoutLog.objects.get(pk=1)
+        log.routine_id = 3
+        log.save()
+
+        # Reload from db
+        log = WorkoutLog.objects.get(pk=1)
+
+        self.assertEqual(log.routine_id, 1)
+
+    def test_next_log_user_check_fail(self):
+        """
+        Test that the next log foreign key checks ownership
+        """
+
+        log2 = WorkoutLog.objects.get(pk=2)
+        log2.user_id = 2
+        log2.save()
+
+        log1 = WorkoutLog.objects.get(pk=1)
+        log1.user_id = 1
+        log1.next_log = log2
+        log1.save()
+
+        self.assertEqual(log1.next_log, None)
+
+    def test_next_log_user_check_success(self):
+        """
+        Test that the next log foreign key checks ownership
+        """
+
+        log1 = WorkoutLog.objects.get(pk=1)
+        log2 = WorkoutLog.objects.get(pk=2)
+
+        self.assertEqual(log1.user_id, 1)
+        self.assertEqual(log2.user_id, 1)
+
+        log1.next_log = log2
+        log1.save()
+
+        self.assertEqual(log1.next_log, log2)
