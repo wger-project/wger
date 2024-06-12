@@ -162,11 +162,9 @@ class WorkoutLog(models.Model):
         """
         return self
 
-    def get_workout_session(self, date=None):
+    def get_workout_session(self, date=None) -> WorkoutSession:
         """
         Returns the corresponding workout session
-
-        :return the WorkoutSession object or None if nothing was found
         """
         if not date:
             date = self.date
@@ -178,14 +176,26 @@ class WorkoutLog(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Reset cache
+        Plumbing
         """
+
+        # Reset cache
         reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
 
+        # If there is no session for this date and routine, create one
+        if not self.session_id:
+            self.session = WorkoutSession.objects.get_or_create(
+                user=self.user,
+                date=self.date,
+                routine=self.routine,
+            )[0]
+
         # If the user selected "Until Failure", do only 1 "repetition",
-        # everything else doesn't make sense.
+        # anything else doesn't make sense.
         if self.repetition_unit == 2:
             self.reps = 1
+
+        # Save to db
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):

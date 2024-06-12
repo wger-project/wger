@@ -294,6 +294,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     SetData serializer
     """
 
+    slot_config_id = serializers.IntegerField()
     exercise = serializers.IntegerField()
     sets = serializers.IntegerField()
     weight = serializers.DecimalField(max_digits=5, decimal_places=2)

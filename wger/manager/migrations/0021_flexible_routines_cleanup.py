@@ -13,6 +13,10 @@ class Migration(migrations.Migration):
             model_name='workoutlog',
             name='workout',
         ),
+        migrations.RemoveField(
+            model_name='workoutsession',
+            name='workout',
+        ),
         migrations.RenameField(
             model_name='workoutlog',
             old_name='exercise_base',

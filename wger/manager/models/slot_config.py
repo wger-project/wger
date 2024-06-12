@@ -233,6 +233,7 @@ class SlotConfig(models.Model):
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
             type=self.type,
+            slot_config_id=self.id,
         )
 
     def get_sets(self, iteration: int) -> Decimal | None:

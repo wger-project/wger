@@ -37,7 +37,6 @@ from wger.manager.models import (
     WorkoutSession,
 )
 from wger.utils.cache import cache_mapper
-from wger.utils.constants import WORKOUT_TAB
 
 
 logger = logging.getLogger(__name__)

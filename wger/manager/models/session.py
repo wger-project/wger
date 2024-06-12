@@ -54,15 +54,6 @@ class WorkoutSession(models.Model):
     See note in weight.models.WeightEntry about why this is not editable=False
     """
 
-    workout = models.ForeignKey(
-        'Workout',
-        verbose_name=_('Workout'),
-        on_delete=models.CASCADE,
-    )
-    """
-    The workout the session belongs to
-    """
-
     routine = models.ForeignKey(
         'Routine',
         on_delete=models.CASCADE,
