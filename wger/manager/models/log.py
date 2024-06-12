@@ -162,18 +162,6 @@ class WorkoutLog(models.Model):
         """
         return self
 
-    def get_workout_session(self, date=None) -> WorkoutSession:
-        """
-        Returns the corresponding workout session
-        """
-        if not date:
-            date = self.date
-
-        try:
-            return WorkoutSession.objects.filter(user=self.user).get(date=date)
-        except WorkoutSession.DoesNotExist:
-            return None
-
     def save(self, *args, **kwargs):
         """
         Plumbing

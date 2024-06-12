@@ -35,7 +35,6 @@ from wger.utils.cache import cache_mapper
 from wger.utils.helpers import DecimalJsonEncoder
 from wger.weight.models import WeightEntry
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -129,7 +128,7 @@ def group_log_entries(user, year, month, day=None):
                 out[entry.date] = {
                     'date': entry.date,
                     'workout': entry.workout,
-                    'session': entry.get_workout_session(),
+                    'session': entry.session,
                     'logs': OrderedDict(),
                 }
 

@@ -200,58 +200,6 @@ class WeightLogOverviewAddTestCase(WgerTestCase):
         self.add_weight_log(fail=True)
 
 
-class WeightlogTestCase(WgerTestCase):
-    """
-    Tests other model methods
-    """
-
-    def test_get_workout_session(self):
-        """
-        Test the wgerGetWorkoutSession method
-        """
-
-        user1 = User.objects.get(pk=1)
-        user2 = User.objects.get(pk=2)
-        workout1 = Workout.objects.get(pk=2)
-        workout2 = Workout.objects.get(pk=2)
-
-        WorkoutLog.objects.all().delete()
-        log = WorkoutLog()
-        log.user = user1
-        log.date = datetime.date(2014, 1, 5)
-        log.exercise = ExerciseBase.objects.get(pk=1)
-        log.workout = workout1
-        log.weight = 10
-        log.reps = 10
-        log.save()
-
-        session1 = WorkoutSession()
-        session1.user = user1
-        session1.workout = workout1
-        session1.notes = 'Something here'
-        session1.impression = '3'
-        session1.date = datetime.date(2014, 1, 5)
-        session1.save()
-
-        session2 = WorkoutSession()
-        session2.user = user1
-        session2.workout = workout1
-        session2.notes = 'Something else here'
-        session2.impression = '1'
-        session2.date = datetime.date(2014, 1, 1)
-        session2.save()
-
-        session3 = WorkoutSession()
-        session3.user = user2
-        session3.workout = workout2
-        session3.notes = 'The notes here'
-        session3.impression = '2'
-        session3.date = datetime.date(2014, 1, 5)
-        session3.save()
-
-        self.assertEqual(log.get_workout_session(), session1)
-
-
 class WeightLogDeleteTestCase(WgerDeleteTestCase):
     """
     Tests deleting a WorkoutLog
