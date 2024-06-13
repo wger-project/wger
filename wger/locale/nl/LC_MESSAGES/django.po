@@ -500,7 +500,7 @@ msgid "Forbidden!"
 msgstr "Verboden!"
 
 #: core/templates/403.html:7
-msgid "You are not allowed to acces this page"
+msgid "You are not allowed to access this page"
 msgstr "Je hebt geen toegang tot deze pagina"
 
 #: core/templates/404.html:4

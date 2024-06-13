@@ -79,6 +79,7 @@ Developers
 * Ethan Winters - https://github.com/ebwinters
 * Dieter Plaetinck - https://github.com/Dieterbe
 * Victor Nacher - https://github.com/Victorivus
+* Jonathan La Field - https://github.com/JLaField
 
 
 Translators
