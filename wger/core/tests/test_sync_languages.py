@@ -7,7 +7,6 @@ from django.test import TestCase
 from unittest.mock import patch
 
 # wger
-from wger.core.models.language.Language import DoesNotExist
 from wger.core.models import Language
 from wger.core.tests.base_testcase import (
     WgerAccessTestCase,
@@ -66,7 +65,7 @@ class LanguageSyncResetTestCase(WgerTestCase):
         """
         self.assertEqual(f'{Language.objects.get(pk=1)}', 'Deutsch (de)')
         Language.objects.filter(id=1).delete()
-        self.assertRaises(DoesNotExist, f'{Language.objects.get(pk=1)}')
+        self.assertRaises(Language.DoesNotExist, f'{Language.objects.get(pk=1)}')
 
         call_command('sync_core_languages')
 
