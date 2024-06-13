@@ -1,8 +1,10 @@
 import json
 import os
 from django.core.management.base import BaseCommand
-from django.db import connection, transaction
-
+from django.db import transaction, connection, IntegrityError
+from django.db.utils import OperationalError
+from django.conf import settings
+from wger.core.models import Language  # Ensure you have the correct model import
 
 class Command(BaseCommand):
     """
@@ -33,98 +35,74 @@ class Command(BaseCommand):
             self.stdout.write(f'Successfully loaded JSON data. Records count: {len(json_data)}')
 
             with transaction.atomic():
-                with connection.cursor() as cursor:
-                    # Disable foreign key constraints
-                    self.stdout.write('Disabling foreign key constraints')
-                    cursor.execute("SET session_replication_role = 'replica';")
+                # Create a temporary table
+                self.stdout.write('Creating temporary table')
+                cursor = connection.cursor()
 
-                    # Create a temporary table
-                    self.stdout.write('Creating temporary table')
+                try:
+                    cursor.execute("""
+                        CREATE TEMPORARY TABLE temp_core_language (
+                            id INTEGER PRIMARY KEY,
+                            short_name VARCHAR(10),
+                            full_name VARCHAR(255),
+                            full_name_en VARCHAR(255)
+                        );
+                    """)
+                except OperationalError:
                     cursor.execute("""
                         CREATE TEMP TABLE temp_core_language (
-                            id INT PRIMARY KEY,
+                            id INTEGER PRIMARY KEY,
                             short_name VARCHAR(10),
                             full_name VARCHAR(255),
                             full_name_en VARCHAR(255)
                         );
                     """)
 
-                    # Load fixture data into the temporary table
-                    self.stdout.write('Loading data into temporary table')
-                    for record in json_data:
-                        pk = record["pk"]
-                        fields = record["fields"]
-                        short_name = fields["short_name"]
-                        full_name = fields["full_name"]
-                        full_name_en = fields["full_name_en"]
+                # Load fixture data into the temporary table
+                self.stdout.write('Loading data into temporary table')
+                for record in json_data:
+                    pk = record["pk"]
+                    fields = record["fields"]
+                    short_name = fields["short_name"]
+                    full_name = fields["full_name"]
+                    full_name_en = fields["full_name_en"]
 
-                        cursor.execute("""
-                            INSERT INTO temp_core_language (id, short_name, full_name, full_name_en)
-                            VALUES (%s, %s, %s, %s)
-                            ON CONFLICT (id) DO UPDATE
-                            SET short_name = EXCLUDED.short_name,
-                                full_name = EXCLUDED.full_name,
-                                full_name_en = EXCLUDED.full_name_en;
-                        """, [pk, short_name, full_name, full_name_en])
-
-                    # Correct IDs and update references
-                    self.stdout.write('Updating core_language table and correcting references')
                     cursor.execute("""
-                        DO $$
-                        DECLARE
-                            rec RECORD;
-                        BEGIN
-                            FOR rec IN (SELECT * FROM temp_core_language) LOOP
-                                -- Update references if ID has changed
-                                IF EXISTS (SELECT 1 FROM core_language
-                                WHERE short_name = rec.short_name AND id <> rec.id) THEN
-                                    -- updating core_language table and correcting references
-                                    UPDATE exercises_exercise SET language_id = rec.id
-                                    WHERE language_id = (SELECT id FROM core_language
-                                                         WHERE short_name = rec.short_name);
-                                    UPDATE exercises_historicalexercise SET language_id = rec.id
-                                    WHERE language_id = (SELECT id FROM core_language
-                                                         WHERE short_name = rec.short_name);
-                                    UPDATE nutrition_ingredient SET language_id = rec.id
-                                    WHERE language_id = (SELECT id FROM core_language
-                                                         WHERE short_name = rec.short_name);
-                                    UPDATE nutrition_weightunit SET language_id = rec.id
-                                    WHERE language_id = (SELECT id FROM core_language
-                                                         WHERE short_name = rec.short_name);
-                                    -- Add more tables as needed
-                                    UPDATE core_language
-                                    SET id = rec.id,
-                                        short_name = rec.short_name,
-                                        full_name = rec.full_name,
-                                        full_name_en = rec.full_name_en
-                                    WHERE short_name = rec.short_name;
-                                ELSE
-                                    INSERT INTO core_language (
-                                        id,
-                                        short_name,
-                                        full_name,
-                                        full_name_en
-                                        )
-                                    VALUES (
-                                        rec.id,
-                                        rec.short_name,
-                                        rec.full_name,
-                                        rec.full_name_en
-                                        )
-                                    ON CONFLICT (id) DO UPDATE
-                                    SET short_name = EXCLUDED.short_name,
-                                        full_name = EXCLUDED.full_name,
-                                        full_name_en = EXCLUDED.full_name_en;
-                                END IF;
-                            END LOOP;
-                        END $$;
-                    """)
+                        INSERT INTO temp_core_language (id, short_name, full_name, full_name_en)
+                        VALUES (%s, %s, %s, %s)
+                        ON CONFLICT (id) DO UPDATE
+                        SET short_name = EXCLUDED.short_name,
+                            full_name = EXCLUDED.full_name,
+                            full_name_en = EXCLUDED.full_name_en;
+                    """, [pk, short_name, full_name, full_name_en])
 
-                    # Re-enable foreign key constraints
-                    self.stdout.write('Re-enabling foreign key constraints')
-                    cursor.execute("SET session_replication_role = 'origin';")
+                # Correct IDs and update references
+                self.stdout.write('Updating core_language table and correcting references')
+                cursor.execute("""
+                    SELECT id, short_name, full_name, full_name_en FROM temp_core_language;
+                """)
 
-                    self.stdout.write('Successfully synchronized core_language table')
+                for row in cursor.fetchall():
+                    temp_id, temp_short_name, temp_full_name, temp_full_name_en = row
+
+                    try:
+                        language = Language.objects.get(short_name=temp_short_name)
+                        if language.id != temp_id:
+                            # Update references if ID has changed
+                            language.id = temp_id
+                        language.short_name = temp_short_name
+                        language.full_name = temp_full_name
+                        language.full_name_en = temp_full_name_en
+                        language.save()
+                    except Language.DoesNotExist:
+                        Language.objects.create(
+                            id=temp_id,
+                            short_name=temp_short_name,
+                            full_name=temp_full_name,
+                            full_name_en=temp_full_name_en
+                        )
+
+                self.stdout.write('Successfully synchronized core_language table')
 
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error: {str(e)}'))
