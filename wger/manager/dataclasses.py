@@ -53,6 +53,7 @@ class SetConfigData:
     weight_rounding: Decimal | int | None = 1.25
     reps_rounding: Decimal | int | None = 1
 
+    comment: str = ''
     type: str = 'normal'
     slot_config_id: int | None = None
 
@@ -64,8 +65,8 @@ class SetConfigData:
         This converts the values to something readable like "10 × 100 kg @ 2.00RiR"
         """
 
-        def round_value(x: int | float, base=5) -> Decimal:
-            return normalize_decimal(Decimal(base * round(x / base)))
+        def round_value(x: int | float, base: float = 5) -> Decimal:
+            return normalize_decimal(Decimal(base * round(Decimal(x) / Decimal(base))))
 
         out = []
 
@@ -96,7 +97,8 @@ class SetConfigData:
             out.append(f'{weight} {unit}'.strip())
 
         if self.rir:
-            out.append(f'@ {self.rir}{_("RiR")}')
+            rir = round_value(self.rir, 0.5)
+            out.append(f'@ {rir} {_("RiR")}')
 
         return ' '.join(out)
 

@@ -85,11 +85,16 @@ class Slot(models.Model):
         - Exercise 2
         - Exercise 1
         """
-
-        result = []
         set_data = self.set_data(iteration)
 
-        sets = [slot.data.sets for slot in set_data]  # Create a list of sets
+        # If this is not a superset, just return the data
+        if len(set_data) == 1:
+            return [
+                set_data[0].data,
+            ]
+
+        result = []
+        sets = [slot.data.sets for slot in set_data]
 
         while any(repeat > 0 for repeat in sets):
             for i, slot in enumerate(set_data):

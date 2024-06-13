@@ -12,6 +12,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+from decimal import Decimal
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
@@ -34,15 +37,15 @@ class SlotTestCase(WgerTestCase):
         self.slot = Slot(day_id=1, order=1)
         self.slot.save()
 
-        config1 = SlotConfig(slot=self.slot, exercise_id=1, order=1)
+        config1 = SlotConfig(id=100, slot=self.slot, exercise_id=1, order=1)
         config1.save()
         SetsConfig(slot_config=config1, iteration=1, value=4).save()
 
-        config2 = SlotConfig(slot=self.slot, exercise_id=2, order=2)
+        config2 = SlotConfig(id=101, slot=self.slot, exercise_id=2, order=2)
         config2.save()
         SetsConfig(slot_config=config2, iteration=1, value=3).save()
 
-        config3 = SlotConfig(slot=self.slot, exercise_id=3, order=3)
+        config3 = SlotConfig(id=102, slot=self.slot, exercise_id=3, order=3)
         config3.save()
         SetsConfig(slot_config=config3, iteration=1, value=2).save()
 
@@ -52,6 +55,8 @@ class SlotTestCase(WgerTestCase):
         """
 
         result = self.slot.get_sets(1)
+
+        self.assertEqual(len(result), 9)
 
         self.assertEqual(result[0].exercise, 1)
         self.assertEqual(result[0].sets, 1)
@@ -78,3 +83,15 @@ class SlotTestCase(WgerTestCase):
         self.assertEqual(result[0], 1)
         self.assertEqual(result[1], 2)
         self.assertEqual(result[2], 3)
+
+    def test_get_sets_one_exercise(self):
+        """
+        Test that the correct sets are returned for regular sets
+        """
+        SlotConfig.objects.filter(id__in=(101, 102)).delete()
+
+        result = self.slot.get_sets(1)
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0].exercise, 1)
+        self.assertEqual(result[0].sets, Decimal(4))

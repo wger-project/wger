@@ -40,15 +40,15 @@ class SetConfigDataTestCase(WgerTestCase):
         )
 
     def test_text_repr(self):
-        self.assertEqual(self.config.text_repr, '4 × 20 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '4 × 20 kg @ 3 RiR')
 
     def test_normalize_decimals(self):
         self.config.weight = 22.50
-        self.assertEqual(self.config.text_repr, '4 × 22.5 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '4 × 22.5 kg @ 3 RiR')
 
     def test_weight_unit(self):
         self.config.weight_unit = 2
-        self.assertEqual(self.config.text_repr, '4 × 20 lb @ 3RiR')
+        self.assertEqual(self.config.text_repr, '4 × 20 lb @ 3 RiR')
 
     def test_no_rir(self):
         self.config.rir = None
@@ -56,27 +56,31 @@ class SetConfigDataTestCase(WgerTestCase):
 
     def test_no_weight(self):
         self.config.weight = None
-        self.assertEqual(self.config.text_repr, '4 × @ 3RiR')
+        self.assertEqual(self.config.text_repr, '4 × @ 3 RiR')
 
     def test_sets(self):
         self.config.sets = 3
-        self.assertEqual(self.config.text_repr, '3 Sets – 4 × 20 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '3 Sets – 4 × 20 kg @ 3 RiR')
 
     def test_weight_rounding(self):
         self.config.weight = 22.499
         self.config.weight_rounding = 5
-        self.assertEqual(self.config.text_repr, '4 × 20 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '4 × 20 kg @ 3 RiR')
 
     def test_reps_unit(self):
         self.config.reps = 90
         self.config.reps_unit = 3
-        self.assertEqual(self.config.text_repr, '90 Seconds × 20 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '90 Seconds × 20 kg @ 3 RiR')
 
     def test_reps_rounding(self):
         self.config.reps = 4.72
         self.config.reps_rounding = 2.5
-        self.assertEqual(self.config.text_repr, '5 × 20 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '5 × 20 kg @ 3 RiR')
+
+    def test_rir_rounding(self):
+        self.config.rir = 2.50
+        self.assertEqual(self.config.text_repr, '4 × 20 kg @ 2.5 RiR')
 
     def test_amrap(self):
         self.config.reps_unit = 2
-        self.assertEqual(self.config.text_repr, '∞ × 20 kg @ 3RiR')
+        self.assertEqual(self.config.text_repr, '∞ × 20 kg @ 3 RiR')

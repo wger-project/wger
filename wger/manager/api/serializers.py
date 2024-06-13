@@ -292,7 +292,7 @@ class SetConfigSerializer(serializers.ModelSerializer):
 
 class SetConfigDataSerializer(serializers.Serializer):
     """
-    SetData serializer
+    SetConfigData serializer
     """
 
     slot_config_id = serializers.IntegerField()
@@ -308,6 +308,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     rest = serializers.DecimalField(max_digits=5, decimal_places=2)
     type = serializers.CharField()
     text_repr = serializers.CharField()
+    comment = serializers.CharField()
 
 
 class SetExerciseDataSerializer(serializers.Serializer):

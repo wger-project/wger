@@ -227,6 +227,7 @@ class SlotConfig(models.Model):
         sets = self.get_sets(iteration)
 
         return SetConfigData(
+            slot_config_id=self.id,
             exercise=self.exercise.id,
             sets=sets if sets is not None else 1,
             weight=weight,
@@ -238,7 +239,7 @@ class SlotConfig(models.Model):
             rir=self.get_rir(iteration),
             rest=self.get_rest(iteration),
             type=self.type,
-            slot_config_id=self.id,
+            comment=self.comment,
         )
 
     def get_sets(self, iteration: int) -> Decimal | None:
