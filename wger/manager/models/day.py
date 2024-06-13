@@ -27,6 +27,17 @@ from wger.core.models import DaysOfWeek
 from wger.manager.dataclasses import SlotData
 
 
+class DayType(models.TextChoices):
+    NORMAL = 'normal'
+    EMOM = 'enom'
+    AMRAP = 'amrap'
+    HIIT = 'hiit'
+    TABATA = 'tabata'
+    EDT = 'edt'
+    RFT = 'rft'
+    AFAP = 'afap'
+
+
 class DayNg(models.Model):
     """
     Model for a training day
@@ -44,6 +55,13 @@ class DayNg(models.Model):
         blank=True,
         null=True,
         on_delete=models.CASCADE,
+    )
+
+    type = models.CharField(
+        choices=DayType.choices,
+        max_length=10,
+        default=DayType.NORMAL,
+        null=False,
     )
 
     name = models.CharField(

@@ -74,6 +74,7 @@ class DayNgSerializer(serializers.ModelSerializer):
             'is_rest',
             'last_day_in_week',
             'need_logs_to_advance',
+            'type',
         )
 
 
@@ -306,6 +307,7 @@ class SetConfigDataSerializer(serializers.Serializer):
     rir = serializers.DecimalField(max_digits=5, decimal_places=2)
     rest = serializers.DecimalField(max_digits=5, decimal_places=2)
     type = serializers.CharField()
+    text_repr = serializers.CharField()
 
 
 class SetExerciseDataSerializer(serializers.Serializer):

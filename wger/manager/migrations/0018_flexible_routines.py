@@ -27,6 +27,23 @@ class Migration(migrations.Migration):
                         verbose_name='ID',
                     ),
                 ),
+                (
+                    'type',
+                    models.CharField(
+                        choices=[
+                            ('normal', 'Normal'),
+                            ('enom', 'Emom'),
+                            ('amrap', 'Amrap'),
+                            ('hiit', 'Hiit'),
+                            ('tabata', 'Tabata'),
+                            ('edt', 'Edt'),
+                            ('rft', 'Rft'),
+                            ('afap', 'Afap'),
+                        ],
+                        default='normal',
+                        max_length=10,
+                    ),
+                ),
                 ('name', models.CharField(max_length=20, verbose_name='Description')),
                 ('description', models.CharField(max_length=250, verbose_name='Description')),
                 ('is_rest', models.BooleanField(default=False)),
@@ -112,7 +129,16 @@ class Migration(migrations.Migration):
                 (
                     'type',
                     models.CharField(
-                        choices=[('normal', 'Normal'), ('dropset', 'Dropset'), ('myo', 'Myo')],
+                        choices=[
+                            ('normal', 'Normal'),
+                            ('dropset', 'Dropset'),
+                            ('myo', 'Myo'),
+                            ('partial', 'Partial'),
+                            ('forced', 'Forced'),
+                            ('tut', 'Tut'),
+                            ('iso', 'Iso Hold'),
+                            ('jump', 'Jump'),
+                        ],
                         default='normal',
                         max_length=10,
                     ),
