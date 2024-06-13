@@ -40,6 +40,11 @@ class SetType(models.TextChoices):
     NORMAL = 'normal'
     DROPSET = 'dropset'
     MYO = 'myo'
+    PARTIAL = 'partial'
+    FORCED = 'forced'
+    TUT = 'tut'
+    ISO_HOLD = 'iso'
+    JUMP = 'jump'
 
 
 class SlotConfig(models.Model):

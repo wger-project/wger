@@ -22,6 +22,7 @@ import logging
 import os
 import random
 import string
+from decimal import Decimal
 from functools import wraps
 
 # Django
@@ -203,7 +204,7 @@ def check_access(request_user, username=None):
     return is_owner, user
 
 
-def normalize_decimal(d):
+def normalize_decimal(d: Decimal):
     """
     Normalizes a decimal input
 
@@ -214,10 +215,13 @@ def normalize_decimal(d):
     :param d: decimal to convert
     :return: normalized decimal
     """
+    if not d:
+        return d
+
     normalized = d.normalize()
     sign, digits, exponent = normalized.as_tuple()
     if exponent > 0:
-        return decimal.Decimal((sign, digits + (0,) * exponent, 0))
+        return Decimal((sign, digits + (0,) * exponent, 0))
     else:
         return normalized
 

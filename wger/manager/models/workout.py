@@ -41,7 +41,7 @@ class Workout(models.Model):
 
     class Meta:
         """
-        Meta class to set some other properties
+        Metaclass to set some other properties
         """
 
         ordering = [

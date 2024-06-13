@@ -27,6 +27,16 @@ from typing import (
     List,
 )
 
+# Django
+from django.utils.translation import gettext as _
+
+# wger
+from wger.core.models import (
+    RepetitionUnit,
+    WeightUnit,
+)
+from wger.utils.helpers import normalize_decimal
+
 
 @dataclass
 class SetConfigData:
@@ -45,6 +55,50 @@ class SetConfigData:
 
     type: str = 'normal'
     slot_config_id: int | None = None
+
+    @property
+    def text_repr(self) -> str:
+        """
+        Smart text representation of the set
+
+        This converts the values to something readable like "10 × 100 kg @ 2.00RiR"
+        """
+
+        def round_value(x: int | float, base=5) -> Decimal:
+            return normalize_decimal(Decimal(base * round(x / base)))
+
+        out = []
+
+        if self.sets and self.sets > 1:
+            sets = normalize_decimal(Decimal(self.sets))
+            out.append(f'{sets} {_("Sets")} –')
+
+        if self.reps:
+            reps = round_value(self.reps, self.reps_rounding)
+
+            unit = ''
+            if self.reps_unit not in (1, 2):
+                unit = _(RepetitionUnit.objects.get(pk=self.reps_unit).name)
+            elif self.reps_unit == 2:
+                unit = '∞'
+                reps = ''
+
+            out.append(f'{reps} {unit}'.strip())
+            out.append('×')
+
+        if self.weight:
+            weight = round_value(self.weight, self.weight_rounding)
+
+            unit = ''
+            if self.weight_unit:
+                unit = _(WeightUnit.objects.get(pk=self.weight_unit).name)
+
+            out.append(f'{weight} {unit}'.strip())
+
+        if self.rir:
+            out.append(f'@ {self.rir}{_("RiR")}')
+
+        return ' '.join(out)
 
 
 @dataclass

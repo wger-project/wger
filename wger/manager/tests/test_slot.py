@@ -53,17 +53,20 @@ class SlotTestCase(WgerTestCase):
 
         result = self.slot.get_sets(1)
 
-        self.assertEqual(result[0].exercise.pk, 1)
-        self.assertEqual(result[1].exercise.pk, 2)
-        self.assertEqual(result[2].exercise.pk, 3)
+        self.assertEqual(result[0].exercise, 1)
+        self.assertEqual(result[0].sets, 1)
+        self.assertEqual(result[1].exercise, 2)
+        self.assertEqual(result[1].sets, 1)
+        self.assertEqual(result[2].exercise, 3)
+        self.assertEqual(result[2].sets, 1)
 
-        self.assertEqual(result[3].exercise.pk, 1)
-        self.assertEqual(result[4].exercise.pk, 2)
-        self.assertEqual(result[5].exercise.pk, 3)
+        self.assertEqual(result[3].exercise, 1)
+        self.assertEqual(result[4].exercise, 2)
+        self.assertEqual(result[5].exercise, 3)
 
-        self.assertEqual(result[6].exercise.pk, 1)
-        self.assertEqual(result[7].exercise.pk, 2)
-        self.assertEqual(result[8].exercise.pk, 1)
+        self.assertEqual(result[6].exercise, 1)
+        self.assertEqual(result[7].exercise, 2)
+        self.assertEqual(result[8].exercise, 1)
 
     def test_get_exercises(self):
         """
@@ -72,6 +75,6 @@ class SlotTestCase(WgerTestCase):
 
         result = self.slot.get_exercises()
 
-        self.assertEqual(result[0].pk, 1)
-        self.assertEqual(result[1].pk, 2)
-        self.assertEqual(result[2].pk, 3)
+        self.assertEqual(result[0], 1)
+        self.assertEqual(result[1], 2)
+        self.assertEqual(result[2], 3)

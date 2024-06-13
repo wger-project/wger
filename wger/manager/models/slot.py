@@ -94,6 +94,10 @@ class Slot(models.Model):
         while any(repeat > 0 for repeat in sets):
             for i, slot in enumerate(set_data):
                 if sets[i] > 0:
+                    # Override the number of sets. After all, each of the individual
+                    # sets here is only done once
+                    slot.data.sets = 1
+
                     result.append(slot.data)
                     sets[i] -= 1
         return result
