@@ -50,15 +50,14 @@ from wger.nutrition.consts import (
     ENERGY_FACTOR,
     KJ_PER_KCAL,
 )
+from wger.nutrition.managers import ApproximateCountManager
+from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
-
-# Local
-from .ingredient_category import IngredientCategory
 
 
 logger = logging.getLogger(__name__)
@@ -74,6 +73,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
     How much the calculated energy from protein, etc. can deviate from the
     energy amount given (in percent).
     """
+
+    objects = ApproximateCountManager()
 
     language = models.ForeignKey(
         Language,
