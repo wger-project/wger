@@ -87,7 +87,7 @@ def setup_periodic_tasks(sender, **kwargs):
             name='Sync ingredients',
         )
 
-    if settings.WGER_SETTINGS['SYNC_OFF_DAILY_DELTA_CELERY']:
+    if settings.WGER_SETTINGS.sync_off_daily_delta_celery:
         sender.add_periodic_task(
             crontab(
                 hour=str(randint(0, 23)),

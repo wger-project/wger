@@ -64,7 +64,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
-@method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']), name='dispatch')
+@method_decorator(cache_page(settings.WGER_SETTINGS.ingredient_cache_ttl), name='dispatch')
 class IngredientListView(ListView):
     """
     Show an overview of all ingredients
@@ -84,7 +84,7 @@ class IngredientListView(ListView):
 
 
 # Cache for one week
-@cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL'])
+@cache_page(settings.WGER_SETTINGS.ingredient_cache_ttl)
 def view(request, pk, slug=None):
     context = {}
 

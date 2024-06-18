@@ -63,9 +63,11 @@ class WgerSettings:
     exercise_cache_ttl: int = 3600
     """
     Time to live for cached exercises in seconds.
+    """
 
-    Note that at the moment there are a couple more things that are also cached
-    for the time set here, most prominently the ingredients
+    ingredient_cache_ttl: int = 604800
+    """
+    Time to live for cached ingredients in seconds. Default is one week.
     """
 
     min_account_age_to_trust: int = 21
@@ -109,6 +111,11 @@ class WgerSettings:
     If this is set to true, the application will sync ingredients with the default
     wger instance configured in `wger_instance`. A celery task will be created that
     runs at a random time, selected during startup, twice per month.
+    """
+
+    sync_off_daily_delta_celery: bool = False
+    """
+    Whether to sync the Open Food Facts deltas to the databse
     """
 
     twitter: Optional[str] = None
