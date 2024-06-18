@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-05-08 06:07+0000\n"
-"Last-Translator: Bingo_Yan <yanhuibin315@163.com>\n"
+"PO-Revision-Date: 2024-06-05 08:09+0000\n"
+"Last-Translator: Yi-Han Hsiung <hsiungyi@oregonstate.edu>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "wger/web/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -77,13 +77,11 @@ msgid "Another sample day"
 msgstr "另一个示例健身日"
 
 #: core/demo.py:212
-#, fuzzy
-#| msgid "Sample nutrional plan"
 msgid "Sample nutritional plan"
-msgstr "示例营养计划"
+msgstr "营养计划範例"
 
 #: core/demo.py:344 core/demo.py:346 core/demo.py:348
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Placeholder workout nr {0} for schedule"
 msgstr "健身计划中的占位符{0}"
 
@@ -127,7 +125,6 @@ msgstr "用来重设密码和邮件提醒，如果你选择了邮件提醒。"
 
 #: core/forms.py:116 core/models/profile.py:222
 #: gym/templates/gym/new_user.html:38
-#, fuzzy
 msgid "Date of Birth"
 msgstr "生日"
 
@@ -462,7 +459,7 @@ msgid "Forbidden!"
 msgstr "禁止!"
 
 #: core/templates/403.html:7
-msgid "You are not allowed to acces this page"
+msgid "You are not allowed to access this page"
 msgstr "您无权访问该页面"
 
 #: core/templates/404.html:4
@@ -486,12 +483,7 @@ msgstr "服务器在处理您的请求时出现错误。尝试刷新您的浏览
 "。如果问题仍然存在，您可以通过以下方式寻求帮助："
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -500,7 +492,7 @@ msgid ""
 msgstr ""
 "你是\n"
 "    以用户\"%(current_user)s\"的身份浏览本网站，所有操作都对其数据执行。\n"
-"    "
+"            "
 
 #: core/templates/base.html:14 core/templates/base_wide.html:11
 #, python-format
@@ -512,8 +504,6 @@ msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "你确定要删除这条记录？删除动作是不可撤销的。"
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
 msgstr "邮箱验证"
 
@@ -641,10 +631,6 @@ msgid "Imprint"
 msgstr "版本说明"
 
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
@@ -672,10 +658,8 @@ msgid "Calendar"
 msgstr "日历"
 
 #: core/templates/navigation.html:60
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
-msgstr "常量营养物"
+msgstr "测量"
 
 #: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
 msgid "Gallery"
@@ -1437,10 +1421,8 @@ msgid "Language"
 msgstr "语言"
 
 #: exercises/models/exercise_alias.py:58
-#, fuzzy
-#| msgid "Correcting an exercise"
 msgid "Alias for an exercise"
-msgstr "修正健身项目中"
+msgstr "训练项目别称"
 
 #: exercises/models/image.py:57
 msgid "Line"
@@ -1452,7 +1434,7 @@ msgstr "3D"
 
 #: exercises/models/image.py:59
 msgid "Low-poly"
-msgstr ""
+msgstr "低多边形"
 
 #: exercises/models/image.py:60
 msgid "Photo"
@@ -1494,10 +1476,8 @@ msgid "In latin, e.g. \"Pectoralis major\""
 msgstr "拉丁语中的\"Pectoralis major\""
 
 #: exercises/models/muscle.py:47
-#, fuzzy
-#| msgid "exercise name"
 msgid "Alternative name"
-msgstr "健身项目名称"
+msgstr "別称"
 
 #: exercises/models/muscle.py:48
 msgid "A more basic name for the muscle"
@@ -1600,11 +1580,11 @@ msgstr "查看对象"
 
 #: exercises/templates/history/overview.html:75
 msgid "View changes"
-msgstr ""
+msgstr "查看更改"
 
 #: exercises/templates/history/overview.html:86
 msgid "Revert changes"
-msgstr ""
+msgstr "还原更改"
 
 #: exercises/templates/muscles/admin-overview.html:4
 msgid "Muscle overview"
@@ -1764,11 +1744,11 @@ msgstr "周数,设定一个用户最后一次上传他的表现所过的周数�
 
 #: gym/models/gym_config.py:56 gym/templates/gym/member_list.html:152
 msgid "Show name in header"
-msgstr ""
+msgstr "在标题中显示名称"
 
 #: gym/models/gym_config.py:57
 msgid "Show the name of the gym in the site header"
-msgstr ""
+msgstr "在网站标题中显示健身房的名称"
 
 #: gym/models/gym_config.py:68
 #, fuzzy, python-brace-format
@@ -1872,7 +1852,7 @@ msgstr "我的配置"
 
 #: gym/templates/gym/member_list.html:215
 msgid "Types"
-msgstr ""
+msgstr "类型"
 
 #: gym/templates/gym/member_list.html:285
 msgid "Emails"
@@ -1978,7 +1958,7 @@ msgstr "小腿"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "有氧运动"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -1990,7 +1970,7 @@ msgstr "哑铃"
 
 #: i18n.tpl:13
 msgid "Glutes"
-msgstr ""
+msgstr "臀大肌"
 
 #: i18n.tpl:14
 msgid "Gym mat"
@@ -1998,7 +1978,7 @@ msgstr "体操垫"
 
 #: i18n.tpl:15
 msgid "Hamstrings"
-msgstr ""
+msgstr "腿筋"
 
 #: i18n.tpl:16
 msgid "Incline bench"
@@ -2010,15 +1990,15 @@ msgstr "壶铃"
 
 #: i18n.tpl:18
 msgid "Kilometers"
-msgstr ""
+msgstr "公里"
 
 #: i18n.tpl:19
 msgid "Kilometers Per Hour"
-msgstr ""
+msgstr "公里每小时"
 
 #: i18n.tpl:20
 msgid "Lats"
-msgstr ""
+msgstr "背阔肌"
 
 #: i18n.tpl:21
 msgid "Legs"
@@ -2026,7 +2006,7 @@ msgstr "双腿"
 
 #: i18n.tpl:22
 msgid "Lower back"
-msgstr ""
+msgstr "下背"
 
 #: i18n.tpl:23
 msgid "Max Reps"
@@ -2034,19 +2014,19 @@ msgstr "最大重复次数"
 
 #: i18n.tpl:24
 msgid "Miles"
-msgstr ""
+msgstr "英里"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "英里每小时"
 
 #: i18n.tpl:26
 msgid "Minutes"
-msgstr ""
+msgstr "分钟"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "槓片"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2054,7 +2034,7 @@ msgstr "上拉杆"
 
 #: i18n.tpl:29
 msgid "Quads"
-msgstr ""
+msgstr "股四頭肌"
 
 #: i18n.tpl:30 manager/forms.py:182 manager/models/log.py:73
 #: manager/templates/set/add.html:54
@@ -2067,7 +2047,7 @@ msgstr "SZ杠"
 
 #: i18n.tpl:32
 msgid "Seconds"
-msgstr ""
+msgstr "秒"
 
 #: i18n.tpl:33
 msgid "Shoulders"
@@ -2078,32 +2058,30 @@ msgid "Swiss Ball"
 msgstr "平衡球"
 
 #: i18n.tpl:35
-#, fuzzy
-#| msgid "Triceps brachii"
 msgid "Triceps"
 msgstr "肱三头肌"
 
 #: i18n.tpl:36
 msgid "Until Failure"
-msgstr ""
+msgstr "直到力竭"
 
 #: i18n.tpl:39
 msgid "none (bodyweight exercise)"
-msgstr ""
+msgstr "无（体重锻炼）"
 
 #: mailer/forms.py:34 mailer/templates/mailer/gym/preview.html:32
 msgctxt "As in \"email subject\""
 msgid "Subject"
-msgstr ""
+msgstr "主题"
 
 #: mailer/forms.py:35 mailer/templates/mailer/gym/preview.html:40
 msgctxt "As in \"content of an email\""
 msgid "Content"
-msgstr ""
+msgstr "内容"
 
 #: mailer/templates/mailer/gym/form.html:23
 msgid "Generate preview"
-msgstr ""
+msgstr "生成预览"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
@@ -2135,7 +2113,7 @@ msgstr "当前版本"
 
 #: mailer/templates/mailer/gym/preview.html:47
 msgid "Send emails"
-msgstr ""
+msgstr "发电子邮件"
 
 #: mailer/templates/mailer/gym/preview.html:51
 #: mailer/templates/mailer/gym/preview.html:56
@@ -2171,23 +2149,23 @@ msgstr "使用食谱时用英文显示"
 #: manager/templates/set/formset.html:12 measurements/models/category.py:41
 #: nutrition/forms.py:66
 msgid "Unit"
-msgstr ""
+msgstr "单元"
 
 #: manager/forms.py:279
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: manager/forms.py:280 manager/templates/workout/view.html:115
 msgid "Table"
-msgstr ""
+msgstr "表格"
 
 #: manager/forms.py:282 manager/templates/workout/view.html:121
 msgid "with images"
-msgstr ""
+msgstr "带有图片"
 
 #: manager/forms.py:283 manager/templates/workout/view.html:127
 msgid "with comments"
-msgstr ""
+msgstr "带有评论"
 
 #: manager/management/commands/email-reminders.py:121
 msgid "Workout will expire soon"
@@ -2206,11 +2184,11 @@ msgstr "健身"
 msgid ""
 "A description of what is done on this day (e.g. \"Pull day\") or what body "
 "parts are trained (e.g. \"Arms and abs\")"
-msgstr ""
+msgstr "对这一天要做什么（例如“拉力日”）或训练身体哪些部位（例如“手臂和腹肌”）的描述"
 
 #: manager/models/day.py:44
 msgid "Day"
-msgstr ""
+msgstr "天"
 
 #: manager/models/schedule.py:57
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
@@ -2231,13 +2209,13 @@ msgstr ""
 
 #: manager/models/schedule.py:77 manager/templates/schedule/view.html:82
 msgid "Is a loop"
-msgstr ""
+msgstr "是一个循环"
 
 #: manager/models/schedule.py:80
 msgid ""
 "Tick the box if you want to repeat the schedules in a loop (i.e. A, B, C, A, "
 "B, C, and so on)"
-msgstr ""
+msgstr "如果要循环重复计划，请勾选此框（即 A、B、C、A、B、C 等）"
 
 #: manager/models/schedule_step.py:50
 msgid "schedule"
@@ -2251,7 +2229,7 @@ msgstr "每周持续时间"
 #: manager/models/setting.py:110 nutrition/models/meal.py:55
 #: nutrition/models/meal_item.py:65
 msgid "Order"
-msgstr ""
+msgstr "順序"
 
 #: manager/models/session.py:42
 msgid "Bad"
@@ -2267,13 +2245,13 @@ msgstr "很赞"
 
 #: manager/models/session.py:76
 msgid "Any notes you might want to save about this workout session."
-msgstr ""
+msgstr "您可能想要保存的有关本次锻炼课程的任何笔记。"
 
 #: manager/models/session.py:88
 msgid ""
 "Your impression about this workout session. Did you exercise as well as you "
 "could?"
-msgstr ""
+msgstr "您对本次锻炼的印象。您锻炼得尽善尽美了吗？"
 
 #: manager/models/session.py:95
 msgid "Start time"
@@ -2316,19 +2294,19 @@ msgstr "健身计划模板"
 msgid ""
 "Marking a workout as a template will freeze it and allow you to make copies "
 "of it"
-msgstr ""
+msgstr "将锻炼标记为模板将冻结它并允许您复制它"
 
 #: manager/models/workout.py:81
 msgid "Public template"
-msgstr ""
+msgstr "公共模板"
 
 #: manager/models/workout.py:82
 msgid "A public template is available to other users"
-msgstr ""
+msgstr "公共模板可供其他用户使用"
 
 #: manager/models/workout.py:114
 msgid "You must mark this workout as a template before declaring it public"
-msgstr ""
+msgstr "您必须先将此锻炼标记为模板，然后才能将其声明为公开"
 
 #: manager/templates/calendar/day.html:9 manager/templates/calendar/day.html:32
 msgid "Workout log"
@@ -2342,7 +2320,7 @@ msgstr "%(username)s在%(date)s的健身日志"
 #: manager/templates/calendar/month.html:13
 #, python-format
 msgid "Calendar for %(username)s"
-msgstr ""
+msgstr "%(username)s 的日历"
 
 #: manager/templates/calendar/month.html:53
 msgid "Detail page"
@@ -2378,15 +2356,15 @@ msgstr "新增日志"
 
 #: manager/templates/calendar/partial_overview_table.html:5
 msgid "Log overview"
-msgstr ""
+msgstr "日志概述"
 
 #: manager/templates/calendar/partial_overview_table.html:12
 msgid "Workout session"
-msgstr ""
+msgstr "锻炼课程"
 
 #: manager/templates/calendar/partial_overview_table.html:27
 msgid "Delete with logs"
-msgstr ""
+msgstr "删除日志"
 
 #: manager/templates/calendar/partial_overview_table.html:33
 msgid "Add workout impression"
@@ -2394,7 +2372,7 @@ msgstr "新增健身印象"
 
 #: manager/templates/log/add.html:20
 msgid "New weight log"
-msgstr ""
+msgstr "新的体重记录"
 
 #: manager/templates/log/add.html:76
 msgid ""
@@ -2403,27 +2381,32 @@ msgid ""
 "it\n"
 "will simply be edited. Weight entries are always added."
 msgstr ""
+"如果所选日期还没有锻炼课程（印象、笔记、时间），\n"
+"则将创建一个新的锻炼课程。如果已经存在，\n"
+"则将对其进行编辑。始终会添加体重条目。"
 
 #: manager/templates/schedule/overview.html:5
 msgid "Your schedules"
-msgstr ""
+msgstr "你的日程安排"
 
 #: manager/templates/schedule/overview.html:19
 #: manager/templates/schedule/view.html:132
 #: manager/templates/schedule/view.html:184
 #: manager/templates/workout/overview.html:16
 msgid "active"
-msgstr ""
+msgstr "活跃"
 
 #: manager/templates/schedule/overview.html:28
 msgid "No schedules found."
-msgstr ""
+msgstr "未找到任何时刻表。"
 
 #: manager/templates/schedule/overview.html:36
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
 msgstr ""
+"时间表是您连续进行的锻炼的\n"
+"        集合。"
 
 #: manager/templates/schedule/overview.html:39
 msgid ""
@@ -2433,6 +2416,9 @@ msgid ""
 "        always do the same workouts in succession, e.g. A > B > C > A > B > "
 "C and so on."
 msgstr ""
+"您可以指定每次锻炼的时间，然后再跳到下一个锻炼。\n"
+"        也可以创建一个循环，这样您总是连续进行相同的锻炼，\n"
+"        例如 A > B > C > A > B > C 等等。"
 
 #: manager/templates/schedule/overview.html:43
 msgid ""
@@ -2441,24 +2427,27 @@ msgid ""
 "till you\n"
 "        deactivate it, if it is a loop."
 msgstr ""
+"当前活动的计划将保持活动状态\n"
+"        （并显示在您的仪表板等中），直到它到达最后一次锻炼或直到\n"
+"        您将其停用（如果它是一个循环）。"
 
 #: manager/templates/schedule/overview.html:51
 msgid "Add schedule"
-msgstr ""
+msgstr "添加行程"
 
 #: manager/templates/schedule/view.html:10
 msgid "Schedule"
-msgstr ""
+msgstr "行程表"
 
 #: manager/templates/schedule/view.html:86
 msgid ""
 "This schedule is a loop and will go through the workouts above till you "
 "deactivate it"
-msgstr ""
+msgstr "此计划是一个循环，将执行上述锻炼，直到你停用它"
 
 #: manager/templates/schedule/view.html:104
 msgid "Weeks"
-msgstr ""
+msgstr "周数"
 
 #: manager/templates/schedule/view.html:116
 msgid "Move me"
@@ -2466,7 +2455,7 @@ msgstr "移开我"
 
 #: manager/templates/schedule/view.html:157
 msgid "Start schedule"
-msgstr ""
+msgstr "开始日程"
 
 #: manager/templates/schedule/view.html:188
 #, python-format
@@ -2497,11 +2486,11 @@ msgstr ""
 #: manager/templates/workout/view.html:81
 #: manager/templates/workout/view.html:180
 msgid "Export calendar file"
-msgstr ""
+msgstr "导出日历文件"
 
 #: manager/templates/schedule/view.html:237
 msgid "Export this schedule as a calendar file."
-msgstr ""
+msgstr "将此日程表导出为日历文件。"
 
 #: manager/templates/schedule/view.html:238
 #: manager/templates/workout/view.html:76
@@ -3476,15 +3465,15 @@ msgstr "不一致"
 
 #: software/templates/features.html:485
 msgid "Software"
-msgstr ""
+msgstr "软件"
 
 #: software/templates/features.html:491
 msgid "Report an issue"
-msgstr ""
+msgstr "报告问题"
 
 #: software/templates/features.html:497
 msgid "Source Code"
-msgstr ""
+msgstr "源代码"
 
 #: utils/generic_views.py:263
 msgid "Yes, delete"
@@ -3492,42 +3481,35 @@ msgstr "是,删除"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "此对象的原始标题（如果有）"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "链接到原始对象（如果有）"
 
 #: utils/models.py:63
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
 msgstr "作者"
 
 #: utils/models.py:67
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"如果你不是作者,请在这儿输入作者的名字或者来源.因为对于像CC-BY-SA一样的协议,这"
-"是必须的."
+msgstr "如果你不是作者,请在这儿输入作者的名字或者来源"
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "如果有的话，链接到作者简介"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "如果这是衍生作品，请链接到原始来源"
 
 #: utils/models.py:79
 msgid ""
 "Note that a derivative work is one which is not only based on a previous "
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
-msgstr ""
+msgstr "请注意，衍生作品不仅基于以前的作品，而且还包含足够的新创意内容以使其拥有自己"
+"的版权。"
 
 #: utils/models.py:130
 msgid "Pending"
@@ -3535,27 +3517,27 @@ msgstr "审核中"
 
 #: utils/models.py:131
 msgid "Accepted"
-msgstr ""
+msgstr "已接受"
 
 #: utils/models.py:132
 msgid "Declined"
-msgstr ""
+msgstr "已拒绝"
 
 #: weight/forms.py:54
 msgid "Input"
-msgstr ""
+msgstr "输入"
 
 #: weight/forms.py:55
 msgid "Date format"
-msgstr ""
+msgstr "日期格式"
 
 #: weight/management/commands/email-weight-reminder.py:78
 msgid "You have to enter your weight"
-msgstr ""
+msgstr "您必须输入您的体重"
 
 #: weight/models.py:60
 msgid "Weight entry"
-msgstr ""
+msgstr "体重输入"
 
 #: weight/templates/import_csv_form.html:4
 msgid "Import weight logs"
@@ -3566,6 +3548,8 @@ msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
+"使用此导入字段将您的体重日志导入\n"
+"锻炼管理器"
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3576,12 +3560,18 @@ msgid ""
 "<strong>weight</strong>.\n"
 "All further columns are ignored. There is a 1000 row limit.\n"
 msgstr ""
+"您可以从电子表格中复制并粘贴到文本输入中，\n"
+"系统将尝试猜测要导入的格式。唯一需要考虑的是\n"
+"第一列是<strong>日期</strong>，第二列是<strong>重量</strong>。\n"
+"所有其他列都将被忽略。行数限制为 1000。\n"
 
 #: weight/templates/import_csv_form.html:24
 msgid ""
 "If there are errors, you can correct or discard them in a\n"
 "second step."
 msgstr ""
+"如果有错误，您可以在第二步中更正或\n"
+"丢弃它们"
 
 #: weight/templates/import_csv_preview.html:4
 msgid "Preview imported CSV entries"
@@ -3589,11 +3579,11 @@ msgstr "预览导入的CSV条目"
 
 #: weight/templates/import_csv_preview.html:9
 msgid "Successfully converted values"
-msgstr ""
+msgstr "成功转换值"
 
 #: weight/templates/import_csv_preview.html:10
 msgid "The following values could be converted."
-msgstr ""
+msgstr "可以转换以下值。"
 
 #: weight/templates/import_csv_preview.html:26
 msgid "Errors"
@@ -3601,7 +3591,7 @@ msgstr "错误"
 
 #: weight/templates/import_csv_preview.html:29
 msgid "The following values could not be converted."
-msgstr ""
+msgstr "无法转换以下值。"
 
 #: weight/templates/import_csv_preview.html:31
 msgid ""
@@ -3614,6 +3604,10 @@ msgid ""
 "are!)\n"
 "    and try to import the list again."
 msgstr ""
+"这些值无法转换为体重日志条目。\n"
+"    原因可能是日期或数字格式无法识别、编码问题或其他原因。请检查\n"
+"    列表中没有明显错误（如果有，请更正！）\n"
+"    并尝试再次导入列表。"
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
@@ -3623,11 +3617,11 @@ msgstr ""
 
 #: weight/templates/import_csv_preview.html:54
 msgid "There were no errors, all entries could be converted!"
-msgstr ""
+msgstr "没有错误，所有条目都可以转换！"
 
 #: weight/templates/import_csv_preview.html:58
 msgid "Import all successfully converted entries"
-msgstr ""
+msgstr "导入所有成功转换的条目"
 
 #: weight/templates/import_csv_preview.html:59
 msgid ""
@@ -3637,6 +3631,10 @@ msgid ""
 "will simply be ignored. It's up to you to decide whether they are useful\n"
 "(unrecognised entries) or not (e.g. headers, comments, etc.)."
 msgstr ""
+"如果您想将所有\n"
+"已成功转换的条目导入到您的体重日志中，请继续此处。所有产生错误的条目\n"
+"将被忽略。由您决定它们是否有用\n"
+"（无法识别的条目）或没用（例如标题、注释等）。"
 
 #: weight/templates/import_csv_preview.html:69
 msgid "Import"
@@ -3651,6 +3649,8 @@ msgid ""
 "You can correct the list here and re-submit it as often as\n"
 "you want."
 msgstr ""
+"您可以在此处更正列表，并根据需要随时\n"
+"重新提交。"
 
 #: weight/templates/import_csv_preview.html:85
 msgid "Re-Submit"
@@ -3659,16 +3659,16 @@ msgstr "重新提交"
 #: weight/views.py:100
 #, python-format
 msgid "Edit weight entry for the %s"
-msgstr ""
+msgstr "编辑 %s 的体重条目"
 
 #: weight/views.py:117
 msgid "Successfully deleted."
-msgstr ""
+msgstr "已成功删除。"
 
 #: weight/views.py:121
 #, python-format
 msgid "Delete weight entry for the %s"
-msgstr ""
+msgstr "删除 %s 的体重条目"
 
 #~ msgid "Share"
 #~ msgstr "分享"

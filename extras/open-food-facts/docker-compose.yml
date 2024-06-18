@@ -4,7 +4,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - $PWD/dump:/dump
+      - $PWD/dump/dump:/dump
     environment:
       MONGO_INITDB_ROOT_USERNAME: off
       MONGO_INITDB_ROOT_PASSWORD: off-wger

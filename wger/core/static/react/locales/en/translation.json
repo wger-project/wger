@@ -32,6 +32,7 @@
   "unit": "Unit",
   "alsoSearchEnglish": "Also search for names in English",
   "copyToClipboard": "Copy to clipboard",
+  "filters": "Filters",
   "exercises": {
     "replacements": "Replacements",
     "replacementsInfoText": "Optionally, you can also select an exercise that should replace this one (e.g. because it was submitted twice, or similar). This will replace the exercise in routines as well as training logs, instead of just deleting it. These changes will also propagate to any instance that syncs the exercises from this one.",
@@ -93,6 +94,7 @@
     "goalEnergy": "Energy goal",
     "goalProtein": "Protein goal",
     "goalCarbohydrates": "Carbohydrates goal",
+    "goalFiber": "Fiber goal",
     "goalFat": "Fat goal",
     "addNutritionalDiary": "Add nutrition diary entry",
     "meal": "Meal",

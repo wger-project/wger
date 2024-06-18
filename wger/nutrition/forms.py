@@ -17,6 +17,7 @@
 # Standard Library
 import logging
 from datetime import datetime
+from decimal import Decimal
 
 # Django
 from django import forms
@@ -98,11 +99,11 @@ class UnitChooserForm(forms.Form):
 class BmiForm(forms.ModelForm):
     height = forms.DecimalField(
         widget=Html5NumberInput(),
-        max_value=999,
+        max_value=Decimal(999),
     )
     weight = forms.DecimalField(
         widget=Html5NumberInput(),
-        max_value=999,
+        max_value=Decimal(999),
     )
 
     class Meta:
@@ -343,7 +344,7 @@ class IngredientForm(forms.ModelForm):
             'carbohydrates_sugar',
             'fat',
             'fat_saturated',
-            'fibres',
+            'fiber',
             'sodium',
             'license',
             'license_author',
@@ -371,7 +372,7 @@ class IngredientForm(forms.ModelForm):
                 Column('fat_saturated', css_class='col-6'),
                 css_class='form-row',
             ),
-            'fibres',
+            'fiber',
             'sodium',
             Row(
                 Column('license', css_class='col-6'),

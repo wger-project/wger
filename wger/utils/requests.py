@@ -24,7 +24,7 @@ def wger_user_agent():
 
 
 def wger_headers():
-    return {'User-agent': wger_user_agent()}
+    return {'User-Agent': wger_user_agent()}
 
 
 def get_all_paginated(url: str, headers=None):

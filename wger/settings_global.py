@@ -41,14 +41,13 @@ SITE_ID = 1
 ROOT_URLCONF = 'wger.urls'
 WSGI_APPLICATION = 'wger.wsgi.application'
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
-    'django_extensions',
     'storages',
 
     # Uncomment the next line to enable the admin:
@@ -112,9 +111,15 @@ INSTALLED_APPS = (
 
     # Fontawesome
     'fontawesomefree',
-)
 
-MIDDLEWARE = (
+    # Prometheus
+    'django_prometheus',
+]
+
+MIDDLEWARE = [
+    # Prometheus
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,9 +143,12 @@ MIDDLEWARE = (
     # History keeping
     'simple_history.middleware.HistoryRequestMiddleware',
 
+    # Prometheus
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
+
     # Django Axes
     'axes.middleware.AxesMiddleware',  # should be the last one in the list
-)
+]
 
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesStandaloneBackend',  # should be the first one in the list
@@ -171,8 +179,7 @@ TEMPLATES = [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
-            'debug':
-                False
+            'debug': False
         },
     },
 ]
@@ -251,6 +258,7 @@ AVAILABLE_LANGUAGES = (
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
     ('zh-hans', 'Chinese simplified'),
+    ('zh-hant', 'Traditional Chinese'),
 )
 
 # Default language code for this installation.
@@ -545,6 +553,12 @@ USER_AGENTS_CACHE = 'default'
 # }
 
 WGER_SETTINGS = WgerSettings()
+
+#
+# Prometheus metrics
+#
+EXPOSE_PROMETHEUS_METRICS = False
+PROMETHEUS_URL_PATH = 'super-secret-path'
 
 
 #

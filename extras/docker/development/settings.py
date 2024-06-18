@@ -98,6 +98,7 @@ WGER_SETTINGS.sync_exercises_celery = env.bool("SYNC_EXERCISES_CELERY", False)
 WGER_SETTINGS.sync_exercise_images_celery = env.bool("SYNC_EXERCISE_IMAGES_CELERY", False)
 WGER_SETTINGS.sync_exercise_videos_celery = env.bool("SYNC_EXERCISE_VIDEOS_CELERY", False)
 WGER_SETTINGS.sync_ingredients_celery = env.bool("SYNC_INGREDIENTS_CELERY", False)
+WGER_SETTINGS.sync_off_daily_delta_celery = env.bool("SYNC_OFF_DAILY_DELTA_CELERY", False)
 WGER_SETTINGS.use_recaptcha = env.bool("USE_RECAPTCHA", False)
 WGER_SETTINGS.use_celery = env.bool("USE_CELERY", False)
 
@@ -161,3 +162,9 @@ if env.bool('X_FORWARDED_PROTO_HEADER_SET', False):
 #
 CELERY_BROKER_URL = env.str("CELERY_BROKER", "redis://cache:6379/2")
 CELERY_RESULT_BACKEND = env.str("CELERY_BACKEND", "redis://cache:6379/2")
+
+#
+# Prometheus metrics
+#
+EXPOSE_PROMETHEUS_METRICS = env.bool('EXPOSE_PROMETHEUS_METRICS', False)
+PROMETHEUS_URL_PATH = env.str('PROMETHEUS_URL_PATH', 'super-secret-path')

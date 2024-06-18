@@ -37,7 +37,7 @@ class IngredientOverviewTestCase(WgerTestCase):
             'fat': 8.19,
             'carbohydrates_sugar': 0.0,
             'fat_saturated': 3.24,
-            'fibres': 0.0,
+            'fiber': 0.0,
             'protein': 25.63,
             'carbohydrates': 0.0,
             'license': 1,
@@ -56,7 +56,7 @@ class IngredientOverviewTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        rest_ingredients = 13
+        rest_ingredients = 14
         response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)

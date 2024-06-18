@@ -22,15 +22,6 @@ from django.core.management.base import (
 from django.core.validators import URLValidator
 
 # wger
-from wger.exercises.sync import (
-    handle_deleted_entries,
-    sync_categories,
-    sync_equipment,
-    sync_exercises,
-    sync_languages,
-    sync_licenses,
-    sync_muscles,
-)
 from wger.nutrition.sync import sync_ingredients
 
 
