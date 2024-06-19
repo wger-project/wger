@@ -137,6 +137,10 @@ class SlotData:
     exercises: List[int] = field(default_factory=list)
     sets: List[SetConfigData] = field(default_factory=list)
 
+    @property
+    def is_superset(self) -> bool:
+        return len(self.exercises) > 1
+
 
 @dataclass
 class WorkoutDayData:
@@ -151,3 +155,12 @@ class WorkoutDayData:
             return []
 
         return self.day.get_slots(self.iteration)
+
+    @property
+    def slots_display(self) -> List[SlotData]:
+        """Returns the slots optimized for display in the template"""
+
+        if not self.day:
+            return []
+
+        return self.day.get_slots_display(self.iteration)

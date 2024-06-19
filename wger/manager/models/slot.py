@@ -58,6 +58,13 @@ class Slot(models.Model):
         """
         return self.day.routine
 
+    @property
+    def is_superset(self) -> bool:
+        """
+        Checks whether this slot is a superset or not
+        """
+        return self.configs.count() > 1
+
     def set_data(self, iteration: int) -> List[SetExerciseData]:
         """Calculates the set data for a specific iteration"""
 

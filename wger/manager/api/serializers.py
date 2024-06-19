@@ -314,23 +314,27 @@ class SetConfigDataSerializer(serializers.Serializer):
     comment = serializers.CharField()
 
 
-class SetExerciseDataSerializer(serializers.Serializer):
-    """
-    SetData serializer
-    """
-
-    data = SetConfigDataSerializer()
-    config = SetConfigSerializer()
-
-
 class SlotDataSerializer(serializers.Serializer):
     """
     Slot Data serializer
     """
 
     comment = serializers.CharField()
+    is_superset = serializers.BooleanField()
     exercises = serializers.ListSerializer(child=serializers.IntegerField())
     sets = SetConfigDataSerializer(many=True)
+
+
+class WorkoutDayDisplayDataSerializer(serializers.Serializer):
+    """
+    WorkoutDayData serializer - display mode
+    """
+
+    iteration = serializers.IntegerField()
+    date = serializers.DateField()
+    label = serializers.CharField()
+    day = DayNgSerializer()
+    slots = SlotDataSerializer(many=True, source='slots_display')
 
 
 class WorkoutDayDataSerializer(serializers.Serializer):

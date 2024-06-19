@@ -136,6 +136,53 @@ class DayNg(models.Model):
             for s in self.slots.all()
         ]
 
+    def get_slots_display(self, iteration: int) -> List[SlotData]:
+        """
+        Return the sets for this day.
+
+        The difference to get_slots above is that here some data massaging happens
+        so that we can better display the data in the template. Specially, we
+        collect the sets for the same exercise in the same slot.
+
+        This only happens for slots that have only one exercise.
+
+        Instead of
+        * Slot1 -> Exercise1, [Config1]
+        * Slot2 -> Exercise1, [Config2]
+        * Slot3 -> Exercise1, [Config3]
+
+        We return
+        * Slot1 -> Exercise1, [Config1, Config2, Config3]
+
+        """
+        out = []
+        last_exercise_id = None
+        current_slot = None
+        for slot in self.slots.all():
+            if slot.is_superset:
+                out.append(
+                    SlotData(
+                        comment=slot.comment,
+                        exercises=slot.get_exercises(),
+                        sets=[s.data for s in slot.set_data(iteration)],
+                    )
+                )
+                current_slot = None
+            else:
+                exercise_id = slot.get_exercises()[0]
+                if slot.get_exercises()[0] != last_exercise_id:
+                    current_slot = SlotData(
+                        comment=slot.comment,
+                        exercises=[exercise_id],
+                        sets=[s.data for s in slot.set_data(iteration)],
+                    )
+                    out.append(current_slot)
+                    last_exercise_id = exercise_id
+                else:
+                    current_slot.sets.extend([s.data for s in slot.set_data(iteration)])
+
+        return out
+
 
 class Day(models.Model):
     """
