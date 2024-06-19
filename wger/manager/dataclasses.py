@@ -76,7 +76,7 @@ class SetConfigData:
 
         if self.sets and self.sets > 1:
             sets = normalize_decimal(Decimal(self.sets))
-            out.append(f'{sets} {_("Sets")} –')
+            out.append(f'{sets} {_("Sets")},')
 
         if self.reps:
             reps = round_value(self.reps, self.reps_rounding)
