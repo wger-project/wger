@@ -24,3 +24,11 @@ class RepsConfig(AbstractChangeConfig):
     """
 
     pass
+
+
+class MaxRepsConfig(AbstractChangeConfig):
+    """
+    Configuration model for the upper limit of the reps for a workout set
+    """
+
+    pass

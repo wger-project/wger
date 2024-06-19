@@ -19,6 +19,8 @@ from decimal import Decimal
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import SetConfigData
 from wger.manager.models import (
+    MaxRepsConfig,
+    MaxWeightConfig,
     RepsConfig,
     RestConfig,
     RiRConfig,
@@ -134,9 +136,9 @@ class SlotConfigTestCase(WgerTestCase):
 
         # Only did 4x82.5 at iteration 2
         WorkoutLog(
-            exercise_base_id=1,
+            exercise_id=1,
             user_id=1,
-            workout_id=1,
+            routine_id=1,
             slot_config=self.slot_config,
             iteration=2,
             weight=82.5,
@@ -145,9 +147,9 @@ class SlotConfigTestCase(WgerTestCase):
 
         # Did 5x82.5 at iteration 3
         WorkoutLog(
-            exercise_base_id=1,
+            exercise_id=1,
             user_id=1,
-            workout_id=1,
+            routine_id=1,
             slot_config=self.slot_config,
             iteration=3,
             weight=82.5,
@@ -157,6 +159,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(1),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=4,
                 weight=80,
@@ -171,6 +174,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(2),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=4,
                 weight=80,
@@ -185,6 +189,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(3),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=4,
                 weight=80,
@@ -199,6 +204,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(4),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=4,
                 weight=Decimal(82.5),
@@ -213,6 +219,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(5),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=4,
                 weight=42,
@@ -227,6 +234,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(6),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=4,
                 weight=42,
@@ -235,6 +243,87 @@ class SlotConfigTestCase(WgerTestCase):
                 reps_rounding=2,
                 rir=2,
                 rest=120,
+            ),
+        )
+
+    def test_weight_config_with_logs_and_range(self):
+        """
+        Test that the weight is correctly calculated for each step / iteration
+        if there are logs and there is a weight / rep range
+        """
+
+        self.slot_config.weight_rounding = 2.5
+        self.slot_config.repetition_rounding = 2
+        self.slot_config.save()
+
+        # Initial value: 5-6 reps x 80-100 kg
+        RepsConfig(slot_config=self.slot_config, iteration=1, value=5).save()
+        MaxRepsConfig(slot_config=self.slot_config, iteration=1, value=6).save()
+        WeightConfig(
+            slot_config=self.slot_config,
+            iteration=1,
+            value=80,
+        ).save()
+
+        MaxWeightConfig(
+            slot_config=self.slot_config,
+            iteration=1,
+            value=100,
+        ).save()
+
+        # Only did 4x82.5 at iteration 2
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_config=self.slot_config,
+            iteration=2,
+            weight=82.5,
+            reps=4,
+        ).save()
+
+        # 5x80 at iteration 3
+        WorkoutLog(
+            exercise_id=1,
+            user_id=1,
+            routine_id=1,
+            slot_config=self.slot_config,
+            iteration=3,
+            weight=80,
+            reps=5,
+        ).save()
+
+        self.assertEqual(
+            self.slot_config.get_config(1),
+            SetConfigData(
+                slot_config_id=self.slot_config.pk,
+                exercise=1,
+                sets=1,
+                weight=80,
+                max_weight=100,
+                weight_rounding=Decimal('2.5'),
+                reps=5,
+                max_reps=6,
+                reps_rounding=2,
+                rir=None,
+                rest=None,
+            ),
+        )
+
+        self.assertEqual(
+            self.slot_config.get_config(2),
+            SetConfigData(
+                slot_config_id=self.slot_config.pk,
+                exercise=1,
+                sets=1,
+                weight=80,
+                max_weight=100,
+                weight_rounding=Decimal('2.5'),
+                reps=5,
+                max_reps=6,
+                reps_rounding=2,
+                rir=None,
+                rest=None,
             ),
         )
 
@@ -275,6 +364,7 @@ class SlotConfigTestCase(WgerTestCase):
         self.assertEqual(
             self.slot_config.get_config(1),
             SetConfigData(
+                slot_config_id=self.slot_config.pk,
                 exercise=1,
                 sets=1,
                 weight=None,

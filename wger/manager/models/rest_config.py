@@ -24,3 +24,11 @@ class RestConfig(AbstractChangeConfig):
     """
 
     pass
+
+
+class MaxRestConfig(AbstractChangeConfig):
+    """
+    Configuration model for the upper limit of the rest time for a workout set
+    """
+
+    pass

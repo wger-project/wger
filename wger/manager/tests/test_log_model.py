@@ -22,6 +22,7 @@ from wger.manager.models import (
     WorkoutSession,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

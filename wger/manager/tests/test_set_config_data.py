@@ -84,3 +84,11 @@ class SetConfigDataTestCase(WgerTestCase):
     def test_amrap(self):
         self.config.reps_unit = 2
         self.assertEqual(self.config.text_repr, '∞ × 20 kg @ 3 RiR')
+
+    def test_reps_range(self):
+        self.config.max_reps = 6
+        self.assertEqual(self.config.text_repr, '4-6 × 20 kg @ 3 RiR')
+
+    def test_weight_range(self):
+        self.config.max_weight = 30
+        self.assertEqual(self.config.text_repr, '4 × 20-30 kg @ 3 RiR')

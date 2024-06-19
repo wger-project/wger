@@ -24,3 +24,11 @@ class WeightConfig(AbstractChangeConfig):
     """
 
     pass
+
+
+class MaxWeightConfig(AbstractChangeConfig):
+    """
+    Configuration model for the upper limit of the weight for a workout set
+    """
+
+    pass

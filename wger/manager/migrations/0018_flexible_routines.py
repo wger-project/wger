@@ -384,6 +384,63 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='MaxWeightConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('iteration', models.PositiveIntegerField()),
+                (
+                    'trigger',
+                    models.CharField(
+                        choices=[('session', 'Session'), ('week', 'Week')],
+                        default='session',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                (
+                    'operation',
+                    models.CharField(
+                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        default='+',
+                        max_length=1,
+                        null=True,
+                    ),
+                ),
+                (
+                    'step',
+                    models.CharField(
+                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        default='abs',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('replace', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
+                (
+                    'slot_config',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotconfig',
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['slot_config', 'iteration'],
+                'abstract': False,
+                'unique_together': {('slot_config', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
             name='RiRConfig',
             fields=[
                 (
@@ -498,7 +555,120 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='MaxRestConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('iteration', models.PositiveIntegerField()),
+                (
+                    'trigger',
+                    models.CharField(
+                        choices=[('session', 'Session'), ('week', 'Week')],
+                        default='session',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                (
+                    'operation',
+                    models.CharField(
+                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        default='+',
+                        max_length=1,
+                        null=True,
+                    ),
+                ),
+                (
+                    'step',
+                    models.CharField(
+                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        default='abs',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('replace', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
+                (
+                    'slot_config',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='manager.slotconfig',
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['slot_config', 'iteration'],
+                'abstract': False,
+                'unique_together': {('slot_config', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
             name='RepsConfig',
+            fields=[
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('iteration', models.PositiveIntegerField()),
+                (
+                    'trigger',
+                    models.CharField(
+                        choices=[('session', 'Session'), ('week', 'Week')],
+                        default='session',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('value', models.DecimalField(decimal_places=2, max_digits=6)),
+                (
+                    'operation',
+                    models.CharField(
+                        choices=[('+', 'Plus'), ('-', 'Minus')],
+                        default='+',
+                        max_length=1,
+                        null=True,
+                    ),
+                ),
+                (
+                    'step',
+                    models.CharField(
+                        choices=[('abs', 'Absolute'), ('percent', 'Percent')],
+                        default='abs',
+                        max_length=10,
+                        null=True,
+                    ),
+                ),
+                ('replace', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False)),
+                (
+                    'slot_config',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to='manager.slotconfig'
+                    ),
+                ),
+            ],
+            options={
+                'ordering': ['slot_config', 'iteration'],
+                'abstract': False,
+                'unique_together': {('slot_config', 'iteration')},
+            },
+        ),
+        migrations.CreateModel(
+            name='MaxRepsConfig',
             fields=[
                 (
                     'id',

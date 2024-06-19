@@ -22,8 +22,14 @@ from .day import (
 )
 from .label import Label
 from .log import WorkoutLog
-from .reps_config import RepsConfig
-from .rest_config import RestConfig
+from .reps_config import (
+    MaxRepsConfig,
+    RepsConfig,
+)
+from .rest_config import (
+    MaxRestConfig,
+    RestConfig,
+)
 from .rir_config import RiRConfig
 from .routine import Routine
 from .schedule import Schedule
@@ -34,5 +40,8 @@ from .sets_config import SetsConfig
 from .setting import Setting
 from .slot import Slot
 from .slot_config import SlotConfig
-from .weight_config import WeightConfig
+from .weight_config import (
+    MaxWeightConfig,
+    WeightConfig,
+)
 from .workout import Workout

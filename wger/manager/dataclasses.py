@@ -47,6 +47,10 @@ class SetConfigData:
     rir: Decimal | int | None
     rest: Decimal | int | None
 
+    max_weight: Decimal | int | None = None
+    max_reps: Decimal | int | None = None
+    max_rest: Decimal | int | None = None
+
     sets: Decimal | int = 1
     weight_unit: int | None = 1
     reps_unit: int | None = 1
@@ -76,6 +80,12 @@ class SetConfigData:
 
         if self.reps:
             reps = round_value(self.reps, self.reps_rounding)
+            max_reps = (
+                round_value(self.max_reps, self.reps_rounding) if self.max_reps else self.max_reps
+            )
+
+            if max_reps:
+                reps = f'{reps}-{max_reps}'
 
             unit = ''
             if self.reps_unit not in (1, 2):
@@ -89,6 +99,14 @@ class SetConfigData:
 
         if self.weight:
             weight = round_value(self.weight, self.weight_rounding)
+            max_weight = (
+                round_value(self.max_weight, self.weight_rounding)
+                if self.max_weight
+                else self.max_weight
+            )
+
+            if max_weight:
+                weight = f'{weight}-{max_weight}'
 
             unit = ''
             if self.weight_unit:

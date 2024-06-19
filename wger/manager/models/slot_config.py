@@ -185,60 +185,77 @@ class SlotConfig(models.Model):
 
             return custom_logic.calculate()
 
-        # Calculate the weights normally
         max_iter_weight = 1
+        max_iter_max_weight = 1
         max_iter_reps = 1
+        max_iter_max_reps = 1
 
         weight = self.get_weight(max_iter_weight)
         reps = self.get_reps(max_iter_reps)
 
+        # Calculate the weights and reps. Note that we can't just take the configs
+        # and calculate it like with the other values since these might depend on
+        # logged values to continue. Because of this, we need to check step by step
+        # up to the current iteration if the weights and reps can be increased.
         for i in range(1, iteration + 1):
-            # We can't directly do a .get(iteration=i) because there probably isn't one
-            # so we simply take the last one, which will be responsible to calculate the
-            # weight for the current iteration
             weight_config = self.weightconfig_set.filter(iteration__lte=i).last()
             reps_config = self.repsconfig_set.filter(iteration__lte=i).last()
 
+            # No configs, return None
             if not weight_config or not reps_config:
                 break
 
+            # If we don't need to consider any log values, just calculate the value
             elif not weight_config.need_log_to_apply and not reps_config.need_log_to_apply:
                 max_iter_weight = i
+                max_iter_max_weight = i
                 max_iter_reps = i
+                max_iter_max_reps = i
 
+            # We do need to check the logs, iterate over them and check that we
+            # matched the planned values and continue or
             elif weight_config.need_log_to_apply or reps_config.need_log_to_apply:
-                log_data = self.workoutlog_set.filter(iteration=i - 1)
+                log_data = self.workoutlog_set.filter(slot_config_id=self.id, iteration=i - 1)
 
                 # If any of the entries in last log is greater than the last config data,
                 # proceed. Otherwise, the weight won't change
                 for log in log_data:
                     if log.weight >= weight and log.reps >= reps:
-                        # weight = log.weight
-                        # reps = log.reps
-
                         max_iter_weight = i
+                        max_iter_max_weight = i
                         max_iter_reps = i
+                        max_iter_max_reps = i
 
-                        # As soon as we find a log, stop
+                        # As soon as we find a matching log, stop
                         break
 
-        weight = self.get_weight(max_iter_weight)
-        reps = self.get_reps(max_iter_reps)
         sets = self.get_sets(iteration)
+
+        weight = self.get_weight(max_iter_weight)
+        max_weight = self.get_max_weight(max_iter_max_weight)
+
+        reps = self.get_reps(max_iter_reps)
+        max_reps = self.get_max_reps(max_iter_max_reps)
+
+        rest = self.get_rest(iteration)
+        max_rest = self.get_max_rest(iteration)
 
         return SetConfigData(
             slot_config_id=self.id,
             exercise=self.exercise.id,
             sets=sets if sets is not None else 1,
             weight=weight,
+            max_weight=max_weight if max_weight and max_weight > weight else None,
             weight_rounding=self.weight_rounding if weight is not None else None,
             weight_unit=self.weight_unit.pk if weight is not None else None,
             reps=reps,
+            max_reps=max_reps if max_reps and max_reps > reps else None,
             reps_rounding=self.repetition_rounding if reps is not None else None,
             reps_unit=self.repetition_unit.pk if reps is not None else None,
             rir=self.get_rir(iteration),
-            rest=self.get_rest(iteration),
-            type=self.type,
+            rest=rest,
+            max_rest=max_rest if max_rest and max_rest > rest else None,
+            type=str(self.type),
             comment=self.comment,
         )
 
@@ -248,11 +265,22 @@ class SlotConfig(models.Model):
     def get_weight(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.weightconfig_set.filter(iteration__lte=iteration))
 
+    def get_max_weight(self, iteration: int) -> Decimal | None:
+        return self.calculate_config_value(
+            self.maxweightconfig_set.filter(iteration__lte=iteration),
+        )
+
     def get_reps(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.repsconfig_set.filter(iteration__lte=iteration))
+
+    def get_max_reps(self, iteration: int) -> Decimal | None:
+        return self.calculate_config_value(self.maxrepsconfig_set.filter(iteration__lte=iteration))
 
     def get_rir(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.rirconfig_set.filter(iteration__lte=iteration))
 
     def get_rest(self, iteration: int) -> Decimal | None:
         return self.calculate_config_value(self.restconfig_set.filter(iteration__lte=iteration))
+
+    def get_max_rest(self, iteration: int) -> Decimal | None:
+        return self.calculate_config_value(self.maxrestconfig_set.filter(iteration__lte=iteration))
