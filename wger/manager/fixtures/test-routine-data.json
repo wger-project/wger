@@ -159,7 +159,6 @@
     "fields": {
       "slot_config_id": 1,
       "iteration": 1,
-      "trigger": "session",
       "value": 5,
       "operation": null,
       "step": null,
@@ -173,7 +172,6 @@
     "fields": {
       "slot_config_id": 2,
       "iteration": 1,
-      "trigger": "session",
       "value": 2,
       "operation": null,
       "step": null,
@@ -187,7 +185,6 @@
     "fields": {
       "slot_config_id": 3,
       "iteration": 1,
-      "trigger": "session",
       "value": 5,
       "operation": null,
       "step": null,
@@ -201,7 +198,6 @@
     "fields": {
       "slot_config_id": 4,
       "iteration": 1,
-      "trigger": "session",
       "value": 3,
       "operation": null,
       "step": null,
@@ -215,7 +211,6 @@
     "fields": {
       "slot_config_id": 1,
       "iteration": 1,
-      "trigger": "session",
       "value": 80,
       "operation": null,
       "step": null,
@@ -229,7 +224,6 @@
     "fields": {
       "slot_config_id": 2,
       "iteration": 1,
-      "trigger": "session",
       "value": 20,
       "operation": null,
       "step": null,
@@ -243,7 +237,6 @@
     "fields": {
       "slot_config_id": 3,
       "iteration": 1,
-      "trigger": "session",
       "value": 80,
       "operation": null,
       "step": null,
@@ -257,7 +250,6 @@
     "fields": {
       "slot_config_id": 4,
       "iteration": 1,
-      "trigger": "session",
       "value": 50,
       "operation": null,
       "step": null,
@@ -271,7 +263,6 @@
     "fields": {
       "slot_config_id": 1,
       "iteration": 1,
-      "trigger": "session",
       "value": 4,
       "operation": null,
       "step": null,
@@ -285,7 +276,6 @@
     "fields": {
       "slot_config_id": 2,
       "iteration": 1,
-      "trigger": "session",
       "value": 5,
       "operation": null,
       "step": null,
@@ -299,7 +289,6 @@
     "fields": {
       "slot_config_id": 3,
       "iteration": 1,
-      "trigger": "session",
       "value": 6,
       "operation": null,
       "step": null,
@@ -313,7 +302,6 @@
     "fields": {
       "slot_config_id": 4,
       "iteration": 1,
-      "trigger": "session",
       "value": 4,
       "operation": null,
       "step": null,

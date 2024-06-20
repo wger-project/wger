@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                     'type',
                     models.CharField(
                         choices=[
-                            ('normal', 'Normal'),
+                            ('custom', 'Custom'),
                             ('enom', 'Emom'),
                             ('amrap', 'Amrap'),
                             ('hiit', 'Hiit'),
@@ -339,15 +339,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -396,15 +387,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -453,15 +435,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -510,15 +483,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -567,15 +531,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -624,15 +579,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -680,15 +626,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',
@@ -736,15 +673,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('iteration', models.PositiveIntegerField()),
-                (
-                    'trigger',
-                    models.CharField(
-                        choices=[('session', 'Session'), ('week', 'Week')],
-                        default='session',
-                        max_length=10,
-                        null=True,
-                    ),
-                ),
                 ('value', models.DecimalField(decimal_places=2, max_digits=6)),
                 (
                     'operation',

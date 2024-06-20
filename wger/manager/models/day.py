@@ -28,7 +28,7 @@ from wger.manager.dataclasses import SlotData
 
 
 class DayType(models.TextChoices):
-    NORMAL = 'normal'
+    CUSTOM = 'custom'
     EMOM = 'enom'
     AMRAP = 'amrap'
     HIIT = 'hiit'
@@ -60,7 +60,7 @@ class DayNg(models.Model):
     type = models.CharField(
         choices=DayType.choices,
         max_length=10,
-        default=DayType.NORMAL,
+        default=DayType.CUSTOM,
         null=False,
     )
 

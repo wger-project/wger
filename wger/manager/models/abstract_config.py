@@ -23,11 +23,6 @@ class OperationChoices(models.TextChoices):
     MINUS = '-'
 
 
-class TriggerChoices(models.TextChoices):
-    SESSION = 'session'
-    WEEK = 'week'
-
-
 class StepChoices(models.TextChoices):
     ABSOLUTE = 'abs'
     PERCENT = 'percent'
@@ -51,18 +46,7 @@ class AbstractChangeConfig(models.Model):
     iteration = models.PositiveIntegerField()
     """
     The iteration this takes effect on.
-
-    Note that what exactly an iteration is depends on the trigger type so
-    at the moment this can be session (so basically a day) or a week.
     """
-
-    trigger = models.CharField(
-        choices=TriggerChoices.choices,
-        max_length=10,
-        default=TriggerChoices.SESSION,
-        null=True,
-    )
-    """When the changes are calculated"""
 
     value = models.DecimalField(
         decimal_places=2,
