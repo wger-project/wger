@@ -62,6 +62,19 @@ class SetConfigData:
     slot_config_id: int | None = None
 
     @property
+    def rpe(self):
+        """Converts the RiR scale to RPE"""
+
+        if not self.rir:
+            return None
+
+        # If the RiR is too high, just approximate to 4
+        if self.rir > 5:
+            return 4
+
+        return 10 - self.rir
+
+    @property
     def text_repr(self) -> str:
         """
         Smart text representation of the set
