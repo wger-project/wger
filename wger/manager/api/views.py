@@ -99,7 +99,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         return Response(DayNgSerializer(self.get_object().day_sequence, many=True).data)
 
     @action(detail=True, url_path='date-sequence-display')
-    def date_sequence_display(self, request, pk):
+    def date_sequence_display_mode(self, request, pk):
         """
         Return the day sequence of the routine
         """
@@ -108,7 +108,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         )
 
     @action(detail=True, url_path='date-sequence-gym-mode')
-    def date_sequence(self, request, pk):
+    def date_sequence_gym_mode(self, request, pk):
         """
         Return the day sequence of the routine
         """
@@ -116,8 +116,15 @@ class RoutineViewSet(viewsets.ModelViewSet):
             WorkoutDayDataGymModeSerializer(self.get_object().date_sequence, many=True).data
         )
 
-    @action(detail=True, url_path='current-day')
-    def current_day(self, request, pk):
+    @action(detail=True, url_path='current-day-display-mode')
+    def current_day_display_mode(self, request, pk):
+        """
+        Return current day of the routine
+        """
+        return Response(WorkoutDayDataDisplayModeSerializer(self.get_object().current_day()).data)
+
+    @action(detail=True, url_path='current-day-gym-mode')
+    def current_day_gym_mode(self, request, pk):
         """
         Return current day of the routine
         """
