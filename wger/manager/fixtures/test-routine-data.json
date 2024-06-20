@@ -79,5 +79,246 @@
       "order": 2,
       "comment": "test comment 456"
     }
+  },
+  {
+    "pk": 3,
+    "model": "manager.slot",
+    "fields": {
+      "day": 1,
+      "order": 2,
+      "comment": "test comment 789"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.slotconfig",
+    "fields": {
+      "slot_id": 1,
+      "exercise_id": 1,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.slotconfig",
+    "fields": {
+      "slot_id": 1,
+      "exercise_id": 2,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.slotconfig",
+    "fields": {
+      "slot_id": 2,
+      "exercise_id": 3,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.slotconfig",
+    "fields": {
+      "slot_id": 3,
+      "exercise_id": 3,
+      "repetition_unit": 1,
+      "repetition_rounding": 1,
+      "weight_unit": 1,
+      "weight_rounding": 1.25,
+      "order": 1,
+      "comment": "",
+      "type": "normal",
+      "class_name": null
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_config_id": 1,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 5,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_config_id": 2,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 2,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_config_id": 3,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 5,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.setsconfig",
+    "fields": {
+      "slot_config_id": 4,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 3,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_config_id": 1,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 80,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_config_id": 2,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 20,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_config_id": 3,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 80,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.weightconfig",
+    "fields": {
+      "slot_config_id": 4,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 50,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 1,
+    "model": "manager.repsconfig",
+    "fields": {
+      "slot_config_id": 1,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 4,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 2,
+    "model": "manager.repsconfig",
+    "fields": {
+      "slot_config_id": 2,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 5,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 3,
+    "model": "manager.repsconfig",
+    "fields": {
+      "slot_config_id": 3,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 6,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
+  },
+  {
+    "pk": 4,
+    "model": "manager.repsconfig",
+    "fields": {
+      "slot_config_id": 4,
+      "iteration": 1,
+      "trigger": "session",
+      "value": 4,
+      "operation": null,
+      "step": null,
+      "replace": true,
+      "need_log_to_apply": false
+    }
   }
 ]

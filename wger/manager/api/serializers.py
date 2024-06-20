@@ -325,7 +325,7 @@ class SlotDataSerializer(serializers.Serializer):
     sets = SetConfigDataSerializer(many=True)
 
 
-class WorkoutDayDisplayDataSerializer(serializers.Serializer):
+class WorkoutDayDataDisplayModeSerializer(serializers.Serializer):
     """
     WorkoutDayData serializer - display mode
     """
@@ -334,19 +334,19 @@ class WorkoutDayDisplayDataSerializer(serializers.Serializer):
     date = serializers.DateField()
     label = serializers.CharField()
     day = DayNgSerializer()
-    slots = SlotDataSerializer(many=True, source='slots_display')
+    slots = SlotDataSerializer(many=True, source='slots_display_mode')
 
 
-class WorkoutDayDataSerializer(serializers.Serializer):
+class WorkoutDayDataGymModeSerializer(serializers.Serializer):
     """
-    WorkoutDayData serializer
+    WorkoutDayData serializer - gym mode
     """
 
     iteration = serializers.IntegerField()
     date = serializers.DateField()
     label = serializers.CharField()
     day = DayNgSerializer()
-    slots = SlotDataSerializer(many=True)
+    slots = SlotDataSerializer(many=True, source='slots_gym_mode')
 
 
 class WorkoutSerializer(serializers.ModelSerializer):

@@ -127,7 +127,7 @@ class DayNg(models.Model):
 
         return False
 
-    def get_slots(self, iteration: int) -> List[SlotData]:
+    def get_slots_gym_mode(self, iteration: int) -> List[SlotData]:
         """
         Return the sets for this day
         """
@@ -136,7 +136,7 @@ class DayNg(models.Model):
             for s in self.slots.all()
         ]
 
-    def get_slots_display(self, iteration: int) -> List[SlotData]:
+    def get_slots_display_mode(self, iteration: int) -> List[SlotData]:
         """
         Return the sets for this day.
 
@@ -168,9 +168,11 @@ class DayNg(models.Model):
                     )
                 )
                 current_slot = None
+            elif not slot.get_exercises():
+                continue
             else:
                 exercise_id = slot.get_exercises()[0]
-                if slot.get_exercises()[0] != last_exercise_id:
+                if exercise_id != last_exercise_id:
                     current_slot = SlotData(
                         comment=slot.comment,
                         exercises=[exercise_id],

@@ -150,17 +150,17 @@ class WorkoutDayData:
     label: str | None = None
 
     @property
-    def slots(self) -> List[SlotData]:
+    def slots_gym_mode(self) -> List[SlotData]:
         if not self.day:
             return []
 
-        return self.day.get_slots(self.iteration)
+        return self.day.get_slots_gym_mode(self.iteration)
 
     @property
-    def slots_display(self) -> List[SlotData]:
+    def slots_display_mode(self) -> List[SlotData]:
         """Returns the slots optimized for display in the template"""
 
         if not self.day:
             return []
 
-        return self.day.get_slots_display(self.iteration)
+        return self.day.get_slots_display_mode(self.iteration)

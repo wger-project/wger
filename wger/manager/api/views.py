@@ -37,8 +37,8 @@ from wger.manager.api.serializers import (
     ScheduleStepSerializer,
     SetSerializer,
     SettingSerializer,
-    WorkoutDayDataSerializer,
-    WorkoutDayDisplayDataSerializer,
+    WorkoutDayDataDisplayModeSerializer,
+    WorkoutDayDataGymModeSerializer,
     WorkoutLogSerializer,
     WorkoutSerializer,
     WorkoutSessionSerializer,
@@ -104,7 +104,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         Return the day sequence of the routine
         """
         return Response(
-            WorkoutDayDisplayDataSerializer(self.get_object().date_sequence, many=True).data
+            WorkoutDayDataDisplayModeSerializer(self.get_object().date_sequence, many=True).data
         )
 
     @action(detail=True, url_path='date-sequence-gym-mode')
@@ -112,14 +112,16 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        return Response(WorkoutDayDataSerializer(self.get_object().date_sequence, many=True).data)
+        return Response(
+            WorkoutDayDataGymModeSerializer(self.get_object().date_sequence, many=True).data
+        )
 
     @action(detail=True, url_path='current-day')
     def current_day(self, request, pk):
         """
         Return current day of the routine
         """
-        return Response(WorkoutDayDataSerializer(self.get_object().current_day()).data)
+        return Response(WorkoutDayDataGymModeSerializer(self.get_object().current_day()).data)
 
     @action(detail=True)
     def structure(self, request, pk):
