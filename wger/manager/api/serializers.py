@@ -31,7 +31,6 @@ from wger.manager.models import (
     ScheduleStep,
     Set,
     SetsConfig,
-    Setting,
     Slot,
     SlotConfig,
     WeightConfig,
@@ -441,24 +440,3 @@ class SetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Set
         fields = ['id', 'exerciseday', 'sets', 'order', 'comment']
-
-
-class SettingSerializer(serializers.ModelSerializer):
-    """
-    Workout setting serializer
-    """
-
-    class Meta:
-        model = Setting
-        fields = [
-            'id',
-            'set',
-            'exercise_base',
-            'repetition_unit',
-            'reps',
-            'weight',
-            'weight_unit',
-            'rir',
-            'order',
-            'comment',
-        ]

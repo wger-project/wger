@@ -42,10 +42,10 @@ class Command(BaseCommand):
         parser.add_argument(
             '--diary-entries',
             action='store',
-            default=30,
+            default=5,
             dest='nr_diary_entries',
             type=int,
-            help='The number of workout logs to create per day (default: 30)',
+            help='The number of workout logs to create per day (default: 5)',
         )
         parser.add_argument(
             '--user-id',
@@ -68,15 +68,15 @@ class Command(BaseCommand):
 
             # Create a log for each workout day, set, setting, reps, weight, date
             for routine in Routine.objects.filter(user=user):
-                for day in routine.day_set.all():
-                    for workout_set in day.set_set.all():
-                        for setting in workout_set.setting_set.all():
+                for day in routine.days.all():
+                    for slot in day.slots.all():
+                        for config in slot.configs.all():
                             for reps in (8, 10, 12):
                                 for i in range(options['nr_diary_entries']):
                                     date = datetime.date.today() - datetime.timedelta(weeks=i)
                                     log = WorkoutLog(
                                         user=user,
-                                        exercise=setting.exercise_base,
+                                        exercise=config.exercise,
                                         routine=routine,
                                         reps=reps,
                                         weight=50 - reps + random.randint(1, 10),

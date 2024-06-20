@@ -196,6 +196,21 @@ patterns_workout = [
     ),
 ]
 
+# sub patterns for workouts
+patterns_routine = [
+    path(
+        'overview',
+        ReactView.as_view(login_required=True),
+        name='overview',
+    ),
+    path(
+        '<int:pk>/view',
+        # ReactView.as_view(login_required=True),
+        workout.view,
+        name='view',
+    ),
+]
+
 # sub patterns for workout sessions
 patterns_session = [
     re_path(
@@ -373,6 +388,7 @@ patterns_step = [
 
 urlpatterns = [
     path('', include((patterns_workout, 'workout'), namespace='workout')),
+    path('routine/', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
     path('day/', include((patterns_day, 'day'), namespace='day')),

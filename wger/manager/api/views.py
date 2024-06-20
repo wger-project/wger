@@ -36,7 +36,6 @@ from wger.manager.api.serializers import (
     ScheduleSerializer,
     ScheduleStepSerializer,
     SetSerializer,
-    SettingSerializer,
     WorkoutDayDataDisplayModeSerializer,
     WorkoutDayDataGymModeSerializer,
     WorkoutLogSerializer,
@@ -407,53 +406,6 @@ class SetViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(Day, 'exerciseday')]
-
-    @action(detail=True)
-    def computed_settings(self, request, pk):
-        """Returns the synthetic settings for this set"""
-
-        out = SettingSerializer(self.get_object().compute_settings, many=True).data
-        return Response({'results': out})
-
-
-class SettingViewSet(WgerOwnerObjectModelViewSet):
-    """
-    API endpoint for repetition setting objects
-    """
-
-    serializer_class = SettingSerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'exercise_base',
-        'order',
-        'reps',
-        'weight',
-        'set',
-        'order',
-    )
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return Setting.objects.none()
-
-        return Setting.objects.filter(set__exerciseday__training__user=self.request.user)
-
-    def perform_create(self, serializer):
-        """
-        Set the order
-        """
-        serializer.save(order=1)
-
-    def get_owner_objects(self):
-        """
-        Return objects to check for ownership permission
-        """
-        return [(Set, 'set')]
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):

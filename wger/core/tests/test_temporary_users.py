@@ -29,10 +29,8 @@ from wger.core.demo import (
 )
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
-    Day,
-    Schedule,
-    ScheduleStep,
-    Workout,
+    DayNg,
+    Routine,
     WorkoutLog,
 )
 from wger.nutrition.models import (
@@ -84,24 +82,21 @@ class DemoUserTestCase(WgerTestCase):
         self.assertEqual(self.count_temp_users(), 2)
         user = User.objects.get(pk=User.objects.latest('id').id)
         self.assertEqual(user.userprofile.is_temporary, True)
-        self.assertEqual(Workout.objects.filter(user=user).count(), 0)
+        self.assertEqual(Routine.objects.filter(user=user).count(), 0)
 
         self.client.get(reverse('core:user:demo-entries'))
-        # Workout
-        self.assertEqual(Workout.objects.filter(user=user).count(), 4)
-        self.assertEqual(Day.objects.filter(training__user=user).count(), 2)
-        self.assertEqual(WorkoutLog.objects.filter(user=user).count(), 56)
 
-        # Schedule
-        self.assertEqual(Schedule.objects.filter(user=user).count(), 3)
-        self.assertEqual(ScheduleStep.objects.filter(schedule__user=user).count(), 6)
+        # Routine
+        self.assertEqual(Routine.objects.filter(user=user).count(), 4)
+        self.assertGreater(DayNg.objects.filter(routine__user=user).count(), 5)
+        self.assertGreater(WorkoutLog.objects.filter(user=user).count(), 400)
 
         # Nutrition
-        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 1)
-        self.assertEqual(Meal.objects.filter(plan__user=user).count(), 3)
+        self.assertEqual(NutritionPlan.objects.filter(user=user).count(), 5)
+        self.assertEqual(Meal.objects.filter(plan__user=user).count(), 20)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 40)
 
     def test_demo_data_body_weight(self):
         """
@@ -125,7 +120,7 @@ class DemoUserTestCase(WgerTestCase):
         create_demo_entries(user)
 
         # Body weight
-        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 19)
+        self.assertEqual(WeightEntry.objects.filter(user=user).count(), 40)
 
     def test_demo_user(self):
         """

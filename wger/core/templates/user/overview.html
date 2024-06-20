@@ -22,7 +22,7 @@
 
 {% if perms.gym.gym_trainer %}
 
-<h4>{% translate "Workouts" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
+<h4>{% translate "Routines" %} <small>({% blocktranslate with number=10 %}last {{ number }}{% endblocktranslate %})</small></h4>
 {% if perms.gym.gym_trainer %}
 <a href="{{trainer_login}}?next={% url 'manager:workout:overview' %}" class="btn btn-light btn-sm">{% translate "Overview" %}</a>
 <a href="{{trainer_login}}?next={% url 'manager:workout:add' %}" class="btn btn-light btn-sm">{% translate "Add workout" %}</a>
@@ -38,19 +38,19 @@
 </tr>
 </thead>
 <tbody>
-{% for workout in workouts %}
+{% for entry in routine_data %}
 <tr>
     <td>
-        {{workout.workout.creation_date}}
+        {{entry.routine.created}}
     </td>
     <td>
-        <a href="{{trainer_login}}?next={{ workout.workout.get_absolute_url }}">{{workout.workout}}</a>
+        <a href="{{trainer_login}}?next={{ entry.routine.get_absolute_url }}">{{entry.routine}}</a>
     </td>
     <td>
-        {{workout.logs|default:'-/-'}}
+        {{entry.logs|default:'-/-'}}
     </td>
     <td>
-        {{workout.last_log.date|default:'-/-'}}
+        {{entry.last_log.date|default:'-/-'}}
     </td>
 </tr>
 {% empty %}

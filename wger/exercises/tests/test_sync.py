@@ -38,7 +38,7 @@ from wger.exercises.sync import (
     sync_muscles,
 )
 from wger.manager.models import (
-    Setting,
+    SlotConfig,
     WorkoutLog,
 )
 from wger.utils.requests import wger_headers
@@ -278,14 +278,14 @@ class MockDeletionLogResponse:
                     "uuid": "acad3949-36fb-4481-9a72-be2ddae2bc05",
                     "replaced_by": "ae3328ba-9a35-4731-bc23-5da50720c5aa",
                     "timestamp": "2023-01-30T19:32:56.761426+01:00",
-                    "comment": "Exercise base with ID 1"
+                    "comment": "Exercise with ID 1"
                 },
                 {
                     "model_type": "base",
                     "uuid": "577ee012-70c6-4517-b0fe-dcf340926ae7",
                     "replaced_by": None,
                     "timestamp": "2023-01-30T19:32:56.761426+01:00",
-                    "comment": "Unknown Exercise base"
+                    "comment": "Unknown Exercise"
                 },
                 {
                     "model_type": "translation",
@@ -650,13 +650,13 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ExerciseBase.objects.count(), 8)
         self.assertEqual(Exercise.objects.count(), 11)
 
-        base = ExerciseBase.objects.get(pk=1)
-        base2 = ExerciseBase.objects.get(pk=3)
-        self.assertFalse(Setting.objects.filter(exercise_base=base2).count())
-        self.assertFalse(WorkoutLog.objects.filter(exercise_base=base2).count())
+        exercise1 = ExerciseBase.objects.get(pk=1)
+        exercise2 = ExerciseBase.objects.get(pk=4)
+        self.assertFalse(SlotConfig.objects.filter(exercise=exercise2).count())
+        self.assertFalse(WorkoutLog.objects.filter(exercise=exercise2).count())
 
-        settings = Setting.objects.filter(exercise_base=base)
-        logs = WorkoutLog.objects.filter(exercise_base=base)
+        slot_configs = SlotConfig.objects.filter(exercise=exercise1)
+        logs = WorkoutLog.objects.filter(exercise=exercise1)
 
         handle_deleted_entries(print)
 
@@ -670,17 +670,17 @@ class TestSyncMethods(WgerTestCase):
         self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
 
         # Workouts and logs have been moved
-        for setting_pk in settings:
-            self.assertEqual(Setting.objects.get(pk=setting_pk).exercise_base_id, 2)
-        for setting_pk in logs:
-            self.assertEqual(WorkoutLog.objects.get(pk=setting_pk).exercise_base_id, 2)
+        for pk in slot_configs:
+            self.assertEqual(SlotConfig.objects.get(pk=pk).exercise_id, 2)
+        for pk in logs:
+            self.assertEqual(WorkoutLog.objects.get(pk=pk).exercise_id, 2)
 
     @patch('requests.get', return_value=MockExerciseResponse())
     def test_exercise_sync(self, mock_request):
         self.assertEqual(ExerciseBase.objects.count(), 8)
         self.assertEqual(Exercise.objects.count(), 11)
-        base = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
-        self.assertEqual(base.category_id, 2)
+        exercise = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
+        self.assertEqual(exercise.category_id, 2)
 
         sync_exercises(lambda x: x)
 
@@ -691,14 +691,14 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(ExerciseBase.objects.count(), 9)
         self.assertEqual(Exercise.objects.count(), 14)
 
-        # New base was created
-        new_base = ExerciseBase.objects.get(uuid='1b020b3a-3732-4c7e-92fd-a0cec90ed69b')
-        self.assertEqual(new_base.category_id, 2)
-        self.assertEqual([e.id for e in new_base.equipment.all()], [2])
-        self.assertEqual([m.id for m in new_base.muscles.all()], [2])
-        self.assertEqual([m.id for m in new_base.muscles_secondary.all()], [4])
+        # New exercise was created
+        new_exercise = ExerciseBase.objects.get(uuid='1b020b3a-3732-4c7e-92fd-a0cec90ed69b')
+        self.assertEqual(new_exercise.category_id, 2)
+        self.assertEqual([e.id for e in new_exercise.equipment.all()], [2])
+        self.assertEqual([m.id for m in new_exercise.muscles.all()], [2])
+        self.assertEqual([m.id for m in new_exercise.muscles_secondary.all()], [4])
 
-        translation_de = new_base.get_translation('de')
+        translation_de = new_exercise.get_translation('de')
         self.assertEqual(translation_de.language_id, 1)
         self.assertEqual(translation_de.name, 'Zweihandiges Kettlebell')
         self.assertEqual(translation_de.description, 'Hier könnte Ihre Werbung stehen!')
@@ -708,16 +708,16 @@ class TestSyncMethods(WgerTestCase):
             'Wichtig die Übung richtig zu machen',
         )
 
-        translation_en = new_base.get_translation('en')
+        translation_en = new_exercise.get_translation('en')
         self.assertEqual(translation_en.language_id, 2)
         self.assertEqual(translation_en.name, '2 Handed Kettlebell Swing')
         self.assertEqual(translation_en.description, 'TBD')
 
-        # Existing base was updated
-        base = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
-        self.assertEqual(base.category_id, 3)
+        # Existing exercise was updated
+        exercise = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
+        self.assertEqual(exercise.category_id, 3)
 
-        translation_de = base.get_translation('de')
+        translation_de = exercise.get_translation('de')
         self.assertEqual(translation_de.name, 'A new, better, updated name')
         self.assertEqual(translation_de.pk, 2)
         self.assertEqual(translation_de.alias_set.count(), 2)
@@ -727,5 +727,5 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(translation_de.exercisecomment_set.count(), 1)
         self.assertEqual(translation_de.exercisecomment_set.first().comment, 'Foobar')
 
-        translation_fr = base.get_translation('fr')
+        translation_fr = exercise.get_translation('fr')
         self.assertEqual(str(translation_fr.uuid), '581338a1-8e52-405b-99eb-f0724c528bc8')
