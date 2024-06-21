@@ -20,7 +20,7 @@ from wger.core.tests.api_base_test import ApiBaseResourceTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import WorkoutDayData
 from wger.manager.models import (
-    DayNg,
+    Day,
     Label,
     WorkoutSession,
 )
@@ -33,9 +33,9 @@ class RoutineTestCase(WgerTestCase):
     """
 
     routine: Routine
-    day1: DayNg
-    day2: DayNg
-    day3: DayNg
+    day1: Day
+    day2: Day
+    day3: Day
 
     def setUp(self):
         super().setUp()
@@ -49,17 +49,17 @@ class RoutineTestCase(WgerTestCase):
         )
         self.routine.save()
 
-        self.day1 = DayNg(routine=self.routine, description='day 1')
+        self.day1 = Day(routine=self.routine, description='day 1')
         self.day1.save()
 
-        self.day2 = DayNg(
+        self.day2 = Day(
             routine=self.routine,
             description='day 2',
             is_rest=True,
         )
         self.day2.save()
 
-        self.day3 = DayNg(routine=self.routine, description='day 3')
+        self.day3 = Day(routine=self.routine, description='day 3')
         self.day3.save()
 
         self.day1.next_day = self.day2

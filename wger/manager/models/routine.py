@@ -51,10 +51,10 @@ class Routine(models.Model):
     )
 
     first_day = models.ForeignKey(
-        'DayNg',
+        'Day',
         on_delete=models.CASCADE,
         null=True,
-        related_name='day',
+        related_name='first_days',
     )
 
     name = models.CharField(

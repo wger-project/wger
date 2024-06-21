@@ -157,7 +157,7 @@ class SlotData:
 
 @dataclass
 class WorkoutDayData:
-    day: Any  # 'DayNg'
+    day: Any  # 'Day'
     date: datetime.date
     iteration: int | None
     label: str | None = None

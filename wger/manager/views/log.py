@@ -21,19 +21,13 @@ import uuid
 
 # Django
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import (
-    HttpResponseForbidden,
-)
+from django.http import HttpResponseForbidden
 from django.shortcuts import (
     get_object_or_404,
     render,
 )
-from django.urls import (
-    reverse,
-)
-from django.utils.translation import (
-    gettext_lazy,
-)
+from django.urls import reverse
+from django.utils.translation import gettext_lazy
 from django.views.generic import (
     DeleteView,
     DetailView,
@@ -41,9 +35,7 @@ from django.views.generic import (
 )
 
 # wger
-from wger.manager.forms import (
-    WorkoutLogForm,
-)
+from wger.manager.forms import WorkoutLogForm
 from wger.manager.helpers import WorkoutCalendar
 from wger.manager.models import (
     Schedule,
@@ -60,6 +52,7 @@ from wger.weight.helpers import (
     group_log_entries,
     process_log_entries,
 )
+
 
 logger = logging.getLogger(__name__)
 

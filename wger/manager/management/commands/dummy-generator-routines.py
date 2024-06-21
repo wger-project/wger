@@ -25,7 +25,7 @@ from django.core.management.base import BaseCommand
 # wger
 from wger.exercises.models import ExerciseBase
 from wger.manager.models import (
-    DayNg,
+    Day,
     RepsConfig,
     Routine,
     SetsConfig,
@@ -92,7 +92,7 @@ class Command(BaseCommand):
                 is_first_day = False
                 for _ in range(nr_of_days):
                     uid = str(uuid.uuid4()).split('-')
-                    day = DayNg(routine=routine, name=f'Dummy day - {uid[0]}')
+                    day = Day(routine=routine, name=f'Dummy day - {uid[0]}')
                     day.save()
                     if is_first_day:
                         routine.first_day = day

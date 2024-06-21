@@ -29,7 +29,7 @@ from rest_framework.response import Response
 # wger
 from wger.exercises.models import ExerciseBase
 from wger.manager.api.serializers import (
-    DayNgSerializer,
+    DaySerializer,
     RoutineSerializer,
     RoutineStructureSerializer,
     ScheduleSerializer,
@@ -90,7 +90,7 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return the day sequence of the routine
         """
-        return Response(DayNgSerializer(self.get_object().day_sequence, many=True).data)
+        return Response(DaySerializer(self.get_object().day_sequence, many=True).data)
 
     @action(detail=True, url_path='date-sequence-display')
     def date_sequence_display_mode(self, request, pk):

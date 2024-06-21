@@ -29,7 +29,7 @@ from wger.core.demo import (
 )
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.models import (
-    DayNg,
+    Day,
     Routine,
     WorkoutLog,
 )
@@ -88,7 +88,7 @@ class DemoUserTestCase(WgerTestCase):
 
         # Routine
         self.assertEqual(Routine.objects.filter(user=user).count(), 4)
-        self.assertGreater(DayNg.objects.filter(routine__user=user).count(), 5)
+        self.assertGreater(Day.objects.filter(routine__user=user).count(), 5)
         self.assertGreater(WorkoutLog.objects.filter(user=user).count(), 400)
 
         # Nutrition

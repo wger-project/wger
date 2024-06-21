@@ -37,7 +37,7 @@
   },
   {
     "pk": 1,
-    "model": "manager.dayng",
+    "model": "manager.day",
     "fields": {
       "routine": 1,
       "next_day": 2,
@@ -46,7 +46,7 @@
   },
   {
     "pk": 2,
-    "model": "manager.dayng",
+    "model": "manager.day",
     "fields": {
       "routine": 1,
       "next_day": 3,
@@ -55,7 +55,7 @@
   },
   {
     "pk": 3,
-    "model": "manager.dayng",
+    "model": "manager.day",
     "fields": {
       "routine": 1,
       "next_day": 1,

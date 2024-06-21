@@ -235,7 +235,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='day',
+                        related_name='first_days',
                         to='manager.dayng',
                     ),
                 ),

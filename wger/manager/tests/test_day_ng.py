@@ -15,7 +15,7 @@
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.manager.dataclasses import SetConfigData
-from wger.manager.models import DayNg
+from wger.manager.models import Day
 
 
 class DaySlotTestCase(WgerTestCase):
@@ -28,7 +28,7 @@ class DaySlotTestCase(WgerTestCase):
         Test that the correct slots are returned - gym mode
         """
 
-        day = DayNg.objects.get(pk=1)
+        day = Day.objects.get(pk=1)
         slots = day.get_slots_gym_mode(1)
         set_configs = slots[0].sets
 
@@ -66,7 +66,7 @@ class DaySlotTestCase(WgerTestCase):
         Test that the correct slots are returned - display mode
         """
 
-        day = DayNg.objects.get(pk=1)
+        day = Day.objects.get(pk=1)
         slots = day.get_slots_display_mode(1)
 
         slot1 = slots[0]

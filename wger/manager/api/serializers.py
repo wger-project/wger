@@ -21,7 +21,7 @@ from rest_framework import serializers
 # wger
 from wger.core.models import DaysOfWeek
 from wger.manager.models import (
-    DayNg,
+    Day,
     RepsConfig,
     RestConfig,
     RiRConfig,
@@ -56,13 +56,13 @@ class RoutineSerializer(serializers.ModelSerializer):
         )
 
 
-class DayNgSerializer(serializers.ModelSerializer):
+class DaySerializer(serializers.ModelSerializer):
     """
     Day serializer
     """
 
     class Meta:
-        model = DayNg
+        model = Day
         fields = (
             'id',
             'next_day',
@@ -226,7 +226,7 @@ class DayStructureSerializer(serializers.ModelSerializer):
     slots = SlotSerializer(many=True)
 
     class Meta:
-        model = DayNg
+        model = Day
         fields = (
             'id',
             'next_day',
@@ -326,7 +326,7 @@ class WorkoutDayDataDisplayModeSerializer(serializers.Serializer):
     iteration = serializers.IntegerField()
     date = serializers.DateField()
     label = serializers.CharField()
-    day = DayNgSerializer()
+    day = DaySerializer()
     slots = SlotDataSerializer(many=True, source='slots_display_mode')
 
 
@@ -338,7 +338,7 @@ class WorkoutDayDataGymModeSerializer(serializers.Serializer):
     iteration = serializers.IntegerField()
     date = serializers.DateField()
     label = serializers.CharField()
-    day = DayNgSerializer()
+    day = DaySerializer()
     slots = SlotDataSerializer(many=True, source='slots_gym_mode')
 
 

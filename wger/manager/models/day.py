@@ -38,7 +38,7 @@ class DayType(models.TextChoices):
     AFAP = 'afap'
 
 
-class DayNg(models.Model):
+class Day(models.Model):
     """
     Model for a training day
     """

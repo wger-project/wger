@@ -10,7 +10,7 @@ from wger.manager.dataclasses import (
     SetConfigData,
     SetExerciseData,
 )
-from wger.manager.models import DayNg
+from wger.manager.models import Day
 
 
 class Slot(models.Model):
@@ -22,7 +22,7 @@ class Slot(models.Model):
     MAX_SETS = 10
 
     day = models.ForeignKey(
-        DayNg,
+        Day,
         verbose_name=_('Exercise day'),
         on_delete=models.CASCADE,
         related_name='slots',

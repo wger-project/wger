@@ -34,4 +34,8 @@ class Migration(migrations.Migration):
         # migrations.DeleteModel(
         #     name='Workout',
         # ),
+        migrations.RenameModel(
+            old_name='DayNg',
+            new_name='Day',
+        ),
     ]
