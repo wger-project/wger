@@ -85,3 +85,13 @@ class AbstractChangeConfig(models.Model):
     Only apply the change if the user logged the last weight, otherwise
     apply the rules anyway
     """
+
+    def save(self, **kwargs):
+        # Override values for the first iteration. While these would be ignored
+        # in the calculations anyway, this is cleaner
+        if self.iteration == 1:
+            self.replace = True
+            self.need_log_to_apply = False
+            self.step = None
+            self.operation = None
+        super().save(**kwargs)

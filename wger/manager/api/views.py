@@ -115,14 +115,34 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         Return current day of the routine
         """
-        return Response(WorkoutDayDataDisplayModeSerializer(self.get_object().current_day()).data)
+        return Response(WorkoutDayDataDisplayModeSerializer(self.get_object().data_for_day()).data)
 
     @action(detail=True, url_path='current-day-gym-mode')
     def current_day_gym_mode(self, request, pk):
         """
         Return current day of the routine
         """
-        return Response(WorkoutDayDataGymModeSerializer(self.get_object().current_day()).data)
+        return Response(WorkoutDayDataGymModeSerializer(self.get_object().data_for_day()).data)
+
+    @action(detail=True, url_path='current-iteration-display-mode')
+    def current_iteration_display_mode(self, request, pk):
+        """
+        Return current day of the routine
+        """
+        return Response(
+            WorkoutDayDataDisplayModeSerializer(
+                self.get_object().data_for_iteration(),
+                many=True).data
+        )
+
+    @action(detail=True, url_path='current-iteration-gym-mode')
+    def current_iteration_gym_mode(self, request, pk):
+        """
+        Return current day of the routine
+        """
+        return Response(
+            WorkoutDayDataGymModeSerializer(self.get_object().data_for_iteration(), many=True).data
+        )
 
     @action(detail=True)
     def structure(self, request, pk):

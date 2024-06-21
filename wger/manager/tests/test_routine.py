@@ -234,7 +234,7 @@ class RoutineTestCase(WgerTestCase):
         Test that the correct active day is returned
         """
         self.assertEqual(
-            self.routine.current_day(datetime.date(2024, 1, 7)),
+            self.routine.data_for_day(datetime.date(2024, 1, 7)),
             WorkoutDayData(day=self.day1, iteration=3, date=datetime.date(2024, 1, 7)),
         )
 

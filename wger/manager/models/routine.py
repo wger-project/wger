@@ -216,7 +216,7 @@ class Routine(models.Model):
 
         return out
 
-    def current_day(self, date=None) -> WorkoutDayData | None:
+    def data_for_day(self, date=None) -> WorkoutDayData | None:
         """
         Return the WorkoutDayData for the specified day. If no date is given, return
         the results for "today"
@@ -229,3 +229,27 @@ class Routine(models.Model):
                 return data
 
         return None
+
+    def data_for_iteration(self, iteration: int | None = None) -> List[WorkoutDayData]:
+        """
+        Return the WorkoutDayData entries for the specified iteration. If no iteration
+        is given, return the results for the one for "today". If none could be found,
+        return the data for the first one
+        """
+
+        if iteration is None:
+            for data in self.date_sequence:
+                if data.date == datetime.date.today():
+                    iteration = data.iteration
+                    break
+
+        if iteration is None:
+            iteration = 1
+
+        out = []
+
+        for data in self.date_sequence:
+            if data.iteration == iteration:
+                out.append(data)
+
+        return out
