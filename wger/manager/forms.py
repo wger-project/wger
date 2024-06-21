@@ -49,22 +49,12 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import (
-    Exercise,
-    ExerciseBase,
-)
+from wger.exercises.models import ExerciseBase
 from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models import (
-    Day,
-    Set,
-    Setting,
     Workout,
     WorkoutLog,
     WorkoutSession,
-)
-from wger.utils.widgets import (
-    ExerciseAjaxSelect,
-    TranslatedSelectMultiple,
 )
 
 
@@ -99,21 +89,6 @@ class WorkoutCopyForm(Form):
     )
 
 
-class DayForm(ModelForm):
-    class Meta:
-        model = Day
-        exclude = ('training',)
-        widgets = {'day': TranslatedSelectMultiple()}
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'description',
-            'day',
-        )
-
-
 class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
     """Ordered multiple choice field"""
 
@@ -121,36 +96,6 @@ class OrderedModelMultipleChoiceField(ModelMultipleChoiceField):
         int_list = [int(i) for i in value]
         qs = super(OrderedModelMultipleChoiceField, self).clean(int_list)
         return sorted(qs, key=lambda x: int_list.index(x.pk))
-
-
-class SetForm(ModelForm):
-    exercises = OrderedModelMultipleChoiceField(
-        queryset=ExerciseBase.objects.all(),
-        label=_('Exercises'),
-        required=False,
-        widget=ExerciseAjaxSelect,
-        help_text=_(
-            'You can search for more than one '
-            'exercise, they will be grouped '
-            'together for a superset.'
-        ),
-    )
-
-    english_results = BooleanField(
-        label=gettext_lazy('Also search for names in English'),
-        initial=True,
-        required=False,
-    )
-
-    class Meta:
-        model = Set
-        exclude = ('order', 'exerciseday')
-
-
-class SettingForm(ModelForm):
-    class Meta:
-        model = Setting
-        exclude = ('set', 'exercise', 'order', 'name')
 
 
 class WorkoutLogForm(ModelForm):

@@ -23,15 +23,15 @@ class Migration(migrations.Migration):
             new_name='exercise',
         ),
         migrations.DeleteModel(
-            name='Workout',
-        ),
-        migrations.DeleteModel(
-            name='Day',
-        ),
-        migrations.DeleteModel(
             name='Setting',
         ),
         migrations.DeleteModel(
             name='Set',
         ),
+        migrations.DeleteModel(
+            name='Day',
+        ),
+        # migrations.DeleteModel(
+        #     name='Workout',
+        # ),
     ]

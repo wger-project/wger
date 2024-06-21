@@ -27,7 +27,6 @@ from django.utils.translation import (
 )
 
 # wger
-from wger.manager.models import Day
 from wger.utils.constants import (
     PAGINATION_MAX_TOTAL_PAGES,
     PAGINATION_PAGES_AROUND_CURRENT,
@@ -48,18 +47,6 @@ def get_current_settings(exercise, set_id):
     set
     """
     return exercise.exercise_base.setting_set.filter(set_id=set_id)
-
-
-@register.inclusion_tag('tags/render_day.html')
-def render_day(day: Day, editable=True):
-    """
-    Renders a day as it will be displayed in the workout overview
-    """
-    return {
-        'day': day,
-        'workout': day.training,
-        'editable': editable,
-    }
 
 
 @register.inclusion_tag('tags/pagination.html')

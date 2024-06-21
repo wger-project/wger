@@ -16,10 +16,7 @@
 
 # Local
 from .abstract_config import AbstractChangeConfig
-from .day import (
-    Day,
-    DayNg,
-)
+from .day import DayNg
 from .label import Label
 from .log import WorkoutLog
 from .reps_config import (
@@ -35,9 +32,7 @@ from .routine import Routine
 from .schedule import Schedule
 from .schedule_step import ScheduleStep
 from .session import WorkoutSession
-from .set import Set
 from .sets_config import SetsConfig
-from .setting import Setting
 from .slot import Slot
 from .slot_config import SlotConfig
 from .weight_config import (

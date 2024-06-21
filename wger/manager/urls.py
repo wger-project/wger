@@ -26,13 +26,11 @@ from django.urls import (
 # wger
 from wger.core.views.react import ReactView
 from wger.manager.views import (
-    day,
     ical,
     log,
     pdf,
     schedule,
     schedule_step,
-    set,
     workout,
     workout_session,
 )
@@ -230,59 +228,6 @@ patterns_session = [
     ),
 ]
 
-# sub patterns for workout days
-patterns_day = [
-    path(
-        '<int:pk>/edit',
-        login_required(day.DayEditView.as_view()),
-        name='edit',
-    ),
-    path(
-        '<int:workout_pk>/add',
-        login_required(day.DayCreateView.as_view()),
-        name='add',
-    ),
-    path(
-        '<int:pk>/delete',
-        day.delete,
-        name='delete',
-    ),
-    path(
-        '<int:id>/view',
-        day.view,
-        name='view',
-    ),
-    path(
-        '<int:pk>/log/add',
-        log.add,
-        name='log',
-    ),
-]
-
-# sub patterns for workout sets
-patterns_set = [
-    path(
-        '<int:day_pk>/add',
-        set.create,
-        name='add',
-    ),
-    path(
-        'get-formset/<int:base_pk>/<int:reps>',
-        set.get_formset,
-        name='get-formset',
-    ),  # Used by JS
-    path(
-        '<int:pk>/delete',
-        set.delete,
-        name='delete',
-    ),
-    path(
-        '<int:pk>/edit',
-        set.edit,
-        name='edit',
-    ),
-]
-
 # sub patterns for schedules
 patterns_schedule = [
     path(
@@ -391,8 +336,6 @@ urlpatterns = [
     path('routine/', include((patterns_routine, 'routine'), namespace='routine')),
     path('template/', include((patterns_templates, 'template'), namespace='template')),
     path('log/', include((patterns_log, 'log'), namespace='log')),
-    path('day/', include((patterns_day, 'day'), namespace='day')),
-    path('set/', include((patterns_set, 'set'), namespace='set')),
     path('session/', include((patterns_session, 'session'), namespace='session')),
     path('schedule/', include((patterns_schedule, 'schedule'), namespace='schedule')),
     path('schedule/step/', include((patterns_step, 'step'), namespace='step')),

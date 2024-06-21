@@ -30,12 +30,10 @@ from rest_framework.response import Response
 from wger.exercises.models import ExerciseBase
 from wger.manager.api.serializers import (
     DayNgSerializer,
-    DaySerializer,
     RoutineSerializer,
     RoutineStructureSerializer,
     ScheduleSerializer,
     ScheduleStepSerializer,
-    SetSerializer,
     WorkoutDayDataDisplayModeSerializer,
     WorkoutDayDataGymModeSerializer,
     WorkoutLogSerializer,
@@ -44,12 +42,9 @@ from wger.manager.api.serializers import (
     WorkoutTemplateSerializer,
 )
 from wger.manager.models import (
-    Day,
     Routine,
     Schedule,
     ScheduleStep,
-    Set,
-    Setting,
     Workout,
     WorkoutLog,
     WorkoutSession,
@@ -344,68 +339,6 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         Set the owner
         """
         serializer.save(user=self.request.user)
-
-
-class DayViewSet(WgerOwnerObjectModelViewSet):
-    """
-    API endpoint for routine day objects
-    """
-
-    serializer_class = DaySerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'description',
-        'training',
-        'day',
-    )
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return Day.objects.none()
-
-        return Day.objects.filter(training__user=self.request.user)
-
-    def get_owner_objects(self):
-        """
-        Return objects to check for ownership permission
-        """
-        return [(Workout, 'training')]
-
-
-class SetViewSet(WgerOwnerObjectModelViewSet):
-    """
-    API endpoint for workout set objects
-    """
-
-    serializer_class = SetSerializer
-    is_private = True
-    ordering_fields = '__all__'
-    filterset_fields = (
-        'exerciseday',
-        'order',
-        'sets',
-    )
-
-    def get_queryset(self):
-        """
-        Only allow access to appropriate objects
-        """
-        # REST API generation
-        if getattr(self, 'swagger_fake_view', False):
-            return Set.objects.none()
-
-        return Set.objects.filter(exerciseday__training__user=self.request.user)
-
-    def get_owner_objects(self):
-        """
-        Return objects to check for ownership permission
-        """
-        return [(Day, 'exerciseday')]
 
 
 class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
