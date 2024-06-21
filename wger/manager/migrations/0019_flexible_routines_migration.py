@@ -50,28 +50,32 @@ def migrate_routines(apps) -> dict[int, Any]:
         # To simulate a hard coded week, we will create exactly seven day entries (since
         # we know the routine starts on a monday).
         for i in range(1, 8):
-            day_ng = DayNg(routine=routine, next_day=day_dict.get(i, None), is_rest=True)
-            day_dict[i] = day_ng
+            current_day = DayNg(routine=routine, next_day=None, is_rest=True)
+            current_day.save()
+            day_dict[i] = current_day
+
+        for i in range(1, 8):
+            current_day = day_dict[i]
 
             if i == 7:
-                day_ng.next_day = day_dict[1]
-            elif i != 1:
-                day_dict[i - 1].next_day = day_dict[i]
+                current_day.next_day = day_dict[1]
+            else:
+                current_day.next_day = day_dict[i + 1]
+            current_day.save()
 
             day = workout.day_set.filter(day__id=i).first()
-            day_ng.save()
             if day:
-                day_ng.description = day.description
-                day_ng.is_rest = False
-                day_ng.need_logs_to_advance = False
-                day_ng.save()
+                current_day.description = day.description
+                current_day.is_rest = False
+                current_day.need_logs_to_advance = False
+                current_day.save()
 
                 # Set the exercises and repetitions
                 # TODO: properly handle number of sets
-                for set in day.set_set.all():
-                    slot = Slot(day=day_ng, comment=set.comment, order=set.order)
+                for set_obj in day.set_set.all():
+                    slot = Slot(day=current_day, comment=set_obj.comment, order=set_obj.order)
                     slot.save()
-                    for setting in set.setting_set.all():
+                    for setting in set_obj.setting_set.all():
                         slot_config = SlotConfig(
                             slot=slot,
                             exercise=setting.exercise_base,

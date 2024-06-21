@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                             ('rft', 'Rft'),
                             ('afap', 'Afap'),
                         ],
-                        default='normal',
+                        default='custom',
                         max_length=10,
                     ),
                 ),
