@@ -52,7 +52,6 @@ from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
 
-
 #
 # REST API
 #
@@ -63,7 +62,6 @@ router = routers.DefaultRouter()
 #
 
 # Manager app
-router.register(r'day', manager_api_views.DayViewSet, basename='day')
 router.register(r'workout', manager_api_views.WorkoutViewSet, basename='workout')
 router.register(r'routine', manager_api_views.RoutineViewSet, basename='routine')
 router.register(r'templates', manager_api_views.UserWorkoutTemplateViewSet, basename='templates')

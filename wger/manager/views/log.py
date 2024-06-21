@@ -21,10 +21,8 @@ import uuid
 
 # Django
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms.models import modelformset_factory
 from django.http import (
     HttpResponseForbidden,
-    HttpResponseRedirect,
 )
 from django.shortcuts import (
     get_object_or_404,
@@ -32,10 +30,8 @@ from django.shortcuts import (
 )
 from django.urls import (
     reverse,
-    reverse_lazy,
 )
 from django.utils.translation import (
-    gettext as _,
     gettext_lazy,
 )
 from django.views.generic import (
@@ -45,18 +41,11 @@ from django.views.generic import (
 )
 
 # wger
-from wger.core.models import (
-    RepetitionUnit,
-    WeightUnit,
-)
 from wger.manager.forms import (
-    HelperWorkoutSessionForm,
     WorkoutLogForm,
-    WorkoutLogFormHelper,
 )
 from wger.manager.helpers import WorkoutCalendar
 from wger.manager.models import (
-    Day,
     Schedule,
     Workout,
     WorkoutLog,
@@ -71,7 +60,6 @@ from wger.weight.helpers import (
     group_log_entries,
     process_log_entries,
 )
-
 
 logger = logging.getLogger(__name__)
 
