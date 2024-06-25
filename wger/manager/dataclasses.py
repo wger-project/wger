@@ -101,14 +101,18 @@ class SetConfigData:
                 reps = f'{reps}-{max_reps}'
 
             unit = ''
-            if self.reps_unit not in (1, 2):
-                unit = _(RepetitionUnit.objects.get(pk=self.reps_unit).name)
+            if self.reps_unit in (1, 2) and not self.weight:
+                unit = _('Reps')
             elif self.reps_unit == 2:
                 unit = '∞'
                 reps = ''
+            elif self.reps_unit not in (1, 2):
+                unit = _(RepetitionUnit.objects.get(pk=self.reps_unit).name)
 
             out.append(f'{reps} {unit}'.strip())
-            out.append('×')
+
+            if self.weight:
+                out.append('×')
 
         if self.weight:
             weight = round_value(self.weight, self.weight_rounding)

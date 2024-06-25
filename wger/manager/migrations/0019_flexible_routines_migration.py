@@ -21,6 +21,7 @@ def migrate_routines(apps) -> dict[int, Any]:
     DayNg = apps.get_model('manager', 'DayNg')
     Slot = apps.get_model('manager', 'Slot')
     SlotConfig = apps.get_model('manager', 'SlotConfig')
+    SetsConfig = apps.get_model('manager', 'SetsConfig')
     WeightConfig = apps.get_model('manager', 'WeightConfig')
     RepsConfig = apps.get_model('manager', 'RepsConfig')
     RiRConfig = apps.get_model('manager', 'RiRConfig')
@@ -32,7 +33,7 @@ def migrate_routines(apps) -> dict[int, Any]:
         next_monday = workout.creation_date + timedelta(days=7 - workout.creation_date.weekday())
 
         routine = Routine(
-            name=workout.name,
+            name=workout.name[:50],
             description=workout.description,
             user=workout.user,
             created=workout.creation_date,
@@ -65,13 +66,13 @@ def migrate_routines(apps) -> dict[int, Any]:
 
             day = workout.day_set.filter(day__id=i).first()
             if day:
-                current_day.description = day.description
+                current_day.name = day.description if len(day.description) <= 50 else f'Day {i}'
+                current_day.description = day.description if len(day.description) > 50 else ''
                 current_day.is_rest = False
                 current_day.need_logs_to_advance = False
                 current_day.save()
 
                 # Set the exercises and repetitions
-                # TODO: properly handle number of sets
                 for set_obj in day.set_set.all():
                     slot = Slot(day=current_day, comment=set_obj.comment, order=set_obj.order)
                     slot.save()
@@ -113,6 +114,13 @@ def migrate_routines(apps) -> dict[int, Any]:
                         RestConfig(
                             slot_config=slot_config,
                             value=120,
+                            iteration=1,
+                            replace=True,
+                        ).save()
+
+                        SetsConfig(
+                            slot_config=slot_config,
+                            value=set_obj.sets,
                             iteration=1,
                             replace=True,
                         ).save()

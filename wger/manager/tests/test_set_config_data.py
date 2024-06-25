@@ -56,7 +56,7 @@ class SetConfigDataTestCase(WgerTestCase):
 
     def test_text_repr_no_weight(self):
         self.config.weight = None
-        self.assertEqual(self.config.text_repr, '4 × @ 3 RiR')
+        self.assertEqual(self.config.text_repr, '4 Reps @ 3 RiR')
 
     def test_text_repr_sets(self):
         self.config.sets = 3
@@ -71,6 +71,12 @@ class SetConfigDataTestCase(WgerTestCase):
         self.config.reps = 90
         self.config.reps_unit = 3
         self.assertEqual(self.config.text_repr, '90 Seconds × 20 kg @ 3 RiR')
+
+    def test_text_repr_reps_unit_no_weight(self):
+        self.config.reps = 90
+        self.config.reps_unit = 3
+        self.config.weight = None
+        self.assertEqual(self.config.text_repr, '90 Seconds @ 3 RiR')
 
     def test_text_repr_reps_rounding(self):
         self.config.reps = 4.72

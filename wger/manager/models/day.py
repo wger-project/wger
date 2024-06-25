@@ -66,11 +66,11 @@ class Day(models.Model):
 
     name = models.CharField(
         max_length=20,
-        verbose_name=_('Description'),
+        verbose_name=_('Name'),
     )
 
     description = models.CharField(
-        max_length=250,
+        max_length=1000,
         verbose_name=_('Description'),
     )
 
