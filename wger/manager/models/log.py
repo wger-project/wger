@@ -71,6 +71,7 @@ class WorkoutLog(models.Model):
         verbose_name=_('Session'),
         on_delete=models.CASCADE,
         null=True,
+        related_name='logs',
     )
     """
     The session this log belongs to.

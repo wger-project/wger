@@ -367,16 +367,11 @@ class WorkoutSessionSerializer(serializers.ModelSerializer):
     Workout session serializer
     """
 
-    user = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
-    )
-
     class Meta:
         model = WorkoutSession
         fields = [
             'id',
-            'user',
-            'workout',
+            'routine',
             'date',
             'notes',
             'impression',
@@ -393,6 +388,15 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkoutLog
         exclude = ('user',)
+
+
+class LogDataSerializer(serializers.Serializer):
+    """
+    Log Data serializer
+    """
+
+    session = WorkoutSessionSerializer()
+    logs = WorkoutLogSerializer(many=True)
 
 
 class ScheduleStepSerializer(serializers.ModelSerializer):

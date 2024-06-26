@@ -253,3 +253,18 @@ class Routine(models.Model):
                 out.append(data)
 
         return out
+
+    def logs_display(self, date: datetime.date = None):
+        """
+        Returns all the logs for this routine, grouped by the session
+        """
+        out = []
+
+        qs = self.workoutsession_set.all()
+        if date:
+            qs = qs.filter(date=date)
+
+        for session in qs:
+            out.append({'session': session, 'logs': session.logs.all()})
+
+        return out

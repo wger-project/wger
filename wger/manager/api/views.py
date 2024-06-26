@@ -17,6 +17,7 @@
 
 # Standard Library
 import json
+from datetime import datetime
 
 # Django
 from django.shortcuts import get_object_or_404
@@ -30,6 +31,7 @@ from rest_framework.response import Response
 from wger.exercises.models import ExerciseBase
 from wger.manager.api.serializers import (
     DaySerializer,
+    LogDataSerializer,
     RoutineSerializer,
     RoutineStructureSerializer,
     ScheduleSerializer,
@@ -131,8 +133,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         return Response(
             WorkoutDayDataDisplayModeSerializer(
-                self.get_object().data_for_iteration(),
-                many=True).data
+                self.get_object().data_for_iteration(), many=True
+            ).data
         )
 
     @action(detail=True, url_path='current-iteration-gym-mode')
@@ -150,6 +152,20 @@ class RoutineViewSet(viewsets.ModelViewSet):
         Return full object structure of the routine.
         """
         return Response(RoutineStructureSerializer(self.get_object()).data)
+
+    @action(detail=True, url_path='logs')
+    def logs(self, request, pk):
+        """
+        Returns the logs for the routine
+        """
+        date = request.GET.get('date')
+        if date:
+            try:
+                date = datetime.strptime(date, '%Y-%m-%d')
+            except ValueError:
+                pass
+
+        return Response(LogDataSerializer(self.get_object().logs_display(date), many=True).data)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):
@@ -266,7 +282,7 @@ class WorkoutSessionViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'date',
-        'workout',
+        'routine',
         'notes',
         'impression',
         'time_start',
@@ -371,10 +387,10 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = (
         'date',
-        'exercise_base',
+        'exercise',
         'reps',
         'weight',
-        'workout',
+        'routine',
         'repetition_unit',
         'weight_unit',
     )
