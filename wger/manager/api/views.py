@@ -29,13 +29,22 @@ from rest_framework.response import Response
 
 # wger
 from wger.exercises.models import ExerciseBase
+from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.api.serializers import (
     DaySerializer,
     LogDataSerializer,
+    MaxRepsConfigSerializer,
+    MaxRestConfigSerializer,
+    MaxWeightConfigSerializer,
+    RepsConfigSerializer,
+    RestConfigSerializer,
+    RiRConfigSerializer,
     RoutineSerializer,
     RoutineStructureSerializer,
     ScheduleSerializer,
     ScheduleStepSerializer,
+    SetNrConfigSerializer,
+    WeightConfigSerializer,
     WorkoutDayDataDisplayModeSerializer,
     WorkoutDayDataGymModeSerializer,
     WorkoutLogSerializer,
@@ -44,9 +53,18 @@ from wger.manager.api.serializers import (
     WorkoutTemplateSerializer,
 )
 from wger.manager.models import (
+    MaxRepsConfig,
+    MaxRestConfig,
+    MaxWeightConfig,
+    RepsConfig,
+    RestConfig,
+    RiRConfig,
     Routine,
     Schedule,
     ScheduleStep,
+    SetsConfig,
+    SlotConfig,
+    WeightConfig,
     Workout,
     WorkoutLog,
     WorkoutSession,
@@ -416,3 +434,165 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(Workout, 'workout')]
+
+
+class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
+    """
+    API endpoint for weight config objects
+    """
+
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = CONFIG_FIELDS
+
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(SlotConfig, 'slot_config')]
+
+
+class WeightConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for weight config objects
+    """
+
+    serializer_class = WeightConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return WeightConfig.objects.none()
+
+        return WeightConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+
+
+class MaxWeightConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for max weight config objects
+    """
+
+    serializer_class = MaxWeightConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return MaxWeightConfig.objects.none()
+
+        return MaxWeightConfig.objects.filter(
+            slot_config__slot__day__routine__user=self.request.user
+        )
+
+
+class RepsConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for reps config objects
+    """
+
+    serializer_class = RepsConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return RepsConfig.objects.none()
+
+        return RepsConfig.objects.all()
+
+
+class MaxRepsConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for max reps config objects
+    """
+
+    serializer_class = MaxRepsConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return MaxRepsConfig.objects.none()
+
+        return MaxRepsConfig.objects.all()
+
+
+class SetsConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for set config objects
+    """
+
+    serializer_class = SetNrConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return SetsConfig.objects.none()
+
+        return SetsConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+
+
+class RestConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for set config objects
+    """
+
+    serializer_class = RestConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return RestConfig.objects.none()
+
+        return RestConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+
+
+class MaxRestConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for max rest config objects
+    """
+
+    serializer_class = MaxRestConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return MaxRestConfig.objects.none()
+
+        return MaxRestConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)
+
+
+class RiRConfigViewSet(AbstractConfigViewSet):
+    """
+    API endpoint for set config objects
+    """
+
+    serializer_class = RiRConfigSerializer
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return RiRConfig.objects.none()
+
+        return RiRConfig.objects.filter(slot_config__slot__day__routine__user=self.request.user)

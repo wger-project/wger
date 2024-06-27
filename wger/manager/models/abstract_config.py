@@ -95,3 +95,9 @@ class AbstractChangeConfig(models.Model):
             self.step = None
             self.operation = None
         super().save(**kwargs)
+
+    def get_owner_object(self):
+        """
+        Config has no owner information
+        """
+        return self.slot_config.slot.day.routine

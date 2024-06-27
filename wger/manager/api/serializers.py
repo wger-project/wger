@@ -19,9 +19,12 @@
 from rest_framework import serializers
 
 # wger
-from wger.core.models import DaysOfWeek
+from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.models import (
     Day,
+    MaxRepsConfig,
+    MaxRestConfig,
+    MaxWeightConfig,
     RepsConfig,
     RestConfig,
     RiRConfig,
@@ -82,16 +85,17 @@ class WeightConfigSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeightConfig
-        fields = (
-            'id',
-            'slot_config',
-            'iteration',
-            'value',
-            'operation',
-            'step',
-            'replace',
-            'need_log_to_apply',
-        )
+        fields = CONFIG_FIELDS
+
+
+class MaxWeightConfigSerializer(serializers.ModelSerializer):
+    """
+    Max Weight Config serializer
+    """
+
+    class Meta:
+        model = MaxWeightConfig
+        fields = CONFIG_FIELDS
 
 
 class RepsConfigSerializer(serializers.ModelSerializer):
@@ -101,16 +105,17 @@ class RepsConfigSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RepsConfig
-        fields = (
-            'id',
-            'slot_config',
-            'iteration',
-            'value',
-            'operation',
-            'step',
-            'replace',
-            'need_log_to_apply',
-        )
+        fields = CONFIG_FIELDS
+
+
+class MaxRepsConfigSerializer(serializers.ModelSerializer):
+    """
+    Max Repetition Config serializer
+    """
+
+    class Meta:
+        model = MaxRepsConfig
+        fields = CONFIG_FIELDS
 
 
 class SetNrConfigSerializer(serializers.ModelSerializer):
@@ -120,15 +125,7 @@ class SetNrConfigSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SetsConfig
-        fields = (
-            'id',
-            'slot_config',
-            'iteration',
-            'value',
-            'operation',
-            'step',
-            'replace',
-        )
+        fields = CONFIG_FIELDS
 
 
 class RiRConfigSerializer(serializers.ModelSerializer):
@@ -138,15 +135,7 @@ class RiRConfigSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RiRConfig
-        fields = (
-            'id',
-            'slot_config',
-            'iteration',
-            'value',
-            'operation',
-            'step',
-            'replace',
-        )
+        fields = CONFIG_FIELDS
 
 
 class RestConfigSerializer(serializers.ModelSerializer):
@@ -156,15 +145,17 @@ class RestConfigSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RestConfig
-        fields = (
-            'id',
-            'slot_config',
-            'iteration',
-            'value',
-            'operation',
-            'step',
-            'replace',
-        )
+        fields = CONFIG_FIELDS
+
+
+class MaxRestConfigSerializer(serializers.ModelSerializer):
+    """
+    Rest Config serializer
+    """
+
+    class Meta:
+        model = MaxRestConfig
+        fields = CONFIG_FIELDS
 
 
 class SlotConfigSerializer(serializers.ModelSerializer):
@@ -173,10 +164,13 @@ class SlotConfigSerializer(serializers.ModelSerializer):
     """
 
     weight_configs = WeightConfigSerializer(source='weightconfig_set', many=True)
+    max_weight_configs = WeightConfigSerializer(source='maxweightconfig_set', many=True)
     reps_configs = RepsConfigSerializer(source='repsconfig_set', many=True)
+    max_reps_configs = RepsConfigSerializer(source='maxrepsconfig_set', many=True)
     set_nr_configs = SetNrConfigSerializer(source='setsconfig_set', many=True)
     rir_configs = RiRConfigSerializer(source='rirconfig_set', many=True)
     rest_configs = RestConfigSerializer(source='restconfig_set', many=True)
+    max_rest_configs = RestConfigSerializer(source='maxrestconfig_set', many=True)
 
     class Meta:
         model = SlotConfig
@@ -184,19 +178,22 @@ class SlotConfigSerializer(serializers.ModelSerializer):
             'id',
             'slot',
             'exercise',
-            'repetition_unit',
-            'repetition_rounding',
-            'weight_unit',
-            'weight_rounding',
             'order',
             'comment',
             'type',
             'class_name',
-            'weight_configs',
+            'repetition_unit',
+            'repetition_rounding',
             'reps_configs',
+            'max_reps_configs',
+            'weight_unit',
+            'weight_rounding',
+            'weight_configs',
+            'max_weight_configs',
             'set_nr_configs',
             'rir_configs',
             'rest_configs',
+            'max_rest_configs',
         )
 
 

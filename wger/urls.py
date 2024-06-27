@@ -72,9 +72,31 @@ router.register(
     basename='public-templates',
 )
 router.register(
-    r'workoutsession', manager_api_views.WorkoutSessionViewSet, basename='workoutsession'
+    r'workoutsession',
+    manager_api_views.WorkoutSessionViewSet,
+    basename='workoutsession',
 )
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='workoutlog')
+router.register(r'weight-config', manager_api_views.WeightConfigViewSet, basename='weight-config')
+router.register(
+    r'max-weight-config',
+    manager_api_views.MaxWeightConfigViewSet,
+    basename='max-weight-config',
+)
+router.register(r'reps-config', manager_api_views.RepsConfigViewSet, basename='reps-config')
+router.register(
+    r'max-reps-config',
+    manager_api_views.MaxRepsConfigViewSet,
+    basename='max-reps-config',
+)
+router.register(r'sets-config', manager_api_views.SetsConfigViewSet, basename='sets-config')
+router.register(r'rest-config', manager_api_views.RestConfigViewSet, basename='rest-config')
+router.register(
+    r'max-rest-config',
+    manager_api_views.MaxRestConfigViewSet,
+    basename='max-rest-config',
+)
+router.register(r'rir-config', manager_api_views.RiRConfigViewSet, basename='rir-config')
 router.register(r'schedulestep', manager_api_views.ScheduleStepViewSet, basename='schedulestep')
 router.register(r'schedule', manager_api_views.ScheduleViewSet, basename='schedule')
 
