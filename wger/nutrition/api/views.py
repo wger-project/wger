@@ -78,6 +78,7 @@ from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
 
+
 logger = logging.getLogger(__name__)
 
 
