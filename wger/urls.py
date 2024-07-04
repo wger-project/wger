@@ -25,7 +25,6 @@ from django.contrib.sitemaps.views import (
     sitemap,
 )
 from django.urls import path
-
 # Third Party
 from django_email_verification import urls as email_urls
 from drf_spectacular.views import (
@@ -48,10 +47,8 @@ from wger.gallery.api import views as gallery_api_views
 from wger.manager.api import views as manager_api_views
 from wger.measurements.api import views as measurements_api_views
 from wger.nutrition.api import views as nutrition_api_views
-from wger.nutrition.sitemap import NutritionSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.weight.api import views as weight_api_views
-
 
 #
 # REST API
@@ -76,6 +73,7 @@ router.register(
     manager_api_views.WorkoutSessionViewSet,
     basename='workoutsession',
 )
+router.register(r'day', manager_api_views.RoutineDayViewSet, basename='day')
 router.register(r'workoutlog', manager_api_views.WorkoutLogViewSet, basename='workoutlog')
 router.register(r'weight-config', manager_api_views.WeightConfigViewSet, basename='weight-config')
 router.register(

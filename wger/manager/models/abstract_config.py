@@ -80,6 +80,7 @@ class AbstractChangeConfig(models.Model):
 
     need_log_to_apply = models.BooleanField(
         default=False,
+        null=True,
     )
     """
     Only apply the change if the user logged the last weight, otherwise
@@ -87,13 +88,19 @@ class AbstractChangeConfig(models.Model):
     """
 
     def save(self, **kwargs):
-        # Override values for the first iteration. While these would be ignored
-        # in the calculations anyway, this is cleaner
+        # Cleanup some combinations. While these would be ignored in the
+        # calculations anyway, this makes it cleaner
+
+        # Override values for the first iteration.
         if self.iteration == 1:
             self.replace = True
-            self.need_log_to_apply = False
+
+        # Override values for replace
+        if self.replace:
+            self.need_log_to_apply = None
             self.step = None
             self.operation = None
+
         super().save(**kwargs)
 
     def get_owner_object(self):

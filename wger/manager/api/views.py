@@ -21,7 +21,6 @@ from datetime import datetime
 
 # Django
 from django.shortcuts import get_object_or_404
-
 # Third Party
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -32,6 +31,7 @@ from wger.exercises.models import ExerciseBase
 from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.api.serializers import (
     DaySerializer,
+    DayStructureSerializer,
     LogDataSerializer,
     MaxRepsConfigSerializer,
     MaxRestConfigSerializer,
@@ -53,6 +53,7 @@ from wger.manager.api.serializers import (
     WorkoutTemplateSerializer,
 )
 from wger.manager.models import (
+    Day,
     MaxRepsConfig,
     MaxRestConfig,
     MaxWeightConfig,
@@ -151,7 +152,8 @@ class RoutineViewSet(viewsets.ModelViewSet):
         """
         return Response(
             WorkoutDayDataDisplayModeSerializer(
-                self.get_object().data_for_iteration(), many=True
+                self.get_object().data_for_iteration(),
+                many=True,
             ).data
         )
 
@@ -434,6 +436,48 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(Workout, 'workout')]
+
+
+class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
+    """
+    API endpoint for routine day objects
+    """
+
+    serializer_class = DayStructureSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'id',
+        'next_day',
+        'name',
+        'description',
+        'is_rest',
+        'last_day_in_week',
+        'need_logs_to_advance',
+        'slots',
+    )
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return Day.objects.none()
+
+        return Day.objects.filter(routine__user=self.request.user)
+
+    def perform_create(self, serializer):
+        """
+        Set the owner
+        """
+        serializer.save(user=self.request.user)
+
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(Routine, 'routine')]
 
 
 class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):

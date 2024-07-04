@@ -226,6 +226,7 @@ class DayStructureSerializer(serializers.ModelSerializer):
         model = Day
         fields = (
             'id',
+            'routine',
             'next_day',
             'name',
             'description',
