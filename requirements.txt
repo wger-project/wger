@@ -23,7 +23,7 @@ drf-spectacular[sidecar]==0.27.2
 easy-thumbnails==2.8.5
 flower==2.0.1
 fontawesomefree~=6.5.1
-icalendar==5.0.12
+icalendar==5.0.13
 invoke==2.2.0
 openfoodfacts==0.3.0
 pillow==10.3.0
