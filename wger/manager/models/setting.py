@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from decimal import Decimal
+
 # Django
 from django.core.validators import (
     MaxValueValidator,
@@ -81,7 +84,7 @@ class Setting(models.Model):
         decimal_places=2,
         blank=True,
         null=True,
-        validators=[MinValueValidator(0), MaxValueValidator(1500)],
+        validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(1500))],
     )
     """Planed weight for the repetitions"""
 

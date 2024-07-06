@@ -185,7 +185,8 @@
         "today": "Bugün",
         "ofWhichSugars": "kadarı şeker",
         "planDeleteInfo": "Bu, tüm beslenme günlüğü kayıtlarını da silecektir",
-        "mealDeleteInfo": "Bu öğüne ait beslenme günlüğü kayıtları silinmeyecek ve \"diğer günlükler\" altında görünecektir"
+        "mealDeleteInfo": "Bu öğüne ait beslenme günlüğü kayıtları silinmeyecek ve \"diğer günlükler\" altında görünecektir",
+        "goalFiber": "Lif hedefi"
     },
     "measurements": {
         "unitFormHelpText": "Kategorinin ölçüleceği birim, örneğin cm veya %",
@@ -222,5 +223,6 @@
     "seeDetails": "Ayrıntıları gör",
     "total": "Toplam",
     "deleteConfirmation": "\"{{name}}\" silmek istediğinizden emin misiniz?",
-    "downloadAsPdf": "PDF olarak indir"
+    "downloadAsPdf": "PDF olarak indir",
+    "filters": "Filtreler"
 }

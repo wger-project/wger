@@ -59,9 +59,9 @@ class AbstractLicenseModel(models.Model):
         blank=True,
     )
 
-    license_author = models.CharField(
+    license_author = models.TextField(
         verbose_name=_('Author(s)'),
-        max_length=600,
+        max_length=3500,
         blank=True,
         null=True,
         help_text=_('If you are not the author, enter the name or source here.'),
@@ -108,37 +108,6 @@ class AbstractLicenseModel(models.Model):
             )
 
         return out
-
-
-class AbstractSubmissionModel(models.Model):
-    """
-    Abstract class used for model for user submitted data.
-
-    These models have to be approved first by an administrator before they are
-    shows in the website. There is also a manager that can be used:
-    utils.managers.SubmissionManager
-    """
-
-    class Meta:
-        abstract = True
-
-    STATUS_PENDING = '1'
-    STATUS_ACCEPTED = '2'
-    STATUS_DECLINED = '3'
-
-    STATUS = (
-        (STATUS_PENDING, _('Pending')),
-        (STATUS_ACCEPTED, _('Accepted')),
-        (STATUS_DECLINED, _('Declined')),
-    )
-
-    status = models.CharField(
-        max_length=2,
-        choices=STATUS,
-        default=STATUS_PENDING,
-        editable=False,
-    )
-    """Status of the submission, e.g. accepted or declined"""
 
 
 class AbstractHistoryMixin:

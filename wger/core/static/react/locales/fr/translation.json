@@ -186,7 +186,8 @@
         "sodium": "Sodium",
         "fibres": "Fibres",
         "sugar": "Sucre",
-        "others": "Autres"
+        "others": "Autres",
+        "valueRemaining": "restant"
     },
     "nothingHereYet": "Rien ici pour le moment …",
     "total": "Total",
@@ -197,5 +198,6 @@
     "licenses": {
         "originalTitle": "Titre",
         "authors": "Auteur(s)"
-    }
+    },
+    "filters": "Filtres"
 }

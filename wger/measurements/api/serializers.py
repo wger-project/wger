@@ -45,8 +45,8 @@ class MeasurementSerializer(serializers.ModelSerializer):
     value = serializers.DecimalField(
         max_digits=6,
         decimal_places=2,
-        min_value=Decimal(0),
-        max_value=Decimal(5000),
+        min_value=Decimal(0.0),
+        max_value=Decimal(5000.0),
         coerce_to_string=False,
     )
 

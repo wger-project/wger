@@ -95,13 +95,13 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
         """H"""
-        qs = Ingredient.objects.accepted()
+        qs = Ingredient.objects.all()
 
         code = self.request.query_params.get('code')
         if not code:
@@ -132,7 +132,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
             'carbohydrates_sugar': 0,
             'fat': 0,
             'fat_saturated': 0,
-            'fibres': 0,
+            'fiber': 0,
             'sodium': 0,
             'errors': [],
         }
@@ -242,7 +242,7 @@ def search(request):
     else:
         query = query.filter(name__icontains=term)
 
-    for ingredient in query[:100]:
+    for ingredient in query[:150]:
         if hasattr(ingredient, 'image'):
             image_obj = ingredient.image
             image = image_obj.image.url
@@ -278,7 +278,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

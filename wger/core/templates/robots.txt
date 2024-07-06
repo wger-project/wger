@@ -1,2 +1,5 @@
+User-Agent: *
+Disallow: /api/v2
+
 {% for lang in languages %}Sitemap: http://wger.de/{{lang.0}}/sitemap.xml
 {% endfor %}

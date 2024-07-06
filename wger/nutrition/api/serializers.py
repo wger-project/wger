@@ -114,17 +114,21 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'remote_id',
+            'source_name',
+            'source_url',
             'code',
             'name',
             'created',
             'last_update',
+            'last_imported',
             'energy',
             'protein',
             'carbohydrates',
             'carbohydrates_sugar',
             'fat',
             'fat_saturated',
-            'fibres',
+            'fiber',
             'sodium',
             'license',
             'license_title',
@@ -150,17 +154,21 @@ class IngredientInfoSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'uuid',
+            'remote_id',
+            'source_name',
+            'source_url',
             'code',
             'name',
             'created',
             'last_update',
+            'last_imported',
             'energy',
             'protein',
             'carbohydrates',
             'carbohydrates_sugar',
             'fat',
             'fat_saturated',
-            'fibres',
+            'fiber',
             'sodium',
             'weight_units',
             'language',
@@ -265,7 +273,7 @@ class NutritionalValuesSerializer(serializers.Serializer):
     carbohydrates_sugar = serializers.FloatField()
     fat = serializers.FloatField()
     fat_saturated = serializers.FloatField()
-    fibres = serializers.FloatField()
+    fiber = serializers.FloatField()
     sodium = serializers.FloatField()
 
 
@@ -312,7 +320,7 @@ class NutritionPlanSerializer(serializers.ModelSerializer):
             'goal_protein',
             'goal_carbohydrates',
             'goal_fat',
-            'goal_fibers',
+            'goal_fiber',
             # 'nutritional_values',
         ]
 
@@ -336,6 +344,6 @@ class NutritionPlanInfoSerializer(serializers.ModelSerializer):
             'goal_protein',
             'goal_carbohydrates',
             'goal_fat',
-            'goal_fibers',
+            'goal_fiber',
             'meals',
         ]

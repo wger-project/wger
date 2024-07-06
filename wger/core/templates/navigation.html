@@ -3,7 +3,8 @@
     <div class="container-fluid">
         <div class="container-lg" style="display: flex;">
             <a class="navbar-brand" href="{% url 'core:index' %}">
-                <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 38px;" alt="wger logo">
+                <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 38px;"
+                     alt="wger logo">
             </a>
             <button class="navbar-toggler"
                     type="button"
@@ -24,10 +25,12 @@
                         <a href="{% url 'manager:workout:overview' %}"
                            rel="nofollow"
                            class="nav-link dropdown-toggle text-white {% if active_tab == 'workout' %}active{% endif %}"
-                           data-bs-toggle="dropdown">{% translate "Training" %} <b class="caret"></b></a>
+                           data-bs-toggle="dropdown">{% translate "Training" %} <b
+                            class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:workout:overview' %}" rel="nofollow">
+                                <a class="dropdown-item" href="{% url 'manager:workout:overview' %}"
+                                   rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -35,7 +38,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">
+                                <a class="dropdown-item"
+                                   href="{% url 'manager:schedule:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -63,7 +67,8 @@
                             {% endif %}
 
                             <li>
-                                <a class="dropdown-item" href="{% url 'gallery:images:overview' %}" rel="nofollow">
+                                <a class="dropdown-item" href="{% url 'gallery:images:overview' %}"
+                                   rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -75,7 +80,8 @@
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-header">{% translate "Workout templates" %}</li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:template:overview' %}" rel="nofollow">
+                                <a class="dropdown-item"
+                                   href="{% url 'manager:template:overview' %}" rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -83,7 +89,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'manager:template:public' %}" rel="nofollow">
+                                <a class="dropdown-item" href="{% url 'manager:template:public' %}"
+                                   rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -93,7 +100,8 @@
 
                             <li class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'exercise:exercise:overview' %}">
+                                <a class="dropdown-item"
+                                   href="{% url 'exercise:exercise:overview' %}">
                                     {% translate "Exercises" %}
                                 </a>
                             </li>
@@ -102,22 +110,26 @@
                                 <li class="dropdown-divider"></li>
                                 <li class="dropdown-header">{% translate "Administration" %}</li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'exercise:history:overview' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'exercise:history:overview' %}">
                                         {% translate "Exercise edit history" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'exercise:equipment:list' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'exercise:equipment:list' %}">
                                         {% translate "Equipment" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'exercise:muscle:admin-list' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'exercise:muscle:admin-list' %}">
                                         {% translate "Muscles" %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'exercise:category:list' %}">
+                                    <a class="dropdown-item"
+                                       href="{% url 'exercise:category:list' %}">
                                         {% translate "Categories" %}
                                     </a>
                                 </li>
@@ -136,7 +148,8 @@
                            rel="nofollow">{% translate "Nutrition" %} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}" rel="nofollow">
+                                <a class="dropdown-item" href="{% url 'nutrition:plan:overview' %}"
+                                   rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -144,7 +157,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}" rel="nofollow">
+                                <a class="dropdown-item" href="{% url 'nutrition:bmi:view' %}"
+                                   rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -152,7 +166,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{% url 'nutrition:calories:view' %}" rel="nofollow">
+                                <a class="dropdown-item" href="{% url 'nutrition:calories:view' %}"
+                                   rel="nofollow">
                                     {% if not user.is_authenticated %}
                                         <span class="{% fa_class 'lock' %}"></span>
                                     {% endif %}
@@ -160,21 +175,16 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item"
-                                   href="{% url 'nutrition:ingredient:list' %}">
+                                <a class="dropdown-item" href="{% url 'nutrition:ingredient:list' %}">
                                     {% translate "Ingredient overview" %}
                                 </a>
                             </li>
                             {% if perms.nutrition %}
                                 <li class="dropdown-divider"></li>
                                 <li class="dropdown-header">{% translate "Administration" %}</li>
-                                <li><a class="dropdown-item"
-                                       href="{% url 'nutrition:weight_unit:list' %}">{% translate "Ingredient weight units" %}</a>
-                                </li>
                                 <li>
-                                    <a class="dropdown-item"
-                                       href="{% url 'nutrition:ingredient:pending' %}">
-                                        {% translate "Ingredients pending review" %}
+                                    <a class="dropdown-item" href="{% url 'nutrition:weight_unit:list' %}">
+                                        {% translate "Ingredient weight units" %}
                                     </a>
                                 </li>
                             {% endif %}

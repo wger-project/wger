@@ -209,7 +209,9 @@ router.register(
 #
 # Sitemaps
 #
-sitemaps = {'exercises': ExercisesSitemap, 'nutrition': NutritionSitemap}
+sitemaps = {
+    'exercises': ExercisesSitemap,
+}  # 'nutrition': NutritionSitemap}
 
 #
 # The actual URLs
@@ -300,3 +302,8 @@ urlpatterns += [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
+
+if settings.EXPOSE_PROMETHEUS_METRICS:
+    urlpatterns += [
+        path(f'prometheus/{settings.PROMETHEUS_URL_PATH}/', include('django_prometheus.urls'))
+    ]

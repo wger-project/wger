@@ -13,63 +13,119 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Standard Library
-import enum
 import logging
-from collections import Counter
+import os
 
-# Django
-from django.core.management.base import BaseCommand
+# Third Party
+import requests
+from pymongo import MongoClient
 
 # wger
 from wger.core.models import Language
-from wger.nutrition.models import Ingredient
+from wger.nutrition.management.products import (
+    ImportProductCommand,
+    Mode,
+)
 from wger.nutrition.off import extract_info_from_off
 
 
 logger = logging.getLogger(__name__)
 
 
-# Mode for this script. When using 'insert', the script will bulk-insert the new
-# ingredients, which is very efficient. Importing the whole database will require
-# barely a minute. When using 'update', existing ingredients will be updated, which
-# requires two queries per product and is needed when there are already existing
-# entries in the local ingredient table.
-class Mode(enum.Enum):
-    INSERT = enum.auto()
-    UPDATE = enum.auto()
-
-
-class Command(BaseCommand):
+class Command(ImportProductCommand):
     """
     Import an Open Food facts Dump
     """
 
-    mode = Mode.UPDATE
-    bulk_size = 500
-    completeness = 0.7
-
     help = 'Import an Open Food Facts dump. Please consult extras/docker/open-food-facts'
 
+    deltas_base_url = 'https://static.openfoodfacts.org/data/delta/'
+    full_off_dump_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
+
     def add_arguments(self, parser):
+        super().add_arguments(parser)
+
         parser.add_argument(
-            '--set-mode',
-            action='store',
-            default=10,
-            dest='mode',
-            type=str,
-            help='Script mode, "insert" or "update". Insert will insert the ingredients as new '
-            'entries in the database, while update will try to update them if they are '
-            'already present. Deault: insert',
+            '--jsonl',
+            action='store_true',
+            default=False,
+            dest='use_jsonl',
+            help=(
+                'Use the JSONL dump of the Open Food Facts database.'
+                '(this option does not require mongo)'
+            ),
         )
+
         parser.add_argument(
-            '--completeness',
-            action='store',
-            default=0.7,
-            dest='completeness',
-            type=float,
-            help='Completeness threshold for importing the products. Products in OFF have '
-            'completeness score that ranges from 0 to 1.1. Default: 0.7',
+            '--delta-updates',
+            action='store_true',
+            default=False,
+            dest='delta_updates',
+            help='Downloads and imports the most recent delta file',
         )
+
+    def import_mongo(self, languages: dict[str:int]):
+        client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
+        db = client.admin
+        for product in db.products.find({'lang': {'$in': list(languages.keys())}}):
+            try:
+                ingredient_data = extract_info_from_off(product, languages[product['lang']])
+            except (KeyError, ValueError) as e:
+                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
+                self.counter['skipped'] += 1
+            else:
+                self.process_ingredient(ingredient_data)
+
+    def import_daily_delta(self, languages: dict[str:int], destination: str):
+        download_folder, tmp_folder = self.get_download_folder(destination)
+
+        # Fetch the index page with requests and read the result
+        index_url = self.deltas_base_url + 'index.txt'
+        req = requests.get(index_url)
+        index_content = req.text
+        newest_entry = index_content.split('\n')[0]
+
+        file_path = os.path.join(download_folder, newest_entry)
+
+        # Fetch the newest entry and extract the contents
+        delta_url = self.deltas_base_url + newest_entry
+        self.download_file(delta_url, file_path)
+
+        self.stdout.write('Start processing...')
+        for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
+            try:
+                ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
+            except (KeyError, ValueError) as e:
+                self.stdout.write(
+                    f'--> {ingredient_data.remote_id=} Error while extracting info from OFF: {e}'
+                )
+                self.counter['skipped'] += 1
+            else:
+                self.process_ingredient(ingredient_data)
+
+        if tmp_folder:
+            self.stdout.write(f'Removing temporary folder {download_folder}')
+            tmp_folder.cleanup()
+
+    def import_full_dump(self, languages: dict[str:int], destination: str):
+        download_folder, tmp_folder = self.get_download_folder(destination)
+
+        file_path = os.path.join(download_folder, os.path.basename(self.full_off_dump_url))
+        self.download_file(self.full_off_dump_url, file_path)
+
+        self.stdout.write('Start processing...')
+        for entry in self.iterate_gz_file_contents(file_path, list(languages.keys())):
+            try:
+                ingredient_data = extract_info_from_off(entry, languages[entry['lang']])
+            except (KeyError, ValueError) as e:
+                self.stdout.write(f'--> Error while extracting info from OFF: {e}')
+                self.counter['skipped'] += 1
+            else:
+                self.process_ingredient(ingredient_data)
+
+        if tmp_folder:
+            self.stdout.write(f'Removing temporary folder {download_folder}')
+            tmp_folder.cleanup()
 
     def handle(self, **options):
         try:
@@ -82,103 +138,23 @@ class Command(BaseCommand):
         if options['mode'] == 'insert':
             self.mode = Mode.INSERT
 
-        if options['completeness'] < 0 or options['completeness'] > 1.1:
-            self.stdout.write('Completeness must be between 0 and 1.1')
-            return
-        self.completeness = options['completeness']
-
         self.stdout.write('Importing entries from Open Food Facts')
-        self.stdout.write(f' - Completeness threshold: {self.completeness}')
         self.stdout.write(f' - {self.mode}')
+        if options['delta_updates']:
+            self.stdout.write(f' - importing only delta updates')
+        elif options['use_jsonl']:
+            self.stdout.write(f' - importing the full dump')
+        else:
+            self.stdout.write(f' - importing from mongo')
         self.stdout.write('')
 
-        client = MongoClient('mongodb://off:off-wger@127.0.0.1', port=27017)
-        db = client.admin
-
-        languages = {l.short_name: l.pk for l in Language.objects.all()}
-
-        bulk_update_bucket = []
-        counter = Counter()
-
-        for product in db.products.find(
-            {'lang': {'$in': list(languages.keys())}, 'completeness': {'$gt': self.completeness}}
-        ):
-            try:
-                ingredient_data = extract_info_from_off(product, languages[product['lang']])
-            except KeyError as e:
-                # self.stdout.write(f'--> KeyError while extracting info from OFF: {e}')
-                # self.stdout.write(
-                #    '***********************************************************************************************')
-                # self.stdout.write(
-                #    '***********************************************************************************************')
-                # self.stdout.write(
-                #    '***********************************************************************************************')
-                # pprint(product)
-                # self.stdout.write(f'--> Product: {product}')
-                counter['skipped'] += 1
-                continue
-
-            # Some products have no name or name is too long, skipping
-            if not ingredient_data.name:
-                # self.stdout.write('--> Ingredient has no name field')
-                counter['skipped'] += 1
-                continue
-
-            if not ingredient_data.common_name:
-                # self.stdout.write('--> Ingredient has no common name field')
-                counter['skipped'] += 1
-                continue
-
-            #
-            # Add entries as new products
-            if self.mode == Mode.INSERT:
-                bulk_update_bucket.append(Ingredient(**ingredient_data.dict()))
-                if len(bulk_update_bucket) > self.bulk_size:
-                    try:
-                        Ingredient.objects.bulk_create(bulk_update_bucket)
-                        self.stdout.write('***** Bulk adding products *****')
-                    except Exception as e:
-                        self.stdout.write(
-                            '--> Error while saving the product bucket. Saving individually'
-                        )
-                        self.stdout.write(e)
-
-                        # Try saving the ingredients individually as most will be correct
-                        for ingredient in bulk_update_bucket:
-                            try:
-                                ingredient.save()
-
-                            # ¯\_(ツ)_/¯
-                            except Exception as e:
-                                self.stdout.write('--> Error while saving the product individually')
-                                self.stdout.write(e)
-
-                    counter['new'] += self.bulk_size
-                    bulk_update_bucket = []
-
-            # Update existing entries
-            else:
-                try:
-                    # Update an existing product (look-up key is the code) or create a new
-                    # one. While this might not be the most efficient query (there will always
-                    # be a SELECT first), it's ok because this script is run very rarely.
-                    obj, created = Ingredient.objects.update_or_create(
-                        code=ingredient_data.code,
-                        defaults=ingredient_data.dict(),
-                    )
-
-                    if created:
-                        counter['new'] += 1
-                        # self.stdout.write('-> added to the database')
-                    else:
-                        counter['edited'] += 1
-                        # self.stdout.write('-> updated')
-
-                except Exception as e:
-                    self.stdout.write('--> Error while performing update_or_create')
-                    self.stdout.write(str(e))
-                    counter['error'] += 1
-                    continue
+        languages = {lang.short_name: lang.pk for lang in Language.objects.all()}
+        if options['delta_updates']:
+            self.import_daily_delta(languages, options['folder'])
+        elif options['use_jsonl']:
+            self.import_full_dump(languages, options['folder'])
+        else:
+            self.import_mongo(languages)
 
         self.stdout.write(self.style.SUCCESS('Finished!'))
-        self.stdout.write(self.style.SUCCESS(str(counter)))
+        self.stdout.write(self.style.SUCCESS(str(self.counter)))

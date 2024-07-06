@@ -14,6 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Standard Library
+from decimal import Decimal
+
 # Django
 from django.core.validators import (
     MaxValueValidator,
@@ -103,7 +106,7 @@ class LogItem(BaseMealItem, models.Model):
         decimal_places=2,
         max_digits=6,
         verbose_name=_('Amount'),
-        validators=[MinValueValidator(1), MaxValueValidator(1000)],
+        validators=[MinValueValidator(Decimal(1)), MaxValueValidator(Decimal(1000))],
     )
     """
     The amount of units

@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-01-20 02:00+0000\n"
-"Last-Translator: Lucas Batier <lucas.batier@hotmail.fr>\n"
+"PO-Revision-Date: 2024-07-04 08:09+0000\n"
+"Last-Translator: florent4014 <florent.touzet@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -480,7 +480,7 @@ msgid "Forbidden!"
 msgstr "Interdit !"
 
 #: core/templates/403.html:7
-msgid "You are not allowed to acces this page"
+msgid "You are not allowed to access this page"
 msgstr "Vous n'êtes pas autorisé à accéder à cette page"
 
 #: core/templates/404.html:4
@@ -501,14 +501,13 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"Une erreur s'est produite sur le serveur lors du traitement de votre "
+"demande. Essayez d'actualiser votre navigateur et si cela ne résout pas le "
+"problème, veuillez réessayer ultérieurement. Si le problème persiste, vous "
+"pouvez demander de l'aide des manières citées ci-dessous :"
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "You are\n"
-#| "    browsing the site as the user \"%(current_user)s\", all actions are "
-#| "performed on their data.\n"
-#| "    "
+#, python-format
 msgid ""
 "You are\n"
 "                browsing the site as the user \"%(current_user)s\", all "
@@ -516,9 +515,9 @@ msgid ""
 "            "
 msgstr ""
 "Vous êtes\n"
-"    en train de naviguer sur le site en tant qu’utilisateur « "
-"%(current_user)s », toutes les actions sont effectuées sur ses données.\n"
-"    "
+"    en train de naviguer sur le site en tant qu’utilisateur « %(current_user)"
+"s », toutes les actions sont effectuées sur ses données.\n"
+"            "
 
 #: core/templates/base.html:14 core/templates/base_wide.html:11
 #, python-format
@@ -530,10 +529,8 @@ msgid "Are you sure you want to delete this? This action cannot be undone."
 msgstr "Êtes-vous sûr·e de vouloir supprimer ceci ? C’est irréversible."
 
 #: core/templates/email_verification/confirm_template.html:4
-#, fuzzy
-#| msgid "Email verified"
 msgid "Email verification"
-msgstr "Email vérifié"
+msgstr "Vérification du courriel"
 
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
@@ -3459,7 +3456,7 @@ msgstr "À propos"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
+msgstr "Application mobile"
 
 #: software/templates/features.html:63 software/templates/features.html:319
 msgid "Donate"
@@ -3528,140 +3525,142 @@ msgstr ""
 msgid ""
 "Keep track of the workouts you've done, including how you felt you performed"
 msgstr ""
+"Gardez une trace des entraînements que vous avez effectués, y compris votre "
+"ressenti de performance"
 
 #: software/templates/features.html:200
 msgid "Plan your <span>daily meals</span>"
-msgstr ""
+msgstr "Planifiez vos <span>repas journaliers</span>"
 
 #: software/templates/features.html:204
 msgid "Fill your week with nutritious meals that help you perform better"
 msgstr ""
+"Remplissez votre semaine de repas nutritifs qui vous aident à mieux performer"
 
 #: software/templates/features.html:207
 msgid "Build meals from a database of more than 2 million foods"
 msgstr ""
+"Créez des repas à partir d'une base de données de plus de 2 millions "
+"d'aliments"
 
 #: software/templates/features.html:210
 msgid ""
 "Get automatically calculated nutritional values (energy, protein, "
 "carbs, ...) for both individual meals and your entire weekly plan"
 msgstr ""
+"Obtenez des valeurs nutritionnelles calculées automatiquement (énergie, "
+"protéines, glucides, ...) pour les repas individuels et l'ensemble de votre "
+"programme hebdomadaire"
 
 #: software/templates/features.html:237
 msgid "Keep track of <span>your progress</span>"
-msgstr ""
+msgstr "Suivez <span>votre progrès</span>"
 
 #: software/templates/features.html:242
 msgid "Track and annotate everything about your meals and workouts"
-msgstr ""
+msgstr "Suivez et annotez tout au sujet de vos repas et de vos entraînements"
 
 #: software/templates/features.html:245
-#, fuzzy
-#| msgid "Add custom diary entry"
 msgid "Add custom notes"
-msgstr "Ajouter item personnalisé dans le journal"
+msgstr "Ajouter une note personnalisée"
 
 #: software/templates/features.html:248
-#, fuzzy
-#| msgid "Body weight"
 msgid "Record your weight"
-msgstr "Poids corporel"
+msgstr "Enregistrez votre poids"
 
 #: software/templates/features.html:251
 msgid "Keep a photo log to see your progress"
-msgstr ""
+msgstr "Tenez un journal photo pour suivre vos progrès"
 
 #: software/templates/features.html:254
 msgid "Use the calendar view to see past entries"
-msgstr ""
+msgstr "Utiliser la vue calendrier pour voir les entrées passées"
 
 #: software/templates/features.html:273
-#, fuzzy
-#| msgid "Try it now"
 msgid "Try wger now"
-msgstr "Essayez-le maintenant"
+msgstr "Essayer wger maintenant"
 
 #: software/templates/features.html:290
 msgid "Powered By <span>the community</span>"
-msgstr ""
+msgstr "Propulsé par <span>la communauté</span>"
 
 #: software/templates/features.html:293
 msgid ""
 "wger is funded and created by the open-source community: people like you "
 "translating, adding exercises and nutritional info, developing, and more."
 msgstr ""
+"wger est financé et créé par la communauté open source : des gens comme vous "
+"traduisent, ajoutent des exercices et des informations nutritionnelles, "
+"développent, et bien plus encore."
 
 #: software/templates/features.html:299
 msgid ""
 "We don't use ads, don't sell your personal info, and we share the code under "
 "a free and open-source license."
 msgstr ""
+"Nous n'utilisons pas de publicités, ne vendons pas vos informations "
+"personnelles et nous partageons le code sous une licence gratuite et open "
+"source."
 
 #: software/templates/features.html:304
 msgid "Pitch in and help make wger even better!"
-msgstr ""
+msgstr "Participez et aidez à rendre wger encore meilleur !"
 
 #: software/templates/features.html:313
-#, fuzzy
-#| msgid "Contribute!"
 msgid "Contribute"
-msgstr "Contribuez !"
+msgstr "Contribuer"
 
 #: software/templates/features.html:337
 msgid "Sign Up Now For Free"
-msgstr ""
+msgstr "S'inscrire gratuitement maintenant"
 
 #: software/templates/features.html:350
 msgid "Web version not enough?"
-msgstr ""
+msgstr "La version web ne suffit pas ?"
 
 #: software/templates/features.html:352
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get the code, too!"
-msgstr "Récupérer le code"
+msgstr "Récupérer le code !"
 
 #: software/templates/features.html:363
 msgid "Set up a private server for your gym"
-msgstr ""
+msgstr "Montez un serveur privé pour votre entraînement"
 
 #: software/templates/features.html:366
 msgid ""
 "Don't want your data on an online service? Set up a wger instance on your "
 "own server for free!"
 msgstr ""
+"Vous ne voulez pas avoir vos données sur un service en ligne ? Montez "
+"gratuitement une instance wger sur votre propre serveur !"
 
 #: software/templates/features.html:380
 msgid "Integrate with your own app"
-msgstr ""
+msgstr "Intégrez avec votre propre application"
 
 #: software/templates/features.html:383
 msgid "wger offers an open API that you can use for your app."
-msgstr ""
+msgstr "wger offre une API que vous pouvez utiliser pour votre application."
 
 #: software/templates/features.html:394
-#, fuzzy
-#| msgid "Current version"
 msgid "Create your own version"
-msgstr "Version actuelle"
+msgstr "Créez votre propre version"
 
 #: software/templates/features.html:397
 msgid ""
 "The source code is available under the GNU AGPLv3 license! Feel free to fork "
 "it on GitHub."
 msgstr ""
+"Le code source est disponible sous licence GNU AGPLv3 ! N'hésitez pas à le "
+"forker sur Github."
 
 #: software/templates/features.html:418
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Quantité"
+msgstr "Compte"
 
 #: software/templates/features.html:464
-#, fuzzy
-#| msgid "Workout reminders"
 msgid "Workout routines"
-msgstr "Rappels d’entraînement"
+msgstr "Routines d’entraînement"
 
 #: software/templates/features.html:470
 msgid "Discord"
@@ -3761,7 +3760,8 @@ msgid ""
 "Use this import field to import your weight logs into Workout\n"
 "Manager."
 msgstr ""
-"Utiliser ce champs pour importer vos journaux de poids dans Workout Manager."
+"Utiliser ce champ pour importer vos journaux de poids dans Workout\n"
+"Manager."
 
 #: weight/templates/import_csv_form.html:18
 msgid ""
@@ -3818,11 +3818,12 @@ msgid ""
 "    and try to import the list again."
 msgstr ""
 "Ces valeurs ne peuvent pas être convertis à une note de journal de poids.\n"
-"\n"
-"Les raisons pour cela pourraient être une date inconnue ou le format de "
-"nombre, un problème avec l’encodage ou autre chose. S’il vous plaît, "
-"vérifiez qu’il n’y a pas d’erreurs évidentes dans la liste (et corrigez les "
-"dans les cas où!) et essayez d’importer la liste à nouveau."
+"\tLes raisons pour cela pourraient être une date inconnue ou le format de "
+"nombre,\n"
+"\tun problème avec l’encodage ou autre chose. S’il vous plaît, vérifiez qu’"
+"il n’y a pas\n"
+"\td’erreurs évidentes dans la liste (et corrigez les dans les cas où!)\n"
+"\tpuis essayez d’importer la liste à nouveau."
 
 #: weight/templates/import_csv_preview.html:37
 msgid ""
