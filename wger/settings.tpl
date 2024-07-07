@@ -43,7 +43,7 @@ SECRET_KEY = '{default_key}'
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
-NOCAPTCHA = True
+USE_RECAPTCHA = False
 
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be

@@ -56,7 +56,7 @@ class IngredientOverviewTestCase(WgerTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), PAGINATION_OBJECTS_PER_PAGE)
 
-        rest_ingredients = 14
+        rest_ingredients = 11
         response = self.client.get(reverse('nutrition:ingredient:list'), {'page': 3})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['ingredients_list']), rest_ingredients)

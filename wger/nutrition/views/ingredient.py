@@ -83,15 +83,17 @@ class IngredientListView(ListView):
         return Ingredient.objects.filter(language=language)
 
 
-# Cache for one week
-@cache_page(settings.WGER_SETTINGS.ingredient_cache_ttl)
 def view(request, pk, slug=None):
     context = {}
 
     ingredient = cache.get(cache_mapper.get_ingredient_key(int(pk)))
     if not ingredient:
         ingredient = get_object_or_404(Ingredient, pk=pk)
-        cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
+        cache.set(
+            cache_mapper.get_ingredient_key(ingredient),
+            ingredient,
+            settings.WGER_SETTINGS.ingredient_cache_ttl,
+        )
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)
     context['form'] = UnitChooserForm(
