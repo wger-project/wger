@@ -423,9 +423,9 @@ class WorkoutLogViewSet(WgerOwnerObjectModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return WorkoutLog.objects.none()
 
-        return WorkoutLog.objects.filter(user=self.request.user)
+        return WorkoutLog.objects.filter(session__user=self.request.user)
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: WorkoutLogSerializer):
         """
         Set the owner
         """

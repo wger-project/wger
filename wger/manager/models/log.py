@@ -14,7 +14,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 # Standard Library
 import datetime
 
@@ -30,11 +29,9 @@ from wger.core.models import (
     WeightUnit,
 )
 from wger.exercises.models import ExerciseBase
+from wger.manager.consts import RIR_OPTIONS
+from wger.manager.models.session import WorkoutSession
 from wger.utils.cache import reset_workout_log
-
-# Local
-from ..consts import RIR_OPTIONS
-from .session import WorkoutSession
 
 
 class WorkoutLog(models.Model):
@@ -173,9 +170,6 @@ class WorkoutLog(models.Model):
         Plumbing
         """
 
-        # Reset cache
-        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
-
         # If the routine does not belong to this user, do not save
         if self.routine and self.routine.user != self.user:
             return
@@ -191,6 +185,14 @@ class WorkoutLog(models.Model):
                 date=self.date,
                 routine=self.routine,
             )[0]
+
+        # Reset cache
+        reset_workout_log(
+            self.user_id,
+            self.session.date.year,
+            self.session.date.month,
+            self.session.date.day,
+        )
 
         # If the user of next_log is not this user, remove foreign key
         if self.next_log and self.next_log.user != self.user:
@@ -208,5 +210,10 @@ class WorkoutLog(models.Model):
         """
         Reset cache
         """
-        reset_workout_log(self.user_id, self.date.year, self.date.month, self.date.day)
+        reset_workout_log(
+            self.user_id,
+            self.session.date.year,
+            self.session.date.month,
+            self.session.date.day,
+        )
         super(WorkoutLog, self).delete(*args, **kwargs)

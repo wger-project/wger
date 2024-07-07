@@ -385,7 +385,19 @@ class WorkoutLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkoutLog
-        exclude = ('user',)
+        fields = [
+            'session',
+            'routine',
+            'slot_config',
+            'next_log',
+            'exercise',
+            'reps',
+            'repetition_unit',
+            'weight',
+            'weight_unit',
+            'rir',
+            'iteration',
+        ]
 
 
 class LogDataSerializer(serializers.Serializer):
