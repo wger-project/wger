@@ -23,7 +23,6 @@ from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-
 # Third Party
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
@@ -80,7 +79,6 @@ from wger.utils.constants import (
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
-
 
 logger = logging.getLogger(__name__)
 
@@ -219,9 +217,7 @@ def search(request):
     if not term:
         return Response(response)
 
-    query = Ingredient.objects.filter(
-        status=Ingredient.STATUS_ACCEPTED,
-    )
+    query = Ingredient.objects.all()
 
     # Filter the appropriate languages
     languages = [load_language(l) for l in language_codes.split(',')]
