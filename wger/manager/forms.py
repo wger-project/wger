@@ -17,14 +17,6 @@
 This file contains forms used in the application
 """
 
-# Third Party
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    Column,
-    Layout,
-    Row,
-    Submit,
-)
 # Django
 from django.forms import (
     BooleanField,
@@ -41,6 +33,15 @@ from django.forms import (
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
+)
+
+# Third Party
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    Column,
+    Layout,
+    Row,
+    Submit,
 )
 
 # wger

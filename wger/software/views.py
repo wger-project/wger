@@ -15,13 +15,14 @@
 # Standard Library
 import logging
 
-# Third Party
-import requests
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.shortcuts import render
+
+# Third Party
+import requests
 
 # wger
 from wger.core.forms import (
@@ -30,6 +31,7 @@ from wger.core.forms import (
 )
 from wger.exercises.models import Exercise
 from wger.nutrition.models import Ingredient
+
 
 logger = logging.getLogger(__name__)
 

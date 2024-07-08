@@ -34,6 +34,7 @@ from django.utils.translation import (
     get_language,
     gettext_lazy as _,
 )
+
 # Third Party
 from simple_history.models import HistoricalRecords
 
@@ -51,6 +52,7 @@ from wger.utils.models import (
     AbstractLicenseModel,
     collect_models_author_history,
 )
+
 # Local
 from .category import ExerciseCategory
 from .equipment import Equipment

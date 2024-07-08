@@ -23,6 +23,7 @@ class ExerciseConfig(AppConfig):
     verbose_name = 'Exercise'
 
     def ready(self):
+        import wger.exercises.signals
         from actstream import registry
 
         registry.register(self.get_model('Alias'))

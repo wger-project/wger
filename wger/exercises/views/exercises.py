@@ -37,6 +37,7 @@ from django.views.generic import DeleteView
 from wger.exercises.models import Translation
 from wger.utils.generic_views import WgerDeleteMixin
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -20,11 +20,13 @@ import uuid
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 # Third Party
 from simple_history.models import HistoricalRecords
 
 # wger
 from wger.utils.cache import reset_exercise_api_cache
+
 # Local
 from .translation import Translation
 

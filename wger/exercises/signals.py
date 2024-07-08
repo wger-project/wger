@@ -24,6 +24,7 @@ from django.db.models.signals import (
     pre_save,
 )
 from django.dispatch import receiver
+
 # Third Party
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.signal_handlers import generate_aliases

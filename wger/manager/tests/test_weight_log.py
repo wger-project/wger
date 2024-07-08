@@ -32,6 +32,7 @@ from wger.core.tests.base_testcase import (
 from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
 
+
 logger = logging.getLogger(__name__)
 
 

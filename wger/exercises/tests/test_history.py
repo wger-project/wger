@@ -12,12 +12,13 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
-# Third Party
-from actstream import action as actstream_action
 # Django
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
+
+# Third Party
+from actstream import action as actstream_action
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase

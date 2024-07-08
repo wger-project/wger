@@ -34,6 +34,7 @@ from wger.manager.models import (
     WeightConfig,
 )
 
+
 logger = logging.getLogger(__name__)
 
 

@@ -15,12 +15,13 @@
 # Standard Library
 import os
 
-# Third Party
-import requests
 # Django
 from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+
+# Third Party
+import requests
 
 # wger
 from wger.core.api.endpoints import (
