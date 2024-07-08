@@ -24,14 +24,13 @@ from typing import (
 
 # Django
 from django.core.checks import Warning
-from django.db import models
+from django.db import models, OperationalError
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import (
     get_language,
     gettext_lazy as _,
 )
-
 # Third Party
 from simple_history.models import HistoricalRecords
 
@@ -49,7 +48,6 @@ from wger.utils.models import (
     AbstractLicenseModel,
     collect_models_author_history,
 )
-
 # Local
 from .category import ExerciseCategory
 from .equipment import Equipment
@@ -145,17 +143,22 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     def check(cls, **kwargs):
         errors = super().check(**kwargs)
 
-        no_translations = cls.no_translations.all().count()
-        if no_translations:
-            errors.append(
-                Warning(
-                    'exercises without translations',
-                    hint=f'There are {no_translations} exercises without translations, this will '
-                    'cause problems! You can output or delete them with "python manage.py '
-                    'exercises-health-check --help"',
-                    id='wger.W002',
+        try:
+            no_translations = cls.no_translations.all().count()
+            if no_translations:
+                errors.append(
+                    Warning(
+                        'exercises without translations',
+                        hint=f'There are {no_translations} exercises without translations, this will '
+                             'cause problems! You can output or delete them with "python manage.py '
+                             'exercises-health-check --help"',
+                        id='wger.W002',
+                    )
                 )
-            )
+        except OperationalError:
+            # This check runs before the migrations that rename the table "exercise"
+            # to "translations" so if there are any errors, just ignore them
+            pass
 
         return errors
 
@@ -222,18 +225,18 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         have deleted the English translation or similar
         """
         # wger
-        from wger.exercises.models import Exercise
+        from wger.exercises.models import Translation
 
         language = language or get_language()
 
         try:
             translation = self.exercises.get(language__short_name=language)
-        except Exercise.DoesNotExist:
+        except Translation.DoesNotExist:
             try:
                 translation = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
-            except Exercise.DoesNotExist:
+            except Translation.DoesNotExist:
                 translation = self.exercises.first()
-        except Exercise.MultipleObjectsReturned:
+        except Translation.MultipleObjectsReturned:
             translation = self.exercises.filter(language__short_name=language).first()
 
         return translation

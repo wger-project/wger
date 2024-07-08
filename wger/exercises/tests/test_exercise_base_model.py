@@ -18,7 +18,7 @@ import datetime
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 
@@ -30,8 +30,8 @@ class ExerciseBaseTranslationHandlingTestCase(WgerTestCase):
 
     def setUp(self):
         super().setUp()
-        Exercise.objects.get(pk=1).delete()
-        Exercise.objects.get(pk=5).delete()
+        Translation.objects.get(pk=1).delete()
+        Translation.objects.get(pk=5).delete()
 
     def test_managers(self):
         self.assertEqual(ExerciseBase.translations.all().count(), 7)

@@ -21,15 +21,13 @@ import uuid
 from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 # Third Party
 from simple_history.models import HistoricalRecords
 
 # wger
 from wger.utils.cache import reset_exercise_api_cache
-
 # Local
-from .exercise import Exercise
+from .translation import Translation
 
 
 class Alias(models.Model):
@@ -46,7 +44,7 @@ class Alias(models.Model):
     """Globally unique ID, to identify the alias across installations"""
 
     exercise = models.ForeignKey(
-        Exercise,
+        Translation,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )

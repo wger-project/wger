@@ -16,7 +16,7 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 
 
 class Command(BaseCommand):
@@ -42,7 +42,7 @@ class Command(BaseCommand):
             self.stdout.write(f'Extracting translations for {exercise_key}')
 
             uuid = self.uuids[exercise_key]
-            translations = Exercise.objects.filter(exercise_base__uuid=uuid)
+            translations = Translation.objects.filter(exercise_base__uuid=uuid)
 
             variables = []
 

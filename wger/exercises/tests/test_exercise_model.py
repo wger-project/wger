@@ -14,7 +14,7 @@
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 
 
 class ExerciseModelTestCase(WgerTestCase):
@@ -24,15 +24,15 @@ class ExerciseModelTestCase(WgerTestCase):
 
     def test_absolute_url_name(self):
         """Test that the get_absolute_url returns the correct URL"""
-        exercise = Exercise(exercise_base_id=1, description='abc', name='foo')
+        exercise = Translation(exercise_base_id=1, description='abc', name='foo')
         self.assertEqual(exercise.get_absolute_url(), '/en/exercise/1/view-base/foo')
 
     def test_absolute_url_no_name(self):
         """Test that the get_absolute_url returns the correct URL"""
-        exercise = Exercise(exercise_base_id=2, description='abc', name='')
+        exercise = Translation(exercise_base_id=2, description='abc', name='')
         self.assertEqual(exercise.get_absolute_url(), '/en/exercise/2/view-base')
 
     def test_absolute_url_no_name2(self):
         """Test that the get_absolute_url returns the correct URL"""
-        exercise = Exercise(exercise_base_id=42, description='abc', name='@@@@@')
+        exercise = Translation(exercise_base_id=42, description='abc', name='@@@@@')
         self.assertEqual(exercise.get_absolute_url(), '/en/exercise/42/view-base')

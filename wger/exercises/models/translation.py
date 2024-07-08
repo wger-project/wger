@@ -17,6 +17,8 @@
 # Standard Library
 import uuid
 
+# Third Party
+import bleach
 # Django
 from django.contrib.postgres.indexes import GinIndex
 from django.core.validators import MinLengthValidator
@@ -24,9 +26,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-
-# Third Party
-import bleach
 from simple_history.models import HistoricalRecords
 
 # wger
@@ -39,9 +38,9 @@ from wger.utils.models import (
 )
 
 
-class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
+class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
-    Model for an exercise
+    Model for an exercise translation
     """
 
     description = models.TextField(

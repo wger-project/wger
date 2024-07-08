@@ -16,7 +16,6 @@
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Q
-
 # Third Party
 from rest_framework import serializers
 
@@ -25,7 +24,7 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Exercise,
+    Translation,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
@@ -280,7 +279,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
     author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
-        model = Exercise
+        model = Translation
         fields = (
             'id',
             'uuid',
@@ -316,7 +315,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
-        model = Exercise
+        model = Translation
         fields = (
             'id',
             'uuid',
@@ -350,7 +349,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = Exercise
+        model = Translation
         fields = (
             'id',
             'uuid',
@@ -380,7 +379,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             # Creating a new object
             # -> Check if the language already exists
             else:
-                if Exercise.objects.filter(
+                if Translation.objects.filter(
                     exercise_base=value['exercise_base'],
                     language=value['language'],
                 ).exists():
@@ -408,7 +407,7 @@ class ExerciseInfoSerializer(serializers.ModelSerializer):
     author_history = serializers.ListSerializer(child=serializers.CharField())
 
     class Meta:
-        model = Exercise
+        model = Translation
         depth = 1
         fields = [
             'id',

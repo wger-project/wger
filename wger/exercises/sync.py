@@ -15,13 +15,12 @@
 # Standard Library
 import os
 
+# Third Party
+import requests
 # Django
 from django.conf import settings
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-
-# Third Party
-import requests
 
 # wger
 from wger.core.api.endpoints import (
@@ -45,7 +44,7 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Exercise,
+    Translation,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
@@ -101,7 +100,7 @@ def sync_exercises(
             description = translation_data['description']
             language_id = translation_data['language']
 
-            translation, translation_created = Exercise.objects.update_or_create(
+            translation, translation_created = Translation.objects.update_or_create(
                 uuid=trans_uuid,
                 defaults={
                     'exercise_base': base,
@@ -296,7 +295,6 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
-
         def print_fn(_):
             return None
 
@@ -344,10 +342,10 @@ def handle_deleted_entries(
 
         elif model_type == DeletionLog.MODEL_TRANSLATION:
             try:
-                obj = Exercise.objects.get(uuid=uuid)
+                obj = Translation.objects.get(uuid=uuid)
                 obj.delete()
                 print_fn(f"Deleted translation {uuid} ({data['comment']})")
-            except Exercise.DoesNotExist:
+            except Translation.DoesNotExist:
                 pass
 
         elif model_type == DeletionLog.MODEL_IMAGE:

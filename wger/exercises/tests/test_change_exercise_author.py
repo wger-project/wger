@@ -20,8 +20,8 @@ from django.core.management import call_command
 
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
+from wger.exercises.models import Translation
 from wger.exercises.models.base import ExerciseBase
-from wger.exercises.models.exercise import Exercise
 
 
 class ChangeExerciseAuthorTestCase(WgerTestCase):
@@ -66,12 +66,12 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         """
         Test to ensure command can handle an exercise id passed
         """
-        exercise = Exercise.objects.get(id=1)
+        exercise = Translation.objects.get(id=1)
         self.assertNotEqual(exercise.license_author, 'tom')
 
         args = ['--author-name', 'tom', '--exercise-id', '1']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
 
-        exercise = Exercise.objects.get(id=1)
+        exercise = Translation.objects.get(id=1)
         self.assertEqual(exercise.license_author, 'tom')

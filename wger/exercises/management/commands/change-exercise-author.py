@@ -17,7 +17,7 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.exercises.models import ExerciseBase
-from wger.exercises.models.exercise import Exercise
+from wger.exercises.models import Translation
 
 
 class Command(BaseCommand):
@@ -70,7 +70,7 @@ class Command(BaseCommand):
 
         if exercise_id is not None:
             try:
-                exercise = Exercise.objects.get(id=exercise_id)
+                exercise = Translation.objects.get(id=exercise_id)
             except ExerciseBase.DoesNotExist:
                 self.print_error('Failed to find exercise')
                 return

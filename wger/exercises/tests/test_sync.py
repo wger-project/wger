@@ -23,7 +23,7 @@ from wger.core.models import (
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Equipment,
-    Exercise,
+    Translation,
     ExerciseBase,
     ExerciseCategory,
     Muscle,
@@ -648,7 +648,7 @@ class TestSyncMethods(WgerTestCase):
     @patch('requests.get', return_value=MockDeletionLogResponse())
     def test_deletion_log(self, mock_request):
         self.assertEqual(ExerciseBase.objects.count(), 8)
-        self.assertEqual(Exercise.objects.count(), 11)
+        self.assertEqual(Translation.objects.count(), 11)
 
         exercise1 = ExerciseBase.objects.get(pk=1)
         exercise2 = ExerciseBase.objects.get(pk=4)
@@ -665,8 +665,8 @@ class TestSyncMethods(WgerTestCase):
             headers=wger_headers(),
         )
         self.assertEqual(ExerciseBase.objects.count(), 7)
-        self.assertEqual(Exercise.objects.count(), 8)
-        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=3)
+        self.assertEqual(Translation.objects.count(), 8)
+        self.assertRaises(Translation.DoesNotExist, Translation.objects.get, pk=3)
         self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
 
         # Workouts and logs have been moved
@@ -678,7 +678,7 @@ class TestSyncMethods(WgerTestCase):
     @patch('requests.get', return_value=MockExerciseResponse())
     def test_exercise_sync(self, mock_request):
         self.assertEqual(ExerciseBase.objects.count(), 8)
-        self.assertEqual(Exercise.objects.count(), 11)
+        self.assertEqual(Translation.objects.count(), 11)
         exercise = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
         self.assertEqual(exercise.category_id, 2)
 
@@ -689,7 +689,7 @@ class TestSyncMethods(WgerTestCase):
             headers=wger_headers(),
         )
         self.assertEqual(ExerciseBase.objects.count(), 9)
-        self.assertEqual(Exercise.objects.count(), 14)
+        self.assertEqual(Translation.objects.count(), 14)
 
         # New exercise was created
         new_exercise = ExerciseBase.objects.get(uuid='1b020b3a-3732-4c7e-92fd-a0cec90ed69b')

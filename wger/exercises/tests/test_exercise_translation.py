@@ -16,13 +16,11 @@
 import json
 
 # Django
-from django.core.cache import cache
 from django.template import (
     Context,
     Template,
 )
 from django.urls import reverse
-
 # Third Party
 from rest_framework import status
 
@@ -30,14 +28,12 @@ from rest_framework import status
 from wger.core.tests import api_base_test
 from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import (
-    WgerDeleteTestCase,
     WgerTestCase,
 )
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     Muscle,
 )
-from wger.utils.cache import cache_mapper
 from wger.utils.constants import CC_BY_SA_4_ID
 
 
@@ -50,7 +46,7 @@ class ExerciseRepresentationTestCase(WgerTestCase):
         """
         Test that the representation of an object is correct
         """
-        self.assertEqual(str(Exercise.objects.get(pk=1)), 'An exercise')
+        self.assertEqual(str(Translation.objects.get(pk=1)), 'An exercise')
 
 
 class ExercisesTestCase(WgerTestCase):
@@ -99,7 +95,7 @@ class ExercisesTestCase(WgerTestCase):
         """
         Test that changing exercise details generates a historical record
         """
-        exercise = Exercise.objects.get(pk=2)
+        exercise = Translation.objects.get(pk=2)
         self.assertEqual(len(exercise.history.all()), 0)
 
         exercise.name = 'Very cool exercise 2'
@@ -107,7 +103,7 @@ class ExercisesTestCase(WgerTestCase):
         exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
         exercise.save()
 
-        exercise = Exercise.objects.get(pk=2)
+        exercise = Translation.objects.get(pk=2)
         self.assertEqual(len(exercise.history.all()), 1)
 
 
@@ -225,9 +221,12 @@ class ExerciseApiTestCase(
     """
 
     pk = 1
-    resource = Exercise
+    resource = Translation
     private_resource = False
     overview_cached = True
+
+    def get_resource_name(self):
+        return 'exercise'
 
 
 class ExerciseInfoApiTestCase(
@@ -282,45 +281,45 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         Test that it is not possible to change the base id of an existing
         exercise translation.
         """
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.exercise_base_id, 1)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.exercise_base_id, 1)
 
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'exercise_base': 2})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.exercise_base_id, 1)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.exercise_base_id, 1)
 
     def test_cant_change_language(self):
         """
         Test that it is not possible to change the language id of an existing
         exercise translation.
         """
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.language_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.language_id, 2)
 
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'language': 1})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.language_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.language_id, 2)
 
     def test_cant_change_license(self):
         """
         Test that it is not possible to change the license of an existing
         exercise translation.
         """
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.license_id, 2)
 
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'license': 3})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, 2)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.license_id, 2)
 
     def test_cant_set_license(self):
         """
@@ -333,8 +332,8 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.license_id, CC_BY_SA_4_ID)
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.license_id, CC_BY_SA_4_ID)
 
     def test_patch_clean_html(self):
         """
@@ -345,8 +344,8 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         response = self.client.patch(self.url_detail, data={'description': description})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = Exercise.objects.get(pk=self.pk)
-        self.assertEqual(exercise.description, 'alert(); The wild boar is a suid native...')
+        translation = Translation.objects.get(pk=self.pk)
+        self.assertEqual(translation.description, 'alert(); The wild boar is a suid native...')
 
     def test_post_only_one_language_per_base(self):
         """

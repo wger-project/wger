@@ -11,20 +11,17 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# Standard Library
-from time import sleep
 
+# Third Party
+from actstream import action as actstream_action
 # Django
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 
-# Third Party
-from actstream import action as actstream_action
-
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.exercises.models import Exercise
+from wger.exercises.models import Translation
 from wger.exercises.views.helper import StreamVerbs
 
 
@@ -39,17 +36,17 @@ class ExerciseHistoryControl(WgerTestCase):
         """
         self.user_login()
 
-        exercise = Exercise.objects.get(pk=2)
+        translation = Translation.objects.get(pk=2)
 
-        exercise.save()
-        exercise.name = 'Very cool exercise!'
-        exercise.save()
+        translation.save()
+        translation.name = 'Very cool exercise!'
+        translation.save()
 
-        exercise = Exercise.objects.get(pk=2)
+        translation = Translation.objects.get(pk=2)
         actstream_action.send(
             User.objects.all().first(),
             verb=StreamVerbs.UPDATED.value,
-            action_object=exercise,
+            action_object=translation,
         )
 
         response = self.client.get(reverse('exercise:history:overview'))
@@ -63,23 +60,23 @@ class ExerciseHistoryControl(WgerTestCase):
         """
         self.user_login()
 
-        exercise = Exercise.objects.get(pk=2)
-        exercise.description = 'Boring exercise'
-        exercise.save()
+        translation = Translation.objects.get(pk=2)
+        translation.description = 'Boring exercise'
+        translation.save()
 
-        most_recent_history = exercise.history.order_by('history_date').last()
-        exercise.description = 'Very cool exercise!'
-        exercise.save()
+        most_recent_history = translation.history.order_by('history_date').last()
+        translation.description = 'Very cool exercise!'
+        translation.save()
 
         self.client.get(
             reverse(
                 'exercise:history:revert',
                 kwargs={
                     'history_pk': most_recent_history.history_id,
-                    'content_type_id': ContentType.objects.get_for_model(exercise).id,
+                    'content_type_id': ContentType.objects.get_for_model(translation).id,
                 },
             )
         )
 
-        exercise = Exercise.objects.get(pk=2)
-        self.assertEqual(exercise.description, 'Boring exercise')
+        translation = Translation.objects.get(pk=2)
+        self.assertEqual(translation.description, 'Boring exercise')

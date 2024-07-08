@@ -19,7 +19,7 @@ from uuid import UUID
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     DeletionLog,
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 
@@ -108,7 +108,7 @@ class DeletionLogTestCase(WgerTestCase):
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
 
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         translation.delete()
 
         # Translation is deleted

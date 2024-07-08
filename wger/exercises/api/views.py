@@ -17,6 +17,10 @@
 import logging
 from uuid import UUID
 
+# Third Party
+import bleach
+from actstream import action as actstream_action
+from bleach.css_sanitizer import CSSSanitizer
 # Django
 from django.conf import settings
 from django.contrib.postgres.search import TrigramSimilarity
@@ -24,11 +28,6 @@ from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import cache_page
-
-# Third Party
-import bleach
-from actstream import action as actstream_action
-from bleach.css_sanitizer import CSSSanitizer
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (
     OpenApiParameter,
@@ -72,7 +71,7 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Exercise,
+    Translation,
     ExerciseBase,
     ExerciseCategory,
     ExerciseComment,
@@ -91,7 +90,6 @@ from wger.utils.constants import (
 )
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
-
 
 logger = logging.getLogger(__name__)
 
@@ -153,7 +151,7 @@ class ExerciseTranslationViewSet(ModelViewSet):
     API endpoint for editing or adding exercise translation objects.
     """
 
-    queryset = Exercise.objects.all()
+    queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseTranslationSerializer
     ordering_fields = '__all__'
@@ -223,7 +221,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     This is only kept for backwards compatibility and will be removed in the future
     """
 
-    queryset = Exercise.objects.all()
+    queryset = Translation.objects.all()
     permission_classes = (CanContributeExercises,)
     serializer_class = ExerciseSerializer
     ordering_fields = '__all__'
@@ -251,7 +249,7 @@ class ExerciseViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         """Add additional filters for fields from exercise base"""
 
-        qs = Exercise.objects.all()
+        qs = Translation.objects.all()
 
         category = self.request.query_params.get('category')
         muscles = self.request.query_params.get('muscles')
@@ -350,9 +348,9 @@ def search(request):
     # Filter the appropriate languages
     languages = [load_language(l) for l in language_codes.split(',')]
     if language_codes == SEARCH_ALL_LANGUAGES:
-        query = Exercise.objects.all()
+        query = Translation.objects.all()
     else:
-        query = Exercise.objects.filter(language__in=languages)
+        query = Translation.objects.filter(language__in=languages)
 
     query = query.only('name')
 
@@ -400,7 +398,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
     API endpoint for exercise objects, use /api/v2/exercisebaseinfo/ instead.
     """
 
-    queryset = Exercise.objects.all()
+    queryset = Translation.objects.all()
     serializer_class = ExerciseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (
@@ -609,7 +607,7 @@ class ExerciseCommentViewSet(ModelViewSet):
         qs = ExerciseComment.objects.all()
         language = self.request.query_params.get('language')
         if language:
-            exercises = Exercise.objects.filter(language=language)
+            exercises = Translation.objects.filter(language=language)
             qs = ExerciseComment.objects.filter(exercise__in=exercises)
         return qs
 

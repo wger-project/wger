@@ -14,18 +14,14 @@
 
 # Django
 from django.core.files import File
-from django.urls import reverse
 
 # wger
 from wger.core.tests import api_base_test
 from wger.core.tests.base_testcase import (
-    WgerAddTestCase,
-    WgerDeleteTestCase,
-    WgerEditTestCase,
     WgerTestCase,
 )
 from wger.exercises.models import (
-    Exercise,
+    Translation,
     ExerciseImage,
 )
 
@@ -53,7 +49,7 @@ class MainImageTestCase(WgerTestCase):
         Tests that the first uploaded image is automatically a main image
         """
 
-        exercise = Exercise.objects.get(pk=2)
+        exercise = Translation.objects.get(pk=2)
         pk = self.save_image(exercise, 'protestschwein.jpg')
 
         image = ExerciseImage.objects.get(pk=pk)
@@ -64,7 +60,7 @@ class MainImageTestCase(WgerTestCase):
         Tests that there is always a main image after deleting one
         """
 
-        exercise = Exercise.objects.get(pk=2)
+        exercise = Translation.objects.get(pk=2)
         pk1 = self.save_image(exercise, 'protestschwein.jpg')
         pk2 = self.save_image(exercise, 'wildschwein.jpg')
 
@@ -79,7 +75,7 @@ class MainImageTestCase(WgerTestCase):
         Tests that there is always a main image after deleting one
         """
 
-        exercise = Exercise.objects.get(pk=2)
+        exercise = Translation.objects.get(pk=2)
         pk1 = self.save_image(exercise, 'protestschwein.jpg')
         pk2 = self.save_image(exercise, 'protestschwein.jpg')
         pk3 = self.save_image(exercise, 'wildschwein.jpg')

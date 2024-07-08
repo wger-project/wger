@@ -23,7 +23,7 @@ from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     DeletionLog,
-    Exercise,
+    Translation,
     ExerciseBase,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
@@ -43,7 +43,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         """
         Test that the properties return the correct data
         """
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         exercise = translation.exercise_base
         self.assertEqual(exercise.category, translation.category)
         self.assertListEqual(self.get_ids(exercise.equipment), self.get_ids(translation.equipment))
@@ -90,7 +90,7 @@ class ExerciseBaseTestCase(WgerTestCase):
 
     def test_images(self):
         """Test that the correct images are returned for the exercises"""
-        translation = Exercise.objects.get(pk=1)
+        translation = Translation.objects.get(pk=1)
         exercise = translation.exercise_base
         self.assertListEqual(
             self.get_ids(translation.images), self.get_ids(exercise.exerciseimage_set)
