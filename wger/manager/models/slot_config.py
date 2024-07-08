@@ -27,7 +27,7 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.manager.dataclasses import SetConfigData
 from wger.manager.models.abstract_config import (
     AbstractChangeConfig,
@@ -59,7 +59,7 @@ class SlotConfig(models.Model):
     )
 
     exercise = models.ForeignKey(
-        ExerciseBase,
+        Exercise,
         on_delete=models.CASCADE,
     )
 

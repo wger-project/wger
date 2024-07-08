@@ -71,13 +71,13 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Translation,
-    ExerciseBase,
+    Exercise,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     ExerciseVideo,
     Muscle,
+    Translation,
     Variation,
 )
 from wger.exercises.views.helper import StreamVerbs
@@ -101,7 +101,7 @@ class ExerciseBaseViewSet(ModelViewSet):
     For a read-only endpoint with all the information of an exercise, see /api/v2/exercisebaseinfo/
     """
 
-    queryset = ExerciseBase.translations.all()
+    queryset = Exercise.with_translations.all()
     serializer_class = ExerciseBaseSerializer
     permission_classes = (CanContributeExercises,)
     ordering_fields = '__all__'
@@ -134,7 +134,7 @@ class ExerciseBaseViewSet(ModelViewSet):
             action_object=serializer.instance,
         )
 
-    def perform_destroy(self, instance: ExerciseBase):
+    def perform_destroy(self, instance: Exercise):
         """Manually delete the exercise and set the replacement, if any"""
 
         uuid = self.request.query_params.get('replaced_by', '')
@@ -430,7 +430,7 @@ class ExerciseBaseInfoViewset(viewsets.ReadOnlyModelViewSet):
     is the recommended way to access the exercise data.
     """
 
-    queryset = ExerciseBase.objects.all()
+    queryset = Exercise.objects.all()
     serializer_class = ExerciseBaseInfoSerializer
     ordering_fields = '__all__'
     filterset_fields = (

@@ -21,8 +21,8 @@ from django.core.management.base import BaseCommand
 # wger
 from wger.core.models import Language
 from wger.exercises.models import (
+    Exercise,
     Translation,
-    ExerciseBase,
 )
 
 
@@ -39,7 +39,7 @@ class Command(BaseCommand):
         out = []
 
         languages = Language.objects.all()
-        for base in ExerciseBase.objects.all():
+        for base in Exercise.objects.all():
             data = {
                 'base': {
                     'uuid': base.uuid,

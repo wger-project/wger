@@ -27,7 +27,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 # wger
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.api.serializers import (
     DaySerializer,
@@ -228,7 +228,7 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         if not base_id:
             return Response("Please provide an base ID in the 'id' GET parameter")
 
-        base = get_object_or_404(ExerciseBase, pk=base_id)
+        base = get_object_or_404(Exercise, pk=base_id)
         logs = base.workoutlog_set.filter(
             user=self.request.user,
             weight_unit__in=(1, 2),

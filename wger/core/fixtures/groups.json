@@ -109,6 +109,21 @@
           "translation"
         ],
         [
+          "add_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "change_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "delete_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
           "add_exercisecategory",
           "exercises",
           "exercisecategory"
@@ -496,6 +511,21 @@
           "delete_translation",
           "exercises",
           "translation"
+        ],
+        [
+          "add_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "change_exercise",
+          "exercises",
+          "exercise"
+        ],
+        [
+          "delete_exercise",
+          "exercises",
+          "exercise"
         ],
         [
           "add_exercisecategory",

@@ -17,12 +17,10 @@ from django.core.files import File
 
 # wger
 from wger.core.tests import api_base_test
-from wger.core.tests.base_testcase import (
-    WgerTestCase,
-)
+from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
-    Translation,
     ExerciseImage,
+    Translation,
 )
 
 

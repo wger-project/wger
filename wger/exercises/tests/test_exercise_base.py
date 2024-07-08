@@ -23,8 +23,8 @@ from wger.core.tests.api_base_test import ExerciseCrudApiTestCase
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     DeletionLog,
+    Exercise,
     Translation,
-    ExerciseBase,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
 
@@ -57,7 +57,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         """
         Test that the base correctly returns translated exercises
         """
-        exercise = ExerciseBase.objects.get(pk=1).get_translation('de')
+        exercise = Exercise.objects.get(pk=1).get_translation('de')
         self.assertEqual(exercise.name, 'An exercise')
 
     def test_language_utils_no_translation_exists(self):
@@ -65,7 +65,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         Test that the base correctly returns the English translation if the
         requested language does not exist
         """
-        exercise = ExerciseBase.objects.get(pk=1).get_translation('fr')
+        exercise = Exercise.objects.get(pk=1).get_translation('fr')
         self.assertEqual(exercise.name, 'Test exercise 123')
 
     def test_language_utils_no_translation_fallback(self):
@@ -73,7 +73,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         Test that the base correctly returns the first translation if for whatever
         reason English is not available
         """
-        exercise = ExerciseBase.objects.get(pk=2).get_translation('pt')
+        exercise = Exercise.objects.get(pk=2).get_translation('pt')
 
         self.assertEqual(exercise.name, 'Very cool exercise')
 
@@ -82,10 +82,10 @@ class ExerciseBaseTestCase(WgerTestCase):
 
         # Even if these exercises have the same base, only the variations for
         # their respective languages are returned.
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         self.assertListEqual(sorted([i.id for i in exercise.base_variations]), [2])
 
-        exercise2 = ExerciseBase.objects.get(pk=3)
+        exercise2 = Exercise.objects.get(pk=3)
         self.assertEqual(sorted([i.id for i in exercise2.base_variations]), [4])
 
     def test_images(self):
@@ -131,14 +131,14 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         Test that it is not possible to change the license of an existing
         exercise base
         """
-        exercise = ExerciseBase.objects.get(pk=self.pk)
+        exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.license_id, 2)
 
         self.authenticate('trainer1')
         response = self.client.patch(self.url_detail, data={'license': 3})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        exercise = ExerciseBase.objects.get(pk=self.pk)
+        exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.license_id, 2)
 
     def test_cant_set_license(self):
@@ -152,5 +152,5 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        exercise = ExerciseBase.objects.get(pk=self.pk)
+        exercise = Exercise.objects.get(pk=self.pk)
         self.assertEqual(exercise.license_id, CC_BY_SA_4_ID)

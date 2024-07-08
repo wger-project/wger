@@ -24,13 +24,13 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Translation,
-    ExerciseBase,
+    Exercise,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     ExerciseVideo,
     Muscle,
+    Translation,
     Variation,
 )
 from wger.utils.cache import CacheKeyMapper
@@ -42,7 +42,7 @@ class ExerciseBaseSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = ExerciseBase
+        model = Exercise
         fields = [
             'id',
             'uuid',
@@ -307,7 +307,7 @@ class ExerciseTranslationBaseInfoSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
     exercise_base = serializers.PrimaryKeyRelatedField(
-        queryset=ExerciseBase.objects.all(),
+        queryset=Exercise.objects.all(),
         required=True,
     )
     aliases = ExerciseInfoAliasSerializer(source='alias_set', many=True, read_only=True)
@@ -344,7 +344,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False, read_only=True)
     uuid = serializers.UUIDField(required=False, read_only=True)
     exercise_base = serializers.PrimaryKeyRelatedField(
-        queryset=ExerciseBase.objects.all(),
+        queryset=Exercise.objects.all(),
         required=True,
     )
 
@@ -369,7 +369,7 @@ class ExerciseTranslationSerializer(serializers.ModelSerializer):
             # Editing an existing object
             # -> Check if the language already exists, excluding the current object
             if self.instance:
-                if self.instance.exercise_base.exercises.filter(
+                if self.instance.exercise_base.translations.filter(
                     ~Q(id=self.instance.pk),
                     language=value['language'],
                 ).exists():
@@ -450,7 +450,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     last_update_global = serializers.DateTimeField(read_only=True)
 
     class Meta:
-        model = ExerciseBase
+        model = Exercise
         depth = 1
         fields = [
             'id',

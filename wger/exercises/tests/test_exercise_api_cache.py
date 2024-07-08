@@ -19,9 +19,9 @@ from django.core.cache import cache
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Alias,
-    Translation,
-    ExerciseBase,
+    Exercise,
     ExerciseComment,
+    Translation,
 )
 from wger.utils.cache import cache_mapper
 
@@ -45,7 +45,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.category_id = 1
         exercise.save()
 
@@ -59,7 +59,7 @@ class ExerciseApiCacheTestCase(WgerTestCase):
         self.client.get(self.url)
         self.assertTrue(cache.get(self.cache_key))
 
-        exercise = ExerciseBase.objects.get(pk=1)
+        exercise = Exercise.objects.get(pk=1)
         exercise.delete()
 
         self.assertFalse(cache.get(self.cache_key))

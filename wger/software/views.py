@@ -15,23 +15,21 @@
 # Standard Library
 import logging
 
+# Third Party
+import requests
 # Django
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.shortcuts import render
 
-# Third Party
-import requests
-
 # wger
 from wger.core.forms import (
     RegistrationForm,
     RegistrationFormNoCaptcha,
 )
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.nutrition.models import Ingredient
-
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +46,7 @@ def features(request):
         result_github_api = requests.get('https://api.github.com/repos/wger-project/wger').json()
         context = {
             'nr_users': User.objects.count(),
-            'nr_exercises': ExerciseBase.objects.count(),
+            'nr_exercises': Exercise.objects.count(),
             'nr_ingredients': Ingredient.objects.count(),
             'nr_stars': result_github_api.get('stargazers_count', '2000'),
         }

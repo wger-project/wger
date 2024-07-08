@@ -29,10 +29,10 @@ from wger.core.models import (
 from wger.exercises.models import (
     Alias,
     Equipment,
-    Translation,
-    ExerciseBase,
+    Exercise,
     ExerciseCategory,
     ExerciseVideo,
+    Translation,
     Variation,
 )
 from wger.utils.constants import CC_BY_SA_4_ID
@@ -120,12 +120,12 @@ class Command(BaseCommand):
                 continue
 
             base = (
-                ExerciseBase.objects.get_or_create(
+                Exercise.objects.get_or_create(
                     uuid=base_uuid,
                     defaults={'category': ExerciseCategory.objects.get(name=base_category)},
                 )[0]
                 if not new_base
-                else ExerciseBase()
+                else Exercise()
             )
 
             # Update the base data
@@ -273,9 +273,9 @@ class Command(BaseCommand):
 
             if base_uuid:
                 try:
-                    ExerciseBase.objects.filter(uuid=base_uuid).delete()
+                    Exercise.objects.filter(uuid=base_uuid).delete()
                     self.stdout.write(f'* Deleted base {base_uuid}')
-                except ExerciseBase.DoesNotExist:
+                except Exercise.DoesNotExist:
                     pass
 
             if translation_uuid:

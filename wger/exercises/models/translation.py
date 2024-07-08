@@ -30,7 +30,7 @@ from simple_history.models import HistoricalRecords
 
 # wger
 from wger.core.models import Language
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.models import (
     AbstractHistoryMixin,
@@ -84,12 +84,12 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """Globally unique ID, to identify the exercise across installations"""
 
     exercise_base = models.ForeignKey(
-        ExerciseBase,
+        Exercise,
         verbose_name='ExerciseBase',
         on_delete=models.CASCADE,
         default=None,
         null=False,
-        related_name='exercises',
+        related_name='translations',
     )
     """ Refers to the base exercise with non translated information """
 
@@ -176,8 +176,8 @@ class Translation(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         out = []
         if self.exercise_base.variations:
-            for variation in self.exercise_base.variations.exercisebase_set.all():
-                for exercise in variation.exercises.filter(language=self.language).all():
+            for variation in self.exercise_base.variations.exercise_set.all():
+                for exercise in variation.translations.filter(language=self.language).all():
                     out.append(exercise)
         return out
 

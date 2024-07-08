@@ -17,7 +17,6 @@ import datetime
 import logging
 
 # Django
-from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.urls import (
     reverse,
@@ -30,14 +29,8 @@ from wger.core.tests.base_testcase import (
     WgerDeleteTestCase,
     WgerTestCase,
 )
-from wger.exercises.models import ExerciseBase
-from wger.manager.models import (
-    Workout,
-    WorkoutLog,
-    WorkoutSession,
-)
+from wger.manager.models import WorkoutLog
 from wger.utils.cache import cache_mapper
-
 
 logger = logging.getLogger(__name__)
 

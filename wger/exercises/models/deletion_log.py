@@ -30,13 +30,13 @@ class DeletionLog(models.Model):
     different DBs, without any way of cleaning them up.
     """
 
-    MODEL_BASE = 'base'
+    MODEL_EXERCISE = 'base'
     MODEL_TRANSLATION = 'translation'
     MODEL_IMAGE = 'image'
     MODEL_VIDEO = 'video'
 
     MODELS = [
-        (MODEL_BASE, 'base'),
+        (MODEL_EXERCISE, 'base'),
         (MODEL_TRANSLATION, 'translation'),
         (MODEL_IMAGE, 'image'),
         (MODEL_VIDEO, 'video'),

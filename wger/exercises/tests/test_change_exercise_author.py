@@ -21,7 +21,7 @@ from django.core.management import call_command
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import Translation
-from wger.exercises.models.base import ExerciseBase
+from wger.exercises.models.base import Exercise
 
 
 class ChangeExerciseAuthorTestCase(WgerTestCase):
@@ -52,14 +52,14 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         """
         Test to ensure command can handle an exercise base id passed
         """
-        exercise = ExerciseBase.objects.get(id=2)
+        exercise = Exercise.objects.get(id=2)
         self.assertNotEqual(exercise.license_author, 'tom')
 
         args = ['--author-name', 'tom', '--exercise-base-id', '2']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
         self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
 
-        exercise = ExerciseBase.objects.get(id=2)
+        exercise = Exercise.objects.get(id=2)
         self.assertEqual(exercise.license_author, 'tom')
 
     def test_can_update_exercise(self):

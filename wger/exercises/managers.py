@@ -23,14 +23,14 @@ class ExerciseBaseManagerTranslations(models.Manager):
     """Returns all exercise bases that have at least one translation"""
 
     def get_queryset(self):
-        return super().get_queryset().annotate(count=Count('exercises')).filter(count__gt=0)
+        return super().get_queryset().annotate(count=Count('translations')).filter(count__gt=0)
 
 
 class ExerciseBaseManagerNoTranslations(models.Manager):
     """Returns all exercise bases that have no translations"""
 
     def get_queryset(self):
-        return super().get_queryset().annotate(count=Count('exercises')).filter(count=0)
+        return super().get_queryset().annotate(count=Count('translations')).filter(count=0)
 
 
 class ExerciseBaseManagerAll(models.Manager):

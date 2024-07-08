@@ -27,7 +27,7 @@ class ExerciseConfig(AppConfig):
 
         registry.register(self.get_model('Alias'))
         registry.register(self.get_model('Translation'))
-        registry.register(self.get_model('ExerciseBase'))
+        registry.register(self.get_model('Exercise'))
         registry.register(self.get_model('ExerciseComment'))
         registry.register(self.get_model('ExerciseImage'))
         registry.register(self.get_model('ExerciseVideo'))

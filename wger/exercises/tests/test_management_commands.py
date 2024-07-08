@@ -22,8 +22,8 @@ from django.test import SimpleTestCase
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
+    Exercise,
     Translation,
-    ExerciseBase,
 )
 
 
@@ -93,7 +93,7 @@ class TestHealthCheckManagementCommands(WgerTestCase):
 
         call_command('exercises-health-check', '--delete-untranslated', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
-        self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
+        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
     def test_find_no_english_translation(self):
         Translation.objects.get(pk=1).delete()
@@ -110,7 +110,7 @@ class TestHealthCheckManagementCommands(WgerTestCase):
 
         call_command('exercises-health-check', '--delete-no-english', stdout=self.out)
         self.assertIn('-> deleted', self.out.getvalue())
-        self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
+        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
     def test_find_duplicate_translations(self):
         exercise = Translation.objects.get(pk=1)

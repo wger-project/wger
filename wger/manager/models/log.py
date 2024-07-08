@@ -28,7 +28,7 @@ from wger.core.models import (
     RepetitionUnit,
     WeightUnit,
 )
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.manager.consts import RIR_OPTIONS
 from wger.manager.models.session import WorkoutSession
 from wger.utils.cache import reset_workout_log
@@ -77,7 +77,7 @@ class WorkoutLog(models.Model):
     """
 
     exercise = models.ForeignKey(
-        ExerciseBase,
+        Exercise,
         verbose_name=_('Exercise'),
         on_delete=models.CASCADE,
     )

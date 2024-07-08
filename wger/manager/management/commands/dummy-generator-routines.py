@@ -23,7 +23,7 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.manager.models import (
     Day,
     RepsConfig,
@@ -33,7 +33,6 @@ from wger.manager.models import (
     SlotConfig,
     WeightConfig,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -111,7 +110,7 @@ class Command(BaseCommand):
                 day_list[-1].save()
 
                 # Add exercises (no supersets, all very simple)
-                exercise_list = [i for i in ExerciseBase.objects.all()]
+                exercise_list = [i for i in Exercise.objects.all()]
                 for day in day_list:
                     nr_of_exercises = random.randint(3, 6)
                     exercises = random.choices(exercise_list, k=nr_of_exercises)

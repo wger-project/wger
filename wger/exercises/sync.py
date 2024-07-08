@@ -44,13 +44,13 @@ from wger.exercises.models import (
     Alias,
     DeletionLog,
     Equipment,
-    Translation,
-    ExerciseBase,
+    Exercise,
     ExerciseCategory,
     ExerciseComment,
     ExerciseImage,
     ExerciseVideo,
     Muscle,
+    Translation,
 )
 from wger.manager.models import (
     SlotConfig,
@@ -83,7 +83,7 @@ def sync_exercises(
         muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
         muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-        base, base_created = ExerciseBase.objects.update_or_create(
+        base, base_created = Exercise.objects.update_or_create(
             uuid=uuid,
             defaults={'category_id': category_id, 'created': created},
         )
@@ -295,6 +295,7 @@ def handle_deleted_entries(
     style_fn=lambda x: x,
 ):
     if not print_fn:
+
         def print_fn(_):
             return None
 
@@ -308,18 +309,18 @@ def handle_deleted_entries(
         replaced_by_uuid = data['replaced_by']
         model_type = data['model_type']
 
-        if model_type == DeletionLog.MODEL_BASE:
+        if model_type == DeletionLog.MODEL_EXERCISE:
             obj_replaced = None
             nr_settings = None
             nr_slot_configs = None
             nr_logs = None
             try:
-                obj_replaced = ExerciseBase.objects.get(uuid=replaced_by_uuid)
-            except ExerciseBase.DoesNotExist:
+                obj_replaced = Exercise.objects.get(uuid=replaced_by_uuid)
+            except Exercise.DoesNotExist:
                 pass
 
             try:
-                obj = ExerciseBase.objects.get(uuid=uuid)
+                obj = Exercise.objects.get(uuid=uuid)
 
                 # Replace exercise in workouts and logs
                 if obj_replaced:
@@ -337,7 +338,7 @@ def handle_deleted_entries(
                     print_fn(f'- replaced in {nr_slot_configs} routines with {replaced_by_uuid}')
                 if nr_logs:
                     print_fn(f'- replaced in {nr_logs} workout logs with {replaced_by_uuid}')
-            except ExerciseBase.DoesNotExist:
+            except Exercise.DoesNotExist:
                 pass
 
         elif model_type == DeletionLog.MODEL_TRANSLATION:
@@ -391,8 +392,8 @@ def download_exercise_images(
         print_fn(f'Processing image {image_uuid}')
 
         try:
-            exercise = ExerciseBase.objects.get(uuid=image_data['exercise_base_uuid'])
-        except ExerciseBase.DoesNotExist:
+            exercise = Exercise.objects.get(uuid=image_data['exercise_base_uuid'])
+        except Exercise.DoesNotExist:
             print_fn('    Remote exercise base not found in local DB, skipping...')
             continue
 
@@ -423,8 +424,8 @@ def download_exercise_videos(
         print_fn(f'Processing video {video_uuid}')
 
         try:
-            exercise = ExerciseBase.objects.get(uuid=video_data['exercise_base_uuid'])
-        except ExerciseBase.DoesNotExist:
+            exercise = Exercise.objects.get(uuid=video_data['exercise_base_uuid'])
+        except Exercise.DoesNotExist:
             print_fn('    Remote exercise base not found in local DB, skipping...')
             continue
 

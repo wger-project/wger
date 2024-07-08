@@ -23,10 +23,10 @@ from wger.core.models import (
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
     Equipment,
-    Translation,
-    ExerciseBase,
+    Exercise,
     ExerciseCategory,
     Muscle,
+    Translation,
 )
 from wger.exercises.sync import (
     handle_deleted_entries,
@@ -647,11 +647,11 @@ class TestSyncMethods(WgerTestCase):
 
     @patch('requests.get', return_value=MockDeletionLogResponse())
     def test_deletion_log(self, mock_request):
-        self.assertEqual(ExerciseBase.objects.count(), 8)
+        self.assertEqual(Exercise.objects.count(), 8)
         self.assertEqual(Translation.objects.count(), 11)
 
-        exercise1 = ExerciseBase.objects.get(pk=1)
-        exercise2 = ExerciseBase.objects.get(pk=4)
+        exercise1 = Exercise.objects.get(pk=1)
+        exercise2 = Exercise.objects.get(pk=4)
         self.assertFalse(SlotConfig.objects.filter(exercise=exercise2).count())
         self.assertFalse(WorkoutLog.objects.filter(exercise=exercise2).count())
 
@@ -664,10 +664,10 @@ class TestSyncMethods(WgerTestCase):
             'https://wger.de/api/v2/deletion-log/?limit=100',
             headers=wger_headers(),
         )
-        self.assertEqual(ExerciseBase.objects.count(), 7)
+        self.assertEqual(Exercise.objects.count(), 7)
         self.assertEqual(Translation.objects.count(), 8)
         self.assertRaises(Translation.DoesNotExist, Translation.objects.get, pk=3)
-        self.assertRaises(ExerciseBase.DoesNotExist, ExerciseBase.objects.get, pk=1)
+        self.assertRaises(Exercise.DoesNotExist, Exercise.objects.get, pk=1)
 
         # Workouts and logs have been moved
         for pk in slot_configs:
@@ -677,9 +677,9 @@ class TestSyncMethods(WgerTestCase):
 
     @patch('requests.get', return_value=MockExerciseResponse())
     def test_exercise_sync(self, mock_request):
-        self.assertEqual(ExerciseBase.objects.count(), 8)
+        self.assertEqual(Exercise.objects.count(), 8)
         self.assertEqual(Translation.objects.count(), 11)
-        exercise = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
+        exercise = Exercise.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
         self.assertEqual(exercise.category_id, 2)
 
         sync_exercises(lambda x: x)
@@ -688,11 +688,11 @@ class TestSyncMethods(WgerTestCase):
             'https://wger.de/api/v2/exercisebaseinfo/?limit=100',
             headers=wger_headers(),
         )
-        self.assertEqual(ExerciseBase.objects.count(), 9)
+        self.assertEqual(Exercise.objects.count(), 9)
         self.assertEqual(Translation.objects.count(), 14)
 
         # New exercise was created
-        new_exercise = ExerciseBase.objects.get(uuid='1b020b3a-3732-4c7e-92fd-a0cec90ed69b')
+        new_exercise = Exercise.objects.get(uuid='1b020b3a-3732-4c7e-92fd-a0cec90ed69b')
         self.assertEqual(new_exercise.category_id, 2)
         self.assertEqual([e.id for e in new_exercise.equipment.all()], [2])
         self.assertEqual([m.id for m in new_exercise.muscles.all()], [2])
@@ -714,7 +714,7 @@ class TestSyncMethods(WgerTestCase):
         self.assertEqual(translation_en.description, 'TBD')
 
         # Existing exercise was updated
-        exercise = ExerciseBase.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
+        exercise = Exercise.objects.get(uuid='ae3328ba-9a35-4731-bc23-5da50720c5aa')
         self.assertEqual(exercise.category_id, 3)
 
         translation_de = exercise.get_translation('de')

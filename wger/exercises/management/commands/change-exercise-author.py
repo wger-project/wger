@@ -16,8 +16,10 @@
 from django.core.management.base import BaseCommand
 
 # wger
-from wger.exercises.models import ExerciseBase
-from wger.exercises.models import Translation
+from wger.exercises.models import (
+    Exercise,
+    Translation,
+)
 
 
 class Command(BaseCommand):
@@ -61,8 +63,8 @@ class Command(BaseCommand):
 
         if exercise_base_id is not None:
             try:
-                exercise_base = ExerciseBase.objects.get(id=exercise_base_id)
-            except ExerciseBase.DoesNotExist:
+                exercise_base = Exercise.objects.get(id=exercise_base_id)
+            except Exercise.DoesNotExist:
                 self.print_error('Failed to find exercise base')
                 return
             exercise_base.license_author = author_name
@@ -71,7 +73,7 @@ class Command(BaseCommand):
         if exercise_id is not None:
             try:
                 exercise = Translation.objects.get(id=exercise_id)
-            except ExerciseBase.DoesNotExist:
+            except Exercise.DoesNotExist:
                 self.print_error('Failed to find exercise')
                 return
             exercise.license_author = author_name

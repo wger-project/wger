@@ -17,7 +17,7 @@ from django.core.management.base import BaseCommand
 
 # wger
 from wger.exercises.api.serializers import ExerciseBaseInfoSerializer
-from wger.exercises.models import ExerciseBase
+from wger.exercises.models import Exercise
 from wger.utils.cache import reset_exercise_api_cache
 
 
@@ -47,14 +47,14 @@ class Command(BaseCommand):
         force = options['force']
 
         if exercise_base_id:
-            exercise = ExerciseBase.objects.get(pk=exercise_base_id)
+            exercise = Exercise.objects.get(pk=exercise_base_id)
             self.handle_cache(exercise, force)
             return
 
-        for exercise in ExerciseBase.translations.all():
+        for exercise in Exercise.with_translations.all():
             self.handle_cache(exercise, force)
 
-    def handle_cache(self, exercise: ExerciseBase, force: bool):
+    def handle_cache(self, exercise: Exercise, force: bool):
         if force:
             self.stdout.write(f'Force updating cache for exercise base {exercise.uuid}')
         else:

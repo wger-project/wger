@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('core', '0016_alter_language_short_name'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('exercises', '0028_add_uuid_alias_and_comments'),
+        ('exercises', '0032_rename_exercise'),
         ('manager', '0017_alter_workoutlog_exercise_base'),
     ]
 
@@ -149,7 +149,7 @@ class Migration(migrations.Migration):
                 (
                     'exercise',
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to='exercises.exercisebase'
+                        on_delete=django.db.models.deletion.CASCADE, to='exercises.exercise'
                     ),
                 ),
                 (

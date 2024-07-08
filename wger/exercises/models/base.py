@@ -24,7 +24,10 @@ from typing import (
 
 # Django
 from django.core.checks import Warning
-from django.db import models, OperationalError
+from django.db import (
+    OperationalError,
+    models,
+)
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.translation import (
@@ -55,14 +58,14 @@ from .muscle import Muscle
 from .variation import Variation
 
 
-class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
+class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     """
     Model for an exercise base
     """
 
     objects = ExerciseBaseManagerAll()
     no_translations = ExerciseBaseManagerNoTranslations()
-    translations = ExerciseBaseManagerTranslations()
+    with_translations = ExerciseBaseManagerTranslations()
     """
     Custom Query Manager
     """
@@ -150,8 +153,8 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
                     Warning(
                         'exercises without translations',
                         hint=f'There are {no_translations} exercises without translations, this will '
-                             'cause problems! You can output or delete them with "python manage.py '
-                             'exercises-health-check --help"',
+                        'cause problems! You can output or delete them with "python manage.py '
+                        'exercises-health-check --help"',
                         id='wger.W002',
                     )
                 )
@@ -172,7 +175,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         All authors history related to the BaseExercise.
         """
         collect_for_models = [
-            *self.exercises.all(),
+            *self.translations.all(),
             *self.exercisevideo_set.all(),
             *self.exerciseimage_set.all(),
         ]
@@ -187,7 +190,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
             self.last_update,
             *[image.last_update for image in self.exerciseimage_set.all()],
             *[video.last_update for video in self.exercisevideo_set.all()],
-            *[translation.last_update for translation in self.exercises.all()],
+            *[translation.last_update for translation in self.translations.all()],
             datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc),
         )
 
@@ -203,7 +206,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         Returns the languages from the exercises that use this base
         """
-        return [exercise.language for exercise in self.exercises.all()]
+        return [exercise.language for exercise in self.translations.all()]
 
     @property
     def base_variations(self):
@@ -212,7 +215,7 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         """
         if not self.variations:
             return []
-        return self.variations.exercisebase_set.filter(~Q(id=self.id))
+        return self.variations.exercise_set.filter(~Q(id=self.id))
 
     def get_translation(self, language: Optional[str] = None):
         """
@@ -230,14 +233,14 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
         language = language or get_language()
 
         try:
-            translation = self.exercises.get(language__short_name=language)
+            translation = self.translations.get(language__short_name=language)
         except Translation.DoesNotExist:
             try:
-                translation = self.exercises.get(language__short_name=ENGLISH_SHORT_NAME)
+                translation = self.translations.get(language__short_name=ENGLISH_SHORT_NAME)
             except Translation.DoesNotExist:
-                translation = self.exercises.first()
+                translation = self.translations.first()
         except Translation.MultipleObjectsReturned:
-            translation = self.exercises.filter(language__short_name=language).first()
+            translation = self.translations.filter(language__short_name=language).first()
 
         return translation
 
@@ -255,12 +258,12 @@ class ExerciseBase(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
 
         if replace_by:
             try:
-                ExerciseBase.objects.get(uuid=replace_by)
-            except ExerciseBase.DoesNotExist:
+                Exercise.objects.get(uuid=replace_by)
+            except Exercise.DoesNotExist:
                 replace_by = None
 
         log = DeletionLog(
-            model_type=DeletionLog.MODEL_BASE,
+            model_type=DeletionLog.MODEL_EXERCISE,
             uuid=self.uuid,
             comment=f'Exercise base of {self.get_translation(ENGLISH_SHORT_NAME)}',
             replaced_by=replace_by,

@@ -18,8 +18,8 @@ import datetime
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
 from wger.exercises.models import (
+    Exercise,
     Translation,
-    ExerciseBase,
 )
 
 
@@ -34,12 +34,12 @@ class ExerciseBaseTranslationHandlingTestCase(WgerTestCase):
         Translation.objects.get(pk=5).delete()
 
     def test_managers(self):
-        self.assertEqual(ExerciseBase.translations.all().count(), 7)
-        self.assertEqual(ExerciseBase.no_translations.all().count(), 1)
-        self.assertEqual(ExerciseBase.objects.all().count(), 8)
+        self.assertEqual(Exercise.with_translations.all().count(), 7)
+        self.assertEqual(Exercise.no_translations.all().count(), 1)
+        self.assertEqual(Exercise.objects.all().count(), 8)
 
     def test_checks(self):
-        out = ExerciseBase.check()
+        out = Exercise.check()
         self.assertEqual(len(out), 1)
         self.assertEqual(out[0].id, 'wger.W002')
 
@@ -49,11 +49,11 @@ class ExerciseBaseModelTestCase(WgerTestCase):
     Test custom model logic
     """
 
-    exercise: ExerciseBase
+    exercise: Exercise
 
     def setUp(self):
         super().setUp()
-        self.exercise = ExerciseBase.objects.get(pk=1)
+        self.exercise = Exercise.objects.get(pk=1)
 
     def test_access_date(self):
         utc = datetime.timezone.utc
@@ -66,7 +66,7 @@ class ExerciseBaseModelTestCase(WgerTestCase):
         )
 
         self.assertEqual(
-            max(*[translation.last_update for translation in self.exercise.exercises.all()]),
+            max(*[translation.last_update for translation in self.exercise.translations.all()]),
             datetime.datetime(2022, 2, 2, 5, 45, 11, tzinfo=utc),
         )
 
