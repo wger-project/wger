@@ -258,6 +258,7 @@ AVAILABLE_LANGUAGES = (
     ('tr', 'Turkish'),
     ('uk', 'Ukrainian'),
     ('zh-hans', 'Chinese simplified'),
+    ('zh-hant', 'Traditional Chinese'),
 )
 
 # Default language code for this installation.
@@ -539,6 +540,7 @@ WGER_SETTINGS = {
     'DOWNLOAD_INGREDIENTS_FROM': DOWNLOAD_INGREDIENT_WGER,
     'EMAIL_FROM': 'wger Workout Manager <wger@example.com>',
     'EXERCISE_CACHE_TTL': 3600,
+    'INGREDIENT_CACHE_TTL': 604800,  # one week
     'MIN_ACCOUNT_AGE_TO_TRUST': 21,
     'SYNC_EXERCISES_CELERY': False,
     'SYNC_EXERCISE_IMAGES_CELERY': False,

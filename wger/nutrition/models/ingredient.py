@@ -41,6 +41,7 @@ from openfoodfacts import API
 from requests import (
     ConnectTimeout,
     HTTPError,
+    ReadTimeout,
 )
 
 # wger
@@ -49,15 +50,14 @@ from wger.nutrition.consts import (
     ENERGY_FACTOR,
     KJ_PER_KCAL,
 )
+from wger.nutrition.managers import ApproximateCountManager
+from wger.nutrition.models.ingredient_category import IngredientCategory
 from wger.nutrition.models.sources import Source
 from wger.utils.cache import cache_mapper
 from wger.utils.constants import TWOPLACES
 from wger.utils.language import load_language
 from wger.utils.models import AbstractLicenseModel
 from wger.utils.requests import wger_user_agent
-
-# Local
-from .ingredient_category import IngredientCategory
 
 
 logger = logging.getLogger(__name__)
@@ -73,6 +73,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
     How much the calculated energy from protein, etc. can deviate from the
     energy amount given (in percent).
     """
+
+    objects = ApproximateCountManager()
 
     language = models.ForeignKey(
         Language,
@@ -423,12 +425,12 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         logger.info(f'Searching for ingredient {code} in OFF')
         try:
-            api = API(user_agent=wger_user_agent())
+            api = API(user_agent=wger_user_agent(), timeout=3)
             result = api.product.get(code)
         except JSONDecodeError as e:
             logger.info(f'Got JSONDecodeError from OFF: {e}')
             return None
-        except ConnectTimeout:
+        except (ReadTimeout, ConnectTimeout):
             logger.info('Timeout from OFF')
             return None
         except HTTPError as e:
@@ -441,7 +443,8 @@ class Ingredient(AbstractLicenseModel, models.Model):
 
         try:
             ingredient_data = extract_info_from_off(result, load_language(result['lang']).pk)
-        except KeyError:
+        except (KeyError, ValueError) as e:
+            logger.debug(f'Error extracting data from OFF: {e}')
             return None
 
         if not ingredient_data.name:

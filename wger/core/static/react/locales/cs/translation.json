@@ -98,7 +98,8 @@
         "planDeleteInfo": "Touto akcí odstraníte také všechny záznamy ve výživovém deníku",
         "mealDeleteInfo": "Záznamy ve výživovém deníku u tohoto jídla nebudou odstraněny a budou přesunuty pod „ostatní záznamy“",
         "logThisMeal": "Zaznamenat jídlo do deníku tak jak je",
-        "logThisMealItem": "Zaznamenat ingredienci do deníku tak jak je"
+        "logThisMealItem": "Zaznamenat ingredienci do deníku tak jak je",
+        "goalFiber": "Cíl vlákniny"
     },
     "add": "Přidat",
     "licenses": {

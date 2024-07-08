@@ -73,7 +73,10 @@ from wger.nutrition.models import (
     NutritionPlan,
     WeightUnit,
 )
-from wger.utils.constants import ENGLISH_SHORT_NAME
+from wger.utils.constants import (
+    ENGLISH_SHORT_NAME,
+    SEARCH_ALL_LANGUAGES,
+)
 from wger.utils.db import is_postgres_db
 from wger.utils.language import load_language
 from wger.utils.viewsets import WgerOwnerObjectModelViewSet
@@ -92,7 +95,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_class = IngredientFilterSet
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
@@ -211,15 +214,21 @@ def search(request):
     term = request.GET.get('term', None)
     language_codes = request.GET.get('language', ENGLISH_SHORT_NAME)
     results = []
-    json_response = {}
+    response = {}
 
     if not term:
-        return Response(json_response)
+        return Response(response)
 
+    query = Ingredient.objects.all()
+
+    # Filter the appropriate languages
     languages = [load_language(l) for l in language_codes.split(',')]
-    query = Ingredient.objects.filter(
-        language__in=languages,
-    ).only('name')
+    if language_codes != SEARCH_ALL_LANGUAGES:
+        query = query.filter(
+            language__in=languages,
+        )
+
+    query = query.only('name')
 
     # Postgres uses a full-text search
     if is_postgres_db():
@@ -252,9 +261,9 @@ def search(request):
             },
         }
         results.append(ingredient_json)
-    json_response['suggestions'] = results
+    response['suggestions'] = results
 
-    return Response(json_response)
+    return Response(response)
 
 
 class ImageViewSet(viewsets.ReadOnlyModelViewSet):
@@ -267,7 +276,7 @@ class ImageViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     filterset_fields = ('uuid', 'ingredient_id', 'ingredient__uuid')
 
-    @method_decorator(cache_page(settings.WGER_SETTINGS['EXERCISE_CACHE_TTL']))
+    @method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

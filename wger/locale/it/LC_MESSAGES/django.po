@@ -475,7 +475,7 @@ msgid "Forbidden!"
 msgstr "Proibito!"
 
 #: core/templates/403.html:7
-msgid "You are not allowed to acces this page"
+msgid "You are not allowed to access this page"
 msgstr "Non sei autorizzato ad accedere a questa pagina"
 
 #: core/templates/404.html:4

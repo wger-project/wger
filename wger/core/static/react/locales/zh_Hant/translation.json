@@ -117,7 +117,8 @@
         "others": "其它",
         "planDeleteInfo": "這也會刪除所有營養日記條目",
         "mealDeleteInfo": "本餐的營養日記條目不會被刪除，並會顯示在「其他日誌」下",
-        "ofWhichSugars": "哪種糖"
+        "ofWhichSugars": "哪種糖",
+        "goalFiber": "纖維目標"
     },
     "images": "圖片",
     "language": "語言",

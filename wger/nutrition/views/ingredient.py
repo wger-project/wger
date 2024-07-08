@@ -18,6 +18,7 @@
 import logging
 
 # Django
+from django.conf import settings
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -29,10 +30,12 @@ from django.shortcuts import (
     render,
 )
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import (
     gettext as _,
     gettext_lazy,
 )
+from django.views.decorators.cache import cache_page
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -61,6 +64,7 @@ logger = logging.getLogger(__name__)
 # ************************
 # Ingredient functions
 # ************************
+@method_decorator(cache_page(settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL']), name='dispatch')
 class IngredientListView(ListView):
     """
     Show an overview of all ingredients
@@ -76,7 +80,7 @@ class IngredientListView(ListView):
         Filter the ingredients the user will see by its language
         """
         language = load_language()
-        return Ingredient.objects.filter(language=language).only('id', 'name')
+        return Ingredient.objects.filter(language=language)
 
 
 def view(request, pk, slug=None):
@@ -85,7 +89,11 @@ def view(request, pk, slug=None):
     ingredient = cache.get(cache_mapper.get_ingredient_key(int(pk)))
     if not ingredient:
         ingredient = get_object_or_404(Ingredient, pk=pk)
-        cache.set(cache_mapper.get_ingredient_key(ingredient), ingredient)
+        cache.set(
+            cache_mapper.get_ingredient_key(ingredient),
+            ingredient,
+            settings.WGER_SETTINGS['INGREDIENT_CACHE_TTL'],
+        )
     context['ingredient'] = ingredient
     context['image'] = ingredient.get_image(request)
     context['form'] = UnitChooserForm(

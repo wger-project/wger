@@ -40,7 +40,7 @@ jobs:
             ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.0.0
+        uses: docker/setup-qemu-action@v3.1.0
 
       - name: Set up Docker Buildx
         id: buildx
@@ -64,7 +64,7 @@ jobs:
 
       - name: Build and push by digest
         id: build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: extras/docker/development/Dockerfile
