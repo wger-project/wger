@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-02 12:42+0100\n"
-"PO-Revision-Date: 2024-07-04 08:09+0000\n"
+"PO-Revision-Date: 2024-07-09 08:09+0000\n"
 "Last-Translator: florent4014 <florent.touzet@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
 "Language: fr\n"
@@ -656,10 +656,6 @@ msgid "Imprint"
 msgstr "Informations légales"
 
 #: core/templates/misc/license/list.html:47
-#, fuzzy
-#| msgid ""
-#| "If a license has been localized, e.g. the Creative Commons\n"
-#| "licenses for the different countries, add them as separate entries here."
 msgid ""
 "If a license has been localized, e.g. the Creative Commons\n"
 "            licenses for the different countries, add them as separate "
@@ -687,8 +683,6 @@ msgid "Calendar"
 msgstr "Calendrier"
 
 #: core/templates/navigation.html:60
-#, fuzzy
-#| msgid "Macronutrients"
 msgid "Measurements"
 msgstr "Macronutriments"
 
@@ -1797,10 +1791,9 @@ msgid "Show the name of the gym in the site header"
 msgstr "Afficher le nom de la salle de sport dans l’en-tête du site"
 
 #: gym/models/gym_config.py:68
-#, fuzzy, python-brace-format
-#| msgid "Configuration for {}"
+#, python-brace-format
 msgid "Configuration for {self.gym.name}"
-msgstr "Configuration pour {}"
+msgstr "Configuration pour {self.gym.name}"
 
 #: gym/models/user_config.py:65 gym/templates/gym/member_list.html:184
 msgid "Overview of inactive members"
@@ -1999,8 +1992,6 @@ msgid "Biceps"
 msgstr "Biceps"
 
 #: i18n.tpl:8
-#, fuzzy
-#| msgid "Body weight"
 msgid "Body Weight"
 msgstr "Poids corporel"
 
@@ -2010,7 +2001,7 @@ msgstr "Mollets"
 
 #: i18n.tpl:10
 msgid "Cardio"
-msgstr ""
+msgstr "Cardio"
 
 #: i18n.tpl:11
 msgid "Chest"
@@ -2045,10 +2036,8 @@ msgid "Kilometers"
 msgstr "kilomètres"
 
 #: i18n.tpl:19
-#, fuzzy
-#| msgid "Kilometers"
 msgid "Kilometers Per Hour"
-msgstr "kilomètres"
+msgstr "kilomètres par heure"
 
 #: i18n.tpl:20
 msgid "Lats"
@@ -2072,7 +2061,7 @@ msgstr "Miles"
 
 #: i18n.tpl:25
 msgid "Miles Per Hour"
-msgstr ""
+msgstr "Miles par heure"
 
 #: i18n.tpl:26
 msgid "Minutes"
@@ -2080,7 +2069,7 @@ msgstr "Minutes"
 
 #: i18n.tpl:27
 msgid "Plates"
-msgstr ""
+msgstr "Plaques"
 
 #: i18n.tpl:28
 msgid "Pull-up bar"
@@ -2198,10 +2187,8 @@ msgstr ""
 "ensemble."
 
 #: manager/forms.py:140 nutrition/forms.py:252
-#, fuzzy
-#| msgid "Also use ingredients in English"
 msgid "Also search for names in English"
-msgstr "Afficher les ingrédients en anglais"
+msgstr "Chercher aussi le nom des ingrédients en anglais"
 
 #: manager/forms.py:168 manager/forms.py:173 manager/models/log.py:64
 #: manager/models/log.py:92 manager/models/setting.py:59
@@ -2474,10 +2461,6 @@ msgid "No schedules found."
 msgstr "Aucun programme trouvé."
 
 #: manager/templates/schedule/overview.html:36
-#, fuzzy
-#| msgid ""
-#| "Schedules are collections of workouts that you do in\n"
-#| "succession."
 msgid ""
 "Schedules are collections of workouts that you do in\n"
 "        succession."
@@ -2486,12 +2469,6 @@ msgstr ""
 "les uns après les autres."
 
 #: manager/templates/schedule/overview.html:39
-#, fuzzy
-#| msgid ""
-#| "You can indicate how long you want to do each workout\n"
-#| "before jumping to the next. It is also possible to create a loop, so you\n"
-#| "always do the same workouts in succession, e.g. A > B > C > A > B > C and "
-#| "so on."
 msgid ""
 "You can indicate how long you want to do each workout\n"
 "        before jumping to the next. It is also possible to create a loop, so "
@@ -2506,12 +2483,6 @@ msgstr ""
 "> C > A > B > C etc."
 
 #: manager/templates/schedule/overview.html:43
-#, fuzzy
-#| msgid ""
-#| "The currently active schedule will remain active (and be\n"
-#| "shown e.g. in your dashboard) till it reaches the last workout or till "
-#| "you\n"
-#| "deactivate it, if it is a loop."
 msgid ""
 "The currently active schedule will remain active (and be\n"
 "        shown e.g. in your dashboard) till it reaches the last workout or "
@@ -2552,13 +2523,7 @@ msgid "Start schedule"
 msgstr "Démarrer le programme"
 
 #: manager/templates/schedule/view.html:188
-#, fuzzy, python-format
-#| msgid ""
-#| "%(weeks)s Week\n"
-#| "                    "
-#| msgid_plural ""
-#| "%(weeks)s Weeks\n"
-#| "                    "
+#, python-format
 msgid ""
 "%(weeks)s Week\n"
 "                                    "
@@ -2567,30 +2532,24 @@ msgid_plural ""
 "                                "
 msgstr[0] ""
 "%(weeks)s semaine\n"
-"                    "
+"                                "
 msgstr[1] ""
 "%(weeks)s semaines\n"
-"                    "
+"                                "
 
 #: manager/templates/schedule/view.html:222
 msgid "Adding workouts"
 msgstr "Ajout de séances"
 
 #: manager/templates/schedule/view.html:224
-#, fuzzy
-#| msgid ""
-#| "Add as many workouts to the schedule as you want. You can\n"
-#| "edit the order by dragging and dropping them. It's also possible to add "
-#| "one workout more\n"
-#| "than once."
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "            edit the order by dragging and dropping them. It's also possible "
 "to add one workout more\n"
 "            than once."
 msgstr ""
-"Ajoutez autant de séances d’entraînements à la planification que vous "
-"voulez.\n"
+"Ajoutez autant de séances d’entraînements à la planification que vous voulez."
+"\n"
 "Vous pouvez changer l’ordre par glisser-déposer.\n"
 "C’est également possible d’ajouter une séance plus d’une fois."
 
@@ -2609,12 +2568,6 @@ msgstr "Exporter ce programme dans un fichier de calendrier."
 
 #: manager/templates/schedule/view.html:238
 #: manager/templates/workout/view.html:76
-#, fuzzy
-#| msgid ""
-#| "You can then import the file it into your calendar\n"
-#| "application for example google calendar, outlook or iCal. This will "
-#| "create\n"
-#| "an appointment for each training day with the appropriate exercises."
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2622,9 +2575,9 @@ msgid ""
 "                        an appointment for each training day with the "
 "appropriate exercises."
 msgstr ""
-"Vous pouvez ensuite importer le fichier dans votre application de "
-"calendrier,\n"
-"par exemple Google Agenda, Outlook où iCal. Ceci va créer un rendez-vous\n"
+"Vous pouvez ensuite importer le fichier dans votre application de calendrier,"
+"\n"
+"par exemple Google Agenda, Outlook ou iCal. Ceci va créer un rendez-vous\n"
 "pour chaque jour d'entraînement avec les exercices appropriés."
 
 #: manager/templates/schedule/view.html:259
@@ -2876,22 +2829,16 @@ msgid "Value"
 msgstr "Valeur"
 
 #: nutrition/forms.py:117
-#, fuzzy
-#| msgid "Height (cm)"
 msgid "Height (in)"
-msgstr "Taille (cm)"
+msgstr "Taille (in)"
 
 #: nutrition/forms.py:120
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (kg)"
-msgstr "Journal de pesée"
+msgstr "Poids (kg)"
 
 #: nutrition/forms.py:120
-#, fuzzy
-#| msgid "Weight log"
 msgid "Weight (lbs)"
-msgstr "Journal de pesée"
+msgstr "Poids (lbs)"
 
 #: nutrition/forms.py:133
 msgid "Calculate"
@@ -2976,11 +2923,12 @@ msgid "New user submitted ingredient"
 msgstr "Nouveau ingrédient soumis par un utilisateur"
 
 #: nutrition/models/ingredient.py:410
-#, fuzzy, python-brace-format
-#| msgid "The user {0} submitted a new ingredient \"{1}\"."
+#, python-brace-format
 msgid ""
 "The user {request.user.username} submitted a new ingredient \"{self.name}\"."
-msgstr "L’utilisateur {0} a soumis un nouvel ingrédient « {1} »."
+msgstr ""
+"L’utilisateur {request.user.username} a soumis un nouvel ingrédient « {self."
+"name} »."
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
@@ -3311,14 +3259,15 @@ msgstr ""
 #: nutrition/views/bmi.py:89
 msgid "Please make sure your height is within the appropriate range."
 msgstr ""
+"Veuillez vous assurer que votre taille se situe dans la plage appropriée."
 
 #: nutrition/views/bmi.py:92
 msgid "140 to 230"
-msgstr ""
+msgstr "140 à 230"
 
 #: nutrition/views/bmi.py:94
 msgid "56 to 90"
-msgstr ""
+msgstr "56 à 90"
 
 #: nutrition/views/ingredient.py:154
 msgid "Add a new ingredient"
@@ -3422,33 +3371,24 @@ msgid "Our goal"
 msgstr "Notre objectif"
 
 #: software/templates/about_us.html:53
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "and flexible fitness manager, along with a comprehensive and complete "
-#| "list of exercises and\n"
-#| "ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
 "complete list of exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"Le but est de construire un entraîneur de conditionnement physique "
-"impressionnant et flexible, ainsi qu’une liste exhaustive et complète "
-"d’exercices et d’ingrédients, tous publiés sous une licence libre."
+"Le but est de construire un \n"
+"entraîneur de conditionnement physique impressionnant et flexible, ainsi qu’"
+"une liste exhaustive et complète d’exercices\n"
+"et d’ingrédients, tous publiés sous une licence libre."
 
 #: software/templates/features.html:11
-#, fuzzy
-#| msgid ""
-#| "wger Workout Manager is a free, open source web application that manages "
-#| "your exercises and workouts. "
 msgid ""
 "wger Workout Manager is a free, open source web application that manages "
 "your exercises and workouts."
 msgstr ""
 "wger Workout Manager est une application web open source gratuit qui gère "
-"vos exercices et séances d’entraînement. "
+"vos exercices et séances d’entraînement."
 
 #: software/templates/features.html:45
 msgid "About"
@@ -3460,66 +3400,66 @@ msgstr "Application mobile"
 
 #: software/templates/features.html:63 software/templates/features.html:319
 msgid "Donate"
-msgstr ""
+msgstr "Faire un don"
 
 #: software/templates/features.html:68
 msgid "Develop"
-msgstr ""
+msgstr "Développer"
 
 #: software/templates/features.html:73 software/templates/features.html:455
-#, fuzzy
-#| msgid "Comment"
 msgid "Community"
-msgstr "Commentaire"
+msgstr "Communauté"
 
 #: software/templates/features.html:107
 msgid "Track your <br> way to your <br> ideal body"
-msgstr ""
+msgstr "Suivez votre <br> progression vers votre <br> corps idéal"
 
 #: software/templates/features.html:110
 msgid ""
 "Join wger, the community-driven <b>free and open-source fitness tracker</b>"
 msgstr ""
+"Rejoignez wger, le <b>tracker de fitness gratuit et open source</b> piloté "
+"par la communauté"
 
 #: software/templates/features.html:120
-#, fuzzy
-#| msgid "Get the code"
 msgid "Get Started"
-msgstr "Récupérer le code"
+msgstr "Commencer"
 
 #: software/templates/features.html:130
 msgid "people <br> using wger"
-msgstr ""
+msgstr "Personnes <br> utilisant wger"
 
 #: software/templates/features.html:134
-#, fuzzy
-#| msgid "Add exercises to this workout day"
 msgid "exercises <br> for workout creation"
-msgstr "Ajouter des exercices à cette séance"
+msgstr "Exercices <br> pour la création d'entraînements"
 
 #: software/templates/features.html:138
 msgid "foods <br> for meal planing"
-msgstr ""
+msgstr "Aliments <br> pour la planification de repas"
 
 #: software/templates/features.html:142
 msgid "stars <br> on GitHub"
-msgstr ""
+msgstr "étoiles <br> sur Github"
 
 #: software/templates/features.html:166
 msgid "Craft your perfect <span>workout routines</span>"
-msgstr ""
+msgstr "Façonnez votre <span>routine d'entraînement parfaite</span>"
 
 #: software/templates/features.html:170
 msgid "Design a weekly workout plan from more than 100 exercises"
 msgstr ""
+"Concevez un plan d'entraînement hebdomadaire à partir de plus de 100 "
+"exercices"
 
 #: software/templates/features.html:173
 msgid "Set reps and sets, duration, or distance goals for each exercise"
 msgstr ""
+"Définissez des répétitions et des séries, des objectifs de durée ou de "
+"distance pour chaque exercice"
 
 #: software/templates/features.html:176
 msgid "Get guided through your workouts step by step"
-msgstr ""
+msgstr "Laissez-vous guider pas à pas dans vos entraînements"
 
 #: software/templates/features.html:179
 msgid ""
@@ -3668,15 +3608,13 @@ msgstr "Discord"
 
 #: software/templates/features.html:485
 msgid "Software"
-msgstr ""
+msgstr "Logiciel"
 
 #: software/templates/features.html:491
 msgid "Report an issue"
-msgstr ""
+msgstr "Signaler un problème"
 
 #: software/templates/features.html:497
-#, fuzzy
-#| msgid "Source code"
 msgid "Source Code"
 msgstr "Code source"
 
@@ -3686,35 +3624,27 @@ msgstr "Oui, supprimer"
 
 #: utils/models.py:51
 msgid "The original title of this object, if available"
-msgstr ""
+msgstr "Le titre original de cet objet, si disponible"
 
 #: utils/models.py:57
 msgid "Link to original object, if available"
-msgstr ""
+msgstr "Lien vers l'objet original, si disponible"
 
 #: utils/models.py:63
-#, fuzzy
-#| msgid "Author"
 msgid "Author(s)"
-msgstr "Auteur"
+msgstr "Auteur(s)"
 
 #: utils/models.py:67
-#, fuzzy
-#| msgid ""
-#| "If you are not the author, enter the name or source here. This is needed "
-#| "for some licenses e.g. the CC-BY-SA."
 msgid "If you are not the author, enter the name or source here."
-msgstr ""
-"Si vous n’êtes pas l’auteur, entrez le nom ou la source ici. Ceci est "
-"nécessaire pour certaines licences par exemple la CC-BY-SA."
+msgstr "Si vous n'êtes pas l'auteur, entrez le nom ou la source ici."
 
 #: utils/models.py:71
 msgid "Link to author profile, if available"
-msgstr ""
+msgstr "Lien vers le profil de l'auteur, si disponible"
 
 #: utils/models.py:77
 msgid "Link to the original source, if this is a derivative work"
-msgstr ""
+msgstr "Lien vers la source originale, s'il s'agit d'une œuvre dérivée"
 
 #: utils/models.py:79
 msgid ""
@@ -3722,6 +3652,9 @@ msgid ""
 "work, but which also contains sufficient new, creative content to entitle it "
 "to its own copyright."
 msgstr ""
+"Notez qu'une œuvre dérivée est une œuvre qui n'est pas seulement basée sur "
+"une œuvre antérieure, mais qui contient également suffisamment de contenu "
+"nouveau et créatif pour lui donner droit à son propre droit d'auteur."
 
 #: utils/models.py:130
 msgid "Pending"
