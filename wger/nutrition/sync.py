@@ -50,7 +50,6 @@ from wger.utils.requests import (
 )
 from wger.utils.url import make_uri
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -58,7 +57,11 @@ def fetch_ingredient_image(pk: int):
     # wger
     from wger.nutrition.models import Ingredient
 
-    ingredient = Ingredient.objects.get(pk=pk)
+    try:
+        ingredient = Ingredient.objects.get(pk=pk)
+    except Ingredient.DoesNotExist:
+        logger.info(f'Ingredient with ID {pk} does not exist')
+        return
 
     if hasattr(ingredient, 'image'):
         return
