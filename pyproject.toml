@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "wger"
-version = "2.3.0a1"
+version = "2.3.0a2"
 dynamic = ["dependencies"]
 authors = [
     { name = "Roland Geider", email = "roland@geider.net" },
