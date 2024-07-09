@@ -84,16 +84,16 @@ def sync_exercises(
         muscles = [Muscle.objects.get(pk=i['id']) for i in data['muscles']]
         muscles_sec = [Muscle.objects.get(pk=i['id']) for i in data['muscles_secondary']]
 
-        base, base_created = Exercise.objects.update_or_create(
+        exercise, exercise_created = Exercise.objects.update_or_create(
             uuid=uuid,
             defaults={'category_id': category_id, 'created': created},
         )
-        print_fn(f"{'created' if base_created else 'updated'} exercise {uuid}")
+        print_fn(f"{'created' if exercise_created else 'updated'} exercise {uuid}")
 
-        base.muscles.set(muscles)
-        base.muscles_secondary.set(muscles_sec)
-        base.equipment.set(equipment)
-        base.save()
+        exercise.muscles.set(muscles)
+        exercise.muscles_secondary.set(muscles_sec)
+        exercise.equipment.set(equipment)
+        exercise.save()
 
         for translation_data in data['exercises']:
             trans_uuid = translation_data['uuid']
@@ -104,7 +104,7 @@ def sync_exercises(
             translation, translation_created = Translation.objects.update_or_create(
                 uuid=trans_uuid,
                 defaults={
-                    'exercise_base': base,
+                    'exercise_base': exercise,
                     'name': name,
                     'description': description,
                     'license_id': license_id,
@@ -395,7 +395,7 @@ def download_exercise_images(
         try:
             exercise = Exercise.objects.get(uuid=image_data['exercise_base_uuid'])
         except Exercise.DoesNotExist:
-            print_fn('    Remote exercise base not found in local DB, skipping...')
+            print_fn('    Remote exercise not found in local DB, skipping...')
             continue
 
         try:
@@ -427,7 +427,7 @@ def download_exercise_videos(
         try:
             exercise = Exercise.objects.get(uuid=video_data['exercise_base_uuid'])
         except Exercise.DoesNotExist:
-            print_fn('    Remote exercise base not found in local DB, skipping...')
+            print_fn('    Remote exercise not found in local DB, skipping...')
             continue
 
         try:

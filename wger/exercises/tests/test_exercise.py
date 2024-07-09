@@ -29,9 +29,9 @@ from wger.exercises.models import (
 from wger.utils.constants import CC_BY_SA_4_ID
 
 
-class ExerciseBaseTestCase(WgerTestCase):
+class ExerciseTestCase(WgerTestCase):
     """
-    Test the different features of an exercise and its base
+    Test the different features of an exercise
     """
 
     @staticmethod
@@ -39,7 +39,7 @@ class ExerciseBaseTestCase(WgerTestCase):
         """Helper to return the IDs of the objects in a queryset"""
         return sorted([i.id for i in queryset.all()])
 
-    def test_base(self):
+    def test_exercise(self):
         """
         Test that the properties return the correct data
         """

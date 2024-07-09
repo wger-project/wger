@@ -71,7 +71,7 @@ class DeletionLogTestCase(WgerTestCase):
 
     def test_exercise_with_replaced_by(self):
         """
-        Test that an entry is generated when a base is deleted and the replaced by is
+        Test that an entry is generated when a exercise is deleted and the replaced by is
         set correctly
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
@@ -79,7 +79,7 @@ class DeletionLogTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=1)
         exercise.delete(replace_by='ae3328ba-9a35-4731-bc23-5da50720c5aa')
 
-        # Base is deleted
+        # Exercise is deleted
         log = DeletionLog.objects.get(pk=1)
 
         self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)
@@ -88,7 +88,7 @@ class DeletionLogTestCase(WgerTestCase):
 
     def test_exercise_with_nonexistent_replaced_by(self):
         """
-        Test that an entry is generated when a base is deleted and the replaced by is
+        Test that an entry is generated when an exercise is deleted and the replaced by is
         set correctly. If the UUID is not found in the DB, it's set to None
         """
         self.assertEqual(DeletionLog.objects.all().count(), 0)
@@ -96,7 +96,7 @@ class DeletionLogTestCase(WgerTestCase):
         exercise = Exercise.objects.get(pk=1)
         exercise.delete(replace_by='12345678-1234-1234-1234-1234567890ab')
 
-        # Base is deleted
+        # Exercise is deleted
         log = DeletionLog.objects.get(pk=1)
 
         self.assertEqual(log.model_type, DeletionLog.MODEL_EXERCISE)

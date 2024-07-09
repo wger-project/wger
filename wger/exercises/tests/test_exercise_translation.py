@@ -94,16 +94,16 @@ class ExercisesTestCase(WgerTestCase):
         """
         Test that changing exercise details generates a historical record
         """
-        exercise = Translation.objects.get(pk=2)
-        self.assertEqual(len(exercise.history.all()), 0)
+        translation = Translation.objects.get(pk=2)
+        self.assertEqual(len(translation.history.all()), 0)
 
-        exercise.name = 'Very cool exercise 2'
-        exercise.description = 'New description'
-        exercise.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
-        exercise.save()
+        translation.name = 'Very cool exercise 2'
+        translation.description = 'New description'
+        translation.exercise_base.muscles_secondary.add(Muscle.objects.get(pk=2))
+        translation.save()
 
-        exercise = Translation.objects.get(pk=2)
-        self.assertEqual(len(exercise.history.all()), 1)
+        translation = Translation.objects.get(pk=2)
+        self.assertEqual(len(translation.history.all()), 1)
 
 
 class MuscleTemplateTagTest(WgerTestCase):
@@ -275,10 +275,10 @@ class ExerciseCustomApiTestCase(ExerciseCrudApiTestCase):
     def get_resource_name(self):
         return 'exercise-translation'
 
-    def test_cant_change_base_id(self):
+    def test_cant_change_exercise_id(self):
         """
-        Test that it is not possible to change the base id of an existing
-        exercise translation.
+        Test that it is not possible to change the exercise id of an existing
+        translation.
         """
         translation = Translation.objects.get(pk=self.pk)
         self.assertEqual(translation.exercise_base_id, 1)

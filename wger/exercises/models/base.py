@@ -41,9 +41,9 @@ from simple_history.models import HistoricalRecords
 # wger
 from wger.core.models import Language
 from wger.exercises.managers import (
-    ExerciseBaseManagerAll,
-    ExerciseBaseManagerNoTranslations,
-    ExerciseBaseManagerTranslations,
+    ExerciseManagerAll,
+    ExerciseManagerNoTranslations,
+    ExerciseManagerTranslations,
 )
 from wger.utils.cache import reset_exercise_api_cache
 from wger.utils.constants import ENGLISH_SHORT_NAME
@@ -65,9 +65,9 @@ class Exercise(AbstractLicenseModel, AbstractHistoryMixin, models.Model):
     Model for an exercise base
     """
 
-    objects = ExerciseBaseManagerAll()
-    no_translations = ExerciseBaseManagerNoTranslations()
-    with_translations = ExerciseBaseManagerTranslations()
+    objects = ExerciseManagerAll()
+    no_translations = ExerciseManagerNoTranslations()
+    with_translations = ExerciseManagerTranslations()
     """
     Custom Query Manager
     """

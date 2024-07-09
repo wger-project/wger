@@ -46,7 +46,7 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         """
         args = ['--author-name', 'tom']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
-        self.assertIn('Please enter an exercise base or exercise ID', self.out.getvalue())
+        self.assertIn('Please enter an exercise or translation ID', self.out.getvalue())
 
     def test_can_update_exercise_base(self):
         """
@@ -55,9 +55,9 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         exercise = Exercise.objects.get(id=2)
         self.assertNotEqual(exercise.license_author, 'tom')
 
-        args = ['--author-name', 'tom', '--exercise-base-id', '2']
+        args = ['--author-name', 'tom', '--exercise-id', '2']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
-        self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
+        self.assertIn('Exercise and/or translation has been updated', self.out.getvalue())
 
         exercise = Exercise.objects.get(id=2)
         self.assertEqual(exercise.license_author, 'tom')
@@ -69,9 +69,9 @@ class ChangeExerciseAuthorTestCase(WgerTestCase):
         exercise = Translation.objects.get(id=1)
         self.assertNotEqual(exercise.license_author, 'tom')
 
-        args = ['--author-name', 'tom', '--exercise-id', '1']
+        args = ['--author-name', 'tom', '--translation-id', '1']
         call_command('change-exercise-author', *args, stdout=self.out, no_color=True)
-        self.assertIn('Exercise and/or exercise base has been updated', self.out.getvalue())
+        self.assertIn('Exercise and/or translation has been updated', self.out.getvalue())
 
         exercise = Translation.objects.get(id=1)
         self.assertEqual(exercise.license_author, 'tom')

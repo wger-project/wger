@@ -12,27 +12,84 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+# Standard Library
+import datetime
+
 # wger
 from wger.core.tests.base_testcase import WgerTestCase
-from wger.exercises.models import Translation
+from wger.exercises.models import (
+    Exercise,
+    Translation,
+)
+
+
+class ExerciseTranslationHandlingTestCase(WgerTestCase):
+    """
+    Test the logic used to handle exercises without translations
+    """
+
+    def setUp(self):
+        super().setUp()
+        Translation.objects.get(pk=1).delete()
+        Translation.objects.get(pk=5).delete()
+
+    def test_managers(self):
+        self.assertEqual(Exercise.with_translations.all().count(), 7)
+        self.assertEqual(Exercise.no_translations.all().count(), 1)
+        self.assertEqual(Exercise.objects.all().count(), 8)
+
+    def test_checks(self):
+        out = Exercise.check()
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0].id, 'wger.W002')
 
 
 class ExerciseModelTestCase(WgerTestCase):
     """
-    Test the logic in the exercise model
+    Test custom model logic
     """
 
-    def test_absolute_url_name(self):
-        """Test that the get_absolute_url returns the correct URL"""
-        exercise = Translation(exercise_base_id=1, description='abc', name='foo')
-        self.assertEqual(exercise.get_absolute_url(), '/en/exercise/1/view-base/foo')
+    exercise: Exercise
 
-    def test_absolute_url_no_name(self):
-        """Test that the get_absolute_url returns the correct URL"""
-        exercise = Translation(exercise_base_id=2, description='abc', name='')
-        self.assertEqual(exercise.get_absolute_url(), '/en/exercise/2/view-base')
+    def setUp(self):
+        super().setUp()
+        self.exercise = Exercise.objects.get(pk=1)
 
-    def test_absolute_url_no_name2(self):
-        """Test that the get_absolute_url returns the correct URL"""
-        exercise = Translation(exercise_base_id=42, description='abc', name='@@@@@')
-        self.assertEqual(exercise.get_absolute_url(), '/en/exercise/42/view-base')
+    def test_access_date(self):
+        utc = datetime.timezone.utc
+        self.assertEqual(
+            self.exercise.last_update_global,
+            datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc),
+        )
+
+        self.assertEqual(
+            self.exercise.last_update,
+            datetime.datetime(2020, 11, 1, 21, 10, tzinfo=utc),
+        )
+
+        self.assertEqual(
+            max(*[translation.last_update for translation in self.exercise.translations.all()]),
+            datetime.datetime(2022, 2, 2, 5, 45, 11, tzinfo=utc),
+        )
+
+        self.assertEqual(
+            max(*[video.last_update for video in self.exercise.exerciseimage_set.all()]),
+            datetime.datetime(2023, 8, 9, 23, 0, tzinfo=utc),
+        )
+
+    def test_exercise_en(self):
+        translation = self.exercise.get_translation()
+        self.assertEqual(translation.language.short_name, 'en')
+
+    def test_get_exercise_fr(self):
+        translation = self.exercise.get_translation('fr')
+        self.assertEqual(translation.language.short_name, 'fr')
+
+    def test_get_exercise_unknown(self):
+        translation = self.exercise.get_translation('kg')
+        self.assertEqual(translation.language.short_name, 'en')
+
+    def test_get_languages(self):
+        languages = self.exercise.languages
+        self.assertEqual(languages[0].short_name, 'en')
+        self.assertEqual(languages[1].short_name, 'fr')

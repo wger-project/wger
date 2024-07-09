@@ -19,21 +19,21 @@ from django.db import models
 from django.db.models import Count
 
 
-class ExerciseBaseManagerTranslations(models.Manager):
-    """Returns all exercise bases that have at least one translation"""
+class ExerciseManagerTranslations(models.Manager):
+    """Returns all exercises that have at least one translation"""
 
     def get_queryset(self):
         return super().get_queryset().annotate(count=Count('translations')).filter(count__gt=0)
 
 
-class ExerciseBaseManagerNoTranslations(models.Manager):
-    """Returns all exercise bases that have no translations"""
+class ExerciseManagerNoTranslations(models.Manager):
+    """Returns all exercises that have no translations"""
 
     def get_queryset(self):
         return super().get_queryset().annotate(count=Count('translations')).filter(count=0)
 
 
-class ExerciseBaseManagerAll(models.Manager):
-    """Returns all exercise bases"""
+class ExerciseManagerAll(models.Manager):
+    """Returns all exercises"""
 
     pass
