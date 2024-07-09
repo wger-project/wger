@@ -6,8 +6,7 @@
 # Note: you MUST build this image from the project's root!
 # docker build -f extras/docker/development/Dockerfile --tag wger/server .
 #
-# Run the container:
-# docker run -ti -v /path/to/this/checkout:/home/wger/src --name wger.dev --publish 8000:8000 wger/server
+# To run the container consult https://github.com/wger-project/docker
 
 ##########
 # Builder
