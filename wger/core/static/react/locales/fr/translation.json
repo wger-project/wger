@@ -56,7 +56,8 @@
         "imageStyle3D": "3D",
         "imageStyleLine": "Ligne",
         "imageDetails": "Détail des images",
-        "imageStyleOther": "Autre"
+        "imageStyleOther": "Autre",
+        "imageStyleLowPoly": "Low-Poly"
     },
     "server": {
         "arms": "Bras",
@@ -78,7 +79,7 @@
         "until_failure": "Jusqu'à l'échec",
         "gym_mat": "Tapis de gymnastique",
         "dumbbell": "Haltère",
-        "kettlebell": "Haltère russe",
+        "kettlebell": "Kettlebell",
         "muscles": "Muscles",
         "sz-bar": "Barre SZ",
         "none_(bodyweight_exercise)": "Aucun (exercice au poids du corps)",
@@ -100,7 +101,8 @@
         "kilometers_per_hour": "Kilomètres par heure",
         "miles_per_hour": "Miles par heure",
         "kg": "kg",
-        "lb": "lb"
+        "lb": "lb",
+        "max_reps": "Reps maxi"
     },
     "noResults": "Aucun résultats",
     "noResultsDescription": "Aucun résultats n'a été trouvé avec cette requête, essayez de réduire le nombre de filtres.",
@@ -119,7 +121,9 @@
         "fieldRequired": "Le champ est requis",
         "valueTooLong": "La valeur est trop longue",
         "minLength": "Veuillez saisir plus de {{chars}} caractères",
-        "maxLength": "Veuillez saisir moins de {{chars}} caractères"
+        "maxLength": "Veuillez saisir moins de {{chars}} caractères",
+        "maxValue": "La valeur de ce champ doit être inférieure à {{value}}",
+        "minValue": "La valeur de ce champ doit être supérieure à {{value}}"
     },
     "name": "Nom",
     "category": "Catégorie",
@@ -140,7 +144,8 @@
         "addLogToDay": "Ajouter un journal à ce jour",
         "routine": "Routine",
         "routines": "Routines",
-        "logsHeader": "Journal de poids pour cet entraînement"
+        "logsHeader": "Journal de poids pour cet entraînement",
+        "rir": "ReR"
     },
     "value": "Valeur",
     "deleteConfirmation": "Êtes-vous certain de vouloir supprimer \"{{name}}\" ?",
@@ -187,7 +192,18 @@
         "fibres": "Fibres",
         "sugar": "Sucre",
         "others": "Autres",
-        "valueRemaining": "restant"
+        "valueRemaining": "restant",
+        "goalFiber": "Objectif fibre",
+        "7dayAvg": "Moyenne sur 7 jours",
+        "mealDeleteInfo": "Les entrées du journal nutritionnel pour ce repas ne seront pas supprimées et apparaîtront sous « autres journaux »",
+        "diaryEntrySaved": "Entrée du journal enregistrée avec succès",
+        "logThisMeal": "Enregistrez ce repas tel quel dans le journal nutritionnel",
+        "valueTooMany": "trop",
+        "ofWhichSugars": "dont les sucres",
+        "pseudoMealTitle": "Autres journaux",
+        "ofWhichSaturated": "dont saturé",
+        "planDeleteInfo": "Cela supprimera également toutes les entrées du journal nutritionnel",
+        "logThisMealItem": "Enregistrez cet ingrédient tel quel dans le journal nutritionnel"
     },
     "nothingHereYet": "Rien ici pour le moment …",
     "total": "Total",
@@ -197,7 +213,17 @@
     "nothingHereYetAction": "Appuyez sur le bouton d'action pour commencer",
     "licenses": {
         "originalTitle": "Titre",
-        "authors": "Auteur(s)"
+        "authors": "Auteur(s)",
+        "authorProfile": "Lien vers le profile ou le site de l'auteur, si disponible",
+        "derivativeSourceUrl": "Lien vers la source originale, s'il s'agit d'une œuvre dérivée",
+        "originalObjectUrl": "Lien vers le site Web source, si disponible",
+        "derivativeSourceUrlHelper": "Notez qu'une œuvre dérivée est une œuvre qui n'est pas seulement basée sur une œuvre antérieure, mais qui contient également suffisamment de contenu nouveau et créatif pour lui donner droit à son propre droit d'auteur."
     },
-    "filters": "Filtres"
+    "filters": "Filtres",
+    "measurements": {
+        "measurements": "Mesures",
+        "unitFormHelpText": "L'unité dans laquelle la catégorie sera mesurée, telle que cm ou %",
+        "deleteInfo": "Ceci supprimera la catégorie ainsi que toutes ses entrées"
+    },
+    "downloadAsPdf": "Télécharger en PDF"
 }

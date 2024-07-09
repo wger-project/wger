@@ -205,7 +205,8 @@
         "gramShort": "g",
         "searchIngredientName": "Traži prema imenu sastojka",
         "sodium": "Natrij",
-        "pseudoMealTitle": "Drugi zapisi"
+        "pseudoMealTitle": "Drugi zapisi",
+        "goalFiber": "Cilj za vlakna"
     },
     "downloadAsPdf": "Preuzmi kao PDF",
     "total": "Ukupno",
