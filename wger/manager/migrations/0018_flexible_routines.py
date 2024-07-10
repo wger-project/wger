@@ -408,7 +408,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
@@ -456,7 +456,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
@@ -504,7 +504,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
@@ -552,7 +552,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
@@ -600,7 +600,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
@@ -647,7 +647,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
@@ -694,7 +694,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ('replace', models.BooleanField(default=False)),
-                ('need_log_to_apply', models.BooleanField(default=False)),
+                ('need_log_to_apply', models.BooleanField(default=False, null=True)),
                 (
                     'slot_config',
                     models.ForeignKey(
