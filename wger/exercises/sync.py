@@ -95,7 +95,7 @@ def sync_exercises(
         exercise.equipment.set(equipment)
         exercise.save()
 
-        for translation_data in data['exercises']:
+        for translation_data in data['translations']:
             trans_uuid = translation_data['uuid']
             name = translation_data['name']
             description = translation_data['description']

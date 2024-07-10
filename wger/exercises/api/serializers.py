@@ -443,7 +443,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
     muscles = MuscleSerializer(many=True, read_only=True)
     muscles_secondary = MuscleSerializer(many=True, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
-    exercises = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
+    translations = ExerciseTranslationBaseInfoSerializer(many=True, read_only=True)
     videos = ExerciseVideoInfoSerializer(source='exercisevideo_set', many=True, read_only=True)
     variations = serializers.PrimaryKeyRelatedField(read_only=True)
     author_history = serializers.ListSerializer(child=serializers.CharField())
@@ -466,7 +466,7 @@ class ExerciseBaseInfoSerializer(serializers.ModelSerializer):
             'license',
             'license_author',
             'images',
-            'exercises',
+            'translations',
             'variations',
             'images',
             'videos',

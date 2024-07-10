@@ -384,7 +384,7 @@ class MockExerciseResponse:
                     },
                     "license_author": "Mr X",
                     "images": [],
-                    "exercises": [
+                    "translations": [
                         {
                             "id": 100,
                             "uuid": "c788d643-150a-4ac7-97ef-84643c6419bf",
@@ -491,7 +491,7 @@ class MockExerciseResponse:
                     },
                     "license_author": "Mr X",
                     "images": [],
-                    "exercises": [
+                    "translations": [
                         {
                             "id": 123,
                             "uuid": "7524ca8d-032e-482d-ab18-40e8a97851f6",
