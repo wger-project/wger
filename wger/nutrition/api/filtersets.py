@@ -29,7 +29,6 @@ class IngredientFilterSet(filters.FilterSet):
             'code': ['exact'],
             'source_name': ['exact'],
             'name': ['exact'],
-
             'energy': ['exact'],
             'protein': ['exact'],
             'carbohydrates': ['exact'],
@@ -38,11 +37,9 @@ class IngredientFilterSet(filters.FilterSet):
             'fat_saturated': ['exact'],
             'fiber': ['exact'],
             'sodium': ['exact'],
-
             'created': ['exact', 'gt', 'lt'],
             'last_update': ['exact', 'gt', 'lt'],
             'last_imported': ['exact', 'gt', 'lt'],
-
             'language': ['exact'],
             'license': ['exact'],
             'license_author': ['exact'],
