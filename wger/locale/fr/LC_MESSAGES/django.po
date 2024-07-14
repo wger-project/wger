@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 15:49+0200\n"
+"POT-Creation-Date: 2024-07-14 15:59+0200\n"
 "PO-Revision-Date: 2024-07-09 08:09+0000\n"
 "Last-Translator: florent4014 <florent.touzet@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/wger/web/fr/>\n"
@@ -2152,7 +2152,7 @@ msgstr ""
 "souhaitez avant d’envoyer les courriels"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:70
+#: software/templates/about_us.html:79
 msgid "Current version"
 msgstr "Version actuelle"
 
@@ -3321,11 +3321,21 @@ msgid "Get the source code of this application and its server on github"
 msgstr ""
 "Récupérez le code source de cette application et de son serveur sur Github"
 
-#: software/templates/about_us.html:59
+#: software/templates/about_us.html:54 software/templates/features.html:63
+#: software/templates/features.html:319
+msgid "Donate"
+msgstr "Faire un don"
+
+#: software/templates/about_us.html:56
+msgid ""
+"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+msgstr ""
+
+#: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr "Notre objectif"
 
-#: software/templates/about_us.html:62
+#: software/templates/about_us.html:71
 #, fuzzy
 #| msgid ""
 #| "The goal is to build an awesome\n"
@@ -3355,10 +3365,6 @@ msgstr ""
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "Application mobile"
-
-#: software/templates/features.html:63 software/templates/features.html:319
-msgid "Donate"
-msgstr "Faire un don"
 
 #: software/templates/features.html:68
 msgid "Develop"

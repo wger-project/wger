@@ -2107,7 +2107,7 @@ msgstr ""
 "često želiš"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:70
+#: software/templates/about_us.html:79
 msgid "Current version"
 msgstr "Trenutačna verzija"
 
@@ -3249,7 +3249,17 @@ msgstr "Izvorni kod"
 msgid "Get the source code of this application and its server on github"
 msgstr "Preuzmi izvorni kod ove aplikacije i njezinog poslužitelja na githubu"
 
-#: software/templates/about_us.html:59
+#: software/templates/about_us.html:54 software/templates/features.html:63
+#: software/templates/features.html:319
+msgid "Donate"
+msgstr "Doniraj"
+
+#: software/templates/about_us.html:56
+msgid ""
+"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+msgstr ""
+
+#: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr "Naš cilj"
 
@@ -3277,10 +3287,6 @@ msgstr ""
 #: software/templates/features.html:57
 msgid "Mobile app"
 msgstr "Mobilna aplikacija"
-
-#: software/templates/features.html:63 software/templates/features.html:319
-msgid "Donate"
-msgstr "Doniraj"
 
 #: software/templates/features.html:68
 msgid "Develop"

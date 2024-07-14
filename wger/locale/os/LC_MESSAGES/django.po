@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-14 15:49+0200\n"
+"POT-Creation-Date: 2024-07-14 15:59+0200\n"
 "PO-Revision-Date: 2021-04-11 18:54+0000\n"
 "Last-Translator: rge <roland@geider.net>\n"
 "Language-Team: Ossetic (http://www.transifex.com/rge/wger-workout-manager/"
@@ -2066,7 +2066,7 @@ msgid ""
 msgstr ""
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:70
+#: software/templates/about_us.html:79
 msgid "Current version"
 msgstr ""
 
@@ -3099,11 +3099,21 @@ msgstr ""
 msgid "Get the source code of this application and its server on github"
 msgstr ""
 
-#: software/templates/about_us.html:59
+#: software/templates/about_us.html:54 software/templates/features.html:63
+#: software/templates/features.html:319
+msgid "Donate"
+msgstr ""
+
+#: software/templates/about_us.html:56
+msgid ""
+"Buy us a coffee to help the project, pay for server costs, and keep us fueled"
+msgstr ""
+
+#: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr ""
 
-#: software/templates/about_us.html:62
+#: software/templates/about_us.html:71
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3120,10 +3130,6 @@ msgstr ""
 
 #: software/templates/features.html:57
 msgid "Mobile app"
-msgstr ""
-
-#: software/templates/features.html:63 software/templates/features.html:319
-msgid "Donate"
 msgstr ""
 
 #: software/templates/features.html:68
