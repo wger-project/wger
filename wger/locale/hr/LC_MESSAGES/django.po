@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:49+0200\n"
-"PO-Revision-Date: 2024-02-19 05:04+0000\n"
+"PO-Revision-Date: 2024-07-15 15:09+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -228,10 +228,8 @@ msgid "Language full name"
 msgstr "Potpuno ime jezika"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Potpuno ime jezika"
+msgstr "Potpuno ime jezika na engleskom"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -2835,7 +2833,7 @@ msgstr "Količina zasićene masti u mastima"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Vlakno"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3225,11 +3223,11 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
-msgstr ""
+msgstr "Prati nas na Mastodonu za nove verzije i novosti o projektu"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3256,12 +3254,6 @@ msgid "Our goal"
 msgstr "Naš cilj"
 
 #: software/templates/about_us.html:62
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3270,8 +3262,8 @@ msgid ""
 "                ingredients, all released under a free license."
 msgstr ""
 "Cilj je izgraditi sjajan i fleksibilan\n"
-"                fitness, zajedno sa sveobuhvatnim i potpunim popisom vježbi "
-"i\n"
+"                fitness, zajedno sa sveobuhvatnim i potpunim popisom\n"
+"                vježbi i\n"
 "                sastojaka, a sve objavljeno pod besplatnom licencom."
 
 #: software/templates/features.html:11
