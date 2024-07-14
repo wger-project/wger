@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:49+0200\n"
-"PO-Revision-Date: 2024-02-07 20:01+0000\n"
+"PO-Revision-Date: 2024-07-15 15:09+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/wger/web/es/>\n"
 "Language: es\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -237,10 +237,8 @@ msgid "Language full name"
 msgstr "Idioma - nombre largo"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Idioma - nombre largo"
+msgstr "Idioma nombre completo en inglés"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -2873,7 +2871,7 @@ msgstr "Contenido de grasas saturadas en grasas"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Fibra"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3266,11 +3264,13 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
 msgstr ""
+"Siguenos en Mastodon para recibir actualizaciones y noticias sobre el "
+"proyecto"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3297,12 +3297,6 @@ msgid "Our goal"
 msgstr "Nuestro objetivo"
 
 #: software/templates/about_us.html:62
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3310,11 +3304,11 @@ msgid ""
 "                exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
-"El objetivo es crear un administrador de rutinas flexible y eficiente, "
-"junto\n"
-"con una completa y extensiva lista de ejercicios e ingredientes "
-"alimenticios,\n"
-"todo bajo una licencia de uso libre."
+"El objetivo es crear un\n"
+"                y un flexible gestor de fitness, junto con una lista "
+"exhaustiva y completa de\n"
+"                ejercicios e\n"
+"                ingredientes, todo bajo una licencia libre."
 
 #: software/templates/features.html:11
 msgid ""
