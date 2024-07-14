@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:49+0200\n"
-"PO-Revision-Date: 2024-02-17 18:02+0000\n"
+"PO-Revision-Date: 2024-07-15 15:09+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/wger/web/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -232,10 +232,8 @@ msgid "Language full name"
 msgstr "Dilin tam adı"
 
 #: core/models/language.py:45 core/templates/language/view.html:23
-#, fuzzy
-#| msgid "Language full name"
 msgid "Language full name in English"
-msgstr "Dilin tam adı"
+msgstr "Dilin İngilizce tam adı"
 
 #: core/models/license.py:29
 msgid "Full name"
@@ -2863,7 +2861,7 @@ msgstr "Yağlarda doymuş yağ içeriği"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Lif"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3262,11 +3260,12 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
 msgstr ""
+"Projeyle ilgili güncellemeler ve haberler için bizi Mastodon'da takip edin"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3293,12 +3292,6 @@ msgid "Our goal"
 msgstr "Hedefimiz"
 
 #: software/templates/about_us.html:62
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3307,8 +3300,8 @@ msgid ""
 "                ingredients, all released under a free license."
 msgstr ""
 "Amaç, tümü özgür bir lisans altında\n"
-"                yayınlanan kapsamlı ve eksiksiz bir egzersiz ve içerik "
-"listesi ile birlikte harika ve esnek\n"
+"                yayınlanan kapsamlı ve eksiksiz bir egzersiz\n"
+"                ve içerik listesiile birlikte harika ve esnek\n"
 "                bir fitness yöneticisi oluşturmaktır."
 
 #: software/templates/features.html:11
