@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-02 12:42+0100\n"
+"POT-Creation-Date: 2024-07-14 15:49+0200\n"
 "PO-Revision-Date: 2024-02-19 05:04+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/wger/web/hr/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "registrirane korisnike ovoj teretani i aktualizirati sve postojeće korisnike "
 "bez teretane."
 
-#: config/views/gym_config.py:42 core/templates/language/view.html:63
+#: config/views/gym_config.py:42 core/templates/language/view.html:67
 #: core/templates/license/list.html:17 core/templates/misc/license/list.html:18
 #: core/templates/repetition_unit/list.html:18
 #: core/templates/tags/render_day.html:39
@@ -52,8 +52,8 @@ msgstr ""
 #: manager/templates/calendar/day.html:68
 #: manager/templates/calendar/month.html:85
 #: manager/templates/calendar/partial_overview_table.html:18
-#: manager/templates/schedule/view.html:119
-#: nutrition/templates/ingredient/view.html:191
+#: manager/templates/schedule/view.html:118
+#: nutrition/templates/ingredient/view.html:165
 #: nutrition/templates/units/list.html:19
 msgid "Edit"
 msgstr "Uredi"
@@ -87,8 +87,8 @@ msgstr "Moj raspored treninga"
 msgid "Empty placeholder schedule"
 msgstr "Prazan primjer rasporeda"
 
-#: core/forms.py:69 core/templates/navigation.html:275
-#: core/templates/navigation.html:281 core/templates/user/login.html:4
+#: core/forms.py:69 core/templates/navigation.html:285
+#: core/templates/navigation.html:291 core/templates/user/login.html:4
 #: software/templates/features.html:82 software/templates/features.html:427
 msgid "Login"
 msgstr "Prijava"
@@ -160,7 +160,7 @@ msgstr "Lozinka"
 msgid "Please enter your current password."
 msgstr "Upiši svoju aktualnu lozinku."
 
-#: core/forms.py:242 core/templates/language/view.html:68
+#: core/forms.py:242 core/templates/language/view.html:73
 #: core/templates/license/list.html:19 core/templates/misc/license/list.html:22
 #: core/templates/repetition_unit/list.html:20
 #: core/templates/tags/render_day.html:45
@@ -175,10 +175,10 @@ msgstr "Upiši svoju aktualnu lozinku."
 #: gym/templates/gym/list.html:22 manager/templates/calendar/day.html:73
 #: manager/templates/calendar/month.html:89
 #: manager/templates/calendar/partial_overview_table.html:23
-#: manager/templates/schedule/view.html:123
-#: manager/templates/workout/view.html:190
-#: nutrition/templates/ingredient/view.html:192
-#: nutrition/templates/ingredient/view.html:241
+#: manager/templates/schedule/view.html:122
+#: manager/templates/workout/view.html:188
+#: nutrition/templates/ingredient/view.html:166
+#: nutrition/templates/ingredient/view.html:215
 #: nutrition/templates/units/list.html:22
 msgid "Delete"
 msgstr "Izbriši"
@@ -191,14 +191,14 @@ msgstr "Neispravna lozinka"
 msgid "The form is secured with reCAPTCHA"
 msgstr "Obrazac je zaštićen pomoću reCAPTCHA"
 
-#: core/forms.py:279 core/forms.py:301 core/templates/navigation.html:275
-#: core/templates/navigation.html:287 core/templates/template.html:147
+#: core/forms.py:279 core/forms.py:301 core/templates/navigation.html:285
+#: core/templates/navigation.html:297 core/templates/template.html:149
 #: core/templates/user/login.html:20 core/views/user.py:298
 #: software/templates/features.html:87 software/templates/features.html:422
 msgid "Register"
 msgstr "Registracija"
 
-#: core/forms.py:315
+#: core/forms.py:315 software/templates/features.html:45
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -207,7 +207,7 @@ msgid "Some way of answering you (e-mail, etc.)"
 msgstr "Neki način slanja odgovora (e-mail, itd.)"
 
 #: core/forms.py:324 exercises/models/comment.py:58 manager/models/set.py:61
-#: manager/models/setting.py:111 nutrition/models/log.py:74
+#: manager/models/setting.py:114 nutrition/models/log.py:77
 msgid "Comment"
 msgstr "Komentar"
 
@@ -227,6 +227,12 @@ msgstr "Kratko ime jezika"
 msgid "Language full name"
 msgstr "Potpuno ime jezika"
 
+#: core/models/language.py:45 core/templates/language/view.html:23
+#, fuzzy
+#| msgid "Language full name"
+msgid "Language full name in English"
+msgstr "Potpuno ime jezika"
+
 #: core/models/license.py:29
 msgid "Full name"
 msgstr "Potpuno ime"
@@ -243,7 +249,7 @@ msgstr ""
 msgid "Short name, e.g. CC-BY-SA 3"
 msgstr "Kratko ime, npr. CC-BY-SA 3"
 
-#: core/models/license.py:45 nutrition/models/ingredient.py:214
+#: core/models/license.py:45 nutrition/models/ingredient.py:208
 msgid "Link"
 msgstr "Poveznica"
 
@@ -356,7 +362,7 @@ msgstr ""
 msgid "Age"
 msgstr "Dob"
 
-#: core/models/profile.py:230 nutrition/forms.py:117
+#: core/models/profile.py:230 nutrition/forms.py:118
 msgid "Height (cm)"
 msgstr "Veličina (cm)"
 
@@ -407,7 +413,7 @@ msgid "Total caloric intake, including e.g. any surplus"
 msgstr "Ukupni dnevni unos kalorija, uključujući npr. višak"
 
 #: core/models/profile.py:333 nutrition/models/ingredient_weight_unit.py:45
-#: nutrition/models/log.py:93 nutrition/models/meal_item.py:58
+#: nutrition/models/log.py:96 nutrition/models/meal_item.py:59
 msgid "Weight unit"
 msgstr "Jedinica težine"
 
@@ -439,17 +445,16 @@ msgstr "Zbroj svih sati mora biti 24"
 #: core/models/rep_unit.py:36 core/models/weight_unit.py:36
 #: core/templates/user/overview.html:262 core/views/user.py:599
 #: exercises/models/category.py:29 exercises/models/equipment.py:29
-#: exercises/models/exercise.py:58 exercises/models/muscle.py:36
+#: exercises/models/exercise.py:59 exercises/models/muscle.py:36
 #: gym/models/contract.py:52 gym/models/contract.py:103 gym/models/gym.py:46
 #: gym/models/user_document.py:84 gym/templates/contract/view.html:50
 #: gym/templates/gym/member_list.html:28 gym/templates/gym/member_list.html:96
 #: gym/views/gym.py:158 manager/models/schedule.py:55
 #: manager/models/workout.py:57 measurements/models/category.py:36
-#: nutrition/models/ingredient.py:125
+#: nutrition/models/ingredient.py:111
 #: nutrition/models/ingredient_category.py:27 nutrition/models/meal.py:67
 #: nutrition/models/weight_unit.py:38
-#: nutrition/templates/ingredient/pending.html:15
-#: nutrition/templates/ingredient/view.html:178
+#: nutrition/templates/ingredient/view.html:152
 msgid "Name"
 msgstr "Ime"
 
@@ -555,24 +560,24 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Kontrolna ploča"
 
-#: core/templates/language/overview.html:4 core/templates/navigation.html:335
+#: core/templates/language/overview.html:4 core/templates/navigation.html:345
 msgid "Languages"
 msgstr "Jezici"
 
-#: core/templates/language/overview.html:20
+#: core/templates/language/overview.html:22
 msgid "Nothing found."
 msgstr "Ništa nije pronađeno."
 
-#: core/templates/language/overview.html:20
+#: core/templates/language/overview.html:22
 #: manager/templates/calendar/month.html:132
 #: manager/templates/schedule/overview.html:28
-#: manager/templates/schedule/view.html:145
+#: manager/templates/schedule/view.html:144
 #: manager/templates/workout/overview.html:28
 #: nutrition/templates/ingredient/overview.html:38
 msgid "Add one now."
 msgstr "Dodaj jedan sada."
 
-#: core/templates/language/overview.html:33 core/templates/license/list.html:40
+#: core/templates/language/overview.html:35 core/templates/license/list.html:40
 #: core/templates/misc/license/list.html:43
 #: core/templates/repetition_unit/list.html:43
 #: core/templates/user/overview.html:326 core/templates/user/overview.html:365
@@ -592,13 +597,13 @@ msgstr "Dodaj jedan sada."
 msgid "Add"
 msgstr "Dodaj"
 
-#: core/templates/language/view.html:58 core/templates/user/api_key.html:44
+#: core/templates/language/view.html:61 core/templates/user/api_key.html:44
 #: core/templates/user/preferences.html:45 gym/models/contract.py:203
 #: gym/templates/contract/view.html:41 gym/templates/contract/view.html:106
 #: gym/templates/gym/member_list.html:248
-#: manager/templates/schedule/view.html:286
-#: manager/templates/workout/view.html:165
-#: nutrition/templates/ingredient/view.html:228
+#: manager/templates/schedule/view.html:285
+#: manager/templates/workout/view.html:163
+#: nutrition/templates/ingredient/view.html:202
 msgid "Options"
 msgstr "Opcije"
 
@@ -623,12 +628,11 @@ msgstr "Popis licenca"
 #: gym/templates/gym/member_list.html:299
 #: mailer/templates/mailer/gym/overview.html:30
 #: manager/templates/calendar/day.html:87
-#: nutrition/templates/ingredient/pending.html:30
 #: nutrition/templates/units/list.html:29
 msgid "Nothing found"
 msgstr "Ništa nije pronađeno"
 
-#: core/templates/misc/about.html:4 core/templates/template.html:173
+#: core/templates/misc/about.html:4 core/templates/template.html:175
 msgid "Imprint"
 msgstr "Impresum"
 
@@ -641,174 +645,169 @@ msgstr ""
 "Ako je licenca lokalizirana, npr. Creative Commons\n"
 "            licence za različite zemlje, dodaj ih kao zasebne unose ovdje."
 
-#: core/templates/navigation.html:27 software/templates/features.html:437
+#: core/templates/navigation.html:28 software/templates/features.html:437
 msgid "Training"
 msgstr "Treniranje"
 
-#: core/templates/navigation.html:34 core/templates/user/overview.html:25
+#: core/templates/navigation.html:37 core/templates/user/overview.html:25
 msgid "Workouts"
 msgstr "Treninzi"
 
-#: core/templates/navigation.html:42
+#: core/templates/navigation.html:46
 msgid "Workouts schedules"
 msgstr "Rasporedi treninga"
 
-#: core/templates/navigation.html:50 core/templates/user/overview.html:70
+#: core/templates/navigation.html:54 core/templates/user/overview.html:70
 #: manager/templates/calendar/month.html:10
 #: manager/templates/calendar/month.html:21
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: core/templates/navigation.html:60
+#: core/templates/navigation.html:64
 msgid "Measurements"
 msgstr "Mjerenja"
 
-#: core/templates/navigation.html:70 gallery/templates/images/overview.html:6
+#: core/templates/navigation.html:75 gallery/templates/images/overview.html:6
 msgid "Gallery"
 msgstr "Galerija"
 
-#: core/templates/navigation.html:76
+#: core/templates/navigation.html:81
 msgid "Workout templates"
 msgstr "Predlošci treninga"
 
-#: core/templates/navigation.html:82 manager/views/workout.py:84
+#: core/templates/navigation.html:88 manager/views/workout.py:84
 msgid "Your templates"
 msgstr "Tvoji predlošci"
 
-#: core/templates/navigation.html:90 manager/views/workout.py:98
+#: core/templates/navigation.html:97 manager/views/workout.py:98
 msgid "Public templates"
 msgstr "Javni predlošci"
 
-#: core/templates/navigation.html:97 manager/forms.py:129
-#: manager/models/setting.py:54 software/templates/features.html:51
+#: core/templates/navigation.html:105 manager/forms.py:129
+#: manager/models/setting.py:57 software/templates/features.html:51
 #: software/templates/features.html:459
 msgid "Exercises"
 msgstr "Vježbe"
 
-#: core/templates/navigation.html:103 core/templates/navigation.html:170
-#: core/templates/navigation.html:330
+#: core/templates/navigation.html:111 core/templates/navigation.html:184
+#: core/templates/navigation.html:340
 msgid "Administration"
 msgstr "Administracija"
 
-#: core/templates/navigation.html:106
+#: core/templates/navigation.html:115
 msgid "Exercise edit history"
 msgstr "Povijest uređivanja vježbe"
 
-#: core/templates/navigation.html:111 exercises/models/base.py:103
+#: core/templates/navigation.html:121 exercises/models/base.py:103
 msgid "Equipment"
 msgstr "Oprema"
 
-#: core/templates/navigation.html:116
+#: core/templates/navigation.html:127
 msgid "Muscles"
 msgstr "Mišići"
 
-#: core/templates/navigation.html:121
+#: core/templates/navigation.html:133
 #: exercises/templates/categories/admin-overview.html:4
 msgid "Categories"
 msgstr "Kategorije"
 
-#: core/templates/navigation.html:136 software/templates/features.html:447
+#: core/templates/navigation.html:148 software/templates/features.html:447
 msgid "Nutrition"
 msgstr "Prehrana"
 
-#: core/templates/navigation.html:143 core/templates/user/overview.html:144
+#: core/templates/navigation.html:156 core/templates/user/overview.html:144
 msgid "Nutrition plans"
 msgstr "Planovi prehrane"
 
-#: core/templates/navigation.html:151 nutrition/templates/bmi/form.html:50
+#: core/templates/navigation.html:165 nutrition/templates/bmi/form.html:50
 msgid "BMI calculator"
 msgstr "Kalkulator indeksa tjelesne mase"
 
-#: core/templates/navigation.html:159 nutrition/templates/rate/form.html:17
+#: core/templates/navigation.html:174 nutrition/templates/rate/form.html:17
 msgid "Daily calories calculator"
 msgstr "Kalkulator dnevnih kalorija"
 
-#: core/templates/navigation.html:165
+#: core/templates/navigation.html:179
 #: nutrition/templates/ingredient/overview.html:10
 msgid "Ingredient overview"
 msgstr "Pregled sastojaka"
 
-#: core/templates/navigation.html:172 nutrition/templates/units/list.html:6
+#: core/templates/navigation.html:187 nutrition/templates/units/list.html:6
 msgid "Ingredient weight units"
 msgstr "Jedinica težine sastojka"
 
-#: core/templates/navigation.html:177
-#: nutrition/templates/ingredient/pending.html:6
-msgid "Ingredients pending review"
-msgstr "Još nepregledani sastojci"
-
-#: core/templates/navigation.html:193 software/templates/features.html:442
+#: core/templates/navigation.html:203 software/templates/features.html:442
 msgid "Body weight"
 msgstr "Tjelesna težina"
 
-#: core/templates/navigation.html:200 core/templates/user/overview.html:114
+#: core/templates/navigation.html:210 core/templates/user/overview.html:114
 msgid "Weight overview"
 msgstr "Pregled težine"
 
-#: core/templates/navigation.html:207 weight/views.py:65
+#: core/templates/navigation.html:217 weight/views.py:65
 msgid "Add weight entry"
 msgstr "Dodaj unos težine"
 
-#: core/templates/navigation.html:221
+#: core/templates/navigation.html:231
 msgid "About this software"
 msgstr "O ovom softveru"
 
-#: core/templates/navigation.html:227 software/templates/about_us.html:5
+#: core/templates/navigation.html:237 software/templates/about_us.html:5
 msgid "About us"
 msgstr "O nama"
 
-#: core/templates/navigation.html:233 software/templates/features.html:507
+#: core/templates/navigation.html:243 software/templates/features.html:507
 msgid "REST API"
 msgstr "REST API"
 
-#: core/templates/navigation.html:239 utils/models.py:45
+#: core/templates/navigation.html:249 utils/models.py:45
 msgid "License"
 msgstr "Licenca"
 
-#: core/templates/navigation.html:245
+#: core/templates/navigation.html:255
 msgid "Developer documentation"
 msgstr "Dokumentacija za programere"
 
-#: core/templates/navigation.html:252
+#: core/templates/navigation.html:262
 msgid "Get the code"
 msgstr "Nabavi kôd"
 
-#: core/templates/navigation.html:259 core/templates/template.html:212
+#: core/templates/navigation.html:269 core/templates/template.html:214
 #: software/templates/features.html:582
 msgid "Translate"
 msgstr "Prevodi"
 
-#: core/templates/navigation.html:293 core/templates/user/login.html:28
+#: core/templates/navigation.html:303 core/templates/user/login.html:28
 msgid "Reset password"
 msgstr "Obnovi lozinku"
 
-#: core/templates/navigation.html:311
+#: core/templates/navigation.html:321
 msgid "My preferences"
 msgstr "Moje postavke"
 
-#: core/templates/navigation.html:320
+#: core/templates/navigation.html:330
 msgid "Logout"
 msgstr "Odjava"
 
-#: core/templates/navigation.html:343
+#: core/templates/navigation.html:353
 msgid "Licenses"
 msgstr "Licence"
 
-#: core/templates/navigation.html:351
+#: core/templates/navigation.html:361
 #: core/templates/repetition_unit/list.html:4
 msgid "Repetition units"
 msgstr "Jedinice ponavljanja"
 
-#: core/templates/navigation.html:359 core/templates/weight_unit/list.html:4
-#: nutrition/templates/ingredient/view.html:167
+#: core/templates/navigation.html:369 core/templates/weight_unit/list.html:4
+#: nutrition/templates/ingredient/view.html:141
 msgid "Weight units"
 msgstr "Jedinice težine"
 
-#: core/templates/navigation.html:367 core/templates/user/list.html:4
+#: core/templates/navigation.html:377 core/templates/user/list.html:4
 msgid "User list"
 msgstr "Popis korisnika"
 
-#: core/templates/navigation.html:373
+#: core/templates/navigation.html:383
 msgid "Gyms"
 msgstr "Teretane"
 
@@ -862,12 +861,12 @@ msgstr "Hvala što koristiš našu stranicu!"
 msgid "The %(site_name)s team"
 msgstr "%(site_name)s tim"
 
-#: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:11
+#: core/templates/tags/pagination.html:7 core/templates/tags/pagination.html:12
 msgid "previous"
 msgstr "prethodno"
 
-#: core/templates/tags/pagination.html:31
-#: core/templates/tags/pagination.html:35
+#: core/templates/tags/pagination.html:33
+#: core/templates/tags/pagination.html:38
 msgid "next"
 msgstr "dalje"
 
@@ -892,35 +891,35 @@ msgid "Add exercises to this workout day"
 msgstr "Dodaj vježbe za ovaj dan treninga"
 
 #: core/templates/tags/render_weight_log.html:17 manager/helpers.py:86
-#: manager/models/setting.py:69 manager/templates/set/formset.html:9
+#: manager/models/setting.py:72 manager/templates/set/formset.html:9
 msgid "Reps"
 msgstr "Ponavljanja"
 
 #: core/templates/tags/render_weight_log.html:30 manager/forms.py:191
-#: manager/models/log.py:103 manager/models/setting.py:99
+#: manager/models/log.py:103 manager/models/setting.py:102
 #: manager/templates/log/add.html:56 manager/templates/set/formset.html:13
 msgid "RiR"
 msgstr "PUR"
 
-#: core/templates/template.html:120 manager/templates/calendar/month.html:138
-#: manager/templates/schedule/view.html:249
-#: manager/templates/schedule/view.html:270
-#: manager/templates/workout/view.html:86
-#: manager/templates/workout/view.html:139
+#: core/templates/template.html:122 manager/templates/calendar/month.html:138
+#: manager/templates/schedule/view.html:248
+#: manager/templates/schedule/view.html:269
+#: manager/templates/workout/view.html:84
+#: manager/templates/workout/view.html:137
 msgid "Close"
 msgstr "Zatvori"
 
-#: core/templates/template.html:136
+#: core/templates/template.html:138
 msgid ""
 "You are using a guest account, data entered will be deleted after a week."
 msgstr ""
 "Koristiš račun gosta, upisani podaci će se izbrisati nakon tjedan dana."
 
-#: core/templates/template.html:141
+#: core/templates/template.html:143
 msgid "Create some demo entries"
 msgstr "Stvori neke demo snimke"
 
-#: core/templates/template.html:178 software/templates/features.html:547
+#: core/templates/template.html:180 software/templates/features.html:547
 #: software/templates/tos.html:7
 msgid "Terms of service"
 msgstr "Uvjeti usluge"
@@ -1021,7 +1020,7 @@ msgid "Overview"
 msgstr "Pregled"
 
 #: core/templates/user/overview.html:28
-#: manager/templates/schedule/view.html:164
+#: manager/templates/schedule/view.html:163
 #: manager/templates/workout/overview.html:39 manager/views/schedule_step.py:60
 msgid "Add workout"
 msgstr "Dodaj trening"
@@ -1029,20 +1028,20 @@ msgstr "Dodaj trening"
 #: core/templates/user/overview.html:34 core/templates/user/overview.html:76
 #: core/templates/user/overview.html:120 core/templates/user/overview.html:152
 #: exercises/models/base.py:118 exercises/models/base.py:124
-#: exercises/models/exercise.py:63 exercises/models/exercise.py:69
+#: exercises/models/exercise.py:64 exercises/models/exercise.py:70
 #: exercises/models/image.py:107 exercises/models/image.py:113
 #: exercises/models/video.py:163 exercises/models/video.py:169
 #: gallery/models/image.py:42 manager/helpers.py:85 manager/models/log.py:100
 #: manager/models/session.py:67 measurements/models/measurement.py:47
-#: nutrition/models/ingredient.py:101 nutrition/models/ingredient.py:107
-#: nutrition/models/ingredient.py:222 weight/models.py:33
+#: nutrition/models/ingredient.py:87 nutrition/models/ingredient.py:93
+#: nutrition/models/ingredient.py:216 weight/models.py:51
 #: weight/templates/import_csv_preview.html:13
 #: weight/templates/import_csv_preview.html:42 weight/views.py:144
 msgid "Date"
 msgstr "Datum"
 
 #: core/templates/user/overview.html:35 core/templates/user/overview.html:153
-#: exercises/models/exercise.py:51 gallery/models/image.py:65
+#: exercises/models/exercise.py:52 gallery/models/image.py:65
 #: gym/models/contract.py:58 gym/models/contract.py:109
 #: manager/models/day.py:37 manager/models/workout.py:63
 #: measurements/models/measurement.py:62 nutrition/models/plan.py:67
@@ -1060,13 +1059,13 @@ msgstr "Zadnja aktivnost"
 
 #: core/templates/user/overview.html:58
 #: manager/templates/calendar/month.html:128
-#: manager/templates/schedule/view.html:145
+#: manager/templates/schedule/view.html:144
 #: manager/templates/workout/overview.html:28
 msgid "No workouts found."
 msgstr "Nije pronađen nijedan trening."
 
 #: core/templates/user/overview.html:68 manager/forms.py:280
-#: manager/templates/workout/view.html:108
+#: manager/templates/workout/view.html:106
 msgid "Log"
 msgstr "Zapis"
 
@@ -1090,35 +1089,35 @@ msgstr "Vrijeme"
 
 #: core/templates/user/overview.html:112 core/templates/user/overview.html:121
 #: manager/forms.py:186 manager/helpers.py:86 manager/models/log.py:86
-#: manager/models/setting.py:79 manager/templates/log/add.html:54
-#: manager/templates/set/formset.html:11 weight/models.py:35
+#: manager/models/setting.py:82 manager/templates/log/add.html:54
+#: manager/templates/set/formset.html:11 weight/models.py:53
 #: weight/templates/import_csv_preview.html:14
 #: weight/templates/import_csv_preview.html:43 weight/views.py:144
 msgid "Weight"
 msgstr "Težina"
 
-#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:130
-#: nutrition/templates/ingredient/view.html:77 nutrition/views/plan.py:237
+#: core/templates/user/overview.html:154 nutrition/models/ingredient.py:116
+#: nutrition/templates/ingredient/view.html:51 nutrition/views/plan.py:237
 msgid "Energy"
 msgstr "Energija"
 
-#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:137
-#: nutrition/templates/ingredient/view.html:84 nutrition/views/plan.py:243
+#: core/templates/user/overview.html:155 nutrition/models/ingredient.py:123
+#: nutrition/templates/ingredient/view.html:58 nutrition/views/plan.py:243
 msgid "Protein"
 msgstr "Proteini"
 
-#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:145
-#: nutrition/templates/ingredient/view.html:90 nutrition/views/plan.py:251
+#: core/templates/user/overview.html:156 nutrition/models/ingredient.py:131
+#: nutrition/templates/ingredient/view.html:64 nutrition/views/plan.py:251
 msgid "Carbohydrates"
 msgstr "Ugljikohidrati"
 
-#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:163
-#: nutrition/templates/ingredient/view.html:106 nutrition/views/plan.py:265
+#: core/templates/user/overview.html:157 nutrition/models/ingredient.py:149
+#: nutrition/templates/ingredient/view.html:80 nutrition/views/plan.py:265
 msgid "Fat"
 msgstr "Mast"
 
 #: core/templates/user/overview.html:170
-#: nutrition/templates/ingredient/view.html:79
+#: nutrition/templates/ingredient/view.html:53
 msgid "kcal"
 msgstr "kcal"
 
@@ -1130,7 +1129,7 @@ msgstr "kcal"
 #: gym/templates/gym/member_list.html:207
 #: gym/templates/gym/member_list.html:240
 #: gym/templates/gym/member_list.html:277
-#: manager/templates/schedule/view.html:101
+#: manager/templates/schedule/view.html:100
 msgid "Actions"
 msgstr "Radnje"
 
@@ -1173,7 +1172,7 @@ msgid "Details"
 msgstr "Detalji"
 
 #: core/templates/user/overview.html:258 gym/views/export.py:57
-#: manager/helpers.py:86 manager/templates/schedule/view.html:99
+#: manager/helpers.py:86 manager/templates/schedule/view.html:98
 msgid "Nr."
 msgstr "Br."
 
@@ -1218,7 +1217,7 @@ msgid "Documents"
 msgstr "Dokumenti"
 
 #: core/templates/user/overview.html:412 gym/templates/document/list.html:32
-#: manager/forms.py:292 manager/templates/workout/view.html:134
+#: manager/forms.py:292 manager/templates/workout/view.html:132
 msgid "Download"
 msgstr "Preuzimanje"
 
@@ -1269,13 +1268,13 @@ msgid "kg"
 msgstr "kg"
 
 #: core/templatetags/wger_extras.py:207
-#: nutrition/templates/ingredient/view.html:86
-#: nutrition/templates/ingredient/view.html:92
-#: nutrition/templates/ingredient/view.html:99
-#: nutrition/templates/ingredient/view.html:108
-#: nutrition/templates/ingredient/view.html:115
-#: nutrition/templates/ingredient/view.html:137
-#: nutrition/templates/ingredient/view.html:147
+#: nutrition/templates/ingredient/view.html:60
+#: nutrition/templates/ingredient/view.html:66
+#: nutrition/templates/ingredient/view.html:73
+#: nutrition/templates/ingredient/view.html:82
+#: nutrition/templates/ingredient/view.html:89
+#: nutrition/templates/ingredient/view.html:111
+#: nutrition/templates/ingredient/view.html:121
 msgctxt "weight unit, i.e. grams"
 msgid "g"
 msgstr "g"
@@ -1293,7 +1292,7 @@ msgstr "unca"
 #: exercises/views/equipment.py:103 exercises/views/exercises.py:73
 #: exercises/views/muscles.py:99 manager/views/schedule.py:309
 #: manager/views/schedule_step.py:128 manager/views/workout.py:249
-#: manager/views/workout_session.py:142 nutrition/views/ingredient.py:116
+#: manager/views/workout_session.py:142 nutrition/views/ingredient.py:119
 #: nutrition/views/unit.py:110
 msgid "Successfully deleted"
 msgstr "Uspješno izbrisano"
@@ -1305,7 +1304,7 @@ msgstr "Uspješno izbrisano"
 #: gym/views/admin_notes.py:196 gym/views/document.py:206 gym/views/gym.py:481
 #: manager/views/schedule.py:316 manager/views/schedule_step.py:138
 #: manager/views/workout.py:253 manager/views/workout_session.py:156
-#: nutrition/views/ingredient.py:123 nutrition/views/unit.py:117
+#: nutrition/views/ingredient.py:126 nutrition/views/unit.py:117
 #, python-brace-format
 msgid "Delete {0}?"
 msgstr "Izbrisati {0}?"
@@ -1318,7 +1317,7 @@ msgstr "Izbrisati {0}?"
 #: gym/views/contract.py:186 gym/views/contract_option.py:123
 #: gym/views/contract_type.py:123 gym/views/document.py:171
 #: gym/views/gym.py:463 manager/views/day.py:100 manager/views/schedule.py:333
-#: manager/views/workout.py:267 nutrition/views/ingredient.py:142
+#: manager/views/workout.py:267 nutrition/views/ingredient.py:145
 #: nutrition/views/unit.py:143
 #, python-brace-format
 msgid "Edit {0}"
@@ -1392,7 +1391,7 @@ msgstr "Teretana"
 msgid "A verification email was sent to %(email)s"
 msgstr "E-mail za ovjeru je poslan na %(email)s"
 
-#: exercises/models/base.py:82 nutrition/models/ingredient.py:236
+#: exercises/models/base.py:82 nutrition/models/ingredient.py:230
 msgid "Category"
 msgstr "Kategorija"
 
@@ -1412,7 +1411,7 @@ msgstr "Varijante"
 msgid "Exercise Categories"
 msgstr "Kategorije vježbi"
 
-#: exercises/models/comment.py:52 exercises/models/exercise_alias.py:52
+#: exercises/models/comment.py:52 exercises/models/exercise_alias.py:53
 #: exercises/models/image.py:74 exercises/models/video.py:98
 #: manager/forms.py:178 manager/helpers.py:86 manager/models/log.py:52
 msgid "Exercise"
@@ -1422,12 +1421,12 @@ msgstr "Vježba"
 msgid "A comment about how to correctly do this exercise."
 msgstr "Komentar o tome kako pravilno izvesti ovu vježbu."
 
-#: exercises/models/exercise.py:76 nutrition/models/ingredient.py:95
+#: exercises/models/exercise.py:77 nutrition/models/ingredient.py:81
 #: nutrition/models/weight_unit.py:32
 msgid "Language"
 msgstr "Jezik"
 
-#: exercises/models/exercise_alias.py:58
+#: exercises/models/exercise_alias.py:59
 msgid "Alias for an exercise"
 msgstr "Pseudonim za vježbu"
 
@@ -1559,7 +1558,7 @@ msgstr "Radnja"
 #: manager/models/schedule.py:44 manager/models/session.py:49
 #: manager/models/workout.py:89 measurements/models/category.py:31
 #: measurements/models/measurement.py:42 nutrition/models/plan.py:54
-#: nutrition/templates/ingredient/pending.html:16 weight/models.py:42
+#: weight/models.py:60
 msgid "User"
 msgstr "Korisnik"
 
@@ -1680,9 +1679,9 @@ msgid "Contract type"
 msgstr "Vrsta ugovora"
 
 #: gym/models/contract.py:211 gym/templates/contract/view.html:59
-#: manager/templates/log/add.html:52 nutrition/forms.py:62
-#: nutrition/models/ingredient_weight_unit.py:54 nutrition/models/log.py:105
-#: nutrition/models/meal_item.py:72
+#: manager/templates/log/add.html:52 nutrition/forms.py:63
+#: nutrition/models/ingredient_weight_unit.py:54 nutrition/models/log.py:108
+#: nutrition/models/meal_item.py:73
 msgid "Amount"
 msgstr "Iznos"
 
@@ -1699,7 +1698,7 @@ msgid "Contract is active"
 msgstr "Ugovor je aktivan"
 
 #: gym/models/contract.py:237 gym/templates/contract/view.html:69
-#: manager/models/schedule.py:61 manager/templates/schedule/view.html:68
+#: manager/models/schedule.py:61 manager/templates/schedule/view.html:67
 msgid "Start date"
 msgstr "Datum početka"
 
@@ -2086,7 +2085,7 @@ msgstr "Generiraj pregled"
 
 #: mailer/templates/mailer/gym/form.html:28
 #: mailer/templates/mailer/gym/preview.html:62
-#: manager/templates/workout/view.html:42
+#: manager/templates/workout/view.html:40
 msgid "Steps"
 msgstr "Koraci"
 
@@ -2110,7 +2109,7 @@ msgstr ""
 "često želiš"
 
 #: mailer/templates/mailer/gym/preview.html:22
-#: software/templates/about_us.html:60
+#: software/templates/about_us.html:70
 msgid "Current version"
 msgstr "Trenutačna verzija"
 
@@ -2142,16 +2141,16 @@ msgid ""
 msgstr ""
 "Možeš tražiti više od jedne vježbe. Vježbe će se grupirati u jedan nadskup."
 
-#: manager/forms.py:140 nutrition/forms.py:252
+#: manager/forms.py:140 nutrition/forms.py:253
 msgid "Also search for names in English"
 msgstr "Također traži imena na engleskom jeziku"
 
 #: manager/forms.py:168 manager/forms.py:173 manager/models/log.py:64
-#: manager/models/log.py:92 manager/models/setting.py:59
-#: manager/models/setting.py:90 manager/templates/log/add.html:53
+#: manager/models/log.py:92 manager/models/setting.py:62
+#: manager/models/setting.py:93 manager/templates/log/add.html:53
 #: manager/templates/log/add.html:55 manager/templates/set/formset.html:10
 #: manager/templates/set/formset.html:12 measurements/models/category.py:41
-#: nutrition/forms.py:66
+#: nutrition/forms.py:67
 msgid "Unit"
 msgstr "Jedinica"
 
@@ -2159,15 +2158,15 @@ msgstr "Jedinica"
 msgid "Type"
 msgstr "Vrsta"
 
-#: manager/forms.py:280 manager/templates/workout/view.html:115
+#: manager/forms.py:280 manager/templates/workout/view.html:113
 msgid "Table"
 msgstr "Tablica"
 
-#: manager/forms.py:282 manager/templates/workout/view.html:121
+#: manager/forms.py:282 manager/templates/workout/view.html:119
 msgid "with images"
 msgstr "sa slikama"
 
-#: manager/forms.py:283 manager/templates/workout/view.html:127
+#: manager/forms.py:283 manager/templates/workout/view.html:125
 msgid "with comments"
 msgstr "s komentarima"
 
@@ -2176,11 +2175,10 @@ msgid "Workout will expire soon"
 msgstr "Trening će uskoro isteći"
 
 #: manager/models/day.py:34 manager/models/log.py:58
-#: manager/models/session.py:60 manager/templates/schedule/view.html:103
-#: manager/templates/workout/view.html:11
-#: manager/templates/workout/view.html:19 manager/views/pdf.py:85
-#: manager/views/pdf.py:161 manager/views/schedule.py:151
-#: manager/views/schedule.py:221
+#: manager/models/session.py:60 manager/templates/schedule/view.html:102
+#: manager/templates/workout/view.html:9 manager/templates/workout/view.html:17
+#: manager/views/pdf.py:85 manager/views/pdf.py:161
+#: manager/views/schedule.py:151 manager/views/schedule.py:221
 msgid "Workout"
 msgstr "Trening"
 
@@ -2200,7 +2198,7 @@ msgstr "Dan"
 msgid "Name or short description of the schedule. For example 'Program XYZ'."
 msgstr "Ime ili kratak opis rasporeda. Na primjer „Program XYZ”."
 
-#: manager/models/schedule.py:65 manager/templates/schedule/view.html:72
+#: manager/models/schedule.py:65 manager/templates/schedule/view.html:71
 msgid "Schedule active"
 msgstr "Raspored je aktivan"
 
@@ -2214,7 +2212,7 @@ msgstr ""
 "se npr. na tvojoj kontrolnoj ploči). Svi ostali rasporedi će se tada "
 "označiti kao neaktivni"
 
-#: manager/models/schedule.py:77 manager/templates/schedule/view.html:82
+#: manager/models/schedule.py:77 manager/templates/schedule/view.html:81
 msgid "Is a loop"
 msgstr "Petlja"
 
@@ -2235,8 +2233,8 @@ msgid "The duration in weeks"
 msgstr "Trajanje u tjednima"
 
 #: manager/models/schedule_step.py:64 manager/models/set.py:53
-#: manager/models/setting.py:110 nutrition/models/meal.py:55
-#: nutrition/models/meal_item.py:65
+#: manager/models/setting.py:113 nutrition/models/meal.py:55
+#: nutrition/models/meal_item.py:66
 msgid "Order"
 msgstr "Redoslijed"
 
@@ -2286,7 +2284,7 @@ msgstr "Dan za vježbu"
 msgid "Number of sets"
 msgstr "Broj setova"
 
-#: manager/models/setting.py:48
+#: manager/models/setting.py:51
 msgid "Sets"
 msgstr "Setovi"
 
@@ -2362,7 +2360,7 @@ msgstr ""
 msgid "Go to current month"
 msgstr "Idi na aktualni mjesec"
 
-#: manager/templates/calendar/month.html:188
+#: manager/templates/calendar/month.html:190
 msgid "Add new log"
 msgstr "Dodaj novi zapis"
 
@@ -2402,8 +2400,8 @@ msgid "Your schedules"
 msgstr "Tvoji rasporedi"
 
 #: manager/templates/schedule/overview.html:19
-#: manager/templates/schedule/view.html:132
-#: manager/templates/schedule/view.html:184
+#: manager/templates/schedule/view.html:131
+#: manager/templates/schedule/view.html:183
 #: manager/templates/workout/overview.html:16
 msgid "active"
 msgstr "aktivni"
@@ -2448,11 +2446,11 @@ msgstr ""
 msgid "Add schedule"
 msgstr "Dodaj raspored"
 
-#: manager/templates/schedule/view.html:10
+#: manager/templates/schedule/view.html:9
 msgid "Schedule"
 msgstr "Raspored"
 
-#: manager/templates/schedule/view.html:86
+#: manager/templates/schedule/view.html:85
 msgid ""
 "This schedule is a loop and will go through the workouts above till you "
 "deactivate it"
@@ -2460,19 +2458,19 @@ msgstr ""
 "Ovaj raspored je petlja i prolazit će kroz gore navedene treninge sve dok ga "
 "ne deaktiviraš"
 
-#: manager/templates/schedule/view.html:104
+#: manager/templates/schedule/view.html:103
 msgid "Weeks"
 msgstr "Tjedni"
 
-#: manager/templates/schedule/view.html:116
+#: manager/templates/schedule/view.html:115
 msgid "Move me"
 msgstr "Pomakni me"
 
-#: manager/templates/schedule/view.html:157
+#: manager/templates/schedule/view.html:156
 msgid "Start schedule"
 msgstr "Pokreni raspored"
 
-#: manager/templates/schedule/view.html:188
+#: manager/templates/schedule/view.html:187
 #, python-format
 msgid ""
 "%(weeks)s Week\n"
@@ -2490,11 +2488,11 @@ msgstr[2] ""
 "%(weeks)s tjedana\n"
 "                                "
 
-#: manager/templates/schedule/view.html:222
+#: manager/templates/schedule/view.html:221
 msgid "Adding workouts"
 msgstr "Dodavanje treninga"
 
-#: manager/templates/schedule/view.html:224
+#: manager/templates/schedule/view.html:223
 msgid ""
 "Add as many workouts to the schedule as you want. You can\n"
 "            edit the order by dragging and dropping them. It's also possible "
@@ -2506,21 +2504,21 @@ msgstr ""
 "dodati i\n"
 "             više puta."
 
-#: manager/templates/schedule/view.html:233
-#: manager/templates/schedule/view.html:244
-#: manager/templates/schedule/view.html:291
-#: manager/templates/workout/view.html:71
-#: manager/templates/workout/view.html:81
-#: manager/templates/workout/view.html:180
+#: manager/templates/schedule/view.html:232
+#: manager/templates/schedule/view.html:243
+#: manager/templates/schedule/view.html:290
+#: manager/templates/workout/view.html:69
+#: manager/templates/workout/view.html:79
+#: manager/templates/workout/view.html:178
 msgid "Export calendar file"
 msgstr "Izvezi datoteku kalendara"
 
-#: manager/templates/schedule/view.html:237
+#: manager/templates/schedule/view.html:236
 msgid "Export this schedule as a calendar file."
 msgstr "Izvezi ovaj raspored kao datoteku kalendara."
 
-#: manager/templates/schedule/view.html:238
-#: manager/templates/workout/view.html:76
+#: manager/templates/schedule/view.html:237
+#: manager/templates/workout/view.html:74
 msgid ""
 "You can then import the file it into your calendar\n"
 "                        application for example google calendar, outlook or "
@@ -2534,18 +2532,18 @@ msgstr ""
 "                        termin za svaki dan treninga s odgovarajućim "
 "vježbama."
 
-#: manager/templates/schedule/view.html:259
-#: manager/templates/schedule/view.html:295
-#: manager/templates/workout/view.html:96
-#: manager/templates/workout/view.html:176
+#: manager/templates/schedule/view.html:258
+#: manager/templates/schedule/view.html:294
+#: manager/templates/workout/view.html:94
+#: manager/templates/workout/view.html:174
 msgid "Download as PDF"
 msgstr "Preuzmi kao PDF"
 
-#: manager/templates/schedule/view.html:300
+#: manager/templates/schedule/view.html:299
 msgid "Edit schedule"
 msgstr "Uredi raspored"
 
-#: manager/templates/schedule/view.html:305
+#: manager/templates/schedule/view.html:304
 msgid "Delete schedule"
 msgstr "Izbriši raspored"
 
@@ -2683,12 +2681,12 @@ msgid "Mark as workout"
 msgstr "Označi kao trening"
 
 #: manager/templates/workout/template_view.html:65
-#: manager/templates/workout/view.html:51
+#: manager/templates/workout/view.html:49
 msgid "Muscles trained"
 msgstr "Trenirani mišići"
 
 #: manager/templates/workout/template_view.html:68
-#: manager/templates/workout/view.html:54
+#: manager/templates/workout/view.html:52
 msgid ""
 "Images show combined muscles as trained by the exercises on the workout."
 msgstr "Slike prikazuju mišiće koji se treniraju vježbama tijekom treninga."
@@ -2697,35 +2695,35 @@ msgstr "Slike prikazuju mišiće koji se treniraju vježbama tijekom treninga."
 msgid "Use this template"
 msgstr "Koristi ovaj predložak"
 
-#: manager/templates/workout/view.html:45
+#: manager/templates/workout/view.html:43
 msgid "Add training days"
 msgstr "Dodaj dane treniranja"
 
-#: manager/templates/workout/view.html:46
+#: manager/templates/workout/view.html:44
 msgid "Add workout sets to days"
 msgstr "Dodaj setove treninga danima"
 
-#: manager/templates/workout/view.html:47
+#: manager/templates/workout/view.html:45
 msgid "Set the repetitions for each set"
 msgstr "Postavi broj ponavljanja za svaki set"
 
-#: manager/templates/workout/view.html:75
+#: manager/templates/workout/view.html:73
 msgid "Export this workout as a calendar file."
 msgstr "Izvezi ovaj traning kao datoteku kalendara."
 
-#: manager/templates/workout/view.html:146
+#: manager/templates/workout/view.html:144
 msgid "Logs"
 msgstr "Zapisi"
 
-#: manager/templates/workout/view.html:148
+#: manager/templates/workout/view.html:146
 msgid "View logs"
 msgstr "Pogledaj zapise"
 
-#: manager/templates/workout/view.html:171 manager/views/schedule_step.py:99
+#: manager/templates/workout/view.html:169 manager/views/schedule_step.py:99
 msgid "Edit workout"
 msgstr "Uredi trening"
 
-#: manager/templates/workout/view.html:184 manager/views/workout.py:281
+#: manager/templates/workout/view.html:182 manager/views/workout.py:281
 msgid "Mark as template"
 msgstr "Označi kao predložak"
 
@@ -2772,35 +2770,35 @@ msgstr "Ovo će tekođer izbrisati sve zapise težine za ovaj dan."
 msgid "Value"
 msgstr "Vrijednost"
 
-#: nutrition/forms.py:117
+#: nutrition/forms.py:118
 msgid "Height (in)"
 msgstr "Visina (inč)"
 
-#: nutrition/forms.py:120
+#: nutrition/forms.py:121
 msgid "Weight (kg)"
 msgstr "Težina (kg)"
 
-#: nutrition/forms.py:120
+#: nutrition/forms.py:121
 msgid "Weight (lbs)"
 msgstr "Težina (funte)"
 
-#: nutrition/forms.py:133
+#: nutrition/forms.py:134
 msgid "Calculate"
 msgstr "Izračunaj"
 
-#: nutrition/forms.py:207 nutrition/templates/rate/form.html:76
+#: nutrition/forms.py:208 nutrition/templates/rate/form.html:76
 msgid "Basic caloric intake"
 msgstr "Osnovni unos kalorija"
 
-#: nutrition/forms.py:208
+#: nutrition/forms.py:209
 msgid "Your basic caloric intake as calculated for your data"
 msgstr "Osnovni unos kalorija izračunat za tvoje podatke"
 
-#: nutrition/forms.py:213
+#: nutrition/forms.py:214
 msgid "Additional calories"
 msgstr "Dodatne kalorije"
 
-#: nutrition/forms.py:215
+#: nutrition/forms.py:216
 msgid ""
 "Additional calories to add to the base rate (to substract, enter a negative "
 "number)"
@@ -2808,68 +2806,54 @@ msgstr ""
 "Dodatne kalorije za dodavanje osnovnoj stopi (za oduzimanje upiši negativan "
 "broj)"
 
-#: nutrition/forms.py:248 nutrition/models/ingredient_weight_unit.py:39
-#: nutrition/models/log.py:84 nutrition/models/meal_item.py:53
+#: nutrition/forms.py:249 nutrition/models/ingredient_weight_unit.py:39
+#: nutrition/models/log.py:87 nutrition/models/meal_item.py:54
 msgid "Ingredient"
 msgstr "Sastojak"
 
-#: nutrition/models/ingredient.py:131
+#: nutrition/models/ingredient.py:117
 msgid "In kcal per 100g"
 msgstr "U kcal po 100 g"
 
-#: nutrition/models/ingredient.py:138 nutrition/models/ingredient.py:146
-#: nutrition/models/ingredient.py:156 nutrition/models/ingredient.py:164
-#: nutrition/models/ingredient.py:174 nutrition/models/ingredient.py:184
-#: nutrition/models/ingredient.py:194
+#: nutrition/models/ingredient.py:124 nutrition/models/ingredient.py:132
+#: nutrition/models/ingredient.py:142 nutrition/models/ingredient.py:150
+#: nutrition/models/ingredient.py:160 nutrition/models/ingredient.py:170
+#: nutrition/models/ingredient.py:180
 msgid "In g per 100g of product"
 msgstr "U g po 100 g proizvoda"
 
-#: nutrition/models/ingredient.py:155
-#: nutrition/templates/ingredient/view.html:96 nutrition/views/plan.py:259
+#: nutrition/models/ingredient.py:141
+#: nutrition/templates/ingredient/view.html:70 nutrition/views/plan.py:259
 msgid "Sugar content in carbohydrates"
 msgstr "Količina šećera u ugljikohidratima"
 
-#: nutrition/models/ingredient.py:173
-#: nutrition/templates/ingredient/view.html:112 nutrition/views/plan.py:273
+#: nutrition/models/ingredient.py:159
+#: nutrition/templates/ingredient/view.html:86 nutrition/views/plan.py:273
 msgid "Saturated fat content in fats"
 msgstr "Količina zasićene masti u mastima"
 
-#: nutrition/models/ingredient.py:183
-#: nutrition/templates/ingredient/view.html:134 nutrition/views/plan.py:279
-msgid "Fibres"
-msgstr "Balastne tvari"
+#: nutrition/models/ingredient.py:169
+#: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
+msgid "Fiber"
+msgstr ""
 
-#: nutrition/models/ingredient.py:193
-#: nutrition/templates/ingredient/view.html:144 nutrition/views/plan.py:285
+#: nutrition/models/ingredient.py:179
+#: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
 msgid "Sodium"
 msgstr "Natrij"
 
-#: nutrition/models/ingredient.py:215
+#: nutrition/models/ingredient.py:209
 msgid "Link to product"
 msgstr "Poveznica za proizvod"
 
-#: nutrition/models/ingredient.py:244
+#: nutrition/models/ingredient.py:238
 msgid "Brand name of product"
 msgstr "Ime proizvoda"
 
-#: nutrition/models/ingredient.py:304
+#: nutrition/models/ingredient.py:305
 #, python-brace-format
 msgid "The total energy ({self.energy}kcal) is not the approximate sum of the "
 msgstr "Ukupna energija ({self.energy} kcal) nije približni zbroj od "
-
-#: nutrition/models/ingredient.py:383 nutrition/views/ingredient.py:196
-msgid "Ingredient was successfully added to the general database"
-msgstr "Sastojak je uspješno dodan u opću bazu podataka"
-
-#: nutrition/models/ingredient.py:408
-msgid "New user submitted ingredient"
-msgstr "Novi korisnik je poslao sastojak"
-
-#: nutrition/models/ingredient.py:410
-#, python-brace-format
-msgid ""
-"The user {request.user.username} submitted a new ingredient \"{self.name}\"."
-msgstr "{request.user.username} je poslao/la novi sastojak „{self.name}”."
 
 #: nutrition/models/ingredient_category.py:31
 msgid "Ingredient Categories"
@@ -2883,16 +2867,16 @@ msgstr "Količina u gramima"
 msgid "Unit amount, e.g. \"1 Cup\" or \"1/2 spoon\""
 msgstr "Jedinica količine, npr. „1 šalica” ili „1/2 žlice”"
 
-#: nutrition/models/log.py:49 nutrition/models/meal.py:50
-#: nutrition/models/meal_item.py:47 nutrition/models/plan.py:106
+#: nutrition/models/log.py:52 nutrition/models/meal.py:50
+#: nutrition/models/meal_item.py:48 nutrition/models/plan.py:108
 msgid "Nutrition plan"
 msgstr "Plan prehrane"
 
-#: nutrition/models/log.py:58
+#: nutrition/models/log.py:61
 msgid "Meal"
 msgstr "Obrok"
 
-#: nutrition/models/log.py:68
+#: nutrition/models/log.py:71
 msgid "Date and Time (Approx.)"
 msgstr "Datum i vrijeme (otprilike)"
 
@@ -2914,11 +2898,11 @@ msgid ""
 msgstr ""
 "Opis cilja plana, npr. „Povećanje tjelesne mase” ili „Priprema za ljeto”"
 
-#: nutrition/models/plan.py:88
+#: nutrition/models/plan.py:90
 msgid "Use daily calories"
 msgstr "Koristi dnevne kalorije"
 
-#: nutrition/models/plan.py:91
+#: nutrition/models/plan.py:93
 msgid ""
 "Tick the box if you want to mark this plan as having a goal amount of "
 "calories. You can use the calculator or enter the value yourself."
@@ -3040,67 +3024,36 @@ msgstr "Traži"
 msgid "Add ingredient"
 msgstr "Dodaj sastojak"
 
-#: nutrition/templates/ingredient/pending.html:14
-msgid "Submission date"
-msgstr "Datum slanja"
-
-#: nutrition/templates/ingredient/view.html:27
-msgid "Ingredient is pending review"
-msgstr "Sastojak još nije pregledan"
-
-#: nutrition/templates/ingredient/view.html:28
-msgid ""
-"This user submitted ingredient is pending a decision to be\n"
-"included in the database. Till then, it will not be shown in the overview "
-"or\n"
-"the search."
-msgstr ""
-"Ovaj sastojak koji je poslao korisnik čeka odluku o uključivanju u\n"
-"bazu podataka. Sve dok se ne pregleda, neće se vidjeti u pregledu ili\n"
-"pretrazi."
-
-#: nutrition/templates/ingredient/view.html:31
-msgid "Please select one of the options below."
-msgstr "Odaberi jednu od donjih opcija."
-
-#: nutrition/templates/ingredient/view.html:38
-msgid "Accept"
-msgstr "Prihvati"
-
-#: nutrition/templates/ingredient/view.html:42
-msgid "Decline"
-msgstr "Odbij"
-
-#: nutrition/templates/ingredient/view.html:71 nutrition/views/plan.py:229
+#: nutrition/templates/ingredient/view.html:45 nutrition/views/plan.py:229
 msgid "Macronutrients"
 msgstr "Makronutrijenti"
 
-#: nutrition/templates/ingredient/view.html:80
+#: nutrition/templates/ingredient/view.html:54
 msgid "kJ"
 msgstr "kJ"
 
-#: nutrition/templates/ingredient/view.html:101
-#: nutrition/templates/ingredient/view.html:117
-#: nutrition/templates/ingredient/view.html:139
-#: nutrition/templates/ingredient/view.html:149
+#: nutrition/templates/ingredient/view.html:75
+#: nutrition/templates/ingredient/view.html:91
+#: nutrition/templates/ingredient/view.html:113
+#: nutrition/templates/ingredient/view.html:123
 msgid "n.A."
 msgstr "--"
 
-#: nutrition/templates/ingredient/view.html:128
+#: nutrition/templates/ingredient/view.html:102
 msgid "Others"
 msgstr "Drugi"
 
-#: nutrition/templates/ingredient/view.html:170
+#: nutrition/templates/ingredient/view.html:144
 #: nutrition/templates/units/list.html:46 nutrition/views/unit.py:86
 msgid "Add new weight unit"
 msgstr "Dodaj novu jedinicu težine"
 
-#: nutrition/templates/ingredient/view.html:232
-#: nutrition/templates/ingredient/view.html:235
+#: nutrition/templates/ingredient/view.html:206
+#: nutrition/templates/ingredient/view.html:209
 msgid "Edit ingredient"
 msgstr "Uredi sastojak"
 
-#: nutrition/templates/ingredient/view.html:239
+#: nutrition/templates/ingredient/view.html:213
 msgid "Delete ingredient"
 msgstr "Izbriši sastojak"
 
@@ -3200,13 +3153,9 @@ msgstr "140 do 230"
 msgid "56 to 90"
 msgstr "56 do 90"
 
-#: nutrition/views/ingredient.py:154
+#: nutrition/views/ingredient.py:157
 msgid "Add a new ingredient"
 msgstr "Dodaj novi sastojak"
-
-#: nutrition/views/ingredient.py:209
-msgid "Ingredient was successfully marked as rejected"
-msgstr "Sastojak je uspješno označen kao odbijen"
 
 #: nutrition/views/plan.py:120
 msgid "Nutritional plan"
@@ -3254,18 +3203,10 @@ msgstr ""
 "izradili entuzijasti fitnesa iz cijelog svijeta."
 
 #: software/templates/about_us.html:18
-msgid "Source code"
-msgstr "Izvorni kod"
-
-#: software/templates/about_us.html:20
-msgid "Get the source code of this application and its server on github"
-msgstr "Preuzmi izvorni kod ove aplikacije i njezinog poslužitelja na githubu"
-
-#: software/templates/about_us.html:25
 msgid "Have a problem or idea?"
 msgstr "Imaš problem ili ideju?"
 
-#: software/templates/about_us.html:27
+#: software/templates/about_us.html:20
 msgid ""
 "Get in touch if something didn't behave as expected or if there is a feature "
 "that you feel is missing."
@@ -3273,20 +3214,28 @@ msgstr ""
 "Javi ako se nešto ponaša neočekivano ili ako smatraš da nedostaje neka "
 "funkcija."
 
-#: software/templates/about_us.html:32
+#: software/templates/about_us.html:26
 msgid "Say hi!"
 msgstr "Pošalji pozdrav!"
 
-#: software/templates/about_us.html:34
+#: software/templates/about_us.html:28
 msgid "If you want to chat with us, hop on the Discord server and get in touch"
 msgstr ""
 "Ako želiš s nama razgovarati prijeđi na Discord poslužitelj i kontaktiraj nas"
 
-#: software/templates/about_us.html:39 software/templates/features.html:503
+#: software/templates/about_us.html:33
+msgid "Mastodon"
+msgstr ""
+
+#: software/templates/about_us.html:35
+msgid "Follow us on mastodon for updates and news about the project"
+msgstr ""
+
+#: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
 msgstr "Prijevod"
 
-#: software/templates/about_us.html:41
+#: software/templates/about_us.html:42
 msgid ""
 "This application is translated on weblate. If you also want to help, click "
 "the link and start translating"
@@ -3294,15 +3243,30 @@ msgstr ""
 "Ova se aplikacija prevodi na Weblateu. Ako želiš pomoći prevoditi, pritisni "
 "poveznicu i počni prevoditi"
 
-#: software/templates/about_us.html:50
+#: software/templates/about_us.html:47
+msgid "Source code"
+msgstr "Izvorni kod"
+
+#: software/templates/about_us.html:49
+msgid "Get the source code of this application and its server on github"
+msgstr "Preuzmi izvorni kod ove aplikacije i njezinog poslužitelja na githubu"
+
+#: software/templates/about_us.html:59
 msgid "Our goal"
 msgstr "Naš cilj"
 
-#: software/templates/about_us.html:53
+#: software/templates/about_us.html:62
+#, fuzzy
+#| msgid ""
+#| "The goal is to build an awesome\n"
+#| "                and flexible fitness manager, along with a comprehensive "
+#| "and complete list of exercises and\n"
+#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
-"complete list of exercises and\n"
+"complete list of\n"
+"                exercises and\n"
 "                ingredients, all released under a free license."
 msgstr ""
 "Cilj je izgraditi sjajan i fleksibilan\n"
@@ -3317,10 +3281,6 @@ msgid ""
 msgstr ""
 "wger Workout Manager je besplatna web aplikacija otvorenog koda za "
 "upravljanje tvojim vježbama i treninzima."
-
-#: software/templates/features.html:45
-msgid "About"
-msgstr "Informacije"
 
 #: software/templates/features.html:57
 msgid "Mobile app"
@@ -3574,18 +3534,6 @@ msgstr ""
 "Izvedeni rad koji se ne temelji samo na prethodnom radu, te sadrži dovoljno "
 "novog, kreativnog sadržaja ima pravo na vlastito autorsko pravo."
 
-#: utils/models.py:130
-msgid "Pending"
-msgstr "Na čekanju"
-
-#: utils/models.py:131
-msgid "Accepted"
-msgstr "Prihvaćeno"
-
-#: utils/models.py:132
-msgid "Declined"
-msgstr "Odbijeno"
-
 #: weight/forms.py:54
 msgid "Input"
 msgstr "Unos"
@@ -3598,7 +3546,7 @@ msgstr "Format datuma"
 msgid "You have to enter your weight"
 msgstr "Moraš upisati svoju težinu"
 
-#: weight/models.py:60
+#: weight/models.py:78
 msgid "Weight entry"
 msgstr "Unos težine"
 
@@ -3737,6 +3685,64 @@ msgstr "Uspješno izbrisano."
 #, python-format
 msgid "Delete weight entry for the %s"
 msgstr "Izbriši unos težine za %s"
+
+#~ msgid "Ingredients pending review"
+#~ msgstr "Još nepregledani sastojci"
+
+#~ msgid "Fibres"
+#~ msgstr "Balastne tvari"
+
+#~ msgid "Ingredient was successfully added to the general database"
+#~ msgstr "Sastojak je uspješno dodan u opću bazu podataka"
+
+#~ msgid "New user submitted ingredient"
+#~ msgstr "Novi korisnik je poslao sastojak"
+
+#, python-brace-format
+#~ msgid ""
+#~ "The user {request.user.username} submitted a new ingredient \"{self."
+#~ "name}\"."
+#~ msgstr "{request.user.username} je poslao/la novi sastojak „{self.name}”."
+
+#~ msgid "Submission date"
+#~ msgstr "Datum slanja"
+
+#~ msgid "Ingredient is pending review"
+#~ msgstr "Sastojak još nije pregledan"
+
+#~ msgid ""
+#~ "This user submitted ingredient is pending a decision to be\n"
+#~ "included in the database. Till then, it will not be shown in the overview "
+#~ "or\n"
+#~ "the search."
+#~ msgstr ""
+#~ "Ovaj sastojak koji je poslao korisnik čeka odluku o uključivanju u\n"
+#~ "bazu podataka. Sve dok se ne pregleda, neće se vidjeti u pregledu ili\n"
+#~ "pretrazi."
+
+#~ msgid "Please select one of the options below."
+#~ msgstr "Odaberi jednu od donjih opcija."
+
+#~ msgid "Accept"
+#~ msgstr "Prihvati"
+
+#~ msgid "Decline"
+#~ msgstr "Odbij"
+
+#~ msgid "Ingredient was successfully marked as rejected"
+#~ msgstr "Sastojak je uspješno označen kao odbijen"
+
+#~ msgid "About"
+#~ msgstr "Informacije"
+
+#~ msgid "Pending"
+#~ msgstr "Na čekanju"
+
+#~ msgid "Accepted"
+#~ msgstr "Prihvaćeno"
+
+#~ msgid "Declined"
+#~ msgstr "Odbijeno"
 
 #~ msgid "Share"
 #~ msgstr "Dijeli"
