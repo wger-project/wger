@@ -16,15 +16,17 @@ width="400">
 
 ## Mobile app
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-alt="Get it on Google Play"
-height="80">](https://play.google.com/store/apps/details?id=de.wger.flutter)
+[<img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/play-store/badge.svg"
+alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=de.wger.flutter)
+
 [<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-alt="Download on the App Store"
-height="80">](https://apps.apple.com/us/app/wger-workout-manager/id6502226792)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-alt="Get it on F-Droid"
-height="80">](https://f-droid.org/packages/de.wger.flutter/)
+alt="Download on the App Store" height="60">](https://apps.apple.com/us/app/wger-workout-manager/id6502226792)
+
+[<img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/fdroid/get-it-on.png"
+alt="Get it on F-Droid" height="70">](https://f-droid.org/packages/de.wger.flutter/)
+
+[<img src="https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/flathub/black.svg"
+alt="Get it on Flathub" height="60">](https://flathub.org/apps/de.wger.flutter)
 
 ## Installation
 
