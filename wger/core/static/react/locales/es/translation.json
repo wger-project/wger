@@ -201,7 +201,8 @@
         "gramShort": "g",
         "searchIngredientName": "Búsqueda por nombre de ingrediente",
         "sodium": "Sodio",
-        "pseudoMealTitle": "Otros registros"
+        "pseudoMealTitle": "Otros registros",
+        "goalFiber": "Objetivo de fibra"
     },
     "downloadAsPdf": "Descargar como un PDF",
     "total": "Total",
