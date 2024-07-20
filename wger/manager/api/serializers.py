@@ -197,7 +197,7 @@ class SlotConfigSerializer(serializers.ModelSerializer):
         )
 
 
-class SlotSerializer(serializers.ModelSerializer):
+class SlotStructureSerializer(serializers.ModelSerializer):
     """
     Slot
     """
@@ -215,12 +215,27 @@ class SlotSerializer(serializers.ModelSerializer):
         )
 
 
+class SlotSerializer(serializers.ModelSerializer):
+    """
+    Slot
+    """
+
+    class Meta:
+        model = Slot
+        fields = (
+            'id',
+            'day',
+            'order',
+            'comment',
+        )
+
+
 class DayStructureSerializer(serializers.ModelSerializer):
     """
     Day serializer
     """
 
-    slots = SlotSerializer(many=True)
+    slots = SlotStructureSerializer(many=True)
 
     class Meta:
         model = Day
@@ -258,9 +273,9 @@ class RoutineStructureSerializer(serializers.ModelSerializer):
         )
 
 
-class SetConfigSerializer(serializers.ModelSerializer):
+class SlotConfigSerializer(serializers.ModelSerializer):
     """
-    Day serializer
+    Slot config serializer
     """
 
     class Meta:
@@ -276,7 +291,6 @@ class SetConfigSerializer(serializers.ModelSerializer):
             'weight_rounding',
             'order',
             'comment',
-            'class_name',
         )
 
 

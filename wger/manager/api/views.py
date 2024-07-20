@@ -44,6 +44,9 @@ from wger.manager.api.serializers import (
     ScheduleSerializer,
     ScheduleStepSerializer,
     SetNrConfigSerializer,
+    SlotConfigSerializer,
+    SlotSerializer,
+    SlotStructureSerializer,
     WeightConfigSerializer,
     WorkoutDayDataDisplayModeSerializer,
     WorkoutDayDataGymModeSerializer,
@@ -64,6 +67,7 @@ from wger.manager.models import (
     Schedule,
     ScheduleStep,
     SetsConfig,
+    Slot,
     SlotConfig,
     WeightConfig,
     Workout,
@@ -471,6 +475,74 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
         Return objects to check for ownership permission
         """
         return [(Routine, 'routine')]
+
+
+class SlotViewSet(WgerOwnerObjectModelViewSet):
+    """
+    API endpoint for routine slot objects
+    """
+
+    serializer_class = SlotSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'day',
+        'order',
+        'comment',
+    )
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return Slot.objects.none()
+
+        return Slot.objects.filter(day__routine__user=self.request.user)
+
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(Day, 'day')]
+
+
+class SlotConfigViewSet(WgerOwnerObjectModelViewSet):
+    """
+    API endpoint for routine slot config objects
+    """
+
+    serializer_class = SlotConfigSerializer
+    is_private = True
+    ordering_fields = '__all__'
+    filterset_fields = (
+        'slot',
+        'exercise',
+        'type',
+        'repetition_unit',
+        'repetition_rounding',
+        'weight_unit',
+        'weight_rounding',
+        'order',
+        'comment',
+    )
+
+    def get_queryset(self):
+        """
+        Only allow access to appropriate objects
+        """
+        # REST API generation
+        if getattr(self, 'swagger_fake_view', False):
+            return SlotConfig.objects.none()
+
+        return SlotConfig.objects.filter(slot__day__routine__user=self.request.user)
+
+    def get_owner_objects(self):
+        """
+        Return objects to check for ownership permission
+        """
+        return [(Slot, 'slot')]
 
 
 class AbstractConfigViewSet(WgerOwnerObjectModelViewSet):
