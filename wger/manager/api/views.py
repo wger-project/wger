@@ -32,7 +32,6 @@ from wger.exercises.models import Exercise
 from wger.manager.api.consts import CONFIG_FIELDS
 from wger.manager.api.serializers import (
     DaySerializer,
-    DayStructureSerializer,
     LogDataSerializer,
     MaxRepsConfigSerializer,
     MaxRestConfigSerializer,
@@ -444,7 +443,7 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
     API endpoint for routine day objects
     """
 
-    serializer_class = DayStructureSerializer
+    serializer_class = DaySerializer
     is_private = True
     ordering_fields = '__all__'
     filterset_fields = (
