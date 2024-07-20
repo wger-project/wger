@@ -454,7 +454,6 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
         'is_rest',
         'last_day_in_week',
         'need_logs_to_advance',
-        'slots',
     )
 
     def get_queryset(self):
@@ -466,12 +465,6 @@ class RoutineDayViewSet(WgerOwnerObjectModelViewSet):
             return Day.objects.none()
 
         return Day.objects.filter(routine__user=self.request.user)
-
-    def perform_create(self, serializer):
-        """
-        Set the owner
-        """
-        serializer.save(user=self.request.user)
 
     def get_owner_objects(self):
         """
