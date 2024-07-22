@@ -40,7 +40,7 @@ jobs:
             ${{ env.REGISTRY_IMAGE_ALT }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.1.0
+        uses: docker/setup-qemu-action@v3.2.0
 
       - name: Set up Docker Buildx
         id: buildx
