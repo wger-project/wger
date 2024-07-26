@@ -22,7 +22,7 @@ django-compressor~=4.5
 drf-spectacular[sidecar]==0.27.2
 easy-thumbnails==2.8.5
 flower==2.0.1
-fontawesomefree~=6.5.1
+fontawesomefree~=6.6.0
 icalendar==5.0.13
 invoke==2.2.0
 openfoodfacts==0.4.0
