@@ -17,7 +17,7 @@ faker==26.0.0
 # Development packages
 django-extensions~=3.2
 coverage==7.5.4
-django-debug-toolbar==4.4.5
+django-debug-toolbar==4.4.6
 isort==5.13.2
 ruff==0.5.4
 tblib==3.0.0
