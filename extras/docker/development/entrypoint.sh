@@ -68,7 +68,7 @@ fi
 if [[ "$LOAD_ONLINE_FIXTURES_ON_STARTUP" == "True" ]];
 then
     echo "Loading online fixtures"
-    python3 manage.py load-online-fixtures
+    wger load-online-fixtures
 fi
 
 # Sync ingredients
