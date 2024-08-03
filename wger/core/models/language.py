@@ -74,7 +74,7 @@ class Language(models.Model):
     #
     def get_owner_object(self):
         """
-        Muscle has no owner information
+        Language has no owner information
         """
         return False
 
