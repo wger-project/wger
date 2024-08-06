@@ -15,17 +15,17 @@ msgstr ""
 "Project-Id-Version: wger Workout Manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2024-05-10 11:24+0000\n"
-"Last-Translator: Marcin Schoenknecht <marcinschoenknecht@gmail.com>\n"
+"PO-Revision-Date: 2024-08-07 11:09+0000\n"
+"Last-Translator: Dawid Panyło <wampir5000@o2.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/wger/web/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -2856,7 +2856,7 @@ msgstr "Tłuszcze nasycone"
 #: nutrition/models/ingredient.py:169
 #: nutrition/templates/ingredient/view.html:108 nutrition/views/plan.py:279
 msgid "Fiber"
-msgstr ""
+msgstr "Błonnik"
 
 #: nutrition/models/ingredient.py:179
 #: nutrition/templates/ingredient/view.html:118 nutrition/views/plan.py:285
@@ -3251,11 +3251,13 @@ msgstr ""
 
 #: software/templates/about_us.html:33
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: software/templates/about_us.html:35
 msgid "Follow us on mastodon for updates and news about the project"
 msgstr ""
+"Obserwuj nas na Mastodonie, aby otrzymywać aktualizacje i informacje o "
+"projekcie"
 
 #: software/templates/about_us.html:40 software/templates/features.html:503
 msgid "Translation"
@@ -3286,18 +3288,14 @@ msgstr "Wspomóż"
 msgid ""
 "Buy us a coffee to help the project, pay for server costs, and keep us fueled"
 msgstr ""
+"Wesprzyj, aby pomóc projektowi, pokryj koszty serwera i zapewnij nam dalszy "
+"rozwój"
 
 #: software/templates/about_us.html:68
 msgid "Our goal"
 msgstr "Nasz cel"
 
 #: software/templates/about_us.html:71
-#, fuzzy
-#| msgid ""
-#| "The goal is to build an awesome\n"
-#| "                and flexible fitness manager, along with a comprehensive "
-#| "and complete list of exercises and\n"
-#| "                ingredients, all released under a free license."
 msgid ""
 "The goal is to build an awesome\n"
 "                and flexible fitness manager, along with a comprehensive and "
@@ -3307,7 +3305,8 @@ msgid ""
 msgstr ""
 "Celem jest zbudowanie świetnego\n"
 "                i elastycznego programu do zarządzania treningiem, wraz z "
-"wyczerpującą listą ćwiczeń i\n"
+"wyczerpującą listą\n"
+"                ćwiczeń i\n"
 "                składników żywieniowych, wszystko na wolnej licencji."
 
 #: software/templates/features.html:11
