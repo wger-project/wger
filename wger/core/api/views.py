@@ -20,7 +20,9 @@ import logging
 
 # Django
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -47,6 +49,7 @@ from rest_framework.permissions import (
     IsAuthenticated,
 )
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import AccessToken
 
 # wger
 from wger import (
@@ -403,3 +406,10 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RoutineWeightUnitSerializer
     ordering_fields = '__all__'
     filterset_fields = ('name',)
+
+
+@login_required
+def get_tokens_for_user(request):
+    token = AccessToken.for_user(request.user)
+
+    return JsonResponse(data={'access': str(token), 'type': str(token.token_type)})
