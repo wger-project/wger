@@ -55,8 +55,12 @@
     {% endcompress %}
 
     {# this needs to be outside of the compress block! #}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/react-simple-wysiwyg.css' %}"
-          id="react-css">
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/react-simple-wysiwyg.css' %}"
+        id="react-css"
+    >
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
 
@@ -71,8 +75,10 @@
         <script src="{% static 'yarn/masonry-layout/dist/masonry.pkgd.min.js' %}"></script>
         <script src="{% static 'js/wger-core.js' %}"></script>
         <script src="{% static 'js/nutrition.js' %}"></script>
-        <script src="{% static 'react/main.js' %}" defer="defer"></script>
     {% endcompress %}
+
+    {# this needs to be outside of the compress block! #}
+    <script src="{% static 'react/main.js' %}" type="module" defer="defer"></script>
 
     {% block header %}{% endblock %}
 

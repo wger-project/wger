@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-14 15:59+0200\n"
-"PO-Revision-Date: 2022-02-08 01:58+0000\n"
-"Last-Translator: guillem <gbuendia@gmx.net>\n"
+"PO-Revision-Date: 2024-08-04 23:09+0000\n"
+"Last-Translator: Zixu Sun <zixu233@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/wger/web/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: config/models/gym_config.py:46 gym/templates/gym/list.html:53
 msgid "Default gym"
@@ -473,7 +473,7 @@ msgstr "Prohibit!"
 
 #: core/templates/403.html:7
 msgid "You are not allowed to access this page"
-msgstr ""
+msgstr "No tens permís per accedir a aquesta pàgina"
 
 #: core/templates/404.html:4
 msgid "Page not found"
@@ -493,6 +493,10 @@ msgid ""
 "refreshing your browser and if that doesn't help, please try again at a "
 "later time. If the problem persists, you can seek help in ways listed below:"
 msgstr ""
+"S'ha produït un error al servidor mentre s'estava processant la vostra sol·"
+"licitud. Proveu d'actualitzar el navegador i, si això no funciona, torneu-ho "
+"a intentar més tard. Si el problema persisteix, podeu buscar ajuda de les "
+"maneres que s'indiquen a continuació:"
 
 #: core/templates/base.html:10 core/templates/base_wide.html:7
 #, fuzzy, python-format
@@ -530,24 +534,21 @@ msgstr "Configuració"
 #: core/templates/email_verification/confirm_template.html:18
 #, python-format
 msgid "%(username)s, your email was verified"
-msgstr ""
+msgstr "%(username)s, el teu correu electrònic ha estat verificat"
 
 #: core/templates/email_verification/confirm_template.html:22
 msgid "Error, invalid verification token"
-msgstr ""
+msgstr "Error, token de verificació invàlid"
 
 #: core/templates/email_verification/email_body_html.tpl:6
-#, fuzzy
-#| msgid "Configuration"
 msgid "Email Confirmation"
-msgstr "Configuració"
+msgstr "Confirmació de correu electrònic"
 
 #: core/templates/email_verification/email_body_html.tpl:9
 #: core/templates/email_verification/email_body_txt.tpl:3
-#, fuzzy, python-format
-#| msgid "Calendar for %(username)s"
+#, python-format
 msgid "You are almost there, %(username)s!"
-msgstr "Calendari per a %(username)s"
+msgstr "Et queda poc, %(username)s!"
 
 #: core/templates/email_verification/email_body_html.tpl:11
 #, python-format
