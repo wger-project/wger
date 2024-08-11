@@ -39,7 +39,10 @@ from rest_framework import (
     status,
     viewsets,
 )
-from rest_framework.decorators import action
+from rest_framework.decorators import (
+    action,
+    api_view,
+)
 from rest_framework.fields import (
     BooleanField,
     CharField,
@@ -78,7 +81,6 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
-
 
 logger = logging.getLogger(__name__)
 
@@ -409,7 +411,27 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 @login_required
-def get_tokens_for_user(request):
+@api_view(['GET'])
+def get_token_for_user(request):
     token = AccessToken.for_user(request.user)
 
-    return JsonResponse(data={'access': str(token), 'type': str(token.token_type)})
+    return JsonResponse(
+        data={
+            'token': str(token),
+            'type': str(token.token_type),
+            'powersync_url': 'http://powersync:8080',
+        }
+    )
+
+
+@login_required
+@api_view(['GET'])
+def get_powersync_keys(request):
+    return JsonResponse(
+        {
+            'keys': [
+                settings.POWERSYNC_JWKS_PUBLIC_KEY,
+            ]
+        },
+        status=200,
+    )

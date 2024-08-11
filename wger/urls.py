@@ -279,8 +279,13 @@ urlpatterns += [
     ),
     path(
         'api/v2/get-token',
-        core_api_views.get_tokens_for_user,
+        core_api_views.get_token_for_user,
         name='get_token',
+    ),
+    path(
+        'api/v2/powersync-keys',
+        core_api_views.get_powersync_keys,
+        name='powersync-keys',
     ),
     # Api documentation
     path(
