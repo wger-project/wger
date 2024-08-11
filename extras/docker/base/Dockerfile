@@ -17,23 +17,22 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update \
   && apt install --no-install-recommends -y \
       locales \
-      nodejs \
-      npm \
+      yarn \
       python3-pip \
       sqlite3 \
       wget \
       tzdata \
       libpq5 \
-  && npm install -g yarn sass\
+      sassc \
   && locale-gen en_US.UTF-8
 
 # Environmental variables
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 
 # Add wger user
