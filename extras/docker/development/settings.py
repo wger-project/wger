@@ -111,6 +111,12 @@ if os.environ.get("DJANGO_CACHE_BACKEND"):
             'TIMEOUT': env.int("DJANGO_CACHE_TIMEOUT"),
             'OPTIONS': {
                 'CLIENT_CLASS': env.str("DJANGO_CACHE_CLIENT_CLASS"),
+                'CONNECTION_POOL_KWARGS': {
+                    "ssl_keyfile": env.str('DJANGO_CACHE_CLIENT_SSL_KEY_FILE', None),
+                    "ssl_certfile": env.str('DJANGO_CACHE_CLIENT_SSL_CERT_FILE', None),
+                    "ssl_cert_reqs": env.str('DJANGO_CACHE_CLIENT_SSL_CERT_REQS', 'required'),
+                    "ssl_check_hostname": env.str('DJANGO_CACHE_CLIENT_SSL_CHECK_HOSTNAME', False)
+                }
             }
         }
     }
