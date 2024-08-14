@@ -22,7 +22,10 @@ import logging
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import (
+    HttpResponseForbidden,
+    JsonResponse,
+)
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
@@ -81,6 +84,7 @@ from wger.core.models import (
 )
 from wger.utils.api_token import create_token
 from wger.utils.permissions import WgerPermission
+
 
 logger = logging.getLogger(__name__)
 
@@ -410,28 +414,41 @@ class RoutineWeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_fields = ('name',)
 
 
-@login_required
-@api_view(['GET'])
+@api_view()
 def get_token_for_user(request):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
     token = AccessToken.for_user(request.user)
 
     return JsonResponse(
         data={
             'token': str(token),
             'type': str(token.token_type),
+            'user': request.user.username,
             'powersync_url': 'http://powersync:8080',
         }
     )
 
 
-@login_required
-@api_view(['GET'])
+@api_view()
 def get_powersync_keys(request):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
     return JsonResponse(
-        {
-            'keys': [
-                settings.POWERSYNC_JWKS_PUBLIC_KEY,
-            ]
-        },
+        {'keys': [settings.POWERSYNC_JWKS_PUBLIC_KEY]},
+        status=200,
+    )
+
+
+@api_view()
+def upload_powersync_data(request):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+
+    logger.debug(request.POST)
+    return JsonResponse(
+        {'ok!'},
         status=200,
     )
