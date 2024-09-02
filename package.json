@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "Sortable": "RubaXa/Sortable#1.15.2",
+    "Sortable": "RubaXa/Sortable#1.15.3",
     "bootstrap": "5.3.3",
     "components-font-awesome": "5.9.0",
     "d3": "^7.9.0",
