@@ -279,7 +279,7 @@ urlpatterns += [
     ),
     path(
         'api/v2/powersync-token',
-        core_api_views.get_token_for_user,
+        core_api_views.get_powersync_token,
         name='get_token',
     ),
     path(
@@ -290,7 +290,7 @@ urlpatterns += [
     path(
         'api/v2/upload-powersync-data',
         core_api_views.upload_powersync_data,
-        name='powersync-keys',
+        name='powersync-data',
     ),
     # Api documentation
     path(
