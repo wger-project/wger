@@ -14,8 +14,7 @@ class Migration(migrations.Migration):
                 IF NOT EXISTS (
                     SELECT 1 FROM pg_publication WHERE pubname = 'powersync'
                 ) THEN
-                    -- CREATE PUBLICATION powersync FOR ALL TABLES
-                    CREATE PUBLICATION powersync FOR TABLE nutrition_ingredient, exercises_muscle, auth_user;
+                    CREATE PUBLICATION powersync FOR ALL TABLES;
                 END IF;
             END $$;
             """,
