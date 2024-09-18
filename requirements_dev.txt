@@ -19,5 +19,5 @@ django-extensions~=3.2
 coverage==7.5.4
 django-debug-toolbar==4.4.5
 isort==5.13.2
-ruff==0.6.2
+ruff==0.6.5
 tblib==3.0.0
