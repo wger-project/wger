@@ -16,5 +16,6 @@
 from django.conf import settings
 
 
-def is_postgres_db():
+def is_postgres_db() -> bool:
+    """Check if the application is using a postgres database"""
     return 'postgres' in settings.DATABASES['default']['ENGINE']

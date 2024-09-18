@@ -4,6 +4,7 @@ from wger.utils.db import is_postgres_db
 
 # TODO move to more appropriate place
 
+
 def add_publication(apps, schema_editor):
     if is_postgres_db():
         schema_editor.execute(

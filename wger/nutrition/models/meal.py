@@ -16,14 +16,13 @@
 
 # Standard Library
 import logging
-from decimal import Decimal
 
 # Django
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # wger
-from wger.utils.constants import TWOPLACES
 from wger.utils.fields import Html5TimeField
 
 # Local
@@ -51,6 +50,19 @@ class Meal(models.Model):
         editable=False,
         on_delete=models.CASCADE,
     )
+
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    """
+    NOTE: this foreign key is only needed for powersync since it currently
+          can't use joins. Since this could change in the future, do not use
+          it if it can be avoided.
+    """
+
     order = models.IntegerField(
         verbose_name=_('Order'),
         blank=True,
@@ -75,6 +87,10 @@ class Meal(models.Model):
         Return a more human-readable representation
         """
         return f'{self.order} Meal'
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.user = self.plan.user
+        super().save(force_insert, force_update, using, update_fields)
 
     def get_owner_object(self):
         """

@@ -18,6 +18,7 @@
 from decimal import Decimal
 
 # Django
+from django.contrib.auth.models import User
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
@@ -66,6 +67,18 @@ class LogItem(BaseMealItem, models.Model):
     )
     """
     The meal this log belongs to (optional)
+    """
+
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        editable=False,
+        on_delete=models.CASCADE,
+    )
+    """
+    NOTE: this foreign key is only needed for powersync since it currently
+          can't use joins. Since this could change in the future, do not use
+          it if it can be avoided.
     """
 
     datetime = models.DateTimeField(verbose_name=_('Date and Time (Approx.)'), default=timezone.now)
@@ -117,6 +130,10 @@ class LogItem(BaseMealItem, models.Model):
         Return a more human-readable representation
         """
         return f'Diary entry for {self.datetime}, plan {self.plan.pk}'
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.user = self.plan.user
+        super().save(force_insert, force_update, using, update_fields)
 
     def get_owner_object(self):
         """
