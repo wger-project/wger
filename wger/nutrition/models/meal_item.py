@@ -19,7 +19,6 @@ import logging
 from decimal import Decimal
 
 # Django
-from django.contrib.auth.models import User
 from django.core.validators import (
     MaxValueValidator,
     MinValueValidator,
@@ -50,25 +49,11 @@ class MealItem(BaseMealItem, models.Model):
         editable=False,
         on_delete=models.CASCADE,
     )
-
-    user = models.ForeignKey(
-        User,
-        verbose_name=_('User'),
-        editable=False,
-        on_delete=models.CASCADE,
-    )
-    """
-    NOTE: this foreign key is only needed for powersync since it currently
-          can't use joins. Since this could change in the future, do not use
-          it if it can be avoided.
-    """
-
     ingredient = models.ForeignKey(
         Ingredient,
         verbose_name=_('Ingredient'),
         on_delete=models.CASCADE,
     )
-
     weight_unit = models.ForeignKey(
         IngredientWeightUnit,
         verbose_name=_('Weight unit'),
@@ -94,10 +79,6 @@ class MealItem(BaseMealItem, models.Model):
         Return a more human-readable representation
         """
         return f'{self.amount}g ingredient {self.ingredient_id}'
-
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.user = self.meal.plan.user
-        super().save(force_insert, force_update, using, update_fields)
 
     def get_owner_object(self):
         """

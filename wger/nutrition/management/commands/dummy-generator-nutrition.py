@@ -138,7 +138,6 @@ class Command(BaseCommand):
                     for _ in range(0, options['nr_diary_entries']):
                         log = LogItem(
                             plan=plan,
-                            user=user,
                             datetime=date,
                             ingredient=choice(ingredients),
                             weight_unit=None,
