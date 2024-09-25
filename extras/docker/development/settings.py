@@ -157,6 +157,8 @@ if env.bool('X_FORWARDED_PROTO_HEADER_SET', False):
         'https'
     )
 
+REST_FRAMEWORK['NUM_PROXIES'] = env.int('NUMBER_OF_PROXIES', 1)
+
 #
 # Celery message queue configuration
 #
