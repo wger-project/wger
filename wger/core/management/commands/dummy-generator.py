@@ -14,24 +14,10 @@
 
 # Standard Library
 import logging
-import random
-import uuid
 
 # Django
-from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-from django.db import IntegrityError
-from django.utils.text import slugify
-
-# Third Party
-from faker import Faker
-
-# wger
-from wger.gym.models import (
-    Gym,
-    GymUserConfig,
-)
 
 
 logger = logging.getLogger(__name__)
